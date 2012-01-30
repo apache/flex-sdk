@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.Sprite;
 
 import mx.core.ClassFactory;
+import mx.core.mx_internal;
 
 import spark.components.DataGroup;
 import spark.components.List;
@@ -23,6 +24,8 @@ import spark.components.Scroller;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.VerticalLayout;
 import spark.skins.mobile.supportClasses.MobileSkin;
+
+use namespace mx_internal;
 
 /**
  *  ActionScript-based skin for the List components in mobile applications. 
@@ -134,7 +137,7 @@ public class ListSkin extends MobileSkin
             scroller = new Scroller();
             scroller.minViewportInset = 1;
             scroller.hasFocusableChildren = false;
-            scroller.ensureFocusedElementIsVisible = false;
+            scroller.ensureElementIsVisibleForSoftKeyboard = false;
             addChild(scroller);
         }
         
