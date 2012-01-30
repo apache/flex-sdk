@@ -53,7 +53,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue" text="Select a menu item."/>
+            <s:Label width="100%" color="blue" text="Select a menu item."/>
 
             <mx:MenuBar labelField="@label" itemClick="menuHandler(event);" 
                     dataProvider="{menuBarCollection}" />
