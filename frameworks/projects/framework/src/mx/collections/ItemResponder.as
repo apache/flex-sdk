@@ -57,6 +57,11 @@ import mx.rpc.IResponder;
  *  <p>Any other signature will result in a runtime error.</p>
  * 
  *  @see mx.collections.errors.ItemPendingError
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ItemResponder implements IResponder
 {
@@ -87,6 +92,11 @@ public class ItemResponder implements IResponder
 	 *  @param	token Object [optional] additional information to associate with
 	 *          this request. This object is passed to the result and fault functions
 	 *          as their second parameter.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ItemResponder(result:Function, fault:Function, token:Object = null)
 	{
@@ -108,6 +118,11 @@ public class ItemResponder implements IResponder
 	 *  received.
 	 *
 	 *  @param	data Object containing the information returned from the request.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function result(data:Object):void
 	{
@@ -119,6 +134,11 @@ public class ItemResponder implements IResponder
 	 *
 	 *  @param	info Object containing the information about the error that 
 	 *   		occured.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function fault(info:Object):void
 	{
