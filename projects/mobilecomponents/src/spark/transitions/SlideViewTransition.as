@@ -354,9 +354,6 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 startViewProps.cgIncludeInLayout = startView.contentGroup.includeInLayout;
                 startView.contentGroup.includeInLayout = false;
-                
-                startViewProps.cgCacheAsBitmap = startView.contentGroup.cacheAsBitmap;
-                startView.contentGroup.cacheAsBitmap = true;
             }
             
             if (mode != SlideViewTransitionMode.COVER)
@@ -379,9 +376,6 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 endViewProps.cgIncludeInLayout = endView.contentGroup.includeInLayout;
                 endView.contentGroup.includeInLayout = false;
-                
-                endViewProps.cgCacheAsBitmap = endView.contentGroup.cacheAsBitmap;
-                endView.contentGroup.cacheAsBitmap = true;
             }
                 
             if (mode != SlideViewTransitionMode.UNCOVER)
@@ -392,7 +386,7 @@ public class SlideViewTransition extends ViewTransitionBase
             }
             
             if (mode == SlideViewTransitionMode.UNCOVER)
-                setComponentChildIndex(endView, navigator, 0);  
+                setComponentChildIndex(endView, navigator, 0);
         }
         
         var slideDistance:Number;
@@ -404,27 +398,27 @@ public class SlideViewTransition extends ViewTransitionBase
         switch (direction)
         {                       
             case ViewTransitionDirection.DOWN:
-                animatedProperty = "y";
+                animatedProperty = "$y";
                 slideDistance = navigator.height;
                 slideOffset = -navigator.contentGroup[animatedProperty];
                 verticalTransition = true;
                 break;
             
             case ViewTransitionDirection.UP:
-                animatedProperty = "y";
+                animatedProperty = "$y";
                 slideDistance = -navigator.height;
                 slideOffset = navigator.contentGroup[animatedProperty];
                 verticalTransition = true;
                 break;
             
             case ViewTransitionDirection.RIGHT:
-                animatedProperty = "x";
+                animatedProperty = "$x";
                 slideDistance = navigator.width;
                 break;
             
             case ViewTransitionDirection.LEFT:
             default:
-                animatedProperty = "x";
+                animatedProperty = "$x";
                 slideDistance = -navigator.width;
                 break;
         }
@@ -724,10 +718,7 @@ public class SlideViewTransition extends ViewTransitionBase
                 startView.y = startViewProps.y;
                 
                 if (startView.contentGroup)
-                {
                     startView.contentGroup.includeInLayout = startViewProps.cgIncludeInLayout;
-                    startView.contentGroup.cacheAsBitmap = startViewProps.cgCacheAsBitmap;
-                }
             }
             
             if (endView)
@@ -736,13 +727,13 @@ public class SlideViewTransition extends ViewTransitionBase
                 endView.cacheAsBitmap = endViewProps.cacheAsBitmap;
                 
                 if (endView.contentGroup)
-                {
                     endView.contentGroup.includeInLayout = endViewProps.cgIncludeInLayout;
-                    endView.contentGroup.cacheAsBitmap = endViewProps.cgCacheAsBitmap;
-                }
+                
                 endViewProps = null;
             }
-            moveEffect.removeEventListener("effectUpdate", effectUpdateHandler);
+            
+            if (moveEffect)
+                moveEffect.removeEventListener("effectUpdate", effectUpdateHandler);
             moveEffect = null;
         }
         else
