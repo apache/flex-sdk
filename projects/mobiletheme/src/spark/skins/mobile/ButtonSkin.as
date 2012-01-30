@@ -264,11 +264,9 @@ public class ButtonSkin extends ButtonSkinBase
         labelDisplayShadow.alpha = getStyle("textShadowAlpha");
         labelDisplayShadow.commitStyles();
         
-        // FIXME (jasonsj): this resize causes scaling issues at 1.5x and 2x
-        // artifacts show below ActionBar buttons
-        setElementSize(labelDisplayShadow, labelDisplay.width, labelDisplay.height);
-        setElementPosition(labelDisplayShadow, labelDisplay.x, labelDisplay.y + 1); 
-        
+		setElementPosition(labelDisplayShadow, labelDisplay.getLayoutBoundsX(), labelDisplay.getLayoutBoundsY() + 1);
+		setElementSize(labelDisplayShadow, labelDisplay.getLayoutBoundsWidth(), labelDisplay.getLayoutBoundsHeight());
+		
         // if labelDisplay is truncated, then push it down here as well.
         // otherwise, it would have gotten pushed in the labelDisplay_valueCommitHandler()
         if (labelDisplay.isTruncated)
