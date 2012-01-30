@@ -110,7 +110,7 @@ public class StyleProtoChain
                 var decls:Object = StyleManager.getStyleDeclarations(type);
                 if (decls)
                 {
-                    var matchingDecls:Array = getMatchingStyleDeclarations(decls, advancedObject);
+                    var matchingDecls:Array = matchStyleDeclarations(decls, advancedObject);
                     classDecls = classDecls.concat(matchingDecls);
                 }
             }
@@ -226,36 +226,17 @@ public class StyleProtoChain
         // because of the considerably more complex selector matches...
         if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
         {
-            // Find matching universal selectors
-            var decls:Object = StyleManager.getStyleDeclarations("*");
-            universalSelectors = getMatchingStyleDeclarations(decls, advancedObject).concat(universalSelectors);
-
-            // If we had universal selectors, concatenate them with our type
-            // selectors and resort by specificity...
-            if (universalSelectors.length > 0)
-            {
-                styleDeclarations = advancedObject.getClassStyleDeclarations().concat(universalSelectors);
-                styleDeclarations = sortOnSpecificity(styleDeclarations);
-            }
-            else
-            {
-                // We only have type selectors
-                styleDeclarations = advancedObject.getClassStyleDeclarations();
-            }
+            styleDeclarations = getMatchingStyleDeclarations(advancedObject, universalSelectors);
 
             n = styleDeclarations != null ? styleDeclarations.length : 0;
             for (i = 0; i < n; i++)
             {
                 styleDeclaration = styleDeclarations[i];
-                
-                inheritChain =
-                    styleDeclaration.addStyleToProtoChain(inheritChain, uicObject);
-    
-                nonInheritChain =
-                    styleDeclaration.addStyleToProtoChain(nonInheritChain, uicObject);
+                inheritChain = styleDeclaration.addStyleToProtoChain(inheritChain, uicObject);
+                nonInheritChain = styleDeclaration.addStyleToProtoChain(nonInheritChain, uicObject);
 
                 if (styleDeclaration.effects)
-                    object.registerEffects(styleDeclaration.effects);
+                    advancedObject.registerEffects(styleDeclaration.effects);
             }
         }
         // Otherwise we use the legacy Flex 3 logic for simple selectors.
@@ -284,13 +265,9 @@ public class StyleProtoChain
             for (i = 0; i < n; i++)
             {
                 styleDeclaration = styleDeclarations[i];
-                
-                inheritChain =
-                    styleDeclaration.addStyleToProtoChain(inheritChain, uicObject);
-    
-                nonInheritChain =
-                    styleDeclaration.addStyleToProtoChain(nonInheritChain, uicObject);
-    
+                inheritChain = styleDeclaration.addStyleToProtoChain(inheritChain, uicObject);
+                nonInheritChain = styleDeclaration.addStyleToProtoChain(nonInheritChain, uicObject);
+
                 if (styleDeclaration.effects)
                     object.registerEffects(styleDeclaration.effects);
             }
@@ -466,66 +443,107 @@ public class StyleProtoChain
             curObj = StyleProxy(curObj).source;
         }
         var target:DisplayObject = curObj as DisplayObject;
-        
-        // 4) Add type selectors 
-        var typeSelectors:Array = obj.getClassStyleDeclarations();
-        var n:int = typeSelectors.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            var typeSelector:CSSStyleDeclaration = typeSelectors[i];
-            chain = typeSelector.addStyleToProtoChain(chain, target, filterMap);
 
-            if (typeSelector.effects)
-                obj.registerEffects(typeSelector.effects);
-        }
-
-        // 3) Add class selectors
+        var advancedObject:IAdvancedStyleClient = obj as IAdvancedStyleClient;
         var styleName:Object = obj.styleName;
-        if (styleName)
+        var styleDeclarations:Array;
+        var decl:CSSStyleDeclaration;
+
+        // If we have an advanced style client, we handle this separately
+        // because of the considerably more complex selector matches...
+        if (StyleManager.hasAdvancedSelectors() && advancedObject != null)
         {
-            var classSelectors:Array = [];
-            
-            if (typeof(styleName) == "object")
+            // Handle special case of styleName as a CSSStyleDeclaration
+            if (styleName is CSSStyleDeclaration)
             {
-                if (styleName is CSSStyleDeclaration)
+                styleDeclarations = [CSSStyleDeclaration(styleName)];
+            }
+
+            // Find matching style declarations, sorted by specificity
+            styleDeclarations = getMatchingStyleDeclarations(advancedObject, styleDeclarations);
+
+            // Then apply matching selectors to the proto chain
+            for (i = 0; i < styleDeclarations.length; i++)
+            {
+                decl = styleDeclarations[i];
+                if (decl)
                 {
-                    // Get the style sheet referenced by the styleName property.
-                    classSelectors.push(CSSStyleDeclaration(styleName));
-                }
-                else
-                {               
-                    // If the styleName property is another UIComponent, then
-                    // recursively add type selectors, class selectors, and
-                    // inline styles for that UIComponent
-                    chain = addProperties(chain, IStyleClient(styleName),
-                                          bInheriting);
+                    chain = decl.addStyleToProtoChain(chain, target, filterMap);
+                    if (decl.effects)
+                        obj.registerEffects(decl.effects);
                 }
             }
-            else
+
+            // Finally, handle special case of styleName as an IStyleClient
+            // which overrides any of the selectors above
+            if (styleName is IStyleClient)
             {
-                // Get the style sheets referenced by the styleName property             
-                var styleNames:Array = styleName.split(/\s+/);
-                for (var c:int=0; c < styleNames.length; c++)
+                // If the styleName property is another UIComponent, then
+                // recursively add type selectors, class selectors, and
+                // inline styles for that UIComponent
+                chain = addProperties(chain, IStyleClient(styleName),
+                                      bInheriting);
+            }
+        }
+        else
+        {
+            // 4) Add type selectors 
+            styleDeclarations = obj.getClassStyleDeclarations();
+            var n:int = styleDeclarations.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                decl = styleDeclarations[i];
+                chain = decl.addStyleToProtoChain(chain, target, filterMap);
+    
+                if (decl.effects)
+                    obj.registerEffects(decl.effects);
+            }
+
+            // 3) Add class selectors
+            if (styleName)
+            {
+                styleDeclarations = [];
+                if (typeof(styleName) == "object")
                 {
-                    if (styleNames[c].length) {
-                        classSelectors.push(StyleManager.getStyleDeclaration("." + 
-                            styleNames[c]));
+                    if (styleName is CSSStyleDeclaration)
+                    {
+                        // Get the style sheet referenced by the styleName property.
+                        styleDeclarations.push(CSSStyleDeclaration(styleName));
+                    }
+                    else
+                    {               
+                        // If the styleName property is another UIComponent, then
+                        // recursively add type selectors, class selectors, and
+                        // inline styles for that UIComponent
+                        chain = addProperties(chain, IStyleClient(styleName),
+                                              bInheriting);
+                    }
+                }
+                else
+                {
+                    // Get the style sheets referenced by the styleName property             
+                    var styleNames:Array = styleName.split(/\s+/);
+                    for (var c:int=0; c < styleNames.length; c++)
+                    {
+                        if (styleNames[c].length)
+                        {
+                            styleDeclarations.push(StyleManager.getStyleDeclaration("." + styleNames[c]));
+                        }
+                    }
+                }
+
+                for (i = 0; i < styleDeclarations.length; i++)
+                {
+                    decl = styleDeclarations[i];
+                    if (decl)
+                    {
+                        chain = decl.addStyleToProtoChain(chain, target, filterMap);
+                        if (decl.effects)
+                            obj.registerEffects(decl.effects);
                     }
                 }
             }
-
-            for (i = 0; i < classSelectors.length; i++)
-            {
-                var classSelector:CSSStyleDeclaration = classSelectors[i];
-                if (classSelector)
-                {
-                    chain = classSelector.addStyleToProtoChain(chain, target, filterMap);
-                    if (classSelector.effects)
-                        obj.registerEffects(classSelector.effects);
-                }
-            }
-        
-        }       
+        }
 
         // 2) Add inline styles 
         if (obj.styleDeclaration)
@@ -735,30 +753,40 @@ public class StyleProtoChain
     /**
      *  @private  
      *  Find all matching style declarations for an IAdvancedStyleClient
-     *  component. The result is unsorted in terms of specificity, but the
+     *  component. The result is sorted in terms of specificity, but the
      *  declaration order is preserved.
      *
-     *  @param declarations - an Array of declarations to be searched for
-     *  matches.
-     *  @param object - an instance of the component to match.
+     *  @param object - an IAdvancedStyleClient instance of the component to
+     *  match.
+     *  @param styleDeclarations - an optional Array of additional
+     *  CSSStyleDeclarations to be included in the sorted matches.
      *
-     *  @return An unsorted Array of matching style declarations for the given
-     *  subject.
+     *  @return An Array of matching style declarations sorted by specificity.
      */
-    private static function getMatchingStyleDeclarations(declarations:Object,
-            object:IAdvancedStyleClient):Array // of CSSStyleDeclaration
+    public static function getMatchingStyleDeclarations(object:IAdvancedStyleClient,
+            styleDeclarations:Array=null):Array // of CSSStyleDeclaration
     {
-        var matchingDecls:Array = [];
+        if (styleDeclarations == null)
+            styleDeclarations = [];
 
-        // Find the subset of declarations that match this component
-        for (var selector:String in declarations)
+        // First, look for universal selectors
+        var universalDecls:Object = StyleManager.getStyleDeclarations("*");
+        styleDeclarations = matchStyleDeclarations(universalDecls, object).concat(styleDeclarations);
+
+        // Next, look for type selectors (includes ActionScript supertype matches)
+        // If we also had universal selectors, concatenate them with our type
+        // selectors and then resort by specificity...
+        if (styleDeclarations.length > 0)
         {
-            var decl:CSSStyleDeclaration = declarations[selector];
-            if (decl.isMatch(object))
-                matchingDecls.push(decl);
+            styleDeclarations = object.getClassStyleDeclarations().concat(styleDeclarations);
+            styleDeclarations = sortOnSpecificity(styleDeclarations);
         }
-
-        return matchingDecls;
+        else
+        {
+            // Otherwise, we only have type selectors (which are already sorted)
+            styleDeclarations = object.getClassStyleDeclarations();
+        }
+        return styleDeclarations;
     }
 
     /**
@@ -819,6 +847,34 @@ public class StyleProtoChain
                value == "mx.core::UIComponent" ||
                value == "mx.core::UITextField" ||
                value == "mx.graphics.graphicsClasses::GraphicElement";
+    }
+
+    /**
+     *  @private  
+     *  Find all matching style declarations for an IAdvancedStyleClient
+     *  component. The result is unsorted in terms of specificity, but the
+     *  declaration order is preserved.
+     *
+     *  @param declarations - a map of declarations to be searched for matches.
+     *  @param object - an instance of the component to match.
+     *
+     *  @return An unsorted Array of matching style declarations for the given
+     *  subject.
+     */
+    private static function matchStyleDeclarations(declarations:Object,
+            object:IAdvancedStyleClient):Array // of CSSStyleDeclaration
+    {
+        var matchingDecls:Array = [];
+
+        // Find the subset of declarations that match this component
+        for (var selector:String in declarations)
+        {
+            var decl:CSSStyleDeclaration = declarations[selector];
+            if (decl.isMatch(object))
+                matchingDecls.push(decl);
+        }
+
+        return matchingDecls;
     }
 
     /**
