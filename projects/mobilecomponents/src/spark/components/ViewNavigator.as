@@ -426,6 +426,7 @@ public class ViewNavigator extends ViewNavigatorBase
     //  activeView
     //----------------------------------
     
+    [Bindable("viewChangeComplete")]
     /**
      *  <p>During a view transition, this property references the
      *  view that the navigator is transitioning to.</p>
