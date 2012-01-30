@@ -14,13 +14,13 @@ package spark.managers
     
 /**
  *  IPersistenceManager defines the interface that all persistence
- *  managers must follow.  These objects are responsible for
+ *  managers must implement.  
+ *  These objects are responsible for
  *  persisting data between application sessions.
  * 
  *  @see spark.managers.PersistenceManager
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -37,7 +37,6 @@ public interface IPersistenceManager
      *  manager.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -45,12 +44,11 @@ public interface IPersistenceManager
     
     /**
      *  Flushes the data being managed by the persistence manager to
-     *  disk or another external storage file.
+     *  disk, or to another external storage file.
      *
      *  @return <code>true</code> if the operation is successful.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -62,7 +60,6 @@ public interface IPersistenceManager
      *  @return <code>true</code> if the operation is successful.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -70,13 +67,13 @@ public interface IPersistenceManager
     
     /**
      *  Returns the value of a property stored in the persistence manager.
+     *  Properties are saved as key:value pairs.
      *  
      *  @param key The property key.
      *
      *  @return The value of a property stored in the persistence manager.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -84,13 +81,13 @@ public interface IPersistenceManager
     
     /**
      *  Stores a value in the persistence manager.
+     *  Properties are saved as key:value pairs.
      * 
      *  @param key The key to use to store the value.
      *
      *  @param value The value object to store.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
