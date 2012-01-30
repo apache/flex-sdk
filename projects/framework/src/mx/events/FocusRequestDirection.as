@@ -14,11 +14,10 @@ package mx.events
 
 /**
  *  The FocusDirection class defines the constant values for the direction
- *  Focus may be moved in.
- *  the <code>direction</code> property of the FocusRequest. It is also used
- *  with the FocusManager <code>moveFocus()</code> method.
+ *  focus may be moved in. The value is used with the SWFBridgeRequest.MOVE_FOCUS_REQUEST
+ *  request and with the FocusManager <code>moveFocus()</code> method.
  *  
- *  @see FocusRequest
+ *  @see SWFBridgeRequest
  */
 public final class FocusRequestDirection
 {
