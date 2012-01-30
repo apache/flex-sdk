@@ -105,22 +105,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     
     //--------------------------------------------------------------------------
     //
-    //  Layout variables
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  The default width of the skin.
-     */
-    protected var layoutMeasuredWidth:uint = 0;
-    
-    /**
-     *  The default height of the skin.
-     */
-    protected var layoutMeasuredHeight:uint = 0;
-    
-    //--------------------------------------------------------------------------
-    //
     //  Variables
     //
     //--------------------------------------------------------------------------
