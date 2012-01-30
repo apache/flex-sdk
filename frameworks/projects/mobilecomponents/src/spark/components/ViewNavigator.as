@@ -1330,14 +1330,6 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         delayedNavigationActions.length = 0;
-        
-        // If there is a parent navigator, we need to validate from the parent
-        // down to prevent renderering flickers due to invalid layout values
-        // TODO (chiedozi): Investigate why i have to do this
-        if (parentNavigator)
-            parentNavigator.validateNow();
-        else
-            validateNow();
     }
     
     /**
@@ -1884,9 +1876,14 @@ public class ViewNavigator extends ViewNavigatorBase
         
         if(pendingViewDescriptor.viewClass != null)
         {
-            createViewInstance(pendingViewDescriptor);
+            var view:View = createViewInstance(pendingViewDescriptor);
             
             viewChangeRequested = false;
+
+            // TODO (chiedozi): Hide the view to remove a flicker that would occur.
+            // This shouldn't happen because viewAdded should be called before the
+            // view is rendered, but that doesn't seem to happen.  Investigate this.
+            view.visible = false;
             
             // Schedule the view added method to occur at a later time so to allow developers
             // to take advantage of validation lifecycle events, such as CREATION_COMPLETE,
@@ -2081,6 +2078,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (pendingViewDescriptor)
         {
             pendingView = pendingViewDescriptor.instance;
+            pendingView.visible = true;
             pendingView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                             view_propertyChangeHandler);
         }
