@@ -91,6 +91,7 @@ global
     justificationRule: "auto";
     justificationStyle: "auto";
 	kerning: "default";
+    layoutDirection: "ltr";
 	leading: 2;
     leadingModel: "auto";
     ligatureLevel: "common";
@@ -835,11 +836,21 @@ HSlider
 //------------------------------
 */
 
+Image
+{
+    layoutDirection: "ltr";
+}
+
 /*
 //------------------------------
 //  Label
 //------------------------------
 */
+
+Label
+{
+    layoutDirection: "ltr";
+}
 
 /*
 //------------------------------
