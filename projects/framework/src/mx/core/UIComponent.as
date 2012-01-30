@@ -6021,7 +6021,7 @@ public class UIComponent extends FlexSprite
 
         // If this component hasn't been sized yet, assign it
         // an actual size that's based on its explicit or measured size.
-        if (width == 0 && height == 0)
+        if (width == 0 || height == 0)
         {
             validateNow();
 
