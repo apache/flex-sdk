@@ -2482,9 +2482,14 @@ public class BarSeries extends Series implements IStackable2, IBar
             label.height=v.labelHeight;
             label.text=v.labelText;
             label.setStyle('fontSize',size * renderData.labelScale);
-            if (v.x > (isNaN(v.min) ? renderData.renderedBase : v.min))
-                label.setStyle('textAlign','left');
-            else if (v.x < (isNaN(v.min) ? renderData.renderedBase : v.min))
+            if (v.x > (isNaN(v.min) ? renderData.renderedBase : v.min))	// If on positive side of axis
+			{
+				if(chart && chart.layoutDirection == "rtl")	//Align labels to right in rtl layout
+					label.setStyle('textAlign','right');
+				else
+                	label.setStyle('textAlign','left');
+			}
+            else if (v.x < (isNaN(v.min) ? renderData.renderedBase : v.min))	//on negative side of axis
             {
                 if (!isNaN(rotation) && rotation!=0 && measuringField.embedFonts)
                 {
@@ -2493,7 +2498,10 @@ public class BarSeries extends Series implements IStackable2, IBar
                 }
                 else
                 {
-                    label.setStyle('textAlign','right');
+					if(chart && chart.layoutDirection == "rtl")	//Align labels to left in rtl layout
+						label.setStyle('textAlign','left');
+					else
+						label.setStyle('textAlign','right');
                     label.rotation = 0;
                 }   
             }
