@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2010 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<project name="mx" default="main" basedir=".">
+
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+	<property file="${FLEX_HOME}/build.properties"/>
+	<property name="locale" value="en_US"/>
+
+      <property name="local.playerglobal.version" value="10.0"/>
+  	
+	<macrodef name="bundle">
+		<attribute name="locale"/>
+			<sequential>
+				<echo message="Compiling frameworks/locale/@{locale}/mx_rb.swc"/>
+			<!-- Load the <compc> task. We can't do this at the <project> level -->
+			<!-- because targets that run before flexTasks.jar gets built would fail. -->
+			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+			<compc fork="true"
+				   output="${FLEX_HOME}/frameworks/locale/@{locale}/mx_rb.swc"
+				   locale="@{locale}">
+				<jvmarg line="${compc.jvm.args}"/>
+				<target-player>10</target-player>
+				<include-resource-bundles bundle="containers"/>
+				<include-namespaces/>
+				<include-classes/>
+				<source-path path-element="${basedir}/bundles/@{locale}"/>
+				<source-path path-element="${FLEX_HOME}/frameworks/projects/mx/src"/>
+				<include-libraries/>
+				<library-path/>
+				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+	                        <include name="framework.swc"/>
+				</external-library-path>
+			</compc>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="fat-swc">
+		<attribute name="locale"/>
+		<sequential>
+			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/mx_rb.swc" update="true">
+				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+					<include name="*.*"/>
+				</zipfileset>
+				<zipfileset dir="${basedir}/bundles/en_US" prefix="docs">
+					<include name="packages.dita"/>
+				</zipfileset>
+			</zip>
+		</sequential>
+	</macrodef>	
+
+	<macrodef name="bundle-clean">
+		<attribute name="locale"/>
+		<sequential>
+			<delete failonerror="false">
+				<fileset dir="${FLEX_HOME}/frameworks/locale">
+					<include name="@{locale}/mx_rb.swc"/>
+					<include name="@{locale}/mx_rb.swc.incr"/>
+				</fileset>
+			</delete>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="bundler">
+		<attribute name="locale"/>
+		<element name="run.fat.swc" optional="yes"/>
+		<sequential>
+			<bundle-clean locale="@{locale}"/>
+			<bundle locale="@{locale}"/>
+			<run.fat.swc/>
+		</sequential>
+	</macrodef>
+	
+	<target name="main" depends="clean,compile" description="Clean build of mx.swc and en_US">
+		<bundle locale="${locale}"/>
+	</target>
+	
+	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
+	
+	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+	<target name="bundles">
+		<!-- these languages do not have localized docs-->
+		<bundler locale="da_DK"/><!-- Danish resources -->
+		<bundler locale="de_DE"><!-- German resources -->
+			<run.fat.swc>
+				<fat-swc locale="de_DE"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="es_ES"/><!-- Spanish resources -->
+		<bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_FR"><!-- French resources -->
+			<run.fat.swc>
+				<fat-swc locale="fr_FR"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="it_IT"/><!-- Italian resources -->
+		<bundler locale="ja_JP"><!-- Japanese resources -->
+			<run.fat.swc>
+				<fat-swc locale="ja_JP"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="ko_KR"/><!-- Korean resources -->
+		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
+		<bundler locale="nl_NL"/><!-- Dutch resources -->
+		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+		<bundler locale="ru_RU"><!-- Swedish resources -->
+			<run.fat.swc>
+				<fat-swc locale="ru_RU"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="sv_SE"/><!-- Swedish resources -->
+		<bundler locale="zh_CN"><!-- Simplified Chinese resources -->
+			<run.fat.swc>
+				<fat-swc locale="zh_CN"/>
+			</run.fat.swc>
+		</bundler>
+		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
+	</target>
+	
+	<target name="clean" depends="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}" >
+				<include name="bundles.properties"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/libs/mx">
+				<include name="mx.swc"/>
+				<include name="mx.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/mx_rb.swc"/>
+				<include name="*/mx_rb.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="compile" description="Compiles mx.swc">
+		<echo message="Compiling frameworks/libs/mx/mx.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the MXML tags
+			listed in this project's manifest.xml.
+			Also link the additional classes (and their dependencies)
+			listed in MxClasses.as,
+			because these aren't referenced by the manifest classes.
+			Keep the standard metadata when compiling.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/libs/mx/mx.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>10</target-player>
+			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
+			<include-classes>MxClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<library-path/>
+                  <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                      <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+                      <include name="textLayout.swc"/>
+                      <include name="framework.swc"/>
+			</external-library-path>
+			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
+			<include-file name="defaults-3.0.0.css" path="${basedir}/defaults-3.0.0.css"/>
+<!--
+			<include-file name="Assets.swf" path="${basedir}/assets/Assets.swf"/>
+			<include-file name="assets/CalendarIcon.png" path="${basedir}/assets/CalendarIcon.png"/>
+-->
+			<locale/>
+			<accessible>true</accessible>
+			<keep-as3-metadata name="Bindable"/>
+			<keep-as3-metadata name="Managed"/>
+			<keep-as3-metadata name="ChangeEvent"/>
+			<keep-as3-metadata name="NonCommittingChangeEvent"/>
+			<keep-as3-metadata name="Transient"/>
+		</compc>
+	</target>
+	
+	<target name="doc" depends="clean-temp-docs" description="updates mx.swc with asdoc xml">
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx384m">
+	        <os family="windows"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="mac"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="unix"/>
+	    </condition>
+
+
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+		    <doc-classes class="MxClasses"/>
+		    <doc-namespaces uri="http://www.adobe.com/2006/mxml"/>
+		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
+		    <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+
+		<!-- updates mx.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/mx_rb.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+		<copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+		<delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
+	</target>
+</project>
