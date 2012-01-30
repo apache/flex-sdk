@@ -13,16 +13,17 @@ package spark.components.supportClasses
 {
 /**
  *  The ViewReturnObject class encapsulates the return value of a view 
- *  when it is popped off a navigation stack.  The object contains a reference
- *  to the returned object as well as the context in which the popped view was 
- *  created.  The context is an arbitrary object that is passed as part of the
+ *  when it is popped off a navigation stack.  
+ *  The ViewReturnObject object contains a reference to the 
+ *  returned object, and the context in which the popped view was created.  
+ *  The context is an arbitrary object that is passed to the
  *  <code>ViewNavigator.pushView()</code> method.
  * 
  *  @see spark.components.View
  *  @see spark.components.ViewNavigator#pushView
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -37,18 +38,19 @@ public class ViewReturnObject
     /**
      *  Constructor.
      * 
-     *  @param object The returned object
-     *  @param context The context in which the owner was created
+     *  @param object The returned object.
+     * 
+     *  @param context The context in which the owner was created.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function ViewReturnObject(object:Object = null, context:Object = null)
     {
-    	super();
-    	
+        super();
+        
         this.object = object;
         this.context = context;
     }
