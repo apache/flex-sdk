@@ -2111,11 +2111,31 @@ public class UITextField extends FlexTextField
         textFormat.indent = getStyle("textIndent");
         textFormat.italic = getStyle("fontStyle") == "italic";
 		var kerning:* = getStyle("kerning");
-        // Map new Spark values that might be set in a selector
-		// affecting both Halo and Spark components.
+		// In Halo components based on TextField,
+		// kerning is supposed to be true or false.
+		// The default in TextField and Flex 3 is false
+		// because kerning doesn't work for device fonts
+		// and is slow for embedded fonts.
+		// In Spark components based on TLF and FTE,
+		// kerning is "auto", "on", or, "off".
+		// The default in TLF and FTE is "auto"
+		// (which means kern non-Asian characters)
+		// because kerning works even on device fonts
+		// and has miminal performance impact.
+        // Since a CSS selector or parent container
+		// can affect both Halo and Spark components,
+		// we need to map "auto" and "on" to true
+		// and "off" to false for Halo components
+		// here and in UITLFTextField.
+		// For Spark components, SimpleText and CSSTextLayoutFormat,
+		// do the opposite mapping of true to "on" and false to "off".
+		// We also support a value of "default"
+		// (which we set in the global selector)
+		// to mean false for Halo and "auto" for Spark,
+		// to get the recommended behavior in both sets of components.
 		if (kerning == "auto" || kerning == "on")
 			kerning = true;
-		else if (kerning == "off")
+		else if (kerning == "default" || kerning == "off")
 			kerning = false;
         textFormat.kerning = kerning;
         textFormat.leading = getStyle("leading");
