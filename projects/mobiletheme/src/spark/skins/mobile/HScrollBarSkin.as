@@ -19,13 +19,29 @@ import spark.components.HScrollBar;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 
-public class HScrollBarSkin extends MobileSkin 
+/**
+ *  ActionScript-based skin for HScrollBar components in mobile applications. 
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5 
+ *  @productversion Flex 4.5
+ */
+ public class HScrollBarSkin extends MobileSkin 
 {   
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function HScrollBarSkin()
     {
         super();
