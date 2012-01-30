@@ -20,7 +20,6 @@ import flash.events.Event;
  *  @see spark.components.View
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -62,7 +61,6 @@ public class ViewNavigatorEvent extends Event
      *  @eventType removing
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -96,7 +94,6 @@ public class ViewNavigatorEvent extends Event
      *  @eventType activate
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -130,7 +127,6 @@ public class ViewNavigatorEvent extends Event
      *  @eventType deactivate
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -157,7 +153,6 @@ public class ViewNavigatorEvent extends Event
      *  that resulted in the event.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -186,7 +181,6 @@ public class ViewNavigatorEvent extends Event
      *  Possible actions include a view being activated or deactivated.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
