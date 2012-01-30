@@ -105,23 +105,25 @@ public class TextInputSkin extends MobileSkin
     {
         super.measure();
         
-        // Use the size of "W" to determine measured size.
-        var textLineMetrics:TextLineMetrics = measureText("W");
+        // commit styles so we can get a valid textHeight
+        textDisplay.commitStyles();
         
         // Width is based on maxChars (if set), or hard-coded to 440
         if (hostComponent && hostComponent.maxChars)
         {
-            // Use the width of "W" and multiply by maxChars
-            measuredWidth = textLineMetrics.width * 
-                hostComponent.maxChars + HORIZONTAL_PADDING * 2 
-                + TEXT_WIDTH_PADDING;
+            // Grab the fontSize and subtract 2 as the pixel value for each character.
+            // This is just an approximation, but it appears to be a reasonable one
+            // for most input and most font.
+            var characterWidth:int = Math.max(1, (getStyle("fontSize") - 2));
+            measuredWidth =  (characterWidth * hostComponent.maxChars) + 
+                (HORIZONTAL_PADDING * 2) + TEXT_WIDTH_PADDING;
         }
         else
         {
             measuredWidth = 440;
         }
         
-        measuredHeight = textLineMetrics.height + VERTICAL_PADDING * 2 + TEXT_HEIGHT_PADDING;
+        measuredHeight = textDisplay.textHeight + VERTICAL_PADDING * 2 + TEXT_HEIGHT_PADDING;
     }
     
     /**
