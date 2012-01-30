@@ -25,6 +25,11 @@ package mx.validators
  *  from within an event listener.</p>
  *
  *  @see mx.events.ValidationResultEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ValidationResult
 {
@@ -46,6 +51,11 @@ public class ValidationResult
      *  @param errorCode  Validation error code.
      *
      *  @param errorMessage Validation error message.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ValidationResult(isError:Boolean, subField:String = "",
 									 errorCode:String = "",
@@ -72,6 +82,11 @@ public class ValidationResult
 	/**
 	 *  The validation error code
 	 *  if the value of the <code>isError</code> property is <code>true</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var errorCode:String;
 
@@ -82,6 +97,11 @@ public class ValidationResult
 	/**
 	 *  The validation error message
 	 *  if the value of the <code>isError</code> property is <code>true</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var errorMessage:String;
 	
@@ -91,6 +111,11 @@ public class ValidationResult
 
 	/**
 	 *  Contains <code>true</code> if the field generated a validation failure.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var isError:Boolean;
 	
@@ -102,6 +127,11 @@ public class ValidationResult
 	 *  The name of the subfield that the result is associated with.
 	 *  Some validators, such as CreditCardValidator and DateValidator,
 	 *  validate multiple subfields at the same time.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var subField:String;
 }
