@@ -77,7 +77,7 @@ DropDownList
 
 HScrollBar
 {
-    skinClass: ClassReference("spark.skins.spark.HScrollBarSkin");
+    skinClass: ClassReference("spark.skins.mobile.HScrollBarSkin");
 }
 
 HSlider
@@ -257,10 +257,11 @@ global
     autoThumbVisibility: true;
     fixedThumbSize: false;
     fullScreenHideControlsDelay: 3000;
-    horizontalScrollPolicy: "auto";
+    horizontalScrollPolicy: "overlay";
+    inputMode: "touch";
     liveDragging: true;
     rollOverOpenDelay: 200;
     slideDuration: 300;
     smoothScrolling: true;
-    verticalScrollPolicy: "auto";
+    verticalScrollPolicy: "overlay";
 }
