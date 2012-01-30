@@ -397,8 +397,37 @@ public class ObjectUtil
      *      deeper2 = (Object)#6
      *        deeperStill = (Object)#7
      *          yetDeeper = (Object)#0
-     *  </pre>
-     *
+     * 
+     * // example 3 with Dictionary
+     * var point:Point = new Point(100, 100);
+     * var point2:Point = new Point(100, 100);
+     * var obj:Dictionary = new Dictionary();
+     * obj[point] = "point";
+     * obj[point2] = "point2";
+     * obj["1"] = { name: "one", num: 1};
+     * obj["two"] = { name: "2", num: 2};
+     * obj[3] = 3;
+     * trace(ObjectUtil.toString(obj));
+     * 
+     * // will output to flashlog.txt
+     * (flash.utils::Dictionary)#0
+     *   {(flash.geom::Point)#1
+     *     length = 141.4213562373095
+     *     x = 100
+     *     y = 100} = "point2"
+     *   {(flash.geom::Point)#2
+     *     length = 141.4213562373095
+     *     x = 100
+     *     y = 100} = "point"
+     *   {1} = (Object)#3
+     *     name = "one"
+     *     num = 1
+     *   {3} = 3
+     *   {"two"} = (Object)#4
+     *     name = "2"
+     *     num = 2
+     * 
+     * </pre>
      */
     public static function toString(value:Object, 
                                     namespaceURIs:Array = null, 
@@ -485,6 +514,7 @@ public class ObjectUtil
                     }
 
                     var isArray:Boolean = value is Array;
+                    var isDict:Boolean = value is Dictionary;
                     var prop:*;
                     indent += 2;
                     
@@ -493,18 +523,36 @@ public class ObjectUtil
                     {
                         str = newline(str, indent);
                         prop = properties[j];
+                        
                         if (isArray)
                             str += "[";
-                        str += prop.toString();
+                        else if (isDict)
+                            str += "{";
+
+                    
+                        if (isDict)
+                        {
+                            // in dictionaries, recurse on the key, because it can be a complex object
+                            str += internalToString(prop, indent, refs,
+                                                    namespaceURIs, exclude);
+                        }
+                        else
+                        {
+                            str += prop.toString();
+                        }
+                        
                         if (isArray)
                             str += "] ";
+                        else if (isDict)
+                            str += "} = ";
                         else
                             str += " = ";
+                        
                         try
                         {
-                            str += internalToString(
-                                        value[prop], indent, refs, namespaceURIs, 
-                                        exclude);
+                            // print the value
+                            str += internalToString(value[prop], indent, refs,
+                                                    namespaceURIs, exclude);
                         }
                         catch(e:Error)
                         {
@@ -740,7 +788,8 @@ public class ObjectUtil
      *  @return An Object containing the following properties:
      *  <ul>
      *    <li><code>name</code>: String containing the name of the class;</li>
-     *    <li><code>properties</code>: Sorted list of the property names of the specified object.</li>
+     *    <li><code>properties</code>: Sorted list of the property names of the specified object,
+     *    or references to the original key if the specified object is a Dictionary</li>
      *  </ul>
     */
     public static function getClassInfo(obj:Object,
@@ -816,8 +865,21 @@ public class ObjectUtil
             }
         }
 
-        var isArray:Boolean = className == "Array";
-        if (dynamic)
+        //TODO this seems slightly fragile, why not use the 'is' operator?
+        var isArray:Boolean = (className == "Array");
+        var isDict:Boolean  = (className == "flash.utils::Dictionary");
+        
+        if (isDict)
+        {
+            // dictionaries can have multiple keys of the same type,
+            // (they can index by reference rather than QName, String, or number),
+            // which cannot be looked up by QName, so use references to the actual key
+            for (var key:* in obj)
+            {
+                propertyNames.push(key);
+            }
+        }
+        else if (dynamic)
         {
             for (var p:String in obj)
             {
@@ -827,7 +889,7 @@ public class ObjectUtil
                     {
                          var pi:Number = parseInt(p);
                          if (isNaN(pi))
-                             propertyNames.push(new QName("", p));
+                            propertyNames.push(new QName("", p));
                          else
                             propertyNames.push(pi);
                     }
@@ -840,7 +902,7 @@ public class ObjectUtil
             numericIndex = isArray && !isNaN(Number(p));
         }
 
-        if (className == "Object" || isArray)
+        if (isArray || isDict || className == "Object")
         {
             // Do nothing since we've already got the dynamic members
         }
@@ -926,15 +988,23 @@ public class ObjectUtil
 
         propertyNames.sort(Array.CASEINSENSITIVE |
                            (numericIndex ? Array.NUMERIC : 0));
-        // remove any duplicates, i.e. any items that can't be distingushed by toString()
-        for (i = 0; i < propertyNames.length - 1; i++)
+
+        // dictionary keys can be indexed by an object reference
+        // there's a possibility that two keys will have the same toString()
+        // so we don't want to remove dupes
+        if (!isDict)
         {
-            // the list is sorted so any duplicates should be adjacent
-            // two properties are only equal if both the uri and local name are identical
-            if (propertyNames[i].toString() == propertyNames[i + 1].toString())
+            // for Arrays, etc., on the other hand...
+            // remove any duplicates, i.e. any items that can't be distingushed by toString()
+            for (i = 0; i < propertyNames.length - 1; i++)
             {
-                propertyNames.splice(i, 1);
-                i--; // back up
+                // the list is sorted so any duplicates should be adjacent
+                // two properties are only equal if both the uri and local name are identical
+                if (propertyNames[i].toString() == propertyNames[i + 1].toString())
+                {
+                    propertyNames.splice(i, 1);
+                    i--; // back up
+                }
             }
         }
 
