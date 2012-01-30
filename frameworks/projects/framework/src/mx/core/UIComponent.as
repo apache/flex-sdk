@@ -11437,7 +11437,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     * @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
