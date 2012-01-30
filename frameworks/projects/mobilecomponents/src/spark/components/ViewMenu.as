@@ -92,13 +92,14 @@ use namespace mx_internal;
  *  &lt;/s:View&gt;
  *  </pre>
  *
- *  <p>Notice that you do not explicitly define the ViewMenu container. 
+ *  <p>Notice that you do not explicitly define the ViewMenu container in MXML. 
  *  The ViewMenu container is created automatically 
  *  to hold the ViewMenuItem controls.</p>
  *  
  *  @see spark.components.ViewMenuItem
  *  @see spark.layouts.ViewMenuLayout
  *  @see spark.components.supportClasses.ViewNavigatorApplicationBase
+ *  @see spark.skins.mobile.ViewMenuSkin
  *
  *  @langversion 3.0
  *  @playerversion AIR 2.5
