@@ -415,7 +415,10 @@ public class ViewNavigator extends ViewNavigatorBase
                     // changes when navigator isnt active
                     var view:View = navigationStack.topView.instance;
                     if (!view)
+                    {
                         view = createViewInstance(navigationStack.topView);
+                        view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
+                    }
                     
                     view.active = true;
                     
@@ -980,21 +983,12 @@ public class ViewNavigator extends ViewNavigatorBase
     protected function beginViewChange():void
     {
         viewChanging = true;
-        
-        if (parentNavigator)
-        {
-            explicitMouseChildren = parentNavigator.mouseChildren;
-            explicitMouseEnabled = parentNavigator.mouseEnabled;
-            parentNavigator.mouseEnabled = false;
-            parentNavigator.mouseChildren = false;
-        }
-        else
-        {
-            explicitMouseChildren = mouseChildren;
-            explicitMouseEnabled = mouseEnabled;
-            mouseEnabled = false;
-            mouseChildren = false;
-        }
+
+        // TODO (chiedozi): Figure out a pattern for disabling parent navigator as well
+        explicitMouseChildren = mouseChildren;
+        explicitMouseEnabled = mouseEnabled;
+        mouseEnabled = false;
+        mouseChildren = false;
     }
     
     /**
@@ -1593,16 +1587,8 @@ public class ViewNavigator extends ViewNavigatorBase
         // Restore mouse children properties before revalidation occurs.  This
         // needs to occur before a possible revalidation occurs so that the
         // saved mouseChildren and mouseEnabled flags aren't overwritten.
-        if (parentNavigator)
-        {
-            parentNavigator.mouseChildren = explicitMouseChildren;
-            parentNavigator.mouseEnabled = explicitMouseEnabled;
-        }
-        else
-        {
-            mouseChildren = explicitMouseChildren;
-            mouseEnabled = explicitMouseEnabled;
-        }
+        mouseChildren = explicitMouseChildren;
+        mouseEnabled = explicitMouseEnabled;
         
         if (revalidateWhenComplete)
         {
@@ -1660,10 +1646,14 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             createViewInstance(pendingViewData);
             
-            // Put this before viewAdded() so that another validation pass can run 
-            // if needed during viewAdded
             viewChangeRequested = false;
-            viewAdded(transitionsEnabled ? pendingViewTransition : null);
+            
+            // Schedule the view added method to occur at a later time so to allow developers
+            // to take advantage of validation lifecycle events, such as CREATION_COMPLETE,
+            // to update properties and states on the view.  If this wasn't done, it would be
+            // possible to lose invalidation calls since ViewNavigator is still in its 
+            // commitProperties call.
+            callLater(viewAdded, [(transitionsEnabled ? pendingViewTransition : null)]);
         }
         else
         {
@@ -1732,13 +1722,7 @@ public class ViewNavigator extends ViewNavigatorBase
             (!landscapeOrientation && view.hasState("portrait")))
         {
             view.setCurrentState(view.getCurrentViewState(landscapeOrientation), false);
-            
-            // Force a validation properties pass on the view so that all state
-            // specific properties are enabled
-            view.validateProperties();
         }
-        
-        view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
         
         // TODO (chiedozi): Need to think about how to handle the multiple
         // pop use case.  The wrong view will get the return value.  Is that okay?
@@ -1814,7 +1798,11 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // Store new view
         if (pendingViewData)
+        {
             pendingView = pendingViewData.instance;
+            pendingView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+                            view_propertyChangeHandler);
+        }
         
         if (transition)
         {
