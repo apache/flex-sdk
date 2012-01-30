@@ -548,6 +548,19 @@ public class AdvancedStyleClient extends EventDispatcher
         return StyleProtoChain.matchesCSSType(this, cssType);
     }
 
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.6
+     */
+    public function hasCSSState():Boolean
+    {
+        return false;
+    }
+    
     //----------------------------------
     //  IFlexModule methods
     //----------------------------------
