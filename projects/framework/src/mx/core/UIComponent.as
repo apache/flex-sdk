@@ -5394,8 +5394,12 @@ public class UIComponent extends FlexSprite
      */
     public function initializeRepeaterArrays(parent:IRepeaterClient):void
     {
-        if (parent && parent.instanceIndices &&
-            !_instanceIndices && !parent.isDocument)
+        // In the case, where the parent is a document, but isn't the
+        // child's document, we want to copy the instanceIndices down.
+        // See SDK-15317.
+        if (parent && parent.instanceIndices && 
+            ((!parent.isDocument) || (parent != descriptor.document)) &&
+            !_instanceIndices)
         {
             _instanceIndices = parent.instanceIndices;
             _repeaters = parent.repeaters;
