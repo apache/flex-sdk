@@ -364,6 +364,17 @@ public class ViewNavigatorApplicationBase extends Application
      */  
     protected function invokeHandler(event:InvokeEvent):void
     {
+        addDeactivateListeners();
+    }
+    
+    
+    /**
+     *  @private
+     *  Adds the deactivate handlers when the application is reactivated.
+     */ 
+    private function activateHandler(event:Event):void
+    {
+        addDeactivateListeners();
     }
     
     /**
@@ -380,6 +391,12 @@ public class ViewNavigatorApplicationBase extends Application
      */ 
     protected function deactivateHandler(event:Event):void
     {
+        // When the deactiveHandler is called, the application is being
+        // suspended or exited.  Remove the deactivate listeners so that
+        // we don't persist data multiple times in the case a deactivate
+        // and exiting event are received in the same sequence
+        removeDeactivateListeners();
+        
         // Check if the application state should be persisted 
         if (persistNavigatorState)
         {
@@ -509,25 +526,47 @@ public class ViewNavigatorApplicationBase extends Application
         // Add device event listeners
         systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
         systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
-        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
-            orientationChangeHandler);
-        NativeApplication.nativeApplication.
-            addEventListener(InvokeEvent.INVOKE, invokeHandler);
-        
-        // We need to listen to different events on desktop and mobile because
-        // on desktop, the deactivate event is dispatched whenever the window loses
-        // focus.  This could cause persistence to run when the developer doesn't
-        // expect it to on desktop.  So our solution temporarily is to assume that
-        // if the os string contains Windows or Mac, assume we are running on desktop.
+        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler);
+        NativeApplication.nativeApplication.addEventListener(InvokeEvent.INVOKE, invokeHandler);
+        NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, activateHandler);
+    }
+    
+    /**
+     *  @private
+     *  Adds listeners for the deactivate event.
+     */ 
+    private function addDeactivateListeners():void
+    {
+        // The application listens for deactivate and exiting events to determine when
+        // the persistenceManager should save its state to disk.  When the application
+        // is being simulated in ADL on desktop, we don't want to listen for deactivate
+        // because that event is dispatched whenever the window loses focus.  This
+        // could cause persistence to run when a developer doesn't expect it to.  
+        // So the DEACTIVATE event is ignored on desktop machines.
         var os:String = Capabilities.os;
         
-        // TODO (chiedozi): Try to find a better workaround for this
-        if (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1)
-            NativeApplication.nativeApplication.
-                addEventListener(Event.EXITING, deactivateHandler);
-        else
-            NativeApplication.nativeApplication.
-                addEventListener(Event.DEACTIVATE, deactivateHandler);
+        // TODO (chiedozi): If the framework ever supports Windows Mobile, we'll need to update this check.
+        var runningOnDesktop:Boolean = (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1);
+        if (!runningOnDesktop)
+            NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, deactivateHandler);
+        
+        NativeApplication.nativeApplication.addEventListener(Event.EXITING, deactivateHandler);
+    }
+    
+    /**
+     *  @private
+     *  Remove listeners for the deactivate and exiting events.
+     */ 
+    private function removeDeactivateListeners():void
+    {
+        var os:String = Capabilities.os;
+        
+        // TODO (chiedozi): If the framework ever supports Windows Mobile, we'll need to update this check.
+        var runningOnDesktop:Boolean = (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1);
+        if (!runningOnDesktop)
+            NativeApplication.nativeApplication.removeEventListener(Event.DEACTIVATE, deactivateHandler);
+        
+        NativeApplication.nativeApplication.removeEventListener(Event.EXITING, deactivateHandler);
     }
     
     /**
