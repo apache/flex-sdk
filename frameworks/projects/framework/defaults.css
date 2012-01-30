@@ -410,7 +410,6 @@ CheckBox
 	horizontalGap: 3;
 	icon: ClassReference("mx.skins.spark.CheckBoxSkin");
 	labelVerticalOffset: 1;
-	layoutDirection: "ltr";
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
 	paddingBottom: -1;
