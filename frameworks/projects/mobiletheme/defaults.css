@@ -259,6 +259,28 @@ VideoPlayer
     skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
 }
 
+ViewMenu
+{
+    skinClass: ClassReference("spark.skins.mobile.ViewMenuSkin");
+}
+
+ViewMenuItem
+{
+    backgroundAlpha : .95;
+    backgroundColor : #F7F7F7;
+    color : #000000;
+    iconPlacement : "top";
+    paddingBottom: 10;
+    paddingLeft: 15;
+    paddingRight: 15;
+    paddingTop: 10;
+    selectionColor : #00FF00;
+    skinClass : ClassReference("spark.skins.mobile.ViewMenuItemSkin");
+    textAlign : "center";
+    verticalAlign: "middle";
+    verticalGap: 10;
+}
+
 ViewNavigator
 {
     skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
@@ -284,6 +306,7 @@ global
 {
     /* Looks */
     /* color: #000000; */
+    backgroundAlpha : 1;
     backgroundImageFillMode : "scale";
     chromeColor: #464646;
     borderVisible : true;
