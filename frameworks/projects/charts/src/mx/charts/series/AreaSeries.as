@@ -1856,16 +1856,8 @@ public class AreaSeries extends Series implements IStackable2
                 {
                     stackedValue = 0;
                 }
-                if (yValue == 0)
-                {
-                	chartItem.yValue = 0;
-                	chartItem.minValue = 0;
-                }
-                else
-                {
-                	chartItem.yValue = yValue + stackedValue;
-                	chartItem.minValue = stackedValue;
-                }
+				chartItem.yValue = yValue + stackedValue;
+                chartItem.minValue = stackedValue;
                 yValue += stackedValue;
                 //chartItem.minValue = stackedValue;
                 stackedXValueDictionary[xValue] = yValue;
@@ -1955,17 +1947,8 @@ public class AreaSeries extends Series implements IStackable2
                     stackedValue = 0;
                 }
                 
-                if (yValue == 0)
-                {
-                	chartItem.yValue = 0;
-                	chartItem.minValue = 0;
-                }
-                else
-                {
-                	chartItem.yValue = yValue + stackedValue;
-                	chartItem.minValue = stackedValue;
-                }
-                
+                chartItem.yValue = yValue + stackedValue;
+                chartItem.minValue = stackedValue;
                 yValue += stackedValue;
                 //chartItem.minValue = stackedValue;
                 if (yValue >= 0)
