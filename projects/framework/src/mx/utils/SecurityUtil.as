@@ -14,6 +14,7 @@ package mx.utils
 
 import mx.sandbox.ISandboxBridgeGroup;
 import mx.managers.ISystemManager2;
+import flash.events.IEventDispatcher;
 
 
 /**
@@ -28,7 +29,7 @@ public class SandboxUtil
 	/**
 	 * Test if there is mutual trust between a SystemManager and its parent.
 	 */ 
-	public static function mutualTrustWithParent(sm:ISystemManager2):Boolean
+	public static function hasMutualTrustWithParent(sm:ISystemManager2):Boolean
 	{
 		var sandboxBridgeGroup:ISandboxBridgeGroup = sm.sandboxBridgeGroup;
 		
@@ -39,6 +40,23 @@ public class SandboxUtil
 
 		return false;
 	}
+
+
+	/**
+	 * Test if there is mutual trust between a SystemManager and one of its
+	 * bridged applications.
+	 */ 
+	public static function hasMutualTrustWithChild(sm:ISystemManager2, bridge:IEventDispatcher):Boolean
+	{
+		var sandboxBridgeGroup:ISandboxBridgeGroup = sm.sandboxBridgeGroup;
+		
+		if (sandboxBridgeGroup.canAccessChildBridge(bridge) &&
+		    sandboxBridgeGroup.accessibleFromChildBridge(bridge))
+			return true;
+
+		return false;
+	}
+
 
 }
 }
