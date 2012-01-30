@@ -216,11 +216,6 @@ public class HSliderSkin extends MobileSkin
         thumb.y = Math.max(Math.round((calculatedSkinHeight - thumb.getPreferredBoundsHeight()) / 2), 0);
         var calculatedTrackY:int = Math.max(Math.round((calculatedSkinHeight - track.getPreferredBoundsHeight()) / 2), 0);
         
-        // if you wanted to inset the track, e.g. so that the ends line up with the center of the track
-        // when the thumb is at the ends, you could try something like the following BUT you'd also have
-        // to modify the component code -- placement of the thumb is bounded by the width of the track
-        // var thumbX:int = Math.round(thumb.getPreferredBoundsWidth() / 2 - track.getPreferredBoundsHeight() / 2);
-        
         // size and position
         setElementSize(thumb, thumb.getPreferredBoundsWidth(), thumb.getPreferredBoundsHeight()); // thumb does NOT scale
         setElementSize(track, calculatedSkinWidth, track.getPreferredBoundsHeight()); // note track is NOT scaled vertically
