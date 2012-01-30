@@ -32,8 +32,9 @@ import mx.core.EventPriority;
 import mx.core.FlexSprite;
 import mx.core.mx_internal;
 import mx.core.IUIComponent;
-import mx.events.MarshalEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootRequest;
+import mx.events.SandboxRootMouseEvent;
+import mx.events.SWFBridgeRequest;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -93,13 +94,13 @@ public class CursorManagerImpl implements ICursorManager
             throw new Error("Instance already exists.");
 
 		if (systemManager)
-			this.systemManager = systemManager as ISystemManager2;
+			this.systemManager = systemManager as ISystemManager;
 		else
-			this.systemManager = SystemManagerGlobals.topLevelSystemManagers[0] as ISystemManager2;
+			this.systemManager = SystemManagerGlobals.topLevelSystemManagers[0] as ISystemManager;
 
 		sandboxRoot = this.systemManager.getSandboxRoot();
-		sandboxRoot.addEventListener(MarshalEvent.CURSOR_MANAGER, marshalCursorManagerHandler, false, 0, true);
-		var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+		sandboxRoot.addEventListener(SandboxRootRequest.CURSOR_MANAGER_REQUEST, marshalCursorManagerHandler, false, 0, true);
+		var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 		me.name = "update";
 		// trace("--->update request for CursorManagerImpl", sm);
 		sandboxRoot.dispatchEvent(me);
@@ -170,7 +171,7 @@ public class CursorManagerImpl implements ICursorManager
     /**
      *  @private
      */
-    private var systemManager:ISystemManager2 = null;
+    private var systemManager:ISystemManager = null;
     
     /**
      *  @private
@@ -214,7 +215,7 @@ public class CursorManagerImpl implements ICursorManager
         _currentCursorID = value;
 		if (!cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "currentCursorID";
 			me.value = currentCursorID;
 			// trace("-->dispatched currentCursorID for CursorManagerImpl", sm, currentCursorID);
@@ -251,7 +252,7 @@ public class CursorManagerImpl implements ICursorManager
         _currentCursorXOffset = value;
 		if (!cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "currentCursorXOffset";
 			me.value = currentCursorXOffset;
 			// trace("-->dispatched currentCursorXOffset for CursorManagerImpl", sm, currentCursorXOffset);
@@ -288,7 +289,7 @@ public class CursorManagerImpl implements ICursorManager
         _currentCursorYOffset = value;
 		if (!cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "currentCursorYOffset";
 			me.value = currentCursorYOffset;
 			// trace("-->dispatched currentCursorYOffset for CursorManagerImpl", sm, currentCursorYOffset);
@@ -316,7 +317,7 @@ public class CursorManagerImpl implements ICursorManager
 	        cursorHolder.visible = true;
 		else
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "showCursor";
 			// trace("-->dispatched showCursor for CursorManagerImpl", sm);
 			sandboxRoot.dispatchEvent(me);
@@ -337,7 +338,7 @@ public class CursorManagerImpl implements ICursorManager
 	        cursorHolder.visible = false;
 		else
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "hideCursor";
 			// trace("-->dispatched hideCursor for CursorManagerImpl", sm);
 			sandboxRoot.dispatchEvent(me);
@@ -388,7 +389,7 @@ public class CursorManagerImpl implements ICursorManager
         */
         if (initialized && !cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "setCursor";
 			me.value = [ cursorClass, priority, xOffset, yOffset ];
 			// trace("-->dispatched setCursor for CursorManagerImpl", sm, me.value);
@@ -449,7 +450,7 @@ public class CursorManagerImpl implements ICursorManager
     {
         if (initialized && !cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "removeCursor";
 			me.value = cursorID;
 			// trace("-->dispatched removeCursor for CursorManagerImpl", sm, me.value);
@@ -482,7 +483,7 @@ public class CursorManagerImpl implements ICursorManager
     {
         if (initialized && !cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "removeAllCursors";
 			// trace("-->dispatched removeAllCursors for CursorManagerImpl", sm);
 			sandboxRoot.dispatchEvent(me);
@@ -508,7 +509,7 @@ public class CursorManagerImpl implements ICursorManager
     {
         if (initialized && !cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "setBusyCursor";
 			// trace("-->dispatched setBusyCursor for CursorManagerImpl", sm);
 			sandboxRoot.dispatchEvent(me);
@@ -536,7 +537,7 @@ public class CursorManagerImpl implements ICursorManager
     {
         if (initialized && !cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "removeBusyCursor";
 			// trace("-->dispatched removeBusyCursor for CursorManagerImpl", sm);
 			sandboxRoot.dispatchEvent(me);
@@ -571,7 +572,7 @@ public class CursorManagerImpl implements ICursorManager
 
                 initialized = true;
 
-				var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+				var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 				me.name = "initialized";
 				// trace("-->dispatched removeBusyCursor for CursorManagerImpl", sm);
 				sandboxRoot.dispatchEvent(me);
@@ -643,14 +644,14 @@ public class CursorManagerImpl implements ICursorManager
                     	cursorHolder.y = item.y;
                     }
                     
-                   	if (systemManager.useBridge())
+                   	if (systemManager.useSWFBridge())
 						sandboxRoot.addEventListener(MouseEvent.MOUSE_MOVE,
                                                    mouseMoveHandler,true,EventPriority.CURSOR_MANAGEMENT);
 					else
 						systemManager.stage.addEventListener(MouseEvent.MOUSE_MOVE,
                                                    mouseMoveHandler,true,EventPriority.CURSOR_MANAGEMENT);
                     
-                    sandboxRoot.addEventListener(MarshalMouseEvent.MOUSE_MOVE,
+                    sandboxRoot.addEventListener(SandboxRootMouseEvent.MOUSE_MOVE_SOMEWHERE,
                                                    marshalMouseMoveHandler,false,EventPriority.CURSOR_MANAGEMENT);
                 }
             	
@@ -668,14 +669,14 @@ public class CursorManagerImpl implements ICursorManager
                 currentCursorID = CursorManager.NO_CURSOR;
                 currentCursorXOffset = 0;
                 currentCursorYOffset = 0;
-               	if (systemManager.useBridge())
+               	if (systemManager.useSWFBridge())
 	                sandboxRoot.removeEventListener(MouseEvent.MOUSE_MOVE,
                                                   mouseMoveHandler,true);
 				else
 					systemManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE,
                                                   mouseMoveHandler,true);
                 
-                sandboxRoot.removeEventListener(MarshalMouseEvent.MOUSE_MOVE,
+                sandboxRoot.removeEventListener(SandboxRootMouseEvent.MOUSE_MOVE_SOMEWHERE,
                                                   marshalMouseMoveHandler,false);
                 cursorHolder.removeChild(currentCursor);
                 
@@ -705,7 +706,7 @@ public class CursorManagerImpl implements ICursorManager
     {
         if (initialized && !cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "registerToUseBusyCursor";
 			me.value = source;
 			// trace("-->dispatched registerToUseBusyCursor for CursorManagerImpl", sm, me.value);
@@ -731,7 +732,7 @@ public class CursorManagerImpl implements ICursorManager
     {
         if (initialized && !cursorHolder)
 		{
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 			me.name = "unRegisterToUseBusyCursor";
 			me.value = source;
 			// trace("-->dispatched unRegisterToUseBusyCursor for CursorManagerImpl", sm, me.value);
@@ -794,12 +795,23 @@ public class CursorManagerImpl implements ICursorManager
      */
     private function marshalMouseMoveHandler(event:Event):void
     {
-		// mouse is outside our sandbox, restore it.
-		// the other CM should alter it if needed
-		// when we get a mousemove in our sandbox
-		// we should alter it as well
-        cursorHolder.visible = false;
-        Mouse.show();
+		if (cursorHolder.visible)
+		{
+			// mouse is outside our sandbox, restore it.
+			cursorHolder.visible = false;
+			var cursorRequest:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.SHOW_MOUSE_CURSOR_REQUEST);
+			var bridge:IEventDispatcher; 
+           	if (systemManager.useSWFBridge())
+			{
+				bridge = systemManager.swfBridgeGroup.parentBridge;; 
+			}
+			else
+				bridge = systemManager;
+			cursorRequest.requestor = bridge;
+			bridge.dispatchEvent(cursorRequest);
+			if (cursorRequest.data)
+				Mouse.show();
+		}
     }
     
     /**
@@ -832,23 +844,31 @@ public class CursorManagerImpl implements ICursorManager
         }
 		else
 		{
-			// we should only get here if we got a mouseMoveSomewhere beforehand
-			if (!cursorHolder.visible)
-				showCustomCursor = true
-    }
+			showCustomCursor = true
+		}
     
         // Handle switching between system and custom cursor.
-            if (showSystemCursor)
-            {
-                showSystemCursor = false;
-            cursorHolder.visible = false;
-                Mouse.show();
-            }
-            if (showCustomCursor)
-            {
-                showCustomCursor = false;
-            cursorHolder.visible = true;
-                Mouse.hide();
+        if (showSystemCursor)
+        {
+            showSystemCursor = false;
+			cursorHolder.visible = false;
+            Mouse.show();
+        }
+        if (showCustomCursor)
+        {
+            showCustomCursor = false;
+			cursorHolder.visible = true;
+            Mouse.hide();
+			var cursorRequest:SWFBridgeRequest = new SWFBridgeRequest(SWFBridgeRequest.HIDE_MOUSE_CURSOR_REQUEST);
+			var bridge:IEventDispatcher;
+           	if (systemManager.useSWFBridge())
+			{
+				bridge = systemManager.swfBridgeGroup.parentBridge;; 
+			}
+			else
+				bridge = systemManager;
+			cursorRequest.requestor = bridge;
+			bridge.dispatchEvent(cursorRequest);
         }
     }
     
@@ -889,7 +909,7 @@ public class CursorManagerImpl implements ICursorManager
 	 */
 	private function marshalCursorManagerHandler(event:Event):void
 	{
-		if (event is MarshalEvent)
+		if (event is SandboxRootRequest)
 			return;
 
 		var marshalEvent:Object = event;
@@ -970,25 +990,25 @@ public class CursorManagerImpl implements ICursorManager
 			if (cursorHolder)
 			{
 				// trace("-->marshaled update for CursorManagerImpl", sm);
-				var me:MarshalEvent = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+				var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 				me.name = "initialized";
 				me.value = true;
 				// trace("-->dispatched initialized for CursorManagerImpl", sm, true);
 				sandboxRoot.dispatchEvent(me);
 				// trace("<--dispatched initialized for CursorManagerImpl", sm, true);
-				me = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+				me = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 				me.name = "currentCursorID";
 				me.value = currentCursorID;
 				// trace("-->dispatched currentCursorID for CursorManagerImpl", sm, true);
 				sandboxRoot.dispatchEvent(me);
 				// trace("<--dispatched currentCursorID for CursorManagerImpl", sm, true);
-				me = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+				me = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 				me.name = "currentCursorXOffset";
 				me.value = currentCursorXOffset;
 				// trace("-->dispatched currentCursorXOffset for CursorManagerImpl", sm, true);
 				sandboxRoot.dispatchEvent(me);
 				// trace("<--dispatched currentCursorXOffset for CursorManagerImpl", sm, true);
-				me = new MarshalEvent(MarshalEvent.CURSOR_MANAGER);
+				me = new SandboxRootRequest(SandboxRootRequest.CURSOR_MANAGER_REQUEST);
 				me.name = "currentCursorYOffset";
 				me.value = currentCursorYOffset;
 				// trace("-->dispatched currentCursorYOffset for CursorManagerImpl", sm, true);
