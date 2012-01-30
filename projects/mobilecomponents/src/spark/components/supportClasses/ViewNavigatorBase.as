@@ -505,7 +505,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    // TODO (chiedozi): This is not module safe
     public function loadViewData(value:Object):void
     {
         label = value.label;
@@ -516,6 +515,9 @@ public class ViewNavigatorBase extends SkinnableContainer
             icon = value.iconStringName;
         else if (iconClassName != null)
             icon = getDefinitionByName(iconClassName);
+        
+        // TODO (chiedozi): This is not module safe because of its use of 
+        // getDefinitionByName.  Should use systemManager to do this. (SDK-27424)
     }
     
     /**
