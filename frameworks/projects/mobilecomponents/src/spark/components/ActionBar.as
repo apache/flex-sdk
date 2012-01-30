@@ -25,9 +25,12 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
+include "../styles/metadata/MobileTextFieldTextStyles.as"
 
 /**
  *  Alignment of the title relative to the ActionBar dimensions.
+ * 
+ *  @default "center"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -37,12 +40,143 @@ use namespace mx_internal;
 [Style(name="titleAlign", type="String", enumeration="left,right,center", inherit="no")]
 
 /**
+ *  @copy spark.components.supportClasses.GroupBase#style:accentColor
+ * 
+ *  @default #0099FF
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no")]
+[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  @copy spark.components.SkinnableContainer#style:backgroundAlpha
+ *  
+ *  @default 1.0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark")]
+
+/**
+ *  @copy spark.components.SkinnableContainer#style:contentBackgroundAlpha
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+
+/**
+ *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */ 
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  @copy spark.components.supportClasses.GroupBase#style:focusColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+//--------------------------------------
+//  Skin states
+//--------------------------------------
+
+/**
+ *  Base state of ActionBar with titleDisplay and no content
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("title")]
+
+/**
+ *  ActionBar with titleDisplay and actionContent only
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("titleWithAction")]
+
+/**
+ *  ActionBar with titleDisplay and navigationContent only
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("titleWithNavigation")]
+
+/**
+ *  ActionBar with title both action and navigation content
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("titleWithActionAndNavigation")]
+
+/**
+ *  ActionBar with titleContent in place of titleDisplay
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("titleContent")]
+
+/**
+ *  ActionBar with title and action content
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("titleContentWithAction")]
+
+
+/**
+ *  ActionBar with title and navigation content
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("titleContentWithNavigation")]
+
+/**
+ *  ActionBar with title, action and navigation content
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[SkinState("titleContentWithActionAndNavigation")]
 
 /**
  *  The ActionBar class defines a component that includes title, navigation 
@@ -261,6 +395,8 @@ public class ActionBar extends SkinnableComponent
         
         if (titleDisplay)
             titleDisplay.text = title;
+        
+        invalidateSkinState();
     }
     
     
@@ -550,9 +686,37 @@ public class ActionBar extends SkinnableComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden methods: UIComponent
+    //  Overridden methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override protected function getCurrentSkinState():String
+    {
+        var state:String = (titleContent) ? "titleContent" : "title";
+        
+        if (actionContent && navigationContent)
+        {
+            state += "WithActionAndNavigation";
+        }
+        else if (actionContent)
+        {
+            state += "WithAction";
+        }
+        else if (navigationContent)
+        {
+            state += "WithNavigation";
+        }
+        
+        return state;
+    }
     
     /**
      *  @private
