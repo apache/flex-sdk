@@ -3097,13 +3097,21 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                 r = -_labelPlacement.rotation / Math.PI * 180;
                 labelY = baseline + labelGap;
 				var sparkLabelClass:Class;
-				if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+				try
 				{
-					sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+					if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+					{
+						sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+					}
 				}
-                for (i = 0; i < n; i++)
-                {
-                    ldi = _labels[i];
+				catch(e:Error)
+				{
+					// We need not do any thing here because we came here for projects which do not have spark.swc
+					// It might be an MX-only or in compatible mode and hence using MX Label
+				}
+				for (i = 0; i < n; i++)
+				{
+					ldi = _labels[i];
 					
 					ldi.instance.rotation = r;
 					
@@ -3251,9 +3259,17 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
         var showLabels:Boolean = showLabelsStyle != false &&
                                  showLabelsStyle != "false";
 		var sparkLabelClass:Class;
-		if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+		try
 		{
-			sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+			if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+			{
+				sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+			}
+		}
+		catch(e:Error)
+		{
+			// We need not do any thing here because we came here for projects which do not have spark.swc
+			// It might be an MX-only or in compatible mode and hence using MX Label
 		}
         
         if (showLabels == false)
