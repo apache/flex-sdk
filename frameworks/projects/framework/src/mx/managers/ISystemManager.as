@@ -471,6 +471,18 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  @productversion Flex 3
      */
     function deployMouseShields(deploy:Boolean):void;
+
+    /**
+     *  Attempt to notify the parent SWFLoader that the application's size may
+     *  have changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function invalidateParentSizeAndDisplayList():void;
+
 }
 
 }
