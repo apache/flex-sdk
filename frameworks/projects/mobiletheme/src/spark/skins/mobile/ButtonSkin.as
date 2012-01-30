@@ -20,6 +20,7 @@ import mx.states.SetProperty;
 import mx.states.State;
 import mx.utils.ColorUtil;
 
+import spark.core.SpriteVisualElement;
 import spark.skins.mobile.assets.Button_down;
 import spark.skins.mobile.assets.Button_up;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
@@ -166,9 +167,8 @@ public class ButtonSkin extends ButtonSkinBase
      */ 
     protected function layoutBorder(bgImg:DisplayObject, unscaledWidth:Number, unscaledHeight:Number):void
     {
-        bgImg.x = bgImg.y = 0.5;
-        bgImg.width = unscaledWidth;
-        bgImg.height = unscaledHeight;
+        resizePart(bgImg, unscaledWidth, unscaledHeight);
+        positionPart(bgImg, 0, 0);
     }
     
     /**
