@@ -25,6 +25,17 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
+
+/**
+ *  Alignment of the title relative to the ActionBar dimensions.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="titleAlign", type="String", enumeration="start,end,left,right,center", inherit="no")]
+
 /**
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -32,7 +43,6 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Style(name="backgroundAlpha", type="Number", inherit="no")]
-
 
 /**
  *  The ActionBar class defines a component that includes title, navigation 
@@ -59,6 +69,7 @@ use namespace mx_internal;
  * 
  *   <strong>Styles</strong>
  *    backgroundAlpha="1.0"
+ *    titleAlign="start"
  * 
  *  &lt;
  *  </pre>
