@@ -275,11 +275,10 @@ public class StyleManagerImpl implements IStyleManager3
 
     /**
      *  @private
-     *  A map of CSS subjects that have pseudo selectors. If a subject does
-     *  have a pseudo selector, a state change requires styles to be
-     *  recalculated.
+     *  A map of CSS pseudo states. If a pseudo selector exists for a
+     *  particular state name, it is likely that styles need to be recalculated.
      */ 
-    private var _pseudoSubjects:Object;
+    private var _pseudoStates:Object;
 
     /**
      *  @private
@@ -485,11 +484,11 @@ public class StyleManagerImpl implements IStyleManager3
     /**
      * @private
      * Determines whether at least one pseudo-selector has been specified for
-     * the given subject.
+     * the given state.
      */ 
-    public function hasPseudoSelector(subject:String):Boolean
+    public function hasPseudoSelector(state:String):Boolean
     {
-        return _pseudoSubjects != null && _pseudoSubjects[subject] != null;
+        return _pseudoStates != null && _pseudoStates[state] != null;
     }
 
     /**
@@ -529,12 +528,13 @@ public class StyleManagerImpl implements IStyleManager3
 
         // Also remember subjects that have pseudo-selectors to optimize
         // styles during component state changes.
-        if (styleDeclaration.isPseudoSelector())
+        var pseudoSelector:String = styleDeclaration.getPseudoSelector();
+        if (pseudoSelector != null)
         {
-            if (_pseudoSubjects == null)
-                _pseudoSubjects = {};
+            if (_pseudoStates == null)
+                _pseudoStates = {};
 
-            _pseudoSubjects[subject] = true;
+            _pseudoStates[pseudoSelector] = true;
         }
 
         // Record whether this is an advanced selector
