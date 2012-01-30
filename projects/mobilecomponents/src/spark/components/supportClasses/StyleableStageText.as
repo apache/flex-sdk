@@ -51,6 +51,7 @@ import mx.managers.SystemManager;
 import spark.components.Application;
 import spark.core.IEditableText;
 import spark.core.ISoftKeyboardHintClient;
+import spark.events.PopUpEvent;
 import spark.events.TextOperationEvent;
 
 use namespace mx_internal;
@@ -1201,7 +1202,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             stageText.editable = _editable && effectiveEnabled;
         
         if (invalidateViewPortFlag)
+        {
             updateViewPort();
+            invalidateViewPortFlag = false;
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -1626,6 +1630,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 ancestor.removeEventListener(ResizeEvent.RESIZE, ancestor_resizeHandler);
                 ancestor.removeEventListener(FlexEvent.SHOW, ancestor_showHandler);
                 ancestor.removeEventListener(FlexEvent.HIDE, ancestor_hideHandler);
+                ancestor.removeEventListener(PopUpEvent.CLOSE, ancestor_closeHandler);
+                ancestor.removeEventListener(PopUpEvent.OPEN, ancestor_openHandler);
             }
         }
         
@@ -1639,6 +1645,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 newAncestor.addEventListener(ResizeEvent.RESIZE, ancestor_resizeHandler, false, 0, true);
                 newAncestor.addEventListener(FlexEvent.SHOW, ancestor_showHandler, false, 0, true);
                 newAncestor.addEventListener(FlexEvent.HIDE, ancestor_hideHandler, false, 0, true);
+                
+                if (newAncestor.isPopUp)
+                {
+                    newAncestor.addEventListener(PopUpEvent.CLOSE, ancestor_closeHandler, false, 0, true);
+                    newAncestor.addEventListener(PopUpEvent.OPEN, ancestor_openHandler, false, 0, true);
+                }
             }
         }
         
@@ -1659,11 +1671,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             stageText.displayAsPassword = _displayAsPassword;
             stageText.maxChars = _maxChars;
             
-            // Workaround for runtime bug 2931896: Don't set restrict to null
-            // even though that technically shouldn't do anything. Setting
-            // restrict to null disables typing.
-            if (_restrict != null)
-                stageText.restrict = _restrict;
+            stageText.restrict = _restrict;
             
             // Soft keyboard hints
             stageText.autoCapitalize = _autoCapitalize;
@@ -1676,6 +1684,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             
             // Make sure viewPort and enabled state are recalculated
             invalidateViewPortFlag = true;
+            ancestorsVisibleInvalidateFlag = true;
             invalidateProperties();
         }
     }
@@ -1731,6 +1740,15 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //
     //--------------------------------------------------------------------------
     
+    private function ancestor_closeHandler(event:PopUpEvent):void
+    {
+        ancestorsVisible = false;
+        ancestorsVisibleInvalidateFlag = false;
+        invalidateViewPortFlag = true;
+        
+        invalidateProperties();
+    }
+    
     private function ancestor_hideHandler(event:FlexEvent):void
     {
         // Shortcut: If any ancestor hid, the StageText must hide. No need to
@@ -1746,6 +1764,14 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         // Any change in ancestor geometry may affect the StageText's geometry.
         invalidateViewPortFlag = true;
+        invalidateProperties();
+    }
+    
+    private function ancestor_openHandler(event:PopUpEvent):void
+    {
+        ancestorsVisibleInvalidateFlag = true;
+        invalidateViewPortFlag = true;
+        
         invalidateProperties();
     }
     
