@@ -24,6 +24,11 @@ import flash.events.Event;
  *
  *  @see mx.effects.TweenEffect
  *  @see mx.effects.Tween
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TweenEvent extends Event
 {
@@ -60,6 +65,11 @@ public class TweenEvent extends Event
 	 *  @see mx.effects.TweenEffect 
 	 *  @see mx.events.EffectEvent
      *  @eventType tweenEnd 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TWEEN_END:String = "tweenEnd";
 	
@@ -85,6 +95,11 @@ public class TweenEvent extends Event
 	 *  </table>
 	 *
      *  @eventType tweenStart
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TWEEN_START:String = "tweenStart";
 	
@@ -110,6 +125,11 @@ public class TweenEvent extends Event
 	 *  </table>
 	 *
      *  @eventType tweenUpdate
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TWEEN_UPDATE:String = "tweenUpdate";
 	
@@ -132,6 +152,11 @@ public class TweenEvent extends Event
 	 *  @param value For a <code>tweenStart</code> or <code>tweenUpdate</code> event, the value passed to the 
 	 *  <code>onTweenUpdate()</code> method; for a <code>tweenEnd</code> event, 
 	 *  the value passed to the <code>onTweenEnd()</code> method.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function TweenEvent(type:String, bubbles:Boolean = false,
 							   cancelable:Boolean = false,
@@ -170,6 +195,11 @@ public class TweenEvent extends Event
  	 *  @see mx.effects.effectClasses.ResizeInstance
  	 *  @see mx.effects.effectClasses.RotateInstance
  	 *  @see mx.effects.effectClasses.ZoomInstance
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var value:Object;
 	
