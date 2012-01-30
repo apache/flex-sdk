@@ -111,6 +111,8 @@ public class State extends EventDispatcher
 
     /**
      *  Constructor.
+     *
+     *  @param properties Object containing property settings for this State.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
