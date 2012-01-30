@@ -43,7 +43,7 @@ use namespace mx_internal;
  *  @playerversion AIR 3
  *  @productversion Flex 4.5.2
  */
-[Event(name="change", type="flex.events.Event")]
+[Event(name="change", type="flash.events.Event")]
 
 /**
  *  Dispatched after the selected date has been changed, either
