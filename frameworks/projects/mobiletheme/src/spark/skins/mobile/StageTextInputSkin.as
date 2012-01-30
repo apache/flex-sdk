@@ -12,6 +12,7 @@
 package spark.skins.mobile
 {
 import spark.components.TextInput;
+import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.StageTextSkinBase;
 
 /**
@@ -83,17 +84,18 @@ public class StageTextInputSkin extends StageTextSkinBase
         var textHeight:Number = getElementPreferredHeight(textDisplay);
         var textY:Number = Math.round(0.5 * (unscaledTextHeight - textHeight)) + paddingTop;
         
-        var adjustedTextHeight:Number = textHeight + paddingBottom;
-        
         if (textDisplay)
         {
             textDisplay.commitStyles();
-            setElementSize(textDisplay, unscaledTextWidth, adjustedTextHeight);
+            setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight);
             setElementPosition(textDisplay, paddingLeft, textY);
         }
         
         if (promptDisplay)
         {
+            if (promptDisplay is StyleableTextField)
+                StyleableTextField(promptDisplay).commitStyles();
+            
             var promptHeight:Number = getElementPreferredHeight(promptDisplay);
             var promptY:Number = Math.round(0.5 * (unscaledTextHeight - promptHeight)) + paddingTop;
                 
