@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2010 Adobe Systems Incorporated
+//  Copyright 2011 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -219,15 +219,23 @@ public class BusyIndicator extends UIComponent
 
     /**
      *  @private
-     *  Cache the last value of applicationDPI.
+     * 
+     *  Cached value of the spoke color.
      */ 
-    private var _applicationDPI:Number;
-    
+    private var spokeColor:uint;
+
     //--------------------------------------------------------------------------
     //
     //  Private Properties 
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Cache the last value of applicationDPI.
+     */ 
+    private var _applicationDPI:Number;
+    
     /**
      *  @private
      * 
@@ -288,17 +296,6 @@ public class BusyIndicator extends UIComponent
             
             effectiveVisibilityChanged = false;
         }
-    }
-
-    /**
-     *  @private
-     */
-    override public function invalidateDisplayList():void
-    {   
-        super.invalidateDisplayList();
-        
-        if (currentRotation > 0)
-            postLayoutTransformOffsets = new TransformOffsets();
     }
 
     /**
@@ -413,34 +410,6 @@ public class BusyIndicator extends UIComponent
         if (diameter % 2 != 0)
             diameter--;
         
-        diameter = spinnerDiameterFixup(diameter);
-        
-        return diameter;
-    }
-    
-    /**
-     *  @private
-     * 
-     *  Modify the spinnerDiameter to avoid diameters that end up causing the 
-     *  spinner to jitter. This will cause us to reuse the spokeWidth and 
-     *  spokeHeight of the previous diameter size.
-     */ 
-    private function spinnerDiameterFixup(diameter:Number):Number
-    {
-        if (applicationDPI == DPIClassification.DPI_240)
-        {
-            // For diameter 30, use the settings for diameter 28 (29 is the same)
-            if (diameter >= 30 && diameter <= 33)
-                diameter = 28;
-        }
-        else if (applicationDPI == DPIClassification.DPI_160)
-        {
-            if (diameter == 24)
-                diameter = 22;
-            else if (diameter == 28)
-                diameter = 26;
-        }
-        
         return diameter;
     }
     
@@ -457,7 +426,8 @@ public class BusyIndicator extends UIComponent
             stopRotation();
        
         spinnerDiameter = diameter;
-    
+        spokeColor = getStyle("symbolColor");
+        
         drawSpinner();
         
         if (isRotating)
@@ -471,8 +441,6 @@ public class BusyIndicator extends UIComponent
      */ 
     mx_internal function drawSpinner():void 
     {
-        
-        var spokeColor:uint = getStyle("symbolColor");
         var g:Graphics = graphics;
         var spinnerRadius:int = spinnerDiameter / 2;
         var spinnerWidth:int = spinnerDiameter;
@@ -480,65 +448,10 @@ public class BusyIndicator extends UIComponent
         var insideDiameter:Number = spinnerDiameter - (spokeHeight * 2); 
         var spokeWidth:Number = insideDiameter / 5;
         var eHeight:Number = spokeWidth / 2;
-        var center:Number = spinnerRadius - 1;
         var spinnerPadding:Number = 0;
-        
-        
-        // Modify the spoke width and height for various DPI and spinnerDiameter
-        // combinations. These combinations cause the spinner to jitter when
-        // it is rotated. Override the calculated spokeHeight and spokeWidth
-        // with hard-coded values.
-        if (applicationDPI == DPIClassification.DPI_240)
-        {
-            if (spinnerDiameter >= 28 && spinnerDiameter <= 29)
-            {
-                spokeHeight = 8;
-                spokeWidth = 2.5;
-            }
-            else if (spinnerDiameter >= 34 && spinnerDiameter <= 35)
-            {
-                spokeHeight = 9;
-                spokeWidth = 4;
-            }
-            else if (spinnerDiameter >= 36 && spinnerDiameter <= 39)
-            {
-                spokeWidth += 0.5;
-            }
-            
-        }
-        else if (applicationDPI == DPIClassification.DPI_160)
-        {
-            if (spinnerDiameter == 20)
-            {
-                spokeHeight = 6;
-                spokeWidth = 1.4;
-                spinnerPadding = 0.5;
-            }
-        }
-        else if (applicationDPI == DPIClassification.DPI_320)
-        {
-            if (spinnerDiameter == 28)
-            {
-                spokeWidth = 2;
-            }
-            else if (spinnerDiameter == 36)
-            {
-                spokeWidth = 2;
-                spinnerPadding = 1;
-            }
-            else if (spinnerDiameter == 40)
-            {
-                spokeWidth = 3;
-                spinnerPadding = 1;
-            }
-            else if (spinnerDiameter == 48)
-            {
-                spokeWidth = 5;
-            }
-        }
 
-//        // Undocumented styles to modified the spokeWidth
-//        // and spokeHeight.
+        // Undocumented styles to modified the spokeWidth
+        // and spokeHeight.
 //        if (getStyle("spokeWidth") !== undefined)
 //        {
 //            spokeWidth = getStyle("spokeWidth");
@@ -560,40 +473,40 @@ public class BusyIndicator extends UIComponent
         g.clear();
         
         // 1
-        drawSpoke(0.20, 300, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.20, currentRotation + 300, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 2
-        drawSpoke(0.25, 330, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.25, currentRotation + 330, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 3
-        drawSpoke(0.30, 0, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.30, currentRotation, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 4
-        drawSpoke(0.35, 30, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.35, currentRotation + 30, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 5
-        drawSpoke(0.40, 60, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.40, currentRotation + 60, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 6
-        drawSpoke(0.45, 90, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.45, currentRotation + 90, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 7
-        drawSpoke(0.50, 120, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.50, currentRotation + 120, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
 
         // 8
-        drawSpoke(0.60, 150, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.60, currentRotation + 150, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
 
         // 9
-        drawSpoke(0.70, 180, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.70, currentRotation + 180, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 10
-        drawSpoke(0.80, 210, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.80, currentRotation + 210, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 11
-        drawSpoke(0.90, 240, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(0.90, currentRotation + 240, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 12
-        drawSpoke(1.0, 270, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        drawSpoke(1.0, currentRotation + 270, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
     }
     
     
@@ -624,8 +537,8 @@ public class BusyIndicator extends UIComponent
         var insidePoint:Point = new Point();
         
         g.lineStyle(spokeWidth, spokeColor, spokeAlpha, false, LineScaleMode.NORMAL, CapsStyle.ROUND);
-        outsidePoint = calculatePointOnCircle(spinnerRadius - 1, spinnerRadius - eHeight - spinnerPadding, degrees);
-        insidePoint = calculatePointOnCircle(spinnerRadius - 1, spinnerRadius - spokeHeight + eHeight - spinnerPadding, degrees);
+        outsidePoint = calculatePointOnCircle(spinnerRadius, spinnerRadius - eHeight - spinnerPadding, degrees);
+        insidePoint = calculatePointOnCircle(spinnerRadius, spinnerRadius - spokeHeight + eHeight - spinnerPadding, degrees);
         g.moveTo(outsidePoint.x, outsidePoint.y);
         g.lineTo(insidePoint.x,  insidePoint.y);
             
@@ -837,16 +750,11 @@ public class BusyIndicator extends UIComponent
      */
     private function timerHandler(event:TimerEvent):void
     {
-        var spinnerRadius:int = (spinnerDiameter / 2);
-        var transformCenter:Vector3D = new Vector3D(spinnerRadius - 1, spinnerRadius - 1);
- 
         currentRotation += 30;
-        var rotation3D:Vector3D = new Vector3D(0, 0, currentRotation);
         if (currentRotation >= 360)
             currentRotation = 0;
         
-        transformAround(transformCenter, null, null, null, null, rotation3D, null, false);
-        
+        drawSpinner();
         event.updateAfterEvent();
     }
   
