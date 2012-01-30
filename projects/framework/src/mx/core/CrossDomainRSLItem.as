@@ -32,6 +32,7 @@ import flash.utils.Timer;
 
 import mx.events.RSLEvent;
 import mx.utils.SHA256;
+import mx.utils.LoaderUtil;
 
 [ExcludeClass]
 
@@ -71,30 +72,32 @@ public class CrossDomainRSLItem extends RSLItem
     //--------------------------------------------------------------------------
 
     /**
-    * Create a cross-domain RSL item to load.
+    *  Create a cross-domain RSL item to load.
     * 
-    * @param rslUrls Array of Strings, may not be null. Each String is the url of an RSL to load.
-    * @param policyFileUrls Array of Strings, may not be null. Each String contains the url of an
+    *  @param rslUrls Array of Strings, may not be null. Each String is the url of an RSL to load.
+    *  @param policyFileUrls Array of Strings, may not be null. Each String contains the url of an
     *                       policy file which may be required to allow the RSL to be read from another
     *                       domain. An empty string means there is no policy file specified.
-    * @param digests Array of Strings, may not be null. A String contains the value of the digest
+    *  @param digests Array of Strings, may not be null. A String contains the value of the digest
     *                computed by the hash in the corresponding entry in the hashTypes Array. An empty
     *                string may be provided for unsigned RSLs to loaded them without verifying the digest.
     *                This is provided as a development cycle convenience and should not be used in a
     *                production application.
-    * @param hashTypes Array of Strings, may not be null. Each String identifies the type of hash
+    *  @param hashTypes Array of Strings, may not be null. Each String identifies the type of hash
     *                  used to compute the digest. Currently the only valid value is SHA256.TYPE_ID.
-    * @param hashTypes Array of boolean, may not be null. Each boolean value specifies if the RSL to be
+    *  @param isSigned Array of boolean, may not be null. Each boolean value specifies if the RSL to be
     *                  loaded is a signed or unsigned RSL. If the value is true the RSL is signed. 
     *                  If the value is false the RSL is unsigned.
+    *  @param rootURL provides the url used to locate relative RSL urls. 
     */  
     public function CrossDomainRSLItem(rslUrls:Array,
                              policyFileUrls:Array, 
                              digests:Array,
                              hashTypes:Array,
-                             isSigned:Array)
+                             isSigned:Array,
+                             rootURL:String = null)
     {
-        super(rslUrls[0]);
+        super(rslUrls[0], rootURL);
         
         this.rslUrls = rslUrls;
         this.policyFileUrls = policyFileUrls;
@@ -157,7 +160,7 @@ public class CrossDomainRSLItem extends RSLItem
         }
 */
 
-        urlRequest = new URLRequest(rslUrls[urlIndex]);
+        urlRequest = new URLRequest(LoaderUtil.createAbsoluteURL(rootURL, rslUrls[urlIndex]));
         var loader:URLLoader = new URLLoader();
         loader.dataFormat = URLLoaderDataFormat.BINARY;
 
