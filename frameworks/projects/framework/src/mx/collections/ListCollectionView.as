@@ -343,7 +343,7 @@ public class ListCollectionView extends Proxy
      *  @private
      *  Storage for the sort property.
      */
-    private var _sort:Sort;
+    private var _sort:ISort;
 
     [Bindable("sortChanged")]
     [Inspectable(category="General")]
@@ -358,7 +358,7 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get sort():Sort
+    public function get sort():ISort
     {
         return _sort;
     }
@@ -366,7 +366,7 @@ public class ListCollectionView extends Proxy
     /**
      *  @private
      */
-    public function set sort(s:Sort):void
+    public function set sort(s:ISort):void
     {
         _sort = s;
         dispatchEvent(new Event("sortChanged"));
