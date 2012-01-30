@@ -41,6 +41,10 @@ public class DirectoryEnumeration
      * 
      *  @param source An Array of File instances representing
      *  the files and subdirectories in a file system directory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DirectoryEnumeration(source:Array = null)
     {
@@ -84,6 +88,10 @@ public class DirectoryEnumeration
      *  and <code>showHidden</code> properties.
      *  The sorting is determined by the <code>enumerationMode</code>
      *  and <code>nameCompareFunction</code> properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get collection():ArrayCollection
     {
@@ -123,6 +131,10 @@ public class DirectoryEnumeration
      *  @default DirectoryEnumerationMode.DIRECTORIES_FIRST
      *
      *  @see mx.utils.DirectoryEnumerationMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get enumerationMode():String
     {
@@ -187,6 +199,10 @@ public class DirectoryEnumeration
      *  that is applied to the <code>source</code>.</p>
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get extensions():Array /* of String */
     {
@@ -244,6 +260,10 @@ public class DirectoryEnumeration
      *  this property to change the <code>collection</code>.</p>
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filterFunction():Function
     {
@@ -294,6 +314,10 @@ public class DirectoryEnumeration
      *  the separate groups of files and directories.</p>
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nameCompareFunction():Function
     {
@@ -326,6 +350,10 @@ public class DirectoryEnumeration
      *  to include hidden files and directories.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showHidden():Boolean
     {
@@ -355,6 +383,10 @@ public class DirectoryEnumeration
      *  You can obtain such an Array by calling the
      *  <code>listDirectory()</code> or <code>listDirectoryAsync()</code>
      *  of the File class.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():Array /* of File */
     {
@@ -387,6 +419,10 @@ public class DirectoryEnumeration
      *  <code>enumerationMode</code>, <code>extensions</code>,
      *  <code>filterFunction</code>, <code>nameCompareFunction</code>,
      *  and <code>showHidden</code> properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function refresh():void
     {
@@ -399,6 +435,10 @@ public class DirectoryEnumeration
      * 
      *  <p>At the end of its processing, this method calls your
      *  <code>filterFunction</code> if one is specified.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function fileFilterFunction(file:File):Boolean
     {
@@ -449,6 +489,10 @@ public class DirectoryEnumeration
      * 
      *  <p>At the end of its processing, this method calls your
      *  <code>nameCompareFunction</code> if one is specified.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function fileCompareFunction(file1:File, file2:File,
                                         fields:Array = null):int
@@ -478,6 +522,10 @@ public class DirectoryEnumeration
      *  Performs a case-insensitive, locale-dependent comparison
      *  of two file or directory names, using the String method
      *  <code>toLocaleLowerCase()</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function defaultNameCompareFunction(name1:String, name2:String):int
     {
