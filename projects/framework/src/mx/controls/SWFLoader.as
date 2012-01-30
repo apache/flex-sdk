@@ -40,8 +40,10 @@ import mx.core.FlexLoader;
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
+import mx.core.ILayoutDirectionElement;
 import mx.core.ISWFLoader;
 import mx.core.IUIComponent;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -1895,6 +1897,11 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 "controls", "notLoadable", [ source ]);
             throw new Error(message);
         }
+
+        // contentHolder should inherit the layoutDirection
+        // (sometimes its an asset which defaults to LTR). 
+        if (contentHolder && contentHolder is ILayoutDirectionElement)
+            ILayoutDirectionElement(contentHolder).layoutDirection = null;
 
         invalidateDisplayList();
     }
