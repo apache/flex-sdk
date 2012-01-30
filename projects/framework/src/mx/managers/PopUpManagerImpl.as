@@ -339,12 +339,13 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         o.systemManager = smp;
         popupInfo.push(o);
 
+        var awm:IActiveWindowManager = 
+              IActiveWindowManager(smp.getImplementation("mx.managers::IActiveWindowManager"));
+
         if (window is IFocusManagerContainer)
         {
             if (IFocusManagerContainer(window).focusManager)
             {
-                var awm:IActiveWindowManager = 
-                      IActiveWindowManager(smp.getImplementation("mx.managers::IActiveWindowManager"));
                 awm.addFocusManager(IFocusManagerContainer(window));
             }
             else
@@ -412,6 +413,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                 event.systemManager = smp;
                 dispatchEvent(event);
             }
+            else
+                awm.activate(IFocusManagerContainer(window));
         }
 
         // trace("END POPUP: addPopUp" + parent);
