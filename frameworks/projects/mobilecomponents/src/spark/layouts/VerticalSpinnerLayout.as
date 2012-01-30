@@ -433,23 +433,33 @@ public class VerticalSpinnerLayout extends VerticalLayout
 	}
     
 	/**
-	 *  Takes an index between 0 and numElements and returns the index taking wrapping into account
-	 */
-	public function getUnwrappedElementIndex(index:int):int
-	{
-		// find the non-wrapped (i.e. non-modulo) index of the element on screen
-		if (wrapElements)
-		{
-			var wrapCount:int = Math.floor(verticalScrollPosition / totalHeight);
-			index += wrapCount * target.numElements;
-			
-			var firstVisibleItem:int = Math.floor((verticalScrollPosition ) / rowHeight);
-			if (index < firstVisibleItem)
-				index += target.numElements;
-		}
-		
-		return index;
-	}
+	 *  Takes an index between 0 and numElements and returns the closest index 
+     *  to the current position, taking wrapping into account
+	 */   
+    public function getClosestUnwrappedElementIndex(index:int):int
+    {
+        if (wrapElements)
+        {
+            // Figure out the wrapCount of the center index
+            var midVSP:Number = target.getLayoutBoundsHeight() / 2 + verticalScrollPosition;
+            var wrapCount:int = Math.floor(midVSP / totalHeight);
+            
+            // Get unwrapped middle index
+            var centerIndex:int = getElementNearestScrollPosition(new Point(0, midVSP), "center");
+            
+            // Get the unwrapped index before and after the center index
+            var prevIndex:int = index + (wrapCount - 1) * target.numElements;
+            var nextIndex:int = prevIndex + target.numElements;
+                        
+            // Figure out which index is closer to the centerIndex and return that value
+            if (Math.abs(centerIndex - prevIndex) < Math.abs(nextIndex - centerIndex))
+                index = prevIndex;
+            else
+                index = nextIndex;
+        }
+        
+        return index;
+    }
     
 	// Helper function to calculate the non-wrapped, non-negative scroll position
 	private function normalizeScrollPosition(vsp:int):int
