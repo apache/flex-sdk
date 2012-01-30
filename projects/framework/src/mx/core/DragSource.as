@@ -29,6 +29,11 @@ package mx.core
  *  if you have raw sound data you can add an MP3 format handler. The MP3 
  *  conversion will only be done if the MP3 data is requested.</p>
  *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DragSource
 {
@@ -42,6 +47,11 @@ public class DragSource
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DragSource()
 	{
@@ -86,6 +96,11 @@ public class DragSource
 	 *  or <code>addHandler()</code> methods.
 	 *  The default value depends on data added to the DragSource object.
 	 *
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get formats():Array /* of String */
 	{
@@ -107,6 +122,11 @@ public class DragSource
 	 *
 	 *  @param format String that specifies a label that describes
 	 *  the format for this data.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function addData(data:Object, format:String):void
 	{
@@ -127,6 +147,11 @@ public class DragSource
 	 *  This function must return the data in the specified format.
 	 *
 	 *  @param format String that specifies the format for this data.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function addHandler(handler:Function,
 							   format:String):void
@@ -158,6 +183,11 @@ public class DragSource
 	 *  If you drag multiple items, the returned value is an Array. 
 	 *  For a List-based control, the returned value is always an Array, 
 	 *  even if it contains a single item.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function dataForFormat(format:String):Object
 	{
@@ -180,6 +210,11 @@ public class DragSource
 	 *
 	 *  @return <code>true</code> if the data source contains
 	 *  the requested format.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function hasFormat(format:String):Boolean
 	{
