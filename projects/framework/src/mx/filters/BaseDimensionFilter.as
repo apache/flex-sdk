@@ -4,7 +4,8 @@ import flash.events.IEventDispatcher;
 import flash.filters.BitmapFilterQuality;
 
 /**
- *
+ *  Base class for some Spark filters.
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -12,6 +13,15 @@ import flash.filters.BitmapFilterQuality;
  */
 public class BaseDimensionFilter extends BaseFilter
 {
+
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function BaseDimensionFilter()
     {
         super();
@@ -41,6 +51,9 @@ public class BaseDimensionFilter extends BaseFilter
         return _blurX;
     }
     
+    /**
+     *  @private
+     */
     public function set blurX(value:Number):void
     {
         if (value != _blurX)
@@ -74,6 +87,9 @@ public class BaseDimensionFilter extends BaseFilter
         return _blurY;
     }
     
+    /**
+     *  @private
+     */
     public function set blurY(value:Number):void
     {
         if (value != _blurY)
@@ -105,6 +121,9 @@ public class BaseDimensionFilter extends BaseFilter
         return _knockout;
     }
     
+    /**
+     *  @private
+     */
     public function set knockout(value:Boolean):void
     {
         if (value != _knockout)
@@ -146,6 +165,9 @@ public class BaseDimensionFilter extends BaseFilter
         return _quality;
     }
     
+    /**
+     *  @private
+     */
     public function set quality(value:int):void
     {
         if (value != _quality)
@@ -179,6 +201,9 @@ public class BaseDimensionFilter extends BaseFilter
         return _strength;
     }
     
+    /**
+     *  @private
+     */
     public function set strength(value:Number):void
     {
         if (value != _strength)
