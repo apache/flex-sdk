@@ -18,6 +18,11 @@ import mx.binding.utils.ChangeWatcher;
  *  The BindingUtils class defines utility methods
  *  for performing data binding from ActionScript.
  *  You can use the methods defined in this class to configure data bindings.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class BindingUtils
 {
@@ -91,6 +96,11 @@ public class BindingUtils
      *
      *  @return A ChangeWatcher instance, if at least one property name has
      *  been specified to the <code>chain</code> argument; null otherwise. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function bindProperty(
                                 site:Object, prop:String,
@@ -141,6 +151,11 @@ public class BindingUtils
      *
      *  @return A ChangeWatcher instance, if at least one property name
      *  has been  specified to the <code>chain</code> argument; null otherwise. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function bindSetter(setter:Function, host:Object,
                                       chain:Object,
