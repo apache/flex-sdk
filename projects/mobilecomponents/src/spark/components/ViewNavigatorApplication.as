@@ -13,10 +13,8 @@ package spark.components
 {
 import flash.events.Event;
 import flash.events.InvokeEvent;
-import flash.events.KeyboardEvent;
 import flash.events.StageOrientationEvent;
 import flash.net.registerClassAlias;
-import flash.ui.Keyboard;
 
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
@@ -174,7 +172,7 @@ public class MobileApplication extends MobileApplicationBase
      */  
     override public function get canCancelBackKeyBehavior():Boolean
     {
-        return navigator && navigator.canCancelBackKeyBehavior;
+        return (navigator && navigator.canCancelBackKeyBehavior) || viewMenuOpen;
     }
     
     //----------------------------------
@@ -545,7 +543,10 @@ public class MobileApplication extends MobileApplicationBase
     {
         super.backKeyHandler();
         
-        navigator.backKeyHandler();
+        if (viewMenuOpen)
+            viewMenuOpen = false;
+        else
+            navigator.backKeyHandler();
     }
     
     /**
