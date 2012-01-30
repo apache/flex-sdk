@@ -38,8 +38,8 @@ public class SWFBridgeRequest extends Event
     //--------------------------------------------------------------------------
 
 	/**
-         *  Requests that a child application's pop up be activated.  
-         *  This request is sent from a child SystemManager to the top-level SystemManager
+     *  Requests that a child application's pop up be activated.  
+     *  This request is sent from a top-level SystemManager to a child SystemManager
 	 *  through the bridge.
 	 *  The <code>data</code> property contains an identifier for the pop up. It is not
 	 *  always an actual reference to the pop up. No data is
