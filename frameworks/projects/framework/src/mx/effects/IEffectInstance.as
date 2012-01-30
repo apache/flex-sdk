@@ -302,8 +302,6 @@ public interface IEffectInstance
      *  would be a MouseEvent with type equal to MouseEvent.MOUSEDOWN. 
      */
     function initEffect(event:Event):void;
-    
-    function seek(seekTime:Number):void;
 
     /**
      *  Plays the effect instance on the target after the
