@@ -30,7 +30,7 @@ import spark.transitions.SlideViewTransition;
 import spark.transitions.ViewTransitionBase;
 
 /**
- *  The ActionScript based skin for view navigators in mobile
+ *  The ActionScript-based skin for view navigators in mobile
  *  applications.  This skin lays out the action bar and content
  *  group in a vertical fashion, where the action bar is on top.
  *  This skin also supports navigator overlay modes.
@@ -81,6 +81,9 @@ public class ViewNavigatorSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     // TODO (chiedozi): ASDOC
+    /** 
+     *  @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
     public var hostComponent:ViewNavigator;
     
     //--------------------------------------------------------------------------
@@ -96,7 +99,7 @@ public class ViewNavigatorSkin extends MobileSkin
     {
         contentGroup = new Group();
         contentGroup.id = "contentGroup";
-    	
+        
         actionBar = new ActionBar();
         actionBar.id = "actionBar";
         
@@ -120,7 +123,7 @@ public class ViewNavigatorSkin extends MobileSkin
             invalidateDisplayList();
         }
     }
-	
+    
     /**
      *  @private 
      */
@@ -217,13 +220,13 @@ public class ViewNavigatorSkin extends MobileSkin
             
             // The content group is placed below the actionBar and spans the
             // remaining space of the navigator.
-    		if (contentGroup.includeInLayout)
-    		{
-    			var contentGroupHeight:Number = Math.max(unscaledHeight - actionBarHeight, 0);
-    			
+            if (contentGroup.includeInLayout)
+            {
+                var contentGroupHeight:Number = Math.max(unscaledHeight - actionBarHeight, 0);
+                
                 contentGroup.setLayoutBoundsSize(unscaledWidth, contentGroupHeight);
                 contentGroup.setLayoutBoundsPosition(0, actionBarHeight);
-    		}
+            }
         }
     }
 }
