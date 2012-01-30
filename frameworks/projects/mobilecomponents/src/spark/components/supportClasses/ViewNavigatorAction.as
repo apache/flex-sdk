@@ -14,9 +14,11 @@ package spark.components.supportClasses
     /**
      *  The ViewNavigatorAction class defines the constant values
      *  for the <code>action</code> property of ViewNavigatorEvent class.
+     *
+     *  @see spark.events.ViewNavigatorEvent
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
