@@ -52,8 +52,8 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
     public function TabbedViewNavigatorApplicationSkin()
     {
         super();
-		
-		viewMenu = new ClassFactory(ViewMenu);
+        
+        viewMenu = new ClassFactory(ViewMenu);
     }
     
     //--------------------------------------------------------------------------
@@ -71,17 +71,17 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     public var navigator:TabbedViewNavigator;
-	
-	
-	/**
-	 *  Creates an action menu from this factory when the menu button is pressed 
+    
+    
+    /**
+     *  Creates an action menu from this factory when the menu button is pressed 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-	 */ 
-	public var viewMenu:IFactory;
+     */ 
+    public var viewMenu:IFactory;
     
     //--------------------------------------------------------------------------
     //
@@ -98,19 +98,14 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
     override protected function createChildren():void
     {
         navigator = new TabbedViewNavigator();
         addChild(navigator);
     }
-	
+    
     /**
      *  @private 
      */
@@ -144,12 +139,7 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
     }    
     
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
