@@ -40,6 +40,30 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [Style(name="titleAlign", type="String", enumeration="left,right,center", inherit="no")]
 
 /**
+ *  Color of text shadows.
+ * 
+ *  @default #FFFFFF
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textShadowColor", type="uint", format="Color", inherit="yes", theme="mobile")]
+
+/**
+ *  Alpha of text shadows.
+ * 
+ *  @default 0.55
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="textShadowAlpha", type="Number", format="Color", inherit="yes", theme="mobile", minValue="0.0", maxValue="1.0")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:accentColor
  * 
  *  @default #0099FF
@@ -61,7 +85,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark")]
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.SkinnableContainer#style:contentBackgroundAlpha
