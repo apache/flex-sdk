@@ -11980,11 +11980,20 @@ public class UIComponent extends FlexSprite
         }
         if (_layoutFeatures != null)
         {
+            var prevX:Number = _layoutFeatures.layoutX;
+            var prevY:Number = _layoutFeatures.layoutY;
+            var prevZ:Number = _layoutFeatures.layoutZ;
             _layoutFeatures.transformAround(transformCenter, scale, rotation,
                 translation, postLayoutScale, postLayoutRotation,
                 postLayoutTranslation);
             invalidateTransform();      
             invalidateParentSizeAndDisplayList();
+            if (prevX != _layoutFeatures.layoutX)
+                dispatchEvent(new Event("xChanged"));
+            if (prevY != _layoutFeatures.layoutY)
+                dispatchEvent(new Event("yChanged"));
+            if (prevZ != _layoutFeatures.layoutZ)
+                dispatchEvent(new Event("zChanged"));
         }
         else
         {
