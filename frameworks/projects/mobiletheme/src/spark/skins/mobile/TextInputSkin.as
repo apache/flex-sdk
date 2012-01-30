@@ -11,15 +11,19 @@
 
 package spark.skins.mobile 
 {
-
 import flash.events.Event;
 
 import mx.core.DeviceDensity;
+import mx.core.mx_internal;
 
 import spark.components.TextInput;
+import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.TextSkinBase;
 import spark.skins.mobile160.assets.TextInput_border;
 import spark.skins.mobile240.assets.TextInput_border;
+import spark.skins.mobile320.assets.TextInput_border;
+
+use namespace mx_internal;
 
 /**
  *  Actionscript based skin for mobile text input. 
@@ -45,22 +49,32 @@ public class TextInputSkin extends TextSkinBase
         
         switch (authorDensity)
         {
+            case DeviceDensity.PPI_320:
+            {
+                borderClass = spark.skins.mobile320.assets.TextInput_border;
+                layoutCornerEllipseSize = 24;
+                layoutMeasuredWidth = 600;
+                layoutMeasuredHeight = 66;
+                layoutBorderSize = 2;
+                
+                break;
+            }
             case DeviceDensity.PPI_240:
             {
                 borderClass = spark.skins.mobile240.assets.TextInput_border;
-                layoutCornerEllipseSize = 16;
+                layoutCornerEllipseSize = 12;
                 layoutMeasuredWidth = 440;
+                layoutMeasuredHeight = 50;
                 layoutBorderSize = 1;
                 
                 break;
             }
             default:
             {
-                // TODO (jasonsj) 160ppi spec
-                // default PPI160
                 borderClass = spark.skins.mobile160.assets.TextInput_border;
-                layoutCornerEllipseSize = 16;
-                layoutMeasuredWidth = 440;
+                layoutCornerEllipseSize = 12;
+                layoutMeasuredWidth = 300;
+                layoutMeasuredHeight = 33;
                 layoutBorderSize = 1;
                 
                 break;
@@ -96,6 +110,10 @@ public class TextInputSkin extends TextSkinBase
     {
         super.measure();
         
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var paddingBottom:Number = getStyle("paddingBottom");
         var textHeight:Number = getStyle("fontSize") as Number;
         
         if (textDisplay)
@@ -107,16 +125,9 @@ public class TextInputSkin extends TextSkinBase
             textDisplay.text = "Wj";
             textDisplay.commitStyles();
             
-            // FIXME (jasonsj) use measuredHeight
-            // textHeight = textDisplay.measuredHeight;
-            textHeight = textDisplay.textHeight;
+            textHeight = textDisplay.measuredTextSize.y;
             textDisplay.text = oldText;
         }
-        
-        var paddingLeft:Number = getStyle("paddingLeft");
-        var paddingRight:Number = getStyle("paddingRight");
-        var paddingTop:Number = getStyle("paddingTop");
-        var paddingBottom:Number = getStyle("paddingBottom");
         
         // Width is based on maxChars (if set), or hard-coded to 440
         if (hostComponent && hostComponent.maxChars)
@@ -126,14 +137,14 @@ public class TextInputSkin extends TextSkinBase
             // for most input and most font.
             var characterWidth:int = Math.max(1, (getStyle("fontSize") - 2));
             measuredWidth =  (characterWidth * hostComponent.maxChars) + 
-                paddingLeft + paddingRight + TEXT_WIDTH_PADDING;
+                paddingLeft + paddingRight + StyleableTextField.TEXT_WIDTH_PADDING;
         }
         else
         {
             measuredWidth = layoutMeasuredWidth;
         }
         
-        measuredHeight = textHeight + paddingTop + paddingBottom + TEXT_HEIGHT_PADDING;
+        measuredHeight = Math.max(paddingTop + textHeight + paddingBottom, layoutMeasuredHeight);
     }
     
     /**
