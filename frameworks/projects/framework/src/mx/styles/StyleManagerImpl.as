@@ -12,13 +12,17 @@
 package mx.styles
 {
 
+import flash.display.DisplayObject;
+import flash.display.LoaderInfo;
 import flash.events.IEventDispatcher;
 import flash.events.TimerEvent;
 import flash.system.ApplicationDomain;
 import flash.system.SecurityDomain;
 import flash.utils.Timer
 import flash.utils.describeType;
+
 import mx.core.FlexVersion;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.events.ModuleEvent;
 import mx.events.StyleEvent;
@@ -29,6 +33,8 @@ import mx.modules.ModuleManager
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleModule;
+import mx.styles.IStyleManager2;
+import mx.events.Request;
 
 use namespace mx_internal;
 
@@ -222,7 +228,6 @@ public class StyleManagerImpl implements IStyleManager2
     //  Class variables
     //
     //--------------------------------------------------------------------------
-
     /**
      *  @private
      */
@@ -240,8 +245,9 @@ public class StyleManagerImpl implements IStyleManager2
     public static function getInstance():IStyleManager2
     {
         if (!instance)
-            instance = new StyleManagerImpl();
-
+            instance = IStyleManager2(IFlexModuleFactory(SystemManagerGlobals.topLevelSystemManagers[0]).
+                       getImplementation("mx.styles::IStyleManager2"));
+        
         return instance;
     }
 
@@ -253,10 +259,26 @@ public class StyleManagerImpl implements IStyleManager2
 
     /**
      *  @private
+     * 
+     *  @param moduleFactory The module factory that is creating this instance. May not be null.
      */
-    public function StyleManagerImpl()
+    public function StyleManagerImpl(moduleFactory:IFlexModuleFactory)
     {
         super();
+
+        this.moduleFactory = moduleFactory;
+        this.moduleFactory.registerImplementation("mx.styles::IStyleManager2", this);
+        
+        // get our parent styleManager
+        if (moduleFactory is DisplayObject)
+        {
+            var request:Request = new Request(Request.GET_FLEX_MODULE_FACTORY_REQUEST);
+            DisplayObject(moduleFactory).dispatchEvent(request); 
+            var moduleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
+            if (moduleFactory)
+                _parent = IStyleManager2(moduleFactory.
+                                         getImplementation("mx.styles::IStyleManager2"));
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -309,12 +331,47 @@ public class StyleManagerImpl implements IStyleManager2
 	private var resourceManager:IResourceManager =
 									ResourceManager.getInstance();
 
+    /**
+     *  @private
+     *  This style manager's flex module factory.
+     */
+    private var moduleFactory:IFlexModuleFactory;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  parent
+    //----------------------------------
+    
+    /**
+     *  @private
+     */    
+    private var _parent:IStyleManager2;
+    
+    /**
+     *  @private
+     *   
+     *  The style manager that is the parent of this StyleManager.
+     *  
+     *  @return the parent StyleManager or null if this is the top-level StyleManager.
+     */
+    public function get parent():IStyleManager2
+    {
+        return _parent;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set parent(parent:IStyleManager2):void
+    {
+        _parent = parent;
+    }
+    
     //----------------------------------
     //  stylesRoot
     //----------------------------------
