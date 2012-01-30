@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<componentPackage>
+<component id="AreaSeriesAutomationImpl" class="mx.automation.delegates.charts.AreaSeriesAutomationImpl"/>
+<component id="AxisRendererAutomationImpl" class="mx.automation.delegates.charts.AxisRendererAutomationImpl"/>
+<component id="BarSeriesAutomationImpl" class="mx.automation.delegates.charts.BarSeriesAutomationImpl"/>
+<component id="BubbleSeriesAutomationImpl" class="mx.automation.delegates.charts.BubbleSeriesAutomationImpl"/>
+<component id="CartesianChartAutomationImpl" class="mx.automation.delegates.charts.CartesianChartAutomationImpl"/>
+<component id="ChartBaseAutomationImpl" class="mx.automation.delegates.charts.ChartBaseAutomationImpl"/>
+<component id="ColumnSeriesAutomationImpl" class="mx.automation.delegates.charts.ColumnSeriesAutomationImpl"/>
+<component id="HLOCSeriesBaseAutomationImpl" class="mx.automation.delegates.charts.HLOCSeriesBaseAutomationImpl"/>
+<component id="LegendAutomationImpl" class="mx.automation.delegates.charts.LegendAutomationImpl"/>
+<component id="LegendItemAutomationImpl" class="mx.automation.delegates.charts.LegendItemAutomationImpl"/>
+<component id="LineSeriesAutomationImpl" class="mx.automation.delegates.charts.LineSeriesAutomationImpl"/>
+<component id="PieSeriesAutomationImpl" class="mx.automation.delegates.charts.PieSeriesAutomationImpl"/>
+<component id="PlotSeriesAutomationImpl" class="mx.automation.delegates.charts.PlotSeriesAutomationImpl"/>
+<component id="SeriesAutomationImpl" class="mx.automation.delegates.charts.SeriesAutomationImpl"/>
+
+<component id="AdvancedDataGridAutomationImpl" class="mx.automation.delegates.advancedDataGrid.AdvancedDataGridAutomationImpl"/>
+<component id="AdvancedDataGridBaseExAutomationImpl" class="mx.automation.delegates.advancedDataGrid.AdvancedDataGridBaseExAutomationImpl"/>
+<component id="AdvancedDataGridGroupItemRendererAutomationImpl" class="mx.automation.delegates.advancedDataGrid.AdvancedDataGridGroupItemRendererAutomationImpl"/>
+<component id="AdvancedDataGridItemRendererAutomationImpl" class="mx.automation.delegates.advancedDataGrid.AdvancedDataGridItemRendererAutomationImpl"/>
+<component id="AdvancedListBaseAutomationImpl" class="mx.automation.delegates.advancedDataGrid.AdvancedListBaseAutomationImpl"/>
+<component id="AdvancedListBaseContentHolderAutomationImpl" class="mx.automation.delegates.advancedDataGrid.AdvancedListBaseContentHolderAutomationImpl"/>
+<component id="OLAPDataGridAutomationImpl" class="mx.automation.delegates.advancedDataGrid.OLAPDataGridAutomationImpl"/>
+<component id="OLAPDataGridGroupRendererAutomationImpl" class="mx.automation.delegates.advancedDataGrid.OLAPDataGridGroupRendererAutomationImpl"/>
+
+</componentPackage>
