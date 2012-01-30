@@ -9771,18 +9771,7 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
-     *  Executes the data bindings into this UIComponent object.
-     *
-     *  Workaround for MXML container/bindings problem (177074):
-     *  override Container.executeBindings() to prefer descriptor.document over parentDocument in the
-     *  call to BindingManager.executeBindings().
-     *
-     *  This should always provide the correct behavior for instances created by descriptor, and will
-     *  provide the original behavior for procedurally-created instances. (The bug may or may not appear
-     *  in the latter case.)
-     *
-     *  A more complete fix, guaranteeing correct behavior in both non-DI and reparented-component
-     *  scenarios, is anticipated for updater 1.
+     *  Executes all the bindings for which the UIComponent object is the destination.
      *
      *  @param recurse Recursively execute bindings for children of this component.
      *  
