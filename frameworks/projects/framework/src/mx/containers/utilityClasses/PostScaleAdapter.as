@@ -34,6 +34,11 @@ import mx.managers.ISystemManager;
  *  rely on width, height, min, max, explicit, measured, etc. properties to be
  *  post-scale. This is useful since in Flex4 and going forward the properties are
  *  pre-scale.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PostScaleAdapter implements IUIComponent,
                                          IConstraintClient,
@@ -43,6 +48,11 @@ public class PostScaleAdapter implements IUIComponent,
     /**
      *  Call getCompatibleIUIComponent when you need to work with an IUIComponent that 
      *  reports width, height, min, max, explicit, measured, etc. in post-scale coordinates.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     static public function getCompatibleIUIComponent(obj:Object):IUIComponent
     {
@@ -83,6 +93,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get baselinePosition():Number
     { return obj.baselinePosition; }
@@ -94,6 +109,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get document():Object
     {
@@ -114,6 +134,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get enabled():Boolean
     {
@@ -134,6 +159,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitHeight():Number
     {
@@ -154,6 +184,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMaxHeight():Number
     {
@@ -166,6 +201,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMaxWidth():Number
     {
@@ -178,6 +218,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMinHeight():Number
     {
@@ -190,6 +235,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitMinWidth():Number
     {
@@ -202,6 +252,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitWidth():Number
     {
@@ -222,6 +277,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get focusPane():Sprite
     {
@@ -242,6 +302,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get includeInLayout():Boolean
     {
@@ -262,6 +327,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isPopUp():Boolean
     {
@@ -282,6 +352,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxHeight():Number
     {
@@ -294,6 +369,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxWidth():Number
     {
@@ -306,6 +386,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredMinHeight():Number
     {
@@ -326,6 +411,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get measuredMinWidth():Number
     {
@@ -346,6 +436,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minHeight():Number
     {
@@ -358,6 +453,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minWidth():Number
     {
@@ -370,6 +470,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get owner():DisplayObjectContainer
     {
@@ -390,6 +495,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentHeight():Number
     {
@@ -410,6 +520,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentWidth():Number
     {
@@ -430,6 +545,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get systemManager():ISystemManager
     {
@@ -450,6 +570,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get tweeningProperties():Array
     {
@@ -472,6 +597,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialize():void
     {
@@ -480,6 +610,11 @@ public class PostScaleAdapter implements IUIComponent,
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function parentChanged(p:DisplayObjectContainer):void
     {
@@ -488,6 +623,11 @@ public class PostScaleAdapter implements IUIComponent,
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getExplicitOrMeasuredWidth():Number
     {
@@ -496,6 +636,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getExplicitOrMeasuredHeight():Number
     {
@@ -504,6 +649,11 @@ public class PostScaleAdapter implements IUIComponent,
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setVisible(value:Boolean, noEvent:Boolean = false):void
     {
@@ -512,6 +662,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function owns(displayObject:DisplayObject):Boolean
     {
@@ -541,6 +696,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get measuredHeight():Number
 	{
@@ -553,6 +713,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get measuredWidth():Number
 	{
@@ -568,6 +733,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function move(x:Number, y:Number):void
 	{
@@ -576,6 +746,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function setActualSize(newWidth:Number, newHeight:Number):void
 	{
@@ -593,18 +768,33 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get root():DisplayObject { return obj.root; }
 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get stage():Stage { return obj.stage; }
 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get name():String { return obj.name; }
     public function set name(value:String):void { obj.name = value; }
@@ -612,12 +802,22 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get parent():DisplayObjectContainer { return obj.parent; }
 
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get mask():DisplayObject { return obj.mask; }
     public function set mask(value:DisplayObject):void { obj.mask = value; }
@@ -625,6 +825,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get visible():Boolean { return obj.visible; }
     public function set visible(value:Boolean):void { obj.visible = value; }
@@ -632,6 +837,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get x():Number { return obj.x; }
     public function set x(value:Number):void { obj.x = value; }
@@ -639,6 +849,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get y():Number { return obj.y; }
     public function set y(value:Number):void { obj.y = value; }
@@ -646,6 +861,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scaleX():Number { return obj.scaleX; }
     public function set scaleX(value:Number):void { obj.scaleX = value; }
@@ -653,6 +873,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scaleY():Number { return obj.scaleY; }
     public function set scaleY(value:Number):void { obj.scaleY = value; }
@@ -660,6 +885,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get mouseX():Number // note: no setter
     {
@@ -669,6 +899,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get mouseY():Number // note: no setter
     {
@@ -677,6 +912,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get rotation():Number
     {
@@ -690,6 +930,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get alpha():Number
     {
@@ -703,6 +948,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get width():Number
     {
@@ -715,6 +965,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get height():Number
     {
@@ -727,6 +982,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get cacheAsBitmap():Boolean
     {
@@ -739,6 +999,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get opaqueBackground():Object
     {
@@ -752,6 +1017,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scrollRect():Rectangle
     {
@@ -765,6 +1035,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filters():Array
     {
@@ -777,6 +1052,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get blendMode():String
     {
@@ -789,6 +1069,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get transform():Transform
     {
@@ -801,6 +1086,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scale9Grid():Rectangle
     {
@@ -813,6 +1103,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function globalToLocal(point:Point):Point
     {
@@ -821,6 +1116,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function localToGlobal(point:Point):Point
     {
@@ -829,6 +1129,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getBounds(targetCoordinateSpace:DisplayObject):Rectangle
     {
@@ -837,6 +1142,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getRect(targetCoordinateSpace:DisplayObject):Rectangle
     {
@@ -845,6 +1155,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get loaderInfo() : LoaderInfo
     {
@@ -853,6 +1168,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hitTestObject(obj:DisplayObject):Boolean
     {
@@ -861,6 +1181,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hitTestPoint(x:Number, y:Number, shapeFlag:Boolean=false):Boolean
     {
@@ -869,6 +1194,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get accessibilityProperties() : AccessibilityProperties
     {
@@ -933,6 +1263,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getConstraintValue(constraintName:String):*
     {
@@ -947,6 +1282,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setConstraintValue(constraintName:String, value:*):void
     {
@@ -973,6 +1313,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function invalidateProperties():void
 	{
@@ -982,6 +1327,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function invalidateSize():void
 	{
@@ -991,6 +1341,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function invalidateDisplayList():void
 	{
@@ -1000,6 +1355,11 @@ public class PostScaleAdapter implements IUIComponent,
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function validateNow():void
     {
