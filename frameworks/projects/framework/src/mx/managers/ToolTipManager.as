@@ -466,7 +466,8 @@ public class ToolTipManager extends EventDispatcher
      *  positions the error tip (via the x and y arguments) to the 
      *  right of the error target; the arrow is on the left edge of the error tip.
      *
-     *  @param context This property is not currently used.
+     *  @param context Determines which StyleManager is used. Typically, you pass the object on 
+     *  which the ToolTip appears, so that the ToolTip's StyleManager is the same one that is used by that object. 
      *
      *  @return The newly created ToolTip.
      *
