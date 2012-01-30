@@ -131,7 +131,10 @@ package mx.core
          */
         protected function parentChanged(value:DesignLayer):void
         {
-            if (_parent)
+            // We remove our layer from the old parent unless the new
+            // parent is null (in this case we know we are invoking this 
+            // directly from removeLayer).
+            if (_parent && value)
                 _parent.removeLayer(this);
             
             _parent = value;
@@ -224,7 +227,8 @@ package mx.core
         protected function effectiveVisibilityChanged(value:Boolean):void
         {
             dispatchEvent(new PropertyChangeEvent("layerPropertyChange", false, 
-                false, PropertyChangeEventKind.UPDATE, "effectiveVisibility", !value, value));
+                false, PropertyChangeEventKind.UPDATE, "effectiveVisibility", 
+                !effectiveVisibility, effectiveVisibility));
             
             for (var i:int = 0; i < layerChildren.length; i++)
             {
@@ -316,7 +320,8 @@ package mx.core
         protected function effectiveAlphaChanged(oldAlpha:Number):void
         {
             dispatchEvent(new PropertyChangeEvent("layerPropertyChange", false, 
-                false, PropertyChangeEventKind.UPDATE, "effectiveAlpha", oldAlpha, effectiveAlpha));
+                false, PropertyChangeEventKind.UPDATE, "effectiveAlpha", 
+                oldAlpha, effectiveAlpha));
             
             for (var i:int = 0; i < layerChildren.length; i++)
             {
@@ -408,6 +413,7 @@ package mx.core
             {
                 if (layerChildren[i] == value)
                 {
+                    value.parentChanged(null);
                     layerChildren.splice(i,1);
                     return;
                 }
