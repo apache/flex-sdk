@@ -94,13 +94,20 @@ public class FlexBitmap extends Bitmap
 			this.addEventListener(Event.ADDED, addedHandler);
 	}
 
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    private var mirror:Boolean = false;
+    private var origMatrix:Matrix;
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden Properties
 	//
 	//--------------------------------------------------------------------------
-	
-	private var mirror:Boolean = false;
 	
 	//----------------------------------
 	//  x
@@ -110,13 +117,25 @@ public class FlexBitmap extends Bitmap
 	
 	/**
 	 *  @private
+     *  In the mirroring case, we restore the old transform matrix,
+     *  call the superclass' setter to recalculate the transform matrix,
+     *  and call validateTransformMatrix to de-mirror the matrix.
+     *  This ensures that the right matrix values are used when 
+     *  de-mirroring.
 	 */
 	override public function set x(value:Number):void
 	{
-		_x = value;
-		super.x = value;
-		if (mirror)
-			validateTransformMatrix();
+        if (mirror)
+        {
+            transform.matrix = origMatrix;
+            super.x = value;
+            _x = value;
+            validateTransformMatrix();
+        }
+        else
+        {
+            super.x = value;
+        }
 	}
 	
 	/**
@@ -136,13 +155,21 @@ public class FlexBitmap extends Bitmap
 	/**
 	 *  @private
 	 */
-	override public function set width(value:Number):void  
+	override public function set width(value:Number):void
 	{
-		super.width = value;
-        // Set _scaleX because scaleX may change when width is set.
-        _scaleX = scaleX;
-		if (mirror)
-			validateTransformMatrix();
+        if (mirror)
+        {
+            transform.matrix = origMatrix;
+            super.width = value;
+            // Store new scaleX/Y since setting width may modify them
+            _scaleX = super.scaleX;
+            _scaleY = super.scaleY;
+            validateTransformMatrix();
+        }
+        else
+        {
+            super.width = value;
+        }
 	}
 	
 	//----------------------------------
@@ -157,11 +184,19 @@ public class FlexBitmap extends Bitmap
 	 */
 	override public function set height(value:Number):void  
 	{
-		super.height = value;
-        // Set _scaleX because scaleX may change when height is set.
-        _scaleX = scaleX;
-		if (mirror)
-			validateTransformMatrix();
+        if (mirror)
+        {
+            transform.matrix = origMatrix;
+            super.height = value;
+            // Store new scaleX/Y since setting height may modify them
+            _scaleX = super.scaleX;
+            _scaleY = super.scaleY;
+            validateTransformMatrix();
+        }
+        else
+        {
+            super.height = value;
+        }
 	}
     
     //----------------------------------
@@ -175,10 +210,51 @@ public class FlexBitmap extends Bitmap
      */
     override public function set scaleX(value:Number):void
     {
-        _scaleX = value;
-        super.scaleX = value;
         if (mirror)
+        {
+            transform.matrix = origMatrix;
+            super.scaleX = value;
+            _scaleX = value;
             validateTransformMatrix();
+        }
+        else
+        {
+            super.scaleX = value;
+        }
+    }
+    
+    override public function get scaleX():Number
+    {
+        return (mirror) ? _scaleX : super.scaleX;
+    }
+    
+    //----------------------------------
+    //  scaleY
+    //----------------------------------
+    
+    private var _scaleY:Number;
+    
+    /**
+     *  @private
+     */
+    override public function set scaleY(value:Number):void
+    {
+        if (mirror)
+        {
+            transform.matrix = origMatrix;
+            super.scaleY = value;
+            _scaleY = value;
+            validateTransformMatrix();
+        }
+        else
+        {
+            super.scaleY = value;
+        }
+    }
+    
+    override public function get scaleY():Number
+    {
+        return (mirror) ? _scaleY : super.scaleY;
     }
 
 	//--------------------------------------------------------------------------
@@ -234,7 +310,20 @@ public class FlexBitmap extends Bitmap
                 const oldMirror:Boolean = mirror;
                 mirror = IVisualElement(p).layoutDirection == "rtl";
                 if (mirror != oldMirror)
-                    validateTransformMatrix();
+                {
+                    if (mirror)
+                    {
+                        // Set backing variables to current state
+                        _scaleX = super.scaleX;
+                        _scaleY = super.scaleY;
+                        _x = super.x;
+                        validateTransformMatrix();
+                    }
+                    else
+                    {
+                        transform.matrix = origMatrix;
+                    }
+                }
 				break;
 			}
 			
@@ -245,18 +334,19 @@ public class FlexBitmap extends Bitmap
 	/**
 	 *  @private
 	 *  Modifies the transform matrix so that this bitmap
-	 *  will not be mirrored if a parent is mirrored. Also,
-     *  reverts the transform matrix when its parent is not
-     *  mirrored anymore.
+	 *  will not be mirrored if a parent is mirrored.
 	 */
 	private function validateTransformMatrix():void
 	{
-        const mirrorMatrix:Matrix = transform.matrix;
+        // Save copy of current matrix
+        origMatrix = transform.matrix.clone();
         
-        if (isNaN(_scaleX))
-            _scaleX = mirrorMatrix.a;
-        mirrorMatrix.a = _scaleX * -1;
-        mirrorMatrix.tx = (mirror) ? _x + width : _x;
+        // Create new de-mirrored transform matrix
+        const mirrorMatrix:Matrix = transform.matrix;
+        mirrorMatrix.translate(-mirrorMatrix.tx, 0);
+        mirrorMatrix.scale(-1, 1);
+        mirrorMatrix.translate(_x + width, 0);
+        
         transform.matrix = mirrorMatrix;
 	}
 }
