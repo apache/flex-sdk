@@ -14,8 +14,7 @@ package mx.core
 
 /**
  *  The DragSource class contains the data being dragged. The data can be in
- *  multiple formats. For example, a Text component may have plain text,
- *  rich text and HTML data.
+ *  multiple formats, depending on the type of control that initiated the drag.
  *
  *  <p>Each format of data is identified with a string. The 
  *  <code>hasFormat()</code> method is used to determine if the object has
@@ -145,12 +144,19 @@ public class DragSource
 	 *  the handler function is called to return the data.
 	 *
 	 *  @param format String that specifies a label that describes
-	 *  the format for the data to return.
+	 *  the format for the data to return. This string can be a custom value
+	 *  if you are creating a custom drop target with the <code>addData()</code> method. 
+	 *  <p>List-based controls have predefined values 
+	 *  for the <code>format</code> parameter. If the control that initiated the
+	 *  drag operation is a Tree, then the format is "treeItems" and the items
+	 *  implement the ITreeDataProvider interface. For all other List-based
+	 *  controls that have built-in drag and drop support, the format is "items" and the items
+	 *  implement the IDataProvider interface.</p>
 	 *
 	 *  @return An Object
 	 *  containing the data in the requested format.
 	 *  If you drag multiple items, the returned value is an Array. 
-	 *  For a list control, the returned value is always an Array, 
+	 *  For a List-based control, the returned value is always an Array, 
 	 *  even if it contains a single item.
 	 */
 	public function dataForFormat(format:String):Object
@@ -170,7 +176,7 @@ public class DragSource
 	 *  the requested format; otherwise, it returns <code>false</code>.
 	 *
 	 *  @param format String that specifies a label that describes the format 
-	 *  for the data.
+	 *  for the data. 
 	 *
 	 *  @return <code>true</code> if the data source contains
 	 *  the requested format.
