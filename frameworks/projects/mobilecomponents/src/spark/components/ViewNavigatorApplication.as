@@ -31,28 +31,83 @@ use namespace mx_internal;
 [DefaultProperty("navigationStack")]
 
 /**
- *  ViewNavigatorApplication is an application class meant to provide a simple
+ *  The ViewNavigatorApplication class is an application class meant to provide a simple
  *  framework for applications that employ a view-based navigation model.
  *  When used, this class functions as the main entry point for the application
  *  and provides support for hardware device keys, orientation detection and
  *  application session persistence.
  * 
- *  <p>A view=based navigation model is characterized by a user interface
+ *  <p>A view-based navigation model is characterized by a user interface
  *  where the end user navigates between a series of full screen views in
- *  response to user interaction.  This is a paradigm commonly used by
- *  mobile applications and is accomplished through the use of a built in
- *  <code>ViewNavigator</code> that lives in the application's skin.</p>
+ *  response to user interaction.  
+ *  This is a paradigm commonly used by mobile applications and is accomplished 
+ *  through the use of a built in ViewNavigator container.</p>
  * 
- *  <p>The <code>firstView</code> property can be used to define
- *  what View should be displayed first when the application is
- *  initialized.</p>
+ *  <p>Use the <code>firstView</code> property to specify
+ *  the View displayed first when the application is initialized.</p>
  * 
  *  <p>Unlike Application, ViewNavigatorApplication is not meant to accept
- *  UIComponent objects as children.  Instead, all visual components should
- *  be children of the various views managed by the application.</p>
+ *  UIComponent objects as children.  
+ *  Instead, all visual components should be children of the 
+ *  views managed by the application.</p>
+ *
+ *  <p>The ViewNavigatorApplication container has the following 
+ *  default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>100% high and 100% wide to take up all available screen space.</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Child layout</td>
+ *           <td>Defined by the individual View containers 
+ *               that make up the views of the application.</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Scroll bars</td>
+ *           <td>None. If you do add scroll bars, users can scroll the entire application. 
+ *              That includes the ActionBar and TabBar area of the application. 
+ *              Because you typically do not want those areas of the view to scroll, 
+ *              add scroll bars to the individual View containers of the application, 
+ *              rather than to the application container itself. </td>
+ *        </tr>
+ *        <tr>
+ *           <td>Default skin class</td>
+ *           <td>spark.skins.mobile.ViewNavigatorApplicationSkin</td>
+ *        </tr>
+ *     </table>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:ViewNavigatorApplication&gt;</code> tag inherits all of the tag
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:ViewNavigatorApplication
+ *    <strong>Properties</strong>
+ *    actionContent="null"
+ *    actionLayout="null"
+ *    firstView="null"
+ *    firstViewData="null"
+ *    navigationContent="null"
+ *    navigationLayout="null"
+ *    title=""
+ *    titleContent="null"
+ *    titleLayout="null"
+ * 
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.components.ViewNavigator
+ *  @see spark.components.View
+ *  @see spark.skins.mobile.ViewNavigatorApplicationSkin
  *
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -202,9 +257,13 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     //----------------------------------
     
     /**
-     *  Provides access to the main navigator's actionBar
-     *  if one exists.  This property will only be valid after the 
-     *  navigator has been added to the display list.
+     *  A reference to the view navigator's ActionBar control,
+     *  if one exists.  
+     *  This property is only valid after the 
+     *  view navigator has been added to the display list.
+     *
+     *  @see ActionBar
+     *  @see ViewNavigator
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -245,10 +304,7 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     private var _firstViewData:Object;
     
     /**
-     *  This is the initialization data to pass to the
-     *  first view when it is created.  This object will need to be set
-     *  before the first initialization pass for it to be considered
-     *  by the view navigator.
+     *  @copy ViewNavigator#firstViewData
      * 
      *  @default null
      *
@@ -280,9 +336,9 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     private var _firstView:Class;
     
     /**
-     *  The class used to create the first view of the view navigator.
-     *  This property must be set before the first initialization pass
-     *  it to be considered by the application's navigator.
+     *  @copy ViewNavigator#firstView
+     * 
+     *  @default null
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -314,14 +370,17 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  The default array of visual elements that are used as the 
-     *  ActionBar's actionContent when the current view does not
-     *  define one.
+     *  This property overrides the <code>actionContent</code>
+     *  property in the ActionBar control.
+     * 
+     *  @copy ActionBar#actionContent
      *
      *  @default null
-     * 
+     *
+     *  @see spark.components.ActionBar#actionContent
      *  @see spark.components.View#actionContent
      *  @see spark.components.ViewNavigator#actionContent
+     *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -356,11 +415,11 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     //----------------------------------
     
     /**
-     *  The default layout to apply to the ActionBar's action content 
-     *  container when the current view does not define one.
+     *  @copy ActionBar#actionLayout
      *
      *  @default null
      *  
+     *  @see spark.components.ActionBar#actionLayout
      *  @see spark.components.View#actionLayout
      *  @see spark.components.ViewNavigator#actionLayout
      * 
@@ -398,14 +457,17 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  The default array of visual elements that are used as the 
-     *  ActionBar's navigation content when the current view doesn't
-     *  define any.
+     *  This property overrides the <code>navigationContent</code>
+     *  property in the ActionBar control.
+     * 
+     *  @copy ActionBar#navigationContent
      *
      *  @default null
-     *  
+     * 
+     *  @see spark.components.ActionBar#navigationContent
      *  @see spark.components.View#navigationContent
      *  @see spark.components.ViewNavigator#navigationContent
+     *  @see spark.skins.mobile.ActionBarSkin
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -440,11 +502,11 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     //----------------------------------
     
     /**
-     *  The default layout for the ActionBar navigation content container
-     *  when the active view doesn't define one.
+     *  @copy ActionBar#navigationLayout
      *
      *  @default null
      *  
+     *  @see spark.components.ActionBar#navigationLayout
      *  @see spark.components.View#navigationLayout
      *  @see spark.components.ViewNavigator#navigationLayout
      * 
@@ -482,16 +544,19 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     
     [Bindable]
     /**
-     *  The default title that should be used by the ActionBar if the
-     *  active view doesn't provide one.
+     *  This property overrides the <code>title</code>
+     *  property in the ActionBar control.
+     * 
+     *  @copy ActionBar#title
      *
-     *  @default null
+     *  @default ""
      *  
+     *  @see spark.components.ActionBar#title
      *  @see spark.components.View#title
      *  @see spark.components.ViewNavigator#title
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -524,14 +589,17 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     
     [ArrayElementType("mx.core.IVisualElement")]
     /**
-     *  The default array of visual elements that are used as the 
-     *  ActionBar's title content when the active view doesn't define
-     *  one.
+     *  This property overrides the <code>titleContent</code>
+     *  property in the ActionBar and ViewNavigatorApplication components.
+     * 
+     *  @copy ActionBar#titleContent
      *
      *  @default null
-     *  
+     * 
+     *  @see spark.components.ActionBar#titleContent
      *  @see spark.components.View#titleContent
      *  @see spark.components.ViewNavigator#titleContent
+     *  @see spark.skins.mobile.ActionBarSkin
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -566,11 +634,11 @@ public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
     //----------------------------------
     
     /**
-     *  The default layout for the ActionBar's title content container
-     *  when the active view doesn't define one.
+     *  @copy ActionBar#titleLayout
      *
      *  @default null
      * 
+     *  @see spark.components.ActionBar#titleLayout
      *  @see spark.components.View#titleLayout
      *  @see spark.components.ViewNavigator#titleLayout
      *  
