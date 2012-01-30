@@ -122,7 +122,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  <p>The following images shows the three modes of the DateSpinner control:</p>
  *
  * <p>
- *  <img src="../../images/date_spinner_types.png" alt="DateSpinner types"/>
+ *  <img src="../../images/datespinner_types.png" alt="DateSpinner types"/>
  * </p>
  * 
  *  <p>The UI for the control is made up of a series of SpinnerList controls wrapped inside
