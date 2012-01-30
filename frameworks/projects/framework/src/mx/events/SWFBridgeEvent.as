@@ -49,9 +49,10 @@ public class SWFBridgeEvent extends Event
         "bridgeApplicationActivate";
 
     /**
-     *  Sent through a bridge to a child application's SystemManager to notify it
-	 *  that the SWF is about to be unloaded. The SystemManager marshals and
-	 *  re-dispatches the event so that application code can remove references
+     *  Sent through a bridge to a child application's SystemManager
+	 *  to notify it that the SWF is about to be unloaded.
+	 *  The SystemManager marshals and re-dispatches the event
+	 *  so that application code can remove references
 	 *  that would prevent the SWF file from unloading.
      *  
      *  @langversion 3.0
@@ -59,7 +60,8 @@ public class SWFBridgeEvent extends Event
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */  
-    public static const BRIDGE_APPLICATION_UNLOADING:String = "bridgeApplicationUnloading";
+    public static const BRIDGE_APPLICATION_UNLOADING:String =
+		"bridgeApplicationUnloading";
 
 	/**
 	 *  Dispatched through bridges to all other FocusManagers to notify them
@@ -97,15 +99,17 @@ public class SWFBridgeEvent extends Event
      *  is a string id of the window. The
      *  <code>data.notifier</code> property is the bridge of the
      *  application dispatching the event. The event might be dispatched
-     *  directly to a sandbox root instead of over a bridge, so <code>event.target</code>
-     *  might not be the bridge of the application dispatching the event.
+     *  directly to a sandbox root instead of over a bridge,
+	 *  so <code>event.target</code> might not be the bridge
+	 *  of the application dispatching the event.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-    public static const BRIDGE_WINDOW_ACTIVATE:String = "bridgeWindowActivate";
+    public static const BRIDGE_WINDOW_ACTIVATE:String =
+		"bridgeWindowActivate";
 
 	/**
 	 *	Dispatched to a parent bridge or sandbox root to notify it that
@@ -119,15 +123,17 @@ public class SWFBridgeEvent extends Event
      *  is a string id of the window. The
      *  <code>data.notifier</code> property is the bridge of the
      *  application dispatching the event. The event might be dispatched
-     *  directly to a sandbox root instead of over a bridge, so <code>event.target</code>
-     *  might not be the bridge of the application dispatching the event.
+     *  directly to a sandbox root instead of over a bridge,
+	 *  so <code>event.target</code> might not be the bridge
+	 *  of the application dispatching the event.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-    public static const BRIDGE_WINDOW_DEACTIVATE:String = "brdigeWindowDeactivate";
+    public static const BRIDGE_WINDOW_DEACTIVATE:String =
+		"bridgeWindowDeactivate";
 
     //--------------------------------------------------------------------------
     //
@@ -136,12 +142,14 @@ public class SWFBridgeEvent extends Event
     //--------------------------------------------------------------------------
 
     /**
-     *  Marshal a SWFBridgeRequest from a remote ApplicationDomain into the current
-     *  ApplicationDomain.
+     *  Marshal a SWFBridgeRequest from a remote ApplicationDomain
+	 *  into the current ApplicationDomain.
      * 
-     *  @param event A SWFBridgeRequest which might have been created in a different ApplicationDomain.
+     *  @param event A SWFBridgeRequest which might have been created
+	 *  in a different ApplicationDomain.
      * 
-     *  @return A SWFBridgeEvent that was created in the caller's ApplicationDomain.
+     *  @return A SWFBridgeEvent that was created
+	 *  in the caller's ApplicationDomain.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -151,6 +159,7 @@ public class SWFBridgeEvent extends Event
     public static function marshal(event:Event):SWFBridgeEvent
     {
         var eventObj:Object = event;
+
         return new SWFBridgeEvent(eventObj.type,
                                   eventObj.bubbles,
                                   eventObj.cancelable,
@@ -166,15 +175,16 @@ public class SWFBridgeEvent extends Event
 	/**
 	 *  Constructor.
 	 * 
-     	 *  @param type The event type; indicates the action that caused the event.
-     	 *
-     	 *  @param bubbles Specifies whether the event can bubble up the display list hierarchy.
-     	 *
-     	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
+     *  @param type The event type; indicates the action that caused the event.
+     *
+     *  @param bubbles Specifies whether the event
+	 *  can bubble up the display list hierarchy.
+     *
+     *  @param cancelable Specifies whether the behavior
+	 *  associated with the event can be prevented.
 	 *  
-	 *  @param data An object that is null by default, but can contain information about the event, depending on the 
-	 *  type of event. 
-	 *  
+	 *  @param data An object that is null by default, but can contain
+	 *  information about the event, depending on the type of event.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -210,7 +220,6 @@ public class SWFBridgeEvent extends Event
 	 */
 	public var data:Object;
 	
-
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden methods: Event
