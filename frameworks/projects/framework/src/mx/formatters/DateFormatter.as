@@ -100,7 +100,7 @@ public class DateFormatter extends Formatter
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    protected static function parseDateString (str:String):Date
+    public static function parseDateString (str:String):Date
     {
         if (!str || str == "")
             return null;
