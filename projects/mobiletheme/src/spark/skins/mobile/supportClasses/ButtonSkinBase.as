@@ -431,7 +431,11 @@ package spark.skins.mobile.supportClasses
             // before truncating text, we need to reset it to its original value
             if (hostComponent && labelDisplay.isTruncated)
                 labelDisplay.text = hostComponent.label;
-            labelDisplay.truncateToFit();
+            
+            if (textWidth > labelWidth)
+            {
+                labelDisplay.truncateToFit();
+            }
             
             labelDisplayShadow.commitStyles();
             labelDisplayShadow.x = Math.max(0, Math.round(labelX));
