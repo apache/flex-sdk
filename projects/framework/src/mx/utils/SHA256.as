@@ -62,6 +62,11 @@ package mx.utils
         public static function computeDigest(byteArray:ByteArray):String
         {
             // Preprocessing
+            
+            // 0. Set the ByteArray's position to zero
+            var originalPosition:uint = byteArray.position;
+            byteArray.position = 0;
+            
             // 1. Pad the message
             var paddingLength:int = byteArray.length % 64;
 
@@ -249,6 +254,9 @@ package mx.utils
                 //hashTime += endTime - startTime;
 
             }
+            
+            // Reset the ByteArray's position to where it was previously
+            byteArray.position = originalPosition;
             
             //trace("messageSchTime = " + messageSchTime);
             //trace("hashTime = " + hashTime);
