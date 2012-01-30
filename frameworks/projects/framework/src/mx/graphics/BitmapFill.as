@@ -590,13 +590,14 @@ public class BitmapFill extends EventDispatcher implements IFill
 			var oldValue:Object = _source;
 			
 			var bitmapData:BitmapData;    
-            var bitmapCreated:Boolean = false;
+            var bitmapCreated:Boolean = false; 
             
 			if (value is Class)
 			{
 				var cls:Class = Class(value);
 				value = new cls();
-			}
+				bitmapCreated = true;
+			} 
 			
 			if (value is BitmapData)
 			{
@@ -636,9 +637,9 @@ public class BitmapFill extends EventDispatcher implements IFill
                 bitmapData = transparentBitmap;
             }
             
-            _source = value;
+			_source = value;
             setBitmapData(bitmapData, bitmapCreated);
-            
+            			
 			dispatchFillChangedEvent("source", oldValue, value);
         }
 	}
