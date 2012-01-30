@@ -71,8 +71,8 @@ public class TextAreaSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;
                 layoutCornerEllipseSize = 24;
-                layoutMeasuredWidth = 612;
-                layoutMeasuredHeight = 106;
+                minWidth = 612;
+                minHeight = 106;
                 layoutBorderSize = 2;
                 
                 break;
@@ -81,8 +81,8 @@ public class TextAreaSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile240.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 440;
-                layoutMeasuredHeight = 70;
+                minWidth = 440;
+                minHeight = 70;
                 layoutBorderSize = 1;
                 
                 break;
@@ -91,8 +91,8 @@ public class TextAreaSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile160.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 306;
-                layoutMeasuredHeight = 53;
+                minWidth = 306;
+                minHeight = 53;
                 layoutBorderSize = 1;
                 
                 break;
@@ -223,15 +223,15 @@ public class TextAreaSkin extends TextSkinBase
         // You can set an explicit width and the height will adjust accordingly. The opposite
         // is not true: setting an explicit height will not adjust the width accordingly.
         
-        measuredWidth = layoutMeasuredWidth;
+        measuredWidth = minWidth;
         
         // now we need to measure textDisplay's height.  Unfortunately, this is tricky and 
         // is dependent on textDisplay's width.  Let's use the heuristic that our width 
         // is the same as our last width.
-        // We don't use layoutMeasuredWidth, because that value is just a constant and doesn't
+        // We don't use minWidth, because that value is just a constant and doesn't
         // take into account the fact that the TextArea could have an explicitWidth or could 
         // be constrained by some value.  However, we still default oldTextDisplayWidth to 
-        // be layoutMeasuredWidth the first time through.
+        // be minWidth the first time through.
         var textDisplayEstimatedWidth:Number = oldUnscaledWidth - paddingLeft - paddingRight;
         
         // now we need to measure textDisplay's height.  Unfortunately, this is tricky and 
@@ -244,7 +244,7 @@ public class TextAreaSkin extends TextSkinBase
         var textDisplayHeight:Number = getElementPreferredHeight(textDisplay);
         
         // FIXME (jasonsj): how to support TextArea#heightInLines?
-        measuredHeight = Math.max(layoutMeasuredHeight, textDisplayHeight + paddingTop + paddingBottom);
+        measuredHeight = textDisplayHeight + paddingTop + paddingBottom;
     }
     
     override protected function layoutContents(unscaledWidth:Number, 
