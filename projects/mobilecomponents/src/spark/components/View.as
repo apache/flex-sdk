@@ -227,7 +227,7 @@ public class View extends Group implements IDataRenderer
     }
     
     //----------------------------------
-    //  desctructionPolicy
+    //  destructionPolicy
     //----------------------------------
     
     [Inspectable(category="General", enumeration="auto,always,never", defaultValue="auto")]
@@ -262,22 +262,38 @@ public class View extends Group implements IDataRenderer
     public var navigator:ViewNavigator;
     
     //----------------------------------
-    //  returnedObject
+    //  context
     //----------------------------------
     
+    private var _context:String = null;
+    
     /**
-     *  An object that was returned by the previous view when
-     *  the navigator is popping back to this view. 
+     *  The string that describes the context in which this view was
+     *  created.  This property is assigned to the <code>context</code>
+     *  parameter that is passed into <code>ViewNavigator.pushView()</code>.
      * 
      *  @default null
+     * 
+     *  @see spark.components.ViewNavigator
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var returnedObject:Object;
+    public function get context():String
+    {
+        return _context;
+    }
     
+    /**
+     *  @private
+     */
+    mx_internal function setContext(value:String):void
+    {
+        _context = value;
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  UI Template Properties
