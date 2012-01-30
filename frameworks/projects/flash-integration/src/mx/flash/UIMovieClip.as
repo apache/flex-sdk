@@ -2665,21 +2665,21 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function get layer():Number
+    public function get depth():Number
     {
-        return (_layoutFeatures == null)? 0:_layoutFeatures.layer;
+        return (_layoutFeatures == null)? 0:_layoutFeatures.depth;
     }
 
     [Bindable("layerChange")]
     /**
      * @private
      */
-    public function set layer(value:Number):void
+    public function set depth(value:Number):void
     {
-        if(value == layer)
+        if(value == depth)
             return;
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-        _layoutFeatures.layer = value;      
+        _layoutFeatures.depth = value;      
         dispatchEvent(new FlexEvent("layerChange"));
         if(parent != null && "invalidateLayering" in parent && parent["invalidateLayering"] is Function)
             parent["invalidateLayering"]();
@@ -2905,7 +2905,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
      *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
      *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
-     *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>offsets.rotationZ</code> 
+     *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its <code>postLayoutTransformOffsets.rotationZ</code> 
      *  property.
      *  
      *  @langversion 3.0
@@ -2913,24 +2913,24 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function set offsets(value:TransformOffsets):void
+    public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
         
-        if(_layoutFeatures.offsets != null)
-            _layoutFeatures.offsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-        _layoutFeatures.offsets = value;
-        if(_layoutFeatures.offsets != null)
-            _layoutFeatures.offsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        if(_layoutFeatures.postLayoutTransformOffsets != null)
+            _layoutFeatures.postLayoutTransformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
+        _layoutFeatures.postLayoutTransformOffsets = value;
+        if(_layoutFeatures.postLayoutTransformOffsets != null)
+            _layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         invalidateTransform();
     }
 
     /**
      * @private
      */
-    public function get offsets():TransformOffsets
+    public function get postLayoutTransformOffsets():TransformOffsets
     {
-        return (_layoutFeatures != null)? _layoutFeatures.offsets:null;
+        return (_layoutFeatures != null)? _layoutFeatures.postLayoutTransformOffsets:null;
     }
     
     private function transformOffsetsChangedHandler(e:Event):void
