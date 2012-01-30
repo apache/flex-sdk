@@ -525,7 +525,7 @@ package mx.geom
 			
 	}
 	
-	private static const EPSILON:Number = .0001;
+	private static const EPSILON:Number = .001;
 	/**
 	 * @private
 	 * updates the flags that indicate whether the layout, offset, and/or computed transforms are 3D in nature.  
