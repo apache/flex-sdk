@@ -16,7 +16,7 @@ import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
 
-import spark.components.supportClasses.ViewProxy;
+import spark.components.supportClasses.ViewDescriptor;
 
 import mx.core.mx_internal;
 use namespace mx_internal;
@@ -52,7 +52,7 @@ public class NavigationStack implements IExternalizable
     {
         super();
         
-        _source = new Vector.<ViewProxy>();
+        _source = new Vector.<ViewDescriptor>();
     }
     
     //--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ public class NavigationStack implements IExternalizable
     /**
      *  @private
      */
-    private var _source:Vector.<ViewProxy>;
+    private var _source:Vector.<ViewDescriptor>;
     
     /**
      *  @private
@@ -74,7 +74,7 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    mx_internal function get source():Vector.<ViewProxy>
+    mx_internal function get source():Vector.<ViewDescriptor>
     {
         return _source;
     }
@@ -117,7 +117,7 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    mx_internal function get topView():ViewProxy
+    mx_internal function get topView():ViewDescriptor
     {
         return _source.length == 0 ? null : _source[_source.length - 1];
     }
@@ -140,11 +140,12 @@ public class NavigationStack implements IExternalizable
     {
         _source.length = 0;    
     }
-    
+
+    // FIXME (chiedozi): Should return things...
     /**
      *  Adds a view to the top of the navigation stack.
      * 
-     *  @param factory The class of the View to create.
+     *  @param viewClass The class of the View to create.
      *  @param data The data object to pass to the view when it is created
      *  @param context The context identifier to pass to the view when created
      *  
@@ -155,12 +156,10 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function push(factory:Class, data:Object, context:String = null):ViewProxy
+    public function pushView(viewClass:Class, data:Object, context:Object = null):void
     {
-        var viewData:ViewProxy = new ViewProxy(factory, data, context);
+        var viewData:ViewDescriptor = new ViewDescriptor(viewClass, data, context);
         _source.push(viewData);
-        
-        return viewData;
     }
     
     /**
@@ -173,9 +172,9 @@ public class NavigationStack implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function pop():ViewProxy
+    public function popView():void
     {
-        return _source.pop();
+        _source.pop();
     }
     
     /**
@@ -227,7 +226,7 @@ public class NavigationStack implements IExternalizable
      */ 
     public function readExternal(input:IDataInput):void 
     {
-        _source = input.readObject() as Vector.<ViewProxy>;
+        _source = input.readObject() as Vector.<ViewDescriptor>;
     }
 }
 }
