@@ -53,10 +53,10 @@ import mx.events.PropertyChangeEvent;
  *  &lt;mx:SolidColorStroke
  *    <b>Properties</b>
  *    alpha="1.0"
- *    caps="null|none|round|square"
+ *    caps="round|none|square"
  *    color="0x000000"
- *    joints="null|bevel|miter|round"
- *    miterLimit="0"
+ *    joints="round|bevel|miter"
+ *    miterLimit="3"
  *    pixelHinting="false|true"
  *    scaleMode="normal|none|noScale|vertical"
  *    weight="1 (<i>in most cases</i>)"
@@ -106,18 +106,18 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
      *  with a default value of <code>LineScaleMode.NORMAL</code>. 
 	 *
 	 *  @param caps Specifies the type of caps at the end of lines.
-	 *  Valid values are <code>"round"</code>, <code>"square"</code>,
-	 *  and <code>"none"</code>.
-	 *  The default value is <code>null</code>.
+	 *  Valid values are <code>CapsStyle.ROUND</code>, <code>CapsStyle.SQUARE</code>,
+	 *  and <code>CapsStyle.NONE</code>.
+	 *  The default value is <code>CapsStyle.ROUND</code>.
 	 *
 	 *  @param joints Specifies the type of joint appearance used at angles.
-	 *  Valid values are <code>"round"</code>, <code>"miter"</code>,
-	 *  and <code>"bevel"</code>.
-	 *  The default value is <code>null</code>.
+	 *  Valid values are <code>JointStyle.ROUND</code>, <code>JointStyle.MITER</code>,
+	 *  and <code>JointStyle.BEVEL</code>.
+	 *  The default value is <code>JointStyle.ROUND</code>.
 	 *
 	 *  @param miterLimit Indicates the limit at which a miter is cut off.
 	 *  Valid values range from 0 to 255.
-	 *  The default value is 0.
+	 *  The default value is 3.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -129,9 +129,9 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 						             alpha:Number = 1.0,
 						             pixelHinting:Boolean = false,
 						             scaleMode:String = "normal",
-						             caps:String = null,
-						             joints:String = null,
-						             miterLimit:Number = 0)
+						             caps:String = "round",
+						             joints:String = "round",
+						             miterLimit:Number = 3)
 	{
 		super();
 
@@ -190,16 +190,18 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	//  caps
 	//----------------------------------
 
-	private var _caps:String = null;
+	private var _caps:String = CapsStyle.ROUND;
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General", enumeration="round,square,none", defaultValue="round")]
 
 	/**
 	 *  Specifies the type of caps at the end of lines.
-	 *  Valid values are: <code>"round"</code>, <code>"square"</code>,
-	 *  and <code>"none"</code>.
+	 *  Valid values are: <code>CapsStyle.ROUND</code>, <code>CapsStyle.SQUARE</code>,
+	 *  and <code>CapsStyle.NONE</code>.
 	 *  
+	 *  @default CapsStyle.ROUND
+	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
@@ -258,16 +260,18 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	//  joints
 	//----------------------------------
 
-	private var _joints:String = null;
+	private var _joints:String = JointStyle.ROUND;
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General", enumeration="round,bevel,miter", defaultValue="round")]
 
 	/**
 	 *  Specifies the type of joint appearance used at angles.
-	 *  Valid values are <code>"round"</code>, <code>"miter"</code>,
-	 *  and <code>"bevel"</code>.
+	 *  Valid values are <code>JointStyle.ROUND</code>, <code>JointStyle.MITER</code>,
+	 *  and <code>JointStyle.BEVEL</code>.
 	 *  
+	 *  @default JointStyle.ROUND
+	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
@@ -292,7 +296,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	//  miterLimit
 	//----------------------------------
 
-	private var _miterLimit:Number = 0;
+	private var _miterLimit:Number = 3;
 	
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
@@ -301,7 +305,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  Indicates the limit at which a miter is cut off.
 	 *  Valid values range from 0 to 255.
 	 *  
-	 *  @default 0
+	 *  @default 3
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -496,10 +500,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
         graphicsStroke.miterLimit = miterLimit; 
         graphicsStroke.pixelHinting = pixelHinting;
         graphicsStroke.scaleMode = scaleMode;
-        
-        // Remove this check when SDK-18373 is fixed 
-        graphicsStroke.joints = (!joints) ? JointStyle.ROUND : joints; 
-        
+                
         // There is a bug in Drawing API-2 where if no caps is 
         // specified, a value of 'none' is used instead of 'round'
         graphicsStroke.caps = (!caps) ? CapsStyle.ROUND : caps;
