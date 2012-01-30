@@ -1629,6 +1629,7 @@ public dynamic class UIMovieClip extends MovieClip
     public function set includeInLayout(value:Boolean):void
     {
         _includeInLayout = value;
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -2217,6 +2218,14 @@ public dynamic class UIMovieClip extends MovieClip
     {
         return super.scaleX;
     }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set $scaleX(value:Number):void
+    {
+        super.scaleX = value;
+    }
 
     //----------------------------------
     //  scaleY
@@ -2288,8 +2297,16 @@ public dynamic class UIMovieClip extends MovieClip
     {
         return super.scaleY;
     }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set $scaleY(value:Number):void
+    {
+        super.scaleY = value;
+    }
 
-   //----------------------------------
+    //----------------------------------
     //  scaleZ
     //----------------------------------
 
@@ -3515,7 +3532,6 @@ public dynamic class UIMovieClip extends MovieClip
     
     public function set currentState(value:String):void
     {
-        // TODO: revisit states
         if (value == _currentState)
             return;
         
@@ -3935,9 +3951,6 @@ public dynamic class UIMovieClip extends MovieClip
      */
     public function setActualSize(newWidth:Number, newHeight:Number):void
     {
-        if (sizeChanged(_width, newWidth) || sizeChanged(_height, newHeight))
-            dispatchResizeEvent();
-            
         // Remember our new actual size so we can report it later in the
         // width/height getters.
         _width = newWidth;
@@ -3947,6 +3960,9 @@ public dynamic class UIMovieClip extends MovieClip
         // on our measured size, which can be different than our actual size.
         super.scaleX = scaleX*(newWidth / measuredWidth);
         super.scaleY = scaleY*(newHeight / measuredHeight);
+        
+        if (sizeChanged(width, oldWidth) || sizeChanged(height, oldHeight))
+            dispatchResizeEvent();
     }
 
     //--------------------------------------------------------------------------
