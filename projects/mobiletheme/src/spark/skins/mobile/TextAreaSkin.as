@@ -117,26 +117,23 @@ import spark.skins.mobile.supportClasses.MobileSkin;
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
+
         // Draw the contentBackgroundColor
         graphics.clear();
         graphics.beginFill(getStyle("contentBackgroundColor"), getStyle("contentBackgroundAlpha"));
     	graphics.drawRoundRect(2, 2, unscaledWidth - 4, unscaledHeight - 4, 4, 4);
         graphics.endFill();
-        
+
         // position & size border
-        border.x = border.y = 0;
-        border.width = unscaledWidth;
-        border.height = unscaledHeight;
-        
+        resizePart(border, unscaledWidth, unscaledHeight);
+        positionPart(border, 0, 0);
+
         // position & size the text
         textDisplay.commitStyles();
-        textDisplay.x = HORIZONTAL_PADDING;
-        textDisplay.width = unscaledWidth - (HORIZONTAL_PADDING * 2);
-        textDisplay.y = VERTICAL_PADDING;
-        textDisplay.height = unscaledHeight - (VERTICAL_PADDING * 2) + TEXT_HEIGHT_PADDING;
+        resizePart(textDisplay, unscaledWidth - (HORIZONTAL_PADDING * 2), unscaledHeight - (VERTICAL_PADDING * 2) + TEXT_HEIGHT_PADDING);
+        positionPart(textDisplay, HORIZONTAL_PADDING, VERTICAL_PADDING); 
     }
-    
+
     /**
      *  @private
      */
