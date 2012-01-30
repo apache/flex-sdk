@@ -531,7 +531,7 @@ public class DateFormatter extends Formatter
         // If value is null, or empty String just return "" 
         // but treat it as an error for consistency.
         // Users will ignore it anyway.
-        if (!value || value == "")
+        if (!value || (value is String && value == ""))        
         {
             error = defaultInvalidValueError;
             return "";
