@@ -1760,6 +1760,7 @@ public class UIComponent extends FlexSprite
         if (_scaleX == value)
             return;
 
+        // trace("set scaleX:" + this + "value = " + value); 
         _scaleX = value;
 
         invalidateProperties();
@@ -2407,13 +2408,17 @@ public class UIComponent extends FlexSprite
         if (!_systemManager || _systemManagerDirty)
         {
             var r:DisplayObject = root;
-            if (r && !(r is Stage))
+            if (_systemManager is SystemManagerProxy)
+            {
+                // keep the existing proxy
+            }
+            else if (r && !(r is Stage))
             {
                 // If this object is attached to the display list, then
                 // the root property holds its SystemManager.
                 _systemManager = (r as ISystemManager);
             }
-          else if (r)
+            else if (r)
             {
                 // if the root is the Stage, then we are in a second AIR window
                 _systemManager = Stage(r).getChildAt(0) as ISystemManager;
