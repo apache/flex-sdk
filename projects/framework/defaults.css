@@ -133,7 +133,6 @@ global
 	textDecoration: "none";
 	textFieldClass: ClassReference("mx.core.UITextField");
 	textIndent: 0;
-    textInputClass: ClassReference("mx.controls.TextInput");
 	textJustify: "interWord";
 	textRollOverColor: 0;
     textRotation: "auto";
