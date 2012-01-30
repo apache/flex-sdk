@@ -11,32 +11,32 @@
 
 -->
 
-<project name="utilities" default="main" basedir=".">
+<project name="authoringsupport" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,compile" description="Clean build of utilities.swc"/>
+	<target name="main" depends="clean,compile" description="Clean build of authoringsupport.swc"/>
 
 	<target name="clean">
 		<delete failonerror="false">
 			<fileset file="${basedir}/bundles.properties"/>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
-				<include name="utilities.swc"/>
-				<include name="utilities.swc.incr"/>
+				<include name="authoringsupport.swc"/>
+				<include name="authoringsupport.swc.incr"/>
 			</fileset>
 		</delete>
 	</target>
 
-	<target name="compile" description="Compiles utilities.swc">
-		<echo message="Compiling frameworks/libs/utilities.swc"/>
+	<target name="compile" description="Compiles authoringsupport.swc">
+		<echo message="Compiling frameworks/libs/authoringsupport.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<!--
 			This project has no MXML tags and therefore no manifest.
 			Link in the classes (and their dependencies)
-			listed in UtilitiesClasses.as.
+			listed in AuthoringSupportClasses.as.
 			Link in accessibility support.
 			Don't put any resources into the SWC.
 			Write a bundle list of referenced resource bundles
@@ -44,10 +44,10 @@
 			(This should be an empty list.)
 		-->
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/utilities.swc"
+			   output="${FLEX_HOME}/frameworks/libs/authoringsupport.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
-			<include-classes>UtilitiesClasses</include-classes>
+			<include-classes>AuthoringSupportClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
             <include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
             <library-path dir="${basedir}/libs/">
@@ -65,7 +65,7 @@
 		</compc>
 	</target>
 
-	<target name="doc" depends="clean-temp-docs" description="updates utilities.swc with asdoc xml">
+	<target name="doc" depends="clean-temp-docs" description="updates authoringsupport.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -86,7 +86,7 @@
 		<!-- Call asdoc to generate dita xml files -->
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
-		    <doc-classes class="UtilitiesClasses"/>
+		    <doc-classes class="AuthoringSupportClasses"/>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${global.playerglobal.version}">
 		    	<include name="playerglobal.swc" />
 		    </external-library-path>
@@ -102,8 +102,8 @@
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
-		<!-- updates utilities.swc with asdoc xml -->
-		<zip destfile="${FLEX_HOME}/frameworks/libs/utilities.swc" update="true">
+		<!-- updates authoringsupport.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/libs/authoringsupport.swc" update="true">
 		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
 			    <include name="*.*"/>
 				<exclude name="ASDoc_Config.xml"/>
