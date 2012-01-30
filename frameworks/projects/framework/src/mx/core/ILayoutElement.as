@@ -305,15 +305,17 @@ public interface ILayoutElement extends IEventDispatcher
     function set includeInLayout(value:Boolean):void;
     
     /**
-     *  @return Returns the element's preferred width.  Preferred width is
-     *  usually based on the default element size and any explicit overrides.
-     *  For UIComponent this is the same as getExplicitOrMeasuredWidth().
+     *  Returns the element's preferred width.   
      * 
      *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box width.  Bounding box is in element's parent
      *  coordinate space and is calculated from  the element's perferred size and
      *  layout transform matrix.
      *
+     *  @return Returns the element's preferred width.  Preferred width is
+     *  usually based on the default element size and any explicit overrides.
+     *  For UIComponent this is the same as getExplicitOrMeasuredWidth().
+     * 
      *  @see #getPreferredHeight
      *  @see #getLayoutMatrix
      *  @see #getLayoutMatrix3D
@@ -326,14 +328,16 @@ public interface ILayoutElement extends IEventDispatcher
     function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
     /**
-     *  @return Returns the element's preferred height.  Preferred height is
-     *  usually based on the default element size and any explicit overrides.
-     *  For UIComponent this is the same as getExplicitOrMeasuredHeight().
+     *  Returns the element's preferred height.  
      *
      *  @param postLayoutTransform When postLayoutTransform is true the method returns
      *  the element's bounding box height.  Bounding box is in element's parent
      *  coordinate space and is calculated from  the element's perferred size and
      *  layout transform matrix.
+     *
+     *  @return Returns the element's preferred height.  Preferred height is
+     *  usually based on the default element size and any explicit overrides.
+     *  For UIComponent this is the same as getExplicitOrMeasuredHeight().
      *
      *  @see #getPreferredWidth
      *  @see #getLayoutMatrix
