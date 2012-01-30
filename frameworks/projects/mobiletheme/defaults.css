@@ -157,7 +157,7 @@ Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
     skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
 }
 
-Callout#viewNavigatorCallout
+Callout#viewNavigatorPopUp
 {
     contentBackgroundAppearance: none;
 }
