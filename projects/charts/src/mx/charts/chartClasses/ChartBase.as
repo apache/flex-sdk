@@ -479,7 +479,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-	
+    
     //--------------------------------------------------------------------------
     //
     //  Class constants
@@ -566,7 +566,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
     public function ChartBase()
     {
         super();
-		this.addEventListener(DragEvent.DRAG_START, dragStartHandler);
+        this.addEventListener(DragEvent.DRAG_START, dragStartHandler);
         
         tabEnabled = false;
 
@@ -638,11 +638,11 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
     /**
      *  @private
      */
@@ -1577,7 +1577,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         var n:int = series.length;
         for (var i:int = 0; i < n; i++)
         {
-        	var m:int = series[i].selectedItems.length;
+            var m:int = series[i].selectedItems.length;
             for (var j:int = 0; j < m; j++)
             {
                 arr.push(series[i].selectedItems[j])
@@ -1808,7 +1808,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
 
         updateDataTips();
     }
-	
+    
     //--------------------------------------------------------------------------
     //
     //  Diagnostics
@@ -1849,30 +1849,30 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         super.addEventListener(type, listener, useCapture,
                                priority, useWeakReference);
     }
-	
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var chartBaseFill:IFill = IFill(new SolidColor(0xFFFFFF, 0));
-		
-		var selector:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.chartClasses.ChartBase", styleManager);
-		
-		selector.defaultFactory = function():void
-		{
-			this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;
-			this.fill = chartBaseFill;
-			this.calloutStroke = new Stroke(0x888888,2);            
-			this.dataTipRenderer = DataTip;
-			this.fontSize = 10;
-		}
-		
-		return true;
-	}
+    
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var chartBaseFill:IFill = IFill(new SolidColor(0xFFFFFF, 0));
+        
+        var selector:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.chartClasses.ChartBase", styleManager);
+        
+        selector.defaultFactory = function():void
+        {
+            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;
+            this.fill = chartBaseFill;
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.dataTipRenderer = DataTip;
+            this.fontSize = 10;
+        }
+        
+        return true;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -1880,28 +1880,28 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		
-		// our style settings
-		initStyles();
-	}
-	
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        
+        // our style settings
+        initStyles();
+    }
+    
     /**
      *  @private
      */
@@ -2074,7 +2074,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
             result = result.concat(hds);
         }
 
-		n = result.length;
+        n = result.length;
         for (i = 0; i < n; i++)
         {
             result[i].x += _seriesHolder.x;
@@ -2117,7 +2117,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
             result = result.concat(hds);
         }
 
-		n = result.length;
+        n = result.length;
         for (i = 0; i < n; i++)
         {
             result[i].x += _seriesHolder.x;
@@ -2150,7 +2150,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
  
         if (_transforms)
         {
-        	var n:int  = _transforms.length;
+            var n:int  = _transforms.length;
             for (var i:int = 0; i < n; i++)
             {
                 arrAllItems = arrAllItems.concat(findItemsInRegionFromElements(_transforms[i],value));
@@ -2374,7 +2374,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
 
                 _transitionEffect = ParallelInstance(p.createInstance());
 
-				n = transitionChildren.length;
+                n = transitionChildren.length;
                 for (i = 0; i < n; i++)
                 {
                     _transitionEffect.addChildSet([transitionChildren[i]]);
@@ -2403,7 +2403,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
 
                 _transitionEffect = ParallelInstance(p.createInstance());
 
-				n = transitionChildren.length;
+                n = transitionChildren.length;
                 for (i = 0; i < n; i++)
                 {
                     _transitionEffect.addChildSet([transitionChildren[i]]);
@@ -2606,7 +2606,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         // removedset also can be set when hitset is set
         if (removedSet.length > 0)
         {
-        	var n: int = removedSet.length;
+            var n: int = removedSet.length;
             // we do not know which item has rollover hence loop through all removed set
             for (var i:int = 0; i < n; i++) 
             {
@@ -2769,10 +2769,10 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
      
    mx_internal function getSelectedSeries(seriesObject:Series):Series
    {    
-   		var n:int  = _transforms.length;
+        var n:int  = _transforms.length;
         for (var i:int = 0; i < n; i++)
         {
-        	var m:int = _transforms[i].elements.length;
+            var m:int = _transforms[i].elements.length;
             for (var j:int = 0; j < m; j++)
             {
                 if (_transforms[i].elements[j] is Series && _transforms[i].elements[j] != seriesObject && _transforms[i].elements[j].selectedItems.length != 0)
@@ -2789,10 +2789,10 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
      
    mx_internal function setChartItemsToDisabled():void
    {
-   		var n:int = _transforms.length;
+        var n:int = _transforms.length;
         for (var i:int = 0; i < n; i++)
         {           
-        	var m:int = _transforms[i].elements.length;
+            var m:int = _transforms[i].elements.length;
             for (var j:int = 0; j < m; j++)
             {
                 if (_transforms[i].elements[j] is Series)
@@ -2815,10 +2815,10 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
    {
         if (_selectedSeries)
         {
-        	var n:int  = _transforms.length;
+            var n:int  = _transforms.length;
             for (var i:int = 0; i < n; i++)
             {
-            	var m:int = _transforms[i].elements.length;
+                var m:int = _transforms[i].elements.length;
                 for (var j:int = 0; j < m; j++)
                 {
                     if (_transforms[i].elements[j] is Series)
@@ -2911,7 +2911,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
             }
             else
             {
-            	var n:int = arrItems.length;
+                var n:int = arrItems.length;
                 for (var i:int = 0; i < n; i++)
                 {
                     seriesObject.addItemtoSelection(arrItems[i]);
@@ -3671,9 +3671,9 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                 pts.y = tipData.py;
                 localPts = globalToLocal(pts);
                 if(layoutDirection == LayoutDirection.RTL)
-					tipData.tip.move(localPts.x - tipData.width, localPts.y);
-				else
-					tipData.tip.move(localPts.x, localPts.y);
+                    tipData.tip.move(localPts.x - tipData.width, localPts.y);
+                else
+                    tipData.tip.move(localPts.x, localPts.y);
               
                 if (showTarget)
                 {   
@@ -3694,15 +3694,15 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                             else
                             {
                                 if(layoutDirection == LayoutDirection.RTL)
-								{
-									g.moveTo(localPts.x - tipData.width,
+                                {
+                                    g.moveTo(localPts.x - tipData.width,
                                          localPts.y + tipData.height / 2);
-								}
-								else
-								{
-									g.moveTo(localPts.x + tipData.width,
-										localPts.y + tipData.height / 2);
-								}
+                                }
+                                else
+                                {
+                                    g.moveTo(localPts.x + tipData.width,
+                                        localPts.y + tipData.height / 2);
+                                }
                                 g.lineTo(tipData.x,
                                          localPts.y + tipData.height / 2);
                                 g.lineTo(tipData.x, tipData.y);
@@ -3780,31 +3780,31 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
 
             localPts.x = Math.max(rc.left, Math.min(hitData.x, rc.right));
             localPts.y = Math.max(rc.top, Math.min(hitData.y, rc.bottom));
-			var pts:Point = localToGlobal(localPts);			
-			
+            var pts:Point = localToGlobal(localPts);            
+            
             var xpos:Number;
             var ypos:Number;
 
             if (tipInstance is ILayoutManagerClient)
                 ILayoutManagerClient (tipInstance).validateSize();
-			
-			//if current systemManager is not sandbox root,
-			// marshalling support is enabled and localToGlobal does not give
-			// expected result because current sub application becomes top level
-			// In such cases, sub-application's offset needs to be subtracted
-			// from obtained localToGlobal values.
-			// http://bugs.adobe.com/jira/browse/FLEXDMV-2536
-			if(systemManager != systemManager.topLevelSystemManager.getSandboxRoot())
-			{
-				var appOffset:Point = FlexGlobals.topLevelApplication.localToGlobal(new Point(0,0));
-				data = new TipPositionData(tipInstance, hitData,
-					localPts.x, localPts.y, pts.x - appOffset.x, pts.y - appOffset.y);						
-			}
-			else
-			{
-				data = new TipPositionData(tipInstance, hitData,
-					localPts.x, localPts.y, pts.x, pts.y);
-			}      
+            
+            //if current systemManager is not sandbox root,
+            // marshalling support is enabled and localToGlobal does not give
+            // expected result because current sub application becomes top level
+            // In such cases, sub-application's offset needs to be subtracted
+            // from obtained localToGlobal values.
+            // http://bugs.adobe.com/jira/browse/FLEXDMV-2536
+            if(systemManager != systemManager.topLevelSystemManager.getSandboxRoot())
+            {
+                var appOffset:Point = FlexGlobals.topLevelApplication.localToGlobal(new Point(0,0));
+                data = new TipPositionData(tipInstance, hitData,
+                    localPts.x, localPts.y, pts.x - appOffset.x, pts.y - appOffset.y);                      
+            }
+            else
+            {
+                data = new TipPositionData(tipInstance, hitData,
+                    localPts.x, localPts.y, pts.x, pts.y);
+            }      
                         
             if (data.gy - dataTipVOffset - tipInstance.measuredHeight > 0)
                 data.py = data.gy - dataTipVOffset - tipInstance.measuredHeight;
@@ -3824,7 +3824,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
             
             var screenTL:Point = new Point(4, 4);
             var screenBR:Point = new Point(screen.width - 4, screen.height - 4);
-			
+            
             i = 0;
 
             // This code pre-examines the datatips for tips that would
@@ -3875,16 +3875,16 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                                       splitPoint +
                                       (pRight.length - pLeft.length));
             }
-			if(sortList.length == 1 && layoutDirection == LayoutDirection.RTL)
-			{
-				pRight = pRight.concat(sortList.slice(0, splitPoint));
-				pLeft = pLeft.concat(sortList.slice(splitPoint, sortList.length));
-			}
-			else
-			{
-				pLeft = pLeft.concat(sortList.slice(0, splitPoint));
-				pRight = pRight.concat(sortList.slice(splitPoint, sortList.length));
-			}
+            if(sortList.length == 1 && layoutDirection == LayoutDirection.RTL)
+            {
+                pRight = pRight.concat(sortList.slice(0, splitPoint));
+                pLeft = pLeft.concat(sortList.slice(splitPoint, sortList.length));
+            }
+            else
+            {
+                pLeft = pLeft.concat(sortList.slice(0, splitPoint));
+                pRight = pRight.concat(sortList.slice(splitPoint, sortList.length));
+            }
         }
                 
         pRight.sortOn("gy");
@@ -4072,15 +4072,15 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                 }
                 pts.x = tipData.px;
                 pts.y = tipData.py;
-				
-				
+                
+                
                 localPts = this.parentApplication.systemManager.getSandboxRoot().globalToLocal(pts);
-				
-				var chartLocalPts:Point = globalToLocal(pts);
-				
-				tipData.tip.move(localPts.x, localPts.y);
-				
-				if (showTarget)
+                
+                var chartLocalPts:Point = globalToLocal(pts);
+                
+                tipData.tip.move(localPts.x, localPts.y);
+                
+                if (showTarget)
                 {   
                     if (len > 1)
                     {
@@ -4098,16 +4098,16 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
                             }
                             else
                             {
-								if(layoutDirection == LayoutDirection.RTL)
-								{
-									g.moveTo(chartLocalPts.x - tipData.width,
-										chartLocalPts.y + tipData.height / 2);
-								}
-								else
-								{
-									g.moveTo(chartLocalPts.x + tipData.width,
-										chartLocalPts.y + tipData.height / 2);
-								}
+                                if(layoutDirection == LayoutDirection.RTL)
+                                {
+                                    g.moveTo(chartLocalPts.x - tipData.width,
+                                        chartLocalPts.y + tipData.height / 2);
+                                }
+                                else
+                                {
+                                    g.moveTo(chartLocalPts.x + tipData.width,
+                                        chartLocalPts.y + tipData.height / 2);
+                                }
                                 g.lineTo(tipData.x,
                                          chartLocalPts.y + tipData.height / 2);
                                 g.lineTo(tipData.x, tipData.y);
@@ -4204,7 +4204,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
     protected function applySeriesSet(seriesSet:Array /* of Series */,
                                       transform:DataTransform):Array /* of Series */
     {
-    	var n:int = seriesSet.length;
+        var n:int = seriesSet.length;
         for (var i:int = 0; i < n; i++)
         {
             var newSeries:IChartElement = seriesSet[i];
@@ -4753,7 +4753,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         p = globalToLocal(DisplayObject(event.target).localToGlobal(p));
         
         var hitPoints:Array /* of HitData */ = findDataPoints(p.x, p.y);
-		setFocus();
+        setFocus();
         processRollEvents(hitPoints, event);
 
         if (_currentHitSet)
@@ -4831,7 +4831,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         }
         else
         {
-        	dispatchEvent(new ChartEvent(ChartEvent.CHART_CLICK, event, this));
+            dispatchEvent(new ChartEvent(ChartEvent.CHART_CLICK, event, this));
         }
     }
 
@@ -4907,14 +4907,14 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
         var dragSource:DragSource = new DragSource();
 
         addDragData(dragSource);
-		
-		var proxyOrigin:Point = event.target.localToGlobal(
-						new Point(event.localX, event.localY));
-		proxyOrigin = globalToLocal(proxyOrigin);
-		
-		var xOffset:Number = - (proxyOrigin.x - event.localX);
-		var yOffset:Number = - (proxyOrigin.y - event.localY);
-		DragManager.doDrag(this, dragSource, event, dragImage,
+        
+        var proxyOrigin:Point = event.target.localToGlobal(
+                        new Point(event.localX, event.localY));
+        proxyOrigin = globalToLocal(proxyOrigin);
+        
+        var xOffset:Number = - (proxyOrigin.x - event.localX);
+        var yOffset:Number = - (proxyOrigin.y - event.localY);
+        DragManager.doDrag(this, dragSource, event, dragImage,
                            xOffset, yOffset, 0.5, dragMoveEnabled);
     }
 
