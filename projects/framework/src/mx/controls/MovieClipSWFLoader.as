@@ -155,8 +155,15 @@ public class MovieClipSWFLoader extends SWFLoader
      * 
      *  @see flash.display.MovieClip#gotoAndPlay
      * 
-     *  @param frame
-     *  @param scene
+     *  @param frame A number representing the frame number, 
+     *  or a string representing the label of the frame, 
+     *  to which the playhead is sent. 
+     *  If you specify a number, it is relative to the scene you specify. 
+     *  If you do not specify a scene, the current scene determines the 
+     *  global frame number to play. 
+     *  If you do specify a scene, the playhead jumps to the frame number in the specified scene. 
+     *
+     *  @param scene The name of the scene to play.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -201,6 +208,16 @@ public class MovieClipSWFLoader extends SWFLoader
      *  If the content is not a MovieClip, this results in a no-op.
      * 
      *  @see flash.display.MovieClip#gotoAndStop
+     *
+     *  @param frame A number representing the frame number, 
+     *  or a string representing the label of the frame, 
+     *  to which the playhead is sent. 
+     *  If you specify a number, it is relative to the scene you specify. 
+     *  If you do not specify a scene, the current scene determines the 
+     *  global frame number to play. 
+     *  If you do specify a scene, the playhead jumps to the frame number in the specified scene. 
+     *
+     *  @param scene The name of the scene to play.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
