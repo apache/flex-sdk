@@ -53,7 +53,7 @@ public class Transform extends flash.geom.Transform
      */        
     public function Transform(src:DisplayObject = null)
     {        
-        if(src == null)
+        if (src == null)
             src = new Shape();
         super(src);        
     }
