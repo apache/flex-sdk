@@ -19,6 +19,7 @@ import flash.events.MouseEvent;
 import flash.system.Capabilities;
 
 import mx.core.IWindow;
+import mx.core.mx_internal;
 
 import spark.components.Button;
 import spark.components.supportClasses.SkinnableComponent;
@@ -27,6 +28,8 @@ import spark.primitives.SimpleText;
 import spark.skins.*;
 import spark.skins.default.MacTitleBarSkin;
 import spark.skins.default.TitleBarSkin;
+
+use namespace mx_internal;
 
 /**
  *  The TitleBar class defines the default title bar for a 
@@ -393,16 +396,16 @@ public class TitleBar extends SkinnableComponent
 
         if (titleIconChanged)
         {
-            if (mx_internal::titleIconObject)
+            if (titleIconObject)
             {
                 titleIconImage.source = null;
-                mx_internal::titleIconObject = null;
+                titleIconObject = null;
             }
             
             if (_titleIcon && titleIconImage)
             {
-                mx_internal::titleIconObject = new _titleIcon();
-                titleIconImage.source = mx_internal::titleIconObject;
+                titleIconObject = new _titleIcon();
+                titleIconImage.source = titleIconObject;
             }
             titleIconChanged = false;
         }
