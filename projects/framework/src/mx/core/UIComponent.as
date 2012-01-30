@@ -7971,6 +7971,15 @@ public class UIComponent extends FlexSprite
             oldScaleY = scaleY;
         }
         
+        // Typically state changes occur immediately, but during
+        // component initialization we defer until commitProperties to 
+        // reduce a bit of the startup noise.
+        if (_currentStateChanged && !initialized)
+        {
+            _currentStateChanged = false;
+            commitCurrentState();
+        }
+        
         if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
         {
             // If this component's layout direction has changed, or its parent's layoutDirection
@@ -7980,15 +7989,6 @@ public class UIComponent extends FlexSprite
             if ((oldLayoutDirection != layoutDirection) || parentChangedFlag ||
                 (parentUIC && (parentUIC.layoutDirection != parentUIC.oldLayoutDirection)))
                 invalidateLayoutDirection();
-        }
-        
-        // Typically state changes occur immediately, but during
-        // component initialization we defer until commitProperties to 
-        // reduce a bit of the startup noise.
-        if (_currentStateChanged && !initialized)
-        {
-            _currentStateChanged = false;
-            commitCurrentState();
         }
 
         if (x != oldX || y != oldY)
