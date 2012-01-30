@@ -17,6 +17,8 @@ package mx.states
 import mx.core.UIComponent;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
+import mx.core.IFlexModule;
+import mx.styles.IStyleManager2;
 
 /**
  *  The SetStyle class specifies a style that is in effect only during the parent view state.
@@ -304,7 +306,13 @@ public class SetStyle extends OverrideBase implements IOverride
 	            // backgroundColor.
                 if (name.toLowerCase().indexOf("color") != -1)
                 {
-	                obj.setStyle(name, StyleManager.getColorName(value));
+                    var styleManager:IStyleManager2;
+                    if (obj is UIComponent)
+                        styleManager = UIComponent(obj).styleManager;
+                    else
+                        styleManager = parent.styleManager;
+                    
+	                obj.setStyle(name, styleManager.getColorName(value));
                 }
                 else if (value is String && 
                          String(value).lastIndexOf("%") == 
