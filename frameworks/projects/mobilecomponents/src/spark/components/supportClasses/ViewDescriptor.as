@@ -20,7 +20,7 @@ import flash.utils.getQualifiedClassName;
 import spark.components.View;
 
 /**
- *  The ViewProxy object is a data structure used to store information
+ *  The ViewDescriptor object is a data structure used to store information
  *  about a view that is being managed by a ViewNavigator.
  * 
  *  @langversion 3.0
@@ -28,7 +28,7 @@ import spark.components.View;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class ViewProxy implements IExternalizable
+public class ViewDescriptor implements IExternalizable
 {
     //--------------------------------------------------------------------------
     //
@@ -39,7 +39,7 @@ public class ViewProxy implements IExternalizable
     /**
      *  Constructor.
      * 
-     *  @param factory The class used to create the View
+     *  @param viewClass The class used to create the View
      *  @param data The data object to pass to the view when created
      *  @param instance A reference to the instance of the View
      * 
@@ -48,12 +48,12 @@ public class ViewProxy implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function ViewProxy(factory:Class = null, 
+    public function ViewDescriptor(viewClass:Class = null, 
                               data:Object = null, 
-                              context:String = null,
+                              context:Object = null,
                               instance:View = null)
     {
-        this.factory = factory;
+        this.viewClass = viewClass;
         this.data = data;
         this.context = context;
         this.instance = instance;
@@ -79,7 +79,7 @@ public class ViewProxy implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var context:String;
+    public var context:Object;
     
     //----------------------------------
     //  data
@@ -98,21 +98,6 @@ public class ViewProxy implements IExternalizable
     public var data:Object;
     
     //----------------------------------
-    //  factory
-    //----------------------------------
-    
-    /**
-     *  The class used to create the view.  ViewNavigator will expect this
-     *  class to subclass View.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var factory:Class;
-    
-    //----------------------------------
     //  instance
     //----------------------------------
     
@@ -129,7 +114,7 @@ public class ViewProxy implements IExternalizable
     public var instance:View;
     
     //----------------------------------
-    //  persistedData
+    //  persistenceData
     //----------------------------------
     
     /**
@@ -143,7 +128,22 @@ public class ViewProxy implements IExternalizable
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var persistedData:Object;
+    public var persistenceData:Object;
+    
+    //----------------------------------
+    //  viewClass
+    //----------------------------------
+    
+    /**
+     *  The class used to create the view.  ViewNavigator will expect this
+     *  class to subclass View.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public var viewClass:Class;
     
     //--------------------------------------------------------------------------
     //
@@ -168,11 +168,11 @@ public class ViewProxy implements IExternalizable
     public function writeExternal(output:IDataOutput):void
     {
         output.writeObject(context);
-        output.writeObject(persistedData);
+        output.writeObject(persistenceData);
 
-        // Have to store the class name of the factory because classes can't be
+        // Have to store the class name of the viewClass because classes can't be
         // written to a shared object
-        output.writeObject(getQualifiedClassName(factory));
+        output.writeObject(getQualifiedClassName(viewClass));
     }
     
     /**
@@ -188,10 +188,10 @@ public class ViewProxy implements IExternalizable
     public function readExternal(input:IDataInput):void 
     {
         context = input.readObject();
-        persistedData = input.readObject();
+        persistenceData = input.readObject();
         
         var className:String = input.readObject();
-        factory = (className == "null") ? null : getDefinitionByName(className) as Class;
+        viewClass = (className == "null") ? null : getDefinitionByName(className) as Class;
     }
 }
 }
