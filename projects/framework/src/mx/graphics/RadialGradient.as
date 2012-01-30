@@ -217,8 +217,44 @@ public class RadialGradient extends GradientBase implements IFill
      */
     override public function set matrix(value:Matrix):void
     {
+    	scaleX = NaN;
     	scaleY = NaN;
     	super.matrix = value;
+    }
+
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
+    
+    private var _scaleX:Number;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The horizontal scale of the gradient transform, which defines the width of the (unrotated) gradient
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get scaleX():Number
+    {
+        return _scaleX; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set scaleX(value:Number):void
+    {
+        var oldValue:Number = _scaleX;
+        if (value != oldValue && !compoundTransform)
+        {
+            _scaleX = value;
+            dispatchGradientChangedEvent("scaleX", oldValue, value);
+        }
     }
     
     //----------------------------------
@@ -280,12 +316,12 @@ public class RadialGradient extends GradientBase implements IFill
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function begin(target:Graphics, rc:Rectangle):void
+    public function begin(target:Graphics, bounds:Rectangle):void
     {
-    	var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
-    	var h:Number = !isNaN(scaleY) ? scaleY : rc.height;
-		var regX:Number = rc.left + (!isNaN(x) ? x : rc.width / 2);
-		var regY:Number = rc.top + (!isNaN(y) ? y : rc.height / 2);
+    	var w:Number = !isNaN(scaleX) ? scaleX : bounds.width;
+    	var h:Number = !isNaN(scaleY) ? scaleY : bounds.height;
+		var regX:Number = bounds.left + (!isNaN(x) ? x : bounds.width / 2);
+		var regY:Number = bounds.top + (!isNaN(y) ? y : bounds.height / 2);
 			
 		commonMatrix.identity();
 		
@@ -297,8 +333,8 @@ public class RadialGradient extends GradientBase implements IFill
 		}
 	 	else
 	 	{
-	 		commonMatrix.scale (rc.width / GRADIENT_DIMENSION, rc.height / GRADIENT_DIMENSION);
-	 		commonMatrix.translate(rc.left, rc.top);
+	 		commonMatrix.scale (bounds.width / GRADIENT_DIMENSION, bounds.height / GRADIENT_DIMENSION);
+	 		commonMatrix.translate(bounds.left, bounds.top);
 	 		commonMatrix.concat(compoundTransform.matrix);
 	 	}
 	  		  	
