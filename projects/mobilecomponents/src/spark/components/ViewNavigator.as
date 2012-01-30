@@ -37,6 +37,11 @@ use namespace mx_internal;
 /**
  *  @inheritDoc
  */
+[Event(name="change", type="spark.events.IndexChangeEvent")]
+
+/**
+ *  @inheritDoc
+ */
 [Event(name="changing", type="spark.events.IndexChangeEvent")]
 
 /**
@@ -44,7 +49,6 @@ use namespace mx_internal;
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
-// FIXME (chiedozi): Figure out valueCommit and change event pattern
 /**
  *  @inheritDoc
  */
@@ -558,6 +562,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      */
     public function set selectedIndex(value:int):void
     {
+        var cancelIndexChange:Boolean = false;
+        
         if (value < -1 || value >= length) 
         {
             var message:String = ResourceManager.getInstance().getString(
@@ -568,6 +574,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (!selectedSectionChanged && value == selectedIndex)
             return;
         
+        if (activeView && !canRemoveCurrentView())
+            cancelIndexChange = true;
         
         if (hasEventListener(IndexChangeEvent.CHANGING))
         {
@@ -576,12 +584,13 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             e.newIndex = value;
             
             if (!dispatchEvent(e))
-            {
-                // The event was cancelled. Cancel the selection change and return.
-                _proposedSelectedIndex = NO_PROPOSED_SELECTION;
-                return;
-            }
+                cancelIndexChange = true;
         }
+        
+        // If the active view's REMOVING event or the navigator's
+        // CHANGING event was canceled, prevent the index change
+        if (cancelIndexChange)
+            return;
         
         _proposedSelectedIndex = value;
         currentViewChanged = true;
@@ -1258,8 +1267,21 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      */
     protected function commitSelection():Boolean
     {
+        var oldSelectedIndex:int = _selectedIndex;
+        
         _selectedIndex = _proposedSelectedIndex;
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+        
+        // TODO (chiedozi): Should always dispatch both a CHANGE and
+        // VALUE_COMMIT event.  Change should only be if a ui control
+        // changes selection/
+        if (hasEventListener(IndexChangeEvent.CHANGE))
+        {
+            var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGE);
+            e.oldIndex = oldSelectedIndex;
+            e.newIndex = _selectedIndex;
+            dispatchEvent(e);
+        }
         
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
