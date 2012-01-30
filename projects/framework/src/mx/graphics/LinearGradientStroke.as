@@ -127,26 +127,26 @@ public class LinearGradientStroke extends GradientStroke
      */
     private static var commonMatrix:Matrix = new Matrix();
     
-    //--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
 
     //----------------------------------
-    //  matrix
-    //----------------------------------
+	//  matrix
+	//----------------------------------
     
     /**
      *  @private
      */
     override public function set matrix(value:Matrix):void
     {
-        scaleX = NaN;
-        super.matrix = value;
+    	scaleX = NaN;
+    	super.matrix = value;
     }
 
-    //----------------------------------
+	//----------------------------------
     //  scaleX
     //----------------------------------
     
@@ -199,21 +199,16 @@ public class LinearGradientStroke extends GradientStroke
 
     /**
      *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     override public function apply(graphics:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
-    {
-        commonMatrix.identity();
-        
+	{
+		commonMatrix.identity();
+		
         graphics.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
         
         if (targetBounds)
-            calculateTransformationMatrix(targetBounds, commonMatrix, targetOrigin); 
+        	calculateTransformationMatrix(targetBounds, commonMatrix, targetOrigin); 
         
         graphics.lineGradientStyle(GradientType.LINEAR, colors,
                             alphas, ratios,
@@ -259,7 +254,7 @@ public class LinearGradientStroke extends GradientStroke
             {
                 // Figure out the two sides
                 if (rotation % 90 != 0)
-                {           
+                {			
                     // Normalize angles with absolute value > 360 
                     var normalizedAngle:Number = rotation % 360;
                     // Normalize negative angles
@@ -308,11 +303,11 @@ public class LinearGradientStroke extends GradientStroke
             if (!isNaN(tx) && !isNaN(ty))
                 matrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2); // 1638.4 / 2
             
-            // Force the length to a absolute minimum of 2. Values of 0, 1, or -1 have undesired behavior   
-            if (length >= 0 && length < 2)
-                length = 2;
-            else if (length < 0 && length > -2)
-                length = -2;
+			// Force the length to a absolute minimum of 2. Values of 0, 1, or -1 have undesired behavior	
+			if (length >= 0 && length < 2)
+				length = 2;
+			else if (length < 0 && length > -2)
+				length = -2;
             
             // Scale the gradient in the x direction. The natural size is 1638.4px. No need
             // to scale the y direction because it is infinite
@@ -327,7 +322,7 @@ public class LinearGradientStroke extends GradientStroke
                 ty = targetBounds.top + targetBounds.height / 2;
             else
                 ty += targetOrigin.y;
-            matrix.translate(tx, ty);   
+            matrix.translate(tx, ty);	
         }
         else
         {
@@ -335,7 +330,7 @@ public class LinearGradientStroke extends GradientStroke
             matrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
             matrix.concat(compoundTransform.matrix);
             matrix.translate(targetOrigin.x, targetOrigin.y);
-        }               
+        }			 	
     }
     
 }
