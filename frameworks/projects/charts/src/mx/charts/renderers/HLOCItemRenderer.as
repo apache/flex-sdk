@@ -19,7 +19,7 @@ import mx.charts.series.items.HLOCSeriesItem;
 import mx.core.IDataRenderer;
 import mx.graphics.IStroke;
 import mx.graphics.LinearGradientStroke;
-import mx.graphics.Stroke;
+import mx.graphics.SolidColorStroke;
 import mx.skins.ProgrammaticSkin;
 import mx.utils.ColorUtil;
 
@@ -132,39 +132,39 @@ public class HLOCItemRenderer extends ProgrammaticSkin implements IDataRenderer
 
         var istroke:IStroke = getStyle("stroke");
         
-        var stroke:Stroke;
+        var stroke:SolidColorStroke;
         var lgstroke:LinearGradientStroke;
         
-        if (istroke is Stroke)
-        	stroke = Stroke(istroke);
+        if (istroke is SolidColorStroke)
+        	stroke = SolidColorStroke(istroke);
         else if (istroke is LinearGradientStroke)
         	lgstroke = LinearGradientStroke(istroke);
         else
-        	stroke = new Stroke(getStyle('hlocColor'), istroke.weight);
+        	stroke = new SolidColorStroke(getStyle('hlocColor'), istroke.weight);
         
         var iOpenTickStroke:IStroke = getStyle("openTickStroke");
         
-        var openTickStroke:Stroke;
+        var openTickStroke:SolidColorStroke;
         var lgOpenTickStroke:LinearGradientStroke;
         
-        if (iOpenTickStroke is Stroke)
-        	openTickStroke = Stroke(iOpenTickStroke);
+        if (iOpenTickStroke is SolidColorStroke)
+        	openTickStroke = SolidColorStroke(iOpenTickStroke);
        else if (iOpenTickStroke is LinearGradientStroke)
         	lgOpenTickStroke = LinearGradientStroke(iOpenTickStroke);
         else
-        	openTickStroke = new Stroke(getStyle('hlocColor'), iOpenTickStroke.weight, 1, false, "normal", "none");
+        	openTickStroke = new SolidColorStroke(getStyle('hlocColor'), iOpenTickStroke.weight, 1, false, "normal", "none");
         	
         var iCloseTickStroke:IStroke = getStyle("closeTickStroke");
         
-        var closeTickStroke:Stroke;
+        var closeTickStroke:SolidColorStroke;
         var lgCloseTickStroke:LinearGradientStroke;
         
-        if (iCloseTickStroke is Stroke)
-        	closeTickStroke = Stroke(iCloseTickStroke);
+        if (iCloseTickStroke is SolidColorStroke)
+        	closeTickStroke = SolidColorStroke(iCloseTickStroke);
         else if (iCloseTickStroke is LinearGradientStroke)
         	lgCloseTickStroke = LinearGradientStroke(iCloseTickStroke);
         else
-        	closeTickStroke = new Stroke(getStyle('hlocColor'), iCloseTickStroke.weight, 1, false, "normal", "none");
+        	closeTickStroke = new SolidColorStroke(getStyle('hlocColor'), iCloseTickStroke.weight, 1, false, "normal", "none");
         	
         var w2:Number = unscaledWidth / 2;
 
