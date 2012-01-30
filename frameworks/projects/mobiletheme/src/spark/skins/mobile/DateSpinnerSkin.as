@@ -23,6 +23,8 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 /**
  *  ActionScript-based skin for the DateSpinner in mobile applications.
  *  
+ * @see spark.components.DateSpinner
+ * 
  *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
