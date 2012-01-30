@@ -34,6 +34,11 @@ public class Watcher
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function Watcher(listeners:Array = null)
     {
@@ -117,6 +122,11 @@ public class Watcher
     /**
      *  We have probably changed, so go through
 	 *  and make sure our children are updated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function updateChildren():void
     {
