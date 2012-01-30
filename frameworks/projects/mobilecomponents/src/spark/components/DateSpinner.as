@@ -230,6 +230,9 @@ public class DateSpinner extends SkinnableComponent
     private static const MIN_DATE_DEFAULT:Date = new Date(DateTimeFormatterEx.MIN_YEAR, 0, 1);
     private static const MAX_DATE_DEFAULT:Date = new Date(9999, 11, 31, 23, 59, 59, 999);
     
+    // Emphasized constant
+    mx_internal static const EMPHASIZED_PROPERTY_NAME:String = "_emphasized_"; 
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -994,7 +997,7 @@ public class DateSpinner extends SkinnableComponent
         if (yearList && populateYearDataProvider)
         {
             yearList.dataProvider = new YearProvider(localeStr, minDate.fullYear,
-                maxDate.fullYear, today, getStyle("accentColor"));
+                maxDate.fullYear, today);
             
             // set size to longest string
             if (!longestYearItem)
@@ -1014,7 +1017,7 @@ public class DateSpinner extends SkinnableComponent
             if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
             {
                 dateList.dataProvider = new DateAndTimeProvider(localeStr, minDate, maxDate,
-                    today, getStyle("accentColor"));
+                    today);
                 
                 // set size to longest string
                 if (!longestDateItem)
@@ -1088,7 +1091,7 @@ public class DateSpinner extends SkinnableComponent
             var item:Object = generateDateItemObject(monthNames[i], i);
             
             if (i == todayMonth)
-                item["accentColor"] = getStyle("accentColor");
+                item[EMPHASIZED_PROPERTY_NAME] = true;
                 
             ac.addItem(item);
         }
@@ -1113,7 +1116,7 @@ public class DateSpinner extends SkinnableComponent
             var item:Object = generateDateItemObject(dateTimeFormatter.format(dateObj), i);
 
             if (i == todayDate)
-                item["accentColor"] = getStyle("accentColor");
+                item[EMPHASIZED_PROPERTY_NAME] = true;
         
             ac.addItem(item);
         }
@@ -1290,7 +1293,7 @@ public class DateSpinner extends SkinnableComponent
                     if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
                     {
                         var o:Object = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
-                        o["accentColor"] = curObj["accentColor"];
+                        o[EMPHASIZED_PROPERTY_NAME] = curObj[EMPHASIZED_PROPERTY_NAME];
                         listData[i] = o;
                     }
                 }
@@ -1319,7 +1322,7 @@ public class DateSpinner extends SkinnableComponent
                 if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
                 {
                     o = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
-                    o["accentColor"] = curObj["accentColor"];
+                    o[EMPHASIZED_PROPERTY_NAME] = curObj[EMPHASIZED_PROPERTY_NAME];
                     listData[i] = o;
                 }
             }
@@ -1360,7 +1363,7 @@ public class DateSpinner extends SkinnableComponent
                 if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
                 {
                     o = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
-                    o["accentColor"] = curObj["accentColor"];
+                    o[EMPHASIZED_PROPERTY_NAME] = curObj[EMPHASIZED_PROPERTY_NAME];
                     listData[i] = o;
                 }
             }
@@ -1399,7 +1402,7 @@ public class DateSpinner extends SkinnableComponent
                 if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
                 {
                     o = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
-                    o["accentColor"] = curObj["accentColor"];
+                    o[EMPHASIZED_PROPERTY_NAME] = curObj[EMPHASIZED_PROPERTY_NAME];
                     listData[i] = o;
                 }
             }
