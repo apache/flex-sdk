@@ -2012,6 +2012,30 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        super.partRemoved(partName, instance);
+        
+        // Clear out all the content that is within the actionBar
+        if (instance == actionBar)
+        {
+            actionBar.actionContent = null;
+            actionBar.actionLayout = null;
+            actionBar.titleContent = null;
+            actionBar.titleLayout = null;
+            actionBar.navigationContent = null;
+            actionBar.navigationContent = null;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods: ISelectableList
