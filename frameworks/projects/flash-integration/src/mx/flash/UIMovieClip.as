@@ -3374,24 +3374,6 @@ public dynamic class UIMovieClip extends MovieClip
         }
     }
     
-    private function isOnDisplayList():Boolean
-    {
-        var p:DisplayObjectContainer;
-
-        try
-        {
-            p = _parent ? _parent : super.parent;
-        }
-        catch (e:SecurityError)
-        {
-            // trace("UIComponent.isOnDisplayList(): " + e);
-            return true;        // we are on the display list but the parent is in another sandbox
-        }
-
-        return p ? true : false;
-    }
-    
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
