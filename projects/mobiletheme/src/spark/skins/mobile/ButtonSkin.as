@@ -188,7 +188,7 @@ public class ButtonSkin extends ButtonSkinBase
         graphics.clear();
         
         // Draw the gradient background
-        matrix.createGradientBox(unscaledWidth - 1, unscaledHeight - 2, Math.PI / 2, 0, 0);
+        matrix.createGradientBox(unscaledWidth - 1, unscaledHeight - 1, Math.PI / 2, 0, 0);
         var chromeColor:uint = getStyle("chromeColor");
         colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
         colors[1] = chromeColor;
@@ -198,7 +198,7 @@ public class ButtonSkin extends ButtonSkinBase
         
         // Draw the background rectangle within the border, so the corners of the rect don't 
         // spill over into the rounded corners of the Button
-        graphics.drawRect(1, 1, unscaledWidth - 1, unscaledHeight - 2);
+        graphics.drawRect(1, 1, unscaledWidth - 1, unscaledHeight - 1);
         graphics.endFill();
     }
 
