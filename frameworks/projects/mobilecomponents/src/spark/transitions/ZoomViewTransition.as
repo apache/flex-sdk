@@ -34,7 +34,8 @@ use namespace mx_internal;
  * 
  *  The default duration of a ZoomViewTransition is 350ms.  In addition, the 
  *  zoom transition by default transitions the control bar and view content
- *  as one (transitionControlsWithContent = true).
+ *  as one (transitionControlsWithContent = true). There is no default action bar
+ *  transition for the ZoomViewTransition.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
