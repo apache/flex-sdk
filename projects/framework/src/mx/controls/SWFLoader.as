@@ -415,7 +415,7 @@ public class SWFLoader extends UIComponent
     [Inspectable(defaultValue="true")]
 
     /**
-     *  A flag that indictes whether content starts loading automatically
+     *  A flag that indicates whether content starts loading automatically
      *  or waits for a call to the <code>load()</code> method.
      *  If <code>true</code>, the content loads automatically. 
      *  If <code>false</code>, you must call the <code>load()</code> method.
