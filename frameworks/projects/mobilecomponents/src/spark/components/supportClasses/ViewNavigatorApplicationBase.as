@@ -27,7 +27,6 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.ResizeEvent;
-import mx.managers.PopUpManager;
 
 import spark.components.Application;
 import spark.components.View;
@@ -35,6 +34,7 @@ import spark.components.ViewMenu;
 import spark.components.ViewMenuItem;
 import spark.core.managers.IPersistenceManager;
 import spark.core.managers.PersistenceManager;
+import spark.events.PopUpCloseEvent;
 
 [Exclude(name="controlBarContent", kind="property")]
 [Exclude(name="controlBarGroup", kind="property")]
@@ -317,7 +317,6 @@ public class MobileApplicationBase extends Application
     //----------------------------------
     //  viewMenuOpen
     //----------------------------------
-    private var _viewMenuOpen:Boolean = false;
     
     /**
      *  Opens the view menu if set to true and closes it if set to false. 
@@ -326,7 +325,7 @@ public class MobileApplicationBase extends Application
      */
     public function get viewMenuOpen():Boolean
     {
-        return _viewMenuOpen;
+        return currentViewMenu && currentViewMenu.opened;
     }
     
     /**
@@ -334,15 +333,13 @@ public class MobileApplicationBase extends Application
      */ 
     public function set viewMenuOpen(value:Boolean):void
     {
-        if (value == _viewMenuOpen)
+        if (value == viewMenuOpen)
             return;
         
         if (!viewMenu || !activeView.viewMenuItems || activeView.viewMenuItems.length == 0)
             return;
         
-        _viewMenuOpen = value;
-        
-        if (_viewMenuOpen)
+        if (value)
             openViewMenu();
         else
             closeViewMenu();
@@ -593,31 +590,19 @@ public class MobileApplicationBase extends Application
             menuKeyHandler(event);
     }
     
-    
     /**
      *  @private
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */  
     private function orientationChangeHandler(event:StageOrientationEvent):void
     {   
-        if (viewMenuOpen)
+        if (currentViewMenu)
         {
-            // Change the width
-            // Reposition
+            // Update size, the position stays at (0,0)
             currentViewMenu.width = getLayoutBoundsWidth();
-            
-            
-            currentViewMenu.validateNow();
-            
-            currentViewMenu.x = 0;
-            currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
+            currentViewMenu.height = getLayoutBoundsHeight();
         }
     } 
-    
+
     /**
      *  @private
      */ 
@@ -638,62 +623,65 @@ public class MobileApplicationBase extends Application
     /**
      *  @private
      */ 
-    private function viewMenu_resizeHandler(event:ResizeEvent):void
-    {
-        // Reposition the view menu?
-        currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
-    }
-    
-    /**
-     *  @private
-     */ 
     private function openViewMenu():void
     {
-        currentViewMenu = ViewMenu(viewMenu.newInstance());
-        currentViewMenu.items = activeView.viewMenuItems;
-        currentViewMenu.owner = this;
-        currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
-        currentViewMenu.width = getLayoutBoundsWidth();
+        if (!currentViewMenu)
+        {
+            currentViewMenu = ViewMenu(viewMenu.newInstance());
+            currentViewMenu.items = activeView.viewMenuItems;
+            
+            // Size the menu as big as the app
+            currentViewMenu.width = getLayoutBoundsWidth();
+            currentViewMenu.height = getLayoutBoundsHeight();
+            
+            // Remember the focus, we'll restore it when the menu closes
+            lastFocus = getFocus();
+            currentViewMenu.setFocus();
+            
+            currentViewMenu.addEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
+            currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
+            currentViewMenu.addEventListener(PopUpCloseEvent.CLOSE, viewMenuClose_handler);
+        }
         
-        PopUpManager.addPopUp(currentViewMenu, this, true);   
-        // Force a layout pass so we can properly position the viewMenu
-        currentViewMenu.validateNow();
-        
-        currentViewMenu.x = 0;
-        currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
-        
-        lastFocus = getFocus();
-        
-        currentViewMenu.setFocus();
-        currentViewMenu.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
-        
-        // Listen for resize if the icon is loaded from disk or via URL
-        currentViewMenu.addEventListener(ResizeEvent.RESIZE, viewMenu_resizeHandler);
-        
+        currentViewMenu.open(this, false /*modal*/);
+
         // Private event for testing
         if (activeView.hasEventListener("viewMenuOpen"))
             activeView.dispatchEvent(new Event("viewMenuOpen"));
     }
-    
+
     /**
      *  @private
      */ 
     private function closeViewMenu():void
     {
+        if (currentViewMenu)
+            currentViewMenu.close();
+    }
+
+    /**
+     *  @private
+     */ 
+    private function viewMenuClose_handler(event:PopUpCloseEvent):void
+    {
+        currentViewMenu.removeEventListener(PopUpCloseEvent.CLOSE, viewMenuClose_handler);
         currentViewMenu.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
-        PopUpManager.removePopUp(currentViewMenu);
+        currentViewMenu.removeEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
         
         // Private event for testing
         if (activeView.hasEventListener("viewMenuClose"))
             activeView.dispatchEvent(new Event("viewMenuClose"));
         
+        // Clear the caret and validate properties to put back the viewMenu items
+        // in their default state so that next time we open the menu we don't
+        // see an item in a stale "caret" state.
         currentViewMenu.caretIndex = -1;
         currentViewMenu.validateProperties();
-        currentViewMenu.removeEventListener(MouseEvent.CLICK, viewMenu_clickHandler);
-        currentViewMenu.removeEventListener(ResizeEvent.RESIZE, viewMenu_resizeHandler);
+        
         currentViewMenu.items = null;
         currentViewMenu = null;
         
+        // Restore focus
         systemManager.stage.focus = lastFocus;
     }
     
