@@ -33,32 +33,62 @@ public class BindabilityInfo
 	
 	/**
 	 *  Name of [Bindable] metadata.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const BINDABLE:String = "Bindable";
 	
 	/**
 	 *  Name of [Managed] metadata.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MANAGED:String = "Managed";
 	
 	/**
 	 *  Name of [ChangeEvent] metadata.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CHANGE_EVENT:String = "ChangeEvent";
 	
 	/**
 	 *  Name of [NonCommittingChangeEvent] metadata.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const NON_COMMITTING_CHANGE_EVENT:String =
 		"NonCommittingChangeEvent";
 
 	/**
 	 *  Name of describeType() <accessor> element.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const ACCESSOR:String = "accessor";
 	
 	/**
 	 *  Name of describeType() <method> element.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const METHOD:String = "method";
 
@@ -70,6 +100,11 @@ public class BindabilityInfo
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function BindabilityInfo(typeDescription:XML)
 	{
@@ -110,6 +145,11 @@ public class BindabilityInfo
 	/**
 	 *  Object containing { eventName: true } for each change event
 	 *  (class- or child-level) that applies to the specified child.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getChangeEvents(childName:String):Object
 	{
