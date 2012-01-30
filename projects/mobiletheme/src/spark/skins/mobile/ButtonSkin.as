@@ -227,6 +227,7 @@ public class ButtonSkin extends ButtonSkinBase
             labelDisplayShadow = StyleableTextField(createInFontContext(StyleableTextField));
             labelDisplayShadow.styleName = this;
             labelDisplayShadow.colorName = "textShadowColor";
+            labelDisplayShadow.useTightTextBounds = false;
             
             // add shadow before display
             addChildAt(labelDisplayShadow, getChildIndex(labelDisplay));
@@ -282,8 +283,9 @@ public class ButtonSkin extends ButtonSkinBase
         labelDisplayShadow.alpha = getStyle("textShadowAlpha");
         labelDisplayShadow.commitStyles();
         
-        setElementPosition(labelDisplayShadow, labelDisplay.getLayoutBoundsX(), labelDisplay.getLayoutBoundsY() + 1);
-        setElementSize(labelDisplayShadow, labelDisplay.getLayoutBoundsWidth(), labelDisplay.getLayoutBoundsHeight());
+        // don't use tightText positioning on shadow
+        setElementPosition(labelDisplayShadow, labelDisplay.x, labelDisplay.y + 1);
+        setElementSize(labelDisplayShadow, labelDisplay.width, labelDisplay.height);
         
         // if labelDisplay is truncated, then push it down here as well.
         // otherwise, it would have gotten pushed in the labelDisplay_valueCommitHandler()
