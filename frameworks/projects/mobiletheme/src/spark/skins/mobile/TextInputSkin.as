@@ -12,9 +12,11 @@
 package spark.skins.mobile 
 {
 import flash.events.Event;
+import flash.events.SoftKeyboardEvent;
 import flash.system.Capabilities;
 
 import mx.core.DPIClassification;
+import mx.core.EventPriority;
 import mx.core.mx_internal;
 
 import spark.components.TextInput;
@@ -113,11 +115,23 @@ public class TextInputSkin extends TextSkinBase
     /**
      *  @private
      */
+    private var _isEditing:Boolean;
+    
+    /**
+     *  @private
+     */
     override protected function createChildren():void
     {
         super.createChildren();
         
         textDisplay.addEventListener("editableChanged", editableChangedHandler);
+        
+        // remove hit area improvements on iOS when editing
+        if (_isIOS)
+        {
+            textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, textDisplay_softKeyboardActivatingHandler, false, EventPriority.DEFAULT_HANDLER);
+            textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, textDisplay_softKeyboardDeactivateHandler);
+        }
     }
     
     /**
@@ -187,53 +201,51 @@ public class TextInputSkin extends TextSkinBase
         // default vertical positioning is centered
         var textHeight:Number = getElementPreferredHeight(textDisplay);
         var textY:Number = Math.round(0.5 * (unscaledTextHeight - textHeight)) + paddingTop;
+        
+        // On iOS the TextField top and bottom edges are bounded by the padding.
+        // On all other platforms, the height of the textDisplay is
+        // textHeight + paddingBottom to increase hitArea on bottom.
+        // Note: We don't move the Y position upwards because TextField
+        // has way to set vertical positioning.
+        // Note: iOS is a special case due to the clear button provided by the
+        // native text control used while editing.
+        var adjustedTextHeight:Number = (_isIOS && _isEditing) ? textHeight : textHeight + paddingBottom;
 
         if (textDisplay)
         {
-            if (_isIOS)
-            {
-                // Remove hit area improvements for text editing stability
-                // and clear button alignment. See  https://bugs.adobe.com/jira/browse/SDK-29905. 
-                // and https://bugs.adobe.com/jira/browse/SDK-29887
-                setElementSize(textDisplay, unscaledWidth - paddingLeft - paddingRight, textHeight);
-                setElementPosition(textDisplay, paddingLeft, textY);
-            }
-            else
-            {
-                // We're going to do a few tricks to try to increase the size of our hitArea to make it 
-                // easier for users to select text or put the caret in a certain spot.  To do that, 
-                // rather than set textDisplay.x=paddingLeft,  we are going to set 
-                // textDisplay.leftMargin = paddingLeft.  In addition, we're going to size the height 
-                // of the textDisplay larger than just the size of the text inside to increase the hitArea
-                // on the bottom.  We'll also assign textDisplay.rightMargin = paddingRight to increase the 
-                // the hitArea on the right.  Unfortunately, there's no way to increase the hitArea on the top
-                // just yet, but these three tricks definitely help out with regards to user experience.  
-                // See http://bugs.adobe.com/jira/browse/SDK-29406 and http://bugs.adobe.com/jira/browse/SDK-29405
-                
-                // set leftMargin, rightMargin to increase the hitArea.  Need to set it before calling commitStyles().
-                var marginChanged:Boolean = ((textDisplay.leftMargin != paddingLeft) || 
-                    (textDisplay.rightMargin != paddingRight));
-                
-                textDisplay.leftMargin = paddingLeft;
-                textDisplay.rightMargin = paddingRight;
-                
-                // need to force a styleChanged() after setting leftMargin, rightMargin if they 
-                // changed values.  Then we can validate the styles through commitStyles()
-                if (marginChanged)
-                    textDisplay.styleChanged(null);
-                textDisplay.commitStyles();
-                
-                // the height of the textDisplay to unscaledTextHeight + paddingBottom to increase hitArea on bottom
-                setElementSize(textDisplay, unscaledWidth, unscaledTextHeight + paddingBottom);
-                // set x=0 since we're using textDisplay.leftMargin = paddingLeft
-                setElementPosition(textDisplay, 0, textY);
-            }
+            // We're going to do a few tricks to try to increase the size of our hitArea to make it 
+            // easier for users to select text or put the caret in a certain spot.  To do that, 
+            // rather than set textDisplay.x=paddingLeft,  we are going to set 
+            // textDisplay.leftMargin = paddingLeft.  In addition, we're going to size the height 
+            // of the textDisplay larger than just the size of the text inside to increase the hitArea
+            // on the bottom.  We'll also assign textDisplay.rightMargin = paddingRight to increase the 
+            // the hitArea on the right.  Unfortunately, there's no way to increase the hitArea on the top
+            // just yet, but these three tricks definitely help out with regards to user experience.  
+            // See http://bugs.adobe.com/jira/browse/SDK-29406 and http://bugs.adobe.com/jira/browse/SDK-29405
+            
+            // set leftMargin, rightMargin to increase the hitArea.  Need to set it before calling commitStyles().
+            var marginChanged:Boolean = ((textDisplay.leftMargin != paddingLeft) || 
+                (textDisplay.rightMargin != paddingRight));
+            
+            textDisplay.leftMargin = paddingLeft;
+            textDisplay.rightMargin = paddingRight;
+            
+            // need to force a styleChanged() after setting leftMargin, rightMargin if they 
+            // changed values.  Then we can validate the styles through commitStyles()
+            if (marginChanged)
+                textDisplay.styleChanged(null);
+            textDisplay.commitStyles();
+            
+            setElementSize(textDisplay, unscaledWidth, adjustedTextHeight);
+            
+            // set x=0 since we're using textDisplay.leftMargin = paddingLeft
+            setElementPosition(textDisplay, 0, textY);
         }
         
         if (promptDisplay)
         {
             promptDisplay.commitStyles();
-            setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
+            setElementSize(promptDisplay, unscaledTextWidth, adjustedTextHeight);
             setElementPosition(promptDisplay, paddingLeft, textY);
         }
     }
@@ -243,6 +255,27 @@ public class TextInputSkin extends TextSkinBase
      */
     private function editableChangedHandler(event:Event):void
     {
+        invalidateDisplayList();
+    }
+    
+    /**
+     *  @private
+     */
+    private function textDisplay_softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        _isEditing = true;
+        invalidateDisplayList();
+    }
+    
+    /**
+     *  @private
+     */
+    private function textDisplay_softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
+    {
+        _isEditing = false;
         invalidateDisplayList();
     }
 }
