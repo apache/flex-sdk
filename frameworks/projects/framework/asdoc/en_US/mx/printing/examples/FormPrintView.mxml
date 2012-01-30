@@ -44,7 +44,7 @@
 
     <!-- The template for the printed page, with the contents for all pages. -->
     <s:VGroup width="80%" horizontalAlign="left">
-        <s:SimpleText text="Page {pageNumber}"/>
+        <s:Label text="Page {pageNumber}"/>
     </s:VGroup>
 
     <FormPrintHeader id="header" />
