@@ -122,10 +122,7 @@ public class TweenEffectInstance extends EffectInstance
 	//----------------------------------
 
 	/**
-	 *  The current position of the effect, in milliseconds. 
-	 *  This value is between 0 and the value of the
-	 *  <code>duration</code> property.
-	 *  Use the <code>seek()</code> method to change the position of the effect.
+	 *  @inheritDoc
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -139,6 +136,18 @@ public class TweenEffectInstance extends EffectInstance
 		else
 			return 0;
 	}
+
+    /**
+     * @private
+     */
+    override public function set playheadTime(value:Number):void
+    {
+        if (tween)
+            tween.seek(value);
+        else
+            _seekTime = value;
+    } 
+    
 	
   	//----------------------------------
 	//  tween
@@ -209,25 +218,6 @@ public class TweenEffectInstance extends EffectInstance
 		
 		super.playReversed = !playReversed;	
 	}
-	
-	/**
-  	 *  Advances the effect to the specified position. 
-  	 *
-  	 *  @param playheadTime The position, in milliseconds, between 0
-	 *  and the value of the <code>duration</code> property.
-  	 *  
-  	 *  @langversion 3.0
-  	 *  @playerversion Flash 9
-  	 *  @playerversion AIR 1.1
-  	 *  @productversion Flex 3
-  	 */
-    override public function seek(playheadTime:Number):void
-	{
-		if (tween)
-			tween.seek(playheadTime);
-		else
-			_seekTime = playheadTime;
-	} 
 	
 	/**
 	 *  Interrupts an effect that is currently playing,
