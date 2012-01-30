@@ -13151,6 +13151,8 @@ public class UIComponent extends FlexSprite
             _layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         if (was3D != is3D)
             validateMatrix();
+
+        invalidateTransform();
     }
 
     /**
