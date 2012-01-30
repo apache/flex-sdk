@@ -72,9 +72,10 @@ include "../../styles/metadata/StyleableTextFieldTextStyles.as"
 //   in createChildren():
 //       var tf:StyleableTextField = createInFontContext(StyleableTextField);
 //       tf.styleName = this;
-//       tf.editable = true|false;   // for editable text
-//       tf.multiline = true|false;  // for multiline text
-//       tf.wordWrap = true|false;   // for word wrapping
+//       tf.editable = true|false;       // for editable text
+//       tf.multiline = true|false;      // for multiline text
+//       tf.wordWrap = true|false;       // for word wrapping
+//       tf.cacheAsBitmap = true|false;  // use true if text in item renderer
 //       addChild(tf);
 //
 //   in commitProperties():
@@ -84,16 +85,14 @@ include "../../styles/metadata/StyleableTextFieldTextStyles.as"
 //       if (tf.isTruncated)     // if text may be truncated
 //           tf.text = "...";
 //       tf.commitStyles();    // Always call this. No-op if styles already applied.
-//       Use tf.textWidth, tf.textHeight;
+//       Use getElementPreferredWidth(tf), getElementPreferredHeight(tf)
 //
 //   in updateDisplayList():
 //       if (tf.isTruncated)    // if text may be truncated
 //           tf.text = "...";
 //       tf.commitStyles();    // Always call this. No-op if styles already applied.
-//       tf.x = ...
-//       tf.y = ...
-//       tf.width = ...
-//       tf.height = ...
+//       setElementSize(tf, width, height);
+//       setElementPosition(x, y);
 //       // if you want truncated text:
 //       tf.truncateToFit();
 //
