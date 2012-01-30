@@ -49,6 +49,11 @@ package mx.formatters
  *  
  *  @see mx.formatters.PhoneFormatter
  *  @access private
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SwitchSymbolFormatter
 {
@@ -64,6 +69,11 @@ public class SwitchSymbolFormatter
 	 *  Constructor.
 	 *
 	 *  @param numberSymbol Character to use as the pattern character.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SwitchSymbolFormatter(numberSymbol:String = "#")
 	{
@@ -105,6 +115,11 @@ public class SwitchSymbolFormatter
 	 *  (alpha characters are allowed if needed).
 	 *
 	 *  @returns Formatted String.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function formatValue(format:String, source:Object):String
 	{
