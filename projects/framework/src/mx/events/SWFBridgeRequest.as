@@ -26,6 +26,11 @@ import flash.events.IEventDispatcher;
  *  to return data back to the dispatching SWF.
  *
  *  @see flash.display.LoaderInfo#sharedEvents
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SWFBridgeRequest extends Event
 {
@@ -44,6 +49,11 @@ public class SWFBridgeRequest extends Event
 	 *  The <code>data</code> property contains an identifier for the pop up. It is not
 	 *  always an actual reference to the pop up. No data is
 	 *  returned.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const ACTIVATE_POP_UP_REQUEST:String = "activatePopUpRequest";
 
@@ -57,6 +67,11 @@ public class SWFBridgeRequest extends Event
 	 *  always an actual reference to the pop up. The receiving
 	 *  SystemManager sets the request's <code>data</code> property to <code>true</code> if
 	 *  the pop up can be activated. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CAN_ACTIVATE_POP_UP_REQUEST:String = "canActivateRequestPopUpRequest";
 	 
@@ -67,6 +82,11 @@ public class SWFBridgeRequest extends Event
 	 *  The data property contains an identifier for the pop up.  It is not
 	 *  always an actual reference to the pop up.  No data is
 	 *  returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DEACTIVATE_POP_UP_REQUEST:String = "deactivatePopUpRequest";
 
@@ -79,6 +99,11 @@ public class SWFBridgeRequest extends Event
      *  in the <code>data</code> property which is a Rectangle
      *  in global coordinates.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static const GET_VISIBLE_RECT_REQUEST:String = "getVisibleRectRequest";
     
@@ -90,6 +115,11 @@ public class SWFBridgeRequest extends Event
 	 *  is a reference to the DisplayObject. The receiving
 	 *  SystemManager sets the request's <code>data</code> property to <code>true</code> if
 	 *  the DisplayObject is a child of the SWF or one of its child SWFs. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const IS_BRIDGE_CHILD_REQUEST:String = "isBridgeChildRequest";
 
@@ -99,6 +129,11 @@ public class SWFBridgeRequest extends Event
 	 *  a SystemManager to its parent SystemManager.  The <code>data</code> property
 	 *  is a combination of InvalidationRequestData flags. No data is
 	 *  returned.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */  
 	public static const INVALIDATE_REQUEST:String = "invalidateRequest";
 	
@@ -107,6 +142,11 @@ public class SWFBridgeRequest extends Event
 	 *  when over this application. This request is sent to the bridge that is shared with
 	 *  the parent application and propagated up to the top-level root.
 	 *  The <code>data</code> property is not used
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static const HIDE_MOUSE_CURSOR_REQUEST:String = "hideMouseCursorRequest";
 
@@ -115,6 +155,11 @@ public class SWFBridgeRequest extends Event
 	 *  current location. Sent to the bridge shared with
 	 *  the parent application and propagated up to the top-level root.
      *  The data is set to true if the mouse cursor should be shown at this location
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static const SHOW_MOUSE_CURSOR_REQUEST:String = "showMouseCursorRequest";
 
@@ -124,18 +169,33 @@ public class SWFBridgeRequest extends Event
 	 *  should be shown or hidden. This request is sent to the bridge shared with
 	 *  the parent application and propagated up to the top-level root.
 	 *  The data property is not used
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static const RESET_MOUSE_CURSOR_REQUEST:String = "resetMouseCursorRequest";
 
 	/**
 	 *  Sent from the top-level focus manager to a subordinate focus managers
 	 *  so all the focus managers participating in a tab loop get activated.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	public static const ACTIVATE_FOCUS_REQUEST:String = "activateFocusRequest";
 
 	/**
 	 *  Sent from the top-level focus manager to a subordinate focus managers
 	 *  so all the focus managers participating in a tab loop get deactivated.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	public static const DEACTIVATE_FOCUS_REQUEST:String = "deactivateFocusRequest";
 
@@ -148,6 +208,11 @@ public class SWFBridgeRequest extends Event
 	 *  property is set to <code>FocusDirection.FORWARD</code> or <code>FocusDirection.BACKWARD</code>.
      *  When focus is moved to a child SWFs FocusManager, the <code>direction</code>
 	 *  property is set to <code>FocusDirection.TOP</code> or <code>FocusDirection.BOTTOM</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	public static const MOVE_FOCUS_REQUEST:String = "moveFocusRequest";
 	
@@ -163,6 +228,11 @@ public class SWFBridgeRequest extends Event
      *  describes the area to exclude from the modal window. The coordinates
      *  of the Rectangle are in global coordinates. The parameter will only be present when 
      *  the requestor trusts the recipient of the request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CREATE_MODAL_WINDOW_REQUEST:String = "createModalWindowRequest";
     
@@ -177,6 +247,11 @@ public class SWFBridgeRequest extends Event
      *  describes the area to exclude based on the current parent. The coordinates
      *  are in screen coordinates. The parameter will only be present when 
      *  the requestor trusts the recipient of the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SHOW_MODAL_WINDOW_REQUEST:String = "showModalWindowRequest";
     
@@ -187,6 +262,11 @@ public class SWFBridgeRequest extends Event
      *  removed from the display lists as well as hidden. A value of <code>true</code>
      *  removes the modal window. A value of <code>false</code> hides only the 
      *  modal window. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const HIDE_MODAL_WINDOW_REQUEST:String = "hideModalWindowRequest";
 
@@ -195,11 +275,21 @@ public class SWFBridgeRequest extends Event
      	 *  The request is not honored by the targeted application unless there
      	 *  is mutual trust between the dispatching and receiving applications.
 	 *  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const ADD_POP_UP_REQUEST:String = "addPopUpRequest";
 	
 	/**
 	 *  Removes a popup from the sandboxRoot's SystemManager.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const REMOVE_POP_UP_REQUEST:String = "removePopUpRequest";
 	
@@ -209,12 +299,22 @@ public class SWFBridgeRequest extends Event
          *  by a child that trusts it.
 	 *  A placeholder is sent to the top-level root SystemManager
          *  so activation and deactivation of all the pop ups can be managed there.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const ADD_POP_UP_PLACE_HOLDER_REQUEST:String = 
 				"addPopUpPlaceHolderRequest";
 
 	/**
 	 *  Removes a placeholder.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const REMOVE_POP_UP_PLACE_HOLDER_REQUEST:String = 
 				"removePopUpPlaceHolderRequest";
@@ -224,6 +324,11 @@ public class SWFBridgeRequest extends Event
 	 *  Dispatched by the SWFLoader control to the child SystemManager
 	 *  to get the size of its content. The child SystemManager
 	 *  updates the <code>width</code> and <code>height</code> properties in the event object
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const GET_SIZE_REQUEST:String = "getSizeRequest";
 	
@@ -232,6 +337,11 @@ public class SWFBridgeRequest extends Event
 	 *  Dispatched by the SWFLoader control to the child SystemManager. The child
 	 *  SystemManager should update the size of its children 
 	 *  based on the <code>width</code> and <code>height</code> properties in the event object
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const SET_ACTUAL_SIZE_REQUEST:String = "setActualSizeRequest";
 
@@ -242,6 +352,11 @@ public class SWFBridgeRequest extends Event
      *  sent from the FocusManager that has its showFocusIndicator 
      *  property set. From there the request is relayed to each FocusManager in
      *  the system.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public static const SET_SHOW_FOCUS_INDICATOR_REQUEST:String = "setShowFocusIndicatorRequest";
      
@@ -258,6 +373,11 @@ public class SWFBridgeRequest extends Event
      *  @param event A SWFBridgeRequest which may have been created in a different ApplicationDomain.
      * 
      *  @return A SWFBridgeRequest created in the caller's ApplicationDomain.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function marshal(event:Event):SWFBridgeRequest
     {
@@ -287,6 +407,11 @@ public class SWFBridgeRequest extends Event
 	 *  @param requestor The bridge that sent the message.
 	 *  
 	 *  @param data Data related to the event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	public function SWFBridgeRequest(type:String, bubbles:Boolean = false,
                                          cancelable:Boolean = false,
@@ -311,6 +436,11 @@ public class SWFBridgeRequest extends Event
 
 	/**
 	 *  Data related to the event. For information on how this object is used, see each event type.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var data:Object;
 	
@@ -322,6 +452,11 @@ public class SWFBridgeRequest extends Event
 	 *  The bridge that sent the message.
          *  This in used by the receiving SWF to track which SWFLoader 
 	 *  holds the requesting SWF
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var requestor:IEventDispatcher;
 	
