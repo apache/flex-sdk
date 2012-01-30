@@ -18,6 +18,11 @@ package mx.core
  *  IME is used for entering characters in Chinese, Japanese, and Korean.
  * 
  *  @see flash.system.IME
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IIMESupport
 {
@@ -33,6 +38,11 @@ public interface IIMESupport
 
 	/**
 	 *  The IME mode of the component.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get imeMode():String;
 
