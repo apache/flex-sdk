@@ -169,14 +169,13 @@ public class ActionBarSkin extends MobileSkin
         var navigationGroupWidth:Number = 0;
         
         var titleCompX:Number = 0;
-        var titleCompWidth:Number = unscaledWidth;
+        var titleCompWidth:Number = 0;
         
-        var actionGroupX:Number = 0;
+        var actionGroupX:Number = unscaledWidth;
         var actionGroupWidth:Number = 0;
         
         // position groups, overlap of navigation and action groups is allowed
         // when overlap occurs, titleDisplay/titleGroup is not visible
-        // (width = 0)
         if (navigationGroup.numElements > 0
             && navigationGroup.includeInLayout)
         {
@@ -196,13 +195,13 @@ public class ActionBarSkin extends MobileSkin
             actionGroup.setLayoutBoundsPosition(actionGroupX, 1); // top border
         }
         
-        titleCompWidth = titleCompWidth - titleCompX - actionGroupWidth;
+        titleCompWidth = unscaledWidth - navigationGroupWidth - actionGroupWidth;
         if (titleCompWidth <= 0)
         {
             titleDisplay.visible = false;
             titleGroup.visible = false;
         }
-        else if (titleGroup.numElements > 0 && titleGroup.includeInLayout)
+        else if (titleGroup.getMXMLContent() != null && titleGroup.includeInLayout)
         {
             titleGroup.setLayoutBoundsSize(titleCompWidth, unscaledHeight);
             titleGroup.setLayoutBoundsPosition(titleCompX, 1);
@@ -228,7 +227,7 @@ public class ActionBarSkin extends MobileSkin
             }
                 
             // hide titleDisplay if there is any overlap after padding
-            if ((titleCompX < navigationGroup.getLayoutBoundsWidth())
+            if ((titleCompX < navigationGroupWidth)
                 || ((titleCompX + titleCompWidth) > actionGroupX))
             {
                 titleDisplay.visible = false;
