@@ -24,7 +24,6 @@ import mx.core.mx_internal;
 import mx.events.DynamicEvent;
 import mx.events.FlexEvent;
 import mx.managers.layoutClasses.PriorityQueue;
-import mx.core.FlexVersion;
 
 
 use namespace mx_internal;
@@ -1057,13 +1056,10 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 
     private function doPhasedInstantiationCallback(event:Event):void
     {
-        // As of Flex 4, we no longer suspend layout validation based
-        // on this flag.
-        if (UIComponentGlobals.callLaterSuspendCount > 0 &&
-            FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
-        {
+        // if our background processing is suspended, then we shouldn't do any 
+        // validation
+        if (UIComponentGlobals.callLaterSuspendCount > 0)
             return;
-        }
         
         systemManager.removeEventListener(Event.ENTER_FRAME, doPhasedInstantiationCallback);
         systemManager.removeEventListener(Event.RENDER, doPhasedInstantiationCallback);
