@@ -35,6 +35,8 @@
 <component id="SparkNumericStepperAutomationImpl"  class="spark.automation.delegates.components.SparkNumericStepperAutomationImpl"/>   
 <component id="SparkPanelAutomationImpl"  class="spark.automation.delegates.components.SparkPanelAutomationImpl"/>         
 
+<component id="SparkGridItemRendererAutomationImpl"  class="spark.automation.delegates.components.gridClasses.SparkGridItemRendererAutomationImpl"/>  
+
 <component id="SparkMuteButtonAutomationImpl"  class="spark.automation.delegates.components.mediaClasses.SparkMuteButtonAutomationImpl"/>  
 <component id="SparkVolumeBarAutomationImpl"  class="spark.automation.delegates.components.mediaClasses.SparkVolumeBarAutomationImpl"/>
 
@@ -69,5 +71,7 @@
 <component id="SparkDefaultItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultItemRendererAutomationImpl"/>
 <component id="SparkDefaultComplexItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultComplexItemRendererAutomationImpl"/>
 <component id="SparkDefaultGridItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultGridItemRendererAutomationImpl"/>
+<component id="SparkDefaultGridHeaderRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkDefaultGridHeaderRendererAutomationImpl"/>
+<component id="SparkUITextFieldGridItemRendererAutomationImpl" class="spark.automation.delegates.skins.spark.SparkUITextFieldGridItemRendererAutomationImpl"/>
 
 </componentPackage>
