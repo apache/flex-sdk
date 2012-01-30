@@ -537,20 +537,27 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         tabBarVisibilityChanged = false;
     }
     
+    /**
+     *  Calls the backKeyUpHandler() of the selected navigator.
+     * 
+     *  <p>TabbedViewNavigatorApplication automatically calls this method when 
+     *  the back key is pressed.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3.1
+     *  @productversion Flex 4.6
+     */ 
+    override public function backKeyUpHandler():void
+    {
+        if (selectedNavigator)
+            selectedNavigator.backKeyUpHandler();    
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Private Methods
     // 
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */ 
-    override mx_internal function backKeyUpHandler():void
-    {
-        if (selectedNavigator)
-            selectedNavigator.backKeyUpHandler();    
-    }
     
     /**
      *  @private
