@@ -325,24 +325,6 @@ public class DataTip extends UIComponent implements IDataRenderer
     //--------------------------------------------------------------------------
 
 	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var dtStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.chartClasses.DataTip", styleManager);
-		
-		dtStyle.defaultFactory = function():void
-		{
-			this.backgroundColor = 0xFFFFFF;
-		}
-		
-		return true;
-	}
-	
-	/**
 	 *  @inheritDoc
 	 *  
 	 *  @langversion 3.0
@@ -358,9 +340,6 @@ public class DataTip extends UIComponent implements IDataRenderer
 			return;
 		
 		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
     /**
