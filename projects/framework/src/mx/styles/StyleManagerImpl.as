@@ -203,6 +203,7 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
             lineBreak: true,
             lineHeight: true,
             lineThrough: true,
+            listAutoPadding: true,
             listStylePosition: true,
             listStyleType: true,
             locale: true,
@@ -235,6 +236,7 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
             typographicCase: true,
             verticalAlign: true,
             verticalGap: true,
+            wordSpacing:true,
             whitespaceCollapse: true
         }
     
