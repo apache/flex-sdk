@@ -1,4 +1,4 @@
-package flex.filters
+package mx.filters
 {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -6,7 +6,7 @@ package flex.filters
 
 	public class BaseFilter extends EventDispatcher
 	{
-		public static const FILTER_CHANGED_TYPE:String = "filterChanged"; 		
+		public static const CHANGE:String = "change"; 		
 		
 		public function BaseFilter(target:IEventDispatcher=null)
 		{
@@ -15,7 +15,7 @@ package flex.filters
 		
 		public function notifyFilterChanged():void
 		{
-			dispatchEvent(new Event(FILTER_CHANGED_TYPE));
+			dispatchEvent(new Event(CHANGE));
 		}
 		
 	}
