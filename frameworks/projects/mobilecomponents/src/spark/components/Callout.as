@@ -556,27 +556,15 @@ public class Callout extends SkinnablePopUpContainer
                 }
             }
             
-            // Callout can be respositioned while open
-            if (isOpen && invalidatePositionFlag)
-            {
-                // Callout size may change due to arrowDirection change.
-                // We must revalidate the skin before repositioning the Callout 
-                invalidateSize();
-                validateNow();
-
-                // Reposition once the Callout has been resized
-                updatePopUpPosition();
-                
-                invalidatePositionFlag = false;
-            }
-            
             // Always reset the arrow position
             invalidateDisplayList();
         }
     }
 
     /**
-     * @private
+     *  @private
+     *  Re-position the pop-up using actualHorizontalPosition and
+     *  actualVerticalPosition. 
      */
     override public function updatePopUpPosition():void
     {
@@ -657,6 +645,14 @@ public class Callout extends SkinnablePopUpContainer
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
+        // Callout can be respositioned while open via SystemManager resize or
+        // explicit changes to horizontalPostion and verticalPosition.
+        if (isOpen && invalidatePositionFlag)
+        {
+            updatePopUpPosition();
+            invalidatePositionFlag = false;
+        }
 
         // Position the arrow
         updateSkinDisplayList();
@@ -899,8 +895,11 @@ public class Callout extends SkinnablePopUpContainer
      * 
      *  Nudging to fit the screen accounts for <code>margin</code> so that
      *  the Callout is not positioned in the margin.
+     * 
+     *  <code>arrowDirection</code> will change if required for the callout
+     *  to fit.
      *
-     *  @see spark.components.PopUpAnchor#calculatePopUpPosition
+     *  @see #margin
      */
     mx_internal function calculatePopUpPosition():Point
     {
