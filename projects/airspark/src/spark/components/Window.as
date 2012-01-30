@@ -350,7 +350,7 @@ use namespace mx_internal;
  */
 [Frame(factoryClass="mx.managers.WindowedSystemManager")]
 
-[IconFile("../../mx/core/Window.png")]
+[IconFile("Window.png")]
 
 [ResourceBundle("core")]
 
@@ -454,7 +454,7 @@ use namespace mx_internal;
  */
 public class Window extends SkinnableContainer implements IWindow
 {
-    include "../../mx/core/Version.as";
+    include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
