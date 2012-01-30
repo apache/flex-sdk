@@ -37,8 +37,8 @@ use namespace mx_internal;
 
 // FIXME (jasonsj): B-feature for IFocusColorSkin may be removed
 /**
- *  Actionscript based skin for mobile applications. This skin is the 
- *  base class for all of the actionscript mobile skins. As an optimization, 
+ *  ActionScript-based skin for mobile applications. This skin is the 
+ *  base class for all of the ActionScript mobile skins. As an optimization, 
  *  it removes state transition support.
  * 
  *  @langversion 3.0
