@@ -19,7 +19,8 @@ package mx.geom
 	import flash.geom.Vector3D;
 	
 	import mx.core.AdvancedLayoutFeatures;
-	
+	import mx.utils.MatrixUtil;
+
 	/**
 	 *  A CompoundTransform represents a 2D or 3D matrix transform.  A compound transform represents a matrix that can be queried or set either as a 2D matrix,
 	 *  a 3D matrix, or as individual convenience transform properties such as x, y, scaleX, rotationZ, etc. 
@@ -433,7 +434,7 @@ package mx.geom
 	
 	//------------------------------------------------------------------------------
 	/**
-	 * the x value of the tansform center.  The transform center is kept fixed as rotation and scale are applied. 
+	 * the x value of the transform center.  The transform center is kept fixed as rotation and scale are applied. 
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
@@ -676,57 +677,6 @@ package mx.geom
 		invalidate(INVALIDATE_FROM_MATRIX,false);
 	}
 	
-	
-	
-	
-	
-	
-	
-	/**
-	 * @private
-	 * a utility function for decomposing a matrix into its component scale, rotation, and translation parts.
-	 */	
-	private function decomposeMatrix(v:Vector.<Number>,m:Matrix,transformX:Number,transformY:Number):void
-	{
-	    // else decompose matrix.  Don't use MatrixDecompose(), it can return erronous values
-	    //   when negative scales (and therefore skews) are in use.
-	    var Ux:Number;
-	    var Uy:Number;
-	    var Vx:Number;
-	    var Vy:Number;
-	
-	    Ux = m.a;
-	    Uy = m.b;
-	    v[3] = Math.sqrt(Ux*Ux + Uy*Uy);
-	 
-	    Vx = m.c;
-	    Vy = m.d;
-	    v[4] = Math.sqrt(Vx*Vx + Vy*Vy );
-	 
-	          // sign of the matrix determinant will tell us if the space is inverted by a 180 degree skew or not.
-	    var determinant:Number = Ux*Vy - Uy*Vx;
-	    if (determinant < 0) // if so, choose y-axis scale as the skewed one.  Unfortunately, its impossible to tell if it originally was the y or x axis that had the negative scale/skew.
-	    {
-	          v[4] = -(v[4]);
-	          Vx = -Vx;
-	          Vy = -Vy;
-	    }
-	 
-	    v[2] = Math.atan2( Uy, Ux ) / RADIANS_PER_DEGREES;
-	    
-	    if(transformX != 0 || transformY != 0)     
-	    {
-	    	var postTransformCenter:Point = m.transformPoint(new Point(transformX,transformY));
-	    	v[0] = postTransformCenter.x - transformX;
-	    	v[1] = postTransformCenter.y - transformY;
-	    }
-	    else
-	    {
-		    v[0] = m.tx;
-		    v[1] = m.ty;
-		}
-	}
-	
 	/**
 	 * @private
 	 * decomposes the offset transform matrices down into the convenience offset properties. Note that this is not
@@ -762,7 +712,7 @@ package mx.geom
 	    }                        
 	    else if(sourceOfTruth == SOURCE_MATRIX)
 	    {
-	    	decomposeMatrix(decomposition,_matrix,_transformX,_transformY);
+	    	MatrixUtil.decomposeMatrix(decomposition,_matrix,_transformX,_transformY);
 	    	_x = decomposition[0];
 	    	_y = decomposition[1];
 	    	_z = 0;
