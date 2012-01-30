@@ -221,6 +221,10 @@ public interface ISort
      *                the index of the point in the sorted array where the
      *                values would be inserted.
      *
+     *  @throws SortError If there are any parameter errors, the find critieria is not 
+     *  compatible with the sort or the comparator function for the sort can not be 
+     *  determined.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
