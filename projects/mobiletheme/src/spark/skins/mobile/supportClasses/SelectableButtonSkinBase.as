@@ -32,11 +32,11 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     public function SelectableButtonSkinBase()
     {
         super();
-        gap = 15;
-        paddingLeft = 15;
-        paddingRight = 15;
-        paddingTop = 15;
-        paddingBottom = 15;
+        layoutGap = 15;
+        layoutPaddingLeft = 15;
+        layoutPaddingRight = 15;
+        layoutPaddingTop = 15;
+        layoutPaddingBottom = 15;
       
         // Instruct the super class to ignore the "icon" style.
         // Instead, we're going to use the protected members
