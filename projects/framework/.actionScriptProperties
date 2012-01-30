@@ -1,3 +1,21 @@
+################################################################################
+##
+##  Licensed to the Apache Software Foundation (ASF) under one or more
+##  contributor license agreements.  See the NOTICE file distributed with
+##  this work for additional information regarding copyright ownership.
+##  The ASF licenses this file to You under the Apache License, Version 2.0
+##  (the "License"); you may not use this file except in compliance with
+##  the License.  You may obtain a copy of the License at
+##
+##      http://www.apache.org/licenses/LICENSE-2.0
+##
+##  Unless required by applicable law or agreed to in writing, software
+##  distributed under the License is distributed on an "AS IS" BASIS,
+##  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+##  See the License for the specific language governing permissions and
+##  limitations under the License.
+##
+################################################################################
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <actionScriptProperties mainApplicationPath="framework.as" projectUUID="65c59490-74e4-4314-a31d-8c6004e228f3" version="6">
   <compiler additionalCompilerArguments="-keep-as3-metadata=Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient -load-config+=framework-config.xml --include-file=defaults.css,../defaults.css -include-file=defaults-3.0.0.css,../defaults-3.0.0.css  -include-file=Assets.swf,../assets/Assets.swf -include-file=assets/CalendarIcon.png,../assets/CalendarIcon.png -namespace=library://ns.adobe.com/flex/mx,../manifest.xml -namespace+=http://www.adobe.com/2006/mxml,../manifest.xml -resource-bundle-list=bundles.properties -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
