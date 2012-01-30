@@ -2832,14 +2832,17 @@ public class SystemManager extends MovieClip
 	private function initHandler(event:Event):void
 	{
 		// we can still be the top level root if we can access our
-		// parent and get a positive response to the query
+		// parent and get a positive response to the query or
+		// or there is not a listener for the new application event
+		// that SWFLoader always adds. 
 		if (!isStageRoot)
 		{
 			if (root.loaderInfo.parentAllowsChild)
 			{
 				try
 				{
-					if (!parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
+                    if (!parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)) ||
+                        !root.loaderInfo.sharedEvents.hasEventListener(SWFBridgeEvent.BRIDGE_NEW_APPLICATION))
 						isBootstrapRoot = true;
 				}
 				catch (e:Error)
@@ -2873,9 +2876,11 @@ public class SystemManager extends MovieClip
 
 		// every SM has to have this listener in case it is the SM for some child AD that contains a manager
 		// and the parent ADs don't have that manager.
-		getSandboxRoot().addEventListener(InterManagerRequest.INIT_MANAGER_REQUEST, initManagerHandler, false, 0, true);
+		var sbRoot:DisplayObject = getSandboxRoot();
+		sbRoot.addEventListener(InterManagerRequest.INIT_MANAGER_REQUEST, initManagerHandler, false, 0, true);
+
 		// once managers get initialized, they bounce things off the sandbox root
-		if (getSandboxRoot() == this)
+		if (sbRoot == this)
 		{
 			addEventListener(InterManagerRequest.SYSTEM_MANAGER_REQUEST, systemManagerHandler);
 			addEventListener(InterManagerRequest.DRAG_MANAGER_REQUEST, multiWindowRedispatcher);
@@ -4821,14 +4826,16 @@ public class SystemManager extends MovieClip
 		if (!topLevel && topLevelSystemManager)
 			return topLevelSystemManager.useSWFBridge();
 			
+		var sbRoot:DisplayObject = getSandboxRoot();
+		
 		// if we're toplevel and we aren't the sandbox root, we need a bridge
-		if (topLevel && getSandboxRoot() != this)
+		if (topLevel && sbRoot != this)
 			return true;
 		
 		// we also need a bridge even if we're the sandbox root
 		// but not a stage root, but our parent loader is a bootstrap
 		// that is not the stage root
-		if (getSandboxRoot() == this)
+		if (sbRoot == this)
 		{
 			try
 			{
@@ -4916,7 +4923,7 @@ public class SystemManager extends MovieClip
             // test to see if parent is a Bootstrap
             if (parent && !parent.dispatchEvent(new Event("mx.managers.SystemManager.isBootstrapRoot", false, true)))
                 return this;
-  			var lastParent:DisplayObject = parent;
+  			var lastParent:DisplayObject = this;
 			while (parent)
 			{
 				if (parent is Stage)
@@ -4936,7 +4943,12 @@ public class SystemManager extends MovieClip
 				    if (!loaderInfo.childAllowsParent)
 				        return loaderInfo.content;
 				}
-				lastParent = parent; 
+				
+				// If an object is listening for system manager request we assume it is a sandbox
+				// root. If not, don't assign lastParent to this parent because it may be a
+				// non-Flex application. We only want Flex apps to be returned as sandbox roots.
+				if (parent.hasEventListener(InterManagerRequest.SYSTEM_MANAGER_REQUEST))
+				    lastParent = parent; 
 				parent = parent.parent;				
 			}
 		}
@@ -5098,8 +5110,6 @@ public class SystemManager extends MovieClip
 			forms.splice(index, 1);
 			forms.push(form);
 		}
-		else
-			throw new Error();	// should never get here
 		
 	}
 
