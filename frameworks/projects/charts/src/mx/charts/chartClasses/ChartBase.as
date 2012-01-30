@@ -52,6 +52,7 @@ import mx.events.EffectEvent;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
@@ -1856,21 +1857,12 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var chartBaseFill:IFill = IFill(new SolidColor(0xFFFFFF, 0));
-        
-        var selector:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.chartClasses.ChartBase", styleManager);
-        
-        selector.defaultFactory = function():void
-        {
-            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;
-            this.fill = chartBaseFill;
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.dataTipRenderer = DataTip;
-            this.fontSize = 10;
-        }
-        
+		
+		var chartBaseStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.chartClasses.ChartBase");
+		chartBaseStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+		chartBaseStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		chartBaseStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		
         return true;
     }
 
