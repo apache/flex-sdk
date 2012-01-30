@@ -261,6 +261,7 @@ public class ViewNavigatorApplicationBase extends Application
     //----------------------------------
     
     private var _persistNavigatorState:Boolean = false;
+    private var _persistenceInitialized:Boolean = false;
     
     /**
      *  Toggles the application session caching feature for the application.  
@@ -308,6 +309,10 @@ public class ViewNavigatorApplicationBase extends Application
     public function set persistNavigatorState(value:Boolean):void
     {
         _persistNavigatorState = value;
+
+        // Register the necessary class aliases and load the shared object
+        if (_persistNavigatorState && !_persistenceInitialized)
+            initializePersistenceManager();
     }
     
     //----------------------------------
@@ -757,13 +762,6 @@ public class ViewNavigatorApplicationBase extends Application
         
         if (persistNavigatorState)
         {
-            // Register aliases for custom classes that will be written to
-            // persistence store by navigator
-            registerClassAlias("ViewDescriptor", ViewDescriptor);
-            registerClassAlias("NavigationStack", NavigationStack);
-            
-            persistenceManager.load();
-            
             // Dispatch event for loading persistence data
             var eventDispatched:Boolean = true;
             if (hasEventListener(FlexEvent.NAVIGATOR_STATE_LOADING))
@@ -775,6 +773,32 @@ public class ViewNavigatorApplicationBase extends Application
                 loadNavigatorState();
             }
         } 
+    }
+    
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Method initializes the persistence manager by registering the class
+     *  aliases and loading the shared object.  This method is automatically
+     *  called by the persistNavigatorState setter.
+     */
+    private function initializePersistenceManager():void
+    {
+        // Register aliases for custom classes that will be written to
+        // persistence store by navigator
+        registerClassAlias("ViewDescriptor", ViewDescriptor);
+        registerClassAlias("NavigationStack", NavigationStack);
+
+        // Initialize and load the persisted data
+        persistenceManager.load();
+
+        _persistenceInitialized = true;
     }
 }
 }
