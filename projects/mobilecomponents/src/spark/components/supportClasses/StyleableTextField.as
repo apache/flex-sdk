@@ -623,7 +623,7 @@ public class StyleableTextField extends TextField
      *  Specifies whether the text is editable, <code>true</code>,
      *  or not, <code>false</code>.
      *
-     *  @default false
+     *  @default true if type is TextFieldType.INPUT, otherwise false.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
