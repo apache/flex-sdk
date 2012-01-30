@@ -233,6 +233,22 @@ public class Effect extends EventDispatcher implements IEffect
     // applyTransitionEndProperties flag, which is set on a per-Effect basis.
     mx_internal var applyEndValuesWhenDone:Boolean = false;
 
+    // This property tracks whether the effect is playing in interruption mode.
+    // Normally, effects pick up starting values (when not provided explicitly)
+    // from the current values of the target objects. But when playing in interruption
+    // mode, the effect should get its starting values from the propertyChanges
+    // array instead.
+    private var _transitionInterruption:Boolean = false;
+    
+    mx_internal function get transitionInterruption():Boolean
+    {
+        return _transitionInterruption;
+    }
+    mx_internal function set transitionInterruption(value:Boolean):void
+    {
+        _transitionInterruption = value;
+    }
+    
     // This is new behavior for the Flex4 effects; previously, we would not
     // set the end-state values automatically. Because of this switch, the
     // default value is hinged on a compatibility check, so that applications
