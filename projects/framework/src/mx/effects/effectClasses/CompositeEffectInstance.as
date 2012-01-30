@@ -95,7 +95,7 @@ public class CompositeEffectInstance extends EffectInstance
 		if (repeatCount > 0)
 		{
 			value = durationWithoutRepeat * repeatCount +
-					(repeatDelay * repeatCount - 1) + startDelay;
+					(repeatDelay * (repeatCount - 1)) + startDelay;
 		}
 		
 		return value;
@@ -115,7 +115,7 @@ public class CompositeEffectInstance extends EffectInstance
 	 */	
 	override public function get playheadTime():Number
 	{
-		return _playheadTime + super.playheadTime;
+		return _playheadTime;
 	}
 	
     override public function set playheadTime(value:Number):void
