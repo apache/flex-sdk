@@ -137,8 +137,7 @@ public class GradientBase extends EventDispatcher
         var oldValue:Number = _angle;
         _angle = value / 180 * Math.PI;
         
-        mx_internal::dispatchGradientChangedEvent(
-                            "angle", oldValue, _angle);
+        dispatchGradientChangedEvent("angle", oldValue, _angle);
     }  
     
     //----------------------------------
