@@ -8467,7 +8467,7 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      */
-    private function measureSizes():Boolean
+    mx_internal function measureSizes():Boolean
     {
         var changed:Boolean = false;
 
