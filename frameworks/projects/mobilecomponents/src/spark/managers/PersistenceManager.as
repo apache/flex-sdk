@@ -58,7 +58,12 @@ public class PersistenceManager implements IPersistenceManager
     //  Variables
     // 
     //--------------------------------------------------------------------------
-
+    
+    /**
+     *  @private
+     */ 
+    private var enabled:Boolean = false;
+    
     /**
      *  @private
      *  Returns whether the persistence manager has been initialized.
@@ -80,37 +85,16 @@ public class PersistenceManager implements IPersistenceManager
     
     //--------------------------------------------------------------------------
     //
-    //  Properties
-    // 
-    //--------------------------------------------------------------------------    
-    
-    //----------------------------------
-    //  enabled
-    //----------------------------------
-    private var _enabled:Boolean = true;
-    
-    /**
-     *  @inheritDoc
-     */
-    public function get enabled():Boolean
-    {
-        return _enabled;
-    }
-    /**
-     * @private
-     */ 
-    public function set enabled(value:Boolean):void
-    {
-        _enabled = value;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
     //  IPersistenceManager Methods
     // 
     //--------------------------------------------------------------------------
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function initialize():void
     {
@@ -131,6 +115,11 @@ public class PersistenceManager implements IPersistenceManager
     // TODO (chiedozi): Add a try/catch for all operations for custom RTE i throw
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function setProperty(key:String, value:Object):void
     {
@@ -147,6 +136,11 @@ public class PersistenceManager implements IPersistenceManager
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function getProperty(key:String):Object
     {
@@ -161,6 +155,11 @@ public class PersistenceManager implements IPersistenceManager
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function clear():void
     {
@@ -176,6 +175,11 @@ public class PersistenceManager implements IPersistenceManager
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function flush():void
     {
