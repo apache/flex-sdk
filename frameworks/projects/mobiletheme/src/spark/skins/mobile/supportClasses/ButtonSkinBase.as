@@ -239,10 +239,6 @@ public class ButtonSkinBase extends MobileSkin
     {
         super.measure();
         
-        // FIXME (jasonsj): icon-only button should not change with font size
-        //                  changes. use LabelAndIconLayout#measure(). adjust
-        //                  for ascent height
-
         var labelWidth:Number = 0;
         var labelHeight:Number = 0;
         var iconDisplay:DisplayObject = getIconDisplay();
@@ -254,8 +250,7 @@ public class ButtonSkinBase extends MobileSkin
 
         if (labelDisplay.text)
         {
-            // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
-            //                  +1 originates from MX Button without explaination
+            // +1 originates from MX Button without explaination
             var textSize:Point = labelDisplay.measuredTextSize;
             labelWidth = textSize.x + 1;
             labelHeight = textSize.y;
@@ -344,8 +339,7 @@ public class ButtonSkinBase extends MobileSkin
 
         if (hostComponent && hostComponent.label != "")
         {
-            // FIXME (jasonsj): was previously textWidth + UITextField.TEXT_WIDTH_PADDING + 1;
-            //                  +1 originates from MX Button without explaination
+            // +1 originates from MX Button without explaination
             var textSize:Point = labelDisplay.measuredTextSize;
             textWidth = textSize.x + 1;
             textHeight = textSize.y;
