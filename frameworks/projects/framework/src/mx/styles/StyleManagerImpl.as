@@ -565,7 +565,7 @@ public class StyleManagerImpl implements IStyleManager3
      *  Retrieve all style declarations applicable to this subject. The subject
      *  is the right most simple type selector in a selector chain.
      * 
-     *  @param subject The subject of the style declarations.
+     *  @param subject The subject of the style declaration's selector.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -577,15 +577,15 @@ public class StyleManagerImpl implements IStyleManager3
         // For Flex 3 and earlier, if we were passed a subject with a package
         // name, such as "mx.controls.Button", strip off the package name
         // leaving just "Button" and look for that subject.
-        //if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
-        //{
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        {
             if (subject.charAt(0) != ".")
             {
                 var index:int = subject.lastIndexOf(".");
                 if (index != -1)
                     subject = subject.substr(index + 1);
             }
-        //}
+        }
 
         return _subjects[subject] as Array;
     }
@@ -622,14 +622,17 @@ public class StyleManagerImpl implements IStyleManager3
      */
     public function getStyleDeclaration(selector:String):CSSStyleDeclaration
     {
-        // If we were passed a type selector with a package name,
-        // such as "mx.controls.Button", strip off the package name
-        // leaving just "Button" and look for that selector.
-        if (selector.charAt(0) != ".")
+        // For Flex 3 and earlier, if we were passed a selector with a package
+        // name, such as "mx.controls.Button", strip off the package name
+        // leaving just "Button" and look for that type selector.
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
         {
-            var index:int = selector.lastIndexOf(".");
-            if (index != -1)
-                selector = selector.substr(index + 1);
+            if (selector.charAt(0) != ".")
+            {
+                var index:int = selector.lastIndexOf(".");
+                if (index != -1)
+                    selector = selector.substr(index + 1);
+            }
         }
 
         return _selectors[selector];
