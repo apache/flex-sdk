@@ -14,6 +14,8 @@ package spark.skins.mobile
 
 import flash.events.Event;
 import flash.events.KeyboardEvent;
+import flash.events.SoftKeyboardEvent;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
 import flash.ui.Keyboard;
@@ -26,6 +28,7 @@ import spark.components.Group;
 import spark.components.Scroller;
 import spark.components.TextArea;
 import spark.components.supportClasses.StyleableTextField;
+import spark.events.CaretBoundsChangeEvent;
 import spark.skins.mobile.supportClasses.TextSkinBase;
 import spark.skins.mobile160.assets.TextInput_border;
 import spark.skins.mobile240.assets.TextInput_border;
@@ -135,17 +138,18 @@ public class TextAreaSkin extends TextSkinBase
      */
     mx_internal var oldUnscaledWidth:Number;
     
+    private var textDisplayGroup:Group;
+    private var _isIOS:Boolean;
+    private var invalidateCaretPosition:Boolean = true;
+    private var oldCaretBounds:Rectangle = new Rectangle(-1, -1, -1, -1);
+    private var lastTextHeight:Number;
+    private var lastTextWidth:Number;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
-    private var textDisplayGroup:Group;
-    
-    private var _isIOS:Boolean;
-    
-    private var invalidateCaretPosition:Boolean = true;
     
     /**
      *  @private
@@ -172,6 +176,7 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
             textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
             textDisplay.addEventListener(Event.SCROLL, textDisplay_scrollHandler);
+            textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, textDisplay_softKeyboardActivateHandler);
             
 			textDisplay.left = getStyle("paddingLeft");
 			textDisplay.top = getStyle("paddingTop");
@@ -337,7 +342,7 @@ public class TextAreaSkin extends TextSkinBase
         // checking if text fits in TextArea
         // does not apply to iOS due to native text editing and scrolling
         // invalidateCaretPosition will never be true for iOS
-        if ((textHeight > unscaledTextHeight) && invalidateCaretPosition)
+        if (invalidateCaretPosition)
         {
             // if the caret is outside the viewport, update the Group verticalScrollPosition
             var charIndex:int = textDisplay.selectionBeginIndex;
@@ -347,73 +352,72 @@ public class TextAreaSkin extends TextSkinBase
             // getCharBoundaries() returns null for new lines
             if (!caretBounds)
             {
-				// Optimization: if the charIndex is the end of the text, set vsp to
-				// textHeight and let snapTextScrollPosition validate it
-				
-				if (charIndex == textDisplay.text.length)
-				{
-					// Make sure textDisplayGroup is validated, otherwise the 
-					// verticalScrollPosition may be out of bounds, which will
-					// cause a bounce effect.
-					textDisplayGroup.validateNow();
-					textDisplayGroup.verticalScrollPosition = textHeight;
-				}
-				else
-				{
-					// temporarily insert a character at the caretIndex
-					textDisplay.replaceText(charIndex, charIndex, "W");
-					caretBounds = textDisplay.getCharBoundaries(charIndex);
-					lineIndex = textDisplay.getLineIndexOfChar(charIndex);
-					textDisplay.replaceText(charIndex, charIndex + 1, "");
-				}
+				// temporarily insert a character at the caretIndex
+				textDisplay.replaceText(charIndex, charIndex, "W");
+				caretBounds = textDisplay.getCharBoundaries(charIndex);
+				lineIndex = textDisplay.getLineIndexOfChar(charIndex);
+				textDisplay.replaceText(charIndex, charIndex + 1, "");
             }
             
             if (caretBounds)
             {
-                // caretTopPositon and caretBottomPosition are TextField-relative positions
-                // the TextField is inset by padding styles of the TextArea (via the VGroup)
-                
-                // adjust top position to 0 when on the first line
-                // caretTopPosition will be negative when off stage
-                var caretTopPosition:Number = ((caretBounds.y) < 0 || (lineIndex == 0))
-                    ? 0 : caretBounds.y;
-                
-                // caretBottomPosition is the y coordinate of the bottom bounds of the caret
-                var caretBottomPosition:Number = caretBounds.y + caretBounds.height;
-                
-                // note that verticalScrollPosition min/max do not account for padding
-                var vspTop:Number = textDisplayGroup.verticalScrollPosition;
-                
-                // vspBottom should be the max visible Y in the TextField
-                // coordinate space.
-                // remove paddingBottom for some clearance between caret and border
-                var vspBottom:Number = vspTop + unscaledHeight - paddingTop - paddingBottom;
-                
-                // is the caret in or below the padding and viewport?
-                if (caretBottomPosition > vspBottom)
+                // Scroll the internal Scroller to ensure the caret is visible
+                if (textHeight > unscaledTextHeight)
                 {
-                    // adjust caretBottomPosition to max scroll position when on the last line
-                    if (lineIndex + 1 == textDisplay.numLines)
+                    // caretTopPositon and caretBottomPosition are TextField-relative positions
+                    // the TextField is inset by padding styles of the TextArea (via the VGroup)
+                    
+                    // adjust top position to 0 when on the first line
+                    // caretTopPosition will be negative when off stage
+                    var caretTopPosition:Number = ((caretBounds.y) < 0 || (lineIndex == 0))
+                        ? 0 : caretBounds.y;
+                    
+                    // caretBottomPosition is the y coordinate of the bottom bounds of the caret
+                    var caretBottomPosition:Number = caretBounds.y + caretBounds.height;
+                    
+                    // note that verticalScrollPosition min/max do not account for padding
+                    var vspTop:Number = textDisplayGroup.verticalScrollPosition;
+                    
+                    // vspBottom should be the max visible Y in the TextField
+                    // coordinate space.
+                    // remove paddingBottom for some clearance between caret and border
+                    var vspBottom:Number = vspTop + unscaledHeight - paddingTop - paddingBottom;
+                    
+                    // is the caret in or below the padding and viewport?
+                    if (caretBottomPosition > vspBottom)
                     {
-                        // use textHeight+paddings instead of textDisplayGroup.contentHeight
-                        // Group has not been resized by this point
-                        textDisplayGroup.verticalScrollPosition = (textHeight + paddingTop + paddingBottom) - textDisplayGroup.height;
+                        // adjust caretBottomPosition to max scroll position when on the last line
+                        if (lineIndex + 1 == textDisplay.numLines)
+                        {
+                            // use textHeight+paddings instead of textDisplayGroup.contentHeight
+                            // Group has not been resized by this point
+                            textDisplayGroup.verticalScrollPosition = (textHeight + paddingTop + paddingBottom) - textDisplayGroup.height;
+                        }
+                        else
+                        {
+                            // bottom edge of the caret moves just inside the bottom edge of the scroller
+                            // add delta between caret and vspBottom
+                            textDisplayGroup.verticalScrollPosition = vspTop + (caretBottomPosition - vspBottom);
+                        }
                     }
-                    else
+                        // is the caret above the viewport?
+                    else if (caretTopPosition < vspTop)
                     {
-                        // bottom edge of the caret moves just inside the bottom edge of the scroller
-                        // add delta between caret and vspBottom
-                        textDisplayGroup.verticalScrollPosition = vspTop + (caretBottomPosition - vspBottom);
+                        // top edge of the caret moves inside the top edge of the scroller
+                        textDisplayGroup.verticalScrollPosition = caretTopPosition;
                     }
                 }
-                    // is the caret above the viewport?
-                else if (caretTopPosition < vspTop)
-                {
-                    // top edge of the caret moves inside the top edge of the scroller
-                    textDisplayGroup.verticalScrollPosition = caretTopPosition;
-                }
+                
+                // Convert to local coordinates
+                // Dispatch an event for an ancestor Scroller
+                // It will scroll the TextArea so the caret is in view
+                convertBoundsToLocal(caretBounds);
+                if (caretBounds.bottom != oldCaretBounds.bottom || caretBounds.top != oldCaretBounds.top)
+                    dispatchEvent(new CaretBoundsChangeEvent(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,true,true,oldCaretBounds,caretBounds));
+                
+                oldCaretBounds = caretBounds;   
             }
-            
+
             invalidateCaretPosition = false;
         }
 		
@@ -436,8 +440,43 @@ public class TextAreaSkin extends TextSkinBase
 			textDisplayGroup.contentHeight-textDisplayGroup.height : 0; 
 		textDisplayGroup.verticalScrollPosition = 
 			Math.min(Math.max(0,textDisplayGroup.verticalScrollPosition),maxVsp);
-	}
+ 	}
 	
+    /**
+     *  @private
+     *  Get the bounds of the caret
+     */    
+    private function getCaretBounds():Rectangle
+    {
+        var charIndex:int = textDisplay.selectionBeginIndex;
+        var caretBounds:Rectangle = textDisplay.getCharBoundaries(charIndex);
+        
+        if (!caretBounds)
+        {
+            textDisplay.replaceText(charIndex, charIndex, "W");
+            caretBounds = textDisplay.getCharBoundaries(charIndex);
+            textDisplay.replaceText(charIndex, charIndex + 1, "");
+        }
+        
+        return caretBounds;
+    }
+    
+    /**
+     *  @private
+     *  Convert bounds from textDisplay to local coordinates
+     */
+    private function convertBoundsToLocal(bounds:Rectangle):void
+    {
+        if (bounds)
+        {
+            var position:Point = new Point(bounds.x, bounds.y);
+            position = textDisplay.localToGlobal(position);
+            position = globalToLocal(position);
+            bounds.x = position.x;
+            bounds.y = position.y;
+        }
+    }
+    
 	/**
 	 *  @private
 	 */
@@ -457,16 +496,6 @@ public class TextAreaSkin extends TextSkinBase
 		}
 	}
 	
-	/**
-	 *  @private
-	 *  Returns true if scroller can scroll.
-	 */
-	private function isScrollingActive():Boolean
-	{
-		return textDisplayGroup.height < textDisplayGroup.contentHeight ||
-			   textDisplayGroup.width < textDisplayGroup.contentWidth;
-	}
-	
     /**
      *  @private
      *  Handle size and caret position changes that occur when text content
@@ -474,12 +503,21 @@ public class TextAreaSkin extends TextSkinBase
      */
     private function textDisplay_changeHandler(event:Event):void
     {
-		invalidateSize();
-		if (isScrollingActive())
-		{
+        var tH:Number = textDisplay.textHeight;
+        var tW:Number = textDisplay.textWidth;
+        var explicitLineBreak:Boolean = getStyle("lineBreak") == "explicit";
+        
+        // Size and caret position have changed if the text height is different or
+        // the text width is different and we aren't word wrapping
+        if (tH != lastTextHeight || ( explicitLineBreak && tW != lastTextWidth))
+        {
+    		invalidateSize();
 	        invalidateDisplayList();
 	        invalidateCaretPosition = true;   
-		}
+        }
+        
+        lastTextHeight = tH;
+        lastTextWidth = tW;
     }
     
     /**
@@ -512,11 +550,8 @@ public class TextAreaSkin extends TextSkinBase
                 || event.keyCode == Keyboard.LEFT
                 || event.keyCode == Keyboard.RIGHT))
         {
-			if (isScrollingActive())
-			{
-	            invalidateDisplayList();
-	            invalidateCaretPosition = true;
-			}
+            invalidateDisplayList();
+            invalidateCaretPosition = true;
         }
 		
 		// Change event is not always sent when delete key is pressed, so
@@ -525,6 +560,22 @@ public class TextAreaSkin extends TextSkinBase
 		{
 			invalidateSize();
 		}
+    }
+    
+    /**
+     *  @private
+     *  Send a caret change event to an ancestor Scroller
+     */
+    private function textDisplay_softKeyboardActivateHandler(event:SoftKeyboardEvent):void
+    {
+        var newCaretBounds:Rectangle = getCaretBounds();
+        convertBoundsToLocal(newCaretBounds);
+        
+        if (oldCaretBounds != newCaretBounds)
+        {
+            dispatchEvent(new CaretBoundsChangeEvent(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,true,true,oldCaretBounds,newCaretBounds));
+            oldCaretBounds = newCaretBounds;
+        }
     }
     
     /**
