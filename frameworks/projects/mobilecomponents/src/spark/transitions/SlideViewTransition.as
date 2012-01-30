@@ -66,6 +66,9 @@ public class SlideViewTransition extends ViewTransitionBase
     public function SlideViewTransition()
     {
         super();
+        
+        // Defaut duration of 300 yields a smooth result.
+        duration = 300;
     }
     
     //--------------------------------------------------------------------------
