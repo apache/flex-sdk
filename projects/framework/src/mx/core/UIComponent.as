@@ -788,6 +788,16 @@ use namespace mx_internal;
 include "../styles/metadata/AnchorStyles.as";
 
 /**
+ *  The main color for a component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="baseColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Color of the component highlight when validation fails.
  *  Flex also sets the <code>borderColor</code> style of the component to this
  *  <code>errorColor</code> on a validation failure.
