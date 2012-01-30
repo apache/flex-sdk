@@ -1154,6 +1154,9 @@ public class ViewTransitionBase extends EventDispatcher
      */ 
     protected function getSnapshot(target:UIComponent, padding:int = 4):BitmapImage
     {       
+        if (!target.visible || target.width == 0 || target.height == 0)
+            return null;
+
         var snapShot:BitmapImage = new BitmapImage();
         
         // Ensure bitmap leverages its own display object for performance
