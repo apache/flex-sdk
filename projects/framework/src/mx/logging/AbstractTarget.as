@@ -31,13 +31,13 @@ import mx.utils.UIDUtil;
  */
 public class AbstractTarget implements ILoggingTarget, IMXMLObject
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Constructor.
@@ -49,11 +49,11 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
         _id = UIDUtil.createUID();
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @private
@@ -62,22 +62,22 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      */
     private var _loggerCount:uint = 0;
 
-	/**
-	 *  @private
-	 *  Used for accessing localized Error messages.
-	 */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  filters
-	//----------------------------------
+    //----------------------------------
+    //  filters
+    //----------------------------------
 
     /**
      *  @private
@@ -85,8 +85,8 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      */
     private var _filters:Array = [ "*" ];
 
-	[Inspectable(category="General", arrayType="String")]
-	
+    [Inspectable(category="General", arrayType="String")]
+    
     /**
      *  In addition to the <code>level</code> setting, filters are used to
      *  provide a psuedo-hierarchical mapping for processing only those events
@@ -143,19 +143,19 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
                 filter = value[i];
                   // check for invalid characters
                 if (Log.hasIllegalCharacters(filter))
-				{
-					message = resourceManager.getString(
-						"logging", "charsInvalid", [ filter ]);
+                {
+                    message = resourceManager.getString(
+                        "logging", "charsInvalid", [ filter ]);
                     throw new InvalidFilterError(message);
-				}
+                }
 
                 index = filter.indexOf("*");
                 if ((index >= 0) && (index != (filter.length -1)))
-				{
-					message = resourceManager.getString(
-						"logging", "charPlacement", [ filter ]);
+                {
+                    message = resourceManager.getString(
+                        "logging", "charPlacement", [ filter ]);
                     throw new InvalidFilterError(message);
-				}
+                }
             } // for
         }
         else
@@ -171,14 +171,14 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
             Log.addTarget(this);
         }
         else
-		{
+        {
             _filters = value;
-		}
+        }
     }
 
-	//----------------------------------
-	//  id
-	//----------------------------------
+    //----------------------------------
+    //  id
+    //----------------------------------
 
     /**
      *  @prviate
@@ -186,7 +186,7 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      */
     private var _id:String;
 
-	[Inspectable(category="General")]
+    [Inspectable(category="General")]
 
      /**
       *  Provides access to the id of this target.
@@ -197,10 +197,10 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      {
          return _id;
      }
-	
-	//----------------------------------
-	//  level
-	//----------------------------------
+    
+    //----------------------------------
+    //  level
+    //----------------------------------
 
     /**
      *  @private
@@ -220,15 +220,15 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *
      *      <li><code>LogEventLevel.WARN</code> designates events that could be
      *      harmful to the application operation</li>
-	 *
+     *
      *      <li><code>LogEventLevel.INFO</code> designates informational messages
      *      that highlight the progress of the application at
      *      coarse-grained level.</li>
-	 *
+     *
      *      <li><code>LogEventLevel.DEBUG</code> designates informational
      *      level messages that are fine grained and most helpful when
      *      debugging an application.</li>
-	 *
+     *
      *      <li><code>LogEventLevel.ALL</code> intended to force a target to
      *      process all messages.</li>
      *    </ul>
@@ -249,16 +249,16 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
         Log.addTarget(this);        
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Sets up this target with the specified logger.
      *  This allows this target to receive log events from the specified logger.
-	 *
+     *
      *  @param logger The ILogger that this target should listen to.
      */
     public function addLogger(logger:ILogger):void
@@ -272,7 +272,7 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
 
     /**
      *  Stops this target from receiving events from the specified logger.
-	 *
+     *
      *  @param logger The ILogger that this target should ignore.
      */
     public function removeLogger(logger:ILogger):void
@@ -286,12 +286,12 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
 
     /**
      *  Called after the implementing object has been created
-	 *  and all properties specified on the tag have been assigned.
-	 *
+     *  and all properties specified on the tag have been assigned.
+     *
      *  @param document MXML document that created this object.
-	 *
+     *
      *  @param id Used by the document to refer to this object.
-	 *  If the object is a deep property on the document, id is null.
+     *  If the object is a deep property on the document, id is null.
      */
     public function initialized(document:Object, id:String):void
     {
@@ -306,17 +306,19 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *  This method will be called only if the event's level is in range of the
      *  target's level.
      *
-     *  <b><i>Descendants need to override this method to make it useful.</i></b>
+     *  <p><b><i>NOTE: Descendants must override this method to make it useful.</i></b></p>
+     *  
+     *  @param event An event from an associated logger.
      */
     public function logEvent(event:LogEvent):void
     {
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @private
