@@ -208,6 +208,15 @@ public class SlideViewTransition extends ViewTransitionBase
             startView.includeInLayout = false;
             startView.cacheAsBitmap = true;
             
+            if (startView.contentGroup)
+            {
+                startViewProps.cgIncludeInLayout = startView.contentGroup.includeInLayout;
+                startView.contentGroup.includeInLayout = false;
+                
+                startViewProps.cgCacheAsBitmap = startView.contentGroup.cacheAsBitmap;
+                startView.contentGroup.cacheAsBitmap = true;
+            }
+            
             if (!(mode == SlideViewTransitionMode.COVER))
                 slideTargets.push(startView);
         }
@@ -220,6 +229,15 @@ public class SlideViewTransition extends ViewTransitionBase
             endView.includeInLayout = false;
             endView.cacheAsBitmap = true;
             
+            if (endView.contentGroup)
+            {
+                endViewProps.cgIncludeInLayout = endView.contentGroup.includeInLayout;
+                endView.contentGroup.includeInLayout = false;
+                
+                endViewProps.cgCacheAsBitmap = endView.contentGroup.cacheAsBitmap;
+                endView.contentGroup.cacheAsBitmap = true;
+            }
+                
             if (!(mode == SlideViewTransitionMode.UNCOVER))
                 slideTargets.push(endView);
             
@@ -431,6 +449,12 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 startView.includeInLayout = startViewProps.includeInLayout;
                 startView.cacheAsBitmap = startViewProps.cacheAsBitmap;
+                
+                if (startView.contentGroup)
+                {
+                    startView.contentGroup.includeInLayout = startViewProps.cgIncludeInLayout;
+                    startView.contentGroup.cacheAsBitmap = startViewProps.cgCacheAsBitmap;
+                }
                 startViewProps = null;
             }
             
@@ -438,6 +462,12 @@ public class SlideViewTransition extends ViewTransitionBase
             {
                 endView.includeInLayout = endViewProps.includeInLayout;
                 endView.cacheAsBitmap = endViewProps.cacheAsBitmap;
+                
+                if (endView.contentGroup)
+                {
+                    endView.contentGroup.includeInLayout = endViewProps.cgIncludeInLayout;
+                    endView.contentGroup.cacheAsBitmap = endViewProps.cgCacheAsBitmap;
+                }
                 endViewProps = null;
             }
         }
