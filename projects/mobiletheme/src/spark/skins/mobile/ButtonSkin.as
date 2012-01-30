@@ -13,11 +13,12 @@ package spark.skins.mobile
 {
 
 import flash.display.DisplayObject;
-import flash.display.Graphics;
+import flash.display.GradientType;
 
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.utils.ColorUtil;
 
 import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
@@ -31,11 +32,6 @@ import spark.skins.mobile320.assets.Button_up;
 
 use namespace mx_internal;
 
-/*    
-ISSUES:
-- should we support textAlign
-
-*/
 /**
  *  ActionScript-based skin for Button controls in mobile applications. The skin supports 
  *  iconClass and labelPlacement. It uses FXG classes to 
@@ -48,6 +44,33 @@ ISSUES:
  */
 public class ButtonSkin extends ButtonSkinBase
 {
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     * An array of color distribution ratios.
+     * This is used in the chrome color fill.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    mx_internal static const CHROME_COLOR_RATIOS:Array = [0, 127.5];
+    
+    /**
+     * An array of alpha values for the corresponding colors in the colors array. 
+     * This is used in the chrome color fill.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    mx_internal static const CHROME_COLOR_ALPHAS:Array = [1, 1];
     
     //--------------------------------------------------------------------------
     //
@@ -65,8 +88,6 @@ public class ButtonSkin extends ButtonSkinBase
     public function ButtonSkin()
     {
         super();
-        
-        useChromeColor = true;
         
         switch (applicationDPI)
         {
@@ -97,7 +118,7 @@ public class ButtonSkin extends ButtonSkinBase
                 layoutPaddingLeft = 15;
                 layoutPaddingRight = 15;
                 layoutPaddingTop = 15;
-                layoutPaddingBottom = 14;
+                layoutPaddingBottom = 15;
                 layoutBorderSize = 1;
                 minWidth = 48;
                 minHeight = 65;
@@ -210,6 +231,8 @@ public class ButtonSkin extends ButtonSkinBase
             // add shadow before display
             addChildAt(labelDisplayShadow, getChildIndex(labelDisplay));
         }
+        
+        setStyle("textAlign", "center");
     }
     
     /**
@@ -231,9 +254,11 @@ public class ButtonSkin extends ButtonSkinBase
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        // Size the FXG background   
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
+        // size the FXG background
         if (changeFXGSkin)
         {
             changeFXGSkin = false;
@@ -246,27 +271,20 @@ public class ButtonSkin extends ButtonSkinBase
             
             if (borderClass)
             {
-                // FIXME (jasonsj): cache instead of calling creating for every state change?
                 _border = new borderClass();
                 addChildAt(_border, 0);
             }
         }
         
-        if (_border != null) 
-        {
-            layoutBorder(_border, unscaledWidth, unscaledHeight);
-        }
-        
-        // The label and icon should be placed on top of the FXG skins
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        layoutBorder(unscaledWidth, unscaledHeight);
         
         // update label shadow
         labelDisplayShadow.alpha = getStyle("textShadowAlpha");
         labelDisplayShadow.commitStyles();
         
-		setElementPosition(labelDisplayShadow, labelDisplay.getLayoutBoundsX(), labelDisplay.getLayoutBoundsY() + 1);
-		setElementSize(labelDisplayShadow, labelDisplay.getLayoutBoundsWidth(), labelDisplay.getLayoutBoundsHeight());
-		
+        setElementPosition(labelDisplayShadow, labelDisplay.getLayoutBoundsX(), labelDisplay.getLayoutBoundsY() + 1);
+        setElementSize(labelDisplayShadow, labelDisplay.getLayoutBoundsWidth(), labelDisplay.getLayoutBoundsHeight());
+        
         // if labelDisplay is truncated, then push it down here as well.
         // otherwise, it would have gotten pushed in the labelDisplay_valueCommitHandler()
         if (labelDisplay.isTruncated)
@@ -274,36 +292,47 @@ public class ButtonSkin extends ButtonSkinBase
     }
     
     /**
-     *  Position the background of the skin. Override this function to position of the background. 
+     *  Position the background of the skin. Override this function to re-position the background. 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */ 
-    protected function layoutBorder(bgImg:DisplayObject, unscaledWidth:Number, unscaledHeight:Number):void
+    mx_internal function layoutBorder(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        setElementSize(bgImg, unscaledWidth, unscaledHeight);
-        setElementPosition(bgImg, 0, 0);
+        setElementSize(border, unscaledWidth, unscaledHeight);
+        setElementPosition(border, 0, 0);
     }
     
-    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        super.drawBackground(unscaledWidth, unscaledHeight);
+
+        var chromeColor:uint = getStyle("chromeColor");
+        
         // In the down state, the fill shadow is defined in the FXG asset
         if (currentState == "down")
-            chromeColorGraphics.beginFill(getChromeColor());
+        {
+            graphics.beginFill(chromeColor);
+        }
         else
-            super.beginChromeColorFill(chromeColorGraphics);
-    }
-    
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
-    {
+        {
+            var colors:Array = [];
+            colorMatrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0);
+            colors[0] = ColorUtil.adjustBrightness2(chromeColor, 70);
+            colors[1] = chromeColor;
+            
+            graphics.beginGradientFill(GradientType.LINEAR, colors, CHROME_COLOR_ALPHAS, CHROME_COLOR_RATIOS, colorMatrix);
+        }
+        
         // inset chrome color by BORDER_SIZE
         // bottom line is a shadow
-        chromeColorGraphics.drawRoundRect(layoutBorderSize, layoutBorderSize, 
+        graphics.drawRoundRect(layoutBorderSize, layoutBorderSize, 
             unscaledWidth - (layoutBorderSize * 2), 
             unscaledHeight - (layoutBorderSize * 2), 
             layoutCornerEllipseSize, layoutCornerEllipseSize);
+        graphics.endFill();
     }
     
     /**
