@@ -394,11 +394,6 @@ public class CalloutSkin extends MobileSkin
         var borderWeight:Number = isNaN(borderThickness) ? 0 : borderThickness;
         var frameAdjustment:Number = (frameThickness + borderWeight) * 2;
         
-        var backgroundWidth:Number = contentGroup.getPreferredBoundsWidth()
-            + frameAdjustment;
-        var backgroundHeight:Number = contentGroup.getPreferredBoundsHeight()
-            + frameAdjustment;
-        
         var arrowMeasuredWidth:Number;
         var arrowMeasuredHeight:Number;
         
@@ -414,18 +409,27 @@ public class CalloutSkin extends MobileSkin
             arrowMeasuredHeight = arrowHeight;
         }
         
-        measuredMinWidth = Math.max(arrowMeasuredWidth, contentGroup.measuredMinWidth);
-        measuredMinHeight = Math.max(arrowMeasuredHeight, contentGroup.measuredMinHeight);
-        measuredWidth = backgroundWidth;
-        measuredHeight = backgroundHeight;
+        // count the contentGroup size and frame size
+        measuredMinWidth = contentGroup.measuredMinWidth + frameAdjustment;
+        measuredMinHeight = contentGroup.measuredMinHeight + frameAdjustment;
         
+        measuredWidth = contentGroup.getPreferredBoundsWidth() + frameAdjustment;
+        measuredHeight = contentGroup.getPreferredBoundsHeight() + frameAdjustment;
+        
+        // add the arrow size based on the arrowDirection
         if (isArrowHorizontal)
         {
+            measuredMinWidth += arrowMeasuredWidth;
+            measuredMinHeight = Math.max(measuredMinHeight, arrowMeasuredHeight);
+            
             measuredWidth += arrowMeasuredWidth;
             measuredHeight = Math.max(measuredHeight, arrowMeasuredHeight);
         }
         else if (isArrowVertical)
         {
+            measuredMinWidth += Math.max(measuredMinWidth, arrowMeasuredWidth);
+            measuredMinHeight += arrowMeasuredHeight;
+            
             measuredWidth = Math.max(measuredWidth, arrowMeasuredWidth);
             measuredHeight += arrowMeasuredHeight;
         }
