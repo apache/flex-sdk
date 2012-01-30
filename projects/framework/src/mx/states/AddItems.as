@@ -380,7 +380,7 @@ public class AddItems extends OverrideBase implements IOverride
                 break;
         }    
         
-        if ( (propertyName == null || propertyName == "content") && (dest is IVisualElementContainer))
+        if ( (propertyName == null || propertyName == "mxmlContent") && (dest is IVisualElementContainer))
         {
             addItemsToContentHolder(dest as IVisualElementContainer, localItems);
         }
@@ -420,7 +420,7 @@ public class AddItems extends OverrideBase implements IOverride
         else
             localItems = [items];
              
-        if ((propertyName == null || propertyName == "content") && (dest is IVisualElementContainer))
+        if ((propertyName == null || propertyName == "mxmlContent") && (dest is IVisualElementContainer))
         {
             for (i = 0; i < numAdded; i++)
                 IVisualElementContainer(dest).removeElementAt(startIndex);
