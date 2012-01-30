@@ -38,12 +38,11 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched when the drop-down closes for any reason, such when 
- *  the user:
+ *  Dispatched when the callout closes for any reason, such when: 
  *  <ul>
- *      <li>The drop-down is programmatically closed.</li>
- *      <li>Clicks outside of the drop-down.</li>
- *      <li>Clicks the open button while the drop-down is 
+ *      <li>The callout is programmatically closed.</li>
+ *      <li>The user clicks outside of the callout.</li>
+ *      <li>The user clicks the open button while the callout is 
  *  displayed.</li>
  *  </ul>
  *
@@ -57,7 +56,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the user clicks the open button
- *  to display the drop-down.  
+ *  to display the callout.  
  *
  *  @eventType spark.events.DropDownEvent.OPEN
  *  
@@ -76,11 +75,17 @@ use namespace mx_internal;
 [DefaultProperty("calloutContent")]
 
 /**
- *  The CalloutButton class is a drop down component that defines a button to
- *  open and close a pop-up Callout component. CalloutButton is a component
- *  whose layout and contents are proxied to the Callout when opened.
+ *  The CalloutButton control is a drop down component that defines a button to
+ *  open and close a Callout container. 
+ *  The CalloutButton specifies the layout and child components 
+ *  of the Callout container.
  *
- *  <p>When the callout list is open:</p>
+ *  <p>The CalloutButton control uses the spark.components.supportClasses.DropDownController
+ *  class to manage the Callout container. 
+ *  You can access the DropDownController by using the protected 
+ *  <code>CalloutButton.dropDownController</code> property.</p>
+ *
+ *  <p>When the callout is open:</p>
  *  <ul>
  *    <li>Clicking the button closes the callout</li>
  *    <li>Clicking outside of the callout closes the callout.</li>
@@ -118,10 +123,10 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:CalloutButton
  *   <strong>Properties</strong>
+ *    calloutDestructionPolicy="auto"
+ *    calloutLayout="BasicLayout"
  *    horizontalPosition="auto"
  *    verticalPosition="auto
- *    label=""
- *    calloutDestructionPolicy="auto"
  * 
  *   <strong>Events</strong>
  *    open="<i>No default</i>"
@@ -134,7 +139,6 @@ use namespace mx_internal;
  * 
  *  @see spark.components.Callout
  *  @see spark.components.Button
- *  @see spark.skins.mobile.CalloutButtonSkin
  *  @see spark.components.supportClasses.DropDownController
  *  
  *  @langversion 3.0
@@ -177,6 +181,10 @@ public class CalloutButton extends Button
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */
     public function CalloutButton()
     {
@@ -194,7 +202,7 @@ public class CalloutButton extends Button
     [SkinPart(required="false")]
     
     /**
-     *  A skin part that defines the drop-down factory which creates a Callou
+     *  A skin part that defines the drop-down factory which creates the Callout
      *  instance.
      * 
      *  If <code>dropDown</code> is not defined on the skin, a  
@@ -283,7 +291,7 @@ public class CalloutButton extends Button
     //---------------------------------- 
     
     /**
-     *  Defines the layout of the Callout.
+     *  Defines the layout of the Callout container.
      *
      *  @default BasicLayout
      *  
@@ -319,6 +327,10 @@ public class CalloutButton extends Button
     
     /**
      *  @copy spark.components.Callout#horizontalPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */
     public function get horizontalPosition():String
     {
@@ -351,6 +363,10 @@ public class CalloutButton extends Button
     
     /**
      *  @copy spark.components.Callout#verticalPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */
     public function get verticalPosition():String
     {
@@ -468,6 +484,10 @@ public class CalloutButton extends Button
     
     /**
      *  @copy spark.components.supportClasses.DropDownController#isOpen
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
      */
     public function get isDropDownOpen():Boolean
     {
@@ -486,10 +506,12 @@ public class CalloutButton extends Button
     [Inspectable(category="General", enumeration="auto,never", defaultValue="auto")]
     
     /**
-     *  Defines the destruction policy the callout button should use
-     *  when the callout is closed. If set to "auto", the button will
-     *  destroy the callout when it is closed.  If set to "never", the
-     *  callout will be cached in memory.
+     *  Defines the destruction policy the callout button uses
+     *  when the callout is closed. 
+     *  If set to <code>"auto"</code>, the button 
+     *  destroys the Callout instance when it is closed.  
+     *  If set to <code>"never"</code>, the Callout container 
+     *  is cached in memory.
      * 
      *  @default auto
      *  
