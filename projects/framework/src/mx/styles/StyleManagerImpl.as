@@ -37,6 +37,7 @@ import mx.resources.ResourceManager;
 import mx.styles.IStyleModule;
 import mx.styles.IStyleManager2;
 import mx.events.Request;
+import mx.utils.MediaQueryParser;
 import flash.events.Event;
 
 use namespace mx_internal;
@@ -138,6 +139,11 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    private var mqp:MediaQueryParser;
+    
     /**
      *  @private
      *  Set of inheriting non-color styles.
@@ -1687,6 +1693,17 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
         dispatchEvent(event);
     }
 
+    /**
+     *  @private
+     */  
+    public function acceptMediaList(value:String):Boolean
+    {
+        if (!mqp)
+            mqp = new MediaQueryParser(moduleFactory);
+        
+        return mqp.parse(value);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
