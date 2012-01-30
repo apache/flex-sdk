@@ -31,7 +31,7 @@ import mx.core.UIComponent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class AddItems extends OverrideBase implements IOverride
+public class AddItems extends OverrideBase 
 {
     include "../core/Version.as";
 
@@ -476,7 +476,7 @@ public class AddItems extends OverrideBase implements IOverride
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function initialize():void
+    override public function initialize():void
     {
         if (creationPolicy == ContainerCreationPolicy.AUTO)
             createInstance();
@@ -490,10 +490,30 @@ public class AddItems extends OverrideBase implements IOverride
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function apply(parent:UIComponent):void
+    override public function apply(parent:UIComponent):void
     {
-        var dest:* = destination = getOverrideContext(destination, parent);
+        var dest:* = getOverrideContext(destination, parent);
         var localItems:Array;
+        
+        added = false;
+        parentContext = parent;
+        
+        // Early exit if destination is null.
+        if (!dest)
+        {
+            if (destination != null && !applied)
+            {
+                // Our destination context is unavailable so we attempt to register
+                // a listener on our parent document to detect when/if it becomes
+                // valid.
+                addContextListener(destination);
+            }
+            applied = true;
+            return;
+        }
+
+        applied = true;
+        destination = dest;
         
         // Coerce to array if not already an array, or we wish
         // to treat the array as *the* item to add (isArray == true)
@@ -551,14 +571,25 @@ public class AddItems extends OverrideBase implements IOverride
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function remove(parent:UIComponent):void
+    override public function remove(parent:UIComponent):void
     {
         var dest:* = getOverrideContext(destination, parent);
         var localItems:Array;
         var i:int;
         
         if (!added)
+        {
+            if (dest == null)
+            {
+                // It seems our override is no longer active, but we were never
+                // able to successfully apply ourselves, so remove our context
+                // listener if applicable.
+                removeContextListener();
+                applied = false;
+                parentContext = null;
+            }
             return;
+        }
                     
         // Coerce to array if not already an array, or we wish
         // to treat the array as *the* item to add (isArray == true)
@@ -607,7 +638,10 @@ public class AddItems extends OverrideBase implements IOverride
         if (destructionPolicy == "auto")
             destroyInstance();
             
+        // Clear our flags and override context.
         added = false;
+        applied = false;
+        parentContext = null;
     }
        
     /**
