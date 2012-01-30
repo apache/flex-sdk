@@ -34,6 +34,8 @@ import spark.skins.mobile.ImageSkin; spark.skins.mobile.ImageSkin;
 import spark.skins.mobile.ListSkin; spark.skins.mobile.ListSkin;
 import spark.skins.mobile.RadioButtonSkin; spark.skins.mobile.RadioButtonSkin;
 import spark.skins.mobile.SkinnableContainerSkin; SkinnableContainerSkin;
+import spark.skins.mobile.StageTextAreaSkin; StageTextAreaSkin;
+import spark.skins.mobile.StageTextInputSkin; StageTextInputSkin;
 import spark.skins.mobile.TabbedViewNavigatorApplicationSkin; TabbedViewNavigatorApplicationSkin;
 import spark.skins.mobile.TabbedViewNavigatorSkin; TabbedViewNavigatorSkin;
 import spark.skins.mobile.TabbedViewNavigatorTabBarSkin; TabbedViewNavigatorTabBarSkin;
