@@ -13,6 +13,11 @@
  *  Color of text in the component, including the component label.
  *
  *  @default 0x0B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="color", type="uint", format="Color", inherit="yes")]
 
@@ -20,6 +25,11 @@
  *  Color of text in the component if it is disabled.
  *
  *  @default 0xAAB3B3
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disabledColor", type="uint", format="Color", inherit="yes")]
 
@@ -40,6 +50,11 @@
  * 
  *  @see flash.text.TextField
  *  @see flash.text.AntiAliasType
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fontAntiAliasType", type="String", enumeration="normal,advanced", inherit="yes")]
 
@@ -52,6 +67,11 @@
  *  it is converted to an appropriate device font.
  * 
  *  @default "Verdana"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fontFamily", type="String", inherit="yes")]
 
@@ -74,6 +94,11 @@
  *  
  *  @see flash.text.TextField
  *  @see flash.text.GridFitType
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fontGridFitType", type="String", enumeration="none,pixel,subpixel", inherit="yes")]
 
@@ -94,6 +119,11 @@
  *  @default 0
  *  
  *  @see flash.text.TextField
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fontSharpness", type="Number", inherit="yes")]
 
@@ -102,6 +132,11 @@
  *
  *  The default value is 10 for all controls except the ColorPicker control. 
  *  For the ColorPicker control, the default value is 11. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fontSize", type="Number", format="Length", inherit="yes")]
 
@@ -110,6 +145,11 @@
  *  Recognized values are <code>"normal"</code> and <code>"italic"</code>.
  * 
  *  @default "normal"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fontStyle", type="String", enumeration="normal,italic", inherit="yes")]
 
@@ -130,6 +170,11 @@
  *  @default 0
  *  
  *  @see flash.text.TextField
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fontThickness", type="Number", inherit="yes")]
 
@@ -138,6 +183,11 @@
  *  Recognized values are <code>normal</code> and <code>bold</code>.
  *  The default value for Button controls is <code>bold</code>. 
  *  The default value for all other controls is <code>normal</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fontWeight", type="String", enumeration="normal,bold", inherit="yes")]
 
@@ -152,6 +202,11 @@
  *  such as Courier New, do not support kerning.
  *
  *  @default false
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="kerning", type="Boolean", inherit="yes")]
 
@@ -161,6 +216,11 @@
  *  while a negative value decreases it.
  * 
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="letterSpacing", type="Number", inherit="yes")]
 
@@ -179,6 +239,11 @@
  *  <code>"right"</code>.
  *  If <code>labelPlacement</code> is set to <code>"top"</code> or
  *  <code>"bottom"</code>, the text and any icon are centered.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textAlign", type="String", enumeration="left,center,right", inherit="yes")]
 
@@ -187,6 +252,11 @@
  *  Possible values are <code>"none"</code> and <code>"underline"</code>.
  * 
  *  @default "none"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textDecoration", type="String", enumeration="none,underline", inherit="yes")]
 
@@ -201,6 +271,11 @@
  *  including bidirectional layout).</p>
  *
  *  @default mx.core.UITextField
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textFieldClass", type="Class", inherit="no")]
 
@@ -208,5 +283,10 @@
  *  Offset of first line of text from the left side of the container, in pixels.
  * 
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textIndent", type="Number", format="Length", inherit="yes")]
