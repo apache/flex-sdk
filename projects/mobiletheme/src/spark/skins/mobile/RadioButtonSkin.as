@@ -19,15 +19,17 @@ import mx.core.DeviceDensity;
 
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 import spark.skins.mobile160.assets.RadioButton_down;
-import spark.skins.mobile160.assets.RadioButton_downSelected;
 import spark.skins.mobile160.assets.RadioButton_symbol;
+import spark.skins.mobile160.assets.RadioButton_symbolSelected;
 import spark.skins.mobile160.assets.RadioButton_up;
-import spark.skins.mobile160.assets.RadioButton_upSelected;
 import spark.skins.mobile240.assets.RadioButton_down;
-import spark.skins.mobile240.assets.RadioButton_downSelected;
 import spark.skins.mobile240.assets.RadioButton_symbol;
+import spark.skins.mobile240.assets.RadioButton_symbolSelected;
 import spark.skins.mobile240.assets.RadioButton_up;
-import spark.skins.mobile240.assets.RadioButton_upSelected;
+import spark.skins.mobile320.assets.RadioButton_down;
+import spark.skins.mobile320.assets.RadioButton_symbol;
+import spark.skins.mobile320.assets.RadioButton_symbolSelected;
+import spark.skins.mobile320.assets.RadioButton_up;
 
 /**
  *  Actionscript based skin for RadioButton on mobile applications. 
@@ -59,40 +61,57 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
         
         useChromeColor = true;
         
+        layoutPaddingLeft = 0;
+        layoutPaddingRight = 0;
+        layoutPaddingTop = 0;
+        layoutPaddingBottom = 0;
+        
         switch (authorDensity)
         {
+            case DeviceDensity.PPI_320:
+            {
+                upIconClass = spark.skins.mobile320.assets.RadioButton_up;
+                upSelectedIconClass = spark.skins.mobile320.assets.RadioButton_up;
+                downIconClass = spark.skins.mobile320.assets.RadioButton_down;
+                downSelectedIconClass = spark.skins.mobile320.assets.RadioButton_down;
+                upSymbolIconClass = spark.skins.mobile320.assets.RadioButton_symbol;
+                downSymbolIconClass = spark.skins.mobile320.assets.RadioButton_symbol;
+                upSymbolIconSelectedClass = spark.skins.mobile320.assets.RadioButton_symbolSelected;
+                downSymbolIconSelectedClass = spark.skins.mobile320.assets.RadioButton_symbolSelected;
+                
+                layoutGap = 20;
+                layoutMeasuredWidth = 64;
+                
+                break;
+            }
             case DeviceDensity.PPI_240:
             {
                 upIconClass = spark.skins.mobile240.assets.RadioButton_up;
-                upSelectedIconClass = spark.skins.mobile240.assets.RadioButton_upSelected;
+                upSelectedIconClass = spark.skins.mobile240.assets.RadioButton_up;
                 downIconClass = spark.skins.mobile240.assets.RadioButton_down;
-                downSelectedIconClass = spark.skins.mobile240.assets.RadioButton_downSelected;
-                symbolIconClass = spark.skins.mobile240.assets.RadioButton_symbol;
+                downSelectedIconClass = spark.skins.mobile240.assets.RadioButton_down;
+                upSymbolIconClass = spark.skins.mobile240.assets.RadioButton_symbol;
+                downSymbolIconClass = spark.skins.mobile240.assets.RadioButton_symbol;
+                upSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_symbolSelected;
+                downSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_symbolSelected;
                 
                 layoutGap = 15;
-                layoutPaddingLeft = 15;
-                layoutPaddingRight = 15;
-                layoutPaddingTop = 15;
-                layoutPaddingBottom = 15;
                 layoutMeasuredWidth = 48;
                 
                 break;
             }
             default:
             {
-                // TODO (jasonsj) 160ppi spec
-                // default PPI160
                 upIconClass = spark.skins.mobile160.assets.RadioButton_up;
-                upSelectedIconClass = spark.skins.mobile160.assets.RadioButton_upSelected;
+                upSelectedIconClass = spark.skins.mobile160.assets.RadioButton_up;
                 downIconClass = spark.skins.mobile160.assets.RadioButton_down;
-                downSelectedIconClass = spark.skins.mobile160.assets.RadioButton_downSelected;
-                symbolIconClass = spark.skins.mobile160.assets.RadioButton_symbol;
+                downSelectedIconClass = spark.skins.mobile160.assets.RadioButton_down;
+                upSymbolIconClass = spark.skins.mobile160.assets.RadioButton_symbol;
+                downSymbolIconClass = spark.skins.mobile160.assets.RadioButton_symbol;
+                upSymbolIconSelectedClass = spark.skins.mobile160.assets.RadioButton_symbolSelected;
+                downSymbolIconSelectedClass = spark.skins.mobile160.assets.RadioButton_symbolSelected;
                 
-                layoutGap = 15;
-                layoutPaddingLeft = 15;
-                layoutPaddingRight = 15;
-                layoutPaddingTop = 15;
-                layoutPaddingBottom = 15;
+                layoutGap = 10;
                 layoutMeasuredWidth = 32;
                 
                 break;
