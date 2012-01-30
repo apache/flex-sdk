@@ -611,9 +611,9 @@ public class MobileApplication extends MobileApplicationBase
     /**
      *  @private
      */
-    override protected function nativeApplication_invokeHandler(event:InvokeEvent):void
+    override protected function invokeHandler(event:InvokeEvent):void
     {
-        super.nativeApplication_invokeHandler(event);
+        super.invokeHandler(event);
 
         // Set the stage focus to the navigator's active view
         if (systemManager.stage.focus == null && navigator)
@@ -628,35 +628,35 @@ public class MobileApplication extends MobileApplicationBase
     /**
      *  @private
      */ 
-    override protected function nativeApplication_deactivateHandler(event:Event):void
+    override protected function deactivateHandler(event:Event):void
     {
         if (navigator && navigator.activeView)
             navigator.activeView.setActive(false);
 
         // super is called after so that the active view can get the
         // viewDeactive event before the persistence process begins.
-        super.nativeApplication_deactivateHandler(event);
+        super.deactivateHandler(event);
     }
     
     /**
      *  @private
      */ 
-    override protected function backKeyHandler(event:KeyboardEvent):void
+    override protected function backKeyUpHandler(event:KeyboardEvent):void
     {
-        super.backKeyHandler(event);
+        super.backKeyUpHandler(event);
         
         if (viewMenuOpen)
             viewMenuOpen = false;
         else
-            navigator.backKeyHandler();
+            navigator.backKeyUpHandler();
     }
     
     /**
      *  @private
      */ 
-    override protected function persistApplicationState():void
+    override protected function saveNavigatorState():void
     {
-        super.persistApplicationState();
+        super.saveNavigatorState();
 
         // TODO (chiedozi): Rename save to maybe get?
         if (navigator)
@@ -664,31 +664,18 @@ public class MobileApplication extends MobileApplicationBase
     }
     
     /**
-     *  @private
-     */ 
-    override protected function registerPersistenceClassAliases():void
-    {
-        super.registerPersistenceClassAliases();
-        
-        // Register aliases for custom classes that will be written to
-        // persistence store by navigator
-        registerClassAlias("ViewDescriptor", ViewDescriptor);
-        registerClassAlias("NavigationStack", NavigationStack);
-    }
-    
-    /**
      * @private
      */
-    override protected function restoreApplicationState():void
+    override protected function loadNavigatorState():void
     {
         // TODO (chiedozi): Figure out how to refactor this into base class.  Need navigator
         // to be a part of the base class
-        super.restoreApplicationState();
+        super.loadNavigatorState();
         
         var savedState:Object = persistenceManager.getProperty("navigatorState");
         
         if (savedState)
-            navigator.restoreViewData(savedState);
+            navigator.loadViewData(savedState);
     }
     
     //--------------------------------------------------------------------------
@@ -800,7 +787,6 @@ public class MobileApplication extends MobileApplicationBase
                 newNavigatorProperties.titleLayout = navigator.titleLayout;
                
             // Always want to save the navigation stack
-            // TODO (chiedozi): I'm not doing this right...
             newNavigatorProperties.navigationStack = navigator.navigationStack;
             navigatorProperties = newNavigatorProperties;
         }
