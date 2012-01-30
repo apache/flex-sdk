@@ -71,6 +71,11 @@ use namespace mx_internal;
  *  numeric="null"
  *  /&gt;
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SortField extends EventDispatcher
 {
@@ -94,6 +99,11 @@ public class SortField extends EventDispatcher
      *              descending order.
      *  @param numeric Tells the comparitor whether to compare sort items as
      *              numbers, instead of alphabetically.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SortField(name:String = null,
                               caseInsensitive:Boolean = false,
@@ -145,6 +155,11 @@ public class SortField extends EventDispatcher
      *  Specifies whether the sort for this field should be case insensitive.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get caseInsensitive():Boolean
     {
@@ -200,6 +215,11 @@ public class SortField extends EventDispatcher
      *  Specify your own function only if you need a need a custom comparison algorithm.
      *  This is normally only the case if a calculated field is used in a display.</p>
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get compareFunction():Function
     {
@@ -223,6 +243,11 @@ public class SortField extends EventDispatcher
 
     /**
      * True if this SortField uses a custom comparitor function.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function get usingCustomCompareFunction():Boolean
     {
@@ -255,6 +280,11 @@ public class SortField extends EventDispatcher
      *  order.
      *
      *  <p> The default value is <code>false</code> (ascending).</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get descending():Boolean
     {
@@ -290,6 +320,11 @@ public class SortField extends EventDispatcher
      *  The name of the field to be sorted.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get name():String
     {
@@ -330,6 +365,11 @@ public class SortField extends EventDispatcher
 	 *  proceeds based on that introspection
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get numeric():Object
     {
@@ -357,6 +397,11 @@ public class SortField extends EventDispatcher
     /**
     * Build up the options argument that could be used to Array.sortOn.
     * Return -1 if this SortField shouldn't be used in the method.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     mx_internal function getArraySortOnOptions():int
     {
@@ -458,6 +503,11 @@ public class SortField extends EventDispatcher
      * <p>Note: an ICollectionView does not automatically update when the
      * SortFields are modified; call its <code>refresh()</code> method to
      * update the view.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function reverse():void
     {
@@ -570,6 +620,11 @@ public class SortField extends EventDispatcher
 
     /**
      * Pull the numbers from the objects and call the implementation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function numericCompare(a:Object, b:Object):int
     {
@@ -596,6 +651,11 @@ public class SortField extends EventDispatcher
 
     /**
      * Pull the date objects from the values and compare them.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function dateCompare(a:Object, b:Object):int
     {
@@ -622,6 +682,11 @@ public class SortField extends EventDispatcher
 
     /**
      * Pull the strings from the objects and call the implementation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function stringCompare(a:Object, b:Object):int
     {
@@ -650,6 +715,11 @@ public class SortField extends EventDispatcher
      * Pull the values out fo the XML object, then compare
      * using the string or numeric comparator depending
      * on the numeric flag.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function xmlCompare(a:Object, b:Object):int
     {
