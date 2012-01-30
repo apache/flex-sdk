@@ -41,123 +41,123 @@ use namespace mx_internal;
  */
 public interface ILayoutManagerClient extends IEventDispatcher
 {
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  initialized
-	//----------------------------------
+    //----------------------------------
+    //  initialized
+    //----------------------------------
 
-	/**
-	 *  A flag that determines if an object has been through all three phases
-	 *  of layout validation (provided that any were required)
-	 *  This flag should only be modified by the LayoutManager.
-	 */
-	function get initialized():Boolean;
-	
-	/**
-	 *  @private
-	 */
-	function set initialized(value:Boolean):void;
+    /**
+     *  A flag that determines if an object has been through all three phases
+     *  of layout validation (provided that any were required)
+     *  This flag should only be modified by the LayoutManager.
+     */
+    function get initialized():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set initialized(value:Boolean):void;
 
-	//----------------------------------
-	//  nestLevel
-	//----------------------------------
+    //----------------------------------
+    //  nestLevel
+    //----------------------------------
 
-	/**
-	 *  The top-level SystemManager has a nestLevel of 1.
-	 *  Its immediate children (the top-level Application and any pop-up
-	 *  windows) have a <code>nestLevel</code> of 2.
-	 *  Their children have a <code>nestLevel</code> of 3, and so on.  
-	 *
-	 *  The <code>nestLevel</code> is used to sort ILayoutManagerClients
-	 *  during the measurement and layout phases.
-	 *  During the commit phase, the LayoutManager commits properties on clients
-	 *  in order of decreasing <code>nestLevel</code>, so that an object's
-	 *  children have already had their properties committed before Flex 
-	 *  commits properties on the object itself.
-	 *  During the measurement phase, the LayoutManager measures clients
-	 *  in order of decreasing <code>nestLevel</code>, so that an object's
-	 *  children have already been measured before Flex measures
-	 *  the object itself.
-	 *  During the layout phase, the LayoutManager lays out clients
-	 *  in order of increasing <code>nestLevel</code>, so that an object
-	 *  has a chance to set the sizes of its children before the child
-	 *  objects are asked to position and size their children.
-	 */
-	function get nestLevel():int;
-	
-	/**
-	 *  @private
-	 */
-	function set nestLevel(value:int):void;
+    /**
+     *  The top-level SystemManager has a nestLevel of 1.
+     *  Its immediate children (the top-level Application and any pop-up
+     *  windows) have a <code>nestLevel</code> of 2.
+     *  Their children have a <code>nestLevel</code> of 3, and so on.  
+     *
+     *  The <code>nestLevel</code> is used to sort ILayoutManagerClients
+     *  during the measurement and layout phases.
+     *  During the commit phase, the LayoutManager commits properties on clients
+     *  in order of increasing <code>nestLevel</code>, so that an object's
+     *  children have already had their properties committed before Flex 
+     *  commits properties on the object itself.
+     *  During the measurement phase, the LayoutManager measures clients
+     *  in order of decreasing <code>nestLevel</code>, so that an object's
+     *  children have already been measured before Flex measures
+     *  the object itself.
+     *  During the layout phase, the LayoutManager lays out clients
+     *  in order of increasing <code>nestLevel</code>, so that an object
+     *  has a chance to set the sizes of its children before the child
+     *  objects are asked to position and size their children.
+     */
+    function get nestLevel():int;
+    
+    /**
+     *  @private
+     */
+    function set nestLevel(value:int):void;
 
-	//----------------------------------
-	//  processedDescriptors
-	//----------------------------------
+    //----------------------------------
+    //  processedDescriptors
+    //----------------------------------
 
-	/**
+    /**
      *  @copy mx.core.UIComponent#processedDescriptors
-	 */
-	function get processedDescriptors():Boolean;
-	
-	/**
-	 *  @private
-	 */
-	function set processedDescriptors(value:Boolean):void;
+     */
+    function get processedDescriptors():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set processedDescriptors(value:Boolean):void;
 
-	//----------------------------------
-	//  updateCompletePendingFlag
-	//----------------------------------
+    //----------------------------------
+    //  updateCompletePendingFlag
+    //----------------------------------
 
-	/**
-	 *  A flag that determines if an object is waiting to have its
-	 *  <code>updateComplete</code> event dispatched.
-	 *  This flag should only be modified by the LayoutManager.
-	 */
-	function get updateCompletePendingFlag():Boolean;
-	
-	/**
-	 *  @private
-	 */
-	function set updateCompletePendingFlag(value:Boolean):void;
+    /**
+     *  A flag that determines if an object is waiting to have its
+     *  <code>updateComplete</code> event dispatched.
+     *  This flag should only be modified by the LayoutManager.
+     */
+    function get updateCompletePendingFlag():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set updateCompletePendingFlag(value:Boolean):void;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Validates the properties of a component.
-	 *  If the <code>LayoutManager.invalidateProperties()</code> method is called with
-	 *  this ILayoutManagerClient, then the <code>validateProperties()</code> method
-	 *  is called when it's time to commit property values.
-	 */
-	function validateProperties():void;
-	
-	/**
-	 *  Validates the measured size of the component
-	 *  If the <code>LayoutManager.invalidateSize()</code> method is called with
-	 *  this ILayoutManagerClient, then the <code>validateSize()</code> method
-	 *  is called when it's time to do measurements.
-	 *
-	 *  @param recursive If <code>true</code>, call this method
-	 *  on the objects children.
-	 */
-	function validateSize(recursive:Boolean = false):void;
-	
-	/**
-	 *  Validates the position and size of children and draws other
-	 *  visuals.
-	 *  If the <code>LayoutManager.invalidateDisplayList()</code> method is called with
-	 *  this ILayoutManagerClient, then the <code>validateDisplayList()</code> method
-	 *  is called when it's time to update the display list.
-	 */
-	function validateDisplayList():void;
+    /**
+     *  Validates the properties of a component.
+     *  If the <code>LayoutManager.invalidateProperties()</code> method is called with
+     *  this ILayoutManagerClient, then the <code>validateProperties()</code> method
+     *  is called when it's time to commit property values.
+     */
+    function validateProperties():void;
+    
+    /**
+     *  Validates the measured size of the component
+     *  If the <code>LayoutManager.invalidateSize()</code> method is called with
+     *  this ILayoutManagerClient, then the <code>validateSize()</code> method
+     *  is called when it's time to do measurements.
+     *
+     *  @param recursive If <code>true</code>, call this method
+     *  on the objects children.
+     */
+    function validateSize(recursive:Boolean = false):void;
+    
+    /**
+     *  Validates the position and size of children and draws other
+     *  visuals.
+     *  If the <code>LayoutManager.invalidateDisplayList()</code> method is called with
+     *  this ILayoutManagerClient, then the <code>validateDisplayList()</code> method
+     *  is called when it's time to update the display list.
+     */
+    function validateDisplayList():void;
 }
 
 }
