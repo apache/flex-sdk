@@ -66,8 +66,8 @@ include "../styles/metadata/GapStyles.as"
 /**
  *  The MobileIconItemRenderer class is a performant item 
  *  renderer optimized for mobile devices.  It contains 
- *  four optional parts: 1) an icon on the left, 2) label 
- *  on top next to the icon, 3) message below label and 
+ *  four optional parts: 1) an icon on the left, 2) single-line label 
+ *  on top next to the icon, 3) multi-line message below label and 
  *  next to the icon, and 4) a decorator on the right.
  *
  *  @see spark.components.List
@@ -906,13 +906,14 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             {
                 try
                 {
-                    if (iconField in data && data[iconField] != null)
+                    if (iconField in data)
                     {
                         iconDisplay.source = data[iconField];
                     }
                 }
                 catch(e:Error)
                 {
+                    iconDisplay.source = null;
                 }
             }
         }
@@ -935,9 +936,16 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                         messageText = data[messageField];
                         messageDisplay.text = messageText;
                     }
+                    else
+                    {
+                        messageText = "";
+                        messageDisplay.text = messageText;
+                    }
                 }
                 catch(e:Error)
                 {
+                    messageText = "";
+                    messageDisplay.text = messageText;
                 }
             }
         }
@@ -965,9 +973,20 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                             createLabelDisplay();
                         labelDisplay.text = labelText;
                     }
+                    else
+                    {
+                        labelText = "";
+                        if (!labelDisplay)
+                            createLabelDisplay();
+                        labelDisplay.text = labelText;
+                    }
                 }
                 catch(e:Error)
                 {
+                    labelText = "";
+                    if (!labelDisplay)
+                        createLabelDisplay();
+                    labelDisplay.text = labelText;
                 }
             }
             else if (label && labelField === null) // if there's a label and labelField === null, then show label
