@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2006-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<project name="framework" default="main" basedir=".">
+
+	<property file="build.properties"/>
+
+	<target name="main" depends="clean,compile,bundles" description="Clean build of framework.swc and its resource bundles"/>
+
+	<target name="clean">
+		<delete file="bundles.properties"/>
+		<delete file="${frameworks.dir}/libs/framework.swc"/>
+		<ant dir="bundles/en_US" target="clean"/>
+		<ant dir="bundles/ja_JP" target="clean"/>
+	</target>
+
+	<target name="compile">
+		<echo message="Compiling frameworks/libs/framework.swc"/>
+		<ant dir="${frameworks.dir}" target="compc"/>
+	</target>
+
+	<target name="bundles">
+		<echo message="Compiling frameworks/locale/en_US/framework_rb.swc"/>
+		<ant dir="bundles/en_US"/>
+		<echo message="Compiling frameworks/locale/ja_JP/framework_rb.swc"/>
+		<ant dir="bundles/ja_JP"/>
+	</target>
+
+</project>
