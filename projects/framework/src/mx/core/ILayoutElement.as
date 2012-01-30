@@ -768,23 +768,26 @@ public interface ILayoutElement extends IEventDispatcher
     function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void;
 
     /**
-     * A utility method to update the rotation, scale, and translation of the 
-     * transform while keeping a particular point, specified in the component's 
-     * own coordinate space, fixed in the parent's coordinate space.  
-     * This function will assign the rotation, scale, and translation values 
-     * provided, then update the x/y/z properties as necessary to keep 
-     * the transform center fixed.
-     * @param transformCenter the point, in the component's own coordinates, 
-     * to keep fixed relative to its parent.
-     * @param scale the new values for the scale of the transform
-     * @param rotation the new values for the rotation of the transform
-     * @param translation the new values for the translation of the transform
-     * @param postLayoutScale the new values for the post-layout scale 
-     * of the transform
-     * @param postLayoutRotation the new values for the post-layout rotation 
-     * of the transform
-     * @param postLayoutTranslation the new values for the post-layout translation 
-     * of the transform
+     *  A utility method to update the rotation, scale, and translation of the 
+     *  transform while keeping a particular point, specified in the component's 
+     *  own coordinate space, fixed in the parent's coordinate space.  
+     *  This function will assign the rotation, scale, and translation values 
+     *  provided, then update the x/y/z properties as necessary to keep 
+     *  the transform center fixed.
+     *  @param transformCenter the point, in the component's own coordinates, 
+     *  to keep fixed relative to its parent.
+     *  @param scale the new values for the scale of the transform
+     *  @param rotation the new values for the rotation of the transform
+     *  @param translation the new values for the translation of the transform
+     *  @param postLayoutScale the new values for the post-layout scale 
+     *  of the transform
+     *  @param postLayoutRotation the new values for the post-layout rotation 
+     *  of the transform
+     *  @param postLayoutTranslation the new values for the post-layout translation 
+     *  of the transform
+     *  @param invalidateLayout <p>If true, the parent container size and display are
+     *  invalidated. Layouts calling this method pass <code>false</code>
+     *  so that a subsequent layout pass is not triggered.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -797,8 +800,8 @@ public interface ILayoutElement extends IEventDispatcher
                                     translation:Vector3D = null,
                                     postLayoutScale:Vector3D = null,
                                     postLayoutRotation:Vector3D = null,
-                                    postLayoutTranslation:Vector3D = null):void;
-    
+                                    postLayoutTranslation:Vector3D = null,
+                                    invalidateLayout:Boolean = true):void;    
 }
 
 }
