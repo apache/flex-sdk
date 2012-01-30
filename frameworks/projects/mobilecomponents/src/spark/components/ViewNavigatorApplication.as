@@ -7,7 +7,6 @@ package spark.components
     import flash.events.StageOrientationEvent;
     import flash.net.registerClassAlias;
     import flash.system.Capabilities;
-    import flash.system.System;
     import flash.ui.Keyboard;
     
     import mx.core.IVisualElement;
@@ -19,7 +18,7 @@ package spark.components
     import spark.components.supportClasses.ViewNavigatorSection;
     import spark.core.managers.IPersistenceManager;
     import spark.core.managers.PersistenceManager;
-    import spark.events.ViewNavigatorEvent;
+    import spark.events.ElementExistenceEvent;
     import spark.layouts.supportClasses.LayoutBase;
 
     use namespace mx_internal;
@@ -31,12 +30,12 @@ package spark.components
     //--------------------------------------
     
     /**
-     *  @inheritDic
+     *  @inheritDoc
      */
     [Event(name="applicationPersist", type="mx.events.FlexEvent")]
     
     /**
-     *  @inheritDic
+     *  @inheritDoc
      */
     [Event(name="applicationRestore", type="mx.events.FlexEvent")]
     
@@ -545,9 +544,9 @@ package spark.components
         }
         
         
-        protected function navigator_viewAddHandler(event:ViewNavigatorEvent):void
+        protected function navigator_viewAddHandler(event:ElementExistenceEvent):void
         {
-            var view:View = event.view;
+            var view:View = event.element as View;
             
             if (view)
                 view.setCurrentState(view.getCurrentViewState(isLandscape), false);
@@ -750,7 +749,7 @@ package spark.components
                 
                 // Add event listeners
 //                navigator.addEventListener(Event.COMPLETE, persistViewData);
-                navigator.addEventListener(ViewNavigatorEvent.VIEW_ADD, navigator_viewAddHandler);
+                navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_viewAddHandler);
             }
         }
         
@@ -790,7 +789,7 @@ package spark.components
                 
                 // TODO (chiedozi): Do i need to null out the properties on navigator?  Applicaiton does.
 //                navigator.removeEventListener(Event.COMPLETE, persistViewData);
-                navigator.removeEventListener(ViewNavigatorEvent.VIEW_ADD, navigator_viewAddHandler);
+                navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_viewAddHandler);
             }
         }
     }
