@@ -888,7 +888,7 @@ public class ViewTransitionBase extends EventDispatcher
 
         // Ensure bitmaps are rendered prior to invocation of our effect.
         transitionGroup.validateNow();
-		        
+                
         return effect;
     }
     
@@ -1061,6 +1061,9 @@ public class ViewTransitionBase extends EventDispatcher
         actionBar = null;
         parentNavigator = null;
         targetNavigator = null;
+        navigator = null;
+        startView = null;
+        endView = null;
     }
     
     /**
