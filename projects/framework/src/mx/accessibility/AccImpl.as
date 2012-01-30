@@ -95,9 +95,9 @@ use namespace mx_internal;
  *   (childID 0).</li>
  *   <li>If the component is inside a Form: 
  *     <ul>
- *       <li>If the Form has a FormHeader, the header text is added.
+ *       <li>If the Form has a FormHeading, the heading text is added.
  *       Developers wishing to avoid this should set the
- *       <code>accessibilityName</code> of the FormHeader
+ *       <code>accessibilityName</code> of the FormHeading
  *       to a space (" ").</li>
  *       <li>If the component is inside a FormItem,
  *       the FormItem label text is added.
@@ -538,7 +538,7 @@ public class AccImpl extends AccessibilityImplementation
             return (accName != null && accName != "") ? accName : null;
         }
 
-        // Start with form header and/or formItem label text.
+        // Start with form heading and/or formItem label text.
         // Also includes "Required Field" where appropriate.
         accName = getFormName(master);
 
