@@ -24,6 +24,7 @@ import mx.core.mx_internal;
 import mx.core.RSLData;
 import mx.events.Request;
 import mx.managers.SystemManagerGlobals;
+import flash.display.Loader;
 
 use namespace mx_internal;
 
@@ -225,7 +226,8 @@ use namespace mx_internal;
     mx_internal static function processRequiredRSLs(moduleFactory:IFlexModuleFactory, 
                                                     rsls:Array):Array
     {
-        var rslsToLoad:Array = [];  // of Array of RSLData (primary and failover), return value
+        var rslsToLoad:Array = [];  // of Array, where each element is an array 
+                                    // of RSLData (primary and failover), return value
         var topLevelModuleFactory:IFlexModuleFactory = SystemManagerGlobals.topLevelSystemManagers[0];
         var currentModuleFactory:IFlexModuleFactory = topLevelModuleFactory;
         var parentModuleFactory:IFlexModuleFactory = null;
@@ -283,9 +285,11 @@ use namespace mx_internal;
                 // is specified.
                 if (!loaded[rsl] && resolved[rsl] == null && 
                     (currentModuleFactory == moduleFactory || 
-                    resolveApplicationDomainTarget(rsl, currentModuleFactory,
-                                                       parentModuleFactory,
-                                                       topLevelModuleFactory)))
+                    resolveApplicationDomainTarget(rsl,
+                                                   moduleFactory,
+                                                   currentModuleFactory,
+                                                   parentModuleFactory,
+                                                   topLevelModuleFactory)))
                 {
                     resolved[rsl] = 1;
                     resolvedLength++;                        
@@ -336,6 +340,7 @@ use namespace mx_internal;
      *  Resolve the application domain target. 
      * 
      *  @param rsl to resolve.
+     *  @param moduleFactory The module factory loading the RSLs.
      *  @param currentModuleFactory The module factory to search for placeholders.
      *  @param parentModuleFactory The rsl's parent module factory.
      *  @param topLevelModuleFactory The top-level module factory.
@@ -344,6 +349,7 @@ use namespace mx_internal;
      *  false otherwise.
      */
     private static function resolveApplicationDomainTarget(rsl:Array, 
+                                    moduleFactory:IFlexModuleFactory, 
                                     currentModuleFactory:IFlexModuleFactory, 
                                     parentModuleFactory:IFlexModuleFactory, 
                                     topLevelModuleFactory:IFlexModuleFactory):Boolean 
@@ -352,7 +358,11 @@ use namespace mx_internal;
         var targetModuleFactory:IFlexModuleFactory = null;
         
         var applicationDomainTarget:String = rsl[0].applicationDomainTarget;
-        if (applicationDomainTarget == ApplicationDomainTarget.DEFAULT)
+        if (isLoadedIntoTopLevelApplicationDomain(moduleFactory))
+        {
+            targetModuleFactory = topLevelModuleFactory;
+        }
+        else if (applicationDomainTarget == ApplicationDomainTarget.DEFAULT)
         {
             if (hasPlaceholderRSL(currentModuleFactory, rsl[0].digest))
             {
@@ -372,7 +382,6 @@ use namespace mx_internal;
             // If there is no parent, ignore the target and load into the current
             // app domain. 
             targetModuleFactory = parentModuleFactory;
-            resolvedRSL = true;
         }
         else
         {
@@ -405,7 +414,7 @@ use namespace mx_internal;
         if (preloadedRSLs)
         {
             // loop over the rsls to find a matching digest
-            for each (var rsl:Array in preloadedRSLs)
+            for each (var rsl:Vector.<RSLData> in preloadedRSLs)
             {
                 var n:int = rsl.length;
                 for (var i:int = 0; i < n; i++)
@@ -454,6 +463,28 @@ use namespace mx_internal;
         }
         
         return false;
+    }
+ 
+    /**
+     *  @private
+     *  Test if a module factory has been loaded into the top-level application domain.
+     * 
+     *  @return true if loaded into the top-level application domain, false otherwise.
+     */ 
+    private static function isLoadedIntoTopLevelApplicationDomain(moduleFactory:IFlexModuleFactory):Boolean
+    {
+        if (moduleFactory is DisplayObject)
+        {
+            var displayObject:DisplayObject = DisplayObject(moduleFactory);
+            var loaderInfo:LoaderInfo = displayObject.loaderInfo;
+            if (loaderInfo && loaderInfo.applicationDomain &&
+                loaderInfo.applicationDomain.parentDomain == null)
+            {
+                return true;
+            }
+        }
+        
+        return false;        
     }
     
     /**
