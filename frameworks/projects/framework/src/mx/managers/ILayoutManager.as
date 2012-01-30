@@ -269,6 +269,9 @@ public interface ILayoutManager extends IEventDispatcher
 	/**
 	 *  Returns <code>true</code> if there are components that need validating;
 	 *  <code>false</code> if all components have been validated.
+         *  
+         * @return Returns <code>true</code> if there are components that need validating;
+	 *  <code>false</code> if all components have been validated.
 	 */
 	function isInvalid():Boolean;
 }
