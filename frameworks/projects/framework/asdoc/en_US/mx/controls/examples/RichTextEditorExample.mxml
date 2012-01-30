@@ -1,15 +1,19 @@
-<?xml version="1.0" ?>
-<!-- Simple example to demonstrate the RichTextEditor control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-    horizontalAlign="center" verticalAlign="middle">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo RichTextEditor control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:RichTextEditor id="rte" title="RichTextEditor" height="75%" text="Enter text into the RichTextEditor control, then click a button to display your text as plain text, or as HTML-formatted text."/>
+    <s:VGroup left="10" right="10" top="10" bottom="10">
+        <mx:RichTextEditor id="rte" title="Halo RichTextEditor" width="100%" height="75%"
+                text="Enter text into the Halo RichTextEditor control, then click a button to display your text as plain text, or as HTML-formatted text." />
 
-    <mx:TextArea id="rteText" width="80%" height="25%"/>
+        <s:HGroup>
+            <s:Button label="Show Plain Text" click="rteText.text = rte.text;"/>
+            <s:Button label="Show HTML Markup" click="rteText.text = rte.htmlText;"/>
+        </s:HGroup>
 
-    <mx:HBox>
-        <mx:Button label="Show Plain Text" click="rteText.text=rte.text;"/>
-        <mx:Button label="Show HTML Markup" click="rteText.text=rte.htmlText;"/>
-    </mx:HBox>
+        <s:TextArea id="rteText" width="100%" height="25%"/>
+    </s:VGroup>
 
-</mx:Application>
+</s:Application>
