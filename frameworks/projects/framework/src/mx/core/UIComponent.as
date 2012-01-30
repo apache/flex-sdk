@@ -905,14 +905,21 @@ include "../styles/metadata/AnchorStyles.as";
  *  as Arabic and Hebrew.
  * 
  *  <p>In ActionScript you can set the layoutDirection using the values 
- *  mx.core.LayoutDirection.LTR, mx.core.LayoutDirection.RTL or undefined, 
- *  to inherit the layoutDirection from the parent.</p>
+ *  <code>mx.core.LayoutDirection.LTR</code>, 
+ *  <code>mx.core.LayoutDirection.RTL</code> or 
+ *  <code>undefined</code>, to inherit the layoutDirection from the parent.</p>
  * 
  *  <p>The layoutDirection should typically be set on the 
  *  <code>Application</code> rather than on individual components. If the 
  *  layoutDirection is <code>"rtl"</code>, most visual elements, except text 
- *  and images, will be mirrored.  The directionality of the text is determined 
- *  by the <code>direction</code>.</p>  
+ *  and images, will be mirrored.  The directionality of text is determined 
+ *  by the <code>direction</code> style.</p>
+ * 
+ *  <p>Components which handle Keyboard.LEFT and Keyboard.RIGHT events
+ *  typically swap the key’s meaning when layoutDirection is 
+ *  <code>“rtl”</code>.  In other words, left always means move left and
+ *  right always means move right, regardless of the 
+ *  <code>layoutDirection</code></p>
  * 
  *  <p>Note: This style applies to all Spark components and MX components that
  *  specify UIFTETextField as their textFieldClass.</p> 
@@ -1168,6 +1175,7 @@ include "../styles/metadata/AnchorStyles.as";
  *    focusSkin="HaloFocusRect""
  *    focusThickness="2"
  *    horizontalCenter="undefined"
+ *    layoutDirection="ltr"
  *    left="undefined"
  *    right="undefined"
  *    themeColor="haloGreen"
@@ -9864,6 +9872,7 @@ public class UIComponent extends FlexSprite
      *  @return keyCode to use for the layoutDirection if always using ltr 
      *  actions
      */
+    // TODO(cframpto): change to protected after getting PARB review of name.
     mx_internal function mapKeycodeForLayoutDirection(
         event:KeyboardEvent, 
         mapUpDown:Boolean=false):uint
