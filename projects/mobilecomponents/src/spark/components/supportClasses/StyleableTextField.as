@@ -385,10 +385,10 @@ public class StyleableTextField extends TextField
      */
     private static function getTextTopOffset(textFormat:TextFormat):Number
     {
-        // try to find the top offset for the font, size, weight and style in our table
-        // we only store offets for unique font, size, weight and style combinations
-        // FIXME (mcho)  are there more properties that affect the top offset we should
-        // take into account?
+        // Try to find the top offset for the font, size, weight and style in our table.
+        // We only store offets for unique font, size, weight and style combinations.
+        // There could be some other factors that affect textFormat...if we find 
+        // more of them, we will have to change the key to take that into account.
         var key:String = textFormat.font + "_" + textFormat.size + "_" + textFormat.bold + "_" + textFormat.italic;
         var topOffset:Number = textTopOffsetTable[key];
         
