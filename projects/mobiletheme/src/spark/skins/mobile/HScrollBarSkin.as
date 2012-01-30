@@ -20,26 +20,32 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 
 
 public class HScrollBarSkin extends MobileSkin 
-{    
+{   
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
     public function HScrollBarSkin()
     {
         super();
         
         useChromeColor = true;
         
+		// Depending on density set our measured width and height
         switch (authorDensity)
         {
             case DeviceDensity.PPI_240:
             {
                 layoutMeasuredWidth = 40;
-                layoutMeasuredHeight = 8;
+                layoutMeasuredHeight = 9;
                 
                 break;
             }
             default:
             {
                 // default PPI160
-                layoutMeasuredWidth = 26;
+                layoutMeasuredWidth = 20;
                 layoutMeasuredHeight = 6;
                 
                 break;
@@ -52,47 +58,81 @@ public class HScrollBarSkin extends MobileSkin
     //  Variables
     //
     //--------------------------------------------------------------------------
-    
+	/** 
+	 *  @copy spark.skins.spark.ApplicationSkin#hostComponent
+	 */
     public var hostComponent:HScrollBar;
     
+	
     //--------------------------------------------------------------------------
     //
     //  Skin parts 
     //
     //--------------------------------------------------------------------------
-    
+	/**
+	 *  HScrollbar track skin part
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5 
+	 *  @productversion Flex 4.5
+	 */  
     public var track:Button;
     
+	/**
+	 *  HScrollbar thumb skin part
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5 
+	 *  @productversion Flex 4.5
+	 */  
     public var thumb:Button;
     
+	
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-     
+	/**
+	 *  @private 
+	 */ 
     override protected function createChildren():void
     {
-        // Create our skin parts: track and thumb.
-        track = new Button();
-        track.setStyle("skinClass", spark.skins.mobile.HScrollBarTrackSkin);
-        track.width = layoutMeasuredWidth;
-        track.height = layoutMeasuredHeight;
-        addChild(track);
+        // Create our skin parts if necessary: track and thumb.
+		if (!track)
+		{
+			// We don't want a visible track so we set the skin to MobileSkin
+	        track = new Button();
+	        track.setStyle("skinClass", spark.skins.mobile.supportClasses.MobileSkin);
+	        track.width = layoutMeasuredWidth;
+	        track.height = layoutMeasuredHeight;
+	        addChild(track);
+		}
         
-        thumb = new Button();
-        thumb.setStyle("skinClass", spark.skins.mobile.HScrollBarThumbSkin);
-        thumb.width = layoutMeasuredHeight;
-        thumb.height = layoutMeasuredHeight;
-        addChild(thumb);
+		if (!thumb)
+		{
+	        thumb = new Button();
+	        thumb.setStyle("skinClass", spark.skins.mobile.HScrollBarThumbSkin);
+	        thumb.width = layoutMeasuredHeight;
+	        thumb.height = layoutMeasuredHeight;
+	        addChild(thumb);
+		}
     }
     
+	/**
+	 *  @private 
+	 */
     override protected function measure():void
     {
         measuredWidth = layoutMeasuredWidth;
         measuredHeight = layoutMeasuredHeight;
     }
     
+	/**
+	 *  @private 
+	 */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         setElementSize(track, unscaledWidth, unscaledHeight);
