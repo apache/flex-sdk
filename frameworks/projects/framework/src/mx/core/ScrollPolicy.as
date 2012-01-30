@@ -70,16 +70,6 @@ public final class ScrollPolicy
 	 *  @productversion Flex 3
 	 */
 	public static const ON:String = "on";
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public static const OVERLAY:String = "overlay";
 }
 
 }
