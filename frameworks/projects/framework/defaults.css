@@ -859,26 +859,8 @@ HRule
 
 HSlider
 {
-	borderColor: #919999;
-	dataTipOffset: 16;
 	dataTipPlacement: "top";
-	dataTipPrecision: 2;
-	labelOffset: -10;
-	showTrackHighlight: false;
-	slideDuration: 300;
-/*	thumbDisabledSkin: null
-	thumbDownSkin: null */
-	thumbOffset: 0;
-/*	thumbOverSkin: null */
-	thumbSkin: ClassReference("mx.skins.spark.SliderThumbSkin");
-/*	thumbUpSkin: null */
-	tickColor: #6F7777;
 	tickLength: 4;
-	tickOffset: -6;
-	tickThickness: 1;
-	trackColors: #E7E7E7, #E7E7E7;
-	trackHighlightSkin: ClassReference("mx.skins.halo.SliderHighlightSkin");
-	trackSkin: ClassReference("mx.skins.spark.SliderTrackSkin");
 }
 
 /*
@@ -1311,6 +1293,35 @@ ScrollControlBase
 	borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 }
 
+
+/*
+//------------------------------
+//  Slider
+//------------------------------
+*/
+
+Slider
+{
+	borderColor: #919999;
+	dataTipOffset: 16;
+	dataTipPrecision: 2;
+	labelOffset: -10;
+	showTrackHighlight: false;
+	slideDuration: 300;
+/*	thumbDisabledSkin: null
+	thumbDownSkin: null */
+	thumbOffset: 0;
+/*	thumbOverSkin: null */
+	thumbSkin: ClassReference("mx.skins.spark.SliderThumbSkin");
+/*	thumbUpSkin: null */
+	tickColor: #6F7777;
+	tickOffset: -6;
+	tickThickness: 1;
+	trackColors: #E7E7E7, #E7E7E7;
+	trackHighlightSkin: ClassReference("mx.skins.halo.SliderHighlightSkin");
+	trackSkin: ClassReference("mx.skins.spark.SliderTrackSkin");
+}
+
 /*
 //------------------------------
 //  SwatchPanel
@@ -1676,26 +1687,8 @@ VRule
 
 VSlider
 {
-	borderColor: #919999;
-	dataTipOffset: 16;
 	dataTipPlacement: "left";
-	dataTipPrecision: 2;
-	labelOffset: -10;
-	showTrackHighlight: false;
-	slideDuration: 300;
-	thumbDisabledSkin: ClassReference(null);
-	thumbDownSkin: ClassReference(null);
-	thumbOffset: 0;
-	thumbOverSkin: ClassReference(null);
-	thumbSkin: ClassReference("mx.skins.spark.SliderThumbSkin");
-	thumbUpSkin: ClassReference(null);
-	tickColor: #6F7777;
 	tickLength: 3;
-	tickOffset: -6;
-	tickThickness: 1;
-	trackColors: #E7E7E7, #E7E7E7;
-	trackHighlightSkin: ClassReference("mx.skins.halo.SliderHighlightSkin");
-	trackSkin: ClassReference("mx.skins.spark.SliderTrackSkin");
 }
 
 /*
