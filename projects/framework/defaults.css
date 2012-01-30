@@ -86,7 +86,7 @@ global
 	indicatorGap: 14;
     justificationRule: "auto";
     justificationStyle: "auto";
-	kerning: "off";
+	kerning: "default";
 	leading: 2;
     leadingModel: "auto";
     ligatureLevel: "common";
