@@ -77,12 +77,6 @@ public class SlideViewTransition extends ViewTransitionBase
     //  Variables
     //
     //--------------------------------------------------------------------------
-    /**
-     *  @private
-     *  Padding used to generate the actionbar bitmap.  This is needed so that
-     *  drop shadows can be properly captured.
-     */ 
-    mx_internal var actionBarBitmapPadding:uint = 4;
     
     /**
      *  @private
@@ -235,6 +229,8 @@ public class SlideViewTransition extends ViewTransitionBase
      */
     override public function captureStartValues():void
     {
+        var p:Point;
+        
         super.captureStartValues();
         
         // Initialize the property bag used to save some of our
@@ -270,17 +266,27 @@ public class SlideViewTransition extends ViewTransitionBase
         else
         {
             cachedActionBar = getSnapshot(navigator.actionBar);
+            
+            if (cachedActionBar)
+            {
+                // Save the global position of the cached actionBar image.  The getSnapshot method
+                // will position the image based on the original components parent.
+                p = new Point(cachedActionBar.x, cachedActionBar.y);
+                cachedActionBarGlobalPosition = actionBar.parent.localToGlobal(p);
+            }
         }
-        
-        // Save the position of the action in global coordinates
-		if (actionBar)
-        	cachedActionBarGlobalPosition = getTargetNavigatorCoordinates(actionBar);
         
         // Cache the tab bar bitmap and location
         if (tabBar)
         {
             cachedTabBar = getSnapshot(TabbedViewNavigator(targetNavigator).tabBar);
-            cachedTabBarGlobalPosition = getTargetNavigatorCoordinates(tabBar);
+            
+            if (cachedTabBar)
+            {
+                p = new Point(cachedTabBar.x, cachedTabBar.y);
+                cachedTabBarGlobalPosition = tabBar.parent.localToGlobal(p);
+            }
+            
             navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
             navigatorProps.tabBarCacheAsBitmap = tabBar.cacheAsBitmap;
         }
@@ -519,14 +525,14 @@ public class SlideViewTransition extends ViewTransitionBase
             endView.contentGroup.cacheAsBitmap = true;
         }
         
+        var localPos:Point;
         if (cachedActionBar)
         {
             // Reposition the cached actionBar
-            var localPos:Point = transitionGroup.globalToLocal(cachedActionBarGlobalPosition);
+            localPos = transitionGroup.globalToLocal(cachedActionBarGlobalPosition);
             
-            // FIXME (chiedozi): Need to remove the 4 pixel buffer
-            cachedActionBar.x = localPos.x - actionBarBitmapPadding;
-            cachedActionBar.y = localPos.y - actionBarBitmapPadding;
+            cachedActionBar.x = localPos.x;
+            cachedActionBar.y = localPos.y;
             
             cachedActionBar.includeInLayout = false;
             transitionGroup.addElement(cachedActionBar);
@@ -551,9 +557,11 @@ public class SlideViewTransition extends ViewTransitionBase
                     // animates a cachedBitamp
                     if (cachedTabBar)
                     {
+                        localPos = transitionGroup.globalToLocal(cachedTabBarGlobalPosition);
+                        
                         // Need to removed the 4 pixel buffer
-                        cachedTabBar.x = tabBar.x - actionBarBitmapPadding;
-                        cachedTabBar.y = tabBar.y - actionBarBitmapPadding;
+                        cachedTabBar.x = localPos.x;
+                        cachedTabBar.y = localPos.y;
                     
                         cachedTabBar.includeInLayout = false;
                         transitionGroup.addElement(cachedTabBar);
