@@ -149,20 +149,26 @@ public class SpinnerListSkin extends MobileSkin
 		measuredWidth = measuredMinWidth;
 		measuredHeight = measuredMinHeight;
 	}
+    
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        graphics.clear();
+        
+        super.drawBackground(unscaledWidth, unscaledHeight);
+        
+		// Drawing the left and right borders
+        graphics.beginFill(0xB3B3B3);
+        graphics.drawRect(0,0, borderThickness, unscaledHeight);
+        graphics.endFill();
+        
+        graphics.beginFill(0xFFFFFF);
+        graphics.drawRect(unscaledWidth - borderThickness, 0, borderThickness, unscaledHeight);
+        graphics.endFill();
+    }
 	
-	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+	override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
 	{   
-		graphics.clear();
-		
-		super.updateDisplayList(unscaledWidth, unscaledHeight);
-		
-		graphics.beginFill(0xB3B3B3);
-		graphics.drawRect(0,0, borderThickness, unscaledHeight);
-		graphics.endFill();
-		
-		graphics.beginFill(0xFFFFFF);
-		graphics.drawRect(unscaledWidth - borderThickness, 0, borderThickness, unscaledHeight);
-		graphics.endFill();
+		super.layoutContents(unscaledWidth, unscaledHeight);
 		
 		// Scroller
 		setElementSize(scroller, unscaledWidth - borderThickness * 2, unscaledHeight);
