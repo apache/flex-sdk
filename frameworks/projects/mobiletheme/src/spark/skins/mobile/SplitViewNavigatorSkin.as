@@ -15,6 +15,7 @@ import mx.core.mx_internal;
 
 import spark.components.Callout;
 import spark.components.Group;
+import spark.components.SkinnablePopUpContainer;
 import spark.components.SplitViewNavigator;
 import spark.layouts.HorizontalLayout;
 import spark.skins.mobile.supportClasses.MobileSkin;
@@ -69,7 +70,7 @@ public class SplitViewNavigatorSkin extends MobileSkin
     /**
      *  @copy spark.components.SplitViewNavigator#viewNavigatorPopUp
      */ 
-    public var viewNavigatorPopUp:Callout;
+    public var viewNavigatorPopUp:SkinnablePopUpContainer;
     
     //--------------------------------------------------------------------------
     //
