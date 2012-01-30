@@ -65,6 +65,11 @@ import mx.managers.SystemManager;
  *  @includeExample examples/PhoneFormatterExample.mxml
  *  
  *  @see mx.formatters.SwitchSymbolFormatter
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PhoneFormatter extends Formatter
 {
@@ -78,6 +83,11 @@ public class PhoneFormatter extends Formatter
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PhoneFormatter()
     {
@@ -114,6 +124,11 @@ public class PhoneFormatter extends Formatter
      *  prepend the area code.
      *
      *  @default -1  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get areaCode():Object
 	{
@@ -155,6 +170,11 @@ public class PhoneFormatter extends Formatter
      *  property is rendered by a seven-digit format.
      *
      *  @default "(###) "
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get areaCodeFormat():String
 	{
@@ -196,6 +216,11 @@ public class PhoneFormatter extends Formatter
      *  that represent a specified phone number format.
      *
      *  @default "(###) ###-####"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get formatString():String
 	{
@@ -239,6 +264,11 @@ public class PhoneFormatter extends Formatter
      *  of the <code>formatString</code> property.
      *
      *  @default "+()#- ."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get validPatternChars():String
 	{
@@ -286,6 +316,11 @@ public class PhoneFormatter extends Formatter
      *
      *  @return Formatted String. Empty if an error occurs. A description 
      *  of the error condition is written to the <code>error</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function format(value:Object):String
     {
