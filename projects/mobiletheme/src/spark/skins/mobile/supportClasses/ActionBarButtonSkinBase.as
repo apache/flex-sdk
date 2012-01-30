@@ -26,10 +26,12 @@ import spark.skins.mobile.ButtonSkin;
 use namespace mx_internal;
 
 /**
- *  Base skin class for ActionBar buttons in mobile applications. Adds flat-look button border and
- *  background color.
+ *  Base skin class for ActionBar buttons in mobile applications. To support
+ *  overlay modes in ViewNavigator, this base skin is transparent in all states
+ *  except for the down state.
  * 
- * @see spark.components.ActionBar
+ *  @see spark.components.ActionBar
+ *  @see spark.components.supportClasses.ViewNavigatorBase#overlayControls
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -123,7 +125,6 @@ public class ActionBarButtonSkinBase extends ButtonSkin
             icon.alpha = alphaValue;
     }
     
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -141,28 +142,16 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         measuredHeight =  Math.max(layoutMeasuredHeight, measuredHeight);
     }
     
+    /**
+     *  ActionBar buttons only draw chromeColor in the down state.
+     */
     override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
     {
-        var chromeColor:uint = getChromeColor();
+        var isDown:Boolean = (currentState == "down");
+        var chromeColor:uint = isDown ? getChromeColor() : 0;
+        var chromeAlpha:Number = isDown ? 1 : 0;
         
-        // solid color fill in down state
-        if (currentState == "down")
-        {
-            chromeColorGraphics.beginFill(chromeColor);
-            return;
-        }
-        
-        var colors:Array = [];
-        
-        // FIXME (jasonsj): overlayMode alpha on background only or entire ActionBar?
-        var backgroundAlphas:Array = [1, 1];
-        
-        // Draw the gradient background
-        matrix.createGradientBox(unscaledWidth - layoutBorderSize, unscaledHeight, Math.PI / 2, 0, 0);
-        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
-        colors[1] = chromeColor;
-        
-        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ActionBarSkin.ACTIONBAR_CHROME_COLOR_RATIOS, matrix);
+        chromeColorGraphics.beginFill(chromeColor, chromeAlpha);
     }
     
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
