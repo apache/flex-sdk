@@ -77,12 +77,12 @@ public class TextFieldFactory implements ITextFieldFactory
 			
 	/**
 	 *  @private
-	 *  Cache of TLFTextFields. Limit of one per module factory.
+	 *  Cache of FTETextFields. Limit of one per module factory.
 	 *  In this Dictionary, each key is a weak reference
 	 *  to an IFlexModuleFactory and each value is a Dictionary
-	 *  with a single entry (a TLFTextField as a weak key).
+	 *  with a single entry (a FTETextField as a weak key).
 	 */
-	private var tlfTextFields:Dictionary = new Dictionary(true);
+	private var fteTextFields:Dictionary = new Dictionary(true);
 			
 	//--------------------------------------------------------------------------
 	//
@@ -97,7 +97,7 @@ public class TextFieldFactory implements ITextFieldFactory
 	 *
 	 *  @param moduleFactory The IFlexModuleFactory requesting the TextField.
 	 *
-	 *	@return A TLFTextField created in the context
+	 *	@return A FTETextField created in the context
 	 *  of <code>moduleFactory</code>.
 	 *  
 	 *  @langversion 3.0
@@ -139,54 +139,54 @@ public class TextFieldFactory implements ITextFieldFactory
 
 	/**
 	 *  @private
-	 *  Creates an instance of TLFTextField
+	 *  Creates an instance of FTETextField
 	 *  in the context of the specified module factory.
 	 * 
 	 *  @param moduleFactory The IFlexModuleFactory requesting the TextField.
 	 *  May not be <code>null</code>.
 	 *
-	 *	@return A TLFTextField created in the context
+	 *	@return A FTETextField created in the context
 	 *  of <code>moduleFactory</code>.
 	 *  The return value is loosely typed as Object
-	 *  to avoid linking in TLFTextField (and therefore much of TLF).
+	 *  to avoid linking in FTETextField (and therefore much of TLF).
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 4
 	 */
-	public function createTLFTextField(moduleFactory:IFlexModuleFactory):Object
+	public function createFTETextField(moduleFactory:IFlexModuleFactory):Object
 	{
 		// Check to see if we already have a text field for this module factory.
-		var tlfTextField:Object = null;
-		var tlfTextFieldDictionary:Dictionary = tlfTextFields[moduleFactory];
+		var fteTextField:Object = null;
+		var fteTextFieldDictionary:Dictionary = fteTextFields[moduleFactory];
 
-		if (tlfTextFieldDictionary)
+		if (fteTextFieldDictionary)
 		{
-			for (var iter:Object in tlfTextFieldDictionary)
+			for (var iter:Object in fteTextFieldDictionary)
 			{
-				tlfTextField = iter;
+				fteTextField = iter;
 				break;
 			}
 		}
-		if (!tlfTextField)
+		if (!fteTextField)
 		{
 			if (moduleFactory)
 			{
-				tlfTextField = moduleFactory.create(
-					"mx.core.TLFTextField");
-                tlfTextField.textLineCreator = moduleFactory;
+				fteTextField = moduleFactory.create(
+					"mx.core.FTETextField");
+                fteTextField.textLineCreator = moduleFactory;
 			}			
 			
 			// The dictionary could be empty, but not null because entries in the dictionary
 			// could be garbage collected.
-			if (!tlfTextFieldDictionary)
-				tlfTextFieldDictionary = new Dictionary(true);
-			tlfTextFieldDictionary[tlfTextField] = 1;
-			tlfTextFields[moduleFactory] = tlfTextFieldDictionary;
+			if (!fteTextFieldDictionary)
+				fteTextFieldDictionary = new Dictionary(true);
+			fteTextFieldDictionary[fteTextField] = 1;
+			fteTextFields[moduleFactory] = fteTextFieldDictionary;
 		}
 
-		return tlfTextField;
+		return fteTextField;
 	}
 }
 
