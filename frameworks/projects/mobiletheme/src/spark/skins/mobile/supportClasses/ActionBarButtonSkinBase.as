@@ -13,7 +13,7 @@ package spark.skins.mobile
 {
 import flash.display.DisplayObject;
 import flash.display.GradientType;
-import flash.geom.ColorTransform;
+import flash.display.Graphics;
 import flash.geom.Matrix;
 
 import mx.utils.ColorUtil;
@@ -79,16 +79,14 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         positionPart(bgImg, 0, 0);
     }
     
-    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
-        drawBackgroundOffset(0, unscaledWidth, unscaledHeight);
+        drawBackgroundOffset(chromeColorGraphics, 0, unscaledWidth, unscaledHeight);
     }
     
-    protected function drawBackgroundOffset(xOffset:Number, backgroundWidth:Number, backgroundHeight:Number):void
+    protected function drawBackgroundOffset(chromeColorGraphics:Graphics, xOffset:Number, backgroundWidth:Number, backgroundHeight:Number):void
     {
         var colors:Array = [];
-        
-        graphics.clear();
         
         // Draw the gradient background
         matrix.createGradientBox(backgroundWidth, backgroundHeight, Math.PI / 2, 0, 0);
@@ -97,11 +95,11 @@ public class ActionBarButtonSkinBase extends ButtonSkin
         colors[1] = chromeColor;
         colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
         
-        graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
+        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
         
         // adjust for separator
-        graphics.drawRect(xOffset, 0, backgroundWidth, backgroundHeight);
-        graphics.endFill();
+        chromeColorGraphics.drawRect(xOffset, 0, backgroundWidth, backgroundHeight);
+        chromeColorGraphics.endFill();
     }
 }
 }
