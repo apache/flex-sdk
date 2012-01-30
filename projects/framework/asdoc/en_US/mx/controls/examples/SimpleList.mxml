@@ -29,15 +29,15 @@
             width="75%" height="75%" 
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText text="Select a state to see its abbreviation."/>
+            <s:Label text="Select a state to see its abbreviation."/>
 
             <mx:List id="source" width="100%" color="blue"
                     dataProvider="{mystates.state}"
                     change="selectedListItem = List(event.currentTarget).selectedItem"/>
 
             <s:VGroup width="100%">
-                <s:SimpleText text="Selected State: {selectedListItem.label}"/>
-                <s:SimpleText text="State abbreviation: {selectedListItem.data}"/>
+                <s:Label text="Selected State: {selectedListItem.label}"/>
+                <s:Label text="State abbreviation: {selectedListItem.data}"/>
             </s:VGroup>
         </s:VGroup>
     </s:Panel>
