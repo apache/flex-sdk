@@ -33,6 +33,20 @@ public interface IIMESupport
 	//--------------------------------------------------------------------------
 
 	//----------------------------------
+	//  editable
+	//----------------------------------
+
+	/**
+     *  Specifies whether the user is allowed to edit the text in this control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	function get editable():Boolean;
+
+	//----------------------------------
 	//  imeMode
 	//----------------------------------
 
@@ -50,6 +64,8 @@ public interface IIMESupport
 	 *  @private
 	 */
 	function set imeMode(value:String):void;
+
+
 }
 
 }
