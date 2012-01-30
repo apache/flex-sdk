@@ -33,6 +33,7 @@ import mx.core.ApplicationGlobals;
 import mx.core.FlexSprite;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModule;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.UIComponentGlobals;
@@ -252,6 +253,14 @@ public class PopUpManagerImpl implements IPopUpManager
         
         const visibleFlag:Boolean = window.visible;
         
+		if (parent is IUIComponent && window is IUIComponent &&
+			IUIComponent(window).document == null)
+			IUIComponent(window).document = IUIComponent(parent).document;
+
+		if (parent is IUIComponent && IUIComponent(parent).document is IFlexModule &&
+			window is UIComponent && UIComponent(window).moduleFactory == null)
+			UIComponent(window).moduleFactory = IFlexModule(IUIComponent(parent).document).moduleFactory;
+
         var sm:ISystemManager2 = getTopLevelSystemManager(parent);
         var children:IChildList;
         var topMost:Boolean;
@@ -361,18 +370,18 @@ public class PopUpManagerImpl implements IPopUpManager
             o._mouseDownOutsideHandler  = nonmodalMouseDownOutsideHandler;
             o._mouseWheelOutsideHandler = nonmodalMouseWheelOutsideHandler;
 
-            sbRoot.addEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
-            sbRoot.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
-            
-//            SystemManager(smp).addEventListenerToStage(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
-//            SystemManager(smp).addEventListenerToStage(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
-
             window.visible = visibleFlag;
         }
-        
-        sbRoot.addEventListener(MarshalMouseEvent.MOUSE_DOWN,  o.marshalMouseOutsideHandler);
-        sbRoot.addEventListener(MarshalMouseEvent.MOUSE_WHEEL, o.marshalMouseOutsideHandler, true);
 
+        // Add show/hide listener so mouse out listeners can be added when
+        // a pop up is shown because applications can be launched and 
+        // terminated between the time a pop up is hidden to when it is
+        // shown again.         
+        o.owner.addEventListener(FlexEvent.SHOW, showOwnerHandler);
+        o.owner.addEventListener(FlexEvent.HIDE, hideOwnerHandler);
+
+        addMouseOutEventListeners(o);
+        
         // Listen for unload so we know to kill the window (and the modalWindow if modal)
         // this handles _all_ cleanup
         window.addEventListener(Event.REMOVED, popupRemovedHandler);
@@ -681,10 +690,6 @@ public class PopUpManagerImpl implements IPopUpManager
         
         // the following handlers all get removed in REMOVED on the popup
         
-        // Because it listens to the modal window
-        modalWindow.addEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
-        modalWindow.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
-
         // Set the resize handler so the modal can stay the size of the screen
        	realSm.addEventListener(Event.RESIZE, o.resizeHandler);
 
@@ -820,28 +825,6 @@ public class PopUpManagerImpl implements IPopUpManager
                          
     }                                     
     
-    /**
-     *  @private
-     *  Set by PopUpManager on modal windows so they show when the parent shows
-     */
-    private function popupShowHandler(event:FlexEvent):void
-    {
-        const o:PopUpData = findPopupInfoByOwner(event.target);
-        if (o)
-            showModalWindow(o, getTopLevelSystemManager(o.parent));
-    }
-
-    /**
-     *  @private
-     *  Set by PopUpManager on modal windows so they hide when the parent hide
-     */
-    private function popupHideHandler(event:FlexEvent):void
-    {
-        const o:PopUpData = findPopupInfoByOwner(event.target);
-        if (o)
-            hideModalWindow(o);
-    }
-
     /**
      *  @private
      */
@@ -1101,11 +1084,103 @@ public class PopUpManagerImpl implements IPopUpManager
         return null;
     }
 
+    /**
+     *  @private
+     *  Add mouse out listeners for modal and non-modal windows.
+     */
+    private function addMouseOutEventListeners(o:PopUpData):void
+    {
+        var sbRoot:DisplayObject = o.systemManager.getSandboxRoot();
+        if (o.modalWindow)
+        {
+            o.modalWindow.addEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
+            o.modalWindow.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
+        }
+        else
+        {
+            sbRoot.addEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
+            sbRoot.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
+        }
+        
+        sbRoot.addEventListener(MarshalMouseEvent.MOUSE_DOWN,  o.marshalMouseOutsideHandler);
+        sbRoot.addEventListener(MarshalMouseEvent.MOUSE_WHEEL, o.marshalMouseOutsideHandler, true);
+    }
+    
+    /**
+     *  @private
+     *  Remove mouse out listeners for modal and non-modal windows.
+     */
+    private function removeMouseOutEventListeners(o:PopUpData):void
+    {
+        var sbRoot:DisplayObject = o.systemManager.getSandboxRoot();
+        if (o.modalWindow)
+        {
+            o.modalWindow.removeEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
+            o.modalWindow.removeEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
+        }
+        else 
+        {
+            sbRoot.removeEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
+            sbRoot.removeEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
+        }
+
+        sbRoot.removeEventListener(MarshalMouseEvent.MOUSE_DOWN,  o.marshalMouseOutsideHandler);
+        sbRoot.removeEventListener(MarshalMouseEvent.MOUSE_WHEEL, o.marshalMouseOutsideHandler, true);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Event handlers
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Set by PopUpManager on modal windows so they show when the parent shows.
+     */
+    private function popupShowHandler(event:FlexEvent):void
+    {
+        const o:PopUpData = findPopupInfoByOwner(event.target);
+        if (o)
+            showModalWindow(o, getTopLevelSystemManager(o.parent));
+    }
+
+    /**
+     *  @private
+     *  Set by PopUpManager on modal windows so they hide when the parent hide
+     */
+    private function popupHideHandler(event:FlexEvent):void
+    {
+        const o:PopUpData = findPopupInfoByOwner(event.target);
+        if (o)
+            hideModalWindow(o);
+    }
+
+    /**
+     *  @private
+     */
+    private function showOwnerHandler(event:FlexEvent):void
+    {
+        const o:PopUpData = findPopupInfoByOwner(event.target);
+        if (o)
+        {
+            // add mouse out listeners.
+            addMouseOutEventListeners(o);            
+        }
+    }
+
+    /**
+     *  @private
+     */
+    private function hideOwnerHandler(event:FlexEvent):void
+    {
+        const o:PopUpData = findPopupInfoByOwner(event.target);
+        if (o)
+        {
+            // remove mouse out listeners
+            removeMouseOutEventListeners(o);
+        }
+    }
 
     /**
      *  @private
@@ -1282,13 +1357,18 @@ public class PopUpManagerImpl implements IPopUpManager
 					sm.dispatchEvent(request);
 				}                    
 
+                if (o.owner)
+                {
+                    o.owner.removeEventListener(FlexEvent.SHOW, showOwnerHandler);
+                    o.owner.removeEventListener(FlexEvent.HIDE, hideOwnerHandler);
+                }
+
+                removeMouseOutEventListeners(o);
+                
                 // modal
                 if (modalWindow)
                 {
                     // clean up all handlers
-                    modalWindow.removeEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
-                    modalWindow.removeEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
-                    
                     realSm.removeEventListener(Event.RESIZE, o.resizeHandler);
                     
                     popUp.removeEventListener(FlexEvent.SHOW, popupShowHandler);
@@ -1297,17 +1377,7 @@ public class PopUpManagerImpl implements IPopUpManager
                     hideModalWindow(o, true);
                     realSm.numModalWindows--;
                 }
-                
-                // non-modal
-                else
-                {
-                    realSm.removeEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
-                    realSm.removeEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
-                }
-                
-                realSm.removeEventListener(MarshalMouseEvent.MOUSE_DOWN,  o.marshalMouseOutsideHandler);
-                realSm.removeEventListener(MarshalMouseEvent.MOUSE_WHEEL, o.marshalMouseOutsideHandler, true);
-                
+
                 popupInfo.splice(i, 1);
                 break;
             }
