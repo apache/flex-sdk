@@ -779,7 +779,7 @@ package mx.core
                 currentPosition.z = layoutCenterV.z;
             } 
             
-            if (currentPostLayoutPosition != null && _offsets != null)
+            if (currentPostLayoutPosition != null)
             {           
                 computedCenterV = computedMatrix3D.transformVector(tempTransformCenter);
                 computedCenterV.project();
@@ -801,7 +801,7 @@ package mx.core
                 currentPostLayoutPosition.z = 0;
             }
             
-            if (currentPostLayoutPosition != null && _offsets != null)
+            if (currentPostLayoutPosition != null)
             {
                 currentPositionPt = computedMatrix.transformPoint(centerP);
                 currentPostLayoutPosition.x = currentPositionPt.x;
