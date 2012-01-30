@@ -19,6 +19,7 @@ import flash.events.MouseEvent;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.system.ApplicationDomain;
 import flash.text.TextFormat;
 import flash.utils.getQualifiedClassName;
 
@@ -32,7 +33,6 @@ import mx.charts.chartClasses.IAxis;
 import mx.charts.chartClasses.IAxisRenderer;
 import mx.charts.chartClasses.InstanceCache;
 import mx.charts.styles.HaloDefaults;
-import mx.controls.Label;
 import mx.core.ContextualClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
@@ -40,7 +40,6 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IUIComponent;
 import mx.core.IUITextField;
-import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.UITextFormat;
@@ -131,6 +130,20 @@ include "styles/metadata/TextStyles.as"
  */
 [Style(name="labelAlign", type="String", enumeration="left,top,right,bottom,center", inherit="no")]
 
+/**
+ *  The class that is used by this component to render labels.
+ *
+ *  <p>It can be set to either the mx.controls.Label class
+ *  or the spark.components.Label class.</p>
+ *
+ *  @default spark.components.Label
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4
+ */
+[Style(name="labelClass", type="Class", inherit="no")]
 /** 
  *  Specifies the gap between the end of the tick marks
  *  and the top of the labels, in pixels. 
@@ -423,10 +436,10 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
     public function AxisRenderer()
     {
         super();        
+        var labelClass:Class = getLabelClass();
+        textFieldFactory =  new ContextualClassFactory(labelClass, moduleFactory);
         
-        textFieldFactory =  new ContextualClassFactory(Label, moduleFactory);
-        
-        _labelCache = new InstanceCache(Label, this);
+        _labelCache = new InstanceCache(labelClass, this);
         
        	_labelCache.discard = true;
         _labelCache.remove = true;
@@ -1242,12 +1255,9 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
         
 		if (!labelRenderer)
 		{
-			/*var textFieldClass:Class = getStyle('textFieldClass');
+			var labelClass:Class = getLabelClass();
 			
-			if(textFieldClass != null)
-				textFieldFactory = new ContextualClassFactory(textFieldClass, moduleFactory);
-			else
-				*/textFieldFactory = new ContextualClassFactory(Label, moduleFactory);
+			textFieldFactory = new ContextualClassFactory(labelClass, moduleFactory);
 			
 			_labelCache.factory = textFieldFactory;
 		}
@@ -1683,6 +1693,24 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                 _titleField.styleName = this;
         }
     }
+	
+	private function getLabelClass():Class
+	{
+		var labelClass:Class = getStyle("labelClass");
+		if(labelClass == null)
+		{
+			try{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("spark.components::Label"));
+			}
+			catch(e:Error)
+			{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("mx.controls::Label"));
+			}
+		}
+		return labelClass;
+	}
 
     /**
      *  @private
@@ -2896,7 +2924,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
             if (!_labelRenderer)
             {
                 _labelCache.properties =
-                    { selectable: false, styleName: this, truncateToFit: false};
+                    { styleName: this};
             }
             else
             {
@@ -3233,7 +3261,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                 {
                     labelData = _labels[i];
                     labelData.instance = _labelCache.instances[visCount++];
-					var label:Label = labelData.instance as Label;
+					var label:Object = labelData.instance;// as Label;
                     label.text = labelData.text;
                     
                     labelData.instance.width = labelData.width;
@@ -3883,7 +3911,8 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 ////////////////////////////////////////////////////////////////////////////////
 
 import flash.display.DisplayObject;
-import mx.charts.AxisLabel
+
+import mx.charts.AxisLabel;
 import mx.styles.ISimpleStyleClient;
 
 /**
