@@ -51,27 +51,81 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
+ *  Dispatched after the application state data has been written
+ *  to the application's persistence manager.  This event is only 
+ *  dispatched if the <code>sessionCachingEnabled</code>
+ *  property is set to true on the application.
+ * 
+ *  @eventType mx.events.FlexEvent.APPLICATION_PERSIST
  *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="applicationPersist", type="mx.events.FlexEvent")]
 
 /**
+ *  This cancelable event dispatched before the application attempts
+ *  to persist its state when the application being suspended or exitted.
+ *  Calling <code>preventDefault</code> on this event will prevent the
+ *  application state from being saved.
+ * 
+ *  @eventType mx.events.FlexEvent.APPLICATION_PERSISTING
  *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="applicationPersisting", type="mx.events.FlexEvent")]
 
 /**
+ *  Dispatched after the application state data has been restored
+ *  from disk by the application's persistence manager.  At the point
+ *  this event is dispatched, all data related to the application state
+ *  should be valid.  This event is only dispatched if the 
+ *  <code>sessionCachingEnabled</code> property is set to true when
+ *  the application is initialized.
+ * 
+ *  @eventType mx.events.FlexEvent.APPLICATION_RESTORE
  *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="applicationRestore", type="mx.events.FlexEvent")]
 
 /**
+ *  This cancelable event dispatched before the application attempts
+ *  to restore its previously saved state when the application is being 
+ *  launched.  Calling <code>preventDefault</code> on this event will 
+ *  prevent the application state from being restored.
+ * 
+ *  @eventType mx.events.FlexEvent.APPLICATION_RESTORING
  *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="applicationRestoring", type="mx.events.FlexEvent")]
 
 /**
+ *  The base application class used for all view based application types.
+ *  This includes MobileApplication and TabbedMobileApplication.  This class
+ *  provides the basic infrastructure for providing these types of applications
+ *  access to the device application menu, hardware keys, orientation status
+ *  and application session persistence.
+ *  
+ *  @see spark.components.MobileApplication
+ *  @see spark.components.TabbedMobileApplication
  * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class MobileApplicationBase extends Application
 {
@@ -80,8 +134,14 @@ public class MobileApplicationBase extends Application
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    
     /**
-     *
+     *  Constructor
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function MobileApplicationBase()
     {
@@ -110,10 +170,46 @@ public class MobileApplicationBase extends Application
     
     /**
      *  @private
+     *  Provides access to the active view of the current navigator. This was
+     *  added to provide the ViewMenu access to the active view's viewMenuItems 
+     *  property.
+     */ 
+    mx_internal function get activeView():View
+    {
+        return null;
+    }
+    
+    /**
+     *  @private
      *  This flag indicates when a user has called preventDefault on the
      *  KeyboardEvent dispatched when the back key is pressed.
      */
     private var backKeyEventPreventDefaulted:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var currentViewMenu:ViewMenu;
+    
+    /**
+     *  @private
+     *  This property is used to determine whether the application should 
+     *  exit when the back key is pressed.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    mx_internal function get exitApplicationOnBackKey():Boolean
+    {
+        return true;   
+    }
+    
+    /**
+     *  @private
+     */ 
+    private var lastFocus:InteractiveObject;
     
     /**
      *  @private
@@ -122,54 +218,11 @@ public class MobileApplicationBase extends Application
      */
     private var menuKeyEventPreventDefaulted:Boolean = false;
     
-    private var currentViewMenu:ViewMenu; 
-    private var lastFocus:InteractiveObject;
-    
-    //----------------------------------
-    //  activeView
-    //----------------------------------
-    
-    /**
-     *  @private
-     */ 
-    mx_internal function get activeView():View
-    {
-        return null;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    private var _viewMenuOpen:Boolean = false;
-    
-    /**
-     *  Opens the view menu if set to true and closes it if set to false. 
-     * 
-     *  @default false
-     */
-    public function get viewMenuOpen():Boolean
-    {
-        return _viewMenuOpen;
-    }
-    
-    public function set viewMenuOpen(value:Boolean):void
-    {
-        if (value == _viewMenuOpen)
-            return;
-        
-        if (!viewMenu || !activeView.viewMenuItems || activeView.viewMenuItems.length == 0)
-            return;
-        
-        _viewMenuOpen = value;
-        
-        if (_viewMenuOpen)
-            openViewMenu();
-        else
-            closeViewMenu();
-    }
     
     //----------------------------------
     //  persistenceManager
@@ -177,9 +230,30 @@ public class MobileApplicationBase extends Application
     private var _persistenceManager:IPersistenceManager;
     
     /**
+     *  The persistenceManager for the application.  The persistence
+     *  manager is automatically created on demand when accessed for the
+     *  first time.  Override the <code>createPersistenceManager()</code>
+     *  method to change the type of persistence manager that is created.
+     * 
+     *  <p>The persistence manager will automatically save and restore
+     *  the main navigator's persistence stack if the
+     *  <code>sessionCachingEnabled</code> flag is set to true. Data stored 
+     *  in the persistence manager will automatically be flushed to disk 
+     *  when the application is suspended or exited.</p>
      *  
+     *  <p>The default implementation of the persistence manager uses
+     *  a shared object as it's backing data store.  All information that is
+     *  saved to this object must adhere to flash AMF rules for object encoding.
+     *  This means that custom classes will need to be registered through the use
+     *  of <code>flash.net.registerClassAlias</code></p>
+     * 
+     *  @default Instance of a spark.core.managers.PersistenceManager
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    // FIXME (chiedozi): PARB whether this should be a method or a getter because of side effect
     public function get persistenceManager():IPersistenceManager
     {
         if (!_persistenceManager)
@@ -198,7 +272,34 @@ public class MobileApplicationBase extends Application
     private var _sessionCachingEnabled:Boolean = false;
     
     /**
-     *  
+     *  Toggles the application session caching feature for the application.  When
+     *  enabled, the application will automatically save the main navigator's view 
+     *  data and navigation history to the persistence manager.  When the application 
+     *  is relaunched, this data will automatically be read from the persistence store
+     *  and applied to the application's navigator.
+     * 
+     *  <p>When enabled, the application version and time the persistence data was 
+     *  generated will also be added to the persistence object.  These can be
+     *  accessed by using the persistence manager's <code>getProperty()</code> method
+     *  using either the <code>applicationVersion</code> or <code>timestamp</code> key.</p>
+     * 
+     *  <p>When the persistence object is being created, the application will dispatch
+     *  a cancelable <code>FlexEvent.APPLICATION_PERSISTING</code> event when the process
+     *  begins and a <code>FlexEvent.APPLICATION_PERSIST</code> event when it completes.  
+     *  If the APPLICATION_PERSISTING event is canceled, the persistence object is not created.
+     *  Similarily, when this information is being restored to the application, a cancelable
+     *  <code>FlexEvent.APPLICATION_RESTORING</code> is dispatched followed by a
+     *  <code>FlexEvent.APPLICATION_RESTORE</code> event.  Canceling the APPLICATION_RESTORING
+     *  event will prevent the navigation data from being restored.</p>
+     * 
+     *  <p>The <code>sessionCachingEnabled</code> flag must be set to true before
+     *  the application initializes itself for the navigator's state to be automatically
+     *  restored.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get sessionCachingEnabled():Boolean
     {
@@ -213,42 +314,45 @@ public class MobileApplicationBase extends Application
         _sessionCachingEnabled = value;
     }
     
+    //----------------------------------
+    //  viewMenuOpen
+    //----------------------------------
+    private var _viewMenuOpen:Boolean = false;
+    
+    /**
+     *  Opens the view menu if set to true and closes it if set to false. 
+     * 
+     *  @default false
+     */
+    public function get viewMenuOpen():Boolean
+    {
+        return _viewMenuOpen;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set viewMenuOpen(value:Boolean):void
+    {
+        if (value == _viewMenuOpen)
+            return;
+        
+        if (!viewMenu || !activeView.viewMenuItems || activeView.viewMenuItems.length == 0)
+            return;
+        
+        _viewMenuOpen = value;
+        
+        if (_viewMenuOpen)
+            openViewMenu();
+        else
+            closeViewMenu();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    private function addApplicationListeners():void
-    {
-        // Add device event listeners
-        systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
-        systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
-        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
-                                             orientationChangeHandler);
-        NativeApplication.nativeApplication.
-            addEventListener(InvokeEvent.INVOKE, nativeApplication_invokeHandler);
-        
-        // We need to listen to different events on desktop and mobile because
-        // on desktop, the deactivate event is dispatched whenever the window loses
-        // focus.  This could cause persistence to run when the developer doesn't
-        // expect it to on desktop.
-        var os:String = Capabilities.os;
-        
-        if (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1)
-            NativeApplication.nativeApplication.
-                addEventListener(Event.EXITING, nativeApplication_deactivateHandler);
-        else
-            NativeApplication.nativeApplication.
-                addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler);
-    }
     
     /**
      *  This method is called when the application is invoked by the
@@ -268,8 +372,8 @@ public class MobileApplicationBase extends Application
     
     /**
      *  This method is called when the application is exiting or being
-     *  sent to the background by the OS.  If sessionCachingEnabled is
-     *  set to true, the application will begin the state saving process
+     *  sent to the background by the OS.  If <code>sessionCachingEnabled</code>
+     *  is set to true, the application will begin the state saving process
      *  here.
      * 
      *  @langversion 3.0
@@ -305,7 +409,9 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     * 
+     *  This method is called when the Application's hardware back key is pressed
+     *  by the user.
+     *   
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -314,21 +420,6 @@ public class MobileApplicationBase extends Application
     protected function backKeyHandler():void
     {
         
-    }
-    
-    /**
-     *  @private
-     *  This property is used to determine whether the application should 
-     *  exit when the back key is pressed.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    mx_internal function get exitApplicationOnBackKey():Boolean
-    {
-        return true;   
     }
     
     /**
@@ -346,38 +437,30 @@ public class MobileApplicationBase extends Application
     }
     
     /**
-     *  @private
+     *  Method is responsible for create the persistence manager for the application.
+     *  This method will automatically be called when the persistence manager is
+     *  accessed for the first time or if the <code>sessionCachingEnabled</code> flag
+     *  is set to true on the application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    // FIXME (chiedozi): Maybe use a singleton for persistence, PARB (GLENN)
     protected function createPersistenceManager():IPersistenceManager
     {
         return new PersistenceManager();
     }
     
     /**
+     *  Responsible for persisting the application state to the persistence manager.
+     *  This method is automatically called when <code>sessionCachingEnabled</code>
+     *  is set to true.  By default, this method will save the application version 
+     *  and the time the persistence object was created to the "timestamp" and 
+     *  "applicationVersion" keys.
      * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */  
-    private function orientationChangeHandler(event:StageOrientationEvent):void
-    {   
-        if (viewMenuOpen)
-        {
-            // Change the width
-            // Reposition
-            currentViewMenu.width = getLayoutBoundsWidth();
-            
-            
-            currentViewMenu.validateNow();
-            
-            currentViewMenu.x = 0;
-            currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
-        }
-    } 
-    
-    /**
+     *  <p>This method will only be called if the <code>FlexEvent.APPLICATION_PERSISTING<code>
+     *  event is not canceled.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -397,6 +480,13 @@ public class MobileApplicationBase extends Application
     }
     
     /**
+     *  Method is responsible for registering the class types that may be
+     *  saved to a persistence manager that uses a shared object as its data store.  
+     *  Since shared objects use the standard AMF encoding rules, custom class types
+     *  must be registered with the runtime so that they are properly read in.  This 
+     *  method is called before the persistence manager is initialized so that the 
+     *  application has a chance to use <code>flash.net.registerClassAlias()</code> 
+     *  before the persistence data is loaded.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -408,6 +498,11 @@ public class MobileApplicationBase extends Application
     }
     
     /**
+     *  Responsible for restoring the application's state when the
+     *  <code>sessionCachingEnabled</code> flag is set to true.
+     * 
+     *  <p>This method will only be called if the <code>FlexEvent.APPLICATION_RESTORING<code>
+     *  event is not canceled.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -416,6 +511,44 @@ public class MobileApplicationBase extends Application
      */ 
     protected function restoreApplicationState():void
     {
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    private function addApplicationListeners():void
+    {
+        // Add device event listeners
+        systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
+        systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
+        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
+            orientationChangeHandler);
+        NativeApplication.nativeApplication.
+            addEventListener(InvokeEvent.INVOKE, nativeApplication_invokeHandler);
+        
+        // We need to listen to different events on desktop and mobile because
+        // on desktop, the deactivate event is dispatched whenever the window loses
+        // focus.  This could cause persistence to run when the developer doesn't
+        // expect it to on desktop.
+        var os:String = Capabilities.os;
+        
+        if (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1)
+            NativeApplication.nativeApplication.
+                addEventListener(Event.EXITING, nativeApplication_deactivateHandler);
+        else
+            NativeApplication.nativeApplication.
+                addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler);
     }
     
     /**
@@ -464,23 +597,60 @@ public class MobileApplicationBase extends Application
             menuKeyHandler(event);
     }
     
+    
+    /**
+     *  @private
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */  
+    private function orientationChangeHandler(event:StageOrientationEvent):void
+    {   
+        if (viewMenuOpen)
+        {
+            // Change the width
+            // Reposition
+            currentViewMenu.width = getLayoutBoundsWidth();
+            
+            
+            currentViewMenu.validateNow();
+            
+            currentViewMenu.x = 0;
+            currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
+        }
+    } 
+    
+    /**
+     *  @private
+     */ 
     private function viewMenu_clickHandler(event:MouseEvent):void
     {
         if (event.target is ViewMenuItem)
             viewMenuOpen = false;
     }
     
+    /**
+     *  @private
+     */ 
     private function viewMenu_mouseDownOutsideHandler(event:FlexMouseEvent):void
     {
         viewMenuOpen = false;
     }
     
+    /**
+     *  @private
+     */ 
     private function viewMenu_resizeHandler(event:ResizeEvent):void
     {
         // Reposition the view menu?
         currentViewMenu.y = Math.ceil(getLayoutBoundsHeight() - currentViewMenu.getLayoutBoundsHeight());
     }
     
+    /**
+     *  @private
+     */ 
     private function openViewMenu():void
     {
         currentViewMenu = ViewMenu(viewMenu.newInstance());
@@ -509,6 +679,9 @@ public class MobileApplicationBase extends Application
             activeView.dispatchEvent(new Event("viewMenuOpen"));
     }
     
+    /**
+     *  @private
+     */ 
     private function closeViewMenu():void
     {
         currentViewMenu.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, viewMenu_mouseDownOutsideHandler);
