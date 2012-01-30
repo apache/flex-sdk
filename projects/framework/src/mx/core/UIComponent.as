@@ -6321,7 +6321,7 @@ public class UIComponent extends FlexSprite
      *  or an IStyleClient.
      *
      *  <p>If this is a String, it is the name of one or more whitespace delimited class
-     *  declarations in an <code>mx:Style</code> tag or CSS file. You do not include the period
+     *  declarations in an <code>&lt;fx:Style&gt;</code> tag or CSS file. You do not include the period
      *  in the <code>styleName</code>. For example, if you have a class style named <code>".bigText"</code>,
      *  set the <code>styleName</code> property to <code>"bigText"</code> (no period).</p>
      *
