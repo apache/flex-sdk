@@ -30,12 +30,43 @@ package mx.core
  */
 public interface IFlexModuleFactory
 {
+    import flash.utils.Dictionary;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  The RSLs loaded by this IFlexModuleFactory before the application 
+     *  starts. RSLs loaded by the application are not included in this list.
+     * 
+     *  Information about preloadedRSLs is stored in a Dictionary. The key is
+     *  the RSL's LoaderInfo. The value is the url the RSL was loaded from.
+     */   
+    function  get preloadedRSLs():Dictionary;
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  Calls Security.allowDomain() for the SWF associated with this IFlexModuleFactory
+     *  plus all the SWFs assocatiated with RSLs preloaded by this IFlexModuleFactory.
+     * 
+     */  
+    function allowDomain(... domains):void;
+    
+    /**
+     *  Calls Security.allowInsecureDomain() for the SWF associated with this IFlexModuleFactory
+     *  plus all the SWFs assocatiated with RSLs preLoaded by this IFlexModuleFactory.
+     * 
+     */  
+    function allowInsecureDomain(... domains):void;
+    
     /**
      *  A factory method that requests
      *  an instance of a definition known to the module.
