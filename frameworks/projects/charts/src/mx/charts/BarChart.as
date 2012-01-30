@@ -574,7 +574,7 @@ public class BarChart extends CartesianChart
  				else if (barSeries.labelField != null)
 					barSeries.measuringField.text = v.labelText = v.item[barSeries.labelField];
 				else if (barSeries.dataFunction != null)
-					barSeries.measuringField.text = v.labelText = barSeries.dataFunction(this, v.item, 'xNumber');
+					barSeries.measuringField.text = v.labelText = barSeries.dataFunction(barSeries, v.item, 'xNumber');
 				else
 					barSeries.measuringField.text = v.labelText = v.item[barSeries.xField];		
 			
