@@ -2412,6 +2412,7 @@ public class Window extends SkinnableContainer implements IWindow
         {
             startResize(NativeWindowResize.BOTTOM_RIGHT);
             event.stopPropagation();
+            return;
         }
 
         if (systemManager.stage.nativeWindow.systemChrome != "none")
