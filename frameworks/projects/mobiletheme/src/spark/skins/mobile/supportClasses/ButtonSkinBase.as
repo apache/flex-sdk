@@ -74,6 +74,11 @@ public class ButtonSkinBase extends MobileSkin
     
     /**
      *  iconDisplay skin part.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     private var iconChanged:Boolean = false;
     private var iconInstance:Object;    // Can be either DisplayObject or BitmapImage
@@ -88,20 +93,35 @@ public class ButtonSkinBase extends MobileSkin
     
     /**
      *  labelDisplay skin part.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var labelDisplay:StyleableTextField;
     
     /**
-     *  If true, then create the iconDisplay using the icon style
+     *  If true, then create the iconDisplay using the icon style.
      *
      *  @default true
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected var useIconStyle:Boolean = true;
     
     /**
-     *  If true, then the labelDisplay and iconDisplay are centered
+     *  If true, then the labelDisplay and iconDisplay are centered.
      *
      *  @default true
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected var useCenterAlignment:Boolean = true;
     
@@ -134,22 +154,42 @@ public class ButtonSkinBase extends MobileSkin
     protected var layoutGap:int;
     
     /**
-     *  Left padding for icon or labelDisplay
+     *  Left padding for icon or labelDisplay.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected var layoutPaddingLeft:int;
     
     /**
-     *  Right padding for icon or labelDisplay
+     *  Right padding for icon or labelDisplay.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected var layoutPaddingRight:int;
     
     /**
-     *  Top padding for icon or labelDisplay
+     *  Top padding for icon or labelDisplay.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected var layoutPaddingTop:int;
     
     /**
-     *  Bottom padding for icon or labelDisplay
+     *  Bottom padding for icon or labelDisplay.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected var layoutPaddingBottom:int;
     
@@ -541,6 +581,11 @@ public class ButtonSkinBase extends MobileSkin
      *  Commit alpha values for the skin when in a disabled state.
      *
      *  @see mx.core.UIComponent#enabled
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function commitDisabled():void
     {
@@ -555,6 +600,11 @@ public class ButtonSkinBase extends MobileSkin
      *
      *  @see #setIcon
      *  @see #useIconStyle
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function getIconDisplay():DisplayObject
     {
@@ -565,8 +615,15 @@ public class ButtonSkinBase extends MobileSkin
      *  Sets the current icon for the iconDisplay skin part.
      *  The iconDisplay skin part is created/set-up on demand.
      *
+     * @param icon The current icon. 
+     * 
      *  @see #getIconDisplay
      *  @see #useIconStyle
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function setIcon(icon:Object):void
     {
