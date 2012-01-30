@@ -141,7 +141,9 @@ public class ArrayList extends EventDispatcher
     //----------------------------------
     // length
     //----------------------------------
-
+    
+    [Bindable("collectionChange")]
+    
     /**
      *  Get the number of items in the list.  An ArrayList should always
      *  know its length so it shouldn't return -1, though a subclass may 
