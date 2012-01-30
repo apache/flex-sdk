@@ -220,7 +220,7 @@ public class NumberValidator extends Validator
 
                 // There may not be any non-zero digits after the decimal
 				// if domain is int.
-                if (domain == "int" && input.charAt(i) != "0")
+                if (domain == NumberValidatorDomainType.INT && input.charAt(i) != "0")
                 {
                     results.push(new ValidationResult(
 						true, baseField,"integer",
@@ -297,6 +297,20 @@ public class NumberValidator extends Validator
                     var left:String = input.substring(0, i);
                     var right:String = input.substring(i + 1);
                     input = left + right;
+                }
+            }
+
+            // Translate the value back into standard english
+            // If the decimalSeperator is not '.' we need to change it to '.' 
+            // so that the number casting will work properly
+            if (validator.decimalSeparator != '.')
+            {
+                var dIndex:int = input.indexOf( validator.decimalSeparator );
+                if (dIndex != -1)
+                { 
+                    var dLeft:String = input.substring(0, dIndex);
+                    var dRight:String = input.substring(dIndex + 1);
+                    input = dLeft + '.' + dRight;
                 }
             }
 
@@ -467,6 +481,10 @@ public class NumberValidator extends Validator
      *  Type of number to be validated.
 	 *  Permitted values are <code>"real"</code> and <code>"int"</code>.
 	 *
+	 *  <p>In ActionScript, you can use the following constants to set this property: 
+     *  <code>NumberValidatorDomainType.REAL</code> or
+     *  <code>NumberValidatorDomainType.INT</code>.</p>
+     * 
 	 *  @default "real"
      *  
      *  @langversion 3.0
