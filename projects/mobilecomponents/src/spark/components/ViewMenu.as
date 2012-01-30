@@ -47,7 +47,12 @@ TODO:
 - add transitions
 - use PopUpAnchor instead of PopUpManager
 - integrate into TabbedMobileApplication
-
+- Investigate performance impact of View.viewMenuItems being instances
+  instead of getting created when the menu is opened. 
+- Add scaleGrid values to fxg skins
+- Implement layout key navigation
+- Move skin background to ViewMenuItemSkin and use styles
+- ViewMenuItem_down.fxg change to use Rects
 */
 
 public class ViewMenu extends SkinnableContainer implements IFocusManagerComponent
