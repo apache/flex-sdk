@@ -82,7 +82,7 @@
 	<target name="doc" depends="clean-temp-docs" description="updates FlexComponentBase.swc with asdoc xml">
 		<!-- Call asdoc to generate dita xml files -->
 		<exec executable="${FLEX_HOME}/bin/${asdocexe}" failonerror="true">
-			<arg line="-doc-namespaces http://www.adobe.com/2006/mxml -namespace http://www.adobe.com/2006/mxml ${basedir}/manifest.xml -sp ${basedir}/src -sp ${FLEX_HOME}/frameworks/projects/framework/src -library-path= -external-library-path ${FLEX_HOME}/frameworks/libs/player/10/playerglobal.swc -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
+			<arg line="-lenient=true -doc-namespaces http://www.adobe.com/2006/mxml -namespace http://www.adobe.com/2006/mxml ${basedir}/manifest.xml -sp ${basedir}/src -sp ${FLEX_HOME}/frameworks/projects/framework/src -library-path= -external-library-path ${FLEX_HOME}/frameworks/libs/player/10/playerglobal.swc -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
 		</exec>
 
 		<!-- updates FlexComponentBase.swc with asdoc xml -->
