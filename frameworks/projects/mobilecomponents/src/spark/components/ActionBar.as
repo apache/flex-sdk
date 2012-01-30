@@ -24,19 +24,41 @@ use namespace mx_internal;
  */
 [Style(name="backgroundAlpha", type="Number", inherit="no")]
 
-//--------------------------------------
-//  Skin states
-//--------------------------------------
-
-/*
-* Skin states to support ViewNavigator
-*/
-[SkinState("portrait")]
-[SkinState("landscape")]
-[SkinState("portraitAndOverlay")]
-[SkinState("landscapeAndOverlay")]
-
 /**
+ *  The ActionBar class defines a component that includes title, navigation 
+ *  and action content groups. In the context of a ViewNavigator and
+ *  MobileApplication, the ActionBar is used as application chrome which
+ *  is has content contributed by the active View. ActionBar has limited
+ *  utility when used otherwise.
+ *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:ActionBar&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:ActionBar
+ *   <strong>Properties</strong>
+ *    title=""
+ *    titleContent="null"
+ *    titleLayout="HorizontalLayout"
+ *    navigationContent="null"
+ *    navigationLayout="HorizontalLayout"
+ *    actionContent="null"
+ *    actionLayout="HorizontalLayout"
+ * 
+ *   <strong>Styles</strong>
+ *    backgroundAlpha="1.0"
+ * 
+ *  &lt;
+ *  </pre>
+ *
+ *  @see SkinnableComponent
+ *  @see ViewNavigator
+ *  @see View
+ *  @see MobileApplication
+ *  @see spark.skins.mobile.ActionBarSkin
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
@@ -112,8 +134,6 @@ public class ActionBar extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     
-    private var _dataProvider:ViewNavigator;
-    
     //--------------------------------------------------------------------------
     //
     //  Skin parts 
@@ -123,6 +143,13 @@ public class ActionBar extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
+     *  The skin part that defines the appearance of the 
+     *  navigation area of the component.
+     *  By default, the ActionBarSkin class defines the navigation area to appear 
+     *  to the left of the title area.
+     *
+     *  @see spark.skins.mobile.ActionBarSkin
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -133,6 +160,13 @@ public class ActionBar extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
+     *  The skin part that defines the appearance of the 
+     *  title area of the component.
+     *  By default, the ActionBarSkin class defines the title area to appear 
+     *  between the navigation and action areas.
+     *
+     *  @see spark.skins.mobile.ActionBarSkin
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -143,6 +177,13 @@ public class ActionBar extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
+     *  The skin part that defines the appearance of the 
+     *  action area of the component.
+     *  By default, the ActionBarSkin class defines the action area to appear 
+     *  to the right of the title area.
+     *
+     *  @see spark.skins.mobile.ActionBarSkin
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -154,7 +195,7 @@ public class ActionBar extends SkinnableComponent
     
     /**
      *  The skin part that defines the appearance of the 
-     *  title text in the container.
+     *  title text in the component.
      *
      *  @see spark.skins.mobile.ActionBarSkin
      *  
@@ -169,12 +210,16 @@ public class ActionBar extends SkinnableComponent
     //  title
     //----------------------------------
     
-    private var _title:String;
+    private var _title:String = "";
     private var _titleChanged:Boolean;
     
     [Bindable]
     
     /**
+     *  Title or caption displayed in the title area. 
+     *
+     *  @default ""
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -207,6 +252,19 @@ public class ActionBar extends SkinnableComponent
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
+     *  The set of components to include in the navigationGroup of the
+     *  ActionBar. The location and appearance of the navigationGroup of the
+     *  ActionBar container is determined by the
+     *  spark.skins.mobile.ActionBarSkin.
+     *  The default ActionBarSkin class defines the navigationGroup to appear
+     *  to the left of the title display area of the ActionBar.
+     *  Create a custom skin to change the default location and appearance of
+     *  the navigationGroup.
+     *  
+     *  @default null
+     *
+     *  @see spark.skins.mobile.ActionBarSkin
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -280,6 +338,21 @@ public class ActionBar extends SkinnableComponent
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
+     *  The set of components to include in the titleGroup of the
+     *  ActionBar. If titleContent is not null, it's visual elements replace
+     *  the mxmlContent of titleGroup. If titleContent is null, the
+     *  titleDisplay skin part, if present, replaces the mxmlContent of
+     *  titleGroup.
+     *  The location and appearance of the titleGroup of the ActionBar
+     *  container is determined by the spark.skins.mobile.ActionBarSkin class.
+     *  By default, the ActionBarSkin class defines the titleGroup to appear in
+     *  the center of the ActionBar.
+     *  Create a custom skin to change the default location and appearance of the titleGroup.
+     *  
+     *  @default null
+     *
+     *  @see spark.skins.mobile.ActionBarSkin
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -373,6 +446,18 @@ public class ActionBar extends SkinnableComponent
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
+     *  The set of components to include in the actionGroup of the
+     *  ActionBar. The location and appearance of the actionGroup of the
+     *  ActionBar container is determined by the skin.
+     *  The default ActionBarSkin class defines the actionGroup to appear
+     *  to the right of the title display area of the ActionBar.
+     *  Create a custom skin to change the default location and appearance of
+     *  the actionGroup.
+     *  
+     *  @default null
+     *
+     *  @see spark.skins.mobile.ActionBarSkin
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -445,6 +530,9 @@ public class ActionBar extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -459,6 +547,9 @@ public class ActionBar extends SkinnableComponent
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
@@ -531,6 +622,9 @@ public class ActionBar extends SkinnableComponent
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function partRemoved(partName:String, instance:Object):void
     {
         super.partRemoved(partName, instance);
