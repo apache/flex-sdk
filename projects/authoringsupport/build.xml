@@ -49,6 +49,7 @@
 			<jvmarg line="${compc.jvm.args}"/>
 			<include-classes>UtilitiesClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
+            <include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
 			<library-path dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs/">
 				<include name="FlexComponentBase.swc"/>
 			</library-path>
