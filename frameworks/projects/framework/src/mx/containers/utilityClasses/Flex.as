@@ -14,7 +14,6 @@ package mx.containers.utilityClasses
 
 import mx.core.IChildList;
 import mx.core.IUIComponent;
-import mx.core.FlexVersion;
 
 [ExcludeClass]
 
@@ -160,10 +159,7 @@ public class Flex
 				}
 			}
 			
-			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-        	{
-            	distributeExtraWidth(parent, spaceForChildren);
-        	}
+			distributeExtraWidth(parent, spaceForChildren);
 		}
 
 		return spaceToDistribute;
@@ -294,10 +290,7 @@ public class Flex
 				}
 			}
 			
-			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-        	{
-            	distributeExtraHeight(parent, spaceForChildren);
-        	}
+			distributeExtraHeight(parent, spaceForChildren);
 		}
 		
 		return spaceToDistribute;
