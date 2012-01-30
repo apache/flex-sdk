@@ -39,6 +39,11 @@ public class StaticPropertyWatcher extends Watcher
      *  @param event The event type that indicates the static property has changed.
      *  @param listeners The binding objects that are listening to this Watcher.
      *  @param propertyGetter A helper function used to access non-public variables.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function StaticPropertyWatcher(propertyName:String,
                                           events:Object,
@@ -60,16 +65,31 @@ public class StaticPropertyWatcher extends Watcher
 
     /**
      *  The parent class of this static property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var parentObj:Class;
 
     /**
      *  The events that indicate the static property has changed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var events:Object;
 
     /**
      *  Storage for the propertyGetter property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var propertyGetter:Function;
 
@@ -85,11 +105,21 @@ public class StaticPropertyWatcher extends Watcher
 
     /**
      *  Storage for the propertyName property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _propertyName:String;
 
     /**
      *  The name of the property this Watcher is watching.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get propertyName():String
     {
@@ -104,6 +134,11 @@ public class StaticPropertyWatcher extends Watcher
 
     /**
      *  If the parent has changed we need to update ourselves
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function updateParent(parent:Object):void
     {
@@ -176,6 +211,11 @@ public class StaticPropertyWatcher extends Watcher
     /**
      *  Gets the actual property then updates
      *  the Watcher's children appropriately.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function updateProperty():void
     {
@@ -207,6 +247,11 @@ public class StaticPropertyWatcher extends Watcher
     /**
      *  The generic event handler.
      *  The only event we'll hear indicates that the property has changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function eventHandler(event:Event):void
     {
