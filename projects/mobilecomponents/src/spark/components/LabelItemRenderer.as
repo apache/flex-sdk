@@ -337,7 +337,7 @@ public class LabelItemRenderer extends UIComponent
 	 *  @private
 	 *  Whether or not we're the last element in the list
 	 */
-	private var isLastItem:Boolean = false;
+	mx_internal var isLastItem:Boolean = false;
 	
     //--------------------------------------------------------------------------
     //
