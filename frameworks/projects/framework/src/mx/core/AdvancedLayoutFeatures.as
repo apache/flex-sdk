@@ -172,7 +172,7 @@ package mx.core
     {
         var canUseNative:Boolean = false;
         var version:Array = Capabilities.version.split(' ')[1].split(',');
-        if(parseFloat(version[0]) > 10)
+        if (parseFloat(version[0]) > 10)
             canUseNative  = true;
         else if (parseFloat(version[1]) > 0)
             canUseNative  = true;
@@ -180,7 +180,7 @@ package mx.core
             canUseNative  = true;
         else if (parseFloat(version[3]) >= 87)
             canUseNative  = true;
-        if(canUseNative)
+        if (canUseNative)
             transformVector = nativeTransformVector;
         else
             transformVector = pre10_0_22_87_transformVector;
@@ -546,13 +546,13 @@ package mx.core
      */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
-        if(_postLayoutTransformOffsets != null)
+        if (_postLayoutTransformOffsets != null)
         {
             _postLayoutTransformOffsets.removeEventListener(Event.CHANGE,postLayoutTransformOffsetsChangedHandler);
             _postLayoutTransformOffsets.owner = null;
         }
         _postLayoutTransformOffsets = value;
-        if(_postLayoutTransformOffsets != null)
+        if (_postLayoutTransformOffsets != null)
         {
             _postLayoutTransformOffsets.addEventListener(Event.CHANGE,postLayoutTransformOffsetsChangedHandler);
             _postLayoutTransformOffsets.owner = this;
@@ -652,16 +652,16 @@ package mx.core
      */
     public function get computedMatrix():Matrix
     {
-        if(_flags & COMPUTED_MATRIX_VALID)
+        if (_flags & COMPUTED_MATRIX_VALID)
             return _computedMatrix;
     
-        if(!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
+        if (!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
         {
             return layout.matrix;
         }           
         
         var m:Matrix = _computedMatrix;
-        if(m == null)
+        if (m == null)
             m = _computedMatrix = new Matrix();
         else
             m.identity();
@@ -701,17 +701,17 @@ package mx.core
      */
     public function get computedMatrix3D():Matrix3D
     {
-        if(_flags & COMPUTED_MATRIX3D_VALID)
+        if (_flags & COMPUTED_MATRIX3D_VALID)
             return _computedMatrix3D;
     
     
-        if(!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
+        if (!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
         {
             return layout.matrix3D;
         }
 
         var m:Matrix3D = _computedMatrix3D;
-        if(m == null)
+        if (m == null)
             m = _computedMatrix3D = new Matrix3D();
         else
             m.identity();
@@ -783,11 +783,11 @@ package mx.core
         reVR.y = ry * RADIANS_PER_DEGREES;
         reVR.z = rz * RADIANS_PER_DEGREES;
         m.recompose(reV);
-        if(sx == 0)
+        if (sx == 0)
             sx = ZERO_REPLACEMENT_IN_3D;
-        if(sy == 0)
+        if (sy == 0)
             sy = ZERO_REPLACEMENT_IN_3D;
-        if(sz == 0)
+        if (sz == 0)
             sz = ZERO_REPLACEMENT_IN_3D;
         m.prependScale(sx,sy,sz);
         m.prependTranslation(-tx,-ty,-tz);
@@ -880,7 +880,7 @@ package mx.core
             if (targetPosition != null)
             {
                 var adjustedLayoutCenterV:Vector3D = transformVector(layoutMatrix3D,transformCenter); 
-                if(adjustedLayoutCenterV.equals(targetPosition) == false)
+                if (adjustedLayoutCenterV.equals(targetPosition) == false)
                 {
                     layout.translateBy(targetPosition.x - adjustedLayoutCenterV.x,
                         targetPosition.y - adjustedLayoutCenterV.y, 
@@ -964,7 +964,7 @@ package mx.core
         var needOffsets:Boolean = _postLayoutTransformOffsets == null && 
             (postLayoutScale != null || postLayoutRotation != null || 
                 postLayoutTransformCenterPosition != null);
-        if(needOffsets)
+        if (needOffsets)
             _postLayoutTransformOffsets = new TransformOffsets();                                               
 
         // now if they gave us a non-trivial transform center, and didn't tell us where they want it, 
@@ -974,7 +974,7 @@ package mx.core
         {           
             transformPointToParent(is3D, transformCenter, staticTranslation,
                 staticOffsetTranslation);
-            if(postLayoutTransformCenterPosition == null && transformCenterPosition != null)
+            if (postLayoutTransformCenterPosition == null && transformCenterPosition != null)
             {
                 staticOffsetTranslation.x = transformCenterPosition.x + staticOffsetTranslation.x - staticTranslation.x;
                 staticOffsetTranslation.y = transformCenterPosition.y + staticOffsetTranslation.y - staticTranslation.y;
