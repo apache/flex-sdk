@@ -19,6 +19,8 @@ import flash.utils.getQualifiedClassName;
 
 import spark.components.View;
 
+[ExcludeClass]
+
 /**
  *  The ViewDescriptor object is a data structure used to store information
  *  about a view that is being managed by a ViewNavigator.
