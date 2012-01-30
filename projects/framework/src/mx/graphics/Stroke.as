@@ -51,7 +51,7 @@ package mx.graphics
  *    joints="null|bevel|miter|round"
  *    miterLimit="0"
  *    pixelHinting="false|true"
- *    scaleMode="normal|none|noScale|vertical"
+ *    scaleMode="normal|none|horizontal|vertical"
  *    weight="1 (<i>in most cases</i>)"
  *  /&gt;
  *  </pre>
