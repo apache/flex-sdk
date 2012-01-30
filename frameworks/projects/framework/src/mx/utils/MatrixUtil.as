@@ -1606,7 +1606,10 @@ public final class MatrixUtil
      *  
      *  @param displayObject Calculate the concatenatedMatrix for this displayObject
      *  
-     *  @param excludingRootSprite Whether to exclude the root's transformation in the calculations.
+     *  @param topParent <p>When specified, the matrix is computed up to the topParent, 
+     *  excluding topParent's concatenated matrix.  This is useful when computing a transform
+     *  in order to move an object to a different parent but the object's transform needs
+     *  to be adjusted in order to keep its original position on screen.</p>
      * 
      *  @return The concatenatedMatrix for the displayObject
      * 
@@ -1615,9 +1618,9 @@ public final class MatrixUtil
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static function getConcatenatedMatrix(displayObject:DisplayObject, excludingRootSprite:Boolean):Matrix
+    public static function getConcatenatedMatrix(displayObject:DisplayObject, topParent:DisplayObject):Matrix
     {
-        return getConcatenatedMatrixHelper(displayObject, false, excludingRootSprite);
+        return getConcatenatedMatrixHelper(displayObject, false, topParent);
     }
     
     /**
@@ -1630,7 +1633,10 @@ public final class MatrixUtil
      * 
      *  @param displayObject Calculate the concatenatedMatrix for this displayObject
      * 
-     *  @param excludingRootSprite Whether to exclude the root's transformation in the calculations.
+     *  @param topParent <p>When specified, the matrix is computed up to the topParent, 
+     *  excluding topParent's concatenated matrix.  This is useful when computing a transform
+     *  in order to move an object to a different parent but the object's transform needs
+     *  to be adjusted in order to keep its original position on screen.</p>
      * 
      *  @return The concatenatedMatrix for the displayObject
      * 
@@ -1639,15 +1645,15 @@ public final class MatrixUtil
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static function getConcatenatedComputedMatrix(displayObject:DisplayObject, excludingRootSprite:Boolean):Matrix
+    public static function getConcatenatedComputedMatrix(displayObject:DisplayObject, topParent:DisplayObject):Matrix
     {
-        return getConcatenatedMatrixHelper(displayObject, true, excludingRootSprite);
+        return getConcatenatedMatrixHelper(displayObject, true, topParent);
     }
     
     /**
      *  @private 
      */ 
-    private static function getConcatenatedMatrixHelper(displayObject:DisplayObject, useComputedMatrix:Boolean, excludingRootSprite:Boolean):Matrix
+    private static function getConcatenatedMatrixHelper(displayObject:DisplayObject, useComputedMatrix:Boolean, topParent:DisplayObject):Matrix
     {
         var m:Matrix = new Matrix();
         
@@ -1668,10 +1674,9 @@ public final class MatrixUtil
         
         // Note, root will be "null" if the displayObject is off the display list. In particular,
         // during start-up, before applicationComplete is dispatched, root will be null.
-        // Note that getConcatenatedMatrixHelper() with excludeRootSprite == true will still work
+        // Note that getConcatenatedMatrixHelper() with topParent == sandboxRoot will still work
         // correctly in those cases as we use ".$parent" to walk up the parent chain and during start-up
         // $parent will be null for the application before applicationComplete has been dispatched.
-        var root:DisplayObject = displayObject.root;
         
         if (fakeDollarParent == null)
             fakeDollarParent = new QName(mx_internal, "$parent");
@@ -1682,7 +1687,7 @@ public final class MatrixUtil
         if ($transformProperty == null)
             $transformProperty = new QName(mx_internal, "$transform");
         
-        while (displayObject && displayObject.transform.matrix && (!excludingRootSprite || displayObject != root))
+        while (displayObject && displayObject.transform.matrix && displayObject != topParent)
         {            
             var scrollRect:Rectangle = displayObject.scrollRect;
             if (scrollRect != null)
