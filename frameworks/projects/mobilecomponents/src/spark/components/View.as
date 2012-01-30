@@ -47,7 +47,6 @@ use namespace mx_internal;
  *  a mobile application.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  * 
@@ -60,7 +59,6 @@ use namespace mx_internal;
  *  Dispatched when the <code>data</code> property changes.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  * 
@@ -74,7 +72,6 @@ use namespace mx_internal;
  *  a mobile application.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  * 
@@ -89,7 +86,6 @@ use namespace mx_internal;
  *  @eventType mx.events.ViewNavigatorEvent.VIEW_ACTIVATE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -101,7 +97,6 @@ use namespace mx_internal;
  *  @eventType mx.events.ViewNavigatorEvent.VIEW_DEACTIVATE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -116,7 +111,6 @@ use namespace mx_internal;
  *  @eventType mx.events.ViewNavigatorEvent.REMOVING
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -177,7 +171,6 @@ use namespace mx_internal;
  *  @see ViewNavigator
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -193,7 +186,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -224,7 +216,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default false
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -272,7 +263,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @return Returns true if the view can be removed
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -339,7 +329,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default false
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -384,7 +373,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default auto
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -411,7 +399,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      * The view navigator that this view resides in.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -453,7 +440,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default true
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -509,7 +495,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -546,7 +531,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -614,7 +598,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -651,7 +634,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -692,7 +674,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default true
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -749,7 +730,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default ""
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -797,7 +777,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -834,7 +813,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -881,7 +859,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  argument to the <code>pushView()</code> method. 
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -934,7 +911,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @see spark.components.supportClasses.ViewReturnObject
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -955,7 +931,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  If it does not, this method returns the component's current state.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1033,7 +1008,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *  @return The serialized data object.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1053,7 +1027,6 @@ public class View extends SkinnableContainer implements IDataRenderer
      *
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
