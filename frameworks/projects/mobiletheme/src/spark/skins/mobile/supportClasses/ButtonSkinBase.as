@@ -505,9 +505,7 @@ public class ButtonSkinBase extends MobileSkin
         iconX = Math.max(0, Math.round(iconX)) + layoutPaddingLeft;
         iconY = Math.max(0, Math.round(iconY)) + layoutPaddingTop;
         
-        // FIXME (jasonsj): adjust labelHeight to clip descent
-        
-        setElementSize(labelDisplay, labelWidth, labelHeight);
+        setElementSize(labelDisplay, labelWidth, labelHeight + adjustablePaddingBottom);
         setElementPosition(labelDisplay, labelX, labelY);
         
         if (textWidth > labelWidth)
