@@ -473,8 +473,8 @@ public class StyleProtoChain
         var decl:CSSStyleDeclaration;
         var styleManager:IStyleManager2 = null;
         
-        if (obj is UIComponent)
-            styleManager = UIComponent(obj).styleManager;
+        if (target is UIComponent)
+            styleManager = UIComponent(target).styleManager;
     
         if (!styleManager)
             styleManager = StyleManager.getStyleManager(null);
@@ -702,7 +702,7 @@ public class StyleProtoChain
         
         if (!object.styleDeclaration)
         {
-            object.styleDeclaration = new CSSStyleDeclaration();
+            object.styleDeclaration = new CSSStyleDeclaration(null, styleManager);
            
             object.styleDeclaration.setLocalStyle(styleProp, newValue);
 
