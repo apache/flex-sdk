@@ -76,7 +76,7 @@
         
         <!-- title -->
         <!--- Defines the SimpleText control for displaying the title text in the title bar. -->
-        <s:SimpleText id="titleText" minWidth="0" fontSize="9" color="#585858" truncation="1" width="100%" />
+        <s:SimpleText id="titleText" minWidth="0" fontSize="9" color="#585858" maxDisplayedLines="1" width="100%" />
 
         <!-- minimize button --> 
         <!--- 
