@@ -303,6 +303,10 @@ public class StyleProxy implements IAdvancedStyleClient
         return _advancedSource ? _advancedSource.styleParent : null;
     }
 
+	public function set styleParent(parent:IAdvancedStyleClient):void
+	{
+		
+	}
     //--------------------------------------------------------------------------
     //
     //  Methods - ISimpleStyleClient and IStyleClient
