@@ -52,6 +52,14 @@ public class VerticalSpinnerLayout extends VerticalLayout
 	mx_internal var autoScrollAscending:Boolean = false;
 	
 	mx_internal static const FORCE_NO_WRAP_ELEMENTS_CHANGE:String = "forceNoWrapElementsChange";
+    
+    // If the scrollPosition is too small or large, we need to shift the y positions
+    // of the item renderers or else we hit a player limitation. 
+    private var yOffset:Number = 0;
+    
+    // The max value for x/y seems to be 2^30 / 10. int.MAX_VALUE = 2^31;
+    private static const MAX_Y_VALUE:Number = int.MAX_VALUE / 20;
+    private static const MIN_Y_VALUE:Number = int.MIN_VALUE / 20;
 	
 	//--------------------------------------------------------------------------
 	//
@@ -167,7 +175,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
         var scrollPosition:Number = verticalScrollPosition;
 		
         var itemIndex:int = Math.floor(scrollPosition / rowHeight);
-        var yPos:Number = 0;
+        var yPos:Number;
         var yPosMax:Number;
         
         var foundLastVisibleElement:Boolean = false;
@@ -183,7 +191,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
                 itemIndex = Math.max(Math.min(itemIndex, numElements - 1), 0);           
         }		
         
-        yPos = itemIndex * rowHeight;
+        yPos = itemIndex * rowHeight + yOffset;
         
         // Calculate the y position of the bottom of the viewable area
         yPosMax = yPos + height;
@@ -195,42 +203,68 @@ public class VerticalSpinnerLayout extends VerticalLayout
         // Start at the top index
         var iter:LayoutIterator = new LayoutIterator(target, itemIndex);
         
-        do
+        if (numElements > 0)
         {
-            element = iter.getCurrentElement();
-            if (element && element.includeInLayout)
+            do
             {
-                numVisitedElements++;
-                
-                element.setLayoutBoundsSize(width, rowHeight);
-                element.setLayoutBoundsPosition(0, yPos);
-                
-                yPos += rowHeight;
-                
-                // If we are using virtual layout, only size and position 
-                // the visible elements
-                if (yPos > yPosMax && !foundLastVisibleElement)
+                element = iter.getCurrentElement();
+                if (element && element.includeInLayout)
                 {
-                    foundLastVisibleElement = true;
-                    // Keep track of the number of elements visible in the viewing area
-                    numVisibleElements = numVisitedElements;
-                    if (useVirtualLayout)
-                        break;
+                    numVisitedElements++;
+                    
+                    element.setLayoutBoundsSize(width, rowHeight);
+                    element.setLayoutBoundsPosition(0, yPos);
+                    
+                    yPos += rowHeight;
+                    
+                    // If we are using virtual layout, only size and position 
+                    // the visible elements
+                    if (yPos > yPosMax && !foundLastVisibleElement)
+                    {
+                        foundLastVisibleElement = true;
+                        // Keep track of the number of elements visible in the viewing area
+                        numVisibleElements = numVisitedElements;
+                        if (useVirtualLayout)
+                            break;
+                    }
                 }
-            }
-            
-            // Make sure to not wrap if wrapElements = false
-            if (!wrapElements && iter.currentIndex == numElements - 1)
-                break;
-            
-            iter.next();
-        } 
-        while (itemIndex != iter.currentIndex)
+                
+                // Make sure to not wrap if wrapElements = false
+                if (!wrapElements && iter.currentIndex == numElements - 1)
+                    break;
+                
+                iter.next();
+            } 
+            while (itemIndex != iter.currentIndex)
+        }
         
         setRowCount(numVisibleElements);
         
         // Set the contentWidth and contentHeight
         target.setContentSize(target.width, Math.ceil(numElements * rowHeight));
+    }
+    
+    override public function updateScrollRect(w:Number, h:Number):void
+    {
+        var g:GroupBase = target;
+        if (!g)
+            return;
+        
+        if (clipAndEnableScrolling)
+        {
+            var hsp:Number = horizontalScrollPosition;
+            var vsp:Number = verticalScrollPosition;
+            
+            // If the verticalScrollPosition exceeds the max/min y value, then the
+            // renderers will not be properly positioned. In which case,
+            // we offset the y position of the renderers by the verticalScrollPosition
+            if (((vsp + yOffset + g.getPreferredBoundsHeight()) > MAX_Y_VALUE) ||
+                ((vsp + yOffset) < MIN_Y_VALUE))
+                yOffset = -vsp;
+            g.scrollRect = new Rectangle(hsp, vsp + yOffset, w, h);
+        }
+        else
+            g.scrollRect = null;
     }
 
 	override public function getElementBounds(index:int):Rectangle
@@ -266,8 +300,9 @@ public class VerticalSpinnerLayout extends VerticalLayout
             return;    
         }
         
-        var y0:Number = scrollR.top;
-        var y1:Number = scrollR.bottom - .0001;
+        // Apply the offset        
+        var y0:Number = scrollR.top + yOffset;
+        var y1:Number = scrollR.bottom + yOffset - .0001; 
         if (y1 <= y0)
         {
             setIndexInView(-1, -1);
@@ -296,8 +331,8 @@ public class VerticalSpinnerLayout extends VerticalLayout
         if (wrapElements)
         {
             if (!firstElement || !lastElement || 
-                scrollR.top < firstElement.getLayoutBoundsY() || 
-                scrollR.bottom >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()))
+                y0 < firstElement.getLayoutBoundsY() || 
+                y1 >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()))
             {
                 g.invalidateDisplayList();
             }
@@ -305,8 +340,8 @@ public class VerticalSpinnerLayout extends VerticalLayout
         else
         {
             if (!firstElement || !lastElement || 
-                (scrollR.top < firstElement.getLayoutBoundsY() && firstIndexInView != 0) || 
-                (scrollR.bottom >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()) && lastIndexInView != n))
+                (y0 < firstElement.getLayoutBoundsY() && firstIndexInView != 0) || 
+                (y1 >= (lastElement.getLayoutBoundsY() + lastElement.getLayoutBoundsHeight()) && lastIndexInView != n))
             {
                 g.invalidateDisplayList();
             }
