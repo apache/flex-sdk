@@ -74,7 +74,7 @@ package mx.automation.tabularData
 		 */
 		public function get lastVisibleRow():int
 		{
-			return chart.series.length + chart.secondSeries.length-1;
+			return chart.series.length -1;
 		}
 		
 		/**
@@ -87,7 +87,7 @@ package mx.automation.tabularData
 		 */
 		public function get numRows():int
 		{
-			return chart.series.length + chart.secondSeries.length;
+			return chart.series.length;
 		}
 		
 		/**
