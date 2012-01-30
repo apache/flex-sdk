@@ -47,23 +47,26 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         super();
         
         useChromeColor = true;
-        
-        // Depending on density set our measured width and height
+
+		layoutMeasuredWidth = 20;
+		
+		// Depending on density set our measured height
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_320:
+			{
+				layoutMeasuredHeight = 12;   
+				break;
+			}
             case DPIClassification.DPI_240:
             {
-                layoutMeasuredWidth = 40;
-                layoutMeasuredHeight = 9;
-                
+                layoutMeasuredHeight = 9;   
                 break;
             }
             default:
             {
                 // default PPI160
-                layoutMeasuredWidth = 20;
-                layoutMeasuredHeight = 6;
-                
+                layoutMeasuredHeight = 6;              
                 break;
             }
         }
