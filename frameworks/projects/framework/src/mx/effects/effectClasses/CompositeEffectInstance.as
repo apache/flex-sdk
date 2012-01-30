@@ -313,6 +313,17 @@ public class CompositeEffectInstance extends EffectInstance
 		// Needs to be overridden
 	}
 	
+    override public function seek(seekTime:Number):void
+    {
+        // Subclasses should tell their child effects to seek
+        // appropriately. This logic just sets the internal time on
+        // the overall CompositeEffectInstance.
+        if (timerTween)
+            timerTween.seek(seekTime);
+        else
+            _playheadTime = seekTime;
+    }
+
 	/**
 	 *  @private
 	 */		
