@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate the CurrencyFormatter. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
+            import mx.events.ValidationResultEvent;
 
-              import mx.events.ValidationResultEvent;			
-              private var vResult:ValidationResultEvent;
-			
-              // Event handler to validate and format input.
-              private function Format():void {
-              
-                 	vResult = numVal.validate();
+            private var vResult:ValidationResultEvent;
 
-    				if (vResult.type==ValidationResultEvent.VALID) {
-                        var temp:Number=Number(priceUS.text); 
-                        formattedUSPrice.text= usdFormatter.format(temp);
-                    }
-                    
-                    else {
-                       formattedUSPrice.text="";
-                    }
-              }
+            // Event handler to validate and format input.
+            private function Format():void {
+                vResult = numVal.validate();
+
+                if (vResult.type==ValidationResultEvent.VALID) {
+                    var temp:Number = Number(priceUS.text); 
+                    formattedUSPrice.text = usdFormatter.format(temp);
+                } else {
+                    formattedUSPrice.text = "";
+                }
+            }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:CurrencyFormatter id="usdFormatter" precision="2" 
-        currencySymbol="$" decimalSeparatorFrom="."
-        decimalSeparatorTo="." useNegativeSign="true" 
-        useThousandsSeparator="true" alignSymbol="left"/>
+    <fx:Declarations>
+        <mx:CurrencyFormatter id="usdFormatter" precision="2" 
+                currencySymbol="$" decimalSeparatorFrom="."
+                decimalSeparatorTo="." useNegativeSign="true" 
+                useThousandsSeparator="true" alignSymbol="left"/>
 
-    <mx:NumberValidator id="numVal" source="{priceUS}" property="text" 
-        allowNegative="true" domain="real"/>
+        <mx:NumberValidator id="numVal" source="{priceUS}" property="text" 
+                allowNegative="true" domain="real"/>
+    </fx:Declarations>
 
-    <mx:Panel title="CurrencyFormatter Example" width="75%" height="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-
-        <mx:Form>
+    <s:Panel title="CurrencyFormatter Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <mx:Form left="10" right="10" top="10" bottom="10">
             <mx:FormItem label="Enter U.S. dollar amount:">
-                <mx:TextInput id="priceUS" text="" width="50%"/>
+                <s:TextInput id="priceUS" text="" width="50%"/>
             </mx:FormItem>
-
             <mx:FormItem label="Formatted amount: ">
-                <mx:TextInput id="formattedUSPrice" text="" width="50%" editable="false"/>
+                <s:TextInput id="formattedUSPrice" text="" width="50%" editable="false"/>
             </mx:FormItem>
-
             <mx:FormItem>
-                <mx:Button label="Validate and Format" click="Format();"/>
+                <s:Button label="Validate and Format" click="Format();"/>
             </mx:FormItem>
         </mx:Form>
+    </s:Panel>
 
-    </mx:Panel>
-</mx:Application>
+</s:Application>
