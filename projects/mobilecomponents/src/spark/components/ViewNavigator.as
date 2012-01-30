@@ -857,6 +857,23 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     override protected function commitProperties():void
     {
+        // If the sections property is not set by this point, ViewNavigator will
+        // create a default section to be used by the navigator, and initialize it
+        // with the rootView and initialData defined by the application
+        if (sections == null || sections.length == 0)
+        {
+            // TODO: ViewNavigator should have a rootView and rootData convenience property
+            // Create the empty screen stack and initialize it with the
+            // desired rootView and initial data
+            var section:ViewNavigatorSection = new ViewNavigatorSection();
+            section.rootView = null;
+            section.initialData = null;
+            
+            // Set the stacks of the navigator
+            var newSections:Vector.<ViewNavigatorSection> = Vector.<ViewNavigatorSection>([section]);
+            sections = newSections;
+        }
+            
         if (currentViewChanged)
             executeViewChange();
         else
@@ -930,10 +947,14 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             if (currentViewData)
             {
                 currentView = currentViewData.instance;
-                currentView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
                 
-                currentViewData.persistedData = currentView.getPersistenceData();
-                currentView.active = true;
+                if (currentView)
+                {
+                    currentView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
+                    
+                    currentViewData.persistedData = currentView.getPersistenceData();
+                    currentView.active = true;
+                }
             }
         }
         
@@ -961,7 +982,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (currentSection)
             pendingViewData = currentSection.top;
         
-        if (pendingViewData)
+        if (pendingViewData && pendingViewData.factory != null)
         {
             var view:View;
             
@@ -1099,7 +1120,19 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (!actionBar)
             return;
  
-        if (forceUpdate)
+        // If there is no view, update the actionBar should display the 
+        // navigator defaults
+        if (view == null)
+        {
+            actionBar.actionContent = actionContent;
+            actionBar.actionGroupLayout = actionGroupLayout;
+            actionBar.navigationContent = navigationContent;
+            actionBar.navigationGroupLayout = navigationGroupLayout;
+            actionBar.title = title;
+            actionBar.titleContent = titleContent;
+            actionBar.titleGroupLayout = titleGroupLayout;
+        }
+        else if (forceUpdate)
         {
             actionBar.actionContent = view && view.actionContent ? view.actionContent : actionContent;
             actionBar.actionGroupLayout = view && view.actionGroupLayout ? view.actionGroupLayout : actionGroupLayout;
