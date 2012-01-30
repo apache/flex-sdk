@@ -11,6 +11,7 @@
 
 package spark.components
 {
+import flash.desktop.NativeApplication;
 import flash.events.Event;
 import flash.events.InvokeEvent;
 import flash.events.KeyboardEvent;
@@ -122,6 +123,8 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     public function TabbedViewNavigatorApplication()
     {
         super();
+
+        NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, activateHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -199,6 +202,24 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
             navigatorProperties.navigators = value;
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private function activateHandler(event:Event):void
+    {
+		if (tabbedNavigator && tabbedNavigator.activeView)
+		{
+			if (!tabbedNavigator.activeView.isActive)
+				tabbedNavigator.activeView.setActive(true);
+		}
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden Methods: ViewNavigatorApplicationBase
