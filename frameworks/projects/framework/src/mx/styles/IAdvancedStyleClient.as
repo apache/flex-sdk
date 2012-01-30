@@ -25,7 +25,7 @@ public interface IAdvancedStyleClient extends IStyleClient
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  currentState
+    //  pseudoSelectorState
     //----------------------------------
 
     /**
