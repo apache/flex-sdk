@@ -10052,7 +10052,7 @@ public class UIComponent extends FlexSprite
             {
                 var classSelector:Object =
                     styleName is String ?
-                    styleManager.getStyleDeclaration("." + styleName) :
+                    styleManager.getMergedStyleDeclaration("." + styleName) :
                     styleName;
 
                 if (classSelector)
