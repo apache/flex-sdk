@@ -13,9 +13,11 @@ package mx.effects
 {
 
 import flash.events.EventDispatcher;
+import mx.core.mx_internal;
 import mx.effects.effectClasses.MaskEffectInstance;
 import mx.events.TweenEvent;
 
+use namespace mx_internal;
 
 /**
  *  Dispatched when the effect starts, which corresponds to the 
@@ -571,7 +573,7 @@ public class MaskEffect extends Effect
         maskEffectInstance.moveEasingFunction = moveEasingFunction;
         maskEffectInstance.scaleEasingFunction = scaleEasingFunction;
         maskEffectInstance.createMaskFunction = createMaskFunction;
-        maskEffectInstance.mx_internal::persistAfterEnd = mx_internal::persistAfterEnd;
+        maskEffectInstance.persistAfterEnd = persistAfterEnd;
         
         EventDispatcher(maskEffectInstance).addEventListener(TweenEvent.TWEEN_START, tweenEventHandler);    
         EventDispatcher(maskEffectInstance).addEventListener(TweenEvent.TWEEN_UPDATE, tweenEventHandler);       
