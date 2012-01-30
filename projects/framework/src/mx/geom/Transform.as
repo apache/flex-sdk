@@ -25,29 +25,26 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 
 use namespace mx_internal;
-    
+	
 /**
- *  Adds synchronization support on top of the flash.geom.Transform class.  
- *  The class has a <code>target</code> property which is the IVisualElement that the Transform has been assigned to. 
- *  The IVisualElement implementations typically set the target to themselves when the Transform
- *  is assigned to their <code>transform</code> property. 
+ *  The mx.geom.Transform class adds synchronization support on top of the flash.geom.Transform class.  
+ *  The class has a target property which is the IVisualElement that the Transform has been assigned to. 
+ *  The IVisualElement implementations will typically set the target to themselves when the Transform
+ *  is assigned to their transform property. 
  * 
- *  <p>Changes to the Transform properties automatically get pushed to the target. Reading from the Transform
- *  properties reads directly from the target's transform.</p>
- * 
- *  @see flash.geom.Transform
+ *  Changes to the Transform properties automatically get pushed to the target. Reading from the Transform
+ *  properties reads directly from the target's transform. 
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
- */ 
+ */	
 public class Transform extends flash.geom.Transform
 {
     /**
      *  Constructor.
      * 
-     *  @param src The target of the transform.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -156,11 +153,6 @@ public class Transform extends flash.geom.Transform
     // we will need to update
     /**
      *  @inheritDoc
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */ 
     override public function set matrix3D(value:Matrix3D):* 
     {
@@ -261,11 +253,6 @@ public class Transform extends flash.geom.Transform
 
     /**
      *  @inheritDoc
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */ 
     override public function getRelativeMatrix3D(relativeTo:DisplayObject):Matrix3D
     {
