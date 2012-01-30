@@ -78,8 +78,6 @@ include "../styles/metadata/GapStyles.as"
  */
 [Style(name="messageStyleName", type="String", inherit="no")]
 
-// FIXME (rfrishbe): add verticalGap
-
 /**
  *  The IconItemRenderer class is a performant item 
  *  renderer optimized for mobile devices.  
@@ -213,6 +211,27 @@ public class IconItemRenderer extends LabelItemRenderer
             _imageCache.enableCaching = true;
             _imageCache.maxCacheEntries = 100;
         }
+        
+        // set default messageDisplay width
+        switch (applicationDPI)
+        {
+            case DPIClassification.DPI_320:
+            {
+                oldUnscaledWidth = 640;
+                break;
+            }
+            case DPIClassification.DPI_240:
+            {
+                oldUnscaledWidth = 480;
+                break;
+            }
+            default:
+            {
+                // default PPI160
+                oldUnscaledWidth = 320;
+                break;
+            }
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -277,6 +296,18 @@ public class IconItemRenderer extends LabelItemRenderer
      *  The source to set iconDisplay to, after waiting an appropriate delay period
      */
     private var iconSourceToLoad:Object;
+    
+    /**
+     *  @private
+     *  The width of the component on the previous layout manager 
+     *  pass.  This gets set in updateDisplayList() and used in measure() on 
+     *  the next layout pass.  This is so our "guessed width" in measure() 
+     *  will be as accurate as possible since messageDisplay is multiline and 
+     *  the messageDisplay height is dependent on the width.
+     * 
+     *  In the constructor, this is actually set based on the DPI.
+     */
+    private var oldUnscaledWidth:Number;
     
     //--------------------------------------------------------------------------
     //
@@ -1721,19 +1752,18 @@ public class IconItemRenderer extends LabelItemRenderer
         
         if (hasMessage)
         {
-            // FIXME: (aharui)
-            var estimatedWidth:Number = 480;
             // now we need to measure messageDisplay's height.  Unfortunately, this is tricky and 
-            // is dependent on messageDisplay's width
-            // if we have an explicit width, use it to calculate messageDisplay's width.  
-            // Otherwise, we'll keep it the same width as it was before
-            if (!isNaN(estimatedWidth))
-			{
-				messageWidth = estimatedWidth - paddingAndGapWidth - decoratorWidth - myIconWidth;
-                setElementSize(messageDisplay, messageWidth, getElementPreferredHeight(messageDisplay));
-			}  
+            // is dependent on messageDisplay's width.  
+            // Use the old unscaledWidth width as an estimte for the new one.  
+            // If we are wrong, we'll find out in updateDisplayList()
+            
+            // FIXME (rfrishbe) in justify layout, we can guess better than this our first time around...
+            var messageDisplayEstimatedWidth:Number = oldUnscaledWidth - paddingAndGapWidth - myIconWidth - decoratorWidth;
+            
+            setElementSize(messageDisplay, messageDisplayEstimatedWidth, NaN);
+            
             messageWidth = getElementPreferredWidth(messageDisplay);
-            messageHeight = getElementPreferredHeight(messageDisplay); 
+            messageHeight = getElementPreferredHeight(messageDisplay);
         }
         
         myMeasuredWidth += Math.max(labelWidth, messageWidth);
@@ -1897,11 +1927,45 @@ public class IconItemRenderer extends LabelItemRenderer
 
         if (hasMessage)
         {
-            // handle message
+            // handle message...because the text is multi-line, measuring and layout 
+            // can be somewhat tricky
             messageWidth = Math.max(labelComponentsViewWidth, 0);
-
-			messageHeight = getElementPreferredHeight(messageDisplay);
-            setElementSize(messageDisplay, messageWidth, messageHeight);
+            
+            // We get called with unscaledWidth = 0 a few times...
+            // rather than deal with this case normally, 
+            // we can just special-case it later to do something smarter
+            if (unscaledWidth == 0)
+            {
+                // if unscaledWidth is 0, we want to make sure messageDisplay is invisible.
+                // we could set messageDisplay's width to 0, but that would cause an extra 
+                // layout pass because of the text reflow logic.  Because of that, we 
+                // can just set its height to 0.
+                setElementSize(messageDisplay, NaN, 0);
+            }
+            else
+            {
+                // grab old textDisplay height before resizing it
+                var oldPreferredMessageHeight:Number = getElementPreferredHeight(messageDisplay);
+                
+                // keep track of oldUnscaledWidth so we have a good guess as to the width 
+                // of the messageDisplay on the next measure() pass
+                oldUnscaledWidth = unscaledWidth;
+                
+                // set the width of messageDisplay to messageWidth.
+                // set the height to oldMessageHeight.  If the height's actually wrong, 
+                // we'll invalidateSize() and go through this layout pass again anyways
+                setElementSize(messageDisplay, messageWidth, oldPreferredMessageHeight);
+                
+                // grab new messageDisplay height after the messageDisplay has taken its final width
+                var newPreferredMessageHeight:Number = getElementPreferredHeight(messageDisplay);
+                
+                // if the resize caused the messageDisplay's height to change (because of 
+                // text reflow), then we need to remeasure ourselves with our new width
+                if (oldPreferredMessageHeight != newPreferredMessageHeight)
+                    invalidateSize();
+    
+    			messageHeight = newPreferredMessageHeight;
+            }
             
             // since it's multi-line, no need to truncate
             //if (messageDisplay.isTruncated)
