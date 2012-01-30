@@ -18,6 +18,7 @@ import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 
+import spark.components.SpinnerList;
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
 
@@ -167,25 +168,39 @@ public class VerticalSpinnerLayout extends VerticalLayout
             normalizeScrollPosition(verticalScrollPosition) : 
             verticalScrollPosition;
 		
-        var itemIndex:int = 0;
+        var itemIndex:int = Math.floor(scrollPosition / rowHeight);
         var yPos:Number = 0;
         
         var foundLastVisibleElement:Boolean = false;
         var numVisibleElements:int = 0;
         var numVisitedElements:int = 0;
-        
+                
         // Translate the vsp to the item index
         if (wrapElements)
         {
-            itemIndex = Math.floor(scrollPosition / rowHeight);
             // The top item might only be partially visible. 
             yPos = -(scrollPosition % rowHeight);
         }
         else
         {
-            // If wrapElements == false, then start at the first index
-            // TODO (jszeto) Fix bug. Need to start at first visible index
-            yPos = -scrollPosition;
+            if (!useVirtualLayout)
+                itemIndex = 0;
+            
+            // If itemIndex is either the first or last element
+            // then position using -scrollPosition
+            if (itemIndex >= numElements)
+            {
+                itemIndex = numElements - 1;
+                yPos = -scrollPosition;
+            }
+            else if (itemIndex > 0)
+            {
+                yPos = -(scrollPosition % rowHeight);
+            }
+            else // itemIndex == 0
+            {
+                yPos = -scrollPosition;
+            }
         }			
         
         // Start at the top index
@@ -214,6 +229,11 @@ public class VerticalSpinnerLayout extends VerticalLayout
                         break;
                 }
             }
+            
+            // Make sure to not wrap if wrapElements = false
+            if (!wrapElements && iter.currentIndex == numElements - 1)
+                break;
+            
             iter.next();
         } 
         while (itemIndex != iter.currentIndex)
@@ -374,8 +394,15 @@ public class VerticalSpinnerLayout extends VerticalLayout
     {
         // Element is false if it was a simple type and didn't survive the 
         // casting as an object
-        if (!element || element["enabled"] == undefined || element["enabled"] == true)
-            return true;
+        try
+        {
+            if (!element || element["enabled"] == undefined || element["enabled"] == true)
+                return true;
+        }
+        catch (e:Error)
+        {
+            
+        }
        
         
         return false;
