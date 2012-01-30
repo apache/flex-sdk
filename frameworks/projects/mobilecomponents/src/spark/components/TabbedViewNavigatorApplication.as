@@ -14,6 +14,7 @@ package spark.components
 import flash.events.StageOrientationEvent;
 import flash.net.registerClassAlias;
 
+import mx.core.ContainerCreationPolicy;
 import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.MobileApplicationBase;
@@ -108,9 +109,47 @@ public class TabbedMobileApplication extends MobileApplicationBase
     }
     
     //----------------------------------
+    //  creationPolicy
+    //----------------------------------
+    private var _explicitCreationPolicy:String = ContainerCreationPolicy.AUTO;
+
+    /**
+     *  @inheritDoc
+     *
+     *  <p>TabbedMobileApplication can not have visual elements
+     *  added to it, so the creationPolicy concept use by the framework
+     *  doesn't necessarily make sense.  Instead, this property repurposed to
+     *  control whether the application's child navigators create their children
+     *  when the application initializes.</p>
+     */
+    override public function get creationPolicy():String
+    {
+        return _explicitCreationPolicy;
+    }
+    
+    /**
+     *  @private
+     */ 
+    override public function set creationPolicy(value:String):void
+    {
+        // Don't want to change real creationPolicy property
+        if (value != _explicitCreationPolicy)
+        {
+            _explicitCreationPolicy = value;
+            
+            if (navigator)
+                navigator.creationPolicy = _explicitCreationPolicy;
+        }
+    }
+    
+    //----------------------------------
     //  navigators
     //----------------------------------
     /**
+     *  The list of navigators that are being managed by the application.
+     *  Each navigator in the list will be represented by a item on the tab
+     *  bar.
+     *  
      *  @default null
      * 
      *  @langversion 3.0
@@ -219,14 +258,15 @@ public class TabbedMobileApplication extends MobileApplicationBase
         {
             var newNavigatorProperties:uint = 0;
             
+            navigator.creationPolicy = _explicitCreationPolicy;
+            navigator.landscapeOrientation = landscapeOrientation;
+            
             if (navigatorProperties.navigators !== undefined)
             {
                 navigator.navigators = navigatorProperties.navigators;
                 newNavigatorProperties = BitFlagUtil.update(newNavigatorProperties, 
                     NAVIGATORS_PROPERTY_FLAG, true);
             }
-            
-            navigator.landscapeOrientation = landscapeOrientation;
             
             // Set the stage focus to the navigator
             systemManager.stage.focus = navigator;
