@@ -736,7 +736,7 @@ public class Effect extends EventDispatcher implements IEffect
         // Strip out null values.
         // Binding will trigger again when the null targets are created.
         var n:int = value.length;
-        for (var i:int = n - 1; i > 0; i--)
+        for (var i:int = n - 1; i >= 0; i--)
         {
             if (value[i] == null)
                 value.splice(i,1);
