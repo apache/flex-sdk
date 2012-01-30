@@ -130,7 +130,7 @@ public final class AccConst
 	 *  to carry out a command, select an option, or display another menu.
 	 *
 	 *  <p>Functionally, a menu item can be equivalent to a push button,
-	 *  radio button, check box, or menu.</pL>
+	 *  radio button, check box, or menu.</p>
 	 */
 	public static const ROLE_SYSTEM_MENUITEM:uint = 0xC;
 
@@ -650,7 +650,7 @@ public final class AccConst
 	 *  several hundred names, but only a few are visible to the user.
 	 *  The rest are clipped by the parent
 	 *  and should have STATE_SYSTEM_INVISIBLE set.</p>
-	 *  Objects that are never visible should be set as STATE_SYSTEM_OFFSCREEN.
+	 *  <p>Objects that are never visible should be set as STATE_SYSTEM_OFFSCREEN.
 	 *  Note that an object can be considered visible
 	 *  (that is, the STATE_SYSTEM_INVISIBLE flag is not set)
 	 *  and yet be obscured by another application,
