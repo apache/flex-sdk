@@ -146,7 +146,7 @@ public class ViewTransitionBase extends EventDispatcher
     //  Variables
     //
     //--------------------------------------------------------------------------
-
+    
     /**
      *  @private
      *  Flag set when we've determined that we need to transition the navigator
@@ -190,7 +190,7 @@ public class ViewTransitionBase extends EventDispatcher
     //  Properties
     //
     //--------------------------------------------------------------------------
-        
+    
     //----------------------------------
     //  duration
     //----------------------------------
@@ -281,7 +281,7 @@ public class ViewTransitionBase extends EventDispatcher
     {
         _effect = value;
     }
-
+    
     //----------------------------------
     //  endView
     //----------------------------------
@@ -311,7 +311,7 @@ public class ViewTransitionBase extends EventDispatcher
     {
         _endView = value;
     }
-        
+    
     //----------------------------------
     //  navigator
     //----------------------------------
@@ -459,7 +459,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  performing a full screen transition.
      */
     mx_internal var cachedNavigator:BitmapImage;
-        
+    
     //----------------------------------
     //  cachedActionGroupSnapshot
     //----------------------------------
@@ -560,7 +560,7 @@ public class ViewTransitionBase extends EventDispatcher
         // bitmap snapshots for use later by our default action bar transition.
         consolidatedTransition = consolidatedTransition ? 
             consolidatedTransition : !canTransitionControlBarContent();
-           
+        
         // Snapshot component parts of action bar in preparation for our 
         // default action bar transition, (if appropriate).
         if (!consolidatedTransition && navigator is ViewNavigator)
@@ -617,7 +617,7 @@ public class ViewTransitionBase extends EventDispatcher
     
     /**
      *  This method is called by the ViewNavigator when the transition 
-     *  should begin animating.  At this time the transition should dispatch an
+     *  should begin animating.  At this time the transition should dispatch a
      *  FlexEvent.TRANSITION_START event.
      * 
      *  @langversion 3.0
@@ -630,6 +630,11 @@ public class ViewTransitionBase extends EventDispatcher
         if (effect)
         {
             effect.addEventListener(EffectEvent.EFFECT_END, effectComplete);
+            
+            // Dispatch TRANSITION_START.
+            if (hasEventListener(FlexEvent.TRANSITION_START))
+                dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START));
+            
             effect.play();
         }
         else
@@ -698,7 +703,7 @@ public class ViewTransitionBase extends EventDispatcher
             effect = createConsolidatedEffect();
         }
     }
-        
+    
     /**
      *  Called by the default prepareForPlay() implementation, this method 
      *  is responsible for creating the spark effect that should be played on the
@@ -769,7 +774,7 @@ public class ViewTransitionBase extends EventDispatcher
         // Suppress slide if our action bar transition behavior is fade-only.
         if (actionBarTransitionMode == ACTION_BAR_MODE_FADE)
             slideDistance = 0;
-            
+        
         // If the skin has title content queue new title content for fade in.
         if (actionBar.titleGroup || actionBar.titleDisplay)
         {
@@ -855,7 +860,7 @@ public class ViewTransitionBase extends EventDispatcher
         animation.motionPaths = vector;
         animation.easer = new spark.effects.easing.Sine(.7);
         var fadeOutSlideTargets:Array = new Array();
-    
+        
         if (cachedTitleGroup)
             fadeOutSlideTargets.push(cachedTitleGroup);
         
@@ -871,7 +876,7 @@ public class ViewTransitionBase extends EventDispatcher
             animation.duration = duration;
             effect.addChild(animation);
         }
-
+        
         // Construct animation for our fade in and slide elements.
         var fadeAndSlide:Animate = new Animate();
         vector = new Vector.<MotionPath>();
@@ -885,10 +890,10 @@ public class ViewTransitionBase extends EventDispatcher
         // Add effects to the parallel effect
         effect.addChild(fadeOut);
         effect.addChild(fadeAndSlide);
-
+        
         // Ensure bitmaps are rendered prior to invocation of our effect.
         transitionGroup.validateNow();
-                
+        
         return effect;
     }
     
@@ -979,8 +984,8 @@ public class ViewTransitionBase extends EventDispatcher
      */
     protected function cleanUp():void
     {
-        if (!consolidatedTransition)
-        {                        
+        if (!consolidatedTransition && transitionGroup)
+        {               
             if (cachedTitleGroup)
                 transitionGroup.removeElement(cachedTitleGroup);
             
@@ -1045,7 +1050,9 @@ public class ViewTransitionBase extends EventDispatcher
             }
             
             removeComponentFromContainer(transitionGroup, actionBar.skin);
-            actionBar.skin.scrollRect = null;
+            
+            if (actionBar) 
+                actionBar.skin.scrollRect = null;
             
             verticalTransition = false;
             cachedActionBarHeight = 0;
@@ -1113,7 +1120,7 @@ public class ViewTransitionBase extends EventDispatcher
         
         return true;
     }
-        
+    
     /**
      *  Helper method used to render snap shots of on screen elements in 
      *  preparation for transitioning.  The bitmap is returned in the form
@@ -1144,7 +1151,7 @@ public class ViewTransitionBase extends EventDispatcher
         snapShot.height = bounds.height;
         snapShot.x = target.x + bounds.left;
         snapShot.y = target.y + bounds.top;
-                        
+        
         // Exclude from layout.
         snapShot.includeInLayout = false;
         
@@ -1183,8 +1190,8 @@ public class ViewTransitionBase extends EventDispatcher
      *  or DisplayObjectContainer. 
      */ 
     protected function addComponentToContainerAt(component:UIComponent, 
-                                               container:UIComponent, 
-                                               index:int):void
+                                                 container:UIComponent, 
+                                                 index:int):void
     {
         if (container is IVisualElementContainer)
             IVisualElementContainer(container).addElementAt(component, index);
@@ -1212,7 +1219,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  or DisplayObjectContainer.
      */ 
     protected function removeComponentFromContainer(component:UIComponent, 
-                                                     container:UIComponent):void
+                                                    container:UIComponent):void
     {
         if (container is IVisualElementContainer)
             IVisualElementContainer(container).removeElement(component);
@@ -1233,8 +1240,8 @@ public class ViewTransitionBase extends EventDispatcher
         else
             container.setChildIndex(component, index);
     }
-
-}
     
+}
+
     
 }
