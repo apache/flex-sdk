@@ -35,12 +35,12 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:BitmapImage source="@Embed('../../../../../assets/win_min_up.png')" includeIn="up" left="0" verticalCenter="0" repeat="false"/>
+    <s:BitmapImage source="@Embed('../../../../../assets/win_min_up.png')" includeIn="up" left="0" verticalCenter="0" resizeMode="noScale"/>
     
-    <s:BitmapImage source="@Embed('../../../../../assets/win_min_over.png')" includeIn="over" left="0" verticalCenter="0" repeat="false"/>
+    <s:BitmapImage source="@Embed('../../../../../assets/win_min_over.png')" includeIn="over" left="0" verticalCenter="0" resizeMode="noScale"/>
 
-    <s:BitmapImage source="@Embed('../../../../../assets/win_min_down.png')" includeIn="down" left="0" verticalCenter="0" repeat="false"/>
+    <s:BitmapImage source="@Embed('../../../../../assets/win_min_down.png')" includeIn="down" left="0" verticalCenter="0" resizeMode="noScale"/>
 
-    <s:BitmapImage source="@Embed('../../../../../assets/win_min_dis.png')" includeIn="disabled" left="0" verticalCenter="0" repeat="false"/>
+    <s:BitmapImage source="@Embed('../../../../../assets/win_min_dis.png')" includeIn="disabled" left="0" verticalCenter="0" resizeMode="noScale"/>
     
 </s:Skin>
