@@ -1409,7 +1409,8 @@ public class Effect extends EventDispatcher implements IEffect
      *  Used internally to grab the values of the relevant properties
      */
     mx_internal function captureValues(propChanges:Array,
-									   setStartValues:Boolean):Array
+									   setStartValues:Boolean,
+									   targetsToCapture:Array = null):Array
     {
         var n:int;
         var i:int;
@@ -1443,17 +1444,21 @@ public class Effect extends EventDispatcher implements IEffect
             for (i = 0; i < n; i++)
             {
                 target = propChanges[i].target;
-                valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
-                                        
-                // Walk the properties in the target
-                m = effectProps.length;
-                for (j = 0; j < m; j++)
+                if (targetsToCapture == null || targetsToCapture.length == 0 ||
+                    targetsToCapture.indexOf(target) >= 0)
                 {
-                    // Don't clobber values already set
-                    if (valueMap[effectProps[j]] === undefined)
+                    valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
+                                            
+                    // Walk the properties in the target
+                    m = effectProps.length;
+                    for (j = 0; j < m; j++)
                     {
-                        valueMap[effectProps[j]] = 
-                            getValueFromTarget(target,effectProps[j]);
+                        // Don't clobber values already set
+                        if (valueMap[effectProps[j]] === undefined)
+                        {
+                            valueMap[effectProps[j]] = 
+                                getValueFromTarget(target,effectProps[j]);
+                        }
                     }
                 }
             }
@@ -1470,20 +1475,24 @@ public class Effect extends EventDispatcher implements IEffect
             for (i = 0; i < n; i++)
             {
                 target = propChanges[i].target;
-                if (!(target is IStyleClient))
-                    continue;
-                    
-                valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
-                                        
-                // Walk the properties in the target.
-                m = styles.length;
-                for (j = 0; j < m; j++)
+                if (targetsToCapture == null || targetsToCapture.length == 0 ||
+                    targetsToCapture.indexOf(target) >= 0)
                 {
-                    // Don't clobber values set by relevantProperties
-                    if (valueMap[styles[j]] === undefined)
+                    if (!(target is IStyleClient))
+                        continue;
+                        
+                    valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
+                                            
+                    // Walk the properties in the target.
+                    m = styles.length;
+                    for (j = 0; j < m; j++)
                     {
-                        var value:* = target.getStyle(styles[j]);
-                        valueMap[styles[j]] = value;
+                        // Don't clobber values set by relevantProperties
+                        if (valueMap[styles[j]] === undefined)
+                        {
+                            var value:* = target.getStyle(styles[j]);
+                            valueMap[styles[j]] = value;
+                        }
                     }
                 }
             }
