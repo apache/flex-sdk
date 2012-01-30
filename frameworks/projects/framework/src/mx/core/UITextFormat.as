@@ -471,6 +471,10 @@ public class UITextFormat extends TextFormat
         var lineMetrics:TextLineMetrics =
             measurementTextField.getLineMetrics(0);
 
+        // Account for any indenting of the text.
+        if (indent != null)
+            lineMetrics.width += indent;
+ 
         if (roundUp)
         {                               
             // Round up because embedded fonts can produce fractional values;
