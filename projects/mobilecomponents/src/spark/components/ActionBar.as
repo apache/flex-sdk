@@ -29,6 +29,8 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  Alignment of the title relative to the ActionBar dimensions.
+ *  Possible values are <code>"left"</code>, <code>"right"</code>,
+ *  and <code>"center"</code>.
  * 
  *  @default "center"
  *  
@@ -65,6 +67,8 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  @copy spark.components.SkinnableContainer#style:contentBackgroundAlpha
+ *
+ *  @default 1.0
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -75,6 +79,8 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
+ *
+ *  @default 0xFFFFFF
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -122,7 +128,8 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 //--------------------------------------
 
 /**
- *  Base state of ActionBar with titleDisplay and no content
+ *  Base state of ActionBar with the <code>titleDisplay</code> 
+ *  skin part and no content
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -132,7 +139,9 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [SkinState("title")]
 
 /**
- *  ActionBar with titleDisplay and actionContent only
+ *  ActionBar with content defined for the <code>titleDisplay</code> 
+ *  skin part, and components defined in the <code>actionContent</code> 
+ *  property for display in the <code>actionGroup</code> skin part.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -142,7 +151,9 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [SkinState("titleWithAction")]
 
 /**
- *  ActionBar with titleDisplay and navigationContent only
+ *  ActionBar with content defined for the <code>titleDisplay</code> 
+ *  skin part, and components defined in the <code>navigationContent</code> 
+ *  property for display in the <code>navigationGroup</code> skin part.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -152,7 +163,10 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [SkinState("titleWithNavigation")]
 
 /**
- *  ActionBar with title both action and navigation content
+ *  ActionBar with content defined for the <code>titleDisplay</code> 
+ *  skin part, and components for display in 
+ *  the <code>actionGroup</code> skin part and in 
+ *  the <code>navigationGroup</code> skin part.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -162,7 +176,8 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [SkinState("titleWithActionAndNavigation")]
 
 /**
- *  ActionBar with titleContent in place of titleDisplay
+ *  ActionBar with content in the <code>titleContent</code>
+ *  skin part, but not in the <code>titleDisplay</code> skin part.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -172,7 +187,9 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [SkinState("titleContent")]
 
 /**
- *  ActionBar with title and action content
+ *  ActionBar with content in the <code>titleContent</code>
+ *  skin part, and components defined in the <code>actionContent</code> 
+ *  property for display in the <code>actionGroup</code> skin part.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -183,7 +200,9 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 
 /**
- *  ActionBar with title and navigation content
+ *  ActionBar with content in the <code>titleContent</code>
+ *  skin part, and components defined in the <code>navigationContent</code> 
+ *  property for display in the <code>navigationGroup</code> skin part.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -193,7 +212,10 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 [SkinState("titleContentWithNavigation")]
 
 /**
- *  ActionBar with title, action and navigation content
+ *  ActionBar with content defined for the <code>titleContent</code> 
+ *  skin part, and components for display in 
+ *  the <code>actionGroup</code> skin part and in 
+ *  the <code>navigationGroup</code> skin part.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -204,10 +226,46 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  The ActionBar class defines a component that includes title, navigation 
- *  and action content groups. In the context of a ViewNavigator and
- *  ViewNavigatorApplication, the ActionBar is used as application chrome which
- *  has content contributed by the active View. ActionBar has limited
- *  utility when used otherwise.
+ *  and action content groups. 
+ *  The ActionBar control provides a standard area for navigation and action controls. 
+ *  It lets you define global controls that can be used from anywhere in the application, 
+ *  or controls specific to a view. 
+ *
+ *  <p>The ActionBar control defines three distinct areas: </p>
+ *
+ *  <ul>
+ *    <li>Navigation area
+ *        <p>Contains components that let the user navigate the section. 
+ *         For example, you can define a home button in the navigation area. 
+ *         Use the <code>navigationContent</code> property to define 
+ *         the components that appear in the navigation area. 
+ *         Use the <code>navigationLayout</code> property to define 
+ *         the layout of the navigation area. </p></li>
+ *     <li>Title area
+ *         <p>Contains either a String containing title text, or components. 
+ *         If you specify components, you cannot specify a title String. 
+ *         Use the <code>title</code> property to specify the String to appear in 
+ *         the title area. 
+ *         Use the <code>titleContent</code> property to define the 
+ *         components that appear in the title area. 
+ *         Use the <code>titleLayout</code> property to define the 
+ *         layout of the title area. 
+ *         If you specify a value for the <code>titleContent</code> property, 
+ *         the ActionBar skin ignores the <code>title</code> property.</p></li> 
+ *      <li>Action area 
+ *         <p>Contains components that define actions the user can take in a view. 
+ *         For example, you might define a search or refresh button as part of 
+ *         the action area. 
+ *         Use the <code>actionContent</code> property to define the components 
+ *         that appear in the action area. 
+ *         Use the <code>actionLayout</code> property to define the layout 
+ *         of the action area.</p></li>
+ *  </ul>
+ *
+ *  <p>For a mobile application with a single section, meaning a single  
+ *  ViewNavigator container, all views share the same action bar. 
+ *  For a mobile application with multiple sections, meaning one with multiple 
+ *  ViewNavigator containers, each section defines its own action bar.</p>
  *
  *  @mxml
  *  
@@ -217,22 +275,21 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  <pre>
  *  &lt;s:ActionBar
  *   <strong>Properties</strong>
+ *    actionContent="null"
+ *    actionLayout="HorizontalLayout"
+ *    navigationContent="null"
+ *    navigationLayout="HorizontalLayout"
  *    title=""
  *    titleContent="null"
  *    titleLayout="HorizontalLayout"
- *    navigationContent="null"
- *    navigationLayout="HorizontalLayout"
- *    actionContent="null"
- *    actionLayout="HorizontalLayout"
  * 
  *   <strong>Styles</strong>
  *    backgroundAlpha="1.0"
  *    titleAlign="left"
- * 
- *  &lt;
+ *  &gt;
  *  </pre>
  *
- *  @see SkinnableComponent
+ *  @see spark.components.SkinnableContainer    
  *  @see ViewNavigator
  *  @see View
  *  @see ViewNavigatorApplication
@@ -395,7 +452,14 @@ public class ActionBar extends SkinnableComponent
     /**
      *  Title or caption displayed in the title area. 
      *
+     *  <p>Use the <code>titleContent</code> property to define 
+     *  the components that appear in the title area. 
+     *  If you specify a value for the <code>titleContent</code> property, 
+     *  the ActionBar skin ignores the <code>title</code> property.</p>
+     *
      *  @default ""
+     *
+     *  @see #titleContent
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -431,20 +495,22 @@ public class ActionBar extends SkinnableComponent
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
-     *  The set of components to include in the navigationGroup of the
-     *  ActionBar. The location and appearance of the navigationGroup of the
-     *  ActionBar container is determined by the
-     *  spark.skins.mobile.ActionBarSkin.
-     *  
-     *  <p>The default ActionBarSkin class defines the navigationGroup to appear
-     *  to the left of the titleGroup area of the ActionBar.</p>
-     *  
+     *  The components that define navigation for the user. 
+     *  These components appear in the navigation area of the control,  
+     *  in the <code>navigationGroup</code> skin part. 
+     *
+     *  <p>The location and appearance of the <code>navigationGroup</code> 
+     *  skin part is determined by the skin.
+     *  The default ActionBarSkin class defines the <code>navigationGroup</code>
+     *  to appear to the left of the <code>titleGroup</code> area of the ActionBar.</p>
+     * 
      *  <p>Create a custom skin to change the default location and appearance of
-     *  the navigationGroup.</p>
+     *  the <code>navigationGroup</code> skin part.</p>
      *  
      *  @default null
      *
      *  @see spark.skins.mobile.ActionBarSkin
+     *  @see #navigationLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -482,9 +548,12 @@ public class ActionBar extends SkinnableComponent
     //---------------------------------- 
     
     /**
-     *  Defines the layout of the navigationGroup.
+     *  Defines the layout of the components contained in 
+     *  the <code>navigationGroup</code> skin part.
      *
      *  @default HorizontalLayout
+     *
+     *  @see #navigationContent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -522,24 +591,29 @@ public class ActionBar extends SkinnableComponent
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
-     *  The set of components to include in the titleGroup of the
-     *  ActionBar. If titleContent is not null, it's visual elements replace
-     *  the mxmlContent of titleGroup. If titleContent is null, the
-     *  titleDisplay skin part, if present, is displayed in place of the
-     *  titleGroup. 
-     *  
-     *  <p>The location and appearance of the titleGroup of the
-     *  ActionBar container is determined by the
-     *  spark.skins.mobile.ActionBarSkin class. By default, the ActionBarSkin
-     *  class defines the titleGroup to appear in the center of the ActionBar,
-     *  using the space remaining between navigationGroup and actionGroup.</p>
-     *  
+     *  The components that appear in the title area of the control. 
+     *  These components appear in the <code>titleGroup</code> 
+     *  skin part of the ActionBar control.
+     *
+     *  <p>The location and appearance of the <code>titleGroup</code> 
+     *  skin part is determined by the skin.
+     *  The default ActionBarSkin class defines the <code>titleGroup</code>
+     *  to appear in the center of the ActionBar,
+     *  using the space remaining between <code>navigationGroup</code> 
+     *  and <code>actionGroup</code> skin parts.</p>
+     * 
+     *  <p>If <code>titleContent</code> is null, the
+     *  <code>titleDisplay</code> skin part, if present, is displayed 
+     *  in place of the <code>titleGroup</code> skin part.</p> 
+     * 
      *  <p>Create a custom skin to change the default location and appearance of
-     *  the titleGroup.</p>
+     *  the <code>titleGroup</code> skin part.</p>
      *  
      *  @default null
      *
      *  @see spark.skins.mobile.ActionBarSkin
+     *  @see #title
+     *  @see #titleLayout
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -579,12 +653,15 @@ public class ActionBar extends SkinnableComponent
     //---------------------------------- 
     
     /**
-     *  Defines the layout of titleGroup and titleDisplay.
+     *  Defines the layout of the <code>titleGroup</code> 
+     *  and <code>titleDisplay</code> skin parts.
      * 
-     *  <p>If titleContent is null, titleDisplay is displayed in place of
-     *  titleGroup. In this case, titleDisplay is positioned with
-     *  padded using paddingLeft and paddingRight properties of
-     *  titleLayout if defined.</p>
+     *  <p>If <code>titleContent</code> is null, <code>titleDisplay</code> 
+     *  is displayed in place of <code>titleGroup</code>. 
+     *  In this case, <code>titleDisplay</code> is positioned 
+     *  by using the padding specified by the 
+     *  <code>paddingLeft</code> and <code>paddingRight</code> properties of
+     *  <code>titleLayout</code>, if defined.</p>
      *
      *  @default HorizontalLayout
      *  @see #titleContent
@@ -625,19 +702,22 @@ public class ActionBar extends SkinnableComponent
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
-     *  The set of components to include in the actionGroup of the
-     *  ActionBar. The location and appearance of the actionGroup of the
-     *  ActionBar container is determined by the skin.
+     *  The components that define actions the user can take in a view. 
+     *  These components appear in the action area of the control,
+     *  using the <code>actionGroup</code> skin part. 
      * 
-     *  <p>The default ActionBarSkin class defines the actionGroup to appear
-     *  to the right of the title display area of the ActionBar.</p>
+     *  <p>The location and appearance of the <code>actionGroup</code> 
+     *  skin part is determined by the skin.
+     *  The default ActionBarSkin class defines the <code>actionGroup</code>
+     *  to appear to the right of the title display area of the ActionBar.</p>
      * 
      *  <p>Create a custom skin to change the default location and appearance of
-     *  the actionGroup.</p>
+     *  the <code>actionGroup</code> skin part.</p>
      *  
      *  @default null
      *
      *  @see spark.skins.mobile.ActionBarSkin
+     *  @see #actionLayout
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -675,9 +755,12 @@ public class ActionBar extends SkinnableComponent
     //---------------------------------- 
     
     /**
-     *  Defines the layout of the actionGroup.
+     *  Defines the layout of the components defined in the 
+     *  action area by the <code>actionGroup</code> property.
      *
      *  @default HorizontalLayout
+     *
+     *  @see #actionContent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
