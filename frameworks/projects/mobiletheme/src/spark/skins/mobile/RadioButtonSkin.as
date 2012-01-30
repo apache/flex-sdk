@@ -19,17 +19,23 @@ import mx.core.DPIClassification;
 
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 import spark.skins.mobile160.assets.RadioButton_down;
-import spark.skins.mobile160.assets.RadioButton_symbol;
-import spark.skins.mobile160.assets.RadioButton_symbolSelected;
+import spark.skins.mobile160.assets.RadioButton_downSymbol;
+import spark.skins.mobile160.assets.RadioButton_downSymbolSelected;
 import spark.skins.mobile160.assets.RadioButton_up;
+import spark.skins.mobile160.assets.RadioButton_upSymbol;
+import spark.skins.mobile160.assets.RadioButton_upSymbolSelected;
 import spark.skins.mobile240.assets.RadioButton_down;
-import spark.skins.mobile240.assets.RadioButton_symbol;
-import spark.skins.mobile240.assets.RadioButton_symbolSelected;
+import spark.skins.mobile240.assets.RadioButton_downSymbol;
+import spark.skins.mobile240.assets.RadioButton_downSymbolSelected;
 import spark.skins.mobile240.assets.RadioButton_up;
+import spark.skins.mobile240.assets.RadioButton_upSymbol;
+import spark.skins.mobile240.assets.RadioButton_upSymbolSelected;
 import spark.skins.mobile320.assets.RadioButton_down;
-import spark.skins.mobile320.assets.RadioButton_symbol;
-import spark.skins.mobile320.assets.RadioButton_symbolSelected;
+import spark.skins.mobile320.assets.RadioButton_downSymbol;
+import spark.skins.mobile320.assets.RadioButton_downSymbolSelected;
 import spark.skins.mobile320.assets.RadioButton_up;
+import spark.skins.mobile320.assets.RadioButton_upSymbol;
+import spark.skins.mobile320.assets.RadioButton_upSymbolSelected;
 
 /**
  *  ActionScript-based skin for RadioButton controls in mobile applications. 
@@ -85,10 +91,10 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 upSelectedIconClass = spark.skins.mobile320.assets.RadioButton_up;
                 downIconClass = spark.skins.mobile320.assets.RadioButton_down;
                 downSelectedIconClass = spark.skins.mobile320.assets.RadioButton_down;
-                upSymbolIconClass = spark.skins.mobile320.assets.RadioButton_symbol;
-                downSymbolIconClass = spark.skins.mobile320.assets.RadioButton_symbol;
-                upSymbolIconSelectedClass = spark.skins.mobile320.assets.RadioButton_symbolSelected;
-                downSymbolIconSelectedClass = spark.skins.mobile320.assets.RadioButton_symbolSelected;
+                upSymbolIconClass =  spark.skins.mobile320.assets.RadioButton_upSymbol;
+                downSymbolIconClass =  spark.skins.mobile320.assets.RadioButton_downSymbol;
+                upSymbolIconSelectedClass = spark.skins.mobile320.assets.RadioButton_upSymbolSelected;
+                downSymbolIconSelectedClass = spark.skins.mobile320.assets.RadioButton_downSymbolSelected;
                 
                 layoutGap = 20;
                 layoutMeasuredWidth = 64;
@@ -101,10 +107,10 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 upSelectedIconClass = spark.skins.mobile240.assets.RadioButton_up;
                 downIconClass = spark.skins.mobile240.assets.RadioButton_down;
                 downSelectedIconClass = spark.skins.mobile240.assets.RadioButton_down;
-                upSymbolIconClass = spark.skins.mobile240.assets.RadioButton_symbol;
-                downSymbolIconClass = spark.skins.mobile240.assets.RadioButton_symbol;
-                upSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_symbolSelected;
-                downSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_symbolSelected;
+                upSymbolIconClass =  spark.skins.mobile240.assets.RadioButton_upSymbol;
+                downSymbolIconClass =  spark.skins.mobile240.assets.RadioButton_downSymbol;
+                upSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_upSymbolSelected;
+                downSymbolIconSelectedClass = spark.skins.mobile240.assets.RadioButton_downSymbolSelected;
                 
                 layoutGap = 15;
                 layoutMeasuredWidth = 48;
@@ -117,10 +123,10 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
                 upSelectedIconClass = spark.skins.mobile160.assets.RadioButton_up;
                 downIconClass = spark.skins.mobile160.assets.RadioButton_down;
                 downSelectedIconClass = spark.skins.mobile160.assets.RadioButton_down;
-                upSymbolIconClass = spark.skins.mobile160.assets.RadioButton_symbol;
-                downSymbolIconClass = spark.skins.mobile160.assets.RadioButton_symbol;
-                upSymbolIconSelectedClass = spark.skins.mobile160.assets.RadioButton_symbolSelected;
-                downSymbolIconSelectedClass = spark.skins.mobile160.assets.RadioButton_symbolSelected;
+                upSymbolIconClass =  spark.skins.mobile160.assets.RadioButton_upSymbol;
+                downSymbolIconClass =  spark.skins.mobile160.assets.RadioButton_downSymbol;
+                upSymbolIconSelectedClass = spark.skins.mobile160.assets.RadioButton_upSymbolSelected;
+                downSymbolIconSelectedClass = spark.skins.mobile160.assets.RadioButton_downSymbolSelected;
                 
                 layoutGap = 10;
                 layoutMeasuredWidth = 32;
