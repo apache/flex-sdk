@@ -38,13 +38,10 @@
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<!--
-			This project builds a theme SWC containing skin classes.
+			This project builds a theme SWC containing the default stylesheet. 
 			It has no MXML tags and therefore no manifest.
-			Link in the classes (and their dependencies)
-			listed in HaloClasses.as.
 			Compile against framework.swc, but don't link it into halo.swc.
 			Link in accessibility support.
-			Include various CSS and asset files in the SWC.
 			Don't put any resources into the SWC. (The classes don't require any.)
 			Write a bundle list of referenced resource bundles
 			into the file bundles.properties in this directory.
@@ -56,7 +53,6 @@
             <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
-			<include-classes>HaloClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
@@ -65,7 +61,6 @@
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
-			<include-file name="Assets.swf" path="${basedir}/assets/Assets.swf"/>
 			<locale/>
 			<accessible>true</accessible>
 		</compc>
@@ -91,7 +86,6 @@
 		<!-- Call asdoc to generate dita xml files -->
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" >
 		    <compiler.source-path path-element="${basedir}/src"/>
-		    <doc-classes class="HaloClasses"/>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${local.playerglobal.version}">
 		    	<include name="playerglobal.swc" />
 		    </external-library-path>
