@@ -236,7 +236,7 @@ Alert
 	/* borderThicknessBottom is NaN */
 	/* buttonStyleName: "alertButtonStyle"; */
 	color: 0;
-	paddingBottom: 2;
+	paddingBottom: 10;
 	paddingLeft: 10;
 	paddingRight: 10;
 	paddingTop: 2;
@@ -981,7 +981,6 @@ Menu
 {
 	backgroundAlpha: 0.95;
 	borderStyle: "menuBorder";
-	borderColor: #696969;
 	branchDisabledIcon: Embed(source="assets/MenuArrow.png");
 	branchIcon: Embed(source="assets/MenuArrow.png");
 	checkDisabledIcon: Embed(source="Assets.swf",symbol="MenuCheckDisabled");
