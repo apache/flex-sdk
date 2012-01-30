@@ -79,6 +79,11 @@ use namespace mx_internal;
  *  @see mx.effects.AddChildAction
  *
  *  @includeExample examples/StatesExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
  public class AddChild extends OverrideBase implements IOverride
 {
@@ -101,6 +106,11 @@ use namespace mx_internal;
      *  @param position the location in the display list of the <code>target</code>
      *  relative to the <code>relativeTo</code> component. Must be one of the following:
      *  "firstChild", "lastChild", "before" or "after".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AddChild(relativeTo:UIComponent = null,
                              target:DisplayObject = null,
@@ -174,6 +184,11 @@ use namespace mx_internal;
      * </table>
      *
      *  @default "auto"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get creationPolicy():String
     {
@@ -204,6 +219,11 @@ use namespace mx_internal;
      *  <code>"firstChild"</code>, and <code>"lastChild"</code>.
      *
      *  @default "lastChild"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var position:String;
 
@@ -221,6 +241,11 @@ use namespace mx_internal;
      *  object, that is, the component that has the <code>states</code>
      *  property, or <code>&lt;mx:states&gt;</code>tag that specifies the State
      *  object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var relativeTo:Object;
 
@@ -245,6 +270,11 @@ use namespace mx_internal;
      *
      *  <p>Do not set this property if you set the <code>targetFactory</code>
      *  property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get target():DisplayObject
     {
@@ -296,6 +326,11 @@ use namespace mx_internal;
      *  This propety is the <code>AddChild</code> class default property.
      *  Setting this property with a <code>creationPolicy</code> of "all"
      *  is equivalent to setting a <code>target</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get targetFactory():IDeferredInstance
     {
@@ -327,6 +362,11 @@ use namespace mx_internal;
      *  property value is <code>"auto"</code> or <code>"all"</code>.
      *  If you call this method multiple times, the child instance is
      *  created only on the first call.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createInstance():void
     {
@@ -341,6 +381,11 @@ use namespace mx_internal;
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialize():void
     {
@@ -350,6 +395,11 @@ use namespace mx_internal;
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function apply(parent:UIComponent):void
     {
@@ -421,6 +471,11 @@ use namespace mx_internal;
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function remove(parent:UIComponent):void
     {
