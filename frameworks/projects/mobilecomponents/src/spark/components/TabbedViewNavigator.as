@@ -167,6 +167,21 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     // Properties
     // 
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  activeView
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function get activeView():View
+    {
+        if (activeNavigator)
+            return activeNavigator.activeView;
+        
+        return null;
+    }
     
     //----------------------------------
     //  activeNavigator
@@ -188,11 +203,23 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     //----------------------------------
+    //  canCancelBackKeyBehavior
+    //----------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override public function get canCancelBackKeyBehavior():Boolean
+    {
+        return  activeNavigator && activeNavigator.canCancelBackKeyBehavior;    
+    }
+    
+    //----------------------------------
     //  landscapeOrientation
     //----------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */ 
     override public function set landscapeOrientation(value:Boolean):void
     {
@@ -219,22 +246,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         return _navigators;
     }
+    
     /**
      *  @private
      */ 
     public function set navigators(value:Vector.<ViewNavigatorBase>):void
     {
-        // FIXME (chiedozi): Should only add listeners to active view
         var i:int;
         
         if (_navigators)
         {
             for (i = 0; i < _navigators.length; ++i)
-            {
                 _navigators[i].parentNavigator = null;
-                _navigators[i].removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
-                _navigators[i].removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
-            }
         }
         
         _navigators = value;   
@@ -242,11 +265,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         if (value)
         {
             for (i = 0; i < value.length; ++i)
-            {
                 _navigators[i].parentNavigator = this;
-                _navigators[i].addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
-                _navigators[i].addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
-            }
             
             selectedIndex = 0;
         }
@@ -261,7 +280,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //--------------------------------------------------------------------------
     
     /**
-     *  
+     *  Hides the tab bar of the navigator.
+     * 
+     *  @param animate Flag indicating whether a hide effect should play.  True by default.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -282,7 +304,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
+     *  Shows the tab bar of the navigtor
      *  
+     *  @param animate Flag indicating whether a hide effect should play.  True by default.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -330,15 +355,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     // 
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */ 
     override public function backKeyHandler():void
     {
         if (activeNavigator)
             activeNavigator.backKeyHandler();    
-    }
-    
-    override public function canCancelDefaultBackKeyBehavior():Boolean
-    {
-        return  activeNavigator && activeNavigator.canCancelDefaultBackKeyBehavior();    
     }
     
     /**
@@ -420,20 +443,31 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         // of the active view.
         if (selectedNavigatorChanged)
         {
+            var navigator:ViewNavigatorBase;
+            
             if (_selectedIndex != -1)
             {
-                activeNavigator.active = false;
-                removeElement(_navigators[_selectedIndex]);
+                navigator = navigators[_selectedIndex];
+                navigator.active = false;
+                removeElement(navigator);
+                
+                navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
+                navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
             }
             
             commitSelection();
             
             if (_selectedIndex > -1)
             {
-                activeNavigator.active = true;
-                activeNavigator.landscapeOrientation = landscapeOrientation;
-                addElement(_navigators[_selectedIndex]);
-                UIComponent(activeNavigator).invalidateProperties();
+                navigator = navigators[_selectedIndex];
+                navigator.active = true;
+                navigator.landscapeOrientation = landscapeOrientation;
+                
+                addElement(navigator);
+                navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
+                navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
+                
+                UIComponent(navigator).invalidateProperties();
             }
             
             selectedNavigatorChanged = false;
@@ -459,20 +493,12 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         
-        var currentSection:NavigationStack = null; 
+        var currentStack:NavigationStack = null; 
         if (_selectedIndex > -1)
-            currentSection = navigators[_selectedIndex].navigationStack;
+            currentStack = navigators[_selectedIndex].navigationStack;
 
         // FIXME (chiedozi): When a selection changes, old navigator should
         // destory its current view
-        
-        // Check if we need to push the root view
-        if (currentSection && currentSection.length == 0 && currentSection.firstView != null)
-        {
-            currentSection.push(currentSection.firstView, currentSection.firstViewData);
-            ViewNavigator(activeNavigator).invalidateProperties();
-            ViewNavigator(activeNavigator).viewChangeRequested = true;
-        }
     }    
     
     /**
@@ -624,6 +650,54 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
+     */ 
+    override public function restoreViewData(value:Object):void
+    {
+        var savedStacks:Vector.<Object>;
+        var savedSelectedIndex:Number = value.selectedIndex as Number;
+        
+        // By the time this method is called, all skin parts should be
+        // added to the component meaning that it is okay to directly
+        // manipulate the child navigators.
+        if (!isNaN(savedSelectedIndex) && savedSelectedIndex < length)
+            selectedIndex = savedSelectedIndex;
+        
+        savedStacks = value.childrenStates as Vector.<Object>;
+        
+        if (savedStacks)
+        {
+            var len:Number = Math.min(savedStacks.length, length);
+            for (var i:int = 0; i < len; ++i)
+                navigators[i].restoreViewData(savedStacks[i]);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override public function saveViewData():Object
+    {
+        var savedData:Object = super.saveViewData();
+        
+        if (navigators)
+        {
+            var childrenStates:Vector.<Object> = new Vector.<Object>();
+            
+            for (var i:int = 0; i < navigators.length; ++i)
+                childrenStates.push(navigators[i].saveViewData());
+            
+            if (!savedData)
+                savedData = {};
+            
+            savedData.selectedIndex = selectedIndex;
+            savedData.childrenStates = childrenStates;
+        }
+        
+        return savedData;
+    }
+    
+    /**
+     *  @private
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -700,7 +774,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     [Bindable("change")]
     [Bindable("valueCommit")]    
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function get selectedIndex():int
     {
@@ -709,9 +783,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         return _selectedIndex;
     }
+    
     /**
      * @private
      */
+    // TODO (chiedozi): Follow ListBase setSelectedIndex pattern
     public function set selectedIndex(value:int):void
     {
         var cancelIndexChange:Boolean = false;
@@ -730,22 +806,25 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
 //        if (activeView && !canRemoveCurrentView())
 //            cancelIndexChange = true;
         
-        if (hasEventListener(IndexChangeEvent.CHANGING))
+        if (initialized)
         {
-            var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGING, false, true);
-            e.oldIndex = _selectedIndex;
-            e.newIndex = value;
+            if (hasEventListener(IndexChangeEvent.CHANGING))
+            {
+                var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGING, false, true);
+                e.oldIndex = _selectedIndex;
+                e.newIndex = value;
+                
+                if (!dispatchEvent(e))
+                    cancelIndexChange = true;
+            }
             
-            if (!dispatchEvent(e))
-                cancelIndexChange = true;
-        }
-        
-        // If the active view's REMOVING event or the navigator's
-        // CHANGING event was canceled, prevent the index change
-        if (cancelIndexChange)
-        {
-            _proposedSelectedIndex = NO_PROPOSED_SELECTION;
-            return;
+            // If the active view's REMOVING event or the navigator's
+            // CHANGING event was canceled, prevent the index change
+            if (cancelIndexChange)
+            {
+                _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+                return;
+            }
         }
         
         _proposedSelectedIndex = value;
@@ -759,7 +838,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //----------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function get length():int
     {
@@ -770,7 +849,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function addItem(item:Object):void
     {
@@ -784,7 +863,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function addItemAt(item:Object, index:int):void
     {
@@ -804,7 +883,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function getItemAt(index:int, prefetch:int = 0):Object
     {
@@ -819,7 +898,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function getItemIndex(item:Object):int
     {
@@ -838,7 +917,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function removeAll():void
     {
@@ -847,7 +926,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function removeItemAt(index:int):Object
     {
@@ -865,7 +944,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function setItemAt(item:Object, index:int):Object
     {
@@ -899,7 +978,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function toArray():Array
     {
