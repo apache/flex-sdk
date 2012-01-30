@@ -6687,7 +6687,7 @@ public class UIComponent extends FlexSprite
             applyComputedTransform();
         }
         
-        if(_maintainProjectionCenter)
+        if (_maintainProjectionCenter)
         {
             var pmatrix:PerspectiveProjection = super.transform.perspectiveProjection;
             if(pmatrix != null)
@@ -9809,7 +9809,7 @@ public class UIComponent extends FlexSprite
         assignTransformMatrices();
         super.transform.colorTransform = value.colorTransform;
         super.transform.perspectiveProjection = _transform.perspectiveProjection;
-        if(maintainProjectionCenter)
+        if (maintainProjectionCenter)
             invalidateDisplayList(); 
     }
 
@@ -9826,7 +9826,7 @@ public class UIComponent extends FlexSprite
             else if (event.property == "perspectiveProjection")
             {
                 super.transform.perspectiveProjection = _transform.perspectiveProjection;
-                if(maintainProjectionCenter)
+                if (maintainProjectionCenter)
                     invalidateDisplayList(); 
             }
             else if (event.property == "colorTransform")
@@ -9862,15 +9862,15 @@ public class UIComponent extends FlexSprite
         return (_layoutFeatures != null)? _layoutFeatures.offsets:null;
     }
 
-
     /**
      * @private
      */
     private var _maintainProjectionCenter:Boolean = false;
     
     /**
-     * When true, the component will keep its projection matrix centered on the middle of its bounding box.  If no projection matrix is defined
-     * on the component, one will be added automatically.
+     *  When true, the component will keep its projection matrix centered on the
+     *  middle of its bounding box.  If no projection matrix is defined on the
+     *  component, one will be added automatically.
      */
     public function set maintainProjectionCenter(value:Boolean):void
     {
@@ -9888,7 +9888,6 @@ public class UIComponent extends FlexSprite
     {
         return _maintainProjectionCenter;
     }
-
     
     /**
      *  The transform matrix that is used to calculate the component's layout relative to its siblings. This matrix
@@ -9924,6 +9923,35 @@ public class UIComponent extends FlexSprite
             invalidateTransform();
             invalidateParentSizeAndDisplayList();
         }
+    }
+
+    /**
+     *  Similarly to the layoutMatrix property, sets the layout Matrix, but
+     *  doesn't trigger a layout pass. 
+     */
+    public function setLayoutMatrix(value:Matrix):void
+    {
+        if (_layoutFeatures == null)
+        {
+            super.transform.matrix = value;
+        }
+        else
+        {
+            _layoutFeatures.layoutMatrix = value;
+            invalidateTransform(false /*triggerPropertyInvalidation*/);
+        }
+    }
+
+    /**
+     *  Similarly to the layoutMatrix3D property, sets the layout Matrix3D, but
+     *  doesn't trigger a layout pass. 
+     */
+    public function setLayoutMatrix3D(value:Matrix3D):void
+    {
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
+        _layoutFeatures.layoutMatrix3D = value;
+        invalidateTransform(false /*triggerPropertyInvalidation*/);
     }
 
     /**
