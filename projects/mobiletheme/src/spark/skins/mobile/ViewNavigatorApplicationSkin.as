@@ -95,6 +95,14 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
         addChild(navigator);
     }
     
+	/**
+	 *  @private
+	 */
+	override public function validateEstimatedSizesOfChildren():void
+	{		
+		navigator.setEstimatedSize(estimatedWidth, estimatedHeight);
+	}
+	
     /**
      *  @private
      */
