@@ -512,6 +512,11 @@ public class EffectInstance extends EventDispatcher implements IEffectInstance
     //
     //--------------------------------------------------------------------------
 
+    public function seek(seekTime:Number):void
+    {
+        // Nothing to do for non-animated effects
+    }
+
     /**
      *  @copy mx.effects.IEffectInstance#initEffect()
      */
