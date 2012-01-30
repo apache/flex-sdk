@@ -85,7 +85,9 @@ public class SetProperty extends OverrideBase
     private static const RELATED_PROPERTIES:Object =
     {
         explicitWidth: [ "percentWidth" ],
-        explicitHeight: [ "percentHeight" ]
+        explicitHeight: [ "percentHeight" ],
+        percentWidth: [ "explicitWidth" ],
+        percentHeight: [ "explicitHeight" ]
     };
 
     //--------------------------------------------------------------------------
