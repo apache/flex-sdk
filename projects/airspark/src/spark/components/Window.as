@@ -2695,6 +2695,9 @@ public class Window extends SkinnableContainer implements IWindow
      */
     private function window_resizeHandler(event:NativeWindowBoundsEvent):void
     {
+        if (stage == null)
+            return;
+        
         invalidateDisplayList();
 
         var dispatchWidthChangeEvent:Boolean = (bounds.width != stage.stageWidth);
