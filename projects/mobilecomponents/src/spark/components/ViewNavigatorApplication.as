@@ -754,6 +754,9 @@ package spark.components
                 
                 navigatorProperties = newNavigatorProperties;
                 navigator.landscapeOrientation = landscapeOrientation;
+                
+                // Set the stage focus to the navigator
+                systemManager.stage.focus = navigator;
             }
         }
         
