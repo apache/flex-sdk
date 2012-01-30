@@ -1,11 +1,16 @@
 package mx.graphics
 {
-    
+
 import flash.display.GradientType;
 import flash.display.Graphics;
-import flash.geom.Rectangle;
-import mx.core.mx_internal;
+import flash.display.GraphicsGradientFill;
+import flash.display.GraphicsStroke;
 import flash.geom.Matrix;
+import flash.geom.Rectangle;
+
+import mx.core.mx_internal;
+
+use namespace mx_internal; 
     
 /**
  *  The RadialGradientStroke class lets you specify a gradient filled stroke.
@@ -22,7 +27,7 @@ import flash.geom.Matrix;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class RadialGradientStroke extends GradientStroke implements IStroke
+public class RadialGradientStroke extends GradientStroke
 {
     /**
      *  Constructor.
@@ -155,7 +160,7 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
         {
             _focalPointRatio = value;
             
-            mx_internal::dispatchGradientChangedEvent("focalPointRatio",
+            dispatchGradientChangedEvent("focalPointRatio",
                                                       oldValue, value);
         }
     }
@@ -204,7 +209,7 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
         if (value != oldValue && !compoundTransform)
         {
             _scaleY = value;
-            mx_internal::dispatchGradientChangedEvent("scaleY", oldValue, value);
+            dispatchGradientChangedEvent("scaleY", oldValue, value);
         }
     }
     
@@ -217,7 +222,7 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
     /**
      *  @private
      */
-    public function apply(g:Graphics):void
+    override public function apply(g:Graphics):void
     {
         // No-op. Need to deprecate. Was never implemented for this class
     }
@@ -233,45 +238,66 @@ public class RadialGradientStroke extends GradientStroke implements IStroke
 	private static var commonMatrix:Matrix = new Matrix();
 
     /**
-     *  Draws the stroke. 
-     *  
-     *  @param g The graphics context where the stroke is drawn.
-     *  
-     *  @param rc 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @private 
      */
-    public function draw(g:Graphics, rc:Rectangle):void
+    override public function draw(g:Graphics, rc:Rectangle):void
     {
         g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
         
+        calculateTransformationMatrix(rc, commonMatrix); 
+                 
+        g.lineGradientStyle(GradientType.RADIAL, colors,
+                            alphas, ratios, commonMatrix, 
+                            spreadMethod, interpolationMethod, 
+                            focalPointRatio);                       
+    }
+    
+    /**
+     *  @private
+     */
+    override public function generateGraphicsStroke(rect:Rectangle):GraphicsStroke
+    {
+        // The parent class sets the gradient stroke properties common to 
+        // LinearGradientStroke and RadialGradientStroke 
+        var graphicsStroke:GraphicsStroke = super.generateGraphicsStroke(rect);
+         
+        if (graphicsStroke)
+        {
+            // Set other properties specific to this RadialGradientStroke  
+            GraphicsGradientFill(graphicsStroke.fill).type = GradientType.RADIAL; 
+            calculateTransformationMatrix(rect, commonMatrix);
+            GraphicsGradientFill(graphicsStroke.fill).matrix = commonMatrix; 
+            GraphicsGradientFill(graphicsStroke.fill).focalPointRatio = focalPointRatio;
+            
+        }
+        
+        return graphicsStroke; 
+    } 
+    
+    /**
+     *  @private
+     *  Calculates this RadialGradientStroke's transformation matrix 
+     */
+    private function calculateTransformationMatrix(rect:Rectangle, matrix:Matrix):void
+    {
         if (!compoundTransform)
         {
-	        var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
-	        var h:Number = !isNaN(scaleY) ? scaleY : rc.height;
-	        var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
-	        var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
-	        
-	        commonMatrix.createGradientBox(w, h, 
-	                                 mx_internal::rotationInRadians,
-	                                 bX, bY);   
+            var w:Number = !isNaN(scaleX) ? scaleX : rect.width;
+            var h:Number = !isNaN(scaleY) ? scaleY : rect.height;
+            var bX:Number = !isNaN(x) ? x + rect.left : rect.left;
+            var bY:Number = !isNaN(y) ? y + rect.top : rect.top;
+            
+            matrix.createGradientBox(w, h, rotationInRadians,
+                bX, bY);   
         }             
         else
         {
-        	commonMatrix.identity();
-        	commonMatrix.scale (rc.width / 1638.4, rc.height / 1638.4);
-	 		commonMatrix.translate(rc.left, rc.top);
-	 		commonMatrix.concat(compoundTransform.matrix);
+            matrix.identity();
+            matrix.scale (rect.width / 1638.4, rect.height / 1638.4);
+            matrix.translate(rect.left, rect.top);
+            matrix.concat(compoundTransform.matrix);
         }   
-                 
-        g.lineGradientStyle(GradientType.RADIAL, mx_internal::colors,
-                            mx_internal::alphas, mx_internal::ratios,
-                            commonMatrix, spreadMethod,
-                            interpolationMethod, focalPointRatio);                       
     }
     
 }
