@@ -321,6 +321,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     //--------------------------------------------------------------------------
     
     /**
+     *  Class-global flag set by Design View in Builder to always display 
+     *  bitmaps instead of native StageText components.
+     */
+    mx_internal static var alwaysShowProxyImage:Boolean = false;
+    
+    /**
      *  A reference to the ActiveWindowManager is necessary for detecting when a
      *  popup is displayed. If that popup obscures any StyleableStageText, the
      *  StageText within needs to be hidden so it doesn't draw on top of the
@@ -354,7 +360,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
      */
     mx_internal static var androidHeightMultiplier:Number = 1.15;
     private static const isAndroid:Boolean = Capabilities.version.indexOf("AND") == 0;
-
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -466,13 +472,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var textImage:Bitmap = null;
     private var showTextImage:Boolean = false;
     private var numEffectsRunning:int = 0;
-    
-    /**
-     *  DesignView need to always display a bitmap instead of a StageText so it
-     *  can draw its adornments and prevent users from interacting with the
-     *  component.
-     */
-    private var _alwaysShowProxyImage:Boolean = false;
     
     /**
      *  Because StageText exists outside of the display hierarchy, its visiblity
@@ -1307,9 +1306,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             {
                 // If alwaysShowProxyImage is set, don't dispose the image.
                 // We shouldn't get here in this case; this is just a backstop.
-                if (!_alwaysShowProxyImage)
+                if (!alwaysShowProxyImage)
                     disposeProxyImage();
                 
+                // assignFocus doesn't bring up the soft keyboard. We need to
+                // ask for it.
+                requestSoftKeyboard();
                 stageText.assignFocus();
             }
         }
@@ -1662,27 +1664,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     }
     
     /**
-     *  Flag to always show a bitmap image of the StageText instead of the
-     *  StageText itself. Used by DesignView to prevent users from interacting
-     *  with the stage text and to allow DesignView adornments to be drawn over
-     *  StageText-based componentry.
-     */
-    mx_internal function get alwaysShowProxyImage():Boolean
-    {
-        return _alwaysShowProxyImage;
-    }
-    
-    mx_internal function set alwaysShowProxyImage(value:Boolean):void
-    {
-        _alwaysShowProxyImage = value;
-        
-        if (_alwaysShowProxyImage)
-            createProxyImage();
-        else
-            disposeProxyImage();
-    }
-        
-    /**
      *  If a StageText is visible, this will capture a bitmap copy of what it is
      *  displaying. This includes any text visible in the StageText and may
      *  include the text insertion cursor if it is visible at the time of the
@@ -1783,7 +1764,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             if (form.focusManager != focusManager)
                 createProxyImage();
                 // If alwaysShowProxyImage is set, don't dispose the image.
-            else if (!_alwaysShowProxyImage)
+            else if (!alwaysShowProxyImage)
                 disposeProxyImage();
         }
     }
@@ -2025,7 +2006,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         //  Forward the focus event to the StageText. The focusedStageText flag
         //  is modified by the StageText's focus event handlers, not this one.
         if (stageText != null && focusedStageText != stageText && effectiveEnabled)
+        {
+            requestSoftKeyboard();
             stageText.assignFocus();
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -2175,7 +2159,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             // The last effect affecting the StageText to end causes us to put
             // the live StageText back and remove the bitmap.
             // If alwaysShowProxyImage is set, don't dispose the image.
-            if (--numEffectsRunning == 0 && !_alwaysShowProxyImage)
+            if (--numEffectsRunning == 0 && !alwaysShowProxyImage)
             {
                 // The effect may have played while a popup is open. If so, we
                 // need to make sure the proxy image stays.
@@ -2265,6 +2249,9 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             updateViewPort();
         
         registerStageTextListeners();
+        
+        if (alwaysShowProxyImage)
+            createProxyImage();
         
         invalidateAncestorsVisibleFlag = true;
         invalidateEffectiveEnabledFlag = true;
