@@ -26,6 +26,7 @@ package spark.automation.delegates.components
 	
 	import spark.automation.delegates.components.supportClasses.SparkDropDownListBaseAutomationImpl;
 	import spark.components.ComboBox;
+	import spark.components.RichEditableText;
 	import spark.events.TextOperationEvent;
 	
 	use namespace mx_internal;
@@ -186,7 +187,7 @@ package spark.automation.delegates.components
 					}
 					case Keyboard.DELETE:
 					{
-						return sparkComboBox.textInput.textDisplay.replayAutomatableEvent(event);
+						return RichEditableText(sparkComboBox.textInput.textDisplay).replayAutomatableEvent(event);
 					}
 					default:
 					{
