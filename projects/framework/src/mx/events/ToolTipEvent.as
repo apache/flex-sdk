@@ -22,6 +22,11 @@ import mx.core.IToolTip;
  *
  *  @see mx.managers.ToolTipManager
  *  @see mx.core.UIComponent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ToolTipEvent extends Event
 {
@@ -55,6 +60,11 @@ public class ToolTipEvent extends Event
 	 *  </table>
 	 *
      *  @eventType toolTipCreate
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TOOL_TIP_CREATE:String = "toolTipCreate";
 
@@ -80,6 +90,11 @@ public class ToolTipEvent extends Event
 	 *  </table>
 	 *
      *  @eventType toolTipEnd
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TOOL_TIP_END:String = "toolTipEnd";
 
@@ -105,6 +120,11 @@ public class ToolTipEvent extends Event
 	 *  </table>
 	 *
      *  @eventType toolTipHide
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TOOL_TIP_HIDE:String = "toolTipHide";
 
@@ -130,6 +150,11 @@ public class ToolTipEvent extends Event
 	 *  </table>
 	 *
      *  @eventType toolTipShow
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TOOL_TIP_SHOW:String = "toolTipShow";
 
@@ -155,6 +180,11 @@ public class ToolTipEvent extends Event
 	 *  </table>
 	 *
      *  @eventType toolTipShown
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TOOL_TIP_SHOWN:String = "toolTipShown";
 
@@ -180,6 +210,11 @@ public class ToolTipEvent extends Event
 	 *  </table>
 	 *
      *  @eventType toolTipStart
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const TOOL_TIP_START:String = "toolTipStart";
 
@@ -201,6 +236,11 @@ public class ToolTipEvent extends Event
 	 *  associated with the event can be prevented.
 	 *
 	 *  @param toolTip The ToolTip object to which this event applies.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ToolTipEvent(type:String, bubbles:Boolean = false,
 								 cancelable:Boolean = false,
@@ -225,6 +265,11 @@ public class ToolTipEvent extends Event
 	 *  The ToolTip object to which this event applies.
 	 *  This object is normally an instance of ToolTip object,
 	 *  but can be any UIComponent object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var toolTip:IToolTip;
 
