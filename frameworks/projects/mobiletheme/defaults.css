@@ -237,10 +237,9 @@ SpinnerListItemRenderer
 {
 	paddingTop : 18;
 	paddingBottom : 18;
-	paddingLeft : 45;
-	paddingRight : 45;
+	paddingLeft : 16;
+	paddingRight : 16;
 	fontSize : 27;
-	textAlign : "left";
 }
 
 SplitViewNavigator
@@ -448,10 +447,9 @@ global
 	{
 		paddingTop : 12;
 		paddingBottom : 12;
-		paddingLeft : 30;
-		paddingRight : 30;
+		paddingLeft : 8;
+		paddingRight : 8;
 		fontSize : 18;
-		textAlign : "left";
 	}
 	
     TextArea
@@ -548,10 +546,9 @@ global
 	{
 		paddingTop : 24;
 		paddingBottom : 24;
-		paddingLeft : 60;
-		paddingRight : 60;
+		paddingLeft : 24;
+		paddingRight : 24;
 		fontSize : 36;
-		textAlign : "left";
 	}
 	
     TextArea
