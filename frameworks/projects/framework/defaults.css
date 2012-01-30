@@ -34,7 +34,7 @@ global
     breakOpportunity: "auto";
 	buttonColor: #6F7777;
     cffHinting: "horizontalStem";
-	closeDuration: 250;
+	closeDuration: 50;
 	color: 0;
     columnCount: "auto";
     columnGap: 0;
