@@ -54,7 +54,29 @@ import spark.layouts.supportClasses.LayoutBase;
  *       The second and third rows each contains three items. </p></li>
  *  </ul>
  *  
- *  <p>You can create your own custom layout for the menu by creating your own layout class. </p>
+ *  <p>You can create your own custom layout for the menu by creating 
+ *  your own layout class.
+ *  By default, the spark.skins.mobile.ViewMenuSkin class defines 
+ *  the skin for the ViewMenu container. 
+ *  To apply a customized ViewMenuLayout class to the ViewMenu container, 
+ *  define a new skin class for the ViewMenu container. </p>
+ *
+ *  <p>The ViewMenuSkin class includes a definition for a Group 
+ *  container named <code>contentGroup</code>, as shown below:</p>
+ *
+ *  <pre>
+ *    &lt;s:Group id="contentGroup" left="0" right="0" top="3" bottom="2" 
+ *        minWidth="0" minHeight="0"&gt; 
+ *        &lt;s:layout&gt; 
+ *            &lt;s:ViewMenuLayout horizontalGap="2" verticalGap="2" id="contentGroupLayout" 
+ *                requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/&gt; 
+ *        &lt;/s:layout&gt; 
+ *    &lt;/s:Group&gt;</pre>
+ * 
+ *  <p>To apply your customized ViewMenuLayout class, your skin class 
+ *  should define a container named <code>contentGroup</code>. 
+ *  That container uses the <code>layout</code> property 
+ *  to specify your customized layout class. </p>
  *  
  *  @mxml 
  *  <p>The <code>&lt;s:ViewMenuLayout&gt;</code> tag inherits all of the tag 
@@ -71,6 +93,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *
  *  @see spark.components.ViewMenu
  *  @see spark.components.ViewMenuItem
+ *  @see spark.skins.mobile.ViewMenuSkin
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
