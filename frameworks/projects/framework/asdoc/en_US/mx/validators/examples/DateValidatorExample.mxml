@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate the DateValidator. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         import mx.controls.Alert;
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Model id="CheckModel">
-        <dateInfo>
-            <DOB>{dob.text}</DOB>
-        </dateInfo>
-    </mx:Model>
+    <fx:Declarations>
+        <fx:Model id="CheckModel">
+            <dateInfo>
+                <DOB>{dob.text}</DOB>
+            </dateInfo>
+        </fx:Model>
 
-    <mx:DateValidator source="{dob}" property="text" allowedFormatChars="/" 
-        trigger="{myButton}" triggerEvent="click" 
-        valid="Alert.show('Validation Succeeded!');"/>
+        <mx:DateValidator source="{dob}" property="text" allowedFormatChars="/" 
+                trigger="{myButton}" triggerEvent="click" 
+                valid="Alert.show('Validation Succeeded!');"/>
+    </fx:Declarations>
 
-    <mx:Panel title="DateValidator Example" width="75%" height="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-
-        <mx:Form>
+    <s:Panel title="DateValidator Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <mx:Form left="10" right="10" top="10" bottom="10">
             <mx:FormItem label="Enter date of birth (mm/dd/yyyy): ">
-                <mx:TextInput id="dob" width="100%"/>
+                <s:TextInput id="dob" width="100%"/>
             </mx:FormItem>
-
             <mx:FormItem >
-                <mx:Button id="myButton" label="Validate" />
+                <s:Button id="myButton" label="Validate" />
             </mx:FormItem>
         </mx:Form>
+    </s:Panel>
 
-    </mx:Panel>
-</mx:Application>
+</s:Application>
