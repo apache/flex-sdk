@@ -149,6 +149,10 @@ public class NameUtil
      *  If you need the package name as well, call the
      *  <code>getQualifiedClassName()</code> method in the flash.utils package.
      *  It will return a string such as <code>"mx.controls::Button"</code>.</p>
+     *
+     *  @param object The object.
+     *
+     *  @return The name of the specified object's class.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
