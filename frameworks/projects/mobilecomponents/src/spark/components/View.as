@@ -134,7 +134,7 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get active() : Boolean
+    public function get isActive():Boolean
     {
         return _active;
     }
@@ -142,7 +142,7 @@ public class View extends Group implements IDataRenderer
     /**
      * @private
      */
-    mx_internal function setActive(value:Boolean) : void
+    mx_internal function setActive(value:Boolean):void
     {
         if (_active != value)
         {
@@ -261,39 +261,6 @@ public class View extends Group implements IDataRenderer
      */
     public var navigator:ViewNavigator;
     
-    //----------------------------------
-    //  context
-    //----------------------------------
-    
-    private var _context:String = null;
-    
-    /**
-     *  The string that describes the context in which this view was
-     *  created.  This property is assigned to the <code>context</code>
-     *  parameter that is passed into <code>ViewNavigator.pushView()</code>.
-     * 
-     *  @default null
-     * 
-     *  @see spark.components.ViewNavigator
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get context():String
-    {
-        return _context;
-    }
-    
-    /**
-     *  @private
-     */
-    mx_internal function setContext(value:String):void
-    {
-        _context = value;
-    }
-        
     //--------------------------------------------------------------------------
     //
     //  UI Template Properties
@@ -332,7 +299,7 @@ public class View extends Group implements IDataRenderer
         _actionBarVisible = value;
         
         // Immediately request actionBar's visibility be toggled
-        if (active && navigator)
+        if (isActive && navigator)
         {
             if (_actionBarVisible)
                 navigator.showActionBar();
@@ -548,7 +515,7 @@ public class View extends Group implements IDataRenderer
 		_tabBarVisible = value;
 		
 		// Immediately request actionBar's visibility be toggled
-		if (active && navigator)
+		if (isActive && navigator)
 		{
             if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
             {
