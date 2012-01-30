@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HueShaderExample.mxml -->
+<s:Application name="HueShader"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
+
+    <s:Panel title="HueShader Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:Group blendMode="normal" horizontalCenter="0">
+            <s:Rect width="200" height="220">
+                <s:fill>
+                     <s:SolidColor color="0x33CC99" />
+                </s:fill>
+            </s:Rect>
+        </s:Group>
+        <s:Group id="group2" horizontalCenter="0">
+	    <s:BitmapImage source="@Embed('ks5792.jpg')" x="20" y="10"/>
+        </s:Group>
+        <s:Button label="Apply HueShader" click="group2.blendMode='hue'" 
+            x="15" y="265" />
+    </s:Panel>
+
+</s:Application>
