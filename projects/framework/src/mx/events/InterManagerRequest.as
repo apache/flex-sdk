@@ -18,7 +18,7 @@ import flash.events.Event;
  *  This is an event sent between application domains
  *  to notify trusted listeners about activity in a particular manager.
  */
-public class SandboxRootRequest extends Event
+public class InterManagerRequest extends Event
 {
     include "../core/Version.as";
 
@@ -46,7 +46,7 @@ public class SandboxRootRequest extends Event
      *  Ask the other ApplicationDomain to instantiate a manager in
 	 *  that ApplicationDomain (if it isn't already instantiated)
 	 *  so it is available to listen to subsequent
-	 *  SandboxRootRequests.
+	 *  InterManagerRequests.
 	 *  The name property is the name of the manager to instantiate.
      */
     public static const INIT_MANAGER_REQUEST:String = "initManagerRequest";
@@ -82,7 +82,7 @@ public class SandboxRootRequest extends Event
 	 *  @return None, but the value property can be modified
      *  to represent a return value of a method.
 	 */
-	public function SandboxRootRequest(type:String, bubbles:Boolean = false,
+	public function InterManagerRequest(type:String, bubbles:Boolean = false,
                                  cancelable:Boolean = false, 
 							     name:String = null, value:Object = null)
 	{
