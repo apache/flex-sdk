@@ -12,8 +12,10 @@
 package mx.effects.effectClasses
 {
 import flash.events.TimerEvent;
+import flash.system.ApplicationDomain;
 import flash.utils.Timer;
 
+import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.EffectInstance;
@@ -187,6 +189,8 @@ public class ParallelInstance extends CompositeEffectInstance
 	//
 	//--------------------------------------------------------------------------
 
+    private static var resizeEffectType:Class;
+    private static var resizeEffectLoaded:Boolean = false;
 	/**
 	 *  @private
 	 */
@@ -200,11 +204,26 @@ public class ParallelInstance extends CompositeEffectInstance
 		{
 			var compChild:CompositeEffectInstance = childSet[0] as CompositeEffectInstance;
 			
+            // Resize effects must run before Move effects for autoCenterTransform to 
+            // work correctly
+            if (!resizeEffectLoaded)
+            {
+                resizeEffectLoaded = true;
+                if (ApplicationDomain.currentDomain.hasDefinition("spark.effects.supportClasses.ResizeInstance"))
+                    resizeEffectType = Class(ApplicationDomain.currentDomain.
+                        getDefinition("spark.effects.supportClasses.ResizeInstance"));
+            }
+            if (resizeEffectType && (childSet[0] is resizeEffectType ||
+                (compChild != null && compChild.hasResizeInstance())))
+            {
+                // Remove item we just added to the end and place it at the beginning
+                childSets.unshift(childSets.pop());
+            }
 			// Check if the child is a Rotate and also check if it is a composite effect that has a Rotate
-			if (childSet[0] is RotateInstance || (compChild != null && compChild.hasRotateInstance()))
+            else if (childSet[0] is RotateInstance || (compChild != null && compChild.hasRotateInstance()))
 			{
-				childSets.pop();
-				childSets.unshift(childSet);
+                // Remove item we just added to the end and place it at the beginning
+                childSets.unshift(childSets.pop());
 			}
 		}
 	}
