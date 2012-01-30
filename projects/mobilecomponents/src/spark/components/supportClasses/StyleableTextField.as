@@ -11,6 +11,9 @@
 
 package spark.components.supportClasses
 {
+
+import flash.display.Bitmap;
+import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
@@ -29,6 +32,7 @@ import flash.text.TextFormatAlign;
 import flash.text.TextInteractionMode;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
+import flash.utils.Dictionary;
 
 import mx.core.DesignLayer;
 import mx.core.IVisualElement;
@@ -175,7 +179,19 @@ public class StyleableTextField extends TextField
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
+	override public function set width(value:Number): void
+	{
+		super.width = value;
+		
+		// If we're multiline we need to invalidate our size since our height
+		// may have changed
+		if (multiline) 
+		{
+			invalidateTightTextHeight = true;
+			invalidateTextSizeFlag = true;	
+		}
+	}
+
     public function get measuredTextSize():Point
     {
         // commit style to get an accurate measurement
@@ -185,7 +201,7 @@ public class StyleableTextField extends TextField
         {
             _measuredTextSize = new Point();
             invalidateTextSizeFlag = true;
-			invalidateBaselineBottomOffset = true;
+			invalidateTightTextHeight = true;
         }
         
         if (invalidateTextSizeFlag)
@@ -199,42 +215,42 @@ public class StyleableTextField extends TextField
             {
                 _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
                 _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
-                
-                return _measuredTextSize;
             }
-            
-            // when scaling, remove/add to stage for consistent measurement
-            var originalParent:DisplayObjectContainer = parent;
-            var index:int = parent.getChildIndex(this);
-            
-            // remove from display list
-            if (originalParent is UIComponent)
-                UIComponent(originalParent).$removeChild(this);
-            else
-                originalParent.removeChild(this);
-            
-            _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
-            _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
-            
-            // add to display list
-            if (originalParent is UIComponent)
-                UIComponent(originalParent).$addChildAt(this, index);
-            else
-                originalParent.addChildAt(this, index);
-            
-            // If we use device fonts, then the unscaled sizes are
-            // textWidth * scaleX / scaleY
-            // textHeight * scaleX / scaleY 
-            if (m.a != m.d)
-            {
-                var scaleFactor:Number = (m.a / m.d);
-                
-                // textIndent and gutter are also scaled
-                _measuredTextSize.x = Math.abs(_measuredTextSize.x * scaleFactor);
-                _measuredTextSize.y = Math.abs(_measuredTextSize.y * scaleFactor);
-            }
-            
-            invalidateTextSizeFlag = false;
+			else
+			{
+	            // when scaling, remove/add to stage for consistent measurement
+	            var originalParent:DisplayObjectContainer = parent;
+	            var index:int = parent.getChildIndex(this);
+	            
+	            // remove from display list
+	            if (originalParent is UIComponent)
+	                UIComponent(originalParent).$removeChild(this);
+	            else
+	                originalParent.removeChild(this);
+	            
+	            _measuredTextSize.x = textWidth + textIndent + TEXT_WIDTH_PADDING
+	            _measuredTextSize.y = textHeight + TEXT_HEIGHT_PADDING;
+	            
+	            // add to display list
+	            if (originalParent is UIComponent)
+	                UIComponent(originalParent).$addChildAt(this, index);
+	            else
+	                originalParent.addChildAt(this, index);
+	            
+	            // If we use device fonts, then the unscaled sizes are
+	            // textWidth * scaleX / scaleY
+	            // textHeight * scaleX / scaleY 
+	            if (m.a != m.d)
+	            {
+	                var scaleFactor:Number = (m.a / m.d);
+	                
+	                // textIndent and gutter are also scaled
+	                _measuredTextSize.x = Math.abs(_measuredTextSize.x * scaleFactor);
+	                _measuredTextSize.y = Math.abs(_measuredTextSize.y * scaleFactor);
+	            }
+			}
+			
+			invalidateTextSizeFlag = false;
         }
         
         return _measuredTextSize;
@@ -321,78 +337,96 @@ public class StyleableTextField extends TextField
     
 	//----------------------------------
 	//  Text alignment helpers
-	//----------------------------------
+	//----------------------------------	
 	/**
-	 *  Distance from the top edge of the containing text field to the text
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.0
-	 *  @productversion Flex 4.5
+	 *  @private
+	 *  The height of the first line of text to the baseline of the bottom line
+	 *  of text.  Handles both single line and multiline text. 
 	 */
-	public function get textTopOffset():Number
-	{
-		// FIXME mcho:  add ascentShift style
-		var ascentShift:Number = 3;
-		// Height of gutter and the baseline
-		return StyleableTextField.TEXT_HEIGHT_PADDING/2 + ascentShift;
-	}
-	
-	/**
-	 *  Distance from the bottom edge of the containing text field to the baseline 
-	 *  of the last line of text
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.0
-	 *  @productversion Flex 4.5
-	 */
-	public function get baselineBottomOffset():Number
+	private function get tightTextHeight() :Number
 	{
 		commitStyles();
 		
-		if (invalidateBaselineBottomOffset)
+		// figure out distance from text bottom to last baseline
+		if (invalidateTightTextHeight)
 		{
 			// getLineMetrics() returns strange numbers for an empty string,
 			// so instead we get the metrics for a non-empty string.
 			var isEmpty:Boolean = (text == "");
+			
 			if (isEmpty)
-				super.text = "Wj";
+				text = "Wj";
 			
 			var metrics:TextLineMetrics = getLineMetrics(0);
 			
-			if (isEmpty)
-				super.text = "";
-			
 			// bottom gutter and descent
-			_baselineBottomOffset = StyleableTextField.TEXT_HEIGHT_PADDING/2 + metrics.descent;	
+			var bottomOffset:Number = StyleableTextField.TEXT_HEIGHT_PADDING/2 + metrics.descent;	
 			if (numLines == 1) // account for the extra leading on single line text
-				_baselineBottomOffset += metrics.leading;
-
-			invalidateBaselineBottomOffset = false;
+				bottomOffset += metrics.leading;
+			
+			var topOffset:Number = getTextTopOffset(defaultTextFormat);
+			_tightTextHeight = measuredTextSize.y - topOffset - bottomOffset;
+			
+			if (isEmpty)
+				text = "";
+			
+			invalidateTightTextHeight = false;	
 		}
 		
-		return _baselineBottomOffset;
+		return _tightTextHeight;
 	}
-		
-
 	
 	/**
-	 *  Distance between textTopOffset and baselineBottomOffset.  Essentially
-	 *  the height of the first line of text to the baseline of the bottom line
-	 *  of text
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.1
-	 *  @playerversion AIR 2.0
-	 *  @productversion Flex 4.5
+	 *  @private
+	 *  Finds the distance from the top edge of the containing text field to the text for 
+	 *  a particular font, size, weight and style combination.  This value accounts for
+	 *  the difference between the metrics.ascent and the true top of the text within the 
+	 *  text field and the top gutter
 	 */
-	public function get textTopToLastBaselineHeight() :Number
+	private static function getTextTopOffset(textFormat:TextFormat):Number
 	{
-		return measuredTextSize.y - textTopOffset - baselineBottomOffset;
+		// try to find the top offset for the font, size, weight and style in our table
+		// we only store offets for unique font, size, weight and style combinations
+		// FIXME (mcho)  are there more properties that affect the top offset we should 
+		// take into account?
+		var key:String = textFormat.font + "_" + textFormat.size + "_" + textFormat.bold + "_" + textFormat.italic;
+		var topOffset:Number = textTopOffsetTable[key];
+		
+		// if we can't find the value in our table let's calculate it
+		if (isNaN(topOffset))
+		{
+			// create sample text field
+			var field:TextField = new TextField();
+			field.defaultTextFormat = textFormat;
+			field.embedFonts = isFontEmbedded(textFormat);
+			field.textColor = 0x000000; // make sure our text is black so it will show up against white
+			field.text = "T"; // use "T" as our standard
+			field.width = field.textWidth;
+			field.height = field.textHeight;
+			
+			// draw the field into a bitmap data - note default bg color of bitmapData is white.
+			var bitmapData:BitmapData = new BitmapData(field.width, field.height);
+			bitmapData.draw(field);
+			
+			// search vertically for the first non white pixel
+			var col:int = Math.round(bitmapData.width/2);
+			for (var i:int = 0; i < bitmapData.height; i++)
+			{
+				if (bitmapData.getPixel(col, i) != 0xFFFFFF)
+					break;
+			}
+			
+			if (i == bitmapData.height) 
+				topOffset = StyleableTextField.TEXT_HEIGHT_PADDING/2; // if we didn't find a non white pixel set top offset to top gutter
+			else
+				topOffset = i;
+			
+			// store the offset value in our look up table
+			textTopOffsetTable[key] = topOffset; 
+		}
+
+		return topOffset;
 	}
-	
-	
 	
 	
     //--------------------------------------------------------------------------
@@ -432,7 +466,7 @@ public class StyleableTextField extends TextField
         super.text = value;
         _isTruncated = false;
         invalidateTextSizeFlag = true;
-		invalidateBaselineBottomOffset = true;
+		invalidateTightTextHeight = true;
         
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
@@ -735,7 +769,7 @@ public class StyleableTextField extends TextField
         replaceText(selectionAnchorPosition, selectionActivePosition, text);
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateTextSizeFlag = true;
-		invalidateBaselineBottomOffset = true;
+		invalidateTightTextHeight = true;
     }
     
     /**
@@ -758,7 +792,7 @@ public class StyleableTextField extends TextField
         super.appendText(text);
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateTextSizeFlag = true;
-		invalidateBaselineBottomOffset = true;
+		invalidateTightTextHeight = true;
     }
     
     /**
@@ -891,7 +925,7 @@ public class StyleableTextField extends TextField
             // changed
             invalidateTextSizeFlag = true;
             invalidateBaselinePosition = true;
-			invalidateBaselineBottomOffset = true;
+			invalidateTightTextHeight = true;
         }
     }
     
@@ -1014,7 +1048,7 @@ public class StyleableTextField extends TextField
             _isTruncated = true;
             invalidateTextSizeFlag = true;
             invalidateBaselinePosition = true;
-			invalidateBaselineBottomOffset = true;
+			invalidateTightTextHeight = true;
             
             // Make sure all text is visible
             scrollH = 0;
@@ -1033,7 +1067,7 @@ public class StyleableTextField extends TextField
     /**
      *  @private
      */
-    private function isFontEmbedded(format:TextFormat):Boolean
+    private static function isFontEmbedded(format:TextFormat):Boolean
     {
         if (!embeddedFonts)
             embeddedFonts = Font.enumerateFonts();
@@ -1067,7 +1101,7 @@ public class StyleableTextField extends TextField
         if (!(event is TextOperationEvent))
         {
             invalidateTextSizeFlag = true;
-			invalidateBaselineBottomOffset = true;
+			invalidateTightTextHeight = true;
             
             var newEvent:TextOperationEvent = new TextOperationEvent(event.type);
             
@@ -1244,7 +1278,16 @@ public class StyleableTextField extends TextField
      */
     public function getLayoutBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
-        return height;
+		if (useTightTextBounds) 
+		{
+			// we want to return the text field height without the top and bottom offsets
+			// (measuredTextSize.y - tightTextHeight) gives us the sum of top and bottom offsets
+			return height - (measuredTextSize.y - tightTextHeight);
+		}
+		else
+		{
+			return height;
+		}
     }
     
     /**
@@ -1252,7 +1295,15 @@ public class StyleableTextField extends TextField
      */
     public function getLayoutBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
-        return width;
+		if (useTightTextBounds)
+		{
+			// return the text field width without the left and right gutters
+			return width - StyleableTextField.TEXT_WIDTH_PADDING;
+		}
+		else
+		{
+			return width;
+		}
     }
     
     /**
@@ -1260,15 +1311,34 @@ public class StyleableTextField extends TextField
      */
     public function getLayoutBoundsX(postLayoutTransform:Boolean=true):Number
     {
-        return x;
+		if (useTightTextBounds)
+		{
+			// return the x position of the text within the text field.  we calculate this value
+			// using text field's x, offset by the left gutter
+			return x + StyleableTextField.TEXT_WIDTH_PADDING/2;
+		}
+		else
+		{
+			return x;
+		}
     }
+	
     
     /**
      * @private
      */
     public function getLayoutBoundsY(postLayoutTransform:Boolean=true):Number
     {
-        return y;
+		if (useTightTextBounds)
+		{
+			// return the y position of the text within the text field.  we calculate this value
+			// using text field's y, offset by the text top offset
+			return y + getTextTopOffset(defaultTextFormat);
+		}
+		else
+		{
+			return y;
+		}
     }
     
     /**
@@ -1324,7 +1394,17 @@ public class StyleableTextField extends TextField
      */
     public function getPreferredBoundsHeight(postLayoutTransform:Boolean=true):Number
     {
-        return measuredTextSize.y;
+		if (useTightTextBounds)
+		{
+			// The height from the top of the text to the baseline of the
+			// last line of text.  This is the height used for positioning text 
+			// according to its baseline
+			return tightTextHeight;			
+		}
+		else
+		{
+			return measuredTextSize.y;
+		}
     }
     
     /**
@@ -1332,7 +1412,15 @@ public class StyleableTextField extends TextField
      */
     public function getPreferredBoundsWidth(postLayoutTransform:Boolean=true):Number
     {
-        return measuredTextSize.x;
+		if (useTightTextBounds)
+		{
+			// The measuredTextSize without the left and right gutters
+			return measuredTextSize.x - StyleableTextField.TEXT_WIDTH_PADDING;
+		}
+		else
+		{
+			return measuredTextSize.x;
+		}
     }
     
     /**
@@ -1356,17 +1444,46 @@ public class StyleableTextField extends TextField
      */
     public function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean=true):void
     {
-        this.x = x;
-        this.y = y;
+		if (useTightTextBounds)
+		{
+			// offset the positions by the left gutters and the top offset
+			this.x = x - StyleableTextField.TEXT_WIDTH_PADDING/2;
+			this.y = y - getTextTopOffset(defaultTextFormat);	
+		}
+		else
+		{
+			this.x = x;
+			this.y = y;
+		}
     }
     
     /**
      * @private
      */
     public function setLayoutBoundsSize(width:Number, height:Number, postLayoutTransform:Boolean=true):void
-    {
-        this.width = width;
-        this.height = height;
+    {	
+		// width
+		var newWidth:Number = width;
+		if (isNaN(newWidth))
+			newWidth = getPreferredBoundsWidth();
+		
+		// re-add the left and right gutters
+		if (useTightTextBounds)
+			newWidth += StyleableTextField.TEXT_WIDTH_PADDING;
+
+		this.width = newWidth;
+		
+		// height
+		var newHeight:Number = height;
+		if (isNaN(newHeight))
+			newHeight = getPreferredBoundsHeight();
+		
+		// re-add the top and bottom offsets.  (measuredTextSize.y - tightTextHeight) gives us 
+		// the sum of top and bottom offsets 
+		if (useTightTextBounds)
+			newHeight += (measuredTextSize.y - tightTextHeight);
+		
+		this.height = newHeight;		
     }
     
     /**
@@ -1794,6 +1911,11 @@ public class StyleableTextField extends TextField
     // Name of the style to use for determining the text color
     mx_internal var colorName:String = "color";
     
+	// Whether or not we want to size and position the text field based upon its 
+	// tight text bounds.  Use useTightTextBounds == true when you want precise
+	// text placement.
+	mx_internal var useTightTextBounds:Boolean = true;
+	
     private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
     
     private var invalidateStyleFlag:Boolean = true;
@@ -1803,7 +1925,14 @@ public class StyleableTextField extends TextField
     private var _isTruncated:Boolean = false;
     
     private static var embeddedFonts:Array;
-    
+
+
+	/**
+	 *  @private
+	 *  Table of text top offsets for different fonts, sizes, weights and styles
+	 */	
+	private static var textTopOffsetTable:Dictionary = new Dictionary();
+
     /**
      *  @private
      *  Whether this StyleableTextField needs to be measure its unscaled size
@@ -1828,12 +1957,12 @@ public class StyleableTextField extends TextField
 	/**
 	 *  @private
 	 */
-	private var invalidateBaselineBottomOffset:Boolean = true;
+	private var invalidateTightTextHeight:Boolean = true;
 	
 	/**
 	 *  @private
 	 */
-	private var _baselineBottomOffset:Number;
+	private var _tightTextHeight:Number;
     
     /**
      *  @private
