@@ -44,6 +44,7 @@ import flash.utils.getQualifiedClassName;
 
 import mx.core.EmbeddedFontRegistry;
 import mx.core.FlexSprite;
+import mx.core.IApplicationLoader;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -59,7 +60,6 @@ import mx.events.FocusRequest;
 import mx.events.MarshalEvent;
 import mx.events.ModalWindowRequest;
 import mx.events.PopUpRequest;
-import mx.events.ShowAlertRequest;
 import mx.events.SizeRequest;
 import mx.messaging.config.LoaderConfig;
 import mx.preloaders.DownloadProgressBar;
@@ -83,7 +83,6 @@ import mx.utils.NameUtil;
 import mx.utils.ObjectUtil;
 import mx.utils.SandboxUtil;
 import mx.events.ResizeEvent;
-
 
 // NOTE: Minimize the non-Flash classes you import here.
 // Any dependencies of SystemManager have to load in frame 1,
@@ -359,8 +358,6 @@ public class SystemManager extends MovieClip
 	 *  top-level means we are the highest level SystemManager
 	 *  for this stage.
 	 */
-	// VERSION_SKEW 
-	// TODODJL: still need this? change from private to mx_internal so SystemManagerProxy can change it
 	mx_internal var topLevel:Boolean = true;
 
 	/**
@@ -3166,8 +3163,7 @@ public class SystemManager extends MovieClip
 		}
 	}
 	
-	
-	/**
+ 	/**
 	 *  Override this function if you want to perform any logic
 	 *  when the application has finished initializing itself.
 	 */
@@ -3794,10 +3790,55 @@ public class SystemManager extends MovieClip
         
         var request:ModalWindowRequest = ModalWindowRequest.marshal(event);
             
+        if (!preProcessModalWindowRequest(request, this, getSandboxRoot()))
+            return;
+                        
         // Ensure a PopUpManager exists and dispatch the request it is
         // listening for.
         Singleton.getInstance("mx.managers::IPopUpManager");
         dispatchEvent(request);
+    }
+
+    /**
+     *  @private
+     * 
+     *  Calculate the visible rectangle of the requesting application in this
+     *  application. Forward the request to our parent to see this the rectangle
+     *  is further reduced. Continue up the parent chain until the top level
+     *  root parent is reached.
+     */  
+    private function getVisibleRectRequestHandler(event:Event):void
+    {
+        if (event is SandboxBridgeRequest)
+            return;
+        
+        var request:SandboxBridgeRequest = SandboxBridgeRequest.marshal(event);
+        var rect:Rectangle = Rectangle(request.data);
+        var owner:DisplayObject = sandboxBridgeGroup.getChildBridgeOwner(request.requestor);
+        var localRect:Rectangle;
+        
+        if (owner is IApplicationLoader)
+            localRect = IApplicationLoader(owner).getVisibleApplicationRect();
+        else
+        {
+            localRect = owner.getBounds(this);
+            var pt:Point = localToGlobal(localRect.topLeft);
+            localRect.x = pt.x;
+            localRect.y = pt.y;
+        }        
+           
+        rect = rect.intersection(localRect); // update rect
+        request.data = rect;
+        
+        // forward request 
+        if (useBridge())
+        { 
+        var bridge:IEventDispatcher = sandboxBridgeGroup.parentBridge;
+            request.requestor = bridge;
+            bridge.dispatchEvent(request);
+        }
+        
+        Object(event).data = request.data;           // update request
     }
 
 	//--------------------------------------------------------------------------
@@ -4205,6 +4246,12 @@ public class SystemManager extends MovieClip
 			break;
 		case "application":
 		    event["value"] = application;
+		    break;
+		case "isTopLevelRoot":
+		    event["value"] = isTopLevelRoot();
+		    break;
+	    case "getVisibleApplicationRect":
+	        event["value"] = getVisibleApplicationRect(); 
 		}
 	}
 	
@@ -4297,7 +4344,7 @@ public class SystemManager extends MovieClip
 	 * The system manager proxy has only one child that is a focus manager container.
 	 * Iterate thru the children until we find it.
 	 */
-	private function findFocusManagerContainer(smp:SystemManagerProxy):IFocusManagerContainer
+	mx_internal function findFocusManagerContainer(smp:SystemManagerProxy):IFocusManagerContainer
 	{
 		var children:IChildList = smp.rawChildren;
 		var numChildren:int = children.numChildren;
@@ -4348,6 +4395,7 @@ public class SystemManager extends MovieClip
         bridge.addEventListener(ModalWindowRequest.CREATE, modalWindowRequestHandler);
         bridge.addEventListener(ModalWindowRequest.SHOW, modalWindowRequestHandler);
         bridge.addEventListener(ModalWindowRequest.HIDE, modalWindowRequestHandler);
+        bridge.addEventListener(SandboxBridgeRequest.GET_VISIBLE_RECT, getVisibleRectRequestHandler);
 	}
 
 	/**
@@ -4375,6 +4423,7 @@ public class SystemManager extends MovieClip
         bridge.removeEventListener(ModalWindowRequest.CREATE, modalWindowRequestHandler);
         bridge.removeEventListener(ModalWindowRequest.SHOW, modalWindowRequestHandler);
         bridge.removeEventListener(ModalWindowRequest.HIDE, modalWindowRequestHandler);
+        bridge.removeEventListener(SandboxBridgeRequest.GET_VISIBLE_RECT, getVisibleRectRequestHandler);
 	}
 
 	/**
@@ -4629,6 +4678,39 @@ public class SystemManager extends MovieClip
 		return lastParent != null ? lastParent : DisplayObject(sm);
 	}
 	
+   /**
+     *  @inheritdoc
+     */  
+    public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
+    {
+        if (!bounds)
+        {
+            bounds = getBounds(DisplayObject(this));
+            
+            var s:Rectangle = screen;        
+            var pt:Point = new Point(bounds.x, bounds.y);
+            pt = localToGlobal(pt);
+            bounds.x = pt.x;
+            bounds.y = pt.y;
+            bounds.width = s.width;
+            bounds.height = s.height;
+        }
+        
+        // send a message to parent for their visible rect.
+        if (useBridge())
+        {
+            var bridge:IEventDispatcher = sandboxBridgeGroup.parentBridge;
+            var request:SandboxBridgeRequest = new SandboxBridgeRequest(SandboxBridgeRequest.GET_VISIBLE_RECT,
+                                                                    false, false,
+                                                                    bridge,
+                                                                    bounds);
+            bridge.dispatchEvent(request);
+            bounds = Rectangle(request.data);
+        }
+        
+        return bounds;
+    }
+ 
 	/**
 	 * @private
 	 * 
@@ -4850,6 +4932,72 @@ public class SystemManager extends MovieClip
 		dispatchEventToSandboxes(request);
 		// trace("<<removeEventListenerToSandboxes", this, type);
 	}
+
+    /**
+     *   @private
+     * 
+     *   @return true if the message should be processed, false if 
+     *   no other action is required.
+     */ 
+    private function preProcessModalWindowRequest(request:ModalWindowRequest, 
+                                                  sm:ISystemManager2,
+                                                  sbRoot:DisplayObject):Boolean
+    {
+        // should we process this message?
+        if (request.skip)
+        {
+            // skipping this sandbox, 
+            // but don't skip the next one.
+            request.skip = false;
+           
+            if (sm.useBridge())
+            {
+                var bridge:IEventDispatcher = sm.sandboxBridgeGroup.parentBridge;
+                request.requestor = bridge;
+                bridge.dispatchEvent(request);
+            }
+            return false;
+        }
+        
+        // if we are not the sandbox root, dispatch the message to the sandbox root.
+        if (sm != sbRoot)
+        {
+            var forwardRequest:Boolean = false;
+
+            // convert exclude component into a rectangle and forward to parent bridge.
+            if (request.type == ModalWindowRequest.CREATE ||
+                request.type == ModalWindowRequest.SHOW)
+            {
+                var exclude:IApplicationLoader = sm.sandboxBridgeGroup.getChildBridgeOwner(request.requestor) 
+                                                 as IApplicationLoader;
+                var excludeRect:Rectangle = IApplicationLoader(exclude).getVisibleApplicationRect();
+                request.data = excludeRect;
+                forwardRequest = true;
+            }
+            else if (request.type == ModalWindowRequest.HIDE)
+                forwardRequest = true;
+                
+            if (forwardRequest)
+            {
+                bridge = sm.sandboxBridgeGroup.parentBridge;
+                request.requestor = bridge;
+         
+                // The HIDE request does not need to be processed by each
+                // application, so dispatch it directly to the sandbox root.       
+                if (request.type == ModalWindowRequest.HIDE)
+                    sbRoot.dispatchEvent(request);
+                else 
+                    bridge.dispatchEvent(request);
+                return false;
+            }
+        }
+
+        // skip aftering sending the message over a bridge.
+        request.skip = false;
+                
+        return true;
+    }    
+    
 
 	private function sandboxMouseListener(event:Event):void
 	{
