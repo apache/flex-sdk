@@ -1695,21 +1695,16 @@ public class BarSeries extends Series implements IStackable2, IBar
                 {
                     stackedValue = 0;
                 }
-                if (xValue == 0)
-                {
-                    chartItem.xValue = 0;
-                    chartItem.minValue = 0;
-                }
-                else
-                {
-                    chartItem.xValue = xValue + stackedValue;
-                    chartItem.minValue = stackedValue;
-                }
-                xValue += stackedValue;
-                stackedYValueDictionary[yValue] = xValue;
-                chartItem.yValue = yValue;
-                maxValue = Math.max(maxValue,xValue);
-                
+				if (xValue != 0)
+				{
+					chartItem.xValue = xValue + stackedValue;
+					chartItem.minValue = stackedValue;
+					
+					xValue += stackedValue;
+					stackedYValueDictionary[yValue] = xValue;
+					chartItem.yValue = yValue;
+					maxValue = Math.max(maxValue,xValue);
+				}
                 i++;
                 cursor.moveNext();              
             }           
@@ -1816,8 +1811,7 @@ public class BarSeries extends Series implements IStackable2, IBar
                 }
                 if (xValue == 0)
                 {
-                    chartItem.xValue = 0;
-                    chartItem.minValue = 0;
+                    // Do nothing
                 }
                 else
                 {
@@ -1825,7 +1819,6 @@ public class BarSeries extends Series implements IStackable2, IBar
                     chartItem.minValue = stackedValue;
                 }
                 xValue += stackedValue;
-                //chartItem.minValue = stackedValue;
                 if (xValue >= 0)
                 {
                     stackedPosYValueDictionary[yValue] = xValue;
@@ -1836,8 +1829,7 @@ public class BarSeries extends Series implements IStackable2, IBar
                     stackedNegYValueDictionary[yValue] = xValue;
                     minValue = Math.min(minValue,xValue);
                 }
-                chartItem.yValue = yValue;
-                //chartItem.xValue = xValue;                
+                chartItem.yValue = yValue;               
                 i++;
                 cursor.moveNext();              
             }           
