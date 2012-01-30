@@ -15,7 +15,6 @@ import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 
-import mx.core.ContainerCreationPolicy;
 import mx.core.ISelectableList;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
@@ -106,10 +105,7 @@ use namespace mx_internal;
  *  the component.</p>
  * 
  *  <p>The contents of a child view navigator is destroyed when it is deactivate, 
- *  and dynamically created when activated.  
- *  This logic can be altered by accessing the <code>creationPolicy</code> property 
- *  of the TabbedViewNavigator and the <code>destructionPolicy</code> property 
- *  of its child navigators and active View.</p>
+ *  and dynamically created when activated.</p>  
  * 
  *  @see spark.components.View
  *  @see spark.components.ViewNavigator
@@ -262,35 +258,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     override public function get activeView():View
     {
-        if (activeNavigator)
-            return activeNavigator.activeView;
+        if (selectedNavigator)
+            return selectedNavigator.activeView;
         
         return null;
-    }
-    
-    //----------------------------------
-    //  activeNavigator
-    //----------------------------------
-    
-    [Bindable("change")]
-    /**
-     *  The active view navigator for the TabbedViewNavigator.  
-     *  Only one view navigator can be active at a time.  
-     *  The active view navigator can be set by changing the 
-     *  <code>selectedIndex</code> property or by selecting 
-     *  a tab in the TabBar control.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    public function get activeNavigator():ViewNavigatorBase
-    {
-        if (!navigators || length == 0 || selectedIndex < 0) 
-            return null;
-        
-        return navigators[selectedIndex];
     }
     
     //----------------------------------
@@ -302,8 +273,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */ 
     override mx_internal function get exitApplicationOnBackKey():Boolean
     {
-        if (activeNavigator)
-            return activeNavigator.exitApplicationOnBackKey;
+        if (selectedNavigator)
+            return selectedNavigator.exitApplicationOnBackKey;
 
         return super.exitApplicationOnBackKey;
     }
@@ -314,6 +285,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     private var _maintainNavigationStack:Boolean = true;
     
     /**
+     *  @private 
      *  Specifies whether the navigation stack of the view navigator
      *  should remain intact when the view navigator is deactivated.
      *  If <code>true</code>, when reactivated the view history
@@ -330,7 +302,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get maintainNavigationStack():Boolean
+    mx_internal function get maintainNavigationStack():Boolean
     {
         return _maintainNavigationStack;
     }
@@ -338,7 +310,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */ 
-    public function set maintainNavigationStack(value:Boolean):void
+    mx_internal function set maintainNavigationStack(value:Boolean):void
     {
         _maintainNavigationStack = value;
     }
@@ -355,7 +327,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  of this TabbedViewNavigator.
      *  Only one view navigator can be active at a time.
      *  You can reference the active view navigator by using
-     *  the <code>activeNavigator</code> property.
+     *  the <code>selectedNavigator</code> property.
      * 
      *  <p>Changing this property causes the current view navigator to be removed,
      *  and sets the <code>selectedIndex</code> to 0. 
@@ -426,6 +398,31 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         // Notify listeners that the collection changed
         internalDispatchEvent(CollectionEventKind.RESET);
+    }
+    
+    //----------------------------------
+    //  selectedNavigator
+    //----------------------------------
+    
+    [Bindable("change")]
+    /**
+     *  The selected view navigator for the TabbedViewNavigator.  
+     *  Only one view navigator can be active at a time.  
+     *  The active view navigator can be set by changing the 
+     *  <code>selectedIndex</code> property or by selecting 
+     *  a tab in the TabBar control.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */    
+    public function get selectedNavigator():ViewNavigatorBase
+    {
+        if (!navigators || length == 0 || selectedIndex < 0) 
+            return null;
+        
+        return navigators[selectedIndex];
     }
     
     //--------------------------------------------------------------------------
@@ -528,8 +525,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */ 
     override mx_internal function backKeyUpHandler():void
     {
-        if (activeNavigator)
-            activeNavigator.backKeyUpHandler();    
+        if (selectedNavigator)
+            selectedNavigator.backKeyUpHandler();    
     }
     
     /**
@@ -592,7 +589,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     override mx_internal function canRemoveCurrentView():Boolean
     {
-        return (!activeNavigator || activeNavigator.canRemoveCurrentView());
+        return (!selectedNavigator || selectedNavigator.canRemoveCurrentView());
     }
     
     /**
@@ -630,12 +627,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         navigator.setActive(false);
         
         startTrackingUpdates(navigator);
-
-        // TODO (chiedozi): Consider moving this to ViewNavigator or refactoring
-        // Create the top view of the navigator if the creationPolicy
-        // property indicates that all children should be created.
-        if (creationPolicy == ContainerCreationPolicy.ALL)
-            navigator.createTopView();
     }
     
     /**
@@ -822,9 +813,17 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
 
         tabBarVisibilityChanged = false;
     }
-    
+
     /**
-     *  @private
+     *  Creates the effect to play when the TabBar control is shown.
+     *  The produced effect is responsible for animating both the 
+     *  TabBar and the content group of the navigator.
+     * 
+     *  <p>TabbedViewNavigator will expect the <code>includeInLayout</code>
+     *  and <code>visible</code> properties of the tabBar to be true
+     *  after this effect is run.</p>
+     * 
+     *  @return An effect to play when the TabBar control is hidden.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -837,7 +836,15 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  @private
+     *  Creates the effect to play when the TabBar control is hidden.
+     *  The produced effect is responsible for animating both the 
+     *  TabBar and the content group of the navigator.
+     * 
+     *  <p>TabbedViewNavigator will expect the <code>includeInLayout</code>
+     *  and <code>visible</code> properties of the tabBar to be false
+     *  after this effect is run.</p>
+     * 
+     *  @return An effect to play when the TabBar control is hidden.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1010,7 +1017,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
-     *  Redispatches the child navigators COMPLETE event.
+     *  Redispatches the child navigator's COMPLETE event.
      */ 
     private function navigator_viewChangeCompleteHandler(event:Event):void
     {
@@ -1047,7 +1054,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function tabBarRenderer_clickHandler(event:MouseEvent):void
+    mx_internal function tabBarRenderer_clickHandler(event:MouseEvent):void
     {
         // lastSelectedIndex is used instead of tabBar.selectedIndex
         // because by the time this method is called, the tabBar's
@@ -1057,8 +1064,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         if ((event.target is IItemRenderer) && 
             (IItemRenderer(event.target).itemIndex == lastSelectedIndex))
         {
-            if (activeNavigator is ViewNavigator)
-                ViewNavigator(activeNavigator).popToFirstView();
+            if (selectedNavigator is ViewNavigator)
+                ViewNavigator(selectedNavigator).popToFirstView();
         }
     }
     
@@ -1296,7 +1303,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    // FIXME (chiedozi): Do a separate code path.  Should only dispatch value_commit.
     public function addItemAt(item:Object, index:int):void
     {
         // FIXME (chiedozi): Resource manager
@@ -1431,8 +1437,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         var len:int = length;
         
         // Deactive the active navigator and its view
-        if (activeNavigator)
-            activeNavigator.setActive(false);
+        if (selectedNavigator)
+            selectedNavigator.setActive(false);
         
         for (var i:int = 0; i < len; i++)
         {
