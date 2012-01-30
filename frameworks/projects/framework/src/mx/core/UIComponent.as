@@ -10103,7 +10103,8 @@ public class UIComponent extends FlexSprite
             textFormat.thickness = _inheritingStyles.fontThickness;
             
             textFormat.useTLF =
-                getTextFieldClassName() == "mx.core::UITLFTextField";
+                getTextFieldClassName() == "mx.core::UITLFTextField" ||
+                getTextInputClassName() == "mx.controls::TLFTextInput";
 
             cachedTextFormat = textFormat;
         }
@@ -11361,6 +11362,21 @@ public class UIComponent extends FlexSprite
         return getQualifiedClassName(c);
     }
 
+    /**
+     *  @private
+     *  Returns either "mx.core::TextInput" or "mx.core::TLFTextInput",
+     *  based on the version number and the textInputClass style.
+     */
+    private function getTextInputClassName():String
+    {
+        var c:Class = getStyle("textInputClass");
+        
+        if (!c || FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            return "mx.core::TextInput";
+        
+        return getQualifiedClassName(c);
+    }
+    
     /**
      *  Creates the object using a given moduleFactory.
      *  If the moduleFactory is null or the object
