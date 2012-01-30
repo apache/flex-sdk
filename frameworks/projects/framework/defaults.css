@@ -410,6 +410,7 @@ CheckBox
 	horizontalGap: 3;
 	icon: ClassReference("mx.skins.spark.CheckBoxSkin");
 	labelVerticalOffset: 1;
+	layoutDirection: "ltr";
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
 	paddingBottom: -1;
@@ -1577,8 +1578,9 @@ VDividedBox
 
 VideoDisplay
 {
-	borderStyle: "none";
-/*	contentBackgroundColor: #000000;  in spark.css */
+    borderStyle: "none";
+/*    contentBackgroundColor: #000000;  in spark.css */
+    layoutDirection: "ltr";
 }
 
 /*
