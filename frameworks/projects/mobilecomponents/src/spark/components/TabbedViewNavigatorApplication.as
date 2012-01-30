@@ -16,7 +16,9 @@ import flash.events.Event;
 import flash.events.InvokeEvent;
 import flash.events.KeyboardEvent;
 
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 
 import spark.components.supportClasses.ViewNavigatorApplicationBase;
 import spark.components.supportClasses.ViewNavigatorBase;
@@ -224,6 +226,9 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
 		// and stage_resizeHandler.
 		if (tabbedNavigator && tabbedNavigator.activeView)
 		{
+            // Set the stage focus to the navigator's active view
+            tabbedNavigator.updateFocus();
+            
 			if (!tabbedNavigator.activeView.isActive)
 				tabbedNavigator.activeView.setActive(true);
 		}
@@ -324,6 +329,28 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden methods: SkinnableContainer
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Since this class doesn't have and children and serves as  proxy for 
+     *  TabbedViewNavigator, we consider our deferredContent created as
+     *  long as we have a valid tabbedNavigator skinPart.  This allows the
+     *  states includeIn and excludeFrom mechanism from working with this
+     *  component's provided MXML.   
+     */
+    override public function get deferredContentCreated():Boolean
+    {
+        if (tabbedNavigator)
+            return true;
+
+        return false;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
@@ -342,17 +369,165 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
                 tabbedNavigator.navigators = navigatorProperties.navigators;
             }
             
+            // We consider our content created when the tabbedNavigator
+            // skinPart is added.  This allows states to know when all deferred content
+            // has been created.
+            if (hasEventListener(FlexEvent.CONTENT_CREATION_COMPLETE))
+                dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
+            
             // Set the stage focus to the navigator
             systemManager.stage.focus = tabbedNavigator;
         }
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: IVisualElementContainer
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  TabbedViewNavigatorApplication proxies the IVisualElementContainer
+     *  interface to its tabbedNavigator skinPart.
+     */ 
+    
+    /**
+     *  @private
+     */
+    override public function get numElements():int
+    {
+        if (tabbedNavigator)
+            return tabbedNavigator.numElements;
+        
+        return 0;
+    }
+    
+    /**
+     *  @private
+     */ 
+    override public function getElementAt(index:int):IVisualElement
+    {
+        if (tabbedNavigator)
+            return tabbedNavigator.getElementAt(index);
+        
+        return null;
+    }
+        
+    //----------------------------------
+    //  Visual Element addition
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function addElement(element:IVisualElement):IVisualElement
+    {
+        if (tabbedNavigator)
+            return tabbedNavigator.addElement(element);
+        
+        // TODO (chiedozi): Consider throwing an exception in this case
+        return null;
     }
     
     /**
      *  @private
      */
-    override protected function partRemoved(partName:String, instance:Object):void
+    override public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
-        super.partRemoved(partName, instance);
+        if (tabbedNavigator)
+            return tabbedNavigator.addElementAt(element, index);
+        
+        // TODO (chiedozi): Consider throwing an exception in this case
+        return null;
+    }
+    
+    //----------------------------------
+    //  Visual Element removal
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function removeElement(element:IVisualElement):IVisualElement
+    {
+        if (tabbedNavigator)
+            return tabbedNavigator.removeElement(element);
+        
+        // TODO (chiedozi): Consider throwing an exception in this case
+        return null;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function removeElementAt(index:int):IVisualElement
+    {
+        if (tabbedNavigator)
+            return tabbedNavigator.removeElementAt(index);
+        
+        // TODO (chiedozi): Consider throwing an exception in this case
+        return null;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function removeAllElements():void
+    {
+        if (tabbedNavigator)
+            return tabbedNavigator.removeAllElements();
+    }
+    
+    //----------------------------------
+    //  Visual Element index
+    //----------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override public function getElementIndex(element:IVisualElement):int
+    {
+        if (tabbedNavigator)
+            return tabbedNavigator.getElementIndex(element);
+        
+        throw ArgumentError(resourceManager.getString("components", "elementNotFoundInGroup", [element]));
+    }
+    
+    /**
+     *  @private
+     */
+    override public function setElementIndex(element:IVisualElement, index:int):void
+    {
+        if (tabbedNavigator)
+            tabbedNavigator.setElementIndex(element, index);
+        
+        throw ArgumentError(resourceManager.getString("components", "elementNotFoundInGroup", [element]));
+    }
+    
+    //----------------------------------
+    //  Visual Element swapping
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function swapElements(element1:IVisualElement, element2:IVisualElement):void
+    {
+        if (tabbedNavigator)
+            tabbedNavigator.swapElements(element1, element2);
+        
+        throw ArgumentError(resourceManager.getString("components", "elementNotFoundInGroup", [element1]));
+    }
+    
+    /**
+     *  @private
+     */
+    override public function swapElementsAt(index1:int, index2:int):void
+    {
+        if (tabbedNavigator)
+            tabbedNavigator.swapElementsAt(index1, index2);
+        
+        throw new RangeError(resourceManager.getString("components", "indexOutOfRange", [index1]));
     }
 }
 }
