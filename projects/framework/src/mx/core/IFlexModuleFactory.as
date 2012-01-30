@@ -22,6 +22,11 @@ package mx.core
  *
  *  <p>A well-behaved module dispatches a <code>ready</code> event when
  *  it is safe to call the <code>create()</code> method.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFlexModuleFactory
 {
@@ -45,6 +50,11 @@ public interface IFlexModuleFactory
      *  of arguments, which are then stored in an Array called <code>parameters</code>.
      *
      *  @return An instance of the module, or <code>null</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function create(... parameters):Object;
 
@@ -67,6 +77,11 @@ public interface IFlexModuleFactory
      *   <li><code>rsls</code>: A list of run-time shared libraries.</li>
      *   <li><code>mixins</code>: A list of classes initialized at startup.</li>
      *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function info():Object;
 }
