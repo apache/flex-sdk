@@ -23,7 +23,7 @@ import mx.geom.TransformOffsets;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public interface IVisualElement extends ILayoutElement
+public interface IVisualElement extends ILayoutElement, ILayoutDirection
 {
 
     /**
@@ -254,7 +254,7 @@ public interface IVisualElement extends ILayoutElement
      *  @private
      */
     function set postLayoutTransformOffsets(value:TransformOffsets):void;
-    
+	    
     /**
      *  Contains <code>true</code> when the element is in 3D. 
      *  The element can be in 3D either because
