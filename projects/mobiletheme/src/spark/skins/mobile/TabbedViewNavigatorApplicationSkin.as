@@ -11,8 +11,12 @@
 
 package spark.skins.mobile
 {
-import spark.components.TabbedViewNavigatorApplication;
+import mx.core.ClassFactory;
+import mx.core.IFactory;
+
 import spark.components.TabbedViewNavigator;
+import spark.components.TabbedViewNavigatorApplication;
+import spark.components.ViewMenu;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
@@ -43,6 +47,8 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
     public function TabbedViewNavigatorApplicationSkin()
     {
         super();
+		
+		viewMenu = new ClassFactory(ViewMenu);
     }
     
     //--------------------------------------------------------------------------
@@ -60,6 +66,17 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     public var navigator:TabbedViewNavigator;
+	
+	
+	/**
+	 *  Creates an action menu from this factory when the menu button is pressed 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+	 */ 
+	public var viewMenu:IFactory;
     
     //--------------------------------------------------------------------------
     //
