@@ -121,12 +121,6 @@ List
 	dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
 }
 
-MobileApplication
-{
-    backgroundColor: #FFFFFF;
-    skinClass: ClassReference("spark.skins.mobile.MobileApplicationSkin");
-}
-
 MobileItemRenderer
 {
     minimumDownStateTime: 100;
@@ -223,10 +217,10 @@ Spinner
     skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
 }
 
-TabbedMobileApplication
+TabbedViewNavigatorApplication
 {
     backgroundColor: #FFFFFF;
-    skinClass: ClassReference("spark.skins.mobile.TabbedMobileApplicationSkin");
+    skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorApplicationSkin");
 }
 
 TabbedViewNavigator
@@ -305,6 +299,12 @@ ViewMenuItem
 ViewNavigator
 {
     skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
+}
+
+ViewNavigatorApplication
+{
+    backgroundColor: #FFFFFF;
+    skinClass: ClassReference("spark.skins.mobile.ViewNavigatorApplicationSkin");
 }
 
 VolumeBar
