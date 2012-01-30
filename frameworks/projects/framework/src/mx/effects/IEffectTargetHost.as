@@ -22,6 +22,11 @@ package mx.effects
  *  added, removed, or replaced in the target control. 
  *
  *  @see mx.controls.listClasses.ListBase
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IEffectTargetHost
 {
@@ -35,6 +40,11 @@ public interface IEffectTargetHost
      *  duration of the effect.
      * 
      *  @param item The item renderer that is a target of the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function unconstrainRenderer(item:Object):void;
 
@@ -49,6 +59,11 @@ public interface IEffectTargetHost
      *  an item renderer.
      * 
      *  @param item The item renderer to remove from the control's layout.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeDataEffectItem(target:Object):void;
 
@@ -64,6 +79,11 @@ public interface IEffectTargetHost
      *  by the control using an item renderer.</p>
      * 
      *  @param item The item renderer to add to the control's layout.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addDataEffectItem(target:Object):void;
 
@@ -82,6 +102,11 @@ public interface IEffectTargetHost
      *  
      *  @return <code>true</code> or <code>false</code> 
      *  to indicates whether the effect should play on the target. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getRendererSemanticValue(target:Object,semanticProperty:String):Object;
 
