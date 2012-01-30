@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate the Rotate effect. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-    initialize="Font.registerFont(myriad_font);">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo"
+        initialize="Font.registerFont(myriad_font);">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
 
             import flash.text.Font;
-            
+
             [Embed("assets/MyriadWebPro.ttf", fontName="MyMyriad")]
             public var myriad_font:Class;
 
@@ -20,27 +22,27 @@
                 rotate.play();
             }
       ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Rotate id="rotate" angleFrom="{angle-45}" angleTo="{angle}" target="{myVB}"/>
+    <fx:Declarations>
+        <mx:Rotate id="rotate" angleFrom="{angle-45}" angleTo="{angle}" target="{myVB}"/>
+    </fx:Declarations>
 
-    <mx:Panel title="Rotate Effect Example" horizontalAlign="center" 
-        width="75%" height="75%" layout="horizontal"
-        paddingTop="5" paddingLeft="10" paddingRight="10" paddingBottom="5">
+    <s:Panel title="Halo Rotate Effect Example" width="75%" height="75%" >
+        <s:VGroup left="20" right="20" top="20" bottom="20">
 
-        <mx:VBox id="myVB" width="50%" horizontalAlign="center">
-            <mx:Label text="Nokia 9930"  
-                fontFamily="MyMyriad" fontSize="14"/>
+            <s:VGroup id="myVB" width="50%" horizontalAlign="center">
+                <mx:Label text="Nokia 9930"
+                    fontFamily="MyMyriad" fontSize="14"/>
 
-            <mx:Image id="img" 
-                source="@Embed(source='assets/Nokia_6630.png')"/>
-        </mx:VBox>
+                <mx:Image id="img"
+                    source="@Embed(source='assets/Nokia_6630.png')"/>
+            </s:VGroup>
 
-        <mx:Text width="50%" color="blue" 
-            text="Click the button to rotate the image 45 degrees. Use an embedded font when applying the Rotate effect to text."/>
+            <s:SimpleText width="50%" color="blue"
+                text="Click the button to rotate the image 45 degrees. Use an embedded font when applying the Rotate effect to text."/>
 
-        <mx:ControlBar>
-            <mx:Button label="Rotate 45 Degrees" click="rotateImage();"/>
-        </mx:ControlBar>
-    </mx:Panel>
-</mx:Application>
+            <s:Button label="Rotate 45 Degrees" click="rotateImage();"/>
+        </s:VGroup>
+    </s:Panel>
+</s:Application>
