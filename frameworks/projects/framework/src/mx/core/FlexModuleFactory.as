@@ -25,13 +25,14 @@ import flash.text.TextFieldAutoSize;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getDefinitionByName;
+
 import mx.core.RSLItem;
 import mx.core.RSLListLoader;
-
 import mx.events.ModuleEvent;
 import mx.managers.SystemManagerGlobals;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
+import mx.utils.LoaderUtil;
 
 [ExcludeClass]
 
@@ -98,49 +99,11 @@ public class FlexModuleFactory extends MovieClip
     {
 		super();
 
-		var rsls:Array = info()["rsls"];
-		var cdRsls:Array = info()["cdRsls"];
-		        
-		// Put cross-domain RSL information in the RSL list.
-        var rslList:Array = [];
-        var n:int;
-        var i:int;
-		if (cdRsls && cdRsls.length > 0)
-		{
-			var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
-			n = cdRsls.length;
-			for (i = 0; i < n; i++)
-			{
-				// If crossDomainRSLItem is null, then this is a compiler error. It should not be null.
-				var cdNode:Object = new crossDomainRSLItem(
-					cdRsls[i]["rsls"],
-					cdRsls[i]["policyFiles"],
-					cdRsls[i]["digests"],
-					cdRsls[i]["types"],
-					cdRsls[i]["isSigned"]);
-				
-				rslList.push(cdNode);				
-			}
-			
-		}
-
-		// Append RSL information in the RSL list.
-		if (rsls != null && rsls.length > 0)
-		{
-			n = rsls.length;
-			for (i = 0; i < n; i++)
-			{
-			    var node:RSLItem = new RSLItem(rsls[i].url);
-				rslList.push(node);
-			}
-		}
-
-        rslListLoader = new RSLListLoader(rslList);
-
 		mixinList = info()["mixins"];
 
 		stop(); // Make sure to stop the playhead on the currentframe
         
+        loaderInfo.addEventListener(Event.INIT, moduleInitHandler);
 		loaderInfo.addEventListener(Event.COMPLETE, moduleCompleteHandler);
 
 	    var docFrame:int = totalFrames == 1 ? 0 : 1;
@@ -150,8 +113,6 @@ public class FlexModuleFactory extends MovieClip
 		timer = new Timer(100);
 		timer.addEventListener(TimerEvent.TIMER, timerHandler);
 		timer.start();
-
-        update();
     }
 
     private function docFrameListener(event:Event):void
@@ -204,6 +165,11 @@ public class FlexModuleFactory extends MovieClip
 	 *  @private
 	 */
 	private var appReady:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var appInitDone:Boolean = false;
     
     /**
 	 *  @private
@@ -396,6 +362,10 @@ public class FlexModuleFactory extends MovieClip
         {
             case INIT_STATE:
 			{
+                if (!appInitDone)
+                    return;
+                
+                getRSLInfo();
                 if (rslListLoader.isDone())
                     state = APP_LOAD_STATE;
                 else
@@ -418,6 +388,7 @@ public class FlexModuleFactory extends MovieClip
             {
                 if (rslListLoader.isDone())
                 {
+                    rslListLoader = null;
                     state = APP_LOAD_STATE;
                 }
                 break;
@@ -491,6 +462,53 @@ public class FlexModuleFactory extends MovieClip
         }
     }
 
+    /**
+     *  @private
+     *  Get the RSL URLs and add them to the RSLListLoader.
+     */   
+    private function getRSLInfo():void
+    {
+        var rsls:Array = info()["rsls"];
+        var cdRsls:Array = info()["cdRsls"];
+        
+        // Put cross-domain RSL information in the RSL list.
+        var rslList:Array = [];
+        var n:int;
+        var i:int;
+        if (cdRsls && cdRsls.length > 0)
+        {
+            var crossDomainRSLItem:Class = Class(getDefinitionByName("mx.core::CrossDomainRSLItem"));
+            n = cdRsls.length;
+            for (i = 0; i < n; i++)
+            {
+                // If crossDomainRSLItem is null, then this is a compiler error. It should not be null.
+                var cdNode:Object = new crossDomainRSLItem(
+                    cdRsls[i]["rsls"],
+                    cdRsls[i]["policyFiles"],
+                    cdRsls[i]["digests"],
+                    cdRsls[i]["types"],
+                    cdRsls[i]["isSigned"],
+                    LoaderUtil.normalizeURL(this.loaderInfo));
+                
+                rslList.push(cdNode);				
+            }
+            
+        }
+        
+        // Append RSL information in the RSL list.
+        if (rsls != null && rsls.length > 0)
+        {
+            n = rsls.length;
+            for (i = 0; i < n; i++)
+            {
+                var node:RSLItem = new RSLItem(rsls[i].url);
+                rslList.push(node);
+            }
+        }
+        
+        rslListLoader = new RSLListLoader(rslList);
+    }
+    
     /**
 	 *  @private
 	 */
@@ -673,6 +691,16 @@ public class FlexModuleFactory extends MovieClip
         message = "RSL " + rsl.urlRequest.url + " failed to load. " + detailedError;              
         trace(message);
         displayError(message);
+    }
+
+    /**
+     *  @private
+     */
+    private function moduleInitHandler(event:Event):void
+    {
+        loaderInfo.removeEventListener(Event.INIT, moduleInitHandler);
+        appInitDone = true;
+        update();
     }
 
     /**
