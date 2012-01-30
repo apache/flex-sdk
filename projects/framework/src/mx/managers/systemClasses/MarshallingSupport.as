@@ -2247,13 +2247,18 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
             var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
                                     false, false,
                                     "getVisibleApplicationRect"); 
-            sbRoot.dispatchEvent(request);
-            event.value = Rectangle(request.value);
+            if (!sbRoot.dispatchEvent(request))
+            {
+                event.value = Rectangle(request.value);
+                event.preventDefault();
+            }
         }
         else
+        {
             event.value = getVisibleApplicationRect(event.value as Rectangle);
+            event.preventDefault();
+        }
 
-        event.preventDefault();
     }
 
    /**
