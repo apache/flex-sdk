@@ -2662,9 +2662,16 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     
     private function stage_transitionEndHandler(event:FlexEvent):void
     {
-        viewTransitionRunning = false;
-        
-        endAnimation();
+        // This component may have been created during a view transition. In
+        // that case, it will not have received a call to its prepareHandler and
+        // allowing endAnimation to run would get its running animation counter
+        // into a bad state.
+        if (viewTransitionRunning)
+        {
+            viewTransitionRunning = false;
+            endAnimation();
+        }
+
         ignoreProxyUpdatesDuringTransition = false;
 
         // If stageTextVisibleChangePending is true, a visibility change which
