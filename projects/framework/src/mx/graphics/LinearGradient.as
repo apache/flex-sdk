@@ -15,8 +15,11 @@ package mx.graphics
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.Matrix;
-import flash.geom.Point;
 import flash.geom.Rectangle;
+
+import mx.core.mx_internal;
+
+use namespace mx_internal;
 
 /**
  *  The LinearGradient class lets you specify the fill of a graphical element,
@@ -226,8 +229,7 @@ public class LinearGradient extends GradientBase implements IFill
 	    	// to scale the y direction because it is infinite
 	    	commonMatrix.scale (length / GRADIENT_DIMENSION, 1);
 	    	 
-		    commonMatrix.rotate (!isNaN(mx_internal::_angle) ? 
-										mx_internal::_angle : mx_internal::rotationInRadians);
+		    commonMatrix.rotate (!isNaN(_angle) ? _angle : rotationInRadians);
 		    if (isNaN(tx))
 		    	tx = rc.width / 2;
 		    if (isNaN(ty))
@@ -241,9 +243,8 @@ public class LinearGradient extends GradientBase implements IFill
 			commonMatrix.concat(compoundTransform.matrix);
 		}			 
 		
-		target.beginGradientFill(GradientType.LINEAR, mx_internal::colors,
-								 mx_internal::alphas, mx_internal::ratios,
-								 commonMatrix, spreadMethod, interpolationMethod);						 
+		target.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios,
+            commonMatrix, spreadMethod, interpolationMethod);						 
 	}
 
 	/**
