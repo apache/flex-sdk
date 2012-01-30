@@ -50,6 +50,11 @@ import flash.geom.Point;
  *  @see mx.managers.SystemManager#popUpChildren
  *  @see mx.managers.SystemManager#toolTipChildren
  *  @see mx.managers.SystemManager#cursorChildren
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IChildList
 {
@@ -65,6 +70,11 @@ public interface IChildList
 
 	/**
 	 *  The number of children in this child list.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get numChildren():int;
 	
@@ -86,6 +96,11 @@ public interface IChildList
      *
      *  @return The child that was added; this is the same
 	 *  as the argument passed in.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	function addChild(child:DisplayObject):DisplayObject;
 	
@@ -104,6 +119,11 @@ public interface IChildList
      *
      *  @return The child that was added; this is the same
 	 *  as the <code>child</code> argument passed in.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	function addChildAt(child:DisplayObject, index:int):DisplayObject;
 	
@@ -120,6 +140,11 @@ public interface IChildList
      *
      *  @return The child that was removed; this is the same
 	 *  as the argument passed in.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	function removeChild(child:DisplayObject):DisplayObject;
 	
@@ -136,6 +161,11 @@ public interface IChildList
      *  @param index The child index of the DisplayObject to remove.
      *
      *  @return The child that was removed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */	     
 	function removeChildAt(index:int):DisplayObject;
 	
@@ -146,6 +176,11 @@ public interface IChildList
 	 *  that specifies the index of a child in this child list.
 	 *
 	 *  @return The child at the specified index.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
   	function getChildAt(index:int):DisplayObject;
 	
@@ -156,6 +191,11 @@ public interface IChildList
      *  @param name The name of the child to return.
 	 *
      *  @return The child with the specified name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
   	function getChildByName(name:String):DisplayObject;
   	
@@ -195,6 +235,11 @@ public interface IChildList
 	 *
 	 *  @return The index of the child, which is an integer
 	 *  between 0 and <code>(numChildren - 1)</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
   	function getChildIndex(child:DisplayObject):int;
   	
@@ -207,6 +252,11 @@ public interface IChildList
 	 *
 	 *  @param newIndex The new index for the specified child.
 	 *  This must be an integer between zero and <code>(numChildren - 1)</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function setChildIndex(child:DisplayObject, newIndex:int):void;
 	
@@ -218,6 +268,11 @@ public interface IChildList
 	 *
      *  @return An array of object that lie under the specified point
 	 *  that are children of this Container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	function getObjectsUnderPoint(point:Point):Array;
 
@@ -230,6 +285,11 @@ public interface IChildList
 	 *  @return <code>true</code> if the DisplayObject is in this child list
 	 *  or is a descendant of an child in this child list;
 	 *  <code>false</code> otherwise.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function contains(child:DisplayObject):Boolean;
 }
