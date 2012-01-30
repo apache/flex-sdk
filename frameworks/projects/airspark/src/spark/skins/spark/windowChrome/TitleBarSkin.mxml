@@ -9,69 +9,71 @@
 
 -->
 
-<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" left="0" right="0" top="0" bottom="0" 
-             minHeight="24" width="100%" height="100%" >
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
+             xmlns:mx="library://ns.adobe.com/flex/halo" 
+             minHeight="24" >
 
     <fx:Metadata>
       [HostComponent("mx.core.windowClasses.TitleBar")]
     </fx:Metadata> 
   
-  
+      <fx:Script>
+        /*  Define the skin elements that should not be colorized. 
+         *  Exclude the titleBar and scroller because they are SparkSkins and we 
+         *  don't want to colorize them twice.
+         */
+        static private const exclusions:Array = ["background", "bgFill", "titleIconImage", "titleText"];
+        override public function get colorizeExclusions():Array {return exclusions;}
+
+    </fx:Script>
+    
     <s:states>
-      <s:State name="mac" />
-      <s:State name="maximized" />
-      <s:State name="normal" />
-      <s:State name="disabled" />
+        <s:State name="normal" />
+        <s:State name="disabled" />
+        <s:State name="maximized" stateGroups="maximizedGroup" />
+        <s:State name="disabledMaximized" stateGroups="maximizedGroup" />
     </s:states>
 
     <!-- fill -->
-
-    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2" >
+    <s:Rect id="background" left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2" >
         <s:fill>
-            <s:LinearGradient rotation="90">
+            <s:LinearGradient id="bgFill" rotation="90">
                 <s:GradientEntry color="0xFFFFFF" />
                 <s:GradientEntry color="0xBABABA" />
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
         
-    <!-- title -->
-    <s:SimpleText id="titleText" top="4" bottom="4" 
-        left="5"
-        left.mac="0"
-        right.mac = "0"
-        textAlign.mac="center"
-        verticalAlign="middle"
-        fontSize="9" color="#585858" />
+    <s:Group minHeight="24" width="100%" height="100%" left="2" right="2" >
+    
+        <s:layout>
+            <s:HorizontalLayout verticalAlign="middle" gap="5" />
+        </s:layout>
 
-    <!-- minimize button --> 
-    <s:Button id="minimizeButton" 
-        skinClass="spark.skins.default.MinimizeButtonSkin"
-        skinClass.mac="spark.skins.default.MacMinimizeButtonSkin"
-        top="2" bottom="2" verticalCenter="0" 
-        right="32 + 10"
-        right.mac="-1"
-        left.mac="25"
-        />
+        <!-- title bar icon -->
+        <s:BitmapImage id="titleIconImage" minWidth="0" />
+        
+        <!-- title -->
+        <s:SimpleText id="titleText" minWidth="0" fontSize="9" color="#585858" truncation="1" width="100%" />
+
+        <!-- minimize button --> 
+        <s:Button id="minimizeButton"
+            skinClass="spark.skins.default.MinimizeButtonSkin"
+            top="2" bottom="2" verticalCenter="0" 
+            />
+        
+        <!-- maximize button -->
+        <s:Button id="maximizeButton" 
+            skinClass="spark.skins.default.MaximizeButtonSkin"
+            skinClass.maximizedGroup="spark.skins.default.RestoreButtonSkin"
+            verticalCenter="0" 
+            />
+                        
+        <!-- close button -->
+        <s:Button id="closeButton" 
+            skinClass="spark.skins.default.CloseButtonSkin"
+            verticalCenter="0"  />
     
-    <!-- maximize button -->
-    <s:Button id="maximizeButton" 
-        skinClass="spark.skins.default.MaximizeButtonSkin"
-        skinClass.maximized="spark.skins.default.RestoreButtonSkin"
-        skinClass.mac="spark.skins.default.MacMaximizeButtonSkin"
-        verticalCenter="0" 
-        right="16 + 5" 
-        right.mac="-1"
-        left.mac="45"
-        />
-                    
-    <!-- close button -->
-    <s:Button id="closeButton" 
-        skinClass="spark.skins.default.CloseButtonSkin"
-        skinClass.mac="spark.skins.default.MacCloseButtonSkin"
-        verticalCenter="0" 
-        right="3"
-        right.mac="-1"
-        left.mac="2" />
-    
-</s:Skin>
+    </s:Group>
+
+</s:SparkSkin>
