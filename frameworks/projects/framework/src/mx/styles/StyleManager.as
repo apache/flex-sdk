@@ -119,14 +119,17 @@ public class StyleManager
     public static function getStyleManager(moduleFactory:IFlexModuleFactory):IStyleManager2
     {
         if (!moduleFactory)
+        {
             moduleFactory = SystemManagerGlobals.topLevelSystemManagers[0];
+            // trace("no style manager specified, using top-level style manager");
+        }
         
         var styleManager:IStyleManager2 = IStyleManager2(moduleFactory.getImplementation("mx.styles::IStyleManager2"));
         if (styleManager == null)
         {
             // All Flex 4 swfs should have a style manager. 
             // In the transition to multiple style managers, use the top-level style manager.
-            //trace("no style manager found");
+            // trace("no style manager found");
             styleManager = impl;
         }
         
