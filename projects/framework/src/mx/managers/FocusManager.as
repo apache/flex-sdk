@@ -403,7 +403,7 @@ public class FocusManager implements IFocusManager
             
             _defaultButton = button;
             
-            if (defButton != _lastFocus)
+            if (defButton != _lastFocus || _lastFocus == _defaultButton)
             {
                 defButton = button;
             
