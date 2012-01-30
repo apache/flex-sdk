@@ -2281,6 +2281,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             
             if (newWatchedAncestors.indexOf(ancestor) == -1)
             {
+                ancestor.removeEventListener(FlexEvent.CREATION_COMPLETE, ancestor_creationCompleteHandler);
                 ancestor.removeEventListener(MoveEvent.MOVE, ancestor_moveHandler);
                 ancestor.removeEventListener(ResizeEvent.RESIZE, ancestor_resizeHandler);
                 ancestor.removeEventListener(FlexEvent.SHOW, ancestor_showHandler);
@@ -2290,7 +2291,8 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
             }
         }
         
-        for (i = 0; i < newWatchedAncestors.length; i++)
+        var foundUninitialized:Boolean = false;
+        for (i = newWatchedAncestors.length - 1; i >= 0; i--)
         {
             var newAncestor:UIComponent = newWatchedAncestors[i];
             
@@ -2305,6 +2307,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 {
                     newAncestor.addEventListener(PopUpEvent.CLOSE, ancestor_closeHandler, false, 0, true);
                     newAncestor.addEventListener(PopUpEvent.OPEN, ancestor_openHandler, false, 0, true);
+                }
+                
+                if (!newAncestor.initialized && !foundUninitialized)
+                {
+                    foundUninitialized = true;
+                    newAncestor.addEventListener(FlexEvent.CREATION_COMPLETE, ancestor_creationCompleteHandler, false, 0, true);
                 }
             }
         }
@@ -2354,6 +2362,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             var ancestor:UIComponent = watchedAncestors.pop();
             
+            ancestor.removeEventListener(FlexEvent.CREATION_COMPLETE, ancestor_creationCompleteHandler);
             ancestor.removeEventListener(MoveEvent.MOVE, ancestor_moveHandler);
             ancestor.removeEventListener(ResizeEvent.RESIZE, ancestor_resizeHandler);
             ancestor.removeEventListener(FlexEvent.SHOW, ancestor_showHandler);
@@ -2451,6 +2460,15 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         ancestorsVisible = false;
         invalidateAncestorsVisibleFlag = false;
         invalidateProperties();
+    }
+    
+    private function ancestor_creationCompleteHandler(event:FlexEvent):void
+    {
+        if (!invalidateAncestorsVisibleFlag)
+        {
+            invalidateAncestorsVisibleFlag = true;
+            invalidateProperties();
+        }
     }
     
     private function ancestor_hideHandler(event:FlexEvent):void
