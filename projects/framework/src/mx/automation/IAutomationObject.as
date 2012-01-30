@@ -12,9 +12,9 @@
 package mx.automation
 {
 
-import flash.events.Event;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.events.Event;
 import flash.events.MouseEvent;
 
 /**
@@ -89,6 +89,125 @@ public interface IAutomationObject
      *  @productversion Flex 3
      */
     function get automationValue():Array;
+    
+    /**
+     *  The number of automation children this container has.
+     *  This sum should not include any composite children, though
+     *  it does include those children not significant within the
+     *  automation hierarchy.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function get numAutomationChildren():int;
+
+    /** 
+     *  A flag that determines if an automation object
+     *  shows in the automation hierarchy.
+     *  Children of containers that are not visible in the hierarchy
+     *  appear as children of the next highest visible parent.
+     *  Typically containers used for layout, such as boxes and Canvas,
+     *  do not appear in the hierarchy.
+     *
+     *  <p>Some controls force their children to appear
+     *  in the hierarchy when appropriate.
+     *  For example a List will always force item renderers,
+     *  including boxes, to appear in the hierarchy.
+     *  Implementers must support setting this property
+     *  to <code>true</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function get showInAutomationHierarchy():Boolean;
+
+    /**
+     *  @private
+     */
+    function set showInAutomationHierarchy(value:Boolean):void;
+   
+    /**
+     *  An implementation of the <code>IAutomationTabularData</code> interface, which 
+     *  can be used to retrieve the data.
+     * 
+     *  @return An implementation of the <code>IAutomationTabularData</code> interface.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    function get automationTabularData():Object;
+    
+    /**
+     *  The owner of this component for automation purposes.
+     * 
+     *  @see mx.core.IVisualElement#owner
+     * 
+     *  @return The owner of this component
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    function get automationOwner():DisplayObjectContainer;
+    
+    /**
+     *  The parent of this component for automation purposes.
+     * 
+     *  @see mx.core.IVisualElement#parent
+     * 
+     *  @return The parent of this component
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    function get automationParent():DisplayObjectContainer;
+    
+    /**
+     *  True if this component is enabled for automation, false
+     *  otherwise.
+     * 
+     *  @see mx.core.IUIComponent#enabled
+     * 
+     *  @return <code>true</code> if this component is enabled for automation,
+     *          <code>false</code> otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    function get automationEnabled():Boolean;
+    
+    /**
+     *  True if this component is visible for automation, false
+     *  otherwise.
+     * 
+     *  @see flash.display.DisplayObject#visible
+     * 
+     *  @return <code>true</code> if this component is visible for automation,
+     *          <code>false</code> otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    function get automationVisible():Boolean;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
  
     /**
      *  Returns a set of properties that identify the child within 
@@ -138,59 +257,6 @@ public interface IAutomationObject
      *  @productversion Flex 3
      */
     function getAutomationChildAt(index:int):IAutomationObject;
-
-    /**
-     *  The number of automation children this container has.
-     *  This sum should not include any composite children, though
-     *  it does include those children not significant within the
-     *  automation hierarchy.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function get numAutomationChildren():int;
-
-    /** 
-     *  A flag that determines if an automation object
-     *  shows in the automation hierarchy.
-     *  Children of containers that are not visible in the hierarchy
-     *  appear as children of the next highest visible parent.
-     *  Typically containers used for layout, such as boxes and Canvas,
-     *  do not appear in the hierarchy.
-     *
-     *  <p>Some controls force their children to appear
-     *  in the hierarchy when appropriate.
-     *  For example a List will always force item renderers,
-     *  including boxes, to appear in the hierarchy.
-     *  Implementers must support setting this property
-     *  to <code>true</code>.</p>
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function get showInAutomationHierarchy():Boolean;
-
-    /**
-     *  @private
-     */
-    function set showInAutomationHierarchy(value:Boolean):void;
-   
-    /**
-     * An implementation of the <code>IAutomationTabularData</code> interface, which 
-     * can be used to retrieve the data.
-     * 
-     * @return An implementation of the <code>IAutomationTabularData</code> interface.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function get automationTabularData():Object;
 
     /**
      *  Replays the specified event.  A component author should probably call 
