@@ -12,6 +12,39 @@
 @namespace "library://ns.adobe.com/flex/mx";
 @namespace charts "mx.charts.chartClasses.*";
 
+charts|ChartBase
+{
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");           
+	fontSize : 10;
+}
+
+charts|CartesianChart
+{
+	axisColor : #D5DEDD;
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");           
+	fontSize : 10;
+}
+
+charts|PolarChart
+{
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");           
+	fontSize : 10;
+}
+
+AreaChart
+{
+	axisColor : #D5DEDD;
+	dataTipRenderer: ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	textAlign : "left";
+}
+
+AreaSeries
+{
+	adjustedRadius: 2;
+	radius: 4;
+}
+
 /*
 //--------------------------------
 //  BarSeries
@@ -21,6 +54,7 @@
 BarSeries
 {
 	labelClass: ClassReference("mx.controls.Label");
+	labelSizeLimit : 9;
 }
 
 /*
@@ -32,6 +66,42 @@ BarSeries
 BarChart
 {
 	labelClass: ClassReference("mx.controls.Label");
+	axisColor: #D5DEDD;
+	barWidthRatio : 0.65;
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	gridLinesStyleName : "horizontalGridLines";
+	textAlign : "left";
+}
+
+BubbleSeries
+{
+	
+}
+
+BubbleChart
+{
+	axisColor : #D5DEDD;
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	gridLinesStyleName : "bothGridLines";
+	maxRadius : 50;
+	minRadius : 0;
+	textAlign : "left";
+}
+
+CandlestickSeries
+{
+	
+}
+
+CandlestickChart
+{
+	axisColor: #D5DEDD;
+	columnWidthRatio : 0.65;
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	textAlign : "left";
 }
 
 /*
@@ -43,6 +113,7 @@ BarChart
 ColumnSeries
 {
 	labelClass: ClassReference("mx.controls.Label");
+	labelSizeLimit : 9;
 }
 
 /*
@@ -54,6 +125,74 @@ ColumnSeries
 ColumnChart
 {
 	labelClass: ClassReference("mx.controls.Label");
+	axisColor : #D5DEDD;
+	columnWidthRatio : 0.65;
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	textAlign : "left";
+}
+
+HLOCSeries
+{
+	closeTickLength : 3;
+	openTickLength: 3;
+	hlocColor: 0;
+}
+
+HLOCChart
+{
+	axisColor : #D5DEDD;
+	columnWidthRatio : 0.65;
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	textAlign : "left";
+}
+
+LineSeries
+{
+	adjustedRadius: 2;
+	radius : 4;
+}
+
+LineChart
+{
+	axisColor : #D5DEDD;
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	textAlign : "left";
+}
+
+PlotSeries
+{
+	radius: 5;
+	adjustedRadius : 2;
+}
+
+PlotChart
+{
+	axisColor : #D5DEDD;
+	dataTipRenderer : ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	gridLinesStyleName : "bothGridLines";
+	textAlign : "left";
+}
+
+PieSeries
+{
+	calloutGap : 10;
+	innerRadius : 0;
+	insideLabelSizeLimit : 9;
+	labelPosition : "none";
+	renderDirection : "counterClockwise";
+	shadowDepth : 4;
+}
+
+PieChart
+{
+	dataTipRenderer: ClassReference("mx.charts.chartClasses.DataTip");
+	fontSize : 10;
+	innerRadius : 0;
+	textAlign : "left";
 }
 
 /*
@@ -65,6 +204,95 @@ ColumnChart
 AxisRenderer
 {
 	labelClass: ClassReference("mx.controls.Label");
+	canDropLabels : ClassReference(null);
+	canStagger : true;
+	labelGap : 3;
+	labelRotation : NaN;
+	minorTickLength : 0;
+	minorTickPlacement : "none";
+	showLabels : true;
+	showLine : true;
+	tickLength : 3;
+	tickPlacement : "outside";
+	labelAlign : "center";
+	verticalAxisTitleAlignment:"flippedVertical";
+}
+
+.verticalAxisStyle
+{
+	minorTickLength : 2;
+	minorTickPlacement : "outside";
+	tickLength : 5;
+}
+
+.blockNumericAxis
+{
+	minorTickLength : 0;
+	minorTickPlacement : "cross";
+	tickLength : 8;
+}
+
+.linedNumericAxis
+{
+	minorTickLength : 4;
+	minorTickPlacement : "outside";
+	tickLength : 8;
+}
+
+.dashedNumericAxis
+{
+	minorTickLength : 4;
+	minorTickPlacement : "outside";
+	showLine : false;
+	tickLength : 8;
+}
+.blockCategoryAxis
+{
+	minorTickLength : 0;
+	minorTickPlacement : "none";
+	tickLength : 0;
+	tickPlacement : "cross";
+}
+
+.hangingCategoryAxis
+{
+	minorTickLength : 0;
+	minorTickPlacement : "cross";
+	tickLength : 4;
+}
+
+.dashedCategoryAxis
+{
+	minorTickPlacement : "none";
+	tickLength : 0;
+	tickPlacement : "cross";
+}
+
+GridLines
+{
+	gridDirection : "horizontal";
+	horizontalShowOrigin : true;
+	horizontalTickAligned : true;
+	verticalShowOrigin : false;
+	verticalTickAligned: true;
+}
+
+.horizontalGridLines
+{
+	gridDirection : "vertical";
+	horizontalShowOrigin : false;
+	horizontalTickAligned : true;
+	verticalShowOrigin : true;
+	verticalTickAligned: true;
+}
+
+.bothGridLines
+{
+	gridDirection : "both";
+	horizontalShowOrigin : true;
+	horizontalTickAligned: true;
+	verticalShowOrigin : true;
+	verticalTickAligned: true;
 }
 
 /*
