@@ -43,7 +43,8 @@ public class FunctionReturnWatcher extends Watcher
 										  parameterFunction:Function,
 										  events:Object,
                                           listeners:Array,
-                                          functionGetter:Function = null)
+                                          functionGetter:Function = null,
+                                          isStyle:Boolean = false)
     {
 		super(listeners);
 
@@ -52,6 +53,7 @@ public class FunctionReturnWatcher extends Watcher
         this.parameterFunction = parameterFunction;
         this.events = events;
         this.functionGetter = functionGetter;
+        this.isStyle = isStyle;
     }
 
 	//--------------------------------------------------------------------------
@@ -69,7 +71,7 @@ public class FunctionReturnWatcher extends Watcher
     
 	/**
  	 *  @private
-     *  The document is what we need to use toe execute the parameter function.
+     *  The document is what we need to use to execute the parameter function.
      */
     private var document:Object;
     
@@ -106,6 +108,18 @@ public class FunctionReturnWatcher extends Watcher
      *  @productversion Flex 3
      */
     private var functionGetter:Function;
+
+    /**
+     *  Storage for the isStyle property.  This will be true, when
+     *  watching a function marked with [Bindable(style="true")].  For
+     *  example, UIComponent.getStyle().
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    private var isStyle:Boolean;
 
 	//--------------------------------------------------------------------------
 	//
@@ -177,35 +191,72 @@ public class FunctionReturnWatcher extends Watcher
     private function setupParentObj(newParent:Object):void
     {
 		var eventDispatcher:IEventDispatcher;
-        var p:String;
+        var eventName:String;
 
+        // Remove listeners from the old "watched" object.
         if (parentObj != null &&
-            parentObj is IEventDispatcher &&
-            events != null)
+            parentObj is IEventDispatcher)
         {
             eventDispatcher = parentObj as IEventDispatcher;
-            
-			for (p in events)
+
+            // events can be null when watching a function marked with
+            // [Bindable(style="true")].
+            if (events != null)
             {
-                eventDispatcher.removeEventListener(p, eventHandler);
+                for (eventName in events)
+                {
+                    if (eventName != "__NoChangeEvent__")
+                    {
+                        eventDispatcher.removeEventListener(eventName, eventHandler);
+                    }
+                }
+            }
+
+            if (isStyle)
+            {
+                // For example, if the data binding expression is
+                // {getStyle("color")}, the eventName will be
+                // "colorChanged".
+                eventName = parameterFunction.apply(document) + "Changed";
+                eventDispatcher.removeEventListener(eventName, eventHandler);
+                eventDispatcher.removeEventListener("allStylesChanged", eventHandler);
             }
         }
         
 		parentObj = newParent;
         
+        // Add listeners the new "watched" object.
         if (parentObj != null &&
-            parentObj is IEventDispatcher &&
-            events != null)
+            parentObj is IEventDispatcher)
         {
             eventDispatcher = parentObj as IEventDispatcher;
 
-            for (p in events)
+            // events can be null when watching a function marked with
+            // [Bindable(style="true")].
+            if (events != null)
             {
-                if (p != "__NoChangeEvent__")
-				{
-                    eventDispatcher.addEventListener(
-						p, eventHandler, false, EventPriority.BINDING, true);
-				}
+                for (eventName in events)
+                {
+                    if (eventName != "__NoChangeEvent__")
+                    {
+                        eventDispatcher.addEventListener(eventName, eventHandler,
+                                                         false,
+                                                         EventPriority.BINDING,
+                                                         true);
+                    }
+                }
+            }
+
+            if (isStyle)
+            {
+                // For example, if the data binding expression is
+                // {getStyle("color")}, the eventName will be
+                // "colorChanged".
+                eventName = parameterFunction.apply(document) + "Changed";
+                eventDispatcher.addEventListener(eventName, eventHandler, false,
+                                                 EventPriority.BINDING, true);                
+                eventDispatcher.addEventListener("allStylesChanged", eventHandler, false,
+                                                 EventPriority.BINDING, true);                
             }
         }
     }
@@ -223,7 +274,17 @@ public class FunctionReturnWatcher extends Watcher
     {
         updateFunctionReturn();
 
-        notifyListeners(events[event.type]);
+        // events can be null when watching a function marked with
+        // [Bindable(style="true")].
+        if (events != null)
+        {
+            notifyListeners(events[event.type]);
+        }
+
+        if (isStyle)
+        {
+            notifyListeners(true);
+        }
     }
 }
 
