@@ -182,7 +182,8 @@ package mx.automation.delegates.controls
 			
 			var indexSelection:Boolean = false;
 			
-			if (!Automation.automationManager || !Automation.automationManager.automationEnvironment)
+			if (!Automation.automationManager || !Automation.automationManager.automationEnvironment 
+				|| !Automation.automationManager.recording)
 				return ;
 			
 			var automationClass:IAutomationClass = Automation.automationManager.automationEnvironment.getAutomationClassByInstance(listBase);
