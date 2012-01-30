@@ -18,6 +18,7 @@ import flash.system.Capabilities;
 import mx.core.DPIClassification;
 import mx.core.EventPriority;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 
 import spark.components.TextInput;
 import spark.components.supportClasses.StyleableTextField;
@@ -125,7 +126,8 @@ public class TextInputSkin extends TextSkinBase
         super.createChildren();
         
         textDisplay.addEventListener("editableChanged", editableChangedHandler);
-        
+        textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, valueCommitHandler);
+
         // remove hit area improvements on iOS when editing
         if (_isIOS)
         {
@@ -159,7 +161,7 @@ public class TextInputSkin extends TextSkinBase
             textHeight = textDisplay.measuredTextSize.y;
             textDisplay.text = oldText;
         }
-        
+
         // width is based on maxChars (if set)
         if (hostComponent && hostComponent.maxChars)
         {
@@ -258,6 +260,20 @@ public class TextInputSkin extends TextSkinBase
         invalidateDisplayList();
     }
     
+    /**
+     *  @private
+     *  The text changed in some way.
+     * 
+     *  Dynamic fields (ie !editable) with no text measure with width=0 and height=0.
+     *  If the text changed, need to remeasure the text to get the correct height so it
+     *  will be laid out correctly.
+     */
+    private function valueCommitHandler(event:Event):void
+    {
+        if (textDisplay && !textDisplay.editable)
+            invalidateDisplayList();
+    }
+        
     /**
      *  @private
      */
