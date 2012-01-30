@@ -1541,6 +1541,11 @@ public class UIComponent extends FlexSprite
     private var transitionFromState:String;
     private var transitionToState:String;
     
+    /**
+     *  @private
+     */
+    private var parentChangedFlag:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Variables: Creation
@@ -5841,7 +5846,7 @@ public class UIComponent extends FlexSprite
      *  The flag is cleared in validateDisplayList().
      */
     private var oldLayoutDirection:String = null;
-    
+        
     /**
      *  @inheritDoc
      */
@@ -7099,7 +7104,7 @@ public class UIComponent extends FlexSprite
         }
 
         // trace("               " + p);
-
+        parentChangedFlag = true;
     }
 	
     /**
@@ -7577,7 +7582,7 @@ public class UIComponent extends FlexSprite
      * @inheritDoc
      */
     public function invalidateLayoutDirection():void
-    {
+    {       
         const parentElt:IVisualElement = parent as IVisualElement;        
         const thisLayoutDirection:String = layoutDirection;
         
@@ -7588,7 +7593,7 @@ public class UIComponent extends FlexSprite
         const mirror:Boolean = (parentElt) 
             ? (parentElt.layoutDirection != thisLayoutDirection)
             : ("ltr" != thisLayoutDirection);
-        
+      
         if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
         {
             if (_layoutFeatures == null)
@@ -7944,11 +7949,9 @@ public class UIComponent extends FlexSprite
         {
             // If this component's layout direction has changed, or its parent's layoutDirection
             // has changed, then call invalidateLayoutDirection().
-            
-            const thisLayoutDirection:String = layoutDirection;
             const parentUIC:UIComponent = parent as UIComponent;
             
-            if ((oldLayoutDirection != layoutDirection) ||
+            if ((oldLayoutDirection != layoutDirection) || parentChangedFlag ||
                 (parentUIC && (parentUIC.layoutDirection != parentUIC.oldLayoutDirection)))
                 invalidateLayoutDirection();
         }
@@ -8038,6 +8041,8 @@ public class UIComponent extends FlexSprite
                 }        
             }
         }
+        
+        parentChangedFlag = false;
     }
 
     //--------------------------------------------------------------------------
