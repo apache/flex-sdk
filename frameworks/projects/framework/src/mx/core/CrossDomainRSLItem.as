@@ -36,6 +36,7 @@ import mx.utils.SHA256;
 [ExcludeClass]
 
 /**
+ *  @private
  *  Cross-domain RSL Item Class.
  * 
  *  The rsls are typically located on a different host than the loader. 
@@ -44,8 +45,7 @@ import mx.utils.SHA256;
  *  Signed Rsls are loaded by setting the digest of the URLRequest.
  *  Unsigned Rsls are check using actionScript to calculate a sha-256 hash of 
  *  the loaded bytes and compare them to the expected digest.
- *  
- *  @private
+ * 
  */
 public class CrossDomainRSLItem extends RSLItem
 {
@@ -115,11 +115,11 @@ public class CrossDomainRSLItem extends RSLItem
      * 
      * Load an RSL. 
     * 
-    * @param progressHandler       receives ProgressEvent.PROGRESS events, may be null.
-    * @param completeHandler       receives Event.COMPLETE events, may be null.
-    * @param ioErrorHandler        receives IOErrorEvent.IO_ERROR events, may be null.
-    * @param securityErrorHandler  receives SecurityErrorEvent.SECURITY_ERROR events, may be null.
-    * @param rslErrorHandler       receives RSLEvent.RSL_ERROR events, may be null.
+    * @param progressHandler       receives ProgressEvent.PROGRESS events, may be null
+    * @param completeHandler       receives Event.COMPLETE events, may be null
+    * @param ioErrorHandler        receives IOErrorEvent.IO_ERROR events, may be null
+    * @param securityErrorHandler  receives SecurityErrorEvent.SECURITY_ERROR events, may be null
+    * @param rslErrorHandler       receives RSLEvent.RSL_ERROR events, may be null
     * 
     */
     override public function load(progressHandler:Function,
