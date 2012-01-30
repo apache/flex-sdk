@@ -24,6 +24,7 @@ import mx.effects.effectClasses.PropertyChanges;
 import mx.events.EffectEvent;
 import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
+import mx.utils.ObjectUtil;
 
 use namespace mx_internal;
 
@@ -248,14 +249,7 @@ public class Effect extends EventDispatcher implements IEffect
      */
     public function get className():String
     {
-        var name:String = getQualifiedClassName(this);
-        
-        // If there is a package name, strip it off.
-        var index:int = name.indexOf("::");
-        if (index != -1)
-            name = name.substr(index + 2);
-                
-        return name;
+        return ObjectUtil.getUnqualifiedClassName(this);
     }
         
     //----------------------------------
