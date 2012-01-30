@@ -95,13 +95,13 @@ public class ViewMenuItemSkin extends ButtonSkin
         else
         {
             matrix.createGradientBox(unscaledWidth, 
-                                     unscaledHeight - layoutBorderSize, 
+                                     unscaledHeight, 
                                      Math.PI / 2, 0, 0);
             var chromeColor:uint = getStyle("chromeColor");
             
             chromeColorGraphics.beginGradientFill(GradientType.LINEAR,
                                                   [chromeColor, chromeColor],
-                                                  [0.85, .95],
+                                                  [0.9, 0.95],
                                                   [0, 255],
                                                   matrix);
         }
@@ -110,17 +110,7 @@ public class ViewMenuItemSkin extends ButtonSkin
     override protected function drawChromeColor(chromeColorGraphics:Graphics, 
                                                 unscaledWidth:Number, unscaledHeight:Number):void
     {
-        // bottom line is a shadow
-        if (currentState == "down")
-            chromeColorGraphics.drawRect(layoutBorderSize, 
-                                         layoutBorderSize, 
-                                         unscaledWidth - layoutBorderSize * 2, 
-                                         unscaledHeight - layoutBorderSize * 2);
-        else
-            chromeColorGraphics.drawRect(0, 
-                                         0, 
-                                         unscaledWidth, 
-                                         unscaledHeight - layoutBorderSize);
+            chromeColorGraphics.drawRect(0,0,unscaledWidth,unscaledHeight);
     }
 }
 }
