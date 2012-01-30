@@ -1267,52 +1267,60 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         var iconHeight:Number = 0;
         var decoratorWidth:Number = 0;
         var decoratorHeight:Number = 0;
-        
-        var paddingLeft:Number = getStyle("paddingLeft");
-        var paddingRight:Number = getStyle("paddingRight");
-        var paddingTop:Number = getStyle("paddingTop");
+
+        var paddingLeft:Number   = getStyle("paddingLeft");
+        var paddingRight:Number  = getStyle("paddingRight");
+        var paddingTop:Number    = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
-        
-        var viewWidth:Number = unscaledWidth - paddingLeft - paddingRight;
-        var viewHeight:Number = unscaledHeight - paddingTop - paddingBottom;
+        var horizontalGap:Number = getStyle("horizontalGap");
+        var verticalAlign:String = getStyle("verticalAlign");
+        var verticalGap:Number   = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
+
+        var vAlign:Number;
+        if (verticalAlign == "top")
+            vAlign = 0;
+        else if (verticalAlign == "bottom")
+            vAlign = 1;
+        else // if (verticalAlign == "middle")
+            vAlign = 0.5;
+        // made "middle" last even though it's most likely so it is the default and if someone 
+        // types "center", then it will still vertically center itself.
+
+        var viewWidth:Number  = unscaledWidth  - paddingLeft - paddingRight;
+        var viewHeight:Number = unscaledHeight - paddingTop  - paddingBottom;
         
         // icon is on the left
         if (iconDisplay)
         {
             // set the icon's position and size
             iconDisplayHolder.setLayoutBoundsSize(this.iconWidth, this.iconHeight);
+            iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, paddingTop);
             
             iconWidth = iconDisplayHolder.getLayoutBoundsWidth();
             iconHeight = iconDisplayHolder.getLayoutBoundsHeight();
-            
-            // paddingLeft for x, paddingTop for y
-            iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, paddingTop);
         }
         
         // decorator is aligned next to icon
         if (decoratorDisplay)
         {
+            // FIXME (egeorgie): another helper method for getting the preferred size?
             if (decoratorDisplay is IVisualElement)
             {
                 var decoratorVisualElement:IVisualElement = IVisualElement(decoratorDisplay);
-                decoratorVisualElement.setLayoutBoundsSize(NaN, NaN);
-                
-                decoratorWidth = decoratorVisualElement.getLayoutBoundsWidth();
-                decoratorHeight = decoratorVisualElement.getLayoutBoundsHeight();
-                
-                // paddingRight from right and center vertically
-                decoratorVisualElement.setLayoutBoundsPosition(unscaledWidth - paddingRight - decoratorWidth, (viewHeight - decoratorHeight)/2 + paddingTop);
+                decoratorWidth = decoratorVisualElement.getPreferredBoundsWidth();
+                decoratorHeight = decoratorVisualElement.getPreferredBoundsHeight();
             }
             else if (decoratorDisplay is IFlexDisplayObject)
             {
                 decoratorWidth = IFlexDisplayObject(decoratorDisplay).measuredWidth;
                 decoratorHeight = IFlexDisplayObject(decoratorDisplay).measuredHeight;
-                
-                IFlexDisplayObject(decoratorDisplay).setActualSize(decoratorWidth, decoratorHeight);
-                
-                // paddingRight from right and center vertically
-                IFlexDisplayObject(decoratorDisplay).move(unscaledWidth - paddingRight - decoratorWidth, (viewHeight - decoratorHeight)/2 + paddingTop);
             }
+
+            resizeElement(decoratorDisplay, decoratorWidth, decoratorHeight);
+
+            // decorator is always right aligned, vertically centered
+            var decoratorY:Number = Math.round(0.5 * (viewHeight - decoratorHeight)) + paddingTop;
+            positionElement(decoratorDisplay, unscaledWidth - paddingRight - decoratorWidth, decoratorY);
         }
 
         // Figure out how much space we have for label and message as well as the 
@@ -1321,13 +1329,13 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         // don't forget the extra gap padding if these elements exist
         if (iconDisplay)
-            labelComponentsViewWidth -= getStyle("horizontalGap");
+            labelComponentsViewWidth -= horizontalGap;
         if (decoratorDisplay)
-            labelComponentsViewWidth -= getStyle("horizontalGap");
+            labelComponentsViewWidth -= horizontalGap;
         
-        var labelComponentsX:Number = getStyle("paddingLeft");
+        var labelComponentsX:Number = paddingLeft;
         if (iconDisplay)
-            labelComponentsX += iconWidth + getStyle("horizontalGap");
+            labelComponentsX += iconWidth + horizontalGap;
         
         // calculte the natural height for the label
         var labelTextHeight:Number = 0;
@@ -1348,25 +1356,22 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // commit styles to get an accurate measurement
             messageDisplay.commitStyles();
         }
-        
+
         // now size and position the elements, 3 different configurations we care about:
         // 1) label and message
         // 2) label only
         // 3) message only
-        
+
         // label display goes on top
         // message display goes below
-        
+
         var labelWidth:Number = 0;
         var labelHeight:Number = 0;
         var messageWidth:Number = 0;
         var messageHeight:Number = 0;
-        var verticalGap:Number = 0;
-        
+
         if (labelDisplay)
         {
-            verticalGap = 0;
-            
             // handle labelDisplay.  it can only be 1 line
             
             // width of label takes up rest of space
@@ -1374,28 +1379,21 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // and make sure verticalAlign is operating on a correct value.
             labelWidth = Math.max(labelComponentsViewWidth, 0);
             labelHeight = Math.max(Math.min(viewHeight, labelTextHeight), 0);
-                        
-            labelDisplay.width = labelWidth;
-            labelDisplay.height = labelHeight;
-            
-            labelDisplay.x = Math.round(labelComponentsX);
-            labelDisplay.y = Math.round(paddingTop);
+            resizeElement(labelDisplay, labelWidth, labelHeight);
             
             // attempt to truncate text
             labelDisplay.truncateToFit();
         }
-        
+
         if (messageDisplay)
         {
             // handle message
             // don't use the measured text width or height because that only takes the first line in to account
             messageWidth = Math.max(labelComponentsViewWidth, 0);
             messageHeight = Math.max(viewHeight - labelHeight - verticalGap, 0);
-            
-            messageDisplay.width = messageWidth;
             // FIXME (rfrishbe): we should check to see if this causes textHeight to change because then we 
             // might need to remeasure
-            messageDisplay.height = messageHeight;
+            resizeElement(messageDisplay, messageWidth, messageHeight);
             
             // FIXME (rfrishbe): figure out if this is right with regards to multi-line text.
             // For instance, if the text component spans to 2 lines but only shows one line, then textHeight here 
@@ -1405,41 +1403,24 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // displayed lines.
             messageHeight = Math.min(messageHeight, messageDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING);
             
-            messageDisplay.x = Math.round(labelComponentsX);
-            messageDisplay.y = Math.round(paddingTop + labelHeight + verticalGap);
-            
             // since it's multi-line, no need to truncate
             //if (messageDisplay.isTruncated)
             //    messageDisplay.text = messageText;
             //messageDisplay.truncateToFit();
         }
-        
-        // revisit y positions now that we know all heights so we can respect verticalAlign style
-        if (getStyle("verticalAlign") == "top")
+
+        // Position the text components now that we know all heights so we can respect verticalAlign style
+        if (labelDisplay || messageDisplay)
         {
-            // don't do anything...already aligned to top in code above
-        }
-        else if (getStyle("verticalAlign") == "bottom")
-        {
-            if (iconDisplay)
-                iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, unscaledHeight - iconHeight - paddingBottom);
-            if (messageDisplay)
-                messageDisplay.y = unscaledHeight - paddingBottom - messageHeight;
+            var totalHeight:Number = labelHeight + messageHeight + verticalGap;
+            var labelComponentsY:Number = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
+
             if (labelDisplay)
-                labelDisplay.y = unscaledHeight - paddingBottom - messageHeight - verticalGap - labelHeight;
-        }
-        else //if (getStyle("verticalAlign") == "middle")
-        {
-            if (iconDisplay)
-                iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, Math.round((unscaledHeight - iconHeight)/2));
-            var textTotalHeight:Number = labelHeight + messageHeight + verticalGap;
-            if (labelDisplay)
-                labelDisplay.y = Math.round((unscaledHeight - textTotalHeight)/2);
+                positionElement(labelDisplay, labelComponentsX, labelComponentsY);
+
             if (messageDisplay)
-                messageDisplay.y = Math.round((unscaledHeight - textTotalHeight)/2 + verticalGap + labelHeight);
+                positionElement(messageDisplay, labelComponentsX, labelComponentsY + labelHeight + verticalGap);
         }
-        // made "middle" last even though it's most likely so it is the default and if someone 
-        // types "center", then it will still vertically center itself.
     }
     
     //--------------------------------------------------------------------------
