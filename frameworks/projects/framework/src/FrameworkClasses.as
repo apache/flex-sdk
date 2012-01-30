@@ -68,9 +68,7 @@ internal class FrameworkClasses
 	import mx.effects.easing.Quintic; Quintic;
 	import mx.effects.easing.Sine; Sine;
 	import mx.events.ModuleEvent; ModuleEvent;
-	import mx.filters.BaseFilter; BaseFilter;
-	import mx.filters.BaseDimensionFilter; BaseDimensionFilter;
-	import mx.filters.IBitmapFilter; IBitmapFilter;
+	import mx.filters.IFlexBitmapFilter; IFlexBitmapFilter;
 	import mx.graphics.ImageSnapshot; ImageSnapshot;
 	import mx.graphics.codec.PNGEncoder; PNGEncoder;
 	import mx.graphics.codec.JPEGEncoder; JPEGEncoder;
