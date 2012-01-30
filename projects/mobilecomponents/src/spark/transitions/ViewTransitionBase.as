@@ -18,6 +18,7 @@ import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import mx.core.IVisualElement;
@@ -202,10 +203,6 @@ public class ViewTransitionBase extends EventDispatcher
      */ 
     private var verticalTransition:Boolean;
     
-    
-    /**
-     *  @private
-     */
     
     //--------------------------------------------------------------------------
     //
@@ -517,6 +514,13 @@ public class ViewTransitionBase extends EventDispatcher
      */
     mx_internal var cachedNavigator:BitmapImage;
     
+    /**
+     *  @private
+     *  Stores the location of the cached navigator in the global coordinate space
+     *  so that the transition can properly position it when added to the display list.
+     */ 
+    mx_internal var cachedNavigatorGlobalPosition:Point = new Point();
+    
     //----------------------------------
     //  cachedActionGroupSnapshot
     //----------------------------------
@@ -528,6 +532,13 @@ public class ViewTransitionBase extends EventDispatcher
      *  previous view.
      */
     mx_internal var cachedActionGroup:BitmapImage;
+    
+    /**
+     *  @private
+     *  Stores the location of the cached navigator in the global coordinate space
+     *  so that the transition can properly position it when added to the display list.
+     */ 
+    mx_internal var cachedActionGroupGlobalPosition:Point = new Point();
     
     //----------------------------------
     //  cachedTitleGroupSnapshot
@@ -541,6 +552,13 @@ public class ViewTransitionBase extends EventDispatcher
      */
     mx_internal var cachedTitleGroup:BitmapImage;
     
+    /**
+     *  @private
+     *  Stores the location of the cached navigator in the global coordinate space
+     *  so that the transition can properly position it when added to the display list.
+     */ 
+    mx_internal var cachedTitleGroupGlobalPosition:Point = new Point();
+    
     //----------------------------------
     //  cachedNavigationGroupSnapshot
     //----------------------------------
@@ -552,6 +570,13 @@ public class ViewTransitionBase extends EventDispatcher
      *  previous view.
      */
     mx_internal var cachedNavigationGroup:BitmapImage;
+    
+    /**
+     *  @private
+     *  Stores the location of the cached navigator in the global coordinate space
+     *  so that the transition can properly position it when added to the display list.
+     */ 
+    mx_internal var cachedNavigationGroupGlobalPosition:Point = new Point();
     
     //----------------------------------
     //  targetNavigator
@@ -640,19 +665,19 @@ public class ViewTransitionBase extends EventDispatcher
                 
                 // Snapshot title content of our startView.
                 if (actionBar.titleGroup && actionBar.titleGroup.visible)
-                    cachedTitleGroup = getSnapshot(actionBar.titleGroup);
+                    cachedTitleGroup = getSnapshot(actionBar.titleGroup, 4, cachedTitleGroupGlobalPosition);
                 else if (actionBar.titleDisplay
                     && (actionBar.titleDisplay is UIComponent)
                     && UIComponent(actionBar.titleDisplay).visible)
-                    cachedTitleGroup = getSnapshot(UIComponent(actionBar.titleDisplay));
+                    cachedTitleGroup = getSnapshot(UIComponent(actionBar.titleDisplay), 4, cachedTitleGroupGlobalPosition);
                 
                 // Snapshot actionContent if it's changing between our start and end views.
                 if (startView.actionContent != endView.actionContent)
-                    cachedActionGroup = getSnapshot(actionBar.actionGroup);
+                    cachedActionGroup = getSnapshot(actionBar.actionGroup, 4, cachedActionGroupGlobalPosition);
                 
                 // Snapshot navigationContent if it's changing between our start and end views.
                 if (startView.navigationContent != endView.navigationContent)
-                    cachedNavigationGroup = getSnapshot(actionBar.navigationGroup);
+                    cachedNavigationGroup = getSnapshot(actionBar.navigationGroup, 4, cachedNavigationGroupGlobalPosition);
             }
         }
     }
@@ -870,20 +895,20 @@ public class ViewTransitionBase extends EventDispatcher
             }
             
             if (cachedTitleGroup)
-                transitionGroup.addElement(cachedTitleGroup);
+                addCachedElementToGroup(transitionGroup, cachedTitleGroup, cachedTitleGroupGlobalPosition);
         }
         
         // If a cache of the navigation group exists, that means the content
         // changed.  In this case the queue cached representation to be faded
         // out.
         if (cachedNavigationGroup)
-            transitionGroup.addElement(cachedNavigationGroup);
-        
+            addCachedElementToGroup(transitionGroup, cachedNavigationGroup, cachedNavigationGroupGlobalPosition);
+
         // If a cache of the action group exists, that means the content
         // changed.  In this case the queue cached representation to be faded
         // out.
         if (cachedActionGroup)
-            transitionGroup.addElement(cachedActionGroup);
+            addCachedElementToGroup(transitionGroup, cachedActionGroup, cachedActionGroupGlobalPosition);
         
         // Create fade in animations for navigationContent and actionContent
         // of the next view.
@@ -1210,14 +1235,28 @@ public class ViewTransitionBase extends EventDispatcher
     /**
      *  Used to render snap shots of screen elements in 
      *  preparation for transitioning.  
-     *  The bitmap is returned in the form of a BitmapImage object.  
-     *  The BitmapImage object's transform is adjusted so that
-     *  the bitmap matches the target.
+     *  The bitmap is returned in the form of a BitmapImage object.
+     *   
+     *  <p>The BitmapImage is in target's parent coordiantes space - 
+     *  it overlaps the target precisely if paranted to the same parent.
+     * 
+     *  When moving to a different parent, make sure to adjust the 
+     *  transformation of the BitmapImage to correctly account for the
+     *  change in coordinate spaces.
+     * 
+     *  The updated value of the <code>globalPosition</code> parameter
+     *  can be used for that.</p> 
      * 
      *  @param target Display object to capture.
      *  
      *  @param padding Padding around the object to be included in 
      *  the BitmapImage object.
+     * 
+     *  @param globalPosition When non-null, <code>globalPosition</code>
+     *  will be updated with the origin of the BitmapImage in global 
+     *  coordiantes. When moving to a different coordinate space, this
+     *  value can be used to adjust the snapshot's position so its
+     *  global position on screen doesn't change. 
      * 
      *  @return BitmapImage object representing the target.
      * 
@@ -1225,7 +1264,7 @@ public class ViewTransitionBase extends EventDispatcher
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected function getSnapshot(target:UIComponent, padding:int = 4):BitmapImage
+    protected function getSnapshot(target:UIComponent, padding:int = 4, globalPosition:Point = null):BitmapImage
     {       
         if (!target || !target.visible || target.width == 0 || target.height == 0)
             return null;
@@ -1267,6 +1306,13 @@ public class ViewTransitionBase extends EventDispatcher
 
         // Exclude from layout.
         snapshot.includeInLayout = false;
+        
+        if (globalPosition)
+        {
+            var pt:Point = parent ? parent.localToGlobal(new Point(snapshot.x, snapshot.y)) : new Point();
+            globalPosition.x = pt.x;
+            globalPosition.y = pt.y;
+        }
         
         return snapshot; 
     }
@@ -1368,7 +1414,35 @@ public class ViewTransitionBase extends EventDispatcher
         else
             container.setChildIndex(component, index);
     }
-    
+
+    /**
+     *  @private
+     *  Adds the element to the targetGroup and adjusts the position
+     *  so that the global position remains the same.
+     * 
+     *  Note the targetGroup must be already added to the display list and
+     *  positioned in order for this method to adjust the cachedElement's position
+     *  correctly.
+     * 
+     *  @param targetGroup  The Group that will parent the cached element.
+     *  @param cachedElement  The cached element - the return value of getSnapshot()
+     *  @param cachedElementGlobalPosition The global position returned from getSnapshot()
+     * 
+     *  @see #getSnapshot
+     */
+    mx_internal function addCachedElementToGroup(targetGroup:Group, 
+                                                 cachedElement:BitmapImage, 
+                                                 cachedElementGlobalPosition:Point):void
+    {
+        targetGroup.addElement(cachedElement);
+
+        // We are moving the cachedTitleGroup to the transitionGroup's coordinate space,
+        // adjust the position
+        var localOrigin:Point = targetGroup.globalToLocal(cachedElementGlobalPosition);
+        cachedElement.x = localOrigin.x;
+        cachedElement.y = localOrigin.y;
+    }
+
     /**
      *  @private
      *  Helper method that returns index of the given component. 
@@ -1380,8 +1454,5 @@ public class ViewTransitionBase extends EventDispatcher
         else
             return container.getChildIndex(component);
     }
-
 }
-
-    
 }
