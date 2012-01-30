@@ -618,12 +618,12 @@ public class StyleManagerImpl implements IStyleManager2
         _selectors[selector] = styleDeclaration;
 
         // We also index by subject to help match advanced selectors
-        var subject:String = styleDeclaration.subject;
-        if (!subject && selector)
+        if (!styleDeclaration.subject && selector)
         {
             styleDeclaration.selectorString = selector;
         }
 
+		var subject:String = styleDeclaration.subject;
         if (subject != null)
         {
             var declarations:Array = _subjects[subject] as Array;
