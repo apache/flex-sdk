@@ -15,8 +15,6 @@ package spark.components.supportClasses
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
-import flash.utils.getDefinitionByName;
-import flash.utils.getQualifiedClassName;
 
 import spark.components.supportClasses.ViewHistoryData;
 
@@ -86,65 +84,6 @@ public class NavigationStack implements IExternalizable
     // Properties
     // 
     //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  firstView
-    //----------------------------------
-    
-    /**
-     *  The class name of the first view that should be created when a navigator
-     *  initializes itself.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var firstView:Class;
-    
-    //----------------------------------
-    //  firstViewData
-    //----------------------------------
-
-    /**
-     *  This is the initialization data to pass to the first view that is created
-     *  by a navigator.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var firstViewData:Object;
-    
-    //----------------------------------
-    //  icon
-    //----------------------------------
-    
-    /**
-     *  Returns the icon that should be used when this stack is represented
-     *  by a visual component.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var icon:Class;
-    
-    //----------------------------------
-    //  label
-    //----------------------------------
-    
-    /**
-     *  The label to be used when this stack is represented by a visual component.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var label:String;
     
     //----------------------------------
     //  length
@@ -271,16 +210,7 @@ public class NavigationStack implements IExternalizable
      */ 
     public function writeExternal(output:IDataOutput):void
     {
-        // The write order must always match the read order.  Make sure that
-        // writeExternal() and readExternal() process properties in the same order.
-        output.writeObject(firstViewData);
-        output.writeObject(label);
         output.writeObject(_source);
-        
-        // Can't store class names in a shared object, need to save the
-        // class name instead.
-        output.writeObject(getQualifiedClassName(icon));
-        output.writeObject(getQualifiedClassName(firstView));
     }
     
     /**
@@ -296,18 +226,7 @@ public class NavigationStack implements IExternalizable
      */ 
     public function readExternal(input:IDataInput):void 
     {
-        // The write order must always match the read order.  Make sure that
-        // writeExternal() and readExternal() process properties in the same order.
-        firstViewData = input.readObject();
-        label = input.readObject();
         _source = input.readObject() as Vector.<ViewHistoryData>;
-        
-        // Need to get the class names from the saved strings.
-        var className:String = input.readObject();
-        icon = (className == "null") ? null : getDefinitionByName(className) as Class;
-        
-        className = input.readObject();
-        firstView = (className == "null") ? null : getDefinitionByName(className) as Class;
     }
 }
 }
