@@ -60,16 +60,16 @@ public class GradientStroke extends GradientBase implements IStroke
      *  A <code>null</code> value is equivalent to
      *  <code>CapsStyle.ROUND</code>.
      *  This parameter is optional,
-     *  with a default value of <code>null</code>. 
+     *  with a default value of <code>CapsStyle.ROUND</code>. 
      *
      *  @param joints A value from the JointStyle class
      *  that specifies the type of joint appearance used at angles.
      *  Valid values are <code>JointStyle.BEVEL</code>,
      *  <code>JointStyle.MITER</code>, and <code>JointStyle.ROUND</code>.
      *  A <code>null</code> value is equivalent to
-     *  <code>JoinStyle.ROUND</code>.
+     *  <code>JointStyle.ROUND</code>.
      *  This parameter is optional,
-     *  with a default value of <code>null</code>. 
+     *  with a default value of <code>JointStyle.ROUND</code>. 
      *
      *  @param miterLimit A number that indicates the limit
      *  at which a miter is cut off. 
@@ -83,7 +83,7 @@ public class GradientStroke extends GradientBase implements IStroke
      *  For example, with a <code>miterLimit</code> factor of 2.5 and a 
      *  <code>thickness</code> of 10 pixels, the miter is cut off at 25 pixels. 
      *  This parameter is optional,
-     *  with a default value of <code>0</code>.
+     *  with a default value of <code>3</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -93,9 +93,9 @@ public class GradientStroke extends GradientBase implements IStroke
     public function GradientStroke(weight:Number = 1,
                                      pixelHinting:Boolean = false,
                                      scaleMode:String = "normal",
-                                     caps:String = null,
-                                     joints:String = null,
-                                     miterLimit:Number = 0)
+                                     caps:String = "round",
+                                     joints:String = "round",
+                                     miterLimit:Number = 3)
     {
         super();
 
@@ -115,7 +115,7 @@ public class GradientStroke extends GradientBase implements IStroke
      *  @private
      *  Storage for the caps property.
      */
-    private var _caps:String = null;
+    private var _caps:String = CapsStyle.ROUND;
     
     [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="round,square,none", defaultValue="round")]
@@ -129,7 +129,7 @@ public class GradientStroke extends GradientBase implements IStroke
      *  A <code>null</code> value is equivalent to
      *  <code>CapsStyle.ROUND</code>.</p>
      *
-     *  @default null
+     *  @default CapsStyle.ROUND
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -164,7 +164,7 @@ public class GradientStroke extends GradientBase implements IStroke
      *  @private
      *  Storage for the joints property.
      */
-    private var _joints:String = null;
+    private var _joints:String = JointStyle.ROUND;
     
     [Bindable("propertyChange")]
     [Inspectable(category="General", enumeration="round,bevel,miter", defaultValue="round")]
@@ -176,9 +176,9 @@ public class GradientStroke extends GradientBase implements IStroke
      *  <p>Valid values are <code>JointStyle.BEVEL</code>,
      *  <code>JointStyle.MITER</code>, and <code>JointStyle.ROUND</code>.
      *  A <code>null</code> value is equivalent to
-     *  <code>JoinStyle.ROUND</code>.</p>
+     *  <code>JointStyle.ROUND</code>.</p>
      *  
-     *  @default null
+     *  @default JointStyle.ROUND
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -213,7 +213,7 @@ public class GradientStroke extends GradientBase implements IStroke
      *  @private
      *  Storage for the miterLimit property.
      */
-    private var _miterLimit:Number = 0;
+    private var _miterLimit:Number = 3;
     
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
@@ -234,7 +234,7 @@ public class GradientStroke extends GradientBase implements IStroke
      *  and a <code>thickness</code> of 10 pixels,
      *  the miter is cut off at 25 pixels.</p>
      *  
-     *  @default 0
+     *  @default 3
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -462,10 +462,7 @@ public class GradientStroke extends GradientBase implements IStroke
         graphicsStroke.miterLimit = miterLimit; 
         graphicsStroke.pixelHinting = pixelHinting;
         graphicsStroke.scaleMode = scaleMode;   
-        
-        // Remove this check when SDK-18373 is fixed 
-        graphicsStroke.joints = (!joints) ? JointStyle.ROUND : joints;
-            
+                    
         // There is a bug in Drawing API-2 where if no caps is 
         // specified, a value of 'none' is used instead of 'round'
         graphicsStroke.caps = (!caps) ? CapsStyle.ROUND : caps; 
