@@ -30,10 +30,10 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:BitmapImage source="@Embed('../../../../assets/mac_close_up.png')" includeIn="up" left="0" verticalCenter="0" />
+    <s:BitmapImage source="@Embed('../../../../../assets/mac_close_up.png')" includeIn="up" left="0" verticalCenter="0" />
     
-    <s:BitmapImage source="@Embed('../../../../assets/mac_close_over.png')" includeIn="over" left="0" verticalCenter="0" />
+    <s:BitmapImage source="@Embed('../../../../../assets/mac_close_over.png')" includeIn="over" left="0" verticalCenter="0" />
 
-    <s:BitmapImage source="@Embed('../../../../assets/mac_close_down.png')" includeIn="down" left="0" verticalCenter="0" />
+    <s:BitmapImage source="@Embed('../../../../../assets/mac_close_down.png')" includeIn="down" left="0" verticalCenter="0" />
     
 </s:Skin>
