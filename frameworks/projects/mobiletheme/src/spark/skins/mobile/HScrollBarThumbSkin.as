@@ -103,9 +103,9 @@ public class HScrollBarThumbSkin extends MobileSkin
     //
     //  Variables
     //
-    //--------------------------------------------------------------------------	
+    //--------------------------------------------------------------------------    
     /**
-     *  Padding from bottom
+     *  Padding from bottom.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -115,7 +115,7 @@ public class HScrollBarThumbSkin extends MobileSkin
     protected var paddingBottom:int;
     
     /**
-     *  Horizontal padding from left and right
+     *  Horizontal padding from left and right.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -132,8 +132,8 @@ public class HScrollBarThumbSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     /**
-     *  @protected
-     */ 
+     *  @private
+     */
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
