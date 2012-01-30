@@ -1810,7 +1810,13 @@ public class WindowedApplication extends Application implements IWindow
     {
         super.partAdded(partName, instance);
         
-        if (instance == titleBar)
+        if (instance == statusBar)
+        {
+            statusBar.visible = _showStatusBar;
+            statusBar.includeInLayout = _showStatusBar;
+            showStatusBarChanged = false;
+        }
+        else if (instance == titleBar)
         {
             if (!nativeWindow.closed)
             {
