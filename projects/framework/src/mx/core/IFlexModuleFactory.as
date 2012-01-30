@@ -68,6 +68,25 @@ public interface IFlexModuleFactory
     function allowInsecureDomain(... domains):void;
     
     /**
+     *  A way to call a method in this IFlexModuleFactory's context
+     *
+     *  @param fn The function or method to call
+     *  @param thisArg The this pointer for the function
+     *  @param argArray The arguments for the function
+     *  @param returns If true, the function returns a value
+     *
+     *  @return Whatever the function returns, if anything.
+     *  
+     *  @see Function.apply
+
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 3
+     */
+    function callInContext(fn:Function, thisArg:*, argArray:*, returns:Boolean=true):*;
+
+    /**
      *  A factory method that requests
      *  an instance of a definition known to the module.
      *
