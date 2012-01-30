@@ -13,13 +13,11 @@ package spark.skins.mobile
 {
 
 import flash.display.DisplayObject;
-import flash.display.GradientType;
 import flash.display.Graphics;
 
 import mx.core.DeviceDensity;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.utils.ColorUtil;
 
 import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
@@ -189,9 +187,6 @@ public class ButtonSkin extends ButtonSkinBase
             
             // add shadow before display
             addChildAt(labelDisplayShadow, getChildIndex(labelDisplay));
-            
-            // update shadow when labelDisplay changes
-            labelDisplay.addEventListener(FlexEvent.VALUE_COMMIT, labelDisplay_valueCommitHandler);
         }
     }
     
@@ -313,11 +308,10 @@ public class ButtonSkin extends ButtonSkinBase
     /**
      *  @private 
      */
-    private function labelDisplay_valueCommitHandler(event:FlexEvent):void 
+    override protected function labelDisplay_valueCommitHandler(event:FlexEvent):void 
     {
+        super.labelDisplay_valueCommitHandler(event);
         labelDisplayShadow.text = labelDisplay.text;
-        invalidateSize();
-        invalidateDisplayList();
     }
     
 }
