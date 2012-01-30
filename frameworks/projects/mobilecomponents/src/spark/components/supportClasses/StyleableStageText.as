@@ -503,6 +503,14 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var invalidateAncestorsVisibleFlag:Boolean = true;
     
     /**
+     *  If a complete event is pending when we are about to show the StageText,
+     *  we set this flag to wait for the complete event before showing it.
+     *  Otherwise, the StageText may show then snap to a new location when the
+     *  complete event happens.
+     */
+    private var showOnComplete:Boolean = false;
+    
+    /**
      *  Ancestors watched for changes in visibility or geometry. Any change in
      *  an ancestor's visibility or position may affect the StageText's 
      *  visibility or position.
@@ -1554,32 +1562,41 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         {
             if (stageText != null)
             {
-                if (immediate)
+                var calculatedVisible:Boolean = _visible && calcAncestorsVisible();
+                
+                if (completeEventPending && calculatedVisible)
                 {
-                    stageText.visible = _visible && calcAncestorsVisible();
-                    
-                    // The focused stageText may have been replaced by a bitmap during
-                    // an animation. When restoring its visibility, restore its focus as
-                    // well if the soft keyboard is open. (If the soft keyboard is not
-                    // open, do not restore focus because doing so will force the soft
-                    // keyboard to open.)
-                    if (stageText.visible && stageText == focusedStageText && 
-                        stage.softKeyboardRect.height > 0)
-                    {
-                        stageText.assignFocus();
-                    }
-                    
-                    // Do not remove the proxy bitmap until after stageText has been
-                    // made visible to reduce flicker.
-                    disposeProxyImage();
-                    stageTextVisibleChangePending = false;
-                    removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+                    showOnComplete = true;
                 }
                 else
                 {
-                    stageTextVisible = _visible && calcAncestorsVisible();
-                    stageTextVisibleChangePending = true;
-                    addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+                    if (immediate)
+                    {
+                        stageText.visible = calculatedVisible;
+                        
+                        // The focused stageText may have been replaced by a bitmap during
+                        // an animation. When restoring its visibility, restore its focus as
+                        // well if the soft keyboard is open. (If the soft keyboard is not
+                        // open, do not restore focus because doing so will force the soft
+                        // keyboard to open.)
+                        if (stageText.visible && stageText == focusedStageText && 
+                            stage.softKeyboardRect.height > 0)
+                        {
+                            stageText.assignFocus();
+                        }
+                        
+                        // Do not remove the proxy bitmap until after stageText has been
+                        // made visible to reduce flicker.
+                        disposeProxyImage();
+                        stageTextVisibleChangePending = false;
+                        removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+                    }
+                    else
+                    {
+                        stageTextVisible = calculatedVisible;
+                        stageTextVisibleChangePending = true;
+                        addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+                    }
                 }
             }
         }
@@ -2490,6 +2507,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private function completeEventBackstop_timerHandler(event:TimerEvent):void
     {
         completeEventPending = false;
+
+        if (showOnComplete)
+        {
+            commitVisible(true);
+            showOnComplete = false;
+        }
     }
     
     private function form_moveHandler(event:MoveEvent):void
@@ -2526,6 +2549,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         
         if (!isDesktop && viewTransitionRunning && isAndroid)
             ignoreProxyUpdatesDuringTransition = true;
+        
+        if (showOnComplete)
+        {
+            commitVisible(true);
+            showOnComplete = false;
+        }
     }
     
     private function stageText_focusInHandler(event:FocusEvent):void
