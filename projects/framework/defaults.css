@@ -711,7 +711,7 @@ DragManager
 	borderColor: #CE2929;
 	borderStyle: "errorTipRight";
 	color: #FFFFFF;
-	fontSize: 9;
+	fontSize: 10;
 	fontWeight: "bold";
 	shadowColor: #000000;
 	paddingBottom: 4;
@@ -1594,7 +1594,7 @@ ToolTip
 	borderSkin: ClassReference("mx.skins.halo.ToolTipBorder");
 	borderStyle: "toolTip";
 	cornerRadius: 2;
-	fontSize: 9;
+	fontSize: 10;
 	paddingBottom: 2;
 	paddingLeft: 4;
 	paddingRight: 4;
