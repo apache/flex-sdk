@@ -8,13 +8,13 @@
             width="75%" height="75%"  
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                     text="Default Halo NumericStepper control with a minimum=0, maximum=10, and stepSize=1."/>
             <mx:NumericStepper />
 
             <mx:HRule width="100%" />
 
-            <s:SimpleText width="100%"  color="blue"
+            <s:Label width="100%"  color="blue"
                     text="Halo NumericStepper control with a minimum=10, maximum=40, stepSize=0.01, and starting value of 20."/>
             <mx:NumericStepper id="ns" 
                     minimum="10.00" maximum="40.00" 
@@ -22,7 +22,7 @@
                     value="20.00" 
                     width="65"/>
 
-            <s:SimpleText color="blue" text="You selected {ns.value}"/>
+            <s:Label color="blue" text="You selected {ns.value}"/>
         </s:VGroup>
     </s:Panel>
 
