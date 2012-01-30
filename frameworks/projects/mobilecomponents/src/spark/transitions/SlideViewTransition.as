@@ -15,6 +15,7 @@ package spark.transitions
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
@@ -694,6 +695,10 @@ public class SlideViewTransition extends ViewTransitionBase
      */
     override protected function cleanUp():void
     {
+        // Clear the scrollRect that the transition applied to the navigator
+        if (navigatorProps.scrollRectSet)
+            navigator.scrollRect = null;
+            
         if (startView)
         {
             startView.includeInLayout = startViewProps.includeInLayout;
@@ -800,6 +805,8 @@ public class SlideViewTransition extends ViewTransitionBase
     override public function prepareForPlay():void
     {
         actionBarTransitionDirection = direction;
+        applyScrollRect();
+        
         super.prepareForPlay();
     }
     
@@ -815,5 +822,22 @@ public class SlideViewTransition extends ViewTransitionBase
         return targetNavigator.globalToLocal(stagePoint);
     }
     
+    /**
+     *  @private
+     *  This method sets the scrollRect of the navigator that is being animated.
+     *  An mx_internal method was created to avoid any issues that may arise by
+     *  adding this functionality in the Flex 4.5.1 dot release.  Developers
+     *  can override this method to do nothing to revert to previous implementations.
+     */
+    // TODO (chiedozi): Eventually get rid of this method
+    mx_internal function applyScrollRect():void
+    {
+        // The scrollRect is only set if the navigator doesn't have one
+        if (!navigator.scrollRect)
+        {
+            navigatorProps.scrollRectSet = true;
+            navigator.scrollRect = new Rectangle(0, 0, navigator.width, navigator.height);
+        }
+    }
 }
 }
