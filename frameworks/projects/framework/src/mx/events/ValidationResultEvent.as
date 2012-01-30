@@ -22,6 +22,11 @@ import flash.events.Event;
  *  @see mx.validators.Validator
  *  @see mx.validators.ValidationResult
  *  @see mx.validators.RegExpValidationResult
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ValidationResultEvent extends Event
 {
@@ -59,6 +64,11 @@ public class ValidationResultEvent extends Event
 	 *  </table>
 	 *
      *  @eventType invalid 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const INVALID:String = "invalid";
 
@@ -86,6 +96,11 @@ public class ValidationResultEvent extends Event
 	 *  </table>
 	 *
      *  @eventType valid 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const VALID:String = "valid";
 
@@ -108,6 +123,11 @@ public class ValidationResultEvent extends Event
 	 *  @param field The name of the field that failed validation and triggered the event.
 	 *
 	 *  @param results An array of ValidationResult objects, one per validated field. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function ValidationResultEvent(type:String, bubbles:Boolean = false,
 										  cancelable:Boolean = false,
@@ -132,6 +152,11 @@ public class ValidationResultEvent extends Event
 
 	/**
 	 *  The name of the field that failed validation and triggered the event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public var field:String;
 	
@@ -142,6 +167,11 @@ public class ValidationResultEvent extends Event
 	/**
 	 *  A single string that contains every error message from all
 	 *  of the ValidationResult objects in the results Array.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function get message():String
     {
@@ -168,6 +198,11 @@ public class ValidationResultEvent extends Event
 	 *  An array of ValidationResult objects, one per validated field. 
 	 *
 	 *  @see mx.validators.ValidationResult
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public var results:Array;
 	
