@@ -108,213 +108,213 @@ public class BubbleChart extends CartesianChart
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class initialization
-	//
-	//--------------------------------------------------------------------------
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
+    
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function BubbleChart()
-	{
-		super();
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function BubbleChart()
+    {
+        super();
 
-		var zAxis:LinearAxis = new LinearAxis();
-		zAxis.autoAdjust = false;
-		zAxis.minimum = 0;
-		zAxis.interval = 1;
-		radiusAxis = zAxis;
-	}
+        var zAxis:LinearAxis = new LinearAxis();
+        zAxis.autoAdjust = false;
+        zAxis.minimum = 0;
+        zAxis.interval = 1;
+        radiusAxis = zAxis;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
     //----------------------------------
-	//  radiusAxis
+    //  radiusAxis
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the radiusAxis property.
-	 */
-	private var _radiusAxis:IAxis;
-	
+    /**
+     *  @private
+     *  Storage for the radiusAxis property.
+     */
+    private var _radiusAxis:IAxis;
+    
     [Inspectable(category="Data")]
 
-	/**
-	 *  The axis the bubble radius is mapped against
-	 *  Bubble charts treat the size of the individual bubbles
-	 *  as a third dimension of data which is transformed
-	 *  in a similar manner to how x and y position is transformed.  
-	 *  By default, the <code>radiusAxis</code> is a LinearAxis
-	 *  with the <code>autoAdjust</code> property set to <code>false</code>.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get radiusAxis():IAxis
-	{
-		return _transforms[0].getAxis(BubbleSeries.RADIUS_AXIS);
-	}
+    /**
+     *  The axis the bubble radius is mapped against
+     *  Bubble charts treat the size of the individual bubbles
+     *  as a third dimension of data which is transformed
+     *  in a similar manner to how x and y position is transformed.  
+     *  By default, the <code>radiusAxis</code> is a LinearAxis
+     *  with the <code>autoAdjust</code> property set to <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get radiusAxis():IAxis
+    {
+        return _transforms[0].getAxis(BubbleSeries.RADIUS_AXIS);
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set radiusAxis(value:IAxis):void
-	{
-		_radiusAxis = value;
-		_transforms[0].setAxis(BubbleSeries.RADIUS_AXIS, value);
-		
-		invalidateData();
-	}
+    /**
+     *  @private
+     */
+    public function set radiusAxis(value:IAxis):void
+    {
+        _radiusAxis = value;
+        _transforms[0].setAxis(BubbleSeries.RADIUS_AXIS, value);
+        
+        invalidateData();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var bubbleChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.BubbleChart", styleManager);		
-		
-		bubbleChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;		
-			this.dataTipCalloutStroke = new Stroke(2, 0);
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);						
-			this.fontSize = 10;
-			this.gridLinesStyleName = "bothGridLines";
-			this.maxRadius = 50;
-			this.minRadius = 0;
-			this.textAlign = "left";
-			this.horizontalAxisStyleNames = ["blockNumericAxis"];
-			this.verticalAxisStyleNames = ["blockNumericAxis"];
-		}
-		
-		return true;
-	}
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public function styleChanged(styleProp:String):void
-	{
-		var series:Array /* of Series */;
-		var n:int;
-		var i:int;
-		
-		if (styleProp == null || styleProp == "maxRadius")
-		{
-			var maxRadius:Number = getStyle("maxRadius");
-			
-			series = this.series;
-			n = series.length;
-			for (i = 0; i < n; i++)
-			{
-				if (series[i] is BubbleSeries)
-				{
-					series[i].maxRadius = maxRadius;
-					series[i].invalidateDisplayList();
-				}
-			}						
-		}
-		if (styleProp == null || styleProp == "minRadius")
-		{
-			var minRadius:Number = getStyle("minRadius");
-			
-			series = this.series;
-			n = series.length;
-			for (i = 0; i < n; i++)
-			{
-				if (series[i] is BubbleSeries)
-				{
-					series[i].minRadius = minRadius;
-					series[i].invalidateDisplayList();
-				}
-			}					
-		}
-	}
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var bubbleChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.BubbleChart", styleManager);     
+        
+        bubbleChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;       
+            this.dataTipCalloutStroke = new Stroke(2, 0);
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);                        
+            this.fontSize = 10;
+            this.gridLinesStyleName = "bothGridLines";
+            this.maxRadius = 50;
+            this.minRadius = 0;
+            this.textAlign = "left";
+            this.horizontalAxisStyleNames = ["blockNumericAxis"];
+            this.verticalAxisStyleNames = ["blockNumericAxis"];
+        }
+        
+        return true;
+    }
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        var series:Array /* of Series */;
+        var n:int;
+        var i:int;
+        
+        if (styleProp == null || styleProp == "maxRadius")
+        {
+            var maxRadius:Number = getStyle("maxRadius");
+            
+            series = this.series;
+            n = series.length;
+            for (i = 0; i < n; i++)
+            {
+                if (series[i] is BubbleSeries)
+                {
+                    series[i].maxRadius = maxRadius;
+                    series[i].invalidateDisplayList();
+                }
+            }                       
+        }
+        if (styleProp == null || styleProp == "minRadius")
+        {
+            var minRadius:Number = getStyle("minRadius");
+            
+            series = this.series;
+            n = series.length;
+            for (i = 0; i < n; i++)
+            {
+                if (series[i] is BubbleSeries)
+                {
+                    series[i].minRadius = minRadius;
+                    series[i].invalidateDisplayList();
+                }
+            }                   
+        }
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: ChartBase
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: ChartBase
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function customizeSeries(seriesGlyph:Series, i:uint):void
-	{
-		var maxRadius:Number = getStyle("maxRadius");
-		var minRadius:Number = getStyle("minRadius");
+    /**
+     *  @private
+     */
+    override protected function customizeSeries(seriesGlyph:Series, i:uint):void
+    {
+        var maxRadius:Number = getStyle("maxRadius");
+        var minRadius:Number = getStyle("minRadius");
 
-		if ((seriesGlyph is BubbleSeries) && !isNaN(maxRadius))
-			BubbleSeries(seriesGlyph).maxRadius = maxRadius;
-		if ((seriesGlyph is BubbleSeries) && !isNaN(minRadius))
-			BubbleSeries(seriesGlyph).minRadius = minRadius;
-	}
+        if ((seriesGlyph is BubbleSeries) && !isNaN(maxRadius))
+            BubbleSeries(seriesGlyph).maxRadius = maxRadius;
+        if ((seriesGlyph is BubbleSeries) && !isNaN(minRadius))
+            BubbleSeries(seriesGlyph).minRadius = minRadius;
+    }
 }
 
 }
