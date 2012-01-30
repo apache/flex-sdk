@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actionScriptProperties mainApplicationPath="flex.as" projectUUID="5580cc92-7a74-4070-8f3a-f764df2cda9a" version="6">
-  <compiler additionalCompilerArguments="-source-path+=../../framework/src -keep-as3-metadata name=Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient -resource-bundle-list=../bundles.properties -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="10.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+  <compiler additionalCompilerArguments="-source-path+=../../framework/src -keep-as3-metadata name=Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient -resource-bundle-list=bundles.properties -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="10.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
