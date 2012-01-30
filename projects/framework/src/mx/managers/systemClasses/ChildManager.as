@@ -63,7 +63,7 @@ public class ChildManager implements ISystemManagerChildManager
 		{
 			SystemManager(systemManager).childManager = this;
 			this.systemManager = SystemManager(systemManager);
-			this.systemManager.registerImplementation("mx.managers.ISystemManagerChildManager", this);
+			this.systemManager.registerImplementation("mx.managers::ISystemManagerChildManager", this);
 		}
 	}
 
