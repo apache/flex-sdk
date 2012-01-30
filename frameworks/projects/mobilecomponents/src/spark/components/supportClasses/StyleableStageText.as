@@ -387,6 +387,12 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         super();
         
+        // This needs to be true so that we can show the soft keyboard if the
+        // user taps on the padding instead of on the StageText. If 
+        // needsSoftKeyboard isn't set to true, requestSoftKeyboard would do
+        // nothing.
+        needsSoftKeyboard = true;
+                
         _multiline = multiline;
         getStageText(true);
         
