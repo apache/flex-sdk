@@ -17,6 +17,7 @@ import mx.core.IVisualElementContainer;
 import spark.components.DateSpinner;
 import spark.components.SpinnerList;
 import spark.components.SpinnerListContainer;
+import spark.components.calendarClasses.DateSpinnerItemRenderer;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
@@ -93,6 +94,9 @@ public class DateSpinnerSkin extends MobileSkin
         addChild(SpinnerListContainer(listContainer));
         
         dateItemList = new ClassFactory(SpinnerList);
+        
+        (dateItemList as ClassFactory).properties = { itemRenderer: new ClassFactory(spark.components.calendarClasses.DateSpinnerItemRenderer),
+            percentHeight : 100 };
     }
     
     override protected function measure():void
