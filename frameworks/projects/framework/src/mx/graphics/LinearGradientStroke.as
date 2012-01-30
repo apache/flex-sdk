@@ -118,9 +118,9 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
     /**
      *  @inheritDoc
      */
-	private static var commonMatrix:Matrix = new Matrix();
+    private static var commonMatrix:Matrix = new Matrix();
 
-	[Deprecated(replacement="draw")]
+    [Deprecated(replacement="draw()")]
     /**
      *  Applies the properties to the specified Graphics object.
      *  
@@ -140,22 +140,22 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
     
     public function draw(g:Graphics, rc:Rectangle):void
     {
-    	g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
+        g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
                     caps, joints, miterLimit);
-    	
-    	var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
-		var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
-		var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
+        
+        var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
+        var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
+        var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
         
         commonMatrix.createGradientBox(w, rc.height, 
-								!isNaN(mx_internal::_angle) ? 
-									mx_internal::_angle : mx_internal::rotationInRadians,
-								 bX, bY);	
-								 
-		g.lineGradientStyle(GradientType.LINEAR, mx_internal::colors,
+                                !isNaN(mx_internal::_angle) ? 
+                                    mx_internal::_angle : mx_internal::rotationInRadians,
+                                 bX, bY);   
+                                 
+        g.lineGradientStyle(GradientType.LINEAR, mx_internal::colors,
                             mx_internal::alphas, mx_internal::ratios,
                             commonMatrix, spreadMethod,
-                            interpolationMethod);						 
+                            interpolationMethod);                        
     }
 }
 
