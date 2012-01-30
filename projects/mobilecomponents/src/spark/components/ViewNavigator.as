@@ -396,10 +396,21 @@ public class ViewNavigator extends ViewNavigatorBase
     //----------------------------------
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  During a view transition, the activeView property will reference the
+     *  view that the navigator is transitioning to.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     override public function get activeView():View
     {
+        if (pendingViewDescriptor)
+            return pendingViewDescriptor.instance;
+        
         if (currentViewDescriptor && currentViewDescriptor != emptyViewDescriptor)
             return currentViewDescriptor.instance;
         
