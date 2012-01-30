@@ -921,6 +921,24 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         // Update view pointers
         currentViewData = pendingViewData;
         pendingViewData = null;
+
+        if (currentViewData)
+        {
+            currentView = currentViewData.instance;
+            
+            if (currentView)
+            {
+                currentView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
+                
+                currentViewData.persistedData = currentView.getPersistenceData();
+                currentView.active = true;
+                
+            }
+        }
+        
+        // Restore mouse children properties before revalidation occurs
+        mouseChildren = explicitMouseChildren;
+        mouseEnabled = explicitMouseEnabled;
         
         if (revalidateWhenComplete)
         {
@@ -928,24 +946,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             currentViewChanged = true;
             executeViewChange();
         }
-        else
-        {
-            if (currentViewData)
-            {
-                currentView = currentViewData.instance;
-                
-                if (currentView)
-                {
-                    currentView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
-                    
-                    currentViewData.persistedData = currentView.getPersistenceData();
-                    currentView.active = true;
-                }
-            }
-        }
         
-        mouseChildren = explicitMouseChildren;
-        mouseEnabled = explicitMouseEnabled;
         
         lastAction = NO_ACTION;
         viewChanging = false;
