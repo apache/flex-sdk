@@ -100,8 +100,7 @@ public class MediaQueryParser
      */
     public function MediaQueryParser(moduleFactory:IFlexModuleFactory = null)
     {        
-        var resolution:int = Capabilities.screenDPI;
-        applicationDpi = DensityUtil.classifyDPI(resolution);
+        applicationDpi = DensityUtil.getRuntimeDPI();
         if (moduleFactory)
         {
             if (moduleFactory.info()["applicationDPI"] != null)
@@ -410,7 +409,7 @@ public class MediaQueryParser
     public var type:String = "screen";
     
     // the resolution of the media
-    public var applicationDpi:int;
+    public var applicationDpi:Number;
     
     // the platform of the media
     public var osPlatform:String;
