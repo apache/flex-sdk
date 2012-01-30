@@ -25,6 +25,11 @@ use namespace mx_internal;
  *  It provides default behavior for including date, time, category, and level
  *  within the output.
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LineFormattedTarget extends AbstractTarget
 {
@@ -41,6 +46,11 @@ public class LineFormattedTarget extends AbstractTarget
      *
      *  <p>Constructs an instance of a logger target that will format
      *  the message data on a single line.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function LineFormattedTarget()
     {
@@ -66,6 +76,11 @@ public class LineFormattedTarget extends AbstractTarget
     
     /**
      *  The separator string to use between fields (the default is " ")
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var fieldSeparator:String = " ";
 
@@ -77,6 +92,11 @@ public class LineFormattedTarget extends AbstractTarget
     
     /**
      *  Indicates if the category for this target should added to the trace.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var includeCategory:Boolean;
 
@@ -88,6 +108,11 @@ public class LineFormattedTarget extends AbstractTarget
     
     /**
      *  Indicates if the date should be added to the trace.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var includeDate:Boolean;
 
@@ -99,6 +124,11 @@ public class LineFormattedTarget extends AbstractTarget
     
     /**
      *  Indicates if the level for the event should added to the trace.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var includeLevel:Boolean;
 
@@ -110,6 +140,11 @@ public class LineFormattedTarget extends AbstractTarget
     
     /**
      *  Indicates if the time should be added to the trace.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var includeTime:Boolean;
 
@@ -127,6 +162,11 @@ public class LineFormattedTarget extends AbstractTarget
      *  target's level.
      * 
      *  @param event The <code>LogEvent</code> handled by this method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function logEvent(event:LogEvent):void
     {
@@ -197,6 +237,11 @@ public class LineFormattedTarget extends AbstractTarget
      *              include time, date, category, etc. based on property settings,
      *              such as <code>includeDate</code>, <code>includeCategory</code>,
      *          etc.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function internalLog(message:String):void
     {
