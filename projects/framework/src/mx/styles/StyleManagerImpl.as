@@ -13,6 +13,7 @@ package mx.styles
 {
 
 import flash.display.DisplayObject;
+import flash.events.EventDispatcher;
 import flash.display.LoaderInfo;
 import flash.events.IEventDispatcher;
 import flash.events.TimerEvent;
@@ -36,6 +37,7 @@ import mx.resources.ResourceManager;
 import mx.styles.IStyleModule;
 import mx.styles.IStyleManager2;
 import mx.events.Request;
+import flash.events.Event;
 
 use namespace mx_internal;
 
@@ -46,13 +48,93 @@ use namespace mx_internal;
 /**
  *  @private
  */
-public class StyleManagerImpl implements IStyleManager2
+public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
 {
     include "../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
     //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+    /**
+     *  @private
+     */
+    private static var instance:IStyleManager2;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    public static function getInstance():IStyleManager2
+    {
+        if (!instance)
+        {
+            // In Flex 4 each application/module creates its own style manager.
+            // There will be no style manager if the application/module was compiled for 
+            // Flex 3 compatibility. In that case create there will be no instance 
+            // associated with the top-level application so create a new instance.
+            instance = IStyleManager2(IFlexModuleFactory(SystemManagerGlobals.topLevelSystemManagers[0]).
+                       getImplementation("mx.styles::IStyleManager2"));
+            
+            if (!instance)
+                instance = new StyleManagerImpl(SystemManagerGlobals.topLevelSystemManagers[0]);
+        }
+        
+        return instance;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     * 
+     *  @param moduleFactory The module factory that is creating this instance. May not be null.
+     */
+    public function StyleManagerImpl(moduleFactory:IFlexModuleFactory)
+    {
+        super();
+
+        this.moduleFactory = moduleFactory;
+        this.moduleFactory.registerImplementation("mx.styles::IStyleManager2", this);
+        
+        // get our parent styleManager
+        if (moduleFactory is DisplayObject)
+        {
+            var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
+            DisplayObject(moduleFactory).dispatchEvent(request); 
+            var moduleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
+            if (moduleFactory)
+            {
+                _parent = IStyleManager2(moduleFactory.
+                                         getImplementation("mx.styles::IStyleManager2"));
+                if (_parent is IEventDispatcher)
+                {
+                    IEventDispatcher(_parent).addEventListener(FlexChangeEvent.STYLE_MANAGER_CHANGE, styleManagerChangeHandler, false, 0, true);
+                }
+            }
+                
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
     //
     //--------------------------------------------------------------------------
 
@@ -64,7 +146,7 @@ public class StyleManagerImpl implements IStyleManager2
      *  others may be added later as needed.
      *  The <code>isInheritingTextFormatStyle()</code> method queries this set.
      */
-    private static var inheritingTextFormatStyles:Object =
+    private var inheritingTextFormatStyles:Object =
         {
             align: true,
             bold: true,
@@ -82,7 +164,7 @@ public class StyleManagerImpl implements IStyleManager2
      *  The method registerSizeInvalidatingStyle() adds to this set
      *  and isSizeInvalidatingStyle() queries this set.
      */
-    private static var sizeInvalidatingStyles:Object =
+    private var sizeInvalidatingStyles:Object =
         {
             alignmentBaseline: true,
             baselineShift: true,
@@ -161,7 +243,7 @@ public class StyleManagerImpl implements IStyleManager2
      *  The method registerParentSizeInvalidatingStyle() adds to this set
      *  and isParentSizeInvalidatingStyle() queries this set.
      */
-    private static var parentSizeInvalidatingStyles:Object =
+    private var parentSizeInvalidatingStyles:Object =
         {
             baseline: true,
             bottom: true,
@@ -179,7 +261,7 @@ public class StyleManagerImpl implements IStyleManager2
      *  The method registerParentDisplayListInvalidatingStyle() adds to this set
      *  and isParentDisplayListInvalidatingStyle() queries this set.
      */
-    private static var parentDisplayListInvalidatingStyles:Object =
+    private var parentDisplayListInvalidatingStyles:Object =
         {
             baseline: true,
             bottom: true,
@@ -202,7 +284,7 @@ public class StyleManagerImpl implements IStyleManager2
      *  because the MXML compiler does this at compile time,
      *  in conformance with the CSS spec.
      */
-    private static var colorNames:Object =
+    private var colorNames:Object =
         {
             transparent: "transparent",
             black: 0x000000,
@@ -233,83 +315,7 @@ public class StyleManagerImpl implements IStyleManager2
             haloorange: 0xFFB600,
             halosilver: 0xAECAD9
         };
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class variables
-    //
-    //--------------------------------------------------------------------------
-    /**
-     *  @private
-     */
-    private static var instance:IStyleManager2;
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    public static function getInstance():IStyleManager2
-    {
-        if (!instance)
-        {
-            // In Flex 4 each application/module creates its own style manager.
-            // There will be no style manager if the application/module was compiled for 
-            // Flex 3 compatibility. In that case create there will be no instance 
-            // associated with the top-level application so create a new instance.
-            instance = IStyleManager2(IFlexModuleFactory(SystemManagerGlobals.topLevelSystemManagers[0]).
-                       getImplementation("mx.styles::IStyleManager2"));
-            
-            if (!instance)
-                instance = new StyleManagerImpl(SystemManagerGlobals.topLevelSystemManagers[0]);
-        }
-        
-        return instance;
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     * 
-     *  @param moduleFactory The module factory that is creating this instance. May not be null.
-     */
-    public function StyleManagerImpl(moduleFactory:IFlexModuleFactory)
-    {
-        super();
-
-        this.moduleFactory = moduleFactory;
-        this.moduleFactory.registerImplementation("mx.styles::IStyleManager2", this);
-        
-        // get our parent styleManager
-        if (moduleFactory is DisplayObject)
-        {
-            var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
-            DisplayObject(moduleFactory).dispatchEvent(request); 
-            var moduleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
-            if (moduleFactory)
-            {
-                _parent = IStyleManager2(moduleFactory.
-                                         getImplementation("mx.styles::IStyleManager2"));
-            }
-                
-        }
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-
+    
     /**
      *  @private
      *  Whether any advanced selectors have been registered with this style
@@ -354,6 +360,12 @@ public class StyleManagerImpl implements IStyleManager2
 	private var resourceManager:IResourceManager =
 									ResourceManager.getInstance();
 
+    /**
+     *  @private
+     *  Cache merged styles between this and parent.
+     */
+    private var mergedInheritingStylesCache:Object;
+    
     /**
      *  @private
      *  This style manager's flex module factory.
@@ -469,11 +481,15 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function get inheritingStyles():Object
     {
+        if (mergedInheritingStylesCache)
+            return mergedInheritingStylesCache;
+        
         var mergedStyles:Object = _inheritingStyles;
         
         if (parent)
         {
             var otherStyles:Object = parent.inheritingStyles;
+            
             for (var obj:Object in otherStyles)
             {
                 if (mergedStyles[obj] === undefined)
@@ -481,12 +497,18 @@ public class StyleManagerImpl implements IStyleManager2
             }
         }
         
+        mergedInheritingStylesCache = mergedStyles;
+        
         return mergedStyles;
     }
     
     public function set inheritingStyles(value:Object):void
     {
         _inheritingStyles = value;
+        mergedInheritingStylesCache = null;
+        
+        if (hasEventListener(FlexChangeEvent.STYLE_MANAGER_CHANGE))
+            dispatchInheritingStylesChangeEvent();
     }
 
     //----------------------------------
@@ -786,9 +808,11 @@ public class StyleManagerImpl implements IStyleManager2
             parentStyle = parent.getMergedStyleDeclaration(selector);
 
         if (style || parentStyle)
+        {
             style = new CSSMergedStyleDeclaration(style, parentStyle, 
                              style ? style.selectorString : parentStyle.selectorString, this, false);
-        
+        }
+                
         return style;
     }
 
@@ -1044,7 +1068,14 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function registerInheritingStyle(styleName:String):void
     {
-        inheritingStyles[styleName] = true;
+        if (_inheritingStyles[styleName] != true)
+        {
+            _inheritingStyles[styleName] = true;
+            mergedInheritingStylesCache = null;
+            
+            if (hasEventListener(FlexChangeEvent.STYLE_MANAGER_CHANGE))
+                dispatchInheritingStylesChangeEvent();
+        }
     }
 
     /**
@@ -1061,7 +1092,10 @@ public class StyleManagerImpl implements IStyleManager2
      */
     public function isInheritingStyle(styleName:String):Boolean
     {
-        if (inheritingStyles[styleName] == true)
+        if (mergedInheritingStylesCache)
+            return mergedInheritingStylesCache[styleName] == true;
+
+        if (_inheritingStyles[styleName] == true)
             return true;
         
         if (parent && parent.isInheritingStyle(styleName))
@@ -1562,13 +1596,40 @@ public class StyleManagerImpl implements IStyleManager2
         if (update)
             styleDeclarationsChanged();
     }
+    
+
+    /**
+     *  @private
+     */  
+    private function dispatchInheritingStylesChangeEvent():void
+    {
+        var event:Event = new FlexChangeEvent(FlexChangeEvent.STYLE_MANAGER_CHANGE, 
+            false, false, new {property: "inheritingStyles"});
+        dispatchEvent(event);
+        
+    }
 
     //--------------------------------------------------------------------------
     //
-    //  Methods: Style Propagation
+    //  Event handlers
     //
     //--------------------------------------------------------------------------
 
+    private function styleManagerChangeHandler(event:FlexChangeEvent):void
+    {
+        if (!event.data)
+            return;     // invalid message
+        
+        var property:String = event.data["property"];
+        
+        if (property == "inheritingStyles")
+        {
+            mergedInheritingStylesCache = null;
+        }
+
+        if (hasEventListener(FlexChangeEvent.STYLE_MANAGER_CHANGE))
+            dispatchEvent(event);
+    }
 }
 
 }
