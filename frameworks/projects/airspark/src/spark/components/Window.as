@@ -2291,7 +2291,7 @@ public class Window extends SkinnableContainer implements IWindow
             return "disabled";
 
         if (nativeWindow.active)
-            return enabled ? "normal" : "disabledActive";
+            return enabled ? "normal" : "disabled";
         else
             return enabled ? "normalInactive" : "disabledInactive";
 
