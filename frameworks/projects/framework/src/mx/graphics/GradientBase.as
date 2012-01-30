@@ -35,70 +35,70 @@ use namespace mx_internal;
  */
 public class GradientBase extends EventDispatcher
 {
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  Constructor.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function GradientBase() 
-    {
-        super();
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
+	//
+	//  Constructor
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	public function GradientBase() 
+	{
+		super();
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
-    mx_internal var colors:Array /* of uint */ = [];
+ 	/**
+	 *  @private
+	 */
+	mx_internal var colors:Array /* of uint */ = [];
 
-    /**
-     *  @private
-     */
-    mx_internal var ratios:Array /* of Number */ = [];
+ 	/**
+	 *  @private
+	 */
+	mx_internal var ratios:Array /* of Number */ = [];
 
-    /**
-     *  @private
-     */
-    mx_internal var alphas:Array /* of Number */ = [];
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Class Properties
-    //
-    //--------------------------------------------------------------------------
-    
-    
-    /**
-     *  Value of the width and height of the untransformed gradient
-     * 
-     *  @langversion 3.0
+ 	/**
+	 *  @private
+	 */
+	mx_internal var alphas:Array /* of Number */ = [];
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Class Properties
+	//
+	//--------------------------------------------------------------------------
+	
+	
+	/**
+	 *  Value of the width and height of the untransformed gradient
+	 * 
+	 *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */ 
-    public static const GRADIENT_DIMENSION:Number = 1638.4;
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
+	 */ 
+	public static const GRADIENT_DIMENSION:Number = 1638.4;
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
 
-    //----------------------------------
+	//----------------------------------
     //  angle
     //----------------------------------
     
@@ -109,7 +109,7 @@ public class GradientBase extends EventDispatcher
     mx_internal var _angle:Number;
     
     [Inspectable(category="General")]
-    [Deprecated(replacement="rotation")]
+	[Deprecated(replacement="rotation")]
     /**
      *  By default, the LinearGradientStroke defines a transition
      *  from left to right across the control. 
@@ -147,57 +147,52 @@ public class GradientBase extends EventDispatcher
     /**
      *  Holds the matrix and the convenience transform properties (<code>x</code>, <code>y</code>, and <code>rotation</code>).
      *  The compoundTransform is only created when the <code>matrix</code> property is set. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     protected var compoundTransform:CompoundTransform;
 
-    //----------------------------------
-    //  entries
-    //----------------------------------
+	//----------------------------------
+	//  entries
+	//----------------------------------
 
-    /**
-     *  @private
-     *  Storage for the entries property.
-     */
-    private var _entries:Array = [];
-    
-    [Bindable("propertyChange")]
+ 	/**
+	 *  @private
+	 *  Storage for the entries property.
+	 */
+	private var _entries:Array = [];
+	
+	[Bindable("propertyChange")]
     [Inspectable(category="General", arrayType="mx.graphics.GradientEntry")]
 
-    /**
-     *  An Array of GradientEntry objects
-     *  defining the fill patterns for the gradient fill.
-     *
-     *  @default []
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get entries():Array
-    {
-        return _entries;
-    }
+	/**
+	 *  An Array of GradientEntry objects
+	 *  defining the fill patterns for the gradient fill.
+	 *
+	 *  @default []
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	public function get entries():Array
+	{
+		return _entries;
+	}
 
-    /**
-     *  @private
-     */
-    public function set entries(value:Array):void
-    {
-        var oldValue:Array = _entries;
-        _entries = value;
-        
-        processEntries();
-        
-        dispatchGradientChangedEvent("entries", oldValue, value);
-    }
-    
-    //----------------------------------
+ 	/**
+	 *  @private
+	 */
+	public function set entries(value:Array):void
+	{
+		var oldValue:Array = _entries;
+		_entries = value;
+		
+		processEntries();
+		
+		dispatchGradientChangedEvent("entries", oldValue, value);
+	}
+	
+	//----------------------------------
     //  interpolationMethod
     //----------------------------------
 
@@ -294,30 +289,30 @@ public class GradientBase extends EventDispatcher
      */
     public function set matrix(value:Matrix):void
     {
-        var oldValue:Matrix = matrix;
-        
-        var oldX:Number = x;
-        var oldY:Number = y;
-        var oldRotation:Number = rotation;
-        
-        if (value == null)
-        {
-            compoundTransform = null;
-            x = NaN;
-            y = NaN;
-            rotation = 0;
-        }   
-        else
-        {
-            // Create the transform if none exists. 
-            if (compoundTransform == null)
-                compoundTransform = new CompoundTransform();
-            compoundTransform.matrix = value; // CompoundTransform will create a clone
-            
-            dispatchGradientChangedEvent("x", oldX, compoundTransform.x);
-            dispatchGradientChangedEvent("y", oldY, compoundTransform.y);
-            dispatchGradientChangedEvent("rotation", oldRotation, compoundTransform.rotationZ);
-        }
+    	var oldValue:Matrix = matrix;
+    	
+    	var oldX:Number = x;
+    	var oldY:Number = y;
+    	var oldRotation:Number = rotation;
+    	
+    	if (value == null)
+    	{
+    		compoundTransform = null;
+    		x = NaN;
+    		y = NaN;
+    		rotation = 0;
+    	}	
+    	else
+    	{
+	    	// Create the transform if none exists. 
+	    	if (compoundTransform == null)
+	            compoundTransform = new CompoundTransform();
+	       	compoundTransform.matrix = value; // CompoundTransform will create a clone
+	       	
+	       	dispatchGradientChangedEvent("x", oldX, compoundTransform.x);
+	       	dispatchGradientChangedEvent("y", oldY, compoundTransform.y);
+	       	dispatchGradientChangedEvent("rotation", oldRotation, compoundTransform.rotationZ);
+	    }
     }
     
     //----------------------------------
@@ -359,21 +354,21 @@ public class GradientBase extends EventDispatcher
     {
         if (value != rotation)
         {
-            var oldValue:Number = rotation;
-            
-            if (compoundTransform)
+        	var oldValue:Number = rotation;
+        	
+        	if (compoundTransform)
                 compoundTransform.rotationZ = value;
-            else
+        	else
                 _rotation = value;   
-            dispatchGradientChangedEvent("rotation", oldValue, value);
+        	dispatchGradientChangedEvent("rotation", oldValue, value);
         }
     }
 
     //----------------------------------
-    //  spreadMethod
-    //----------------------------------
-    
-    /**
+	//  spreadMethod
+	//----------------------------------
+	
+	/**
      *  @private
      *  Storage for the spreadMethod property.
      */
@@ -416,9 +411,9 @@ public class GradientBase extends EventDispatcher
     }
     
     //----------------------------------
-    //  x
-    //----------------------------------
-    
+	//  x
+	//----------------------------------
+	
     private var _x:Number;
     
     [Bindable("propertyChange")]
@@ -434,34 +429,34 @@ public class GradientBase extends EventDispatcher
      */
     public function get x():Number
     {
-        return compoundTransform ? compoundTransform.x : _x;    
+    	return compoundTransform ? compoundTransform.x : _x;	
     }
     
-    /**
-     *  @private
-     */
+	/**
+	 *  @private
+	 */
     public function set x(value:Number):void
     {
         var oldValue:Number = x;
-        if (value != oldValue)
-        {
-            if (compoundTransform)
-            {
-                // If we have a compoundTransform, only non-NaN values are allowed
-                if (!isNaN(value))
+    	if (value != oldValue)
+    	{
+    		if (compoundTransform)
+    		{
+    			// If we have a compoundTransform, only non-NaN values are allowed
+    			if (!isNaN(value))
                     compoundTransform.x = value; 
-            }   
+    		}   
             else
             {
                 _x = value;
             }       
-            dispatchGradientChangedEvent("x", oldValue, value);
-        }
+    		dispatchGradientChangedEvent("x", oldValue, value);
+    	}
     }
     
     //----------------------------------
-    //  y
-    //----------------------------------
+	//  y
+	//----------------------------------
     
     private var _y:Number;
     
@@ -478,7 +473,7 @@ public class GradientBase extends EventDispatcher
      */
     public function get y():Number
     {
-        return compoundTransform ? compoundTransform.y : _y;    
+    	return compoundTransform ? compoundTransform.y : _y;	
     }
     
     /**
@@ -486,13 +481,13 @@ public class GradientBase extends EventDispatcher
      */
     public function set y(value:Number):void
     {
-        var oldValue:Number = y;
-        if (value != oldValue)
-        {
-            if (compoundTransform)
-            {
-                // If we have a compoundTransform, only non-NaN values are allowed
-                if (!isNaN(value))
+    	var oldValue:Number = y;
+    	if (value != oldValue)
+    	{
+    		if (compoundTransform)
+    		{
+    			// If we have a compoundTransform, only non-NaN values are allowed
+    		    if (!isNaN(value))
                     compoundTransform.y = value;
             }
             else
@@ -500,116 +495,116 @@ public class GradientBase extends EventDispatcher
                 _y = value;                
             }
                 
-            dispatchGradientChangedEvent("y", oldValue, value);
-        }
+    		dispatchGradientChangedEvent("y", oldValue, value);
+    	}
     }
     
     mx_internal function get rotationInRadians():Number
     {
-        return rotation / 180 * Math.PI;
+    	return rotation / 180 * Math.PI;
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     *  Extract the gradient information in the public <code>entries</code>
-     *  Array into the internal <code>colors</code>, <code>ratios</code>,
-     *  and <code>alphas</code> arrays.
-     */
-    private function processEntries():void
-    {
-        colors = [];
-        ratios = [];
-        alphas = [];
+	/**
+	 *  @private
+	 *  Extract the gradient information in the public <code>entries</code>
+	 *  Array into the internal <code>colors</code>, <code>ratios</code>,
+	 *  and <code>alphas</code> arrays.
+	 */
+	private function processEntries():void
+	{
+		colors = [];
+		ratios = [];
+		alphas = [];
 
-        if (!_entries || _entries.length == 0)
-            return;
+		if (!_entries || _entries.length == 0)
+			return;
 
-        var ratioConvert:Number = 255;
+		var ratioConvert:Number = 255;
 
-        var i:int;
-        
-        var n:int = _entries.length;
-        for (i = 0; i < n; i++)
-        {
-            var e:GradientEntry = _entries[i];
-            e.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
-                               entry_propertyChangeHandler, false, 0, true);
-            colors.push(e.color);
-            alphas.push(e.alpha);
-            ratios.push(e.ratio * ratioConvert);
-        }
-        
-        if (isNaN(ratios[0]))
-            ratios[0] = 0;
-            
-        if (isNaN(ratios[n - 1]))
-            ratios[n - 1] = 255;
-        
-        i = 1;
+		var i:int;
+		
+		var n:int = _entries.length;
+		for (i = 0; i < n; i++)
+		{
+			var e:GradientEntry = _entries[i];
+			e.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+							   entry_propertyChangeHandler, false, 0, true);
+			colors.push(e.color);
+			alphas.push(e.alpha);
+			ratios.push(e.ratio * ratioConvert);
+		}
+		
+		if (isNaN(ratios[0]))
+			ratios[0] = 0;
+			
+		if (isNaN(ratios[n - 1]))
+			ratios[n - 1] = 255;
+		
+		i = 1;
 
-        while (true)
-        {
-            while (i < n && !isNaN(ratios[i]))
-            {
-                i++;
-            }
+		while (true)
+		{
+			while (i < n && !isNaN(ratios[i]))
+			{
+				i++;
+			}
 
-            if (i == n)
-                break;
-                
-            var start:int = i - 1;
-            
-            while (i < n && isNaN(ratios[i]))
-            {
-                i++;
-            }
-            
-            var br:Number = ratios[start];
-            var tr:Number = ratios[i];
-            
-            for (var j:int = 1; j < i - start; j++)
-            {
-                ratios[j] = br + j * (tr - br) / (i - start);
-            }
-        }
-    }
+			if (i == n)
+				break;
+				
+			var start:int = i - 1;
+			
+			while (i < n && isNaN(ratios[i]))
+			{
+				i++;
+			}
+			
+			var br:Number = ratios[start];
+			var tr:Number = ratios[i];
+			
+			for (var j:int = 1; j < i - start; j++)
+			{
+				ratios[j] = br + j * (tr - br) / (i - start);
+			}
+		}
+	}
 
-    /**
-     *  Dispatch a gradientChanged event.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    mx_internal function dispatchGradientChangedEvent(prop:String,
-                                                      oldValue:*, value:*):void
-    {
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
-                                                            oldValue, value));
-    }
+	/**
+	 *  Dispatch a gradientChanged event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
+	 */
+	mx_internal function dispatchGradientChangedEvent(prop:String,
+													  oldValue:*, value:*):void
+	{
+		dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
+															oldValue, value));
+	}
 
-    //--------------------------------------------------------------------------
-    //
-    //  Event handlers
-    //
-    //--------------------------------------------------------------------------
+	//--------------------------------------------------------------------------
+	//
+	//  Event handlers
+	//
+	//--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
-    private function entry_propertyChangeHandler(event:Event):void
-    {
-        processEntries();
+	/**
+	 *  @private
+	 */
+	private function entry_propertyChangeHandler(event:Event):void
+	{
+		processEntries();
 
-        dispatchGradientChangedEvent("entries", entries, entries);
-    }
+		dispatchGradientChangedEvent("entries", entries, entries);
+	}
 }
 
 }
