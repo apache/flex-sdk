@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.core
+package spark.components.windowClasses
 {
 
 import flash.desktop.DockIcon;
@@ -36,24 +36,27 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
 
-import mx.components.FxApplication;
-import mx.components.FxButton;
-import mx.components.Group;
+import spark.components.Application;
+import mx.controls.Button;
+import spark.components.Group;
 import mx.controls.Alert;
 import mx.controls.Button;
 import mx.controls.FlexNativeMenu;
 import mx.controls.HTML;
-import mx.core.windowClasses.FxTitleBar;
+import mx.core.IWindow;
+import mx.core.Window;
+import spark.components.windowClasses.TitleBar;
 import mx.core.windowClasses.StatusBar;
 import mx.events.AIREvent;
 import mx.events.FlexEvent;
 import mx.events.FlexNativeWindowBoundsEvent;
-import mx.graphics.TextBox;
+import spark.primitives.SimpleText;
 import mx.managers.DragManager;
 import mx.managers.NativeDragManagerImpl;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
+import mx.core.mx_internal;
 
 use namespace mx_internal;
 
@@ -302,19 +305,19 @@ use namespace mx_internal;
 [ResourceBundle("core")]
 
 /**
- *  The FxWindowedApplication defines the application container
+ *  The WindowedApplication defines the application container
  *  that you use to create Flex applications for AIR applications.
  *
- *  <p>The FxWindowedApplication serves two roles. It is a replacement for the &lt;mx:FxApplication&gt;
+ *  <p>The WindowedApplication serves two roles. It is a replacement for the &lt;mx:FxApplication&gt;
  *  tag, functioning as the entry point to a Flex-based AIR application. In addition,
- *  as a container the FxWindowedApplication defines the layout of the initial window
- *  of a Flex AIR application -- any visual controls defined in the FxWindowedApplication
+ *  as a container the WindowedApplication defines the layout of the initial window
+ *  of a Flex AIR application -- any visual controls defined in the WindowedApplication
  *  become the content of the initial window loaded by the AIR application.</p>
  *
  *  <p>Note that because
- *  the FxWindowedApplication only represents the visual content of a single window, and not
- *  all the windows in a multi-window application, a FxWindowedApplication instance only dispatches
- *  display-related events (events that the FxWindowedApplication class inherits from display object base
+ *  the WindowedApplication only represents the visual content of a single window, and not
+ *  all the windows in a multi-window application, a WindowedApplication instance only dispatches
+ *  display-related events (events that the WindowedApplication class inherits from display object base
  *  classes such as InteractiveObject or UIComponent) for its own stage and window, and not for
  *  events that occur on other windows in the application. This differs from a browser-based application,
  *  where an FxApplication container dispatches events for all the windows in the application (because
@@ -322,11 +325,11 @@ use namespace mx_internal;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;mx:FxWindowedApplication&gt;</code> tag inherits all of the tag
+ *  <p>The <code>&lt;mx:WindowedApplication&gt;</code> tag inherits all of the tag
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:FxWindowedApplication
+ *  &lt;mx:WindowedApplication
  *    <strong>Properties</strong>
  *    alwaysInFront="false"
  *    autoExit="true"
@@ -370,9 +373,9 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxWindowedApplication extends FxApplication implements IWindow
+public class WindowedApplication extends Application implements IWindow
 {
-    include "../core/Version.as";
+    include "../../../mx/core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -410,7 +413,7 @@ public class FxWindowedApplication extends FxApplication implements IWindow
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxWindowedApplication()
+    public function WindowedApplication()
     {
         super();
 
@@ -533,7 +536,7 @@ public class FxWindowedApplication extends FxApplication implements IWindow
      *  @productversion Flex 4
      */
     [SkinPart (required="false")]
-    public var gripper:FxButton;
+    public var gripper:Button;
 
     /**
      *  The SkinPart that displays the status bar.
@@ -557,7 +560,7 @@ public class FxWindowedApplication extends FxApplication implements IWindow
      *  @productversion Flex 3
      */
     [SkinPart (required="false")]
-    public var statusText:TextBox;
+    public var statusText:SimpleText;
     
     /**
      *  The UIComponent that displays the title bar.
@@ -567,7 +570,7 @@ public class FxWindowedApplication extends FxApplication implements IWindow
      *  @productversion Flex 4
      */
     [SkinPart (required="false")]
-    public var titleBar:FxTitleBar;
+    public var titleBar:TitleBar;
 
     //--------------------------------------------------------------------------
     //
