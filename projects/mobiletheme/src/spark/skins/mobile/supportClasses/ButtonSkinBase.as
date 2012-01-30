@@ -298,12 +298,8 @@ public class ButtonSkinBase extends MobileSkin
         }
 
         // minimums
-        measuredMinWidth = w
-        measuredMinHeight = h;
-
-        // measured sizes are no smaller than spec for touch-based sizes
-        measuredWidth = Math.max(w, layoutMeasuredWidth);
-        measuredHeight = Math.max(h, layoutMeasuredHeight);
+        measuredWidth = w
+        measuredHeight = h;
     }
 
     /**
