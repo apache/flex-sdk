@@ -39,7 +39,6 @@ import mx.core.IUIComponent;
 import mx.core.ISWFLoader;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.managers.marshalClasses.FocusManagerMarshalMixin;
 import mx.utils.DisplayUtil;
 
 use namespace mx_internal;
@@ -105,11 +104,6 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 	 * Place to hook in additional classes
 	 */
 	public static var mixins:Array;
-
-    /**
-     *  @private
-     */
-    private static function weakDependency():void { FocusManagerMarshalMixin };
 
     //--------------------------------------------------------------------------
     //
@@ -191,7 +185,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 			if (awm)
         		awm.addFocusManager(container); // build a message that does the equal
 
-			dispatchEvent(new Event("initialize"));
+            if (hasEventListener("initialize"))
+		    	dispatchEvent(new Event("initialize"));
 
 		}
 		catch (e:Error)
@@ -314,7 +309,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         
         _showFocusIndicator = value;
 
-        dispatchEvent(new Event("showFocusIndicator"));
+        if (hasEventListener("showFocusIndicator"))
+            dispatchEvent(new Event("showFocusIndicator"));
     }
 
     //----------------------------------
@@ -578,7 +574,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 
         o.setFocus();
         
-		dispatchEvent(new Event("setFocus"));
+        if (hasEventListener("setFocus"))
+    		dispatchEvent(new Event("setFocus"));
         // trace("FM set focus");
     }
 
@@ -592,8 +589,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         // trace("FM " + this + " focusInHandler " + target);
 
 		// dispatch cancelable FocusIn to see if Marshal Plan mixin wants it
-		if (!dispatchEvent(new FocusEvent(FocusEvent.FOCUS_IN, false, true, target)))
-			return;
+        if (hasEventListener(FocusEvent.FOCUS_IN))
+    		if (!dispatchEvent(new FocusEvent(FocusEvent.FOCUS_IN, false, true, target)))
+    			return;
 
         if (isParent(DisplayObjectContainer(form), target))
         {
@@ -724,8 +722,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             return;
         }
 
-        // trace("FocusManager activating = " + this._form.systemManager.loaderInfo.url);
-        // trace("FocusManager activating " + this);
+        //trace("FocusManager activating = " + this._form.systemManager.loaderInfo.url);
+        //trace("FocusManager activating " + this);
 
         // listen for focus changes, use weak references for the stage
 		// form.systemManager can be null if the form is created in a sandbox and 
@@ -761,7 +759,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         if (_lastFocus)
             setFocus(_lastFocus);
 
-		dispatchEvent(new Event("activateFM"));
+        if (hasEventListener("activateFM"))
+    		dispatchEvent(new Event("activateFM"));
 
     }
 
@@ -785,7 +784,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     public function deactivate():void
     {
         // trace("FocusManager deactivating " + this);
-        // trace("FocusManager deactivating = " + this._form.systemManager.loaderInfo.url);
+        //trace("FocusManager deactivating = " + this._form.systemManager.loaderInfo.url);
          
         // listen for focus changes
 		var sm:ISystemManager = form.systemManager;
@@ -816,7 +815,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 
         activated = false;
 
-		dispatchEvent(new Event("deactivateFM"));
+        if (hasEventListener("deactivateFM"))
+    		dispatchEvent(new Event("deactivateFM"));
     }
 
     /**
@@ -918,7 +918,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      */
     private function sortFocusableObjectsTabIndex():void
     {
-        // trace("FocusableObjectsTabIndex");
+        //trace("FocusableObjectsTabIndex");
         
         focusableCandidates = [];
         
@@ -1267,8 +1267,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		// If we are about to wrap focus around, send focus back to the parent.
 		if (!popup && (focusInfo.wrapped || !focusInfo.displayObject))
 		{
-			if (!dispatchEvent(new FocusEvent("focusWrapping", false, true, null, event.shiftKey)))
-				return;
+            if (hasEventListener("focusWrapping"))
+	    		if (!dispatchEvent(new FocusEvent("focusWrapping", false, true, null, event.shiftKey)))
+		    		return;
 		}
 		
 		if (!focusInfo.displayObject)
@@ -1285,8 +1286,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		focusChanged = false;
 		if (o)
 		{
-			if (!dispatchEvent(new FocusEvent("setFocusToComponent", false, true, InteractiveObject(o), shiftKey)))
-				return;
+            if (hasEventListener("setFocusToComponent"))
+    			if (!dispatchEvent(new FocusEvent("setFocusToComponent", false, true, InteractiveObject(o), shiftKey)))
+	    			return;
 
 			if (o is IFocusManagerComplexComponent)
 			{
@@ -1324,8 +1326,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		// If we are about to wrap focus around, send focus back to the parent.
 		if (!popup && focusInfo.wrapped)
 		{
-			if (!dispatchEvent(new FocusEvent("setFocusToNextIndex", false, true, null, shiftKey)))
-				return;
+            if (hasEventListener("setFocusToNextIndex"))
+    			if (!dispatchEvent(new FocusEvent("setFocusToNextIndex", false, true, null, shiftKey)))
+	    			return;
 		}
 		
 		setFocusToComponent(focusInfo.displayObject, shiftKey);
@@ -1442,8 +1445,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                 (o is IUIComponent ? IUIComponent(o).enabled : true))
                 return o;
 
-			if (!dispatchEvent(new FocusEvent("getTopLevelFocusTarget", false, true, o.parent)))
-				return null;
+            if (hasEventListener("getTopLevelFocusTarget"))
+    			if (!dispatchEvent(new FocusEvent("getTopLevelFocusTarget", false, true, o.parent)))
+			    	return null;
 
             o = o.parent;
 
@@ -1719,8 +1723,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     	
     	var sm:ISystemManager = form.systemManager;
 
-		if (!dispatchEvent(new FocusEvent("keyFocusChange", false, true, InteractiveObject(event.target))))
-			return;
+        if (hasEventListener("keyFocusChange"))
+    		if (!dispatchEvent(new FocusEvent("keyFocusChange", false, true, InteractiveObject(event.target))))
+	    		return;
 
         showFocusIndicator = true;
 		focusChanged = false;
@@ -1739,7 +1744,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 
                 browserFocusComponent = null;
 
-				dispatchEvent(new FocusEvent("browserFocusComponent", false, false, InteractiveObject(event.target)));
+                if (hasEventListener("browserFocusComponent"))
+	    			dispatchEvent(new FocusEvent("browserFocusComponent", false, false, InteractiveObject(event.target)));
 				
                 return;
             }
@@ -1763,8 +1769,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		// if the target is in a bridged application, let it handle the click.
 		var sm:ISystemManager = form.systemManager;
 
-		if (!dispatchEvent(new FocusEvent("keyDownFM", false, true, InteractiveObject(event.target))))
-   			return;
+        if (hasEventListener("keyDownFM"))
+    		if (!dispatchEvent(new FocusEvent("keyDownFM", false, true, InteractiveObject(event.target))))
+   	    		return;
 
         if (sm is SystemManager)
             SystemManager(sm).idleCounter = 0;
@@ -1836,8 +1843,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     private function defaultButtonKeyHandler(event:KeyboardEvent):void
     {        
         var sm:ISystemManager = form.systemManager;
-		if (!dispatchEvent(new FocusEvent("defaultButtonKeyHandler", false, true)))
-			return;
+        if (hasEventListener("defaultButtonKeyHandler"))
+    		if (!dispatchEvent(new FocusEvent("defaultButtonKeyHandler", false, true)))
+	    		return;
             
         if (defaultButtonEnabled && event.keyCode == Keyboard.ENTER &&
             defaultButton && defButton.enabled)
@@ -1890,7 +1898,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 			// trace("FM: skipped setting focus to " + _lastFocus);
 		}
 		
-		dispatchEvent(new FocusEvent("mouseDownFM", false, false, InteractiveObject(o)));
+        if (hasEventListener("mouseDownFM"))
+    		dispatchEvent(new FocusEvent("mouseDownFM", false, false, InteractiveObject(o)));
 
         lastAction = "MOUSEDOWN";
 	
