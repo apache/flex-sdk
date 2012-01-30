@@ -2818,9 +2818,9 @@ public dynamic class UIMovieClip extends MovieClip
         var m:Matrix = _transform.matrix;
         var m3:Matrix3D =  _transform.matrix3D;
         if(m != null)
-            setLayoutMatrix(m.clone(), true /*triggerLayout*/);
+            setLayoutMatrix(m.clone(), true /*invalidateLayout*/);
         else if(m3 != null)
-            setLayoutMatrix3D(m3.clone(), true /*triggerLayout*/);
+            setLayoutMatrix3D(m3.clone(), true /*invalidateLayout*/);
     }
 
     private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
@@ -2909,7 +2909,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function setLayoutMatrix(value:Matrix, triggerLayout:Boolean):void
+    public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
         hasDeltaIdentityTransform = false;
         if (_layoutFeatures == null)
@@ -2927,7 +2927,7 @@ public dynamic class UIMovieClip extends MovieClip
         
         //invalidateProperties();
 
-        if (triggerLayout)
+        if (invalidateLayout)
             invalidateParentSizeAndDisplayList();
     }
 
@@ -2958,7 +2958,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function setLayoutMatrix3D(value:Matrix3D, triggerLayout:Boolean):void
+    public function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void
     {
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
@@ -2969,7 +2969,7 @@ public dynamic class UIMovieClip extends MovieClip
         
         //invalidateProperties();
 
-        if (triggerLayout)
+        if (invalidateLayout)
             invalidateParentSizeAndDisplayList();
     }
     
@@ -3266,32 +3266,14 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getPreferredBoundsWidth(postTransform:Boolean=true):Number
+    public function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return LayoutElementUIComponentUtils.getPreferredBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getPreferredBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
-    public function getPreferredBoundsHeight(postTransform:Boolean=true):Number
+    public function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return LayoutElementUIComponentUtils.getPreferredBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function getMinBoundsWidth(postTransform:Boolean=true):Number
-    {
-        return LayoutElementUIComponentUtils.getMinBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
-    }
-
-    public function getMinBoundsHeight(postTransform:Boolean=true):Number
-    {
-        return LayoutElementUIComponentUtils.getMinBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getPreferredBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -3302,14 +3284,14 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getMaxBoundsWidth(postTransform:Boolean=true):Number
+    public function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return LayoutElementUIComponentUtils.getMaxBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getMinBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
-    public function getMaxBoundsHeight(postTransform:Boolean=true):Number
+    public function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return LayoutElementUIComponentUtils.getMaxBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getMinBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -3320,10 +3302,28 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    public function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number
+    {
+        return LayoutElementUIComponentUtils.getMaxBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number
+    {
+        return LayoutElementUIComponentUtils.getMaxBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         return LayoutElementUIComponentUtils.getBoundsXAtSize(this, width, height,
-                                                              postTransform ? nonDeltaLayoutMatrix() : null);
+                                                              postLayoutTransform ? nonDeltaLayoutMatrix() : null);
     }
     
     /**
@@ -3334,10 +3334,10 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    public function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number
     {
         return LayoutElementUIComponentUtils.getBoundsYAtSize(this, width, height,
-                                                              postTransform ? nonDeltaLayoutMatrix() : null);
+                                                              postLayoutTransform ? nonDeltaLayoutMatrix() : null);
     }
 
     /**
@@ -3348,32 +3348,14 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function getLayoutBoundsWidth(postTransform:Boolean=true):Number
+    public function getLayoutBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return LayoutElementUIComponentUtils.getLayoutBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getLayoutBoundsWidth(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
-    public function getLayoutBoundsHeight(postTransform:Boolean=true):Number
+    public function getLayoutBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return LayoutElementUIComponentUtils.getLayoutBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
-    }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function getLayoutBoundsX(postTransform:Boolean=true):Number
-    {
-        return LayoutElementUIComponentUtils.getLayoutBoundsX(this,postTransform? nonDeltaLayoutMatrix():null);
-    }
-
-    public function getLayoutBoundsY(postTransform:Boolean=true):Number
-    {
-        return LayoutElementUIComponentUtils.getLayoutBoundsY(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getLayoutBoundsHeight(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -3384,9 +3366,14 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void
+    public function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number
     {
-        LayoutElementUIComponentUtils.setLayoutBoundsPosition(this,x,y,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getLayoutBoundsX(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    public function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number
+    {
+        return LayoutElementUIComponentUtils.getLayoutBoundsY(this,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -3397,11 +3384,24 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function setLayoutBoundsSize(width:Number = Number.NaN,
-                                  height:Number = Number.NaN,
-                                  postTransform:Boolean=true):void
+    public function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean = true):void
     {
-        LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postTransform? nonDeltaLayoutMatrix():null);
+        LayoutElementUIComponentUtils.setLayoutBoundsPosition(this,x,y,postLayoutTransform? nonDeltaLayoutMatrix():null);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function setLayoutBoundsSize(width:Number,
+                                        height:Number,
+                                        postLayoutTransform:Boolean = true):void
+    {
+        LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postLayoutTransform? nonDeltaLayoutMatrix():null);
     }
     
     protected function nonDeltaLayoutMatrix():Matrix
