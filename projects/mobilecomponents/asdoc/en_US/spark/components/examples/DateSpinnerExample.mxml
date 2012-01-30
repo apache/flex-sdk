@@ -1,0 +1,30 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Script>
+        <![CDATA[
+            import spark.components.calendarClasses.DateSelectorDisplayMode;
+        ]]>
+    </fx:Script>
+    
+    <s:layout>
+        <s:VerticalLayout horizontalAlign="center" />
+    </s:layout>
+    
+    <s:DateSpinner id="ds"
+                   selectedDate="{new Date(2010, 11, 15)}"
+                   minDate="{new Date(2000, 0, 1)}"
+                   maxDate="{new Date(2200, 11, 31)}"
+                   minuteStepSize="5" />
+    
+    <!-- toggle between different display modes -->
+    <s:HGroup>
+        <s:Button label="Date" 
+                  click="ds.displayMode = DateSelectorDisplayMode.DATE" />
+        <s:Button label="Time" 
+                  click="ds.displayMode = DateSelectorDisplayMode.TIME" />
+        <s:Button label="Date and Time" 
+                  click="ds.displayMode = DateSelectorDisplayMode.DATE_AND_TIME" />
+    </s:HGroup>
+    
+</s:Application>
