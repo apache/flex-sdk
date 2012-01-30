@@ -46,8 +46,10 @@ import mx.core.IUID;
  *
  *  <p>The properties are marked bindable, but these properties
  *  do not actually do any change detection or send change events.
- *  They are changed as a whole by setting a whole new listData
- *  and the change event for that updates bindings.</p>
+ *  The properties are changed as a whole by setting a new 
+ *  value for the <code>listData</code> property. 
+ *  The <code>change</code> event for the modification of  
+ *  the <code>listData</code> property updates all bindings.</p>
  *
  *  @see mx.controls.listClasses.IDropInListItemRenderer
  *  
@@ -59,7 +61,7 @@ import mx.core.IUID;
 
 public class BaseListData extends EventDispatcher
 {
-	
+    
     include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
@@ -107,11 +109,11 @@ public class BaseListData extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-	//----------------------------------
+    //----------------------------------
     //  columnIndex
     //----------------------------------
 
-	[Bindable("__NoChangeEvent__")]
+    [Bindable("__NoChangeEvent__")]
 
     /**
      *  The index of the column of the List-based control relative 
@@ -129,7 +131,7 @@ public class BaseListData extends EventDispatcher
     //  label
     //----------------------------------
 
-	[Bindable("__NoChangeEvent__")]
+    [Bindable("__NoChangeEvent__")]
 
     /**
      *  The textual representation of the item data, based on the list class's
@@ -146,7 +148,7 @@ public class BaseListData extends EventDispatcher
     //  owner
     //----------------------------------
 
-	[Bindable("__NoChangeEvent__")]
+    [Bindable("__NoChangeEvent__")]
 
     /**
      *  A reference to the list object that owns this item.
@@ -165,7 +167,7 @@ public class BaseListData extends EventDispatcher
     //----------------------------------
     //  rowIndex
     //----------------------------------
-	
+    
     [Bindable("__NoChangeEvent__")]
 
     /**
@@ -196,7 +198,7 @@ public class BaseListData extends EventDispatcher
      */
     private var _uid:String;
 
-	[Bindable("__NoChangeEvent__")]
+    [Bindable("__NoChangeEvent__")]
 
     /**
      *  The unique identifier for this item.
