@@ -19,6 +19,11 @@ import mx.events.ValidationResultEvent;
  *  the Flex data validation mechanism. 
  *  The UIComponent class implements this interface.
  *  Therefore, any subclass of UIComponent also implements it.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IValidatorListener
 {
@@ -51,6 +56,11 @@ public interface IValidatorListener
      *  <p>Note that writing a value to the <code>errorString</code> property 
      *  does not trigger the valid or invalid events; it only changes the 
      *  border color and displays the validation error message.</p>
+ 	 *  
+ 	 *  @langversion 3.0
+ 	 *  @playerversion Flash 9
+ 	 *  @playerversion AIR 1.1
+ 	 *  @productversion Flex 3
  	 */
 	function get errorString():String;
 
@@ -65,6 +75,11 @@ public interface IValidatorListener
 
 	/**
 	 *  Used by a validator to assign a subfield.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get validationSubField():String;
 
@@ -97,6 +112,11 @@ public interface IValidatorListener
 	 *  @param event The event object for the validation.
      *
      *  @see mx.events.ValidationResultEvent
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function validationResultHandler(event:ValidationResultEvent):void;
 }
