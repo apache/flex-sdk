@@ -32,10 +32,178 @@ use namespace mx_internal;
 [ResourceBundle("controls")]
 
 /**
- *  The AccImpl class is Flex's base class for implementing accessibility
- *  in UIComponents.
- *  It is a subclass of the Flash Player's AccessibilityImplementation class.
- *  
+ *  AccImpl is Flex's base accessibility implementation class
+ *  for MX and Spark components.
+ *
+ *  <p>It is a subclass of the Flash Player's
+ *  AccessibilityImplementation class.</p>
+ *
+ *  <p>When an MX or Spark component is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of a subclass of this class.
+ *  The Flash Player then uses this object to allow MSAA clients
+ *  such as screen readers to see and manipulate the component.
+ *  See the flash.accessibility.AccessibilityImplementation class
+ *  for additional information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>The Flash Player does not support
+ *  a true hierarchy of accessible objects.
+ *  If a DisplayObject has an <code>accessibilityImplementation</code> object,
+ *  then the <code>accessibilityImplementation</code> objects
+ *  of its children are ignored.
+ *  However, the Player does allow a component's accessibility implementation class
+ *  to expose MSAA information for its internal parts.
+ *  (For example, a List exposes MSAA information about its items.)</p>
+ *
+ *  <p>The number of children (internal parts)
+ *  and the child IDs used to identify them
+ *  are determined by the <code>getChildIDArray()</code> method.
+ *  In the Player's AccessibilityImplementation base class,
+ *  this method simply returns <code>null</code>.
+ *  Flex's AccImpl class overrides it to return an empty array.
+ *  It also provides a protected utility method,
+ *  <code>createChildIDArray()</code> which subclasses with internal parts
+ *  can use in their overrides.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a component and its internal parts
+ *  is determined by the <code>get_accRole()</code> method.
+ *  In the Player's AccessibilityImplementation base class,
+ *  this method throws a runtime error,
+ *  since subclasses are expected to override it.
+ *  Flex's AccImpl class has a protected <code>role</code> property
+ *  which subclasses generally set in their constructor,
+ *  and it overrides <code>get_accRole()</code> to return this property.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a component and its internal parts
+ *  is determined by the <code>get_accName()</code> method.
+ *  In the Player's AccessibilityImplementation base class,
+ *  this method simply returns <code>null</code>.
+ *  Flex's AccImpl class overrides it to construct a name as follows,
+ *  starting with an empty string
+ *  and separating added portions with a single space:
+ *  <ul>
+ *    <li>If a simple child (e.g., combo or list box item)
+ *    is being requested, only the child's default name is returned.
+ *    The rest of the steps below apply only to the component itself
+ *   (childID 0).</li>
+ *   <li>If the component is inside a Form: 
+ *     <ul>
+ *       <li>If the Form has a FormHeader, the header text is added.
+ *       Developers wishing to avoid this should set the
+ *       <code>accessibilityName</code> of the FormHeader
+ *       to a space (" ").</li>
+ *       <li>If the component is inside a FormItem,
+ *       the FormItem label text is added.
+ *       Developers wishing to avoid this should set the
+ *       <code>accessibilityName</code> of the FormItem
+ *       to a space (" ").</li>
+ *       <li>If the field is required, the locale-dependent string
+ *       "required field" is added.</li>
+ *    </ul></li>
+ *  <li>The component's name is then determined thus:
+ *    <ul>
+ *      <li>If the component's <code>accessibilityName</code>
+ *      (i.e., <code>accessibilityProperties.name</code>) is a space,
+ *      no component name is added.</li>
+ *      <li>Otherwise, if the component's name is specified
+ *      (i.e., is not null and not empty) then it is added.</li>
+ *      <li>Otherwise, a protected <code>getName()</code> method,
+ *      defined by AccImpl and implemented by each subclass,
+ *      is called to provide a default name.
+ *      (For example, ButtonAccImpl implements <code>getName()</code>
+ *      to specify that a Button's default name is the label that it displays.)
+ *      If not empty, the return value of <code>getName()</code> is added.
+ *      <li>Otherwise (if <code>getName()</code> returned empty),
+ *      if the component's <code>toolTip</code> property is set,
+ *      that String is added.</li>
+ *      <li>If the component's <code>errorString</code> property is set,
+ *      that String is added.</li>
+ *    </ul></li>
+ *  </ul></p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description is determined solely by a component's
+ *  <code>accessibilityProperties</code> object and not by its
+ *  <code>accessibilityImplementation</code> object.
+ *  Therefore there is no logic in AccessibilityImplementation or AccImpl
+ *  or any subclasses of AccImpl related to the description.
+ *  The normal way to set the description in Flex is via the
+ *  <code>accessibilityDescription</code> property on UIComponent,
+ *  which simply sets <code>accessibilityProperties.description</code>.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a component and its internal parts
+ *  is determined by the <code>get_accState()</code> method.
+ *  In the Player's AccessibilityImplementation base class,
+ *  this method throws a runtime error,
+ *  since subclasses are expected to override it.
+ *  Flex's AccImpl class does not override it,
+ *  but provides a protected utility method, <code>getState()</code>,
+ *  for subclasses to use in their overrides.
+ *  The <code>getState()</code> method determines the state
+ *  as a combination of
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE
+ *    (when enabled is false on this component or any ancestor)</li>
+ *    <li>STATE_SYSTEM_FOCUSABLE</li>
+ *    <li>STATE_SYSTEM_FOCUSED (when focused)</li>
+ *  </ul>
+ *  Note that by default all components are assumed to be focusable
+ *  and thus the accessibility implementation classes for non-focusable
+ *  components like Label must clear this state flag.
+ *  When a component has a state of unavailable,
+ *  the focusable state is removed by the accessibility implementation class.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>The MSAA Value of a component and its internal parts
+ *  is determined by the <code>get_accValue()</code> method.
+ *  In the Player's AccessibilityImplementation base class,
+ *  this method simply returns <code>null</code>.
+ *  Flex's AccImpl class does not override it,
+ *  but subclasses for components like TextInput do.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location for a component's internal parts,
+ *  but not the component itself,
+ *  is determined by the <code>get_accLocation()</code> method.
+ *  This method is never called with a childID of 0;
+ *  instead, the Flash Player determines the MSAA Location of a component
+ *  based on its bounding rectangle as determined by <code>getBounds()</code>.
+ *  Flex's AccImpl class does not override this method,
+ *  but subclasses for components with internal parts do.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>The MSAA DefaultAction for a component and its internal parts
+ *  is determined by the <code>get_accDefaultAction()</code> method.
+ *  In the Player's AccessibilityImplementation base class,
+ *  this method simply returns <code>null</code>.
+ *  Flex's AccImpl class does not override it,
+ *  but subclasses with default actions do.
+ *  These subclasses also override AccessibilityImplementation's
+ *  <code>accDoDefaultAction()</code> method
+ *  to perform the default action that they advertise.</p>
+ *
+ *  <p><b>Other</b></p>
+ *
+ *  <p>The MSAA events EVENT_OBJECT_SHOW and EVENT_OBJECT_HIDE
+ *  are sent when the object is shown or hidden.
+ *  The corresponding states for these are covered by the Flash Player
+ *  which does not render any MSAA components that are hidden.
+ *  When the component is shown the states mentioned for AccImpl
+ *  are used.</p>
+ *
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
