@@ -324,10 +324,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             if (!dispatchEvent(request))
                 smp = request.value as ISystemManager;
         }
-            
-        if (window is IUIComponent)
-            IUIComponent(window).isPopUp = true;
-        
+                    
         if (!childList || childList == PopUpManagerChildList.PARENT)
             topMost = smp.popUpChildren.contains(parent);
         else
@@ -336,6 +333,9 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
         children = topMost ? smp.popUpChildren : smp;
         children.addChild(DisplayObject(window));
 
+        if (window is IUIComponent)
+            IUIComponent(window).isPopUp = true;
+        
         window.visible = false;
         
         const o:PopUpData = createPopUpData();
