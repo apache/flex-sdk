@@ -25,7 +25,6 @@ package spark.skins.mobile.supportClasses
     import mx.core.IFlexDisplayObject;
     import mx.core.ILayoutElement;
     import mx.core.IUITextField;
-    import mx.core.UIComponent;
     import mx.core.UITextField;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
@@ -34,9 +33,11 @@ package spark.skins.mobile.supportClasses
     import mx.states.State;
     import mx.utils.ColorUtil;
     
+    import spark.components.Group;
     import spark.components.IconPlacement;
     import spark.components.supportClasses.ButtonBase;
     import spark.components.supportClasses.MobileTextField;
+    import spark.primitives.BitmapImage;
     import spark.skins.mobile.supportClasses.MobileSkin;
     
     use namespace mx_internal;
@@ -63,6 +64,7 @@ package spark.skins.mobile.supportClasses
         //  Constructor
         //
         //--------------------------------------------------------------------------
+
         public function ButtonSkinBase()
         {
             super();
@@ -77,8 +79,14 @@ package spark.skins.mobile.supportClasses
         //  Variables
         //
         //--------------------------------------------------------------------------
-        
-        private var iconChanged:Boolean = true;
+
+        /**
+         *  iconDisplay skin part.
+         */
+        private var iconChanged:Boolean = false;
+        private var iconInstance:Object;    // Can be either DisplayObject or BitmapImage
+        private var iconHolder:Group;       // Needed when iconInstance is a BitmapImage
+        private var _icon:Object;           // The currently set icon, can be Class, DisplayObject, URL
         
         /**
          *  labelDisplay skin part.
@@ -86,9 +94,6 @@ package spark.skins.mobile.supportClasses
         public var labelDisplay:MobileTextField;
         
         protected var labelDisplayShadow:MobileTextField;      
-        
-        // Holds the icon
-        protected var iconInstance:DisplayObject;
         
         /**
          *  If true, then create the iconDisplay using the icon style
@@ -124,14 +129,16 @@ package spark.skins.mobile.supportClasses
         //
         //--------------------------------------------------------------------------
         
- 
+        /**
+         *  @private 
+         */ 
         override protected function commitCurrentState():void
         {
             super.commitCurrentState();
             
             alpha = currentState.indexOf("disabled") == -1 ? 1 : 0.5;
         }
-        
+
         /**
          *  @private 
          */ 
@@ -149,9 +156,6 @@ package spark.skins.mobile.supportClasses
             
             addChild(labelDisplayShadow);
             addChild(labelDisplay);
-            
-            if (useIconStyle)
-                hostComponent.addEventListener("iconChange", iconChangeHandler);
         }
         
         /**
@@ -159,13 +163,20 @@ package spark.skins.mobile.supportClasses
          */ 
         override public function styleChanged(styleProp:String):void 
         {    
-            if (!styleProp || 
-                styleProp == "styleName" || styleProp == "iconPlacement")
+            var allStyles:Boolean = !styleProp || styleProp == "styleName";
+
+            if (allStyles || styleProp == "iconPlacement")
             {
                 invalidateSize();
                 invalidateDisplayList();
             }
-            
+
+            if (useIconStyle && (allStyles || styleProp == "icon"))
+            {
+                iconChanged = true;
+                invalidateProperties();
+            }
+
             super.styleChanged(styleProp);
             
             if (labelDisplay)
@@ -174,31 +185,18 @@ package spark.skins.mobile.supportClasses
                 labelDisplayShadow.styleChanged(styleProp);
         }
         
+        /**
+         *  @private 
+         */ 
         override protected function commitProperties():void
         {
             super.commitProperties();
             
-            if (iconChanged && useIconStyle)
+            if (iconChanged)
             {
-                if (iconInstance)
-                {
-                    removeChild(iconInstance);
-                    iconInstance = null;
-                }
-                    
-                var icon:Class = hostComponent.icon;
-                
-                if (icon)
-                {
-                    // Should be a bitmap
-                    iconInstance = new icon();
-                    addChild(iconInstance);
-                    
-                    if (iconInstance is UIComponent)
-                        LayoutManager.getInstance().validateClient(UIComponent(iconInstance));
-                }
-                
                 iconChanged = false;
+                if (useIconStyle)
+                    setIcon(getStyle("icon"));
             }
         }
         
@@ -229,16 +227,16 @@ package spark.skins.mobile.supportClasses
                 textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
             }
             
-            var iconWidth:Number = iconInstance ? iconInstance.width : 0;
-            var iconHeight:Number = iconInstance ? iconInstance.height : 0;
+            var iconDisplay:DisplayObject = getIconDisplay();
+            var iconWidth:Number = iconDisplay ? iconDisplay.width : 0;
+            var iconHeight:Number = iconDisplay ? iconDisplay.height : 0;
             var w:Number = 0;
             var h:Number = 0;
 
-            // FIXME (egeorgie): should be checking for & using ILayoutElement interface, IFlexDisplayObject
-            if (iconInstance is UIComponent)
+            if (iconDisplay is ILayoutElement)
             {
-                iconWidth = UIComponent(iconInstance).getExplicitOrMeasuredWidth();
-                iconHeight = UIComponent(iconInstance).getExplicitOrMeasuredHeight();
+                iconWidth = ILayoutElement(iconDisplay).getPreferredBoundsWidth(false);
+                iconHeight = ILayoutElement(iconDisplay).getPreferredBoundsHeight(false);
             }
 
             if (iconPlacement == IconPlacement.LEFT ||
@@ -317,20 +315,21 @@ package spark.skins.mobile.supportClasses
             var viewWidth:Number = unscaledWidth;
             var viewHeight:Number = unscaledHeight;
             
-            if (iconInstance)
+            var iconDisplay:DisplayObject = getIconDisplay();
+            if (iconDisplay)
             {
-                if (iconInstance is ILayoutElement)
+                if (iconDisplay is ILayoutElement)
                 {
-                    iconWidth = ILayoutElement(iconInstance).getPreferredBoundsWidth();
-                    iconHeight = ILayoutElement(iconInstance).getPreferredBoundsHeight();
+                    iconWidth = ILayoutElement(iconDisplay).getPreferredBoundsWidth();
+                    iconHeight = ILayoutElement(iconDisplay).getPreferredBoundsHeight();
                 }
                 else
                 {
-                    iconWidth = iconInstance.width;
-                    iconHeight = iconInstance.height;
+                    iconWidth = iconDisplay.width;
+                    iconHeight = iconDisplay.height;
                 }
             }
-            
+
             if (iconPlacement == IconPlacement.LEFT ||
                 iconPlacement == IconPlacement.RIGHT)
             {
@@ -449,36 +448,108 @@ package spark.skins.mobile.supportClasses
             if (labelDisplay.isTruncated)
                 labelDisplayShadow.text = labelDisplay.text;
             
-            if (iconInstance)
+            if (iconDisplay)
             {
-                resizePart(iconInstance, iconWidth, iconHeight);
-                positionPart(iconInstance, Math.max(0, Math.round(iconX)), Math.max(0, Math.round(iconY))); 
+                resizePart(iconDisplay, iconWidth, iconHeight);
+                positionPart(iconDisplay, Math.max(0, Math.round(iconX)), Math.max(0, Math.round(iconY))); 
             }        
         }
-        
+
+        //--------------------------------------------------------------------------
+        //
+        //  Class methods
+        //
+        //--------------------------------------------------------------------------
+
+        /**
+         *  The current skin part that displays the icon.
+         *  If the icon is a Class, then the iconDisplay is an instance of that class.
+         *  If the icon is a DisplayObject instance, then the iconDisplay is that instance.
+         *  If the icon is URL, then iconDisplay is the Group that holds the BitmapImage with that URL.
+         * 
+         *  @see #setIcon
+         *  @see #useIconStyle
+         */
+        protected function getIconDisplay():DisplayObject
+        {
+            return iconHolder ? iconHolder : iconInstance as DisplayObject;
+        }
+
+        /**
+         *  Sets the current icon for the iconDisplay skin part.
+         *  The iconDisplay skin part is created/set-up on demand.
+         *
+         *  @see #getIconDisplay
+         *  @see #useIconStyle
+         */
+        protected function setIcon(icon:Object):void
+        {
+            if (_icon == icon)
+                return;
+            _icon = icon;
+
+            // Clean-up the iconInstance
+            if (iconInstance)
+            {
+                if (iconHolder)
+                    iconHolder.removeAllElements();
+                else
+                    this.removeChild(iconInstance as DisplayObject);
+            }
+            iconInstance = null;
+
+            // Set-up the iconHolder
+            var needsHolder:Boolean = icon && !(icon is Class) && !(icon is DisplayObject);
+            if (needsHolder && !iconHolder)
+            {
+                iconHolder = new Group();
+                this.addChild(iconHolder);
+            }
+            else if (!needsHolder && iconHolder)
+            {
+                this.removeChild(iconHolder);
+                iconHolder = null;
+            }
+
+            // Set-up the icon
+            if (icon)
+            {
+                if (needsHolder)
+                {
+                    iconInstance = new BitmapImage();
+                    iconInstance.source = icon;
+                    iconHolder.addElement(iconInstance as BitmapImage);
+                }
+                else
+                {
+                    if (icon is Class)
+                        iconInstance = new (Class(icon))();
+                    else
+                        iconInstance = icon;
+                    
+                    addChild(iconInstance as DisplayObject);
+                }
+            }
+
+            // explicitly invalidate, since addChild/removeChild don't invalidate for us
+            invalidateSize();
+            invalidateDisplayList();
+        }
+
         //--------------------------------------------------------------------------
         //
         //  Event Handlers
         //
         //--------------------------------------------------------------------------
-        
+
         /**
          *  @private 
-         */ 
+         */
         private function labelDisplay_valueCommitHandler(event:FlexEvent):void 
         {
             labelDisplayShadow.text = labelDisplay.text;
             invalidateSize();
             invalidateDisplayList();
         }
-        
-        private function iconChangeHandler(event:Event):void
-        {
-            iconChanged = true;
-            invalidateProperties();
-            invalidateSize();
-            invalidateDisplayList();
-        }
-        
     }
 }
