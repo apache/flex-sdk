@@ -36,7 +36,7 @@ public class DateSpinnerSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     /**
-     *  Constructor
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -54,7 +54,7 @@ public class DateSpinnerSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     /**
-     *  Factory for creating dateItem list parts
+     *  Factory for creating dateItem list parts.
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -63,7 +63,7 @@ public class DateSpinnerSkin extends MobileSkin
     public var dateItemList:IFactory;
     
     /**
-     *  Skin part; container of dateItem list(s) 
+     *  Skin part; container of dateItem list(s).
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -87,6 +87,13 @@ public class DateSpinnerSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */
     override protected function createChildren():void
     {
         listContainer = new SpinnerListContainer();
@@ -99,6 +106,13 @@ public class DateSpinnerSkin extends MobileSkin
             percentHeight : 100 };
     }
     
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */
     override protected function measure():void
     {
         measuredWidth = SpinnerListContainer(listContainer).getPreferredBoundsWidth();
@@ -107,6 +121,13 @@ public class DateSpinnerSkin extends MobileSkin
         measuredMinHeight = SpinnerListContainer(listContainer).getMinBoundsHeight();
     }
     
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */
     override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.layoutContents(unscaledWidth, unscaledHeight);
