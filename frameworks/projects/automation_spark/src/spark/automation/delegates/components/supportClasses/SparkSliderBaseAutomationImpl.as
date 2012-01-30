@@ -113,7 +113,8 @@ package spark.automation.delegates.components.supportClasses
 		 */
 		override public function get automationValue():Array
 		{
-			return [ slider.value.toString() ];
+			//return [ slider.value.toString() ];
+			return super.automationValue;
 		}
 		
 		/**
@@ -227,10 +228,13 @@ package spark.automation.delegates.components.supportClasses
 			{
 				// the event does not give the details of the value. So we need to provide this
 				// so that replay can happen accordingly
-				var valueChangeEvent:SparkValueChangeAutomationEvent = 
-					new SparkValueChangeAutomationEvent(
-						SparkValueChangeAutomationEvent.CHANGE,false,false,slider.value);
-				recordAutomatableEvent(valueChangeEvent);
+				if(!(isNaN(slider.value)))
+				{
+					var valueChangeEvent:SparkValueChangeAutomationEvent = 
+						new SparkValueChangeAutomationEvent(
+							SparkValueChangeAutomationEvent.CHANGE,false,false,slider.value);
+					recordAutomatableEvent(valueChangeEvent);
+				}
 			}
 			else
 			{
