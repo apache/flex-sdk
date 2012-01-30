@@ -214,27 +214,6 @@ AccordionHeader
 
 /*
 //------------------------------
-//  .activeButtonStyle
-//------------------------------
-*/
-
-.activeButtonStyle
-{
-}
-
-/*
-//------------------------------
-//  .activeTabStyle
-//------------------------------
-*/
-
-.activeTabStyle
-{
-	fontWeight: "bold";
-}
-
-/*
-//------------------------------
 //  Alert
 //------------------------------
 */
@@ -503,7 +482,7 @@ ComboBox
 //------------------------------
 */
 
-.comboDropdown
+List.comboDropdown
 {
 	backgroundColor: #FFFFFF;
 	borderThickness: 0;
@@ -650,7 +629,7 @@ DateField
 //------------------------------
 */
 
-.dateFieldPopup
+DateChooser.dateFieldPopup
 {
 	backgroundColor: #FFFFFF;
 	borderThickness: 1;
@@ -697,7 +676,7 @@ DragManager
 //------------------------------
 */
 
-.errorTip
+ToolTip.errorTip
 {
 	borderColor: #CE2929;
 	borderStyle: "errorTipRight";
@@ -896,7 +875,7 @@ LinkButton
 	upSkin: ClassReference(null); 
 }
 
-.linkButtonStyle
+LinkButton.linkButtonStyle
 {
 	paddingBottom: 2;
 	paddingLeft: 2;
@@ -1023,21 +1002,6 @@ NumericStepper
 
 /*
 //------------------------------
-//  .opaquePanel
-//------------------------------
-*/
-
-.opaquePanel
-{
-	backgroundColor: #FFFFFF;
-	borderAlpha: 1;
-	borderColor: #FFFFFF;
-	footerColors: #E7E7E7, #C7C7C7;
-	headerColors: #E7E7E7, #D9D9D9;
-}
-
-/*
-//------------------------------
 //  Panel
 //------------------------------
 */
@@ -1076,28 +1040,6 @@ Panel
 
 /*
 //------------------------------
-//	.plain
-//------------------------------
-*/
-
-/*
-	'plain' is a named style that can be set on Application
-	to revert to the boring white box
-*/
-
-.plain
-{
-	backgroundColor: #FFFFFF;
-	backgroundImage: "";
-	horizontalAlign: "left";
-	paddingBottom: 0;
-	paddingLeft: 0;
-	paddingRight: 0;
-	paddingTop: 0;
-}
-
-/*
-//------------------------------
 //  PopUpButton
 //------------------------------
 */
@@ -1118,7 +1060,7 @@ PopUpButton
 /*	upSkin: null; */
 }
 
-.popUpMenu
+Menu.popUpMenu
 {
 	fontWeight: "normal";
 	textAlign: "left";
@@ -1232,7 +1174,7 @@ RichTextEditor
 //------------------------------
 */
 
-.richTextEditorTextAreaStyle
+TextArea.richTextEditorTextAreaStyle
 {
 }
 
@@ -1408,7 +1350,6 @@ TabBar
 {
 	horizontalAlign: "left";
 	horizontalGap: -1;
-/*	selectedTabTextStyleName: "activeTabStyle"; */
 	textAlign: "center";
 	verticalAlign: "top";
 	verticalGap: -1;
@@ -1456,7 +1397,7 @@ TextArea
 //------------------------------
 */
 
-.textAreaVScrollBarStyle
+HScrollBar.textAreaVScrollBarStyle
 {
 }
 
@@ -1466,7 +1407,7 @@ TextArea
 //------------------------------
 */
 
-.textAreaHScrollBarStyle
+VScrollBar.textAreaHScrollBarStyle
 {
 }
 
