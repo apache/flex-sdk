@@ -16,11 +16,11 @@ package spark.core
  *  for the <code>destructionPolicy</code> property of spark view
  *  classes.
  *
- *  @see spark.components.ViewNavigatorBase#destructionPolicy
+ *  @see spark.components.supportClasses.ViewNavigatorBase#destructionPolicy
  *  @see spark.components.View#destructionPolicy
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
