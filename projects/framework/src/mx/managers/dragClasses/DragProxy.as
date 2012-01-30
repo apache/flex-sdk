@@ -15,10 +15,12 @@ package mx.managers.dragClasses
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
-import flash.events.Event
+import flash.events.IEventDispatcher;
+import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
+import flash.system.ApplicationDomain;
 import mx.core.DragSource;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
@@ -28,9 +30,12 @@ import mx.effects.Move;
 import mx.effects.Zoom;
 import mx.events.DragEvent;
 import mx.events.EffectEvent;
+import mx.events.MarshalDragEvent;
+import mx.events.MarshalMouseEvent;
+import mx.events.MarshalEvent;
 import mx.managers.CursorManager;
 import mx.managers.DragManager;
-import mx.managers.ISystemManager;
+import mx.managers.ISystemManager2;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -61,19 +66,21 @@ public class DragProxy extends UIComponent
         this.dragInitiator = dragInitiator;
         this.dragSource = dragSource;
 
-        var sm:ISystemManager = dragInitiator.systemManager.
-								topLevelSystemManager;
+        var sm:ISystemManager2 = dragInitiator.systemManager.
+									topLevelSystemManager as ISystemManager2;
+		
+		var ed:IEventDispatcher = sandboxRoot = sm.getSandboxRoot();
 
-        sm.addEventListener(MouseEvent.MOUSE_MOVE,
+        ed.addEventListener(MouseEvent.MOUSE_MOVE,
 							mouseMoveHandler, true);
         
-		sm.addEventListener(MouseEvent.MOUSE_UP,
+		ed.addEventListener(MouseEvent.MOUSE_UP,
 							mouseUpHandler, true);
 
-        sm.addEventListener(KeyboardEvent.KEY_DOWN,
+        ed.addEventListener(KeyboardEvent.KEY_DOWN,
 							keyDownHandler);
 
-        sm.addEventListener(KeyboardEvent.KEY_UP,
+        ed.addEventListener(KeyboardEvent.KEY_UP,
 							keyUpHandler);
     }
 
@@ -89,13 +96,14 @@ public class DragProxy extends UIComponent
 	override public function initialize():void
 	{
 		super.initialize();
-		// in case we go offscreen
-		stage.addEventListener(MouseEvent.MOUSE_MOVE, 
-							stage_mouseMoveHandler);
 
 		// in case we go offscreen
-		stage.addEventListener(Event.MOUSE_LEAVE, 
-							mouseLeaveHandler);
+		dragInitiator.systemManager.addEventListener(MarshalMouseEvent.MOUSE_MOVE, 
+												     stage_mouseMoveHandler);
+
+		// in case we go offscreen
+		dragInitiator.systemManager.addEventListener(MarshalMouseEvent.MOUSE_UP, 
+													 mouseLeaveHandler);
 
 		// Make sure someone has focus, otherwise we
 		// won't get keyboard events.
@@ -132,6 +140,12 @@ public class DragProxy extends UIComponent
      *  Last Mouse event received
      */
     private var lastMouseEvent:MouseEvent;
+
+    /**
+     *  @private
+     *  Root of sandbox
+     */
+    private var sandboxRoot:IEventDispatcher;
 
     //--------------------------------------------------------------------------
     //
@@ -172,7 +186,7 @@ public class DragProxy extends UIComponent
     /**
      *  @private
      */
-    public var target:IUIComponent = null;
+    public var target:DisplayObject = null;
 
     /**
      *  @private
@@ -253,7 +267,7 @@ public class DragProxy extends UIComponent
             dragEvent.localX = pt.x;
             dragEvent.localY = pt.y;
 
-            target.dispatchEvent(dragEvent);
+            _dispatchDragEvent(target, dragEvent);
 
             showFeedback();
         }
@@ -321,9 +335,47 @@ public class DragProxy extends UIComponent
 		pt = DisplayObject(eventTarget).globalToLocal(pt);
 		dragEvent.localX = pt.x;
 		dragEvent.localY = pt.y;
-		eventTarget.dispatchEvent(dragEvent);
+		_dispatchDragEvent(DisplayObject(eventTarget), dragEvent);
 	}
 	
+    /**
+     *  @private
+     */
+    private function _dispatchDragEvent(target:DisplayObject, event:DragEvent):void
+    {
+		// in trusted mode, the target could be in another application domain
+		// in untrusted mode, the mouse events shouldn't work so we shouldn't be here
+
+		var appDom:ApplicationDomain = target.loaderInfo.applicationDomain;
+		// same domain
+		if (isSameSandbox(appDom))
+			target.dispatchEvent(event);
+		else
+		{
+			// wake up all the other DragManagers
+			var me:MarshalEvent = new MarshalEvent(MarshalEvent.INIT_MANAGER);
+			me.name = MarshalEvent.DRAG_MANAGER
+			sandboxRoot.dispatchEvent(me);
+			// bounce this message off the sandbox root and hope
+			// another DragManager picks it up
+			var mde:MarshalDragEvent = new MarshalDragEvent(target, event);
+			sandboxRoot.dispatchEvent(mde);
+		}
+	}
+
+	private function isSameSandbox(ad:ApplicationDomain):Boolean
+	{
+		if (ad == ApplicationDomain.currentDomain) return true;
+
+		if (ad.hasDefinition("mx.managers.dragClasses.DragProxy"))
+		{
+			var c:Class = Class(ad.getDefinition("mx.managers.dragClasses.DragProxy"));
+			if (this is c)
+				return true;
+		}
+		return false;
+	}
+
     /**
      *  @private
      */
@@ -337,8 +389,8 @@ public class DragProxy extends UIComponent
 
         var pt:Point = new Point();
         var point:Point = new Point(event.localX, event.localY);
-        point = DisplayObject(event.target).localToGlobal(point);
-        point = DisplayObject(dragInitiator.systemManager.topLevelSystemManager).globalToLocal(point);
+        var stagePoint:Point = DisplayObject(event.target).localToGlobal(point);
+        point = DisplayObject(sandboxRoot).globalToLocal(stagePoint);
         var mouseX:Number = point.x;
         var mouseY:Number = point.y;
         x = mouseX - xOffset;
@@ -351,10 +403,23 @@ public class DragProxy extends UIComponent
         }
 
 
-		var targetList:Array /* of DisplayObject */ =
-			DisplayObjectContainer(dragInitiator.systemManager.topLevelSystemManager).
-			getObjectsUnderPoint(new Point(mouseX, mouseY));
+		// trace("===>DragProxy:mouseMove");
+		var targetList:Array; /* of DisplayObject */
+		var tlr:IEventDispatcher = ISystemManager2(systemManager).getTopLevelRoot();
+/*		having trouble with getObjectsUnderPoint.  Some things seem to get in list
+		like cursors that shouldn't.  We roll our own for sandboxed apps and it works
+		better for now.
+		if (tlr)
+			targetList = DisplayObjectContainer(tlr).
+							getObjectsUnderPoint(stagePoint);
+		else
+		{
+*/			targetList = [];
+			DragProxy.getObjectsUnderPoint(DisplayObject(sandboxRoot), stagePoint, targetList);
+/*		}
+*/
 		var newTarget:DisplayObject = null;
+		// trace("   ", targetList.length, "objects under point");
 		
 		// targetList is in depth order, and we want the top of the list. However, we
 		// do not want the target to be a decendent of us.
@@ -366,6 +431,7 @@ public class DragProxy extends UIComponent
 				break;
 			targetIndex--;
 		}
+		// trace("    skipped", targetList.length - targetIndex - 1);
 			
         // If we already have a target, send it a dragOver event
         // if we're still over it.
@@ -373,7 +439,7 @@ public class DragProxy extends UIComponent
         if (target)
         {
             var foundIt:Boolean = false;
-            var oldTarget:IUIComponent = target;
+            var oldTarget:DisplayObject = target;
 
 			dropTarget = newTarget;
 
@@ -381,6 +447,7 @@ public class DragProxy extends UIComponent
 			{
 				if (dropTarget == target)
 				{
+					// trace("    dispatch DRAG_OVER on", dropTarget);
 					// Dispatch a "dragOver" event
 					dispatchDragEvent(DragEvent.DRAG_OVER, event, dropTarget);
 					foundIt = true;
@@ -388,6 +455,7 @@ public class DragProxy extends UIComponent
 				} 
 				else 
 				{
+					// trace("    dispatch DRAG_ENTER on", dropTarget);
 					// Dispatch a "dragEnter" event and see if a new object
 					// steals the target.
 					dispatchDragEvent(DragEvent.DRAG_ENTER, event, dropTarget);
@@ -406,6 +474,7 @@ public class DragProxy extends UIComponent
 
             if (!foundIt)
             {
+				// trace("    dispatch DRAG_EXIT on", oldTarget);
                 // Dispatch a "dragExit" event on the old target.
                 dispatchDragEvent(DragEvent.DRAG_EXIT, event, oldTarget);
 
@@ -425,6 +494,7 @@ public class DragProxy extends UIComponent
 			{
 				if (dropTarget != this)
 				{
+					// trace("    dispatch DRAG_ENTER on", dropTarget);
 					dispatchDragEvent(DragEvent.DRAG_ENTER, event, dropTarget);
 					if (target)
 						break;
@@ -435,6 +505,7 @@ public class DragProxy extends UIComponent
             if (!target)
                 action = DragManager.NONE;
         }
+		// trace("<===DragProxy:mouseMove");
 
 
         showFeedback();
@@ -455,27 +526,29 @@ public class DragProxy extends UIComponent
     {
         var dragEvent:DragEvent;
 
-        var sm:ISystemManager = dragInitiator.systemManager.
-								topLevelSystemManager;
+        var sm:ISystemManager2 = dragInitiator.systemManager.
+									topLevelSystemManager as ISystemManager2;
+		
+		var ed:IEventDispatcher = sandboxRoot;
 
-		sm.removeEventListener(MouseEvent.MOUSE_MOVE,
+		ed.removeEventListener(MouseEvent.MOUSE_MOVE,
                                mouseMoveHandler, true);
 
 		// in case we go offscreen
-		stage.removeEventListener(MouseEvent.MOUSE_MOVE, 
+		sm.removeEventListener(MarshalMouseEvent.MOUSE_MOVE, 
 							stage_mouseMoveHandler);
 
-        sm.removeEventListener(MouseEvent.MOUSE_UP,
+        ed.removeEventListener(MouseEvent.MOUSE_UP,
                                mouseUpHandler, true);
 
-        sm.removeEventListener(KeyboardEvent.KEY_DOWN,
+        ed.removeEventListener(KeyboardEvent.KEY_DOWN,
                                keyDownHandler);
 
 		// in case we go offscreen
-		stage.removeEventListener(Event.MOUSE_LEAVE, 
-							mouseLeaveHandler);
+		sm.removeEventListener(MarshalMouseEvent.MOUSE_UP, 
+							   mouseLeaveHandler);
 
-        sm.removeEventListener(KeyboardEvent.KEY_UP,
+        ed.removeEventListener(KeyboardEvent.KEY_UP,
                                keyUpHandler);
 		var delegate:Object = automationDelegate;
         if (target && action != DragManager.NONE)
@@ -497,7 +570,7 @@ public class DragProxy extends UIComponent
             dragEvent.localY = pt.y;
 			if (delegate)
             	delegate.recordAutomatableDragDrop(target, dragEvent);
-            target.dispatchEvent(dragEvent);
+            _dispatchDragEvent(target, dragEvent);
         }
         else
         {
@@ -567,6 +640,39 @@ public class DragProxy extends UIComponent
     {
         DragManager.mx_internal::endDrag();
     }
+
+	/**
+	 *  Player doesn't handle this correctly so we have to do it ourselves
+	 */
+	private static function getObjectsUnderPoint(obj:DisplayObject, pt:Point, arr:Array):void
+	{
+		if (obj.hitTestPoint(pt.x, pt.y, true))
+		{
+			arr.push(obj);
+			if (obj is DisplayObjectContainer)
+			{
+				var doc:DisplayObjectContainer = obj as DisplayObjectContainer;
+				if (doc.numChildren)
+				{
+					var n:int = doc.numChildren;
+					for (var i:int = 0; i < n; i++)
+					{
+						try
+						{
+							var child:DisplayObject = doc.getChildAt(i);
+							if (child.visible)
+								getObjectsUnderPoint(child, pt, arr);
+						}
+						catch (e:Error)
+						{
+							// may not be in our sandbox
+						}
+					}
+				}
+			}
+		}
+	}
+
 }
 
 }
