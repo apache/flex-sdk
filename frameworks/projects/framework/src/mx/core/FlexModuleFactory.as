@@ -145,15 +145,7 @@ public class FlexModuleFactory extends MovieClip
 
 	    var docFrame:int = totalFrames == 1 ? 0 : 1;
 
-		addFrameScript(docFrame, docFrameHandler);
-
-		// Frame 1: module factory
-		// Frame 2: document class
-		// Frame 3+: extra classes
-	    for (i = docFrame + 1; i < totalFrames; i++)
-	    {
-		    addFrameScript(i, extraFrameHandler);
-		}
+        addEventListener(Event.ENTER_FRAME, docFrameListener);
 
 		timer = new Timer(100);
 		timer.addEventListener(TimerEvent.TIMER, timerHandler);
@@ -162,7 +154,32 @@ public class FlexModuleFactory extends MovieClip
         update();
     }
 
-	//--------------------------------------------------------------------------
+    private function docFrameListener(event:Event):void
+    {
+        if (currentFrame == 2)
+        {
+            removeEventListener(Event.ENTER_FRAME, docFrameListener);
+            if (totalFrames > 2)
+                addEventListener(Event.ENTER_FRAME, extraFrameListener);
+            
+            docFrameHandler();
+        }
+    }
+    
+    private function extraFrameListener(event:Event):void
+    {
+        if (lastFrame == currentFrame)
+            return;
+        
+        lastFrame = currentFrame;
+        
+        if (currentFrame + 1 > totalFrames)
+            removeEventListener(Event.ENTER_FRAME, extraFrameListener);
+        
+        extraFrameHandler();
+    }
+
+    //--------------------------------------------------------------------------
 	//
 	//  Variables
 	//
@@ -197,6 +214,13 @@ public class FlexModuleFactory extends MovieClip
 	 *  @private
 	 */
 	private var timer:Timer = null;
+    
+    /**
+     *  @private
+     *  Track which frame was last processed
+     */
+    private var lastFrame:int;
+    
     /**
 	 *  @private
 	 */
@@ -436,6 +460,8 @@ public class FlexModuleFactory extends MovieClip
         			timer.reset();
 
                     dispatchEvent(new Event("ready"));
+                    
+                    loaderInfo.removeEventListener(Event.COMPLETE, moduleCompleteHandler);
                 }
                 break;
 			}
@@ -458,6 +484,8 @@ public class FlexModuleFactory extends MovieClip
                 
                 dispatchEvent(new ModuleEvent(ModuleEvent.ERROR, false, false, 
                               0, 0, errorMessage));
+                
+                loaderInfo.removeEventListener(Event.COMPLETE, moduleCompleteHandler);
                 break;
 			}
         }
