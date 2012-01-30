@@ -35,7 +35,7 @@ use namespace mx_internal;
  *
  *  Developers can specify image class and resize mode through the Application properties
  *  <code>splashScreenImage</code>, <code>splashScreenScaleMode</code> and
- *  <code>splashScreenMinimumDelayTime</code>.
+ *  <code>splashScreenMinimumDisplayTime</code>.
  *
  *  The SplashScreen monitors device orientation and updates the image so that it
  *  appears on screen as if the orientation is always StageOrientation.DEFAULT.
