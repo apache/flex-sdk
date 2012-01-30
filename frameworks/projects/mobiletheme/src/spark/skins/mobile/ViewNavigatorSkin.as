@@ -70,17 +70,13 @@ public class ViewNavigatorSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
-    // TODO (chiedozi): ASDOC propeties
+    // FIXME (chiedozi): ASDOC propeties
     
     // Responsible for storing the views
     public var contentGroup:Group;
     
     // The action bar to use for the navigator
     public var actionBar:ActionBar;
-    
-    // The default transitions to run
-    public var defaultPushTransition:ViewTransition;
-    public var defaultPopTransition:ViewTransition;
     
     //--------------------------------------------------------------------------
     //
@@ -109,9 +105,6 @@ public class ViewNavigatorSkin extends MobileSkin
         
         addChild(contentGroup);
         addChild(actionBar);
-        
-        defaultPushTransition = new SlideViewTransition(300, SlideViewTransition.SLIDE_LEFT);
-        defaultPopTransition = new SlideViewTransition(300, SlideViewTransition.SLIDE_RIGHT);
     }
     
     /**
