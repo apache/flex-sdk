@@ -503,8 +503,7 @@ public class PieSeries extends Series
 
             legendData = new PieSeriesLegendData();
             
-            legendData.fill = GraphicsUtilities.fillFromStyle(
-                localFills[i % localFills.length]);
+            legendData.fill = current.fill;
             
             if (_nameField != null && _nameField != "")
                 legendData.label = current.item[_nameField];
