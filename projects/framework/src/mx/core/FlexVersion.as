@@ -60,7 +60,7 @@ public class FlexVersion
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const VERSION_4_6:uint = 0x04060000;
 
