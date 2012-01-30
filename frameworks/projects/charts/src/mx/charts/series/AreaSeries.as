@@ -41,13 +41,14 @@ import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -864,19 +865,12 @@ public class AreaSeries extends Series implements IStackable2
 	{
 		HaloDefaults.init(styleManager);
 		
-		var areaSeriesStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.series.AreaSeries", styleManager);
-		
-		areaSeriesStyle.defaultFactory = function():void
-		{
-			this.areaRenderer = new ClassFactory(mx.charts.renderers.AreaRenderer);
-			this.adjustedRadius = 2;
-			this.legendMarkerRenderer = new ClassFactory(AreaSeriesLegendMarker);
-			this.radius = 4;
-			this.areaFill = new SolidColor(0x000000);
-			this.fills = [];
-			this.stroke = HaloDefaults.pointStroke;
-		}
+		var areaSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.AreaSeries");
+		areaSeriesStyle.setStyle("areaRenderer", new ClassFactory(mx.charts.renderers.AreaRenderer));
+		areaSeriesStyle.setStyle("legendMarkerRenderer", new ClassFactory(AreaSeriesLegendMarker));
+		areaSeriesStyle.setStyle("areaFill", new SolidColor(0x000000));
+		areaSeriesStyle.setStyle("fills", []);
+		areaSeriesStyle.setStyle("stroke", HaloDefaults.pointStroke);
 		
 		return true;
 	}
@@ -1095,7 +1089,7 @@ public class AreaSeries extends Series implements IStackable2
      */
     override public function stylesInitialized():void
     {
-        _localFills = getStyle('fills');
+		_localFills = getStyle('fills');
         if (_localFills != null)
         	_fillCount = _localFills.length;
         else
