@@ -395,7 +395,7 @@ public class ArrayList extends EventDispatcher
     }
     
     /**
-     *  @copy mx.collections.ListCollectionView#addAll
+     *  @copy mx.collections.ListCollectionView#addAll()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -408,7 +408,7 @@ public class ArrayList extends EventDispatcher
     }
     
     /**
-     *  @copy mx.collections.ListCollectionView#addAllAt
+     *  @copy mx.collections.ListCollectionView#addAllAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
