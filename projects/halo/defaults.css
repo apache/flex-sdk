@@ -423,10 +423,10 @@ CheckBox
 	iconColor: #2B333C;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
-	paddingBottom: 0;
+	paddingBottom: 2;
 	paddingLeft: 0;
 	paddingRight: 0;	
-	paddingTop: 0;
+	paddingTop: 2;
 	selectedDisabledIcon: ClassReference(null);
 	selectedDisabledSkin: ClassReference(null);
 	selectedDownIcon: ClassReference(null);
@@ -1237,10 +1237,10 @@ RadioButton
 	iconColor: #2B333C;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
-	paddingBottom: 0;
+	paddingBottom: 2;
 	paddingLeft: 0;
 	paddingRight: 0;	
-	paddingTop: 0;
+	paddingTop: 2;
 	selectedDisabledIcon: ClassReference(null);
 	selectedDisabledSkin: ClassReference(null);
 	selectedDownIcon: ClassReference(null);
