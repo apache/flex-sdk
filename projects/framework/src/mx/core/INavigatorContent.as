@@ -14,8 +14,13 @@ package mx.core
 import mx.managers.IToolTipManagerClient;
 
 /**
- *  NavigatorContent is an IDeferredContentOwner with label and icon properties
- *  that dispatch notifications when those properties change
+ *  The INavigatorContent interface defines the interface that a container must 
+ *  implement to be used as the child of a navigator container, 
+ *  such as the ViewStack, TabNavigator, and Accordion navigator containers.
+ *
+ *  @see mx.containers.Accordion
+ *  @see mx.containers.TabNavigator
+ *  @see mx.containers.ViewStack
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -26,6 +31,9 @@ public interface INavigatorContent extends IDeferredContentOwner, IToolTipManage
 {
     [Bindable("labelChanged")]
     /**
+     *  The text displayed by the navigator container for this container.
+     *  For example, the text appears in the button area of an Accordion container
+     *  and in the tab area of the TabNavigator container.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -36,6 +44,9 @@ public interface INavigatorContent extends IDeferredContentOwner, IToolTipManage
 
     [Bindable("iconChanged")]
     /**
+     *  The icon displayed by the navigator container for this container.
+     *  The icon appears in the button area of an Accordion container
+     *  and in the tab area of the TabNavigator container.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
