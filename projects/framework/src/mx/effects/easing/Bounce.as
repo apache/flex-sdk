@@ -17,6 +17,11 @@ package mx.effects.easing
  *  bounce motion with Flex effect classes. 
  *
  *  For more information, see http://www.robertpenner.com/profmx.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class Bounce
 {
@@ -41,6 +46,11 @@ public class Bounce
      *  @param d Specifies the duration of the effect, in milliseconds.
      *
      *  @return Number corresponding to the position of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static function easeOut(t:Number, b:Number,
                                    c:Number, d:Number):Number
@@ -71,6 +81,11 @@ public class Bounce
      *  @param d Specifies the duration of the effect, in milliseconds.
      *
      *  @return Number corresponding to the position of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static function easeIn(t:Number, b:Number,
                                   c:Number, d:Number):Number
@@ -92,6 +107,11 @@ public class Bounce
      *  @param d Specifies the duration of the effect, in milliseconds.
      *
      *  @return Number corresponding to the position of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static function easeInOut(t:Number, b:Number,
                                      c:Number, d:Number):Number
