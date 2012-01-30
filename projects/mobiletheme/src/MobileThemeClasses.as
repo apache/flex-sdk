@@ -21,7 +21,6 @@ internal class MobileThemeClasses
  *  beyond those that are found by dependecy analysis starting
  *  from the classes specified in manifest.xml.
  */
-import spark.skins.mobile.ActionBarButtonSkinBase; ActionBarButtonSkinBase;
 import spark.skins.mobile.ActionBarSkin; ActionBarSkin;
 import spark.skins.mobile.ActionButtonSkin; ActionButtonSkin;
 import spark.skins.mobile.NavigationButtonSkin; NavigationButtonSkin;
