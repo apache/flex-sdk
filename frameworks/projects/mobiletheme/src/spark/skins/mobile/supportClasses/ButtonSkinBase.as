@@ -87,6 +87,13 @@ package spark.skins.mobile.supportClasses
         // Holds the icon
         protected var iconDisplay:DisplayObject;
         
+        /**
+         *  If true, then create the iconDisplay using the icon style
+         * 
+         *  @default true 
+         */  
+        protected var useIconStyle:Boolean = true;
+        
         // TODO (jszeto) Either static consts or styles
         protected var gap:int = 7;
         protected var paddingLeft:int = 20;
@@ -95,6 +102,7 @@ package spark.skins.mobile.supportClasses
         protected var paddingBottom:int = 20;
         
         private static var TEXT_WIDTH_PADDING:Number = UITextField.TEXT_WIDTH_PADDING + 1;
+        private static var MIN_WIDTH:Number = 48;
         
         //--------------------------------------------------------------------------
         //
@@ -114,12 +122,12 @@ package spark.skins.mobile.supportClasses
         //--------------------------------------------------------------------------
         
  
-        /*override protected function commitCurrentState():void
+        override protected function commitCurrentState():void
         {
             super.commitCurrentState();
             
-            alpha = currentState.indexOf("disabled") == -1 ? 1 : 0.3;
-        }*/
+            alpha = currentState.indexOf("disabled") == -1 ? 1 : 0.5;
+        }
         
         /**
          *  @private 
@@ -146,10 +154,13 @@ package spark.skins.mobile.supportClasses
         override public function styleChanged(styleProp:String):void 
         {    
             if (!styleProp || 
-                styleProp == "styleName" || styleProp == "icon")
+                styleProp == "styleName" || styleProp == "icon" 
+                || styleProp == "iconPlacement")
             {
                 iconChanged = true;
                 invalidateProperties();
+                invalidateSize();
+                invalidateDisplayList();
             }
             
             super.styleChanged(styleProp);
@@ -164,11 +175,14 @@ package spark.skins.mobile.supportClasses
         {
             super.commitProperties();
             
-            if (iconChanged)
+            if (iconChanged && useIconStyle)
             {
                 if (iconDisplay)
+                {
                     removeChild(iconDisplay);
-                
+                    iconDisplay = null;
+                }
+                    
                 var icon:Class = getStyle("icon");
                 
                 if (icon)
@@ -228,16 +242,13 @@ package spark.skins.mobile.supportClasses
                     h += gap; // getStyle("verticalGap");
             }
             
-            // Add padding. !!!Need a hack here to only add padding if we don't
-            // have text or icon. This is required to make small buttons (like scroll
-            // arrows and numeric stepper buttons) look correct.
             if (textWidth || iconWidth)
             {
                 w += paddingLeft + paddingRight; //getStyle("paddingLeft") + getStyle("paddingRight");
                 h += paddingTop + paddingBottom; //getStyle("paddingTop") + getStyle("paddingBottom");
             }
             
-            measuredMinWidth = measuredWidth = w;
+            measuredMinWidth = measuredWidth = Math.max(w, MIN_WIDTH);
             measuredMinHeight = measuredHeight = h;
         }
         
@@ -433,9 +444,11 @@ package spark.skins.mobile.supportClasses
         /**
          *  @private 
          */ 
-        private function labelDisplay_valueCommitHandler(event:Event):void 
+        private function labelDisplay_valueCommitHandler(event:FlexEvent):void 
         {
             labelDisplayShadow.text = labelDisplay.text;
+            invalidateSize();
+            invalidateDisplayList();
         }
         
     }
