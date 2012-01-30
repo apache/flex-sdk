@@ -46,6 +46,51 @@ import flash.geom.Point;
 public interface ILayoutItem
 {
     /**
+     * @copy mx.core.IVisualItem#left
+     */
+    function get left():Object;
+
+    /**
+     * @copy mx.core.IVisualItem#right
+     */
+    function get right():Object;
+
+    /**
+     * @copy mx.core.IVisualItem#top
+     */
+    function get top():Object;
+
+    /**
+     * @copy mx.core.IVisualItem#bottom
+     */
+    function get bottom():Object;
+
+    /**
+     * @copy mx.core.IVisualItem#horizontalCenter
+     */
+    function get horizontalCenter():Object;
+
+    /**
+     * @copy mx.core.IVisualItem#verticalCenter
+     */
+    function get verticalCenter():Object;
+
+    /**
+     * @copy mx.core.IVisualItem#baseline
+     */
+    function get baseline():Object;
+
+    /**
+     * @copy mx.core.IVisualItem#percentWidth
+     */
+    function get percentWidth():Number;
+
+    /**
+     * @copy mx.core.IVisualItem#percentHeight
+     */
+    function get percentHeight():Number;
+
+    /**
      *  A reference to the object in the layout tree
      *  represented by this interface.
      */
@@ -74,12 +119,6 @@ public interface ILayoutItem
      *  <code>preferredSize</code> &lt;= <code>maxSize</code> must be true.
      */
     function get maxSize():Point;
-    
-    /**
-     *  The desired item TBounds size
-     *  as a percentage of parent UBounds. Could be NaN.
-     */
-    function get percentSize():Point; 
     
     /**
      *  The item TBounds size.
