@@ -13,7 +13,9 @@ package spark.components
 {
 import flash.events.Event;
 import flash.events.IEventDispatcher;
+import flash.events.MouseEvent;
 
+import mx.core.ContainerCreationPolicy;
 import mx.core.ISelectableList;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
@@ -30,12 +32,14 @@ import mx.managers.LayoutManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.ButtonBarBase;
+import spark.core.ContainerDestructionPolicy;
 import spark.components.supportClasses.ViewNavigatorBase;
 import spark.effects.Animate;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.events.ElementExistenceEvent;
 import spark.events.IndexChangeEvent;
+import spark.events.RendererExistenceEvent;
 
 use namespace mx_internal;
 
@@ -46,17 +50,23 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
+ *  Dispatched when the selected navigator has changed as a result of
+ *  the <code>selectedIndex</code> property or the selected
+ *  tab changing.
  *  
  */
 [Event(name="change", type="spark.events.IndexChangeEvent")]
 
 /**
- *  
+ *  A cancelable event that is dispatched before the selected navigator
+ *  is changed.  Canceling this event will prevent the active navigator
+ *  from changing.
  */
 [Event(name="changing", type="spark.events.IndexChangeEvent")]
 
 /**
- *  
+ *  Dispatched when the collection of navigators managed by the
+ *  TabbedViewNavigator changes.
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
@@ -90,7 +100,21 @@ use namespace mx_internal;
 [Event(name="valueCommit", type="mx.events.FlexEvent")]
 
 /**
- *  
+ *  The TabbedViewNavigator component is a container that manages a collection
+ *  of view navigator controls that are stacked on top of each other.  Only
+ *  one navigator is active and visible at a time.  This component includes
+ *  a TabBar interface control that provides the ability to toggle between
+ *  the collection of navigators.  
+ * 
+ *  <p>The active or selected navigator can be changed by clicking the corresponding
+ *  tab in the TabBar or by changing the <code>selectedIndex</code> property of
+ *  the component.</p>
+ * 
+ *  <p>The contents of a child navigator is destroyed when it is deactivate, 
+ *  and dynamically created when activated.  This logic can be altered by accessing 
+ *  the <code>creationPolicy</code> property of the TabbedViewNavigator and the 
+ * <code>destructionPolicy</code> property of its child navigators and active View.</p>
+ * 
  *  @see spark.components.View
  *  @see spark.components.ViewNavigator
  * 
@@ -106,14 +130,12 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //  Constants
     //
     //--------------------------------------------------------------------------
+    
     /**
      *  @private
      *  Static constant representing no proposed selection.
      */
     private static const NO_PROPOSED_SELECTION:int = -1;
-    
-    private static const NO_ACTION:int = -1;
-    private static const CHANGE_SECTION_ACTION:int = 0;
     
     //--------------------------------------------------------------------------
     //
@@ -133,7 +155,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         super();
         
-        navigators = new Vector.<ViewNavigatorBase>();
+        _navigators = new Vector.<ViewNavigatorBase>();
     }
     
     //--------------------------------------------------------------------------
@@ -181,6 +203,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @private
      */ 
     private var dataProviderChanged:Boolean = false;
+    
+    /**
+     *  @private
+     *  Keeps track of the tab that was last selected.  See 
+     *  tabBarRendererClicked() for information on how it's used.
+     */ 
+    private var lastSelectedIndex:int = -1;
     
     /**
      *  @private
@@ -238,7 +267,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //----------------------------------
     
     /**
-     *
+     *  Returns the active navigator for the TabbedViewNavigator.  Only one
+     *  navigator can be active at a time.  The active navigator can be
+     *  set by changing the <code>selectedIndex</code> property or by
+     *  clicking on a tab.
+     * 
+     *  @return The active navigator
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -286,7 +321,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     private var _navigators:Vector.<ViewNavigatorBase>;
     
     /**
-     *
+     *  The view navigators that are managed by the the TabbedViewNavigator.
+     *  Each navigator isrepresented as a tab in this components tab bar.
+     *  Only one navigator can be active at a time, and can be referenced using
+     *  the <code>activeNavigator</code> property.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -353,7 +392,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  Hides the tab bar of the navigator.
      * 
-     *  @param animate Flag indicating whether a hide effect should play.  True by default.
+     *  @param animate Flag indicating whether a hide effect should play.
+     *  This property is <code>true</code> by default.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -375,7 +415,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  Shows the tab bar of the navigtor
      *  
-     *  @param animate Flag indicating whether a hide effect should play.  True by default.
+     *  @param animate Flag indicating whether a hide effect should play.
+     *  This property is code>true</code> by default.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -396,6 +437,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
+     *  Updates the navigator's state based on the properties set
+     *  on the active view.  The main use cases are to hide the
+     *  TabBar and the change the overlay state.
+     * 
+     *  @param view The active view.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -437,7 +483,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
-     *  
+     *  Calculates the final positions for the tab bar visibility animations.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -494,7 +541,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
-    protected function captureAnimationValues(component:UIComponent):Object
+    private function captureAnimationValues(component:UIComponent):Object
     {
         var values:Object = {   x:component.x,
                                 y:component.y,
@@ -514,8 +561,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         navigator.parentNavigator = this;
         navigator.visible = false;
+
+        // All navigators should be inactive when initialized.  The proper
+        // navigator will be activated during commitProperties().
+        navigator.setActive(false);
         
         startTrackingUpdates(navigator);
+
+        // TODO (chiedozi): Consider moving this to ViewNavigator or refactoring
+        // Create the top view of the navigator if the creationPolicy
+        // property indicates that all children should be created.
+        if (creationPolicy == ContainerCreationPolicy.ALL)
+            navigator.createTopView();
     }
     
     /**
@@ -526,7 +583,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         navigator.parentNavigator = null;
         
         if (navigator.active)
-            navigator.active = false;
+            navigator.setActive(false);
 
         if (navigator.activeView)
         {
@@ -564,7 +621,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             if (!selectedIndexAdjusted && !dataProviderChanged && _selectedIndex >= 0)
             {
                 navigator = navigators[_selectedIndex];
-                navigator.active = false;
+                navigator.setActive(false);
                 navigator.visible = false;
                 
                 if (navigator.activeView)
@@ -587,8 +644,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
                 
                 navigator.landscapeOrientation = landscapeOrientation;
-                navigator.active = true;
+                navigator.setActive(true);
                 navigator.visible = true;
+
+                // FIXME (chiedozi): Why do i need to validate here
+                // Force a validation of the new navigator to prevent a flicker from
+                // occurring since the view will be rendered this frame
+                navigator.validateNow();
                 
                 if (navigator.activeView)
                 {
@@ -619,6 +681,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         _selectedIndex = _proposedSelectedIndex;
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+        
+        lastSelectedIndex = _selectedIndex;
         
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
@@ -668,6 +732,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
+     *  @private
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -689,6 +754,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
+     *  Creates the animation that will be played when the TabBar is
+     *  hidden.
+     * 
+     *  @return The effect ot play
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -778,8 +847,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         if (instance == tabBar)
         {
-            tabBar.dataProvider = this;
             tabBar.addEventListener(IndexChangeEvent.CHANGING, tabBar_indexChanging);
+            tabBar.dataGroup.addEventListener(RendererExistenceEvent.RENDERER_ADD, tabBar_elementAddHandler);
+            tabBar.dataProvider = this;
         }
     }
     
@@ -792,8 +862,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         if (instance == tabBar)
         {
-            tabBar.dataProvider = null;
+            tabBar.dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_ADD, tabBar_elementAddHandler);
             tabBar.removeEventListener(IndexChangeEvent.CHANGING, tabBar_indexChanging);
+            tabBar.dataProvider = null;
         }
     }
     
@@ -847,12 +918,45 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
+     */ 
+    private function tabBar_elementAddHandler(event:RendererExistenceEvent):void
+    {
+        event.target.addEventListener(MouseEvent.CLICK, tabBarRenderer_clickHandler);
+    }
+    
+    /**
+     *  @private
      *  Determines if the selection of the tab bar can change.
      */ 
     private function tabBar_indexChanging(event:IndexChangeEvent):void
     {
         if (!indexCanChange(event.newIndex))
             event.preventDefault();
+    }
+    
+    /**
+     *  Method is called when a tab is clicked by the user.  The default 
+     *  implementation checks if the clicked tab is currently selected, and if
+     *  so, pops the active navigator to its root view.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function tabBarRenderer_clickHandler(event:MouseEvent):void
+    {
+        // lastSelectedIndex is used instead of tabBar.selectedIndex
+        // because by the time this method is called, the tabBar's
+        // proposedSelectedIndex has changed, which causes its selectedIndex
+        // method to return the proposed index instead of the currently
+        // selected index.
+        if ((event.target is IItemRenderer) && 
+            (IItemRenderer(event.target).itemIndex == lastSelectedIndex))
+        {
+            if (activeNavigator is ViewNavigator)
+                ViewNavigator(activeNavigator).popToFirstView();
+        }
     }
     
     /**
@@ -1203,7 +1307,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         // Deactive the active navigator and its view
         if (activeNavigator)
-            activeNavigator.active = false;
+            activeNavigator.setActive(false);
         
         for (var i:int = 0; i < len; i++)
         {
