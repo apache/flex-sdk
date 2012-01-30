@@ -31,7 +31,7 @@ import mx.core.IUIComponent;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public interface IFocusManager
+public interface IFocusManager extends IEventDispatcher
 {
     //--------------------------------------------------------------------------
     //
@@ -287,67 +287,6 @@ public interface IFocusManager
     function getNextFocusManagerComponent(
                             backward:Boolean = false):IFocusManagerComponent;
 
-    /**
-     *  Move focus from the current control
-     *  to the previous or next control in the tab order.
-     *  The direction of the move is specified
-     *  with the <code>direction</code> argument.
-     * 
-     *  @param direction <code>FocusRequestDirection.FORWARD</code> moves to
-     *  from the control that currently has focus to controls with a higher tab index.
-     *  If more than one control has the same index, the next control
-     *  in the flow of the document is visited.
-     *  <code>FocusRequestDirection.BACKWARD</code> moves to controls with 
-     *  a lower tab index.
-     *  <code>FocusRequestDirection.TOP</code> move the focus to the control 
-     *  with the lowest tab index. If more than one control has the same index,
-     *  focus is moved to the first control in the flow of the document. 
-     *  <code>FocusRequestDirection.BOTTOM</code> move the focus to the control 
-     *  with the highest tab index. If more than one control has the same index,
-     *  focus is moved to the last control in the flow of the document. 
-     *
-     *  @param fromDisplayObject The starting point from which focus is moved. 
-     *  If an object is provided, this overrides the default behavior 
-     *  where focus is moved from the object that currently has focus.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function moveFocus(direction:String,
-                       fromDisplayObject:DisplayObject = null):void;
-
-    /**
-     *  Adds a SWF bridge to this focus manager.
-     * 
-     *  Adding the SWF bridge is required to get focus
-     *  to transfer seamlessly between focus managers in other sandboxes
-     *  or using different versions of a focus manager.
-     * 
-     *  @param bridge The bridge to another focus manager.
-     *  @param owner The display object that owns the bridge.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function addSWFBridge(bridge:IEventDispatcher, owner:DisplayObject):void
-    
-    /**
-     *  Removes a focus manager.
-     *  This must be called when a bridge added by calling
-     *  <code>addSWFBridge</code> is removed.
-     * 
-     *  @param bridge The bridge to remove.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function removeSWFBridge(bridge:IEventDispatcher):void
 
 }
 
