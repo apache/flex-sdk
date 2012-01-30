@@ -3527,9 +3527,23 @@ public class SystemManager extends MovieClip
     private function stageEventHandler(event:Event):void
     {
         if (event.target is Stage && mouseCatcher)
+        {
+            // need to fix up the coordinate space before re-dispatching the mouse event  
+            // to put it in the same coordinate space as the mouseCatcher since the 
+            // mouseCatcher may be scaled while outside of the stage, we are not
+            if (event is MouseEvent)
+            {
+                var mouseEvent:MouseEvent = MouseEvent(event);
+                var stagePoint:Point = new Point(mouseEvent.stageX, mouseEvent.stageY);
+                var mouesCatcherLocalPoint:Point = mouseCatcher.globalToLocal(stagePoint);
+                mouseEvent.localX = mouesCatcherLocalPoint.x;
+                mouseEvent.localY = mouesCatcherLocalPoint.y;
+            }
+            
             // dispatch them from mouseCatcher so capture phase listeners on 
             // systemManager will work
             mouseCatcher.dispatchEvent(event);
+        }
     }
 
     /**
