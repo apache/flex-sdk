@@ -1,78 +1,78 @@
 <?xml version="1.0" ?>
 <!-- Simple example to demonstrate the Transition class. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/mx" currentState="Login">
+ 
+    <!-- Define the view states -->
+    <s:states>
+        <s:State name="Login" />
+        <s:State name="Register" />
+    </s:states>
 
-    <!-- Define one view state, in addition to the base state.-->
-    <mx:states>
-        <mx:State name="Register">
-            <mx:AddChild relativeTo="{loginForm}" position="lastChild">
-                <mx:target>
-                    <mx:FormItem id="confirm" label="Confirm:">
-                        <mx:TextInput/>
-                    </mx:FormItem>
-                </mx:target>
-            </mx:AddChild>
-            <mx:SetProperty target="{loginPanel}" name="title" value="Register"/>
-            <mx:SetProperty target="{loginButton}" name="label" value="Register"/>
-            <mx:SetStyle target="{loginButton}" 
-                name="color" value="blue"/>
-            <mx:RemoveChild target="{registerLink}"/>
-            <mx:AddChild relativeTo="{spacer1}" position="before">
-                <mx:target>
-                    <mx:LinkButton id="loginLink" label="Return to Login" click="currentState=''"/>
-                </mx:target>
-            </mx:AddChild>
-        </mx:State>
-    </mx:states>
-
-    <mx:transitions>
+    <s:transitions>
         <!-- Define the transition from the base state to the Register state.-->
-        <mx:Transition id="toRegister" fromState="*" toState="Register">
-            <mx:Sequence targets="{[loginPanel, registerLink, confirm, loginLink, spacer1]}">
-                <mx:RemoveChildAction/>
-                <mx:SetPropertyAction target="{loginPanel}" name="title"/>
-                <mx:SetPropertyAction target="{loginButton}" name="label"/>
-                <mx:SetStyleAction target="{loginButton}" name="color"/>
-                <mx:Resize target="{loginPanel}"/>
-                <mx:AddChildAction/>
-            </mx:Sequence>
-        </mx:Transition>
+        <s:Transition id="toRegister" fromState="*" toState="Register">
+            <s:Sequence targets="{[loginPanel, registerLink, confirm, loginLink]}">
+                <s:RemoveAction />
+                <s:Fade />
+                <s:SetAction target="{loginPanel}" property="title" />
+                <s:SetAction target="{loginButton}" property="label" />
+                <s:SetAction target="{loginButton}" property="color" />
+                <s:Resize target="{loginPanel}"/>
+                <s:AddAction />
+                <s:Fade />
+            </s:Sequence>
+        </s:Transition>
 
         <!-- Define the transition from the Register state to the base state.-->
-        <mx:Transition id="toDefault" fromState="Register" toState="*">
-            <mx:Sequence targets="{[loginPanel, registerLink, 
-                    confirm, loginLink, spacer1]}">
-                <mx:RemoveChildAction/>
-                <mx:SetPropertyAction target="{loginPanel}" name="title"/>
-                <mx:SetPropertyAction  target="{loginButton}" name="label"/>
-                <mx:SetStyleAction target="{loginButton}" name="color"/>
-                <mx:Resize target="{loginPanel}"/>
-                <mx:AddChildAction/>
-            </mx:Sequence>
-        </mx:Transition>
-	</mx:transitions>
+        <s:Transition id="toDefault" fromState="Register" toState="*">
+            <s:Sequence targets="{[loginPanel, registerLink, 
+                    confirm, loginLink]}">
+                <s:RemoveAction/>
+                <s:SetAction target="{loginPanel}" property="title"/>
+                <s:SetAction  target="{loginButton}" property="label"/>
+                <s:SetAction target="{loginButton}" property="color"/>
+                <s:Resize target="{loginPanel}"/>
+                <s:AddAction/>
+            </s:Sequence>
+        </s:Transition>
+	</s:transitions>
 
-    <!-- Define a Panel container that defines the login form.-->
-    <mx:Panel title="Login" id="loginPanel" 
-        horizontalScrollPolicy="off" verticalScrollPolicy="off"
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-	
-        <mx:Text width="100%" color="blue"
+    <!-- Define a Panel container that defines the login form. The title of the Panel
+         changes depending on the state. -->
+    <s:Panel title="Login" title.Register="Register" id="loginPanel" 
+            width="75%" horizontalCenter="0" verticalCenter="0">
+	<s:controlBarLayout >
+	    <s:BasicLayout />
+	</s:controlBarLayout>
+	<s:layout>
+	    <s:VerticalLayout paddingTop="10" paddingBottom="10" paddingRight="10" paddingLeft="10" />
+	</s:layout>
+        <s:Label color="blue" width="100%"
             text="Click the 'Need to Register?' link to change state. Click the 'Return to Login' link to return to the base state."/>
 
-        <mx:Form id="loginForm" >
-            <mx:FormItem label="Username:">
-                <mx:TextInput/>
-            </mx:FormItem>
-            <mx:FormItem label="Password:">
-                <mx:TextInput/>
-            </mx:FormItem>
-        </mx:Form>
-        <mx:ControlBar>
-            <mx:LinkButton id="registerLink"  label="Need to Register?"
-                click="currentState='Register'"/>
-            <mx:Spacer width="100%" id="spacer1"/>
-            <mx:Button label="Login" id="loginButton"/>
-        </mx:ControlBar>
-    </mx:Panel>
-</mx:Application>
+        <!-- The following form has  two TextInputs in the Login state and three TextInputs
+             in the Register state. -->
+        <s:Form id="loginForm" >
+            <s:FormItem label="Username:">
+                <s:TextInput/>
+            </s:FormItem>
+            <s:FormItem label="Password:">
+                <s:TextInput/>
+            </s:FormItem>
+            <s:FormItem id="confirm" label="Confirm:" includeIn="Register" includeInLayout="false" includeInLayout.Register="true">
+                <s:TextInput/>
+            </s:FormItem>
+        </s:Form>
+       
+        <!-- The controlBar includes two visible items in each state. Which LinkButton is visible is determined
+             by the state -->
+        <s:controlBarContent>
+            <mx:LinkButton id="registerLink"  label="Need to Register?" top="10" bottom="10"
+                click="currentState='Register'" left="10" includeIn="Login" />
+            <mx:LinkButton id="loginLink" label="Return to Login" click="currentState=''" includeIn="Register" left="10"  top="10" bottom="10"/>
+            <s:Button label="Login" label.Register="Register" id="loginButton" right="10" color.Register="0x0000FF"  top="10" bottom="10"/>
+        </s:controlBarContent>
+    </s:Panel>
+</s:Application>
