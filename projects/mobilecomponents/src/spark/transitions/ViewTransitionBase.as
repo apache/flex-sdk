@@ -945,6 +945,10 @@ public class ViewTransitionBase extends EventDispatcher
         if (!verticalTransition && cachedActionGroup)
             fadeOutTargets.push(cachedActionGroup.displayObject);
         
+        // if there are no targets don't create an effect; just return null
+        if (fadeOutTargets.length == 0 && fadeInTargets.length == 0)
+            return null;
+        
         // Fade out action and navigation content
         var fadeOut:Animate = new Animate();
         vector = new Vector.<MotionPath>();
