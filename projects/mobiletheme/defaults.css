@@ -192,6 +192,18 @@ Spinner
     skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
 }
 
+TabbedMobileApplication
+{
+    backgroundColor: #464646;
+    skinClass: ClassReference("spark.skins.mobile.TabbedMobileApplicationSkin");
+}
+
+TabbedViewNavigator
+{
+    skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorSkin");
+    animationDuration: 250;
+}
+
 TextArea
 {
     paddingBottom: 3;
@@ -233,6 +245,7 @@ VideoPlayer
 ViewNavigator
 {
     skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
+    animationDuration: 250;
 }
 
 VolumeBar
