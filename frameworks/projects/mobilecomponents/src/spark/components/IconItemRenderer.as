@@ -76,6 +76,8 @@ include "../styles/metadata/GapStyles.as"
  */
 [Style(name="messageStyleName", type="String", inherit="no")]
 
+// FIXME (rfrishbe): add verticalGap
+
 /**
  *  The MobileIconItemRenderer class is a performant item 
  *  renderer optimized for mobile devices.  
@@ -1759,7 +1761,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         if (iconDisplay)
         {
             // set the icon's position and size
-            resizeElement(iconDisplay, this.iconWidth, this.iconHeight);
+            setElementSize(iconDisplay, this.iconWidth, this.iconHeight);
             
             iconWidth = iconDisplay.getLayoutBoundsWidth();
             iconHeight = iconDisplay.getLayoutBoundsHeight();
@@ -1772,7 +1774,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             else
                 iconDisplayY = paddingTop;
             
-            positionElement(iconDisplay, paddingLeft, iconDisplayY);
+            setElementPosition(iconDisplay, paddingLeft, iconDisplayY);
         }
         
         // decorator is aligned next to icon
@@ -1781,11 +1783,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             decoratorWidth = getElementPreferredWidth(decoratorDisplay);
             decoratorHeight = getElementPreferredHeight(decoratorDisplay);
 
-            resizeElement(decoratorDisplay, decoratorWidth, decoratorHeight);
+            setElementSize(decoratorDisplay, decoratorWidth, decoratorHeight);
 
             // decorator is always right aligned, vertically centered
             var decoratorY:Number = Math.round(0.5 * (viewHeight - decoratorHeight)) + paddingTop;
-            positionElement(decoratorDisplay, unscaledWidth - paddingRight - decoratorWidth, decoratorY);
+            setElementPosition(decoratorDisplay, unscaledWidth - paddingRight - decoratorWidth, decoratorY);
         }
 
         // Figure out how much space we have for label and message as well as the 
@@ -1845,7 +1847,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // and make sure verticalAlign is operating on a correct value.
             labelWidth = Math.max(labelComponentsViewWidth, 0);
             labelHeight = Math.max(Math.min(viewHeight, labelTextHeight), 0);
-            resizeElement(labelDisplay, labelWidth, labelHeight);
+            setElementSize(labelDisplay, labelWidth, labelHeight);
             
             // attempt to truncate text
             labelDisplay.truncateToFit();
@@ -1857,7 +1859,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             messageWidth = Math.max(labelComponentsViewWidth, 0);
             messageHeight = Math.max(viewHeight - labelHeight - verticalGap, 0);
             
-            resizeElement(messageDisplay, messageWidth, messageHeight);
+            setElementSize(messageDisplay, messageWidth, messageHeight);
             messageHeight = Math.max(0, Math.min(messageHeight, getElementPreferredHeight(messageDisplay)));
             
             // since it's multi-line, no need to truncate
@@ -1873,10 +1875,10 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             var labelComponentsY:Number = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
 
             if (labelDisplay)
-                positionElement(labelDisplay, labelComponentsX, labelComponentsY);
+                setElementPosition(labelDisplay, labelComponentsX, labelComponentsY);
 
             if (messageDisplay)
-                positionElement(messageDisplay, labelComponentsX, labelComponentsY + labelHeight + verticalGap);
+                setElementPosition(messageDisplay, labelComponentsX, labelComponentsY + labelHeight + verticalGap);
         }
         
         // see if we have an icon that needs to be validated
