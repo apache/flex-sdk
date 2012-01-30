@@ -32,7 +32,7 @@ package mx.core
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public class AdvancedLayoutFeatures
+    public class AdvancedLayoutFeatures implements IAssetLayoutFeatures
     {
     //--------------------------------------------------------------------------
     //
