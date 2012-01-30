@@ -28,6 +28,11 @@ package mx.containers.utilityClasses
  *  @see mx.containers.utilityClasses.ConstraintRow;
  *  @see mx.modules.Module;
  *  @see mx.styles.metadata.AnchorStyles;
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IConstraintLayout
 {
@@ -47,6 +52,11 @@ public interface IConstraintLayout
 	 *  indices increase from left to right. 
 	 * 
 	 *  @default []
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get constraintColumns():Array /* of ConstraintColumn */;
 	
@@ -65,6 +75,11 @@ public interface IConstraintLayout
 	 *  indices increase from top to bottom.
 	 * 
 	 *  @default []
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get constraintRows():Array /* of ConstraintRow */;
 	
