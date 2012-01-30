@@ -69,6 +69,12 @@ use namespace mx_internal;
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark,mobile")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("BusyIndicator.png")]
+
 /**
  *  The BusyIndicator defines a component to display when a long-running 
  *  operation is in progress. This component creates a spinner with twelve spokes.
@@ -334,6 +340,22 @@ public class BusyIndicator extends UIComponent
     
     /**
      *  @private
+     *  Override so we know when visibility is set. The initialized
+     *  property calls setVisible() with noEvent == true
+     *  so we wouldn't get a visibility event if we just listened
+     *  for events.
+     */
+    override public function setVisible(value:Boolean,
+                               noEvent:Boolean = false):void
+    {
+        super.setVisible(value, noEvent);
+        
+        effectiveVisibilityChanged = true;
+        invalidateProperties();
+    }
+    
+    /**
+     *  @private
      */
     override public function styleChanged(styleProp:String):void
     {
@@ -357,7 +379,7 @@ public class BusyIndicator extends UIComponent
         
         if (allStyles || styleName == "symbolColor")
         {
-            updateSpinnerChildren(spinnerDiameter);
+            updateSpinner(spinnerDiameter);
         }
     }
 
@@ -369,14 +391,14 @@ public class BusyIndicator extends UIComponent
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        // If the size or color changed, then create a new spinner.
+        // If the size changed, then create a new spinner.
         if (oldUnscaledWidth != unscaledWidth ||
             oldUnscaledHeight != unscaledHeight)
         {
             var newDiameter:Number;
             
             newDiameter = calculateSpinnerDiameter(unscaledWidth, unscaledHeight);
-            updateSpinnerChildren(newDiameter);
+            updateSpinner(newDiameter);
 
             oldUnscaledWidth = unscaledWidth;
             oldUnscaledHeight = unscaledHeight;
@@ -413,9 +435,9 @@ public class BusyIndicator extends UIComponent
    /**
     *   @private
     * 
-    *   Draw the spinner.
+    *   Update the spinner properties and redraw.
     */
-    private function updateSpinnerChildren(diameter:Number):void
+    private function updateSpinner(diameter:Number):void
     {
         var isRotating:Boolean = isRotating();
         
@@ -651,7 +673,7 @@ public class BusyIndicator extends UIComponent
      */
     private function addVisibilityListeners():void
     {
-        var current:IVisualElement = this;
+        var current:IVisualElement = this.parent as IVisualElement;
         while (current)
         {
             // add visibility listeners to the parent
