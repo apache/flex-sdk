@@ -373,7 +373,7 @@ public class CompositeEffect extends Effect
         {
             var child:Effect = children[i];
             propChanges = child.captureValues(propChanges, setStartValues,
-                child.targets);
+                (child.targets && child.targets.length > 0) ? child.targets : targetsToCapture);
         }
         
         return propChanges;
@@ -488,8 +488,8 @@ public class CompositeEffect extends Effect
                 for (j = 0; j < m; j++)
                 {
                     // Don't include null or duplicate targets
-                    if (child.targets[j] != null && 
-                        resultsArray.indexOf(child.targets[j]) < 0)
+                    if (childTargets[j] != null && 
+                        resultsArray.indexOf(childTargets[j]) < 0)
                     {
                         resultsArray.push(childTargets[j]);
                     }
