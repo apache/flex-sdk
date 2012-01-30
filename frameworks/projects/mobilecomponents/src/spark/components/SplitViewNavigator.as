@@ -107,6 +107,10 @@ use namespace mx_internal;
  *  This method always returns the correct navigator regardless of whether 
  *  a navigator is in a popup or not.</p>
  *
+ *  <p>By default, when the popup is opened, it is sized to the preferred width 
+ *  and height of the first navigator.  The size of the popup can be changed by
+ *  explicitly setting its width and height or by reskinning the component.</p>
+ * 
  *  <p><b>Note:</b> When a SplitViewNavigator is used as a child of a 
  *  TabbedViewNavigator, changes to the <code>tabBarVisible</code> on the
  *  active views will not be honored by the parent TabbedViewNavigator.</p>
@@ -303,7 +307,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
     //  numViewNavigators
     //----------------------------------
     /**
-     *  The number of navigators managed by this container.
+     *  The number of view navigators managed by this container.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -435,8 +439,6 @@ public class SplitViewNavigator extends ViewNavigatorBase
      */ 
     mx_internal function showNavigatorAtIndexInPopUp(index:int, owner:DisplayObjectContainer):void
     {
-        // TODO (chiedozi): Consider replacing the navigator in the popup if
-        // it is already open.
         if (index >= numElements || !viewNavigatorPopUp|| viewNavigatorPopUp.isOpen)
             return;
 
@@ -713,7 +715,7 @@ public class SplitViewNavigator extends ViewNavigatorBase
         if (!dataArray)
             return;
         
-        // Restore each navigators persistence data
+        // Restore each navigators' persistence data
         for (var i:int = 0; i < numViewNavigators; i++)
         {
             if (i >= dataArray.length)
