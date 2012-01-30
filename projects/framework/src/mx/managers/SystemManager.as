@@ -2850,7 +2850,7 @@ public class SystemManager extends MovieClip
 
     /**
      *  Attempts to notify the parent SWFLoader that the
-     *  Application's size has may have changed
+     *  Application's size has changed.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
