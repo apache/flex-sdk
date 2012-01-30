@@ -346,6 +346,7 @@ Button
 
 ButtonBar
 {
+    borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	firstButtonStyleName: "";
 	horizontalAlign: "center";
 	horizontalGap: 0;
@@ -525,6 +526,7 @@ ComboBox
 
 Container
 {
+    borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	borderStyle: "none";
 }
 
@@ -1035,6 +1037,16 @@ MenuBar
 	itemOverSkin: null
 	itemDownSkin: null */
 	translucent: false;
+}
+
+/*
+//------------------------------
+//  LinkBar
+//------------------------------
+*/
+LinkBar
+{
+    borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 }
 
 /*
