@@ -8889,14 +8889,13 @@ public class UIComponent extends FlexSprite
         {
             if (_currentTransition.autoReverse &&
                 transitionFromState == requestedCurrentState &&
-                transitionToState == _currentState &&
-                "playheadTime" in _currentTransition.effect)
+                transitionToState == _currentState)
             {
                 if (_currentTransition.effect.duration == 0)
                     prevTransitionFraction = 0;
                 else
                     prevTransitionFraction = 
-                        _currentTransition.effect["playheadTime"] /
+                        _currentTransition.effect.playheadTime /
                         getTotalDuration(_currentTransition.effect);
             }
             _currentTransition.effect.end();
@@ -8950,10 +8949,9 @@ public class UIComponent extends FlexSprite
                 transition_effectEndHandler);
             nextTransition.effect.play();
             if (!isNaN(prevTransitionFraction) && 
-                nextTransition.effect.duration != 0 &&
-                "seek" in nextTransition.effect)
-                nextTransition.effect["seek"]((1 - prevTransitionFraction) * 
-                    getTotalDuration(nextTransition.effect));
+                nextTransition.effect.duration != 0)
+                nextTransition.effect.playheadTime = (1 - prevTransitionFraction) * 
+                    getTotalDuration(nextTransition.effect);
         }
     }
 
