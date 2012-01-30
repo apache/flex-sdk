@@ -567,6 +567,60 @@ package mx.core
         invalidate();
     }
 	
+    //----------------------------------
+    //  stretchX
+    //----------------------------------
+
+    private var _stretchX:Number = 1;
+    
+    /**
+     *  The stretchY is the horizontal component of the stretch scale factor which
+     *  is applied before any other transformation property.
+     *  @default 1
+     */
+    public function get stretchX():Number
+    {
+        return _stretchX;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set stretchX(value:Number):void
+    {
+        if (value == _stretchX)
+            return;         
+        _stretchX = value;
+        invalidate();
+    }
+
+    //----------------------------------
+    //  stretchY
+    //----------------------------------
+
+    private var _stretchY:Number = 1;
+    
+    /**
+     *  The stretchY is the vertical component of the stretch scale factor which
+     *  is applied before any other transformation property.
+     *  @default 1
+     */
+    public function get stretchY():Number
+    {
+        return _stretchY;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set stretchY(value:Number):void
+    {
+        if (value == _stretchY)
+            return;         
+        _stretchY = value;
+        invalidate();
+    }
+
 	//------------------------------------------------------------------------------
 	
 	/**
@@ -598,7 +652,7 @@ package mx.core
 		if(_flags & COMPUTED_MATRIX_VALID)
 			return _computedMatrix;
 	
-		if(!offsets && !mirror)
+		if(!offsets && !mirror && stretchX == 1 && stretchY == 1)
 		{
 			return layout.matrix;
 		}			
@@ -632,6 +686,8 @@ package mx.core
             y += offsets.y;
         }
         
+        if (stretchX != 1 || stretchY != 1)
+            m.scale(stretchX, stretchY);
         build2DMatrix(m, tx, ty, sx, sy, rz, x, y);
         
 		_flags |= COMPUTED_MATRIX_VALID;
@@ -652,7 +708,7 @@ package mx.core
 			return _computedMatrix3D;
 	
 	
-		if(!offsets && !mirror)
+		if(!offsets && !mirror && stretchX == 1 && stretchY == 1)
 		{
 			return layout.matrix3D;
 		}
@@ -695,7 +751,10 @@ package mx.core
             z += offsets.z;
         }
 			
-		build3DMatrix(m, tx, ty, tz, sx, sy, sz, rx, ry, rz, x, y, z);	
+		build3DMatrix(m, tx, ty, tz, sx, sy, sz, rx, ry, rz, x, y, z);
+		// Always prepend last
+        if (stretchX != 1 || stretchY != 1)
+            m.prependScale(stretchX, stretchY, 1);  
 
 		_flags |= COMPUTED_MATRIX3D_VALID;
 		return m;			
