@@ -17,6 +17,8 @@ import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.geom.Matrix;
 
+import mx.core.AdvancedLayoutFeatures;
+
 /**
  *  BitmapAsset is a subclass of the flash.display.Bitmap class
  *  which represents bitmap images that you embed in a Flex application.
@@ -134,8 +136,7 @@ public class BitmapAsset extends FlexBitmap
     //
     //--------------------------------------------------------------------------
     
-    private var mirror:Boolean = false;
-    private var origMatrix:Matrix;
+    private var layoutFeatures:AdvancedLayoutFeatures;
     
     //--------------------------------------------------------------------------
     //
@@ -147,39 +148,33 @@ public class BitmapAsset extends FlexBitmap
     //  x
     //----------------------------------
     
-    private var _x:Number = 0;
-    
-    /**
-     *  @private
-     *  In the mirroring case, we restore the old transform matrix,
-     *  call the superclass' setter to recalculate the transform matrix,
-     *  and call validateTransformMatrix to de-mirror the matrix.
-     *  This ensures that the right matrix values are used when 
-     *  de-mirroring.
-     */
-    override public function set x(value:Number):void
-    {
-        if (mirror)
-        {
-            transform.matrix = origMatrix;
-            super.x = value;
-            _x = value;
-            validateTransformMatrix();
-        }
-        else
-        {
-            super.x = value;
-        }
-    }
-    
     /**
      *  @private
      */
     override public function get x():Number
     {
-        // FIXME(hmuller): by default get x returns transform.matrix.tx rounded to the nearest 20th.
-        // should do the same here, if we're returning _x.
-        return (mirror) ? _x : super.x;
+        // TODO(hmuller): by default get x returns transform.matrix.tx rounded to the nearest 20th.
+        // should do the same here, if we're returning layoutFeatures.layoutX.
+        return (layoutFeatures == null) ? super.x : layoutFeatures.layoutX;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set x(value:Number):void
+    {
+        if (x == value)
+            return;
+        
+        if (layoutFeatures == null)
+        {
+            super.x = value;
+        }
+        else
+        {
+            layoutFeatures.layoutX = value;
+            validateTransformMatrix();
+        }
     }
     
     //----------------------------------
@@ -188,20 +183,59 @@ public class BitmapAsset extends FlexBitmap
     
     /**
      *  @private
-     *  We need to make sure y is saved in our copy of the matrix
-     *  along with the other properties.
+     */
+    override public function get y():Number
+    {
+        return (layoutFeatures == null) ? super.y : layoutFeatures.layoutY;
+    }
+    
+    /**
+     *  @private
      */
     override public function set y(value:Number):void
     {
-        if (mirror)
+        if (y == value)
+            return;
+        
+        if (layoutFeatures == null)
         {
-            transform.matrix = origMatrix;
             super.y = value;
-            validateTransformMatrix();
         }
         else
         {
-            super.y = value;
+            layoutFeatures.layoutY = value;
+            validateTransformMatrix();
+        }
+    }
+    
+    //----------------------------------
+    //  z
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function get z():Number
+    {
+        return (layoutFeatures == null) ? super.z : layoutFeatures.layoutZ;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set z(value:Number):void
+    {
+        if (z == value)
+            return;
+        
+        if (layoutFeatures == null)
+        {
+            super.z = value;
+        }
+        else
+        {
+            layoutFeatures.layoutZ = value;
+            validateTransformMatrix();
         }
     }
     
@@ -212,20 +246,31 @@ public class BitmapAsset extends FlexBitmap
     /**
      *  @private
      */
+    override public function get width():Number
+    {
+        return (layoutFeatures == null) ? super.width : layoutFeatures.layoutWidth;
+    }
+    
+    /**
+     *  @private
+     */
     override public function set width(value:Number):void
     {
-        if (mirror)
+        if (width == value)
+            return;
+        
+        if (layoutFeatures == null)
         {
-            transform.matrix = origMatrix;
             super.width = value;
-            // Store new scaleX/Y since setting width may modify them
-            _scaleX = super.scaleX;
-            _scaleY = super.scaleY;
-            validateTransformMatrix();
         }
         else
         {
-            super.width = value;
+            layoutFeatures.layoutWidth = value;
+            // Calculate scaleX based on initial width. We set scaleX
+            // here because resizing a BitmapAsset normally would adjust
+            // the scale to match.
+            layoutFeatures.layoutScaleX = measuredWidth != 0 ? value / measuredWidth : 0;
+            validateTransformMatrix();
         }
     }
     
@@ -233,85 +278,232 @@ public class BitmapAsset extends FlexBitmap
     //  height
     //----------------------------------
     
+    private var _height:Number;
+    
     /**
      *  @private
-     *  We must override height as well because setting
-     *  height will force scaleX to be positive in the transform
-     *  matrix.
+     */
+    override public function get height():Number
+    {
+        return (layoutFeatures == null) ? super.height : _height;
+    }
+    
+    /**
+     *  @private
      */
     override public function set height(value:Number):void  
     {
-        if (mirror)
+        if (height == value)
+            return;
+        
+        if (layoutFeatures == null)
         {
-            transform.matrix = origMatrix;
             super.height = value;
-            // Store new scaleX/Y since setting height may modify them
-            _scaleX = super.scaleX;
-            _scaleY = super.scaleY;
-            validateTransformMatrix();
         }
         else
         {
-            super.height = value;
+            _height = value;
+            // Calculate scaleY based on initial height. We set scaleY
+            // here because resizing a BitmapAsset normally would adjust
+            // the scale to match.
+            layoutFeatures.layoutScaleY = measuredHeight != 0 ? value / measuredHeight : 0;
+            validateTransformMatrix();
         }
+    }
+    
+    //----------------------------------
+    //  rotation
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function get rotationX():Number
+    {
+        return (layoutFeatures == null) ? super.rotationX : layoutFeatures.layoutRotationX;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set rotationX(value:Number):void
+    {
+        if (rotationX == value)
+            return;
+        
+        if (layoutFeatures == null)
+        {
+            super.rotationX = value;
+        }
+        else
+        {
+            layoutFeatures.layoutRotationX = value;
+            validateTransformMatrix();
+        }
+    }
+    /**
+     *  @private
+     */
+    override public function get rotationY():Number
+    {
+        return (layoutFeatures == null) ? super.rotationY : layoutFeatures.layoutRotationY;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set rotationY(value:Number):void
+    {
+        if (rotationY == value)
+            return;
+        
+        if (layoutFeatures == null)
+        {
+            super.rotationY = value;
+        }
+        else
+        {
+            layoutFeatures.layoutRotationY = value;
+            validateTransformMatrix();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override public function get rotationZ():Number
+    {
+        return (layoutFeatures == null) ? super.rotationZ : layoutFeatures.layoutRotationZ;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set rotationZ(value:Number):void
+    {
+        if (rotationZ == value)
+            return;
+        
+        if (layoutFeatures == null)
+        {
+            super.rotationZ = value;
+        }
+        else
+        {
+            layoutFeatures.layoutRotationZ = value;
+            validateTransformMatrix();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override public function get rotation():Number
+    {
+        return (layoutFeatures == null) ? super.rotation : layoutFeatures.layoutRotationZ;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set rotation(value:Number):void
+    {
+        rotationZ = value;
     }
     
     //----------------------------------
     //  scaleX
     //----------------------------------
     
-    private var _scaleX:Number;
+    /**
+     *  @private
+     */
+    override public function get scaleX():Number
+    {
+        return (layoutFeatures == null) ? super.scaleX : layoutFeatures.layoutScaleX;
+    }
     
     /**
      *  @private
      */
     override public function set scaleX(value:Number):void
     {
-        if (mirror)
+        if (scaleX == value)
+            return;
+        
+        if (layoutFeatures == null)
         {
-            transform.matrix = origMatrix;
             super.scaleX = value;
-            _scaleX = value;
-            validateTransformMatrix();
         }
         else
         {
-            super.scaleX = value;
+            layoutFeatures.layoutScaleX = value;
+            layoutFeatures.layoutWidth = value * measuredWidth;
+            validateTransformMatrix();
         }
-    }
-    
-    override public function get scaleX():Number
-    {
-        return (mirror) ? _scaleX : super.scaleX;
     }
     
     //----------------------------------
     //  scaleY
     //----------------------------------
     
-    private var _scaleY:Number;
+    /**
+     *  @private
+     */
+    override public function get scaleY():Number
+    {
+        return (layoutFeatures == null) ? super.scaleY : layoutFeatures.layoutScaleY;
+    }
     
     /**
      *  @private
      */
     override public function set scaleY(value:Number):void
     {
-        if (mirror)
+        if (scaleY == value)
+            return;
+        
+        if (layoutFeatures == null)
         {
-            transform.matrix = origMatrix;
             super.scaleY = value;
-            _scaleY = value;
-            validateTransformMatrix();
         }
         else
         {
-            super.scaleY = value;
+            layoutFeatures.layoutScaleY = value;
+            _height = value * measuredHeight;
+            validateTransformMatrix();
         }
     }
+
+    //----------------------------------
+    //  scaleZ
+    //----------------------------------
     
-    override public function get scaleY():Number
+    /**
+     *  @private
+     */
+    override public function get scaleZ():Number
     {
-        return (mirror) ? _scaleY : super.scaleY;
+        return (layoutFeatures == null) ? super.scaleZ : layoutFeatures.layoutScaleZ;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set scaleZ(value:Number):void
+    {
+        if (scaleZ == value)
+            return;
+        
+        if (layoutFeatures == null)
+        {
+            super.scaleZ = value;
+        }
+        else
+        {
+            layoutFeatures.layoutScaleZ = value;
+            validateTransformMatrix();
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -406,38 +598,35 @@ public class BitmapAsset extends FlexBitmap
      */
     public function invalidateLayoutDirection():void
     {
-        // We check the closest parent's layoutDirection property
-        // set our mirror property and update our transform matrix
-        // accordingly.
         var p:DisplayObjectContainer = parent;
-        
+
+        // We check the closest parent's layoutDirection property
+        // to create or destroy layoutFeatures if needed.
         while (p)
         {
             if (p is ILayoutDirectionElement)
             {
-                // If this element's layoutDirection doesn't match its parent's, then
-                // set the mirror flag.
-                const oldMirror:Boolean = mirror;
-                mirror = (_layoutDirection != null) &&
+                // mirror is true if our layoutDirection differs from our parent's.
+                var mirror:Boolean = (_layoutDirection != null) &&
                     (_layoutDirection != ILayoutDirectionElement(p).layoutDirection);
                 
-                if (mirror != oldMirror)
+                // If our layoutDirection is different from our parent's and if it used to
+                // be the same, create layoutFeatures to handle mirroring.
+                if (mirror && layoutFeatures == null)
                 {
-                    if (mirror)
-                    {
-                        // Set backing variables to current state
-                        _scaleX = super.scaleX;
-                        _scaleY = super.scaleY;
-                        _x = super.x;
-                        validateTransformMatrix();
-                    }
-                    else
-                    {
-                        // origMatrix has been initialized in validateTransformMatrix
-                        // because we weren't matching our parent's layoutDirection before.
-                        transform.matrix = origMatrix;
-                    }
+                    initAdvancedLayoutFeatures();
+                    layoutFeatures.mirror = mirror;
+                    validateTransformMatrix();
                 }
+                else if (!mirror && layoutFeatures)
+                {
+                    // If our layoutDirection is not different from our parent's and if
+                    // it used to be different, then recover our matrix and remove layoutFeatures.
+                    layoutFeatures.mirror = mirror;
+                    validateTransformMatrix();
+                    layoutFeatures = null;
+                }
+                
                 break;
             }
             
@@ -483,21 +672,40 @@ public class BitmapAsset extends FlexBitmap
     
     /**
      *  @private
-     *  Modifies the transform matrix so that this bitmap
-     *  will not be mirrored if a parent is mirrored.
+     *  Initializes AdvancedLayoutFeatures for this asset when mirroring.
+     */
+    private function initAdvancedLayoutFeatures():void
+    {
+        var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
+        
+        features.layoutScaleX = scaleX;
+        features.layoutScaleY = scaleY;
+        features.layoutScaleZ = scaleZ;
+        features.layoutRotationX = rotationX;
+        features.layoutRotationY = rotationY;
+        features.layoutRotationZ = rotation;
+        features.layoutX = x;
+        features.layoutY = y;
+        features.layoutZ = z;
+        features.layoutWidth = width;  // for the mirror transform
+        _height = height;  // for backing storage
+        layoutFeatures = features;
+    }
+    
+    /**
+     *  @private
+     *  Applies the transform matrix calculated by AdvancedLayoutFeatures 
+     *  so that this bitmap will not be mirrored if a parent is mirrored.
      */
     private function validateTransformMatrix():void
     {
-        // Save copy of current matrix
-        origMatrix = transform.matrix.clone();
-        
-        // Create new de-mirrored transform matrix
-        const mirrorMatrix:Matrix = transform.matrix;
-        mirrorMatrix.translate(-mirrorMatrix.tx, 0);
-        mirrorMatrix.scale(-1, 1);
-        mirrorMatrix.translate(_x + width, 0);
-        
-        transform.matrix = mirrorMatrix;
+        if (layoutFeatures != null)
+        {
+            if (layoutFeatures.is3D)
+                super.transform.matrix3D = layoutFeatures.computedMatrix3D;
+            else
+                super.transform.matrix = layoutFeatures.computedMatrix;
+        }
     }
 }
 
