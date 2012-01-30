@@ -51,8 +51,7 @@ global
 	disabledIconColor: #999999;
     dominantBaseline: "auto";
 	dropShadowColor: #000000;
-	dropShadowEnabled: false;
-    dropShadowVisible: true;
+    dropShadowVisible: false;
 	embedFonts: false;
 	errorColor: #FE0000;
 	fillAlphas: 0.6, 0.4, 0.75, 0.65; /* last pair are for OVER state */
@@ -545,7 +544,6 @@ ComboBox
 Container
 {
 	borderStyle: "none";
-    dropShadowVisible: false;
 }
 
 /*
@@ -1307,7 +1305,6 @@ ScrollBar
 ScrollControlBase 
 {
 	borderSkin: ClassReference("mx.skins.spark.BorderSkin");
-    dropShadowVisible: false;
 }
 
 
