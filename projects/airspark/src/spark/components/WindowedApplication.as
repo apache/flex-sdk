@@ -193,7 +193,7 @@ import spark.primitives.supportClasses.TextGraphicElement;
 
 /**
  *  Dispatched when the WindowedApplication completes its initial layout.
- *  By default, the WindowedApplication will be visbile at this time.
+ *  By default, the WindowedApplication will be visible at this time.
  *
  *  @eventType mx.events.AIREvent.WINDOW_COMPLETE
  *  
@@ -348,6 +348,7 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *    <strong>Events</strong>
  *    applicationActivate="<i>No default</i>"
  *    applicationDeactivate="<i>No default</i>"
+ *    close="<i>No default</i>"
  *    closing="<i>No default</i>"
  *    displayStateChange="<i>No default</i>"
  *    displayStateChanging="<i>No default</i>"
@@ -355,7 +356,9 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *    moving="<i>No default</i>"
  *    networkChange="<i>No default</i>"
  *    resizing="<i>No default</i>"
+ *    windowActivate="<i>No default</i>"
  *    windowComplete="<i>No default</i>"
+ *    windowDeactivate="<i>No default</i>"
  *    windowMove="<i>No default</i>"
  *    windowResize="<i>No default</i>"
  *  /&gt;
@@ -509,7 +512,7 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  A skin part that defines the gripper button used to resize the window. 
+     *  The skin part that defines the gripper button used to resize the window. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -524,7 +527,7 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  The SkinPart that displays the status bar.
+     *  The skin part that defines the display of the status bar.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -538,10 +541,10 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  A reference to the UITextField that displays the status bar's text.
+     *  The skin part that defines the display of the status bar's text.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     [SkinPart (required="false")]
@@ -552,7 +555,7 @@ public class WindowedApplication extends Application implements IWindow
     //----------------------------------
 
     /**
-     *  The UIComponent that displays the title bar.
+     *  The skin part that defines the display of the title bar.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -639,6 +642,8 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the maximum height of the application's window.
+     *
+     *  @default 10000
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -684,6 +689,8 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the maximum width of the application's window.
+     *
+     *  @default 10000
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -717,6 +724,8 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the minimum height of the application's window.
+     *
+     *  @default 100
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -762,6 +771,8 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  Specifies the minimum width of the application's window.
+     *
+     *  @default 100 
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -2011,7 +2022,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window behind.
      *
-     *  @return <code>true</code> if the window was succesfully sent behind;
+     *  @return <code>true</code> if the window was successfully sent behind;
      *  <code>false</code> if the window is invisible or minimized.
      *  
      *  @langversion 3.0
@@ -2034,7 +2045,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window in front of.
      *
-     *  @return <code>true</code> if the window was succesfully sent in front;
+     *  @return <code>true</code> if the window was successfully sent in front;
      *  <code>false</code> if the window is invisible or minimized.
      *  
      *  @langversion 3.0
@@ -2052,7 +2063,7 @@ public class WindowedApplication extends Application implements IWindow
      /**
       *  Orders the window behind all others in the same application.
       *
-      *  @return <code>true</code> if the window was succesfully sent to the back;
+      *  @return <code>true</code> if the window was successfully sent to the back;
       *  <code>false</code> if the window is invisible or minimized.
       *  
       *  @langversion 3.0
@@ -2070,7 +2081,7 @@ public class WindowedApplication extends Application implements IWindow
  /**
   *  Orders the window in front of all others in the same application.
   *
-  *  @return <code>true</code> if the window was succesfully sent to the front;
+  *  @return <code>true</code> if the window was successfully sent to the front;
   *  <code>false</code> if the window is invisible or minimized.
   *  
   *  @langversion 3.0
@@ -2085,7 +2096,7 @@ public class WindowedApplication extends Application implements IWindow
             return false;
      }
      
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     // Skin states support
     //
@@ -2101,7 +2112,6 @@ public class WindowedApplication extends Application implements IWindow
      *  @return A string specifying the name of the state to apply to the skin.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
