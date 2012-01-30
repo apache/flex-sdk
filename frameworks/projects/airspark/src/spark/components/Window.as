@@ -47,6 +47,7 @@ import mx.managers.IActiveWindowManager;
 import mx.managers.ICursorManager;
 import mx.managers.ISystemManager;
 import mx.managers.NativeDragManagerImpl;
+import mx.managers.SystemManagerGlobals;
 import mx.managers.WindowedSystemManager;
 import mx.managers.systemClasses.ActiveWindowManager;
 import mx.styles.CSSStyleDeclaration;
@@ -1763,6 +1764,10 @@ public class Window extends SkinnableContainer implements IWindow
         {
             flagForOpen = false;
             
+            // Set up our module factory if we don't have one.
+            if (moduleFactory == null)
+                moduleFactory = SystemManagerGlobals.topLevelSystemManagers[0];
+
             var init:NativeWindowInitOptions = new NativeWindowInitOptions();
             init.maximizable = _maximizable;
             init.minimizable = _minimizable;
