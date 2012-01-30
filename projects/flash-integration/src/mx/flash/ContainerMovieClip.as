@@ -15,6 +15,7 @@ package mx.flash
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.geom.ColorTransform;
 import flash.geom.Point;
@@ -94,6 +95,9 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
     public function ContainerMovieClip()
     {
         super();
+        
+        addEventListener(Event.ADDED, addedHandler);
+        addEventListener(Event.REMOVED, removedHandler);
     }
 
     //--------------------------------------------------------------------------
@@ -243,10 +247,10 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
         {
             contentHolderObj.content = value;
         }
-        else
-        {
-            _content = value;
-        }
+        
+        _content = value;
+        
+        invalidateParentSizeAndDisplayList();
     }
     
     //----------------------------------
@@ -553,6 +557,71 @@ public dynamic class ContainerMovieClip extends UIMovieClip implements IVisualEl
     public function swapElementsAt(index1:int, index2:int):void
     {
         throw new ArgumentError("This operation is not supported.");
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+        
+    /**
+     *  Any time a display object gets added, let's see if this is a child 
+     *  that belongs to use and needs to be initialized.  Also if it is 
+     *  the contentHolder, let's stuff the content down into it.
+     * 
+     *  <p>We only need this method if the child gets added after 
+     *  we've already been initialized.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    protected function addedHandler(event:Event):void 
+    {
+        // if we haven't initialized, we'll handle 
+        // that stuff in there
+        if (!initialized)
+            return;
+        
+        // if it's not a direct descendent, don't 
+        // worry about it
+        if (event.target.parent != this)
+            return;
+        
+        // if it's the FlexContentHolder, let's 
+        // treat it as such.
+        if (event.target is FlexContentHolder && !_contentHolder)
+        {
+            _contentHolder = event.target;
+            if (_content)
+                content = _content;
+        }
+        
+        // Call initialize() on any IUIComponent children
+        var child:IUIComponent = event.target as IUIComponent;
+        
+        if (child)
+            child.initialize();
+    }
+    
+    /**
+     *  Any time a display object gets removed, let's see if this child
+     *  is the contentHolder.  If it is, let's null out our reference to 
+     *  _contentHolder.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    protected function removedHandler(event:Event):void 
+    {
+        if (event.target == _contentHolder)
+        {
+            _contentHolder = null;
+        }
     }
 }
 }
