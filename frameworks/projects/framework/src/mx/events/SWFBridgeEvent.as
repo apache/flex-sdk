@@ -133,7 +133,7 @@ public class SWFBridgeEvent extends Event
 	 *  @productversion Flex 3
 	 */
     public static const BRIDGE_WINDOW_DEACTIVATE:String =
-		"bridgeWindowDeactivate";
+		"brdigeWindowDeactivate";
 
     //--------------------------------------------------------------------------
     //
