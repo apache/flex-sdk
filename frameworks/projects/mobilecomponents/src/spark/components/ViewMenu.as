@@ -68,7 +68,7 @@ use namespace mx_internal;
  *  You can also use the <code>ViewNavigatorApplicationBase.viewMenuOpen</code> property
  *  to open the menu programmatically.
  *
- *  <p>The following images shows a ViewMenu at the bottom of the screen 
+ *  <p>The following image shows a ViewMenu at the bottom of the screen 
  *  with five menu items:</p>
  *
  * <p>
@@ -107,6 +107,9 @@ use namespace mx_internal;
  *  @see spark.layouts.ViewMenuLayout
  *  @see spark.components.supportClasses.ViewNavigatorApplicationBase
  *  @see spark.skins.mobile.ViewMenuSkin
+ *
+ *  @includeExample examples/ViewMenuExampleHome.mxml -noswf
+ *  @includeExample examples/ViewMenuExample.mxml -noswf
  *
  *  @langversion 3.0
  *  @playerversion AIR 2.5
