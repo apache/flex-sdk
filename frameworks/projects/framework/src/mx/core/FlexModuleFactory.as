@@ -27,7 +27,9 @@ import flash.utils.Timer;
 import flash.utils.getDefinitionByName;
 import mx.core.RSLItem;
 import mx.core.RSLListLoader;
+
 import mx.events.ModuleEvent;
+import mx.managers.SystemManagerGlobals;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -290,6 +292,45 @@ public class FlexModuleFactory extends MovieClip
     public function allowInsecureDomain(... domains):void
     {
         // Overridden by compiler generated code.
+    }
+    
+    /**
+     * @private
+     *  A map of fully-qualified interface names,
+     *  such as "mx.managers::IPopUpManager",
+     *  to instances,
+     */
+    private var implMap:Object = {};
+    
+    /**
+     * @private
+     *  Adds an interface-name-to-implementation-class mapping to the registry,
+     *  if a class hasn't already been registered for the specified interface.
+     *  The class must implement a getInstance() method which returns
+     *  its singleton instance.
+     */
+    public function registerImplementation(interfaceName:String,
+                                           impl:Object):void
+    {
+        var c:Object = implMap[interfaceName];
+        if (!c)
+            implMap[interfaceName] = impl;
+    }
+    
+    /**
+     * @private
+     *  Returns the singleton instance of the implementation class
+     *  that was registered for the specified interface,
+     *  by looking up the class in the registry
+     *  and calling its getInstance() method.
+     * 
+     *  This method should not be called at static initialization time,
+     *  because the factory class may not have called registerImplementation() yet.
+     */
+    public function getImplementation(interfaceName:String):Object
+    {
+        var c:Object = implMap[interfaceName];
+        return c;
     }
     
     //--------------------------------------------------------------------------
