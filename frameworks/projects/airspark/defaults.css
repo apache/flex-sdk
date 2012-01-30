@@ -1,0 +1,54 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+@namespace s "library://ns.adobe.com/flex/spark";
+
+/*
+//------------------------------
+//  Spark TitleBar
+//------------------------------
+*/
+
+s|TitleBar
+{
+    skinClass: ClassReference("spark.skins.spark.windowChrome.TitleBarSkin");
+}
+
+/*
+//------------------------------
+//  Spark WindowedApplication
+//------------------------------
+*/
+
+s|WindowedApplication
+{
+    backgroundAlpha: 1;
+    backgroundColor: #FFFFFF;
+    resizeAffordanceWidth: 6;
+    skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
+}
+
+/*
+//------------------------------
+//  Spark Window
+//------------------------------
+*/
+
+s|Window
+{
+    backgroundAlpha: 1;
+    backgroundColor: #FFFFFF;
+    resizeAffordanceWidth: 6;
+    skinClass: ClassReference("spark.skins.spark.WindowedApplicationSkin");
+}
+
