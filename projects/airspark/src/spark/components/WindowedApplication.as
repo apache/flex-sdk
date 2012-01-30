@@ -363,7 +363,7 @@ use namespace mx_internal;
  *  display-related events (events that the WindowedApplication class inherits from display object base
  *  classes such as InteractiveObject or UIComponent) for its own stage and window, and not for
  *  events that occur on other windows in the application. This differs from a browser-based application,
- *  where an FxApplication container dispatches events for all the windows in the application (because
+ *  where an Application container dispatches events for all the windows in the application (because
  *  technically those windows are all display objects rendered on the single Application stage).</p>
  *
  *  @mxml
