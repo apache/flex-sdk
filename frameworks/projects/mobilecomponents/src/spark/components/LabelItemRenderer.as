@@ -47,7 +47,6 @@ use namespace mx_internal;
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -68,7 +67,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default undefined
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -80,7 +78,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0xCCCCCC
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
@@ -98,7 +95,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  Mobile theme is <code>0xB2B2B2</code>.</p>
  *   
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -110,7 +106,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0x70B2EE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -123,7 +118,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 5
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -136,7 +130,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 5
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -148,7 +141,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0xCEDBEF
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -160,7 +152,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0xB2B2B2
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -174,7 +165,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0x000000
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -189,7 +179,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default "center"
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -272,7 +261,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @includeExample examples/LabelItemRendererExample.mxml -noswf
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -290,7 +278,6 @@ public class LabelItemRenderer extends UIComponent
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -298,26 +285,26 @@ public class LabelItemRenderer extends UIComponent
     {
         super();
         
-		switch (applicationDPI)
-		{
-			case DPIClassification.DPI_320:
-			{
-				minHeight = 88;
-				break;
-			}
-			case DPIClassification.DPI_240:
-			{
-				minHeight = 66;
-				break;
-			}
-			default:
-			{
-				// default PPI160
-				minHeight = 44;
-				break;
-			}
-		}
-		
+        switch (applicationDPI)
+        {
+            case DPIClassification.DPI_320:
+            {
+                minHeight = 88;
+                break;
+            }
+            case DPIClassification.DPI_240:
+            {
+                minHeight = 66;
+                break;
+            }
+            default:
+            {
+                // default PPI160
+                minHeight = 44;
+                break;
+            }
+        }
+        
         interactionStateDetector = new InteractionStateDetector(this);
         interactionStateDetector.addEventListener(Event.CHANGE, interactionStateDetector_changeHandler);
     }
@@ -334,12 +321,12 @@ public class LabelItemRenderer extends UIComponent
      */
     private var interactionStateDetector:InteractionStateDetector;
     
-	/**
-	 *  @private
-	 *  Whether or not we're the last element in the list
-	 */
-	mx_internal var isLastItem:Boolean = false;
-	
+    /**
+     *  @private
+     *  Whether or not we're the last element in the list
+     */
+    mx_internal var isLastItem:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -360,7 +347,7 @@ public class LabelItemRenderer extends UIComponent
             return NaN;
         
         return labelDisplay.baselinePosition;
-	}
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -388,7 +375,6 @@ public class LabelItemRenderer extends UIComponent
      *  @see mx.core.IDataRenderer
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -486,7 +472,6 @@ public class LabelItemRenderer extends UIComponent
      *  @default 0
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -500,16 +485,16 @@ public class LabelItemRenderer extends UIComponent
      */    
     public function set itemIndex(value:int):void
     {
-		var wasLastItem:Boolean = isLastItem;		
-		var dataGroup:DataGroup = parent as DataGroup;
-		isLastItem = (dataGroup && (value == dataGroup.numElements - 1));
-		
-		// if whether or not we are the last item in the last has changed then
-		// invalidate our display. note:  even if our new index has not changed,
-		// whether or not we're the last item may have so we perform this check 
-		// before the value == _itemIndex check below
-		if (wasLastItem != isLastItem) 
-			invalidateDisplayList();
+        var wasLastItem:Boolean = isLastItem;       
+        var dataGroup:DataGroup = parent as DataGroup;
+        isLastItem = (dataGroup && (value == dataGroup.numElements - 1));
+        
+        // if whether or not we are the last item in the last has changed then
+        // invalidate our display. note:  even if our new index has not changed,
+        // whether or not we're the last item may have so we perform this check 
+        // before the value == _itemIndex check below
+        if (wasLastItem != isLastItem) 
+            invalidateDisplayList();
 
         if (value == _itemIndex)
             return;
@@ -520,8 +505,8 @@ public class LabelItemRenderer extends UIComponent
         // is only if alternatingItemColors are defined (and technically also
         // only if we are not selected or down, etc..., but we'll ignore those
         // as this will shortcut 95% of the time anyways)
-		if (getStyle("alternatingItemColors") !== undefined)
-			invalidateDisplayList();
+        if (getStyle("alternatingItemColors") !== undefined)
+            invalidateDisplayList();
     }
     
     //----------------------------------
@@ -539,7 +524,6 @@ public class LabelItemRenderer extends UIComponent
      *  display the label data of the item renderer.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -551,7 +535,6 @@ public class LabelItemRenderer extends UIComponent
      *  @default ""  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5  
      */
@@ -595,7 +578,6 @@ public class LabelItemRenderer extends UIComponent
      *  @default false  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -632,7 +614,6 @@ public class LabelItemRenderer extends UIComponent
      *  @default false
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -667,7 +648,6 @@ public class LabelItemRenderer extends UIComponent
      *  @inheritDoc  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -684,23 +664,22 @@ public class LabelItemRenderer extends UIComponent
         _dragging = value;
     }
     
-	
-	//----------------------------------
-	//  authorDensity
-	//----------------------------------
-	/**
-	 *  Returns the DPI of the application.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get applicationDPI():Number
-	{
-		return FlexGlobals.topLevelApplication.applicationDPI;
-	}
-	
+    
+    //----------------------------------
+    //  authorDensity
+    //----------------------------------
+    /**
+     *  Returns the DPI of the application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get applicationDPI():Number
+    {
+        return FlexGlobals.topLevelApplication.applicationDPI;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
@@ -725,9 +704,8 @@ public class LabelItemRenderer extends UIComponent
      *  Creates the labelDisplay component
      * 
      *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     protected function createLabelDisplay():void
     {
@@ -746,9 +724,8 @@ public class LabelItemRenderer extends UIComponent
      *  Destroys the labelDisplay component
      * 
      *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.5
-	 *  @productversion Flex 4.5
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     protected function destroyLabelDisplay():void
     {
@@ -773,11 +750,11 @@ public class LabelItemRenderer extends UIComponent
             var verticalPadding:Number = getStyle("paddingTop") + getStyle("paddingBottom");
             
             // Text respects padding right, left, top, and bottom
-			labelDisplay.commitStyles();
+            labelDisplay.commitStyles();
             measuredWidth = getElementPreferredWidth(labelDisplay) + horizontalPadding;
-			// We only care about the "real" ascent
+            // We only care about the "real" ascent
             measuredHeight = getElementPreferredHeight(labelDisplay) + verticalPadding; 
-		}
+        }
         
         measuredMinWidth = 0;
     }
@@ -827,7 +804,6 @@ public class LabelItemRenderer extends UIComponent
      *  <code>scaleY</code> property of the component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -837,13 +813,13 @@ public class LabelItemRenderer extends UIComponent
         // figure out backgroundColor
         var backgroundColor:*;
         var downColor:* = getStyle("downColor");
-		var drawBackground:Boolean = true;
+        var drawBackground:Boolean = true;
         
         if (down && downColor !== undefined)
         {
             backgroundColor = downColor;
         }
-		else if (selected)
+        else if (selected)
         {
             backgroundColor = getStyle("selectionColor");
         }
@@ -851,18 +827,18 @@ public class LabelItemRenderer extends UIComponent
         {
             backgroundColor = getStyle("rollOverColor");
         }
-		else if (showsCaret)
-		{
-			backgroundColor = getStyle("selectionColor");
-		}
-		else
-		{
-			var alternatingColors:Array;
+        else if (showsCaret)
+        {
+            backgroundColor = getStyle("selectionColor");
+        }
+        else
+        {
+            var alternatingColors:Array;
             var alternatingColorsStyle:Object = getStyle("alternatingItemColors");
 
-			if (alternatingColorsStyle)
-				alternatingColors = (alternatingColorsStyle is Array) ? (alternatingColorsStyle as Array) : [alternatingColorsStyle];
-			
+            if (alternatingColorsStyle)
+                alternatingColors = (alternatingColorsStyle is Array) ? (alternatingColorsStyle as Array) : [alternatingColorsStyle];
+            
             if (alternatingColors && alternatingColors.length > 0)
             {
                 // translate these colors into uints
@@ -870,12 +846,12 @@ public class LabelItemRenderer extends UIComponent
                 
                 backgroundColor = alternatingColors[itemIndex % alternatingColors.length];
             }
-			else
-			{
-				// don't draw background if it is the contentBackgroundColor. The
-				// list skin handles the background drawing for us. 
-				drawBackground = false;
-			}
+            else
+            {
+                // don't draw background if it is the contentBackgroundColor. The
+                // list skin handles the background drawing for us. 
+                drawBackground = false;
+            }
 
         } 
         
@@ -883,73 +859,73 @@ public class LabelItemRenderer extends UIComponent
         // the reason why we draw it in the case of drawBackground == 0 is for
         // mouse hit testing purposes
         graphics.beginFill(backgroundColor, drawBackground ? 1 : 0);
-		graphics.lineStyle();
-		graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-		graphics.endFill();
-		
-		var topSeparatorColor:uint;
-		var topSeparatorAlpha:Number;
-		var bottomSeparatorColor:uint;
-		var bottomSeparatorAlpha:Number;
-		
-		// Selected and down states have a gradient overlay as well
-		// as different separators colors/alphas
-		if (selected || down)
-		{
-			var colors:Array = [0x000000, 0x000000 ];
-			var alphas:Array = [.2, .1];
-			var ratios:Array = [0, 255];
-			var matrix:Matrix = new Matrix();
-			
-			// gradient overlay
-			matrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0 );
-			graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
-			graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-			graphics.endFill();
-		}
+        graphics.lineStyle();
+        graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        graphics.endFill();
+        
+        var topSeparatorColor:uint;
+        var topSeparatorAlpha:Number;
+        var bottomSeparatorColor:uint;
+        var bottomSeparatorAlpha:Number;
+        
+        // Selected and down states have a gradient overlay as well
+        // as different separators colors/alphas
+        if (selected || down)
+        {
+            var colors:Array = [0x000000, 0x000000 ];
+            var alphas:Array = [.2, .1];
+            var ratios:Array = [0, 255];
+            var matrix:Matrix = new Matrix();
+            
+            // gradient overlay
+            matrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0 );
+            graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
+            graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+            graphics.endFill();
+        }
 
-		// separators are a highlight on the top and shadow on the bottom
-		topSeparatorColor = 0xFFFFFF;
-		topSeparatorAlpha = .3;
-		bottomSeparatorColor = 0x000000;
-		bottomSeparatorAlpha = .3;
-		
-			
-		// draw separators
-		// don't draw top separator for down and selected states
-		if (!(selected || down))
-		{
-			graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
-			graphics.drawRect(0, 0, unscaledWidth, 1);
-			graphics.endFill();
-		}
-		
-		graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
-		graphics.drawRect(0, unscaledHeight - (isLastItem ? 0 : 1), unscaledWidth, 1);
-		graphics.endFill();
-		
-		
-		// add extra separators to the first and last items so that 
-		// the list looks correct during the scrolling bounce/pull effect
-		// top
-		if (itemIndex == 0)
-		{
-			graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
-			graphics.drawRect(0, -1, unscaledWidth, 1);
-			graphics.endFill();	
-		}
-		
-		// bottom
-		if (isLastItem)
-		{
-			// we want to offset the bottom by 1 so that we don't get
-			// a double line at the bottom of the list if there's a 
-			// border
-			graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
-			graphics.drawRect(0, unscaledHeight + 1, unscaledWidth, 1);
-			graphics.endFill();	
-		}
-		
+        // separators are a highlight on the top and shadow on the bottom
+        topSeparatorColor = 0xFFFFFF;
+        topSeparatorAlpha = .3;
+        bottomSeparatorColor = 0x000000;
+        bottomSeparatorAlpha = .3;
+        
+            
+        // draw separators
+        // don't draw top separator for down and selected states
+        if (!(selected || down))
+        {
+            graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
+            graphics.drawRect(0, 0, unscaledWidth, 1);
+            graphics.endFill();
+        }
+        
+        graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
+        graphics.drawRect(0, unscaledHeight - (isLastItem ? 0 : 1), unscaledWidth, 1);
+        graphics.endFill();
+        
+        
+        // add extra separators to the first and last items so that 
+        // the list looks correct during the scrolling bounce/pull effect
+        // top
+        if (itemIndex == 0)
+        {
+            graphics.beginFill(bottomSeparatorColor, bottomSeparatorAlpha);
+            graphics.drawRect(0, -1, unscaledWidth, 1);
+            graphics.endFill(); 
+        }
+        
+        // bottom
+        if (isLastItem)
+        {
+            // we want to offset the bottom by 1 so that we don't get
+            // a double line at the bottom of the list if there's a 
+            // border
+            graphics.beginFill(topSeparatorColor, topSeparatorAlpha);
+            graphics.drawRect(0, unscaledHeight + 1, unscaledWidth, 1);
+            graphics.endFill(); 
+        }
+        
 
     }
     
@@ -971,7 +947,6 @@ public class LabelItemRenderer extends UIComponent
      *  <code>scaleY</code> property of the component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -990,18 +965,18 @@ public class LabelItemRenderer extends UIComponent
         var viewWidth:Number  = unscaledWidth  - paddingLeft - paddingRight;
         var viewHeight:Number = unscaledHeight - paddingTop  - paddingBottom;
 
-		var vAlign:Number;
-		if (verticalAlign == "top")
-			vAlign = 0;
-		else if (verticalAlign == "bottom")
-			vAlign = 1;
-		else // if (verticalAlign == "middle")
-			vAlign = 0.5;
-		
+        var vAlign:Number;
+        if (verticalAlign == "top")
+            vAlign = 0;
+        else if (verticalAlign == "bottom")
+            vAlign = 1;
+        else // if (verticalAlign == "middle")
+            vAlign = 0.5;
+        
         // measure the label component
-		// text should take up the rest of the space width-wise, but only let it take up
-		// its measured textHeight so we can position it later based on verticalAlign
-		var labelWidth:Number = Math.max(viewWidth, 0);	
+        // text should take up the rest of the space width-wise, but only let it take up
+        // its measured textHeight so we can position it later based on verticalAlign
+        var labelWidth:Number = Math.max(viewWidth, 0); 
         var labelHeight:Number = 0;
 
         if (label != "")
@@ -1011,15 +986,15 @@ public class LabelItemRenderer extends UIComponent
             // reset text if it was truncated before.
             if (labelDisplay.isTruncated)
                 labelDisplay.text = label;
-		
-			labelHeight = getElementPreferredHeight(labelDisplay);
+        
+            labelHeight = getElementPreferredHeight(labelDisplay);
         }
-	
-		setElementSize(labelDisplay, labelWidth, labelHeight);    
-				
-		// We want to center using the "real" ascent
-		var labelY:Number = Math.round(vAlign * (viewHeight - labelHeight))  + paddingTop;
-		setElementPosition(labelDisplay, paddingLeft, labelY);
+    
+        setElementSize(labelDisplay, labelWidth, labelHeight);    
+                
+        // We want to center using the "real" ascent
+        var labelY:Number = Math.round(vAlign * (viewHeight - labelHeight))  + paddingTop;
+        setElementPosition(labelDisplay, paddingLeft, labelY);
 
         // attempt to truncate the text now that we have its official width
         labelDisplay.truncateToFit();
@@ -1038,13 +1013,12 @@ public class LabelItemRenderer extends UIComponent
      *  @see #setElementSize  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
     protected function setElementPosition(element:Object, x:Number, y:Number):void
     {
-		if (element is ILayoutElement)
+        if (element is ILayoutElement)
         {
             ILayoutElement(element).setLayoutBoundsPosition(x, y, false);
         }
@@ -1052,7 +1026,7 @@ public class LabelItemRenderer extends UIComponent
         {
             IFlexDisplayObject(element).move(x, y);   
         }
-		else
+        else
         {
             element.x = x;
             element.y = y;
@@ -1065,13 +1039,12 @@ public class LabelItemRenderer extends UIComponent
      *  @see #setElementPosition  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
     protected function setElementSize(element:Object, width:Number, height:Number):void
     {
-		if (element is ILayoutElement)
+        if (element is ILayoutElement)
         {
             ILayoutElement(element).setLayoutBoundsSize(width, height, false);
         }
@@ -1094,13 +1067,12 @@ public class LabelItemRenderer extends UIComponent
      *  @see #getElementPreferredHeight  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
     protected function getElementPreferredWidth(element:Object):Number
     {
-		if (element is ILayoutElement)
+        if (element is ILayoutElement)
         {
             return ILayoutElement(element).getPreferredBoundsWidth();
         }
@@ -1108,7 +1080,7 @@ public class LabelItemRenderer extends UIComponent
         {
             return IFlexDisplayObject(element).measuredWidth;
         }
-		else
+        else
         {
             return element.width;
         }
@@ -1122,13 +1094,12 @@ public class LabelItemRenderer extends UIComponent
      *  @see #getElementPreferredWidth
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
     protected function getElementPreferredHeight(element:Object):Number
     {
-		if (element is ILayoutElement)
+        if (element is ILayoutElement)
         {
             return ILayoutElement(element).getPreferredBoundsHeight();
         }
@@ -1136,7 +1107,7 @@ public class LabelItemRenderer extends UIComponent
         {
             return IFlexDisplayObject(element).measuredHeight;
         }
-		else
+        else
         {
             return element.height;
         }
