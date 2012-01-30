@@ -69,6 +69,11 @@ BorderContainer
     skinClass: ClassReference("spark.skins.spark.BorderContainerSkin");
 }
 
+BusyIndicator
+{
+    rotationInterval: 50;
+}
+
 Button
 {
     fontWeight: "bold";
