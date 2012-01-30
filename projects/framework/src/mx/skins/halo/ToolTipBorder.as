@@ -127,14 +127,14 @@ public class ToolTipBorder extends RectangularBorder
 	 */
 	override public function styleChanged(styleProp:String):void
 	{
+        super.styleChanged(styleProp);
+        
 		if (styleProp == "borderStyle" ||
 			styleProp == "styleName" ||
 			styleProp == null)
 		{
 			_borderMetrics = null;
 		}
-		
-		invalidateDisplayList();
 	}
 
 	/**
