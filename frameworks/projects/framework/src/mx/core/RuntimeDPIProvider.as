@@ -2,6 +2,10 @@ package mx.core
 {
 import flash.system.Capabilities;
 
+import mx.core.mx_internal;
+
+use namespace mx_internal;
+
 /**
  *  The RuntimeDPIProvider class provides the default mapping of
  *  similar device DPI values into predefined DPI classes.
@@ -57,15 +61,30 @@ public class RuntimeDPIProvider
      */
     public function get runtimeDPI():Number
     {
-        var dpi:Number = Capabilities.screenDPI;
-        
+        return classifyDPI(Capabilities.screenDPI);
+    }
+    
+    /**
+     *  @private
+     *  Matches the specified DPI to a <code>DPIClassification</code> value.
+     *  A number of devices can have slightly different DPI values and classifyDPI
+     *  maps these into the several DPI classes.
+     * 
+     *  This method is specifically kept for Design View. Flex uses RuntimeDPIProvider
+     *  to calculate DPI classes.
+     *  
+     *  @param dpi The DPI value.  
+     *  @return The corresponding <code>DPIClassification</code> value.
+     */
+    mx_internal static function classifyDPI(dpi:Number):Number
+    {
         if (dpi < 200)
             return DPIClassification.DPI_160;
         
         if (dpi <= 280)
             return DPIClassification.DPI_240;
         
-        return DPIClassification.DPI_320; 
+        return DPIClassification.DPI_320;
     }
 }
 }
