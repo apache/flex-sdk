@@ -314,6 +314,7 @@ Button
 	horizontalGap: 2;
 /*	overIcon: null; 
 	overSkin: null */
+	labelVerticalOffset: 0;
 	paddingBottom: 2;
 	paddingLeft: 10;
 	paddingRight: 10;
@@ -421,6 +422,7 @@ CheckBox
 	horizontalGap: 5;
 	icon: ClassReference("mx.skins.halo.CheckBoxIcon");
 	iconColor: #2B333C;
+	labelVerticalOffset: 0;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
 	paddingBottom: 2;
@@ -1235,6 +1237,7 @@ RadioButton
 	horizontalGap: 5;	
 	icon: ClassReference("mx.skins.halo.RadioButtonIcon");
 	iconColor: #2B333C;
+	labelVerticalOffset: 0;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
 	paddingBottom: 2;
