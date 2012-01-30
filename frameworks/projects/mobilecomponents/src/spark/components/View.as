@@ -29,9 +29,9 @@ use namespace mx_internal;
  *  Dispatched when the <code>data</code> property changes.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
  * 
@@ -44,9 +44,9 @@ use namespace mx_internal;
  *  @eventType mx.events.FlexEvent.VIEW_ACTIVATE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="viewActivate", type="mx.events.FlexEvent")]
 
@@ -56,9 +56,9 @@ use namespace mx_internal;
  *  @eventType mx.events.FlexEvent.VIEW_DEACTIVATE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="viewDeactivate", type="mx.events.FlexEvent")]
 
@@ -70,9 +70,9 @@ use namespace mx_internal;
  *  @eventType mx.events.FlexEvent.REMOVING
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="removing", type="mx.events.FlexEvent")]
 
@@ -80,9 +80,9 @@ use namespace mx_internal;
 /**
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class View extends Group implements IDataRenderer
 {
@@ -96,9 +96,9 @@ public class View extends Group implements IDataRenderer
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function View()
     {
@@ -122,7 +122,18 @@ public class View extends Group implements IDataRenderer
     private var _active:Boolean = false;
     
     /**
-     * Flag indicating whether the current screen is active.
+     *  Flag indicating whether the current screen is active.  The
+     *  view's navigator will automatically set this flag to true
+     *  or false as its state changes.  This getter will dispatch
+     *  <code>FlexEvent.VIEW_ACTIVATE<code> and <code>FlexEvent.VIEW_DEACTIVATE<code>
+     *  as the value changes.
+     *  
+     *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get active() : Boolean
     {
@@ -149,13 +160,20 @@ public class View extends Group implements IDataRenderer
     //----------------------------------
     
     /**
+     *  @private
+     * 
      *  Determines if the current view can be removed by
      *  a navigator.  The default implementation dispatches
      *  a <code>FlexEvent.REMOVING</code> event.  If
      *  preventDefault() is called on the event, this property
      *  will be set to false.
      * 
-     *  @return Returns true if the screen can be removed 
+     *  @return Returns true if the screen can be removed
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     mx_internal function get canRemove():Boolean
     {
@@ -166,6 +184,44 @@ public class View extends Group implements IDataRenderer
         }
         
         return true;
+    }
+    
+    //----------------------------------
+    //  overlayControls
+    //----------------------------------
+    
+    private var _overlayControls:Boolean = false;
+    
+    /**
+     *  Determines the way the view's navigator's ui controls
+     *  should lay out in relation to the view content.  If
+     *  set to true, the ui controls will hover on top of the
+     *  view.
+     *  
+     *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get overlayControls():Boolean
+    {
+        return _overlayControls;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set overlayControls(value:Boolean):void
+    {
+        if (_overlayControls != value)
+        {
+            _overlayControls = value;
+            
+            if (navigator)
+                navigator.overlayControls = _overlayControls;
+        }
     }
     
     //----------------------------------
@@ -181,6 +237,11 @@ public class View extends Group implements IDataRenderer
      *  view will be cached in memory.
      * 
      *  @default auto
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get destructionPolicy():String
     {
@@ -204,6 +265,11 @@ public class View extends Group implements IDataRenderer
     [Bindable]
     /**
      * The view's navigator.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get navigator():ViewNavigator
     {
@@ -223,8 +289,15 @@ public class View extends Group implements IDataRenderer
     private var _returnedObject:Object;
     
     /**
+     *  An object that was returned by the previous view when
+     *  the navigator is popping back to this view. 
      * 
+     *  @default null
      * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     [Bindable]
     public function get returnedObject():Object
@@ -260,7 +333,7 @@ public class View extends Group implements IDataRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -290,7 +363,7 @@ public class View extends Group implements IDataRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -377,7 +450,86 @@ public class View extends Group implements IDataRenderer
         _navigationGroupLayout = value;
         dispatchEvent(changeEvent);
     }
+	
+	//----------------------------------
+	//  showActionBar
+	//----------------------------------
+	private var _showActionBar:Boolean = true;
+	
+	/**
+	 *  Flag indicating whether a view should show the action bar or not.
+	 *  This doesn't necessarily correlate to the visible property of the
+	 *  navigator's ActionBar.  In the end, ViewNavigator and the developer
+	 *  have the last say as to what's visible.
+	 *
+	 *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+	 */
+	public function get showActionBar():Boolean
+	{
+		return _showActionBar;
+	}
     
+    /**
+     *  @private
+     */ 
+	public function set showActionBar(value:Boolean):void
+	{
+		_showActionBar = value;
+		
+		// Immediately request actionBar's visibility be toggled
+		if (active && navigator)
+		{
+			if (_showActionBar)
+				navigator.showActionBar();
+			else
+				navigator.hideActionBar();
+		}
+	}
+	//----------------------------------
+	//  showTabBar
+	//----------------------------------
+	private var _showTabBar:Boolean = true;
+	
+	/**
+	 *  Flag indicating whether a view should show the action bar or not.
+	 *  This doesn't necessarily correlate to the visible property of the
+	 *  navigator's ActionBar.  In the end, ViewNavigator and the developer
+	 *  have the last say as to what's visible.
+	 *
+	 *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+	 */
+	public function get showTabBar():Boolean
+	{
+		return _showTabBar;
+	}
+    
+    /**
+     *  @private
+     */
+	public function set showTabBar(value:Boolean):void
+	{
+		_showTabBar = value;
+		
+		// Immediately request actionBar's visibility be toggled
+		if (active && navigator)
+		{
+			if (_showTabBar)
+				navigator.showTabBar();
+			else
+				navigator.hideTabBar();
+		}
+	}
+	
     //----------------------------------
     //  title
     //----------------------------------
@@ -386,7 +538,12 @@ public class View extends Group implements IDataRenderer
     
     [Bindable]
     /**
+     *  The title for the view.
      *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function get title():String
     {
@@ -491,6 +648,10 @@ public class View extends Group implements IDataRenderer
     /**
      *  The data associated with the current view.
      * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get data():Object
     {
@@ -515,6 +676,11 @@ public class View extends Group implements IDataRenderer
     //--------------------------------------------------------------------------
     
     /**
+     *  Methods creates an object that should be returned to the
+     *  previous screen when this view is popped off a navigator's
+     *  stack.
+     * 
+     *  @return null
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -527,6 +693,8 @@ public class View extends Group implements IDataRenderer
     }
     
     /**
+     *  Returns the state the view should be in based on the orientation
+     *  of the device.
      * 
      *  @return A String specifying the name of the state to apply to the screen. 
      *  
