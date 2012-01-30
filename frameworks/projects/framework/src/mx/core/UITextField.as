@@ -1659,6 +1659,26 @@ public class UITextField extends FlexTextField
     }
  
     //----------------------------------
+    //  textHeight
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  TextField does not take into account the leading on the final
+     *  line of text when measuring itself, yet will scroll if it is
+     *  not given this extra height. This is a player bug bug that
+     *  has been retired.
+     */
+    override public function get textHeight():Number
+    {
+        var result:Number = super.textHeight;
+        if (numLines > 1)
+            result += getLineMetrics(1).leading;
+        
+        return result;
+    }
+    
+    //----------------------------------
     //  toolTip
     //----------------------------------
 
