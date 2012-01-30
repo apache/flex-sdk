@@ -18,6 +18,7 @@ import flash.utils.Dictionary;
 
 import mx.core.Singleton;
 import mx.core.mx_internal;
+import mx.managers.ISystemManager;
 import mx.managers.SystemManagerGlobals;
 
 use namespace mx_internal;
@@ -572,7 +573,8 @@ public class CSSStyleDeclaration extends EventDispatcher
         var i:int;
 
         // Type as Object to avoid dependency on SystemManager.
-        var sm:Object;
+        var sm:ISystemManager;
+        var cm:Object;
 
         if (regenerate)
         {
@@ -581,14 +583,16 @@ public class CSSStyleDeclaration extends EventDispatcher
             for (i = 0; i < n; i++)
             {
                 sm = sms[i];
-                sm.regenerateStyleCache(true);
+			    cm = sm.getImplementation("mx.managers.ISystemManagerChildManager");
+                cm.regenerateStyleCache(true);
             }
         }
 
         for (i = 0; i < n; i++)
         {
             sm = sms[i];
-            sm.notifyStyleChangeInChildren(styleProp, true);
+		    cm = sm.getImplementation("mx.managers.ISystemManagerChildManager");
+            cm.notifyStyleChangeInChildren(styleProp, true);
         }
     }
     
