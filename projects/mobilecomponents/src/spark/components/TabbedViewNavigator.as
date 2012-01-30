@@ -49,32 +49,38 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched when the selected navigator has changed as a result of
- *  the <code>selectedIndex</code> property or the selected
- *  tab changing.
- *  
+ *  Dispatched when the current view navigator changes as a result of
+ *  a change to the <code>selectedIndex</code> property or a change 
+ *  to the selected tab in the TabBar control.
+ * 
+ *  @eventType spark.events.IndexChangeEvent.CHANGE
  */
 [Event(name="change", type="spark.events.IndexChangeEvent")]
 
 /**
- *  A cancelable event that is dispatched before the selected navigator
- *  is changed.  Canceling this event will prevent the active navigator
+ *  Dispatched before the selected view navigator is changed.  
+ *  Canceling this event prevents the active view navigator
  *  from changing.
+ * 
+ *  @eventType spark.events.IndexChangeEvent.CHANGING
  */
 [Event(name="changing", type="spark.events.IndexChangeEvent")]
 
 /**
- *  Dispatched when the collection of navigators managed by the
+ *  Dispatched when the collection of view navigators managed by the
  *  TabbedViewNavigator changes.
+ * 
+ *  @eventType mx.events.CollectionEvent.COLLECTION_CHANGE
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
 /**
- *  Dispatched when the navigator's selected index has changed.  When
- *  this event is dispatched, the selectedIndex and activeNavigator
- *  properties will be referencing the newly selected navigator.
+ *  Dispatched when the view navigator's selected index changes.  
+ *  When this event is dispatched, the <code>selectedIndex</code> 
+ *  and <code>activeNavigator</code> properties reference the 
+ *  newly selected view navigator.
  * 
- *  @eventType mx.events.FlexEvent 
+ *  @eventType mx.events.FlexEvent.VALUE_COMMIT
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
@@ -84,23 +90,30 @@ use namespace mx_internal;
 [Event(name="valueCommit", type="mx.events.FlexEvent")]
 
 /**
- *  The TabbedViewNavigator component is a container that manages a collection
- *  of view navigator controls that are stacked on top of each other.  Only
- *  one navigator is active and visible at a time.  This component includes
- *  a TabBar interface control that provides the ability to toggle between
- *  the collection of navigators.  
+ *  The TabbedViewNavigator class is a container that manages a collection
+ *  of view navigator containers.  
+ *  Only one view navigator is active and visible at a time.  
+ *  This class includes a TabBar control that provides the ability to toggle between
+ *  the collection of view navigators.  
+ *
+ *  <p>The TabbedViewNavigatorApplication container automatically creates 
+ *  a single TabbedViewNavigator container for the entire application. 
+ *  You can reference the TabbedViewNavigator object by using the <code>navigator</code>
+ *  property of the TabbedViewNavigatorApplication container.</p>
  * 
  *  <p>The active or selected navigator can be changed by clicking the corresponding
  *  tab in the TabBar or by changing the <code>selectedIndex</code> property of
  *  the component.</p>
  * 
- *  <p>The contents of a child navigator is destroyed when it is deactivate, 
- *  and dynamically created when activated.  This logic can be altered by accessing 
- *  the <code>creationPolicy</code> property of the TabbedViewNavigator and the 
- * <code>destructionPolicy</code> property of its child navigators and active View.</p>
+ *  <p>The contents of a child view navigator is destroyed when it is deactivate, 
+ *  and dynamically created when activated.  
+ *  This logic can be altered by accessing the <code>creationPolicy</code> property 
+ *  of the TabbedViewNavigator and the <code>destructionPolicy</code> property 
+ *  of its child navigators and active View.</p>
  * 
  *  @see spark.components.View
  *  @see spark.components.ViewNavigator
+ *  @see spark.components.TabBar
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -259,12 +272,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     [Bindable("change")]
     /**
-     *  Returns the active navigator for the TabbedViewNavigator.  Only one
-     *  navigator can be active at a time.  The active navigator can be
-     *  set by changing the <code>selectedIndex</code> property or by
-     *  clicking on a tab.
-     * 
-     *  @return The active navigator
+     *  The active view navigator for the TabbedViewNavigator.  
+     *  Only one view navigator can be active at a time.  
+     *  The active view navigator can be set by changing the 
+     *  <code>selectedIndex</code> property or by selecting 
+     *  a tab in the TabBar control.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -300,15 +312,16 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     private var _maintainNavigationStack:Boolean = true;
     
     /**
-     *  This property indicates whether the navigation stack of the view
-     *  should remain intact when the navigator is deactivated by its
-     *  parent navigator.  If set to true, when reactivated the view history
-     *  will remain the same.  If false, the navigator will display the
+     *  Specifies whether the navigation stack of the view navigator
+     *  should remain intact when the view navigator is deactivated.
+     *  If <code>true</code>, when reactivated the view history
+     *  remains the same.  
+     *  If <code>false</code>, the navigator displays the
      *  first view in its navigation stack.
      * 
      *  @default true
      *  
-     *  @see spark.components.TabbedViewNavigator
+     *  @see spark.components.ViewNavigator
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -335,14 +348,16 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     private var _navigators:Vector.<ViewNavigatorBase>;
     
     /**
-     *  The view navigators that are managed by the the TabbedViewNavigator.
-     *  Each navigator isrepresented as a tab in this components tab bar.
-     *  Only one navigator can be active at a time, and can be referenced using
+     *  The view navigators that are managed by this TabbedViewNavigator.
+     *  Each view navigator is represented as a tab in the tab bar 
+     *  of this TabbedViewNavigator.
+     *  Only one view navigator can be active at a time.
+     *  You can reference the active view navigator by using
      *  the <code>activeNavigator</code> property.
-	 * 
-	 *  <p>Changing this property will cause all current navigators to be removed
-	 *  and the selected index will be reset to 0. This operation cannot be
-	 *  canceled and is committed immediately.</p>
+     * 
+     *  <p>Changing this property causes the current view navigator to be removed,
+     *  and sets the <code>selectedIndex</code> to 0. 
+     *  This operation cannot be canceled and is committed immediately.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -393,19 +408,19 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         }
        
         if (value && value.length > 0)
-		{
+        {
             _selectedIndex = 0;
-		}
+        }
         else
-		{
+        {
             _selectedIndex = NO_PROPOSED_SELECTION;
-		}
+        }
 
-		// The proposed selected index is reset because it is no longer valid
-		// since the array of navigators has changed.
-		_proposedSelectedIndex = NO_PROPOSED_SELECTION;
-		selectedIndexChanged = false;
-		
+        // The proposed selected index is reset because it is no longer valid
+        // since the array of navigators has changed.
+        _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+        selectedIndexChanged = false;
+        
         // Notify listeners that the collection changed
         internalDispatchEvent(CollectionEventKind.RESET);
     }
@@ -419,8 +434,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  Hides the tab bar of the navigator.
      * 
-     *  @param animate Flag indicating whether a hide effect should play.
-     *  This property is <code>true</code> by default.
+     *  @param animate Indicates whether a hide effect should play
+     *  as the tab bar disappears.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -442,8 +457,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  Shows the tab bar of the navigator
      *  
-     *  @param animate Flag indicating whether a hide effect should play.
-     *  This property is <code>true</code> by default.
+     *  @param animate Indicates whether a show effect should play
+     *  as the tab bar appears.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -792,9 +807,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 if (activeView)
                     activeView.setTabBarVisible(showingTabBar);
 
-				// When this flag is true, the animations should only be disabled for the 
-				// current frame, so reset the flag so animations play on subsequent frames.
-				disableNextControlAnimation = false;
+                // When this flag is true, the animations should only be disabled for the 
+                // current frame, so reset the flag so animations play on subsequent frames.
+                disableNextControlAnimation = false;
             }
         }
 
@@ -1015,6 +1030,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
+     *  @private
      *  Method is called when a tab is clicked by the user.  The default 
      *  implementation checks if the clicked tab is currently selected, and if
      *  so, pops the active navigator to its root view.
@@ -1122,7 +1138,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     [Bindable("change")]
     [Bindable("valueCommit")]    
     /**
-     *  The 0-based index of the selected navigator, or -1 if no item is selected.
+     *  The 0-based index of the selected view navigator, or -1 if none is selected.
      *  Setting the <code>selectedIndex</code> property deselects the currently selected
      *  navigator and selects the navigator at the specified index.
      *
@@ -1220,7 +1236,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //----------------------------------
     
     /**
-     *  Returns the number of child navigators being managed by the 
+     *  The number of child view navigators being managed by the 
      *  this component.
      * 
      *  @langversion 3.0
@@ -1237,10 +1253,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Add the specified item to the end of the list.  Equivalent to 
-     *  addItemAt(item, length); 
+     *  Add the specified view navigator to the end of the list.  
+     *  Equivalent to calling <code>addItemAt(item, length);</code>. 
      * 
-     *  @param item The item to add.  Must extend <code>ViewNavigatorBase</code>
+     *  @param item The view navigator  to add.  
+     *  It must extend the <code>ViewNavigatorBase</code> class.
+     *
+     *  @see spark.components.supportClasses.ViewNavigatorBase
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1253,13 +1272,18 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Add the item at the specified index.  
-     *  Any item that was after this index is moved out by one.  
+     *  Add the view navigator at the specified index.  
+     *  Any view navigator that was after this index is moved down by one.  
      * 
-     *  @param item the item to place at the index.  Must extend <code>ViewNavigatorBase</code>
-     *  @param index the index at which to place the item
-     *  @throws RangeError if index is less than 0 or greater than the length
+     *  @param item The view navigator  to add.  
+     *  It must extend the <code>ViewNavigatorBase</code> class.
+     *
+     *  @param index The index at which to place the item.
      * 
+     *  @throws RangeError If index is less than 0 or greater than the length
+     * 
+     *  @see spark.components.supportClasses.ViewNavigatorBase
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
@@ -1302,13 +1326,16 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Get the navigator object at the specified index.
+     *  Get the view navigator object at the specified index.
      * 
-     *  @param  index the index in the list from which to retrieve the item
-     *  @param  prefetch int indicating both the direction and amount of items
-     *          to fetch during the request should the item not be local.
-     *  @return the navigator at that index, null if there is none
-     *  @throws RangeError if the index &lt; 0 or index &gt;= length
+     *  @param  index The index in the list from which to retrieve the item.
+     * 
+     *  @param  prefetch Indicating both the direction and amount of items
+     *          to fetch during the request, should the item not be local.
+     * 
+     *  @return The navigator at the specified index, or null if there is none.
+     * 
+     *  @throws RangeError If the index &lt; 0 or index &gt;= length
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1328,13 +1355,12 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Return the index of the navigator if it is in the list such that
-     *  getItemAt(index) == item.  
-     *  Note that in this implementation the search is linear and is therefore 
-     *  O(n).
+     *  Return the index of the view navigator if it is in the list 
+     *  of view navigators. 
      * 
-     *  @param item the navigator to find
-     *  @return the index of the navigator, -1 if the item is not in the list.
+     *  @param item The view navigator object to locate.
+     *
+     *  @return The index of the view navigator, or -1 if the item is not in the list.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1347,20 +1373,20 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Notify external components that a property on a navigator has
+     *  Notify external components that a property on a view navigator has
      *  been updated.
      *
-     *  @param item The navigator that was updated.
+     *  @param item The view navigator that was updated.
      *
      *  @param property A String, QName, or int
      *  specifying the property that was updated.
      *
      *  @param oldValue The old value of that property.
-     *  (If property was null, this can be the old value of the item.)
+     *  If property was null, this can be the old value of the item.
      *
      *  @param newValue The new value of that property.
-     *  (If property was null, there's no need to specify this
-     *  as the item is assumed to be the new value.)
+     *  If property was null, there's no need to specify this
+     *  as the item is assumed to be the new value.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1385,7 +1411,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Remove all child navigators from the navigator.
+     *  Remove all child view navigators from the navigator.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1418,12 +1444,14 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Remove the navigator at the specified index and return it.  
-     *  Any items that were after this index are now one index earlier.
+     *  Remove the view navigator at the specified index and return it.  
+     *  The index of any items that were after this index are decreased by one.
      *
      *  @param index The index from which to remove the item.
+     *
      *  @return The item that was removed.
-     *  @throws RangeError if index &lt; 0 or index &gt;= length.
+     * 
+     *  @throws RangeError If index &lt; 0 or index &gt;= length.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1456,14 +1484,17 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Place the navigator at the specified index.  
-     *  If an item was already at that index the new item will replace it and it 
-     *  will be returned.
+     *  Add the view navigator at the specified index.  
+     *  If an item was already at that index, the new item replaces it, 
+     *  and it is returned.
      *
-     *  @param  item the navigator to place at the index
-     *  @param  index the index at which to place the navigator
-     *  @return the navigator that was replaced, null if none
-     *  @throws RangeError if index is less than 0 or greater than or equal to length
+     *  @param  item The view navigator to place at the index.
+     * 
+     *  @param  index The index at which to place the navigator.
+     * 
+     *  @return The navigator that was replaced, or null if none.
+     * 
+     *  @throws RangeError If index is less than 0 or greater than or equal to length
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1507,7 +1538,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  Return an Array that is populated in the same order as the IList
-     *  implementation.  
+     *  implementation. 
+     *
+     *  @return The Array.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
