@@ -22,7 +22,7 @@ package
  *  the SWC are found by a dependency analysis starting from the classes
  *  listed here.
  */
-internal class FlexClasses
+internal class CoreClasses
 {
 	import mx.core.BitmapAsset; BitmapAsset;
 	import mx.core.ByteArrayAsset; ByteArrayAsset;
