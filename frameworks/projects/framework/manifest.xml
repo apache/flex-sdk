@@ -65,7 +65,6 @@
     <component id="PhoneFormatter" class="mx.formatters.PhoneFormatter"/>
     <component id="PhoneNumberValidator" class="mx.validators.PhoneNumberValidator"/>
     <component id="Point" class="flash.geom.Point" lookupOnly="true"/>
-    <component id="ProgressBar" class="mx.controls.ProgressBar"/>
     <component id="RadialGradient" class="mx.graphics.RadialGradient"/>
     <component id="RadialGradientStroke" class="mx.graphics.RadialGradientStroke"/>
     <component id="RegExpValidator" class="mx.validators.RegExpValidator"/>
