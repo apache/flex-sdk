@@ -706,16 +706,44 @@ public class LabelItemRenderer extends UIComponent
         
         if (!labelDisplay)
         {
-            labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-            labelDisplay.styleName = this;
-            labelDisplay.editable = false;
-            labelDisplay.selectable = false;
-            labelDisplay.multiline = false;
-            labelDisplay.wordWrap = false;
-            
-            addChild(labelDisplay);
+            createLabelDisplay();
             labelDisplay.text = _label;
         }
+    }
+    
+    /**
+     *  Creates the labelDisplay component
+     * 
+     *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+     */ 
+    protected function createLabelDisplay():void
+    {
+        labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
+        labelDisplay.styleName = this;
+        labelDisplay.editable = false;
+        labelDisplay.selectable = false;
+        labelDisplay.multiline = false;
+        labelDisplay.wordWrap = false;
+        labelDisplay.cacheAsBitmap = true;
+        
+        addChild(labelDisplay);
+    }
+    
+    /**
+     *  Destroys the labelDisplay component
+     * 
+     *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+     */
+    protected function destroyLabelDisplay():void
+    {
+        removeChild(labelDisplay);
+        labelDisplay = null;
     }
     
     /**
