@@ -280,6 +280,7 @@ public class TabBarAccImpl extends AccImpl
 			return "";
 
 		var tabBar:TabBar = TabBar(master);
+
 		var index:int = childID - 1;
 		
 		// With new version of JAWS, when we add a new child, we get nonsense number
@@ -289,14 +290,7 @@ public class TabBarAccImpl extends AccImpl
 		
 		var item:Tab = Tab(tabBar.getChildAt(index));
 
-		var name:String = item.label;
-
-		if (index == tabBar.selectedIndex)
-			name += " Tab, Active";
-		else
-			name += " Tab";
-
-		return name;
+		return item.label;
 	}
 
 	//--------------------------------------------------------------------------
