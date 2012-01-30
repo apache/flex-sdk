@@ -324,7 +324,15 @@ public class View extends SkinnableContainer implements IDataRenderer
     
     [Inspectable(category="General", defaultValue="false")]
     /**
-     *  @copy spark.components.supportClasses.ViewNavigatorBase#overlayControls
+     *  By default, the TabBar and ActionBar controls of a 
+     *  mobile application define an area that cannot be used 
+     *  by the views of an application. 
+     *  That means your content cannot use the full screen size 
+     *  of the mobile device.
+     *  If you set this property to <code>true</code>, the content area 
+     *  of the application spans the entire width and height of the screen. 
+     *  The ActionBar and TabBar controls hover over the content area with 
+     *  an <code>alpha</code> value of 0.5 so that they are partially transparent. 
      *  
      *  @default false
      * 
@@ -562,11 +570,15 @@ public class View extends SkinnableContainer implements IDataRenderer
     private var _viewMenuItems:Vector.<ViewMenuItem>;
     
     /**
-     *  The Vector of ViewMenuItem objects that are passed to the ViewMenu when
+     *  The Vector of ViewMenuItem objects passed to the ViewMenu when
      *  this View is the active view. 
      *
      *  @see ViewMenu
      *  @see ViewMenuItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */   
     public function get viewMenuItems():Vector.<ViewMenuItem>
     {
