@@ -184,11 +184,12 @@ public class SystemManagerProxy extends SystemManager
 		// trace("stopDraggingHandler");
 		if (mouseCatcher)
 		{
-			setActualSize(0, 0);
+			$removeChildAt(0);
+			noTopMostIndex--;
+			mouseCatcher = null;
 		}
 	
 	}
-	
 
 	override public function addEventListenerToStage(type:String, listener:Function, useCapture:Boolean = false, 
 											priority:int=0, useWeakReference:Boolean=false):void
