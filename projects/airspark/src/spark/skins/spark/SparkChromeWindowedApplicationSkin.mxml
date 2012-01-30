@@ -35,14 +35,9 @@
     xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabledGroup="0.5" >
 
     <fx:Metadata>
-      /**
-       *  The host component of this skin.
-       * 
-       * @langversion 3.0
-       * @playerversion Flash 10
-       * @playerversion AIR 1.5
-       * @productversion Flex 4 
-       */
+      /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+        */
       [HostComponent("Object")]
     </fx:Metadata>
 
@@ -120,15 +115,15 @@
         </s:layout>
     
         <!-- title bar to display when not using 'systemChrome' -->
-        <!--- Defines the TitleBar container for the title bar, button,s and icon. -->
+        <!--- @copy spark.components.WindowedApplication#titleBar -->
         <s:TitleBar id="titleBar" width="100%" minHeight="24" alpha.inactiveGroup="0.5" />
         
         <!-- content -->
-        <!--- Defines the Group container where the content children get pushed into and laid out. -->
+        <!--- @copy spark.components.SkinnableContainer#contentGroup -->
         <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0"/>
         
         <!-- status bar -->
-        <!--- Defines the Group container for the status bar. -->
+        <!--- @copy spark.components.WindowedApplication#statusBar -->
         <s:Group id="statusBar" width="100%" minHeight="24" >
         
             <!-- status bar fill -->
@@ -152,7 +147,7 @@
             </s:Rect>
         
             <!-- status text -->
-            <!--- Defines the Label control for the text in the status bar. -->
+            <!--- @copy spark.components.WindowedApplication#statusText -->
             <s:Label id="statusText" top="2" bottom="2" left="10" right="10" verticalAlign="middle" 
                 fontSize="10" color="0x585858" width="100%" maxDisplayedLines="1" />
                     
@@ -162,10 +157,11 @@
     
     <!-- layer 3: gripper -->
     <!--- 
-        Defines the Button control for the gripper button. 
         By default, the button uses the spark.skins.spark.windowChrome.GripperSkin class
         to define the skin for the gripper button.
             
+        @copy spark.components.WindowedApplication#gripper
+    
         @see spark.skins.spark.windowChrome.GripperSkin 
     -->
     <s:Button id="gripper" right="3" bottom="3" tabEnabled="false" 
