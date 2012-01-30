@@ -192,12 +192,21 @@ public class OverrideBase extends OnDemandEventDispatcher implements IOverride
      * @private 
      * Disables or enables binding associated with a property override.
      */
-    protected function enableBindings(target:Object, property:String, enable:Boolean=true):void
+    protected function enableBindings(target:Object, parent:UIComponent, property:String, enable:Boolean=true):void
     {
-        if (isBaseValueDataBound && target && target.document && property)
+        if (isBaseValueDataBound && target && parent && property)
         {
-            var root:String = (target.document == target) ? "this" : target.id;
-            BindingManager.enableBindings(target.document, root + "." + property, enable);
+            var document:Object = target.hasOwnProperty("document") ? target.document : null;
+            document = !document && parent.hasOwnProperty("document") ? parent.document : null;
+            
+            var name:String = target.hasOwnProperty("id") ? target.id : null;
+            name = !name && target.hasOwnProperty("name") ? target.name : null;
+            
+            if (document && name)
+            {
+                var root:String = (document == target) ? "this" : name;
+                BindingManager.enableBindings(document, root + "." + property, enable);
+            }
         }
     }
 }
