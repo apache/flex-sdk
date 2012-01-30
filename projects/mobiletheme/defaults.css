@@ -106,6 +106,7 @@ HSlider
 List
 {
 	skinClass: ClassReference("spark.skins.mobile.ListSkin");
+    touchDelay: 100;
     dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
 	dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
 }
@@ -299,7 +300,7 @@ global
     autoThumbVisibility: true;
     fixedThumbSize: false;
     fullScreenHideControlsDelay: 3000;
-    inputMode: "touch";
+    interactionMode: "touch";
     liveDragging: true;
     rollOverOpenDelay: 200;
     slideDuration: 300;
