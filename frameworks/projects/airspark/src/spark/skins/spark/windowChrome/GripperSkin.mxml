@@ -10,7 +10,17 @@
     in accordance with the terms of the license agreement accompanying it.
 
 -->
+<!--- The default skin class for the grippers in the Spark WindowedApplication component
+      and Spark Window component when you use Flex chrome. 
+      Use the grippers to resize the AIR window.
+      The Flex chrome is defined by the FlexChromeSkin skin class 
+      in the spark.skins.default package. 
+      To use the Flex chrome, set <code>systemChrome</code> to "none" in the application's .xml file,
+      and set the <code>skinClass</code> style to spark.skins.default.FlexChromeSkin. 
 
+      @see spark.components.WindowedApplication
+      @see spark.components.Window
+-->
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" minWidth="7" minHeight="9" >
 
     <s:states>
@@ -20,6 +30,7 @@
         <s:State name="disabled" />
     </s:states>
     
+    <!--- Defines the background color of the skin. -->
     <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0">
         <s:fill>
             <s:SolidColor color="#000000" alpha=".0001" />
