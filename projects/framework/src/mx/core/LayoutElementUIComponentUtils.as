@@ -30,6 +30,11 @@ public class LayoutElementUIComponentUtils
      *  @return Returns the preferred width (untransformed) of the IUIComponent.
      *  Takes into account measured width, explicit width, explicit min width
      *  and explicit max width.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private static function getPreferredUBoundsWidth(obj:IUIComponent):Number
     {
@@ -49,6 +54,11 @@ public class LayoutElementUIComponentUtils
      *  @return Returns the preferred height (untransformed) of the IUIComponent.
      *  Takes into account measured height, explicit height, explicit min height
      *  and explicit max height.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private static function getPreferredUBoundsHeight(obj:IUIComponent):Number
     {
@@ -154,6 +164,11 @@ public class LayoutElementUIComponentUtils
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getPreferredBoundsWidth(obj:IUIComponent,transformMatrix:Matrix):Number
     {
@@ -179,6 +194,11 @@ public class LayoutElementUIComponentUtils
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getMinBoundsWidth(obj:IUIComponent, transformMatrix:Matrix):Number
     {
@@ -206,6 +226,11 @@ public class LayoutElementUIComponentUtils
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getMaxBoundsWidth(obj:IUIComponent, transformMatrix:Matrix):Number
     {
@@ -231,6 +256,11 @@ public class LayoutElementUIComponentUtils
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getLayoutBoundsWidth(obj:IUIComponent,transformMatrix:Matrix):Number
     {
@@ -292,6 +322,11 @@ public class LayoutElementUIComponentUtils
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getLayoutBoundsX(obj:IUIComponent,transformMatrix:Matrix):Number
     {
@@ -343,6 +378,11 @@ public class LayoutElementUIComponentUtils
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function setLayoutBoundsPosition(obj:IUIComponent,x:Number, y:Number, transformMatrix:Matrix):void
     {
@@ -359,6 +399,11 @@ public class LayoutElementUIComponentUtils
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function setLayoutBoundsSize(obj:IUIComponent,width:Number,
                                   height:Number,
