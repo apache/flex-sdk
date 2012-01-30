@@ -2485,11 +2485,11 @@ public class Window extends SkinnableContainer implements IWindow
         if (event.target is DisplayObject && event.target != contentGroup)
         {
            var o:DisplayObject = DisplayObject(event.target);
-            while (o != contentGroup && o != this)
-                o = o.parent;
-    
-            if (o == contentGroup)
-                return NativeWindowResize.NONE;
+		   while (o && o != contentGroup && o != this)
+			   o = o.parent;
+		   
+		   if (o == null || o == contentGroup)
+			   return NativeWindowResize.NONE;
         }
             
         var hitTestResults:String = NativeWindowResize.NONE;
