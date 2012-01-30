@@ -58,17 +58,17 @@ use namespace mx_internal;
  *  displays direction toward the owner.
  *
  *  <p>Callout uses <code>horizontalPosition</code> and
- *  <code>verticalPosition<code> properties to determine the position of the
+ *  <code>verticalPosition</code> properties to determine the position of the
  *  Callout relative to the owner that is specified via the <code>open()</code>
  *  method. Both properties may be set to CalloutPosition.AUTO which selects a
  *  position based on the aspect ratio of the screen for the Callout to fit
  *  with minimal overlap with the owner and and minimal adjustments at the
- *  screen bounds.
+ *  screen bounds.</p>
  *
  *  <p>Once positioned, the Callout positions the arrow on the side adjacent
  *  to the owner, centered as close as possible on the horizontal or vertical
  *  center of the owner as appropriate. The arrow is hidden in cases where
- *  the Callout position is not adjacent to any edge.
+ *  the Callout position is not adjacent to any edge.</p>
  *
  *  <p>You do not create a Callout container as part of the normal layout
  *  of its parent container.
