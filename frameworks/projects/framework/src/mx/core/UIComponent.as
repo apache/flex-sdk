@@ -9833,7 +9833,7 @@ public class UIComponent extends FlexSprite
             case Keyboard.UP:
             {
                 // typically, if ltr, the same as LEFT
-                if (mapUpDown && LayoutDirection.RTL)
+                if (mapUpDown && layoutDirection == LayoutDirection.RTL)
                     keyCode = Keyboard.RIGHT;                
                 break;
             }
