@@ -244,7 +244,7 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @private
      *  The source to set iconDisplay to, after waiting an appropriate delay period
      */
-    private var loadingIconSource:Object;
+    private var iconSourceToLoad:Object;
     
     //--------------------------------------------------------------------------
     //
@@ -817,6 +817,49 @@ public class IconItemRenderer extends LabelItemRenderer
         invalidateSize();
         invalidateDisplayList();
     }
+	
+	//----------------------------------
+	//  loadingIconClass
+	//----------------------------------
+	
+	/**
+	 *  @private 
+	 */ 
+	private var _loadingIconClass:Class;
+	
+	/**
+	 *  The icon asset to use while an externally loaded asset is
+	 *  being downloaded.
+	 *
+	 *  @default null
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 */
+	public function get loadingIconClass():Class
+	{
+		return _loadingIconClass;
+	}
+	
+	/**
+	 *  @private
+	 */ 
+	public function set loadingIconClass(value:Class):void
+	{
+		if (value == _loadingIconClass)
+			return;
+		
+		_loadingIconClass = value;
+		
+		iconChanged = true;
+		invalidateProperties();
+		
+		// clear clearOnLoad if necessary
+		if (iconDisplay)
+			iconDisplay.clearOnLoad = (loadingIconClass == null);
+	}
     
     //----------------------------------
     //  messageField
@@ -1415,6 +1458,62 @@ public class IconItemRenderer extends LabelItemRenderer
         removeChild(labelDisplay);
         labelDisplay = null;
     }
+	
+	/**
+	 *  @private
+	 */
+	private function loadExternalImage(source:Object, iconDelay:Number):void
+	{
+		// set iconDisplay's source now to either loadingIconClass 
+		// or null (if no loadingIconClass).  this is so we don't display the old 
+		// data while we're loading.
+		iconDisplay.source = loadingIconClass;
+		
+		// while we're loading,if loadingIconClass is set, 
+		// we'll keep that image up while we're loading
+		// the external content
+		iconDisplay.clearOnLoad = (loadingIconClass == null);
+
+		if (iconDelay > 0)
+		{
+			// set what we're gonna load and start the timer
+			iconSourceToLoad = source;
+			
+			if (!iconSetterDelayTimer)
+			{
+				iconSetterDelayTimer = new Timer(iconDelay, 1);
+				iconSetterDelayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, iconSetterDelayTimer_timerCompleteHandler);
+			}
+			
+			iconSetterDelayTimer.start();
+		}
+		else // iconDelay == 0
+		{
+			// load up the image immediately
+			
+			// need to call validateProperties because we need this loadingIconClass
+			// to actually get loaded up since we set iconDisplay.source to a remote 
+			// image on the next line.  BitmapImage doesn't actually attempt to load 
+			// up the image (even if it's a locally embedded asset) until commitProperties()
+			iconDisplay.validateProperties();
+			
+			iconDisplay.source = source;
+		}
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function stopLoadingExternalImage():void
+	{
+		// stop any asynch operation:
+		if (iconSetterDelayTimer)
+		{
+			iconSourceToLoad = null
+			iconSetterDelayTimer.stop();
+			iconSetterDelayTimer.reset();
+		}
+	}
     
     /**
      *  @private
@@ -1423,39 +1522,27 @@ public class IconItemRenderer extends LabelItemRenderer
     {
         var iconDelay:Number = getStyle("iconDelay");
         
-        
         // if not a string or URL request (or null), load it up immediately
         var isExternalSource:Boolean = (source is String || source is URLRequest);
         
-        // if null or iconDelay == 0, do it synchronously
-        if (!isExternalSource || iconDelay == 0)
+        // if null or embedded asset do it synchronously
+        if (!isExternalSource)
         {
-            // stop any asynch operation:
-            if (iconSetterDelayTimer)
-            {
-                loadingIconSource = null
-                iconSetterDelayTimer.stop();
-                iconSetterDelayTimer.reset();
-            }
-            
-            // load it up
-            iconDisplay.source = source;
+            stopLoadingExternalImage();
+
+			// load it up
+        	iconDisplay.source = source;
             
             return;
         }
         
         // if it's the same source, don't cancel this load--let it continue 
-        if (loadingIconSource == source)
+        if (iconSourceToLoad == source)
             return;
         
         // At this point, we know we can cancel the old asynch operation 
         // since we're not going to use it anymore
-        if (iconSetterDelayTimer)
-        {
-            loadingIconSource = null
-            iconSetterDelayTimer.stop();
-            iconSetterDelayTimer.reset();
-        }
+		stopLoadingExternalImage();
         
         // we know we're loading external content, check the cache first:
         var contentCache:ContentCache = iconContentLoader as ContentCache;
@@ -1468,19 +1555,8 @@ public class IconItemRenderer extends LabelItemRenderer
             }
         }
         
-        // otherwise, we need to rely on the timer
-        if (!iconSetterDelayTimer)
-        {
-            iconSetterDelayTimer = new Timer(iconDelay, 1);
-            iconSetterDelayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, iconSetterDelayTimer_timerCompleteHandler);
-        }
-        
-        // this is so we don't display the old data while we're loading
-        // FIXME (rfrishbe): perhaps we should add an iconLoadingAsset (must be embedded) property?
-        iconDisplay.source = null;
-        loadingIconSource = source;
-        
-        iconSetterDelayTimer.start();
+		// otherwise, we need to load an external asset and use a Timer
+		loadExternalImage(source, iconDelay);
     }
     
     /**
@@ -1494,9 +1570,9 @@ public class IconItemRenderer extends LabelItemRenderer
             return;
         
         if (iconDisplay)
-            iconDisplay.source = loadingIconSource;
+            iconDisplay.source = iconSourceToLoad;
         
-        loadingIconSource = null;
+        iconSourceToLoad = null;
     }
     
     /**
