@@ -383,7 +383,7 @@ public class PopUpManagerImpl implements IPopUpManager
             
         if (window is IFocusManagerContainer && visibleFlag)
         {
-         	if (smp.useSWFBridge())
+         	if (!(smp is SystemManagerProxy) && smp.useSWFBridge())
          		// We want the top-level root to activate the window.
          		SystemManager(smp).dispatchActivatedWindowEvent(DisplayObject(window));
          	else
@@ -573,7 +573,17 @@ public class PopUpManagerImpl implements IPopUpManager
             if (o)
             {
                 const sm:ISystemManager = ISystemManager(popUp.parent);
-                if (o.topMost)
+                if (sm is SystemManagerProxy)
+                {
+                    // Since the proxy is parented to the SystemManager we need to 
+                    // be it to the front, not the pop up.
+                    var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
+                                            false, false,
+                                            "bringToFront", 
+                                            {topMost: o.topMost, popUp: sm}); 
+                    sm.getSandboxRoot().dispatchEvent(request);
+                }
+                else if (o.topMost)
                     sm.popUpChildren.setChildIndex(DisplayObject(popUp), sm.popUpChildren.numChildren - 1);
                 else
                     sm.setChildIndex(DisplayObject(popUp), sm.numChildren - 1);
@@ -675,7 +685,9 @@ public class PopUpManagerImpl implements IPopUpManager
         if (o.exclude)
         {
             o.modalMask = new Sprite();
-            updateModalMask(realSm, modalWindow, o.exclude, o.excludeRect, o.modalMask);    
+            updateModalMask(realSm, modalWindow, 
+                            o.useExclude ? o.exclude : null, 
+                            o.excludeRect, o.modalMask);    
             modalWindow.mask = o.modalMask;
             childrenList.addChild(o.modalMask);
             
@@ -737,14 +749,16 @@ public class PopUpManagerImpl implements IPopUpManager
             if (Boolean(request.value))
                 return;
         }
+        
         var modalRequest:SWFBridgeRequest = new SWFBridgeRequest(type, false, false, null,
-												{ skip: !o.isRemoteModalWindow && sm != sbRoot,     
-													show: visibleFlag,
-													remove: false,
-													transparencyDuration: o.modalTransparencyDuration,
-													transparency: o.modalTransparency,
-													transparencyColor: o.modalTransparencyColor,
-													transparencyBlur: o.modalTransparencyBlur});
+												{ skip: !o.isRemoteModalWindow && sm != sbRoot,
+												  useExclude: o.useExclude,   
+												  show: visibleFlag,
+												  remove: false,
+												  transparencyDuration: o.modalTransparencyDuration,
+												  transparency: o.modalTransparency,
+												  transparencyColor: o.modalTransparencyColor,
+												  transparencyBlur: o.modalTransparencyBlur});
         var bridge:IEventDispatcher = sm.swfBridgeGroup.parentBridge;; 
         modalRequest.requestor = bridge;
         bridge.dispatchEvent(modalRequest);
@@ -775,8 +789,8 @@ public class PopUpManagerImpl implements IPopUpManager
         var modalBounds:Rectangle = modalWindow.getBounds(DisplayObject(sm));
         var excludeBounds:Rectangle;
         var pt:Point;
-                
-        if (exclude is ISWFLoader)
+            
+        if (exclude is ISWFLoader) 
         {
             excludeBounds = ISWFLoader(exclude).getVisibleApplicationRect();
             pt = new Point(excludeBounds.x, excludeBounds.y);
@@ -784,6 +798,8 @@ public class PopUpManagerImpl implements IPopUpManager
             excludeBounds.x = pt.x;
             excludeBounds.y = pt.y;    
         }
+        else if (!exclude)
+            excludeBounds = modalBounds.clone();    // don't exclude anything extra
         else 
             excludeBounds = DisplayObject(exclude).getBounds(DisplayObject(sm));
         
@@ -1221,6 +1237,7 @@ public class PopUpManagerImpl implements IPopUpManager
         // The requestor may be a real SWFLoader or a sandbox bridge that 
         // requires a look up to get the SWFLoader. 
         popUpData.exclude = sm.swfBridgeGroup.getChildBridgeProvider(request.requestor) as IUIComponent;
+        popUpData.useExclude = request.data.useExclude;
         popUpData.excludeRect = Rectangle(request.data.excludeRect);
         
         if (!popupInfo)
@@ -1605,6 +1622,7 @@ class PopUpData
     public function PopUpData()
     {
         super();
+        useExclude = true;
     }
     
     //--------------------------------------------------------------------------
@@ -1708,6 +1726,17 @@ class PopUpData
      *   display object will be excluded from the modal dialog.
      */  
     public var exclude:IUIComponent;
+    
+    /**
+     *   @private
+     * 
+     *   Flag to determine if the exclude property should be used
+     *   or ignored. Typically the exclude field is used when a
+     *   SystemManager contains its exclude child. But this isn't
+     *   true when the child is in a pop up window. In this case
+     *   useExclude is false.
+     */  
+    public var useExclude:Boolean;
      
     /**
      *   @private
