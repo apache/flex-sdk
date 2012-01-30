@@ -44,8 +44,13 @@ public class ViewMenuItemSkin extends ButtonSkin
                 downBorderSkin = spark.skins.mobile320.assets.ViewMenuItem_down;
                 showsCaretBorderSkin = spark.skins.mobile320.assets.ViewMenuItem_showsCaret;
                 
-                layoutBorderSize = 2;
-                layoutPaddingBottom = 12;
+				layoutGap = 12;
+				layoutPaddingLeft = 12;
+				layoutPaddingRight = 12;
+				layoutPaddingTop = 12;
+                layoutPaddingBottom = 3;
+				layoutBorderSize = 2;	
+				
                 
                 break;
             }
@@ -55,9 +60,13 @@ public class ViewMenuItemSkin extends ButtonSkin
                 downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
                 showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret;
                 
-                layoutBorderSize = 1;
-                layoutPaddingBottom = 8;
-                
+				layoutGap = 8;
+				layoutPaddingLeft = 8;
+				layoutPaddingRight = 8;
+				layoutPaddingTop = 8;
+                layoutPaddingBottom = 1;
+				layoutBorderSize = 1;
+
                 break;
             
             }
@@ -67,8 +76,12 @@ public class ViewMenuItemSkin extends ButtonSkin
                 downBorderSkin = spark.skins.mobile.assets.ViewMenuItem_down;
                 showsCaretBorderSkin = spark.skins.mobile.assets.ViewMenuItem_showsCaret; 
                 
-                layoutBorderSize = 1;
-                layoutPaddingBottom = 6;
+				layoutGap = 6;
+				layoutPaddingLeft = 6;
+				layoutPaddingRight = 6;
+				layoutPaddingTop = 6;
+                layoutPaddingBottom = 1;
+				layoutBorderSize = 1;
             }
         }
         
