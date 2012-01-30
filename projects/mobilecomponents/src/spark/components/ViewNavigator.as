@@ -1248,6 +1248,13 @@ public class ViewNavigator extends ViewNavigatorBase
             
         if (actionBarVisibilityInvalidated)
             commitVisibilityChanges();
+        
+        // When true, this flag prevents action bar animations from running.  This flag 
+        // is only set to  true if the application received an orientation event this 
+        // frame (See ViewNavigatorBase).  The flag is reset at the end of commitProperties 
+        // so that animations run again.
+        if (disableNextControlAnimation)
+            disableNextControlAnimation = false;
     }
     
     /**
@@ -1483,7 +1490,7 @@ public class ViewNavigator extends ViewNavigatorBase
                                             createActionBarHideEffect();
                                                 
                 actionBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
-                                                           visibilityAnimation_completeHandler);
+                                                           visibilityAnimation_effectEndHandler);
                 
                 actionBarVisibilityEffect.play();
             }
@@ -1493,10 +1500,6 @@ public class ViewNavigator extends ViewNavigatorBase
                 
                 if (activeView)
                     activeView.setActionBarVisible(showingActionBar);
-
-                // When this flag is true, the animations should only be disabled for the 
-                // current frame, so reset the flag so animations play on subsequent frames.
-                disableNextControlAnimation = false;
             }
         }
         
@@ -1640,33 +1643,6 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
-     *  Captures the important animation values of component to use
-     *  when animating the actionBar's visiblity.
-     *  
-     *  @param component The component to capture the values from
-     * 
-     *  @return Returns an object that contains the properties 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    private function captureAnimationValues(component:UIComponent):Object
-    {
-        var values:Object = {   x:component.x,
-                                y:component.y,
-                                width:component.width,
-                                height:component.height,
-                                visible: component.visible,
-                                includeInLayout: component.includeInLayout,
-                                cacheAsBitmap: component.cacheAsBitmap };
-        
-        return values;
-    }
-    
-    /**
-     *  @private
      *  Creates the effect to play on the contentGroup when the navigator is
      *  generating an animation to play to hide or show the action bar.  This effect
      *  should only target the contentGroup as it will be played in parallel with
@@ -1701,9 +1677,9 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function visibilityAnimation_completeHandler(event:EffectEvent):void
+    private function visibilityAnimation_effectEndHandler(event:EffectEvent):void
     {
-        event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
+        event.target.removeEventListener(EffectEvent.EFFECT_END, visibilityAnimation_effectEndHandler);
         
         // Clear flags and temporary properties
         actionBarVisibilityEffect = null;
@@ -1726,6 +1702,18 @@ public class ViewNavigator extends ViewNavigatorBase
         if (contentGroupProps)
         {
             contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
+
+            // The default action bar hide and show animation will animate the width and height
+            // of the navigator's contentGroup.  If the explicitWidth or explicitHeight properties
+            // were NaN before the animation, they'll be set to real values by the animation.  As
+            // a result, it is necessary to restore them to NaN so that layout properly sizes these
+            // components. 
+            if (isNaN(contentGroupProps.start.explicitHeight))
+                contentGroup.explicitHeight = NaN;
+            
+            if (isNaN(contentGroupProps.start.explicitWidth))
+                contentGroup.explicitWidth = NaN;
+            
             contentGroupProps = null;
         }
     }
