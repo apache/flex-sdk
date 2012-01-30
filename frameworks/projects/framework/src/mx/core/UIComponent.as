@@ -1267,6 +1267,8 @@ public class UIComponent extends FlexSprite
     //  embeddedFontRegistry
     //----------------------------------
 
+	private static var noEmbeddedFonts:Boolean;
+
     /**
      *  @private
      *  Storage for the _embeddedFontRegistry property.
@@ -1284,10 +1286,17 @@ public class UIComponent extends FlexSprite
      */
     private static function get embeddedFontRegistry():IEmbeddedFontRegistry
     {
-        if (!_embeddedFontRegistry)
+        if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
-            _embeddedFontRegistry = IEmbeddedFontRegistry(
-                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+			try
+			{
+				_embeddedFontRegistry = IEmbeddedFontRegistry(
+					Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+			}
+			catch (e:Error)
+			{
+				noEmbeddedFonts = true;
+			}
         }
 
         return _embeddedFontRegistry;
@@ -1712,13 +1721,6 @@ public class UIComponent extends FlexSprite
     /**
      * @private
      *
-     * Cache last value of embedded font.
-     */
-    private var cachedEmbeddedFont:EmbeddedFont = null;
-
-    /**
-     * @private
-     *
      * storage for advanced layout and transform properties.
      */
     private var _layoutFeatures:AdvancedLayoutFeatures;
@@ -1802,6 +1804,34 @@ public class UIComponent extends FlexSprite
      *  document.automaticRadioButtonGroups[groupName] = theRadioButtonGroup;
      */
     mx_internal var automaticRadioButtonGroups:Object;
+
+	private var _usingBridge:int = -1;
+
+	/**
+	 *  @private
+	 */
+	private function get usingBridge():Boolean
+	{
+		if (_usingBridge == 0) return false;
+		if (_usingBridge == 1) return true;
+
+		if (!_systemManager) return false;
+
+		// no types so no dependencies
+		var mp:Object = _systemManager.getImplementation("mx.managers.IMarshallPlanSystemManager");
+		if (!mp)
+		{
+			_usingBridge = 0;
+			return false;
+		}
+		if (mp.useSWFBridge())
+		{
+			_usingBridge = 1;
+			return true;
+		}
+		_usingBridge = 0;
+		return false;
+	}
 
     //--------------------------------------------------------------------------
     //
@@ -3299,7 +3329,7 @@ public class UIComponent extends FlexSprite
         if (!_systemManager || _systemManagerDirty)
         {
             var r:DisplayObject = root;
-            if (_systemManager is SystemManagerProxy)
+            if (_systemManager && _systemManager.isProxy)
             {
                 // keep the existing proxy
             }
@@ -6270,7 +6300,7 @@ public class UIComponent extends FlexSprite
         // if it is null. Hence a call to the getter is necessary.
         // Stage can be null when an untrusted application is loaded by an application
         // that isn't on stage yet.
-        if (systemManager && (_systemManager.stage || _systemManager.useSWFBridge()))
+        if (systemManager && (_systemManager.stage || usingBridge))
         {
             if (methodQueue.length > 0 && !listeningForRender)
             {
@@ -6960,7 +6990,7 @@ public class UIComponent extends FlexSprite
 
         // Stage can be null when an untrusted application is loaded by an application
         // that isn't on stage yet.
-        if (sm && (sm.stage || sm.useSWFBridge()))
+        if (sm && (sm.stage || usingBridge))
         {
             if (!listeningForRender)
             {
@@ -6988,7 +7018,7 @@ public class UIComponent extends FlexSprite
 
         // Stage can be null when an untrusted application is loaded by an application
         // that isn't on stage yet.
-        if (sm && (sm.stage || sm.useSWFBridge()))
+        if (sm && (sm.stage || usingBridge))
         {
             if (listeningForRender)
             {
@@ -7671,7 +7701,7 @@ public class UIComponent extends FlexSprite
             var sm:ISystemManager = parent as ISystemManager;
             if (sm)
             {
-                if (sm is SystemManagerProxy || (sm == systemManager.topLevelSystemManager &&
+                if (sm.isProxy || (sm == systemManager.topLevelSystemManager &&
                     sm.document != this))
                 {
                     // Size ourself to the new measured width/height
@@ -8510,7 +8540,7 @@ public class UIComponent extends FlexSprite
     public function setFocus():void
     {
         var sm:ISystemManager = systemManager;
-        if (sm && (sm.stage || sm.useSWFBridge()))
+        if (sm && (sm.stage || usingBridge))
         {
             if (UIComponentGlobals.callLaterDispatcherCount == 0)
             {
@@ -10388,7 +10418,7 @@ public class UIComponent extends FlexSprite
 
         // Stage can be null when an untrusted application is loaded by an application
         // that isn't on stage yet.
-        if (sm && (sm.stage || sm.useSWFBridge()) && listeningForRender)
+        if (sm && (sm.stage || usingBridge) && listeningForRender)
         {
             // trace("  removed");
             sm.removeEventListener(FlexEvent.RENDER, callLaterDispatcher);
@@ -10832,28 +10862,6 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     * @private
-     *
-     * Get the embedded font for a set of font attributes.
-     */
-    mx_internal function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
-    {
-        // Check if we can reuse a cached value.
-        if (cachedEmbeddedFont)
-        {
-            if (cachedEmbeddedFont.fontName == fontName &&
-                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
-            {
-                return cachedEmbeddedFont;
-            }
-        }
-
-        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);
-
-        return cachedEmbeddedFont;
-    }
-
-    /**
      *  @private
      *  Finds a module factory that can create a TextField
      *  that can display the given font.
@@ -10873,8 +10881,13 @@ public class UIComponent extends FlexSprite
     mx_internal function getFontContext(fontName:String, bold:Boolean,
                                         italic:Boolean):IFlexModuleFactory
     {
-        return embeddedFontRegistry.getAssociatedModuleFactory(
-               getEmbeddedFont(fontName, bold, italic), moduleFactory);
+		if (noEmbeddedFonts) 
+			return null;
+
+		var registry:IEmbeddedFontRegistry = embeddedFontRegistry;
+
+        return registry ? registry.getAssociatedModuleFactory(
+			fontName, bold, italic, this, moduleFactory) : null;
     }
 
     /**
@@ -11006,11 +11019,9 @@ public class UIComponent extends FlexSprite
         var fontStyle:String = getStyle("fontStyle");
         var bold:Boolean = fontWeight == "bold";
         var italic:Boolean = fontStyle == "italic";
-        var embeddedFont:EmbeddedFont =
-            getEmbeddedFont(fontName, bold, italic);
-        var fontContext:IFlexModuleFactory =
+        var fontContext:IFlexModuleFactory = noEmbeddedFonts ? null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                embeddedFont, moduleFactory);
+                fontName, bold, italic, this, moduleFactory);
         return fontContext != oldEmbeddedFontContext;
     }
 
