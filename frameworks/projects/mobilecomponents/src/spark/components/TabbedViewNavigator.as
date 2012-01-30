@@ -55,6 +55,10 @@ use namespace mx_internal;
  *  to the selected tab in the TabBar control.
  * 
  *  @eventType spark.events.IndexChangeEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="change", type="spark.events.IndexChangeEvent")]
 
@@ -64,6 +68,10 @@ use namespace mx_internal;
  *  from changing.
  * 
  *  @eventType spark.events.IndexChangeEvent.CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="changing", type="spark.events.IndexChangeEvent")]
 
@@ -72,6 +80,10 @@ use namespace mx_internal;
  *  TabbedViewNavigator changes.
  * 
  *  @eventType mx.events.CollectionEvent.COLLECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
