@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2006 Adobe Systems Incorporated
+//  Copyright 2008 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -16,18 +16,21 @@ import mx.sandbox.ISandboxBridgeGroup;
 import mx.managers.ISystemManager2;
 import flash.events.IEventDispatcher;
 
-
 /**
- * Utilities for working with sandboxes.
+ *  Utilities for working with sandboxes.
  */
 public class SandboxUtil
 {
-	public function SandboxUtil()
-	{
-	}
+	include "../core/Version.as";
+
+	//--------------------------------------------------------------------------
+	//
+	//  Class methods
+	//
+	//--------------------------------------------------------------------------
 
 	/**
-	 * Test if there is mutual trust between a SystemManager and its parent.
+	 *  Tests if there is mutual trust between a SystemManager and its parent.
 	 */ 
 	public static function hasMutualTrustWithParent(sm:ISystemManager2):Boolean
 	{
@@ -36,27 +39,32 @@ public class SandboxUtil
 		if (sandboxBridgeGroup.parentBridge &&
 			sandboxBridgeGroup.canAccessParentBridge() &&
 		    sandboxBridgeGroup.accessibleFromParentBridge())
+        {
 			return true;
+        }
 
 		return false;
 	}
 
 
 	/**
-	 * Test if there is mutual trust between a SystemManager and one of its
-	 * bridged applications.
+	 *  Tests if there is mutual trust between a SystemManager
+     *  and one of its bridged applications.
 	 */ 
-	public static function hasMutualTrustWithChild(sm:ISystemManager2, bridge:IEventDispatcher):Boolean
+	public static function hasMutualTrustWithChild(
+                                sm:ISystemManager2,
+                                bridge:IEventDispatcher):Boolean
 	{
 		var sandboxBridgeGroup:ISandboxBridgeGroup = sm.sandboxBridgeGroup;
 		
 		if (sandboxBridgeGroup.canAccessChildBridge(bridge) &&
 		    sandboxBridgeGroup.accessibleFromChildBridge(bridge))
+        {
 			return true;
+        }
 
 		return false;
 	}
-
-
 }
+
 }
