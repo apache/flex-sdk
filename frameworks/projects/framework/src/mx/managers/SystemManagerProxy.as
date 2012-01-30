@@ -27,6 +27,8 @@ import mx.events.SWFBridgeEvent;
 import mx.utils.NameUtil;
 import mx.utils.SecurityUtil;
 import mx.events.SWFBridgeRequest;
+import mx.managers.systemClasses.MarshallPlan;
+import mx.managers.systemClasses.ChildManager;
 
 use namespace mx_internal;
 
@@ -47,34 +49,42 @@ use namespace mx_internal;
  */
 public class SystemManagerProxy extends SystemManager
 {
-        include "../core/Version.as";
+    include "../core/Version.as";
 
-        /**
-         *  Constructor.
-         * 
-         *  @param systemManager The system manager that this class is a proxy for.
-         *  This is the system manager in the same application domain as the popup.
+    /**
+     *  Constructor.
+     * 
+     *  @param systemManager The system manager that this class is a proxy for.
+     *  This is the system manager in the same application domain as the popup.
          *  
          *  @langversion 3.0
          *  @playerversion Flash 9
          *  @playerversion AIR 1.1
          *  @productversion Flex 3
-         */
-        public function SystemManagerProxy(systemManager:ISystemManager)
-        {
-                super();
+     */
+    public function SystemManagerProxy(systemManager:ISystemManager)
+    {
+        super();
 
-                _systemManager = systemManager;
+        _systemManager = systemManager;
 
-                // We are a proxy for a popup - we are the hightest system manager.
+		mp = MarshallPlan(systemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+
+        // We are a proxy for a popup - we are the hightest system manager.
         topLevel = true; 
                 
-                // Capture mouseDown so we can switch top level windows and activate
-                // the right focus manager before the components inside start
-                // processing the event.
-                super.addEventListener(MouseEvent.MOUSE_DOWN, proxyMouseDownHandler, true);
-        }
+        // Capture mouseDown so we can switch top level windows and activate
+        // the right focus manager before the components inside start
+        // processing the event.
+        super.addEventListener(MouseEvent.MOUSE_DOWN, proxyMouseDownHandler, true);
+
+        registerImplementation("mx.managers::IActiveWindowManager", new SystemManagerProxyActivePopUpManager(this));
+
+        childManager = new ChildManager(this);
+    }
         
+	private var mp:MarshallPlan;
+
     //--------------------------------------------------------------------------
     //
     //  Overriden properties
@@ -91,6 +101,17 @@ public class SystemManagerProxy extends SystemManager
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
+     */
+    override public function get isProxy():Boolean
+    {
+        return true;
+    }
+
+    //----------------------------------
+    //  screen
+    //----------------------------------
+    /**
+     *  @inheritDoc
      */
     override public function get screen():Rectangle
     {
@@ -113,10 +134,19 @@ public class SystemManagerProxy extends SystemManager
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
+    override public function get topLevelSystemManager():ISystemManager
+    {
+        // The document of this proxy is its pop up.
+        return systemManager.topLevelSystemManager;
+    }
+
+    /**
+     *  @inheritDoc
+     */
     override public function get document():Object
     {
         // The document of this proxy is its pop up.
-        return findFocusManagerContainer(this);
+        return mp.findFocusManagerContainer(this);
     }
 
     /**
@@ -130,7 +160,7 @@ public class SystemManagerProxy extends SystemManager
     //  systemManager
     //----------------------------------
     
-        /**
+    /**
      *  @private
      */
     private var _systemManager:ISystemManager;
@@ -145,10 +175,10 @@ public class SystemManagerProxy extends SystemManager
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */ 
-        public function get systemManager():ISystemManager
-        {
-                return _systemManager;
-        }
+    public function get systemManager():ISystemManager
+    {
+        return _systemManager;
+    }
         
     //--------------------------------------------------------------------------
     //
@@ -156,59 +186,17 @@ public class SystemManagerProxy extends SystemManager
     //
     //--------------------------------------------------------------------------
 
-        /**
-         *  @inheritDoc
+    /**
+     *  @inheritDoc
          *  
          *  @langversion 3.0
          *  @playerversion Flash 9
          *  @playerversion AIR 1.1
          *  @productversion Flex 3
-         */
-        override public function getDefinitionByName(name:String):Object
-        {
-                return _systemManager.getDefinitionByName(name);
-        }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
-        override public function create(... params):Object
-        {
-                return IFlexModuleFactory(_systemManager).create.apply(this, params);
-        }
-
-    /**
-     *  Add a bridge to talk to the child owned by <code>owner</code>.
-     * 
-     *  @param bridge The bridge used to talk to the parent. 
-     *  @param owner The display object that owns the bridge.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */ 
-    override public function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void
+    override public function getDefinitionByName(name:String):Object
     {
-        _systemManager.addChildBridge(bridge, owner);
-    }
-
-    /**
-     *  Remove a child bridge.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    override public function removeChildBridge(bridge:IEventDispatcher):void
-    {
-        _systemManager.removeChildBridge(bridge);
+        return _systemManager.getDefinitionByName(name);
     }
 
     /**
@@ -219,11 +207,16 @@ public class SystemManagerProxy extends SystemManager
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-        override public function useSWFBridge():Boolean
-        {
-                return _systemManager.useSWFBridge();
-        }       
-        
+    override public function create(... params):Object
+    {
+        return IFlexModuleFactory(_systemManager).create.apply(this, params);
+    }
+
+	override public function getImplementation(interfaceName:String):Object
+	{
+		return _systemManager.getImplementation(interfaceName);
+	}
+
     /**
      *  @inheritDoc
      *  
@@ -253,76 +246,20 @@ public class SystemManagerProxy extends SystemManager
         _systemManager.removeEventListener(type, listener, useCapture);     
     }
     
-        /**
-         *  @inheritDoc
+	/**
+	 *  @private
          *  
          *  @langversion 3.0
          *  @playerversion Flash 9
          *  @playerversion AIR 1.1
          *  @productversion Flex 3
-         */
-        override public function activate(f:IFocusManagerContainer):void
-        {
-                // trace("SM Proxy: activate " + f );
-                
-                // Activate the proxied SystemManager.
+	 */
+	override public function isTopLevel():Boolean
+	{
+		return systemManager.isTopLevel();
+	}
 
-                var bridge:IEventDispatcher =
-            _systemManager.swfBridgeGroup ? 
-                        _systemManager.swfBridgeGroup.parentBridge :
-            null;
-
-                if (bridge)
-                {
-                        var mutualTrust:Boolean =
-                SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(_systemManager));
-
-                        var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
-                SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE,
-                false, false,
-                { notifier: bridge,
-                  window: mutualTrust ? this : NameUtil.displayObjectToString(this)
-                });
-                        
-            _systemManager.getSandboxRoot().dispatchEvent(bridgeEvent);
-                }
-        }
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-        override public function deactivate(f:IFocusManagerContainer):void
-        {
-                // trace("SM Proxy: deactivate " + f );
-
-        // Deactivate the proxied SystemManager.
-
-                var sm:ISystemManager = _systemManager;
-                
-        var bridge:IEventDispatcher =
-            sm.swfBridgeGroup ? sm.swfBridgeGroup.parentBridge : null;
-                
-        if (bridge)
-                {
-                        var mutualTrust:Boolean =
-                SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(_systemManager));
-                        
-            var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
-                SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE,
-                                false, false,
-                { notifier: bridge,
-                  window: mutualTrust ? this : NameUtil.displayObjectToString(this)
-                });
-
-                        _systemManager.getSandboxRoot().dispatchEvent(bridgeEvent);
-                }
-        }
-        
+       
     /**
      *  @inheritdoc
      * 
@@ -338,15 +275,6 @@ public class SystemManagerProxy extends SystemManager
         return _systemManager.getVisibleApplicationRect(bounds);    
     }
 
-    override public function get swfBridgeGroup():ISWFBridgeGroup
-    {
-        return _systemManager.swfBridgeGroup;
-    }
-    
-    override public function set swfBridgeGroup(bridgeGroup:ISWFBridgeGroup):void
-    {
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -364,10 +292,12 @@ public class SystemManagerProxy extends SystemManager
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-        public function activateByProxy(f:IFocusManagerContainer):void
-        {
-                super.activate(f);      
-        }
+    public function activateByProxy(f:IFocusManagerContainer):void
+    {
+		var awm:IActiveWindowManager = 
+			IActiveWindowManager(systemManager.getImplementation("mx.managers::IActiveWindowManager"));
+        awm.activate(f);      
+    }
 
     /**
      *  Deactivates the focus manager for the popup window
@@ -380,11 +310,11 @@ public class SystemManagerProxy extends SystemManager
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-        public function deactivateByProxy(f:IFocusManagerContainer):void
-        {
-                if (f)
-            f.focusManager.deactivate();
-        }
+    public function deactivateByProxy(f:IFocusManagerContainer):void
+    {
+        if (f)
+	        f.focusManager.deactivate();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -401,9 +331,123 @@ public class SystemManagerProxy extends SystemManager
         // Tell our parent system manager we are active if our child
         // is a focus container. If our child is not a focus manager
         // container we will not be able to activate pop up in this proxy. 
-        if (findFocusManagerContainer(this))
-            SystemManager(_systemManager).dispatchActivatedWindowEvent(this);
+        if (mp.findFocusManagerContainer(this))
+            mp.dispatchActivatedWindowEvent(this);
     }
+
+
 }
+
+}
+
+
+import flash.display.DisplayObject;
+import flash.events.IEventDispatcher;
+import mx.core.ISWFBridgeProvider;
+import mx.events.SWFBridgeEvent;
+import mx.managers.IActiveWindowManager;
+import mx.managers.IFocusManagerContainer;
+import mx.managers.IMarshalSystemManager;
+import mx.managers.ISystemManager;
+import mx.utils.NameUtil;
+import mx.utils.SecurityUtil;
+
+class SystemManagerProxyActivePopUpManager implements IActiveWindowManager
+{
+
+	private var systemManager:ISystemManager;
+
+	public function SystemManagerProxyActivePopUpManager(systemManager:ISystemManager)
+	{
+		this.systemManager = systemManager;
+	}
+
+    /**
+     *  @inheritDoc
+     */
+    public function activate(f:Object):void
+    {
+        // trace("SM Proxy: activate " + f );
+        
+        // Activate the proxied SystemManager.
+		var mp:IMarshalSystemManager = 
+			IMarshalSystemManager(systemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+
+        var bridge:IEventDispatcher =
+	        mp.swfBridgeGroup ? mp.swfBridgeGroup.parentBridge : null;
+
+        if (bridge)
+        {
+            var mutualTrust:Boolean =
+		        SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(systemManager));
+
+            var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
+		        SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE,
+				false, false,
+				{ notifier: bridge,
+					window: mutualTrust ? systemManager : NameUtil.displayObjectToString(DisplayObject(systemManager))
+				});
+                    
+			systemManager.getSandboxRoot().dispatchEvent(bridgeEvent);
+        }
+    }
+
+	/**
+	 *  @inheritDoc
+	 */
+    public function deactivate(f:Object):void
+    {
+        // trace("SM Proxy: deactivate " + f );
+
+	    // Deactivate the proxied SystemManager.
+
+		var mp:IMarshalSystemManager = 
+			IMarshalSystemManager (systemManager.getImplementation("mx.managers::IMarshalSystemManager"));
+            
+		var bridge:IEventDispatcher =
+			mp.swfBridgeGroup ? mp.swfBridgeGroup.parentBridge : null;
+            
+	    if (bridge)
+        {
+            var mutualTrust:Boolean =
+		        SecurityUtil.hasMutualTrustBetweenParentAndChild(ISWFBridgeProvider(systemManager));
+                    
+			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
+				SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE,
+                false, false,
+				{ notifier: bridge,
+				    window: mutualTrust ? systemManager : NameUtil.displayObjectToString(DisplayObject(systemManager))
+				});
+
+             systemManager.getSandboxRoot().dispatchEvent(bridgeEvent);
+         }
+    }
+
+	public function get numModalWindows():int
+	{
+		return systemManager.numModalWindows;
+	}
+
+	/**
+	 *  @private
+	 */
+	public function set numModalWindows(value:int):void
+	{
+        systemManager.numModalWindows = value;
+	}
+
+	/**
+	 *  @inheritDoc
+	 */
+	public function addFocusManager(f:IFocusManagerContainer):void
+	{
+	}
+
+	/**
+	 *  @inheritDoc
+	 */
+	public function removeFocusManager(f:IFocusManagerContainer):void
+	{
+    }
 
 }
