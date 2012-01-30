@@ -223,7 +223,7 @@ public interface IUIComponent extends IFlexDisplayObject
 
     /**
      *  A single Sprite object that is shared among components
-     *  and used as an overlay for drawing focus.
+     *  and used as an overlay for drawing the focus indicator.
      *  Components share this object if their parent is a focused component,
      *  not if the component implements the IFocusManagerComponent interface.
      *
