@@ -749,11 +749,11 @@ public class StyleProtoChain
     /**
      *  @private
      */
-    public static function isTypeSelectorMatch(object:IAdvancedStyleClient, type:String):Boolean
+    public static function matchesCSSType(object:IAdvancedStyleClient, cssType:String):Boolean
     {
         var qualified:Boolean = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ? false : true;
         var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
-        return typeHierarchy[type] != null;
+        return typeHierarchy[cssType] != null;
     }
 
     /**
@@ -882,7 +882,7 @@ public class StyleProtoChain
         // Find the subset of declarations that match this component
         for each (var decl:CSSStyleDeclaration in declarations)
         {
-            if (decl.isMatch(object))
+            if (decl.matchesStyleClient(object))
                 matchingDecls.push(decl);
         }
 
@@ -895,7 +895,7 @@ public class StyleProtoChain
      *  Array.sort() is not used as it does not employ a stable algorithm and
      *  CSS requires the order of equal style declaration to be preserved.
      */ 
-    private static function sortOnSpecificity(decls:Array):Array 
+    private static function sortOnSpecificity(decls:Array):Array // of CSSStyleDeclaration 
     {
         // TODO: Copied algorithm from Group.sortOnLayer as a temporary measure.
         // We may consider replacing this insertion sort with an efficient but
