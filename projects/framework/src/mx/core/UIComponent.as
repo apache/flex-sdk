@@ -7617,16 +7617,21 @@ public class UIComponent extends FlexSprite
         if (!(this is IVisualElementContainer))
             return;
         
-        const thisContainer:IVisualElementContainer = IVisualElementContainer(this);
-        const thisContainerNumElements:int = thisContainer.numElements;
         
-        for (var i:int = 0; i < thisContainerNumElements; i++)
+        // Children are notified only if the component's layoutDirection has changed.
+        if (oldLayoutDirection != layoutDirection)
         {
-            var elt:IVisualElement = thisContainer.getElementAt(i);
-            // Can be null if IUITextField or IUIFTETextField.
-            if (elt && !(elt is IStyleClient)) 
-                elt.invalidateLayoutDirection();
-        }        
+            const thisContainer:IVisualElementContainer = IVisualElementContainer(this);
+            const thisContainerNumElements:int = thisContainer.numElements;
+            
+            for (var i:int = 0; i < thisContainerNumElements; i++)
+            {
+                var elt:IVisualElement = thisContainer.getElementAt(i);
+                // Can be null if IUITextField or IUIFTETextField.
+                if (elt && !(elt is IStyleClient)) 
+                    elt.invalidateLayoutDirection();
+            }      
+        }  
     }  
 
     private function transformOffsetsChangedHandler(e:Event):void
