@@ -36,8 +36,8 @@ public class SWFBridgeEvent extends Event
 	 *	Dispatched to a parent bridge or sandbox root to notify it that
 	 *  another application has been activated.
 	 */
-    public static const NOTIFY_APPLICATION_ACTIVATED:String =
-        "notifyApplicationActivate";
+    public static const BRIDGE_APPLICATION_ACTIVATE:String =
+        "bridgeApplicationActivate";
 
     /**
      *  Sent via bridge to a child application's systemManager to notify it
@@ -45,21 +45,21 @@ public class SWFBridgeEvent extends Event
 	 *  re-dispatches the event so that application code can remove references
 	 *  that would prevent the SWF from unloading
      */  
-    public static const NOTIFY_BEFORE_UNLOAD:String = "notifyBeforeUnload";
+    public static const BRIDGE_APPLICATION_UNLOADING:String = "bridgeApplicationUnloading";
 
 	/**
 	 *  Dispatched via bridges to all other FocusManagers to notify them
 	 *  that another focus manager is now active.
 	 */
-	public static const NOTIFY_FOCUS_MANAGER_ACTIVATED:String =
-        "notifyFocusManagerActivated";
+	public static const BRIDGE_FOCUS_MANAGER_ACTIVATE:String =
+        "bridgeFocusManagerActivate";
 
 	/**
 	 *  Dispatched via parent bridge to its SWFLoader to notify it
 	 *  that a new system manager has been initialized. 
 	 */
-	public static const NOTIFY_NEW_BRIDGED_APPLICATION:String =
-        "notifyNewBridgedApplication";
+	public static const BRIDGE_NEW_APPLICATION:String =
+        "bridgeNewApplication";
 
 	/**
 	 *	Dispatched to a parent bridge or sandbox root to notify it that
@@ -70,7 +70,7 @@ public class SWFBridgeEvent extends Event
 	 *  For an untrusted application, the <code>data</code> property
      *  is set to a string id of the window.
 	 */
-    public static const NOTIFY_WINDOW_ACTIVATED:String = "notifyWindowActivated";
+    public static const BRIDGE_WINDOW_ACTIVATE:String = "bridgeWindowActivate";
 
 	/**
 	 *	Dispatched to a parent bridge or sandbox root to notify it that
@@ -82,7 +82,7 @@ public class SWFBridgeEvent extends Event
      *  is set to a string id of the window.
      *
 	 */
-    public static const NOTIFY_WINDOW_DEACTIVATED:String = "notifyWindowDeactivated";
+    public static const BRIDGE_WINDOW_DEACTIVATE:String = "brdigeWindowDeactivate";
 
 	//--------------------------------------------------------------------------
 	//
