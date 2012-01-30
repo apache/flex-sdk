@@ -27,6 +27,7 @@ package spark.skins.mobile.supportClasses
     import mx.core.UITextField;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
+    import mx.managers.LayoutManager;
     import mx.states.SetProperty;
     import mx.states.State;
     import mx.utils.ColorUtil;
@@ -190,6 +191,9 @@ package spark.skins.mobile.supportClasses
                     // Should be a bitmap
                     iconInstance = new icon();
                     addChild(iconInstance);
+                    
+                    if (iconInstance is UIComponent)
+                        LayoutManager.getInstance().validateClient(UIComponent(iconInstance));
                 }
                 
                 iconChanged = false;
@@ -226,6 +230,12 @@ package spark.skins.mobile.supportClasses
             var w:Number = 0;
             var h:Number = 0;
             
+            if (iconInstance is UIComponent)
+            {
+                iconWidth = UIComponent(iconInstance).getExplicitOrMeasuredWidth();
+                iconHeight = UIComponent(iconInstance).getExplicitOrMeasuredHeight();
+            }
+            
             if (iconPlacement == IconPlacement.LEFT ||
                 iconPlacement == IconPlacement.RIGHT)
             {
@@ -242,14 +252,12 @@ package spark.skins.mobile.supportClasses
                     h += gap; // getStyle("verticalGap");
             }
             
-            if (textWidth || iconWidth)
-            {
-                w += paddingLeft + paddingRight; //getStyle("paddingLeft") + getStyle("paddingRight");
-                h += paddingTop + paddingBottom; //getStyle("paddingTop") + getStyle("paddingBottom");
-            }
+            w += paddingLeft + paddingRight; //getStyle("paddingLeft") + getStyle("paddingRight");
+            h += paddingTop + paddingBottom; //getStyle("paddingTop") + getStyle("paddingBottom");
             
-            measuredMinWidth = measuredWidth = Math.max(w, MIN_WIDTH);
+            measuredWidth = Math.max(w, MIN_WIDTH);
             measuredMinHeight = measuredHeight = h;
+            measuredMinWidth = iconWidth + paddingLeft + paddingRight;
         }
         
         /**
@@ -306,8 +314,16 @@ package spark.skins.mobile.supportClasses
             
             if (iconInstance)
             {
-                iconWidth = iconInstance.width;
-                iconHeight = iconInstance.height;
+                if (iconInstance is UIComponent)
+                {
+                    iconWidth = UIComponent(iconInstance).getExplicitOrMeasuredWidth();
+                    iconHeight = UIComponent(iconInstance).getExplicitOrMeasuredHeight();
+                }
+                else
+                {
+                    iconWidth = iconInstance.width;
+                    iconHeight = iconInstance.height;
+                }
             }
             
             if (iconPlacement == IconPlacement.LEFT ||
@@ -407,8 +423,8 @@ package spark.skins.mobile.supportClasses
             }
             
             labelDisplay.commitStyles();
-            labelDisplay.x = Math.round(labelX);
-            labelDisplay.y = Math.round(labelY);
+            labelDisplay.x = Math.max(0, Math.round(labelX));
+            labelDisplay.y = Math.max(0, Math.round(labelY));
             labelDisplay.height = labelHeight;
             labelDisplay.width = labelWidth;
             
@@ -418,8 +434,8 @@ package spark.skins.mobile.supportClasses
             labelDisplay.truncateToFit();
             
             labelDisplayShadow.commitStyles();
-            labelDisplayShadow.x = Math.round(labelX);
-            labelDisplayShadow.y = Math.round(labelY + 1);
+            labelDisplayShadow.x = Math.max(0, Math.round(labelX));
+            labelDisplayShadow.y = Math.max(0, Math.round(labelY + 1));
             labelDisplayShadow.height = labelHeight;
             labelDisplayShadow.width = labelWidth;
             
@@ -430,8 +446,8 @@ package spark.skins.mobile.supportClasses
             
             if (iconInstance)
             {                
-                iconInstance.x = Math.round(iconX);
-                iconInstance.y = Math.round(iconY);
+                iconInstance.x = Math.max(0, Math.round(iconX));
+                iconInstance.y = Math.max(0, Math.round(iconY));
             }        
         }
         
