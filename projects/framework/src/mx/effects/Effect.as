@@ -1489,8 +1489,7 @@ public class Effect extends EventDispatcher implements IEffect
                     if (valueMap[styles[j]] === undefined)
                     {
                         var value:* = target.getStyle(styles[j]);
-                        if (value !== undefined)
-                            valueMap[styles[j]] = value;
+                        valueMap[styles[j]] = value;
                     }
                 }
             }
@@ -1576,7 +1575,10 @@ public class Effect extends EventDispatcher implements IEffect
                 {
                     if (relevantStyles[j] in propChanges[i].start &&
                         target is IStyleClient)
-                        target.setStyle(relevantStyles[j], propChanges[i].start[relevantStyles[j]]);
+                        if (propChanges[i].end[relevantStyles[j]] !== undefined)
+                            target.setStyle(relevantStyles[j], propChanges[i].start[relevantStyles[j]]);
+                        else
+                            target.clearStyle(relevantStyles[j]);
                 }
             }
         }
@@ -1637,7 +1639,10 @@ public class Effect extends EventDispatcher implements IEffect
                     if (relevantStyles[j] in propChanges[i].end &&
                         target is IStyleClient)
                     {
-                        target.setStyle(relevantStyles[j], propChanges[i].end[relevantStyles[j]]);
+                        if (propChanges[i].end[relevantStyles[j]] !== undefined)
+                            target.setStyle(relevantStyles[j], propChanges[i].end[relevantStyles[j]]);
+                        else
+                            target.clearStyle(relevantStyles[j]);
                     }
                 }
             }
