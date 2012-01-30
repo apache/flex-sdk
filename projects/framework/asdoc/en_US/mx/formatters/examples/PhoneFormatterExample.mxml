@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate PhoneFormatter. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-                
-            import mx.events.ValidationResultEvent;			
+            import mx.events.ValidationResultEvent;
+
             private var vResult:ValidationResultEvent;
 
-            // Event handler to validate and format input.            
-            private function Format():void
-            {
+            // Event handler to validate and format input.
+            private function Format():void {
                 vResult = pnVal.validate();
-                if (vResult.type==ValidationResultEvent.VALID) {
-                    formattedPhone.text= phoneFormatter.format(phone.text);
-                }
-              
-                else {
-                    formattedPhone.text= "";
+                if (vResult.type == ValidationResultEvent.VALID) {
+                    formattedPhone.text = phoneFormatter.format(phone.text);
+                } else {
+                    formattedPhone.text = "";
                 }
             }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:PhoneFormatter id="phoneFormatter" 
-        formatString="(###) ###-####" validPatternChars="#-() "/>
+    <fx:Declarations>
+        <mx:PhoneFormatter id="phoneFormatter" 
+                formatString="(###) ###-####" validPatternChars="#-() "/>
 
-    <mx:PhoneNumberValidator id="pnVal" source="{phone}" property="text" 
-            allowedFormatChars=""/>
+        <mx:PhoneNumberValidator id="pnVal" source="{phone}" property="text" 
+                allowedFormatChars=""/>
+    </fx:Declarations>
 
-    <mx:Panel title="PhoneFormatter Example" width="75%" height="75%" 
-            paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-
-        <mx:Form>
+    <s:Panel title="PhoneFormatter Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <mx:Form left="10" right="10" top="10" bottom="10">
             <mx:FormItem label="Enter a 10-digit phone number:">
-                <mx:TextInput id="phone" text="" width="75%"/>
+                <s:TextInput id="phone" text="" width="75%"/>
             </mx:FormItem>
-
             <mx:FormItem label="Formatted phone number: ">
-                <mx:TextInput id="formattedPhone" text="" width="75%" editable="false"/>
+                <s:TextInput id="formattedPhone" text="" width="75%" editable="false"/>
             </mx:FormItem>
-
             <mx:FormItem>
-                <mx:Button label="Validate and Format" click="Format();"/>
+                <s:Button label="Validate and Format" click="Format();"/>
             </mx:FormItem>
         </mx:Form>
+    </s:Panel>
 
-    </mx:Panel>
-</mx:Application>
+</s:Application>
