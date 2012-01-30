@@ -2790,7 +2790,7 @@ public class UIComponent extends FlexSprite
         if (!initialized)
             return;
 
-        if (layer && !layer.computedVisibility) 
+        if (designLayer && !designLayer.effectiveVisibility) 
             value = false; 
         
         if ($visible == value)
@@ -2838,8 +2838,8 @@ public class UIComponent extends FlexSprite
         {
             _alpha = value;
         
-            if (layer)
-                value = value * layer.computedAlpha; 
+            if (designLayer)
+                value = value * designLayer.effectiveAlpha; 
             
             $alpha = value;
 
@@ -3024,38 +3024,38 @@ public class UIComponent extends FlexSprite
      *  @private
      *  Storage for the layer property.
      */
-    private var _layer:DesignLayer;
+    private var _designLayer:DesignLayer;
     
     [Inspectable (environment='none')]
     
     /**
-     *  @copy mx.core.IVisualElement#layer
+     *  @copy mx.core.IVisualElement#designLayer
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get layer():DesignLayer
+    public function get designLayer():DesignLayer
     {
-        return _layer;
+        return _designLayer;
     }
     
     /**
      *  @private
      */
-    public function set layer(value:DesignLayer):void
+    public function set designLayer(value:DesignLayer):void
     {
-        if (_layer)
-            _layer.removeEventListener("layerPropertyChange", layer_PropertyChange, false);
+        if (_designLayer)
+            _designLayer.removeEventListener("layerPropertyChange", layer_PropertyChange, false);
         
-        _layer = value;
+        _designLayer = value;
         
-        if (_layer)
+        if (_designLayer)
         {
-            _layer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
-            $alpha = _alpha * _layer.computedAlpha;
-            $visible = _visible && _layer.computedVisibility;
+            _designLayer.addEventListener("layerPropertyChange", layer_PropertyChange, false, 0, true);
+            $alpha = _alpha * _designLayer.effectiveAlpha;
+            $visible = _visible && _designLayer.effectiveVisibility;
         }
     }
         
@@ -10962,14 +10962,14 @@ public class UIComponent extends FlexSprite
     {
         switch (event.property)
         {
-            case "computedVisibility":
+            case "effectiveVisibility":
             {
                 var newValue:Boolean = (event.newValue && _visible);            
                 if (newValue != $visible)
                     $visible = newValue;
                 break;
             }
-            case "computedAlpha":
+            case "effectiveAlpha":
             {
                 var newAlpha:Number = Number(event.newValue) * _alpha;
                 if (newAlpha != $alpha)
