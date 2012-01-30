@@ -846,7 +846,7 @@ public class StyleProtoChain
         return value == null ||
                value == "mx.core::UIComponent" ||
                value == "mx.core::UITextField" ||
-               value == "mx.graphics.graphicsClasses::GraphicElement";
+               value == "mx.graphics.baseClasses::GraphicElement";
     }
 
     /**
