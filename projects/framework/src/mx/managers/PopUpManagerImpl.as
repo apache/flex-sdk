@@ -34,6 +34,7 @@ import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
 import mx.core.ILayoutDirectionElement;
 import mx.core.IUIComponent;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -381,36 +382,10 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                 IUIComponent(window).getExplicitOrMeasuredWidth(),
                 IUIComponent(window).getExplicitOrMeasuredHeight());            
         }
-            
-        const parentLayoutDirection:String =
-            parent is ILayoutDirectionElement ?
-            ILayoutDirectionElement(parent).layoutDirection : null;
-        
-        // If parentLayoutDirection and windowLayoutDirection are both set and
-        // they differ, then mirroring, and we need to reposition the popup.
-        if (parentLayoutDirection != null)
-        {
-            const windowLayoutDirection:String =
-                window is ILayoutDirectionElement ?
-                ILayoutDirectionElement(window).layoutDirection : null;
-                
-            // Find global position for the popup.
-            if (windowLayoutDirection != null && 
-                windowLayoutDirection != parentLayoutDirection)
-            {
-                var point:Point = new Point(window.width, 0);
-                point = parent.localToGlobal(point);            
-                point.x = Math.max(point.x, 0);
-                
-                // Position the popup.
-                point = window.parent.globalToLocal(point);
-                window.move(point.x, window.y);
-            }
-        }
-        
+                    
         // The layout direction may have changed since last time the
         // popup was opened so need to reinit mirroring fields.
-        if (window is ILayoutDirectionElement)
+       if (window is ILayoutDirectionElement)
             ILayoutDirectionElement(window).invalidateLayoutDirection();
 
         if (modal)
@@ -578,7 +553,18 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             x = Math.max(0, (Math.min(appWidth, parentWidth) - popUp.width) / 2);
             y = Math.max(0, (Math.min(appHeight, parentHeight) - popUp.height) / 2);
             
-            pt = new Point(clippingOffset.x, clippingOffset.y);
+            // If the layout has been mirrored, then 0,0 is the uppper
+            // right corner; compensate here.
+            if (popUp is ILayoutDirectionElement &&
+                ILayoutDirectionElement(popUp).layoutDirection == 
+                LayoutDirection.RTL)
+            {
+                 x = -x /* to flip it on the other side of the x axis*/ 
+                     -popUp.width /* because 0 is the right edge */;
+
+            }
+            
+            pt = new Point(clippingOffset.x, clippingOffset.y);            
             pt = popUpParent.localToGlobal(pt);
             pt = popUp.parent.globalToLocal(pt);
             popUp.move(Math.round(x) + pt.x, Math.round(y) + pt.y);
