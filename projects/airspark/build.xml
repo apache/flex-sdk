@@ -36,12 +36,12 @@
 					<include-resource-bundles bundle="core"/>
 					<include-namespaces/>
 					<include-classes/>
-					<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 					<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/bundles/@{locale}"/> 
 					<include-libraries/>
 					<library-path/>
 					<external-library-path dir="${FLEX_HOME}/frameworks/libs">
 						<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+	               		<include name="framework.swc"/>	
 					</external-library-path>
 				</compc>
 			</sequential>
