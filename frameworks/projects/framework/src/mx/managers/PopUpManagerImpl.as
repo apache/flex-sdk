@@ -1471,8 +1471,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			if (p)	
 			{	
 				handleAccessibilityForNestedPopups(popUp);
-				
-				if (!popupInfo.length)
+								
+				if (popupInfo.length<=1)
 				{
 					var sbRoot:Object = p.systemManager.getSandboxRoot();
 					sbRoot.document.accessibilityProperties.silent = false;
@@ -1519,7 +1519,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 				
 				// We should also expose accessibility 
 				// of the sandbox root's document.
-				var sbRoot:Object = sm.getSandboxRoot();				
+				var sbRoot:Object = popupData.systemManager.getSandboxRoot();				
 				sbRoot.document.accessibilityProperties.silent = false;
 			}
 		}
