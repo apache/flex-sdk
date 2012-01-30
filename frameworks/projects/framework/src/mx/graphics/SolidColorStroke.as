@@ -95,7 +95,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
      *  <code>LineScaleMode.NONE</code>, <code>LineScaleMode.NORMAL</code>,
      *  and <code>LineScaleMode.VERTICAL</code>.
      *  This parameter is optional,
-     *  with a default value of <code>LineScaleMode.NONE</code>. 
+     *  with a default value of <code>LineScaleMode.NORMAL</code>. 
 	 *
 	 *  @param caps Specifies the type of caps at the end of lines.
 	 *  Valid values are <code>"round"</code>, <code>"square"</code>,
@@ -111,10 +111,14 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  Valid values range from 0 to 255.
 	 *  The default value is 0.
 	 */
-	public function SolidColorStroke(color:uint = 0x000000, weight:Number = 0,
-						   alpha:Number = 1.0, pixelHinting:Boolean = false,
-						   scaleMode:String = "none", caps:String = null,
-						   joints:String = null, miterLimit:Number = 0)
+	public function SolidColorStroke(color:uint = 0x000000,
+	                                 weight:Number = 0,
+						             alpha:Number = 1.0,
+						             pixelHinting:Boolean = false,
+						             scaleMode:String = "normal",
+						             caps:String = null,
+						             joints:String = null,
+						             miterLimit:Number = 0)
 	{
 		super();
 
