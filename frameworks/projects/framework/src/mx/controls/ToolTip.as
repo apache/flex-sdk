@@ -286,14 +286,7 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
         super.createChildren();
 
         // Create the border/background.
-        if (!border)
-        {
-            var borderClass:Class = getStyle("borderSkin");
-            border = new borderClass();
-            if (border is ISimpleStyleClient)
-                ISimpleStyleClient(border).styleName = this;
-            addChild(DisplayObject(border));
-        }
+        createBorder();
 
         // Create the TextField that displays the tooltip text.
         createTextField(-1);
@@ -405,9 +398,20 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
         // won't call updateDisplayList() because the size hasn't changed.
         // But the TextField has to be repositioned, so we need to
         // invalidate the layout as well as the size.
-        if (styleProp == "borderStyle" ||
-            styleProp == "styleName" ||
+        if (styleProp == "styleName" ||
+            styleProp == "borderSkin" ||
             styleProp == null)
+        {
+            //if the border skin has changed then rebuild it.
+            if(border)
+            {
+                removeChild(DisplayObject(border));
+                border = null;
+            }
+            
+            createBorder();	        
+        }
+        else if (styleProp == "borderStyle")
         {
             invalidateDisplayList();
         }
@@ -466,6 +470,30 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
     mx_internal function getTextField():IUITextField
     {
         return textField;
+    }
+    
+    /**
+     *  @private
+     */
+    private function createBorder():void
+    {        
+        if (!border)
+        {
+            var borderClass:Class = getStyle("borderSkin");
+            
+            if (borderClass != null)
+            {
+                border = new borderClass();
+                
+                if (border is ISimpleStyleClient)
+                    ISimpleStyleClient(border).styleName = this;
+                
+                // Add the border behind all the children.
+                addChildAt(DisplayObject(border), 0);
+                
+                invalidateDisplayList();
+            }
+        }
     }
 }
 
