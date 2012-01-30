@@ -193,6 +193,9 @@ public class DateSpinner extends SkinnableComponent
     private static const AM:String = "am";
     private static const PM:String = "pm";
     
+    // default min/max date
+    private static const MIN_DATE_DEFAULT:Date = new Date(1601, 0, 1);
+    private static const MAX_DATE_DEFAULT:Date = new Date(9999, 11, 31, 23, 59, 59, 999);
     
     //--------------------------------------------------------------------------
     //
@@ -409,7 +412,6 @@ public class DateSpinner extends SkinnableComponent
     
     private var _maxDate:Date;
     
-    private var _maxDateDefault:Date;
     private var maxDateChanged:Boolean = false;
     
     /**
@@ -424,7 +426,7 @@ public class DateSpinner extends SkinnableComponent
      */
     public function get maxDate():Date
     {
-        return _maxDate != null ? _maxDate : _maxDateDefault;
+        return _maxDate != null ? _maxDate : MAX_DATE_DEFAULT;
     }
     
     public function set maxDate(value:Date):void
@@ -447,7 +449,6 @@ public class DateSpinner extends SkinnableComponent
     
     private var _minDate:Date;
     
-    private var _minDateDefault:Date;
     private var minDateChanged:Boolean = false;
     
     /**
@@ -463,7 +464,7 @@ public class DateSpinner extends SkinnableComponent
      */
     public function get minDate():Date
     {
-        return _minDate != null ? _minDate : _minDateDefault;
+        return _minDate != null ? _minDate : MIN_DATE_DEFAULT;
     }
     
     public function set minDate(value:Date):void
@@ -627,8 +628,6 @@ public class DateSpinner extends SkinnableComponent
         if (displayModeChanged)
         {
             setupDateItemLists();
-            
-            setDefaultRangeValues();
             
             displayModeChanged = false;
             listsNewlyCreated = true;
@@ -1472,22 +1471,6 @@ public class DateSpinner extends SkinnableComponent
             dayMonthDateFormatter.setStyle("locale", localeStr);
         else
             dayMonthDateFormatter.clearStyle("locale");
-    }
-    
-    private function setDefaultRangeValues():void
-    {
-        if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
-        {
-            _minDateDefault = new Date(selectedDate.time);
-            _minDateDefault.date -= Math.floor(DEFAULT_DATE_RANGE / 2);
-            _maxDateDefault = new Date(selectedDate.time);
-            _maxDateDefault.date += Math.floor(DEFAULT_DATE_RANGE / 2);
-        }
-        else if (displayMode == DateSelectorDisplayMode.DATE)
-        {
-            _minDateDefault = new Date(1601, 0, 1);
-            _maxDateDefault = new Date(9999, 12, 31);
-        }
     }
     
     //----------------------------------------------------------------------------------------------
