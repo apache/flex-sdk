@@ -356,55 +356,66 @@ public class TextAreaSkin extends TextSkinBase
 				textDisplay.replaceText(charIndex, charIndex, "W");
 				caretBounds = textDisplay.getCharBoundaries(charIndex);
 				lineIndex = textDisplay.getLineIndexOfChar(charIndex);
-				textDisplay.replaceText(charIndex, charIndex + 1, "");
+				textDisplay.replaceText(charIndex, charIndex + 1, "");   
             }
-            
+           
             if (caretBounds)
             {
                 // Scroll the internal Scroller to ensure the caret is visible
                 if (textHeight > unscaledTextHeight)
                 {
-                    // caretTopPositon and caretBottomPosition are TextField-relative positions
-                    // the TextField is inset by padding styles of the TextArea (via the VGroup)
-                    
-                    // adjust top position to 0 when on the first line
-                    // caretTopPosition will be negative when off stage
-                    var caretTopPosition:Number = ((caretBounds.y) < 0 || (lineIndex == 0))
-                        ? 0 : caretBounds.y;
-                    
-                    // caretBottomPosition is the y coordinate of the bottom bounds of the caret
-                    var caretBottomPosition:Number = caretBounds.y + caretBounds.height;
-                    
-                    // note that verticalScrollPosition min/max do not account for padding
-                    var vspTop:Number = textDisplayGroup.verticalScrollPosition;
-                    
-                    // vspBottom should be the max visible Y in the TextField
-                    // coordinate space.
-                    // remove paddingBottom for some clearance between caret and border
-                    var vspBottom:Number = vspTop + unscaledHeight - paddingTop - paddingBottom;
-                    
-                    // is the caret in or below the padding and viewport?
-                    if (caretBottomPosition > vspBottom)
+                    if (charIndex == textDisplay.text.length)
                     {
-                        // adjust caretBottomPosition to max scroll position when on the last line
-                        if (lineIndex + 1 == textDisplay.numLines)
-                        {
-                            // use textHeight+paddings instead of textDisplayGroup.contentHeight
-                            // Group has not been resized by this point
-                            textDisplayGroup.verticalScrollPosition = (textHeight + paddingTop + paddingBottom) - textDisplayGroup.height;
-                        }
-                        else
-                        {
-                            // bottom edge of the caret moves just inside the bottom edge of the scroller
-                            // add delta between caret and vspBottom
-                            textDisplayGroup.verticalScrollPosition = vspTop + (caretBottomPosition - vspBottom);
-                        }
+                        // Make sure textDisplayGroup is validated, otherwise the 
+                        // verticalScrollPosition may be out of bounds, which will
+                        // cause a bounce effect.
+                        textDisplayGroup.validateNow();
+                        textDisplayGroup.verticalScrollPosition = textHeight;
                     }
-                        // is the caret above the viewport?
-                    else if (caretTopPosition < vspTop)
+                    else
                     {
-                        // top edge of the caret moves inside the top edge of the scroller
-                        textDisplayGroup.verticalScrollPosition = caretTopPosition;
+                        // caretTopPositon and caretBottomPosition are TextField-relative positions
+                        // the TextField is inset by padding styles of the TextArea (via the VGroup)
+                        
+                        // adjust top position to 0 when on the first line
+                        // caretTopPosition will be negative when off stage
+                        var caretTopPosition:Number = ((caretBounds.y) < 0 || (lineIndex == 0))
+                            ? 0 : caretBounds.y;
+                        
+                        // caretBottomPosition is the y coordinate of the bottom bounds of the caret
+                        var caretBottomPosition:Number = caretBounds.y + caretBounds.height;
+                        
+                        // note that verticalScrollPosition min/max do not account for padding
+                        var vspTop:Number = textDisplayGroup.verticalScrollPosition;
+                        
+                        // vspBottom should be the max visible Y in the TextField
+                        // coordinate space.
+                        // remove paddingBottom for some clearance between caret and border
+                        var vspBottom:Number = vspTop + unscaledHeight - paddingTop - paddingBottom;
+                        
+                        // is the caret in or below the padding and viewport?
+                        if (caretBottomPosition > vspBottom)
+                        {
+                            // adjust caretBottomPosition to max scroll position when on the last line
+                            if (lineIndex + 1 == textDisplay.numLines)
+                            {
+                                // use textHeight+paddings instead of textDisplayGroup.contentHeight
+                                // Group has not been resized by this point
+                                textDisplayGroup.verticalScrollPosition = (textHeight + paddingTop + paddingBottom) - textDisplayGroup.height;
+                            }
+                            else
+                            {
+                                // bottom edge of the caret moves just inside the bottom edge of the scroller
+                                // add delta between caret and vspBottom
+                                textDisplayGroup.verticalScrollPosition = vspTop + (caretBottomPosition - vspBottom);
+                            }
+                        }
+                            // is the caret above the viewport?
+                        else if (caretTopPosition < vspTop)
+                        {
+                            // top edge of the caret moves inside the top edge of the scroller
+                            textDisplayGroup.verticalScrollPosition = caretTopPosition;
+                        }
                     }
                 }
                 
@@ -568,13 +579,18 @@ public class TextAreaSkin extends TextSkinBase
      */
     private function textDisplay_softKeyboardActivateHandler(event:SoftKeyboardEvent):void
     {
-        var newCaretBounds:Rectangle = getCaretBounds();
-        convertBoundsToLocal(newCaretBounds);
+        var keyboardRect:Rectangle = stage.softKeyboardRect;
         
-        if (oldCaretBounds != newCaretBounds)
+        if (keyboardRect.width > 0 && keyboardRect.height > 0)
         {
-            dispatchEvent(new CaretBoundsChangeEvent(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,true,true,oldCaretBounds,newCaretBounds));
-            oldCaretBounds = newCaretBounds;
+            var newCaretBounds:Rectangle = getCaretBounds();
+            convertBoundsToLocal(newCaretBounds);
+            
+            if (oldCaretBounds != newCaretBounds)
+            {
+                dispatchEvent(new CaretBoundsChangeEvent(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,true,true,oldCaretBounds,newCaretBounds));
+                oldCaretBounds = newCaretBounds;
+            }
         }
     }
     
