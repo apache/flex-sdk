@@ -28,11 +28,11 @@ import mx.resources.ResourceManager;
  */
 public class Base64Decoder
 {
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
      * Constructor.
@@ -48,17 +48,19 @@ public class Base64Decoder
         data = new ByteArray();
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
      * Decodes a Base64 encoded String and adds the result to an internal
-     * buffer. Subsequent calls to this method add on to the internal
+     * buffer. Strings must be in ASCII format. 
+     * 
+     * <p>Subsequent calls to this method add on to the internal
      * buffer. After all data have been encoded, call <code>toByteArray()</code>
-     * to obtain a decoded <code>flash.utils.ByteArray</code>.
+     * to obtain a decoded <code>flash.utils.ByteArray</code>.</p>
      * 
      * @param encoded The Base64 encoded String to decode.
      *  
@@ -108,12 +110,12 @@ public class Base64Decoder
     {
         var result:ByteArray = new ByteArray();
 
-		var oldPosition:uint = data.position;	 
-		data.position = 0;	// technically, shouldn't need to set this, but carrying over from previous implementation
-		result.writeBytes(data, 0, data.length);		
-		data.position = oldPosition;
-		result.position = 0;
-		
+        var oldPosition:uint = data.position;    
+        data.position = 0;  // technically, shouldn't need to set this, but carrying over from previous implementation
+        result.writeBytes(data, 0, data.length);        
+        data.position = oldPosition;
+        result.position = 0;
+        
         filled = 0;
         return result;
     }
@@ -125,7 +127,7 @@ public class Base64Decoder
     {
         if (count > 0)
         {
-        	var message:String = resourceManager.getString("utils", "partialBlockDropped", [ count ]);
+            var message:String = resourceManager.getString("utils", "partialBlockDropped", [ count ]);
             throw new Error(message);
         }
         return drain();
@@ -165,11 +167,11 @@ public class Base64Decoder
         return result;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Private Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Private Variables
+    //
+    //--------------------------------------------------------------------------
 
     private var count:int = 0;
     private var data:ByteArray;
@@ -180,8 +182,8 @@ public class Base64Decoder
      *  @private 
      *  Used for accessing localized Error messages.
      */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
     private static const ESCAPE_CHAR_CODE:Number = 61; // The '=' char
 
