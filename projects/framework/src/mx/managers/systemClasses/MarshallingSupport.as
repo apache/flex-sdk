@@ -372,8 +372,6 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	private var idToPlaceholder:Object;
 	
 	private var eventProxy:EventProxy;
-	private var weakReferenceProxies:Dictionary = new Dictionary(true);
-	private var strongReferenceProxies:Dictionary = new Dictionary(false);
 
 	//--------------------------------------------------------------------------
 	//
@@ -390,27 +388,6 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 											  priority:int = 0,
 											  useWeakReference:Boolean = false):Boolean
 	{
-		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
-				|| type == Event.ACTIVATE || type == Event.DEACTIVATE)
-		{
-			// also listen to stage if allowed
-			try
-			{
-				if (systemManager.stage)
-				{
-					var newListener:StageEventProxy = new StageEventProxy(listener);
-					systemManager.stage.addEventListener(type, newListener.stageListener, false, priority, useWeakReference);
-					if (useWeakReference)
-						weakReferenceProxies[listener] = newListener;
-					else
-						strongReferenceProxies[listener] = newListener;
-				}
-			}
-			catch (error:SecurityError)
-			{
-			}
-		}
-
 		if (hasSWFBridges() || SystemManagerGlobals.topLevelSystemManagers.length > 1)
 		{
 			if (!eventProxy)
@@ -423,7 +400,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 			{
 				if (systemManager.isTopLevelRoot())
 				{
-					systemManager.stage.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
+				    systemManager.stage.addEventListener(MouseEvent.MOUSE_MOVE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
 					addEventListenerToSandboxes(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, resetMouseCursorTracking, true, EventPriority.CURSOR_MANAGEMENT + 1, true);
 				}
 				else
@@ -435,8 +412,27 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
 					addEventListenerToOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture, priority, useWeakReference)
 				if (systemManager.getSandboxRoot() == systemManager)
+                {
                     Object(systemManager).$addEventListener(actualType, eventProxy.marshalListener,
                             useCapture, priority, useWeakReference);
+                    if (actualType == MouseEvent.MOUSE_UP)
+                    {
+                        try
+                        {
+                            if (systemManager.stage)
+                                systemManager.stage.addEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
+                                    useCapture, priority, useWeakReference);
+                            else
+                                Object(systemManager).$addEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
+                                    useCapture, priority, useWeakReference);
+                        }
+                        catch (e:SecurityError)
+                        {
+                            Object(systemManager).$addEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
+                                useCapture, priority, useWeakReference);
+                        }
+                    }
+                }
 				
 				// Set useCapture to false because we will never see an event 
 				// marshalled in the capture phase.
@@ -465,39 +461,32 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	public function removeEventListener(type:String, listener:Function,
 												 useCapture:Boolean = false):Boolean
 	{
-
-		if (type == MouseEvent.MOUSE_MOVE || type == MouseEvent.MOUSE_UP || type == MouseEvent.MOUSE_DOWN 
-				|| type == Event.ACTIVATE || type == Event.DEACTIVATE)
-		{
-			// also listen to stage if allowed
-			try
-			{
-				if (systemManager.stage)
-				{
-					var newListener:StageEventProxy = weakReferenceProxies[listener];
-					if (!newListener)
-					{
-						newListener = strongReferenceProxies[listener];
-						if (newListener)
-							delete strongReferenceProxies[listener];
-					}
-					if (newListener)
-						systemManager.stage.removeEventListener(type, newListener.stageListener, false);
-				}
-			}
-			catch (error:SecurityError)
-			{
-			}
-		}
-		
         if (hasSWFBridges() || SystemManagerGlobals.topLevelSystemManagers.length > 1)
 		{
 			var actualType:String = EventUtil.sandboxMouseEventMap[type];
 			if (actualType)
 			{
                 if (systemManager.getSandboxRoot() == systemManager && eventProxy)
+                {
                     Object(systemManager).$removeEventListener(actualType, eventProxy.marshalListener,
                             useCapture);
+                    if (actualType == MouseEvent.MOUSE_UP)
+                    {
+                        try
+                        {
+                            if (systemManager.stage)
+                                systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
+                                    useCapture);
+                        }
+                        catch (e:SecurityError)
+                        {
+                        }
+			            // Remove both listeners in case the system manager was added
+			            // or removed from the stage after the listener was added.
+                        Object(systemManager).$removeEventListener(Event.MOUSE_LEAVE, eventProxy.marshalListener,
+                            useCapture);
+                    }
+                }
 				if (!SystemManagerGlobals.changingListenersInOtherSystemManagers)
 					removeEventListenerFromOtherSystemManagers(type, otherSystemManagerMouseListener, useCapture);
 				removeEventListenerFromSandboxes(type, sandboxMouseListener, useCapture);
@@ -1782,7 +1771,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	 */
 	private function multiWindowRedispatcher(event:Event):void
 	{
-		if (!dispatchingToSystemManagers)
+		if (!SystemManagerGlobals.dispatchingEventToOtherSystemManagers)
 		{
 			dispatchEventToOtherSystemManagers(event);
 		}
@@ -1793,7 +1782,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 	 */
 	private function initManagerHandler(event:Event):void
 	{
-		if (!dispatchingToSystemManagers)
+		if (!SystemManagerGlobals.dispatchingEventToOtherSystemManagers)
 		{
 			dispatchEventToOtherSystemManagers(event);
 		}
@@ -2446,22 +2435,20 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 
 	private var currentSandboxEvent:Event;
 
-	private var dispatchingToSystemManagers:Boolean = false;
-
 	private function dispatchEventToOtherSystemManagers(event:Event):void
+	{
+		SystemManagerGlobals.dispatchingEventToOtherSystemManagers = true;
+		var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
+		var n:int = arr.length;
+		for (var i:int = 0; i < n; i++)
 		{
-			dispatchingToSystemManagers = true;
-			var arr:Array = SystemManagerGlobals.topLevelSystemManagers;
-			var n:int = arr.length;
-			for (var i:int = 0; i < n; i++)
+			if (arr[i] != systemManager)
 			{
-				if (arr[i] != systemManager)
-				{
-					arr[i].dispatchEvent(event);
-				}
+				arr[i].dispatchEvent(event);
 			}
-			dispatchingToSystemManagers = false;
 		}
+		SystemManagerGlobals.dispatchingEventToOtherSystemManagers = false;
+	}
 
 	/**
 	 *  @inheritDoc
@@ -2692,7 +2679,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 
 	private function otherSystemManagerMouseListener(event:SandboxMouseEvent):void
 	{
-		if (dispatchingToSystemManagers)
+		if (SystemManagerGlobals.dispatchingEventToOtherSystemManagers)
 			return;
 
 		dispatchEventFromSWFBridges(event);
@@ -2766,8 +2753,9 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
                     if (systemManager.isTopLevelRoot() &&
                        (actualType == MouseEvent.MOUSE_UP || actualType == MouseEvent.MOUSE_MOVE))
 				    {
-				        systemManager.stage.addEventListener(actualType, eventProxy.marshalListener,
-                            false, request.priority, request.useWeakReference);
+                        if (systemManager.stage)
+				            systemManager.stage.addEventListener(actualType, eventProxy.marshalListener,
+                                false, request.priority, request.useWeakReference);
 				    }
 
                     Object(systemManager).$addEventListener(actualType, eventProxy.marshalListener,
@@ -2788,9 +2776,11 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
                     if (systemManager.isTopLevelRoot() &&
                        (actualType == MouseEvent.MOUSE_UP || actualType == MouseEvent.MOUSE_MOVE))
                     {
-                        systemManager.stage.removeEventListener(actualType, eventProxy.marshalListener);
+                        if (systemManager.stage)
+                            systemManager.stage.removeEventListener(actualType, eventProxy.marshalListener);
                     }
-
+			        // Remove both listeners in case the system manager was added
+			        // or removed from the stage after the listener was added.
                     Object(systemManager).$removeEventListener(actualType, eventProxy.marshalListener, true);
                 }
             }
