@@ -13,6 +13,7 @@ package spark.components
 {
 import flash.display.DisplayObject;
 import flash.events.TimerEvent;
+import flash.net.URLRequest;
 import flash.text.TextFieldType;
 import flash.utils.Timer;
 
@@ -181,18 +182,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     //  Variables
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Holds the styles specific to the message object based on messageStyleName
-     */
-    private var messageStyles:CSSStyleDeclaration;
-    
-    /**
-     *  @private
-     *  Cached UITextFormat object used for measurement purposes for message
-     */
-    private var cachedMessageTextFormat:UITextFormat;
     
     /**
      *  @private
@@ -1092,16 +1081,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     /**
      *  @private
      */
-    override public function notifyStyleChangeInChildren(styleProp:String, recursive:Boolean):void
-    {
-        super.notifyStyleChangeInChildren(styleProp, recursive);
-        
-        cachedMessageTextFormat = null;
-    }
-    
-    /**
-     *  @private
-     */
     override public function styleChanged(styleName:String):void
     {
         var allStyles:Boolean = !styleName || styleName == "styleName";
@@ -1112,16 +1091,19 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         // value and notify messageDisplay
         if (allStyles || styleName == "messageStyleName")
         {
-            messageStyles = null;
-            if (messageDisplay)
-                messageDisplay.styleChanged("styleName");
+            var messageStyleName:String = getStyle("messageStyleName");
+            if (messageStyleName)
+            {
+                var styleDecl:CSSStyleDeclaration =
+                    styleManager.getMergedStyleDeclaration("." + messageStyleName);
+                
+                if (styleDecl)
+                {
+                    messageDisplay.styleDeclaration = styleDecl;
+                    messageDisplay.styleChanged("styleName");
+                }
+            }
         }
-        
-        // pass all style changes to messageDisplay (labelDisplay
-        // is handled in super.styleChanged())
-        // It will deal with them appropriatley and in a performant manner
-        if (messageDisplay)
-            messageDisplay.styleChanged(styleName);
     }
     
     /**
@@ -1205,11 +1187,21 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 
                 // need to create it
                 messageDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-                messageDisplay.getStyleFunction = messageGetStyleFunction;
+                messageDisplay.styleName = this;
                 messageDisplay.editable = false;
                 messageDisplay.selectable = false;
                 messageDisplay.multiline = true;
                 messageDisplay.wordWrap = true;
+                
+                var messageStyleName:String = getStyle("messageStyleName");
+                if (messageStyleName)
+                {
+                    var styleDecl:CSSStyleDeclaration =
+                        styleManager.getMergedStyleDeclaration("." + messageStyleName);
+                    
+                    if (styleDecl)
+                        messageDisplay.styleDeclaration = styleDecl;
+                }
                 
                 addChild(messageDisplay);
             }
@@ -1394,7 +1386,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     {
         // need to create it
         labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        labelDisplay.styleProvider = this;
+        labelDisplay.styleName = this;
         labelDisplay.editable = false;
         labelDisplay.selectable = false;
         labelDisplay.multiline = false;
@@ -1419,8 +1411,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     {
         var iconDelay:Number = getStyle("iconDelay");
         
+        
+        // if not a string or URL request (or null), load it up immediately
+        var isExternalSource:Boolean = (source is String || source is URLRequest);
+        
         // if null or iconDelay == 0, do it synchronously
-        if (source == null || iconDelay == 0)
+        if (!isExternalSource || iconDelay == 0)
         {
             // stop any asynch operation:
             if (iconSetterDelayTimer)
@@ -1447,7 +1443,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             iconSetterDelayTimer.reset();
         }
         
-        // check the cache first:
+        // we know we're loading external content, check the cache first:
         var contentCache:ContentCache = iconContentLoader as ContentCache;
         if (contentCache)
         {
@@ -1809,35 +1805,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             ISharedDisplayObject(iconDisplay.displayObject).redrawRequested = false;
             iconDisplay.validateDisplayList();
         }
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: Helper functions for determining styles for message
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private 
-     *  Function we pass in to message for it to grab the styles and push 
-     *  them in to the TextFormat object used by that StyleableTextField.
-     */
-    private function messageGetStyleFunction(styleProp:String):*
-    {
-        // grab the message specific styles
-        if (!messageStyles)
-            messageStyles = styleManager.getStyleDeclaration("." + getStyle("messageStyleName"));
-        
-        // see if they are in the message styles
-        var styleValue:*;
-        if (messageStyles)
-            styleValue = messageStyles.getStyle(styleProp);
-        
-        // if they are not there, try grabbing it from this component directly
-        if (styleValue === undefined)
-            styleValue = getStyle(styleProp);
-        
-        return styleValue;
     }
     
 }
