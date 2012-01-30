@@ -565,6 +565,9 @@ public class ArrayList extends EventDispatcher
     /**
      *  Return an Array that is populated in the same order as the IList
      *  implementation.  
+     *
+     *  @return An Array populated in the same order as the IList
+     *  implementation.
      * 
      *  @throws ItemPendingError if the data is not yet completely loaded
      *  from a remote location
@@ -599,6 +602,8 @@ public class ArrayList extends EventDispatcher
 
     /**
      *  Pretty prints the contents of this ArrayList to a string and returns it.
+     *
+     *  @return A String containing the contents of the ArrayList.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -692,9 +697,11 @@ public class ArrayList extends EventDispatcher
     }
     
     /**
-     *  Called whenever any of the contained items in the list fire an
+     *  Called when any of the contained items in the list dispatch an
      *  ObjectChange event.  
-     *  Wraps it in a CollectionEventKind.UPDATE.
+     *  Wraps it in a <code>CollectionEventKind.UPDATE</code> object.
+     *
+     *  @param event The event object for the ObjectChange event.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -715,9 +722,11 @@ public class ArrayList extends EventDispatcher
     }
     
     /** 
-     *  If the item is an IEventDispatcher watch it for updates.  
-     *  This is called by addItemAt and when the source is initially
-     *  assigned.
+     *  If the item is an IEventDispatcher, watch it for updates.  
+     *  This method is called by the <code>addItemAt()</code> method, 
+     *  and when the source is initially assigned.
+     *
+     *  @param item The item passed to the <code>addItemAt()</code> method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -735,9 +744,12 @@ public class ArrayList extends EventDispatcher
     }
     
     /** 
-     *  If the item is an IEventDispatcher stop watching it for updates.
-     *  This is called by removeItemAt, removeAll, and before a new
+     *  If the item is an IEventDispatcher, stop watching it for updates.
+     *  This method is called by the <code>removeItemAt()</code> and 
+     *  <code>removeAll()</code> methods, and before a new
      *  source is assigned.
+     *
+     *  @param item The item passed to the <code>removeItemAt()</code> method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
