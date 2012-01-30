@@ -962,8 +962,6 @@ public class ViewTransitionBase extends EventDispatcher
             }
         }
         
-        // Add transform offsets to slide target array
-        
         // Ensure bitmaps are rendered prior to invocation of our effect.
         transitionGroup.validateNow();
         
@@ -1411,27 +1409,61 @@ public class ViewTransitionBase extends EventDispatcher
     {
         if (!actionBar)
             return;
+        
+        // This code is a temporary performance fix for transitions.  Since layout is
+        // disabled during ViewTransitions, in the past this method would call 
+        // validateDisplayList() on the animation targets to update their internal position 
+        // matrices.  We learned that this was causing a reduction in framerate due to
+        // actionScript overhead.  To workaround the issue we are moving the x and y positions
+        // of the underlying displayObjects manually.  This is a temporary fix to get
+        // our performance numbers back up after checking in a fix for SDK-30839.
+        // TODO (chiedozi): Clean up this code and use propery layout methods
+        if (verticalTransition)
+        {
+            if (actionBar.actionGroup  && actionBar.actionGroup.postLayoutTransformOffsets)
+                actionBar.actionGroup.$y = actionBar.actionGroup.y + actionBar.actionGroup.postLayoutTransformOffsets.y;
             
-        if (actionBar.actionGroup)
-            actionBar.actionGroup.validateDisplayList();
-        
-        if (actionBar.navigationGroup)
-            actionBar.navigationGroup.validateDisplayList();
-        
-        if (actionBar.titleDisplay)
-            (actionBar.titleDisplay as UIComponent).validateDisplayList();
-        
-        if (actionBar.titleGroup)
-            actionBar.titleGroup.validateDisplayList();
-        
-        if (cachedTitleGroup)
-            cachedTitleGroup.applyComputedTransform();
-        
-        if (cachedNavigationGroup)
-            cachedNavigationGroup.applyComputedTransform();
-        
-        if (cachedActionGroup)
-            cachedActionGroup.applyComputedTransform();
+            if (actionBar.navigationGroup && actionBar.navigationGroup.postLayoutTransformOffsets)
+                actionBar.navigationGroup.$y = actionBar.navigationGroup.y + actionBar.navigationGroup.postLayoutTransformOffsets.y;
+            
+            if (actionBar.titleDisplay && UIComponent(actionBar.titleDisplay).postLayoutTransformOffsets)
+                UIComponent(actionBar.titleDisplay).$y = UIComponent(actionBar.titleDisplay).y + UIComponent(actionBar.titleDisplay).postLayoutTransformOffsets.y;
+            
+            if (actionBar.titleGroup && actionBar.titleGroup.postLayoutTransformOffsets)
+                actionBar.titleGroup.$y = actionBar.titleGroup.y + actionBar.titleGroup.postLayoutTransformOffsets.y;
+            
+            if (cachedTitleGroup && cachedTitleGroup.displayObject)
+                cachedTitleGroup.displayObject.y = cachedTitleGroup.y + cachedTitleGroup.postLayoutTransformOffsets.y;
+            
+            if (cachedNavigationGroup && cachedNavigationGroup.displayObject)
+                cachedNavigationGroup.displayObject.y = cachedNavigationGroup.y + cachedNavigationGroup.postLayoutTransformOffsets.y;
+            
+            if (cachedActionGroup && cachedActionGroup.displayObject)
+                cachedActionGroup.displayObject.y = cachedActionGroup.y + cachedActionGroup.postLayoutTransformOffsets.y;           
+        }
+        else
+        {
+            if (actionBar.actionGroup  && actionBar.actionGroup.postLayoutTransformOffsets)
+                actionBar.actionGroup.$x = actionBar.actionGroup.x + actionBar.actionGroup.postLayoutTransformOffsets.x;
+            
+            if (actionBar.navigationGroup && actionBar.navigationGroup.postLayoutTransformOffsets)
+                actionBar.navigationGroup.$x = actionBar.navigationGroup.x + actionBar.navigationGroup.postLayoutTransformOffsets.x;
+            
+            if (actionBar.titleDisplay && UIComponent(actionBar.titleDisplay).postLayoutTransformOffsets)
+                UIComponent(actionBar.titleDisplay).$x = UIComponent(actionBar.titleDisplay).x + UIComponent(actionBar.titleDisplay).postLayoutTransformOffsets.x;
+            
+            if (actionBar.titleGroup && actionBar.titleGroup.postLayoutTransformOffsets)
+                actionBar.titleGroup.$x = actionBar.titleGroup.x + actionBar.titleGroup.postLayoutTransformOffsets.x;
+            
+            if (cachedTitleGroup && cachedTitleGroup.displayObject)
+                cachedTitleGroup.displayObject.x = cachedTitleGroup.x + cachedTitleGroup.postLayoutTransformOffsets.x;
+            
+            if (cachedNavigationGroup && cachedNavigationGroup.displayObject)
+                cachedNavigationGroup.displayObject.x = cachedNavigationGroup.x + cachedNavigationGroup.postLayoutTransformOffsets.x;
+            
+            if (cachedActionGroup && cachedActionGroup.displayObject)
+                cachedActionGroup.displayObject.x = cachedActionGroup.x + cachedActionGroup.postLayoutTransformOffsets.x;
+        }
     }
     
     /**
@@ -1445,7 +1477,8 @@ public class ViewTransitionBase extends EventDispatcher
         // renders properly.  We put this here because layout isn't reenabled
         // until the next frame, meaning this validation won't be applied for
         // two frames.
-        actionBarMoveEffect_effectUpdateHandler(null);
+        if (!consolidatedTransition)
+            actionBarMoveEffect_effectUpdateHandler(null);
         
         // We don't call transitionComplete just yet, we want to ensure
         // that the last frame of animation actually gets rendered on screen
