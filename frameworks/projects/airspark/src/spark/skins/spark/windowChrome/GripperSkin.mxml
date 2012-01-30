@@ -15,9 +15,9 @@
       The gripper button appears in the lower-right corner of the container.
       Use the gripper button to resize the AIR window.
       The Flex chrome is defined by the FlexChromeSkin skin class 
-      in the spark.skins.default package. 
+      in the spark.skins.spark package. 
       To use the Flex chrome, set <code>systemChrome</code> to "none" in the application's .xml file,
-      and set the <code>skinClass</code> style to spark.skins.default.FlexChromeSkin. 
+      and set the <code>skinClass</code> style to spark.skins.spark.FlexChromeSkin. 
 
       @see spark.components.WindowedApplication
       @see spark.components.Window
