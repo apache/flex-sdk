@@ -257,7 +257,8 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
      */
     public function init(defaultFragment:String = "", defaultTitle:String = ""):void
     {
-		ApplicationGlobals.application.historyManagementEnabled = false;
+        if ("historyManagementEnabled" in ApplicationGlobals.application)
+		  ApplicationGlobals.application.historyManagementEnabled = false;
 
 		setup(defaultFragment, defaultTitle);
 	}
@@ -267,7 +268,7 @@ public class BrowserManagerImpl extends EventDispatcher implements IBrowserManag
 	 *  prepare the BrowserManager for further calls from the HistoryManager.  Use
 	 *  of HistoryManager and setFragment calls from the application is
 	 *  not supported, so the init() method sets 
-	 *  Application.application.historyManagementEnabled to false to disable
+	 *  ApplicationGlobals.application.historyManagementEnabled to false to disable
 	 *  the HistoryManager
      */
 	public function initForHistoryManager():void
