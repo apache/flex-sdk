@@ -19,9 +19,9 @@ import flash.events.Event;
  *  about mouse activity in another sandbox.
  *
  *  For security reasons, some fields of a MouseEvent are not sent
- *  in a SandboxRootMouseEvent.
+ *  in a SandboxMouseEvent.
  */
-public class SandboxRootMouseEvent extends Event
+public class SandboxMouseEvent extends Event
 {
 	include "../core/Version.as";
 
@@ -70,11 +70,11 @@ public class SandboxRootMouseEvent extends Event
 	/**
      *  Documentation is not currently available.
      */
-    public static function marshal(event:Event):SandboxRootMouseEvent
+    public static function marshal(event:Event):SandboxMouseEvent
 	{
 		var eventObj:Object = event;
 
-		return new SandboxRootMouseEvent(eventObj.type, eventObj.bubbles,
+		return new SandboxMouseEvent(eventObj.type, eventObj.bubbles,
                                      eventObj.cancelable,
 							         eventObj.ctrlKey, eventObj.altKey, 
 							         eventObj.shiftKey, eventObj.buttonDown); 
@@ -89,7 +89,7 @@ public class SandboxRootMouseEvent extends Event
 	/** 
 	 *  Constructor.
 	 */
-	public function SandboxRootMouseEvent(type:String, bubbles:Boolean = false,
+	public function SandboxMouseEvent(type:String, bubbles:Boolean = false,
                                       cancelable:Boolean = false,
 									  ctrlKey:Boolean = false,
                                       altKey:Boolean = false,
@@ -157,7 +157,7 @@ public class SandboxRootMouseEvent extends Event
      */
     override public function clone():Event
 	{
-		return new SandboxRootMouseEvent(type, bubbles, cancelable,
+		return new SandboxMouseEvent(type, bubbles, cancelable,
                                      ctrlKey, altKey, shiftKey, buttonDown);
 	}
 }
