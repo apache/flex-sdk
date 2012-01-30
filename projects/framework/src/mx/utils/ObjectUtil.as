@@ -499,11 +499,20 @@ public class ObjectUtil
                         refs = new Dictionary(true);
 
                     // Check to be sure we haven't processed this object before
-                    var id:Object = refs[value];
-                    if (id != null)
+                    // Dictionary has some bugs, so we want to work around them as best we can
+                    try
                     {
-                        str += "#" + int(id);
-                        return str;
+                        var id:Object = refs[value];
+                        if (id != null)
+                        {
+                            str += "#" + int(id);
+                            return str;
+                        }
+                    }
+                    catch (e:Error)
+                    {
+                        //Since we can't test for infinite loop, we simply return toString.
+                        return String(value);
                     }
                     
                     if (value != null)
