@@ -144,6 +144,8 @@ public class CompositeEffect extends Effect
 
     [Inspectable(category="General", arrayType="mx.effects.Effect")]
     
+    private var _children:Array = [];
+    
     /**
      *  An Array containing the child effects of this CompositeEffect.
      *  
@@ -152,8 +154,6 @@ public class CompositeEffect extends Effect
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private var _children:Array = [];
-    
     public function get children():Array
     {
         return _children;
@@ -313,13 +313,13 @@ public class CompositeEffect extends Effect
                     childEffect.filterObject = filterObject;
                 }
 
-				// TODO (chaase): This doesn't seem good enough...
-				// possibly redundant, but otherwise we'll be using the
-				// old semantics. Might be a better way (e.g., reuse
-				// the same semantics provider). Note that it's been 
+                // TODO (chaase): This doesn't seem good enough...
+                // possibly redundant, but otherwise we'll be using the
+                // old semantics. Might be a better way (e.g., reuse
+                // the same semantics provider). Note that it's been 
                 // working since Flex 3.
                 if (effectTargetHost) // && !childEffect.targetSemantics)
-                	childEffect.effectTargetHost = effectTargetHost;
+                    childEffect.effectTargetHost = effectTargetHost;
                 
                 if (childEffect.targets.length == 0)
                 {
