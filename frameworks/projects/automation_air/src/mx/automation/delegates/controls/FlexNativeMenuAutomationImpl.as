@@ -20,6 +20,7 @@ package mx.automation.delegates.controls
 	import flash.events.EventDispatcher;
 	
 	import mx.automation.Automation;
+	import mx.automation.AutomationConstants;
 	import mx.automation.IAutomationManager;
 	import mx.automation.IAutomationObject;
 	import mx.automation.events.AutomationFlexNativeMenuEvent;
@@ -156,7 +157,8 @@ package mx.automation.delegates.controls
 		 */
 		public function set automationDelegate(value:Object):void
 		{
-			trace("Invalid setter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("FlexNativeMenuAutomationImpl", "set automationDelegate()", 
+				AutomationConstants.invalidDelegateMethodCall);
 		}
 		
 		/**
@@ -164,7 +166,8 @@ package mx.automation.delegates.controls
 		 */
 		public function get automationDelegate():Object
 		{
-			trace("Invalid getter function call. Should have been called on the component");
+			Automation.automationDebugTracer.traceMessage("FlexNativeMenuAutomationImpl", "get automationDelegate()", 
+				AutomationConstants.invalidDelegateMethodCall);
 			return this;
 		}
 		
@@ -287,7 +290,8 @@ package mx.automation.delegates.controls
 		 */
 		public function get showInAutomationHierarchy():Boolean
 		{
-			trace("Reading should not be done here");
+			Automation.automationDebugTracer.traceMessage("FlexNativeMenuAutomationImpl", "get showInAutomationHierarchy()", 
+				AutomationConstants.invalidDelegateMethodCall);
 			return true;
 		}
 		
@@ -296,7 +300,8 @@ package mx.automation.delegates.controls
 		 */
 		public function set showInAutomationHierarchy(value:Boolean):void
 		{
-			trace("Setting should not be done here");
+			Automation.automationDebugTracer.traceMessage("FlexNativeMenuAutomationImpl", "set showInAutomationHierarchy()", 
+				AutomationConstants.invalidDelegateMethodCall);
 			if(menu is IAutomationObject)
 				IAutomationObject(menu).showInAutomationHierarchy = value;
 		}
@@ -522,7 +527,6 @@ package mx.automation.delegates.controls
 		protected function menuShowHandler(event:FlexNativeMenuEvent):void 
 		{
 			var am:IAutomationManager = Automation.automationManager;
-			trace("In show");
 			if (am && am.recording)
 			{
 				var automatedEvent:AutomationFlexNativeMenuEvent = new AutomationFlexNativeMenuEvent(AutomationFlexNativeMenuEvent.MENU_SHOW);
