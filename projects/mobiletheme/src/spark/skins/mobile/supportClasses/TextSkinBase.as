@@ -78,7 +78,7 @@ public class TextSkinBase extends MobileSkin
      * 
      *  Instance of the border graphics.
      */
-    mx_internal var border:DisplayObject;
+    protected var border:DisplayObject;
     
     private var borderVisibleChanged:Boolean = false;
     
@@ -118,13 +118,19 @@ public class TextSkinBase extends MobileSkin
     {
         super.createChildren();
         
-        border = new borderClass();
-        addChild(border);
+        if (!textDisplay)
+        {
+            textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
+            textDisplay.styleName = this;
+            textDisplay.editable = true;
+            addChild(textDisplay);
+        }
         
-        textDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        textDisplay.styleName = this;
-        textDisplay.editable = true;
-        addChild(textDisplay);
+        if (!border)
+        {
+            border = new borderClass();
+            addChild(border);
+        }
         
         createPromptDisplay();
     }
@@ -169,8 +175,6 @@ public class TextSkinBase extends MobileSkin
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        graphics.clear();
-        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         drawBackground(unscaledWidth, unscaledHeight);
