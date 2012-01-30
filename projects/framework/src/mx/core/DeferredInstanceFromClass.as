@@ -26,7 +26,7 @@ package mx.core
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class DeferredInstanceFromClass implements IDeferredInstance
+public class DeferredInstanceFromClass implements ITransientDeferredInstance
 {
     include "../core/Version.as";
 
@@ -98,6 +98,20 @@ public class DeferredInstanceFromClass implements IDeferredInstance
 
 		return instance;
 	}
+	
+    /**
+     *  Resets the state of our factory to the initial, uninitialized state.
+     *  The reference to our cached instance is cleared.
+     * 
+     *  @langversion 4.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function reset():void
+    {
+        instance = null;
+    }
 }
 
 }
