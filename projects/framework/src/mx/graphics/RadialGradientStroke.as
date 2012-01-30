@@ -1,0 +1,138 @@
+package mx.graphics
+{
+	
+import flash.display.GradientType;
+import flash.display.Graphics;
+import flash.geom.Rectangle;
+import mx.core.mx_internal;
+import flash.geom.Matrix;
+	
+public class RadialGradientStroke extends GradientStroke implements IStroke
+{
+	public function RadialGradientStroke(weight:Number=0, pixelHinting:Boolean=false, scaleMode:String="none", caps:String=null, joints:String=null, miterLimit:Number=0)
+	{
+		super(weight, pixelHinting, scaleMode, caps, joints, miterLimit);
+		matrix = new Matrix();
+	}
+	
+	//----------------------------------
+    //  focalPointRatio
+    //----------------------------------
+
+    /**
+	 *  @private
+	 *  Storage for the focalPointRatio property.
+	 */
+    private var _focalPointRatio:Number = 0.0;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  Sets the location of the start of the radial fill.
+	 *
+	 *  <p>Valid values are from <code>-1.0</code> to <code>1.0</code>.
+     *  A value of <code>-1.0</code> sets the focal point
+	 *  (or, start of the gradient fill)
+	 *  on the left of the bounding Rectangle.
+	 *  A value of <code>1.0</code> sets the focal point
+	 *  on the right of the bounding Rectangle.
+     *  
+     *  <p>If you use this property in conjunction
+	 *  with the <code>angle</code> property, 
+     *  this value specifies the degree of distance
+	 *  from the center that the focal point occurs. 
+     *  For example, with an angle of 45
+	 *  and <code>focalPointRatio</code> of 0.25,
+	 *  the focal point is slightly lower and to the right of center.
+     *  If you set <code>focalPointRatio</code> to <code>0</code>,
+     *  the focal point is in the middle of the bounding Rectangle.</p>
+	 *  If you set <code>focalPointRatio</code> to <code>1</code>,
+	 *  the focal point is all the way to the bottom right corner
+	 *  of the bounding Rectangle.</p>
+	 *
+	 *  @default 0.0
+     */
+    public function get focalPointRatio():Number
+    {
+        return _focalPointRatio;
+    }
+    
+    /**
+	 *  @private
+	 */
+	public function set focalPointRatio(value:Number):void
+    {
+        var oldValue:Number = _focalPointRatio;
+        if (value != oldValue)
+        {
+            _focalPointRatio = value;
+            
+            mx_internal::dispatchGradientChangedEvent("focalPointRatio",
+            										  oldValue, value);
+        }
+    }
+    
+    //----------------------------------
+	//  scaleY
+	//----------------------------------
+	
+    private var _scaleY:Number;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The vertical scale of the gradient transform, which defines the height of the (unrotated) gradient
+     */
+    public function get scaleY():Number
+    {
+    	return _scaleY;	
+    }
+    
+	/**
+	 *  @private
+	 */
+    public function set scaleY(value:Number):void
+    {
+    	var oldValue:Number = _scaleY;
+    	if (value != oldValue)
+    	{
+    		_scaleY = value;
+    		mx_internal::dispatchGradientChangedEvent("scaleY", oldValue, value);
+    	}
+    }
+    
+    //--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
+	
+	public function apply(g:Graphics):void
+	{
+		// No-op. Need to deprecate. Was never implemented for this class
+	}
+	
+	public function draw(g:Graphics, rc:Rectangle):void
+    {
+    	g.lineStyle(weight, 0, 1, pixelHinting, scaleMode,
+                    caps, joints, miterLimit);
+    	
+    	var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
+    	var h:Number = !isNaN(scaleY) ? scaleY : rc.height;
+		var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
+		var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
+        
+        matrix.createGradientBox(w, h, 
+        						 mx_internal::rotationInRadians,
+								 bX, bY);	
+								 
+		g.lineGradientStyle(GradientType.RADIAL, mx_internal::colors,
+                            mx_internal::alphas, mx_internal::ratios,
+                            matrix, spreadMethod,
+                            interpolationMethod, focalPointRatio);						 
+    }
+	
+}
+}
