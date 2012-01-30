@@ -41,7 +41,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Color applied to highlight the selected side of the ToggleSwitch
+ *  Color applied to highlight the selected side of the ToggleSwitch control.
  *  
  *  @default 0x3F7FBA
  *  
@@ -52,10 +52,13 @@ use namespace mx_internal;
 [Style(name="accentColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  The duration in milleseconds for an animating the thumb between
- *  the selected and unselected sides of the track. Animating between
- *  two arbitrary positions on the track, for example after a drag
- *  gesture, will take a proportionally shorter amount of time.
+ *  The duration, in milleseconds, for an animation of the thumb 
+ *  as it slides between the selected and unselected sides of the track. 
+ *  For animations between any two arbitrary positions on the track, 
+ *  the animation takes a proportionally shorter amount of time.
+ *  For example, after dragging the thumb half way along the track,
+ *  the animation for the slide the remainder of the way along the track
+ *  takes half the duration.
  *  
  *  @default 125
  *  
@@ -66,7 +69,7 @@ use namespace mx_internal;
 [Style(name="slideDuration", type="Number", format="Time", inherit="no")]
 
 /**
- *  Alpha of text shadows.
+ *  The alpha of text shadows.
  * 
  *  @default 0.65
  * 
@@ -77,7 +80,7 @@ use namespace mx_internal;
 [Style(name="textShadowAlpha", type="Number", inherit="yes", minValue="0.0", maxValue="1.0", theme="mobile")]
 
 /**
- *  Color of text shadows.
+ *  The color of text shadows.
  * 
  *  @default 0x000000
  * 
@@ -100,16 +103,66 @@ use namespace mx_internal;
 [IconFile("ToggleSwitch.png")]
 
 /**
- *  The Spark ToggleSwitch component is a component that can flip between
- *  a selected and non selected state. The ToggleSwitch has a <code>thumb</code>
- *  skin part that moves between the two ends of the <code>track</code> skin part,
- *  similar to a Spark <code>Slider</code>.
+ *  The Spark ToggleSwitch control defines a binary switch that 
+ *  can be in the selected or unselected state. 
+ *  The ToggleSwitch consists of a thumb skin part that moves between 
+ *  the two ends of the track skin part, similar to the Spark Slider control.
  *
- *  Clicking on the component will flip it from non-selected to selected,
- *  and vice-versa. A user can also drag the thumb along the track. When released,
- *  the thumb will move to the closest end of the track, and the <code>ToggleSwitch</code>
- *  will change to be either selected or non-selected, according to the thumb's
- *  position.
+ *  <p>Clicking anywhere in the control toggles the state. 
+ *  You can also slide the thumb along the track to change state. 
+ *  When you release the thumb, the control changes state depending on 
+ *  where you released the thumb. 
+ *  If you release the thumb when you are over 50% of the way across the track, 
+ *  the switch enters the selected state. Otherwise, it enters the unselected state.</p>
+ *
+ *  <p>The ToggleSwitch control uses the following default values for 
+ *  the unselected and selected labels: OFF (unselected) and ON (selected). 
+ *  Define a custom skin to change the labels, or to change other visual 
+ *  characteristics of the control.</p>
+ *
+ *  <p>The following skin class, defined as a subclass of 
+ *  spark.skins.mobile.ToggleSwitchSkin, changes the labels to Zero and One:</p>
+ *
+ *  <pre>
+ *  package skins
+ *  // components\mobile\skins\MyToggleSwitchSkin.as
+ *  {
+ *      import spark.skins.mobile.ToggleSwitchSkin;
+ *      
+ *      public class MyToggleSwitchSkin extends ToggleSwitchSkin
+ *      {
+ *          public function MyToggleSwitchSkin()
+ *          {
+ *              super();
+ *              // Set properties to define the labels 
+ *              // for the selected and unselected positions.
+ *              selectedLabel="One";
+ *              unselectedLabel="Zero"; 
+ *          }
+ *      }
+ *  }
+ *  </pre>
+ *
+ *  @mxml
+ *  
+ *  <p>The <code>&lt;s:ToggleSwitch&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;s:ToggleSwitch
+ *   <strong>Properties</strong>
+ *    selected="null"
+ *    thumbPosition="null"
+ * 
+ *   <strong>Common Styles</strong>
+ *    accentColor="0x3F7FBA"
+ *    slideDuration="125"
+ * 
+ *   <strong>Mobile Styles</strong>
+ *    textShadowAlpha="0.65"
+ *    textShadowColor="0x000000"
+ *  &gt;
+ *  </pre>
  *
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -119,6 +172,7 @@ use namespace mx_internal;
  *
  *  @see spark.components.ToggleButton
  *  @see spark.components.HSlider
+ *  @see spark.skins.mobile.ToggleSwitchSkin
  */
 public class ToggleSwitch extends ToggleButtonBase
 {
@@ -201,9 +255,9 @@ public class ToggleSwitch extends ToggleButtonBase
     [SkinPart(required="false")]
     
     /**
-     *  A skin part that can be dragged along the track. The thumb's
-     *  current position along the track is given by 
-     *  <code>thumbPosition</code>.
+     *  A skin part that can be dragged along the track. 
+     *  The <code>thumbPosition</code> property contains the thumb's 
+     *  current position along the track.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -232,6 +286,15 @@ public class ToggleSwitch extends ToggleButtonBase
     //----------------------------------
     //  selected
     //----------------------------------
+    /**
+     *  The current state of the toggle switch.
+     *  A value of <code>false</code> corresponds to the unselected state,
+     *  and a value of <code>1</code> corresponds to the selected state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
     override public function set selected(value:Boolean):void 
     {
         super.selected = value;
@@ -286,8 +349,9 @@ public class ToggleSwitch extends ToggleButtonBase
     [Bindable(event="thumbPositionChanged")]
     
     /**
-     *  The thumb's current position, ranging from <code>0</code>, unselected,
-     *  to <code>1</code>, selected.
+     *  The thumb's current position along the track.
+     *  The range of value is between 0.0, unselected,
+     *  and 1.0, selected.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -345,7 +409,7 @@ public class ToggleSwitch extends ToggleButtonBase
      */
     private function positionToSelected(value:Number):Boolean 
     {
-        return value > 0.5;	
+        return value > 0.5; 
     }
     
     /**
@@ -353,7 +417,7 @@ public class ToggleSwitch extends ToggleButtonBase
      */
     private function selectedToPosition(value:Boolean):Number 
     {
-        return value ? 1.0 : 0.0;	
+        return value ? 1.0 : 0.0;   
     }
     
     /**
