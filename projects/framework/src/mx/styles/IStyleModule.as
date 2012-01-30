@@ -44,9 +44,7 @@ public interface IStyleModule
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
      */
-//    FIXME: (dloverin) Need to generate this in AST code before it can be 
-//    uncommented.    
-//    function setStyleDeclarations(styleManager:IStyleManager2):void;
+    function setStyleDeclarations(styleManager:IStyleManager2):void;
     
     /**
      *  Unloads the style module.
