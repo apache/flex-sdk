@@ -14,9 +14,9 @@ package mx.core
 
 /**
  *  The IToggleButton interface is a marker interface that indicates that a 
- *  component acts as a toggleable button.  It is used primarily as a filter
- *  by the framework's default button logic.  This interface is *only* used
- *  by legacy Halo components.
+ *  component acts as a toggleable button. It is used primarily as a filter
+ *  by the framework's default button logic. This interface is <strong>only</strong> used
+ *  by legacy MX components.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
