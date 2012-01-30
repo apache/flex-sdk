@@ -13,9 +13,13 @@ package spark.components
 {
 import mx.core.IDataRenderer;
 import mx.core.IVisualElement;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.PropertyChangeEvent;
 
 import spark.layouts.supportClasses.LayoutBase;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -98,84 +102,6 @@ public class View extends Group implements IDataRenderer
     //
     //--------------------------------------------------------------------------
     
-    [ArrayElementType("mx.core.IVisualElement")]
-    
-    /**
-     *  ActionBar action content.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var actionContent:Array;
-    
-    /**
-     *  Layout for the ActionBar actionContent.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var actionLayout:LayoutBase;
-    
-    [ArrayElementType("mx.core.IVisualElement")]
-    
-    /**
-     *  ActionBar title content.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var titleContent:Array;
-    
-    /**
-     *  Layout for the ActionBar titleContent.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var titleLayout:LayoutBase;
-    
-    [ArrayElementType("mx.core.IVisualElement")]
-    
-    /**
-     *  ActionBar navigation content.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var navigationContent:Array;
-    
-    /**
-     *  Layout for the ActionBar navigationContent.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var navigationLayout:LayoutBase;
-    
     //----------------------------------
     //  active
     //----------------------------------
@@ -218,7 +144,7 @@ public class View extends Group implements IDataRenderer
      * 
      *  @return Returns true if the screen can be removed 
      */    
-    public function get canRemove():Boolean
+    mx_internal function get canRemove():Boolean
     {
         if (hasEventListener(FlexEvent.REMOVING))
         {
@@ -279,9 +205,141 @@ public class View extends Group implements IDataRenderer
 
     //--------------------------------------------------------------------------
     //
-    //  UI Abstraction Properties
+    //  UI Template Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  actionContent
+    //----------------------------------
+    
+    private var _actionContent:Array;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    /**
+     *  Array of visual elements that are used as the ActionBar's
+     *  actionContent when this view is active.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get actionContent():Array
+    {
+        return _actionContent;
+    }
+    /**
+     *  @private
+     */
+    public function set actionContent(value:Array):void
+    {
+        var changeEvent:PropertyChangeEvent = 
+            PropertyChangeEvent.createUpdateEvent(this, "actionContent", _actionContent, value);
+        
+        _actionContent = value;
+        dispatchEvent(changeEvent);
+    }
+    
+    //----------------------------------
+    //  actionGroupLayout
+    //----------------------------------
+    
+    /**
+     *  Layout for the ActionBar's action content group.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    private var _actionGroupLayout:LayoutBase;
+    
+    public function get actionGroupLayout():LayoutBase
+    {
+        return _actionGroupLayout;
+    }
+    /**
+     *  @private
+     */
+    public function set actionGroupLayout(value:LayoutBase):void
+    {
+        var changeEvent:PropertyChangeEvent = 
+            PropertyChangeEvent.createUpdateEvent(this, "actionGroupLayout", _actionGroupLayout, value);
+        
+        _actionGroupLayout = value;
+        dispatchEvent(changeEvent);
+    }
+    
+    //----------------------------------
+    //  navigationContent
+    //----------------------------------
+    
+    private var _navigationContent:Array;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    /**
+     *  Array of visual elements that are used as the ActionBar's
+     *  navigationContent when this view is active.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get navigationContent():Array
+    {
+        return _navigationContent;
+    }
+    /**
+     *  @private
+     */
+    public function set navigationContent(value:Array):void
+    {
+        var changeEvent:PropertyChangeEvent = 
+            PropertyChangeEvent.createUpdateEvent(this, "navigationContent", _navigationContent, value);
+        
+        _navigationContent = value;
+        dispatchEvent(changeEvent);
+    }
+    
+    //----------------------------------
+    //  navigationGroupLayout
+    //----------------------------------
+    
+    /**
+     *  Layout for the ActionBar navigation content group.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    private var _navigationGroupLayout:LayoutBase;
+    
+    public function get navigationGroupLayout():LayoutBase
+    {
+        return _navigationGroupLayout;
+    }
+    /**
+     *  @private
+     */
+    public function set navigationGroupLayout(value:LayoutBase):void
+    {
+        var changeEvent:PropertyChangeEvent = 
+            PropertyChangeEvent.createUpdateEvent(this, "navigationGroupLayout", _navigationGroupLayout, value);
+        
+        _navigationGroupLayout = value;
+        dispatchEvent(changeEvent);
+    }
     
     //----------------------------------
     //  title
@@ -304,7 +362,79 @@ public class View extends Group implements IDataRenderer
     public function set title(value:String):void
     {
         if (_title != value)
+        {
+            var changeEvent:PropertyChangeEvent = 
+                PropertyChangeEvent.createUpdateEvent(this, "title", _title, value);
+            
             _title = value;
+            dispatchEvent(changeEvent);
+        }
+    }
+    
+    //----------------------------------
+    //  titleContent
+    //----------------------------------
+    
+    private var _titleContent:Array;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    /**
+     *  Array of visual elements that are used as the ActionBar's
+     *  titleContent when this view is active.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get titleContent():Array
+    {
+        return _titleContent;
+    }
+    /**
+     *  @private
+     */
+    public function set titleContent(value:Array):void
+    {
+        var changeEvent:PropertyChangeEvent = 
+            PropertyChangeEvent.createUpdateEvent(this, "titleContent", _titleContent, value);
+        
+        _titleContent = value;
+        dispatchEvent(changeEvent);
+    }
+    
+    //----------------------------------
+    //  titleGroupLayout
+    //----------------------------------
+    
+    /**
+     *  Layout for the ActionBar's titleContent group.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    private var _titleGroupLayout:LayoutBase;
+    
+    public function get titleGroupLayout():LayoutBase
+    {
+        return _titleGroupLayout;
+    }
+    /**
+     *  @private
+     */
+    public function set titleGroupLayout(value:LayoutBase):void
+    {
+        var changeEvent:PropertyChangeEvent = 
+            PropertyChangeEvent.createUpdateEvent(this, "titleGroupLayout", _titleGroupLayout, value);
+        
+        _titleGroupLayout = value;
+        dispatchEvent(changeEvent);
     }
     
     //--------------------------------------------------------------------------
