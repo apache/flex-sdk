@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <!-- Custom control for the header area of the printed page. -->
+<s:VGroup name="FormPrintHeader"
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        width="60%"
+        horizontalAlign="right" >
 
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="60%"
-    horizontalAlign="right" >
+    <s:SimpleText text="This is a placeholder for first page contents"/>
 
-    <mx:Label text="This is a placeholder for first page contents"/>
-</mx:VBox>
+</s:VGroup>
