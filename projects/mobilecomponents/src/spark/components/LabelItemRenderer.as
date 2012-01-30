@@ -11,19 +11,20 @@
 
 package spark.components
 {
-import flash.events.MouseEvent;
+import flash.events.Event;
 import flash.text.TextLineMetrics;
 
 import mx.controls.listClasses.*;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
-import mx.core.InteractionMode;
+import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
+import spark.components.supportClasses.ItemRendererInteractionStateDetector;
 import spark.components.supportClasses.StyleableTextField;
 
 use namespace mx_internal;
@@ -43,7 +44,7 @@ use namespace mx_internal;
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -64,7 +65,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default undefined
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -72,12 +73,26 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 // FIXME (rfrishbe): what to do about theme?
 
 /**
+ *  The color of the background of an item renderer when the item is pressed down.
+ * 
+ *  <p>This style is only applicable in touch <code>interactionMode</code>.</p>
+ *   
+ *  @default 0xB2B2B2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */ 
+[Style(name="downColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  Color of focus ring when the component is in focus.
  *   
  *  @default 0x70B2EE
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -90,7 +105,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 5
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -103,7 +118,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 5
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -115,7 +130,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0xCEDBEF
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -127,7 +142,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0xB2B2B2
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -142,7 +157,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default 0x000000
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -158,7 +173,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @default "center"
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -194,7 +209,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @see spark.components.supportClasses.ItemRenderer
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -212,21 +227,17 @@ public class MobileItemRenderer extends UIComponent
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function MobileItemRenderer()
     {
         super();
-        addHandlers();
+        
+        itemRendererInteractionStateDetector = new ItemRendererInteractionStateDetector(this);
+        itemRendererInteractionStateDetector.addEventListener(Event.CHANGE, itemRendererInteractionStateDetector_changeHandler);
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
     
     //--------------------------------------------------------------------------
     //
@@ -236,9 +247,9 @@ public class MobileItemRenderer extends UIComponent
     
     /**
      *  @private
-     *  Flag that is set when the mouse is hovered over the item renderer.
+     *  Helper class to help determine when we are in the hovered or down states
      */
-    private var hovered:Boolean = false;
+    private var itemRendererInteractionStateDetector:ItemRendererInteractionStateDetector;
     
     //--------------------------------------------------------------------------
     //
@@ -303,7 +314,7 @@ public class MobileItemRenderer extends UIComponent
      *  @see mx.core.IDataRenderer
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -324,6 +335,74 @@ public class MobileItemRenderer extends UIComponent
     }
     
     //----------------------------------
+    //  down
+    //----------------------------------
+    /**
+     *  @private
+     *  storage for the down property 
+     */    
+    private var _down:Boolean = false;
+    
+    /**
+     *  Set to <code>true</code> when the user is pressing down on an item renderer.
+     * 
+     *  <p>This property is only applicable when <code>interactionMode</code>
+     *  is set to <code>"touch"</code>.</p>
+     *
+     *  @default false
+     */    
+    protected function get down():Boolean
+    {
+        return _down;
+    }
+    
+    /**
+     *  @private
+     */    
+    protected function set down(value:Boolean):void
+    {
+        if (value == _down)
+            return;
+        
+        _down = value; 
+        invalidateDisplayList();
+    }
+    
+    //----------------------------------
+    //  hovered
+    //----------------------------------
+    /**
+     *  @private
+     *  storage for the hovered property 
+     */    
+    private var _hovered:Boolean = false;
+    
+    /**
+     *  Set to <code>true</code> when the mouse is hovered over the item renderer.
+     * 
+     *  <p>This property is only applicable when <code>interactionMode</code>
+     *  is set to <code>"mouse"</code>.</p>
+     *
+     *  @default false
+     */    
+    protected function get hovered():Boolean
+    {
+        return _hovered;
+    }
+    
+    /**
+     *  @private
+     */    
+    protected function set hovered(value:Boolean):void
+    {
+        if (value == _hovered)
+            return;
+        
+        _hovered = value; 
+        invalidateDisplayList();
+    }
+    
+    //----------------------------------
     //  itemIndex
     //----------------------------------
     
@@ -339,7 +418,7 @@ public class MobileItemRenderer extends UIComponent
      *  @default 0
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -375,7 +454,7 @@ public class MobileItemRenderer extends UIComponent
      *  display the label data of the item renderer.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -387,7 +466,7 @@ public class MobileItemRenderer extends UIComponent
      *  @default ""  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5  
      */
@@ -431,7 +510,7 @@ public class MobileItemRenderer extends UIComponent
      *  @default false  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -468,7 +547,7 @@ public class MobileItemRenderer extends UIComponent
      *  @default false
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -503,7 +582,7 @@ public class MobileItemRenderer extends UIComponent
      *  @inheritDoc  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -603,11 +682,6 @@ public class MobileItemRenderer extends UIComponent
         
         super.styleChanged(styleName);
         
-        if (allStyles || styleName == "interactionMode")
-        {
-            addHandlers();
-        }
-        
         // pass all style changes to labelTextField.  It will deal with them 
         // appropriatley and in a performant manner
         if (labelDisplay)
@@ -628,7 +702,7 @@ public class MobileItemRenderer extends UIComponent
      * 
      *  <p>This method draws the background, the outline, 
      *  and the separators for this item renderer.  
-     *  When not selected or hovered, the background is transparent.  
+     *  When not selected, hovered, or down, the background is transparent.  
      *  However, when <code>alternatingItemColors</code> is set to <code>true</code>, 
      *  the background is drawn by this method.  
      *  Override this method to change the appearance of the background of 
@@ -643,7 +717,7 @@ public class MobileItemRenderer extends UIComponent
      *  <code>scaleY</code> property of the component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -653,7 +727,12 @@ public class MobileItemRenderer extends UIComponent
         // figure out backgroundColor
         var backgroundColor:uint;
         var drawBackground:Boolean = true;
-        if (selected)
+        
+        if (down)
+        {
+            backgroundColor = getStyle("downColor");
+        }
+        else if (selected)
         {
             backgroundColor = getStyle("selectionColor");
         }
@@ -733,7 +812,7 @@ public class MobileItemRenderer extends UIComponent
      *  <code>scaleY</code> property of the component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -768,7 +847,7 @@ public class MobileItemRenderer extends UIComponent
         if (label != "")
         {
             labelDisplay.commitStyles();
-
+            
             // reset text if it was truncated before.
             if (labelDisplay.isTruncated)
                 labelDisplay.text = label;
@@ -794,74 +873,7 @@ public class MobileItemRenderer extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  @private
-     *  Keeps track of whether rollover/rollout events were added
-     * 
-     *  We need to be careful about calling add/remove event listener because 
-     *  of the reference counting going on in 
-     *  super.addEventListener/removeEventListener.
-     */
-    private var rolloverEventsAdded:Boolean = false;
     
-    /**
-     *  @private
-     *  Attach the mouse events.
-     */
-    private function addHandlers():void
-    {
-        if (getStyle("interactionMode") == InteractionMode.MOUSE)
-        {
-            if (!rolloverEventsAdded)
-            {
-                rolloverEventsAdded = true;
-                addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-                addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-            }
-        }
-        else
-        {
-            if (rolloverEventsAdded)
-            {
-                rolloverEventsAdded = false;
-                removeEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-                removeEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-            }
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    private function anyButtonDown(event:MouseEvent):Boolean
-    {
-        var type:String = event.type;
-        // TODO (rfrishbe): we should not code to literals here (and other places where this code is used)
-        return event.buttonDown || (type == "middleMouseDown") || (type == "rightMouseDown"); 
-    }
-    
-    /**
-     *  @private
-     *  Mouse rollOver event handler.
-     */
-    protected function itemRenderer_rollOverHandler(event:MouseEvent):void
-    {
-        if (!anyButtonDown(event))
-        {
-            hovered = true;
-            invalidateDisplayList();
-        }
-    }
-    
-    /**
-     *  @private
-     *  Mouse rollOut event handler.
-     */
-    protected function itemRenderer_rollOutHandler(event:MouseEvent):void
-    {
-        hovered = false;
-        invalidateDisplayList();
-    }
     
     /**
      *  A helper method to position the children of this item renderer.
@@ -878,7 +890,7 @@ public class MobileItemRenderer extends UIComponent
      *  @see #resizeElement  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
@@ -914,7 +926,7 @@ public class MobileItemRenderer extends UIComponent
      *  @see #positionElement  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
@@ -933,6 +945,21 @@ public class MobileItemRenderer extends UIComponent
             part.width = width;
             part.height = height;
         }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function itemRendererInteractionStateDetector_changeHandler(event:Event):void
+    {
+        hovered = itemRendererInteractionStateDetector.hovered;
+        down = itemRendererInteractionStateDetector.down;
     }
 }
 }
