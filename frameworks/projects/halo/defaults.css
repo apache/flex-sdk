@@ -1305,6 +1305,7 @@ RichTextEditor
 ScrollControlBase
 {
 	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
+    focusRoundedCorners : "tl tr bl br";
 }
 
 /*
