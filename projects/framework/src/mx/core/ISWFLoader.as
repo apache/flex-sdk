@@ -18,6 +18,11 @@ import mx.core.ISWFBridgeProvider;
 /**
  *  The ISWFLoader interface defines an API with special properties
  *  and method required when loading compatible applications and untrusted applications.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public interface ISWFLoader extends ISWFBridgeProvider
 {
@@ -42,6 +47,11 @@ public interface ISWFLoader extends ISWFBridgeProvider
      *  If <code>false</code>, the content loaded into a child ApplicationDomain.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get loadForCompatibility():Boolean;
 
@@ -62,6 +72,11 @@ public interface ISWFLoader extends ISWFBridgeProvider
      * 
      *  @return A <code>Rectangle</code> that includes the visible portion of this 
      *  object. The rectangle uses global coordinates.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     function getVisibleApplicationRect(allApplications:Boolean=false):Rectangle;
     
