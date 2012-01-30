@@ -15,6 +15,7 @@ package spark.transitions
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.events.Event;
 
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -23,7 +24,11 @@ import mx.effects.IEffect;
 import mx.effects.Parallel;
 
 import spark.components.Group;
+import spark.effects.Animate;
 import spark.effects.Scale;
+import spark.effects.animation.MotionPath;
+import spark.effects.animation.SimpleMotionPath;
+
 
 use namespace mx_internal;
 
@@ -105,6 +110,11 @@ public class ZoomViewTransition extends ViewTransitionBase
      *  @private
      */
     private var zoomTarget:UIComponent;
+    
+    /**
+     *  @private
+     */
+    private var scaleEffect:Scale;
     
     //--------------------------------------------------------------------------
     //
@@ -335,7 +345,10 @@ public class ZoomViewTransition extends ViewTransitionBase
 
         transitionGroup = null;
         cachedNavigator = null;
-
+        
+        scaleEffect.removeEventListener("effectUpdate", scaleEffectUpdateHandler);
+        scaleEffect = null;
+        
         super.cleanUp();
     }
     
@@ -370,18 +383,28 @@ public class ZoomViewTransition extends ViewTransitionBase
             
         // Create scale effect to zoom in/our our target from or to our 
         // specified minimum scale.
-        var scaleEffect:Scale = new Scale();
+        scaleEffect = new Scale();
         scaleEffect.duration = duration;
         scaleEffect.easer = easer;
         scaleEffect.scaleXFrom = scaleEffect.scaleYFrom = 
             (mode == ZoomViewTransitionMode.OUT) ? 1 : minimumScale;
         scaleEffect.scaleXTo = scaleEffect.scaleYTo = 
             (mode == ZoomViewTransitionMode.OUT) ? minimumScale : 1;
+        scaleEffect.addEventListener("effectUpdate", scaleEffectUpdateHandler);
         
-        parallel.addChild(scaleEffect);
         parallel.addChild(fadeEffect);
+        parallel.addChild(scaleEffect);
         
         return parallel;    
+    }
+
+    /**
+     *  @private
+     *  Ensures transform matrix is updated even if layout is disabled.
+     */ 
+    private function scaleEffectUpdateHandler(e:Event):void
+    {
+        zoomTarget.validateDisplayList();
     }
     
 }
