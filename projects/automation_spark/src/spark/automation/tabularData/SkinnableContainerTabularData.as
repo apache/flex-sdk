@@ -102,7 +102,7 @@ package spark.automation.tabularData
 			var visibleChildren:int = 0; 
 			// code modified to avoid the usage of numAutomationChildren and 
 			// getAutomationChildAt in a loop
-			var childList:Array  =  Automation.automationManager2.getAutomationChildrenArray(containerDelegate);
+			var childList:Array  =  containerDelegate.getAutomationChildren();
 			
 			var n:int = childList?childList.length:0;
 			for (var i:int = 0; i < n; ++i)
@@ -154,7 +154,7 @@ package spark.automation.tabularData
 			var k:int = 0; 
 			// code modified to avoid the usage of numAutomationChildren and 
 			// getAutomationChildAt in a loop
-			var childList:Array  =  Automation.automationManager2.getAutomationChildrenArray(containerDelegate);
+			var childList:Array  =  containerDelegate.getAutomationChildren();
 			
 			var n:int = childList? childList.length:0;
 			for (var i:int = 0; i < n && k <= end; i++)
