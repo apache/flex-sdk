@@ -497,11 +497,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      */
     private var unloadAndStopGC:Boolean;
     
-    /**
-     *  @private
-     */
-    private var dispatchedSizePreliminary:Boolean;
-    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -1405,15 +1400,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             
             contentHolder.scaleX = oldScaleX;
             contentHolder.scaleY = oldScaleY;
-            
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-            {
-                if (dispatchedSizePreliminary)
-                {
-                    dispatchEvent(new FlexEvent(FlexEvent.MEASURED_SIZE_FINAL, true, true));
-                    dispatchedSizePreliminary = false;                
-                }
-            }
         }
         else
         {
@@ -1426,11 +1412,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             {
                 measuredWidth = 0;
                 measuredHeight = 0;
-            }
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-            {
-                dispatchEvent(new FlexEvent(FlexEvent.MEASURED_SIZE_PRELIMINARY, true, true));
-                dispatchedSizePreliminary = true;
             }
         }
     }
@@ -1466,24 +1447,8 @@ public class SWFLoader extends UIComponent implements ISWFLoader
                 doSmoothBitmapContent();
                 smoothBitmapContentChanged = false;
             }
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-            {
-                if (dispatchedSizePreliminary)
-                {
-                    dispatchEvent(new FlexEvent(FlexEvent.MEASURED_SIZE_FINAL, true, true));
-                    dispatchedSizePreliminary = false;                
-                }
-            }
         }
-        else
-        {
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-            {
-                dispatchEvent(new FlexEvent(FlexEvent.MEASURED_SIZE_PRELIMINARY, true, true));
-                dispatchedSizePreliminary = true;
-            }
-        }
-
+        
         if (brokenImage && !brokenImageBorder)
         {
             var skinClass:Class = getStyle("brokenImageBorderSkin");
