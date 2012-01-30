@@ -299,10 +299,22 @@ public class ChildManager implements ISystemManagerChildManager
 	 */
 	public function initializeTopLevelWindow(width:Number, height:Number):void
 	{
+        CONFIG::performanceInstrumentation
+        {
+            var perfUtil:mx.utils.PerfUtil = mx.utils.PerfUtil.getInstance();
+            perfUtil.markTime("ChildManager.initializeTopLevelWindow().start");
+            perfUtil.markTime("SystemManager.create().start");
+        }
+        
 		var app:IUIComponent;
 		// Create a new instance of the toplevel class
         systemManager.document = app = topLevelWindow = IUIComponent(systemManager.create());
-             
+
+        CONFIG::performanceInstrumentation
+        {
+            perfUtil.markTime("SystemManager.create().end");
+        }        
+
 		if (systemManager.document)
 		{
 			// Add listener for the creationComplete event
@@ -338,12 +350,28 @@ public class ChildManager implements ISystemManagerChildManager
 			// Leter, when we actually attach the Application instance,
 			// we call super.addChild(), which is the bare player method.
 			addingChild(DisplayObject(app));
-			childAdded(DisplayObject(app)); // calls app.createChildren()
+
+            CONFIG::performanceInstrumentation
+            {
+                perfUtil.markTime("Application.createChildren().start");
+            }
+            
+            childAdded(DisplayObject(app)); // calls app.createChildren()
+
+            CONFIG::performanceInstrumentation
+            {
+                perfUtil.markTime("Application.createChildren().end");
+            }
 		}
 		else
 		{
 			systemManager.document = this;
 		}
+        
+        CONFIG::performanceInstrumentation
+        {
+            perfUtil.markTime("ChildManager.initializeTopLevelWindow().end");
+        }
 	}
 	
  	/**
