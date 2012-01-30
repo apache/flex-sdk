@@ -37,10 +37,10 @@ public final class BitmapSmoothingQuality
 
     /**
      *  High quality smoothing algorithm is used when scaling. Used
-     *  when a higher quality (down-sampled) scale is preferred. Yields
-     *  a result similar to one obtained when stage.quality is set to 
-     *  'best', without requiring global stage quality be set to something
-     *  other than the default.
+     *  when a higher quality (down-sampled) scale is preferred. This option 
+     *  yields the best results when the image is scaled to a size equal to the 
+     *  aspect ratio of the original image and is useful for generating high 
+     *  quality thumbnails. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
