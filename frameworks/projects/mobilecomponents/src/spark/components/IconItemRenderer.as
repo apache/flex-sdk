@@ -641,7 +641,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      */
     public function get messageField():String
     {
-        // FIXME (rfrishbe): PARB this property name b/c confusing with "TextField" the component
         return _messageField;
     }
     
