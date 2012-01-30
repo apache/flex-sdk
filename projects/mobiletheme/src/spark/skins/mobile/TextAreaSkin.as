@@ -63,8 +63,6 @@ public class TextAreaSkin extends TextSkinBase
     {
         super();
         
-        useChromeColor = false;
-        
         switch (applicationDPI)
         {
             case DPIClassification.DPI_320:
@@ -171,7 +169,7 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.multiline = true;
             textDisplay.editable = true;
             textDisplay.lineBreak = getStyle("lineBreak");
-			textDisplay.useTightTextBounds = false;
+            textDisplay.useTightTextBounds = false;
             
             // on iOS, resize the TextField and let the native control handle scrolling
             _isIOS = (Capabilities.version.indexOf("IOS") == 0);
@@ -258,6 +256,8 @@ public class TextAreaSkin extends TextSkinBase
     override protected function layoutContents(unscaledWidth:Number, 
                                                unscaledHeight:Number):void
     {
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
         // position & size border
         if (border)
         {
@@ -331,14 +331,10 @@ public class TextAreaSkin extends TextSkinBase
         if (oldPreferredTextHeight != newPreferredTextHeight)
             invalidateSize();
         
-        // if height is unspecified, grow the StyleableTextField
-        if (isNaN(hostComponent.explicitHeight))
-        {
-            // explicitly size the scroller since the StyleableTextField does not
-            // invalidate it's parent
-            setElementSize(scroller, unscaledWidth, textHeight + paddingTop + paddingBottom);
-        }
-        else if (invalidateCaretPosition)
+        // checking if text fits in TextArea
+        // does not apply to iOS due to native text editing and scrolling
+        // invalidateCaretPosition will never be true for iOS
+        if ((textHeight > unscaledTextHeight) && invalidateCaretPosition)
         {
             // if the caret is outside the viewport, update the Group verticalScrollPosition
             var charIndex:int = textDisplay.selectionBeginIndex;
@@ -393,7 +389,7 @@ public class TextAreaSkin extends TextSkinBase
                         textDisplayGroup.verticalScrollPosition = vspTop + (caretBottomPosition - vspBottom);
                     }
                 }
-                // is the caret above the viewport?
+                    // is the caret above the viewport?
                 else if (caretTopPosition < vspTop)
                 {
                     // top edge of the caret moves inside the top edge of the scroller
