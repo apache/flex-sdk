@@ -21,10 +21,11 @@
 		<delete file="bundles.properties"/>
 		<delete file="${basedir}/libs/FlexComponentBase.swc"/>
 		<delete file="${basedir}/libs/FlexComponentBase.swc.incr"/>
+		<delete dir="${basedir}/libs"/>
 	</target>
 
 	<target name="compile">
-		<mkdir dir="libs"/>
+		<mkdir dir="${basedir}/libs"/>
 		<echo message="Compiling frameworks/projects/flash_integration/libs/FlexComponentBase.swc"/>
 		<ant dir="${frameworks.dir}" target="compc"/>
 	</target>
