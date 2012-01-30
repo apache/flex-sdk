@@ -12,7 +12,10 @@ package spark.components
 {
 
 import mx.core.DPIClassification;
+import mx.core.mx_internal;
 	
+use namespace mx_internal;
+
 /**
  *  The SpinnerListItemRenderer class defines the default item renderer
  *  for a spinner list control in the mobile theme.  
@@ -69,7 +72,7 @@ public class SpinnerListItemRenderer extends LabelItemRenderer
 		// If data is a String or other primitive, this call will fail
 		try 
 		{
-			result = data["enabled"] == undefined || data["enabled"];
+			result = data[SpinnerList.ENABLED_PROPERTY_NAME] == undefined || data[SpinnerList.ENABLED_PROPERTY_NAME];
 		}
 		catch (e:Error)
 		{
