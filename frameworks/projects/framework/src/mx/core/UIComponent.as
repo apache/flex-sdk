@@ -9443,6 +9443,9 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function initThemeColor():Boolean
     {
+    	if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+    		return true;
+    		
         var styleName:Object /* String or UIComponent */ = _styleName;
 
         var tc:Object;  // Can be number or string
