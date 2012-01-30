@@ -34,6 +34,38 @@ public class FlexEvent extends Event
     //--------------------------------------------------------------------------
 
     /**
+     *  The <code>FlexEvent.ACTIVATE</code> constant defines the value of the
+     *  <code>type</code> property of the event object for an <code>activate</code> 
+     *  event.  This event is dispatched when a component is activated.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     * 
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>returnValue</code></td><td>null</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>Type</code></td><td>FlexEvent.ACTIVATE</td></tr>
+     *  </table>
+     *
+     *  @eventType activate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const ACTIVATE:String = "activate";
+    
+    /**
      *  The <code>FlexEvent.ADD</code> constant defines the value of the
      *  <code>type</code> property of the event object for an <code>add</code> event.
      *
@@ -347,6 +379,38 @@ public class FlexEvent extends Event
      */
     public static const DATA_CHANGE:String = "dataChange";
 
+    /**
+     *  The <code>FlexEvent.DEACTIVATE</code> constant defines the value of the
+     *  <code>type</code> property of the event object for an <code>deactivate</code> 
+     *  event.  This event is dispatched when a component is deactivated.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     * 
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>returnValue</code></td><td>null</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>Type</code></td><td>FlexEvent.DEACTIVATE</td></tr>
+     *  </table>
+     *
+     *  @eventType deactivate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const DEACTIVATE:String = "deactivate";
+    
     /**
      *  The <code>FlexEvent.ENTER</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>enter</code> event.
@@ -818,6 +882,40 @@ public class FlexEvent extends Event
      */
     public static const PRELOADER_DOC_FRAME_READY:String = "preloaderDocFrameReady";
 
+    /**
+     *  The <code>FlexEvent.REMOVING</code> constant defines the value of the
+     *  <code>type</code> property of the event object for an <code>removing</code> 
+     *  event.  This event is dispatched when a screen is about to be replaced by
+     *  another screen through a navigator action.  If <code>preventDefault()</code>
+     *  is called on this event, the view removal will be canceled.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     * 
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>true</td></tr>
+     *     <tr><td><code>returnValue</code></td><td>null</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
+     *       event listener that handles the event. For example, if you use 
+     *       <code>myButton.addEventListener()</code> to register an event listener, 
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
+     *       it is not always the Object listening for the event. 
+     *       Use the <code>currentTarget</code> property to always access the 
+     *       Object listening for the event.</td></tr>
+     *     <tr><td><code>Type</code></td><td>FlexEvent.SCREEN_REMOVING</td></tr>
+     *  </table>
+     *
+     *  @eventType removing
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const REMOVING:String = "removing";
+    
     /**
      *  The <code>FlexEvent.RENDER</code> constant defines the value of the
      *  <code>type</code> property of the event object for an <code>Event.RENDER</code> event.
