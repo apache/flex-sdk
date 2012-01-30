@@ -931,31 +931,39 @@ public class Effect extends EventDispatcher implements IEffect
         _triggerEvent = value;
     }
 
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    // TODO (chaase): This function should be in an interface, to
+    //----------------------------------
+    // playheadTime
+    //----------------------------------
+
+    // TODO (chaase): This property should be in an interface, to
     // allow it to be called easily through an interface instead of
     // having to import Effect just to call it
+    // TODO (chaase): This property should be in an interface, to
+    // allow it to be called easily through an interface instead of
+    // having to import Effect just to call it. Maybe add to IEffect
+    // since it's unlikely that anyone implements that interface
+    // besides Effect.
     /**
-     * Sets the current time of an effect. Seek may be used to
-     * fast-forward or reverse to a particular point in time in an effect.
-     * 
-     * @param seekTime Number of milliseconds that the effect should
-     * play at. This number should be between 0 and the duration of the
-     * effect.
-     * 
-     * @see #duration
+     *  Current time position of the effect.
+     *  This property has a value between 0 and the total duration, 
+     *  which includes the Effect's <code>startDelay</code>, 
+     *  <code>repeatCount</code>, and <code>repeatDelay</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function seek(seekTime:Number):void
+    public function get playheadTime():Number 
+    {
+        for (var i:int = 0; i < _instances.length; i++)
+        {
+            if (_instances[i])
+                return IEffectInstance(_instances[i]).playheadTime;
+        }
+        return 0;
+    }
+    public function set playheadTime(value:Number):void
     {
         // If the effect is not yet playing, it should still be possible
         // to seek into it. playing and then pausing it provides that
@@ -973,37 +981,19 @@ public class Effect extends EventDispatcher implements IEffect
         for (var i:int = 0; i < _instances.length; i++)
         {
             if (_instances[i])
-                EffectInstance(_instances[i]).seek(seekTime);
+                EffectInstance(_instances[i]).playheadTime = value;
         }
         if (started)
             pause();
     }
 
-    // TODO (chaase): This property should be in an interface, to
-    // allow it to be called easily through an interface instead of
-    // having to import Effect just to call it
-    // TODO (chaase): Consider renaming this property; playheadTime
-    // is very video-specific
-    /**
-     *  Current position in time of the effect.
-     *  This property has a value between 0 and the actual duration 
-     *  (which includes the value of the <code>startDelay</code>, 
-     *  <code>repeatCount</code>, and <code>repeatDelay</code> properties).
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function get playheadTime():Number 
-    {
-        for (var i:int = 0; i < _instances.length; i++)
-        {
-            if (_instances[i])
-                return IEffectInstance(_instances[i]).playheadTime;
-        }
-        return 0;
-    }
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+
 
     /**
      *  @copy mx.effects.IEffect#getAffectedProperties()
