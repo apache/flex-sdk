@@ -86,6 +86,8 @@ public class ActionBarSkin extends SliderSkin
         var right:Number = unscaledWidth;
         
         // Position groups
+		// FIXME (chiedozi): Prevent measurements from being negative.  Figure out
+		// minimums for each group.
         if (navigationGroup.numElements > 0 && navigationGroup.includeInLayout)
         {
             left += navigationGroup.measuredWidth;
@@ -99,8 +101,12 @@ public class ActionBarSkin extends SliderSkin
             actionGroup.setLayoutBoundsSize(unscaledWidth - right, unscaledHeight);
         }
         
+		var titleGroupWidth:Number = right - left;
+		if (titleGroupWidth < 0)
+			titleGroupWidth = 0;
+		
         titleGroup.setLayoutBoundsPosition(left, 0);
-        titleGroup.setLayoutBoundsSize(right - left, unscaledHeight);
+        titleGroup.setLayoutBoundsSize(titleGroupWidth, unscaledHeight);
         
         // Draw background
         var g:Graphics = backgroundFill.graphics;
