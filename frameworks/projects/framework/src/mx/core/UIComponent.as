@@ -7472,7 +7472,7 @@ public class UIComponent extends FlexSprite
 
         // Set the font context in non-UIComponent children.
         // UIComponent children use moduleFactory.
-        if (child is IFontContextComponent && !child is UIComponent &&
+        if (child is IFontContextComponent && !(child is UIComponent) &&
             IFontContextComponent(child).fontContext == null)
             IFontContextComponent(child).fontContext = moduleFactory;
 
