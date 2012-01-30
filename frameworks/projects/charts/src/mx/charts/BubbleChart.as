@@ -88,7 +88,6 @@ use namespace mx_internal;
  *  &lt;mx:BubbleChart
  *    <strong>Properties</strong>
  *    radiusAxis="<i>LinearAxis</i>"
- *    secondRadiusAxis="<i>LinearAxis</i>"
  * 
  *    <strong>Styles</strong>
  *    maxRadius="50"
@@ -199,52 +198,6 @@ public class BubbleChart extends CartesianChart
 		invalidateData();
 	}
 
-    //----------------------------------
-	//  secondRadiusAxis
-    //----------------------------------
-
-	/**
-	 *  @private
-	 *  Storage for the secondRadiusAxis property.
-	 */
-	private var _secondRadiusAxis:IAxis;
-	
-    [Inspectable(category="Data")]
-    [Deprecated(replacement="series specific axis, example:BubbleSeries.radiusAxis")]
-
-	/**
-	 *  The axis the bubble radius of secondary series is mapped against. 
-	 *  Bubble charts treat the size of the individual bubbles
-	 *  as a third dimension of data which is transformed
-	 *  in a similar manner to how x and y position is transformed.  
-	 *  By default, the <code>secondRadisAxis</code> is a LinearAxis
-	 *  with the <code>autoAdjust</code> property set to <code>false</code>.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get secondRadiusAxis():IAxis
-	{
-		return _secondRadiusAxis;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set secondRadiusAxis(value:IAxis):void
-	{
-		_secondRadiusAxis = value;
-
-		initSecondaryMode();
-
-		_transforms[1].setAxis(2, value);
-		
-		invalidateData();
-		invalidateProperties();
-	}
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden methods: UIComponent
@@ -271,13 +224,9 @@ public class BubbleChart extends CartesianChart
 			this.calloutStroke = new Stroke(0x888888,2);						
 			this.fontSize = 10;
 			this.gridLinesStyleName = "bothGridLines";
-			this.horizontalAxisStyleName = "blockNumericAxis";
 			this.maxRadius = 50;
 			this.minRadius = 0;
-			this.secondHorizontalAxisStyleName = "blockNumericAxis";
-			this.secondVerticalAxisStyleName = "blockNumericAxis";
 			this.textAlign = "left";
-			this.verticalAxisStyleName = "blockNumericAxis";
 			this.horizontalAxisStyleNames = ["blockNumericAxis"];
 			this.verticalAxisStyleNames = ["blockNumericAxis"];
 		}
@@ -328,18 +277,7 @@ public class BubbleChart extends CartesianChart
 					series[i].maxRadius = maxRadius;
 					series[i].invalidateDisplayList();
 				}
-			}			
-			
-			series = secondSeries;
-			n = series.length;
-			for (i = 0; i < n;i++)
-			{
-				if (series[i] is BubbleSeries)
-				{
-					series[i].maxRadius = maxRadius;
-					series[i].invalidateDisplayList();
-				}
-			}			
+			}						
 		}
 		if (styleProp == null || styleProp == "minRadius")
 		{
@@ -354,18 +292,7 @@ public class BubbleChart extends CartesianChart
 					series[i].minRadius = minRadius;
 					series[i].invalidateDisplayList();
 				}
-			}			
-			
-			series = secondSeries;
-			n = series.length;
-			for (i = 0; i < n;i++)
-			{
-				if (series[i] is BubbleSeries)
-				{
-					series[i].minRadius = minRadius;
-					series[i].invalidateDisplayList();
-				}
-			}			
+			}					
 		}
 	}
 
@@ -387,45 +314,6 @@ public class BubbleChart extends CartesianChart
 			BubbleSeries(seriesGlyph).maxRadius = maxRadius;
 		if ((seriesGlyph is BubbleSeries) && !isNaN(minRadius))
 			BubbleSeries(seriesGlyph).minRadius = minRadius;
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: CartesianChart
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	override protected function initSecondaryMode():void
-	{
-		super.initSecondaryMode();
-		
-		if (!secondVerticalAxis)
-			secondVerticalAxis = new LinearAxis();
-
-		if (!secondHorizontalAxis)
-			secondHorizontalAxis = new LinearAxis();
-
-		if (!_secondRadiusAxis)
-		{
-			var la:LinearAxis = new LinearAxis();
-			la.autoAdjust = false;
-			la.minimum = 0;
-			la.interval = 1;
-			_secondRadiusAxis = la;
-			_transforms[1].setAxis(2, _secondRadiusAxis);
-		}
-		
-		if (!secondVerticalAxisRenderer)
-			secondVerticalAxisRenderer = new AxisRenderer();			
-
-		if (!secondHorizontalAxis)
-			secondHorizontalAxis = new LinearAxis();
-
-		if (!secondHorizontalAxisRenderer)
-			secondHorizontalAxisRenderer = new AxisRenderer();			
 	}
 }
 
