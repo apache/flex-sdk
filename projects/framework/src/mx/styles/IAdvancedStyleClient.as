@@ -76,7 +76,7 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function isPseudoSelectorMatch(pseudoState:String):Boolean;
+    function matchesCSSState(cssState:String):Boolean;
 
     /**
      *  Determines whether this instance is the same as - or is a subclass of -
@@ -87,17 +87,8 @@ public interface IAdvancedStyleClient extends IStyleClient
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */ 
-    function isTypeSelectorMatch(type:String):Boolean;
+    function matchesCSSType(cssType:String):Boolean;
 
-    /**
-     *   Apply state specific styles.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void;
 }
 
 }
