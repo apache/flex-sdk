@@ -15,9 +15,9 @@ import flash.display.DisplayObject;
 import flash.display.Graphics;
 
 /**
- *  Actionscript based skin for toggle buttons. This class can not be used 
+ *  ActionScript-based skin for toggle buttons. This class can not be used 
  *  by itself. You must subclass and specify a 
- *  backgroundClass and selectedBackgroundClass
+ *  backgroundClass and selectedBackgroundClass.
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -29,6 +29,15 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     /* Define the symbol fill items that should be colored by the "symbolColor" style. */
     static private const symbols:Array = ["symbolIcon"];
     
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     * 
+     */
     public function SelectableButtonSkinBase()
     {
         super();
@@ -51,7 +60,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     }
     
     /**
-     *  The Class used to create the icon in the up state
+     *  The class used to create the icon in the up state.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -61,7 +70,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var upIconClass:Class;
     
     /**
-     *  The Class used to create the icon in the selected up state 
+     *  The class used to create the icon in the selected upSelected state .
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -71,7 +80,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var upSelectedIconClass:Class;
     
     /**
-     *  The Class used to create the icon in the down state
+     *  The class used to create the icon in the down state.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -81,7 +90,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var downIconClass:Class;
     
     /**
-     *  The Class used to create the icon in the selected down state 
+     *  The class used to create the icon in the selected downSelected state .
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -91,7 +100,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var downSelectedIconClass:Class;
     
     /**
-     *  The Class used to create the symbol icon in all deselected states 
+     *  The class used to create the symbol icon in all deselected states .
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -101,7 +110,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var upSymbolIconClass:Class;
     
     /**
-     *  The Class used to create the selected symbol icon in all selected states 
+     *  The class used to create the selected symbol icon in all selected states.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -111,7 +120,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var upSymbolIconSelectedClass:Class;
     
     /**
-     *  The Class used to create the symbol icon in all deselected states 
+     *  The class used to create the symbol icon in all deselected states. 
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -121,7 +130,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var downSymbolIconClass:Class;
     
     /**
-     *  The Class used to create the selected symbol icon in all selected states 
+     *  The class used to create the selected symbol icon in all selected states. 
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -131,7 +140,7 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     protected var downSymbolIconSelectedClass:Class;
     
     /**
-     *  Optional symbol to display selection state 
+     *  Optional symbol to display selection state. 
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
