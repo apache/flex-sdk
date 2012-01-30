@@ -76,7 +76,7 @@ package spark.automation.delegates.components
 		override public function get automationName():String
 		{
 			var am:IAutomationManager2 = Automation.automationManager2;
-			return am.getUniqueApplicationId();
+			return am.getUniqueApplicationID();
 		}
 		
 		/**
@@ -127,7 +127,7 @@ package spark.automation.delegates.components
 			
 			// we need to add popup children
 			
-			var tempChildren1:Array  = am.getPopoupChildren();
+			var tempChildren1:Array  = am.getPopUpChildren();
 			var n:int = 0;
 			var i:int = 0;	
 			
