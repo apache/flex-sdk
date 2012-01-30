@@ -12,6 +12,9 @@
 package mx.effects.effectClasses
 {
 
+import flash.events.Event;
+import flash.events.IEventDispatcher;
+
 import mx.core.mx_internal;
 
 /**
@@ -26,39 +29,112 @@ public class PauseInstance extends TweenEffectInstance
 {
     include "../../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  Constructor.
-	 *
-	 *  @param target This argument is ignored by the Pause effect.
-	 *  It is included for consistency with other effects.
-	 */
-	public function PauseInstance(target:Object)
-	{
-		super(target);
-	}
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     *
+     *  @param target This argument is ignored by the Pause effect.
+     *  It is included for consistency with other effects.
+     */
+    public function PauseInstance(target:Object)
+    {
+        super(target);
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function play():void
-	{
-		// Dispatch an effectStart event from the target.
-		super.play();
-		
-		tween = createTween(this, 0, 0, duration);
-	}
+    /**
+     * We cache the source for the event "eventName" to remove
+     * the listener for it when the effect ends.
+     */
+    private var eventSource:IEventDispatcher;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  eventName
+    //----------------------------------
+
+    /** 
+     * Name of event that Pause is waiting on before ending. 
+     * This parameter must be used in conjunction with the
+     * <code>target</code> property, which must be of type
+     * IEventDispatcher; all events must originate
+     * from some dispatcher.
+     * 
+     * <p>Listening for <code>eventName</code> is also related to the
+     * <code>duration</code> property, which acts as a timeout for the
+     * event. If the event is not received in the time period specified
+     * by <code>duration</code>, the effect will end, regardless.</p>
+     * 
+     * <p>This property is optional; the default
+     * action is to play without waiting for any event.</p>
+     */
+    public var eventName:String
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+        
+    /**
+     *  @private
+     */
+    override public function play():void
+    {
+        // Dispatch an effectStart event from the target.
+        super.play();
+        
+        if (eventName && target is IEventDispatcher)
+        {
+            eventSource = IEventDispatcher(target);
+            eventSource.addEventListener(eventName, eventHandler);
+        }
+
+        tween = createTween(this, 0, 0, duration);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     * This function is called by the target if the named event
+     * is dispatched before the duration expires.
+     */
+    private function eventHandler(event:Event):void
+    {
+        end();
+    }
+
+    /**
+     * Override this function so that we can remove the listener for the
+     * event named in the <code>eventName</code> attribute, if it exists
+     * 
+     * @private
+     */
+    override public function onTweenEnd(value:Object):void 
+    {
+        super.onTweenEnd(value);
+        if (eventSource)
+            eventSource.removeEventListener(eventName, eventHandler);
+    }
 }
 
 }
