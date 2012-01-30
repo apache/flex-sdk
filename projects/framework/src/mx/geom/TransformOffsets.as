@@ -17,7 +17,6 @@ package mx.geom
 	import flash.events.EventDispatcher;
 	import flash.events.Event;
 	import mx.core.mx_internal;
-	import mx.geom.ITransformable;
 	import mx.core.AdvancedLayoutFeatures;
 	import flash.geom.Point;
 	use namespace mx_internal;	
@@ -25,7 +24,7 @@ package mx.geom
 	/**
 	 *  A CompoundTransform represents a 2D or 3D matrix transform. It can be used in the offsets property on a UIComponent or GraphicElement.
 	 */
-	public class TransformOffsets extends EventDispatcher implements ITransformable
+	public class TransformOffsets extends EventDispatcher 
 	{
     //--------------------------------------------------------------------------
     //
