@@ -1,23 +1,26 @@
 <?xml version="1.0"?>
 <!-- Simple example to demonstrate the Resize effect. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Resize id="expand" target="{img}" widthTo="100" heightTo="200"/>
-    <mx:Resize id="contract" target="{img}" widthTo="30" heightTo="60"/>
+    <fx:Declarations>
+        <mx:Resize id="expand" target="{img}" widthTo="100" heightTo="200"/>
+        <mx:Resize id="contract" target="{img}" widthTo="30" heightTo="60"/>
+    </fx:Declarations>
 
-    <mx:Panel title="Resize Effect Example" width="100%" height="100%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
+    <s:Panel title="Resize Effect Example" width="100%" height="100%" >
+        <s:VGroup left="20" right="20" top="20" bottom="20">
 
-        <mx:Text width="100%" color="blue" 
-            text="Use the Button controls to resize the image."/>
+            <s:SimpleText width="100%" color="blue"
+                text="Use the Button controls to resize the image."/>
 
-        <mx:Image id="img" width="30" height="60"
-            source="@Embed(source='assets/Nokia_6630.png')"/>
+            <mx:Image id="img" width="30" height="60"
+                source="@Embed(source='assets/Nokia_6630.png')"/>
 
-        <mx:ControlBar>
             <mx:Button label="Expand" click="expand.end(); expand.play();"/>
             <mx:Button label="Contract" click="contract.end(); contract.play();"/>
-        </mx:ControlBar>
+        </s:VGroup>
 
-    </mx:Panel>
-</mx:Application>
+    </s:Panel>
+</s:Application>
