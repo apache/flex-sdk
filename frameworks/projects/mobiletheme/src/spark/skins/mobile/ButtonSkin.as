@@ -3,6 +3,7 @@ package spark.skins.mobile
 	
 	import flash.display.DisplayObject;
 	import flash.display.GradientType;
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.geom.Matrix;
 	import flash.text.TextField;
@@ -14,7 +15,7 @@ package spark.skins.mobile
 	import spark.components.Button;
 	
 	public class ButtonSkin extends UIComponent
-	{
+	{	
 		public function ButtonSkin()
 		{
 			super();
@@ -66,9 +67,23 @@ package spark.skins.mobile
 				
 				addChild(textField);
 				addChild(textFieldShadow);
+				
+				hostComponent.addEventListener("contentChange", handleContentChange);
 			}
 			
 			applyFXG();
+		}
+
+		protected function handleContentChange(event:Event):void {
+			updateLabel();
+		}
+		
+		private function updateLabel():void {
+			if(hostComponent != null) {
+				textField.text = hostComponent.label;
+				textFieldShadow.text = hostComponent.label;
+				invalidateSize();
+			}
 		}
 		
 		override public function styleChanged(styleProp:String):void {
@@ -131,10 +146,7 @@ package spark.skins.mobile
 	
 		override protected function commitProperties():void
 		{
-			if(hostComponent != null) {
-				textField.text = hostComponent.label;
-				textFieldShadow.text = hostComponent.label;
-			}
+			updateLabel();
 		}
 		
 		override protected function measure():void
