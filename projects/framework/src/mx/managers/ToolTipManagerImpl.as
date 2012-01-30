@@ -857,8 +857,8 @@ public class ToolTipManagerImpl extends EventDispatcher
     mx_internal function initializeTip():void
     {
         // Set the text of the tooltip.
-        if (currentToolTip is ToolTip)
-            ToolTip(currentToolTip).text = currentText;
+        if (currentToolTip is IToolTip)
+            IToolTip(currentToolTip).text = currentText;
 
         if (isError && currentToolTip is IStyleClient)
             IStyleClient(currentToolTip).setStyle("styleName", "errorTip");
