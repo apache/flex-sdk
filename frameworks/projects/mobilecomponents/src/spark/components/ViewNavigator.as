@@ -1305,7 +1305,7 @@ public class ViewNavigator extends ViewNavigatorBase
             data:data, transition:transition, context:context});
         
         if (activeView)
-            activeView.dispatchEvent(new FlexEvent(FlexEvent.VIEW_HIDE));
+            activeView.dispatchEvent(new Event("_navigationChange_"));
     }
     
     /**
