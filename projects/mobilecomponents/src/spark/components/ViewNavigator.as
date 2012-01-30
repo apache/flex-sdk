@@ -1134,7 +1134,6 @@ public class ViewNavigator extends ViewNavigatorBase
     {
         viewChanging = true;
 
-        // TODO (chiedozi): Figure out a pattern for disabling parent navigator as well
         explicitMouseChildren = mouseChildren;
         explicitMouseEnabled = mouseEnabled;
         mouseEnabled = false;
@@ -1390,7 +1389,9 @@ public class ViewNavigator extends ViewNavigatorBase
         if (pendingViewTransition == null)
             pendingViewTransition = defaultTransition;
 
-        // TODO (chiedozi): Comment this more
+        // If a new view is in the process of being activated, we set the
+        // revalidateWhenComplete flag to true so that the navigator knows
+        // to apply this action after the previous one completes.
         if (viewChanging)
         {
             revalidateWhenComplete = true;
@@ -1431,8 +1432,6 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     private function commitVisibilityChanges():void
     {
-        // TODO (chiedozi): Check if spark effects handles include in layout for you
-        // Can't change the visibility during a view transition
         if (viewChanging)
         {
             actionBarVisibilityInvalidated = false;
@@ -1799,13 +1798,9 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     protected function commitNavigatorAction():void
     {
-        // TODO (chiedozi): Perf only
-//        CONFIG::performanceInstrumentation
-        {
-            // Private event used for performance tests
-            if (hasEventListener("viewChangeStart"))
-                dispatchEvent(new Event("viewChangeStart"));
-        }
+        // Private event
+        if (hasEventListener("viewChangeStart"))
+            dispatchEvent(new Event("viewChangeStart"));
         
         if (!isActive)
             return;
@@ -1836,9 +1831,7 @@ public class ViewNavigator extends ViewNavigatorBase
             
             viewChangeRequested = false;
 
-            // TODO (chiedozi): Hide the view to remove a flicker that would occur.
-            // This shouldn't happen because viewAdded should be called before the
-            // view is rendered, but that doesn't seem to happen.  Investigate this.
+            // Hide the view so that it doesn't render this frame
             view.visible = false;
             
             // Schedule the view added method to occur at a later time so to allow developers
