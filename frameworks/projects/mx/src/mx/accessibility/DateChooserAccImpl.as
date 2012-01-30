@@ -23,6 +23,11 @@ use namespace mx_internal;
 /**
  *  DateChooserAccImpl is a subclass of AccessibilityImplementation
  *  which implements accessibility for the DateChooser class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DateChooserAccImpl extends AccImpl
 {
@@ -58,6 +63,11 @@ public class DateChooserAccImpl extends AccImpl
 	 *  Afterwards, when instances of DateChooser are initialized,
 	 *  their <code>accessibilityImplementation</code> property
 	 *  will be set to an instance of this class.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function enableAccessibility():void
 	{
@@ -89,6 +99,11 @@ public class DateChooserAccImpl extends AccImpl
 	 *
 	 *  @param master The UIComponent instance that this AccImpl instance
 	 *  is making accessible.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DateChooserAccImpl(master:UIComponent)
 	{
