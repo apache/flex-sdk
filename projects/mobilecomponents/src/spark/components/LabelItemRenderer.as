@@ -639,15 +639,12 @@ public class MobileItemRenderer extends UIComponent
             if (labelDisplay.isTruncated)
                 labelDisplay.text = label;
             
-            // commit styles so our text measurement is accurate
-            labelDisplay.commitStyles();
-
-            // Text respects padding right, left, top, and bottom
-            measuredWidth = labelDisplay.measuredWidth;
-            measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
+            var horizontalPadding:Number = getStyle("paddingLeft") + getStyle("paddingRight");
+            var verticalPadding:Number = getStyle("paddingTop") + getStyle("paddingBottom");
             
-            measuredHeight = labelDisplay.measuredHeight;
-            measuredHeight += getStyle("paddingTop") + getStyle("paddingBottom");
+            // Text respects padding right, left, top, and bottom
+            measuredWidth = getElementPreferredWidth(labelDisplay) + horizontalPadding;
+            measuredHeight = getElementPreferredHeight(labelDisplay) + verticalPadding;
         }
         
         // minimum height of 80 pixels
@@ -726,6 +723,14 @@ public class MobileItemRenderer extends UIComponent
         {
             backgroundColor = getStyle("rollOverColor");
         }
+		else if (showsCaret)
+		{
+			// FIXME (rfrishbe): should probably be its own distinct color and style
+			// Also, this is touch-specific...should it be called LabelItemRenderer
+			// if it has touch-specific logic in here?  Should we gate it based 
+			// on interactionMode?
+			backgroundColor = getStyle("selectionColor");
+		}
         else
         {
             var alternatingColors:Array = getStyle("alternatingItemColors");
@@ -749,35 +754,21 @@ public class MobileItemRenderer extends UIComponent
         // the reason why we draw it in the case of drawBackground == 0 is for
         // mouse hit testing purposes
         graphics.beginFill(backgroundColor, drawBackground ? 1 : 0);
-        
-        if (showsCaret)
-        {
-            graphics.lineStyle(1, getStyle("selectionColor"));
-            graphics.drawRect(0.5, 0.5, unscaledWidth-1, unscaledHeight-1);
-        }
-        else 
-        {
-            graphics.lineStyle();
-            graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-        }
-        
-        graphics.endFill();
-        
-        if (!showsCaret)
-        {
-            // FIXME (rfrishbe): separators should be stylable
-            
-            // draw seperators: two lines
-            // 1 pixel from bottom
-            graphics.lineStyle(1, 0x1C1C1C);
-            graphics.moveTo(0, unscaledHeight-1);
-            graphics.lineTo(unscaledWidth, unscaledHeight-1);
-            
-            // line on the bottom
-            graphics.lineStyle(1, 0x606060);
-            graphics.moveTo(0, unscaledHeight);
-            graphics.lineTo(unscaledWidth, unscaledHeight);
-        }
+		graphics.lineStyle();
+		graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+		graphics.endFill();
+		
+		// FIXME (rfrishbe): separators should be stylable
+		// draw seperators: two lines
+		// 1 pixel from bottom
+		graphics.lineStyle(1, 0x1C1C1C);
+		graphics.moveTo(0, unscaledHeight-1);
+		graphics.lineTo(unscaledWidth, unscaledHeight-1);
+		
+		// line on the bottom
+		graphics.lineStyle(1, 0x606060);
+		graphics.moveTo(0, unscaledHeight);
+		graphics.lineTo(unscaledWidth, unscaledHeight);
     }
     
     /**
@@ -837,7 +828,7 @@ public class MobileItemRenderer extends UIComponent
             // reset text if it was truncated before.
             if (labelDisplay.isTruncated)
                 labelDisplay.text = label;
-            textHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
+            textHeight = getElementPreferredHeight(labelDisplay);
         }
 
         // text should take up the rest of the space width-wise, but only let it take up
@@ -855,11 +846,9 @@ public class MobileItemRenderer extends UIComponent
 
     //--------------------------------------------------------------------------
     //
-    //  Event handling
+    //  Methods: Layout Helpers
     //
     //--------------------------------------------------------------------------
-    
-    
     
     /**
      *  A helper method to position the children of this item renderer.
@@ -867,7 +856,7 @@ public class MobileItemRenderer extends UIComponent
      *  <p>You can use this method instead of checking for and using
      *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
      *
-     *  @param part The child to position.
+     *  @param element The child to position.
      *
      *  @param x The x-coordinate of the child.
      *
@@ -880,20 +869,20 @@ public class MobileItemRenderer extends UIComponent
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
-    protected function positionElement(part:Object, x:Number, y:Number):void
+    protected function positionElement(element:Object, x:Number, y:Number):void
     {
-        if (part is ILayoutElement)
+        if (element is ILayoutElement)
         {
-            ILayoutElement(part).setLayoutBoundsPosition(x, y, false);
+            ILayoutElement(element).setLayoutBoundsPosition(x, y, false);
         }
-        else if (part is IFlexDisplayObject)
+        else if (element is IFlexDisplayObject)
         {
-            IFlexDisplayObject(part).move(x, y);   
+            IFlexDisplayObject(element).move(x, y);   
         }
         else
         {
-            part.x = x;
-            part.y = y;
+            element.x = x;
+            element.y = y;
         }
     }
     
@@ -903,7 +892,7 @@ public class MobileItemRenderer extends UIComponent
      *  <p>You can use this method instead of checking for and using
      *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
      *
-     *  @param part The child to position.
+     *  @param element The child to position.
      *
      *  @param x The width of the child.
      *
@@ -916,20 +905,98 @@ public class MobileItemRenderer extends UIComponent
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
-    protected function resizeElement(part:Object, width:Number, height:Number):void
+    protected function resizeElement(element:Object, width:Number, height:Number):void
     {
-        if (part is ILayoutElement)
+        if (element is ILayoutElement)
         {
-            ILayoutElement(part).setLayoutBoundsSize(width, height, false);
+            ILayoutElement(element).setLayoutBoundsSize(width, height, false);
         }
-        else if (part is IFlexDisplayObject)
+        else if (element is IFlexDisplayObject)
         {
-            IFlexDisplayObject(part).setActualSize(width, height);
+            IFlexDisplayObject(element).setActualSize(width, height);
         }
         else
         {
-            part.width = width;
-            part.height = height;
+            element.width = width;
+            element.height = height;
+        }
+    }
+    
+    /**
+     *  A helper method to retrieve the preferred width of an element
+     * 
+     *  <p>You can use this method instead of checking for and using
+     *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+     *
+     *  @param element The child to retrieve the width for
+     *
+     *  @see #sizeElement
+     *  @see #getElementPreferredHeight  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function getElementPreferredWidth(element:Object):Number
+    {
+        if (element is ILayoutElement)
+        {
+            return ILayoutElement(element).getPreferredBoundsWidth();
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            return IFlexDisplayObject(element).measuredWidth;
+        }
+        else if (element is StyleableTextField)
+        {
+            // commit styles to get an accurate measurement
+            StyleableTextField(element).commitStyles();
+
+            return StyleableTextField(element).measuredWidth;
+        }
+        else
+        {
+            return element.width;
+        }
+    }
+    
+    /**
+     *  A helper method to retrieve the preferred height of an element
+     * 
+     *  <p>You can use this method instead of checking for and using
+     *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+     *
+     *  @param element The child to retrieve the height for
+     *
+     *  @see #sizeElement
+     *  @see #getElementPreferredWidth 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function getElementPreferredHeight(element:Object):Number
+    {
+        if (element is ILayoutElement)
+        {
+            return ILayoutElement(element).getPreferredBoundsHeight();
+        }
+        else if (element is IFlexDisplayObject)
+        {
+            return IFlexDisplayObject(element).measuredHeight;
+        }
+        else if (element is StyleableTextField)
+        {
+            // commit styles to get an accurate measurement
+            StyleableTextField(element).commitStyles();
+                
+            return StyleableTextField(element).measuredHeight;
+        }
+        else
+        {
+            return element.height;
         }
     }
     
