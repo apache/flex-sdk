@@ -62,9 +62,9 @@ use namespace object_proxy;
  *  }
  * 
  *  // The trace output appears as:
- *  // updateHandler('opUpdate', name, Jacey, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
- *  // updateHandler('opUpdate', age, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
- *  // updateHandler('opDelete', ssnum, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+ *  // updateHandler('opUpdate', name, Tyler, Jacey, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+ *  // updateHandler('opUpdate', age, 5, 2, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
+ *  // updateHandler('opDelete', ssnum, 555-55-5555, null, '698AF8CB-B3D9-21A3-1AFFDGHT89075CD2')
  *  </pre>
  */
 public dynamic class ObjectProxy extends Proxy
