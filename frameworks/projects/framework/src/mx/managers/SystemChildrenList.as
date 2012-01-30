@@ -202,7 +202,7 @@ public class SystemChildrenList implements IChildList
 	 */
 	public function contains(child:DisplayObject):Boolean
 	{
-		if (owner.mx_internal::rawChildren_contains(child))
+		if (child != owner && owner.mx_internal::rawChildren_contains(child))
 		{
 			while (child.parent != owner)
 			{
