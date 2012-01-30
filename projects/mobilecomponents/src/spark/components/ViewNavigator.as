@@ -17,7 +17,6 @@ import spark.components.supportClasses.ViewNavigatorSection;
 import spark.effects.SlideViewTransition;
 import spark.effects.ViewTransition;
 import spark.events.IndexChangeEvent;
-import spark.events.NavigatorEvent;
 import spark.events.ViewNavigatorEvent;
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -56,27 +55,71 @@ use namespace mx_internal;
  *  Dispatched when a new view has been added to the display
  *  list.
  * 
- *  @eventType spark.events.NavigatorEvent.ADD
+ *  @eventType spark.events.ViewNavigatorEvent.VIEW_ADD
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Event(name="viewAdd", type="spark.events.NavigatorEvent")]
+[Event(name="viewAdd", type="spark.events.ViewNavigatorEvent")]
 
 /**
  *  Dispatched when a view has been removed from the display
  *  list.
  * 
- *  @eventType spark.events.NavigatorEvent.REMOVE
+ *  @eventType spark.events.ViewNavigatorEvent.VIEW_REMOVE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Event(name="viewRemove", type="spark.events.NavigatorEvent")]
+[Event(name="viewRemove", type="spark.events.ViewNavigatorEvent")]
+
+//--------------------------------------
+//  SkinStates
+//--------------------------------------
+
+/**
+ *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("portrait")]
+
+/**
+ *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("landscape")]
+
+/**
+ *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("portraitAndOverlay")]
+
+/**
+ *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("landscapeAndOverlay")]
 
 /**
  * 
@@ -145,84 +188,6 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     // 
     //--------------------------------------------------------------------------
     
-    [ArrayElementType("mx.core.IVisualElement")]
-    
-    /**
-     *  Default ActionBar action content when not supplied by a View.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var actionContent:Array;
-    
-    /**
-     *  Defines the default layout for the ActionBar actionContent.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var actionLayout:LayoutBase;
-    
-    [ArrayElementType("mx.core.IVisualElement")]
-    
-    /**
-     *  Default ActionBar title content when not supplied by a View.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var titleContent:Array;
-    
-    /**
-     *  Defines the default layout for the ActionBar titleContent.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var titleLayout:LayoutBase;
-    
-    [ArrayElementType("mx.core.IVisualElement")]
-    
-    /**
-     *  Default ActionBar navigation content when not supplied by a View.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var navigationContent:Array;
-    
-    /**
-     *  Defines the default layout for the ActionBar navigationContent.
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public var navigationLayout:LayoutBase;
-    
     /**
      *
      */
@@ -278,7 +243,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     //  selectedSection
     //----------------------------------
     
-    public function get selectedSection():ViewNavigatorSection
+    mx_internal function get selectedSection():ViewNavigatorSection
     {
         if (selectedIndex == -1)
             return null;
@@ -306,6 +271,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     }
     
     private var viewChanging:Boolean = false;
+    
+    //----------------------------------
+    //  transitionsEnabled
+    //----------------------------------
+    mx_internal var transitionsEnabled:Boolean = true;
     
     //--------------------------------------------------------------------------
     //
@@ -363,6 +333,22 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         return _sections.length;
     }
     
+    private var _overlayMode:String;
+    
+    public function get overlayMode():String
+    {
+        return _overlayMode;
+    }
+    
+    public function set overlayMode(value:String):void
+    {
+        if (value != _overlayMode)
+        {
+            _overlayMode = value;
+            invalidateSkinState();
+        }
+    }
+    
     //----------------------------------
     //  sections
     //----------------------------------
@@ -371,7 +357,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     [ArrayElementType("spark.components.supportClasses.ViewNavigatorSection")]
     /**
-     *  The collection of <code>ScreenStack</code> objects
+     *  The collection of <code>ViewNavigatorSection</code> objects
      *  being managed by the navigator.
      *
      *  @default null
@@ -493,9 +479,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     public function popAll(transition:ViewTransition = null):void
     {
-        if (currentSection.length == 0)
+        if (currentSection.length == 0 || !canRemoveCurrentView())
             return;
-        
+             
         lastAction = POP_ACTION;
         pendingViewTransition = transition ? transition : 
             new SlideViewTransition(400, SlideViewTransition.SLIDE_RIGHT);
@@ -515,7 +501,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     public function popView(transition:ViewTransition = null):void
     {
-        if (currentSection.length == 0)
+        if (currentSection.length == 0 || !canRemoveCurrentView())
             return;
         
         lastAction = POP_ACTION;
@@ -537,7 +523,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     public function popToRoot(transition:ViewTransition = null):void
     {
-        if (currentSection.length < 2)
+        if (currentSection.length < 2 || !canRemoveCurrentView())
             return;
         
         lastAction = POP_ACTION;
@@ -561,6 +547,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                              initializationData:Object = null,
                              transition:ViewTransition = null):void
     {
+        if (!canRemoveCurrentView())
+            return;
+        
         lastAction = PUSH_ACTION;
         
         var newViewData:ViewData = new ViewData();
@@ -587,13 +576,249 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                                        initializationData:Object = null,
                                        transition:ViewTransition = null):void
     {
+        if (!canRemoveCurrentView())
+            return;
+        
         if (currentSection.length > 0)
             currentSection.pop();
         
         pushView(viewFactory, initializationData, transition);
         
-        pendingViewTransition = null;
         lastAction = REPLACE_ACTION;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  UI Template Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  actionContent
+    //----------------------------------
+    
+    private var _actionContent:Array;
+    private var actionContentInvalidated:Boolean = false;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    /**
+     *  Array of visual elements that are used as the ActionBar's
+     *  actionContent when this view is active.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get actionContent():Array
+    {
+        return _actionContent;
+    }
+    /**
+     *  @private
+     */
+    public function set actionContent(value:Array):void
+    {
+        _actionContent = value;
+        actionContentInvalidated = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  actionGroupLayout
+    //----------------------------------
+    
+    /**
+     *  Layout for the ActionBar's action content group.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    private var _actionGroupLayout:LayoutBase;
+    private var actionGroupLayoutInvalidated:Boolean = false;
+    
+    public function get actionGroupLayout():LayoutBase
+    {
+        return _actionGroupLayout;
+    }
+    /**
+     *  @private
+     */
+    public function set actionGroupLayout(value:LayoutBase):void
+    {
+        _actionGroupLayout = value;
+        actionGroupLayoutInvalidated = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  navigationContent
+    //----------------------------------
+    
+    private var _navigationContent:Array;
+    private var navigationContentInvalidated:Boolean = false;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    /**
+     *  Array of visual elements that are used as the ActionBar's
+     *  navigationContent when this view is active.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get navigationContent():Array
+    {
+        return _navigationContent;
+    }
+    /**
+     *  @private
+     */
+    public function set navigationContent(value:Array):void
+    {
+        _navigationContent = value;
+        navigationContentInvalidated = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  navigationGroupLayout
+    //----------------------------------
+    
+    /**
+     *  Layout for the ActionBar navigation content group.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    private var _navigationGroupLayout:LayoutBase;
+    private var navigationGroupLayoutInvalidated:Boolean = false;
+    
+    public function get navigationGroupLayout():LayoutBase
+    {
+        return _navigationGroupLayout;
+    }
+    /**
+     *  @private
+     */
+    public function set navigationGroupLayout(value:LayoutBase):void
+    {
+        _navigationGroupLayout = value;
+        navigationGroupLayoutInvalidated = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  title
+    //----------------------------------
+    
+    private var _title:String;
+    private var titleInvalidated:Boolean = false;
+    
+    [Bindable]
+    /**
+     *  
+     */ 
+    public function get title():String
+    {
+        return _title;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set title(value:String):void
+    {
+        if (_title != value)
+        {
+            _title = value;
+            titleInvalidated = true;
+            
+            invalidateProperties();
+        }
+    }
+    
+    //----------------------------------
+    //  titleContent
+    //----------------------------------
+    
+    private var _titleContent:Array;
+    private var titleContentInvalidated:Boolean = false;
+    
+    [ArrayElementType("mx.core.IVisualElement")]
+    /**
+     *  Array of visual elements that are used as the ActionBar's
+     *  titleContent when this view is active.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get titleContent():Array
+    {
+        return _titleContent;
+    }
+    /**
+     *  @private
+     */
+    public function set titleContent(value:Array):void
+    {
+        _titleContent = value;
+        titleContentInvalidated = true;
+            
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  titleGroupLayout
+    //----------------------------------
+    
+    /**
+     *  Layout for the ActionBar's titleContent group.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    private var _titleGroupLayout:LayoutBase;
+    private var titleGroupLayoutInvalidated:Boolean = false;
+    
+    public function get titleGroupLayout():LayoutBase
+    {
+        return _titleGroupLayout;
+    }
+    /**
+     *  @private
+     */
+    public function set titleGroupLayout(value:LayoutBase):void
+    {
+        _titleGroupLayout = value;
+        titleGroupLayoutInvalidated = true;
+        
+        invalidateProperties();
     }
     
     //--------------------------------------------------------------------------
@@ -613,9 +838,29 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         mouseChildren = false;
     }
     
+    /**
+     *  This method checks if the current view can be removed
+     *  from the display list.
+     * 
+     *  @return Returns true if the screen can be removed
+     */
+    protected function canRemoveCurrentView():Boolean
+    {
+        var view:View;
+        
+        if (!currentViewData)
+            return true;
+
+        view = currentViewData.instance;
+        return (view == null || view.canRemove);
+    }
+    
     override protected function commitProperties():void
     {
-        executeViewChange();
+        if (currentViewChanged)
+            executeViewChange();
+        else
+            updateActionBarProperties(activeView);
         
         super.commitProperties();
     }
@@ -630,16 +875,20 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         
         // Check if we need to push the root view
         if (currentSection && currentSection.length == 0)
-            currentSection.push(new ViewData(currentSection.rootScreen, currentSection.initialData));
+            currentSection.push(new ViewData(currentSection.rootView, currentSection.initialData));
         
         return true;
     }
     
     protected function endViewChange():void
     {
+        var currentView:View;
+        
         if (currentViewData)
         {
-            var currentView:View = currentViewData.instance;
+            currentView = currentViewData.instance;
+            
+            currentView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
             removeElement(currentView);
             
             // FIXME (chiedozi): Figure out how to use focus manager to manage focus
@@ -649,6 +898,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             // Grab the data from the old view and persist it
             if (lastAction == PUSH_ACTION || lastAction == CHANGE_SECTION_ACTION)
             {
+                // TODO (chiedozi): Should not be automatically persisting
                 currentViewData.data = currentView.data;
                 currentViewData.persistedData = currentView.getPersistenceData();
             }
@@ -679,8 +929,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         {
             if (currentViewData)
             {
-                currentViewData.instance.active = true;
-                currentViewData.persistedData = currentViewData.instance.getPersistenceData();
+                currentView = currentViewData.instance;
+                currentView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
+                
+                currentViewData.persistedData = currentView.getPersistenceData();
+                currentView.active = true;
             }
         }
         
@@ -697,55 +950,52 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     
     protected function executeViewChange():void
     {
-        if (currentViewChanged)
+        if (selectedSectionChanged)
         {
-            if (selectedSectionChanged)
+            commitSelection();
+            selectedSectionChanged = false;
+        }
+        
+        beginViewChange();
+        
+        if (currentSection)
+            pendingViewData = currentSection.top;
+        
+        if (pendingViewData)
+        {
+            var view:View;
+            
+            if (pendingViewData.instance == null)
             {
-                commitSelection();
-                selectedSectionChanged = false;
+                view = new pendingViewData.factory();
+                pendingViewData.instance = view;
+            }
+            else
+            {
+                view = pendingViewData.instance;
             }
             
-            beginViewChange();
+            // Restore persistence data if necessary
+            if (pendingViewData.data == null && pendingViewData.persistedData != null)
+                pendingViewData.data = view.deserializePersistenceData(pendingViewData.persistedData);
             
-            if (currentSection)
-                pendingViewData = currentSection.top;
+            view.navigator = this;
+            view.data = pendingViewData.data;
             
-            if (pendingViewData)
-            {
-                var view:View;
-                
-                if (pendingViewData.instance == null)
-                {
-                    view = new pendingViewData.factory();
-                    pendingViewData.instance = view;
-                }
-                else
-                {
-                    view = pendingViewData.instance;
-                }
-                
-                // Restore persistence data if necessary
-                if (pendingViewData.data == null && pendingViewData.persistedData != null)
-                    pendingViewData.data = view.deserializePersistenceData(pendingViewData.persistedData);
-                
-                view.navigator = this;
-                view.data = pendingViewData.data;
-                
-                // TODO: I Needed an event that occurred before view was added to the display list
-                // so that I could change its orientation state in MobileApplication.  Otherwise, it would
-                // happen later.  Would it be a problem if this happened on viewAdded?
-                // Notify listeners that a new view has been successfully initialized but not added to stage
-                if (hasEventListener(ViewNavigatorEvent.VIEW_INITIALIZED))
-                    dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_INITIALIZED, false, false, view, pendingViewTransition));
-                
-                addElement(view);
-            }
+            // TODO: I Needed an event that occurred before view was added to the display list
+            // so that I could change its orientation state in MobileApplication.  Otherwise, it would
+            // happen later.  Would it be a problem if this happened on viewAdded?
+            // Notify listeners that a new view has been successfully initialized but not added to stage
+            if (hasEventListener(ViewNavigatorEvent.VIEW_INITIALIZED))
+                dispatchEvent(new ViewNavigatorEvent(ViewNavigatorEvent.VIEW_INITIALIZED, false, false, view, pendingViewTransition));
             
-            // Put this before viewAdded() so another validation pass won't cause this to happen
-            currentViewChanged = false; 
-            viewAdded(pendingViewTransition);
-            pendingViewTransition = null;
-        }            
+            addElement(view);
+        }
+        
+        // Put this before viewAdded() so another validation pass won't cause this to happen
+        currentViewChanged = false; 
+        viewAdded(pendingViewTransition);
+        pendingViewTransition = null;
     }
     
     /**
@@ -774,8 +1024,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         }
     }
     
-    // Only current because previous screens are already persisted
-    public function persistCurrentView():void
+    // Only current because previous views are already persisted
+    mx_internal function persistCurrentView():void
     {
         if (currentViewData && currentViewData.instance)
             currentViewData.persistedData = currentViewData.instance.getPersistenceData();
@@ -809,7 +1059,9 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             transition.prepare();
         }
         
-        updateActionBar(currentView, pendingView);
+        // Invalidate the actionBar properties
+        if (actionBar)
+            updateActionBarProperties(pendingView, true);
         
         // Notify listeners that a new view has been successfully added to the stage
         if (hasEventListener(ViewNavigatorEvent.VIEW_ADD))
@@ -829,33 +1081,10 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             endViewChange();
         }
     }
-    
-    protected function updateActionBar(currentView:View, pendingView:View):void
+
+    override protected function getCurrentSkinState():String
     {
-        if (!actionBar)
-            return;
-        
-        // TODO: setup data binding from active view to ActionBar
-        // TODO: allow MobileApplication and/or ViewNavigator to define default ActionBar content
-        actionBar.title = pendingView.title;
-        
-        var content:Array = pendingView.titleContent;
-        var contentLayout:LayoutBase = (pendingView.titleLayout) ? pendingView.titleLayout : this.titleLayout;
-        
-        actionBar.titleContent = (content) ? content : this.titleContent;
-        actionBar.titleLayout = contentLayout;
-        
-        content = pendingView.navigationContent;
-        contentLayout = (pendingView.navigationLayout) ? pendingView.navigationLayout : this.navigationLayout;
-        
-        actionBar.navigationContent = (content) ? content : this.navigationContent;
-        actionBar.navigationLayout = navigationLayout;
-        
-        content = pendingView.actionContent;
-        contentLayout = (pendingView.actionLayout) ? pendingView.actionLayout : this.actionLayout;
-        
-        actionBar.actionContent = (content) ? content : this.actionContent;
-        actionBar.actionLayout = actionLayout;
+        return null;    
     }
     
     protected function transitionComplete(event:Event):void
@@ -865,17 +1094,126 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         endViewChange();
     }
     
+    protected function updateActionBarProperties(view:View, forceUpdate:Boolean = false):void
+    {
+        if (!actionBar)
+            return;
+ 
+        if (forceUpdate)
+        {
+            actionBar.actionContent = view && view.actionContent ? view.actionContent : actionContent;
+            actionBar.actionGroupLayout = view && view.actionGroupLayout ? view.actionGroupLayout : actionGroupLayout;
+            actionBar.navigationContent = view && view.navigationContent ? view.navigationContent : navigationContent;
+            actionBar.navigationGroupLayout = view && view.navigationGroupLayout ? view.navigationGroupLayout : navigationGroupLayout;
+            actionBar.title = view && view.title ? view.title : title;
+            actionBar.titleContent = view && view.titleContent ? view.titleContent : titleContent;
+            actionBar.titleGroupLayout = view && view.titleGroupLayout ? view.titleGroupLayout : titleGroupLayout;
+            
+            actionContentInvalidated = false;
+            actionGroupLayoutInvalidated = false;
+            navigationContentInvalidated = false;
+            navigationGroupLayoutInvalidated = false;
+            titleInvalidated = false;
+            titleContentInvalidated = false;
+            titleGroupLayoutInvalidated = false;
+        }
+        else
+        {
+            if (actionContentInvalidated)
+            {
+                actionBar.actionContent = view && view.actionContent ? 
+                    view.actionContent : actionContent;
+                actionContentInvalidated = false;
+            }
+            
+            if (actionGroupLayoutInvalidated)
+            {
+                actionBar.actionGroupLayout = view && view.actionGroupLayout ? 
+                    view.actionGroupLayout : actionGroupLayout;
+                actionGroupLayoutInvalidated = false;
+            }
+            
+            if (navigationContentInvalidated)
+            {
+                actionBar.navigationContent = view && view.navigationContent ? 
+                    view.navigationContent : navigationContent;
+                navigationContentInvalidated = false;
+            }
+            
+            if (navigationGroupLayoutInvalidated)
+            {
+                actionBar.navigationGroupLayout = view && view.navigationGroupLayout ? 
+                    view.navigationGroupLayout : navigationGroupLayout;
+                navigationGroupLayoutInvalidated = false;
+            }
+            
+            if (titleInvalidated)
+            {
+                actionBar.title = view && view.title ? view.title : title;
+                titleInvalidated = false;
+            }
+            
+            if (titleContentInvalidated)
+            {
+                actionBar.titleContent = view && view.titleContent ? 
+                    view.titleContent : titleContent;
+                titleContentInvalidated = false;
+            }
+            
+            if (titleGroupLayoutInvalidated)
+            {
+                actionBar.titleGroupLayout = view && view.titleGroupLayout ? 
+                    view.titleGroupLayout : titleGroupLayout;
+                titleGroupLayoutInvalidated = false;
+            }        
+        }
+    }
+    
+    /**
+     *
+     */ 
+    protected function view_propertyChangeHandler(event:PropertyChangeEvent):void
+    {
+        var property:Object = event.property;
+        
+        // Check for actionBar related property changes
+        if (actionBar)
+        {
+            if (property == "title")
+                titleInvalidated = true;
+            else if (property == "titleContent")
+                titleContentInvalidated = true;
+            else if (property == "titleGroupLayout")
+                titleGroupLayoutInvalidated = true;
+            else if (property == "actionContent")
+                actionContentInvalidated = true;
+            else if (property == "actionGroupLayout")
+                actionGroupLayoutInvalidated  = true;
+            
+            invalidateProperties();
+        }
+    }
+    
+    
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
         
+        // Tab bar should only be visible only if there is more than 1 section
         if (instance == tabBar && sections)
             tabBar.visible = tabBar.includeInLayout = sections.length > 1;
-    }
-    
-    override protected function partRemoved(partName:String, instance:Object):void
-    {
-        super.partRemoved(partName, instance);
+        
+        // If the actionBar changes, need to reset the properties on it
+        if (instance == actionBar)
+        {
+            actionContentInvalidated = true;
+            actionGroupLayoutInvalidated = true;
+            titleInvalidated = true;
+            titleContentInvalidated = true;
+            titleGroupLayoutInvalidated = true;
+            
+            invalidateProperties();   
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -889,7 +1227,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     public function addItem(item:Object):void
     {
         if (!(item is ViewNavigatorSection)) 
-            throw new Error("You can only add ScreenStacks to a ViewNavigator");
+            throw new Error("You can only add ViewNavigatorSections to a ViewNavigator");
         
         _sections.push(item);
         internalDispatchEvent(CollectionEventKind.ADD, item, _sections.length - 1);
@@ -901,7 +1239,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     public function addItemAt(item:Object, index:int):void
     {
         if (!(item is ViewNavigatorSection)) 
-            throw new Error("You can only add ScreenStacks to a ViewNavigator");
+            throw new Error("You can only add ViewNavigatorSections to a ViewNavigator");
         
         if (index < 0 || index > length) 
         {
@@ -938,8 +1276,8 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     }
     
     /**
-     *  This method is not supported by ScreenNavigator.  Any changes
-     *  made to individual screens inside a <code>ScreenStack</code>
+     *  This method is not supported by ViewNavigator.  Any changes
+     *  made to individual views inside a <code>ViewNavigatorSection</code>
      *  are ignored.
      */
     public function itemUpdated(item:Object, property:Object = null, 
@@ -981,7 +1319,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     public function setItemAt(item:Object, index:int):Object
     {
         if (!(item is ViewNavigatorSection)) 
-            throw new Error("You can only add ScreenStacks to a ViewNavigator");
+            throw new Error("You can only add ViewNavigatorSection to a ViewNavigator");
         
         if (index < 0 || index >= length) 
         {
