@@ -121,10 +121,16 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
 			}
 		}
 
-		// If available, get soft-link to the RichEditableText class to use in mouseMoveHandler().
+		// If available, get soft-link to the RichEditableText class
+		// to use in mouseMoveHandler().
         // ToDo: revisit the correct way to do this for modules.
-        if (ApplicationDomain.currentDomain.hasDefinition("spark.components.RichEditableText"))
-            textViewClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.RichEditableText"));
+        if (ApplicationDomain.currentDomain.hasDefinition(
+				"spark.components.RichEditableText"))
+		{
+            richEditableTextClass = 
+				Class(ApplicationDomain.currentDomain.getDefinition(
+					"spark.components.RichEditableText"));
+		}
     }
 
     //--------------------------------------------------------------------------
@@ -228,9 +234,9 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
 
     /**
      *  @private
-     *  Soft-link to TextView class object, if available.
+     *  Soft-link to RichEditableText class object, if available.
      */
-    private var textViewClass:Class;
+    private var richEditableTextClass:Class;
 
     //--------------------------------------------------------------------------
     //
@@ -860,7 +866,7 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
         
         var isInputTextField:Boolean = 
             (target is TextField && target.type == TextFieldType.INPUT) ||
-                (textViewClass && target is textViewClass && (target["editable"] || target["selectable"]));
+                (richEditableTextClass && target is richEditableTextClass && (target["editable"] || target["selectable"]));
         
         // Do target test.
         if (!overTextField && isInputTextField)
