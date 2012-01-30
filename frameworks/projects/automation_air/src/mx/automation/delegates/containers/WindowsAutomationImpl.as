@@ -99,7 +99,7 @@ package mx.automation.delegates.containers
 		override public function get automationName():String
 		{
 			var am:IAutomationManager2 = Automation.automationManager2;
-			return am.getAirWindowUniqueId(window);
+			return am.getAIRWindowUniqueID(window);
 		}
 		
 		/**
