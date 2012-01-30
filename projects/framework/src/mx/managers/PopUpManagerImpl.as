@@ -16,13 +16,19 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.InteractiveObject;
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.display.Stage;
+import flash.utils.Proxy;
 
 import mx.automation.IAutomationObject;
+import mx.containers.Canvas;
+import mx.controls.Alert;
 import mx.core.ApplicationGlobals;
 import mx.core.FlexSprite;
 import mx.core.IChildList;
@@ -37,8 +43,18 @@ import mx.effects.Fade;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
+import mx.events.ModalWindowRequest;
+import mx.events.PopUpRequest;
+import mx.events.SandboxBridgeEvent;
+import mx.events.SandboxBridgeRequest;
+import mx.events.ShowAlertRequest;
+import mx.events.SizeRequest;
+import mx.managers.ISystemManager;
+import mx.managers.SystemManager;
+import mx.managers.SystemManagerProxy;
 import mx.styles.IStyleClient;
-import flash.display.Stage;
+import mx.utils.NameUtil;
+import mx.events.ModalWindowRequest;
 
 use namespace mx_internal;
 
@@ -123,7 +139,13 @@ public class PopUpManagerImpl implements IPopUpManager
      */
     private var popupInfo:Array;
 
-
+	// VERSION_SKEW
+	private var lastPopupInfo:PopUpData;
+	private var systemManagerModal:Boolean;
+	
+	private var excludeRect:Rectangle;
+	private var systemManagerPopped:Boolean;
+	
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -228,39 +250,56 @@ public class PopUpManagerImpl implements IPopUpManager
         
         const visibleFlag:Boolean = window.visible;
         
-        var localRoot:DisplayObjectContainer = DisplayObjectContainer(parent.root);
-
-        var sm:ISystemManager;
+        var sm:ISystemManager2 = getTopLevelSystemManager(parent);
         var children:IChildList;
         var topMost:Boolean;
 
-        // If the parent isn't rooted yet,
-        // Or the root is the stage (which is the case in a second AIR window)
-        // use the global system manager instance.
-        if ((!localRoot || localRoot is Stage) && parent is IUIComponent)
-            localRoot = DisplayObjectContainer(IUIComponent(parent).systemManager);
-        if (localRoot is ISystemManager)
-        {
-            sm = ISystemManager(localRoot);
-            if (!sm.isTopLevel())
-                sm = sm.topLevelSystemManager;
-        }
-        else
+        if (!sm)
         {
             //trace("error: popup root was not SystemManager");
             return; // and maybe a nice error message
         }
-        
+
+		var smp:ISystemManager2 = sm;
+		
+		// if using a bridge, then create a System Manager Proxy to host
+		// the popup. The System Manager Proxy is the display object
+		// added to the top-level system manager's children, not
+		// the popup itself.
+		var sbRoot:DisplayObject = null;
+		var request:PopUpRequest = null;
+		if (sm.useBridge())
+		{
+			sbRoot = sm.getSandboxRoot();
+			if (sbRoot != sm)
+			{
+				smp = new SystemManagerProxy(sm);
+				request = new PopUpRequest(PopUpRequest.ADD, 
+										  DisplayObject(smp),
+										  sm.sandboxBridgeGroup.parentBridge,
+										  parent,
+										  modal,
+										  childList);
+				request.requestor = sm.sandboxBridgeGroup.parentBridge;
+				sm.sandboxBridgeGroup.parentBridge.dispatchEvent(request);
+			}
+			else 
+				smp = sm;		// host w/o system manager proxy.
+						
+			systemManagerPopped = true;
+		}
+		
         if (window is IUIComponent)
             IUIComponent(window).isPopUp = true;
         
         if (!childList || childList == PopUpManagerChildList.PARENT)
-            topMost = sm.popUpChildren.contains(parent);
+            topMost = smp.popUpChildren.contains(parent);
         else
             topMost = (childList == PopUpManagerChildList.POPUP);
         
-        children = topMost ? sm.popUpChildren : sm;
+        children = topMost ? smp.popUpChildren : smp;
         children.addChild(DisplayObject(window));
+
         window.visible = false;
         
         if (!popupInfo)
@@ -269,18 +308,29 @@ public class PopUpManagerImpl implements IPopUpManager
         const o:PopUpData = new PopUpData();
         o.owner = DisplayObject(window);
         o.topMost = topMost;
+        o.systemManager = smp;
         popupInfo.push(o);
 
         if (window is IFocusManagerContainer)
         {
-            if (IFocusManagerContainer(window).focusManager)
-                sm.addFocusManager(IFocusManagerContainer(window));
+			if (IFocusManagerContainer(window).focusManager)
+                smp.addFocusManager(IFocusManagerContainer(window));
             else
                 // Popups get their own focus loop
                 IFocusManagerContainer(window).focusManager =
                     new FocusManager(IFocusManagerContainer(window), true);
         }
 
+		// add a placeholder for an untrusted popup if this system manager
+		// is hosting the popup.
+		if (sbRoot && sm == sbRoot)
+		{
+			request = new PopUpRequest(PopUpRequest.ADD_PLACEHOLDER, DisplayObject(window), 
+									   sm.sandboxBridgeGroup.parentBridge);
+			request.placeholderId = NameUtil.displayObjectToString(DisplayObject(window));
+			sm.dispatchEvent(request);
+		} 
+		
         // force into automation hierarchy
         if (window is IAutomationObject)
             IAutomationObject(window).showInAutomationHierarchy = true;
@@ -300,16 +350,19 @@ public class PopUpManagerImpl implements IPopUpManager
         if (modal)
         {
             // create a modal window shield which blocks input and sets up mouseDownOutside logic
-            this.createModalWindow(parent, o, children, visibleFlag);
+            createModalWindowForPopup(parent, o, children, visibleFlag, smp);
         }
         else
         {
             o._mouseDownOutsideHandler  = nonmodalMouseDownOutsideHandler;
             o._mouseWheelOutsideHandler = nonmodalMouseWheelOutsideHandler;
-            
+
+			// VERSION_SKEW            
             sm.addEventListener(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
             sm.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
-            
+//            SystemManager(smp).addEventListenerToStage(MouseEvent.MOUSE_DOWN,  o.mouseDownOutsideHandler);
+//            SystemManager(smp).addEventListenerToStage(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
+
             window.visible = visibleFlag;
         }
         
@@ -318,10 +371,43 @@ public class PopUpManagerImpl implements IPopUpManager
         window.addEventListener(Event.REMOVED, popupRemovedHandler);
             
         if (window is IFocusManagerContainer && visibleFlag)
-            sm.activate(IFocusManagerContainer(window));
+        {
+         	if (smp.useBridge())
+         		// Send event to parent the window was "activate".
+         		// We want the top-level root to activate the window.
+         		SystemManager(smp).fireActivatedWindowEvent(DisplayObject(window));
+         	else
+            	smp.activate(IFocusManagerContainer(window));
+        }
 
         // trace("END POPUP: addPopUp" + parent);
     }
+
+
+	private function getTopLevelSystemManager(parent:DisplayObject):ISystemManager2
+	{
+	    var localRoot:DisplayObjectContainer;
+		var sm:ISystemManager2;
+	
+		if (parent.parent is SystemManagerProxy)
+			localRoot = DisplayObjectContainer(SystemManagerProxy(parent.parent).systemManager);
+		else
+			localRoot = DisplayObjectContainer(parent.root);
+			
+        // If the parent isn't rooted yet,
+        // Or the root is the stage (which is the case in a second AIR window)
+        // use the global system manager instance.
+        if ((!localRoot || localRoot is Stage) && parent is IUIComponent)
+            localRoot = DisplayObjectContainer(IUIComponent(parent).systemManager);
+        if (localRoot is ISystemManager2)
+        {
+            sm = ISystemManager2(localRoot);
+            if (!sm.isTopLevel())
+                sm = ISystemManager2(sm.topLevelSystemManager);
+        }
+
+		return sm;
+	}
 
     /**
      *  Centers a popup window over whatever window was used in the call 
@@ -366,13 +452,13 @@ public class PopUpManagerImpl implements IPopUpManager
             const o:PopUpData = findPopupInfoByOwner(popUp);
             if (o)
             {
-                var sm:ISystemManager = popUp.parent as ISystemManager;
+                var sm:ISystemManager2 = o.systemManager;
                 if (!sm)
 				{
 					var iui:IUIComponent = popUp as IUIComponent;
 					// cross-versioning error sometimes returns wrong parent
 					if (iui)
-						sm = iui.systemManager;
+						sm = ISystemManager2(iui.systemManager);
 					else
 						return;
 				}
@@ -381,6 +467,7 @@ public class PopUpManagerImpl implements IPopUpManager
                     sm.popUpChildren.removeChild(DisplayObject(popUp));
                 else
                     sm.removeChild(DisplayObject(popUp));
+                    
             }
         }
     }
@@ -413,10 +500,11 @@ public class PopUpManagerImpl implements IPopUpManager
      *  @private
      *  Create the modal window.
      */
-    private function createModalWindow(parentReference:DisplayObject,
+    private function createModalWindowForPopup(parentReference:DisplayObject,
                                        o:PopUpData,
                                        childrenList:IChildList,
-                                       visibleFlag:Boolean):void
+                                       visibleFlag:Boolean,
+                                       sm:ISystemManager2):void
     {
         const popup:IFlexDisplayObject = IFlexDisplayObject(o.owner);
 
@@ -436,13 +524,19 @@ public class PopUpManagerImpl implements IPopUpManager
             modalWindow.name = "modalWindow";
         }
     
-        const sm:ISystemManager = IUIComponent(parentReference).systemManager;
-        sm.numModalWindows++;
-    
+    	if (!sm)
+	        sm = ISystemManager2(IUIComponent(parentReference).systemManager);
+
+		var smp:SystemManagerProxy;
+		if (sm is SystemManagerProxy)
+			smp = SystemManagerProxy(sm);
+        
+    	sm.numModalWindows++;
+
         // Add it to the collection just below the popup
         childrenList.addChildAt(modalWindow,
             childrenList.getChildIndex(DisplayObject(popup)));
-
+        
         // force into the automation hierarchy
         if (popup is IAutomationObject)
             IAutomationObject(popup).showInAutomationHierarchy = true;
@@ -458,10 +552,29 @@ public class PopUpManagerImpl implements IPopUpManager
         const s:Rectangle = sm.screen;
         const g:Graphics = modalWindow.graphics;
         
+        if (sm.isTopLevel() && systemManagerModal)
+        {
+        	// trace("createModalWindowForPopup: toplevel and using systemManagerModal mode");
+        	s.width = DisplayObject(SystemManager(sm).application).width;
+        	s.height = DisplayObject(SystemManager(sm).application).height;
+        	
+        }
+        else if (smp)
+        {
+			var sandboxScreen:Rectangle = ISystemManager2(smp.systemManager).screen;
+			s.width = sandboxScreen.width;
+			s.height = sandboxScreen.height;
+        }
+        else
+        {
+        	s.width = SystemManager(sm).width;
+        	s.height = SystemManager(sm).height;        	
+        }
         var c:Number = 0xFFFFFF;
         if (popupStyleClient)
             c = popupStyleClient.getStyle("modalTransparencyColor");
             
+        // trace("createModalWindowForPopup: drawing modal " + s);
         g.clear();
         g.beginFill(c, 100);
         g.drawRect(s.x, s.y, s.width, s.height);
@@ -480,7 +593,10 @@ public class PopUpManagerImpl implements IPopUpManager
         modalWindow.addEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
         
         // Set the resize handler so the modal can stay the size of the screen
-        sm.addEventListener(Event.RESIZE, o.resizeHandler);
+        if (smp)
+			smp.systemManager.addEventListener(Event.RESIZE, o.resizeHandler);
+		else
+        	sm.addEventListener(Event.RESIZE, o.resizeHandler);
 
         // Listen for show so we know to show the modal window
         popup.addEventListener(FlexEvent.SHOW, popupShowHandler);
@@ -489,11 +605,71 @@ public class PopUpManagerImpl implements IPopUpManager
         popup.addEventListener(FlexEvent.HIDE, popupHideHandler);
         
         if (visibleFlag)
-            showModalWindow(o);
+            showModalWindow(o, sm);
         else
             popup.visible = visibleFlag;
-        
+
     }
+    
+    /**
+    * TODODJL: not currently used. May be useful down the road.
+    */
+    private function createModalWindow(systemManager:ISystemManager, 
+    								   parent:DisplayObject,
+    								   childrenList:IChildList,
+    								   popup:DisplayObject,
+    								   alpha:Number,
+    								   transparencyColor:Number = 0xFFFFFF):Sprite
+    {
+        // Create a modalWindow the size of the stage
+        // that eats all mouse clicks.
+        var modalWindow:Sprite;
+        if (modalWindowClass)
+        {
+            modalWindow = new modalWindowClass();
+        }
+        else
+        {
+            modalWindow = new FlexSprite();
+            modalWindow.name = "modalWindow";
+        }
+    
+        const sm:ISystemManager = systemManager;
+        sm.numModalWindows++;
+    
+        // Add it to the collection just below the popup
+        if (popup)
+        {
+	        childrenList.addChildAt(modalWindow,
+    		        childrenList.getChildIndex(DisplayObject(popup)));
+        }
+		else 
+		{
+			childrenList.addChild(modalWindow);
+		}
+		
+        // force into the automation hierarchy
+        if (popup is IAutomationObject)
+            IAutomationObject(popup).showInAutomationHierarchy = true;
+        
+        // set alpha of the popup and get it out of the focus loop
+        modalWindow.alpha = alpha
+			
+        modalWindow.tabEnabled = false;
+        
+        const s:Rectangle = sm.screen;
+        const g:Graphics = modalWindow.graphics;
+        
+        var c:Number = transparencyColor;
+            
+        g.clear();
+        g.beginFill(c, 100);
+        g.drawRect(s.x, s.y, SystemManager(sm).width, SystemManager(sm).height);
+        g.endFill();
+
+		return modalWindow;
+    }
+
 
     /**
      *  @private
@@ -503,7 +679,7 @@ public class PopUpManagerImpl implements IPopUpManager
     {
         const o:PopUpData = findPopupInfoByOwner(event.target);
         if (o)
-            showModalWindow(o);
+            showModalWindow(o, getTopLevelSystemManager(o.parent));
     }
 
     /**
@@ -535,29 +711,55 @@ public class PopUpManagerImpl implements IPopUpManager
         }
     }
     
-    /**
-     *  @private
-     *  Show the modal transparency blocker, playing effects if needed.
-     */
-    private function showModalWindow(o:PopUpData):void
+    mx_internal function showModalWindow(o:PopUpData, sm:ISystemManager):void
     {
-        const popUpStyleClient:IStyleClient = o.owner as IStyleClient;
+    	const popUpStyleClient:IStyleClient = o.owner as IStyleClient;
         var duration:Number = 0;
+        var alpha:Number = 0;
         
         if (popUpStyleClient)
             duration = popUpStyleClient.getStyle("modalTransparencyDuration");
         
+        if (popUpStyleClient)
+            alpha = popUpStyleClient.getStyle("modalTransparency");
+
+		o.modalWindow.alpha = alpha;
+			
+	    var blurAmount:Number = 0;
+	    
+	    if (popUpStyleClient)
+	    	blurAmount = popUpStyleClient.getStyle("modalTransparencyBlur");
+
+		var transparencyColor:Number = 0xFFFFFF;
+	    if (popUpStyleClient)
+	    	transparencyColor = popUpStyleClient.getStyle("modalTransparencyColor");
+   
+    	showModalWindowInternal(o, duration, alpha, transparencyColor, blurAmount, sm);
+    }
+    
+    /**
+     *  @private
+     *  Show the modal transparency blocker, playing effects if needed.
+     */
+    private function showModalWindowInternal(o:PopUpData, 
+    										 transparencyDuration:Number, 
+    										 transparency:Number, 
+    										 transparencyColor:Number,
+    										 transparencyBlur:Number, 
+    										 sm:ISystemManager):void
+    {
+        // NO POPUP Data
         // End any effects that are currently playing for this popup.
         endEffects(o);
-        
-        if (duration)
+
+        if (transparencyDuration)
         {
             // Fade effect on the modal transparency blocker
             const fade:Fade = new Fade(o.modalWindow);
 
             fade.alphaFrom = 0;
-            fade.alphaTo = popUpStyleClient.getStyle("modalTransparency");
-            fade.duration = duration;
+            fade.alphaTo = transparency;
+            fade.duration = transparencyDuration;
             fade.addEventListener(EffectEvent.EFFECT_END, fadeInEffectEndHandler);
 
             o.modalWindow.alpha = 0;
@@ -568,18 +770,17 @@ public class PopUpManagerImpl implements IPopUpManager
             fade.play();
             
             // Blur effect on the application
-            const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
+            var blurAmount:Number = transparencyBlur;
             
             if (blurAmount)
             {
                 // Ensure we blur the appropriate top level document.
                 var parentApp:Object = ("parentApplication" in o.owner) ? 
                     (Object(o.owner).parentApplication) : null;
-                     
                 const blur:Blur = new Blur(parentApp ? parentApp : ApplicationGlobals.application);
                 blur.blurXFrom = blur.blurYFrom = 0;
                 blur.blurXTo = blur.blurYTo = blurAmount;
-                blur.duration = duration;
+                blur.duration = transparencyDuration;
                 blur.addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
                 o.blur = blur;
                 
@@ -670,6 +871,64 @@ public class PopUpManagerImpl implements IPopUpManager
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 * 	@private
+	 * 
+	 * 	Display a modal dialog over this popup manager.
+	 *
+	 */
+	 private function showModalWindowRequestHandler(event:Event):void
+	 {
+	 	var eObj:Object = Object(event);
+        var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
+
+	 	// trace("showModalWindowRequestHandler for " + sm.loaderInfo.url);
+	 }
+	 
+	 	/**
+	 * @private
+	 * 
+	 * Handle request to add a popup placeholder.
+	 * The placeholder represents an untrusted form that is hosted 
+	 * elsewhere.
+	 */
+	 private function addModalPopupRequestHandler(event:Event):void
+	 {
+	 	var request:PopUpRequest = PopUpRequest.marshal(event);
+		var bridgeOwner:DisplayObject;
+		var sm:ISystemManager2 = ISystemManager2(ApplicationGlobals.application.systemManager);
+		
+		// get the bridgeOwner which is the swfloader that loaded the application.
+		if (request.bridge)
+			bridgeOwner = sm.sandboxBridgeGroup.getChildBridgeOwner(request.bridge);
+		else
+			bridgeOwner = request.window;
+		
+		// display modal
+		
+//		if (!forwardPlaceholderRequest(eObj, true))
+//		{
+//			// Create a RemotePopUp and add it.
+//			var remoteForm:RemotePopUp = new RemotePopUp(eObj.placeholderId, eObj.bridge);
+//			forms.push(remoteForm);
+//		}
+//
+	 }
+	 
+	/**
+	 * @private
+	 * 
+	 * Handle request to add a popup placeholder.
+	 * The placeholder represents an untrusted form that is hosted 
+	 * elsewhere.
+	 */
+	 private function removeModalPopupRequestHandler(event:Event):void
+	 {
+	 	var eObj:Object = Object(event);
+
+	 }
+
+	 
     /**
      *  @private
      *  Set by PopUpManager on modal windows to monitor when the parent window gets killed.
@@ -689,12 +948,10 @@ public class PopUpManagerImpl implements IPopUpManager
             {
                 var popUpParent:DisplayObject = o.parent,
                     modalWindow:DisplayObject = o.modalWindow,
-                    sm:ISystemManager         = (popUpParent is ISystemManager)
-                                                    ? ISystemManager(popUpParent)
-                                                    : IUIComponent(popUpParent).systemManager;
+                    sm:ISystemManager2         = o.systemManager;
                 
 				if (!sm.isTopLevel())
-					sm = sm.topLevelSystemManager;
+					sm = ISystemManager2(sm.topLevelSystemManager);
 
                 if (popUp is IUIComponent)
                     IUIComponent(popUp).isPopUp = false;
@@ -703,7 +960,29 @@ public class PopUpManagerImpl implements IPopUpManager
                     sm.removeFocusManager(IFocusManagerContainer(popUp));
                 
                 popUp.removeEventListener(Event.REMOVED,  popupRemovedHandler);
-                
+
+				// remove the focus manager from a bridged system manager, if any                
+				if (sm is SystemManagerProxy)
+				{
+					var parentBridge:IEventDispatcher = ISystemManager2(SystemManagerProxy(sm).systemManager).
+														sandboxBridgeGroup.parentBridge;
+					var request:PopUpRequest = new PopUpRequest(PopUpRequest.REMOVE, DisplayObject(sm),
+													parentBridge,
+													o.parent,
+													o.modalWindow != null);
+					parentBridge.dispatchEvent(request);
+				}
+				else if (sm.useBridge())
+				{
+					// Must be locally hosted popup.
+					// We need to remove the placeholder at the top level root
+					request = new PopUpRequest(PopUpRequest.REMOVE_PLACEHOLDER, 
+											   DisplayObject(popUp), 
+											   sm.sandboxBridgeGroup.parentBridge);
+					request.placeholderId = NameUtil.displayObjectToString(DisplayObject(popUp));
+					sm.dispatchEvent(request);
+				}                    
+
                 // modal
                 if (modalWindow)
                 {
@@ -727,12 +1006,14 @@ public class PopUpManagerImpl implements IPopUpManager
                     sm.removeEventListener(MouseEvent.MOUSE_WHEEL, o.mouseWheelOutsideHandler, true);
                 }
                 
+                lastPopupInfo = popupInfo[i];
                 popupInfo.splice(i, 1);
                 break;
             }
         }
     }
     
+ 
     /**
      *  @private
      *  Show the modal window after the fade effect finishes
@@ -761,19 +1042,39 @@ public class PopUpManagerImpl implements IPopUpManager
     {
         effectEndHandler(event);
         const obj:DisplayObject = DisplayObject(event.effectInstance.target);
-        if (obj.parent is ISystemManager)
-        {
-            const sm:ISystemManager = ISystemManager(obj.parent)
-            if (sm.popUpChildren.contains(obj))
-                sm.popUpChildren.removeChild(obj);
-            else
-                sm.removeChild(obj);
-        }
-        else
-		{
-			if (obj.parent)	// Mustella can already take you off stage
-				obj.parent.removeChild(obj);
-		}
+
+		// VERSION_SKEW
+ 		try
+ 		{
+	        if (obj.parent is ISystemManager)
+	        {
+	            const sm:ISystemManager = ISystemManager(obj.parent)
+	            if (sm.popUpChildren.contains(obj))
+	                sm.popUpChildren.removeChild(obj);
+	            else
+	                sm.removeChild(obj);
+	        }
+	        else
+			{
+				if (obj.parent)	// Mustella can already take you off stage
+					obj.parent.removeChild(obj);
+			}
+ 		}
+ 		catch (e:SecurityError)
+ 		{
+ 			// VERSION_SKEW
+ 			// parent is in another sandbox. Tell the sandbox to remove the modal window.
+ 			if (lastPopupInfo)
+ 			{
+ 				if (lastPopupInfo.parentBridge)
+				{
+					var request:ModalWindowRequest = new ModalWindowRequest(ModalWindowRequest.REMOVE);
+					lastPopupInfo.parentBridge.dispatchEvent(request);
+				}
+ 			}
+ 		}
+ 		
+ 		lastPopupInfo = null;
     }
     
     /**
@@ -889,11 +1190,14 @@ public class PopUpManagerImpl implements IPopUpManager
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 import flash.events.Event;
+import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 import mx.core.IUIComponent;
 import mx.effects.Effect;
 import mx.managers.ISystemManager;
 import flash.display.Stage;
+import mx.managers.ISystemManager2;
+import flash.geom.Point;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -965,6 +1269,17 @@ class PopUpData
      *  @private
      */
     public var blur:Effect;
+    
+    /**
+    * 	@private
+    */
+    public var parentBridge:IEventDispatcher;
+    
+    /**
+    *   @private
+    */
+    public var systemManager:ISystemManager2;
+    
     
     //--------------------------------------------------------------------------
     //
