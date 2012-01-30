@@ -1,21 +1,23 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the LinkButton control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo LinkButton control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         import mx.controls.Alert;
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Panel title="LinkButton Control Example" 
-        height="75%" width="75%" horizontalAlign="center"
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
-       
-        <mx:Label width="100%" 
-            text="Select the LinkButton control to open the Alert control."/>
+    <s:Panel title="Halo LinkButton Control Example" 
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" 
+                    text="Select the Halo LinkButton control to open the Alert control."/>
 
-        <mx:LinkButton label="LinkButton control" color="#0000FF" fontWeight="bold" 
-            click="Alert.show('LinkButton selected!');"/>
+            <mx:LinkButton label="LinkButton control" color="#0000FF" fontWeight="bold" 
+                    click="Alert.show('LinkButton selected!');"/>
+        </s:VGroup>
+    </s:Panel>
 
-    </mx:Panel>
-</mx:Application>   
-       
+</s:Application>
