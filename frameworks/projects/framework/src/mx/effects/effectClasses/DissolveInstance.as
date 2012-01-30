@@ -20,6 +20,8 @@ import mx.events.FlexEvent;
 import mx.graphics.RoundedRectangle;
 import mx.styles.StyleManager;
 
+use namespace mx_internal;
+
 /**
  *  The DissolveInstance class implements the instance class
  *  for the Dissolve effect.
@@ -275,7 +277,7 @@ public class DissolveInstance extends TweenEffectInstance
 		target.addEventListener(ChildExistenceChangedEvent.OVERLAY_CREATED,
 								overlayCreatedHandler);
         
-		target.mx_internal::addOverlay(color, targetArea);
+		target.addOverlay(color, targetArea);
 		//overlay.cacheAsBitmap = true;
 	}
 	
@@ -294,8 +296,8 @@ public class DissolveInstance extends TweenEffectInstance
 	{				
 		super.onTweenEnd(value);
 		
-		if (!mx_internal::persistAfterEnd)
-			target.mx_internal::removeOverlay();
+		if (!persistAfterEnd)
+			target.removeOverlay();
 	}
 
 	//--------------------------------------------------------------------------
@@ -321,7 +323,7 @@ public class DissolveInstance extends TweenEffectInstance
 										 1.0 - alphaTo, duration);
 
 		// Set the animation to the initial value before the screen refreshes.
-		mx_internal::applyTweenStartValues();
+		applyTweenStartValues();
 	}
 
 }
