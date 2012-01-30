@@ -384,8 +384,6 @@ public class SWFLoader extends UIComponent implements ISWFLoader
     {
         super();
 
-        // SWFLoader generally load interactive content.
-        tabChildren = true;
         tabEnabled = false;
 
         addEventListener(FlexEvent.INITIALIZE, initializeHandler);
