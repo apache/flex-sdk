@@ -1751,7 +1751,28 @@ public class IconItemRenderer extends LabelItemRenderer
         {
             if (contentCache.getCacheEntry(source))
             {
+                // We know we have this item cached (or atleast have attempted 
+                // to load this item and cache it).  Because we're not sure whether 
+                // this item has finished loading or not, let's set the icon's 
+                // source to the placeholder (or null) first so that we can make sure
+                // we don't leave in a stale image while the load is still happening.
+                iconDisplay.source = iconPlaceholder;
+                
+                // while we're loading,if iconPlaceholder is set, 
+                // we'll keep that image up while we're loading
+                // the external content
+                iconDisplay.clearOnLoad = (iconPlaceholder == null);
+                
+                // need to call validateProperties because we need this iconPlaceholder
+                // to actually get loaded up since we set iconDisplay.source to a remote 
+                // image on the next line.  BitmapImage doesn't actually attempt to load 
+                // up the image (even if it's a locally embedded asset) until commitProperties()
+                iconDisplay.validateProperties();
+                
+                // now attempt to load up our other image (or grab it from the cache
+                // if the load had finished already)
                 iconDisplay.source = source;
+                
                 return;
             }
         }
@@ -1768,7 +1789,10 @@ public class IconItemRenderer extends LabelItemRenderer
         // if we're off-screen, don't do anything
         // when we get re-included, our data will be reset as well
         if (!includeInLayout)
+        {
+            iconSourceToLoad = null;
             return;
+        }
         
         if (iconDisplay)
             iconDisplay.source = iconSourceToLoad;
