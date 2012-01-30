@@ -22,7 +22,7 @@ import mx.core.FlexVersion;
 import mx.core.mx_internal;
 import mx.events.ModuleEvent;
 import mx.events.StyleEvent;
-import mx.managers.SystemManager;
+import mx.managers.ISystemManager;
 import mx.managers.SystemManagerGlobals;
 import mx.modules.IModuleInfo;
 import mx.modules.ModuleManager
@@ -761,9 +761,10 @@ public class StyleManagerImpl implements IStyleManager2
         for (var i:int = 0; i < n; i++)
         {
         	// Type as Object to avoid dependency on SystemManager or WindowedSystemManager
-            var sm:Object = sms[i];
-            sm.regenerateStyleCache(true);
-            sm.notifyStyleChangeInChildren(null, true);
+            var sm:ISystemManager = sms[i];
+			var cm:Object = sm.getImplementation("mx.managers.ISystemManagerChildManager");
+            Object(cm).regenerateStyleCache(true);
+            Object(cm).notifyStyleChangeInChildren(null, true);
         }
     }
 
@@ -1247,6 +1248,13 @@ public class StyleManagerImpl implements IStyleManager2
         if (update)
             styleDeclarationsChanged();
     }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods: Style Propagation
+    //
+    //--------------------------------------------------------------------------
+
 }
 
 }
