@@ -138,13 +138,24 @@ public class ButtonSkin extends ButtonSkinBase
     //  Variables
     //
     //--------------------------------------------------------------------------
-    private var bgImg:DisplayObject;
+    private var _border:DisplayObject;
     
     private var changeFXGSkin:Boolean = false;
     
     private var borderClass:Class;
     
     public var labelDisplayShadow:StyleableTextField;
+    
+    /**
+     *  Read-only button border graphic. Use getBorderClassForCurrentState()
+     *  to specify a graphic per-state.
+     * 
+     *  @see #getBorderClassForCurrentState()
+     */
+    protected function get border():DisplayObject
+    {
+        return _border;
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -210,7 +221,7 @@ public class ButtonSkin extends ButtonSkinBase
         
         borderClass = getBorderClassForCurrentState();
         
-        if (!(bgImg is borderClass))
+        if (!(_border is borderClass))
             changeFXGSkin = true;
         
         // update borderClass and background
@@ -227,23 +238,23 @@ public class ButtonSkin extends ButtonSkinBase
         {
             changeFXGSkin = false;
             
-            if (bgImg)
+            if (_border)
             {
-                removeChild(bgImg);
-                bgImg = null;
+                removeChild(_border);
+                _border = null;
             }
             
             if (borderClass)
             {
                 // FIXME (jasonsj): cache instead of calling creating for every state change?
-                bgImg = new borderClass();
-                addChildAt(bgImg, 0);
+                _border = new borderClass();
+                addChildAt(_border, 0);
             }
         }
         
-        if (bgImg != null) 
+        if (_border != null) 
         {
-            layoutBorder(bgImg, unscaledWidth, unscaledHeight);
+            layoutBorder(_border, unscaledWidth, unscaledHeight);
         }
         
         // The label and icon should be placed on top of the FXG skins
