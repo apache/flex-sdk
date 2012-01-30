@@ -50,9 +50,9 @@ package spark.automation.delegates.components
          *  @param root The SystemManger of the application.
          *  
          *  @langversion 3.0
-         *  @playerversion Flash 9
+         *  @playerversion Flash 10
          *  @playerversion AIR 1.5
-         *  @productversion Flex 3
+         *  @productversion Flex 4
          */
         public static function init(root:DisplayObject):void
         {
@@ -70,9 +70,9 @@ package spark.automation.delegates.components
          * @param obj ButtonBar object to be automated.     
          *  
          *  @langversion 3.0
-         *  @playerversion Flash 9
+         *  @playerversion Flash 10
          *  @playerversion AIR 1.5
-         *  @productversion Flex 3
+         *  @productversion Flex 4
          */
         public function SparkButtonBarAutomationImpl(obj:spark.components.ButtonBar)
         {
