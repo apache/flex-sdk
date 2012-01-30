@@ -304,8 +304,11 @@ public class SlideViewTransition extends ViewTransitionBase
         
         if (startView)
         {
+            startViewProps = {  includeInLayout: startView.includeInLayout,
+                                visible: startView.visible,
+                                cacheAsBitmap: startView.cacheAsBitmap };
+            
             cachedStartViewGlobalPosition = getTargetNavigatorCoordinates(startView);
-            navigatorProps.startViewIncludeInLayout = startView.includeInLayout;
             startView.includeInLayout = false;
         }
     }
@@ -330,12 +333,11 @@ public class SlideViewTransition extends ViewTransitionBase
         
         if (startView)
         {
-            startViewProps = { includeInLayout:startView.includeInLayout,
-                               cacheAsBitmap:startView.cacheAsBitmap,
-                               x:startView.x,
-                               y:startView.y};
+            // Store the original x and y position of the view so that we can restore
+            // it after the animation
+            startViewProps.x = startView.x,
+            startViewProps.y = startView.y;
             
-            startView.includeInLayout = false;
             startView.cacheAsBitmap = true;
             
             if (startView.contentGroup)
@@ -692,13 +694,18 @@ public class SlideViewTransition extends ViewTransitionBase
      */
     override protected function cleanUp():void
     {
+        if (startView)
+        {
+            startView.includeInLayout = startViewProps.includeInLayout;
+            startView.visible = startViewProps.visible;
+            startView.cacheAsBitmap = startViewProps.cacheAsBitmap;
+        }
+
         // Restore original saved properties for includeInLayout and cacheAsBitmap.
         if (!consolidatedTransition)
         {
             if (startView)
             {
-                startView.includeInLayout = startViewProps.includeInLayout;
-                startView.cacheAsBitmap = startViewProps.cacheAsBitmap;
                 startView.x = startViewProps.x;
                 startView.y = startViewProps.y;
                 
@@ -707,7 +714,6 @@ public class SlideViewTransition extends ViewTransitionBase
                     startView.contentGroup.includeInLayout = startViewProps.cgIncludeInLayout;
                     startView.contentGroup.cacheAsBitmap = startViewProps.cgCacheAsBitmap;
                 }
-                startViewProps = null;
             }
             
             if (endView)
@@ -727,12 +733,6 @@ public class SlideViewTransition extends ViewTransitionBase
         }
         else
         {
-
-            if (startView && mode == SlideViewTransitionMode.COVER)
-            {
-                startView.visible = startViewProps.visible;
-            }
-            
             if (tabBar)
             {
                 tabBar.includeInLayout = navigatorProps.tabBarIncludeInLayout;
@@ -747,7 +747,6 @@ public class SlideViewTransition extends ViewTransitionBase
             
             if (startView)
             {
-                startView.includeInLayout = navigatorProps.startViewIncludeInLayout;
                 startView.contentGroup.cacheAsBitmap = navigatorProps.startViewCacheAsBitmap;
                 startView.setLayoutBoundsPosition(navigatorProps.startViewX, navigatorProps.startViewY);
             }
@@ -786,6 +785,7 @@ public class SlideViewTransition extends ViewTransitionBase
         cachedNavigator = null;
         cachedActionBar = null;
         cachedTabBar = null;
+        startViewProps = null;
         
         super.cleanUp();
     }
