@@ -1409,6 +1409,7 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             if (transitionsEnabled && animateActionBarVisbility)
             {
+                actionBarProps = {target:actionBar, showing:showingActionBar};
                 actionBarVisibilityEffect = showingActionBar ?
                                             createActionBarShowEffect() :                        
                                             createActionBarHideEffect();
@@ -1420,7 +1421,10 @@ public class ViewNavigator extends ViewNavigatorBase
             }
             else
             {
-                actionBar.visible = actionBar.includeInLayout = !actionBar.visible;
+                actionBar.visible = actionBar.includeInLayout = showingActionBar;
+                
+                if (activeView)
+                    activeView.setActionBarVisible(showingActionBar);
             }
         }
         
@@ -1469,9 +1473,9 @@ public class ViewNavigator extends ViewNavigatorBase
 	{
 		var effect:IEffect;
 		var finalEffect:Parallel = new Parallel();
-        
+
         // Grab initial values
-        actionBarProps = { target:actionBar, start:captureAnimationValues(actionBar) };
+        actionBarProps.start = captureAnimationValues(actionBar);
         contentGroupProps = { target:contentGroup, start:captureAnimationValues(contentGroup) };
         
         // Update actionBar layout properties so we can capture the final state of
@@ -1611,9 +1615,7 @@ public class ViewNavigator extends ViewNavigatorBase
         animate.motionPaths.push(new SimpleMotionPath("height", props.start.height, props.end.height));
         animate.motionPaths.push(new SimpleMotionPath("y", props.start.y, props.end.y));
 
-        props.target.includeInLayout = false;
-        props.target.cacheAsBitmap = true;    
-        
+        contentGroup.includeInLayout = false;
         return animate;
     }
     
@@ -1631,20 +1633,25 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // Clear flags and temporary properties
 		actionBarVisibilityEffect = null;
-		actionBarVisibilityInvalidated = false;
         
-        if (actionBarProps)
+        if (activeView)
+            activeView.setActionBarVisible(actionBarProps.showing);
+    
+        // Check if the visible and cacheAsBitmap properties have been set.  These are
+        // only set if the default transitions are used.  If developers create their
+        // own animations, these properties won't be set.
+        if (actionBarProps.start != undefined)
         {
-            // Update the actionBar visibility, includeInLayout and cacheAsBitmap flags		
     		actionBar.visible = actionBar.includeInLayout = !actionBarProps.start.visible;
             actionBar.cacheAsBitmap = actionBarProps.start.cacheAsBitmap;
-    		actionBarProps = null;
         }
         
+        actionBarProps = null;
+        
+        // Content group properties object only created if the default transitions were used
         if (contentGroupProps)
         {
 		    contentGroup.includeInLayout = contentGroupProps.start.includeInLayout;
-		    contentGroup.cacheAsBitmap = contentGroupProps.start.cacheAsBitmap;
     		contentGroupProps = null;
         }
     }
