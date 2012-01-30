@@ -72,8 +72,8 @@ public class BeveledActionButtonSkin extends ButtonSkin
                 layoutPaddingBottom = 0;
                 layoutPaddingLeft = 20;
                 layoutPaddingRight = 20;
-                minWidth = 54;
-                minHeight = 54;
+                measuredDefaultWidth = 54;
+                measuredDefaultHeight = 54;
                 
                 upBorderSkin = spark.skins.mobile320.assets.ActionRoundedButton_up;
                 downBorderSkin = spark.skins.mobile320.assets.ActionRoundedButton_down;
@@ -88,8 +88,8 @@ public class BeveledActionButtonSkin extends ButtonSkin
                 layoutPaddingBottom = 0;
                 layoutPaddingLeft = 15;
                 layoutPaddingRight = 15;
-                minWidth = 42;
-                minHeight = 42;
+                measuredDefaultWidth = 42;
+                measuredDefaultHeight = 42;
                 
                 upBorderSkin = spark.skins.mobile240.assets.ActionRoundedButton_up;
                 downBorderSkin = spark.skins.mobile240.assets.ActionRoundedButton_down;
@@ -99,14 +99,14 @@ public class BeveledActionButtonSkin extends ButtonSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 layoutBorderSize = 0;
                 layoutPaddingTop = 0;
                 layoutPaddingBottom = 0;
                 layoutPaddingLeft = 10;
                 layoutPaddingRight = 10;
-                minWidth = 28;
-                minHeight = 28;
+                measuredDefaultWidth = 28;
+                measuredDefaultHeight = 28;
                 
                 upBorderSkin = spark.skins.mobile160.assets.ActionRoundedButton_up;
                 downBorderSkin = spark.skins.mobile160.assets.ActionRoundedButton_down;
@@ -115,6 +115,9 @@ public class BeveledActionButtonSkin extends ButtonSkin
                 break;
             }
         }
+        
+        // beveled buttons do not scale down
+        minHeight = measuredDefaultHeight;
     }
     
     //--------------------------------------------------------------------------
