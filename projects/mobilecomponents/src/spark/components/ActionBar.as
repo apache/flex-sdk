@@ -205,7 +205,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 /**
  *  The ActionBar class defines a component that includes title, navigation 
  *  and action content groups. In the context of a ViewNavigator and
- *  MobileApplication, the ActionBar is used as application chrome which
+ *  ViewNavigatorApplication, the ActionBar is used as application chrome which
  *  has content contributed by the active View. ActionBar has limited
  *  utility when used otherwise.
  *
@@ -235,7 +235,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @see SkinnableComponent
  *  @see ViewNavigator
  *  @see View
- *  @see MobileApplication
+ *  @see ViewNavigatorApplication
  *  @see spark.skins.mobile.ActionBarSkin
  *  
  *  @langversion 3.0
