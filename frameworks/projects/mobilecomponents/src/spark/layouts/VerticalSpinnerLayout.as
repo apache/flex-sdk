@@ -376,7 +376,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
 		// If the element at index % numElements) is not selectable, find the nearest one that is              
         var iter:LayoutIterator = new LayoutIterator(target, startIndex);
         
-        if (dataGroup && dataGroup.dataProvider)
+        if (dataGroup && dataGroup.dataProvider && dataGroup.dataProvider.length > 0)
         {
             while (Math.abs(distance) <= (target.numElements / 2) + 1)
             {
