@@ -1,12 +1,12 @@
 package mx.graphics
 {
-import flash.display.CapsStyle; 
+import flash.display.CapsStyle;
 import flash.display.Graphics;
-import flash.display.GraphicsGradientFill; 
+import flash.display.GraphicsGradientFill;
 import flash.display.GraphicsStroke;
-import flash.display.JointStyle;  
+import flash.display.JointStyle;
 import flash.geom.Rectangle;
-    
+
 import mx.core.mx_internal;
 
 use namespace mx_internal; 
@@ -420,33 +420,23 @@ public class GradientStroke extends GradientBase implements IStroke
     //--------------------------------------------------------------------------
     
     /**
-     *  Applies the properties to the specified Graphics object.
-     *  
-     *  @param g The Graphics object to which the LinearGradientStroke styles
-     *  are applied.
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
-    public function apply(g:Graphics):void
+    public function apply(g:Graphics, bounds:Rectangle = null):void
     {
         // Sub-classes must implement 
     }
     
-    /**
-     *  @inheritDoc
-     */
-    public function draw(g:Graphics, rc:Rectangle):void
-    {
-       // Sub-classes must implement                     
-    }
     
     /**
      *  @inheritDoc
      */
-    public function generateGraphicsStroke(rc:Rectangle):GraphicsStroke
+    public function createGraphicsStroke(bounds:Rectangle):GraphicsStroke
     {
         // Construct a new GraphicsStroke object and set all of 
         // its properties to match the gradient stroke's 
