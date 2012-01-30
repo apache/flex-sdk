@@ -143,7 +143,6 @@ public class NavigationStack implements IExternalizable
         _source.length = 0;    
     }
 
-    // FIXME (chiedozi): Should return things...
     /**
      *  Adds a view to the top of the navigation stack.
      *  Pushing a view changes the display of the application to 
@@ -171,6 +170,7 @@ public class NavigationStack implements IExternalizable
         _source.push(viewData);
     }
     
+    // TODO (chiedozi): Consider returning the object when pop is called.
     /**
      *  Removes the top view off the stack.
      *  Returns control from the current view back to 
