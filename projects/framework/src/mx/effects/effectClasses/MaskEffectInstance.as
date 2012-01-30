@@ -654,6 +654,7 @@ public class MaskEffectInstance extends EffectInstance
 	 */
 	override public function stop():void
 	{
+        EffectManager.endVectorEffect(IUIComponent(target));
 		stoppedEarly = true;
 		super.stop();
 		
