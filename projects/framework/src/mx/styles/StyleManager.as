@@ -129,12 +129,14 @@ public class StyleManager
             // trace("no style manager specified, using top-level style manager");
         }
         
-		if (!styleManagerDictionary)
+        if (!styleManagerDictionary)
 			styleManagerDictionary = new Dictionary(true);
 		
-		if (styleManagerDictionary[moduleFactory] == null)
+        var styleManager:IStyleManager2;
+        var dictionary:Dictionary = styleManagerDictionary[moduleFactory];
+		if (dictionary == null)
 		{
-	        var styleManager:IStyleManager2 = IStyleManager2(moduleFactory.getImplementation("mx.styles::IStyleManager2"));
+	        styleManager = IStyleManager2(moduleFactory.getImplementation("mx.styles::IStyleManager2"));
 	        if (styleManager == null)
 	        {
 	            // All Flex 4 swfs should have a style manager. 
@@ -143,10 +145,20 @@ public class StyleManager
 	            styleManager = impl;
 	        }
 			
-			styleManagerDictionary[moduleFactory] = styleManager;
+            dictionary = new Dictionary(true);
+			styleManagerDictionary[moduleFactory] = dictionary;
+            dictionary[styleManager] = 1;
 		}
+        else 
+        {
+            for (var o:Object in dictionary)
+            {
+                styleManager = o as IStyleManager2;
+                break;
+            }
+        }
 		
-        return styleManagerDictionary[moduleFactory];
+        return styleManager;
     }   
     
     /**
