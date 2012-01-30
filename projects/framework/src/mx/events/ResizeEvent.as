@@ -19,6 +19,11 @@ import flash.events.Event;
  *  component changes.
  *
  *  @see mx.core.UIComponent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ResizeEvent extends Event
 {
@@ -52,6 +57,11 @@ public class ResizeEvent extends Event
 	 *  </table>
 	 *
      *  @eventType resize
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const RESIZE:String = "resize";
 
@@ -75,6 +85,11 @@ public class ResizeEvent extends Event
 	 *  @param oldWidth The previous width of the object, in pixels.
 	 *
 	 *  @param oldHeight The previous height of the object, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ResizeEvent(type:String, bubbles:Boolean = false,
 							    cancelable:Boolean = false,
@@ -98,6 +113,11 @@ public class ResizeEvent extends Event
 
 	/**
 	 *  The previous <code>height</code> of the object, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var oldHeight:Number;
 
@@ -107,6 +127,11 @@ public class ResizeEvent extends Event
 
 	/**
 	 *  The previous <code>width</code> of the object, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var oldWidth:Number;
 
