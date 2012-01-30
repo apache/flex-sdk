@@ -42,7 +42,7 @@ import mx.graphics.RoundedRectangle;
 import mx.managers.ISystemManager;
 
 /**
- *  The DownloadProgressBar class displays download progress.
+ *  The SparkDownloadProgressBar class displays download progress.
  *  It is used by the Preloader control to provide user feedback
  *  while the application is downloading and loading. 
  *
@@ -54,7 +54,7 @@ import mx.managers.ISystemManager;
  *  the <code>preloader</code> property to specify the name of your subclass.</p>
  *
  *  <p>You can implement a custom download progress bar component 
- *  by creating a subclass of the DownloadProgressBar class. 
+ *  by creating a subclass of the SparkDownloadProgressBar class. 
  *  Do not implement a download progress bar as an MXML component 
  *  because it loads too slowly.</p>
  *
@@ -63,9 +63,9 @@ import mx.managers.ISystemManager;
  *  @see mx.preloaders.Preloader
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class SparkDownloadProgressBar extends Sprite implements IPreloaderDisplay
 {
@@ -80,10 +80,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	/**
 	 *  Constructor.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	public function SparkDownloadProgressBar() 
 	{
@@ -144,10 +144,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @default 6
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 4
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected var initProgressTotal:uint = 6;
 
@@ -174,16 +174,16 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *  it sets this value to <code>true</code>. When the Preloader control determines that
 	 *  the progress bar should be hidden, it sets the value to <code>false</code>.</p>
 	 *
-	 *  <p>A subclass of the DownloadProgressBar class should never modify this property. 
+	 *  <p>A subclass of the SparkDownloadProgressBar class should never modify this property. 
 	 *  Instead, you can override the setter method to recognize when 
 	 *  the Preloader control modifies it, and perform any necessary actions. </p>
 	 *
 	 *  @default false 
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	override public function get visible():Boolean
 	{
@@ -232,10 +232,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *  @default 1.0
 	 *
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	public function get backgroundAlpha():Number
 	{
@@ -268,10 +268,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
      *  You can have either a <code>backgroundColor</code> or a
      *  <code>backgroundImage</code>, but not both.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */	
 	public function get backgroundColor():uint
 	{
@@ -305,10 +305,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @default null
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	public function get backgroundImage():Object
 	{
@@ -338,10 +338,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @default "auto"
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	public function get backgroundSize():String
 	{
@@ -370,10 +370,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *  The Preloader class passes in a reference to itself to the display class
 	 *  so that it can listen for events from the preloader.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	public function set preloader(value:Sprite):void
 	{
@@ -404,10 +404,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *  The height of the stage,
 	 *  which is passed in by the Preloader class.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	public function get stageHeight():Number 
 	{
@@ -436,10 +436,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *  The width of the stage,
 	 *  which is passed in by the Preloader class.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	public function get stageWidth():Number 
 	{
@@ -465,10 +465,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *  has been added as a child of the Preloader. 
 	 *  This should be the starting point for configuring your download progress bar. 
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	public function initialize():void
 	{
@@ -485,10 +485,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	/**
 	 *  Creates the subcomponents of the display.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function createChildren():void
 	{		
@@ -578,10 +578,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @param total Size of the application SWF file in bytes.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function setDownloadProgress(completed:Number, total:Number):void
 	{
@@ -629,10 +629,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @param total Total number of initialization steps
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function setInitProgress(completed:Number, total:Number):void
 	{
@@ -696,10 +696,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *  if more than 700 milliseconds have elapsed
 	 *  and if Flex has downloaded less than half of the bytes of the SWF file.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function showDisplayForDownloading(elapsedTime:int,
 											  event:ProgressEvent):Boolean
@@ -721,10 +721,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @return If <code>true</code>, then show the download progress bar.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function showDisplayForInit(elapsedTime:int, count:int):Boolean
 	{
@@ -744,10 +744,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @param event The event object.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function progressHandler(event:ProgressEvent):void
 	{
@@ -770,10 +770,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @param event The event object.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function completeHandler(event:Event):void
 	{
@@ -785,10 +785,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @param event The event object.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function rslProgressHandler(event:RSLEvent):void
 	{
@@ -799,10 +799,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @param event The event object.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function rslCompleteHandler(event:RSLEvent):void
 	{
@@ -814,10 +814,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @param event The event object.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function rslErrorHandler(event:RSLEvent):void
 	{
@@ -856,10 +856,10 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 *
 	 *  @param event The event object.
 	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
 	protected function initProgressHandler(event:Event):void
 	{
@@ -885,9 +885,17 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	}
 	
 	/**
-	 *  @private
+	 *  Event listener for the <code>FlexEvent.INIT_COMPLETE</code> event.
+	 *  This implementation dispatches a <code>Event.COMPLETE</code> event.
+	 * 
+	 *  @param event The event object
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
 	 */
-	private function initCompleteHandler(event:Event):void
+	protected function initCompleteHandler(event:Event):void
 	{
 		dispatchEvent(new Event(Event.COMPLETE)); 
 	}
