@@ -25,20 +25,20 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%"  color="blue"
+            <s:Label width="100%"  color="blue"
                     text="Select a date in the Halo DateField control. Select it again to clear it."/>
 
-            <s:SimpleText text="Basic Halo DateField:"/>
+            <s:Label text="Basic Halo DateField:"/>
             <mx:DateField id="dateField1" yearNavigationEnabled="true" 
                 change="dateChanged(DateField(event.target).selectedDate)" />
-            <s:SimpleText id="selection"  color="blue" text="Date selected:" />
+            <s:Label id="selection"  color="blue" text="Date selected:" />
 
             <mx:Spacer height="30" />
 
-            <s:SimpleText text="Disable dates on or before June 1, 2006."/>
+            <s:Label text="Disable dates on or before June 1, 2006."/>
             <mx:DateField id="dateField2" yearNavigationEnabled="true" 
                 disabledRanges="{[ {rangeEnd: new Date(2006, 5, 1)} ]}" />
-            <s:SimpleText  color="blue" text="Date selected: {df.format(dateField2.selectedDate)}"/>
+            <s:Label  color="blue" text="Date selected: {df.format(dateField2.selectedDate)}"/>
         </s:VGroup>
     </s:Panel>
 
