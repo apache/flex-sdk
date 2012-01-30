@@ -538,13 +538,10 @@ public class MobileApplication extends MobileApplicationBase
         // TODO (chiedozi): Figure out how to refactor this into base class
         super.restoreApplicationState();
         
-        if (persistenceManager.enabled)
-        {
-            var savedState:Object = persistenceManager.getProperty("navigatorState");
-            
-            if (savedState)
-                navigator.restoreViewData(savedState);
-        }
+        var savedState:Object = persistenceManager.getProperty("navigatorState");
+        
+        if (savedState)
+            navigator.restoreViewData(savedState);
     }
     
     //--------------------------------------------------------------------------
