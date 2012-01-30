@@ -312,8 +312,8 @@ public class StyleProtoChain
             // selectors and resort by specificity...
             if (styleDeclarations.length > 0)
             {
-                styleDeclarations = styleDeclarations.concat(advancedObject.getClassStyleDeclarations());
-                styleDeclarations = styleDeclarations.sortOn("specificity", Array.NUMERIC);
+                styleDeclarations = advancedObject.getClassStyleDeclarations().concat(styleDeclarations);
+                styleDeclarations = sortOnSpecificity(styleDeclarations);
             }
             else
             {
@@ -810,14 +810,16 @@ public class StyleProtoChain
         }
 
         // Then sort by specificity...
-        // TODO: Check that for equal entries the last one added remains
-        // last (as "the last should win")...
-        if (matchingDecls.length > 0)
-            matchingDecls.sortOn("specificity", Array.NUMERIC);
+        matchingDecls = sortOnSpecificity(matchingDecls);
 
         return matchingDecls;
     }
 
+    /**
+     *  @private
+     *  TODO: Replace this key generation as this is reasonably expensive in
+     *  terms of string creation.
+     */ 
     private static function getAdvancedCacheKey(className:String, object:IAdvancedStyleClient):String
     {
         var cacheKey:String = className;
@@ -835,6 +837,44 @@ public class StyleProtoChain
             cacheKey += getAdvancedCacheKey(object.styleParent.className, object.styleParent);
 
         return cacheKey;
+    }
+
+    /**
+     *  @private
+     *  Sort algorithm to order style declarations by specificity. Note that 
+     *  Array.sort() is not used as it does not employ a stable algorithm and
+     *  CSS requires the order of equal style declaration to be preserved.
+     */ 
+    private static function sortOnSpecificity(decls:Array):Array 
+    {
+        // TODO: Copied algorithm from Group.sortOnLayer as a temporary measure.
+        // We may consider replacing this insertion sort with an efficient but
+        // stable merge sort or the like if many style declarations need to
+        // sorted.
+        var len:Number = decls.length;
+        var tmp:CSSStyleDeclaration;
+
+        if (len <= 1)
+            return decls;
+
+        for (var i:int = 1; i < len; i++)
+        {
+            for (var j:int = i; j > 0; j--)
+            {
+                if (decls[j].specificity < decls[j-1].specificity)
+                {
+                    tmp = decls[j];
+                    decls[j] = decls[j-1];
+                    decls[j-1] = tmp;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        return decls; 
     }
 }
 
