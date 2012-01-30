@@ -18,6 +18,11 @@ import flash.events.Event;
  *  Represents event objects that are dispatched when a Flex component moves.
  *
  *  @see mx.core.UIComponent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MoveEvent extends Event
 {
@@ -51,6 +56,11 @@ public class MoveEvent extends Event
 	 *  </table>
 	 *
      *  @eventType move
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const MOVE:String = "move";
 
@@ -74,6 +84,11 @@ public class MoveEvent extends Event
 	 *  @param oldX The previous x coordinate of the object, in pixels.
 	 *
 	 *  @param oldY The previous y coordinate of the object, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function MoveEvent(type:String, bubbles:Boolean = false,
 							  cancelable:Boolean = false,
@@ -97,6 +112,11 @@ public class MoveEvent extends Event
 
 	/**
 	 *  The previous <code>x</code> coordinate of the object, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var oldX:Number;
 
@@ -106,6 +126,11 @@ public class MoveEvent extends Event
 
 	/**
 	 *  The previous <code>y</code> coordinate of the object, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var oldY:Number;
 
