@@ -39,7 +39,6 @@ in accordance with the terms of the license agreement accompanying it.
             import mx.core.IVisualElement;
             import mx.core.UIComponent;
             import mx.events.FlexEvent;
-            import mx.utils.DensityUtil;
             
             import spark.components.supportClasses.GroupBase;
             import spark.effects.easing.Power;
@@ -64,12 +63,19 @@ in accordance with the terms of the license agreement accompanying it.
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
                 
                 var strokeWeight:Number = (applicationDPI == DPIClassification.DPI_320) ? 2 : 1;
+                var separatorWeight:Number = 1;
+                
+                if (applicationDPI == DPIClassification.DPI_320)
+                    separatorWeight = 4;
+                else if (applicationDPI == DPIClassification.DPI_240)
+                    separatorWeight = 2;          
                 
                 dividerStroke.weight = strokeWeight;
                 background.top = strokeWeight;
-                contentGroup.top = strokeWeight;
-                contentGroupLayout.horizontalGap = strokeWeight * 2;
-                contentGroupLayout.verticalGap = strokeWeight;
+                contentGroup.top = strokeWeight + separatorWeight;
+                contentGroup.bottom = separatorWeight;
+                contentGroupLayout.horizontalGap = separatorWeight;
+                contentGroupLayout.verticalGap = separatorWeight;
             }
 
         ]]>
@@ -127,14 +133,14 @@ in accordance with the terms of the license agreement accompanying it.
         <!-- Divider line -->
         <s:Rect left="0" right="0" top="0" height="0">
             <s:stroke>
-                <s:SolidColorStroke id="dividerStroke" weight="1" color="#000000" alpha=".7"/>   
+                <s:SolidColorStroke id="dividerStroke" weight="1" color="#000000" alpha=".9"/>   
             </s:stroke>
         </s:Rect> 
         
         <!-- Background -->
         <s:Rect left="0" right="0" top="1" bottom="0" id="background">
             <s:fill> 
-                <s:SolidColor color="#000000" alpha=".65"/>
+                <s:SolidColor color="#000000" alpha=".5"/>
             </s:fill>
         </s:Rect>
         
@@ -144,9 +150,9 @@ in accordance with the terms of the license agreement accompanying it.
         more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
         -->
         <!--- @copy spark.components.SkinnableContainer#contentGroup -->
-        <s:Group id="contentGroup" left="0" right="0" top="1" bottom="0" minWidth="0" minHeight="0">
+        <s:Group id="contentGroup" left="0" right="0" top="3" bottom="2" minWidth="0" minHeight="0">
             <s:layout>
-                <s:ViewMenuLayout horizontalGap="2" verticalGap="1" id="contentGroupLayout"
+                <s:ViewMenuLayout horizontalGap="2" verticalGap="2" id="contentGroupLayout"
                                   requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/>
             </s:layout>
         </s:Group>    
