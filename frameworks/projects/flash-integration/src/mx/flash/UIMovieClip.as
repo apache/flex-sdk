@@ -57,6 +57,7 @@ import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
 import mx.utils.MatrixUtil;
+import mx.utils.TransformUtil;
 
 use namespace mx_internal;
 
@@ -3420,20 +3421,18 @@ public dynamic class UIMovieClip extends MovieClip
 
         _transform = value;
     }
-    
-    private static var xformPt:Point;
 
     /**
-     * A utility method to update the rotation, scale, and translation of the 
-     * transform while keeping a particular point, specified in the component's 
-     * own coordinate space, fixed in the parent's coordinate space.  
-     * This function will assign the rotation, scale, and translation values 
-     * provided, then update the x/y/z properties as necessary to keep 
-     * the transform center fixed.
-     * @param scale the new values for the scale of the transform
-     * @param rotation the new values for the rotation of the transform
-     * @param translation the new values for the translation of the transform
-     * @param transformCenter the point, in the component's own coordinates, to keep fixed relative to its parent.
+     *  A utility method to update the rotation, scale, and translation of the 
+     *  transform while keeping a particular point, specified in the component's 
+     *  own coordinate space, fixed in the parent's coordinate space.  
+     *  This function will assign the rotation, scale, and translation values 
+     *  provided, then update the x/y/z properties as necessary to keep 
+     *  the transform center fixed.
+     *  @param scale the new values for the scale of the transform
+     *  @param rotation the new values for the rotation of the transform
+     *  @param translation the new values for the translation of the transform
+     *  @param transformCenter the point, in the component's own coordinates, to keep fixed relative to its parent.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3458,74 +3457,24 @@ public dynamic class UIMovieClip extends MovieClip
             _includeInLayout = false;
         }
         
-        if (_layoutFeatures == null)
-        {
-            // TODO (chaase): should provide a way to return to having no
-            // layoutFeatures if we call this later with a more trivial
-            // situation
-            var needAdvancedLayout:Boolean = 
-                (scale != null && ((!isNaN(scale.x) && scale.x != 1) || 
-                    (!isNaN(scale.y) && scale.y != 1) ||
-                    (!isNaN(scale.z) && scale.z != 1))) || 
-                (rotation != null && ((!isNaN(rotation.x) && rotation.x != 0) || 
-                    (!isNaN(rotation.y) && rotation.y != 0) ||
-                    (!isNaN(rotation.z) && rotation.z != 0))) || 
-                (translation != null && translation.z != 0 && !isNaN(translation.z)) ||
-                postLayoutScale != null ||
-                postLayoutRotation != null ||
-                postLayoutTranslation != null;
-            if (needAdvancedLayout)
-                initAdvancedLayoutFeatures();
-        }
+        TransformUtil.transformAround(this,
+                                      transformCenter,
+                                      scale,
+                                      rotation,
+                                      translation,
+                                      postLayoutScale,
+                                      postLayoutRotation,
+                                      postLayoutTranslation,
+                                      _layoutFeatures,
+                                      initAdvancedLayoutFeatures);
+        
         if (_layoutFeatures != null)
         {
-            _layoutFeatures.transformAround(transformCenter, scale, rotation,
-                translation, postLayoutScale, postLayoutRotation,
-                postLayoutTranslation);
             invalidateTransform();      
 
             // Will not invalidate parent if we have set _includeInLayout to false
             // in the beginning of the method
             invalidateParentSizeAndDisplayList();
-        }
-        else
-        {
-            if (rotation != null && !isNaN(rotation.z))
-                this.rotation = rotation.z;
-            if (scale != null)
-            {
-                scaleX = scale.x;
-                scaleY = scale.y;
-            }            
-            if (transformCenter == null)
-            {
-                if (translation != null)
-                {
-                    x = translation.x;
-                    y = translation.y;
-                }
-            }
-            else
-            {
-                if (xformPt == null)
-                    xformPt = new Point();
-                xformPt.x = transformCenter.x;
-                xformPt.y = transformCenter.y;                
-                var postXFormPoint:Point = 
-                    transform.matrix.transformPoint(xformPt);
-                if (translation != null)
-                {
-                    x += translation.x - postXFormPoint.x;
-                    y += translation.y - postXFormPoint.y;
-                }
-                else
-                {
-                    var xformedPt:Point = 
-                        transform.matrix.transformPoint(xformPt);
-                    x += xformedPt.x - postXFormPoint.x;
-                    y += xformedPt.y - postXFormPoint.y;                                   
-                }
-            }
         }
 
         if (!invalidateLayout)
@@ -3533,18 +3482,18 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     * A utility method to transform a point specified in the local
-     * coordinates of this object to its location in the object's parent's 
-     * coordinates. The pre-layout and post-layout result will be set on 
-     * the <code>position</code> and <code>postLayoutPosition</code>
-     * parameters, if they are non-null.
-     * 
-     * @param localPosition The point to be transformed, specified in the
-     * local coordinates of the object.
-     * @position A Vector3D point that will hold the pre-layout
-     * result. If null, the parameter is ignored.
-     * @postLayoutPosition A Vector3D point that will hold the post-layout
-     * result. If null, the parameter is ignored.
+     *  A utility method to transform a point specified in the local
+     *  coordinates of this object to its location in the object's parent's 
+     *  coordinates. The pre-layout and post-layout result will be set on 
+     *  the <code>position</code> and <code>postLayoutPosition</code>
+     *  parameters, if they are non-null.
+     *  
+     *  @param localPosition The point to be transformed, specified in the
+     *  local coordinates of the object.
+     *  @position A Vector3D point that will hold the pre-layout
+     *  result. If null, the parameter is ignored.
+     *  @postLayoutPosition A Vector3D point that will hold the post-layout
+     *  result. If null, the parameter is ignored.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3555,34 +3504,11 @@ public dynamic class UIMovieClip extends MovieClip
                                            position:Vector3D, 
                                            postLayoutPosition:Vector3D):void
     {
-        if (_layoutFeatures != null)
-        {
-            _layoutFeatures.transformPointToParent(true, localPosition,
-                position, postLayoutPosition);
-        }
-        else
-        {
-            if (xformPt == null)
-                xformPt = new Point();
-            if (localPosition)
-            {
-                xformPt.x = localPosition.x;
-                xformPt.y = localPosition.y;
-            }
-            var tmp:Point = transform.matrix.transformPoint(xformPt);
-            if (position != null)
-            {            
-                position.x = tmp.x;
-                position.y = tmp.y;
-                position.z = 0;
-            }
-            if (postLayoutPosition != null)
-            {
-                postLayoutPosition.x = tmp.x;
-                postLayoutPosition.y = tmp.y;
-                postLayoutPosition.z = 0;
-            }
-        }
+        TransformUtil.transformPointToParent(this,
+                                             localPosition,
+                                             position,
+                                             postLayoutPosition,
+                                             _layoutFeatures);
     }
 
     /**
@@ -3635,7 +3561,7 @@ public dynamic class UIMovieClip extends MovieClip
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    private function initAdvancedLayoutFeatures():void
+    private function initAdvancedLayoutFeatures():AdvancedLayoutFeatures
     {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
 
@@ -3657,6 +3583,7 @@ public dynamic class UIMovieClip extends MovieClip
         _layoutFeatures = features;
 
         invalidateTransform();
+        return features;
     }
     
     private function invalidateTransform():void
