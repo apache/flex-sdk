@@ -32,6 +32,7 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
+import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 
 use namespace mx_internal;
@@ -573,14 +574,7 @@ public class UITextField extends FlexTextField
      */
     public function get className():String
     {
-        var name:String = getQualifiedClassName(this);
-        
-        // If there is a package name, strip it off.
-        var index:int = name.indexOf("::");
-        if (index != -1)
-            name = name.substr(index + 2);
-                
-        return name;
+        return ObjectUtil.getUnqualifiedClassName(this);
     }
 
     //----------------------------------
@@ -895,7 +889,7 @@ public class UITextField extends FlexTextField
      *  @private
      *  Storage for the inheritingStyles property.
      */
-    private var _inheritingStyles:Object = StyleManager.STYLE_UNINITIALIZED;
+    private var _inheritingStyles:Object = StyleProtoChain.STYLE_UNINITIALIZED;
 
     /**
      *  The beginning of this UITextField's chain of inheriting styles.
@@ -1170,7 +1164,7 @@ public class UITextField extends FlexTextField
      *  @private
      *  Storage for the nonInheritingStyles property.
      */
-    private var _nonInheritingStyles:Object = StyleManager.STYLE_UNINITIALIZED;
+    private var _nonInheritingStyles:Object = StyleProtoChain.STYLE_UNINITIALIZED;
 
     /**
      *  The beginning of this UITextField's chain of non-inheriting styles.
