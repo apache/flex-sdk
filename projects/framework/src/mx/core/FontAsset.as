@@ -67,6 +67,11 @@ import flash.text.Font;
  *  </pre>
  *  
  *  @see flash.text.Font
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FontAsset extends Font implements IFlexAsset
 {
@@ -80,6 +85,11 @@ public class FontAsset extends Font implements IFlexAsset
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function FontAsset()
     {
