@@ -33,6 +33,7 @@ import flash.geom.Rectangle;
 import flash.geom.Transform;
 import flash.geom.Vector3D;
 import flash.system.ApplicationDomain;
+import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
 
@@ -8502,7 +8503,13 @@ public class UIComponent extends FlexSprite
             textFormat = new UITextFormat(getNonNullSystemManager(), font);
             textFormat.moduleFactory = moduleFactory;
 
-            textFormat.align = _inheritingStyles.textAlign;
+            // Not all flex4 textAlign values are valid so convert to a valid one.
+            var align:String = _inheritingStyles.textAlign;
+            if (align == "start") 
+                align = TextFormatAlign.LEFT;
+            else if (align == "end")
+                align = TextFormatAlign.RIGHT;
+            textFormat.align = align; 
             textFormat.bold = _inheritingStyles.fontWeight == "bold";
             textFormat.color = enabled ?
                                _inheritingStyles.color :
