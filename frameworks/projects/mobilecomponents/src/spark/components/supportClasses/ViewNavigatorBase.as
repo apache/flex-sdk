@@ -58,7 +58,6 @@ use namespace mx_internal;
  *  @see spark.components.ViewNavigatorApplication
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -76,7 +75,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  Creates an empty navigation stack.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -124,7 +122,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default true
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -163,7 +160,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -189,7 +185,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -211,7 +206,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -253,7 +247,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -360,7 +353,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -395,7 +387,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -426,7 +417,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @default true
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -453,7 +443,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -477,7 +466,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @return The object that represents the navigators state
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -514,7 +502,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @param value The object used to restore the navigators state.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -538,7 +525,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @param view The view that was added.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -557,7 +543,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  class, this method is called when the back device key is pressed.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -574,7 +559,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @return Returns true if the screen can be removed
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -596,7 +580,6 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @return Returns an object that contains the properties 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
