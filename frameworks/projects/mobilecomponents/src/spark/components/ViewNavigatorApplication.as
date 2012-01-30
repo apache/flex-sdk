@@ -14,7 +14,7 @@ package spark.components
     import mx.events.FlexEvent;
     import mx.utils.BitFlagUtil;
     
-    import spark.components.supportClasses.ViewData;
+    import spark.components.supportClasses.ViewHistoryData;
     import spark.components.supportClasses.ViewNavigatorSection;
     import spark.core.managers.IPersistenceManager;
     import spark.core.managers.PersistenceManager;
@@ -126,28 +126,28 @@ package spark.components
         //--------------------------------------------------------------------------
         
         //----------------------------------
-        //  initialData
+        //  firstViewData
         //----------------------------------
         /**
          * @private
          */
-        private var _initialData:Object;
+        private var _firstViewData:Object;
         
         /**
          * This is the initialization data to pass to the
          * root screen when it is created.
          */
-        public function get initialData():Object
+        public function get firstViewData():Object
         {
-            return _initialData;
+            return _firstViewData;
         }
         
         /**
          * @private
          */
-        public function set initialData(value:Object):void
+        public function set firstViewData(value:Object):void
         {
-            _initialData = value;
+            _firstViewData = value;
         }
         
         //----------------------------------
@@ -181,30 +181,30 @@ package spark.components
         }
         
         //----------------------------------
-        //  rootView
+        //  firstView
         //----------------------------------
         /**
          *  @private
-         *  The backing variable for the rootView property.
+         *  The backing variable for the firstView property.
          */
-        private var _rootView:Class;
+        private var _firstView:Class;
         
         /**
          *  This property is the object to use to initialize the root screen
          *  of the stack.  This can be a Class, instance or Factory that creates
          *  an object that extends <code>Screen</code>.
          */
-        public function get rootView():Class
+        public function get firstView():Class
         {
-            return _rootView;
+            return _firstView;
         }
         
         /**
          * @private
          */
-        public function set rootView(value:Class):void
+        public function set firstView(value:Class):void
         {
-            _rootView = value;
+            _firstView = value;
         }
         
         //----------------------------------
@@ -625,7 +625,7 @@ package spark.components
             {
                 // Register aliases for custom classes that will be written to
                 // persistence store by navigator
-                registerClassAlias("ViewData", ViewData);
+                registerClassAlias("ViewHistoryData", ViewHistoryData);
                 registerClassAlias("ViewNavigatorSection", ViewNavigatorSection);
                 
                 // Create persistence store
@@ -665,14 +665,14 @@ package spark.components
             
             // If the sections property is not set by this point, MobileApplication will
             // create a default section to be used by the navigator, and initialize it
-            // with the rootView and initialData defined by the application
+            // with the firstView and firstViewData defined by the application
             if (sections == null || sections.length == 0)
             {
                 // Create the empty screen stack and initialize it with the
-                // desired rootView and initial data
+                // desired firstView and initial data
                 var section:ViewNavigatorSection = new ViewNavigatorSection();
-                section.rootView = rootView;
-                section.initialData = initialData;
+                section.firstView = firstView;
+                section.firstViewData = firstViewData;
                 
                 // Set the stacks of the navigator
                 var newSections:Vector.<ViewNavigatorSection> = Vector.<ViewNavigatorSection>([section]);
