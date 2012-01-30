@@ -929,6 +929,8 @@ public class UIComponent extends FlexSprite
      *  @default 10000
      */
     public static const DEFAULT_MAX_WIDTH:Number = 10000;
+    // When changing this constant, make sure you change
+    // the constant with the same name in LayoutElementUIComponentUtils
 
     /**
      *  The default value for the <code>maxHeight</code> property.
@@ -936,6 +938,8 @@ public class UIComponent extends FlexSprite
      *  @default 10000
      */
     public static const DEFAULT_MAX_HEIGHT:Number = 10000;
+    // When changing this constant, make sure you change
+    // the constant with the same name in LayoutElementUIComponentUtils
 
     //--------------------------------------------------------------------------
     //
