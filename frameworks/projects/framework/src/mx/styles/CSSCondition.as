@@ -19,9 +19,9 @@ package mx.styles
  *  @see mx.styles.CSSConditionKind
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class CSSCondition
 {
@@ -39,11 +39,11 @@ public class CSSCondition
      *  @param value The condition value (without CSS syntax).
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public function CSSCondition(kind:uint, value:String)
+    public function CSSCondition(kind:String, value:String)
     {
         _kind = kind;
         _value = value;
@@ -62,7 +62,7 @@ public class CSSCondition
     /**
      *  @private
      */ 
-    private var _kind:uint;
+    private var _kind:String;
 
 
     /**
@@ -72,11 +72,11 @@ public class CSSCondition
      *  @see mx.styles.CSSConditionKind
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public function get kind():uint
+    public function get kind():String
     {
         return _kind;
     }
@@ -85,13 +85,27 @@ public class CSSCondition
     //  specificity
     //----------------------------------
 
-    public function get specificity():uint
+    /**
+     *  Calculates the specificity of a conditional selector in a selector
+     *  chain. The total specificity is used to determine the precedence when
+     *  applying several matching style declarations. id conditions contribute
+     *  100 points, pseudo and class conditions each contribute 10 points.
+     *  Selectors with a higher specificity override selectors of lower
+     *  specificity. If selectors have equal specificity, the declaration order
+     *  determines the precedence (i.e. the last one wins).
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function get specificity():int
     {
-        if (kind == CSSConditionKind.ID_CONDITION)
+        if (kind == CSSConditionKind.ID)
             return 100;
-        else if (kind == CSSConditionKind.CLASS_CONDITION)
+        else if (kind == CSSConditionKind.CLASS)
             return 10;
-        else if (kind == CSSConditionKind.PSEUDO_CONDITION)
+        else if (kind == CSSConditionKind.PSEUDO)
             return 10;
         else
             return 0;
@@ -111,9 +125,9 @@ public class CSSCondition
      *  representation that includes CSS syntax, call the toString() method.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get value():String
     {
@@ -133,15 +147,15 @@ public class CSSCondition
      *  @return true if component is a match, otherwise false. 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    public function isMatch(object:IAdvancedStyleClient):Boolean
+    public function matchesStyleClient(object:IAdvancedStyleClient):Boolean
     {
         var match:Boolean = false;
 
-        if (kind == CSSConditionKind.CLASS_CONDITION)
+        if (kind == CSSConditionKind.CLASS)
         {
             if (object.styleName != null && object.styleName is String)
             {
@@ -157,14 +171,14 @@ public class CSSCondition
                 }
             }
         }
-        else if (kind == CSSConditionKind.ID_CONDITION)
+        else if (kind == CSSConditionKind.ID)
         {
             if (object.id == value)
                 match = true;
         }
-        else if (kind == CSSConditionKind.PSEUDO_CONDITION)
+        else if (kind == CSSConditionKind.PSEUDO)
         {
-            if (object.isPseudoSelectorMatch(value))
+            if (object.matchesCSSState(value))
                 match = true;
         }
 
@@ -175,19 +189,19 @@ public class CSSCondition
      *  @return A String representation of this condition, including CSS syntax.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function toString():String
     {
         var s:String;
 
-        if (kind == CSSConditionKind.CLASS_CONDITION)
+        if (kind == CSSConditionKind.CLASS)
             s = ("." + value);
-        else if (kind == CSSConditionKind.ID_CONDITION)
+        else if (kind == CSSConditionKind.ID)
             s = ("#" + value);
-        else if (kind == CSSConditionKind.PSEUDO_CONDITION)
+        else if (kind == CSSConditionKind.PSEUDO)
             s = (":" + value);
         else
             s = ""; 
