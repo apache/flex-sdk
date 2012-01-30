@@ -23,7 +23,7 @@ package spark.components
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public final class CalloutPosition
 {
@@ -33,7 +33,7 @@ public final class CalloutPosition
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const BEFORE:String = "before";
     
@@ -42,7 +42,7 @@ public final class CalloutPosition
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const START:String = "start";
     
@@ -51,7 +51,7 @@ public final class CalloutPosition
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const MIDDLE:String = "middle";
     
@@ -60,7 +60,7 @@ public final class CalloutPosition
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const END:String = "end";
     
@@ -69,7 +69,7 @@ public final class CalloutPosition
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const AFTER:String = "after";
     
@@ -79,7 +79,7 @@ public final class CalloutPosition
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public static const AUTO:String = "auto";
     
