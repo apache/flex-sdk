@@ -57,7 +57,7 @@ public class ArrayUtil
      */
     public static function toArray(obj:Object):Array
     {
-        if (!obj) 
+        if (obj == null) 
             return [];
         
         else if (obj is Array)
