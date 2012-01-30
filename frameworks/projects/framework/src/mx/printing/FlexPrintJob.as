@@ -19,7 +19,6 @@ import flash.display.Stage;
 import flash.geom.Rectangle;
 import flash.printing.PrintJob;
 import flash.printing.PrintJobOptions;
-import mx.core.Application;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
@@ -214,16 +213,19 @@ public class FlexPrintJob
 
         var appExplicitWidth:Number;
         var appExplicitHeight:Number;
+        var applicationClass:Class = Class(obj.systemManager.getDefinitionByName("mx.core::Application"));
+        var fxApplicationClass:Class = Class(obj.systemManager.getDefinitionByName("mx.components::FxApplication"));
 
-        if (obj is Application)
+        if ((applicationClass && obj is applicationClass) || 
+            (fxApplicationClass && obj is fxApplicationClass))
         {
             // The following loop is required only for scenario where 
             // application may have a few children with percent
             // width or height.
-            n = Application(obj).numChildren
+            n = obj["numElements"];
             for (i = 0; i < n; i++)
             {
-                child = IFlexDisplayObject(Application(obj).getChildAt(i));
+                child = IFlexDisplayObject(obj["getElementAt"](i));
                 
                 if (child is UIComponent &&
                     (!isNaN(UIComponent(child).percentWidth) ||
@@ -331,7 +333,8 @@ public class FlexPrintJob
 
         var arrPrintData:Array = prepareToPrintObject(obj);
 
-        if (obj is Application)
+        if ((applicationClass && obj is applicationClass) || 
+            (fxApplicationClass && obj is fxApplicationClass))
         {
             objWidth *= ratio;
             objHeight *= ratio;
@@ -391,7 +394,8 @@ public class FlexPrintJob
         obj.scaleX /= ratio;
         obj.scaleY /= ratio;
 
-        if (obj is Application)
+        if ((applicationClass && obj is applicationClass) || 
+            (fxApplicationClass && obj is fxApplicationClass))
         {
             if (!isNaN(appExplicitWidth)) //&& !isNaN(appExplicitHeight))
             {
@@ -409,10 +413,10 @@ public class FlexPrintJob
             // The following loop is required only for scenario
             // where application may have a few children
             // with percent width or height.
-            n = Application(obj).numChildren
+            n = obj["numElements"];
             for (i = 0; i < n; i++)
             {
-                child = IFlexDisplayObject(Application(obj).getChildAt(i));
+                child = IFlexDisplayObject(obj["getElementAt"](i));
                 if (child is UIComponent && childPercentSizes[child.name])
                 {
                     var childPercentSize:Object = childPercentSizes[child.name];
