@@ -496,14 +496,14 @@ use namespace mx_internal;
 [Event(name="currentStateChange", type="mx.events.StateChangeEvent")]
 
 /**
- *  Dispatched after the component has returned to the root view state.
+ *  Dispatched after the component has entered a view state.
  *
  *  @eventType mx.events.FlexEvent.ENTER_STATE
  */
 [Event(name="enterState", type="mx.events.FlexEvent")]
 
 /**
- *  Dispatched before the component exits from the root view state.
+ *  Dispatched just before the component exits a view state.
  *
  *  @eventType mx.events.FlexEvent.EXIT_STATE
  */
@@ -1681,7 +1681,7 @@ public class UIComponent extends FlexSprite
         if (rotation == value)
             return;
 
-   		hasDeltaIdentityTransform = false;
+        hasDeltaIdentityTransform = false;
         if(_layoutFeatures == null)
         {
             // clamp the rotation value between -180 and 180.  This is what 
@@ -2021,8 +2021,8 @@ public class UIComponent extends FlexSprite
             if (prevValue == value)
                 return;
     
-    		hasDeltaIdentityTransform = false;
-    		
+            hasDeltaIdentityTransform = false;
+            
             // trace("set scaleX:" + this + "value = " + value); 
             if(_layoutFeatures == null)
                 super.scaleX = value;
@@ -2099,7 +2099,7 @@ public class UIComponent extends FlexSprite
             if (prevValue == value)
                 return;
     
-    		hasDeltaIdentityTransform = false;
+            hasDeltaIdentityTransform = false;
             if(_layoutFeatures == null)
                 super.scaleY = value;
             else
@@ -6692,8 +6692,8 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      */
-	protected function validateMatrix():void
-	{
+    protected function validateMatrix():void
+    {
         if(_layoutFeatures != null && _layoutFeatures.updatePending == true)
         {
             applyComputedMatrix();
@@ -6707,14 +6707,14 @@ public class UIComponent extends FlexSprite
                 pmatrix.projectionCenter = new Point(unscaledWidth/2,unscaledHeight/2);
             }
         }
-	}
+    }
     /**
      *  @inheritDoc
      */
     public function validateDisplayList():void
     {
-    	validateMatrix();
-    	
+        validateMatrix();
+        
         if (invalidateDisplayListFlag)
         {
             // Check if our parent is the top level system manager
@@ -9754,8 +9754,8 @@ public class UIComponent extends FlexSprite
     {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
 
-   		hasDeltaIdentityTransform = false;
-   		
+        hasDeltaIdentityTransform = false;
+        
         features.layoutScaleX = scaleX;
         features.layoutScaleY = scaleY;
         features.layoutScaleZ = scaleZ;
@@ -9923,15 +9923,15 @@ public class UIComponent extends FlexSprite
     {
         if(_layoutFeatures != null)
         {
-			// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
-			// since this is an internal class, we don't need to worry about developers
-			// accidentally messing with this matrix, _unless_ we hand it out. Instead,
-			// we hand out a clone.
+            // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+            // since this is an internal class, we don't need to worry about developers
+            // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+            // we hand out a clone.
             return _layoutFeatures.layoutMatrix.clone();            
         }
         else
         {
-        	// flash also returns copies.
+            // flash also returns copies.
             return super.transform.matrix;
         }
     }
@@ -9941,17 +9941,17 @@ public class UIComponent extends FlexSprite
      */
     public function set layoutMatrix(value:Matrix):void
     {
-   		hasDeltaIdentityTransform = false;
+        hasDeltaIdentityTransform = false;
         if(_layoutFeatures == null)
         {
-        	// flash will make a copy of this on assignment.
+            // flash will make a copy of this on assignment.
             super.transform.matrix = value;
             invalidateSize();
         }
         else
         {
-	        // layout features will internally make a copy of this matrix rather than
-    	    // holding onto a reference to it.
+            // layout features will internally make a copy of this matrix rather than
+            // holding onto a reference to it.
             _layoutFeatures.layoutMatrix = value;
             invalidateTransform();
             invalidateParentSizeAndDisplayList();
@@ -9964,15 +9964,15 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutMatrix(value:Matrix):void
     {
-       	hasDeltaIdentityTransform = false;
+        hasDeltaIdentityTransform = false;
         if (_layoutFeatures == null)
         {
             super.transform.matrix = value;
         }
         else
         {
-	        // layout features will internally make a copy of this matrix rather than
-    	    // holding onto a reference to it.
+            // layout features will internally make a copy of this matrix rather than
+            // holding onto a reference to it.
             _layoutFeatures.layoutMatrix = value;
             invalidateTransform(false /*triggerPropertyInvalidation*/);
         }
@@ -9987,7 +9987,7 @@ public class UIComponent extends FlexSprite
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
         // layout features will internally make a copy of this matrix rather than
-   	    // holding onto a reference to it.
+        // holding onto a reference to it.
         _layoutFeatures.layoutMatrix3D = value;
         invalidateTransform(false /*triggerPropertyInvalidation*/);
     }
@@ -10058,10 +10058,10 @@ public class UIComponent extends FlexSprite
     public function get layoutMatrix3D():Matrix3D
     {
         if(_layoutFeatures == null) initAdvancedLayoutFeatures();
-		// esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
-		// since this is an internal class, we don't need to worry about developers
-		// accidentally messing with this matrix, _unless_ we hand it out. Instead,
-		// we hand out a clone.
+        // esg: _layoutFeatures keeps a single internal copy of the layoutMatrix.
+        // since this is an internal class, we don't need to worry about developers
+        // accidentally messing with this matrix, _unless_ we hand it out. Instead,
+        // we hand out a clone.
         return _layoutFeatures.layoutMatrix3D.clone();          
     }
 
@@ -10141,12 +10141,12 @@ public class UIComponent extends FlexSprite
      */
     public function getPreferredBoundsWidth(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getPreferredBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getPreferredBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     public function getPreferredBoundsHeight(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getPreferredBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getPreferredBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -10154,12 +10154,12 @@ public class UIComponent extends FlexSprite
      */
     public function getMinBoundsWidth(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getMinBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getMinBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     public function getMinBoundsHeight(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getMinBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getMinBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -10167,12 +10167,12 @@ public class UIComponent extends FlexSprite
      */
     public function getMaxBoundsWidth(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getMaxBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getMaxBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     public function getMaxBoundsHeight(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getMaxBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getMaxBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -10180,12 +10180,12 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutBoundsWidth(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getLayoutBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getLayoutBoundsWidth(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     public function getLayoutBoundsHeight(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getLayoutBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getLayoutBoundsHeight(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -10193,12 +10193,12 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutBoundsX(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getLayoutBoundsX(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getLayoutBoundsX(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     public function getLayoutBoundsY(postTransform:Boolean=true):Number
     {
-    	return LayoutElementUIComponentUtils.getLayoutBoundsY(this,postTransform? nonDeltaLayoutMatrix():null);
+        return LayoutElementUIComponentUtils.getLayoutBoundsY(this,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -10206,7 +10206,7 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void
     {
-    	LayoutElementUIComponentUtils.setLayoutBoundsPosition(this,x,y,postTransform? nonDeltaLayoutMatrix():null);
+        LayoutElementUIComponentUtils.setLayoutBoundsPosition(this,x,y,postTransform? nonDeltaLayoutMatrix():null);
     }
 
     /**
@@ -10216,7 +10216,7 @@ public class UIComponent extends FlexSprite
                                   height:Number = Number.NaN,
                                   postTransform:Boolean=true):void
     {
-    	LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postTransform? nonDeltaLayoutMatrix():null);
+        LayoutElementUIComponentUtils.setLayoutBoundsSize(this,width,height,postTransform? nonDeltaLayoutMatrix():null);
     }
     
     /**
@@ -10224,7 +10224,7 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutMatrix():Matrix
     {
-		return layoutMatrix;
+        return layoutMatrix;
     }
 
     /**
@@ -10232,7 +10232,7 @@ public class UIComponent extends FlexSprite
      */
     public function getLayoutMatrix3D():Matrix3D
     {
-    	return layoutMatrix3D;
+        return layoutMatrix3D;
     }
 
     protected function nonDeltaLayoutMatrix():Matrix
@@ -10248,7 +10248,7 @@ public class UIComponent extends FlexSprite
         } 
 */
         if(hasDeltaIdentityTransform)
-        	return null; 
+            return null; 
         if(_layoutFeatures != null)
         {
             return _layoutFeatures.layoutMatrix;            
@@ -10257,7 +10257,7 @@ public class UIComponent extends FlexSprite
         {
             return super.transform.matrix;
         }
-         		
+                
     }
 
 }
