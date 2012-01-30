@@ -25,6 +25,11 @@ import mx.core.IUIComponent;
  *  are not included in the <code>start</code> and <code>end</code> fields.</p>
  *
  *  @see mx.states.Transition
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PropertyChanges
 {
@@ -40,6 +45,11 @@ public class PropertyChanges
 	 *  The PropertyChanges constructor.
 	 *
 	 *  @param target Object that is a target of an effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function PropertyChanges(target:Object)
 	{
@@ -67,6 +77,11 @@ public class PropertyChanges
 	 *  contains the ending position and size of the component, 
 	 *  as the following example shows:
 	 *  <pre>{ x: 100, y: 100, width: 200, height: 200 }</pre></p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var end:Object = {};
 
@@ -83,6 +98,11 @@ public class PropertyChanges
 	 *  contains the starting position and size of the component,
 	 *  as the following example shows:
 	 *  <pre>{ x: 0, y: 0, width: 100, height: 100}</pre></p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var start:Object = {};
 
@@ -95,6 +115,11 @@ public class PropertyChanges
 	 *  The <code>start</code> and <code>end</code> fields
 	 *  of the PropertyChanges object define how the target component
 	 *  is modified by the change to the view state.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var target:Object;
 }
