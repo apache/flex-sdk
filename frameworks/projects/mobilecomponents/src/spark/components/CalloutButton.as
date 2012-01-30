@@ -50,7 +50,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="close", type="spark.events.DropDownEvent")]
 
@@ -62,7 +62,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="open", type="spark.events.DropDownEvent")]
 
@@ -145,7 +145,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class CalloutButton extends Button
 {
@@ -186,7 +186,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function CalloutButton()
     {
@@ -213,7 +213,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var dropDown:IFactory;
     
@@ -263,7 +263,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get calloutContent():Array
     {
@@ -299,7 +299,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get calloutLayout():LayoutBase
     {
@@ -332,7 +332,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get horizontalPosition():String
     {
@@ -368,7 +368,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get verticalPosition():String
     {
@@ -419,7 +419,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get callout():Callout
     {
@@ -458,7 +458,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected function get dropDownController():DropDownController
     {
@@ -494,7 +494,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get isDropDownOpen():Boolean
     {
@@ -524,7 +524,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get calloutDestructionPolicy():String
     {
@@ -675,7 +675,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function openDropDown():void
     {
@@ -687,7 +687,7 @@ public class CalloutButton extends Button
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function closeDropDown():void
     {
