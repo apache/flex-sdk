@@ -123,7 +123,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //--------------------------------------------------------------------------
   
     // TODO (chiedozi): Consider having a NO_SELECTION constant to differentiate
-    // between NO_PROPOSED_SELECTION and clearing the selection.  See List.
+    // between NO_PROPOSED_SELECTION and clearing the selection.  See List.  It
+    // seems redundant because TabbedViewNavigator expects requireSelection to be
+    // true on its TabBar.
     /**
      *  @private
      *  Static constant representing no proposed selection.
@@ -204,6 +206,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
+     */
+    private var explicitTabBarMouseEnabled:Boolean = false;
+    
+    /**
+     *  @private
      *  Keeps track of the tab that was last selected.  See 
      *  tabBarRendererClicked() for information on how it's used.
      */ 
@@ -238,6 +245,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @private
      */    
     private var tabBarVisibilityChanged:Boolean = false;
+    
+    /**
+     * @private
+     */
+    mx_internal var selectedNavigatorChangingView:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -340,7 +352,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */ 
-    // FIXME (chiedozi): Part of restructuring setSelectedIndex and adjustIndex
     public function set navigators(value:Vector.<ViewNavigatorBase>):void
     {
         var i:int;
@@ -632,7 +643,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         super.commitProperties();
         
-        // FIXME (chiedozi): Should cancel any queued view changes of the active view navigator.
         if (selectedIndexChanged || dataProviderChanged)
         {
             var navigator:ViewNavigatorBase;
@@ -655,6 +665,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 
                 // Private event dispatched when a view has finished transitioning
                 navigator.removeEventListener("viewChangeComplete", navigator_viewChangeCompleteHandler);
+                navigator.removeEventListener("viewChangeStart", navigator_viewChangeStartHandler);
                 navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
             }
@@ -666,17 +677,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 navigator = navigators[_selectedIndex];
                 
                 navigator.addEventListener("viewChangeComplete", navigator_viewChangeCompleteHandler);
+                navigator.addEventListener("viewChangeStart", navigator_viewChangeStartHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
                 
                 navigator.setActive(true);
                 navigator.visible = true;
                 navigator.includeInLayout = true;
-                
-                // FIXME (chiedozi): Why do i need to validate here
-                // Force a validation of the new navigator to prevent a flicker from
-                // occurring since the view will be rendered this frame
-                navigator.validateNow();
                 
                 if (navigator.activeView)
                 {
@@ -745,7 +752,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     private function commitVisibilityChanges():void
     {
         // Can't change the visibility during a view transition
-        // FIXME (chiedozi): Shouldn't be able to do this if the child view is animating
+        if (selectedNavigatorChangingView)
+            return;
         
         // If an animation is running, end it
         if (tabBarVisibilityEffect)
@@ -912,6 +920,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             tabBar.addEventListener(IndexChangeEvent.CHANGING, tabBar_indexChanging);
             tabBar.dataGroup.addEventListener(RendererExistenceEvent.RENDERER_ADD, tabBar_elementAddHandler);
             tabBar.dataProvider = this;
+            tabBar.requireSelection = true;
         }
     }
     
@@ -988,6 +997,26 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         if (hasEventListener("viewChangeComplete"))
             dispatchEvent(event);
+        
+        selectedNavigatorChangingView = false;
+        
+        if (tabBar)
+            tabBar.mouseEnabled = explicitTabBarMouseEnabled;
+    }
+    
+    /**
+     *  @private
+     */
+    private function navigator_viewChangeStartHandler(event:Event):void
+    {
+        selectedNavigatorChangingView = true;
+        
+        // Disable mouse interaction with the tabBar 
+        if (tabBar)
+        {
+            explicitTabBarMouseEnabled = tabBar.mouseEnabled;
+            tabBar.mouseEnabled = false;
+        }
     }
     
     /**
@@ -1165,7 +1194,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      * @private
      */
-    // FIXME (chiedozi): Follow ListBase setSelectedIndex pattern
     public function set selectedIndex(value:int):void
     {
         if (value < -1 || value >= length) 
@@ -1178,9 +1206,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         if (!dataProviderChanged && value == selectedIndex)
             return;
         
-        // TODO (chiedozi): Add comment about how you can be in here via progromattic setting 
-        // of selectedIndex through a tab navigator change and how the changingEventDispatched 
-        // is the gating factor there
+        // The selected index property can be changed programmitically on the
+        // TabbedViewNavigator or by its tab bar in response to a user action.  If
+        // this was initiated by the tab bar, a chaning event would have already been
+        // dispatched in tabBar_indexChanging().
         if (initialized && !changingEventDispatched)
         {
             // If the active view's REMOVING event or the navigator's
@@ -1281,9 +1310,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function addItemAt(item:Object, index:int):void
     {
-        // FIXME (chiedozi): Resource manager
-        if (!(item is ViewNavigatorBase)) 
-            throw new Error("Objects added to TabbedViewNavigator must extend ViewNavigatorBase.");
+        // If the added type is not a ViewNavigatorBase, we ignore the call
+        // TODO (chiedozi): Consider throwing an exception here
+        if (!(item is ViewNavigatorBase))
+            return;
         
         if (index < 0 || index > length) 
         {
@@ -1297,12 +1327,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         setupNavigator(ViewNavigatorBase(item));
         addElementAt(ViewNavigatorBase(item), index);
         
-        // FIXME (chiedozi): I feel that this is wrong, shouldn't dispatch this before
-        // updating my selection
         internalDispatchEvent(CollectionEventKind.ADD, item, index);
         
-        // FIXME (chiedozi): When there is no selectedIndex, this call results in
-        // selectedIndex being called 3 times...
         if (selectedIndex == NO_PROPOSED_SELECTION)
         {
             selectedIndex = 0;
@@ -1383,7 +1409,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                                 oldValue:Object = null, 
                                 newValue:Object = null):void
     {
-        // FIXME (chiedozi): For some reason this gets dispatched twice
         var event:PropertyChangeEvent =
             new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
         
@@ -1486,9 +1511,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function setItemAt(item:Object, index:int):Object
     {
-        // FIXME (chiedozi): Resource manager
+        // If the added type is not a ViewNavigatorBase, we ignore the call
+        // TODO (chiedozi): Consider throwing an exception here
         if (!(item is ViewNavigator)) 
-            throw new Error("Objects added to TabbedViewNavigator must extend ViewNavigatorBase.");
+            return null;
         
         if (index < 0 || index >= length) 
         {
