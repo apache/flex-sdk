@@ -29,6 +29,7 @@ import flash.system.SecurityDomain;
 import flash.utils.ByteArray;
 //import flash.utils.getTimer;        // PERFORMANCE_INFO
 
+import mx.core.RSLData;
 import mx.events.RSLEvent;
 import mx.utils.SHA256;
 import mx.utils.LoaderUtil;
@@ -57,11 +58,12 @@ public class CrossDomainRSLItem extends RSLItem
     //
     //--------------------------------------------------------------------------
 
-    private var rslUrls:Array;  // first url is the primary url in the url parameter, others are failovers
-    private var policyFileUrls:Array; // optional policy files, parallel array to rslUrls
-    private var digests:Array;      // option rsl digest, parallel array to rslUrls
-    private var isSigned:Array;     // each entry is a boolean value. "true" if the rsl in the parallel array is signed
-    private var hashTypes:Array;     //  type of hash used to create the digest
+    private var rsls:Array = [];     // of type RSLInstanceData
+//    private var rslUrls:Array;  // first url is the primary url in the url parameter, others are failovers
+//    private var policyFileUrls:Array; // optional policy files, parallel array to rslUrls
+//    private var digests:Array;      // option rsl digest, parallel array to rslUrls
+//    private var isSigned:Array;     // each entry is a boolean value. "true" if the rsl in the parallel array is signed
+//    private var hashTypes:Array;     //  type of hash used to create the digest
     private var urlIndex:int = 0;   // index into url being loaded in rslsUrls and other parallel arrays
 
     // this reference to the loader keeps the loader from being garbage 
@@ -79,20 +81,9 @@ public class CrossDomainRSLItem extends RSLItem
     /**
     *  Create a cross-domain RSL item to load.
     * 
-    *  @param rslUrls Array of Strings, may not be null. Each String is the url of an RSL to load.
-    *  @param policyFileUrls Array of Strings, may not be null. Each String contains the url of an
-    *                       policy file which may be required to allow the RSL to be read from another
-    *                       domain. An empty string means there is no policy file specified.
-    *  @param digests Array of Strings, may not be null. A String contains the value of the digest
-    *                computed by the hash in the corresponding entry in the hashTypes Array. An empty
-    *                string may be provided for unsigned RSLs to loaded them without verifying the digest.
-    *                This is provided as a development cycle convenience and should not be used in a
-    *                production application.
-    *  @param hashTypes Array of Strings, may not be null. Each String identifies the type of hash
-    *                  used to compute the digest. Currently the only valid value is SHA256.TYPE_ID.
-    *  @param isSigned Array of boolean, may not be null. Each boolean value specifies if the RSL to be
-    *                  loaded is a signed or unsigned RSL. If the value is true the RSL is signed. 
-    *                  If the value is false the RSL is unsigned.
+    *  @param rsls Array of Objects. Each Object describes and RSL to load. 
+    *  The first Object in the Array is the primary RSL and the others are
+    *  failover RSLs.
     *  @param rootURL provides the url used to locate relative RSL urls. 
     *  @param moduleFactory The module factory that is loading the RSLs. The
     *  RSLs will be loaded into the application domain of the given module factory.
@@ -104,21 +95,13 @@ public class CrossDomainRSLItem extends RSLItem
     *  @playerversion AIR 1.1
     *  @productversion Flex 3
     */  
-    public function CrossDomainRSLItem(rslUrls:Array,
-                             policyFileUrls:Array, 
-                             digests:Array,
-                             hashTypes:Array,
-                             isSigned:Array,
+    public function CrossDomainRSLItem(rsls:Array,
                              rootURL:String = null,
                              moduleFactory:IFlexModuleFactory = null)
     {
-        super(rslUrls[0], rootURL, moduleFactory);
-        
-        this.rslUrls = rslUrls;
-        this.policyFileUrls = policyFileUrls;
-        this.digests = digests;
-        this.hashTypes = hashTypes;
-        this.isSigned = isSigned;
+        super(rsls[0].url, rootURL, moduleFactory);
+
+        this.rsls = rsls;
         
         // startTime = getTimer(); // PERFORMANCE_INFO
     }
@@ -126,14 +109,35 @@ public class CrossDomainRSLItem extends RSLItem
 
     //--------------------------------------------------------------------------
     //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+
+    /**
+     *  Get the RSLData for the current RSL. This could be the primary RSL or one
+     *  of the failover RSLs.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    private function get currentRSLData():RSLData
+    {
+        return RSLData(rsls[urlIndex]);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden Methods
     //
     //--------------------------------------------------------------------------
     
     
-    /**
-     * 
-     * Load an RSL. 
+   /**
+    * 
+    * Load an RSL. 
     * 
     * @param progressHandler       receives ProgressEvent.PROGRESS events, may be null
     * @param completeHandler       receives Event.COMPLETE events, may be null
@@ -187,7 +191,9 @@ public class CrossDomainRSLItem extends RSLItem
 *  @productversion Flex 3
 */
 
-        urlRequest = new URLRequest(LoaderUtil.createAbsoluteURL(rootURL, rslUrls[urlIndex]));
+        var rslData:RSLData = currentRSLData;
+        urlRequest = new URLRequest(LoaderUtil.createAbsoluteURL(rootURL, rslData.url));
+        
         var loader:URLLoader = new URLLoader();
         loader.dataFormat = URLLoaderDataFormat.BINARY;
 
@@ -205,34 +211,15 @@ public class CrossDomainRSLItem extends RSLItem
         loader.addEventListener(
             SecurityErrorEvent.SECURITY_ERROR, itemErrorHandler);
 
-        if (policyFileUrls.length > urlIndex &&
-            policyFileUrls[urlIndex] != "")
+        if (rslData.policyFileUrl != "")
         {
-            Security.loadPolicyFile(policyFileUrls[urlIndex]);
+            Security.loadPolicyFile(rslData.policyFileUrl);
         }
         
-        if (isSigned[urlIndex])
+        if (rslData.isSigned)
         {
-            if (urlRequest.hasOwnProperty("digest"))
-            {
-                // load a signed rsl by specifying the digest
-                urlRequest.digest = digests[urlIndex];
-            }
-            else if (hasFailover())             
-            {
-                loadFailover();
-                return;
-            }
-            else
-            {
-                // B Feature: externalize error message
-                var rslError:ErrorEvent = new ErrorEvent(RSLEvent.RSL_ERROR);
-                rslError.text = "Flex Error #1002: Flash Player 9.0.115 and above is required to support signed RSLs. Problem occurred when trying to load the RSL " +
-                                urlRequest.url + 
-                                ".  Upgrade your Flash Player and try again.";
-                super.itemErrorHandler(rslError);
-                return;
-            }
+            // load a signed rsl by specifying the digest
+            urlRequest.digest = rslData.digest;
         }
         
 //        trace("start load of " + urlRequest.url + " at " + (getTimer() - startTime)); // PERFORMANCE_INFO
@@ -285,13 +272,14 @@ public class CrossDomainRSLItem extends RSLItem
         }   
         
         // verify the digest, if any, is correct
-        if (digests[urlIndex] != null && String(digests[urlIndex]).length > 0)
+        var rslData:RSLData = currentRSLData;
+        if (rslData.digest != null && rslData.verifyDigest)
         {
             var verifiedDigest:Boolean = false;
-            if (!isSigned[urlIndex])
+            if (!rslData.isSigned)
             {
                 // verify an unsigned rsl
-                if (hashTypes[urlIndex] == SHA256.TYPE_ID)
+                if (rslData.hashType == SHA256.TYPE_ID)
                 {
                     // get the bytes from the rsl and calculate the hash
                     var rslDigest:String = null;
@@ -300,7 +288,7 @@ public class CrossDomainRSLItem extends RSLItem
                         rslDigest = SHA256.computeDigest(urlLoader.data);
                     }
 
-                    if (rslDigest == digests[urlIndex])
+                    if (rslDigest == rslData.digest)
                     {
                         verifiedDigest = true;
                     }
@@ -348,7 +336,7 @@ public class CrossDomainRSLItem extends RSLItem
     */
     public function hasFailover():Boolean
     {
-        return (rslUrls.length > (urlIndex + 1));
+        return (rsls.length > (urlIndex + 1));
     }
     
     
@@ -363,12 +351,12 @@ public class CrossDomainRSLItem extends RSLItem
     public function loadFailover():void
     {
         // try to load the failover from the same node again
-        if (urlIndex < rslUrls.length)
+        if (urlIndex < rsls.length)
         {
-            trace("Failed to load RSL " + rslUrls[urlIndex]);
-            trace("Failing over to RSL " + rslUrls[urlIndex+1]);
+            trace("Failed to load RSL " + currentRSLData.url);
+            trace("Failing over to RSL " + RSLData(rsls[urlIndex+1]).url);
             urlIndex++;        // move to failover url
-            url = rslUrls[urlIndex];
+            url = currentRSLData.url;
             load(chainedProgressHandler,
                  chainedCompleteHandler,
                  chainedIOErrorHandler,
