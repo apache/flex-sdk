@@ -126,7 +126,7 @@ public class EffectManager extends EventDispatcher
      */
     mx_internal static function get lastEffectCreated():Effect
     {
-        for( var item:* in weakKeys ) 
+        for (var item:* in weakKeys) 
             return item;
             
         return null;
