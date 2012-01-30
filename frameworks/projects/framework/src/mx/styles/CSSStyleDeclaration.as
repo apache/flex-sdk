@@ -944,7 +944,7 @@ public class CSSStyleDeclaration extends EventDispatcher
      */
     mx_internal function clearOverride(styleProp:String):void
     {
-        if (overrides && overrides[styleProp])
+        if (overrides && overrides[styleProp] !== undefined)
             delete overrides[styleProp];
     }
 
