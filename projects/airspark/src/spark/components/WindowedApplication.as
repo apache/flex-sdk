@@ -2004,7 +2004,13 @@ public class WindowedApplication extends Application implements IWindow
     public function activate():void
     {
         if (!systemManager.stage.nativeWindow.closed)
+        {
             systemManager.stage.nativeWindow.activate();    
+            
+            // activate makes the native window visible so this 
+            // component should become visible as well.
+            visible = true;     	    
+        }
     }
 
     /**
