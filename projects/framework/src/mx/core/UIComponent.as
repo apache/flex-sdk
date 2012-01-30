@@ -898,7 +898,31 @@ include "../styles/metadata/AnchorStyles.as";
 [Style(name="focusThickness", type="Number", format="Length", inherit="no", minValue="0.0")]
 
 /**
- *  
+ *  Specifies the desired layout direction of a component. The allowed values
+ *  are <code>"ltr"</code> for left-to-right layout, used for 
+ *  components using Latin-style scripts, and <code>"rtl"</code> for
+ *  right-to-left layout, used for components using scripts such
+ *  as Arabic and Hebrew.
+ * 
+ *  <p>In ActionScript you can set the layoutDirection using the values 
+ *  mx.core.LayoutDirection.LTR, mx.core.LayoutDirection.RTL or undefined, 
+ *  to inherit the layoutDirection from the parent.</p>
+ * 
+ *  <p>The layoutDirection should typically be set on the 
+ *  <code>Application</code> rather than on individual components. If the 
+ *  layoutDirection is <code>"rtl"</code>, most visual elements, except text 
+ *  and images, will be mirrored.  The directionality of the text is determined 
+ *  by the <code>direction</code>.</p>  
+ * 
+ *  <p>Note: This style applies to all Spark components and MX components that
+ *  specify UIFTETextField as their textFieldClass.</p> 
+ * 
+ *  @default "ltr"
+ * 
+ *  @see MXFTEText.css
+ *  @see mx.core.ILayoutDirectionElement
+ *  @see mx.core.LayoutDirection
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -7604,12 +7628,9 @@ public class UIComponent extends FlexSprite
         // set the _layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
         // required, then clear the _layoutFeatures.mirror flag.
         
-        // Use "ltr" string here rather than LayoutDirection.LTR because the
-        // string is inlined and the constant is like a variable reference.
-        
         const mirror:Boolean = (parentElt) 
             ? (parentElt.layoutDirection != thisLayoutDirection)
-            : ("ltr" != thisLayoutDirection);
+            : (LayoutDirection.LTR != thisLayoutDirection);
       
         if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
         {
