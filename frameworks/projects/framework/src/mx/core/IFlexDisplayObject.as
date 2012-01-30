@@ -26,6 +26,11 @@ import flash.geom.Transform;
 /**
  *  The IFlexDisplayObject interface defines the interface for skin elements.
  *  At a minimum, a skin must be a DisplayObject and implement this interface.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFlexDisplayObject extends IBitmapDrawable, IEventDispatcher
 {
@@ -54,6 +59,11 @@ include "IDisplayObjectInterface.as"
 	 *  to also be an ILayoutManagerClient so a <code>measure()</code>
 	 *  method will be called at an appropriate time,
 	 *  giving you an opportunity to compute a <code>measuredHeight</code>.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get measuredHeight():Number;
 
@@ -72,6 +82,11 @@ include "IDisplayObjectInterface.as"
 	 *  to also be an ILayoutManagerClient so a <code>measure()</code>
 	 *  method will be called at an appropriate time,
 	 *  giving you an opportunity to compute a <code>measuredHeight</code>.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get measuredWidth():Number;
 
@@ -88,6 +103,11 @@ include "IDisplayObjectInterface.as"
 	 *  @param x The new x-position for this object.
 	 * 
 	 *  @param y The new y-position for this object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function move(x:Number, y:Number):void;
 
@@ -110,6 +130,11 @@ include "IDisplayObjectInterface.as"
 	 *  @param newWidth The new width for this object.
 	 * 
 	 *  @param newHeight The new height for this object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function setActualSize(newWidth:Number, newHeight:Number):void;
 }
