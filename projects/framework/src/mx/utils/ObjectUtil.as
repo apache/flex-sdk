@@ -841,9 +841,10 @@ public class ObjectUtil
      * 
      *  @return An Object containing the following properties:
      *  <ul>
-     *    <li><code>name</code>: String containing the name of the class;</li>
+     *    <li><code>name</code>: String containing the name of the class.</li>
      *    <li><code>properties</code>: Sorted list of the property names of the specified object,
-     *    or references to the original key if the specified object is a Dictionary</li>
+     *    or references to the original key if the specified object is a Dictionary. The individual
+     * 	  array elements are QName instances, which contain both the local name of the property as well as the URI.</li>
      *  </ul>
     *  
     *  @langversion 3.0
