@@ -38,10 +38,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  measuredWidth if the measuredWidth is dependent on the layout
      *  height.
      * 
-     *  Note that significantly incorrect estimation of this property can cause
+     *  <p>Note that significantly incorrect estimation of this property can cause
      *  layout problems and even infinite loops in Scroller and similar
      *  containers that are going to guess on a scrollbar configuration
-     *  based on measurements influenced by this value.
+     *  based on measurements influenced by this value.</p>
      *
      *  @default NaN
      *  
@@ -62,10 +62,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  measuredHeight if the measuredHeight is dependent on the layout
      *  width.
      *
-     *  Note that significantly incorrect estimation of this property can cause
+     *  <p>Note that significantly incorrect estimation of this property can cause
      *  layout problems and even infinite loops in Scroller and similar
      *  containers that are going to guess on a scrollbar configuration
-     *  based on measurements influenced by this value.
+     *  based on measurements influenced by this value.</p>
      *
      *  @default NaN
      *  
@@ -291,7 +291,7 @@ public interface ILayoutElement extends IEventDispatcher
     function get baselinePosition():Number;
     
     /**
-     *  Number that specifies the width of a component as a percentage
+     *  Specifies the width of a component as a percentage
      *  of its parent's size. Allowed values are 0-100.
      *  Setting the <code>width</code> or <code>explicitWidth</code> properties
      *  resets this property to NaN.
@@ -315,7 +315,7 @@ public interface ILayoutElement extends IEventDispatcher
     function set percentWidth(value:Number):void;
 
     /**
-     *  Number that specifies the height of a component as a percentage
+     *  Specifies the height of a component as a percentage
      *  of its parent's size. Allowed values are 0-100.
      *  Setting the <code>height</code> or <code>explicitHeight</code> properties
      *  resets this property to NaN.
@@ -358,7 +358,7 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>,
      *  the method returns the element's bounding box width.  
-     *  Bounding box is in element's parent
+     *  The bounding box is in the element's parent
      *  coordinate space and is calculated from  the element's preferred size and
      *  layout transform matrix.
      *
@@ -383,7 +383,7 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>,
      *  the method returns the element's bounding box height.  
-     *  Bounding box is in element's parent
+     *  The bounding box is in the element's parent
      *  coordinate space and is calculated from  the element's preferred size and
      *  layout transform matrix.
      *
@@ -408,9 +408,11 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>,
      *  the method returns the element's bounding box width. 
-     *  Bounding box is in element's parent
+     *  The bounding box is in the element's parent
      *  coordinate space and is calculated from the element's minimum size and
      *  layout transform matrix.
+     *
+     *  @return The element's maximum width.
      *
      *  @see #getMinHeight
      *  @see #getLayoutMatrix
@@ -428,9 +430,11 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>,
      *  the method returns the element's bounding box height. 
-     *  Bounding box is in element's parent
+     *  The bounding box is in the element's parent
      *  coordinate space and is calculated from the element's minimum size and
      *  layout transform matrix.
+     *
+     *  @return The element's maximum height.
      *
      *  @see #getMinWidth
      *  @see #getLayoutMatrix
@@ -446,10 +450,12 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the element's maximum width.
      * 
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  the element's bounding box width. Bounding box is in element's parent
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the method returns
+     *  the element's bounding box width. The bounding box is in the element's parent
      *  coordinate space and is calculated from the element's maximum size and
      *  layout transform matrix.
+     *
+     *  @return The element's maximum width.
      *
      *  @see #getMaxHeight
      *  @see #getLayoutMatrix
@@ -465,10 +471,12 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the element's maximum height.
      * 
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  the element's bounding box height. Bounding box is in element's parent
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the method returns
+     *  the element's bounding box height. The bounding box is in the element's parent
      *  coordinate space and is calculated from the element's maximum size and
      *  layout transform matrix.
+     *
+     *  @return The element's maximum height.
      *
      *  @see #getMaxWidth
      *  @see #getLayoutMatrix
@@ -484,16 +492,18 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the x coordinate of the element's bounds at the specified element size.
      * 
-     *  This method is typically used by layouts during a call to the 
+     *  <p>This method is typically used by layouts during a call to the 
      *  <code>measure()</code> method to predict what
-     *  the element position will be, if the element is resized to particular dimensions.
+     *  the element position will be, if the element is resized to particular dimensions.</p>
      * 
      *  @param width The element's bounds width, or NaN to use the preferred width.
      *  @param height The element's bounds height, or NaN to use the preferred height.
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the method returns
      *  x coordinate of the element's bounding box top-left corner.
-     *  Bounding box is in element's parent coordinate space and is calculated
+     *  The bounding box is in element's parent coordinate space and is calculated
      *  from the specified bounds size, layout position and layout transform matrix.
+     *
+     *  @return The x coordinate of the element's bounds at the specified element size.
      *
      *  @see #setLayoutBoundsSize
      *  @see #getLayoutPositionX
@@ -516,10 +526,12 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @param width The element's bounds width, or NaN to use the preferred width.
      *  @param height The element's bounds height, or NaN to use the preferred height.
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  y coordinate of the element's bounding box top-left corner.
-     *  Bounding box is in element's parent coordinate space and is calculated
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the method returns
+     *  the y coordinate of the element's bounding box top-left corner.
+     *  The bounding box is in element's parent coordinate space and is calculated
      *  from the specified bounds size, layout position and layout transform matrix.
+     *  
+     *  @return The y coordinate of the element's bounds at the specified element size.
      *
      *  @see #setLayoutBoundsSize
      *  @see #getLayoutPositionY
@@ -537,10 +549,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  Returns the element's layout width. This is the size that the element uses
      *  to draw on screen.
      *
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  the element's bounding box width. Bounding box is in element's parent
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the method returns
+     *  the element's bounding box width. The bounding box is in element's parent
      *  coordinate space and is calculated from the element's layout size and
      *  layout transform matrix.
+     *  
+     *  @return The element's layout width.
      *
      *  @see #getLayoutHeight
      *  @see #getLayoutMatrix
@@ -557,10 +571,12 @@ public interface ILayoutElement extends IEventDispatcher
      *  Returns the element's layout height. This is the size that the element uses
      *  to draw on screen.
      *
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  the element's bounding box width. Bounding box is in element's parent
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the method returns
+     *  the element's bounding box width. The bounding box is in the element's parent
      *  coordinate space and is calculated from the element's layout size and
      *  layout transform matrix.
+     *  
+     *  @return The element's layout height.
      *
      *  @see #getLayoutWidth
      *  @see #getLayoutMatrix
@@ -576,10 +592,12 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the x coordinate that the element uses to draw on screen.
      *
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the method returns
      *  x coordinate of the element's bounding box top-left corner.
-     *  Bounding box is in element's parent coordinate space and is calculated
+     *  The bounding box is in the element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
+     * 
+     *  @return The x coordinate that the element uses to draw on screen.
      * 
      *  @see #getLayoutPositionY
      *  @see #getLayoutMatrix
@@ -595,10 +613,12 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the y coordinate that the element uses to draw on screen.
      *
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the method returns
      *  y coordinate of the element's bounding box top-left corner.
-     *  Bounding box is in element's parent coordinate space and is calculated
-     *  from the element's layout size, layout position and layout transform matrix.
+     *  The bounding box is in the element's parent coordinate space and is calculated
+     *  from the element's layout size, layout position, and layout transform matrix.
+     * 
+     *  @return The y coordinate that the element uses to draw on screen.
      * 
      *  @see #getLayoutPositionX
      *  @see #getLayoutMatrix
@@ -616,11 +636,11 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>, 
      *  the element is positioned in such a way that the top-left corner of its bounding box is (x, y).
-     *  Bounding box is in element's parent coordinate space and is calculated
+     *  The bounding box is in the element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
      *
-     *  Note that calls to the <code>setLayoutBoundSize()</code> method can affect the layout position, so 
-     *  call <code>setLayoutBoundPosition()</code> after calling <code>setLayoutBoundSize()</code>.
+     *  <p>Note that calls to the <code>setLayoutBoundSize()</code> method can affect the layout position, so 
+     *  call <code>setLayoutBoundPosition()</code> after calling <code>setLayoutBoundSize()</code>.</p>
      *
      *  @see #setLayoutSize
      *  @see #getLayoutMatrix
@@ -647,10 +667,10 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @param height The element's layout height.
      *
-     *  @param postLayoutTransform When postLayoutTransform is true, the specified sizes
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is true, the specified sizes
      *  are those of the element's bounding box.
-     *  Bounding box is in element's parent coordinate space and is calculated
-     *  from the element's layout size, layout position and layout transform matrix.
+     *  The bounding box is in the element's parent coordinate space and is calculated
+     *  from the element's layout size, layout position, and layout transform matrix.
      * 
      *  @see #setLayoutPosition
      *  @see #getLayoutMatrix
@@ -679,7 +699,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  defines the <code>offsets</code> property.</p>
      *  
      *  @return The layout transform Matrix for this element.
-     *  Don't directly modify the return value but call setLayoutMatrix instead.
+     *  Do not directly modify the return value; call the <code>setLayoutMatrix()</code> method instead.
      * 
      *  @see #setLayoutMatrix
      *  @see #getLayoutMatrix3D
@@ -713,14 +733,14 @@ public interface ILayoutElement extends IEventDispatcher
      *  Layouts that calculate the transform matrix explicitly typically call
      *  this method and work with sizes in child coordinates.
      *  Layouts calling this method pass <code>false</code>
-     *  to <code>invalidateLayout</code> so that a subsequent layout pass is not
+     *  to the <code>invalidateLayout()</code> method so that a subsequent layout pass is not
      *  triggered.</p>
      *
      *  @param Matrix The matrix.
      *
-     *  @param invalidateLayout <code>true</code> to cause theparetn container 
-     *  to re-layout its children.You typically pass <code>true</code>
-     *  to <code>invalidateLayout</code>.
+     *  @param invalidateLayout <code>true</code> to cause the parent container 
+     *  to re-layout its children. You typically pass <code>true</code>
+     *  to the <code>invalidateLayout()</code> method.
      * 
      *  @see #getLayoutMatrix
      *  @see #getLayoutMatrix3D
@@ -735,10 +755,10 @@ public interface ILayoutElement extends IEventDispatcher
     function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void;
     
     /**
-     *  Contians <code>true</code> if the element has 3D Matrix.
+     *  Contains <code>true</code> if the element has 3D Matrix.
      *
      *  <p>Use <code>hasLayoutMatrix3D</code> instead of calling and examining the
-     *  return value of <code>getLayoutMatrix3D()</code> becasue that method returns a valid
+     *  return value of <code>getLayoutMatrix3D()</code> because that method returns a valid
      *  matrix even when the element is in 2D.</p>
      * 
      *  @langversion 3.0
@@ -762,7 +782,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  defines the <code>offsets</code> property.</p>
      * 
      *  @return The layout transform Matrix3D for this element.
-     *  Don't directly modify the return value but call setLayoutMatrix instead.
+     *  Do not directly modify the return value but call the <code>setLayoutMatrix()</code> method instead.
      *  
      *  @see #getLayoutMatrix
      *  @see #setLayoutMatrix
@@ -797,20 +817,19 @@ public interface ILayoutElement extends IEventDispatcher
      *  Layouts that calculate the transform matrix explicitly typically call
      *  this method and work with sizes in child coordinates.
      *  Layouts calling this method pass <code>false</code>
-     *  to <code>invalidateLayout</code> so that a subsequent layout pass is not
+     *  to the <code>invalidateLayout()</code> method so that a subsequent layout pass is not
      *  triggered.</p>
      *
      *  @param Matrix The matrix.
      *
-     *  @param invalidateLayout <code>true</code> to cause theparetn container 
-     *  to re-layout its children.You typically pass <code>true</code>
-     *  to <code>invalidateLayout</code>.
+     *  @param invalidateLayout <code>true</code> to cause the parent container 
+     *  to re-layout its children. You typically pass <code>true</code>
+     *  to the <code>invalidateLayout()</code> method.
      * 
      *  @see #getLayoutMatrix
      *  @see #setLayoutMatrix
      *  @see #getLayoutMatrix3D
      *  @see mx.core.UIComponent#offsets
-     *  @see mx.graphics.baseClasses.GraphicElement#offsets
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -822,15 +841,15 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Set the element's estimatedWidth and estimatedHeight.   
      * 
-     *  @param estimatedWidth the new estimatedWidth
-     *  @param estimatedHeight the new estimatedHeight
-     *  @param invalidateSize if false, do not invalidate, just store the numbers
-     * 
-     *  Implementations typically never invalidateSize, unless they are flow-based
+     *  <p>Implementations typically never invalidateSize, unless they are flow-based
      *  (width affects height or vice-versa), then they call invalidateSize if
      *  the new estimatedWidth and/or estimatedHeight would affect the
-     *  measuredWidth and/or measuredHeight.
+     *  measuredWidth and/or measuredHeight.</p>
      *
+     *  @param estimatedWidth The new estimatedWidth.
+     *  @param estimatedHeight The new estimatedHeight.
+     *  @param invalidateSize If false, do not invalidate, just store the numbers.
+     * 
      *  @see #estimatedWidth
      *  @see #estimatedHeight
      *  
@@ -840,8 +859,8 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 4.5
      */
     function setEstimatedSize(estimatedWidth:Number = NaN, 
-								estimatedHeight:Number = NaN,
-								invalidateSize:Boolean = true):void;
+                                estimatedHeight:Number = NaN,
+                                invalidateSize:Boolean = true):void;
     
     /**
      *  A utility method to update the rotation, scale, and translation of the 
