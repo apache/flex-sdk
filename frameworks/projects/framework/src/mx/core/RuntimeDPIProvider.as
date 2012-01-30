@@ -47,11 +47,21 @@ use namespace mx_internal;
  *  
  *  @see mx.core.DPIClassification
  *  @see spark.components.Application#applicationDPI
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class RuntimeDPIProvider
 {
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function RuntimeDPIProvider()
     {
@@ -73,6 +83,11 @@ public class RuntimeDPIProvider
      *  
      *  @see flash.system.Capabilities
      *  @see mx.core.DPIClassification
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get runtimeDPI():Number
     {
