@@ -18,6 +18,7 @@ import flash.display.Sprite;
 import flash.filters.DropShadowFilter;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.system.ApplicationDomain;
 import flash.utils.Dictionary;
 
 import mx.charts.BarChart;
@@ -43,7 +44,6 @@ import mx.charts.styles.HaloDefaults;
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
 import mx.collections.IViewCursor;
-import mx.controls.Label;
 import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
@@ -120,6 +120,20 @@ include "../styles/metadata/TextStyles.as"
  */
 [Style(name="labelAlign", type="String", enumeration="left,center,right", inherit="no")]
 
+/**
+ *  The class that is used by this component to render labels.
+ *
+ *  <p>It can be set to either the mx.controls.Label class
+ *  or the spark.components.Label class.</p>
+ *
+ *  @default spark.components.Label
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.2
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4
+ */
+[Style(name="labelClass", type="Class", inherit="no")]
 /**
  * Determines the position of labels
  * Possible values are <code>"none"</code> , <code>"outside"</code>
@@ -243,16 +257,34 @@ public class BarSeries extends Series implements IStackable2, IBar
         _labelLayer = new UIComponent();
         _labelLayer.styleName = this;
         
-        labelCache = new InstanceCache(Label,_labelLayer);
+        labelCache = new InstanceCache(getLabelClass(),_labelLayer);
         labelCache.discard = true;
         labelCache.properties =
         {
-            selectable: false,
             styleName: this
         };
         
         dataTransform = new CartesianTransform();
     }
+	
+	private function getLabelClass():Class
+	{
+		var labelClass:Class = getStyle("labelClass");
+		if(labelClass == null)
+		{
+			try{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("spark.components::Label"));
+			}
+			catch(e:Error)
+			{
+				labelClass = Class(ApplicationDomain.currentDomain.
+					getDefinition("mx.controls::Label"));
+			}
+		}
+		return labelClass;
+	}
+
     
     //--------------------------------------------------------------------------
     //
@@ -2401,7 +2433,7 @@ public class BarSeries extends Series implements IStackable2, IBar
         var labels:Array /* of Label */ = labelCache.instances;
         var dataTransform:CartesianTransform=CartesianTransform(dataTransform);
 
-        var label:Label;
+        var label:Object;
         var align:String = getStyle('labelAlign');
         var size:Number = getStyle('fontSize');
         for (var i:int = 0; i < n; i++)
@@ -2409,7 +2441,7 @@ public class BarSeries extends Series implements IStackable2, IBar
             var v:BarSeriesItem =activeCount[i];
             label=labels[i];
             label.x=v.labelX;
-            label.y=v.labelY;
+            label.y=v.labelY+4;
             label.text=v.labelText;
             label.width=v.labelWidth;
             label.height=v.labelHeight;
@@ -2452,7 +2484,7 @@ public class BarSeries extends Series implements IStackable2, IBar
         var n:int=activeCount.length;
         labelCache.count = n;             
         var labels:Array /* of Label */ = labelCache.instances;
-        var label:Label;
+        var label:Object;
         
         var rotation:Number = getStyle('labelRotation');        
         var size:Number = getStyle('fontSize');
@@ -2461,7 +2493,7 @@ public class BarSeries extends Series implements IStackable2, IBar
             var v:BarSeriesItem =activeCount[i];
             label=labels[i];
             label.x=v.labelX;
-            label.y=v.labelY;
+            label.y=v.labelY+4;
             label.width=v.labelWidth;
             label.height=v.labelHeight;
             label.text=v.labelText;
