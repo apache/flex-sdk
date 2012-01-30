@@ -491,6 +491,11 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      */
     private var windowBoundsChanged:Boolean = true;
+    
+    /**
+     *  @private
+     */
+    private var prevActiveFrameRate:Number = -1;
 
     /**
      *  @private
@@ -986,6 +991,39 @@ public class WindowedApplication extends Application implements IWindow
     public function set autoExit(value:Boolean):void
     {
         nativeApplication.autoExit = value;
+    }
+
+    //----------------------------------
+    //  backgroundFrameRate
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the backgroundFrameRate property.
+     */
+    private var _backgroundFrameRate:Number = 1;
+
+    /**
+     *  Specifies framerate to use when the application is inactive.
+     *  When set to -1 no background framerate throttling will occur.
+     *
+     *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get backgroundFrameRate():Number
+    {
+        return _backgroundFrameRate;
+    }
+   
+    /**
+     *  @private
+     */ 
+    public function set backgroundFrameRate(frameRate:Number):void
+    {
+        _backgroundFrameRate = frameRate;
     }
 
     //----------------------------------
@@ -2655,6 +2693,13 @@ public class WindowedApplication extends Application implements IWindow
     private function nativeApplication_activateHandler(event:Event):void
     {
         dispatchEvent(new AIREvent(AIREvent.APPLICATION_ACTIVATE));
+    
+        // Restore throttled framerate if appropriate when application is activated.
+        if (prevActiveFrameRate >= 0 && stage)
+        {
+            stage.frameRate = prevActiveFrameRate;  
+            prevActiveFrameRate = -1;
+        }
     }
 
     /**
@@ -2663,6 +2708,16 @@ public class WindowedApplication extends Application implements IWindow
     private function nativeApplication_deactivateHandler(event:Event):void
     {
         dispatchEvent(new AIREvent(AIREvent.APPLICATION_DEACTIVATE));
+
+        // Throttle framerate if appropriate when application is deactivated.
+        // Ensure we've received an updateComplete on the chance our layout
+        // manager is using phased instantiation (we don't wish to store a
+        // maxed out (1000fps) framerate).
+        if ((_backgroundFrameRate >= 0) && (ucCount > 0) && stage)
+        {
+            prevActiveFrameRate = stage.frameRate;
+            stage.frameRate = _backgroundFrameRate; 
+        }
     }
 
     /**
