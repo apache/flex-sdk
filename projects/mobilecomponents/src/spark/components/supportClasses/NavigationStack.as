@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2009 Adobe Systems Incorporated
+//  Copyright 2010 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -9,6 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+// TODO (chiedozi): Make private in view nav?
 package spark.components.supportClasses
 {    
 import flash.utils.IDataInput;
@@ -23,17 +24,16 @@ import mx.core.mx_internal;
 use namespace mx_internal;
 
 /**
- *  <code>ViewNavigatorSection</code> is a data structure that represents a stack 
- *  of Screens used by navigators.  This object consists of a vector
- *  of <code>ScreenData</code> objects that contain initialization properties
- *  for a screen.
+ *  The NavigationStack class is a data structure that is internally used by 
+ *  ViewNavigator to track the current set of views that are being managed 
+ *  by the navigator.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
-public class ViewNavigatorSection implements IExternalizable
+public class NavigationStack implements IExternalizable
 {
     
     //--------------------------------------------------------------------------
@@ -47,10 +47,10 @@ public class ViewNavigatorSection implements IExternalizable
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    public function ViewNavigatorSection()
+    public function NavigationStack()
     {
         super();
         
@@ -66,7 +66,20 @@ public class ViewNavigatorSection implements IExternalizable
     /**
      *  @private
      */
-    mx_internal var _source:Vector.<ViewHistoryData>;
+    private var _source:Vector.<ViewHistoryData>;
+    
+    /**
+     *  @private
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
+    mx_internal function get source():Vector.<ViewHistoryData>
+    {
+        return _source;
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -75,85 +88,75 @@ public class ViewNavigatorSection implements IExternalizable
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  icon
+    //  firstView
     //----------------------------------
-    /**
-     *  @private
-     */
-    private var _icon:Class;
     
     /**
-     *  Returns the icon that should be used when this stack is represented
-     *  by a visual component.
+     *  The class name of the first view that should be created when a navigator
+     *  initializes itself.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    public function get icon():Class
-    {
-        return _icon;    
-    }
-    /**
-     *  @private
-     */
-    public function set icon(value:Class):void
-    {
-        _icon = value;
-    }
+    public var firstView:Class;
     
     //----------------------------------
     //  firstViewData
     //----------------------------------
+
     /**
-     * @private
+     *  This is the initialization data to pass to the first view that is created
+     *  by a navigator.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    private var _firstViewData:Object;
+    public var firstViewData:Object;
+    
+    //----------------------------------
+    //  icon
+    //----------------------------------
     
     /**
-     * This is the initialization data to pass to the
-     * root screen when it is created.
+     *  Returns the icon that should be used when this stack is represented
+     *  by a visual component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    public function get firstViewData():Object
-    {
-        return _firstViewData;
-    }
-    
-    /**
-     * @private
-     */
-    public function set firstViewData(value:Object):void
-    {
-        _firstViewData = value;
-    }
+    public var icon:Class;
     
     //----------------------------------
     //  label
     //----------------------------------
-    /**
-     *  @private
-     */
-    private var _label:String;
     
     /**
-     *  The label to be used when this stack is represented by
-     *  a visual component.
+     *  The label to be used when this stack is represented by a visual component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    public function get label():String
-    {
-        return _label;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set label(value:String):void
-    {    
-        _label = value;
-    }
+    public var label:String;
     
     //----------------------------------
     //  length
     //----------------------------------
     
     /**
-     *  Returns the length of the stack
+     *  Returns the length of the stack.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */        
     public function get length():int
     {
@@ -161,39 +164,19 @@ public class ViewNavigatorSection implements IExternalizable
     }
     
     //----------------------------------
-    //  firstView
-    //----------------------------------
-    /**
-     *  @private
-     *  The backing variable for the firstView property.
-     */
-    private var _firstView:Class;
-    
-    /**
-     *  This property is the object to use to initialize the root screen
-     *  of the stack.  This can be a Class, instance or Factory that creates
-     *  an object that extends <code>Screen</code>.
-     */
-    public function get firstView():Class
-    {
-        return _firstView;
-    }
-    
-    /**
-     * @private
-     */
-    public function set firstView(value:Class):void
-    {
-        _firstView = value;
-    }
-    
-    //----------------------------------
     //  top
     //----------------------------------
     
     /**
-     *  Returns the object at the top of the stack.  If the
-     *  stack is empty, this propety is null.
+     *  Returns the object at the top of the stack.  If the stack is empty, 
+     *  this propety is null.
+     * 
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     mx_internal function get topView():ViewHistoryData
     {
@@ -208,6 +191,11 @@ public class ViewNavigatorSection implements IExternalizable
     
     /**
      *  Clears the entire stack.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function clear():void
     {
@@ -215,23 +203,48 @@ public class ViewNavigatorSection implements IExternalizable
     }
     
     /**
-     *  Pushes a data on the top of the stack.
+     *  Adds a view to the top of the navigation stack.
+     * 
+     *  @param factory The class of the View to create.
+     *  @param data The data object to pass to the view when it is created
+     *  
+     *  @return The data structure that represents the current view.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    public function push(factory:Class, data:Object):void
+    public function push(factory:Class, data:Object):ViewHistoryData
     {
-        _source.push(new ViewHistoryData(factory, data));
+        var viewData:ViewHistoryData = new ViewHistoryData(factory, data);
+        _source.push(viewData);
+        
+        return viewData;
     }
     
     /**
-     *  Removes the top item off the stack.
+     *  Removes the top view off the stack.
+     * 
+     *  @return The data structure that represented the View.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    public function pop():void
+    public function pop():ViewHistoryData
     {
-        _source.pop();
+        return _source.pop();
     }
     
     /**
-     *  Removes all but the root object from the screen stack.
+     *  Removes all but the root object from the navigation stack.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function popToFirstView():void
     {
@@ -245,21 +258,51 @@ public class ViewNavigatorSection implements IExternalizable
     // 
     //--------------------------------------------------------------------------
     
+    /**
+     *  Serializes the navigation stack in an IDataOutput object so that it
+     *  can be written to a shared object.
+     *  
+     *  @param output The data output object used to write the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5 
+     */ 
     public function writeExternal(output:IDataOutput):void
     {
+        // The write order must always match the read order.  Make sure that
+        // writeExternal() and readExternal() process properties in the same order.
         output.writeObject(firstViewData);
         output.writeObject(label);
         output.writeObject(_source);
+        
+        // Can't store class names in a shared object, need to save the
+        // class name instead.
         output.writeObject(getQualifiedClassName(icon));
         output.writeObject(getQualifiedClassName(firstView));
     }
     
+    /**
+     *  Deserializes the navigation stack when being loaded from a shared
+     *  object.
+     *  
+     *  @param input The external object to read from.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5 
+     */ 
     public function readExternal(input:IDataInput):void 
     {
+        // The write order must always match the read order.  Make sure that
+        // writeExternal() and readExternal() process properties in the same order.
         firstViewData = input.readObject();
         label = input.readObject();
         _source = input.readObject() as Vector.<ViewHistoryData>;
         
+        // Need to get the class names from the saved strings.
         var className:String = input.readObject();
         icon = (className == "null") ? null : getDefinitionByName(className) as Class;
         
