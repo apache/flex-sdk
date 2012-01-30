@@ -17,7 +17,7 @@ package mx.utils
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 public class LinkedListNode
@@ -28,6 +28,16 @@ public class LinkedListNode
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor
+     *
+     *  @param value Generic value associated with this node. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function LinkedListNode(value:* = null):void
     {
         this.value = value;
@@ -48,7 +58,7 @@ public class LinkedListNode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var next:LinkedListNode;
@@ -62,7 +72,7 @@ public class LinkedListNode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var prev:LinkedListNode;
@@ -76,7 +86,7 @@ public class LinkedListNode
      *     
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public var value:*;
