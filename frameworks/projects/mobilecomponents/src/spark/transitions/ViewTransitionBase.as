@@ -15,6 +15,7 @@ package spark.transitions
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
@@ -383,6 +384,37 @@ public class ViewTransitionBase extends EventDispatcher
     }
     
     //----------------------------------
+    //  suspendBackgroundProcessing
+    //----------------------------------
+    
+    private var _suspendBackgroundProcessing:Boolean = true;
+    
+    /**
+     *  When set to <code>true</code>, <p>UIComponent.suspendBackgroundProcessing()</p>
+     *  is invoked prior to the transition playing. This has the effect of disabling Flex's
+     *  layout manager and improving performance. Upon completion of the transition,
+     *  full layout manager function is restored via <p>UIComponent.resumeBackgroundProcessing()</p>
+     *
+     *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get suspendBackgroundProcessing():Boolean
+    {
+        return _suspendBackgroundProcessing;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set suspendBackgroundProcessing(value:Boolean):void
+    {
+        _suspendBackgroundProcessing = value;
+    }
+    
+    //----------------------------------
     //  transitionControlsWithContent
     //----------------------------------
     
@@ -648,6 +680,10 @@ public class ViewTransitionBase extends EventDispatcher
             if (hasEventListener(FlexEvent.TRANSITION_START))
                 dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_START));
             
+            // Disable layout manager if requested.
+            if (suspendBackgroundProcessing)
+                UIComponent.suspendBackgroundProcessing();
+            
             effect.play();
         }
         else
@@ -818,21 +854,13 @@ public class ViewTransitionBase extends EventDispatcher
         // changed.  In this case the queue cached representation to be faded
         // out.
         if (cachedNavigationGroup)
-        {
             transitionGroup.addElement(cachedNavigationGroup);
-            if (!verticalTransition)
-                fadeOutTargets.push(cachedNavigationGroup);
-        }
         
         // If a cache of the action group exists, that means the content
         // changed.  In this case the queue cached representation to be faded
         // out.
         if (cachedActionGroup)
-        {
             transitionGroup.addElement(cachedActionGroup);
-            if (!verticalTransition)
-                fadeOutTargets.push(cachedActionGroup);
-        }
         
         // Create fade in animations for navigationContent and actionContent
         // of the next view.
@@ -859,6 +887,16 @@ public class ViewTransitionBase extends EventDispatcher
             }
         }
         
+        // Ensure bitmaps are rendered prior to invocation of our effect.
+        transitionGroup.validateNow();
+        
+        // Setup fade out targets.
+        if (!verticalTransition && cachedActionGroup)
+            fadeOutTargets.push(cachedNavigationGroup.displayObject);
+        
+        if (!verticalTransition && cachedNavigationGroup)
+            fadeOutTargets.push(cachedActionGroup.displayObject);
+        
         // Fade out action and navigation content
         var fadeOut:Animate = new Animate();
         vector = new Vector.<MotionPath>();
@@ -874,16 +912,18 @@ public class ViewTransitionBase extends EventDispatcher
         vector.push(new SimpleMotionPath(animatedProperty, null, null, -slideDistance));
         animation.motionPaths = vector;
         animation.easer = new spark.effects.easing.Sine(.7);
+        
+        // Setup simultaneous fade out and slide targets.
         var fadeOutSlideTargets:Array = new Array();
         
         if (cachedTitleGroup)
-            fadeOutSlideTargets.push(cachedTitleGroup);
+            fadeOutSlideTargets.push(cachedTitleGroup.displayObject);
         
         if (cachedActionGroup && verticalTransition)
-            fadeOutSlideTargets.push(cachedActionGroup);
+            fadeOutSlideTargets.push(cachedActionGroup.displayObject);
         
         if (cachedNavigationGroup && verticalTransition)
-            fadeOutSlideTargets.push(cachedNavigationGroup);
+            fadeOutSlideTargets.push(cachedNavigationGroup.displayObject);
         
         if (fadeOutSlideTargets.length)
         {
@@ -905,10 +945,7 @@ public class ViewTransitionBase extends EventDispatcher
         // Add effects to the parallel effect
         effect.addChild(fadeOut);
         effect.addChild(fadeAndSlide);
-        
-        // Ensure bitmaps are rendered prior to invocation of our effect.
-        transitionGroup.validateNow();
-        
+                
         return effect;
     }
     
@@ -1085,6 +1122,10 @@ public class ViewTransitionBase extends EventDispatcher
         navigator = null;
         startView = null;
         endView = null;
+        
+        // Re-enable layout manager if appropriate.
+        if (suspendBackgroundProcessing)
+            UIComponent.resumeBackgroundProcessing();
     }
     
     /**
@@ -1210,6 +1251,20 @@ public class ViewTransitionBase extends EventDispatcher
     private function effectComplete(event:EffectEvent):void
     {
         effect.removeEventListener(EffectEvent.EFFECT_END, effectComplete);
+        
+        // We don't call transitionComplete just yet, we want to ensure
+        // that the last frame of animation actually gets rendered on screen
+        // before we clean up after ourselves.  This prevents a perceived 
+        // stutter on the very last frame.
+        navigator.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+    }
+    
+    /**
+     * @private
+     */ 
+    private function enterFrameHandler(event:Event):void
+    {
+        navigator.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
         transitionComplete();
         effect = null;
     }
