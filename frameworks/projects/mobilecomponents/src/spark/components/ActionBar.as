@@ -736,16 +736,9 @@ public class ActionBar extends SkinnableComponent
     public function get titleContent():Array
     {
         if (titleGroup)
-        {
-            if (BitFlagUtil.isSet(contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX], CONTENT_PROPERTY_FLAG))
-                return titleGroup.getMXMLContent();
-            else
-                return null;
-        }
+			return titleGroup.getMXMLContent();
         else
-        {
             return contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].content;
-        }
     }
     
     /**
@@ -755,16 +748,7 @@ public class ActionBar extends SkinnableComponent
     {
         if (titleGroup)
         {
-            if (value)
-            {
-                titleGroup.mxmlContent = value;
-            }
-            else
-            {
-                titleGroup.mxmlContent = (titleDisplay is IVisualElement) 
-                    ? [titleDisplay] : null;
-            }
-            
+            titleGroup.mxmlContent = value;
             contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX] = 
                 BitFlagUtil.update(contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX] as uint,
                     CONTENT_PROPERTY_FLAG, value != null);
@@ -916,7 +900,6 @@ public class ActionBar extends SkinnableComponent
     {
         super.partAdded(partName, instance);
         
-        var defaultContent:Array; /*IVisualElement*/
         var group:Group;
         var index:int = -1;
         
@@ -931,10 +914,6 @@ public class ActionBar extends SkinnableComponent
         {
             group = titleGroup;
             index = TITLE_GROUP_PROPERTIES_INDEX;
-            
-            // use titleContent if provided
-            defaultContent = (titleDisplay is IVisualElement)
-                ? [titleDisplay] : null;
         }
         else if (instance == actionGroup)
         {
@@ -944,12 +923,6 @@ public class ActionBar extends SkinnableComponent
         else if (instance == titleDisplay)
         {
             titleDisplay.text = title;
-            
-            if ((titleGroup && !titleContent)
-                && (titleDisplay is IVisualElement))
-            {
-                titleGroup.mxmlContent = [titleDisplay];
-            }
         }
         
         if (index > -1)
@@ -964,10 +937,6 @@ public class ActionBar extends SkinnableComponent
                 group.mxmlContent = contentGroupProperties[index].content;
                 newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
                     CONTENT_PROPERTY_FLAG, true);
-            }
-            else if (defaultContent)
-            {
-                group.mxmlContent = defaultContent;	
             }
             
             if (contentGroupProperties[index].layout !== undefined)
