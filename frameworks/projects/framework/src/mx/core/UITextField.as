@@ -19,7 +19,6 @@ import flash.events.Event;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextLineMetrics;
-import flash.utils.getQualifiedClassName;
 import mx.automation.IAutomationObject;
 import mx.core.FlexVersion;
 import mx.managers.ISystemManager;
@@ -32,7 +31,7 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
-import mx.utils.ObjectUtil;
+import mx.utils.NameUtil;
 import mx.utils.StringUtil;
 
 use namespace mx_internal;
@@ -574,7 +573,7 @@ public class UITextField extends FlexTextField
      */
     public function get className():String
     {
-        return ObjectUtil.getUnqualifiedClassName(this);
+        return NameUtil.getUnqualifiedClassName(this);
     }
 
     //----------------------------------
