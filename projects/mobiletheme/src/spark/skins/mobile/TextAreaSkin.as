@@ -18,12 +18,15 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
 import spark.components.TextArea;
+import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile.supportClasses.TextSkinBase;
+import spark.skins.mobile160.assets.TextInput_border;
+import spark.skins.mobile240.assets.TextInput_border;
 
 use namespace mx_internal;
 
 /**
- *  Actionscript based skin for mobile text input. 
+ *  Base mobile skin for spark.components.TextArea
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -37,15 +40,47 @@ public class TextAreaSkin extends TextSkinBase
     //  Constructor
     //
     //--------------------------------------------------------------------------
+    
     public function TextAreaSkin()
     {
         super();
+        
+        useChromeColor = false;
+        
+        switch (targetDensity)
+        {
+            case MobileSkin.PPI240:
+            {
+                borderClass = spark.skins.mobile240.assets.TextInput_border;
+                layoutCornerEllipseSize = 16;
+                layoutMeasuredWidth = 440;
+                layoutMeasuredHeight = 55;
+                layoutBorderSize = 1;
+                
+                break;
+            }
+            default:
+            {
+                // TODO (jasonsj) 160ppi XD spec
+                // default PPI160
+                borderClass = spark.skins.mobile160.assets.TextInput_border;
+                layoutCornerEllipseSize = 16;
+                layoutMeasuredWidth = 440;
+                layoutMeasuredHeight = 55;
+                layoutBorderSize = 1;
+                
+                break;
+            }
+        }
     }
     
-    /**
-     *  A strongly typed property that references the component to which this skin is applied.
-     */
-    public var hostComponent:TextArea; // SkinnableComponent will populate
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    public var hostComponent:TextArea;
     
     //--------------------------------------------------------------------------
     //
@@ -82,8 +117,8 @@ public class TextAreaSkin extends TextSkinBase
         // You can set an explicit width and the height will adjust accordingly. The opposite
         // is not true: setting an explicit height will not adjust the width accordingly.
         textDisplay.commitStyles();
-        measuredWidth = 440;
-        measuredHeight = Math.max(textDisplay.textHeight + paddingTop + paddingBottom + (TEXT_HEIGHT_PADDING * 2), 55);
+        measuredWidth = layoutMeasuredWidth;
+        measuredHeight = Math.max(textDisplay.textHeight + paddingTop + paddingBottom + (TEXT_HEIGHT_PADDING * 2), layoutMeasuredHeight);
     }
     
     /**
