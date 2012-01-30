@@ -31,7 +31,6 @@ import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.geom.Transform;
-import flash.geom.Vector3D;
 import flash.system.ApplicationDomain;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
@@ -55,7 +54,6 @@ import mx.events.StateChangeEvent;
 import mx.events.ValidationResultEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
-import mx.geom.CompoundTransform;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
 import mx.graphics.RoundedRectangle;
@@ -83,7 +81,6 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.ColorUtil;
 import mx.utils.GraphicsUtil;
-import mx.utils.MatrixUtil;
 import mx.utils.NameUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
@@ -1066,7 +1063,7 @@ public class UIComponent extends FlexSprite
     public function UIComponent()
     {
         super();
-
+        
         // Override  variables in superclasses.
         focusRect = false; // We do our own focus drawing.
         tabEnabled = (this is IFocusManagerComponent);
@@ -2231,8 +2228,7 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  Controls the visibility of this UIComponent. If <code>true</code>,
-     *  the object is visible.
+     *  @inheritDoc
      *
      *  <p>When setting to <code>true</code>, the object will dispatch
      *  a <code>show</code> event.
@@ -2241,8 +2237,6 @@ public class UIComponent extends FlexSprite
      *  In either case the children of the object will not emit a
      *  <code>show</code> or <code>hide</code> event unless the object
      *  has specifically written an implementation to do so.</p>
-     *
-     *  @default true
      */
     override public function get visible():Boolean
     {
@@ -4427,14 +4421,7 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  Specifies whether this component is included in the layout of the
-     *  parent container.
-     *  If <code>true</code>, the object is included in its parent container's
-     *  layout.  If <code>false</code>, the object is positioned by its parent
-     *  container as per its layout rules, but it is ignored for the purpose of
-     *  computing the position of the next child.
-     *
-     *  @default true
+     *  @inheritDoc
      */
     public function get includeInLayout():Boolean
     {
@@ -4772,15 +4759,7 @@ public class UIComponent extends FlexSprite
     //----------------------------------
 
     /**
-     *  The y-coordinate of the baseline
-     *  of the first line of text of the component.
-     *
-     *  <p>This property is used to implement
-     *  the <code>baseline</code> constraint style.
-     *  It is also used to align the label of a FormItem
-     *  with the controls in the FormItem.</p>
-     *
-     *  <p>Each component should override this property.</p>
+     *  @inheritDoc
      */
     public function get baselinePosition():Number
     {
@@ -10129,12 +10108,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     * Determines the order in which items inside of groups are rendered. Groups order their items based on their layer property, with the lowest layer
-     * in the back, and the higher in the front.  items with the same layer value will appear in the order they are added to the Groups item list.
-     * 
-     * defaults to 0
-     * 
-     * @default 0
+     * @inheritDoc
      */
     public function get layer():Number
     {
