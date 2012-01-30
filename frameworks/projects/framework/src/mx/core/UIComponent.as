@@ -4237,17 +4237,17 @@ public class UIComponent extends FlexSprite
 	 *  A flag that indicates whether child objects can receive focus
 	 * 
 	 *  <p>This is similar to the <code>tabChildren</code> property
-     *  used by the Flash Player.
+     *  used by Flash Player.</p>
 	 * 
 	 *  <p>This is usually <code>false</code> because most components
      *  either receive focus themselves or delegate focus to a single
      *  internal sub-component and appear as if the component has
-     *  received focus.  For example, a TextInput contains a focusable
+     *  received focus. For example, a TextInput contains a focusable
      *  child RichEditableText control, but while the RichEditableText
      *  sub-component actually receives focus, it appears as if the
-     *  TextInput has focus.  TextInput sets <code>hasFocusableChildren</code>
+     *  TextInput has focus. TextInput sets <code>hasFocusableChildren</code>
      *  to <code>false</code> because TextInput is considered the
-     *  component that has focus.  Its internal structure is an
+     *  component that has focus. Its internal structure is an
      *  abstraction.</p>
      *
 	 *  <p>Usually only navigator components like TabNavigator and
