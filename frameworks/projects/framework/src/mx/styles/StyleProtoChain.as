@@ -699,7 +699,7 @@ public class StyleProtoChain
     {
         // If font changed, then invalidateProperties so
         // we can re-create the text field in commitProperties
-        // TODO: Should hasFontContextChanged() be added to IFontContextComponent?
+        // FIXME (gosmith): Should hasFontContextChanged() be added to IFontContextComponent?
         if (object is IFontContextComponent &&
             "hasFontContextChanged" in object &&
             object["hasFontContextChanged"]())
@@ -718,7 +718,7 @@ public class StyleProtoChain
             object.invalidateSize();
         }
 
-        // TODO: Should initThemeColor() be in some interface?
+        // FIXME (gosmith): Should initThemeColor() be in some interface?
         if (!styleProp || 
             styleProp == "styleName" ||
             styleProp == "themeColor")
@@ -729,7 +729,7 @@ public class StyleProtoChain
         
         object.invalidateDisplayList();
 
-        // TODO: Unify concept of parent for UIComponents and GraphicElements
+        // FIXME (gosmith): Unify concept of parent for UIComponents and GraphicElements
         var parent:IInvalidating;
         if (object is UIComponent)
             parent = UIComponent(object).parent as IInvalidating;
@@ -897,7 +897,7 @@ public class StyleProtoChain
      */ 
     private static function sortOnSpecificity(decls:Array):Array // of CSSStyleDeclaration 
     {
-        // TODO: Copied algorithm from Group.sortOnLayer as a temporary measure.
+        // FIXME (pfarland): Copied algorithm from Group.sortOnLayer as a temporary measure.
         // We may consider replacing this insertion sort with an efficient but
         // stable merge sort or the like if many style declarations need to
         // sorted.
