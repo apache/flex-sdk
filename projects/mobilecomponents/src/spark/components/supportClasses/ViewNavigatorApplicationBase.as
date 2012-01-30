@@ -830,11 +830,6 @@ public class ViewNavigatorApplicationBase extends Application
      */
     private function initializePersistenceManager():void
     {
-        // Register aliases for custom classes that will be written to
-        // persistence store by navigator
-        registerClassAlias("ViewDescriptor", ViewDescriptor);
-        registerClassAlias("NavigationStack", NavigationStack);
-
         // Initialize and load the persisted data.
         _persistenceManager = createPersistenceManager();
         _persistenceManager.load();
