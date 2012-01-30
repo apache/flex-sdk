@@ -14,6 +14,7 @@ package spark.components.supportClasses
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.TextEvent;
+import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.text.Font;
 import flash.text.TextField;
@@ -22,6 +23,7 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.ui.Keyboard;
 
+import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.resources.ResourceManager;
@@ -148,6 +150,44 @@ public class StyleableTextField extends TextField
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  measuredWidth
+    //----------------------------------
+    
+    public function get measuredWidth():Number
+    {
+        // If we use device fonts, then the unscaled width is 
+        // textWidth * scaleX / scaleY
+        
+        var textIndent:Number = getStyle("textIndent");
+        
+        if (!stage || embedFonts)
+            return textWidth + textIndent + TEXT_WIDTH_PADDING;
+        
+        const m:Matrix = transform.concatenatedMatrix;
+        
+        // textIndent is also scaled
+        return Math.abs(((textWidth + textIndent) * m.a / m.d)) + TEXT_WIDTH_PADDING;
+    }
+    
+    //----------------------------------
+    //  measuredHeight
+    //----------------------------------
+    
+    public function get measuredHeight():Number
+    {
+        // If we use device fonts, then the unscaled height is 
+        // textHeight * scaleX / scaleY
+        
+        if (!stage || embedFonts)
+            return textHeight + TEXT_HEIGHT_PADDING;
+        
+        const m:Matrix = transform.concatenatedMatrix;
+        
+        // FIXME (jasonsj): gutter appears to scale as well. update UITextField measuredHeight?
+        return Math.abs((textHeight * m.a / m.d)) + TEXT_HEIGHT_PADDING;
+    }
     
     //----------------------------------
     //  styleDeclaration
