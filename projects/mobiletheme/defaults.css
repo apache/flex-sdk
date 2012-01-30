@@ -225,7 +225,6 @@ TabbedMobileApplication
 TabbedViewNavigator
 {
     skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorSkin");
-    animationDuration: 250;
 }
 
 TextArea
@@ -296,7 +295,6 @@ ViewMenuItem
 ViewNavigator
 {
     skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
-    animationDuration: 250;
 }
 
 VolumeBar
