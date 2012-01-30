@@ -1,20 +1,11 @@
 package spark.components
 {
-import flash.events.Event;
-import flash.events.MouseEvent;
-
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
-import spark.components.Button;
-import spark.components.Group;
-import spark.components.Label;
 import spark.components.supportClasses.ButtonBase;
-import spark.components.supportClasses.INavigationBar;
 import spark.components.supportClasses.SkinnableComponent;
-import spark.components.supportClasses.TextBase;
-import spark.events.ViewNavigatorEvent;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -274,7 +265,7 @@ public class ActionBar extends SkinnableComponent
     }
     
     //----------------------------------
-    //  navigationLayout
+    //  navigationGroupLayout
     //---------------------------------- 
     
     /**
@@ -287,7 +278,7 @@ public class ActionBar extends SkinnableComponent
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get navigationLayout():LayoutBase
+    public function get navigationGroupLayout():LayoutBase
     {
         return (navigationGroup) ? navigationGroup.layout : contentGroupProperties[NAVIGATION_GROUP_PROPERTIES_INDEX].layout;
     }
@@ -295,7 +286,7 @@ public class ActionBar extends SkinnableComponent
     /**
      *  @private
      */
-    public function set navigationLayout(value:LayoutBase):void
+    public function set navigationGroupLayout(value:LayoutBase):void
     {
         if (navigationGroup)
         {
@@ -357,7 +348,7 @@ public class ActionBar extends SkinnableComponent
     }
     
     //----------------------------------
-    //  titleLayout
+    //  titleGroupLayout
     //---------------------------------- 
     
     /**
@@ -370,7 +361,7 @@ public class ActionBar extends SkinnableComponent
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get titleLayout():LayoutBase
+    public function get titleGroupLayout():LayoutBase
     {
         return (titleGroup) ? titleGroup.layout : contentGroupProperties[TITLE_GROUP_PROPERTIES_INDEX].layout;
     }
@@ -378,7 +369,7 @@ public class ActionBar extends SkinnableComponent
     /**
      *  @private
      */
-    public function set titleLayout(value:LayoutBase):void
+    public function set titleGroupLayout(value:LayoutBase):void
     {
         if (titleGroup)
         {
@@ -430,7 +421,7 @@ public class ActionBar extends SkinnableComponent
     }
     
     //----------------------------------
-    //  actionLayout
+    //  actionGroupLayout
     //---------------------------------- 
     
     /**
@@ -443,7 +434,7 @@ public class ActionBar extends SkinnableComponent
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get actionLayout():LayoutBase
+    public function get actionGroupLayout():LayoutBase
     {
         return (actionGroup) ? actionGroup.layout : contentGroupProperties[ACTION_GROUP_PROPERTIES_INDEX].layout;
     }
@@ -451,7 +442,7 @@ public class ActionBar extends SkinnableComponent
     /**
      *  @private
      */
-    public function set actionLayout(value:LayoutBase):void
+    public function set actionGroupLayout(value:LayoutBase):void
     {
         if (actionGroup)
         {
