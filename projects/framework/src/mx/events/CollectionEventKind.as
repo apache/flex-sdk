@@ -113,7 +113,7 @@ public final class CollectionEventKind
 
     /**
      *  Indicates that one or more items were updated within the collection.
-     *  The affected item(s) or their associated ObjectChangeEvent objects
+     *  The affected item(s) 
      *  are stored in the <code>items</code> property.
      *  
      *  @langversion 3.0
