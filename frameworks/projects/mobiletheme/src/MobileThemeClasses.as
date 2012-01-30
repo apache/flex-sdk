@@ -58,6 +58,7 @@ import spark.skins.mobile.ViewMenuItemSkin; ViewMenuItemSkin;
 import spark.skins.mobile.ViewMenuSkin; ViewMenuSkin;
 import spark.skins.mobile.ViewNavigatorApplicationSkin; ViewNavigatorApplicationSkin;
 import spark.skins.mobile.ViewNavigatorSkin; ViewNavigatorSkin;
+import spark.skins.mobile.ViewNavigatorCalloutSkin; ViewNavigatorCalloutSkin;
 import spark.skins.mobile.VScrollBarSkin; spark.skins.mobile.VScrollBarSkin;
 }
 }
