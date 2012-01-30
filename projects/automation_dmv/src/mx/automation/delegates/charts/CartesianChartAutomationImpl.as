@@ -21,6 +21,9 @@ package mx.automation.delegates.charts
 	import mx.automation.IAutomationTabularData;
 	import mx.automation.delegates.charts.ChartBaseAutomationImpl;
 	import mx.charts.chartClasses.CartesianChart;
+      import mx.core.mx_internal;
+
+      use namespace mx_internal;
 	
 	[Mixin]
 	/**
@@ -119,32 +122,11 @@ package mx.automation.delegates.charts
 				}
 			}
 			
-			
-			
-			var tempArray:Array = cChart.secondSeries;
-			if (tempArray)
-			{
-				n = tempArray.length;
-				for(i = 0; i < n ; i++)
-				{
-					childList.push(tempArray[i]);
-				}
-			}
-			
 			if (cChart.verticalAxisRenderer )
 				childList.push(cChart.verticalAxisRenderer);
 			
-			if (cChart.secondVerticalAxisRenderer)
-				childList.push(cChart.secondVerticalAxisRenderer);
-			
 			if (cChart.horizontalAxisRenderer)
 				childList.push(cChart.horizontalAxisRenderer);
-			
-			
-			if (cChart.secondHorizontalAxisRenderer)
-				childList.push(cChart.secondVerticalAxisRenderer);
-			
-			
 			return childList; 
 		}
 		
@@ -162,13 +144,6 @@ package mx.automation.delegates.charts
 					result = cChart.series[index];  
 			}
 			
-			if (!result && cChart.secondSeries)
-			{
-				count += cChart.secondSeries.length ;
-				if (index < count)
-					result = cChart.secondSeries[index];    
-			}
-			
 			if (!result && cChart.verticalAxisRenderer)
 			{
 				++count;
@@ -176,25 +151,11 @@ package mx.automation.delegates.charts
 					result = cChart.verticalAxisRenderer;
 			}
 			
-			if (!result && cChart.secondVerticalAxisRenderer)
-			{
-				++count;
-				if (index < count)
-					result = cChart.secondVerticalAxisRenderer;
-			}
-			
 			if (!result && cChart.horizontalAxisRenderer)
 			{
 				++count;
 				if (index < count)
 					result = cChart.horizontalAxisRenderer;
-			}
-			
-			if (!result && cChart.secondHorizontalAxisRenderer)
-			{
-				++count;
-				if (index < count)
-					result = cChart.secondHorizontalAxisRenderer;
 			}
 			
 			return result as IAutomationObject; 
@@ -209,19 +170,10 @@ package mx.automation.delegates.charts
 			if (cChart.series)
 				count = cChart.series.length ;
 			
-			if (cChart.secondSeries)
-				count += cChart.secondSeries.length ;
-			
 			if (cChart.verticalAxisRenderer)
 				++count;
 			
-			if (cChart.secondVerticalAxisRenderer)
-				++count;
-			
 			if (cChart.horizontalAxisRenderer)
-				++count;
-			
-			if (cChart.secondHorizontalAxisRenderer)
 				++count;
 			
 			return count;
