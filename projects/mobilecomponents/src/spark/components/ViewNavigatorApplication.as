@@ -48,8 +48,8 @@ use namespace mx_internal;
  *  initialized.</p>
  * 
  *  <p>Unlike Application, ViewNavigatorApplication is not meant to accept
- *  UIComponents has children.  Instead, all visual components should
- *  children of the various views managed by the application.</p>
+ *  UIComponent objects as children.  Instead, all visual components should
+ *  be children of the various views managed by the application.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10.1
