@@ -433,6 +433,27 @@ public class MobileTextField extends TextField implements IEditableText
      */
     public var styleProvider:IStyleClient;
     
+    /**
+     *  @private
+     *  An mx_internal hook developers can set to control where the styles 
+     *  come from for the MobileTextField.  By default, MobileTextField
+     *  uses a function that just grabs the styles from styleProvider.
+     * 
+     *  <p>This takes precedence over styleProvider and should never 
+     *  be set to null.</p>
+     */
+    mx_internal var getStyleFunction:Function = defaultGetStyleFunction;
+    
+    /**
+     *  @private
+     *  The object that provides styles for this text component. This
+     *  property must be set for the text to pick up the correct styles.
+     */
+    private function defaultGetStyleFunction(styleProp:String):*
+    {
+        return styleProvider.getStyle(styleProp);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -451,27 +472,27 @@ public class MobileTextField extends TextField implements IEditableText
      */
     public function commitStyles():void
     {
-        if (styleProvider && invalidateStyleFlag)
+        if ((getStyleFunction != defaultGetStyleFunction || styleProvider) && invalidateStyleFlag)
         {
-            var align:String = styleProvider.getStyle("textAlign");
+            var align:String = getStyleFunction("textAlign");
             if (align == "start")
                 align = TextFormatAlign.LEFT;
             if (align == "end")
                 align = TextFormatAlign.RIGHT;
             textFormat.align = align;
-            textFormat.font = styleProvider.getStyle("fontFamily");
-            textFormat.bold = styleProvider.getStyle("fontWeight") == "bold";
-            textFormat.color = styleProvider.getStyle(colorName);
-            textFormat.size = styleProvider.getStyle("fontSize");
-            textFormat.italic = styleProvider.getStyle("fontStyle") == "italic";
-            textFormat.underline = styleProvider.getStyle("textDecoration") == "underline";
-            textFormat.indent = styleProvider.getStyle("textIndent");
-            textFormat.leading = styleProvider.getStyle("leading");
-            textFormat.letterSpacing = styleProvider.getStyle("letterSpacing");
+            textFormat.font = getStyleFunction("fontFamily");
+            textFormat.bold = getStyleFunction("fontWeight") == "bold";
+            textFormat.color = getStyleFunction(colorName);
+            textFormat.size = getStyleFunction("fontSize");
+            textFormat.italic = getStyleFunction("fontStyle") == "italic";
+            textFormat.underline = getStyleFunction("textDecoration") == "underline";
+            textFormat.indent = getStyleFunction("textIndent");
+            textFormat.leading = getStyleFunction("leading");
+            textFormat.letterSpacing = getStyleFunction("letterSpacing");
             
             // ignore padding in the text...most components deal with it themselves
-            //textFormat.leftMargin = styleProvider.getStyle("paddingLeft");
-            //textFormat.rightMargin = styleProvider.getStyle("paddingRight");
+            //textFormat.leftMargin = getStyleFunction("paddingLeft");
+            //textFormat.rightMargin = getStyleFunction("paddingRight");
 
             defaultTextFormat = textFormat;
             setTextFormat(textFormat);
