@@ -62,6 +62,11 @@ import mx.effects.EffectManager;
  *
  *  @see mx.effects.Rotate
  *  @see mx.events.TweenEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class RotateInstance extends TweenEffectInstance
 {
@@ -77,6 +82,11 @@ public class RotateInstance extends TweenEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function RotateInstance(target:Object)
 	{
@@ -139,6 +149,11 @@ public class RotateInstance extends TweenEffectInstance
 	 *  Valid values range from 0 to 360.
 	 *  
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var angleFrom:Number = 0;
 	
@@ -161,6 +176,11 @@ public class RotateInstance extends TweenEffectInstance
 	 *  set this value to a large positive or small negative number.</p>
 	 *  
 	 *  @default 360
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var angleTo:Number = 360;
  
@@ -174,6 +194,11 @@ public class RotateInstance extends TweenEffectInstance
 	 *  The valid values are between 0 and the width of the target.
 	 *  
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var originX:Number;
 	
@@ -187,6 +212,11 @@ public class RotateInstance extends TweenEffectInstance
 	 *  The valid values are between 0 and the height of the target.
 	 *  
 	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var originY:Number;
 
