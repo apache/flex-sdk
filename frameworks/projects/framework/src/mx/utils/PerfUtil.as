@@ -13,7 +13,7 @@ public final class PerfUtil
 		idVector = new Vector.<String>();
 		timeVector = new Vector.<uint>();
 	}
-	
+    
 	private static var _instance:PerfUtil;
 	
 	private var idVector:Vector.<String>;
@@ -41,6 +41,8 @@ public final class PerfUtil
 	private const IGNORE:uint 						= 0xC0000000;
 	private const TIME_MASK:uint 					= 0x1FFFFFFF;	// 29 bits for time values
 	private const FLAG_MASK:uint 					= ~TIME_MASK;	// 3 bits for flags
+    
+    public static var detailedSampling:Boolean = false;
 
 	/**
 	 *  Starts gathering samples associated with the <code>testCase</code>
