@@ -772,7 +772,10 @@ public class ToolTipManagerImpl extends EventDispatcher
             if (displayObject is IValidatorListener)
             {
                 currentText = IValidatorListener(displayObject).errorString;
-                if (currentText != null && currentText != "")
+                var showErrorTip:Boolean;
+                if (displayObject is IStyleClient)
+                    showErrorTip = IStyleClient(displayObject).getStyle("showErrorTip");
+                if (currentText != null && currentText != "" && showErrorTip)
                 {
                     currentTarget = displayObject;
                     isError = true;
