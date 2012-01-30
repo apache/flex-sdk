@@ -47,9 +47,6 @@ public class ButtonBarSkin extends MobileSkin
     public function ButtonBarSkin()
     {
         super();
-        
-        // FIXME (jasonsj): not supported for GPU
-        // blendMode = BlendMode.LAYER;
     }
     
     //--------------------------------------------------------------------------
@@ -129,8 +126,6 @@ public class ButtonBarSkin extends MobileSkin
      */
     override protected function commitCurrentState():void
     {
-        // TODO (tkraikit): disabled state, apply 0.5 alpha (set BlendMode => LAYER)
-        // FIXME (jasonsj): not supported for GPU
         alpha = (currentState == "disabled") ? 0.5 : 1;
     }
     
