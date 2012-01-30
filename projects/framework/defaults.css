@@ -18,12 +18,13 @@ global
 	backgroundAlpha: 1.0; /* this runs the opacity of nearly every square piece of the components */
 	/* backgroundDisabledColor: #DDDDDD; */
 	backgroundSize: "auto";
+	baseColor: #CCCCCC;
     baselineShift: 0;
 	bevel: true;
     blockProgression: "tb";
 	borderAlpha: 1.0;
   	borderCapColor: #919999;
-	borderColor: #B7BABC;
+	borderColor: #696969;
 	borderSides: "left top right bottom";
 	borderSkin: ClassReference("mx.skins.halo.HaloBorder");
 	borderStyle: "inset";
@@ -32,10 +33,11 @@ global
 	buttonColor: #6F7777;
     cffHinting: "horizontalStem";
 	closeDuration: 250;
-	color: #0B333C;
+	color: 0;
     columnCount: "auto";
     columnGap: 0;
     columnWidth: "auto";
+    contentBackgroundColor: #FFFFFF;
 	cornerRadius: 0;
     digitCase: "default";
     digitWidth: "default";
@@ -54,15 +56,16 @@ global
     firstBaselineOffset: "ascent";
 	focusAlpha: 0.4;
 	focusBlendMode: "normal";
+    focusColor: #70B2EE;
 	focusRoundedCorners: "tl tr bl br";
 	focusSkin: ClassReference("mx.skins.halo.HaloFocusRect");
 	focusThickness: 2;
 	fontAntiAliasType: "advanced";
-	fontFamily: "Verdana";
+	fontFamily: "Arial";
 	fontGridFitType: "pixel";
     fontLookup: "device";
 	fontSharpness: 0;
-	fontSize: 10;
+	fontSize: 12;
 	fontStyle: "normal";
 	fontThickness: 0;
 	fontWeight: "normal";
@@ -93,15 +96,17 @@ global
 	modalTransparencyBlur: 3;
 	modalTransparencyColor: #DDDDDD;
 	modalTransparencyDuration: 100;
-	openDuration: 250;
+	openDuration: 0;
 	paddingBottom: 0;
 	paddingLeft: 0;
 	paddingRight: 0;
 	paddingTop: 0;
+    rollOverColor: #CEDBEF;
 	roundedBottomCorners: true;
     renderingMode: "cff";
 	repeatDelay: 500;
 	repeatInterval: 35;
+    selectionColor: #A8C6EE;
 	selectionDisabledColor: #DDDDDD;
 	selectionDuration: 250;
   	shadowCapColor: #D5DDDD;
@@ -110,6 +115,7 @@ global
 	shadowDistance: 2;
 	stroked: false;
 	strokeWidth: 1;
+    symbolColor: #000000;
 	textAlign: "left";
     textAlignLast: "start";
     textAlpha: 1.0;
@@ -117,10 +123,10 @@ global
 	textFieldClass: ClassReference("mx.core.UITextField");
 	textIndent: 0;
 	textJustify: "interWord";
-	textRollOverColor: #2B333C;
+	textRollOverColor: 0;
     textRotation: "auto";
-	textSelectedColor: #2B333C;
-	themeColor: #009DFF;		/* haloBlue */
+	textSelectedColor: 0;
+	themeColor: #70B2EE;	
 	/*
 	//themeColor: #80FF4D;		// haloGreen
 	//themeColor: #FFB600;		// haloOrange
@@ -148,6 +154,7 @@ global
 Accordion
 {
 	backgroundColor: #FFFFFF;
+	borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 	borderStyle: "solid";
 	/* headerHeight: 22; */
 	paddingBottom: -1;
@@ -166,8 +173,8 @@ Accordion
 AccordionHeader
 {
 /*	selectedFillColors: #FFFFFF, #FFFFFF; */ /* overrides the calculated fillcolors */
-	fontSize: "10";
-	fontWeight: "bold";
+/*	fontSize: "10";
+	fontWeight: "bold";  */
 /*	disabledIcon: null; */
 	disabledSkin: ClassReference(null);
 /*	downIcon: null; */
@@ -187,7 +194,7 @@ AccordionHeader
 	selectedOverSkin: ClassReference(null);
 /*	selectedUpIcon: null; */
 	selectedUpSkin: ClassReference(null);
-	skin: ClassReference("mx.skins.halo.AccordionHeaderSkin");
+	skin: ClassReference("mx.skins.spark.AccordionHeaderSkin");
 	textAlign: "left";
 /*	upIcon: null; */
 	upSkin: ClassReference(null);
@@ -227,8 +234,8 @@ Alert
 	borderAlpha: 0.90; /* controls the alpha of the panel top, bottom and sides. */
 	borderColor: #869CA7;
 	/* borderThicknessBottom is NaN */
-	buttonStyleName: "alertButtonStyle";
-	color: #FFFFFF;
+	/* buttonStyleName: "alertButtonStyle"; */
+	color: 0;
 	paddingBottom: 2;
 	paddingLeft: 10;
 	paddingRight: 10;
@@ -241,11 +248,6 @@ Alert
 //  .alertButtonStyle
 //------------------------------
 */
-
-.alertButtonStyle
-{
-	color: #0B333C;
-}
 
 /*
 //------------------------------
@@ -307,13 +309,13 @@ Button
 	disabledSkin: null;
 	downIcon: null; 
 	downSkin: null */
-	fontWeight: "bold";
+/*	fontWeight: "bold"; */
 	horizontalGap: 2;
 /*	overIcon: null; 
 	overSkin: null */
-	paddingBottom: 2;
-	paddingLeft: 10;
-	paddingRight: 10;
+	paddingBottom: -1;
+	paddingLeft: 6;
+	paddingRight: 6;
 	paddingTop: 2;
 /*	selectedDisabledIcon: null; 
 	selectedDisabledSkin: null 
@@ -326,7 +328,7 @@ Button
 	textAlign: "center";
 /*	upIcon: null; 
 	upSkin: null */
-	skin: ClassReference("mx.skins.halo.ButtonSkin");
+	skin: ClassReference("mx.skins.spark.ButtonSkin");
 	verticalGap: 2;
 }
 
@@ -338,8 +340,10 @@ Button
 
 ButtonBar
 {
+	firstButtonStyleName: buttonBarFirstButtonStyle;
 	horizontalAlign: "center";
-	horizontalGap: 0;
+	horizontalGap: -1;
+	lastButtonStyleName: buttonBarLastButtonStyle;
 	textAlign: "center";
 	verticalAlign: "middle";
 	verticalGap: 0;
@@ -350,6 +354,16 @@ ButtonBar
 //  ButtonBarButton
 //------------------------------
 */
+
+.buttonBarFirstButtonStyle
+{
+	skin: ClassReference("mx.skins.spark.ButtonBarFirstButtonSkin");
+}
+
+.buttonBarLastButtonStyle
+{
+	skin: ClassReference("mx.skins.spark.ButtonBarLastButtonSkin");
+}
 
 ButtonBarButton
 {
@@ -368,7 +382,7 @@ ButtonBarButton
 	selectedOverSkin: ClassReference(null);
 /*	selectedUpIcon: null; */
 	selectedUpSkin: ClassReference(null); 
-	skin: ClassReference("mx.skins.halo.ButtonBarButtonSkin");
+	skin: ClassReference("mx.skins.spark.ButtonBarMiddleButtonSkin"); 
 /*	upIcon: null; */
 	upSkin: ClassReference(null);
 }
@@ -413,13 +427,15 @@ CheckBox
 	downIcon: ClassReference(null);
 	downSkin: ClassReference(null); 
 	fontWeight: "normal";
-	horizontalGap: 5;
-	icon: ClassReference("mx.skins.halo.CheckBoxIcon");
+	horizontalGap: 3;
+	icon: ClassReference("mx.skins.spark.CheckBoxSkin");
 	iconColor: #2B333C;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
+	paddingBottom: -2;
 	paddingLeft: 0;
 	paddingRight: 0;	
+	paddingTop: 0;
 	selectedDisabledIcon: ClassReference(null);
 	selectedDisabledSkin: ClassReference(null);
 	selectedDownIcon: ClassReference(null);
@@ -448,7 +464,7 @@ ColorPicker
 	iconColor: #000000;
 /*	overSkin: null; */
 	shadowColor: #4D555E;
-	skin: ClassReference("mx.skins.halo.ColorPickerSkin");
+	skin: ClassReference("mx.skins.spark.ColorPickerSkin");
 	swatchBorderSize: 0;
 /*	upSkin: null; */
 	verticalGap: 0;
@@ -462,7 +478,7 @@ ColorPicker
 
 ComboBox
 {
-	arrowButtonWidth: 22;
+	arrowButtonWidth: 18;
 	cornerRadius: 5;
 	disabledIconColor: #919999;
 /*	disabledSkin: null 
@@ -471,13 +487,15 @@ ComboBox
 /*	editableDisabledSkin: null
 	editableDownSkin: null
 	editableOverSkin: null
-	editableUpSkin: null */
-	fontWeight: "bold";
+	editableUpSkin: null 
+	fontWeight: "bold"; */
 	leading: 0;
 /*	overSkin: null */
+	paddingBottom: -2;
 	paddingLeft: 5;
 	paddingRight: 5;
-	skin: ClassReference("mx.skins.halo.ComboBoxArrowSkin");
+	paddingTop: -1;
+	skin: ClassReference("mx.skins.spark.ComboBoxSkin");
 /*	upSkin: null */
 }
 
@@ -549,17 +567,16 @@ CursorManager
 
 DataGrid
 {
-	alternatingItemColors: #F7F7F7, #FFFFFF;
+	alternatingItemColors: #EFF3FA, #FFFFFF;
 	columnDropIndicatorSkin: ClassReference("mx.skins.halo.DataGridColumnDropIndicator");
 	columnResizeSkin: ClassReference("mx.skins.halo.DataGridColumnResizeSkin");
 	headerColors: #FFFFFF, #E6E6E6;
 	headerDragProxyStyleName: "headerDragProxyStyle";
-	headerBackgroundSkin: ClassReference("mx.skins.halo.DataGridHeaderBackgroundSkin");
-	headerSeparatorSkin: ClassReference("mx.skins.halo.DataGridHeaderSeparator");
-	headerStyleName: "dataGridStyles";
+	headerBackgroundSkin: ClassReference("mx.skins.spark.DataGridHeaderBackgroundSkin");
+	headerSeparatorSkin: ClassReference("mx.skins.spark.DataGridHeaderSeparatorSkin");
 	sortArrowSkin: ClassReference("mx.skins.halo.DataGridSortArrow");
 	stretchCursor: Embed(source="Assets.swf",symbol="cursorStretch");
-	verticalGridLineColor: #CCCCCC;
+	verticalGridLineColor: #696969;
 }
 
 /*
@@ -573,16 +590,6 @@ DataGridItemRenderer
 	paddingLeft: 5;
 }
 
-/*
-//------------------------------
-//  .dataGridStyles
-//------------------------------
-*/
-
-.dataGridStyles
-{
-	fontWeight: "bold";
-}
 
 /*
 //------------------------------
@@ -592,33 +599,33 @@ DataGridItemRenderer
 DateChooser
 {
 	backgroundColor: #FFFFFF;
-	cornerRadius: 4;
-	headerColors: #E1E5EB, #F4F5F7;
-	headerStyleName: "headerDateText";
-/*	nextMonthDisabledSkin: null
+	cornerRadius: 0;
+	headerColors: #FFFFFF, #D8D8D8;
+/*	headerStyleName: "headerDateText";
+	nextMonthDisabledSkin: null
 	nextMonthDownSkin: null
 	nextMonthOverSkin: null */
-	nextMonthSkin: ClassReference("mx.skins.halo.DateChooserMonthArrowSkin");
+	nextMonthSkin: ClassReference("mx.skins.spark.DateChooserNextMonthSkin");
 /*	nextMonthUpSkin: null
 	nextYearDisabledSkin: null
 	nextYearDownSkin: null
 	nextYearOverSkin: null */
-	nextYearSkin: ClassReference("mx.skins.halo.DateChooserYearArrowSkin");
+	nextYearSkin: ClassReference("mx.skins.spark.DateChooserNextYearSkin");
 /*	nextYearUpSkin: null
 	prevMonthDisabledSkin: null
 	prevMonthDownSkin: null
 	prevMonthOverSkin: null */
-	prevMonthSkin: ClassReference("mx.skins.halo.DateChooserMonthArrowSkin");
+	prevMonthSkin: ClassReference("mx.skins.spark.DateChooserPrevMonthSkin");
 /*	prevMonthUpSkin: null
 	prevYearDisabledSkin: null
 	prevYearDownSkin: null
 	prevYearOverSkin: null */
-	prevYearSkin: ClassReference("mx.skins.halo.DateChooserYearArrowSkin");
+	prevYearSkin: ClassReference("mx.skins.spark.DateChooserPrevYearSkin");
 /*	prevYearUpSkin: null */
-	rollOverIndicatorSkin: ClassReference("mx.skins.halo.DateChooserIndicator");
-	selectionIndicatorSkin: ClassReference("mx.skins.halo.DateChooserIndicator");
+	rollOverIndicatorSkin: ClassReference("mx.skins.spark.DateChooserRollOverIndicatorSkin");
+	selectionIndicatorSkin: ClassReference("mx.skins.spark.DateChooserSelectionIndicatorSkin");
 	todayColor: #818181;
-	todayIndicatorSkin: ClassReference("mx.skins.halo.DateChooserIndicator");
+	todayIndicatorSkin: ClassReference("mx.skins.spark.DateChooserTodayIndicatorSkin");
 	todayStyleName: "todayStyle";
 	weekDayStyleName: "weekDayStyle";
 }
@@ -634,10 +641,10 @@ DateField
 	/* borderColor: #C4CCCC; */
 	/* cornerRadius: 5; */
 	dateChooserStyleName: "dateFieldPopup";
-	disabledSkin: Embed(source="Assets.swf",symbol="openDateOver");
-	downSkin: Embed(source="Assets.swf",symbol="openDateOver");
-	overSkin: Embed(source="Assets.swf",symbol="openDateOver");
-	upSkin: Embed(source="Assets.swf",symbol="openDateOver");
+	disabledSkin: Embed(source="assets/CalendarIcon.png");
+	downSkin: Embed(source="assets/CalendarIcon.png");
+	overSkin: Embed(source="assets/CalendarIcon.png");
+	upSkin: Embed(source="assets/CalendarIcon.png");
 }
 
 /*
@@ -778,18 +785,6 @@ FormItemLabel
 
 /*
 //------------------------------
-//  .headerDateText
-//------------------------------
-*/
-
-.headerDateText
-{
-	fontWeight: "bold";
-	textAlign: "center";
-}
-
-/*
-//------------------------------
 //  .headerDragProxyStyle
 //------------------------------
 */
@@ -872,7 +867,7 @@ HSlider
 	thumbDownSkin: null */
 	thumbOffset: 0;
 /*	thumbOverSkin: null */
-	thumbSkin: ClassReference("mx.skins.halo.SliderThumbSkin");
+	thumbSkin: ClassReference("mx.skins.spark.SliderThumbSkin");
 /*	thumbUpSkin: null */
 	tickColor: #6F7777;
 	tickLength: 4;
@@ -880,7 +875,7 @@ HSlider
 	tickThickness: 1;
 	trackColors: #E7E7E7, #E7E7E7;
 	trackHighlightSkin: ClassReference("mx.skins.halo.SliderHighlightSkin");
-	trackSkin: ClassReference("mx.skins.halo.SliderTrackSkin");
+	trackSkin: ClassReference("mx.skins.spark.SliderTrackSkin");
 }
 
 /*
@@ -919,7 +914,7 @@ LinkButton
 	selectedOverSkin: ClassReference(null);
 /*	selectedUpIcon: null; */
 	selectedUpSkin: ClassReference(null); 
-	skin: ClassReference("mx.skins.halo.LinkButtonSkin");
+	skin: ClassReference("mx.skins.spark.LinkButtonSkin");
 /*	upIcon: null; */
 	upSkin: ClassReference(null); 
 }
@@ -984,9 +979,11 @@ ListBase
 
 Menu
 {
+	backgroundAlpha: 0.95;
 	borderStyle: "menuBorder";
-	branchDisabledIcon: Embed(source="Assets.swf",symbol="MenuBranchDisabled");
-	branchIcon: Embed(source="Assets.swf",symbol="MenuBranchEnabled");
+	borderColor: #696969;
+	branchDisabledIcon: Embed(source="assets/MenuArrow.png");
+	branchIcon: Embed(source="assets/MenuArrow.png");
 	checkDisabledIcon: Embed(source="Assets.swf",symbol="MenuCheckDisabled");
 	checkIcon: Embed(source="Assets.swf",symbol="MenuCheckEnabled");
 	dropIndicatorSkin: ClassReference("mx.skins.halo.ListDropIndicator");
@@ -1000,7 +997,7 @@ Menu
 	paddingTop: 1;
 	radioIcon: Embed(source="Assets.swf",symbol="MenuRadioEnabled");
 	radioDisabledIcon: Embed(source="Assets.swf",symbol="MenuRadioDisabled");
-	separatorSkin: Embed(source="Assets.swf",symbol="MenuSeparator");
+	separatorSkin: ClassReference("mx.skins.spark.MenuSeparatorSkin");
 	verticalAlign: "middle";
 }
 
@@ -1012,8 +1009,8 @@ Menu
 
 MenuBar
 {
-	backgroundSkin: ClassReference("mx.skins.halo.MenuBarBackgroundSkin");
-	itemSkin: ClassReference("mx.skins.halo.ActivatorSkin");
+	backgroundSkin: ClassReference("mx.skins.spark.ButtonSkin");
+	itemSkin: ClassReference("mx.skins.spark.MenuItemSkin");
 /*	itemUpSkin: null
 	itemOverSkin: null
 	itemDownSkin: null */
@@ -1032,13 +1029,13 @@ NumericStepper
 /*	downArrowDisabledSkin: null
 	downArrowDownSkin: null
 	downArrowOverSkin: null */
-	downArrowSkin: ClassReference("mx.skins.halo.NumericStepperDownSkin");
+	downArrowSkin: ClassReference("mx.skins.spark.StepperDecrButtonSkin");
 /*	downArrowUpSkin: null */
 	focusRoundedCorners: "tr br"; /* Only round the right corners of the focus rect */
 /*	upArrowDisabledSkin: null
 	upArrowDownSkin: null
 	upArrowOverSkin: null */
-	upArrowSkin: ClassReference("mx.skins.halo.NumericStepperUpSkin");
+	upArrowSkin: ClassReference("mx.skins.spark.StepperIncrButtonSkin");
 /*	upArrowUpSkin: null */
 }
 
@@ -1079,7 +1076,7 @@ Panel
 	backgroundColor: #FFFFFF;
 	borderAlpha: 0.4; /* controls the alpha of the panel top, bottom and sides. */
 	borderColor: #E2E2E2;
-	borderSkin: ClassReference("mx.skins.halo.PanelSkin");
+	borderSkin: ClassReference("mx.skins.spark.PanelBorderSkin");
 	borderStyle: "default";
 	borderThickness: 0;
 	/* borderThicknessBottom is NaN */
@@ -1096,7 +1093,7 @@ Panel
 	resizeStartEffect: "Dissolve";
 	roundedBottomCorners: false;
 	statusStyleName: "windowStatus";
-	titleBackgroundSkin: ClassReference("mx.skins.halo.TitleBackground");
+	titleBackgroundSkin: ClassReference("mx.core.UIComponent");
 	titleStyleName: "windowStyles";
 }
 
@@ -1137,10 +1134,10 @@ PopUpButton
 	paddingRight: 3;
 /*	overSkin: null;
 	popUpDownSkin: null; */
-	popUpIcon: ClassReference("mx.skins.halo.PopUpIcon");
+	popUpIcon: ClassReference("mx.skins.halo.PopUpIcon"); 
 	popUpGap: 0;
 /*	popUpOverSkin: null; */
-	skin: ClassReference("mx.skins.halo.PopUpButtonSkin");
+	skin: ClassReference("mx.skins.spark.PopUpButtonSkin");
 /*	upSkin: null; */
 }
 
@@ -1164,9 +1161,9 @@ PopUpMenuButton
 	popUpStyleName: "popUpMenu";
 /*	popUpDownSkin: null */
 	popUpIcon: ClassReference("mx.skins.halo.PopUpMenuIcon");
-/*	popUpOverSkin: null */
+/*	popUpOverSkin: null 
 	skin: ClassReference("mx.skins.halo.PopUpButtonSkin");
-/*	upSkin: null */
+	upSkin: null */
 }
 
 /*
@@ -1198,14 +1195,14 @@ PrintDataGrid
 
 ProgressBar
 {
-	barSkin: ClassReference("mx.skins.halo.ProgressBarSkin");
+	barSkin: ClassReference("mx.skins.spark.ProgressBarSkin");
 	fontWeight: "bold";
 	indeterminateMoveInterval: 28;
 	indeterminateSkin: ClassReference("mx.skins.halo.ProgressIndeterminateSkin");
     leading: 0;
     maskSkin: ClassReference("mx.skins.halo.ProgressMaskSkin");
 	trackColors: #E7E7E7, #FFFFFF;
-	trackSkin: ClassReference("mx.skins.halo.ProgressTrackSkin");
+	trackSkin: ClassReference("mx.skins.spark.ProgressBarTrackSkin");
 }
 
 /*
@@ -1222,13 +1219,15 @@ RadioButton
 	downIcon: ClassReference(null);
 	downSkin: ClassReference(null);
 	fontWeight: "normal";
-	horizontalGap: 5;	
-	icon: ClassReference("mx.skins.halo.RadioButtonIcon");
+	horizontalGap: 3;	
+	icon: ClassReference("mx.skins.spark.RadioButtonSkin");
 	iconColor: #2B333C;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
+	paddingBottom: -2;
 	paddingLeft: 0;
 	paddingRight: 0;	
+	paddingTop: 0;
 	selectedDisabledIcon: ClassReference(null);
 	selectedDisabledSkin: ClassReference(null);
 	selectedDownIcon: ClassReference(null);
@@ -1277,7 +1276,7 @@ ScrollBar
 /*	downArrowDisabledSkin: null
 	downArrowDownSkin: null
 	downArrowOverSkin: null */
-	downArrowSkin: ClassReference("mx.skins.halo.ScrollArrowSkin");
+	downArrowSkin: ClassReference("mx.skins.spark.ScrollBarDownButtonSkin");
 /*	downArrowUpSkin: null
 	fillColors: #FFFFFF, #E7E7E7; // bailed these as ScrollBar is now a translucent component backed by backgroundColor-derived solid shapes */
 	paddingBottom: 0;
@@ -1287,15 +1286,26 @@ ScrollBar
 	thumbOffset: 0;
 /*	thumbDownSkin: null
 	thumbOverSkin: null */
-	thumbSkin: ClassReference("mx.skins.halo.ScrollThumbSkin");
+	thumbSkin: ClassReference("mx.skins.spark.ScrollBarThumbSkin");
 /*	thumbUpSkin: null */
 	trackColors: #94999b, #e7e7e7;	/* #d6d7d8; */
-	trackSkin: ClassReference("mx.skins.halo.ScrollTrackSkin");
+	trackSkin: ClassReference("mx.skins.spark.ScrollBarTrackSkin");
 /*	upArrowDisabledSkin: null
 	upArrowDownSkin: null
 	upArrowOverSkin: null */
-	upArrowSkin: ClassReference("mx.skins.halo.ScrollArrowSkin");
+	upArrowSkin: ClassReference("mx.skins.spark.ScrollBarUpButtonSkin");
 /*	upArrowUpSkin: null */
+}
+
+/*
+//------------------------------
+//  ScrollControlBase
+//------------------------------
+*/
+
+ScrollControlBase 
+{
+	borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 }
 
 /*
@@ -1389,7 +1399,7 @@ Tab
 	selectedOverSkin: ClassReference(null);
 /*	selectedUpIcon: null; */
 	selectedUpSkin: ClassReference(null); 
-	skin: ClassReference("mx.skins.halo.TabSkin");
+	skin: ClassReference("mx.skins.spark.TabSkin");
 /*	upIcon: ClassReference(null); */
 	upSkin: ClassReference(null); 
 }
@@ -1404,7 +1414,7 @@ TabBar
 {
 	horizontalAlign: "left";
 	horizontalGap: -1;
-	selectedTabTextStyleName: "activeTabStyle";
+/*	selectedTabTextStyleName: "activeTabStyle"; */
 	textAlign: "center";
 	verticalAlign: "top";
 	verticalGap: -1;
@@ -1478,6 +1488,10 @@ TextInput
 {
 	backgroundColor: #FFFFFF;
 	backgroundDisabledColor: #DDDDDD;
+	borderSkin: ClassReference("mx.skins.spark.TextInputBorderSkin");
+	paddingTop: 2;
+	paddingLeft: 2;
+	paddingRight: 2;
 }
 
 /*
@@ -1539,7 +1553,7 @@ TitleWindow
 
 .todayStyle
 {
-	color: #FFFFFF;
+	color: 0;
 	textAlign: "center";
 }
 
@@ -1670,7 +1684,7 @@ VSlider
 	thumbDownSkin: ClassReference(null);
 	thumbOffset: 0;
 	thumbOverSkin: ClassReference(null);
-	thumbSkin: ClassReference("mx.skins.halo.SliderThumbSkin");
+	thumbSkin: ClassReference("mx.skins.spark.SliderThumbSkin");
 	thumbUpSkin: ClassReference(null);
 	tickColor: #6F7777;
 	tickLength: 3;
@@ -1678,7 +1692,7 @@ VSlider
 	tickThickness: 1;
 	trackColors: #E7E7E7, #E7E7E7;
 	trackHighlightSkin: ClassReference("mx.skins.halo.SliderHighlightSkin");
-	trackSkin: ClassReference("mx.skins.halo.SliderTrackSkin");
+	trackSkin: ClassReference("mx.skins.spark.SliderTrackSkin");
 }
 
 /*
