@@ -19,6 +19,11 @@ import mx.events.CollectionEvent;
  *  Dispatched when the IList has been updated in some way.
  *
  *  @eventType mx.events.CollectionEvent.COLLECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
@@ -39,6 +44,11 @@ import mx.events.CollectionEvent;
  *  @see mx.collections.errors.ItemPendingError
  *  @see mx.collections.ICollectionView
  *  @see mx.collections.ListCollectionView
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IList extends IEventDispatcher
 {
@@ -55,6 +65,11 @@ public interface IList extends IEventDispatcher
     /**
      *  The number of items in this collection. 
      *  0 means no items while -1 means the length is unknown. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get length():int;
 
@@ -69,6 +84,11 @@ public interface IList extends IEventDispatcher
      *  Equivalent to <code>addItemAt(item, length)</code>.
      *
      *  @param item The item to add.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addItem(item:Object):void;
     
@@ -83,6 +103,11 @@ public interface IList extends IEventDispatcher
      *  @param index The index at which to place the item.
      *
      *  @throws RangeError if index is less than 0 or greater than the length of the list. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addItemAt(item:Object, index:int):void;
     
@@ -102,6 +127,11 @@ public interface IList extends IEventDispatcher
      *
      *  @throws RangeError if <code>index &lt; 0</code>
      *  or <code>index >= length</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getItemAt(index:int, prefetch:int = 0):Object;
     
@@ -118,6 +148,11 @@ public interface IList extends IEventDispatcher
      *  @param item The item to find.
      *
      *  @return The index of the item, or -1 if the item is not in the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getItemIndex(item:Object):int;
     
@@ -143,6 +178,11 @@ public interface IList extends IEventDispatcher
      *
      *  @see mx.events.CollectionEvent
      *  @see mx.events.PropertyChangeEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function itemUpdated(item:Object, property:Object = null, 
                          oldValue:Object = null, 
@@ -157,6 +197,11 @@ public interface IList extends IEventDispatcher
      *  <p>See the ItemPendingError documentation as well as
      *  the collections documentation for more information
      *   on using the <code>ItemPendingError</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeAll():void;
 
@@ -169,6 +214,11 @@ public interface IList extends IEventDispatcher
      *  @return The item that was removed.
      *
      *  @throws RangeError is index is less than 0 or greater than length. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeItemAt(index:int):Object;
     
@@ -184,6 +234,11 @@ public interface IList extends IEventDispatcher
      *  @return The item that was replaced, or <code>null</code> if none.
      *
      *  @throws RangeError if index is less than 0 or greater than length.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function setItemAt(item:Object, index:int):Object;
     
@@ -196,6 +251,11 @@ public interface IList extends IEventDispatcher
      *  
      *  @throws mx.collections.errors.ItemPendingError If the data is not yet completely loaded
      *  from a remote location.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function toArray():Array;
 }
