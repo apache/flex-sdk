@@ -50,7 +50,6 @@ package spark.skins.mobile
             addChild(actionBar);
             addChild(tabBar);
             
-            actionBar.dataProvider = hostComponent;
             tabBar.dataProvider = hostComponent;
         }
         
