@@ -179,5 +179,19 @@ public class ViewNavigatorEvent extends Event
      *  @productversion Flex 4.5
      */
     public var action:String;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: Event
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function clone():Event
+    {
+        return new ViewNavigatorEvent(type, bubbles, cancelable, action);
+    }
 }
 }
