@@ -670,7 +670,7 @@ public class StyleProtoChain
         {
             object.styleDeclaration = new CSSStyleDeclaration();
            
-            object.styleDeclaration.mx_internal::setStyle(styleProp, newValue);
+            object.styleDeclaration.setLocalStyle(styleProp, newValue);
 
             // If inheritingStyles is undefined, then this object is being
             // initialized and we haven't yet generated the proto chain.  To
@@ -680,7 +680,7 @@ public class StyleProtoChain
         }
         else
         {
-            object.styleDeclaration.mx_internal::setStyle(styleProp, newValue);
+            object.styleDeclaration.setLocalStyle(styleProp, newValue);
         }
 
         if (isProtoChainInitialized && valueChanged)
