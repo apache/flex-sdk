@@ -291,8 +291,7 @@ public class RadialGradientStroke extends GradientStroke
 			var regY:Number = rect.top + (!isNaN(y) ? y : rect.height / 2);
                 
             matrix.scale (w / GRADIENT_DIMENSION, h / GRADIENT_DIMENSION);
-	        matrix.rotate(!isNaN(mx_internal::_angle) ? 
-											mx_internal::_angle : mx_internal::rotationInRadians);
+	        matrix.rotate(!isNaN(_angle) ? _angle : rotationInRadians);
 	        matrix.translate(regX, regY);	    
         }             
         else
