@@ -164,6 +164,14 @@ public class Binding
     public var twoWayCounterpart:Binding;
 
     /**
+     *  @private
+     *  If there is a twoWayCounterpart, hasHadValue is false, and
+     *  isTwoWayPrimary is true, then the twoWayCounterpart will be
+     *  executed first.
+     */
+    public var isTwoWayPrimary:Boolean;
+
+    /**
      *  @private 
      *  True if a wrapped function call does not throw an error.  This is used by
      *  innerExecute() to tell if the srcFunc completed successfully.
@@ -289,6 +297,13 @@ public class Binding
             return;
         }
 
+        if (twoWayCounterpart && !twoWayCounterpart.hasHadValue && twoWayCounterpart.isTwoWayPrimary)
+        {
+            twoWayCounterpart.execute();
+            hasHadValue = true;
+            return;
+        }
+
         if (isExecuting || (twoWayCounterpart && twoWayCounterpart.isExecuting))
         {
             // If there is a twoWayCounterpart already executing, that means that it is
@@ -302,13 +317,13 @@ public class Binding
 
         try
         {
-	    isExecuting = true;
-	    wrapFunctionCall(this, innerExecute, o);
+            isExecuting = true;
+            wrapFunctionCall(this, innerExecute, o);
         }
         catch(error:Error)
         {
-	    // Certain errors are normal during binding execution, so we swallow them.
-	    // 1507 - invalid null argument 
+            // Certain errors are normal during binding execution, so we swallow them.
+            // 1507 - invalid null argument 
             if (error.errorID != 1507) 
                 throw error;
         }
