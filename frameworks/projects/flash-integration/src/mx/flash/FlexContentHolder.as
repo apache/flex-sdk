@@ -15,8 +15,6 @@ package mx.flash
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
-import flash.display.MovieClip;
-import flash.geom.Rectangle;
 import flash.utils.getDefinitionByName;
 
 import mx.core.IUIComponent;
@@ -95,9 +93,6 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
     {
         super.initialize();
         
-        _width = bounds.width;
-        _height = bounds.height;
-        
         // initialize is only called when we are running in Flex. 
         // Since we are in Flex, let's hide the content placeholder.
         // Rather than removing it (which can cause problems with
@@ -147,8 +142,6 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
         // width/height getters.
         _width = newWidth;
         _height = newHeight;
-        
-        scaleX = scaleY = 1;
         
         if (flexContent)
         {
@@ -245,7 +238,6 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
                 if (!uicParent)
                     return;
                 
-                flexContent.initialize();
                 
                 // The rest of this was copied from UIComponent.addingChild()...
                 
@@ -271,6 +263,10 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
                 {     
                     var child:Object = flexContent;
                     
+                    // set the child's parent to this for now (when initializing styles,
+                    // we'll have to do some funky business).
+                    child.mx_internal::_parent = this;
+                    
                     // Set the nestLevel of the child to be one greater
                     // than the nestLevel of this component.
                     // The nestLevel setter will recursively set it on any
@@ -292,10 +288,8 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
                     // but some need to react to even this early change.
                     child.stylesInitialized();
                  }
-
-                 _width *= scaleX;
-                 _height *= scaleY;
-                 scaleX = scaleY = 1;
+                
+                flexContent.initialize();
                 
                  sizeFlexContent();
             }
@@ -309,22 +303,40 @@ public dynamic class FlexContentHolder extends ContainerMovieClip
     {
         if (!flexContent)
             return;
+        
+        var myParent:ContainerMovieClip = ContainerMovieClip(parent);
+        var contentWidth:Number;
+        var contentHeight:Number;
+        
+        if (myParent.fillContentToSize)
+        {
+            // Size the flex content to our size
+            contentWidth = _width;
+            contentHeight = _height;
             
-        // Scale the flex content to the inverse of our nested scale
-        flexContent.scaleX = 1;
-        flexContent.scaleY = 1;
-        
-        // Size the flex content to our size
-        var contentWidth:Number = _width;
-        var contentHeight:Number = _height;
-        
-        if (flexContent.explicitWidth)
-            contentWidth = Math.min(contentWidth, flexContent.explicitWidth);
-        
-        if (flexContent.explicitHeight)
-            contentHeight = Math.min(contentHeight, flexContent.explicitHeight);
+            if (flexContent.explicitWidth)
+                contentWidth = Math.min(contentWidth, flexContent.explicitWidth);
             
-        flexContent.setActualSize(contentWidth, contentHeight);
+            if (flexContent.explicitHeight)
+                contentHeight = Math.min(contentHeight, flexContent.explicitHeight);
+                
+            flexContent.setActualSize(contentWidth, contentHeight);
+        }
+        else
+        {
+            // Size the flex content to what they want to be, 
+            // making sure we size them to their minimum size and 
+            // making sure we fit within this container.
+            // We don't do anything too fancy here for layout, like make sure 
+            // our size is large enough to hold our content in the first place
+            
+            contentWidth = Math.max(flexContent.minWidth, 
+                Math.min(_width, flexContent.getExplicitOrMeasuredWidth()));
+            contentHeight = Math.max(flexContent.minHeight, 
+                Math.min(_height, flexContent.getExplicitOrMeasuredHeight()));
+            
+            flexContent.setActualSize(contentWidth, contentHeight);
+        }
     }
 }
 }
