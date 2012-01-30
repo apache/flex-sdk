@@ -1674,6 +1674,8 @@ public class UIComponent extends FlexSprite
      */
     override public function get rotation():Number
     {
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            return super.rotation;
         return (_layoutFeatures == null)? super.rotation:_layoutFeatures.layoutRotationZ;
     }
 
@@ -1682,9 +1684,15 @@ public class UIComponent extends FlexSprite
      */
     override public function set rotation(value:Number):void
     {
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+        {
+            super.rotation = value;
+            return;
+        }
+
         if (rotation == value)
             return;
-
+            
         hasDeltaIdentityTransform = false;
         if(_layoutFeatures == null)
         {
