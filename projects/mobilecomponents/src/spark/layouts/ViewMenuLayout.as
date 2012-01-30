@@ -17,8 +17,57 @@ import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
 import spark.layouts.supportClasses.LayoutBase;
 
+/**
+ *  The ViewMenuLayout class defines the layout of the ViewMenu container.
+ *
+ *  <p>The ViewMenuLayout class define the layout as follows: </p>
+ *  
+ *  <ul>
+ *    <li>If you define three or fewer menu items, the menu items are displayed 
+ *       in a single row, and each menu item has the same size. 
+ *       <p>If you define four or more menu items, the ViewMenu container 
+ *       creates multiple rows.</p></li>
+ *    <li>If you define an even number of menu items, the ViewMenu container 
+ *       sets each menu item to the same size. Each row of the menu  
+ *       displays the same number of items.</li>
+ *    <li>If you define an odd number of menu items, each row 
+ *       alternates between displaying two and three menu items. 
+ *       The buttons in the rows with two menu items are larger than 
+ *       the buttons in the rows with three menu items. </li>
+ *  </ul>
+ *  
+ *  <p>You can create your own custom layout for the menu by creating your own layout class. </p>
+ *  
+ *  @mxml 
+ *  <p>The <code>&lt;s:ViewMenuLayout&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:ViewMenuLayout 
+ *    <strong>Properties</strong>
+ *    horizontalGap="2"
+ *    requestedMaxColumnCount="3"
+ *    verticalGap="2"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.components.ViewMenu
+ *  @see spark.components.ViewMenuItem
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */ 
 public class ViewMenuLayout extends LayoutBase
 {
+
+    /**
+     *  Constructor. 
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */ 
     public function ViewMenuLayout()
     {
         super();
@@ -36,13 +85,12 @@ public class ViewMenuLayout extends LayoutBase
     [Inspectable(category="General")]
     
     /**
-     *  Horizontal space between columns, in pixels.
+     *  The horizontal space between columns, in pixels.
      *
      *  @see #verticalGap
      *  @default 2
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -69,13 +117,12 @@ public class ViewMenuLayout extends LayoutBase
     [Inspectable(category="General")]
     
     /**
-     *  Vertical space between rows, in pixels.
+     *  The vertical space between rows, in pixels.
      *
      *  @see #horizontalGap
      *  @default 2
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -99,12 +146,11 @@ public class ViewMenuLayout extends LayoutBase
     private var _requestedMaxColumnCount:int = 3;
     
     /**
-     *  Maximumn number of columns to display per row. 
+     *  The maximum number of columns to display in a row. 
      *
      *  @default 3
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
@@ -113,6 +159,9 @@ public class ViewMenuLayout extends LayoutBase
         return _requestedMaxColumnCount;
     }
     
+    /**
+     *  @private
+     */
     public function set requestedMaxColumnCount(value:int):void
     {
         if (_requestedMaxColumnCount == value)
@@ -132,6 +181,9 @@ public class ViewMenuLayout extends LayoutBase
     //--------------------------------------------------------------------------
     
     // TODO (jszeto) Fix up logic to use brick algorithm. Might not have full number of columns
+    /**
+     *  @private
+     */
     override public function measure():void
     {
         super.measure();
@@ -163,6 +215,9 @@ public class ViewMenuLayout extends LayoutBase
     }
     
     
+    /**
+     *  @private
+     */
     override public function updateDisplayList(width:Number, height:Number):void
     {
         super.updateDisplayList(width, height);
@@ -221,6 +276,9 @@ public class ViewMenuLayout extends LayoutBase
         }
     }
     
+    /**
+     *  @private
+     */
     override public function getNavigationDestinationIndex(currentIndex:int, navigationUnit:uint, arrowKeysWrapFocus:Boolean):int
     {
         // TODO (jszeto) Currently we just support LEFT/RIGHT. Need to add logic for UP/DOWN/PGUP/PGDN
