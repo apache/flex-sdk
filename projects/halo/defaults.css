@@ -903,6 +903,17 @@ HSlider
 
 /*
 //------------------------------
+//  HTML
+//------------------------------
+*/
+
+HTML
+{
+	backgroundColor: #FFFFFF;
+}
+
+/*
+//------------------------------
 //  Image
 //------------------------------
 */
@@ -1772,4 +1783,24 @@ VSlider
 {
 	fontWeight: "bold";
 /*	fontSize: 12; */
+}
+
+/*
+//------------------------------
+//  Window
+//------------------------------
+*/
+Window 
+{
+	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
+}
+
+/*
+//------------------------------
+//  WindowedApplication
+//------------------------------
+*/
+WindowedApplication
+{
+	backgroundImage: ClassReference("mx.skins.halo.WindowBackground");
 }
