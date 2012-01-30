@@ -20,12 +20,14 @@
     <!-- framework -->
     <component id="AddChild" class="mx.states.AddChild"/>
     <component id="AddItems" class="mx.states.AddItems"/>
-	<component id="AnimateProperty" class="mx.effects.AnimateProperty"/>
+    <component id="AnimateProperty" class="mx.effects.AnimateProperty"/>
     <component id="ArrayCollection" class="mx.collections.ArrayCollection"/>
     <component id="ArrayList" class="mx.collections.ArrayList"/>
     <component id="BevelFilter" class="flash.filters.BevelFilter" lookupOnly="true"/>
     <component id="BitmapFill" class="mx.graphics.BitmapFill"/>
     <component id="BitmapFillMode" class="mx.graphics.BitmapFillMode"/>
+    <component id="BitmapScaleMode" class="mx.graphics.BitmapScaleMode"/>
+    <component id="BitmapSmoothingQuality" class="mx.graphics.BitmapSmoothingQuality"/> 
     <component id="Blur" class="mx.effects.Blur"/>
     <component id="BlurFilter" class="flash.filters.BlurFilter" lookupOnly="true"/>
     <component id="ColorMatrixFilter" class="flash.filters.ColorMatrixFilter" lookupOnly="true"/>
