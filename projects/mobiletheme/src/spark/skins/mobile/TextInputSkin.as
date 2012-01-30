@@ -63,7 +63,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;
                 layoutCornerEllipseSize = 24;
-                minWidth = 600;
+                layoutMeasuredWidth = 600;
+                minWidth = 48;
                 minHeight = 66;
                 layoutBorderSize = 2;
                 
@@ -73,7 +74,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile240.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                minWidth = 440;
+                layoutMeasuredWidth = 440;
+                minWidth = 24;
                 minHeight = 50;
                 layoutBorderSize = 1;
                 
@@ -83,7 +85,8 @@ public class TextInputSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile160.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                minWidth = 300;
+                layoutMeasuredWidth = 300;
+                minWidth = 24;
                 minHeight = 33;
                 layoutBorderSize = 1;
                 
@@ -97,6 +100,12 @@ public class TextInputSkin extends TextSkinBase
     //  Variables
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Default width per DPI.
+     */
+    private var layoutMeasuredWidth:Number;
     
     /** 
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
@@ -139,7 +148,7 @@ public class TextInputSkin extends TextSkinBase
             textDisplay.text = oldText;
         }
         
-        // Width is based on maxChars (if set), or hard-coded to 440
+        // width is based on maxChars (if set)
         if (hostComponent && hostComponent.maxChars)
         {
             // Grab the fontSize and subtract 2 as the pixel value for each character.
@@ -148,6 +157,10 @@ public class TextInputSkin extends TextSkinBase
             var characterWidth:int = Math.max(1, (getStyle("fontSize") - 2));
             measuredWidth =  (characterWidth * hostComponent.maxChars) + 
                 paddingLeft + paddingRight + StyleableTextField.TEXT_WIDTH_PADDING;
+        }
+        else
+        {
+            measuredWidth = layoutMeasuredWidth;
         }
         
         measuredHeight = paddingTop + textHeight + paddingBottom;
