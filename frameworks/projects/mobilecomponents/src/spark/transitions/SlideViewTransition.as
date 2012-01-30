@@ -308,15 +308,8 @@ public class SlideViewTransition extends ViewTransitionBase
         // Prepare our start and end view elements by positioning them prior to 
         // the start of our transition, ensuring that they are cached as 
         // surfaces, and adjust z-order if necessary.
-        
         var slideTargets:Array = new Array();
         
-        if (cachedNavigator && mode != SlideViewTransitionMode.COVER)
-            slideTargets.push(cachedNavigator);
-        
-        if (mode != SlideViewTransitionMode.UNCOVER)
-            slideTargets.push(targetNavigator.contentGroup);
-
         navigatorProps.contentGroupIncludeInLayout = targetNavigator.contentGroup.includeInLayout;
         targetNavigator.contentGroup.includeInLayout = false;
         
@@ -430,16 +423,22 @@ public class SlideViewTransition extends ViewTransitionBase
         // Validate to ensure our snapshots are rendered.
         transitionGroup.validateNow();
         
+        // Setup slide targets as appropriate.
+        if (cachedNavigator && mode != SlideViewTransitionMode.COVER)
+            slideTargets.push(cachedNavigator.displayObject);
+        
+        if (mode != SlideViewTransitionMode.UNCOVER)
+            slideTargets.push(targetNavigator.contentGroup);
+        
         // Construct animation sequence.
-        var animation:Move = new Move();
-        if (verticalTransition)
-            animation.yBy = slideDistance;
-        else
-            animation.xBy = slideDistance;
-        animation.targets = slideTargets;
-        animation.easer = easer;
-        animation.duration = duration;
-        return animation;
+        var animate:Animate = new Animate();
+        var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
+        vector.push(new SimpleMotionPath(animatedProperty, null, null, slideDistance));
+        animate.motionPaths = vector;
+        animate.duration = duration;
+        animate.easer = easer;
+        animate.targets = slideTargets;
+        return animate;
     }
     
     /**
