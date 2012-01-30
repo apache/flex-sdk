@@ -23,6 +23,11 @@ package mx.core
  *  TextField objects can only use embedded fonts if they are created
  *  in the context of the embedded font.
  *  This interface provides for tracking the font context of a component.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */    
 public interface IFontContextComponent
 {
@@ -38,6 +43,11 @@ public interface IFontContextComponent
 
     /**
      *  The module factory that provides the font context for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get fontContext():IFlexModuleFactory;
     
