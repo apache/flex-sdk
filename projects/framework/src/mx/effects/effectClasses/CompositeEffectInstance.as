@@ -13,6 +13,8 @@ package mx.effects.effectClasses
 {
 
 import flash.events.Event;
+import flash.system.ApplicationDomain;
+
 import mx.core.mx_internal;
 import mx.effects.EffectInstance;
 import mx.effects.IEffectInstance;
@@ -294,31 +296,67 @@ public class CompositeEffectInstance extends EffectInstance
 		}
 	}
 	
-	/**
-	 *  @private
-	 *  Check if we have a RotateInstance in one of our childSets array elements
-	 */
-	mx_internal function hasRotateInstance():Boolean
-	{
-		if (childSets)
-		{
-			for (var i:int = 0; i < childSets.length; i++)
-			{
-				if (childSets[i].length > 0)
-				{
-					var compChild:CompositeEffectInstance = childSets[i][0] as CompositeEffectInstance;
-					
-					if (childSets[i][0] is RotateInstance || (compChild && compChild.hasRotateInstance()))
-					{
-						return true;
-					}
-				}
-			}
-		}
-		
-		return false;
-	}
+    /**
+     *  @private
+     *  Check if we have a RotateInstance in one of our childSets array elements
+     */
+    mx_internal function hasRotateInstance():Boolean
+    {
+        if (childSets)
+        {
+            for (var i:int = 0; i < childSets.length; i++)
+            {
+                if (childSets[i].length > 0)
+                {
+                    var compChild:CompositeEffectInstance = childSets[i][0] as CompositeEffectInstance;
+                    
+                    if (childSets[i][0] is RotateInstance || (compChild && compChild.hasRotateInstance()))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    private static var resizeEffectType:Class;
+    private static var resizeEffectLoaded:Boolean = false;
 
+    /**
+     *  @private
+     *  Check if we have a ResizeInstance in one of our childSets array elements
+     */
+    mx_internal function hasResizeInstance():Boolean
+    {
+        if (childSets)
+        {
+            if (!resizeEffectLoaded)
+            {
+                resizeEffectLoaded = true;
+                if (ApplicationDomain.currentDomain.hasDefinition("spark.effects.supportClasses.ResizeInstance"))
+                    resizeEffectType = Class(ApplicationDomain.currentDomain.
+                        getDefinition("spark.effects.supportClasses.ResizeInstance"));
+            }
+            if (resizeEffectType)
+                for (var i:int = 0; i < childSets.length; i++)
+                {
+                    if (childSets[i].length > 0)
+                    {
+                        var compChild:CompositeEffectInstance = childSets[i][0] as CompositeEffectInstance;
+                        
+                        if (childSets[i][0] is resizeEffectType || (compChild && compChild.hasResizeInstance()))
+                        {
+                            return true;
+                        }
+                    }
+                }
+        }
+        
+        return false;
+    }
+    
 	/**
 	 *  @private
 	 */		
