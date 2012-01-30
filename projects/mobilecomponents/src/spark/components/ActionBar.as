@@ -34,7 +34,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Style(name="titleAlign", type="String", enumeration="start,end,left,right,center", inherit="no")]
+[Style(name="titleAlign", type="String", enumeration="left,right,center", inherit="no")]
 
 /**
  *  @langversion 3.0
