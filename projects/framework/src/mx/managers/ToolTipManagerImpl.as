@@ -1145,7 +1145,7 @@ public class ToolTipManagerImpl extends EventDispatcher
         if (isError)
         {
             // Listen for a change event so we know when to hide the tip
-            currentTarget.addEventListener("change", changeHandler);
+            currentTarget.addEventListener(Event.CHANGE, changeHandler);
         }
         else
         {
@@ -1195,7 +1195,7 @@ public class ToolTipManagerImpl extends EventDispatcher
         if (isError)
         {
             if (currentTarget)
-                currentTarget.removeEventListener("change", changeHandler);
+                currentTarget.removeEventListener(Event.CHANGE, changeHandler);
         }
         else
         {
