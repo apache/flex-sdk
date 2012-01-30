@@ -20,6 +20,11 @@ import mx.effects.EffectTargetFilter;
  *  children to a container.
  *  If you set the Effect.filter property to "add" or "remove",
  *  then one of these is used. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AddRemoveEffectTargetFilter extends EffectTargetFilter
 {
@@ -33,6 +38,11 @@ public class AddRemoveEffectTargetFilter extends EffectTargetFilter
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function AddRemoveEffectTargetFilter()
 	{
@@ -55,6 +65,11 @@ public class AddRemoveEffectTargetFilter extends EffectTargetFilter
 	 *  Determines if this is an add or remove filter.
 	 *  
 	 *  @default true
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var add:Boolean = true;
 	
