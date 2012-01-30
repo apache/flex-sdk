@@ -512,6 +512,15 @@ class ModuleInfo extends EventDispatcher
      */
     public function resurrect():void
     {
+        // If the module is not ready then don't try to resurrect it.
+        // You can only resurrect a module that is in the ready state.
+        // We return here and do not destroy the current state because
+        // we may have started loading a module that is not yet ready.
+        if (!_ready)
+            return;
+        
+        //trace("Module[", url, "] resurrect");
+        
         if (!factoryInfo && limbo)
         {
             //trace("trying to resurrect ", _url, "...");
@@ -1075,13 +1084,7 @@ class ModuleInfoProxy extends EventDispatcher implements IModuleInfo
                          bytes:ByteArray = null,
                          moduleFactory:IFlexModuleFactory = null):void
     {
-        // If the module is not ready then don't try to resurrect it.
-        // You can only resurrect a module that is in the ready state.
-        // By not calling resurrect until we have a module loaded we
-        // can be called here multiple times for the same module and 
-        // only load the module once.
-        if (info.ready)
-            info.resurrect();
+        info.resurrect();
 
         if (!referenced)
         {
