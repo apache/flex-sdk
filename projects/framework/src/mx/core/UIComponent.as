@@ -2588,14 +2588,10 @@ public class UIComponent extends FlexSprite
      *  <p>Setting this property causes a <code>resize</code> event to
      *  be dispatched.
      *  See the <code>resize</code> event for details on when
-     *  this event is dispatched.
-     *  If the component's <code>scaleX</code> property is not 1.0,
-     *  the width of the component from its internal coordinates
-     *  do not match.
-     *  Thus a 100 pixel wide component with a <code>scaleX</code>
-     *  of 2 takes 100 pixels in the parent, but 
-     *  internally thinks it is 50 pixels wide.</p>
-     *  
+     *  this event is dispatched.</p>
+     * 
+     *  @see #percentWidth
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -2668,14 +2664,10 @@ public class UIComponent extends FlexSprite
      *
      *  <p>Setting this property causes a <code>resize</code> event to be dispatched.
      *  See the <code>resize</code> event for details on when
-     *  this event is dispatched.
-     *  If the component's <code>scaleY</code> property is not 100,
-     *  the height of the component from its internal coordinates
-     *  do not match.
-     *  Thus a 100 pixel high component with a <code>scaleY</code>
-     *  of 200 takes 100 pixels in the parent, but 
-     *  internally thinks it is 50 pixels high.</p>
-     *  
+     *  this event is dispatched.</p>
+     * 
+     *  @see #percentHeight 
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -5014,7 +5006,7 @@ public class UIComponent extends FlexSprite
     [Inspectable(environment="none")]
 
     /**
-     *  Number that specifies the width of a component as a percentage
+     *  Specifies the width of a component as a percentage
      *  of its parent's size. Allowed values are 0-100. The default value is NaN.
      *  Setting the <code>width</code> or <code>explicitWidth</code> properties
      *  resets this property to NaN.
@@ -5024,6 +5016,11 @@ public class UIComponent extends FlexSprite
      *  in percent.</p>
      *
      *  <p>This property is always set to NaN for the UITextField control.</p>
+     * 
+     *  <p>When used with Spark layouts, this property is used to calculate the
+     *  width of the component's bounds after scaling and rotation. For example 
+     *  if the component is rotated at 90 degrees, then specifying 
+     *  <code>percentWidth</code> will affect the component's height.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -5065,7 +5062,7 @@ public class UIComponent extends FlexSprite
     [Inspectable(environment="none")]
 
     /**
-     *  Number that specifies the height of a component as a percentage
+     *  Specifies the height of a component as a percentage
      *  of its parent's size. Allowed values are 0-100. The default value is NaN.
      *  Setting the <code>height</code> or <code>explicitHeight</code> properties
      *  resets this property to NaN.
@@ -5075,6 +5072,11 @@ public class UIComponent extends FlexSprite
      *  in percent.</p>
      *
      *  <p>This property is always set to NaN for the UITextField control.</p>
+     *  
+     *  <p>When used with Spark layouts, this property is used to calculate the
+     *  height of the component's bounds after scaling and rotation. For example 
+     *  if the component is rotated at 90 degrees, then specifying 
+     *  <code>percentHeight</code> will affect the component's width.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
