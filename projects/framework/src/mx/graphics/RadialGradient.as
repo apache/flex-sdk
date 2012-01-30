@@ -239,17 +239,23 @@ public class RadialGradient extends GradientBase implements IFill
     {
     	var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
     	var h:Number = !isNaN(scaleY) ? scaleY : rc.height;
-		var tx:Number = !isNaN(x) ? x : rc.width / 2;
-		var ty:Number = !isNaN(y) ? y : rc.height / 2;
+		var regX:Number = rc.left + (!isNaN(x) ? x : rc.width / 2);
+		var regY:Number = rc.top + (!isNaN(y) ? y : rc.height / 2);
+		var tx:Number = regX - w / 2;
+		var ty:Number = regY - h / 2;	
 				
-		tx -= w / 2;
-		ty -= h / 2;		
+        commonMatrix.createGradientBox(w, h, 0, tx, ty);
 				
-        commonMatrix.createGradientBox(w, h, 
-								!isNaN(mx_internal::_angle) ? 
-									mx_internal::_angle : mx_internal::rotationInRadians,
-								 tx, ty);
-            
+		// Translate the gradient so that the center is at (0,0),
+		// rotate, and then translate it back to the original position
+		if ((!isNaN(mx_internal::_angle) && mx_internal::_angle != 0) || mx_internal::rotationInRadians != 0)
+		{ 		
+			commonMatrix.translate(-regX, -regY);
+			commonMatrix.rotate(!isNaN(mx_internal::_angle) ? 
+										mx_internal::_angle : mx_internal::rotationInRadians);
+			commonMatrix.translate(regX, regY);
+	  	}    
+	  	
         target.beginGradientFill(GradientType.RADIAL, mx_internal::colors,
 								 mx_internal::alphas, mx_internal::ratios,
 								 commonMatrix, spreadMethod, interpolationMethod, focalPointRatio);      
