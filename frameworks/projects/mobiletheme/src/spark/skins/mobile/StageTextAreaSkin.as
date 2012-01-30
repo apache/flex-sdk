@@ -12,6 +12,7 @@
 package spark.skins.mobile
 {
 import spark.components.TextArea;
+import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.StageTextSkinBase;
 
 /**
@@ -88,6 +89,9 @@ public class StageTextAreaSkin extends StageTextSkinBase
         
         if (promptDisplay)
         {
+            if (promptDisplay is StyleableTextField)
+                StyleableTextField(promptDisplay).commitStyles();
+            
             setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
             setElementPosition(promptDisplay, paddingLeft, paddingTop);
         }
