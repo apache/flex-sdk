@@ -120,7 +120,7 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
      */
     private static var commonMatrix:Matrix = new Matrix();
 
-    [Deprecated(replacement="draw()")]
+    [Deprecated(replacement="LinearGradientStroke.draw()")]
     /**
      *  Applies the properties to the specified Graphics object.
      *  
