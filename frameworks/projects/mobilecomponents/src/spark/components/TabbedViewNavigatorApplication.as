@@ -222,15 +222,9 @@ public class TabbedViewNavigatorApplication extends ViewNavigatorApplicationBase
         {
             if (tabbedNavigator.activeView)
                 systemManager.stage.addEventListener(Event.RESIZE, stage_resizeHandler);
-        }
-        
-        // Set the stage focus to the navigator's active view
-        if (systemManager.stage.focus == null && tabbedNavigator)
-        {
-            if (tabbedNavigator.activeView)
-                systemManager.stage.focus = tabbedNavigator.activeView;
-            else
-                systemManager.stage.focus = tabbedNavigator;
+
+            // Set the stage focus to the navigator's active view
+            tabbedNavigator.updateFocus();
         }
     }
     
