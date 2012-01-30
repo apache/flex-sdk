@@ -12,37 +12,26 @@
 package spark.components
 {
 import flash.display.DisplayObject;
-import flash.events.MouseEvent;
-import flash.geom.Point;
-import flash.text.TextField;
-import flash.text.TextFieldType;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
 
 import mx.controls.listClasses.*;
-import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
-import mx.core.IFlexModuleFactory;
 import mx.core.IVisualElement;
-import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.UITextFormat;
 import mx.core.mx_internal;
-import mx.events.FlexEvent;
 import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
 import mx.styles.CSSStyleDeclaration;
-import mx.styles.IStyleClient;
-import mx.utils.StringUtil;
 
-import spark.components.Group;
-import spark.components.IItemRenderer;
-import spark.components.Image;
-import spark.components.Label;
 import spark.components.supportClasses.MobileTextField;
-import spark.components.supportClasses.TextBase;
 import spark.core.ContentCache;
+import spark.core.DisplayObjectSharingMode;
 import spark.core.IContentLoader;
+import spark.core.IGraphicElement;
+import spark.core.IGraphicElementContainer;
+import spark.core.ISharedDisplayObject;
 import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
@@ -125,7 +114,8 @@ include "../styles/metadata/GapStyles.as"
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class MobileIconItemRenderer extends MobileItemRenderer
+public class MobileIconItemRenderer extends MobileItemRenderer 
+    implements IGraphicElementContainer, ISharedDisplayObject
 {
     
     //--------------------------------------------------------------------------
@@ -205,6 +195,27 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  variable around even though technically it's not needed).</p>
      */
     private var messageText:String = "";
+    
+    /**
+     *  @private
+     *  Since iconDisplay is a GraphicElement, we have to call its lifecycle methods 
+     *  directly.
+     */
+    private var iconNeedsValidateProperties:Boolean = false;
+    
+    /**
+     *  @private
+     *  Since iconDisplay is a GraphicElement, we have to call its lifecycle methods 
+     *  directly.
+     */
+    private var iconNeedsValidateSize:Boolean = false;
+    
+    /**
+     *  @private
+     *  Since iconDisplay is a GraphicElement, we have to call help assign 
+     *  its display object
+     */
+    private var iconNeedsDisplayObjectAssignment:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -512,27 +523,17 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  The bitmap image component used to 
      *  display the icon data of the item renderer.
      * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    protected var iconDisplay:BitmapImage;
-    
-    /**
-     *  The Group that holds the iconDisplay BitmapImage.  
-     *  
-     *  <p>The Group is necessary since GraphicElements must live inside 
-     *  of one.</p>
+     *  <p>Because MobileIconItemRenderer implements ISharedDisplayObject 
+     *  and IGraphicElementContainer, we don't need to wrap iconDisplay 
+     *  in a Group; however, it does require a little more work when instantiating 
+     *  and destroying iconDisplay.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected var iconDisplayHolder:Group;
-    // Need a holder for the iconDisplay since it's a GraphicElement
-    // TODO (rfrishbe): would be nice to fix above somehow
+    protected var iconDisplay:BitmapImage;
     
     /**
      *  The name of the field in the data item to display as the icon. 
@@ -901,6 +902,138 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         invalidateProperties(); 
     }
     
+    //----------------------------------
+    //  redrawRequested
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _redrawRequested:Boolean = false;
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>We implement this as part of ISharedDisplayObject so the iconDisplay 
+     *  can share our display object.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get redrawRequested():Boolean
+    {
+        return _redrawRequested;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set redrawRequested(value:Boolean):void
+    {
+        _redrawRequested = value;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  IGraphicElementContainer
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Notify the host that an element layer has changed.
+     *
+     *  The <code>IGraphicElementHost</code> must re-evaluates the sequences of 
+     *  graphic elements with shared DisplayObjects and may need to re-assign the 
+     *  DisplayObjects and redraw the sequences as a result. 
+     * 
+     *  Typically the host will perform this in its 
+     *  <code>validateProperties()</code> method.
+     *
+     *  @param element The element that has changed size.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function invalidateGraphicElementSharing(element:IGraphicElement):void
+    {
+        // since the only graphic element is hooked up to drawing with the background,
+        // just invalidate display list
+        iconNeedsDisplayObjectAssignment = true;
+        invalidateProperties();
+    }
+    
+    /**
+     *  Notify the host component that an element changed and needs to validate properties.
+     * 
+     *  The <code>IGraphicElementHost</code> must call the <code>validateProperties()</code>
+     *  method on the IGraphicElement to give it a chance to commit its properties.
+     * 
+     *  Typically the host will validate the elements' properties in its
+     *  <code>validateProperties()</code> method.
+     *
+     *  @param element The element that has changed.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function invalidateGraphicElementProperties(element:IGraphicElement):void
+    {
+        iconNeedsValidateProperties = true;
+        invalidateProperties();
+    }
+    
+    /**
+     *  Notify the host component that an element size has changed.
+     * 
+     *  The <code>IGraphicElementHost</code> must call the <code>validateSize()</code>
+     *  method on the IGraphicElement to give it a chance to validate its size.
+     * 
+     *  Typically the host will validate the elements' size in its
+     *  <code>validateSize()</code> method.
+     *
+     *  @param element The element that has changed size.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function invalidateGraphicElementSize(element:IGraphicElement):void
+    {
+        iconNeedsValidateSize = true;
+        invalidateSize();
+    }
+    
+    /**
+     *  Notify the host component that an element has changed and needs to be redrawn.
+     * 
+     *  The <code>IGraphicElementHost</code> must call the <code>validateDisplayList()</code>
+     *  method on the IGraphicElement to give it a chance to redraw.
+     * 
+     *  Typically the host will validate the elements' display lists in its
+     *  <code>validateDisplayList()</code> method.
+     *
+     *  @param element The element that has changed.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function invalidateGraphicElementDisplayList(element:IGraphicElement):void
+    {
+        if (element.displayObject is ISharedDisplayObject)
+            ISharedDisplayObject(element.displayObject).redrawRequested = true;
+        
+        invalidateDisplayList();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: UIComponent
@@ -995,29 +1128,32 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             if ((iconField || (iconFunction != null)) && !iconDisplay)
             {
                 // need to create it
-                iconDisplayHolder = new Group();
                 
                 iconDisplay = new iconDisplayClass();
-                iconDisplay.left = 0;
-                iconDisplay.right = 0;
-                iconDisplay.top = 0;
-                iconDisplay.bottom = 0;
                 
                 iconDisplay.contentLoader = iconContentLoader;
                 iconDisplay.fillMode = iconFillMode;
                 iconDisplay.scaleMode = iconScaleMode;
+
+                iconDisplay.parentChanged(this);
                 
-                // add iconDisplayHolder to the display list first in case
-                // bitmap needs to check its layoutDirection.
-                addChild(iconDisplayHolder);
-                iconDisplayHolder.addElement(iconDisplay);
+                iconNeedsDisplayObjectAssignment = true;
             }
             else if (!(iconField || (iconFunction != null)) && iconDisplay)
             {
-                // need to remove it
-                removeChild(iconDisplayHolder);
-                iconDisplayHolder.removeElement(iconDisplay);
-                iconDisplayHolder = null;
+                // need to remove the display object
+                var oldDisplayObject:DisplayObject = iconDisplay.displayObject;
+                if (oldDisplayObject)
+                { 
+                    // If the element created the display object
+                    if (iconDisplay.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT &&
+                        oldDisplayObject.parent == this)
+                    {
+                        removeChild(oldDisplayObject);
+                    }
+                }
+                
+                iconDisplay.parentChanged(null);
                 iconDisplay = null;
             }
             
@@ -1170,6 +1306,47 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             invalidateSize();
             invalidateDisplayList();
         }
+        
+        if (iconNeedsDisplayObjectAssignment)
+        {
+            iconNeedsDisplayObjectAssignment = false;
+            if (iconDisplay)
+            {
+                // try using this display object first
+                if (iconDisplay.setSharedDisplayObject(this))
+                {
+                    iconDisplay.displayObjectSharingMode = DisplayObjectSharingMode.USES_SHARED_OBJECT;
+                }
+                else
+                {
+                    // if we can't use this as the display object, then let's see if 
+                    // the icon already has and owns a display object
+                    var ownsDisplayObject:Boolean = (iconDisplay.displayObjectSharingMode != DisplayObjectSharingMode.USES_SHARED_OBJECT);
+                    
+                    // If the element doesn't have a DisplayObject or it doesn't own
+                    // the DisplayObject it currently has, then create a new one
+                    var displayObject:DisplayObject = iconDisplay.displayObject;
+                    if (!ownsDisplayObject || !displayObject)
+                        displayObject = iconDisplay.createDisplayObject();
+                    
+                    // Add the display object as a child
+                    // Check displayObject for null, some graphic elements
+                    // may choose not to create a DisplayObject during this pass.
+                    if (displayObject)
+                        addChild(displayObject);
+                    
+                    iconDisplay.displayObjectSharingMode = DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT;
+                }
+            }
+                
+        }
+        
+        if (iconNeedsValidateProperties)
+        {
+            iconNeedsDisplayObjectAssignment = false;
+            if (iconDisplay)
+                iconDisplay.validateProperties();
+        }
     }
     
     /**
@@ -1195,6 +1372,25 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     {
         removeChild(labelDisplay);
         labelDisplay = null;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function validateSize(recursive:Boolean = false):void
+    {
+        // Since IGraphicElement is not ILayoutManagerClient, we need to make sure we
+        // validate sizes of the elements, even in cases where recursive==false.
+        
+        // Validate element size
+        if (iconNeedsValidateSize)
+        {
+            iconNeedsValidateSize = false;
+            if (iconDisplay)
+                iconDisplay.validateSize();
+        }
+        
+        super.validateSize(recursive);
     }
     
     /**
@@ -1312,6 +1508,17 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     /**
      *  @private
+     *  If we invalidate display list, we need to redraw any graphic elements sharing 
+     *  our display object since we call graphics.clear() in super.updateDisplayList()
+     */
+    override public function invalidateDisplayList():void
+    {
+        redrawRequested = true;
+        super.invalidateDisplayList();
+    }
+    
+    /**
+     *  @private
      */
     override protected function layoutContents(unscaledWidth:Number,
                                                unscaledHeight:Number):void
@@ -1349,11 +1556,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         if (iconDisplay)
         {
             // set the icon's position and size
-            iconDisplayHolder.setLayoutBoundsSize(this.iconWidth, this.iconHeight);
-            iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, paddingTop);
+            iconDisplay.setLayoutBoundsSize(this.iconWidth, this.iconHeight);
+            iconDisplay.setLayoutBoundsPosition(paddingLeft, paddingTop);
             
-            iconWidth = iconDisplayHolder.getLayoutBoundsWidth();
-            iconHeight = iconDisplayHolder.getLayoutBoundsHeight();
+            iconWidth = iconDisplay.getLayoutBoundsWidth();
+            iconHeight = iconDisplay.getLayoutBoundsHeight();
         }
         
         // decorator is aligned next to icon
@@ -1476,6 +1683,16 @@ public class MobileIconItemRenderer extends MobileItemRenderer
 
             if (messageDisplay)
                 positionElement(messageDisplay, labelComponentsX, labelComponentsY + labelHeight + verticalGap);
+        }
+        
+        
+        // see if we have an icon that needs to be validated
+        if (iconDisplay && 
+            iconDisplay.displayObject is ISharedDisplayObject && 
+            ISharedDisplayObject(iconDisplay.displayObject).redrawRequested)
+        {
+            ISharedDisplayObject(iconDisplay.displayObject).redrawRequested = false;
+            iconDisplay.validateDisplayList();
         }
     }
     
