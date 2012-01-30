@@ -56,11 +56,6 @@ BorderContainer
     skinClass: ClassReference("spark.skins.spark.BorderContainerSkin");
 }
 
-ButtonBase
-{
-    minimumDownStateTime: 100;
-}
-
 Button
 {
     fontWeight: "bold";
@@ -113,38 +108,37 @@ HSlider
     skinClass: ClassReference("spark.skins.mobile.HSliderSkin");
 }
 
+IconItemRenderer
+{
+	horizontalGap: 15;
+	verticalGap: 15;
+	font-weight: bold;
+	iconDelay: 500;
+	messageStyleName: "iconItemRendererMessageStyle";
+}
+
+.iconItemRendererMessageStyle
+{
+	font-weight: normal;
+	font-size: 20;
+	color: #333333;
+}
+
+LabelItemRenderer
+{
+	paddingBottom: 15;
+	paddingLeft: 15;
+	paddingRight: 15;
+	paddingTop: 15;
+	verticalAlign: "middle";
+}
+
 List
 {
 	skinClass: ClassReference("spark.skins.mobile.ListSkin");
     touchDelay: 100;
     dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
 	dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
-}
-
-MobileItemRenderer
-{
-    minimumDownStateTime: 100;
-    paddingBottom: 15;
-    paddingLeft: 15;
-    paddingRight: 15;
-    paddingTop: 15;
-    verticalAlign: "middle";
-}
-
-MobileIconItemRenderer
-{
-    horizontalGap: 15;
-    verticalGap: 15;
-    font-weight: bold;
-    iconDelay: 500;
-    messageStyleName: "mobileIconItemRendererMessageStyle";
-}
-
-.mobileIconItemRendererMessageStyle
-{
-    font-weight: normal;
-    font-size: 20;
-    color: #333333;
 }
 
 MuteButton
@@ -253,11 +247,6 @@ TitleWindow
 	cornerRadius: 0;
 	dropShadowVisible: true;
 	skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
-}
-
-ToggleButtonBase
-{
-    minimumDownStateTime: 0;
 }
 
 ToggleButton
