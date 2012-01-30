@@ -22,9 +22,9 @@ import flash.geom.Vector3D;
  *  size and position the elements of the GroupBase based containers.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public interface ILayoutElement extends IEventDispatcher
 {
@@ -44,9 +44,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get left():Object;
     
@@ -71,9 +71,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get right():Object;
     
@@ -98,9 +98,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get top():Object;
     
@@ -125,9 +125,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get bottom():Object;
     
@@ -155,9 +155,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get horizontalCenter():Object;
     
@@ -185,9 +185,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get verticalCenter():Object;
     
@@ -213,9 +213,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get baseline():Object;
     
@@ -255,9 +255,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default NaN
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get percentWidth():Number;
     
@@ -279,9 +279,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @default NaN
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get percentHeight():Number;
     
@@ -294,9 +294,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @copy mx.core.UIComponent#includeInLayout
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */   
     function get includeInLayout():Boolean;
     
@@ -322,9 +322,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getPreferredBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
@@ -345,9 +345,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getPreferredBoundsHeight(postLayoutTransform:Boolean = true):Number;
 
@@ -364,9 +364,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
@@ -383,9 +383,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number;
 
@@ -402,9 +402,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
@@ -421,9 +421,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number;
     
@@ -446,9 +446,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getBoundsXAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number;
 
@@ -471,9 +471,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getBoundsYAtSize(width:Number, height:Number, postLayoutTransform:Boolean = true):Number;
     
@@ -491,9 +491,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getLayoutBoundsWidth(postLayoutTransform:Boolean = true):Number;
 
@@ -511,9 +511,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getLayoutBoundsHeight(postLayoutTransform:Boolean = true):Number;
     
@@ -530,9 +530,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getLayoutBoundsX(postLayoutTransform:Boolean = true):Number;
 
@@ -549,9 +549,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getLayoutBoundsY(postLayoutTransform:Boolean = true):Number;
 
@@ -571,9 +571,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean = true):void;
 
@@ -608,9 +608,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #getLayoutMatrix3D
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function setLayoutBoundsSize(width:Number,
                                  height:Number,
@@ -639,9 +639,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see mx.graphics.baseClasses.GraphicElement#offsets
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getLayoutMatrix():Matrix;
 
@@ -678,11 +678,25 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see mx.graphics.baseClasses.GraphicElement#offsets
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    function setLayoutMatrix(m:Matrix, invalidateLayout:Boolean):void;
+    function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void;
+    
+    /**
+     *  True if the element has 3D Matrix.
+     *
+     *  Use <code>hasLayoutMatrix3D</code> instead of calling and examining the
+     *  value of <code>getLayoutMatrix3D()</code> as that method returns a valid
+     *  matrix even when the element is in 2D.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function get hasLayoutMatrix3D():Boolean;
 
     /**
      *  Returns the layout transform Matrix3D for this element.
@@ -707,9 +721,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see mx.graphics.baseClasses.GraphicElement#offsets
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function getLayoutMatrix3D():Matrix3D;
 
@@ -747,11 +761,11 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see mx.graphics.baseClasses.GraphicElement#offsets
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    function setLayoutMatrix3D(m:Matrix3D, invalidateLayout:Boolean):void;
+    function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void;
 
     /**
      * A utility method to update the rotation, scale, and translation of the 
@@ -773,9 +787,9 @@ public interface ILayoutElement extends IEventDispatcher
      * of the transform
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function transformAround(transformCenter:Vector3D,
                                     scale:Vector3D = null,
