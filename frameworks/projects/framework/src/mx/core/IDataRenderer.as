@@ -58,6 +58,11 @@ package mx.core
  *        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
  *    }
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IDataRenderer
 {
@@ -73,6 +78,11 @@ public interface IDataRenderer
 
 	/**
 	 *  The data to render or edit.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get data():Object;
 	
