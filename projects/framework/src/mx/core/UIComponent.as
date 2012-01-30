@@ -11784,35 +11784,31 @@ public class UIComponent extends FlexSprite
     }
     
     /**
-     *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
-     *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
-     *  for a component that will be rotated 90 degrees, you set the component's <code>rotation</code> property. 
-     *  If you want the layout to <i>not</i> adjust for the component being rotated, you set its 
-     *  <code>postLayoutTransformOffsets.rotationZ</code> property.
+     *  @copy mx.core.ILayoutElement#postLayoutTransformOffsets
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
+    public function get postLayoutTransformOffsets():TransformOffsets
+    {
+        return (_layoutFeatures != null)? _layoutFeatures.postLayoutTransformOffsets:null;
+    }
+
+    /**
+     * @private
+     */
     public function set postLayoutTransformOffsets(value:TransformOffsets):void
     {
-		if (_layoutFeatures == null)
-			initAdvancedLayoutFeatures();
+        if (_layoutFeatures == null)
+            initAdvancedLayoutFeatures();
         
         if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.removeEventListener(Event.CHANGE,transformOffsetsChangedHandler);
         _layoutFeatures.postLayoutTransformOffsets = value;
         if (_layoutFeatures.postLayoutTransformOffsets != null)
             _layoutFeatures.postLayoutTransformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
-    }
-
-    /**
-     * @private
-     */
-    public function get postLayoutTransformOffsets():TransformOffsets
-    {
-        return (_layoutFeatures != null)? _layoutFeatures.postLayoutTransformOffsets:null;
     }
 
     /**
@@ -11904,17 +11900,7 @@ public class UIComponent extends FlexSprite
     private static var xformPt:Point;
 
     /**
-     * A utility method to update the rotation, scale, and translation of the 
-     * transform while keeping a particular point, specified in the component's 
-     * own coordinate space, fixed in the parent's coordinate space.  
-     * This function will assign the rotation, scale, and translation values 
-     * provided, then update the x/y/z properties as necessary to keep 
-     * the transform center fixed.
-     * @param transformCenter the point, in the component's own coordinates, 
-     * to keep fixed relative to its parent.
-     * @param scale the new values for the scale of the transform
-     * @param rotation the new values for the rotation of the transform
-     * @param translation the new values for the translation of the transform
+     * @copy mx.core.ILayoutElement#transformAround
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -11938,7 +11924,11 @@ public class UIComponent extends FlexSprite
                 (translation != null && translation.z != 0 && !isNaN(translation.z)) ||
                 postLayoutScale != null ||
                 postLayoutRotation != null ||
-                postLayoutTranslation != null;
+                (postLayoutTranslation != null && 
+                    (translation == null ||
+                     postLayoutTranslation.x != translation.x ||
+                     postLayoutTranslation.y != translation.y ||
+                     postLayoutTranslation.z != translation.z));
             if (needAdvancedLayout)
                 initAdvancedLayoutFeatures();
         }
@@ -11952,6 +11942,15 @@ public class UIComponent extends FlexSprite
         }
         else
         {
+            if (translation == null && transformCenter != null)
+            {
+                if (xformPt == null)
+                    xformPt = new Point();
+                xformPt.x = transformCenter.x;
+                xformPt.y = transformCenter.y;                
+                var xformedPt:Point = 
+                    super.transform.matrix.transformPoint(xformPt);
+            }
             if (rotation != null && !isNaN(rotation.z))
                 this.rotation = rotation.z;
             if (scale != null)
@@ -11982,8 +11981,6 @@ public class UIComponent extends FlexSprite
                 }
                 else
                 {
-                    var xformedPt:Point = 
-                        super.transform.matrix.transformPoint(xformPt);
                     x += xformedPt.x - postXFormPoint.x;
                     y += xformedPt.y - postXFormPoint.y;                                   
                 }
