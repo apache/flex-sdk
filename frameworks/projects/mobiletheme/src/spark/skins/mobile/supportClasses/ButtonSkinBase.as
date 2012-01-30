@@ -148,11 +148,11 @@ public class ButtonSkinBase extends MobileSkin
     override protected function createChildren():void
     {                   
         labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        labelDisplay.styleProvider = this;
+        labelDisplay.styleName = this;
         labelDisplay.addEventListener(FlexEvent.VALUE_COMMIT, labelDisplay_valueCommitHandler);
         
         labelDisplayShadow = StyleableTextField(createInFontContext(StyleableTextField));
-        labelDisplayShadow.styleProvider = this;
+        labelDisplayShadow.styleName = this;
         
         labelDisplayShadow.colorName = "textShadowColor";
         
@@ -185,11 +185,6 @@ public class ButtonSkinBase extends MobileSkin
         }
         
         super.styleChanged(styleProp);
-        
-        if (labelDisplay)
-            labelDisplay.styleChanged(styleProp);
-        if (labelDisplayShadow)
-            labelDisplayShadow.styleChanged(styleProp);
     }
     
     /**
