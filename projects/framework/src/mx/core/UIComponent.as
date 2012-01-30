@@ -7380,7 +7380,20 @@ public class UIComponent extends FlexSprite
         dispatchEvent(new FlexEvent(FlexEvent.PREINITIALIZE));
 
         // Create child objects.
+        
+        CONFIG::performanceInstrumentation
+        {
+            var perfUtil:mx.utils.PerfUtil = mx.utils.PerfUtil.getInstance();
+            var token:int = perfUtil.markStart();
+        }
+
         createChildren();
+
+        CONFIG::performanceInstrumentation
+        {
+            perfUtil.markEnd(this.toString() + ".createChildren()", token, 0 /*tolerance*/);
+        }
+
         childrenCreated();
 
         // Create and initialize the accessibility implementation.
