@@ -601,15 +601,6 @@ public class FlipViewTransition extends ViewTransitionBase
         transitionGroup.y = viewHeight / 2;
         transitionGroup.z = vertical ? (viewHeight / 2) : (viewWidth / 2);
         
-		// If we are doing a consolidated effect, we need to shift the transition
-		// group over by the x and y position of the targetNavigator because
-        // the transitionGroup will be the view's parent and not the view
-		if (consolidatedTransition)
-		{
-			transitionGroup.x += targetNavigator.x;
-			transitionGroup.y += targetNavigator.y;
-		}
-		
         // Position the 'faces' of our cube.
         if (vertical)
         {
@@ -638,7 +629,16 @@ public class FlipViewTransition extends ViewTransitionBase
     {
         var projection:PerspectiveProjection = new PerspectiveProjection();
         projection.fieldOfView = 45;
-        projection.projectionCenter = new Point(viewWidth / 2, viewHeight / 2);
+        
+        var centerPoint:Point = new Point(viewWidth / 2, viewHeight / 2);
+        
+        if (consolidatedTransition)
+        {
+            centerPoint.x += transitionGroup.x;
+            centerPoint.y += transitionGroup.y;
+        }
+        
+        projection.projectionCenter = centerPoint;
         return projection;
     }
     
@@ -686,13 +686,41 @@ public class FlipViewTransition extends ViewTransitionBase
         // views while flipping.  Offset our transition group as necessary to 
         // ensure we flip relative to our center.
         transitionGroup = new Group();
-        transitionGroup.includeInLayout=false;
+        
+        // Add transition group to the parent of the endView
         addComponentToContainer(transitionGroup, UIComponent(endView.parent));
+        
+        // This transition does a lot of reparenting of the views which will cause
+        // multiple ADD and REMOVE events to be dispatched.  Since this event was already
+        // dispatched before the transition began, we don't want that setup code
+        // to be run multiple times.  So we listen for the events and prevent
+        // them from propagating.
+        if (endView.hasEventListener(FlexEvent.ADD))
+            endView.addEventListener(FlexEvent.ADD, view_addOrRemoveHandler, false, 1);
+        
+        if (endView.hasEventListener(FlexEvent.REMOVE))
+            endView.addEventListener(FlexEvent.REMOVE, view_addOrRemoveHandler, false, 1);
+        
+        if (startView.hasEventListener(FlexEvent.ADD))
+            startView.addEventListener(FlexEvent.ADD, view_addOrRemoveHandler, false, 1);
+        
+        if (startView.hasEventListener(FlexEvent.REMOVE))
+            startView.addEventListener(FlexEvent.REMOVE, view_addOrRemoveHandler, false, 1);
+        
+        // Reparent the start and end views into the transition group
         transitionGroup.addElement(endView);
         transitionGroup.addElement(startView);
         
         // Setup our transition group's perspective projection properties.
         transitionGroup.transform.perspectiveProjection = createCenteredProjection();
+    }
+    
+    /**
+     *  @private
+     */
+    private function view_addOrRemoveHandler(event:FlexEvent):void
+    {
+        event.stopImmediatePropagation();
     }
     
     /**
@@ -717,8 +745,22 @@ public class FlipViewTransition extends ViewTransitionBase
         // Add a temporary group to contain our snapshot view of the navigator
         // while we animate.
         transitionGroup = new Group();
-        transitionGroup.includeInLayout = false;
 
+        // FIXME (chiedozi): If navigator isn't at (0,0), I don't think this will work
+        // Size the transitionGroup to match the width and height of the navigator
+        // so that the parent of the targetNavigator's layout remains unchanged 
+        transitionGroup.width = targetNavigator.width;
+        transitionGroup.height = targetNavigator.height;
+        transitionGroup.x = targetNavigator.x;
+        transitionGroup.y = targetNavigator.y;
+        
+        // The cached navigator and targetNavigator are currently position at their original
+        // coordinates.  Since they will be parented into the transition group that already
+        // takes that into consideration, we want to reposition the components to be at the
+        // origin of the container.
+        targetNavigator.x -= transitionGroup.x;
+        targetNavigator.y -= transitionGroup.y;
+        
         // Add the transition group at the same index of the target navigator
         addComponentToContainerAt(transitionGroup, DisplayObject(targetNavigator).parent as UIComponent, navigatorProps.childIndex);
         
@@ -827,6 +869,19 @@ public class FlipViewTransition extends ViewTransitionBase
                 navigator.contentGroup.addElement(startView);
                 navigator.contentGroup.addElement(endView);
             }
+            
+            // Remove add handlers added to the views
+            if (endView.hasEventListener(FlexEvent.ADD))
+                endView.removeEventListener(FlexEvent.ADD, view_addOrRemoveHandler);
+            
+            if (endView.hasEventListener(FlexEvent.REMOVE))
+                endView.removeEventListener(FlexEvent.REMOVE, view_addOrRemoveHandler);
+            
+            if (startView.hasEventListener(FlexEvent.ADD))
+                startView.removeEventListener(FlexEvent.ADD, view_addOrRemoveHandler);
+            
+            if (startView.hasEventListener(FlexEvent.REMOVE))
+                startView.removeEventListener(FlexEvent.REMOVE, view_addOrRemoveHandler);
             
             // Extract our temporary transition group.
             Group(transitionGroup.parent).removeElement(transitionGroup);
