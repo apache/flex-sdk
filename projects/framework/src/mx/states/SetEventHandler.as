@@ -186,6 +186,17 @@ public class SetEventHandler extends OverrideBase implements IOverride
      */
     public var target:Object;
 
+    /**
+     *  The cached target for which we applied our override.
+     *  We keep track of the applied target while applied since
+     *  our target may be swapped out in the owning document and 
+     *  we want to make sure we roll back the correct (original) 
+     *  element. 
+     *
+     *  @private
+     */
+    private var appliedTarget:Object;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: EventDispatcher
@@ -241,7 +252,7 @@ public class SetEventHandler extends OverrideBase implements IOverride
         var obj:* = getOverrideContext(target, parent);
         if (obj != null)
         {
-        	target = obj;
+        	appliedTarget = obj;
 	        var uiObj:UIComponent = obj as UIComponent;
 	
 	        if (!installedHandlers)
@@ -289,7 +300,7 @@ public class SetEventHandler extends OverrideBase implements IOverride
      */
     public function remove(parent:UIComponent):void
     {
-        var obj:* = getOverrideContext(target, parent);
+        var obj:* = getOverrideContext(appliedTarget, parent);
         if (obj != null)
         {
 	        if (handlerFunction != null)
@@ -319,6 +330,7 @@ public class SetEventHandler extends OverrideBase implements IOverride
 	                delete installedHandlers[obj];
 	        }
         }
+        appliedTarget = null;
     }
 }
 
