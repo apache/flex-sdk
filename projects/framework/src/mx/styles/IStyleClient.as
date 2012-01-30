@@ -25,6 +25,11 @@ import mx.styles.ISimpleStyleClient;
  *
  *  @see mx.styles.ISimpleStyleClient
  *  @see mx.styles.CSSStyleDeclaration
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IStyleClient extends ISimpleStyleClient
 {
@@ -40,6 +45,11 @@ public interface IStyleClient extends ISimpleStyleClient
 
     /**
      *  The name of the component class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get className():String;
 
@@ -49,6 +59,11 @@ public interface IStyleClient extends ISimpleStyleClient
 
     /**
      *  An object containing the inheritable styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get inheritingStyles():Object;
 
@@ -63,6 +78,11 @@ public interface IStyleClient extends ISimpleStyleClient
 
     /**
      *  An object containing the noninheritable styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get nonInheritingStyles():Object;
 
@@ -80,6 +100,11 @@ public interface IStyleClient extends ISimpleStyleClient
      *  object.
      *
      *  @see mx.styles.CSSStyleDeclaration
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get styleDeclaration():CSSStyleDeclaration;
 
@@ -130,6 +155,11 @@ public interface IStyleClient extends ISimpleStyleClient
      *  @param styleProp Name of the style property.
      *
      *  @return Style value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getStyle(styleProp:String):*;
 
@@ -144,6 +174,11 @@ public interface IStyleClient extends ISimpleStyleClient
      *  @param styleProp Name of the style property.
      *
      *  @param newValue New value for the style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function setStyle(styleProp:String, newValue:*):void
 
@@ -154,6 +189,11 @@ public interface IStyleClient extends ISimpleStyleClient
      *  <code>undefined</code>.</p>
      *
      *  @param styleProp Name of the style property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function clearStyle(styleProp:String):void;
 
@@ -166,6 +206,11 @@ public interface IStyleClient extends ISimpleStyleClient
      *  finally, it looks for a UIComponent type selector.</p>
      *
      *  @return Array of CSSStyleDeclaration objects.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getClassStyleDeclarations():Array; // of CSSStyleDeclaration;
 
@@ -175,6 +220,11 @@ public interface IStyleClient extends ISimpleStyleClient
      *  @param styleProp Name of the style property.
      *
      *  @param recursive Whether to propagate the style changes to the children's children. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function notifyStyleChangeInChildren(styleProp:String,
                                          recursive:Boolean):void;
@@ -186,6 +236,11 @@ public interface IStyleClient extends ISimpleStyleClient
      *  style caches.
      *
      *  @param recursive Regenerate the proto chains of the children. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function regenerateStyleCache(recursive:Boolean):void;
 
@@ -193,6 +248,11 @@ public interface IStyleClient extends ISimpleStyleClient
      *  Registers the EffectManager as one of the event listeners for each effect event.
      *
      *  @param effects An Array of Strings of effect names. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function registerEffects(effects:Array /* of String */):void
 }
