@@ -12,6 +12,8 @@
 package mx.core
 {
 
+import mx.managers.ISystemManager;
+
 [ExcludeClass]
 
 /**
@@ -61,23 +63,31 @@ public interface IEmbeddedFontRegistry
 
     /**
      *  Finds the <code>moduleFactory</code> associated with a font.
-	 *
-	 *  <p>The <code>moduleFactory</code> is used to resolve the case
+     *
+     *  <p>The <code>moduleFactory</code> is used to resolve the case
      *  where multiple fonts are registered with the same attributes.</p>
      * 
      *  @param fontName FontFamily of the font
      *  @param bold true for bold fontWeight
      *  @param italic true for italic fontStyle
      *  @param object The Object using this font
-	 *
-	 *  @param defaultModuleFactory Used to resolve conflicts in the case
-	 *  where the same font is registered for multiple module factories.
-	 *  If one of the module factories of a font is associated with
-	 *  defaultModuleFactory, then that moduleFactory is returned.
-	 *  Otherwise the most recently registered moduleFactory will be chosen.
+     *
+     *  @param defaultModuleFactory Used to resolve conflicts in the case
+     *  where the same font is registered for multiple module factories.
+     *  If one of the module factories of a font is associated with
+     *  defaultModuleFactory, then that moduleFactory is returned.
+     *  Otherwise the most recently registered moduleFactory will be chosen.
+     *
+     *  @param systemManager Optional ISystemManager instance to use to
+     *  look for locally registered fonts that may not be present in our
+     *  compile time registry.
+     *
+     *  @param embeddedCff Optional flag to request that the resolved font
+     *  be tested for compatibilility. If true, we ensure the font is
+     *  of type EMBEDDED_CFF, if false we ensure it is EMBEDDED.
      * 
      *  @return moduleFactory that can be used to create an object
-	 *  in the context of the font. 
+     *  in the context of the font. 
      *  null if the font is not found in the registry.
      *  
      *  @langversion 3.0
@@ -85,10 +95,12 @@ public interface IEmbeddedFontRegistry
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	function getAssociatedModuleFactory(
-					fontName:String, bold:Boolean, italic:Boolean,
-					object:Object,
-					defaultModuleFactory:IFlexModuleFactory):IFlexModuleFactory;
+    function getAssociatedModuleFactory(
+                    fontName:String, bold:Boolean, italic:Boolean,
+                    object:Object,
+                    defaultModuleFactory:IFlexModuleFactory,
+                    systemManager:ISystemManager,
+                    embeddedCff:*=undefined):IFlexModuleFactory;
 
     /**
      *  Gets an array of all the fonts that have been registered.
