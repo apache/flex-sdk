@@ -390,13 +390,32 @@ package spark.automation.delegates
 					richEditableText.insertText("");
 				}
 				
+				// it was seen that at times event dispathing does not change
+				// the string and at times it changes.
+				// refer http://bugs.adobe.com/jira/browse/FLEXENT-1179
+				// We need to insert the text if the change has not happened.
+				// for this we need to find the string before and after the event dispatch.
+				// but the text does not display the correct value after the event dispatch. It shows
+				// only after we do an insert operation on the text after the same.
+				// but to do the inser operation, we need to find the active and anchor position also.
+				// this also does not change when the value is dispatched and still is at the beginning of the string.
+				// so we need to calcualte it. Here we need to consider the direction.
+				var stringBeforeChange:String = richEditableText.text;
+				var insertPos:int = richEditableText.selectionActivePosition;
+				var direction:int = -1;
+				if(richEditableText && richEditableText.textFlow && richEditableText.textFlow.computedFormat &&
+					richEditableText.textFlow.computedFormat.direction)
+				{
+					if (richEditableText.textFlow.computedFormat.direction=="ltr")
+						direction = 1;
+				}
+				
 				for (var i:uint = 0; i < n; i++)
 				{
 					ke = new KeyboardEvent(KeyboardEvent.KEY_DOWN);
 					ke.charCode = text.charCodeAt(i);
 					ke.keyCode = text.charCodeAt(i);
 					richEditableText.dispatchEvent(ke);
-					var pos:int ;
 					
 					// we dont need any special handling on the string.
 					// replaying the key board events takes care of the needed.
@@ -418,8 +437,27 @@ package spark.automation.delegates
 					
 					// dispatch a change event to indicate that the value is changed.
 					richEditableText.dispatchEvent(changeEvent);
-					
+					// calculate the new insert position.
+					insertPos += direction*1;
+				
 				}
+				
+				if(text.length > 0)
+				{
+					// do the operation to reflect the text value
+					richEditableText.selectRange(insertPos,insertPos);
+					richEditableText.insertText("");
+					
+					// check whethr the string is changed after the event dispatch
+					// refer http://bugs.adobe.com/jira/browse/FLEXENT-1179
+					var stringAfterChange:String = richEditableText.text;
+					
+					if(stringBeforeChange == stringAfterChange)
+					{
+						richEditableText.insertText(text);
+					}
+				}
+				
 				
 				return true;
 			}
