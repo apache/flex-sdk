@@ -159,6 +159,11 @@ public class CursorManagerImpl implements ICursorManager
      *    Don't modify or read these variables unless you are certain
      *    you will not create race conditions. E.g. you may get the
      *    wrong (or no) cursor, and get stuck in an inconsistent state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      
     /**
@@ -231,6 +236,11 @@ public class CursorManagerImpl implements ICursorManager
     /**
      *  ID of the current custom cursor,
      *  or CursorManager.NO_CURSOR if the system cursor is showing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentCursorID():int
     {
@@ -268,6 +278,11 @@ public class CursorManagerImpl implements ICursorManager
      *  relative to the mouse pointer.
      *       
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentCursorXOffset():Number 
     {
@@ -305,6 +320,11 @@ public class CursorManagerImpl implements ICursorManager
      *  relative to the mouse pointer.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentCursorYOffset():Number 
     {
@@ -340,6 +360,11 @@ public class CursorManagerImpl implements ICursorManager
      *  A single call to the <code>showCursor()</code> method
      *  always shows the cursor regardless of how many calls
      *  to the <code>hideCursor()</code> method were made.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function showCursor():void
     {
@@ -361,6 +386,11 @@ public class CursorManagerImpl implements ICursorManager
      *  A single call to the <code>hideCursor()</code> method
      *  always hides the cursor regardless of how many calls
      *  to the <code>showCursor()</code> method were made.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function hideCursor():void
     {
@@ -399,6 +429,11 @@ public class CursorManagerImpl implements ICursorManager
      *  @return The ID of the cursor.
      *
      *  @see mx.managers.CursorManagerPriority
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setCursor(cursorClass:Class, priority:int = 2,
                                      xOffset:Number = 0,
@@ -462,6 +497,11 @@ public class CursorManagerImpl implements ICursorManager
      *  the default system cursor.
      *
      *  @param cursorID ID of cursor to remove.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeCursor(cursorID:int):void 
     {
@@ -495,6 +535,11 @@ public class CursorManagerImpl implements ICursorManager
     /**
      *  Removes all of the cursors from the cursor list
      *  and restores the system cursor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeAllCursors():void
     {
@@ -521,6 +566,11 @@ public class CursorManagerImpl implements ICursorManager
      *  until you remove the higher priority cursor.
      *  To create a busy cursor at a higher priority level,
      *  use the <code>setCursor()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setBusyCursor():void 
     {
@@ -549,6 +599,11 @@ public class CursorManagerImpl implements ICursorManager
      *  which means you called the <code>setBusyCursor()</code> method more than once,
      *  a busy cursor does not disappear until you remove
      *  all busy cursors from the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeBusyCursor():void 
     {
@@ -997,6 +1052,11 @@ public class CursorManagerImpl implements ICursorManager
 
 	/**
 	 *  Marshal cursorManager
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function marshalCursorManagerHandler(event:Event):void
 	{
@@ -1138,6 +1198,11 @@ class CursorQueueItem
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CursorQueueItem()
     {
