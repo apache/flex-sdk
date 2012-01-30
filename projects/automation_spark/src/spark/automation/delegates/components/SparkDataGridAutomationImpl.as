@@ -373,8 +373,12 @@ package spark.automation.delegates.components
 		 */
 		public function getCompleteRenderersArray():Array
 		{
-			const rowCount:int = grid.dataProvider.length;
-			const columnCount:int = grid.columns.length;
+			var rowCount:int = 0;
+			if(grid.dataProvider)
+				rowCount = grid.dataProvider.length;
+			var columnCount:int = 0;
+			if(grid.columns)
+				columnCount = grid.columns.length;
 			const renderers:Array = new Array(rowCount+1);
 			renderers[0] = new Array(columnCount);
 			
