@@ -85,7 +85,7 @@ public class ButtonSkinBase extends MobileSkin
      *  @private
      *  Flag that is set when the currentState changes from enabled to disabled
      */
-    private var enabledChanged:Boolean; 
+    private var enabledChanged:Boolean = false; 
     
     /**
      *  labelDisplay skin part.
@@ -221,6 +221,7 @@ public class ButtonSkinBase extends MobileSkin
         {
             // force enabled update when icon changes
             enabledChanged = true;
+            iconChanged = false;
             setIcon(getStyle("icon"));
         }
         
@@ -228,7 +229,6 @@ public class ButtonSkinBase extends MobileSkin
         {
             commitDisabled();
             enabledChanged = false;
-            iconChanged = false;
         }
     }
     
@@ -243,7 +243,6 @@ public class ButtonSkinBase extends MobileSkin
         
         var textWidth:Number = 0;
         var textHeight:Number = 0;
-        var textDescent:Number = 0;
         
         // reset text if it was truncated before.
         if (hostComponent && labelDisplay.isTruncated)
