@@ -4981,7 +4981,7 @@ public class UIComponent extends FlexSprite
      *
      *  @see spark.components.Scroller
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -5074,7 +5074,7 @@ public class UIComponent extends FlexSprite
      *
      *  @default true
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -7474,41 +7474,41 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function childAdded(child:DisplayObject):void
     {
-		if (!UIComponentGlobals.designMode)
-		{
-	        if (child is UIComponent)
-	        {
-	            if (!UIComponent(child).initialized)
-	                UIComponent(child).initialize();
-	        }
-	        else if (child is IUIComponent)
-	        {
-	            IUIComponent(child).initialize();
-	        }
-		}
-		else
-		{
-			try
-			{
-				if (child is UIComponent)
-				{
-					if (!UIComponent(child).initialized)
-						UIComponent(child).initialize();
-				}
-				else if (child is IUIComponent)
-				{
-					IUIComponent(child).initialize();
-				}				
-			}
-			catch (e:Error)
-			{
-				// Dispatch a initializeError dynamic event for tooling. 
-				var initializeErrorEvent:DynamicEvent = new DynamicEvent("initializeError");
-				initializeErrorEvent.error = e;
-				initializeErrorEvent.source = child; 
-				systemManager.dispatchEvent(initializeErrorEvent);
-			}
-		}
+        if (!UIComponentGlobals.designMode)
+        {
+            if (child is UIComponent)
+            {
+                if (!UIComponent(child).initialized)
+                    UIComponent(child).initialize();
+            }
+            else if (child is IUIComponent)
+            {
+                IUIComponent(child).initialize();
+            }
+        }
+        else
+        {
+            try
+            {
+                if (child is UIComponent)
+                {
+                    if (!UIComponent(child).initialized)
+                        UIComponent(child).initialize();
+                }
+                else if (child is IUIComponent)
+                {
+                    IUIComponent(child).initialize();
+                }               
+            }
+            catch (e:Error)
+            {
+                // Dispatch a initializeError dynamic event for tooling. 
+                var initializeErrorEvent:DynamicEvent = new DynamicEvent("initializeError");
+                initializeErrorEvent.error = e;
+                initializeErrorEvent.source = child; 
+                systemManager.dispatchEvent(initializeErrorEvent);
+            }
+        }
     }
 
     /**
@@ -7600,7 +7600,7 @@ public class UIComponent extends FlexSprite
     {
         if (initialized)
             return;
-		
+        
         // The "preinitialize" event gets dispatched after everything about this
         // DisplayObject has been initialized, and it has been attached to
         // its parent, but before any of its children have been created.
@@ -7634,7 +7634,7 @@ public class UIComponent extends FlexSprite
 
         // This should always be the last thing that initialize() calls.
         initializationComplete();
-	}
+    }
 
     /**
      *  Finalizes the initialization of this component.
