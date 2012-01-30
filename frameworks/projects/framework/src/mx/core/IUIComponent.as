@@ -295,7 +295,7 @@ public interface IUIComponent extends IFlexDisplayObject
     //----------------------------------
 
     /**
-     *  @copy mx.core.IVisualItem#owner
+     *  @copy mx.core.IVisualElement#owner
      */
     function get owner():DisplayObjectContainer;
 
