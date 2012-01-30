@@ -536,6 +536,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             if (popUpParent is UIComponent)
             {
                 rect = UIComponent(popUpParent).getVisibleRect();
+				if (UIComponent(popUpParent).systemManager != sbRoot)
+					rect = UIComponent(popUpParent).systemManager.getVisibleApplicationRect(rect);
                 var offset:Point = popUpParent.globalToLocal(rect.topLeft);
                 clippingOffset.x += offset.x;
                 clippingOffset.y += offset.y;
