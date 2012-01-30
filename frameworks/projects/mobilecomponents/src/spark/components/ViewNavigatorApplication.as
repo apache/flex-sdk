@@ -6,10 +6,13 @@ package spark.components
     import flash.events.KeyboardEvent;
     import flash.events.StageOrientationEvent;
     import flash.net.registerClassAlias;
+    import flash.system.Capabilities;
+    import flash.system.System;
     import flash.ui.Keyboard;
     
     import mx.core.IVisualElement;
     import mx.core.mx_internal;
+    import mx.events.FlexEvent;
     import mx.utils.BitFlagUtil;
     
     import spark.components.supportClasses.ViewData;
@@ -28,9 +31,14 @@ package spark.components
     //--------------------------------------
     
     /**
-     *  @inherit
+     *  @inheritDic
      */
-    [Event(name="applicationRestore", type="flash.events.Event")]
+    [Event(name="applicationPersist", type="mx.events.FlexEvent")]
+    
+    /**
+     *  @inheritDic
+     */
+    [Event(name="applicationRestore", type="mx.events.FlexEvent")]
     
     public class MobileApplication extends Application
     {
@@ -559,15 +567,30 @@ package spark.components
             // This method called on Android when app run in background
             if (sessionCachingEnabled)
             {
-                persistenceManager.setProperty("selectedSection", navigator.selectedIndex);
+                // Dispatch event for saving persistence data
+                var eventDispatched:Boolean = true;
+                if (hasEventListener(FlexEvent.APPLICATION_PERSIST))
+                    eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSIST, false, true));
                 
-                if (navigator.activeView)
+                if (eventDispatched)
                 {
-                    navigator.activeView.active = false;
-                    navigator.persistCurrentView();
+                    // Save version number of application
+                    var appDescriptor:XML = NativeApplication.nativeApplication.applicationDescriptor;
+                    var ns:Namespace = appDescriptor.namespace();
+                    
+                    persistenceManager.setProperty("applicationVersion", appDescriptor.ns::versionNumber.toString());
+                    persistenceManager.setProperty("timestamp", new Date().getMilliseconds());
+                    persistenceManager.setProperty("selectedSection", navigator.selectedIndex);
+                    persistenceManager.setProperty("sectionData", sections);
+                    
+                    if (navigator.activeView)
+                    {
+                        navigator.activeView.active = false;
+                        navigator.persistCurrentView();
+                    }
+                    
+                    persistenceManager.flush();
                 }
-                
-                persistenceManager.flush();
             }
         }
         
@@ -583,8 +606,16 @@ package spark.components
             
             // Add device key listeners
             NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, applicationActivateHandler);
-            NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, applicationDeactivateHandler);
-            NativeApplication.nativeApplication.addEventListener(Event.EXITING, applicationDeactivateHandler);
+            
+            // We need to listen to different events on desktop and mobile because
+            // on desktop, the deactivate event is dispatched whenever the window loses
+            // focus.  This could cause persistence to run when the developer doesn't
+            // expect it to on desktop.
+            var os:String = Capabilities.os;
+            if (os.indexOf("Windows") != -1 || os.indexOf("Mac OS") != -1)
+                NativeApplication.nativeApplication.addEventListener(Event.EXITING, applicationDeactivateHandler);
+            else
+                NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, applicationDeactivateHandler);
             
             systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler);
             systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
@@ -605,8 +636,8 @@ package spark.components
                 
                 // Dispatch event for loading persistence data
                 var eventDispatched:Boolean = true;
-                if (hasEventListener("applicationRestore"))
-                    eventDispatched = dispatchEvent(new Event("applicationRestore", false, true))
+                if (hasEventListener(FlexEvent.APPLICATION_RESTORE))
+                    eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_RESTORE, false, true))
 
                 if (eventDispatched)
                 {
@@ -628,6 +659,9 @@ package spark.components
                             navigator.tabBar.selectedIndex = navigator.selectedIndex;
                     }
                 }
+                
+                // Clear previously persisted data
+                persistenceManager.clear();
             }
             
             // If the sections property is not set by this point, MobileApplication will
@@ -715,7 +749,7 @@ package spark.components
                 navigatorProperties = newNavigatorProperties;
                 
                 // Add event listeners
-                navigator.addEventListener(Event.COMPLETE, persistViewData);
+//                navigator.addEventListener(Event.COMPLETE, persistViewData);
                 navigator.addEventListener(ViewNavigatorEvent.VIEW_ADD, navigator_viewAddHandler);
             }
         }
@@ -755,7 +789,7 @@ package spark.components
                 navigatorProperties = newNavigatorProperties;
                 
                 // TODO (chiedozi): Do i need to null out the properties on navigator?  Applicaiton does.
-                navigator.removeEventListener(Event.COMPLETE, persistViewData);
+//                navigator.removeEventListener(Event.COMPLETE, persistViewData);
                 navigator.removeEventListener(ViewNavigatorEvent.VIEW_ADD, navigator_viewAddHandler);
             }
         }
