@@ -11,6 +11,8 @@
 
 package spark.skins.mobile
 {
+import mx.core.DPIClassification;
+
 import spark.components.TextArea;
 import spark.components.supportClasses.StyleableTextField;
 import spark.skins.mobile.supportClasses.StageTextSkinBase;
@@ -43,6 +45,25 @@ public class StageTextAreaSkin extends StageTextSkinBase
     {
         super();
         multiline = true;
+        
+        switch (applicationDPI)
+        {
+            case DPIClassification.DPI_320:
+            {
+                measuredDefaultHeight = 106;
+                break;
+            }
+            case DPIClassification.DPI_240:
+            {
+                measuredDefaultHeight = 70;
+                break;
+            }
+            default:
+            {
+                measuredDefaultHeight = 53;
+                break;
+            }
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -77,8 +98,8 @@ public class StageTextAreaSkin extends StageTextSkinBase
         var paddingTop:Number = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
         
-        var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
-        var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
+        var unscaledTextWidth:Number = Math.max(0, unscaledWidth - paddingLeft - paddingRight);
+        var unscaledTextHeight:Number = Math.max(0, unscaledHeight - paddingTop - paddingBottom);
         
         if (textDisplay)
         {
