@@ -10191,6 +10191,10 @@ public class UIComponent extends FlexSprite
      */
     protected function stateChanged(oldState:String, newState:String, recursive:Boolean):void
     {
+        // This test only checks for pseudo conditions on the subject of the selector.
+        // Pseudo conditions on ancestor selectors are not detected - eg:
+        //    List ScrollBar:inactive #track
+        // The track styles will not change when the scrollbar is in the inactive state.
         if (currentCSSState && oldState != newState &&
                (styleManager.hasPseudoCondition(oldState) ||
                 styleManager.hasPseudoCondition(newState)))
