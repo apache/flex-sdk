@@ -907,6 +907,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             
             currentView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
             removeElement(currentView);
+            currentView.returnedObject = null;
             
             // FIXME (chiedozi): Figure out how to use focus manager to manage focus
             // when a component in the current view has focus.
@@ -1003,7 +1004,14 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             
             view.navigator = this;
             view.data = pendingViewData.data;
-            
+
+            // TODO (chiedozi): Need to do this when the view data object is popped.
+            // Otherwise the wrong view may get the returned object when
+            // multiple pops occur
+            // Grab the views return object and set it on the new view
+            if (lastAction == POP_ACTION && activeView)
+                view.returnedObject = activeView.createReturnObject();
+                
             addElement(view);
         }
         
