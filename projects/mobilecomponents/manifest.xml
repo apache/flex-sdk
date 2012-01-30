@@ -16,23 +16,10 @@
 
 -->
 <componentPackage>
+    <component id="ActionBar" class="spark.components.ActionBar"/>
+    <component id="FlipViewTransition" class="spark.effects.FlipViewTransition"/>
     <component id="MobileApplication" class="spark.components.MobileApplication"/>
     <component id="View" class="spark.components.View"/>
     <component id="ViewNavigator" class="spark.components.ViewNavigator"/>
-    <component id="ViewNavigatorSection" class="spark.components.supportClasses.ViewNavigatorSection" />
-    
-	<!-- Slider -->
-    <component id="Screen" class="spark.components.Screen"/>
-    <component id="AdaptableScreen" class="spark.components.AdaptableScreen"/>
-    <component id="ScreenApplication" class="spark.components.ScreenApplication"/>
-    <component id="AdaptableApplication" class="spark.components.AdaptableApplication"/>
-    <component id="ActionBar" class="spark.components.ActionBar"/>
-    <component id="NavigationBar" class="spark.components.NavigationBar"/>
-    <component id="SliderTabBar" class="spark.components.SliderTabBar" />
-    <component id="TabItem" class="spark.components.supportClasses.TabItem" />
-    <component id="TabButton" class="spark.components.TabButton" />
-    <component id="Toolbar" class="spark.components.Toolbar" />
-    <component id="ScreenStack" class="spark.core.navigators.supportClasses.ScreenStack" />
-    <component id="SlideTransition" class="spark.effects.SlideTransition"/>
-
+    <component id="ViewNavigatorSection" class="spark.components.supportClasses.ViewNavigatorSection"/>
 </componentPackage>
