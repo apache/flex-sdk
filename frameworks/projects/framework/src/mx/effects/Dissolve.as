@@ -12,9 +12,12 @@
 package mx.effects
 {
 
+import mx.core.mx_internal;
 import mx.effects.effectClasses.DissolveInstance;
 import mx.graphics.RoundedRectangle;
 import mx.styles.StyleManager;
+
+use namespace mx_internal;
 
 /**
  *  Animate the component from transparent to opaque,
@@ -250,7 +253,7 @@ public class Dissolve extends TweenEffect
 		dissolveInstance.alphaFrom = alphaFrom;
 		dissolveInstance.alphaTo = alphaTo;
 		dissolveInstance.color = color;
-		dissolveInstance.mx_internal::persistAfterEnd = mx_internal::persistAfterEnd;
+		dissolveInstance.persistAfterEnd = persistAfterEnd;
 		dissolveInstance.targetArea = targetArea;
 	}
 }
