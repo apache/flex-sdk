@@ -23,6 +23,7 @@ import mx.effects.effectClasses.HideShowEffectTargetFilter;
 import mx.effects.effectClasses.PropertyChanges;
 import mx.events.EffectEvent;
 import mx.managers.LayoutManager;
+import mx.styles.IStyleClient;
 
 use namespace mx_internal;
 
@@ -1146,6 +1147,9 @@ public class Effect extends EventDispatcher implements IEffect
             for (i = 0; i < n; i++)
             {
                 target = propChanges[i].target;
+                if (!(target is IStyleClient))
+                    continue;
+                    
                 valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
                                         
                 // Walk the properties in the target.
@@ -1231,7 +1235,8 @@ public class Effect extends EventDispatcher implements IEffect
                 m = relevantStyles.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (relevantStyles[j] in propChanges[i].start)
+                    if (relevantStyles[j] in propChanges[i].start &&
+                        target is IStyleClient)
                         target.setStyle(relevantStyles[j], propChanges[i].start[relevantStyles[j]]);
                 }
             }
