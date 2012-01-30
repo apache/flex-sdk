@@ -1192,6 +1192,10 @@ public class Effect extends EventDispatcher implements IEffect
 
             // Revalidate after applying the start values, to get everything
             // back the way it should be before starting the animation
+            // TODO (chaase): should we skip this step if the effect has asked
+            // to disable layout while it runs? Otherwise we are about to validate
+            // the targets in a layout that has potentially been set to a post-effect
+            // value
             LayoutManager.getInstance().validateNow();
             
             applyEndValuesWhenDone = true;
@@ -1551,7 +1555,13 @@ public class Effect extends EventDispatcher implements IEffect
                 m = effectProps.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (effectProps[j] in propChanges[i].start)
+                    var propName:String = effectProps[j];
+                    var startVal:* = propChanges[i].start[propName];
+                    var endVal:* = propChanges[i].end[propName];
+                    if (propName in propChanges[i].start &&
+                        endVal != startVal &&
+                        (!(startVal is Number) ||
+                         !(isNaN(endVal) && isNaN(startVal))))
                     {
                         applyValueToTarget(target, effectProps[j],
                                 propChanges[i].start[effectProps[j]],
@@ -1563,12 +1573,20 @@ public class Effect extends EventDispatcher implements IEffect
                 m = relevantStyles.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (relevantStyles[j] in propChanges[i].start &&
+                    var styleName:String = relevantStyles[j];
+                    var startStyle:* = propChanges[i].start[styleName];
+                    var endStyle:* = propChanges[i].end[styleName];
+                    if (styleName in propChanges[i].start &&
+                        endStyle != startStyle &&
+                        (!(startStyle is Number) ||
+                         !(isNaN(endStyle) && isNaN(startStyle))) &&
                         target is IStyleClient)
+                    {
                         if (propChanges[i].end[relevantStyles[j]] !== undefined)
                             target.setStyle(relevantStyles[j], propChanges[i].start[relevantStyles[j]]);
                         else
                             target.clearStyle(relevantStyles[j]);
+                    }
                 }
             }
         }
@@ -1614,10 +1632,16 @@ public class Effect extends EventDispatcher implements IEffect
                 m = effectProps.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (effectProps[j] in propChanges[i].end)
+                    var propName:String = effectProps[j];
+                    var startVal:* = propChanges[i].start[propName];
+                    var endVal:* = propChanges[i].end[propName];
+                    if (propName in propChanges[i].end &&
+                        endVal != startVal &&
+                        (!(endVal is Number) ||
+                         !(isNaN(endVal) && isNaN(startVal))))
                     {
-                        applyValueToTarget(target, effectProps[j],
-                                propChanges[i].end[effectProps[j]],
+                        applyValueToTarget(target, propName,
+                                propChanges[i].end[propName],
                                 propChanges[i].end);
                     }
                 }
@@ -1626,13 +1650,19 @@ public class Effect extends EventDispatcher implements IEffect
                 m = relevantStyles.length;
                 for (j = 0; j < m; j++)
                 {
-                    if (relevantStyles[j] in propChanges[i].end &&
+                    var styleName:String = relevantStyles[j];
+                    var startStyle:* = propChanges[i].start[styleName];
+                    var endStyle:* = propChanges[i].end[styleName];
+                    if (styleName in propChanges[i].end &&
+                        endStyle != startStyle &&
+                        (!(endStyle is Number) ||
+                         !(isNaN(endStyle) && isNaN(startStyle))) &&
                         target is IStyleClient)
                     {
-                        if (propChanges[i].end[relevantStyles[j]] !== undefined)
-                            target.setStyle(relevantStyles[j], propChanges[i].end[relevantStyles[j]]);
+                        if (propChanges[i].end[styleName] !== undefined)
+                            target.setStyle(styleName, propChanges[i].end[styleName]);
                         else
-                            target.clearStyle(relevantStyles[j]);
+                            target.clearStyle(styleName);
                     }
                 }
             }
