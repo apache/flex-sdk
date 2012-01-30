@@ -50,7 +50,6 @@ use namespace mx_internal;
  *  @default 50
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  *   
@@ -63,7 +62,6 @@ use namespace mx_internal;
  *  @default 0x000000
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */ 
@@ -123,7 +121,6 @@ use namespace mx_internal;
  *  @includeExample examples/views/BusyIndicatorExampleHomeView.mxml -noswf
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -161,7 +158,6 @@ public class BusyIndicator extends UIComponent
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
