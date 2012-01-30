@@ -7,11 +7,14 @@ package spark.components
     import flash.events.StageOrientationEvent;
     import flash.net.registerClassAlias;
     
+    import mx.core.IVisualElement;
+    
     import spark.components.supportClasses.ViewData;
     import spark.components.supportClasses.ViewNavigatorSection;
     import spark.core.managers.IPersistenceManager;
     import spark.core.managers.PersistenceManager;
     import spark.events.ViewNavigatorEvent;
+    import spark.layouts.supportClasses.LayoutBase;
 
     [DefaultProperty("sections")]
     
@@ -50,6 +53,84 @@ package spark.components
         //  Variables
         //
         //--------------------------------------------------------------------------
+        
+        [ArrayElementType("mx.core.IVisualElement")]
+        
+        /**
+         *  Default ActionBar action content when not supplied by a View.
+         *
+         *  @default null
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.5
+         *  @productversion Flex 4.5
+         */
+        public var actionContent:Array;
+        
+        /**
+         *  Defines the default layout for the ActionBar actionContent.
+         *
+         *  @default null
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.5
+         *  @productversion Flex 4.5
+         */
+        public var actionLayout:LayoutBase;
+        
+        [ArrayElementType("mx.core.IVisualElement")]
+        
+        /**
+         *  Default ActionBar title content when not supplied by a View.
+         *
+         *  @default null
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.5
+         *  @productversion Flex 4.5
+         */
+        public var titleContent:Array;
+        
+        /**
+         *  Defines the default layout for the ActionBar titleContent.
+         *
+         *  @default null
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.5
+         *  @productversion Flex 4.5
+         */
+        public var titleLayout:LayoutBase;
+        
+        [ArrayElementType("mx.core.IVisualElement")]
+        
+        /**
+         *  Default ActionBar navigation content when not supplied by a View.
+         *
+         *  @default null
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.5
+         *  @productversion Flex 4.5
+         */
+        public var navigationContent:Array;
+        
+        /**
+         *  Defines the default layout for the ActionBar navigationContent.
+         *
+         *  @default null
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.5
+         *  @productversion Flex 4.5
+         */
+        public var navigationLayout:LayoutBase;
         
         //--------------------------------------------------------------------------
         //
@@ -264,6 +345,17 @@ package spark.components
                 
                 navigator.sections = _sections;
                 _sections = null;
+                
+                // TODO null these properties?
+                // TODO push updates to ViewNavigator?
+                // TODO get/set properties?
+                // TODO events?
+                navigator.navigationContent = this.navigationContent;
+                navigator.navigationLayout = this.navigationLayout;
+                navigator.actionContent = this.actionContent;
+                navigator.actionLayout = this.actionLayout;
+                navigator.titleContent = this.titleContent;
+                navigator.titleLayout = this.titleLayout;
             }
         }
         
