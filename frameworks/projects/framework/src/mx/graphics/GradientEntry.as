@@ -59,22 +59,19 @@ public class GradientEntry extends EventDispatcher
 	 *  the transition to the associated color.
 	 *  Flex uniformly spaces any GradientEntries
 	 *  with missing ratio values.
-	 *  The default value is -1.0.
+	 *  The default value is NaN.
 	 *
 	 *  @param alpha The alpha value for this entry in the gradient. 
 	 *  This parameter is optional. The default value is 1.0.
 	 */
 	public function GradientEntry(color:uint = 0x000000,
-								  ratio:Number = -1.0,
+								  ratio:Number = NaN,
 								  alpha:Number = 1.0)
 	{
 		super();
 
-		this.color = color;
-		
-		if (ratio >= 0.0)
-			this.ratio = ratio;
-		
+		this.color = color;	
+		this.ratio = ratio;	
 		this.alpha = alpha;
 	}
 
