@@ -195,7 +195,7 @@ public class CSSSelector
         if (kind == CSSSelectorKind.TYPE_SELECTOR
             || kind == CSSSelectorKind.CONDITIONAL_SELECTOR)
         {
-            if (value == "*" || value == "global" || object.isAssignableToType(value))
+            if (value == "*" || value == "global" || value == "" || object.isAssignableToType(value))
             {
                 match = true;
             }
@@ -247,9 +247,9 @@ public class CSSSelector
     /**
      *  @private
      */ 
-    public function isPseudoSelector():Boolean
+    public function getPseudoSelector():String
     {
-        var result:Boolean = false;
+        var result:String = null;
 
         if (kind == CSSSelectorKind.CONDITIONAL_SELECTOR && conditions != null)
         {
@@ -257,7 +257,7 @@ public class CSSSelector
             {
                 if (condition.kind == CSSConditionKind.PSEUDO_CONDITION)
                 {
-                    result = true;
+                    result = condition.value;
                     break;
                 }
             }
