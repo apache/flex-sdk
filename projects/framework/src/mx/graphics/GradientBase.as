@@ -18,6 +18,7 @@ import flash.geom.Matrix;
 
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
+import mx.geom.CompoundTransform;
 
 use namespace mx_internal;
 
@@ -122,6 +123,12 @@ public class GradientBase extends EventDispatcher
         mx_internal::dispatchGradientChangedEvent(
                             "angle", oldValue, _angle);
     }  
+    
+    //----------------------------------
+    //  compoundTransform
+    //----------------------------------
+    
+    protected var compoundTransform:CompoundTransform;
 
 	//----------------------------------
 	//  entries
@@ -238,7 +245,7 @@ public class GradientBase extends EventDispatcher
      */
     public function get matrix():Matrix
     {
-        return _matrix;
+        return compoundTransform ? compoundTransform.matrix : null;
     }
 
     /**
@@ -246,11 +253,33 @@ public class GradientBase extends EventDispatcher
      */
     public function set matrix(value:Matrix):void
     {
-    	var oldValue:Matrix = _matrix;
-       	_matrix = value.clone();
-       	
-       	// TODO!!! Handle overriding the rotation, x, y, scaleX, scaleY values
-       	dispatchGradientChangedEvent("matrix", oldValue, _matrix);
+    	var oldValue:Matrix = matrix;
+    	
+    	var oldScaleX:Number = scaleX;
+    	var oldX:Number = x;
+    	var oldY:Number = y;
+    	var oldRotation:Number = rotation;
+    	
+    	scaleX = NaN; // Clear scaleX
+    	
+    	if (value == null)
+    	{
+    		compoundTransform = null;
+    		x = NaN;
+    		y = NaN;
+    		rotation = 0;
+    	}	
+    	else
+    	{
+	    	// Create the transform if none exists. 
+	    	if(compoundTransform == null)
+	            compoundTransform = new CompoundTransform();
+	       	compoundTransform.matrix = value; // CompoundTransform will create a clone
+	       	
+	       	dispatchGradientChangedEvent("x", oldX, compoundTransform.x);
+	       	dispatchGradientChangedEvent("y", oldY, compoundTransform.y);
+	       	dispatchGradientChangedEvent("rotation", oldRotation, compoundTransform.rotationZ);
+	    }
     }
     
     //----------------------------------
@@ -282,7 +311,7 @@ public class GradientBase extends EventDispatcher
      */
     public function get rotation():Number
     {
-        return _rotation;
+        return compoundTransform ? compoundTransform.rotationZ : _rotation;
     }
 
     /**
@@ -290,10 +319,14 @@ public class GradientBase extends EventDispatcher
      */
     public function set rotation(value:Number):void
     {
-        var oldValue:Number = _rotation;  
-        if (value != oldValue)
+        if (value != rotation)
         {
-        	_rotation = value;
+        	var oldValue:Number = rotation;
+        	
+        	if (compoundTransform)
+                compoundTransform.rotationZ = value;
+        	else
+                _rotation = value;   
         	dispatchGradientChangedEvent("rotation", oldValue, value);
         }
     }
@@ -302,7 +335,7 @@ public class GradientBase extends EventDispatcher
     //----------------------------------
 	//  scaleX
 	//----------------------------------
-	
+    
     private var _scaleX:Number;
     
     [Bindable("propertyChange")]
@@ -326,10 +359,12 @@ public class GradientBase extends EventDispatcher
 	 */
     public function set scaleX(value:Number):void
     {
-    	var oldValue:Number = _scaleX;
-    	if (value != oldValue)
+    	// Once a matrix is set, scaleX can no longer be set
+    	if (_scaleX != value && !compoundTransform)
     	{
-    		_scaleX = value;
+    		var oldValue:Number = scaleX;
+			_scaleX = value;
+                        
     		dispatchGradientChangedEvent("scaleX", oldValue, value);
     	}
     }
@@ -399,7 +434,7 @@ public class GradientBase extends EventDispatcher
      */
     public function get x():Number
     {
-    	return _x;	
+    	return compoundTransform ? compoundTransform.x : _x;	
     }
     
 	/**
@@ -407,10 +442,19 @@ public class GradientBase extends EventDispatcher
 	 */
     public function set x(value:Number):void
     {
-    	var oldValue:Number = _x;
+        var oldValue:Number = x;
     	if (value != oldValue)
     	{
-    		_x = value;
+    		if (compoundTransform)
+    		{
+    			// If we have a compoundTransform, only non-NaN values are allowed
+    			if (!isNaN(value))
+                    compoundTransform.x = value; 
+    		}   
+            else
+            {
+                _x = value;
+            }       
     		dispatchGradientChangedEvent("x", oldValue, value);
     	}
     }
@@ -434,7 +478,7 @@ public class GradientBase extends EventDispatcher
      */
     public function get y():Number
     {
-    	return _y;	
+    	return compoundTransform ? compoundTransform.y : _y;	
     }
     
     /**
@@ -442,17 +486,27 @@ public class GradientBase extends EventDispatcher
      */
     public function set y(value:Number):void
     {
-    	var oldValue:Number = _y;
+    	var oldValue:Number = y;
     	if (value != oldValue)
     	{
-    		_y = value;
+    		if (compoundTransform)
+    		{
+    			// If we have a compoundTransform, only non-NaN values are allowed
+    		    if (!isNaN(value))
+                    compoundTransform.y = value;
+            }
+            else
+            {
+                _y = value;                
+            }
+                
     		dispatchGradientChangedEvent("y", oldValue, value);
     	}
     }
     
     mx_internal function get rotationInRadians():Number
     {
-    	return _rotation / 180 * Math.PI;
+    	return rotation / 180 * Math.PI;
     }
 
 	//--------------------------------------------------------------------------
