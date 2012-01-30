@@ -118,10 +118,10 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
         {
             var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
             DisplayObject(moduleFactory).dispatchEvent(request); 
-            var moduleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
-            if (moduleFactory)
+            var parentModuleFactory:IFlexModuleFactory = request.value as IFlexModuleFactory;
+            if (parentModuleFactory)
             {
-                parent = IStyleManager2(moduleFactory.
+                _parent = IStyleManager2(parentModuleFactory.
                                          getImplementation("mx.styles::IStyleManager2"));
                 if (_parent is IEventDispatcher)
                 {
@@ -397,14 +397,6 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
     public function get parent():IStyleManager2
     {
         return _parent;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set parent(parent:IStyleManager2):void
-    {
-        _parent = parent;
     }
     
     //----------------------------------
@@ -1603,12 +1595,9 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
      */  
     private function dispatchInheritingStylesChangeEvent():void
     {
-        if (hasEventListener(FlexChangeEvent.STYLE_MANAGER_CHANGE))
-        {    
-            var event:Event = new FlexChangeEvent(FlexChangeEvent.STYLE_MANAGER_CHANGE, 
-                false, false, {property: "inheritingStyles"});
-            dispatchEvent(event);
-        }
+        var event:Event = new FlexChangeEvent(FlexChangeEvent.STYLE_MANAGER_CHANGE, 
+            false, false, {property: "inheritingStyles"});
+        dispatchEvent(event);
     }
 
     //--------------------------------------------------------------------------
