@@ -79,7 +79,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  The default value is 0x000000 (black).
 	 *
 	 *  @param weight Specifies the line weight, in pixels.
-	 *  The default value is 0.
+	 *  The default value is 1.
 	 *
 	 *  @param alpha Specifies the alpha value in the range 0.0 to 1.0.
 	 *  The default value is 1.0 (opaque).
@@ -112,7 +112,7 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  The default value is 0.
 	 */
 	public function SolidColorStroke(color:uint = 0x000000,
-	                                 weight:Number = 0,
+	                                 weight:Number = 1,
 						             alpha:Number = 1.0,
 						             pixelHinting:Boolean = false,
 						             scaleMode:String = "normal",
