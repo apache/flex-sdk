@@ -118,7 +118,7 @@ public class TabbedViewNavigatorSkin extends MobileSkin
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        var tabBarHeight:Number; 
+        var tabBarHeight:Number = 0; 
         
         if (tabBar.includeInLayout)
         {
