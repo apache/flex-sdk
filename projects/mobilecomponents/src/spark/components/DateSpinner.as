@@ -451,13 +451,15 @@ public class DateSpinner extends SkinnableComponent
     
     private var minDateChanged:Boolean = false;
     
+    // TODO: add reference after the global team adds the doc
     /**
      *  Minimum selectable date; only dates after this date are selectable.
      * 
      *  @default If minDate is null, the value defaults to 100 years prior to
      *           the currently selected date in DATE mode, and 100 days prior
      *           to the currently selected date in DATE_AND_TIME mode.
-     * 
+     *           minDate's year should be greater than or equal to 1601 since
+     *           DateTimeFormatter only supports the range from 1601 to 30827.
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
@@ -510,6 +512,9 @@ public class DateSpinner extends SkinnableComponent
         if (value == _minuteStepSize)
             return;
         
+        if (value <= 0 || 60 % value != 0)
+            value = 1;
+       
         _minuteStepSize = value;
         minuteStepSizeChanged = true;
         populateMinuteDataProvider = true;
@@ -1169,13 +1174,14 @@ public class DateSpinner extends SkinnableComponent
                     // is the date invalid for this month?
                     var newEnabledValue:Boolean = i < numDaysInMonth;
                     
-                    if (newEnabledValue && (minMonthMatch || maxMonthMatch)) 
+                    if (newEnabledValue)
                     {
                         // test for outside min/max range
                         tempDate.date = curObj.data;
                         
-                        if (tempDate.time < minDate.time ||
-                            tempDate.time > maxDate.time)
+                        if (minMonthMatch && tempDate.date < minDate.date)
+                            newEnabledValue = false;
+                        if (maxMonthMatch && tempDate.date > maxDate.date)
                             newEnabledValue = false;
                     }
                     
