@@ -23,6 +23,11 @@ import mx.resources.ResourceManager;
 /**
  *  The logger that is used within the logging framework.
  *  This class dispatches events for each message logged using the <code>log()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LogLogger extends EventDispatcher implements ILogger
 {
@@ -38,6 +43,11 @@ public class LogLogger extends EventDispatcher implements ILogger
 	 *  Constructor.
          *
          *  @param category The category for which this log sends messages.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function LogLogger(category:String)
 	{
@@ -77,6 +87,11 @@ public class LogLogger extends EventDispatcher implements ILogger
 
 	/**
 	 *  The category this logger send messages for.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function get category():String
 	{
@@ -91,6 +106,11 @@ public class LogLogger extends EventDispatcher implements ILogger
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function log(level:int, msg:String, ... rest):void
 	{
@@ -117,6 +137,11 @@ public class LogLogger extends EventDispatcher implements ILogger
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function debug(msg:String, ... rest):void
 	{
@@ -134,6 +159,11 @@ public class LogLogger extends EventDispatcher implements ILogger
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function error(msg:String, ... rest):void
 	{
@@ -151,6 +181,11 @@ public class LogLogger extends EventDispatcher implements ILogger
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function fatal(msg:String, ... rest):void
 	{
@@ -168,6 +203,11 @@ public class LogLogger extends EventDispatcher implements ILogger
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function info(msg:String, ... rest):void
 	{
@@ -185,6 +225,11 @@ public class LogLogger extends EventDispatcher implements ILogger
 
 	/**
 	 *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function warn(msg:String, ... rest):void
 	{
