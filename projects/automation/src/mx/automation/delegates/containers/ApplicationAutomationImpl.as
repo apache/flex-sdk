@@ -101,7 +101,7 @@ package mx.automation.delegates.containers
 		override public function get automationName():String
 		{
 			var am:IAutomationManager2 = Automation.automationManager2;
-			return am.getUniqueApplicationId();
+			return am.getUniqueApplicationID();
 		}
 		/**
 		 *  @private
@@ -231,7 +231,7 @@ package mx.automation.delegates.containers
 			var am:IAutomationManager2 = Automation.automationManager2;
 			
 			return application.numChildren + application.numRepeaters + 
-				getDockedApplicationControlBarCount() +am.getPopoupChildrenCount();
+				getDockedApplicationControlBarCount() +am.getPopUpChildrenCount();
 		}
 		
 		override public function getAutomationChildren():Array
@@ -240,7 +240,7 @@ package mx.automation.delegates.containers
 			
 			// we need to add popup children
 			var childList:Array = new Array();
-			var tempChildren1:Array  = am.getPopoupChildren();
+			var tempChildren1:Array  = am.getPopUpChildren();
 			var n:int = 0;
 			var i:int = 0;	
 			
@@ -287,9 +287,9 @@ package mx.automation.delegates.containers
 		{
 			var am:IAutomationManager2 = Automation.automationManager2;
 			// handle popup objects
-			var popUpCount:int = am.getPopoupChildrenCount();
+			var popUpCount:int = am.getPopUpChildrenCount();
 			if (index < popUpCount)
-				return am.getPopoupChildObject(index) ;
+				return am.getPopUpChildObject(index) ;
 			else
 				index = index - popUpCount;
 			
