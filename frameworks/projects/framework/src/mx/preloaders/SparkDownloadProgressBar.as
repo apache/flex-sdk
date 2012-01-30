@@ -763,6 +763,8 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
     protected function showDisplayForDownloading(elapsedTime:int,
                                               event:ProgressEvent):Boolean
     {
+//        trace("showDisplayForDownloading: elapsedTime = " + elapsedTime);
+//        trace("showDisplayForDownloading:" + event.bytesLoaded + " " +  event.bytesTotal + " " +  (event.bytesLoaded < event.bytesTotal / 2));
         return elapsedTime > 700 &&
             event.bytesLoaded < event.bytesTotal / 2;
     }
@@ -787,6 +789,7 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
      */
     protected function showDisplayForInit(elapsedTime:int, count:int):Boolean
     {
+//        trace("showDisplayForInit: elapsedTime = " + elapsedTime + " count = " + count);
         return elapsedTime > 300 && count == 2;
     }
 
@@ -974,6 +977,7 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
      */
     protected function rslCompleteHandler(event:RSLEvent):void
     {
+        //trace("rsl " + event.rslIndex + " of " + event.rslTotal);
     }
     
     /**
@@ -1036,7 +1040,12 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
      */
     protected function initProgressHandler(event:Event):void
     {
+        // make elapsed time relative the time we started init.
+        if (_initProgressCount == 0)
+            _startTime = getTimer();
+
         var elapsedTime:int = getTimer() - _startTime;
+        
         _initProgressCount++;
         
         if (!_showingDisplay &&
