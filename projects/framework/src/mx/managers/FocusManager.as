@@ -1874,6 +1874,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     {
         // trace("FocusManager: mouseFocusChangeHandler  in  = " + this._form.systemManager.loaderInfo.url);
     	// trace("FocusManager: mouseFocusChangeHandler " + event);
+        
+        if (event.isDefaultPrevented())
+            return;
 
         // If relatedObject is null because we don't have access to the 
         // object getting focus then allow the Player to set focus
@@ -2078,9 +2081,6 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         // trace("FocusManager mouseDownHandler in  = " + this._form.systemManager.loaderInfo.url);
         // trace("FocusManager mouseDownHandler target " + event.target);
         
-        if (event.isDefaultPrevented())
-            return;
-
 		// if the target is in a bridged application, let it handle the click.
 		var sm:ISystemManager = form.systemManager;
         var o:DisplayObject = getTopLevelFocusTarget(
