@@ -33,7 +33,7 @@
             width="75%" height="75%"
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText text="Enter a 9 digit Social Security number with no separator characters:" />
+            <s:Label text="Enter a 9 digit Social Security number with no separator characters:" />
             <s:TextInput id="scNum" text="" maxChars="9" width="50%" />
 
             <s:Button label="Validate and Format" click="Format();" />
