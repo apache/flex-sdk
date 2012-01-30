@@ -65,7 +65,7 @@ use namespace mx_internal;
  *  Each menu item is defined by using the ViewMenuItem control. 
  *  The application container automatically creates and displays a 
  *  ViewMenu container when the user presses the device's menu button. 
- *  You can also use the <code>MobileApplicationBase.viewMenuOpen</code> property
+ *  You can also use the <code>ViewNavigatorApplicationBase.viewMenuOpen</code> property
  *  to open the menu programmatically.
  *
  *  <p>The ViewMenuLayout class define the layout of the menu.
@@ -98,7 +98,7 @@ use namespace mx_internal;
  *  
  *  @see spark.components.ViewMenuItem
  *  @see spark.layouts.ViewMenuLayout
- *  @see spark.components.supportClasses.MobileApplicationBase
+ *  @see spark.components.supportClasses.ViewNavigatorApplicationBase
  *
  *  @langversion 3.0
  *  @playerversion AIR 2.5
