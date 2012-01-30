@@ -708,7 +708,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 // Force a validation of the new navigator to prevent a flicker from
                 // occurring in cases where multiple validation passes are required
                 // to completely validate a view
-                navigator.validateNow();
+                if (initialized)
+                    contentGroup.validateNow();
                 
                 if (navigator.activeView)
                 {
