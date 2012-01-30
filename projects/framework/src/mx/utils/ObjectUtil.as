@@ -164,7 +164,7 @@ public class ObjectUtil
         for each (var p:* in classInfo.properties) 
         {
             v = value[p];
-            if (v.hasOwnProperty("uid")) 
+            if (v && v.hasOwnProperty("uid")) 
                 cloneInternal(result[p], v);
         }
     }
