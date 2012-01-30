@@ -124,6 +124,115 @@ public class SWFBridgeRequest extends Event
      */  
     public static const RESET_MOUSE_CURSOR_REQUEST:String = "resetMouseCursorRequest";
 
+	/**
+	 *	Sent from the top-level focus manager to a subordinate focus managers
+	 *  so all the focus managers participating in a tab loop get activated
+	 */ 
+	public static const ACTIVATE_FOCUS_REQUEST:String = "activateFocusRequest";
+
+	/**
+	 *	Sent from the top-level focus manager to a subordinate focus managers
+	 *  so all the focus managers participating in a tab loop get deactivated
+	 */ 
+	public static const DEACTIVATE_FOCUS_REQUEST:String = "deactivateFocusRequest";
+
+	/**
+	 *  Request to move control over focus to another FocusManager.and have
+	 *  that FocusManager give focus to a control under its management based
+	 *  on the direction propert in the event.
+	 * 
+     *  When focus is moved back to the parent SWFs FocusManager, the direction
+	 *  property is set to FocusDirection.FORWARD or FocusDirection.BACKWARD.
+     *  When focus is moved to a child SWFs FocusManager, the direction
+	 *  property is set to FocusDirection.TOP or FocusDirection.BOTTOM.
+	 */ 
+	public static const MOVE_FOCUS_REQUEST:String = "moveFocusRequest";
+	
+    /**
+     *  Create a modal window.
+     * 
+     *  The <code>show</code> property can be used to show the modal window 
+     *  after creating it. A value of <code>true</code> shows the modal window.
+     *  A value of <code>false</code> allows the modal window to remain hidden 
+     *  until a <code>ModalWindowRequest.SHOW</code> request is dispatched.
+     * 
+     *  The <code>data</code> property may have a <code>Rectangle</code> that 
+     *  describes the area to exclude from the modal window. The coordinates
+     *  of the rectangle are in global coordinates. The parameter will only be present when 
+     *  the requestor trusts the recipient of the request.
+     */
+    public static const CREATE_MODAL_WINDOW_REQUEST:String = "createModalWindowRequest";
+    
+    /**
+     *  Show a modal window.
+     *
+     *  The <code>skip</code> property is used with this request. A value of <code>true</code>
+     *  indicates that the recipient should just forward the request up the parent chain 
+     *  without processing the
+     *  request.
+     *   
+     *  The <code>data</code> property may have a <code>Rectangle</code> that 
+     *  describes the area to exclude based on the current parent. The coordinates
+     *  are in screen coordinates. The parameter will only be present when 
+     *  the requestor trusts the recipient of the message.
+     */
+    public static const SHOW_MODAL_WINDOW_REQUEST:String = "showModalWindowRequest";
+    
+    /**
+     *  Hide a modal window.
+     * 
+     *  The <code>remove</code> property determines if the modal window is
+     *  removed from the display lists as well as hidden. A value of <code>true</code>
+     *  removes the modals window. A value of <code>false</code> only hides the 
+     *  modal window. 
+     */
+    public static const HIDE_MODAL_WINDOW_REQUEST:String = "hideModalWindowRequest";
+
+	/**
+	 *  Add a popup on the targeted application.
+     *  The request is not honored by the targeted application unless there
+     *  is mutual trust between the dispatching and receiving applications.
+	 *  
+	 */
+	public static const ADD_POP_UP_REQUEST:String = "addPopUpRequest";
+	
+	/**
+	 *  Remove a popup from the sandboxRoot's system manager.
+	 */
+	public static const REMOVE_POP_UP_REQUEST:String = "removePopUpRequest";
+	
+	/**
+	 *  Add a placeholder for a pop up window hosted by a child SystemManager.
+	 *  The pop up window is untrusted so must remain hosted
+     *  by a child that trusts it.
+	 *  A placeholder is sent to the top-level root SystemManager
+     *  so activation and deactivation of all the pop ups can be managed there.
+	 */
+	public static const ADD_POP_UP_PLACE_HOLDER_REQUEST:String = 
+				"addPopUpPlaceHolderRequest";
+
+	/**
+	 *  Remove a placeholder.
+	 */
+	public static const REMOVE_POP_UP_PLACE_HOLDER_REQUEST:String = 
+				"removePopUpPlaceHolderRequest";
+
+	/**
+	 *  Get the size of the child systemManager.
+	 *  Dispatched by SWFLoader to the child systemManager
+	 *  to get the size of its content.  The child systemManager
+	 *  updates the width and height properties in the event object
+	 */
+	public static const GET_SIZE_REQUEST:String = "getSizeRequest";
+	
+	/**
+	 *  Set the size of the child.systemManager
+	 *  Dispatched by SWFLoader to the child systemManager.  The child
+	 *  systemManager should update the size of its children accordingly
+	 *  based on the width and height properties in the event object
+	 */
+	public static const SET_ACTUAL_SIZE_REQUEST:String = "setActualSizeRequest";
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
