@@ -93,7 +93,7 @@ public class DescribeTypeCache
             cacheKey = className = getQualifiedClassName(o);
 
         //Need separate entries for describeType(Foo) and describeType(myFoo)
-        if(o is Class)
+        if (o is Class)
             cacheKey += "$";
 
         if (cacheKey in typeCache)
