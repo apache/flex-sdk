@@ -11,6 +11,7 @@
 
 package spark.components.supportClasses
 {
+import flash.events.Event;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
@@ -21,6 +22,7 @@ import mx.events.FlexEvent;
 import mx.styles.IStyleClient;
 
 import spark.core.IEditableText;
+import spark.events.TextOperationEvent;
 
 use namespace mx_internal;
 
@@ -82,6 +84,9 @@ public class MobileTextField extends TextField implements IEditableText
     public function MobileTextField()
     {
         super();
+        // Add a high priority change handler so we can capture the event
+        // and re-dispatch as a TextOperationEvent
+        addEventListener(Event.CHANGE, changeHandler, false, 100);
     }
     
     //--------------------------------------------------------------------------
@@ -548,6 +553,22 @@ public class MobileTextField extends TextField implements IEditableText
         return false;
     }
     
+    /**
+     *  @private
+     */
+    private function changeHandler(event:Event):void
+    {
+        if (!(event is TextOperationEvent))
+        {
+            var newEvent:TextOperationEvent = new TextOperationEvent(event.type);
+            
+            // stop immediate propagation of the old event
+            event.stopImmediatePropagation();
+            
+            // dispatch the new event
+            dispatchEvent(newEvent);
+        }
+    }
     
     //--------------------------------------------------------------------------
     //
