@@ -31,7 +31,6 @@ import flash.geom.Rectangle;
 import mx.controls.FlexNativeMenu;
 import mx.core.ContainerCreationPolicy;
 import mx.core.FlexGlobals;
-import mx.core.FlexVersion;
 import mx.core.IVisualElement;
 import mx.core.IWindow;
 import mx.core.mx_internal;
@@ -1932,22 +1931,6 @@ public class Window extends SkinnableContainer implements IWindow
         }
     }
 
-    /**
-     *  @private 
-     *  Applications set estimated sizes for their children
-     */  
-    override public function setActualSize(w:Number, h:Number):void
-    {
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-        {
-            setEstimatedSize(w, h, false);
-            invalidateEstimatedSizesOfChildren();
-            validateEstimatedSizesOfChildren();
-        }
-        
-        super.setActualSize(w, h);
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: SkinnableContainer
