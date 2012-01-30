@@ -184,22 +184,27 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
 
     /**
      *  @private
-     *  Delete the ListItemResponder at the specified index, if any.  
+     *  Delete the ListItemResponder at the specified index, if any.
+     *  If a pending responder exists, return its item.
+     *   
      *  This method assumes that the responder hasn't run yet, it sets
      *  the ListItemResponder index to -1 to prevent it from updating
      *  this AsyncListView later.
      */
-    private function deletePendingResponder(index:int):void
+    private function deletePendingResponder(index:int):Object
     {
         if ((index < 0) || (index >= pendingResponders.length))
-            return;
+            return null;
 
         const pendingResponder:ListItemResponder = pendingResponders[index];
         if (pendingResponder)
         {
             delete pendingResponders[index];
             ListItemResponder(pendingResponder).index = -1; 
+            return pendingResponder.item;
         }
+        
+        return null;
     }
 
     /**
@@ -606,7 +611,18 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     }
     
     /**
-     *  @inheritDoc
+     *  Removes the actual or pending item at the specified index and returns it.
+     *  All items whose index is greater than the specified index are shifted 
+     *  to the left.
+     * 
+     *  <p>If there isn't an actual or pending item at the specified index, for
+     *  example because a call to getItemAt(index) hasn't caused the data to be 
+     *  paged in, then the underlying <code>list</code> may throw an IPE.  The 
+     *  implementation ignores the IPE and returns null.</p>
+     *
+     *  @param index The list index from which to retrieve the item.
+     *  @throws RangeError if <code>index &lt; 0</code> or <code>index >= length</code>.
+     *  @return The item that was removed or null.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -615,7 +631,20 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      */
     public function removeItemAt(index:int):Object
     {
-        return (list) ? list.removeItemAt(index) : null;
+        if (!list)
+            return null;
+        
+        var item:Object = deletePendingResponder(index);
+        try
+        {
+            return list.removeItemAt(index);
+        }
+        catch (ipe:ItemPendingError)
+        {
+            // If list[index] doesn't exist yet, an IPE will be thrown.  There's nothing 
+            // we can do about that, so ignore it.
+        }
+        return item; 
     }
     
     /**
@@ -628,11 +657,19 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      */
     public function setItemAt(item:Object, index:int):Object
     {
-        return (list) ? list.setItemAt(item, index) : null;
+        if (!list)
+            return null;
+        
+        const pendingResponder:ListItemResponder = pendingResponders[index];
+        const setItemValue:Object = list.setItemAt(item, index);
+        return (pendingResponder) ? pendingResponder.item : setItemValue;
     }
     
     /**
-     *  @inheritDoc
+     *  Returns an array with the same elements as this AsyncListView.  The array is initialized
+     *  by retrieving each item with getItemAt(), so pending items will be substituted where actual
+     *  values aren't available yet.   The array will not be updated when the ASyncList replaces
+     *  the pending items with actual (or failed) values.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -641,7 +678,13 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
      */
     public function toArray():Array
     {
-        return (list) ? list.toArray() : [];
+        if (!list)
+            return [];
+        
+        const a:Array = new Array(list.length);
+        for(var i:int = 0; i < a.length; i++)
+            a[i] = getItemAt(i);
+        return a;
     }
     
  
