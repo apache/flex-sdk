@@ -26,6 +26,7 @@ import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
+import mx.managers.LayoutManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.NavigationStack;
@@ -356,6 +357,11 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
+     */
+    private var showingActionBar:Boolean;
+    
+    /**
+     *  @private
      *  Flag indicates whether the navigator is in the process of
      *  changing a view.
      */ 
@@ -378,27 +384,42 @@ public class ViewNavigator extends ViewNavigatorBase
     {
         super.active = value;
         
-        if (navigationStack.length == 0 && firstView != null)
+        if (navigationStack.length == 0)
         {
-            navigationStack.push(firstView, firstViewData);
-            viewChangeRequested = true;
-            invalidateProperties();
-        }
-        
-        // If the navigator isn't initialized, this means the first validation
-        // pass hasn't been completed yet.  The top view will be added in that
-        // process and doesn't need to be done here.
-        if (initialized)
-        {
-            if (value)
+            if (firstView != null)
             {
-                var view:View = createViewInstance(navigationStack.topView);
-                view.active = true;
+                navigationStack.push(firstView, firstViewData);
+                viewChangeRequested = true;
+                invalidateProperties();
             }
-            else
+        }
+        else
+        {
+            // If the navigator isn't initialized, this means the first validation
+            // pass hasn't been completed yet.  The top view will be added in the
+            // next validation pass and doesn't need to be done here.
+            if (initialized)
             {
-                activeView.active = false;
-                destoryViewInstance(navigationStack.topView);                
+                if (value)
+                {
+                    // FIXME (chiedozi): Need to keep track of current view in the case that stuff 
+                    // changes when navigator isnt active
+                    var view:View = navigationStack.topView.instance;
+                    if (!view)
+                        view = createViewInstance(navigationStack.topView);
+                    
+                    view.active = true;
+                    
+                    if (hasEventListener(Event.COMPLETE))
+                        dispatchEvent(new Event(Event.COMPLETE));
+                }
+                else
+                {
+                    activeView.active = false;
+                    
+    //                if (destructionPolicy == "auto")
+    //                    destoryViewInstance(navigationStack.topView);           
+                }
             }
         }
     }
@@ -534,40 +555,6 @@ public class ViewNavigator extends ViewNavigatorBase
         
         invalidateProperties();
     }
-    
-	//----------------------------------
-	//  transitionsEnabled
-	//----------------------------------
-	
-    /**
-     *  Flag indicating whether transitions are played by the 
-     *  navigator when a view changes or when the actionBar or tab bar 
-     *  visibility changes.
-     * 
-     *  @default true
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-    public var transitionsEnabled:Boolean = true;
-    
-	//----------------------------------
-	//  useDefaultTransitions
-	//----------------------------------
-
-    // TODO (chiedozi): PARB name
-    /**
-     *
-     *  @default true
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */ 
-	public var useDefaultTransitions:Boolean = true;
     
     //--------------------------------------------------------------------------
     //
@@ -932,16 +919,14 @@ public class ViewNavigator extends ViewNavigatorBase
      */
 	public function showActionBar(animate:Boolean = true):void
 	{
-		if (actionBar && !actionBar.visible)
-		{
-			animateActionBarVisbility = animate;
-			actionBarVisibilityInvalidated = true;
-			invalidateProperties();
-		}
-		else
-		{
-			actionBarVisibilityInvalidated = false;
-		}
+        if (!actionBar)
+            return;
+        
+        showingActionBar = true;
+        animateActionBarVisbility = animate;
+        actionBarVisibilityInvalidated = true;
+        
+        invalidateProperties();
 	}
     
     /**
@@ -956,16 +941,14 @@ public class ViewNavigator extends ViewNavigatorBase
      */
 	public function hideActionBar(animate:Boolean = true):void
 	{	
-		if (actionBar && actionBar.visible)
-		{
-			animateActionBarVisbility = animate;
-			actionBarVisibilityInvalidated = true;
-			invalidateProperties();
-		}
-		else
-		{
-			actionBarVisibilityInvalidated = false;
-		}
+        if (!actionBar)
+            return;
+        
+        showingActionBar = false;
+        animateActionBarVisbility = animate;
+        actionBarVisibilityInvalidated = true;
+        
+        invalidateProperties();
 	}
 	
     //--------------------------------------------------------------------------
@@ -1297,20 +1280,24 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         // If an animation is running, end it
-        // TODO (chiedozi): There is an issue here when you do two hides/shows in a row
+        // FIXME (chiedozi): There is an issue here when you do two hides/shows in a row
         if (actionBarVisibilityEffect)
             actionBarVisibilityEffect.end();
         
-        if (transitionsEnabled && animateActionBarVisbility)
+        if (actionBar && showingActionBar != actionBar.visible)
         {
-            actionBarVisibilityEffect = createVisibilityAnimation();
-            actionBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, visibilityAnimation_completeHandler);
-            actionBarVisibilityEffect.play();
-        }
-        else
-        {
-            if (actionBarVisibilityInvalidated)
-                actionBar.visible = actionBar.includeInLayout = !actionBar.visible;
+            if (transitionsEnabled && animateActionBarVisbility)
+            {
+                actionBarVisibilityEffect = createVisibilityAnimation();
+                actionBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
+                    visibilityAnimation_completeHandler);
+                actionBarVisibilityEffect.play();
+            }
+            else
+            {
+                if (actionBarVisibilityInvalidated)
+                    actionBar.visible = actionBar.includeInLayout = !actionBar.visible;
+            }
         }
         
         actionBarVisibilityInvalidated = false;
@@ -1389,8 +1376,11 @@ public class ViewNavigator extends ViewNavigatorBase
             animateActionBarUp = actionBar.y <= contentGroup.y;
         }
         
-        // Need to validate to capture final positions and sizes of skin parts
-        validateNow();
+        // Need to validate to capture final positions and sizes of skin parts.
+        // If the navigator is a child of another, we need the root navigator
+        // to perform the validation so that all widths and heights of all
+        // containers are sized.
+        LayoutManager.getInstance().validateNow();
         
         // This will store the final location and sizes of the components
         actionBarProps.end = captureAnimationValues(actionBar);
@@ -1659,8 +1649,7 @@ public class ViewNavigator extends ViewNavigatorBase
         
         if(pendingViewData.factory != null)
         {
-            var view:View = createViewInstance(pendingViewData);
-            addElement(view);
+            createViewInstance(pendingViewData);
             
             // Put this before viewAdded() so that another validation pass can run 
             // if needed during viewAdded
