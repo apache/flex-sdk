@@ -295,7 +295,6 @@ public class ViewMenu extends SkinnablePopUpContainer
      *  @param event The Keyboard Event encountered
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
