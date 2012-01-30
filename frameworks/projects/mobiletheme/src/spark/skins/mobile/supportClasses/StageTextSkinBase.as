@@ -23,7 +23,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class StageTextSkinBase extends MobileSkin
 {
@@ -38,7 +38,7 @@ public class StageTextSkinBase extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0 
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      * 
      */
     public function StageTextSkinBase()
@@ -91,7 +91,7 @@ public class StageTextSkinBase extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0 
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */  
     protected var borderClass:Class;
     
@@ -106,7 +106,7 @@ public class StageTextSkinBase extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0 
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */  
     protected var layoutCornerEllipseSize:uint;
     
@@ -115,7 +115,7 @@ public class StageTextSkinBase extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected var layoutBorderSize:uint;
     
@@ -152,7 +152,7 @@ public class StageTextSkinBase extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var textDisplay:StyleableStageText;
     
@@ -163,7 +163,7 @@ public class StageTextSkinBase extends MobileSkin
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var promptDisplay:IDisplayText;
 
