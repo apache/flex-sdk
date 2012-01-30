@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Tree control example. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<!-- Simple example to demonstrate the Halo Tree control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-
             [Bindable]
             public var selectedNode:XML;
 
             // Event handler for the Tree control change event.
-            public function treeChanged(event:Event):void {
-                selectedNode=Tree(event.target).selectedItem as XML;
+            public function treeChanged(evt:Event):void {
+                selectedNode = Tree(evt.target).selectedItem as XML;
             }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:XMLList id="treeData">
-	    <node label="Mail Box">
-	        <node label="Inbox">
-	            <node label="Marketing"/>
-	            <node label="Product Management"/>
-	            <node label="Personal"/>
-	        </node>
-	        <node label="Outbox">
-	            <node label="Professional"/>
-	            <node label="Personal"/>
-	        </node>
-	        <node label="Spam"/>
-	        <node label="Sent"/>
-		</node>	
-    </mx:XMLList>
+    <fx:Declarations>
+        <fx:XMLList id="treeData">
+            <node label="Mail Box">
+                <node label="Inbox">
+                    <node label="Marketing"/>
+                    <node label="Product Management"/>
+                    <node label="Personal"/>
+                </node>
+                <node label="Outbox">
+                    <node label="Professional"/>
+                    <node label="Personal"/>
+                </node>
+                <node label="Spam"/>
+                <node label="Sent"/>
+            </node>
+        </fx:XMLList>
+    </fx:Declarations>
 
-    <mx:Panel title="Tree Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
+    <s:Panel title="Halo Tree Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue" 
+                    text="Select a node in the Tree control."/>
 
-        <mx:Label width="100%" color="blue" 
-            text="Select a node in the Tree control."/>
+            <mx:HDividedBox width="100%" height="100%">
+                <mx:Tree id="myTree" width="50%" height="100%" labelField="@label"
+                        showRoot="false" dataProvider="{treeData}" change="treeChanged(event);"/>
+                <s:TextArea height="100%" width="50%"
+                        text="Selected Item: {selectedNode.@label}"/>
+            </mx:HDividedBox>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:HDividedBox width="100%" height="100%">
-            <mx:Tree id="myTree" width="50%" height="100%" labelField="@label"
-                showRoot="false" dataProvider="{treeData}" change="treeChanged(event)"/>
-            <mx:TextArea height="100%" width="50%"
-                text="Selected Item: {selectedNode.@label}"/>
-        </mx:HDividedBox>
-        
-    </mx:Panel>
-</mx:Application>
+</s:Application>
