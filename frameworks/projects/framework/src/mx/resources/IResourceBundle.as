@@ -117,6 +117,11 @@ package mx.resources
  *  @see mx.resources.ResourceBundle
  *  @see mx.resources.IResourceManager
  *  @see mx.resources.ResourceManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IResourceBundle
 {
@@ -146,6 +151,11 @@ public interface IResourceBundle
      *  <p>The ResourceManager can manage multiple bundles with the same
      *  <code>bundleName</code> as long as they have different values
      *  for their <code>locale</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     function get bundleName():String;
 
@@ -194,6 +204,11 @@ public interface IResourceBundle
      *  and <code>getBoolean()</code> to convert resource strings like
      *  <code>"18"</code> and <code>"true"</code> into the type
      *  that your code expects.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     function get content():Object;
 
@@ -221,6 +236,11 @@ public interface IResourceBundle
      *  whose <code>bundleName</code> is <code>"MyResources"</code>,
      *  one whose <code>locale</code> is <code>"en_US"</code> 
      *  and one whose <code>locale</code> is <code>"ja_JP"</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     function get locale():String;
 }
