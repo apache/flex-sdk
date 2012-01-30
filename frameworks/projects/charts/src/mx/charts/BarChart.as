@@ -30,6 +30,7 @@ import mx.charts.styles.HaloDefaults;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
 
@@ -313,25 +314,12 @@ public class BarChart extends CartesianChart
     private function initStyles():Boolean
     {
         HaloDefaults.init(styleManager);
-        
-        var barChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.BarChart", styleManager);
-        
-        barChartStyle.defaultFactory = function():void
-        {
-            this.axisColor = 0xD5DEDD;
-            this.barWidthRatio = 0.65;
-            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;       
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.fontSize = 10;
-            this.gridLinesStyleName = "horizontalGridLines";
-            this.textAlign = "left";            
-            this.horizontalAxisStyleNames = ["blockNumericAxis"];
-            this.verticalAxisStyleNames = ["blockCategoryAxis"];
-        }
-        
+		var barChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.BarChart");
+		barChartStyle.setStyle("chartSeriesStyles", HaloDefaults.chartBaseChartSeriesStyles);
+		barChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		barChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		barChartStyle.setStyle("horizontalAxisStyleNames", ["blockNumericAxis"]);
+		barChartStyle.setStyle("verticalAxisStyleNames", ["blockCategoryAxis"]);
         return true;
     }
 
