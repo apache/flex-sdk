@@ -2455,12 +2455,14 @@ public class SystemManager extends MovieClip
         if (getSandboxRoot() == this)
         {
             addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
-            addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, true, 1000);
+            addEventListener(MouseEvent.MOUSE_WHEEL, mouseEventHandler, true, 1000);
+            addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler, true, 1000);
         }
         if (isTopLevelRoot() && stage)
         {
             stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, false, 1000);
-            stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, false, 1000);
+            stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseEventHandler, false, 1000);
+            stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseEventHandler, false, 1000);
         }
 
         var docFrame:int = (totalFrames == 1)? 0 : 1;
@@ -2769,7 +2771,14 @@ public class SystemManager extends MovieClip
         }
     }
     
-    private function mouseWheelHandler(e:MouseEvent):void
+    /**
+     *  @private 
+     *  Similar to keyDownHandler above.  We want to re-dispatch 
+     *  mouse events that are cancellable.  Currently we are only doing 
+     *  this for a few mouse events and not all of them (MOUSE_WHEEL and 
+     *  MOUSE_DOWN).
+     */
+    private function mouseEventHandler(e:MouseEvent):void
     {
         if (!e.cancelable)
         {
