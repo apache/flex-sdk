@@ -14,14 +14,16 @@ package mx.charts.chartClasses
 
 import flash.display.*;
 import flash.geom.*;
+
 import mx.charts.AxisLabel;
 import mx.charts.AxisRenderer;
 import mx.core.FlexBitmap;
 import mx.core.IDataRenderer;
 import mx.core.IUITextField;
-import mx.core.mx_internal;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UITextField;
+import mx.core.mx_internal;
 
 use namespace mx_internal;
 
@@ -71,6 +73,7 @@ public class ChartLabel extends UIComponent implements IDataRenderer
 	{
 		super();
 		this.includeInLayout = false;
+		this.layoutDirection = LayoutDirection.LTR;
 	}
 	
 	//--------------------------------------------------------------------------
@@ -235,7 +238,8 @@ public class ChartLabel extends UIComponent implements IDataRenderer
 		if (parent && parent is AxisRenderer && parent.rotation == 90 && _label.embedFonts == true)
 		{
 			var p:AxisRenderer = AxisRenderer(parent);
-			if (p.getStyle('verticalAxisTitleAlignment') == 'vertical')
+			if ((p.getStyle('verticalAxisTitleAlignment') == 'vertical' && p.layoutDirection == LayoutDirection.LTR) ||
+				(p.getStyle('verticalAxisTitleAlignment') == 'flippedVertical' && p.layoutDirection == LayoutDirection.RTL))
 			{
 				_label.rotation = 180;
 				_label.y = _label.y + _label.height;
@@ -301,14 +305,14 @@ public class ChartLabel extends UIComponent implements IDataRenderer
 			if (parent && parent.rotation == 90 && parent is AxisRenderer)
 			{
 				p = AxisRenderer(parent);
-				if (p.getStyle('verticalAxisTitleAlignment')=="vertical")
+				if((p.getStyle('verticalAxisTitleAlignment')=="vertical" && p.layoutDirection == LayoutDirection.LTR) ||
+					(p.getStyle('verticalAxisTitleAlignment') == 'flippedVertical' && p.layoutDirection == LayoutDirection.RTL))
 				{
 					_bitmap.rotation = 180; 
 					_bitmap.y = _label.x + _bitmap.height;
 					_bitmap.x = _label.y + _bitmap.width;
 				}
-			}
-			
+			}			
 		}
 	}
 }
