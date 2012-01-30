@@ -46,6 +46,11 @@ import mx.effects.effectClasses.AnimatePropertyInstance;
  *  @see mx.effects.effectClasses.AnimatePropertyInstance
  *
  *  @includeExample examples/AnimatePropertyEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AnimateProperty extends TweenEffect
 {
@@ -61,6 +66,11 @@ public class AnimateProperty extends TweenEffect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function AnimateProperty(target:Object = null)
 	{
@@ -84,6 +94,11 @@ public class AnimateProperty extends TweenEffect
 	/**
 	 *  The ending value for the effect.
 	 *  The default value is the target's current property value.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var toValue:Number;
 	
@@ -97,6 +112,11 @@ public class AnimateProperty extends TweenEffect
 	 *  If <code>true</code>, the property attribute is a style and you set
 	 *  it by using the <code>setStyle()</code> method. 
 	 *  @default false
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var isStyle:Boolean = false;
 
@@ -109,6 +129,11 @@ public class AnimateProperty extends TweenEffect
 	/**
 	 *  The name of the property on the target to animate.
 	 *  This attribute is required.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var property:String;
 
@@ -124,6 +149,11 @@ public class AnimateProperty extends TweenEffect
 	 *  This property is useful if the property you are animating
 	 *  is an int or uint.
 	 *  @default false
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var roundValue:Boolean = false;
 
@@ -136,6 +166,11 @@ public class AnimateProperty extends TweenEffect
 	/**
 	 *  The starting value of the property for the effect.
 	 *  The default value is the target's current property value.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var fromValue:Number;
 	
