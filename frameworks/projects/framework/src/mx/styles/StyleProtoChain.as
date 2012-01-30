@@ -728,15 +728,10 @@ public class StyleProtoChain
         }
         
         object.invalidateDisplayList();
-
-        // FIXME (gosmith): Unify concept of parent for UIComponents and GraphicElements
-        var parent:IInvalidating;
-        if (object is UIComponent)
-            parent = UIComponent(object).parent as IInvalidating;
-        else if ("parent" in object) // object is TextBase
-            parent = object["parent"] as IInvalidating;
         
-        // FIXME (rfrishbe): clean up this logic around TextBase...now it's a UIC, so we don't need it anymore
+        var parent:IInvalidating;
+        if (object is IVisualElement)
+            parent = IVisualElement(object).parent as IInvalidating;
 
         if (parent)
         {
