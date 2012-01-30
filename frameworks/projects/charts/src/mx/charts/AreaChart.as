@@ -72,43 +72,43 @@ public class AreaChart extends CartesianChart
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class initialization
-	//
-	//--------------------------------------------------------------------------
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
-	
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function AreaChart()
-	{
-		super();
+    
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function AreaChart()
+    {
+        super();
 
-		LinearAxis(horizontalAxis).autoAdjust = false;
-	}
+        LinearAxis(horizontalAxis).autoAdjust = false;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -117,21 +117,21 @@ public class AreaChart extends CartesianChart
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  horizontalAxis
+    //  horizontalAxis
     //----------------------------------
 
     [Inspectable(category="Data")]
 
-	/**
-	 *  @private
-	 */
-	override public function set horizontalAxis(value:IAxis):void
-	{
-		if (value is CategoryAxis)
-			CategoryAxis(value).padding = 0;
+    /**
+     *  @private
+     */
+    override public function set horizontalAxis(value:IAxis):void
+    {
+        if (value is CategoryAxis)
+            CategoryAxis(value).padding = 0;
 
-		super.horizontalAxis = value;
-	}	
+        super.horizontalAxis = value;
+    }   
 
     //--------------------------------------------------------------------------
     //
@@ -140,178 +140,178 @@ public class AreaChart extends CartesianChart
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  type
+    //  type
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the type property.
-	 */
-	private var _type:String = "overlaid";
+    /**
+     *  @private
+     *  Storage for the type property.
+     */
+    private var _type:String = "overlaid";
 
-	[Inspectable(category="General", enumeration="overlaid,stacked,100%", defaultValue="overlaid")]
+    [Inspectable(category="General", enumeration="overlaid,stacked,100%", defaultValue="overlaid")]
 
-	/**
-	 *  Type of area chart to render.
-	 *
-	 *  <p>Possible values are:</p>
-	 *  <ul>
-	 *    <li><code>"overlaid"</code>:
-	 *    Multiple areas are rendered on top of each other,
-	 *    with the last series specified on top.
-	 *    This is the default value.</li>
-	 *    <li><code>"stacked"</code>:
-	 *    Areas are stacked on top of each other and grouped by category.
-	 *    Each area represents the cumulative value
-	 *    of the areas beneath it.</li>
-	 *    <li><code>"100%"</code>:
-	 *    Areas are stacked on top of each other, adding up to 100%.
-	 *    Each area represents the percent that series contributes
-	 *    to the sum of the whole.</li>
-	 *  </ul>
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get type():String
-	{
-		return _type;
-	}
+    /**
+     *  Type of area chart to render.
+     *
+     *  <p>Possible values are:</p>
+     *  <ul>
+     *    <li><code>"overlaid"</code>:
+     *    Multiple areas are rendered on top of each other,
+     *    with the last series specified on top.
+     *    This is the default value.</li>
+     *    <li><code>"stacked"</code>:
+     *    Areas are stacked on top of each other and grouped by category.
+     *    Each area represents the cumulative value
+     *    of the areas beneath it.</li>
+     *    <li><code>"100%"</code>:
+     *    Areas are stacked on top of each other, adding up to 100%.
+     *    Each area represents the percent that series contributes
+     *    to the sum of the whole.</li>
+     *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get type():String
+    {
+        return _type;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set type(value:String):void
-	{
-		_type = value;
-		invalidateSeries();
-		invalidateData();
-	}
+    /**
+     *  @private
+     */
+    public function set type(value:String):void
+    {
+        _type = value;
+        invalidateSeries();
+        invalidateData();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var areaChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.AreaChart", styleManager);
-		
-		var areaChartSeriesStyles:Array /* of Object */ = [];
-		
-		areaChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.chartSeriesStyles = areaChartSeriesStyles;
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);
-			this.fontSize = 10;
-			this.textAlign = "left";
-			this.horizontalAxisStyleNames = ["hangingCategoryAxis"];
-			this.verticalAxisStyleNames = ["blockNumericAxis"];
-		}
-		
-		var n:int = HaloDefaults.defaultFills.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var styleName:String = "haloAreaSeries" + i;
-			areaChartSeriesStyles[i] = styleName;
-			
-			var o:CSSStyleDeclaration =
-				HaloDefaults.createSelector("." + styleName, styleManager);
-			
-			var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke,
-									  fill:IFill):void
-			{
-				o.defaultFactory = function():void
-				{
-					this.areaFill = fill;
-					this.fill = fill;
-				}
-			}
-			
-			f(o, null, HaloDefaults.defaultFills[i]);
-		}
-		
-		return true;
-	}
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var areaChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.AreaChart", styleManager);
+        
+        var areaChartSeriesStyles:Array /* of Object */ = [];
+        
+        areaChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.chartSeriesStyles = areaChartSeriesStyles;
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);
+            this.fontSize = 10;
+            this.textAlign = "left";
+            this.horizontalAxisStyleNames = ["hangingCategoryAxis"];
+            this.verticalAxisStyleNames = ["blockNumericAxis"];
+        }
+        
+        var n:int = HaloDefaults.defaultFills.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var styleName:String = "haloAreaSeries" + i;
+            areaChartSeriesStyles[i] = styleName;
+            
+            var o:CSSStyleDeclaration =
+                HaloDefaults.createSelector("." + styleName, styleManager);
+            
+            var f:Function = function(o:CSSStyleDeclaration, stroke:Stroke,
+                                      fill:IFill):void
+            {
+                o.defaultFactory = function():void
+                {
+                    this.areaFill = fill;
+                    this.fill = fill;
+                }
+            }
+            
+            f(o, null, HaloDefaults.defaultFills[i]);
+        }
+        
+        return true;
+    }
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: ChartBase
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function customizeSeries(seriesGlyph:Series,
-												i:uint):void
-	{
-		var aSeries:AreaSeries = seriesGlyph as AreaSeries;
+    /**
+     *  @private
+     */
+    override protected function customizeSeries(seriesGlyph:Series,
+                                                i:uint):void
+    {
+        var aSeries:AreaSeries = seriesGlyph as AreaSeries;
 
-		if (aSeries)
-		{
-			aSeries.stacker = null;
-			aSeries.stackTotals = null;
-		}
-	}
+        if (aSeries)
+        {
+            aSeries.stacker = null;
+            aSeries.stackTotals = null;
+        }
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function applySeriesSet(seriesSet:Array /* of Series */,
-											   transform:DataTransform):Array /* of Series */
-	{
-		switch (_type)
-		{
-			case "stacked":
-			case "100%":
-			{
-				var newSeriesGlyph:AreaSet = new AreaSet();
-				newSeriesGlyph.series = seriesSet;
-				newSeriesGlyph.type = _type;
-				return [ newSeriesGlyph ];
-			}				
+    /**
+     *  @private
+     */
+    override protected function applySeriesSet(seriesSet:Array /* of Series */,
+                                               transform:DataTransform):Array /* of Series */
+    {
+        switch (_type)
+        {
+            case "stacked":
+            case "100%":
+            {
+                var newSeriesGlyph:AreaSet = new AreaSet();
+                newSeriesGlyph.series = seriesSet;
+                newSeriesGlyph.type = _type;
+                return [ newSeriesGlyph ];
+            }               
 
-			case "overlaid":
-			default:
-			{
-				return super.applySeriesSet(seriesSet, transform);
-			}
-		}
-	}
+            case "overlaid":
+            default:
+            {
+                return super.applySeriesSet(seriesSet, transform);
+            }
+        }
+    }
 }
 
 }
