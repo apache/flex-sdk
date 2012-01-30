@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
-//  Copyright 2008 Adobe Systems Incorporated
+//  Copyright 2010 Adobe Systems Incorporated
 //  All Rights Reserved.
 //
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.mobile
+package spark.skins.mobile.supportClasses
 {
     
     import flash.display.DisplayObject;
@@ -22,7 +22,6 @@ package spark.skins.mobile
     import flash.text.TextFormatAlign;
     import flash.text.TextLineMetrics;
     
-    import mx.controls.ButtonLabelPlacement;
     import mx.core.IUITextField;
     import mx.core.UIComponent;
     import mx.core.UITextField;
@@ -32,30 +31,26 @@ package spark.skins.mobile
     import mx.states.State;
     import mx.utils.ColorUtil;
     
+    import spark.components.IconPlacement;
     import spark.components.supportClasses.ButtonBase;
     import spark.components.supportClasses.MobileTextField;
-    import spark.skins.MobileSkin;
+    import spark.skins.mobile.supportClasses.MobileSkin;
     
     use namespace mx_internal;
     
     /*    
     ISSUES:
-    - should we support textAlign (if not, remove extra code)
-    - labelPlacement a style?
-    - iconClass a style?
-    - need a downIconClass style? 
-    - should the label be UITextField or another text class?  
-    
+    - should we support textAlign (if not, remove extra code)    
     */
     /**
      *  Actionscript based skin for mobile applications. The skin supports 
-     *  iconClass and labelPlacement. It uses a couple of FXG classes to 
+     *  iconClass and iconPlacement. It uses a couple of FXG classes to 
      *  implement the vector drawing.  
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
      */
     public class ButtonSkinBase extends MobileSkin
     {	
@@ -117,6 +112,14 @@ package spark.skins.mobile
         //  Overridden methods
         //
         //--------------------------------------------------------------------------
+        
+ 
+        /*override protected function commitCurrentState():void
+        {
+            super.commitCurrentState();
+            
+            alpha = currentState.indexOf("disabled") == -1 ? 1 : 0.3;
+        }*/
         
         /**
          *  @private 
@@ -186,9 +189,7 @@ package spark.skins.mobile
         {        
             super.measure();
             
-            var labelPlacement:String = getStyle("labelPlacement");
-            if (labelPlacement == null)
-                labelPlacement = ButtonLabelPlacement.RIGHT;
+            var iconPlacement:String = getStyle("iconPlacement");
             
             var textWidth:Number = 0;
             var textHeight:Number = 0;
@@ -211,8 +212,8 @@ package spark.skins.mobile
             var w:Number = 0;
             var h:Number = 0;
             
-            if (labelPlacement == ButtonLabelPlacement.LEFT ||
-                labelPlacement == ButtonLabelPlacement.RIGHT)
+            if (iconPlacement == IconPlacement.LEFT ||
+                iconPlacement == IconPlacement.RIGHT)
             {
                 w = textWidth + iconWidth;
                 if (textWidth && iconWidth)
@@ -262,9 +263,7 @@ package spark.skins.mobile
             var horizontalGap:Number = 0;
             var verticalGap:Number = 0;
             
-            var labelPlacement:String = getStyle("labelPlacement");
-            if (labelPlacement == null)
-                labelPlacement = ButtonLabelPlacement.RIGHT;
+            var iconPlacement:String = getStyle("iconPlacement");
             
             var textWidth:Number = 0;
             var textHeight:Number = 0;
@@ -300,8 +299,8 @@ package spark.skins.mobile
                 iconHeight = iconDisplay.height;
             }
             
-            if (labelPlacement == ButtonLabelPlacement.LEFT ||
-                labelPlacement == ButtonLabelPlacement.RIGHT)
+            if (iconPlacement == IconPlacement.LEFT ||
+                iconPlacement == IconPlacement.RIGHT)
             {
                 horizontalGap = gap;
                 
@@ -335,7 +334,7 @@ package spark.skins.mobile
                         horizontalGap - paddingLeft - paddingRight) / 2) + paddingLeft;
                 }
                 
-                if (labelPlacement == ButtonLabelPlacement.RIGHT)
+                if (iconPlacement == IconPlacement.LEFT)
                 {
                     labelX += iconWidth + horizontalGap;
                     iconX = labelX - (iconWidth + horizontalGap);
@@ -382,7 +381,7 @@ package spark.skins.mobile
                     iconX += ((viewWidth - iconWidth - paddingLeft - paddingRight) / 2) + paddingLeft;
                 }
                 
-                if (labelPlacement == ButtonLabelPlacement.TOP)
+                if (iconPlacement == IconPlacement.BOTTOM)
                 {
                     labelY += ((viewHeight - labelHeight - iconHeight - 
                         paddingTop - paddingBottom - verticalGap) / 2) + paddingTop;
