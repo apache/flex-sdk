@@ -37,7 +37,6 @@
 				<target-player>10</target-player>
 				<include-resource-bundles bundle="SharedResources"/>
 				<include-resource-bundles bundle="collections"/>
-				<include-resource-bundles bundle="containers"/>
 				<include-resource-bundles bundle="controls"/>
 				<include-resource-bundles bundle="core"/>
 				<include-resource-bundles bundle="effects"/>
@@ -150,7 +149,6 @@
 		<delete failonerror="false">
 			<fileset dir="${basedir}" >
 				<include name="bundles.properties"/>
-				<include name="manifest.xml"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="framework.swc"/>
@@ -168,11 +166,7 @@
 		</delete>
 	</target>
 	
-	<target name="prepare" description="Copies manifests to project directories so the IDE can find them">
-		<copy file="${FLEX_HOME}/frameworks/mx-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
-	</target>
-	
-	<target name="compile" depends="prepare" description="Compiles framework.swc">
+	<target name="compile" description="Compiles framework.swc">
 		<echo message="Compiling frameworks/libs/framework.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
