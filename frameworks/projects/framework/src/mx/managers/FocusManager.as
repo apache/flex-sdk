@@ -1827,8 +1827,14 @@ public class FocusManager implements IFocusManager
    			return;
    			
         showFocusIndicator = true;
-		focusChanged = false;
-        if (event.keyCode == Keyboard.TAB && !event.isDefaultPrevented())
+        focusChanged = false;
+
+        // see if we got here from a tab.  We also need to check for 
+        // keyCode == 0 because in IE sometimes the first time you tab 
+        // in to the flash player, you get keyCode == 0 instead of TAB.
+        // Flash Player bug #2295688.
+        if ((event.keyCode == Keyboard.TAB || (browserMode && event.keyCode == 0)) 
+                && !event.isDefaultPrevented())
         {
             if (browserFocusComponent)
             {
