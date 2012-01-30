@@ -20,6 +20,11 @@ import flash.events.Event;
  *
  *  For security reasons, some fields of a MouseEvent are not sent
  *  in a SandboxMouseEvent.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SandboxMouseEvent extends Event
 {
@@ -33,31 +38,61 @@ public class SandboxMouseEvent extends Event
 		
 	/**
 	 *  Mouse was clicked somewhere outside your sandbox.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const CLICK_SOMEWHERE:String = "clickSomewhere";
 
 	/**
 	 *  Mouse was double-clicked somewhere outside your sandbox.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const DOUBLE_CLICK_SOMEWHERE:String = "coubleClickSomewhere";
 
 	/**
 	 *  Mouse button was pressed down somewhere outside your sandbox.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const MOUSE_DOWN_SOMEWHERE:String = "mouseDownSomewhere";
 
 	/**
 	 *  Mouse was moved somewhere outside your sandbox.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const MOUSE_MOVE_SOMEWHERE:String = "mouseMoveSomewhere";
 
 	/**
 	 *  Mouse button was released somewhere outside your sandbox.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const MOUSE_UP_SOMEWHERE:String = "mouseUpSomewhere";
 
 	/**
 	 *  Mouse wheel was spun somewhere outside your sandbox.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static const MOUSE_WHEEL_SOMEWHERE:String = "mouseWheelSomewhere";
 
@@ -74,6 +109,11 @@ public class SandboxMouseEvent extends Event
      *  @param event A SWFBridgeRequest that might have been created in a different ApplicationDomain.
      * 
      *  @return A SandboxMouseEvent created in the caller's ApplicationDomain.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function marshal(event:Event):SandboxMouseEvent
 	{
@@ -108,6 +148,11 @@ public class SandboxMouseEvent extends Event
 	 *  
 	 *  @param buttonDown Indicates whether the primary mouse button is pressed (true) or not (false).
 	 *  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SandboxMouseEvent(type:String, bubbles:Boolean = false,
                                       cancelable:Boolean = false,
@@ -138,6 +183,11 @@ public class SandboxMouseEvent extends Event
 	 *  Indicates whether the <code>Alt</code> key was pressed.
 	 *  
 	 *  @see flash.events.MouseEvent#altkey
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var altKey:Boolean;
 
@@ -149,6 +199,11 @@ public class SandboxMouseEvent extends Event
 	 *  Indicates whether the primary mouse button is pressed (true) or not (false).
 	 *  
 	 *  @see flash.events.MouseEvent#buttonDown
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var buttonDown:Boolean;
 
@@ -160,6 +215,11 @@ public class SandboxMouseEvent extends Event
 	 *  Indicates whether the <code>Ctrl</code> key was pressed.
 	 *  
 	 *  @see flash.events.MouseEvent#ctrlKey
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var ctrlKey:Boolean;
 
@@ -171,6 +231,11 @@ public class SandboxMouseEvent extends Event
 	 *  Indicates whether the <code>Shift</code> key was pressed.
 	 *  
 	 *  @see flash.events.MouseEvent#shiftKey
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var shiftKey:Boolean;
 
