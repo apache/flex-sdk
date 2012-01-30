@@ -15,6 +15,7 @@ package mx.accessibility
 import flash.accessibility.Accessibility;
 import flash.display.DisplayObject;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.containers.Accordion;
 import mx.containers.accordionClasses.AccordionHeader;
 import mx.controls.Button;
@@ -41,36 +42,6 @@ public class AccordionHeaderAccImpl extends AccImpl
 	//  Class constants
 	//
 	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTED:uint = 0x00000002;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
 
 	//--------------------------------------------------------------------------
 	//
@@ -132,7 +103,7 @@ public class AccordionHeaderAccImpl extends AccImpl
 	{
 		super(master);
 		
-		role = 0x25; // ROLE_SYSTEM_PAGETAB
+		role = AccConst.ROLE_SYSTEM_PAGETAB;
 
 		master.parent.addEventListener("change", eventHandler);
 		master.addEventListener("removed", removedHandler);
@@ -179,17 +150,17 @@ public class AccordionHeaderAccImpl extends AccImpl
 		
 		if (accordion.enabled)
 		{
-			accState |= STATE_SYSTEM_SELECTABLE;
+			accState |= AccConst.STATE_SYSTEM_SELECTABLE;
 		
 			if (Button(master).selected)
-				accState |= STATE_SYSTEM_SELECTED;
+				accState |= AccConst.STATE_SYSTEM_SELECTED;
 				
 			var index:int = accordion.focusedIndex;
 			if (index >= 0 && master == accordion.getHeaderAt(index))
-				accState |= STATE_SYSTEM_FOCUSED;
+				accState |= AccConst.STATE_SYSTEM_FOCUSED;
 		}					 
 		else
-			accState |= STATE_SYSTEM_UNAVAILABLE;
+			accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
 
 		return accState;
 	}
@@ -264,7 +235,7 @@ public class AccordionHeaderAccImpl extends AccImpl
 				if (index >= 0 && master == Accordion(event.currentTarget.parent).getHeaderAt(index))
 				{
 					Accessibility.sendEvent(DisplayObject(event.currentTarget), index + 1,
-											EVENT_OBJECT_FOCUS, true);
+											AccConst.EVENT_OBJECT_FOCUS, true);
 				}
 				break;
 			}
@@ -276,7 +247,7 @@ public class AccordionHeaderAccImpl extends AccImpl
 				if (index >= 0 && master == Accordion(event.currentTarget).getHeaderAt(index))
 				{
 					Accessibility.sendEvent(master, index + 1,
-											EVENT_OBJECT_SELECTION, true);
+											AccConst.EVENT_OBJECT_SELECTION, true);
 				}
 				break;
 			}
