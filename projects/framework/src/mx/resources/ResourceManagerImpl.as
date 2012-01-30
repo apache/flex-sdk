@@ -94,7 +94,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     public function ResourceManagerImpl()
     {
         super();
-    }
+	}
     
     //--------------------------------------------------------------------------
     //
@@ -346,7 +346,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             //dumpResourceModule(resourceModule);
         
             resourceModules[event.module.url].resourceModule = resourceModule;
-         
+
             if (updateFlag)
                 update();
         }
@@ -735,6 +735,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             }
         }
     }
+
 }
 
 }
