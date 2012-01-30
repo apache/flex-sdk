@@ -31,9 +31,9 @@
              minHeight="24" >
 
     <fx:Metadata>
-      /**
-       *  The host component of this skin.
-       */
+      /** 
+        * @copy spark.skins.spark.ApplicationSkin#hostComponent
+        */
       [HostComponent("spark.components.windowClasses.TitleBar")]
     </fx:Metadata> 
   
@@ -85,19 +85,20 @@
         </s:layout>
 
         <!-- title bar icon -->
-        <!--- Defines the image for the icon in the title bar. -->
+        <!--- @copy spark.components.windowClasses.TitleBar#titleIconImage -->
         <s:BitmapImage id="titleIconImage" minWidth="0" fillMode="clip"/>
         
         <!-- title -->
-        <!--- Defines the Label control for displaying the title text in the title bar. -->
+        <!--- @copy spark.components.windowClasses.TitleBar#titleText -->
         <s:Label id="titleText" minWidth="0" fontSize="9" color="#585858" maxDisplayedLines="1" width="100%" />
 
         <!-- minimize button --> 
         <!--- 
-            Defines the Button control for the mimimized button in the title bar. 
             By default, the button uses the spark.skins.spark.windowChrome.MinimizeButtonSkin class
             to define the skin for the mimimized button.
             
+            @copy spark.components.windowClasses.TitleBar#minimizeButton 
+        
             @see spark.skins.spark.windowChrome.MinimizeButtonSkin 
         -->
         <s:Button id="minimizeButton"
@@ -107,10 +108,11 @@
         
         <!-- maximize button -->
         <!--- 
-            Defines the Button control for the maximized button in the title bar. 
             By default, the button uses the spark.skins.spark.windowChrome.MinimizeButtonSkin class
             to define the skin for the maximized button.
             
+            @copy spark.components.windowClasses.TitleBar#maximizeButton
+        
             @see spark.skins.spark.windowChrome.MaximizeButtonSkin 
         -->
         <s:Button id="maximizeButton" 
@@ -121,10 +123,11 @@
                         
         <!-- close button -->
         <!--- 
-            Defines the Button control for the close button in the title bar. 
             By default, the button uses the spark.skins.spark.windowChrome.MinimizeButtonSkin class
             to define the skin for the close button.
             
+            @copy spark.components.windowClasses.TitleBar#closeButton 
+        
             @see spark.skins.spark.windowChrome.CloseButtonSkin 
         -->
         <s:Button id="closeButton" 
