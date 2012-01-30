@@ -87,7 +87,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo, spark")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo, spark, mobile")]
 
 /**
  *  Bounding box sides.
