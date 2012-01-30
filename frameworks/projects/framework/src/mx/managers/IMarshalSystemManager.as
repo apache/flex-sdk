@@ -19,7 +19,9 @@ import flash.geom.Rectangle;
 import mx.core.ISWFBridgeGroup;  
 
 /**
- *
+ *  The IMarshalSystemManager interface defines the methods and properties that classes must implement
+ *  if they want to access, add, and remove bridges to other applications in a cross-versioned configuration.
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -76,7 +78,7 @@ public interface IMarshalSystemManager
      *  Each child bridge represents components in another sandbox
      *  or compiled with a different version of Flex.
      *
-     *  @param bridge The bridge for the child
+     *  @param bridge The bridge for the child.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -123,11 +125,11 @@ public interface IMarshalSystemManager
     function useSWFBridge():Boolean;
     
     /** 
-     *  Adds child to sandbox root in the layer requested.
+     *  Adds the specified child to the sandbox root in the layer requested.
      *
-     *  @param layer Name of IChildList in SystemManager
+     *  @param layer The name of IChildList in SystemManager.
      *
-     *  @param child DisplayObject to add
+     *  @param child The DisplayObject to add.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -137,11 +139,11 @@ public interface IMarshalSystemManager
     function addChildToSandboxRoot(layer:String, child:DisplayObject):void;
 
     /** 
-     *  Removes child from sandbox root in the layer requested.
+     *  Removes the specified child from the sandbox root in the layer requested.
      *
-     *  @param layer Name of IChildList in SystemManager
+     *  @param layer The name of IChildList in SystemManager.
      *
-     *  @param child DisplayObject to add
+     *  @param child The DisplayObject to add.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
