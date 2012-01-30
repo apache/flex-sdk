@@ -1629,8 +1629,14 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
     public function acceptMediaList(value:String):Boolean
     {
         if (!mqp)
-            mqp = new MediaQueryParser(moduleFactory);
-        
+        {
+            mqp = MediaQueryParser.instance;
+            if (!mqp)
+            {
+                mqp = new MediaQueryParser(moduleFactory);
+                MediaQueryParser.instance = mqp;
+            }
+        }
         return mqp.parse(value);
     }
     
