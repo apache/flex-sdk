@@ -708,6 +708,7 @@ public class FocusManager implements IFocusManager
         form.addEventListener(FocusEvent.FOCUS_IN, focusInHandler, true);
         form.addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler, true);
         form.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler); 
+        form.addEventListener(KeyboardEvent.KEY_DOWN, defaultButtonKeyHandler);
         // listen for default button in Capture phase. Some components like TextInput 
         // and Accordion stop the Enter key from propagating in the Bubble phase. 
         form.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
@@ -763,6 +764,7 @@ public class FocusManager implements IFocusManager
         form.removeEventListener(FocusEvent.FOCUS_IN, focusInHandler, true);
         form.removeEventListener(FocusEvent.FOCUS_OUT, focusOutHandler, true);
         form.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler); 
+        form.removeEventListener(KeyboardEvent.KEY_DOWN, defaultButtonKeyHandler);
         // stop listening for default button in Capture phase
         form.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
 
@@ -1513,7 +1515,8 @@ public class FocusManager implements IFocusManager
                     // trace("FM removed " + o);
                     o.removeEventListener("tabEnabledChange", tabEnabledChangeHandler);
                     o.removeEventListener("tabIndexChange", tabIndexChangeHandler);
-                    focusableObjects.splice(i, 1);
+                    focusableObjects.splice(i, 1);           
+                    focusableCandidates = [];
                     calculateCandidates = true;                 
                     break;
                 }
@@ -1565,6 +1568,8 @@ public class FocusManager implements IFocusManager
                         "tabIndexChange", tabIndexChangeHandler);
                     focusableObjects.splice(i, 1);
                     i = i - 1;  // because increment would skip one
+                    
+                    focusableCandidates = [];
                     calculateCandidates = true;                 
                 }
             }
@@ -1749,7 +1754,7 @@ public class FocusManager implements IFocusManager
 
     /**
      *  @private
-     *  Watch for Enter key.
+     *  Watch for TAB keys.
      */
     private function keyDownHandler(event:KeyboardEvent):void
     {
@@ -1821,14 +1826,25 @@ public class FocusManager implements IFocusManager
                 }
             }
         }
-
-        if (defaultButtonEnabled &&
-            event.keyCode == Keyboard.ENTER &&
-            defaultButton && defButton.enabled)
-            //sendDefaultButtonEvent();
-            defButton.callLater(sendDefaultButtonEvent);
     }
 
+    /**
+     *  @private
+     *  Watch for ENTER key.
+     */
+    private function defaultButtonKeyHandler(event:KeyboardEvent):void
+    {
+        var sm:ISystemManager = form.systemManager;
+        if (sm.isDisplayObjectInABridgedApplication(DisplayObject(event.target)))
+            return;
+            
+        if (defaultButtonEnabled && event.keyCode == Keyboard.ENTER &&
+            defaultButton && defButton.enabled)
+        {
+            sendDefaultButtonEvent();
+        }
+    }
+    
     /**
      *  @private
      *  This gets called when the focus changes due to a mouse click.
