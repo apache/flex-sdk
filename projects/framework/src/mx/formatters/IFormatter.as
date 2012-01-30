@@ -34,7 +34,7 @@ public interface IFormatter
 
     /**
      *  Formats a value and returns a <code>String</code>
-     *  containing the new, formatted, value.
+     *  containing the new formatted value.
      *
      *  @param value Value to be formatted.
      *
