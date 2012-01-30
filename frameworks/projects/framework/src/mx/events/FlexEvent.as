@@ -37,6 +37,9 @@ public class FlexEvent extends Event
      *  The <code>FlexEvent.ADD</code> constant defines the value of the
      *  <code>type</code> property of the event object for an <code>add</code> event.
      *
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
+     * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
@@ -234,6 +237,9 @@ public class FlexEvent extends Event
     /**
      *  The <code>FlexEvent.CREATION_COMPLETE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>creationComplete</code> event.
+     * 
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
      *
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
@@ -394,6 +400,9 @@ public class FlexEvent extends Event
      *  The <code>FlexEvent.ENTER_STATE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>enterState</code> event.
      *
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
+     * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
@@ -422,6 +431,9 @@ public class FlexEvent extends Event
      *  The <code>FlexEvent.EXIT_STATE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>exitState</code> event.
      *
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
+     * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
@@ -657,6 +669,9 @@ public class FlexEvent extends Event
      *  The <code>FlexEvent.INITIALIZE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>initialize</code> event.
      *
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
+     * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
@@ -775,6 +790,9 @@ public class FlexEvent extends Event
      *  The <code>FlexEvent.PREINITIALIZE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>preinitialize</code> event.
      *
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
+     * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
@@ -831,6 +849,9 @@ public class FlexEvent extends Event
      *  The <code>FlexEvent.REMOVE</code> constant defines the value of the
      *  <code>type</code> property of the event object for an <code>remove</code> event.
      *
+     * <p>This event will only be dispatched when there are one or more relevant listeners 
+     * attached to the dispatching object.</p>
+     * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
@@ -1026,7 +1047,10 @@ public class FlexEvent extends Event
     /**
      *  The <code>FlexEvent.UPDATE_COMPLETE</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>updateComplete</code> event.
-     *
+     * 
+     *  <p>This event will only be dispatched when there are one or more relevant listeners 
+     *  attached to the dispatching object.</p>
+     * 
      *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
