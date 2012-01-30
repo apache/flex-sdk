@@ -641,7 +641,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     override protected function commitProperties():void
     {
-        super.commitProperties();
+        var changeEvent:IndexChangeEvent;
         
         if (selectedIndexChanged || dataProviderChanged)
         {
@@ -684,6 +684,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 navigator.setActive(true);
                 navigator.visible = true;
                 navigator.includeInLayout = true;
+
+                // Update the states of the controls on the newly activated view navigator.
+                // The updateControlsForView() method will automatically bubble up to all
+                // parents of the navigator.
+                navigator.updateControlsForView(navigator.activeView);
                 
                 // Force a validation of the new navigator to prevent a flicker from
                 // occurring in cases where multiple validation passes are required
@@ -692,15 +697,15 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 
                 if (navigator.activeView)
                 {
-                    updateControlsForView(navigator.activeView);
                     navigator.activeView.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                             view_propertyChangeHandler);
                     
                     // Force the stage focus to be the activated view
                     systemManager.stage.focus = activeView;
                 }
+                
             }
-            
+
             selectedIndexAdjusted = false;
             dataProviderChanged = false;
             selectedIndexChanged = false;
@@ -708,14 +713,12 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             // Dispatch selection change event
             if (hasEventListener(IndexChangeEvent.CHANGE))
             {
-                var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGE, false, false);
-                e.oldIndex = oldIndex;
-                e.newIndex = _selectedIndex;
-                
-                dispatchEvent(e);
+                changeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGE, false, false);
+                changeEvent.oldIndex = oldIndex;
+                changeEvent.newIndex = _selectedIndex;
             }
         }
-        
+
         if (tabBarVisibilityChanged)
             commitVisibilityChanges();
         
@@ -725,6 +728,17 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         // so that animations run again.
         if (disableNextControlAnimation)
             disableNextControlAnimation = false;
+        
+        // Call base class' commitProperties after the above so that state changes
+        // as a result of overlayControls are caught.  This should be okay because
+        // TabbedViewNavigator doesn't need any properties in its base class being
+        // validated to complete the above code
+        super.commitProperties();
+        
+        // Dispatch the index change event after super.commitProperties() has changed
+        // so the callbacks can deal with state changes performed by commitProperties.
+        if (changeEvent)
+            dispatchEvent(changeEvent);
     }
     
     /**
