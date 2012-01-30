@@ -131,7 +131,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         super();
 
 		this.popup = popup;
-		
+
+        IMEEnabled = Capabilities.os.substring(0, 3) != "Mac";
         browserMode = Capabilities.playerType == "ActiveX" && !popup;
         desktopMode = Capabilities.playerType == "Desktop" && !popup;
         // Flash main windows come up activated, AIR main windows don't
@@ -216,7 +217,16 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 	 */
 	mx_internal var popup:Boolean;
 
-	/**
+    /**
+     * @private
+     * 
+     * True if this focus manager will try to enable/disable the IME based on
+     * whether the focused control uses IME.
+     * 
+     */
+    mx_internal var IMEEnabled:Boolean;
+
+    /**
      *  @private
      *  We track whether we've been last activated or saw a TAB
      *  This is used in browser tab management
@@ -628,7 +638,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                     if (imeFocus.enableIME)
                         usesIME = true;
                 }
-                IME.enabled = usesIME;
+                if (IMEEnabled)
+                    IME.enabled = usesIME;
             }
             
 			// handle default button here
