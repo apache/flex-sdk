@@ -5803,31 +5803,51 @@ public class UIComponent extends FlexSprite
     {
         if (_scaleX != oldScaleX)
         {
-            var scalingFactorX:Number = Math.abs(_scaleX / oldScaleX);
-            if (!isNaN(explicitMinWidth))
-                explicitMinWidth *= scalingFactorX;
-            if (!isNaN(explicitWidth))
-                explicitWidth *= scalingFactorX;
-            if (!isNaN(explicitMaxWidth))
-                explicitMaxWidth *= scalingFactorX;
-
-            _width *= scalingFactorX;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                var scalingFactorX:Number = Math.abs(_scaleX / oldScaleX);
+                if (!isNaN(explicitMinWidth))
+                    explicitMinWidth *= scalingFactorX;
+                if (!isNaN(explicitWidth))
+                    explicitWidth *= scalingFactorX;
+                if (!isNaN(explicitMaxWidth))
+                    explicitMaxWidth *= scalingFactorX;
+    
+                _width *= scalingFactorX;
+            }
+            else if (invalidateSizeFlag)
+            {
+                // If we're not compatible with Flex3 (measuredWidth is pre-scale always)
+                // and scaleX is changing we need to invalidate parent size and display list
+                // since we are not going to detect a change in measured sizes during measure.
+                invalidateParentSizeAndDisplayList();
+            }
 
             super.scaleX = oldScaleX = _scaleX;
         }
 
         if (_scaleY != oldScaleY)
         {
-            var scalingFactorY:Number = Math.abs(_scaleY / oldScaleY);
-            if (!isNaN(explicitMinHeight))
-                explicitMinHeight *= scalingFactorY;
-            if (!isNaN(explicitHeight))
-                explicitHeight *= scalingFactorY;
-            if (!isNaN(explicitMaxHeight))
-                explicitMaxHeight *= scalingFactorY;
-
-            _height *= scalingFactorY;
-
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                var scalingFactorY:Number = Math.abs(_scaleY / oldScaleY);
+                if (!isNaN(explicitMinHeight))
+                    explicitMinHeight *= scalingFactorY;
+                if (!isNaN(explicitHeight))
+                    explicitHeight *= scalingFactorY;
+                if (!isNaN(explicitMaxHeight))
+                    explicitMaxHeight *= scalingFactorY;
+    
+                _height *= scalingFactorY;
+            }
+            else if (invalidateSizeFlag)
+            {
+                // If we're not compatible with Flex3 (measuredHeight is pre-scale always)
+                // and scaleX is changing we need to invalidate parent size and display list
+                // since we are not going to detect a change in measured sizes during measure.
+                invalidateParentSizeAndDisplayList();
+            }
+            
             super.scaleY = oldScaleY = _scaleY;
         }
 
@@ -5888,6 +5908,13 @@ public class UIComponent extends FlexSprite
      */    
     protected function skipMeasure():Boolean
     {
+        // We can skip the measure function if the object's width and height
+        // have been explicitly specified (e.g.: the object's MXML tag has
+        // attributes like width="50" and height="100").
+        //
+        // If an object's width and height have been explicitly specified,
+        // then the explicitWidth and explicitHeight properties contain
+        // Numbers (as opposed to NaN)
         return !isNaN(explicitWidth) && !isNaN(explicitHeight);
     }
 
@@ -5904,15 +5931,6 @@ public class UIComponent extends FlexSprite
         var scalingFactor:Number;
         var newValue:Number;
 
-        // We can skip the measure function if the object's width and height
-        // have been explicitly specified (e.g.: the object's MXML tag has
-        // attributes like width="50" and height="100").
-        //
-        // If an object's width and height have been explicitly specified,
-        // then the explicitWidth and explicitHeight properties contain
-        // Numbers (as opposed to NaN)
-        
-        
         if (skipMeasure())
         {
             invalidateSizeFlag = false;
@@ -5924,16 +5942,19 @@ public class UIComponent extends FlexSprite
             var xScale:Number = Math.abs(scaleX);
             var yScale:Number = Math.abs(scaleY);
 
-            if (xScale != 1.0)
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             {
-                _measuredMinWidth /= xScale;
-                _measuredWidth /= xScale;
-            }
-
-            if (yScale != 1.0)
-            {
-                _measuredMinHeight /= yScale;
-                _measuredHeight /= yScale;
+                if (xScale != 1.0)
+                {
+                    _measuredMinWidth /= xScale;
+                    _measuredWidth /= xScale;
+                }
+    
+                if (yScale != 1.0)
+                {
+                    _measuredMinHeight /= yScale;
+                    _measuredHeight /= yScale;
+                }
             }
 
             measure();
@@ -5952,16 +5973,19 @@ public class UIComponent extends FlexSprite
             if (!isNaN(explicitMaxHeight) && measuredHeight > explicitMaxHeight)
                 measuredHeight = explicitMaxHeight;
 
-            if (xScale != 1.0)
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             {
-                _measuredMinWidth *= xScale;
-                _measuredWidth *= xScale;
-            }
-
-            if (yScale != 1.0)
-            {
-                _measuredMinHeight *= yScale;
-                _measuredHeight *= yScale;
+                if (xScale != 1.0)
+                {
+                    _measuredMinWidth *= xScale;
+                    _measuredWidth *= xScale;
+                }
+    
+                if (yScale != 1.0)
+                {
+                    _measuredMinHeight *= yScale;
+                    _measuredHeight *= yScale;
+                }
             }
         }
 
@@ -6106,32 +6130,38 @@ public class UIComponent extends FlexSprite
 
         if (xScale != oldScaleX)
         {
-            scalingFactor = Math.abs(xScale / oldScaleX);
-
-            if (explicitMinWidth)
-                explicitMinWidth *= scalingFactor;
-
-            if (!isNaN(explicitWidth))
-                explicitWidth *= scalingFactor;
-
-            if (explicitMaxWidth)
-                explicitMaxWidth *= scalingFactor;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                scalingFactor = Math.abs(xScale / oldScaleX);
+    
+                if (explicitMinWidth)
+                    explicitMinWidth *= scalingFactor;
+    
+                if (!isNaN(explicitWidth))
+                    explicitWidth *= scalingFactor;
+    
+                if (explicitMaxWidth)
+                    explicitMaxWidth *= scalingFactor;
+            }
 
             oldScaleX = xScale;
         }
 
         if (yScale != oldScaleY)
         {
-            scalingFactor = Math.abs(yScale / oldScaleY);
-
-            if (explicitMinHeight)
-                explicitMinHeight *= scalingFactor;
-
-            if (explicitHeight)
-                explicitHeight *= scalingFactor;
-
-            if (explicitMaxHeight)
-                explicitMaxHeight *= scalingFactor;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                scalingFactor = Math.abs(yScale / oldScaleY);
+    
+                if (explicitMinHeight)
+                    explicitMinHeight *= scalingFactor;
+    
+                if (explicitHeight)
+                    explicitHeight *= scalingFactor;
+    
+                if (explicitMaxHeight)
+                    explicitMaxHeight *= scalingFactor;
+            }
 
             oldScaleY = yScale;
         }
@@ -6172,7 +6202,10 @@ public class UIComponent extends FlexSprite
      */
     protected function get unscaledWidth():Number
     {
-        return width / Math.abs(scaleX);
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            return width / Math.abs(scaleX);
+        else
+            return width;
     }
 
     /**
@@ -6184,15 +6217,17 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function setUnscaledWidth(value:Number):void
     {
-        var scaledValue:Number = value * Math.abs(oldScaleX);
-        if (_explicitWidth == scaledValue)
+        var newValue:Number = value;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            newValue *= Math.abs(oldScaleX);
+        if (_explicitWidth == newValue)
             return;
 
         // width can be pixel or percent not both
-        if (!isNaN(scaledValue))
+        if (!isNaN(newValue))
             _percentWidth = NaN;
             
-        _explicitWidth = scaledValue;
+        _explicitWidth = newValue;
 
         // We invalidate size because locking in width
         // may change the measured height in flow-based components.
@@ -6212,7 +6247,10 @@ public class UIComponent extends FlexSprite
      */
     protected function get unscaledHeight():Number
     {
-        return height / Math.abs(scaleY);
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            return height / Math.abs(scaleY);
+        else
+            return height;
     }
 
     /**
@@ -6224,15 +6262,17 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function setUnscaledHeight(value:Number):void
     {
-        var scaledValue:Number = value * Math.abs(oldScaleY);
-        if (_explicitHeight == scaledValue)
+        var newValue:Number = value;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            newValue *= Math.abs(oldScaleY);
+        if (_explicitHeight == newValue)
             return;
 
         // height can be pixel or percent, not both
-        if (!isNaN(scaledValue))
+        if (!isNaN(newValue))
             _percentHeight = NaN;
             
-        _explicitHeight = scaledValue;
+        _explicitHeight = newValue;
 
         // We invalidate size because locking in height
         // may change the measured width in flow-based components.
@@ -6306,15 +6346,21 @@ public class UIComponent extends FlexSprite
                 }
             }
 
-            var unscaledWidth:Number = scaleX == 0 ? 0 : width / scaleX;
-            var unscaledHeight:Number = scaleY == 0 ? 0 : height / scaleY;
-            // Use some hysteresis to prevent roundoff errors from
-            // causing problems as we scale. This isn't a full solution,
-            // but it helps.
-            if (Math.abs(unscaledWidth - lastUnscaledWidth) < .00001)
-                unscaledWidth = lastUnscaledWidth;
-            if (Math.abs(unscaledHeight - lastUnscaledHeight) < .00001)
-                unscaledHeight = lastUnscaledHeight;
+            var unscaledWidth:Number = width;
+            var unscaledHeight:Number = height;
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                unscaledWidth = scaleX == 0 ? 0 : width / scaleX;
+                unscaledHeight = scaleY == 0 ? 0 : height / scaleY;
+
+                // Use some hysteresis to prevent roundoff errors from
+                // causing problems as we scale. This isn't a full solution,
+                // but it helps.
+                if (Math.abs(unscaledWidth - lastUnscaledWidth) < .00001)
+                    unscaledWidth = lastUnscaledWidth;
+                if (Math.abs(unscaledHeight - lastUnscaledHeight) < .00001)
+                    unscaledHeight = lastUnscaledHeight;
+            }
             updateDisplayList(unscaledWidth,unscaledHeight);
             lastUnscaledWidth = unscaledWidth;
             lastUnscaledHeight = unscaledHeight;
