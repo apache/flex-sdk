@@ -535,6 +535,9 @@ public class AddItems extends OverrideBase implements IOverride
     {
         var tempArray:Array = isStyle ? dest.getStyle(propertyName) : dest[propertyName];
         
+        if (!tempArray)
+            tempArray = new Array();
+        
         if (startIndex == -1)
             startIndex = tempArray.length;
         
