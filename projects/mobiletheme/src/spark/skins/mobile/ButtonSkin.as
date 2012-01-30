@@ -82,8 +82,8 @@ public class ButtonSkin extends ButtonSkinBase
                 layoutPaddingTop = 20;
                 layoutPaddingBottom = 20;
                 layoutBorderSize = 2;
-                layoutMeasuredWidth = 64;
-                layoutMeasuredHeight = 86;
+                minWidth = 64;
+                minHeight = 86;
                 
                 break;
             }
@@ -99,8 +99,8 @@ public class ButtonSkin extends ButtonSkinBase
                 layoutPaddingTop = 15;
                 layoutPaddingBottom = 14;
                 layoutBorderSize = 1;
-                layoutMeasuredWidth = 48;
-                layoutMeasuredHeight = 65;
+                minWidth = 48;
+                minHeight = 65;
                 
                 break;
             }
@@ -117,8 +117,8 @@ public class ButtonSkin extends ButtonSkinBase
                 layoutPaddingTop = 10;
                 layoutPaddingBottom = 10;
                 layoutBorderSize = 1;
-                layoutMeasuredWidth = 32;
-                layoutMeasuredHeight = 43;
+                minWidth = 32;
+                minHeight = 43;
                 
                 break;
             }
