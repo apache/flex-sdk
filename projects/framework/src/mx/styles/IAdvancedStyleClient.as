@@ -48,14 +48,29 @@ public interface IAdvancedStyleClient extends IStyleClient
     //----------------------------------
 
     /**
-     *  The parent of this component.
-     *  
+     *  The parent of this <code>IAdvancedStyleClient</code>..
+     *
+     *  Typically, you do not assign this property directly.
+     *  It is set by the <code>addChild, addChildAt, removeChild, and
+     *  removeChildAt</code> methods of the
+     *  <code>flash.display.DisplayObjectContainer</code> and  the
+     *  <code>mx.core.UIComponent.addStyleClient()</code>  and
+     *  the <code>mx.core.UIComponent.removeStyleClient()</code> methods.
+     *
+     *  If it is assigned a value directly, without calling one of the
+     *  above mentioned methods the instance of the class that implements this
+     *  interface will not inherit styles from the UIComponent or DisplayObject.
+     *  Also if assigned a value directly without, first removing the
+     *  object from the current parent with the remove methods listed above,
+     *  a memory leak could occur.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
     function get styleParent():IAdvancedStyleClient;
+    function set styleParent(parent:IAdvancedStyleClient):void;
 
     //--------------------------------------------------------------------------
     //
