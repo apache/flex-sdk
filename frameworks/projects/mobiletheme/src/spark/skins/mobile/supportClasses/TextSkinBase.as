@@ -171,23 +171,22 @@ public class TextSkinBase extends MobileSkin
         var paddingTop:Number = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
         
-        var unscaledTextWdith:Number = unscaledWidth - paddingLeft - paddingRight;
-        var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
-        
-        var textTopPosition:Number = getTextTop(unscaledHeight, paddingTop);
+        var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
+        var unscaledTextHeight:Number = unscaledHeight - paddingTop;
+        var textTopPosition:Number = getTextTop(unscaledHeight, paddingTop, paddingBottom);
         
         if (textDisplay)
         {
             textDisplay.commitStyles();
             
-            resizePart(textDisplay, unscaledTextWdith, unscaledTextHeight);
+            resizePart(textDisplay, unscaledTextWidth, unscaledTextHeight);
             positionPart(textDisplay, paddingLeft, textTopPosition);
         }
         
         if (promptDisplay)
         {
             promptDisplay.commitStyles();
-            resizePart(promptDisplay, unscaledTextWdith, unscaledTextHeight);
+            resizePart(promptDisplay, unscaledTextWidth, unscaledTextHeight);
             positionPart(promptDisplay, paddingLeft, textTopPosition);
         }
     }
@@ -195,14 +194,25 @@ public class TextSkinBase extends MobileSkin
     /**
      *  @private
      *  Specifies the location of the textDisplay and promptDisplay skin parts.
-     *  Default verticalAlign="center".
+     *  Position is based on the following in-order: verticalAlign="middle",
+     *  paddingTop, paddingBottom.
      */
-    mx_internal function getTextTop(unscaledHeight:Number, paddingTop:Number):Number
+    mx_internal function getTextTop(unscaledHeight:Number, paddingTop:Number, paddingBottom:Number):Number
     {
-        if (textDisplay)
-            return Math.max(Math.round((unscaledHeight - textDisplay.textHeight) / 2), paddingTop);
+        var textTop:Number = paddingTop;
         
-        return paddingTop;
+        if (textDisplay)
+        {
+            // verticalAlign=middle or paddingTop
+            textTop = Math.max((unscaledHeight - textDisplay.textHeight) / 2, paddingTop);
+            
+            // nudge up if paddingBottom is greater than the remaining space
+            var bottomSpace:Number = unscaledHeight - (textTop + textDisplay.textHeight);
+            bottomSpace = paddingBottom - bottomSpace;
+            textTop = (bottomSpace > 0) ? Math.max(paddingTop, textTop - bottomSpace) : textTop;
+        }
+        
+        return textTop;
     }
     
     /**
