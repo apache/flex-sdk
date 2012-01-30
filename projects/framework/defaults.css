@@ -551,11 +551,11 @@ Container
 ControlBar
 {
 	disabledOverlayAlpha: 0; 
-	borderStyle: "controlBar";
-	paddingBottom: 10;
-	paddingLeft: 10;
-	paddingRight: 10;
-	paddingTop: 10;
+	borderStyle: "none";
+	paddingBottom: 11;
+	paddingLeft: 11;
+	paddingRight: 11;
+	paddingTop: 11;
 	verticalAlign: "middle";
 }
 
