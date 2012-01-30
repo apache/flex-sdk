@@ -62,12 +62,12 @@ public class ComponentDescriptor
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructor
+     *  Constructor.
      *
      *  @param descriptorProperties An Object containing name/value pairs
      *  for the properties of the ComponentDescriptor object, such as its
      *  <code>type</code>, <code>id</code>, <code>propertiesFactory</code>
-     *  and <code>events</code>
+     *  and <code>events</code>.
      */
     public function ComponentDescriptor(descriptorProperties:Object)
     {
