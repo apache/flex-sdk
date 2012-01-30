@@ -1942,20 +1942,61 @@ public class SWFLoader extends UIComponent implements ISWFLoader
      **/
     private function OSToPlayerURI(url:String, local:Boolean):String 
     {
-		try
-		{
-        	url = decodeURI(url);
-		}
-		catch (e:Error)
-		{
-			// malformed url, but some are legal on the file system
-			return url;
-		}
         
+        // First strip off the search string and any url fragments so
+        // they will not be decoded/encoded.
+        // Next decode the url.
+        // Before returning the decoded or encoded string add the search
+        // string and url fragment back.
+        var searchStringIndex:int;
+        var fragmentUrlIndex:int;
+        var decoded:String = url;
+        
+        if ((searchStringIndex = decoded.indexOf("?")) != -1 )
+        {
+            decoded = decoded.substring(0, searchStringIndex);
+        }
+        
+        if ((fragmentUrlIndex = decoded.indexOf("#")) != -1 )
+            decoded = decoded.substring(0, fragmentUrlIndex);
+        
+        try
+        {
+            // decode the url
+            decoded = decodeURI(decoded);
+        }
+        catch (e:Error)
+        {
+            // malformed url, but some are legal on the file system
+        }
+
+        // create the string to hold the the search string url fragments.
+        var extraString:String = null;
+        if (searchStringIndex != -1 || fragmentUrlIndex != -1)
+        {
+            var index:int = searchStringIndex;
+            
+            if (searchStringIndex == -1 || 
+                (fragmentUrlIndex != -1 && fragmentUrlIndex < searchStringIndex))
+            {
+                index = fragmentUrlIndex;
+            }
+            
+            extraString = url.substr(index);
+        }
+
         if (local && flash.system.Capabilities.playerType == "ActiveX")
-            return url;
+        {
+            if (extraString)
+                return decoded + extraString;
+            else 
+                return decoded;
+        }
         
-        return encodeURI(url);
+        if (extraString)
+            return encodeURI(decoded) + extraString;
+        else
+            return encodeURI(decoded);            
     }
 
     /**
