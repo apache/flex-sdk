@@ -109,6 +109,7 @@ package spark.automation.delegates.components.supportClasses
 		//--------------------------------------------------------------------------
 		// variable added to track the opening
 		private var isOpen:Boolean = false;
+		protected var isKeyTypeEvent:Boolean = false;
 		/**
 		 *  @private
 		 */
@@ -125,7 +126,12 @@ package spark.automation.delegates.components.supportClasses
 					sparkDropDownListBase.dataGroup.addEventListener(
 						RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler, false, 0 , true);
 				}
-				recordAutomatableEvent(event);
+				// Record the open event only if it is not triggered by typing a character 
+				// This value is set to true by ComboBox when a key that types a value 
+				// (basically when non-navigational key) is pressed.
+				if(!isKeyTypeEvent)
+					recordAutomatableEvent(event);
+				
 				if(sparkDropDownListBase.dropDown)
 				{
 					sparkDropDownListBase.dropDown.addEventListener(AutomationRecordEvent.RECORD, 
@@ -146,6 +152,8 @@ package spark.automation.delegates.components.supportClasses
 			}
 			else
 			{
+				// Reset the isKeyTypeEvent on closing the dropDown.
+				isKeyTypeEvent = false;
 				if (sparkDropDownListBase.dropDown)
 					sparkDropDownListBase.dropDown.removeEventListener(AutomationRecordEvent.RECORD, dropdown_recordHandler);
 			}   
