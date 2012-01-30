@@ -37,7 +37,7 @@ public class TouchInteractionEvent extends Event
      *  The <code>TouchInteractionEvent.TOUCH_INTERACTION_STARTING</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>touchInteractionStarting</code> event.
      *
-     *	<p>The properties of the event object have the following values:</p>
+     *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>true</td></tr>
@@ -69,7 +69,7 @@ public class TouchInteractionEvent extends Event
      *  The <code>TouchInteractionEvent.TOUCH_INTERACTION_START</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>touchInteractionStart</code> event.
      *
-     *	<p>The properties of the event object have the following values:</p>
+     *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>true</td></tr>
@@ -101,7 +101,7 @@ public class TouchInteractionEvent extends Event
      *  The <code>TouchInteractionEvent.TOUCH_INTERACTION_END</code> constant defines the value of the
      *  <code>type</code> property of the event object for a <code>touchInteractionEnd</code> event.
      *
-     *	<p>The properties of the event object have the following values:</p>
+     *  <p>The properties of the event object have the following values:</p>
      *  <table class="innertable">
      *     <tr><th>Property</th><th>Value</th></tr>
      *     <tr><td><code>bubbles</code></td><td>false</td></tr>
@@ -168,7 +168,7 @@ public class TouchInteractionEvent extends Event
     //----------------------------------
     
     /**
-     *  The reason for this geture capture event.
+     *  The reason for this gesture capture event.
      * 
      *  @see mx.events.TouchInteractionReason
      *  
