@@ -13,34 +13,19 @@ package spark.skins.mobile.supportClasses
 {
 
 import flash.display.DisplayObject;
-import flash.display.GradientType;
-import flash.display.Graphics;
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import flash.geom.Matrix;
 import flash.geom.Point;
-import flash.text.TextField;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 
-import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
-import mx.core.IUITextField;
 import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.managers.LayoutManager;
-import mx.states.SetProperty;
-import mx.states.State;
-import mx.utils.ColorUtil;
 
 import spark.components.Group;
 import spark.components.IconPlacement;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.StyleableTextField;
 import spark.primitives.BitmapImage;
-import spark.skins.mobile.supportClasses.MobileSkin;
 
 use namespace mx_internal;
 
@@ -156,6 +141,9 @@ public class ButtonSkinBase extends MobileSkin
     {                   
         labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
         labelDisplay.styleName = this;
+        
+        // update shadow when labelDisplay changes
+        labelDisplay.addEventListener(FlexEvent.VALUE_COMMIT, labelDisplay_valueCommitHandler);
         
         addChild(labelDisplay);
     }
@@ -540,5 +528,18 @@ public class ButtonSkinBase extends MobileSkin
         invalidateSize();
         invalidateDisplayList();
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event Handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    protected function labelDisplay_valueCommitHandler(event:FlexEvent):void 
+    {
+        invalidateSize();
+        invalidateDisplayList();
+    }
+    
 }
 }
