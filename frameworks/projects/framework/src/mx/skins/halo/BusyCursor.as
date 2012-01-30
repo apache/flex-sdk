@@ -55,7 +55,7 @@ public class BusyCursor extends FlexSprite
 		super();
 		
 		var cursorManagerStyleDeclaration:CSSStyleDeclaration =
-			StyleManager.getStyleDeclaration("CursorManager");
+			StyleManager.getStyleDeclaration("mx.managers.CursorManager");
 		
 		var cursorClass:Class =
 			cursorManagerStyleDeclaration.getStyle("busyCursorBackground");
