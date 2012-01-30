@@ -2900,7 +2900,7 @@ public class SystemManager extends MovieClip
      */
     private function mouseEventHandler(e:MouseEvent):void
     {
-        if (!e.cancelable)
+        if (!e.cancelable && e.eventPhase != EventPhase.BUBBLING_PHASE)
         {
             e.stopImmediatePropagation();
             var cancelableEvent:MouseEvent = null;
