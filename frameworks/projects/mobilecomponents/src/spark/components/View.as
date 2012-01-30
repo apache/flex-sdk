@@ -19,6 +19,7 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.events.ResizeEvent;
 
 import spark.core.ContainerDestructionPolicy;
 import spark.events.ViewNavigatorEvent;
@@ -961,7 +962,7 @@ public class View extends SkinnableContainer implements IDataRenderer
     /**
      *  @private
      */ 
-    private function stage_orientationChangeHandler(event:StageOrientationEvent):void
+    private function application_resizeHandler(event:Event):void
     {
         if (isActive)
 			updateOrientationState();
@@ -999,10 +1000,10 @@ public class View extends SkinnableContainer implements IDataRenderer
         removeEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
         
         // Create a weak listener so stage doesn't hold a reference to the view
-        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
-            stage_orientationChangeHandler, false, 0, true);
+        FlexGlobals.topLevelApplication.addEventListener(ResizeEvent.RESIZE, 
+            application_resizeHandler, false, 0, true);
         
-		updateOrientationState();
+        updateOrientationState();
     }
     
     //--------------------------------------------------------------------------
