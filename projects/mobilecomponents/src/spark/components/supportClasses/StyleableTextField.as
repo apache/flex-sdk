@@ -11,9 +11,11 @@
 
 package spark.components.supportClasses
 {
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
+import flash.events.SoftKeyboardEvent;
 import flash.events.TextEvent;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
@@ -24,6 +26,7 @@ import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
+import flash.text.TextInteractionMode;
 import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
 
@@ -32,12 +35,15 @@ import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.TouchInteractionEvent;
+import mx.events.TouchInteractionReason;
 import mx.geom.TransformOffsets;
 import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 
+import spark.components.Scroller;
 import spark.core.IEditableText;
 import spark.events.TextOperationEvent;
 
@@ -149,7 +155,14 @@ public class StyleableTextField extends TextField
         
         // Add a key down listener to listen for enter key
         addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-        
+
+		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING, 
+			touchInteractionStartingHandler);
+		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, 
+			touchInteractionStartHandler);
+		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, 
+			touchInteractionEndHandler);
+
         if (!truncationIndicatorResource)
         {
             truncationIndicatorResource = ResourceManager.getInstance().
@@ -1095,6 +1108,105 @@ public class StyleableTextField extends TextField
         if (!dispatchEvent(e))
             event.preventDefault();
     }
+	
+	/**
+	 *  @private
+	 */
+	private function touchInteractionStartingHandler(event:TouchInteractionEvent):void
+	{
+		// When in text selection mode, tell the Scroller to use the special text
+		// selection auto-scroll mode, and pass the top/bottom of this component as
+		// the scroll range.
+		if (textInteractionMode == TextInteractionMode.SELECTION)
+		{
+			var focusThickness:Number = getStyle("focusThickness");
+			var scroller:Scroller = event.relatedObject as Scroller;
+			
+			// Early exit if the event isn't a SCROLL event or doesn't have a Scroller
+			if (event.reason != TouchInteractionReason.SCROLL || !scroller)
+				return;
+			
+			var minVScrollPos:Number;
+			var maxVScrollPos:Number;
+			var minHScrollPos:Number;
+			var maxHScrollPos:Number;
+			
+			var pt:Point = new Point(0, 0);
+			
+			// Offset by our position within the skin/component. The scrolling is 
+			// constrained by the component boundaries, not by the boundaries of
+			// this text field. We don't have a reliable way to determine the 
+			// component boundaries, so we use our x,y position as an estimate.
+			pt.offset(-x, -y);
+			
+			// Include the focus thickness in the min/max scroll positions
+			pt.offset(-focusThickness, -focusThickness);
+			
+			pt = localToGlobal(pt);
+			pt = DisplayObject(scroller.viewport).globalToLocal(pt);
+			minHScrollPos = Math.max(0, pt.x);
+			minVScrollPos = Math.max(0, pt.y);
+			
+			pt.x = width;
+			pt.y = height;
+			
+			// We can't reliably find our position relative to the bottom of the skin/
+			// component, so use our top position as an estimate
+			pt.offset(x, y);
+			
+			// Include focus thickness
+			pt.offset(focusThickness, focusThickness);
+			
+			pt = parent.localToGlobal(pt);
+			pt = DisplayObject(scroller.viewport).globalToLocal(pt);
+			maxHScrollPos = pt.x - scroller.width;
+			maxVScrollPos = pt.y - scroller.height;
+			
+			scroller.enableTextSelectionAutoScroll(true, minHScrollPos, maxHScrollPos,
+				minVScrollPos, maxVScrollPos);
+		}
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function touchInteractionStartHandler(event:TouchInteractionEvent):void
+	{
+		// During a touch scroll we don't want the keyboard to activate. Add a
+		// "softKeyboardActivating" handler to cancel the event.
+		addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
+			softKeyboardActivatingHandler);
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function touchInteractionEndHandler(event:TouchInteractionEvent):void
+	{
+		// Remove the soft keyboard activate cancelling handler.
+		removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
+			softKeyboardActivatingHandler);
+		
+		if (textInteractionMode == TextInteractionMode.SELECTION)
+		{
+			var scroller:Scroller = event.relatedObject as Scroller;
+			
+			// Turn off text selection auto-scroll.
+			if (scroller)
+				scroller.enableTextSelectionAutoScroll(false);
+		}
+	}
+	
+	/**
+	 *  @private
+	 * 
+	 *  This handler is only added during touch scroll events. It prevents
+	 *  the onscreen keyboard from activating if a scroll occurred.
+	 */
+	private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
+	{
+		event.preventDefault();
+	}
     
     //--------------------------------------------------------------------------
     //
