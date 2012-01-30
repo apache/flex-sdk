@@ -32,6 +32,11 @@ import mx.effects.effectClasses.PropertyChanges;
  *  <p>To configure an effect to use a custom filter, you pass an 
  *  EffectTargetFilter object to the <code>Effect.customFilter</code> property 
  *  of the effect.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class EffectTargetFilter
 {
@@ -45,6 +50,11 @@ public class EffectTargetFilter
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function EffectTargetFilter()
     {
@@ -96,6 +106,11 @@ public class EffectTargetFilter
      *  to the <code>propChanges.target</code> property.</p> 
      *
      *  @see mx.effects.effectClasses.PropertyChanges 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var filterFunction:Function = defaultFilterFunctionEx;
         
@@ -110,6 +125,11 @@ public class EffectTargetFilter
      *
      *  <p>If you define a custom filter function, you can examine the 
      *  <code>filterProperties</code> property from within your function.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var filterProperties:Array = [];
     
@@ -124,6 +144,11 @@ public class EffectTargetFilter
      *
      *  <p>If you define a custom filter function, you can examine the 
      *  <code>filterStyles</code> property from within your function.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var filterStyles:Array = [];
 
@@ -160,6 +185,11 @@ public class EffectTargetFilter
      *  <p>The allowed list of properties that you can specify includes <code>added</code>, 
      *  <code>removed</code>, <code>replaced</code>, and <code>replacement</code>. 
      *  The allowed values for the properties are <code>true</code> and <code>false</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var requiredSemantics:Object = null;
     
@@ -195,6 +225,11 @@ public class EffectTargetFilter
      *
      *  @return Returna <code>true</code>, if the target should be included in the effect; 
      *  otherwise returns <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function filterInstance(propChanges:Array, semanticsProvider:IEffectTargetHost, 
                                    target:Object):Boolean
@@ -254,6 +289,11 @@ public class EffectTargetFilter
      *  @return Returns <code>true</code> to allow the effect instance to play. 
      *
      *  @see mx.effects.effectClasses.PropertyChanges 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function defaultFilterFunction(propChanges:Array,
                                              instanceTarget:Object):Boolean
