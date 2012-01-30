@@ -18,13 +18,7 @@
 				   locale="@{locale}">
 				<jvmarg line="${compc.jvm.args}"/>
 				<target-player>10</target-player>
-				<include-resource-bundles bundle="automation_agent"/>
-				<include-resource-bundles bundle="containers"/>
-				<include-resource-bundles bundle="controls"/>
-				<include-resource-bundles bundle="core"/>
-				<include-resource-bundles bundle="effects"/>
-				<include-resource-bundles bundle="skins"/>
-				<include-resource-bundles bundle="styles"/>
+				
 				<include-namespaces/>
 				<include-classes/>
 				<source-path path-element="${basedir}/bundles/@{locale}"/>
@@ -93,6 +87,10 @@
 			<fileset dir="${basedir}" >
 				<include name="bundles.properties"/>
 			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/libs/automation">
+				<include name="automation_flashflexkit.swc"/>
+				<include name="automation_flashflexkit.swc.incr"/>
+			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="automation_flashflexkit.swc"/>
 				<include name="automation_flashflexkit.swc.incr"/>
@@ -110,7 +108,7 @@
 	</target>
 
 	<target name="compile" description="Compiles automation_flashflexkit.swc">
-		<echo message="Compiling frameworks/libs/automation_flashflexkit.swc"/>
+		<echo message="Compiling frameworks/libs/automation/automation_flashflexkit.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -129,7 +127,7 @@
 		-->
 	
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/automation_flashflexkit.swc">
+			   output="${FLEX_HOME}/frameworks/libs/automation/automation_flashflexkit.swc">
 			<jvmarg line="${compc.jvm.args}"/>
 			<target-player>10</target-player>
 			<include-classes>AutomationFlashFlexKitClasses</include-classes>
@@ -142,9 +140,9 @@
                 <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
 				<include name="rpc.swc"/>
-				<include name="automation_agent.swc"/>
-				<include name="qtp.swc"/>
-				<include name="qtp_air.swc"/>
+				<include name="automation/automation_agent.swc"/>
+				<include name="automation/qtp.swc"/>
+				<include name="automation/qtp_air.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
