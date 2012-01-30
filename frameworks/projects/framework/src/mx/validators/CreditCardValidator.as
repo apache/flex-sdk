@@ -102,6 +102,11 @@ import mx.validators.IValidatorListener;
  *  @see mx.validators.CreditCardValidatorCardType
  *  
  *  @includeExample examples/CreditCardValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CreditCardValidator extends Validator
 {
@@ -141,6 +146,11 @@ public class CreditCardValidator extends Validator
 	 *  object for each field examined by the validator. 
 	 *
 	 *  @see mx.validators.ValidationResult
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function validateCreditCard(validator:CreditCardValidator,
 											  value:Object,
@@ -401,6 +411,11 @@ public class CreditCardValidator extends Validator
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function CreditCardValidator()
 	{
@@ -482,6 +497,11 @@ public class CreditCardValidator extends Validator
 	 *  <code>cardNumber</code> field.
 	 *
 	 *  @default " -" (space and dash)
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get allowedFormatChars():String
 	{
@@ -533,6 +553,11 @@ public class CreditCardValidator extends Validator
 	 *  for the card number subfield. 
 	 *  If none is specified, use the value specified
 	 *  to the <code>cardNumberSource</code> property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get cardNumberListener():IValidatorListener
 	{
@@ -565,6 +590,11 @@ public class CreditCardValidator extends Validator
 	 *  This attribute is optional, but if you specify
 	 *  the <code>cardNumberSource</code> property, 
 	 *  you should also set this property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var cardNumberProperty:String;
 	
@@ -586,6 +616,11 @@ public class CreditCardValidator extends Validator
 	 *  a value for the <code>cardNumberProperty</code> property. 
 	 *  Do not use this property if you set the <code>source</code> 
 	 *  and <code>property</code> properties. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get cardNumberSource():Object
 	{
@@ -631,6 +666,11 @@ public class CreditCardValidator extends Validator
 	 *  for the card type subfield. 
 	 *  If none is specified, then use the value
 	 *  specified to the <code>cardTypeSource</code> property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get cardTypeListener():IValidatorListener
 	{
@@ -681,6 +721,11 @@ public class CreditCardValidator extends Validator
 	 *  <code>CreditCardValidatorCardType.VISA</code>.</p>
 	 *
 	 *  @see mx.validators.CreditCardValidatorCardType
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var cardTypeProperty:String;
 	
@@ -702,6 +747,11 @@ public class CreditCardValidator extends Validator
 	 *  a value for the <code>cardTypeProperty</code> property. 
 	 *  Do not use this property if you set the <code>source</code> 
 	 *  and <code>property</code> properties. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get cardTypeSource():Object
 	{
@@ -757,6 +807,11 @@ public class CreditCardValidator extends Validator
 	 *  Error message when the <code>cardNumber</code> field contains invalid characters.
 	 *
 	 *  @default "Invalid characters in your credit card number. (Enter numbers only.)"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get invalidCharError():String
 	{
@@ -797,6 +852,11 @@ public class CreditCardValidator extends Validator
 	 *  Error message when the credit card number is invalid.
 	 *
 	 *  @default "The credit card number is invalid."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get invalidNumberError():String
 	{
@@ -837,6 +897,11 @@ public class CreditCardValidator extends Validator
 	 *  Error message when the <code>cardNumber</code> field is empty.
 	 *
 	 *  @default "No credit card number is specified."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get noNumError():String
 	{
@@ -877,6 +942,11 @@ public class CreditCardValidator extends Validator
 	 *  Error message when the <code>cardType</code> field is blank.
 	 *
 	 *  @default "No credit card type is specified or the type is not valid."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get noTypeError():String
 	{
@@ -918,6 +988,11 @@ public class CreditCardValidator extends Validator
 	 *  number of digits for the specified credit card type.
 	 *
 	 *  @default "Your credit card number contains the wrong number of digits." 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get wrongLengthError():String
 	{
@@ -964,6 +1039,11 @@ public class CreditCardValidator extends Validator
 	 *  <code>CreditCardValidatorCardType.DINERS_CLUB</code>.
 	 *
 	 *  @default "Incorrect card type is specified."
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get wrongTypeError():String
 	{
@@ -1018,6 +1098,11 @@ public class CreditCardValidator extends Validator
      *
 	 *  @return An Array of ValidationResult objects, with one ValidationResult 
 	 *  object for each field examined by the validator. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override protected function doValidation(value:Object):Array
     {
