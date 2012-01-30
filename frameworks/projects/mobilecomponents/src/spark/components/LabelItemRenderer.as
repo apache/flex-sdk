@@ -550,13 +550,18 @@ public class MobileItemRenderer extends UIComponent
         
         if (labelDisplay)
         {
-            var labelLineMetrics:TextLineMetrics = measureText(labelDisplay.text);
+            // reset text if it was truncated before.
+            if (labelDisplay.isTruncated)
+                labelDisplay.text = label;
             
+            // commit styles so our text measurement is accurate
+            labelDisplay.commitStyles();
+
             // Text respects padding right, left, top, and bottom
-            measuredWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            measuredWidth = labelDisplay.textWidth + UITextField.TEXT_WIDTH_PADDING;
             measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
             
-            measuredHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            measuredHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
             measuredHeight += getStyle("paddingTop") + getStyle("paddingBottom");
         }
         
@@ -731,12 +736,15 @@ public class MobileItemRenderer extends UIComponent
         {
             // measure the label component
             var textHeight:Number = 0;
-            var labelLineMetrics:TextLineMetrics;
+            
+            // reset text if it was truncated before.
+            if (labelDisplay.isTruncated)
+                labelDisplay.text = label;
             
             if (label != "")
             {
-                labelLineMetrics = measureText(label);
-                textHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+                labelDisplay.commitStyles();
+                textHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
             }
             
             // text should take up the rest of the space width-wise, but only let it take up
@@ -768,9 +776,7 @@ public class MobileItemRenderer extends UIComponent
             labelDisplay.x = Math.round(labelX);
             labelDisplay.y = Math.round(labelY);
             
-            // reset text if it was truncated before.  then attempt to truncate it
-            if (labelDisplay.isTruncated)
-                labelDisplay.text = label;
+            // attempt to truncate the text now that we have its official width
             labelDisplay.truncateToFit();
         }
     }
