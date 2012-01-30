@@ -1872,12 +1872,11 @@ public class ViewNavigator extends ViewNavigatorBase
             
             activeTransition = transitionsEnabled ? pendingViewTransition : null;
             
-            // Force a validation of the navigator so that all validation events are
-            // dispatched to the developer before preparing the view transition.
-            validateNow();
+            // TODO (chiedozi): Consider capturingStartValues now and updating actionBar
+            // to remove forced validation in prepareViewTransition()
             
-            // Prepare the view transition
-            prepareViewTransition();
+            // Prepare the view transition after the navigator has validated the new View
+            addEventListener(FlexEvent.UPDATE_COMPLETE, prepareViewTransition);
         }
         
         pendingViewTransition = null;
@@ -2046,12 +2045,18 @@ public class ViewNavigator extends ViewNavigatorBase
      *  instance of the new view is added to the display list.  It initializes
      *  the underlying ViewDescriptor object and prepares the transition.
      * 
+     *  Called after the UPDATE_COMPLETE event is received on the navigator
+     *  after the pendingView is added to the display list.  
+     *  See commitNavigatorAction.
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function prepareViewTransition():void
+    private function prepareViewTransition(event:Event):void
     {
+        removeEventListener(FlexEvent.UPDATE_COMPLETE, prepareViewTransition);
+        
         var currentView:View;
         var pendingView:View;
         
@@ -2061,9 +2066,10 @@ public class ViewNavigator extends ViewNavigatorBase
             currentView = currentViewDescriptor.instance;
             currentView.setActive(false);
             
-            // Need to validateNow() to make sure our old screen is currently 
-            // up to date before starting the transition and possibly storing a bitmap 
-            // for the transition
+            // In most cases this is a No-Op because this method is called in response
+            // to UPDATE_COMPLETE on the navigator and there should be no objects
+            // in the LayoutManager's queue.  It's only here to ensure that the
+            // current view is up to date incase anything changed.
             currentView.validateNow();
         }
         
