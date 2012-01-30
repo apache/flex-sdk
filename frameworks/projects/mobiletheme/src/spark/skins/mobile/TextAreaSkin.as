@@ -395,8 +395,7 @@ public class TextAreaSkin extends TextSkinBase
                 // TODO Figure out how to get the x offset. Right now is hard coded to 2
                 // At least half the line should be showing before we scroll to that line
                 // This makes the conversion from pixel to line based scrolling a little less jumpy
-                lineIndex = textDisplay.getLineIndexAtPoint(2, vsp + lineHeight / 2);
-                
+                lineIndex = textDisplay.getLineIndexAtPoint(2, vsp + lineHeight / 2) + 1;
                 textDisplayGroup.verticalScrollPosition = 0;
                 isTextDisplayTall = false;
                 //trace("TAS.layoutContents shrinkText vsp",vsp,"lineIndex",lineIndex);
@@ -465,12 +464,15 @@ public class TextAreaSkin extends TextSkinBase
         if (_isIOS)
         {
             if (shrinkTextDisplay)
-                textDisplay.scrollV = lineIndex;
-            else if (growTextDisplay) 
-                textDisplayGroup.verticalScrollPosition = charBounds.y;
-            
-            if (shrinkTextDisplay || growTextDisplay)
+            {
                 scroller.validateNow();
+                textDisplay.scrollV = lineIndex;
+            }
+            else if (growTextDisplay)
+            {
+                scroller.validateNow();
+                textDisplayGroup.verticalScrollPosition = charBounds.y;
+            }               
             
             shrinkTextDisplay = false;
             growTextDisplay = false;
