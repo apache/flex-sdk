@@ -45,7 +45,8 @@ public class ButtonBarButtonClassFactory extends ClassFactory
     private var _skinClass:Class;
     
     /**
-     * TODO: doc this 
+     * The skin class that should be applied to button bar buttons created
+	 * by this factory.
      * @return 
      * 
      */
