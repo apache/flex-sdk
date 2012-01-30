@@ -37,7 +37,7 @@ global
 	closeDuration: 50;
 	color: 0;
     columnCount: "auto";
-    columnGap: 0;
+    columnGap: 20;
     columnWidth: "auto";
     contentBackgroundColor: #FFFFFF;
 	cornerRadius: 0;
