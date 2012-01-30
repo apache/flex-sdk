@@ -14,6 +14,7 @@ import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IVisualElement;
+import mx.core.InteractionMode;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
@@ -576,7 +577,7 @@ public class MobileItemRenderer extends UIComponent
         
         super.styleChanged(styleName);
         
-        if (allStyles || styleName == "inputMode")
+        if (allStyles || styleName == "interactionMode")
         {
             addHandlers();
         }
@@ -773,7 +774,7 @@ public class MobileItemRenderer extends UIComponent
      */
     private function addHandlers():void
     {
-        if (getStyle("inputMode") == "mouse")
+        if (getStyle("interactionMode") == InteractionMode.MOUSE)
         {
             if (!rolloverEventsAdded)
             {
