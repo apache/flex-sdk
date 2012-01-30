@@ -111,12 +111,13 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *  If <code>null</code> or [] is specified, the filters are set to the
      *  default of ["~~"].
      *  </p>
-     *  @example
+     *  <p>For example:
      *     <pre>
      *           var traceLogger:ILoggingTarget = new TraceTarget();
      *           traceLogger.filters = ["mx.rpc.~~", "mx.messaging.~~"];
      *           Log.addTarget(traceLogger);
      *     </pre>
+     *  </p>
      */
     public function get filters():Array
     {
@@ -212,24 +213,24 @@ public class AbstractTarget implements ILoggingTarget, IMXMLObject
      *  Provides access to the level this target is currently set at.
      *  Value values are:
      *    <ul>
-     *      <li><code>LogEventLevel.FATAL</code> designates events that are very
+     *      <li><code>LogEventLevel.FATAL (1000)</code> designates events that are very
      *      harmful and will eventually lead to application failure</li>
      *
-     *      <li><code>LogEventLevel.ERROR</code> designates error events that might
+     *      <li><code>LogEventLevel.ERROR (8)</code> designates error events that might
      *      still allow the application to continue running.</li>
      *
-     *      <li><code>LogEventLevel.WARN</code> designates events that could be
+     *      <li><code>LogEventLevel.WARN (6)</code> designates events that could be
      *      harmful to the application operation</li>
      *
-     *      <li><code>LogEventLevel.INFO</code> designates informational messages
+     *      <li><code>LogEventLevel.INFO (4)</code> designates informational messages
      *      that highlight the progress of the application at
      *      coarse-grained level.</li>
      *
-     *      <li><code>LogEventLevel.DEBUG</code> designates informational
+     *      <li><code>LogEventLevel.DEBUG (2)</code> designates informational
      *      level messages that are fine grained and most helpful when
      *      debugging an application.</li>
      *
-     *      <li><code>LogEventLevel.ALL</code> intended to force a target to
+     *      <li><code>LogEventLevel.ALL (0)</code> intended to force a target to
      *      process all messages.</li>
      *    </ul>
      */
