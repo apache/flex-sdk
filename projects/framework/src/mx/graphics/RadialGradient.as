@@ -207,6 +207,19 @@ public class RadialGradient extends GradientBase implements IFill
     }
     
     //----------------------------------
+	//  matrix
+	//----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set matrix(value:Matrix):void
+    {
+    	scaleY = NaN;
+    	super.matrix = value;
+    }
+    
+    //----------------------------------
 	//  scaleY
 	//----------------------------------
 	
@@ -234,7 +247,7 @@ public class RadialGradient extends GradientBase implements IFill
     public function set scaleY(value:Number):void
     {
     	var oldValue:Number = _scaleY;
-    	if (value != oldValue)
+    	if (value != oldValue && !compoundTransform)
     	{
     		_scaleY = value;
     		mx_internal::dispatchGradientChangedEvent("scaleY", oldValue, value);
@@ -271,21 +284,23 @@ public class RadialGradient extends GradientBase implements IFill
     	var h:Number = !isNaN(scaleY) ? scaleY : rc.height;
 		var regX:Number = rc.left + (!isNaN(x) ? x : rc.width / 2);
 		var regY:Number = rc.top + (!isNaN(y) ? y : rc.height / 2);
-		var tx:Number = regX - w / 2;
-		var ty:Number = regY - h / 2;	
-				
-        commonMatrix.createGradientBox(w, h, 0, tx, ty);
-				
-		// Translate the gradient so that the center is at (0,0),
-		// rotate, and then translate it back to the original position
-		if ((!isNaN(mx_internal::_angle) && mx_internal::_angle != 0) || mx_internal::rotationInRadians != 0)
-		{ 		
-			commonMatrix.translate(-regX, -regY);
-			commonMatrix.rotate(!isNaN(mx_internal::_angle) ? 
-										mx_internal::_angle : mx_internal::rotationInRadians);
-			commonMatrix.translate(regX, regY);
-	  	}    
-	  	
+			
+		commonMatrix.identity();
+		
+		if (!compoundTransform)
+		{
+	        commonMatrix.scale (w / 1638.4, h / 1638.4);
+	        commonMatrix.rotate(!isNaN(mx_internal::_angle) ? 
+											mx_internal::_angle : mx_internal::rotationInRadians);
+	        commonMatrix.translate(regX, regY);						
+		}
+	 	else
+	 	{
+	 		commonMatrix.scale (rc.width / 1638.4, rc.height / 1638.4);
+	 		commonMatrix.translate(rc.left, rc.top);
+	 		commonMatrix.concat(compoundTransform.matrix);
+	 	}
+	  		  	
         target.beginGradientFill(GradientType.RADIAL, mx_internal::colors,
 								 mx_internal::alphas, mx_internal::ratios,
 								 commonMatrix, spreadMethod, interpolationMethod, focalPointRatio);      
