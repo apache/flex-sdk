@@ -33,25 +33,54 @@ in accordance with the terms of the license agreement accompanying it.
     </fx:Metadata> 
     
     <fx:Script fb:purpose="styling">
-        
         <![CDATA[
+            import mx.core.DeviceDensity;
+            import mx.core.FlexGlobals;
             import mx.core.IVisualElement;
             import mx.core.UIComponent;
             import mx.events.FlexEvent;
+            import mx.utils.DensityUtil;
             
             import spark.components.supportClasses.GroupBase;
             import spark.effects.easing.Power;
+            
 
-        /**
-         * @private
-         */
-        override protected function initializationComplete():void
-        {
-            useChromeColor = false;
-            super.initializationComplete();
-        }
+            /**
+             * @private
+             */
+            override protected function initializationComplete():void
+            {
+                useChromeColor = false;
+                super.initializationComplete();
+            }
+                
+            public function get authorDensity():String
+            {
+                if ("authorDensity" in FlexGlobals.topLevelApplication)
+                {
+                    var value:String = FlexGlobals.topLevelApplication.authorDensity;
+                    
+                    if (value)
+                        return value;
+                }
+                
+                return DensityUtil.screenDPIToDeviceDensity(Capabilities.screenDPI);
+            }
+            
+            override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+            {
+                super.updateDisplayList(unscaledWidth, unscaledHeight);
+                
+                var strokeWeight:Number = authorDensity == DeviceDensity.PPI_320 ? 2 : 1;
+                
+                dividerStroke.weight = strokeWeight;
+                background.top = strokeWeight;
+                contentGroup.top = strokeWeight;
+                contentGroupLayout.horizontalGap = strokeWeight * 2;
+                contentGroupLayout.verticalGap = strokeWeight;
+            }
 
-            ]]>
+        ]]>
     </fx:Script>
     
     <s:states>
@@ -106,12 +135,12 @@ in accordance with the terms of the license agreement accompanying it.
         <!-- Divider line -->
         <s:Rect left="0" right="0" top="0" height="0">
             <s:stroke>
-                <s:SolidColorStroke color="#000000" alpha=".7"/>   
+                <s:SolidColorStroke id="dividerStroke" weight="1" color="#000000" alpha=".7"/>   
             </s:stroke>
         </s:Rect> 
         
         <!-- Background -->
-        <s:Rect left="0" right="0" top="1" bottom="0">
+        <s:Rect left="0" right="0" top="1" bottom="0" id="background">
             <s:fill> 
                 <s:SolidColor color="#000000" alpha=".65"/>
             </s:fill>
@@ -125,7 +154,7 @@ in accordance with the terms of the license agreement accompanying it.
         <!--- @copy spark.components.SkinnableContainer#contentGroup -->
         <s:Group id="contentGroup" left="0" right="0" top="1" bottom="0" minWidth="0" minHeight="0">
             <s:layout>
-                <s:ViewMenuLayout horizontalGap="2" verticalGap="1"
+                <s:ViewMenuLayout horizontalGap="2" verticalGap="1" id="contentGroupLayout"
                                   requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/>
             </s:layout>
         </s:Group>    
