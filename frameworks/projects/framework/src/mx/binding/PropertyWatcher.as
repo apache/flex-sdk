@@ -316,7 +316,7 @@ public class PropertyWatcher extends Watcher
     {
         if (event is PropertyChangeEvent)
         {
-            var propName:Object = PropertyChangeEvent(event).property
+            var propName:Object = PropertyChangeEvent(event).property;
 
             if (propName != _propertyName)
                 return;
