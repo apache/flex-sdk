@@ -190,6 +190,9 @@ public class StyleableTextField extends FlexTextField
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     override public function set width(value:Number):void
     {
         super.width = value;
@@ -203,6 +206,12 @@ public class StyleableTextField extends FlexTextField
         }
     }
     
+    /**
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function get measuredTextSize():Point
     {
         // commit style to get an accurate measurement
@@ -598,6 +607,10 @@ public class StyleableTextField extends FlexTextField
     
     /**
      *  @copy mx.core.UIComponent#minHeight
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var minHeight:Number;
     
@@ -607,6 +620,10 @@ public class StyleableTextField extends FlexTextField
     
     /**
      *  @copy mx.core.UIComponent#minWidth
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var  minWidth:Number;
     
