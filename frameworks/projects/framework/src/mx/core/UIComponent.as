@@ -4478,6 +4478,23 @@ public class UIComponent extends FlexSprite
             }
         }
 
+        if (advanceStyleClientChildren != null)
+        {
+            var nAdvanceStyleChildern:int = advanceStyleClientChildren.length;
+            for (var j:int = 0; j < nAdvanceStyleChildern; j++)
+            {
+                var iAdvanceStyleClientChild:IFlexModule = advanceStyleClientChildren[j] as IFlexModule;
+                if (!iAdvanceStyleClientChild)
+                    continue;
+
+                if (iAdvanceStyleClientChild.moduleFactory == null 
+                    || iAdvanceStyleClientChild.moduleFactory == _moduleFactory)
+                {
+                    iAdvanceStyleClientChild.moduleFactory = factory;
+                }
+            }
+        }
+
         _moduleFactory = factory;
 
         setDeferredStyles();
@@ -10646,6 +10663,11 @@ public class UIComponent extends FlexSprite
     {
         return parent as IAdvancedStyleClient;
     }
+    
+    public function set styleParent(parent:IAdvancedStyleClient):void
+    {
+        
+    }
 
     /**
      *  @inheritDoc
@@ -10776,6 +10798,21 @@ public class UIComponent extends FlexSprite
                     StyleProtoChain.initTextField(IUITextField(child));
             }
         }
+
+        // Call this method on each non-visual StyleClient
+        if (advanceStyleClientChildren != null)
+        {
+            var nAdvanceStyleChildern:int = advanceStyleClientChildren.length;
+            for (var j:int = 0; j < nAdvanceStyleChildern; j++)
+            {
+                if (advanceStyleClientChildren[j].inheritingStyles !=
+                    StyleProtoChain.STYLE_UNINITIALIZED)
+                {
+                    advanceStyleClientChildren[j].regenerateStyleCache(recursive);
+                }
+            }
+        }
+
     }
 
     /**
@@ -10939,6 +10976,115 @@ public class UIComponent extends FlexSprite
     }
 
     /**
+     *  @private
+     */
+    private var advanceStyleClientChildren:Vector.<IAdvancedStyleClient> = null;
+
+    /**
+     *  Adds a non-visual style client to this component instance. Once 
+     *  this method has been called, the style client will inherit style 
+     *  changes from this component instance. Style clients that are
+     *  DisplayObjects must use the <code>addChild</code> or 
+     *  <code>addChildAt</code> methods to be added to a 
+     *  <code>UIComponent</code>.
+     *  
+     *  As a side effect, this method will set the <code>styleParent</code> 
+     *  property of the <code>styleClient</code> parameter to reference 
+     *  this instance of the <code>UIComponent</code>.
+     *  
+     *  If the <code>styleClient</code> parameter already has a
+     *  <code>styleParent</code>, this method will call
+     *  <code>removeStyleClient</code> from this previous
+     *  <code>styleParent</code>.  
+     * 
+     * 
+     *  @param styleClient The <code>IAdvancedStyleClient</code> to 
+     *  add to this component's list of non-visual style clients.
+     * 
+     *  @throws ArgumentError if the <code>styleClient</code> parameter
+     *  is a <code>DisplayObject</code>. 
+     * 
+     *  @see removeStyleClient
+     *  @see mx.styles.IAdvancedStyleClient
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public function addStyleClient(styleClient:IAdvancedStyleClient):void
+    {
+        if(!(styleClient is DisplayObject))
+        {
+            if(styleClient.styleParent!=null)
+            {
+                var parentComponent:UIComponent = styleClient.styleParent as UIComponent;
+                if (parentComponent)
+                    parentComponent.removeStyleClient(styleClient);
+               }
+
+                if (advanceStyleClientChildren == null)
+                advanceStyleClientChildren = new Vector.<IAdvancedStyleClient>();
+
+            advanceStyleClientChildren.push(styleClient);
+            styleClient.styleParent=this;
+
+            styleClient.regenerateStyleCache(true);
+
+            styleClient.styleChanged(null);
+        }
+        else
+        {
+            var message:String = resourceManager.getString(
+                "core", "stateUndefined", [ this.className ]);
+            throw new ArgumentError(message);
+        }
+    }
+    
+    /**
+     *  Removes a non-visual style client from this component instance. 
+     *  Once this method has been called, the non-visual style client will
+     *  no longer inherit style changes from this component instance.
+     *  
+     *  As a side effect, this method will set the 
+     *  <code>styleParent</code> property of the <code>styleClient</code>
+     *  parameter to <code>null</code>. 
+     * 
+     *  If the <code>styleClient</code> has not been added to this
+     *  component instance, no action will be taken. 
+     * 
+     *  @param styleClient The <code>IAdvancedStyleClient</code> to remove
+     *  from this component's list of non-visual style clients.
+     * 
+     *  @return The non-visual style client that was passed in as the
+     *  <code>styleClient</code> parameter. 
+     * 
+     *  @see addStyleClient
+     *  @see mx.styles.IAdvancedStyleClient
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public function removeStyleClient(styleClient:IAdvancedStyleClient):IAdvancedStyleClient
+    {
+        if(advanceStyleClientChildren && advanceStyleClientChildren.length != 0)
+        {
+            var i:int = advanceStyleClientChildren.indexOf(styleClient);
+            if(i!=-1) {
+                advanceStyleClientChildren.splice(i, 1);
+                styleClient.styleParent = null;
+
+                styleClient.regenerateStyleCache(true);
+
+                styleClient.styleChanged(null);
+            }
+        }
+        return styleClient; 
+    }
+    
+    /**
      *  Propagates style changes to the children.
      *  You typically never need to call this method.
      *
@@ -10971,6 +11117,20 @@ public class UIComponent extends FlexSprite
                 // Container.notifyStyleChangeInChildren.
                 if (child is IStyleClient)
                     IStyleClient(child).notifyStyleChangeInChildren(styleProp, recursive);
+            }
+        }
+
+        if (advanceStyleClientChildren != null)
+        {
+            var nAdvanceStyleClientChildern:int = advanceStyleClientChildren.length;
+            for (var j:int = 0; j < nAdvanceStyleClientChildern; j++)
+            {
+                var iAdvanceStyleClientChild:IAdvancedStyleClient = advanceStyleClientChildren[j];
+
+                if (iAdvanceStyleClientChild)
+                {
+                    iAdvanceStyleClientChild.styleChanged(styleProp);
+                }
             }
         }
     }
