@@ -86,7 +86,7 @@
     <s:Rect id="backgroundRect" left="1" right="1" top="1" bottom="1" >
         <s:fill>
             <!--- @private -->
-            <s:SolidColor id="bgFill" color="{hostComponent.backgroundColor as uint}" />
+            <s:SolidColor color="{getStyle('backgroundColor')}" alpha="{getStyle('backgroundAlpha')}"/>
         </s:fill>
     </s:Rect>
 
