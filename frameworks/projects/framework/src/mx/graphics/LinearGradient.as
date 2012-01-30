@@ -12,8 +12,8 @@
 package mx.graphics
 {
 
-import flash.display.Graphics;
 import flash.display.GradientType;
+import flash.display.Graphics;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
@@ -138,17 +138,21 @@ public class LinearGradient extends GradientBase implements IFill
 	public function begin(target:Graphics, rc:Rectangle):void
 	{
 		var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
+		var h:Number = !isNaN(scaleX) ? scaleX : rc.height;
 		var tx:Number = !isNaN(x) ? x + rc.left : rc.left;
 		var ty:Number = !isNaN(y) ? y + rc.top : rc.top;
 		
-		commonMatrix.createGradientBox(w, rc.height, 
+		// createGradientBox normally tries to "fit" the gradient into the available space
+		// when rotated. By passing in scaleX for both width and height, we maintain scaleX
+		// since no "fitting" occurs when the box is square. 
+		commonMatrix.createGradientBox(w, h, 
 								!isNaN(mx_internal::_angle) ? 
 									mx_internal::_angle : mx_internal::rotationInRadians,
 								 tx, ty);
-								 
+						 
 		target.beginGradientFill(GradientType.LINEAR, mx_internal::colors,
 								 mx_internal::alphas, mx_internal::ratios,
-								 commonMatrix, spreadMethod, interpolationMethod);	
+								 commonMatrix, spreadMethod, interpolationMethod);						 
 	}
 
 	/**
