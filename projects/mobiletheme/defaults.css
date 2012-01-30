@@ -212,13 +212,14 @@ global
     /* Looks */
     /* color: #000000; */
     backgroundImageFillMode : "scale";
-    chromeColor: #CCCCCC;
+    chromeColor: #464646;
     borderVisible : true;
     borderWeight : 1;
-    contentBackgroundColor: #FFFFFF;
+    contentBackgroundColor: #464646;
     rollOverColor: #CEDBEF;
     focusColor: #70B2EE;
     symbolColor: #000000;
+	selectionColor: #B2B2B2;
     fontLookup: "embeddedCFF";
     fontFamily: _sans;
     fontSize: 14;
