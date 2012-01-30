@@ -17,14 +17,34 @@ import flash.events.MouseEvent;
 import spark.components.supportClasses.ButtonBase;
     
 /**
- *  Caret State of the Button
+ *  The caret state of the button representing the menu item.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 [SkinState("showsCaret")]
 
 /**
- *  Displays a label and icon inside of an ViewMenu. Typically, you should 
- *  listen for the itemClick event to perform some operation based on clicking
- *  this item. 
+ *  The ViewMenuItem control displays a label and icon 
+ *  for a menu item in the ViewMenu container. 
+ *  Write an event handler for the <code>click</code> event 
+ *  to perform an operation when the menu item is selected.
+ *  
+ *  @mxml <p>The <code>&lt;s:ViewMenuItem&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:ViewMenuItem/&gt;
+ *  </pre>
+ *
+ *  @see spark.components.ViewMenu
+ *  @see spark.layouts.ViewMenuLayout
+ *  @see spark.components.supportClasses.MobileApplicationBase
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */ 
 public class ViewMenuItem extends ButtonBase
 {
@@ -34,7 +54,11 @@ public class ViewMenuItem extends ButtonBase
     //
     //--------------------------------------------------------------------------
     /**
-     *  Constructor 
+     *  Constructor. 
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function ViewMenuItem()
     {
@@ -52,9 +76,14 @@ public class ViewMenuItem extends ButtonBase
     private var _showsCaret:Boolean = false;
     
     /**
-     *  True if the ViewMenuItem is in the caret state. 
+     *  Contains <code>true</code> if the ViewMenuItem control 
+     *  is in the caret state. 
      *
      *  @default false  
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     public function get showsCaret():Boolean
     {
