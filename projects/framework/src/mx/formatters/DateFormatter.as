@@ -20,6 +20,7 @@ use namespace mx_internal;
 
 [ResourceBundle("SharedResources")]
 
+[Alternative(replacement="spark.formatters.DateTimeFormatter", since="4.5")]
 /**
  *  The DateFormatter class uses a format String to return a formatted date and time String
  *  from an input String or a Date object.
