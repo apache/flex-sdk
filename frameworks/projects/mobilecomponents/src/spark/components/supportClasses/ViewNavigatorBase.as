@@ -63,7 +63,25 @@ public class ViewNavigatorBase extends SkinnableContainer
         
         _navigationStack = new NavigationStack();
     }
-    
+
+	//--------------------------------------------------------------------------
+	//
+	// Variables
+	// 
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 *  This private variable is used to indicate that the navigator shouldn't play
+	 *  the pending visibility animation for the chrome components that it controls
+	 *  (e.g, ActionBar and TabBar).  This flag is set to true when the stage changes
+	 *  orientation.  This allows the framework to prevent the hide/show animation 
+	 *  from playing when the controls are hidden in either landscape or portrait.
+	 * 
+	 *  See SDK-28541 for more information.
+	 */
+	mx_internal var disableNextControlAnimation:Boolean = false;
+	
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -569,9 +587,10 @@ public class ViewNavigatorBase extends SkinnableContainer
     
     /**
      *  @private
-     */
+     */ 
     mx_internal function stage_orientationChangeHandler(event:StageOrientationEvent):void
     {
+		disableNextControlAnimation = true;
         invalidateSkinState();
     }
     
