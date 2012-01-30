@@ -1104,7 +1104,11 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     public function showActionBar(animate:Boolean = true):void
     {
-        if (!actionBar)
+        if (!actionBar || actionBar.visible)
+            return;
+        
+        // Ignore this call if the actionBar is already being shown
+        if (actionBarVisibilityEffect && showingActionBar)
             return;
         
         showingActionBar = true;
@@ -1127,7 +1131,11 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     public function hideActionBar(animate:Boolean = true):void
     {   
-        if (!actionBar)
+        if (!actionBar || !actionBar.visible)
+            return;
+        
+        // Ignore this call if the actionBar is already being hidden
+        if (actionBarVisibilityEffect && !showingActionBar)
             return;
         
         showingActionBar = false;
@@ -1463,7 +1471,6 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         // If an animation is running, end it
-        // FIXME (chiedozi): There is an issue here when you do two hides/shows in a row
         if (actionBarVisibilityEffect)
             actionBarVisibilityEffect.end();
         
