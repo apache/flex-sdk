@@ -26,7 +26,7 @@ import spark.components.Group;
 import spark.components.IItemRenderer;
 import spark.components.Image;
 import spark.components.Label;
-import spark.components.supportClasses.MobileTextField;
+import spark.components.supportClasses.StyleableTextField;
 import spark.components.supportClasses.TextBase;
 import spark.core.ContentCache;
 import spark.primitives.BitmapImage;
@@ -59,7 +59,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 include "../styles/metadata/PaddingStyles.as"
-include "../styles/metadata/MobileTextFieldTextStyles.as"
+include "../styles/metadata/StyleableTextFieldTextStyles.as"
 
 /**
  *  The colors to use for the background of the items in the list. 
@@ -181,11 +181,11 @@ include "../styles/metadata/MobileTextFieldTextStyles.as"
  *  for a list-based control in the mobile theme.  
  *  This is a simple item renderer with a single text component.
  *
- *  <p>The item renderer creates a single MobileTextField control 
+ *  <p>The item renderer creates a single StyleableTextField control 
  *  to display a String. 
- *  The name of the MobileTextField control in the item renderer is <code>labelDisplay</code>. 
+ *  The name of the StyleableTextField control in the item renderer is <code>labelDisplay</code>. 
  *  Use the <code>labelField</code> property of the list-based control to specify 
- *  a field of the data item to display in the MobileTextField control.</p>
+ *  a field of the data item to display in the StyleableTextField control.</p>
  *
  *  <p>To create a custom item renderer for use on mobile devices, 
  *  Adobe recommends that you 
@@ -384,7 +384,7 @@ public class MobileItemRenderer extends UIComponent
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected var labelDisplay:MobileTextField;
+    protected var labelDisplay:StyleableTextField;
     
     /**
      *  @inheritDoc 
@@ -540,7 +540,7 @@ public class MobileItemRenderer extends UIComponent
         
         if (!labelDisplay)
         {
-            labelDisplay = MobileTextField(createInFontContext(MobileTextField));
+            labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
             labelDisplay.styleProvider = this;
             labelDisplay.editable = false;
             labelDisplay.selectable = false;
