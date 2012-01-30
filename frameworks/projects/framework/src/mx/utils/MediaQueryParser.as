@@ -13,6 +13,8 @@ package mx.utils
 {
 import flash.system.Capabilities;
 import mx.core.IFlexModuleFactory;
+import mx.core.mx_internal;
+use namespace mx_internal;
 
 [ExcludeClass]
 
@@ -47,7 +49,47 @@ public class MediaQueryParser
          LNX: "linux"
      }
     
-    /**
+     /**
+      *  Mixin initialization
+      * 
+      *  @langversion 3.0
+      *  @playerversion Flash 10.2
+      *  @playerversion AIR 2.6
+      *  @productversion Flex 4.5
+      */
+     public static function init(moduleFactory:IFlexModuleFactory):void
+     {
+         _instance = new MediaQueryParser(moduleFactory);
+     }
+
+     /**
+      *  @private
+      */
+     private static var _instance:MediaQueryParser;
+     
+     /**
+      *  Single shared instance of the parser
+      * 
+      *  @langversion 3.0
+      *  @playerversion Flash 10.2
+      *  @playerversion AIR 2.6
+      *  @productversion Flex 4.5
+      */
+     public static function get instance():MediaQueryParser
+     {
+         return _instance;
+     }
+     
+     /**
+      *  @private
+      */
+     public static function set instance(value:MediaQueryParser):void
+     {
+         if (!_instance)
+             _instance = value;
+     }
+     
+     /**
      *  @private
      *  Constructor
      * 
@@ -69,16 +111,14 @@ public class MediaQueryParser
     }
     
     /**
-     *  @private
      *  Queries that were true
      */
-    private var goodQueries:Object = {};
+    mx_internal var goodQueries:Object = {};
     
     /**
-     *  @private
      *  Queries that were false
      */
-    private var badQueries:Object = {};
+    mx_internal var badQueries:Object = {};
     
     /**
      *  @private
@@ -355,17 +395,15 @@ public class MediaQueryParser
     private function getPlatform():String
     {
         var s:String = Capabilities.version.substr(0, 3);
-        s = platformMap[s] as String;
-        if (s)
-            return s;
+        // if there is a friendly name, then use it
+        if (platformMap.hasOwnProperty(s))
+            return platformMap[s] as String;
         
-        s = Capabilities.manufacturer;
-        var c1:int = s.indexOf(" ") + 1;
-        var c2:int = s.indexOf(" ", c1);
-        if (c2 >= 0)
-            return s.substring(c1, c2 - 1);
-        
-        return s.substring(c1);
+        // otherwise match against the 3 characters.
+        // use lower case because match are case
+        // insensitive and we lower case the entire
+        // expression
+        return s.toLowerCase();
     }
     
     // the type of the media
