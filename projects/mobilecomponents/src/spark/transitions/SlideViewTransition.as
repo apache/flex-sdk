@@ -269,7 +269,8 @@ public class SlideViewTransition extends ViewTransitionBase
         }
         
         // Save the position of the action in global coordinates
-        cachedActionBarGlobalPosition = getGlobalCoordinates(actionBar);
+		if (actionBar)
+        	cachedActionBarGlobalPosition = getGlobalCoordinates(actionBar);
         
         // Cache the tab bar bitmap and location
         if (tabBar)
