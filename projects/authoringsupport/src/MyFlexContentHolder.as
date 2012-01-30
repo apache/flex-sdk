@@ -11,24 +11,26 @@
 
 package
 {
-    import flash.geom.Rectangle;
-    
-    import mx.core.mx_internal;
-    import mx.flash.FlexContentHolder;
-    
-    public class MyFlexContentHolder extends FlexContentHolder
-    {
-        public function MyFlexContentHolder()
-        {
-            super();
+import flash.geom.Rectangle;
 
-            addChild(new FlexContentHolderThumbnail());
-            
-            // now need to re-measure ourselves:
-            var bounds:Rectangle = getBounds(this);
-            _width = bounds.width;
-            _height = bounds.height;
-            mx_internal::$scaleX = mx_internal::$scaleY = 1;         
-        }
+import mx.core.mx_internal;
+import mx.flash.FlexContentHolder;
+
+[ExcludeClass]
+
+public class MyFlexContentHolder extends FlexContentHolder
+{
+    public function MyFlexContentHolder()
+    {
+        super();
+
+        addChild(new FlexContentHolderThumbnail());
+        
+        // now need to re-measure ourselves:
+        var bounds:Rectangle = getBounds(this);
+        _width = bounds.width;
+        _height = bounds.height;
+        mx_internal::$scaleX = mx_internal::$scaleY = 1;         
     }
+}
 }
