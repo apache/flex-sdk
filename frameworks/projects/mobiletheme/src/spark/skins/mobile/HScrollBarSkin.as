@@ -72,7 +72,7 @@ public class HScrollBarSkin extends MobileSkin
             }
             default:
             {
-                // default PPI160
+                // default DPI_160
                 minHeight = 6;              
                 paddingBottom = HScrollBarThumbSkin.PADDING_BOTTOM_DEFAULTDPI;
                 paddingHorizontal = HScrollBarThumbSkin.PADDING_HORIZONTAL_DEFAULTDPI;
