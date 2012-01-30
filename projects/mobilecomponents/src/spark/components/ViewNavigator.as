@@ -275,12 +275,12 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
 	protected function get actionBarPropertyInvalidated():Boolean
 	{
 		return 	actionContentInvalidated ||
-				actionGroupLayoutInvalidated ||
+				actionLayoutInvalidated ||
 				navigationContentInvalidated ||
-				navigationGroupLayoutInvalidated ||
+				navigationLayoutInvalidated ||
 				titleInvalidated ||
 				titleContentInvalidated ||
-				titleGroupLayoutInvalidated;
+				titleLayoutInvalidated;
 	}
     
     //----------------------------------
@@ -903,7 +903,7 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     }
     
     //----------------------------------
-    //  actionGroupLayout
+    //  actionLayout
     //----------------------------------
     
     /**
@@ -916,20 +916,20 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private var _actionGroupLayout:LayoutBase;
-    private var actionGroupLayoutInvalidated:Boolean = false;
+    private var _actionLayout:LayoutBase;
+    private var actionLayoutInvalidated:Boolean = false;
     
-    public function get actionGroupLayout():LayoutBase
+    public function get actionLayout():LayoutBase
     {
-        return _actionGroupLayout;
+        return _actionLayout;
     }
     /**
      *  @private
      */
-    public function set actionGroupLayout(value:LayoutBase):void
+    public function set actionLayout(value:LayoutBase):void
     {
-        _actionGroupLayout = value;
-        actionGroupLayoutInvalidated = true;
+        _actionLayout = value;
+        actionLayoutInvalidated = true;
         
         invalidateProperties();
     }
@@ -969,11 +969,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     }
     
     //----------------------------------
-    //  navigationGroupLayout
+    //  navigationLayout
     //----------------------------------
     
-    private var _navigationGroupLayout:LayoutBase;
-    private var navigationGroupLayoutInvalidated:Boolean = false;
+    private var _navigationLayout:LayoutBase;
+    private var navigationLayoutInvalidated:Boolean = false;
     
     /**
      *  Layout for the ActionBar navigation content group.
@@ -985,17 +985,17 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get navigationGroupLayout():LayoutBase
+    public function get navigationLayout():LayoutBase
     {
-        return _navigationGroupLayout;
+        return _navigationLayout;
     }
     /**
      *  @private
      */
-    public function set navigationGroupLayout(value:LayoutBase):void
+    public function set navigationLayout(value:LayoutBase):void
     {
-        _navigationGroupLayout = value;
-        navigationGroupLayoutInvalidated = true;
+        _navigationLayout = value;
+        navigationLayoutInvalidated = true;
         
         invalidateProperties();
     }
@@ -1065,11 +1065,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     }
     
     //----------------------------------
-    //  titleGroupLayout
+    //  titleLayout
     //----------------------------------
     
-    private var _titleGroupLayout:LayoutBase;
-    private var titleGroupLayoutInvalidated:Boolean = false;
+    private var _titleLayout:LayoutBase;
+    private var titleLayoutInvalidated:Boolean = false;
     
     /**
      *  Layout for the ActionBar's titleContent group.
@@ -1081,17 +1081,17 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get titleGroupLayout():LayoutBase
+    public function get titleLayout():LayoutBase
     {
-        return _titleGroupLayout;
+        return _titleLayout;
     }
     /**
      *  @private
      */
-    public function set titleGroupLayout(value:LayoutBase):void
+    public function set titleLayout(value:LayoutBase):void
     {
-        _titleGroupLayout = value;
-        titleGroupLayoutInvalidated = true;
+        _titleLayout = value;
+        titleLayoutInvalidated = true;
         
         invalidateProperties();
     }
@@ -1158,12 +1158,12 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
     private function clearActionBarInvalidationFlags():void
     {
         actionContentInvalidated = false;
-        actionGroupLayoutInvalidated = false;
+        actionLayoutInvalidated = false;
         navigationContentInvalidated = false;
-        navigationGroupLayoutInvalidated = false;
+        navigationLayoutInvalidated = false;
         titleInvalidated = false;
         titleContentInvalidated = false;
-        titleGroupLayoutInvalidated = false;
+        titleLayoutInvalidated = false;
     }
     
     /**
@@ -1848,22 +1848,22 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (view == null)
         {
             actionBar.actionContent = actionContent;
-            actionBar.actionLayout = actionGroupLayout;
+            actionBar.actionLayout = actionLayout;
             actionBar.navigationContent = navigationContent;
-            actionBar.navigationLayout = navigationGroupLayout;
+            actionBar.navigationLayout = navigationLayout;
             actionBar.title = title;
             actionBar.titleContent = titleContent;
-            actionBar.titleLayout = titleGroupLayout;
+            actionBar.titleLayout = titleLayout;
         }
         else if (forceUpdate)
         {
             actionBar.actionContent = view && view.actionContent ? view.actionContent : actionContent;
-            actionBar.actionLayout = view && view.actionGroupLayout ? view.actionGroupLayout : actionGroupLayout;
+            actionBar.actionLayout = view && view.actionLayout ? view.actionLayout : actionLayout;
             actionBar.navigationContent = view && view.navigationContent ? view.navigationContent : navigationContent;
-            actionBar.navigationLayout = view && view.navigationGroupLayout ? view.navigationGroupLayout : navigationGroupLayout;
+            actionBar.navigationLayout = view && view.navigationLayout ? view.navigationLayout : navigationLayout;
             actionBar.title = view && view.title ? view.title : title;
             actionBar.titleContent = view && view.titleContent ? view.titleContent : titleContent;
-            actionBar.titleLayout = view && view.titleGroupLayout ? view.titleGroupLayout : titleGroupLayout;
+            actionBar.titleLayout = view && view.titleLayout ? view.titleLayout : titleLayout;
 			actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
 			
             clearActionBarInvalidationFlags();
@@ -1877,11 +1877,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 actionContentInvalidated = false;
             }
             
-            if (actionGroupLayoutInvalidated)
+            if (actionLayoutInvalidated)
             {
-                actionBar.actionLayout = view && view.actionGroupLayout ? 
-                    view.actionGroupLayout : actionGroupLayout;
-                actionGroupLayoutInvalidated = false;
+                actionBar.actionLayout = view && view.actionLayout ? 
+                    view.actionLayout : actionLayout;
+                actionLayoutInvalidated = false;
             }
             
             if (navigationContentInvalidated)
@@ -1891,11 +1891,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 navigationContentInvalidated = false;
             }
             
-            if (navigationGroupLayoutInvalidated)
+            if (navigationLayoutInvalidated)
             {
-                actionBar.navigationLayout = view && view.navigationGroupLayout ? 
-                    view.navigationGroupLayout : navigationGroupLayout;
-                navigationGroupLayoutInvalidated = false;
+                actionBar.navigationLayout = view && view.navigationLayout ? 
+                    view.navigationLayout : navigationLayout;
+                navigationLayoutInvalidated = false;
             }
             
             if (titleInvalidated)
@@ -1911,11 +1911,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 titleContentInvalidated = false;
             }
             
-            if (titleGroupLayoutInvalidated)
+            if (titleLayoutInvalidated)
             {
-                actionBar.titleLayout = view && view.titleGroupLayout ? 
-                    view.titleGroupLayout : titleGroupLayout;
-                titleGroupLayoutInvalidated = false;
+                actionBar.titleLayout = view && view.titleLayout ? 
+                    view.titleLayout : titleLayout;
+                titleLayoutInvalidated = false;
             }
 			
 			actionBar.visible = actionBar.includeInLayout = view && view.actionBarVisible;
@@ -1941,16 +1941,16 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
                 titleInvalidated = true;
             else if (property == "titleContent")
                 titleContentInvalidated = true;
-            else if (property == "titleGroupLayout")
-                titleGroupLayoutInvalidated = true;
+            else if (property == "titleLayout")
+                titleLayoutInvalidated = true;
             else if (property == "actionContent")
                 actionContentInvalidated = true;
-            else if (property == "actionGroupLayout")
-                actionGroupLayoutInvalidated  = true;
+            else if (property == "actionLayout")
+                actionLayoutInvalidated  = true;
 			else if (property == "navigationContent")
 				navigationContentInvalidated = true;
-			else if (property == "navigationGroupLayout")
-				navigationGroupLayoutInvalidated  = true;
+			else if (property == "navigationLayout")
+				navigationLayoutInvalidated  = true;
             
             invalidateProperties();
         }
@@ -1979,12 +1979,12 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
         if (instance == actionBar)
         {
             actionContentInvalidated = true;
-            actionGroupLayoutInvalidated = true;
+            actionLayoutInvalidated = true;
             navigationContentInvalidated = true;
-            navigationGroupLayoutInvalidated = true;
+            navigationLayoutInvalidated = true;
             titleInvalidated = true;
             titleContentInvalidated = true;
-            titleGroupLayoutInvalidated = true;
+            titleLayoutInvalidated = true;
             
             invalidateProperties();   
         }
