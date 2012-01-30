@@ -387,12 +387,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     {
         super();
         
-        // This needs to be true so that we can show the soft keyboard if the
-        // user taps on the padding instead of on the StageText. If 
-        // needsSoftKeyboard isn't set to true, requestSoftKeyboard would do
-        // nothing.
-        needsSoftKeyboard = true;
-                
         _multiline = multiline;
         getStageText(true);
         
@@ -1315,9 +1309,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 if (!alwaysShowProxyImage)
                     disposeProxyImage();
                 
-                // assignFocus doesn't bring up the soft keyboard. We need to
-                // ask for it.
-                requestSoftKeyboard();
                 stageText.assignFocus();
             }
         }
@@ -1469,6 +1460,27 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 if (immediate)
                 {
                     stageText.visible = _visible && calcAncestorsVisible();
+                    
+                    // The focused stageText may have been replaced by a bitmap during
+                    // an animation. When restoring its visibility, restore its focus as
+                    // well if the soft keyboard is open. (If the soft keyboard is not
+                    // open, do not restore focus because doing so will force the soft
+                    // keyboard to open.)
+                    if (stageText.visible && stageText == focusedStageText && 
+                        stage.softKeyboardRect.height > 0)
+                    {
+                        stageText.assignFocus();
+                    }
+                    
+                    // Do not remove the proxy bitmap until after stageText has been
+                    // made visible to reduce flicker.
+                    if (stageText.visible && textImage != null)
+                    {
+                        removeChild(textImage);
+                        textImage.bitmapData.dispose();
+                        textImage = null;
+                    }
+                    
                     stageTextVisibleChangePending = false;
                     removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
                 }
@@ -1478,13 +1490,6 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                     stageTextVisibleChangePending = true;
                     addEventListener(Event.ENTER_FRAME, enterFrameHandler);
                 }
-            }
-            
-            if (textImage != null)
-            {
-                removeChild(textImage);
-                textImage.bitmapData.dispose();
-                textImage = null;
             }
         }
     }
@@ -2012,10 +2017,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         //  Forward the focus event to the StageText. The focusedStageText flag
         //  is modified by the StageText's focus event handlers, not this one.
         if (stageText != null && focusedStageText != stageText && effectiveEnabled)
-        {
-            requestSoftKeyboard();
             stageText.assignFocus();
-        }
     }
     
     //--------------------------------------------------------------------------
@@ -2290,6 +2292,27 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         if (stageTextVisibleChangePending)
         {
             stageText.visible = stageTextVisible;
+
+            // The focused stageText may have been replaced by a bitmap during
+            // an animation. When restoring its visibility, restore its focus as
+            // well if the soft keyboard is open. (If the soft keyboard is not
+            // open, do not restore focus because doing so will force the soft
+            // keyboard to open.)
+            if (stageTextVisible && stageText == focusedStageText && 
+                stage.softKeyboardRect.height > 0)
+            {
+                stageText.assignFocus();
+            }
+            
+            // Do not remove the proxy bitmap until after stageText has been
+            // made visible to reduce flicker.
+            if (stageTextVisible && textImage != null)
+            {
+                removeChild(textImage);
+                textImage.bitmapData.dispose();
+                textImage = null;
+            }
+
             stageTextVisibleChangePending = false;
         }
     }
