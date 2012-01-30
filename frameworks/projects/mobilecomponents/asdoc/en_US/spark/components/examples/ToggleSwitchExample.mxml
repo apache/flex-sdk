@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Style>
+        <!-- Stying ToggleSwitch -->
+		@namespace s "library://ns.adobe.com/flex/spark";
+		s|ToggleSwitch{
+			accentColor:red;
+			chromeColor:blue;
+			slideDuration:500;
+		}        
+	</fx:Style>
+	<!-- Bind a label to a ToggleSwitch's selected property -->
+	<s:HGroup>
+		<s:ToggleSwitch id="toggleSwitch"/>
+		<s:Label id="status" text="{toggleSwitch.selected ? 'ON' : 'OFF'}"/>
+	</s:HGroup>
+</s:Application>
