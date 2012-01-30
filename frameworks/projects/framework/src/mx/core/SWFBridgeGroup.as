@@ -109,7 +109,7 @@ public class SWFBridgeGroup implements ISWFBridgeGroup
 	//--------------------------------------------------------------------------
 	
 	/**
-	 *  @inheritdoc
+	 *  @inheritDoc
 	 */
 	public function addChildBridge(bridge:IEventDispatcher, bridgeProvider:ISWFBridgeProvider):void
 	{
@@ -120,7 +120,7 @@ public class SWFBridgeGroup implements ISWFBridgeGroup
 	}
 
 	/**
-	 *  @inheritdoc
+	 *  @inheritDoc
 	 */
 	public function removeChildBridge(bridge:IEventDispatcher):void
 	{
@@ -135,7 +135,7 @@ public class SWFBridgeGroup implements ISWFBridgeGroup
 	}
 
 	/**
-	 *  @inheritdoc
+	 *  @inheritDoc
 	 */
 	public function getChildBridgeProvider(bridge:IEventDispatcher):ISWFBridgeProvider
 	{
@@ -146,7 +146,7 @@ public class SWFBridgeGroup implements ISWFBridgeGroup
 	}
 	
 	/**
-	 *  @inheritdoc
+	 *  @inheritDoc
 	 */
 	public function getChildBridges():Array
 	{
@@ -161,7 +161,7 @@ public class SWFBridgeGroup implements ISWFBridgeGroup
 	}
 
 	/**
-	 *  @inheritdoc
+	 *  @inheritDoc
 	 */
 	public function containsBridge(bridge:IEventDispatcher):Boolean
 	{
