@@ -76,7 +76,8 @@ public interface IStyleClient extends ISimpleStyleClient
     //----------------------------------
 
     /**
-     *  The style declaration used by this object.
+     *  The style declaration that holds the inline styles declared by this
+     *  object.
      *
      *  @see mx.styles.CSSStyleDeclaration
      */
