@@ -98,7 +98,7 @@ public class GradientEntry extends EventDispatcher
 	private var _alpha:Number = 1.0;
 	
 	[Bindable("propertyChange")]
-    [Inspectable(category="General", defaultValue="1")]
+    [Inspectable(category="General", defaultValue="1", minValue="0.0", maxValue="1.0")]
 
 	/**
 	 *  The transparency of a gradient fill.
@@ -165,7 +165,7 @@ public class GradientEntry extends EventDispatcher
 	private var _ratio:Number;
 	
 	[Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", minValue="0.0", maxValue="1.0")]
 
 	/**
 	 *  Where in the graphical element, as a percentage from 0.0 to 1.0,
