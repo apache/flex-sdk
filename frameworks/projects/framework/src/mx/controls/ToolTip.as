@@ -51,11 +51,6 @@ use namespace mx_internal;
     shadowColor (when borderStyle is "toolTip")
     textAlign
     textDecoration
-*  
-*  @langversion 3.0
-*  @playerversion Flash 9
-*  @playerversion AIR 1.1
-*  @productversion Flex 3
 */
 
 include "../styles/metadata/BorderStyles.as"
