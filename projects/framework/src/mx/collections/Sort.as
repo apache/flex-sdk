@@ -25,6 +25,7 @@ import mx.utils.ObjectUtil;
 
 [DefaultProperty("fields")]
 [ResourceBundle("collections")]
+[Alternative(replacement="spark.collections.Sort", since="4.5")]
 
 /**
  *  Provides the sorting information required to establish a sort on an
