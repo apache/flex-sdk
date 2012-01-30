@@ -13,9 +13,13 @@ package mx.utils
 {
 	
 import flash.events.MouseEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootMouseEvent;
+
+[ExcludeClass]
 
 /**
+ *  @private
+ * 
  *  Utilities to help with event dispatching or event handling.
  */
 public class EventUtil
@@ -29,38 +33,38 @@ public class EventUtil
 	//--------------------------------------------------------------------------
 	
 	//----------------------------------
-    //  marshalMouseEventMap
+    //  sandboxRootMouseEventMap
 	//----------------------------------
 
 	/**
      *  @private
      */
-    private static var _marshalEventMap:Object;
+    private static var _sandboxRootEventMap:Object;
 
 	/**
-	 *  Mapping of MouseEvents to MarshalMouseEvent types.
+	 *  Mapping of MouseEvents to SandboxRootMouseEvent types.
 	 */
-	public static function get marshalMouseEventMap():Object
+	public static function get sandboxRootMouseEventMap():Object
 	{
-		if (!_marshalEventMap)
+		if (!_sandboxRootEventMap)
 		{
-			_marshalEventMap = {};
+			_sandboxRootEventMap = {};
 
-			_marshalEventMap[MarshalMouseEvent.CLICK] =
+			_sandboxRootEventMap[SandboxRootMouseEvent.CLICK_SOMEWHERE] =
                 MouseEvent.CLICK;
-			_marshalEventMap[MarshalMouseEvent.DOUBLE_CLICK] =
+			_sandboxRootEventMap[SandboxRootMouseEvent.DOUBLE_CLICK_SOMEWHERE] =
                 MouseEvent.DOUBLE_CLICK;
-			_marshalEventMap[MarshalMouseEvent.MOUSE_DOWN] =
+			_sandboxRootEventMap[SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE] =
                 MouseEvent.MOUSE_DOWN;
-			_marshalEventMap[MarshalMouseEvent.MOUSE_MOVE] =
+			_sandboxRootEventMap[SandboxRootMouseEvent.MOUSE_MOVE_SOMEWHERE] =
                 MouseEvent.MOUSE_MOVE;
-			_marshalEventMap[MarshalMouseEvent.MOUSE_UP] =
+			_sandboxRootEventMap[SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE] =
                 MouseEvent.MOUSE_UP;
-			_marshalEventMap[MarshalMouseEvent.MOUSE_WHEEL] =
+			_sandboxRootEventMap[SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE] =
                 MouseEvent.MOUSE_WHEEL;
 		}
 
-		return _marshalEventMap;
+		return _sandboxRootEventMap;
 	}
 
 	//----------------------------------
@@ -73,7 +77,7 @@ public class EventUtil
 	private static var _mouseEventMap:Object;
 
 	/**
-	 *  Mapping of MarshalMouseEvent to MouseEvents types.
+	 *  Mapping of SandboxRootMouseEvent to MouseEvents types.
 	 */
 	public static function get mouseEventMap():Object
 	{
@@ -82,17 +86,17 @@ public class EventUtil
 			_mouseEventMap = {};
 
 			_mouseEventMap[MouseEvent.CLICK] =
-                MarshalMouseEvent.CLICK;
+                SandboxRootMouseEvent.CLICK_SOMEWHERE;
 			_mouseEventMap[MouseEvent.DOUBLE_CLICK] =
-                MarshalMouseEvent.DOUBLE_CLICK;
+                SandboxRootMouseEvent.DOUBLE_CLICK_SOMEWHERE;
 			_mouseEventMap[MouseEvent.MOUSE_DOWN] =
-                MarshalMouseEvent.MOUSE_DOWN;
+                SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE;
 			_mouseEventMap[MouseEvent.MOUSE_MOVE] =
-                MarshalMouseEvent.MOUSE_MOVE;
+                SandboxRootMouseEvent.MOUSE_MOVE_SOMEWHERE;
 			_mouseEventMap[MouseEvent.MOUSE_UP] =
-                MarshalMouseEvent.MOUSE_UP;
+                SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE;
 			_mouseEventMap[MouseEvent.MOUSE_WHEEL] =
-                MarshalMouseEvent.MOUSE_WHEEL;
+                SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE;
 		}
 
 		return _mouseEventMap;
