@@ -21,7 +21,9 @@ package mx.utils
  *  for the <code>enumerationMode</code> property
  *  of the DirectoryEnumeration class.
  *
- *  @see mx.utils.DirectorEnumeration#enumerationMode
+ *  @see mx.utils.DirectoryEnumeration#enumerationMode
+ * 
+ *  @productversion Apollo 1.0
  */
 public final class DirectoryEnumerationMode
 {
