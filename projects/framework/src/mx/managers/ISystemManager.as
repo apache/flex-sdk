@@ -451,7 +451,7 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */  
-    function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle;
+	function getVisibleApplicationRect(bounds:Rectangle = null, skipToSandboxRoot:Boolean = false):Rectangle;
     
     /**
      *  Deploy or remove mouse shields. Mouse shields block mouse input to untrusted
