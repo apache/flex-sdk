@@ -546,6 +546,7 @@ public class ActionBar extends SkinnableComponent
     /**
      *  @private
      */
+    // TODO (chiedozi): Update != to !==
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
