@@ -111,14 +111,17 @@ public interface IStyleManager2 extends IStyleManager
      *  is the right most simple type selector in a potential selector chain.
      * 
      *  @param subject The style subject.
-     *  @return Array of StyleDeclarations for this subject.
+     *  @return Object map of StyleDeclarations for this subject.  The object
+     *  has four properties: class for class selectors,
+     *  id for id selectors, pseudo for pseudo selectors and unconditional
+     *  for selectors without conditions
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @productversion Flex 4.6
      */ 
-    function getStyleDeclarations(subject:String):Array;
+    function getStyleDeclarations(subject:String):Object;
 
     /** 
      * Gets a CSSStyleDeclaration object that stores the rules 
