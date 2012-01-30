@@ -300,11 +300,23 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
               UIComponent(window).moduleFactory = IFlexModule(IUIComponent(parent).document).moduleFactory;
 
         var sm:ISystemManager = getTopLevelSystemManager(parent);
+        var children:IChildList;
+        var topMost:Boolean;
+
+        if (!sm)
+        {
+            // check if parent is our sandbox root
+            sm = ISystemManager(SystemManagerGlobals.topLevelSystemManagers[0]);
+            if (sm.getSandboxRoot() != parent)
+            {
+                //trace("error: popup root was not SystemManager");
+                return; // and maybe a nice error message
+            }
+        }
+
         // smp is the actual systemManager that will parent the popup
         // it might get changed by the request
         var smp:ISystemManager = sm;
-        var children:IChildList;
-        var topMost:Boolean;
 
         var request:Request = new Request("addPopUp", false, true, { parent: parent, sm: sm, modal: modal, childList: childList} );
         if (!dispatchEvent(request))
