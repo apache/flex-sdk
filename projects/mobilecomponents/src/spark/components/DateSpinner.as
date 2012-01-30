@@ -1145,7 +1145,7 @@ public class DateSpinner extends SkinnableComponent
                     
                     // note this is where future support for more complex unselectable dates could be added
                     
-                    if (curObj.enabled != newEnabledValue)
+                    if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
                     {
                         var o:Object = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
                         o["accentColor"] = curObj["accentColor"];
@@ -1173,9 +1173,9 @@ public class DateSpinner extends SkinnableComponent
                     newEnabledValue = false;
                 
                 curObj = listData[i];
-                if (curObj.enabled != newEnabledValue)
+                if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
                 {
-                    o = {data:curObj.data, label:curObj.label, enabled:newEnabledValue};
+                    generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
                     o["accentColor"] = curObj["accentColor"];
                     listData[i] = o;
                 }
@@ -1242,7 +1242,8 @@ public class DateSpinner extends SkinnableComponent
     // convenience method to generate the standard object format for data in the list dataproviders
     private function generateDateItemObject(label:String, data:*, enabled:Boolean = true):Object
     {
-        var obj:Object = { label:label, data:data, enabled:enabled };
+        var obj:Object = { label:label, data:data};
+        obj[SpinnerList.ENABLED_PROPERTY_NAME] = enabled;
         return obj;
     }
 
