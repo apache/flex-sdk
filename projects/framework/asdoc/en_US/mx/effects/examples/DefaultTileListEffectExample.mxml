@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
             import mx.effects.DefaultTileListEffect;
             import mx.effects.easing.Elastic;
             import mx.collections.ArrayCollection;
             import mx.effects.Move;
-            
+
             [Bindable]
             private var myDP:ArrayCollection = new ArrayCollection(
                 ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P']);
@@ -26,35 +28,38 @@
             private var zcount:int = 0;
             private function addItems():void {
                 myDP.addItemAt("Z"+zcount++,Math.min(2,myDP.length));
-            }            
+            }
         ]]>
-    </mx:Script>
-    
-    <!-- Define an instance of the DefaultTileListEffect effect, 
+    </fx:Script>
+
+    <!-- Define an instance of the DefaultTileListEffect effect,
          and set its moveDuration and color properties. -->
-    <mx:DefaultTileListEffect id="myDTLE" 
-        moveDuration="100" 
-        color="0x0000ff"/>
 
-    <mx:Panel title="DefaultTileListEffect Example" width="75%" height="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
+    <fx:Declarations>
+        <mx:DefaultTileListEffect id="myDTLE"
+            moveDuration="100"
+            color="0x0000ff"/>
+    </fx:Declarations>
 
-        <mx:TileList id="tlist0" 
-            height="100%" width="100%" 
-            columnCount="4" rowCount="4" 
-            fontSize="18" fontWeight="bold"
-            direction="horizontal" 
-            dataProvider="{myDP}" 
-            allowMultipleSelection="true" 
-            offscreenExtraRowsOrColumns="2" 
-            itemsChangeEffect="{myDTLE}" />
-    
-        <mx:Button 
-            label="Delete selected item(s)" 
-            click="deleteItems();"/>
-        <mx:Button 
-            label="Add item" 
-            click="addItems();"/>
+    <s:Panel title="Halo DefaultTileListEffect Example" width="75%" height="75%">
+        <s:VGroup left="20" right="20" top="20" bottom="20">
 
-    </mx:Panel> 
-</mx:Application>
+            <mx:TileList id="tlist0"
+                height="100%" width="100%"
+                columnCount="4" rowCount="4"
+                fontSize="18" fontWeight="bold"
+                direction="horizontal"
+                dataProvider="{myDP}"
+                allowMultipleSelection="true"
+                offscreenExtraRowsOrColumns="2"
+                itemsChangeEffect="{myDTLE}" />
+
+            <s:Button
+                label="Delete selected item(s)"
+                click="deleteItems();"/>
+            <s:Button
+                label="Add item"
+                click="addItems();"/>
+         </s:VGroup>
+    </s:Panel>
+</s:Application>
