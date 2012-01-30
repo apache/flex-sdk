@@ -319,9 +319,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  For UIComponent this is the same value as returned by 
      *  the <code>getExplicitOrMeasuredWidth()</code> method.
      * 
-     *  @see #getPreferredHeight
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getPreferredHeight()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -344,9 +344,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  For UIComponent this is the same value as returned by 
      *  the <code>getExplicitOrMeasuredHeight()</code> method.
      *
-     *  @see #getPreferredWidth
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getPreferredWidth()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -366,9 +366,9 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The element's maximum width.
      *
-     *  @see #getMinHeight
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getMinHeight()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -388,9 +388,9 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The element's maximum height.
      *
-     *  @see #getMinWidth
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getMinWidth()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -409,9 +409,9 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The element's maximum width.
      *
-     *  @see #getMaxHeight
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getMaxHeight()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -430,9 +430,9 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The element's maximum height.
      *
-     *  @see #getMaxWidth
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getMaxWidth()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -457,10 +457,10 @@ public interface ILayoutElement extends IEventDispatcher
      *
      *  @return The x coordinate of the element's bounds at the specified element size.
      *
-     *  @see #setLayoutBoundsSize
-     *  @see #getLayoutPositionX
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #setLayoutBoundsSize()
+     *  @see #getLayoutPositionX()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -485,10 +485,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  
      *  @return The y coordinate of the element's bounds at the specified element size.
      *
-     *  @see #setLayoutBoundsSize
-     *  @see #getLayoutPositionY
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #setLayoutBoundsSize()
+     *  @see #getLayoutPositionY()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -508,9 +508,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  
      *  @return The element's layout width.
      *
-     *  @see #getLayoutHeight
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getLayoutHeight()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -530,9 +530,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  
      *  @return The element's layout height.
      *
-     *  @see #getLayoutWidth
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getLayoutWidth()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -551,9 +551,9 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @return The x coordinate that the element uses to draw on screen.
      * 
-     *  @see #getLayoutPositionY
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getLayoutPositionY()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -572,9 +572,9 @@ public interface ILayoutElement extends IEventDispatcher
      * 
      *  @return The y coordinate that the element uses to draw on screen.
      * 
-     *  @see #getLayoutPositionX
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #getLayoutPositionX()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -598,9 +598,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  The bounding box is in the element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
      *
-     *  @see #setLayoutSize
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #setLayoutSize()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -628,9 +628,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  The bounding box is in the element's parent coordinate space and is calculated
      *  from the element's layout size, layout position, and layout transform matrix.
      * 
-     *  @see #setLayoutPosition
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
+     *  @see #setLayoutPosition()
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -657,10 +657,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @return The layout transform Matrix for this element.
      *  Do not directly modify the return value; call the <code>setLayoutMatrix()</code> method instead.
      * 
-     *  @see #setLayoutMatrix
-     *  @see #getLayoutMatrix3D
-     *  @see #setLayoutMatrix3D
-     *  @see mx.core.UIComponent#offsets
+     *  @see #setLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
+     *  @see #setLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -698,10 +697,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  to re-layout its children. You typically pass <code>true</code>
      *  to the <code>invalidateLayout()</code> method.
      * 
-     *  @see #getLayoutMatrix
-     *  @see #getLayoutMatrix3D
-     *  @see #setLayoutMatrix3D
-     *  @see mx.core.UIComponent#offsets
+     *  @see #getLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
+     *  @see #setLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -740,10 +738,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  @return The layout transform Matrix3D for this element.
      *  Do not directly modify the return value but call the <code>setLayoutMatrix()</code> method instead.
      *  
-     *  @see #getLayoutMatrix
-     *  @see #setLayoutMatrix
-     *  @see #setLayoutMatrix3D
-     *  @see mx.core.UIComponent#offsets
+     *  @see #getLayoutMatrix()
+     *  @see #setLayoutMatrix()
+     *  @see #setLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -782,10 +779,9 @@ public interface ILayoutElement extends IEventDispatcher
      *  to re-layout its children. You typically pass <code>true</code>
      *  to the <code>invalidateLayout()</code> method.
      * 
-     *  @see #getLayoutMatrix
-     *  @see #setLayoutMatrix
-     *  @see #getLayoutMatrix3D
-     *  @see mx.core.UIComponent#offsets
+     *  @see #getLayoutMatrix()
+     *  @see #setLayoutMatrix()
+     *  @see #getLayoutMatrix3D()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
