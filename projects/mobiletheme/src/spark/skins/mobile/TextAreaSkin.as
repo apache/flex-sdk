@@ -106,6 +106,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         // 
         // You can set an explicit width and the height will adjust accordingly. The opposite
         // is not true: setting an explicit height will not adjust the width accordingly.
+        textDisplay.commitStyles();
         measuredWidth = 440;
         measuredHeight = Math.max(textDisplay.textHeight + (VERTICAL_PADDING * 2), 55);
     }
