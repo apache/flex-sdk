@@ -19,7 +19,7 @@ import flash.geom.Vector3D;
 
 /**
  *  The ILayoutElement interface is used primarily by the layout classes to query,
- *  size and position the elements of the GroupBase based containers.
+ *  size and position the elements of GroupBase containers.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -32,14 +32,14 @@ public interface ILayoutElement extends IEventDispatcher
      *  The horizontal distance in pixels from the left edge of the component to the
      *  anchor target's left edge.
      *
-     *  By default the anchor target is the container's content area. In layouts
-     *  with advanced constraints, the target can be a constraint column.
+     *  <p>By default the anchor target is the container's content area. In layouts
+     *  with advanced constraints, the target can be a constraint column.</p>
      *
-     *  Setting the property to a number or to a numerical string like "10"
-     *  specifies use of the default anchor target.
+     *  <p>Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.</p>
      *
-     *  To specify an anchor target, set the property value to a string in the format
-     *  "anchorTargetName:value" e.g. "col1:10".
+     *  <p>To specify an anchor target, set the property value to a string in the format
+     *  "anchorTargetName:value". For example, "col1:10".</p>
      *
      *  @default null
      *  
@@ -59,14 +59,14 @@ public interface ILayoutElement extends IEventDispatcher
      *  The horizontal distance in pixels from the right edge of the component to the
      *  anchor target's right edge.
      *
-     *  By default the anchor target is the container's content area. In layouts
-     *  with advanced constraints, the target can be a constraint column.
+     *  <p>By default the anchor target is the container's content area. In layouts
+     *  with advanced constraints, the target can be a constraint column.</p>
      *
-     *  Setting the property to a number or to a numerical string like "10"
-     *  specifies use of the default anchor target.
+     *  <p>Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.</p>
      *
-     *  To specify an anchor target, set the property value to a string in the format
-     *  "anchorTargetName:value" e.g. "col1:10".
+     *  <p>To specify an anchor target, set the property value to a string in the format
+     *  "anchorTargetName:value". For example, "col1:10".</p>
      *
      *  @default null
      *  
@@ -86,14 +86,14 @@ public interface ILayoutElement extends IEventDispatcher
      *  The vertical distance in pixels from the top edge of the component to the
      *  anchor target's top edge.
      *
-     *  By default the anchor target is the container's content area. In layouts
-     *  with advanced constraints, the target can be a constraint row.
+     *  <p>By default the anchor target is the container's content area. In layouts
+     *  with advanced constraints, the target can be a constraint row.</p>
      *
-     *  Setting the property to a number or to a numerical string like "10"
-     *  specifies use of the default anchor target.
+     *  <p>Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.</p>
      *
-     *  To specify an anchor target, set the property value to a string in the format
-     *  "anchorTargetName:value" e.g. "row1:10".
+     *  <p>To specify an anchor target, set the property value to a string in the format
+     *  "anchorTargetName:value". For example, "row1:10".</p>
      *
      *  @default null
      *  
@@ -113,14 +113,14 @@ public interface ILayoutElement extends IEventDispatcher
      *  The vertical distance in pixels from the bottom edge of the component to the
      *  anchor target's bottom edge.
      *
-     *  By default the anchor target is the container's content area. In layouts
-     *  with advanced constraints, the target can be a constraint row.
+     *  <p>By default the anchor target is the container's content area. In layouts
+     *  with advanced constraints, the target can be a constraint row.</p>
      *
-     *  Setting the property to a number or to a numerical string like "10"
-     *  specifies use of the default anchor target.
+     *  <p>Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.</p>
      *
-     *  To specify an anchor target, set the property value to a string in the format
-     *  "anchorTargetName:value" e.g. "row1:10".
+     *  <p>To specify an anchor target, set the property value to a string in the format:
+     *  "anchorTargetName:value". For example, "row1:10".</p>
      *
      *  @default null
      *  
@@ -140,17 +140,17 @@ public interface ILayoutElement extends IEventDispatcher
      *  The horizontal distance in pixels from the center of the component to the
      *  center of the anchor target's content area.
      *
-     *  The default anchor target is the container itself.
+     *  <p>The default anchor target is the container itself.</p>
      *
-     *  In layouts with advanced constraints, the anchor target can be a constraint column.
+     *  <p>In layouts with advanced constraints, the anchor target can be a constraint column.
      *  Then the content area is the space between the preceding column
-     *  (or container side) and the target column.
+     *  (or container side) and the target column.</p>
      *
-     *  Setting the property to a number or to a numerical string like "10"
-     *  specifies use of the default anchor target.
+     *  <p>Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.</p>
      *
-     *  To specify an anchor target, set the property value to a string in the format
-     *  "constraintColumnId:value" e.g. "col1:10".
+     *  <p>To specify an anchor target, set the property value to a string in the format
+     *  "constraintColumnId:value". For example, "col1:10".</p>
      *
      *  @default null
      *  
@@ -170,17 +170,17 @@ public interface ILayoutElement extends IEventDispatcher
      *  The vertical distance in pixels from the center of the component to the
      *  center of the anchor target's content area.
      *
-     *  The default anchor target is the container itself.
+     *  <p>The default anchor target is the container itself.</p>
      *
-     *  In layouts with advanced constraints, the anchor target can be a constraint row.
+     *  <p>In layouts with advanced constraints, the anchor target can be a constraint row.
      *  Then the content area is the space between the preceding row
-     *  (or container side) and the target row.
+     *  (or container side) and the target row.</p>
      *
-     *  Setting the property to a number or to a numerical string like "10"
-     *  specifies use of the default anchor target.
+     *  <p>Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.</p>
      *
-     *  To specify an anchor target, set the property value to a string in the format
-     *  "constraintColumnId:value" e.g. "row1:10".
+     *  <p>To specify an anchor target, set the property value to a string in the format
+     *  "constraintColumnId:value". For example, "row1:10".</p>
      *
      *  @default null
      *  
@@ -200,15 +200,15 @@ public interface ILayoutElement extends IEventDispatcher
      *  The vertical distance in pixels from the anchor target to
      *  the control's baseline position.
      *
-     *  By default the anchor target is the top edge of the container's
+     *  <p>By default the anchor target is the top edge of the container's
      *  content area. In layouts with advanced constraints, the target can be
-     *  a constraint row.
+     *  a constraint row.</p>
      *
-     *  Setting the property to a number or to a numerical string like "10"
-     *  specifies use of the default anchor target.
+     *  <p>Setting the property to a number or to a numerical string like "10"
+     *  specifies use of the default anchor target.</p>
      *
-     *  To specify an anchor target, set the property value to a string in the format
-     *  "anchorTargetName:value" e.g. "row1:10".
+     *  <p>To specify an anchor target, set the property value to a string in the format:
+     *  "anchorTargetName:value". For example, "row1:10".</p>
      *
      *  @default null
      *  
@@ -308,14 +308,16 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the element's preferred width.   
      * 
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  the element's bounding box width.  Bounding box is in element's parent
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>,
+     *  the method returns the element's bounding box width.  
+     *  Bounding box is in element's parent
      *  coordinate space and is calculated from  the element's preferred size and
      *  layout transform matrix.
      *
      *  @return Returns the element's preferred width.  Preferred width is
      *  usually based on the default element size and any explicit overrides.
-     *  For UIComponent this is the same as getExplicitOrMeasuredWidth().
+     *  For UIComponent this is the same value as returned by 
+     *  the <code>getExplicitOrMeasuredWidth()</code> method.
      * 
      *  @see #getPreferredHeight
      *  @see #getLayoutMatrix
@@ -331,14 +333,16 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the element's preferred height.  
      *
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  the element's bounding box height.  Bounding box is in element's parent
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>,
+     *  the method returns the element's bounding box height.  
+     *  Bounding box is in element's parent
      *  coordinate space and is calculated from  the element's preferred size and
      *  layout transform matrix.
      *
      *  @return Returns the element's preferred height.  Preferred height is
      *  usually based on the default element size and any explicit overrides.
-     *  For UIComponent this is the same as getExplicitOrMeasuredHeight().
+     *  For UIComponent this is the same value as returned by 
+     *  the <code>getExplicitOrMeasuredHeight()</code> method.
      *
      *  @see #getPreferredWidth
      *  @see #getLayoutMatrix
@@ -354,8 +358,9 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the element's minimum width.
      * 
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  the element's bounding box width. Bounding box is in element's parent
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>,
+     *  the method returns the element's bounding box width. 
+     *  Bounding box is in element's parent
      *  coordinate space and is calculated from the element's minimum size and
      *  layout transform matrix.
      *
@@ -373,8 +378,9 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the element's minimum height.
      * 
-     *  @param postLayoutTransform When postLayoutTransform is true the method returns
-     *  the element's bounding box height. Bounding box is in element's parent
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>,
+     *  the method returns the element's bounding box height. 
+     *  Bounding box is in element's parent
      *  coordinate space and is calculated from the element's minimum size and
      *  layout transform matrix.
      *
@@ -430,7 +436,8 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the x coordinate of the element's bounds at the specified element size.
      * 
-     *  This method is typically used by layouts during measure() to predict what
+     *  This method is typically used by layouts during a call to the 
+     *  <code>measure()</code> method to predict what
      *  the element position will be, if the element is resized to particular dimensions.
      * 
      *  @param width The element's bounds width, or NaN to use the preferred width.
@@ -455,7 +462,8 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Returns the y coordinate of the element's bounds at the specified element size.
      * 
-     *  This method is typically used by layouts during measure() to predict what
+     *  This method is typically used by layouts during a call to 
+     *  the <code>measure()</code> to predict what
      *  the element position will be, if the element is resized to particular dimensions.
      * 
      *  @param width The element's bounds width, or NaN to use the preferred width.
@@ -558,13 +566,13 @@ public interface ILayoutElement extends IEventDispatcher
     /**
      *  Sets the coordinates that the element uses to draw on screen.
      *
-     *  @param postLayoutTransform When postLayoutTransform is true, the element is positioned
-     *  in such a way that the top-left corner of its bounding box is (x, y).
+     *  @param postLayoutTransform When <code>postLayoutTransform</code> is <code>true</code>, 
+     *  the element is positioned in such a way that the top-left corner of its bounding box is (x, y).
      *  Bounding box is in element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
      *
-     *  Note that calls to setLayoutSize can affect the layout position, so 
-     *  setLayoutPosition should be called after setLayoutSize.
+     *  Note that calls to the <code>setLayoutBoundSize()</code> method can affect the layout position, so 
+     *  call <code>setLayoutBoundPosition()</code> after calling <code>setLayoutBoundSize()</code>.
      *
      *  @see #setLayoutSize
      *  @see #getLayoutMatrix
@@ -578,21 +586,22 @@ public interface ILayoutElement extends IEventDispatcher
     function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean = true):void;
 
     /**
-     *  Sets the layout size to the specified dimensions.  This is the size that
-     *  the element uses to draw on screen.
+     *  Sets the layout size to the specified dimensions.  
+     *  This is the size that the element uses to draw on screen.
      *  
-     *  If one of the dimensions is left unspecified (NaN), it's size
-     *  will be picked such that element can be optimally sized to fit the other
-     *  dimension.  This is useful when the caller doesn't want to 
-     *  overconstrain the element, for example when the element's width and height
-     *  are corelated (text, components with complex transforms, etc.)
-     *  If both dimensions are left unspecified, the element will have its layout size
-     *  set to its preferred size.
+     *  <p>If one of the dimensions is left unspecified (NaN), it's size
+     *  is set such that element can be optimally sized to fit the other
+     *  dimension.  This setting is useful when the caller does not want to 
+     *  overconstrain the element. 
+     *  For example, when the element's width and height
+     *  are corelated (text components, components with complex transforms)
+     *  If both dimensions are unspecified, the element has its layout size
+     *  set to its preferred size.</p>
      * 
-     *  <code>setLayoutSize</code> does not clip against minium or maximum sizes.
+     *  <p><code>setLayoutBoundPosition()</code> does not clip against minium or maximum sizes.</p>
      *
-     *  Note that calls to setLayoutSize can affect the layout position, so 
-     *  setLayoutSize should be called before setLayoutPosition.
+     *  <p>Note that calls to the <code>setLayoutBoundSize()</code> method can affect the layout position, so 
+     *  call <code>setLayoutBoundPosition()</code> after calling <code>setLayoutBoundSize()</code>.</p>
      *
      *  @param width The target width.
      *
@@ -629,14 +638,13 @@ public interface ILayoutElement extends IEventDispatcher
      *  computed matrix.  For example <code>UIComponent</code>
      *  defines the <code>offsets</code> property.</p>
      *  
-     *  @return <p>Returns the layout transform Matrix for this element.
-     *  Don't directly modify the return value but call setLayoutMatrix instead.</p>
+     *  @return The layout transform Matrix for this element.
+     *  Don't directly modify the return value but call setLayoutMatrix instead.
      * 
      *  @see #setLayoutMatrix
      *  @see #getLayoutMatrix3D
      *  @see #setLayoutMatrix3D
      *  @see mx.core.UIComponent#offsets
-     *  @see mx.graphics.baseClasses.GraphicElement#offsets
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -649,7 +657,7 @@ public interface ILayoutElement extends IEventDispatcher
      *  Sets the transform Matrix that is used to calculate the component's layout
      *  size and position relative to its siblings.
      *
-     *  <p>This matrix is typically defined by the
+     *  <p>The matrix is typically defined by the
      *  component's 2D properties such as <code>x</code>, <code>y</code>,
      *  <code>rotation</code>, <code>scaleX</code>, <code>scaleY</code>,
      *  <code>transformX</code>, and <code>transformY</code>.
@@ -658,24 +666,26 @@ public interface ILayoutElement extends IEventDispatcher
      *  computed matrix.  For example <code>UIComponent</code>
      *  defines the <code>offsets</code>.</p>
      *  
-     *  <p>Note that layout Matrix is factored in the getPreferredSize(),
-     *  getMinSize(), getMaxSize(), getLayoutSize() when computed in parent coordinates
-     *  as well as in getLayoutPosition() in both parent and child coordinates.
+     *  <p>Note that layout Matrix is factored in the <code>getPreferredSize()</code>,
+     *  <code>getMinSize()</code>, <code>getMaxSize()</code>, <code>getLayoutSize()</code> 
+     *  methods when computed in parent coordinates
+     *  as well as in <code>getLayoutPosition()</code> in both parent and child coordinates.
      *  Layouts that calculate the transform matrix explicitly typically call
      *  this method and work with sizes in child coordinates.
      *  Layouts calling this method pass <code>false</code>
      *  to <code>invalidateLayout</code> so that a subsequent layout pass is not
      *  triggered.</p>
-     * 
-     *  <p>Developers that call this method directly typically pass <code>true</code>
-     *  to <code>invalidateLayout</code> so that the parent container is notified that
-     *  it needs to re-layout the children.</p>
+     *
+     *  @param Matrix The matrix.
+     *
+     *  @param invalidateLayout <code>true</code> to cause theparetn container 
+     *  to re-layout its children.You typically pass <code>true</code>
+     *  to <code>invalidateLayout</code>.
      * 
      *  @see #getLayoutMatrix
      *  @see #getLayoutMatrix3D
      *  @see #setLayoutMatrix3D
      *  @see mx.core.UIComponent#offsets
-     *  @see mx.graphics.baseClasses.GraphicElement#offsets
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -685,11 +695,11 @@ public interface ILayoutElement extends IEventDispatcher
     function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void;
     
     /**
-     *  True if the element has 3D Matrix.
+     *  Contians <code>true</code> if the element has 3D Matrix.
      *
-     *  Use <code>hasLayoutMatrix3D</code> instead of calling and examining the
-     *  value of <code>getLayoutMatrix3D()</code> as that method returns a valid
-     *  matrix even when the element is in 2D.
+     *  <p>Use <code>hasLayoutMatrix3D</code> instead of calling and examining the
+     *  return value of <code>getLayoutMatrix3D()</code> becasue that method returns a valid
+     *  matrix even when the element is in 2D.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -718,7 +728,6 @@ public interface ILayoutElement extends IEventDispatcher
      *  @see #setLayoutMatrix
      *  @see #setLayoutMatrix3D
      *  @see mx.core.UIComponent#offsets
-     *  @see mx.graphics.baseClasses.GraphicElement#offsets
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -741,18 +750,21 @@ public interface ILayoutElement extends IEventDispatcher
      *  computed matrix.  For example <code>UIComponent</code>
      *  defines the <code>offsets</code> property.</p>
      *  
-     *  <p>Note that layout Matrix3D is factored in the getPreferredSize(),
-     *  getMinSize(), getMaxSize(), getLayoutSize() when computed in parent coordinates
-     *  as well as in getLayoutPosition() in both parent and child coordinates.
+     *  <p>Note that layout Matrix3D is factored in the <code>getPreferredSize()</code>,
+     *  <code>getMinSize()</code>, <code>getMaxSize()</code>, <code>getLayoutSize()</code> 
+     *  when computed in parent coordinates
+     *  as well as in <code>getLayoutPosition()</code> in both parent and child coordinates.
      *  Layouts that calculate the transform matrix explicitly typically call
      *  this method and work with sizes in child coordinates.
      *  Layouts calling this method pass <code>false</code>
      *  to <code>invalidateLayout</code> so that a subsequent layout pass is not
      *  triggered.</p>
-     * 
-     *  <p>Developers that call this method directly typically pass <code>true</code>
-     *  to <code>invalidateLayout</code> so that the parent container is notified that
-     *  it needs to re-layout the children.</p>
+     *
+     *  @param Matrix The matrix.
+     *
+     *  @param invalidateLayout <code>true</code> to cause theparetn container 
+     *  to re-layout its children.You typically pass <code>true</code>
+     *  to <code>invalidateLayout</code>.
      * 
      *  @see #getLayoutMatrix
      *  @see #setLayoutMatrix
@@ -774,20 +786,28 @@ public interface ILayoutElement extends IEventDispatcher
      *  This function will assign the rotation, scale, and translation values 
      *  provided, then update the x/y/z properties as necessary to keep 
      *  the transform center fixed.
+     *
      *  @param transformCenter the point, in the component's own coordinates, 
      *  to keep fixed relative to its parent.
+     *
      *  @param scale the new values for the scale of the transform
+     *
      *  @param rotation the new values for the rotation of the transform
+     *
      *  @param translation the new values for the translation of the transform
+     *
      *  @param postLayoutScale the new values for the post-layout scale 
      *  of the transform
+     *
      *  @param postLayoutRotation the new values for the post-layout rotation 
      *  of the transform
+     *
      *  @param postLayoutTranslation the new values for the post-layout translation 
      *  of the transform
-     *  @param invalidateLayout <p>If true, the parent container size and display are
+     *
+     *  @param invalidateLayout If <code>true</code>, the parent container size and display are
      *  invalidated. Layouts calling this method pass <code>false</code>
-     *  so that a subsequent layout pass is not triggered.</p>
+     *  so that a subsequent layout pass is not triggered.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
