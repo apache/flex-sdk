@@ -228,7 +228,7 @@ public class SetProperty extends OverrideBase implements IOverride
         if (obj != null)
         {
         	target = obj;
-	        var propName:String = PSEUDONYMS[name] ?
+	        var propName:String = (PSEUDONYMS[name] && (PSEUDONYMS[name] in target)) ?
 	                          PSEUDONYMS[name] :
 	                          name;
 	
@@ -289,7 +289,7 @@ public class SetProperty extends OverrideBase implements IOverride
         var obj:* = getOverrideContext(target, parent);
         if (obj != null)
         {
-	        var propName:String = PSEUDONYMS[name] ?
+            var propName:String = (PSEUDONYMS[name] && (PSEUDONYMS[name] in target)) ?
 	                          PSEUDONYMS[name] :
 	                          name;
 	        
