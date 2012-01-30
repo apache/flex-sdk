@@ -289,8 +289,8 @@ public class ZoomViewTransition extends ViewTransitionBase
         zoomTarget = (mode == ZoomViewTransitionMode.OUT) ? transitionGroup : targetNavigator.skin;
         
         // Initialize our target's transform center.
-        zoomTarget.transformX = cachedNavigator.width / 2;
-        zoomTarget.transformY = cachedNavigator.height / 2;
+        zoomTarget.transformX = cachedNavigator.getLayoutBoundsWidth(true) / 2;
+        zoomTarget.transformY = cachedNavigator.getLayoutBoundsHeight(true) / 2;
         
         // Ensure our alpha is initialized to 0 prior to the start
         // of our transition so that the view isn't displayed briefly
