@@ -132,6 +132,11 @@ public class RSLItem
      *  @param url location of RSL to load
      *  
      *  @param rootURL provides the url used to locate relative RSL urls. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RSLItem(url:String, rootURL:String = null)
     {
@@ -166,6 +171,11 @@ public class RSLItem
      *
      *  @param rslErrorHandler Receives RSLEvent.RSL_ERROR events.
      *  May be null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function load(progressHandler:Function,
                          completeHandler:Function,
