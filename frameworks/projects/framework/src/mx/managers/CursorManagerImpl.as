@@ -34,7 +34,6 @@ import mx.core.FlexSprite;
 import mx.core.mx_internal;
 import mx.core.IUIComponent;
 import mx.events.Request;
-import mx.managers.marshalClasses.CursorManagerMarshalMixin;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -73,12 +72,6 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
     //
     //--------------------------------------------------------------------------
 
-
-    /**
-     *  @private
-     */
-    private static function weakDependency():void { CursorManagerMarshalMixin };
-    
     /**
      *  @private
      */
@@ -274,7 +267,8 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
     {
         _currentCursorID = value;
 
-		dispatchEvent(new Event("currentCursorID"));
+        if (hasEventListener("currentCursorID"))
+	    	dispatchEvent(new Event("currentCursorID"));
     }
 
     //----------------------------------
@@ -309,7 +303,8 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
     {
         _currentCursorXOffset = value;
 
-		dispatchEvent(new Event("currentCursorXOffset"));
+        if (hasEventListener("currentCursorXOffset"))
+    		dispatchEvent(new Event("currentCursorXOffset"));
     }
 
     //----------------------------------
@@ -344,7 +339,8 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
     {
         _currentCursorYOffset = value;
 
-		dispatchEvent(new Event("currentCursorYOffset"));
+        if (hasEventListener("currentCursorYOffset"))
+    		dispatchEvent(new Event("currentCursorYOffset"));
     }
 
     //--------------------------------------------------------------------------
@@ -370,7 +366,8 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
         if (cursorHolder)
 	        cursorHolder.visible = true;
 
-		dispatchEvent(new Event("showCursor"));
+        if (hasEventListener("showCursor"))
+    		dispatchEvent(new Event("showCursor"));
     }
     
     /**
@@ -390,7 +387,8 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
     	if (cursorHolder)
 	        cursorHolder.visible = false;
 		
-		dispatchEvent(new Event("hideCursor"));
+        if (hasEventListener("hideCursor"))
+    		dispatchEvent(new Event("hideCursor"));
 
     }
 
@@ -427,12 +425,15 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
                                      xOffset:Number = 0,
                                      yOffset:Number = 0):int 
     {
-		var event:Request = new Request("setCursor", false, true);
-		event.value = [ cursorClass, priority, xOffset, yOffset ];
-		if (!dispatchEvent(event))
-		{
-			return currentCursorID;
-		}
+        if (hasEventListener("setCursor"))
+        {
+		    var event:Request = new Request("setCursor", false, true);
+		    event.value = [ cursorClass, priority, xOffset, yOffset ];
+		    if (!dispatchEvent(event))
+		    {
+			    return currentCursorID;
+		    }
+        }
 
         var cursorID:int = nextCursorID++;
         
@@ -489,8 +490,9 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
      */
     public function removeCursor(cursorID:int):void 
     {
-		if (!dispatchEvent(new Request("removeCursor", false, true, cursorID)))
-			return;
+        if (hasEventListener("removeCursor"))
+    		if (!dispatchEvent(new Request("removeCursor", false, true, cursorID)))
+	    		return;
 
         for (var i:Object in cursorList)
         {
@@ -519,8 +521,9 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
      */
     public function removeAllCursors():void
     {
-		if (!dispatchEvent(new Event("removeAllCursors", false, true)))
-			return;
+        if (hasEventListener("removeAllCursors"))
+    		if (!dispatchEvent(new Event("removeAllCursors", false, true)))
+	    		return;
 
         cursorList.splice(0);
         
@@ -543,8 +546,9 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
      */
     public function setBusyCursor():void 
     {
-		if (!dispatchEvent(new Event("setBusyCursor", false, true)))
-			return;
+        if (hasEventListener("setBusyCursor"))
+    		if (!dispatchEvent(new Event("setBusyCursor", false, true)))
+	    		return;
 
         var cursorManagerStyleDeclaration:CSSStyleDeclaration =
             StyleManager.getStyleDeclaration("mx.managers.CursorManager");
@@ -569,8 +573,9 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
      */
     public function removeBusyCursor():void 
     {
-		if (!dispatchEvent(new Event("removeBusyCursor", false, true)))
-			return;
+        if (hasEventListener("removeBusyCursor"))
+    		if (!dispatchEvent(new Event("removeBusyCursor", false, true)))
+	    		return;
 
         if (busyCursorList.length > 0)
             removeCursor(int(busyCursorList.pop()));
@@ -589,10 +594,13 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
             {
 				initialized = true;
 
-				if (dispatchEvent(new Event("initialize", false, true)))
+                var e:Event;
+                if (hasEventListener("initialize"))
+                {
+                    e = new Event("initialize", false, true);
+                }
+				if (!e || dispatchEvent(e))
 				{
-				
-
 					// The first time a cursor is requested of the CursorManager,
 					// create a Sprite to hold the cursor symbol
 					cursorHolder = new FlexSprite();
@@ -654,12 +662,17 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
                     	cursorHolder.y = item.y;
                     }
 
-					if (dispatchEvent(new Event("addMouseMoveListener", false, true)))
+                    var e2:Event;
+                    if (hasEventListener("addMouseMoveListener"))
+                        e2 = new Event("addMouseMoveListener", false, true);
+					if (!e2 || dispatchEvent(e2))
 						systemManager.stage.addEventListener(MouseEvent.MOUSE_MOVE,
                                                    mouseMoveHandler,true,EventPriority.CURSOR_MANAGEMENT);
                     
-
-					if (dispatchEvent(new Event("addMouseOutListener", false, true)))
+                    var e3:Event;
+                    if (hasEventListener("addMouseOutListener"))
+                        e3 = new Event("addMouseOutListener", false, true);
+					if (!e3 || dispatchEvent(e3))
 						systemManager.stage.addEventListener(MouseEvent.MOUSE_OUT,
                                                    mouseOutHandler,true,EventPriority.CURSOR_MANAGEMENT);
                     
@@ -682,13 +695,19 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
                 currentCursorXOffset = 0;
                 currentCursorYOffset = 0;
 
-				if (dispatchEvent(new Event("removeMouseMoveListener", false, true)))
+                var e4:Event;
+                if (hasEventListener("removeMouseMoveListener"))
+                    e4 = new Event("removeMouseMoveListener", false, true)
+				if (!e4 || dispatchEvent(e4))
                 {
                		systemManager.stage.removeEventListener(MouseEvent.MOUSE_MOVE,
                                           mouseMoveHandler,true);
                 }
 
-				if (dispatchEvent(new Event("removeMouseOutListener", false, true)))
+                var e5:Event;
+                if (hasEventListener("removeMouseMoveListener"))
+                    e5 = new Event("removeMouseOutListener", false, true)
+				if (!e5 || dispatchEvent(e5))
                 {
                		systemManager.stage.removeEventListener(MouseEvent.MOUSE_OUT,
                                           mouseOutHandler,true);
@@ -755,8 +774,9 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
      */
     public function registerToUseBusyCursor(source:Object):void
     {
-		if (!dispatchEvent(new Request("registerToUseBusyCursor", false, true, source)))
-			return;
+        if (hasEventListener("registerToUseBusyCursor"))
+    		if (!dispatchEvent(new Request("registerToUseBusyCursor", false, true, source)))
+	    		return;
 
         if (source && source is EventDispatcher) 
         {
@@ -773,8 +793,9 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
      */
     public function unRegisterToUseBusyCursor(source:Object):void
     {
-		if (!dispatchEvent(new Request("unRegisterToUseBusyCursor", false, true, source)))
-			return;
+        if (hasEventListener("unRegisterToUseBusyCursor"))
+    		if (!dispatchEvent(new Request("unRegisterToUseBusyCursor", false, true, source)))
+	    		return;
 
         if (source && source is EventDispatcher) 
         {
@@ -897,7 +918,8 @@ public class CursorManagerImpl extends EventDispatcher implements ICursorManager
 			cursorHolder.visible = true;
             Mouse.hide();
 
-			dispatchEvent(new Event("showCustomCursor"));
+            if (hasEventListener("showCustomCursor"))
+	    		dispatchEvent(new Event("showCustomCursor"));
         }
     }
     
