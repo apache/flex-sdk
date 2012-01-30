@@ -17,10 +17,10 @@ import flash.geom.Matrix;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 
-import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
+import mx.events.ResizeEvent;
 import mx.utils.ColorUtil;
 
 import spark.components.ActionBar;
@@ -65,13 +65,25 @@ public class ActionBarSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
+    private static var BORDER_HEIGHT:uint = 1;
+    
+    private static var SHADOW_HEIGHT:uint = 3;
+    
+    private static var CONTENT_GROUP_HEIGHT:uint = 65;
+    
     public var hostComponent:ActionBar;
     
     public var navigationGroup:Group;
     
+    private var _navigationVisible:Boolean = false;
+    
     public var titleGroup:Group;
     
+    private var _titleContentVisible:Boolean = false;
+    
     public var actionGroup:Group;
+    
+    private var _actionVisible:Boolean = false;
     
     public var titleDisplay:TitleDisplayComponent;
     
@@ -106,7 +118,7 @@ public class ActionBarSkin extends MobileSkin
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
         hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-        hLayout.paddingLeft = hLayout.paddingRight = 25; 
+        hLayout.paddingLeft = hLayout.paddingRight = 20; 
         hLayout.paddingTop = hLayout.paddingBottom = 0;
         titleGroup.layout = hLayout;
         
@@ -120,7 +132,6 @@ public class ActionBarSkin extends MobileSkin
         actionGroup.layout = hLayout;
         
         titleDisplay = new TitleDisplayComponent();
-        titleDisplay.percentWidth = 100;
         
         initializeStyles();
         
@@ -144,12 +155,12 @@ public class ActionBarSkin extends MobileSkin
         var titleWidth:Number = 0;
         var titleHeight:Number = 0;
         
-        if (titleGroup && hostComponent.titleContent)
+        if (_titleContentVisible)
         {
             titleWidth = titleGroup.getPreferredBoundsWidth();
             titleHeight = titleGroup.getPreferredBoundsHeight();
         }
-        else if (titleDisplay)
+        else
         {
             // use titleLayout for paddingLeft and paddingRight
             var layoutObject:Object = hostComponent.titleLayout;
@@ -165,12 +176,26 @@ public class ActionBarSkin extends MobileSkin
             + actionGroup.getPreferredBoundsWidth()
             + titleWidth;
         
-        // min height is 82 (80px content height, 1px borders on top and bottom)
+        // min height is 67 (65px content height, 1px borders on top and bottom)
         // Math.max.apply optimization used instead of "..." rest parameter
         measuredMinHeight = measuredHeight =
-            Math.max.apply(null, [80, navigationGroup.getPreferredBoundsHeight(), 
+            Math.max(CONTENT_GROUP_HEIGHT,
+                navigationGroup.getPreferredBoundsHeight(), 
                 actionGroup.getPreferredBoundsHeight(),
-                titleHeight]) + 2;
+                titleHeight)
+            + (BORDER_HEIGHT * 2);
+    }
+    
+    override protected function commitCurrentState():void
+    {
+        super.commitCurrentState();
+        
+        _titleContentVisible = currentState.indexOf("titleContent") >= 0;
+        _navigationVisible = currentState.indexOf("Navigation") >= 0;
+        _actionVisible = currentState.indexOf("Action") >= 0;
+        
+        invalidateSize();
+        invalidateDisplayList();
     }
     
     override protected function updateDisplayList(unscaledWidth:Number,
@@ -191,31 +216,30 @@ public class ActionBarSkin extends MobileSkin
         var actionGroupWidth:Number = 0;
         
         // remove top and bottom borders from content group height
-        var contentGroupsHeight:Number = unscaledHeight - 2;
+        var contentGroupsHeight:Number = unscaledHeight - (BORDER_HEIGHT * 2);
         
         // FXG uses scale-9, 3 px drop shadow is drawn outside the bounds
-        resizePart(border, unscaledWidth, unscaledHeight + 3);
+        resizePart(border, unscaledWidth, unscaledHeight + SHADOW_HEIGHT);
         
         // position groups, overlap of navigation and action groups is allowed
         // when overlap occurs, titleDisplay/titleGroup is not visible
-        if (navigationGroup.numElements > 0
-            && navigationGroup.includeInLayout)
+        if (_navigationVisible)
         {
             navigationGroupWidth = navigationGroup.getPreferredBoundsWidth();
             titleCompX += navigationGroupWidth;
             
             navigationGroup.setLayoutBoundsSize(navigationGroupWidth, contentGroupsHeight);
-            navigationGroup.setLayoutBoundsPosition(0, 1); // top border
+            navigationGroup.setLayoutBoundsPosition(0, BORDER_HEIGHT);
         }
         
-        if (actionGroup.numElements > 0 && actionGroup.includeInLayout)
+        if (_actionVisible)
         {
             // actionGroup x position can be negative
             actionGroupWidth = actionGroup.getPreferredBoundsWidth();
             actionGroupX = unscaledWidth - actionGroupWidth;
             
             actionGroup.setLayoutBoundsSize(actionGroupWidth, contentGroupsHeight);
-            actionGroup.setLayoutBoundsPosition(actionGroupX, 1); // top border
+            actionGroup.setLayoutBoundsPosition(actionGroupX, BORDER_HEIGHT);
         }
         
         titleCompWidth = unscaledWidth - navigationGroupWidth - actionGroupWidth;
@@ -224,14 +248,14 @@ public class ActionBarSkin extends MobileSkin
             titleDisplay.visible = false;
             titleGroup.visible = false;
         }
-        else if (hostComponent.titleContent != null && titleGroup.includeInLayout)
+        else if (_titleContentVisible)
         {
             titleDisplay.visible = false;
             titleGroup.visible = true;
             
             // use titleGroup for titleContent
             titleGroup.setLayoutBoundsSize(titleCompWidth, contentGroupsHeight);
-            titleGroup.setLayoutBoundsPosition(titleCompX, 1); // top border
+            titleGroup.setLayoutBoundsPosition(titleCompX, BORDER_HEIGHT);
         }
         else
         {
@@ -243,38 +267,74 @@ public class ActionBarSkin extends MobileSkin
             var titlePaddingLeft:Number = (layoutObject.paddingLeft) ? Number(layoutObject.paddingLeft) : 0;
             var titlePaddingRight:Number = (layoutObject.paddingRight) ? Number(layoutObject.paddingRight) : 0;
             
-            // implement padding by adjusting width and position
-            titleCompX += titlePaddingLeft;
-            titleCompWidth = titleCompWidth - (titlePaddingLeft + titlePaddingRight);
+            // vertical align center by subtracting the descent and top gutter
+            titleHeight = titleDisplay.getExplicitOrMeasuredHeight();
+            titleCompY = Math.round((contentGroupsHeight - titleHeight - UITextField.TEXT_HEIGHT_PADDING + titleDisplay.descent) / 2);
             
             // align titleDisplay to the absolute center
             var titleAlign:String = getStyle("titleAlign");
-            if (titleAlign == "center")
+            
+            // check for available width after padding
+            if ((titleCompWidth - titlePaddingLeft - titlePaddingRight) <= 0)
+            {
+                titleCompX = 0;
+                titleCompWidth = 0;
+            }
+            else if (titleAlign == "center")
             { 
                 // use LEFT instead of CENTER
                 titleDisplay.setStyle("textAlign", TextFormatAlign.LEFT);
                 titleCompWidth = titleDisplay.getExplicitOrMeasuredWidth();
                 
                 // use x position of titleDisplay to implement CENTER
-                titleCompX = Math.floor((unscaledWidth - titleCompWidth)/ 2); 
+                titleCompX = Math.round((unscaledWidth - titleCompWidth) / 2); 
+                
+                var navigationOverlap:Number = navigationGroupWidth + titlePaddingLeft - titleCompX;
+                var actionOverlap:Number = (titleCompX + titleCompWidth + titlePaddingRight) - actionGroupX;
+                
+                // shrink and/or move titleDisplay width if there is any
+                // overlap after centering
+                if ((navigationOverlap > 0) && (actionOverlap > 0))
+                {
+                    // remaining width
+                    titleCompX = navigationGroupWidth + titlePaddingLeft;
+                    titleCompWidth = unscaledWidth - navigationGroupWidth - actionGroupWidth - titlePaddingLeft - titlePaddingRight;
+                }
+                else if ((navigationOverlap > 0) || (actionOverlap > 0))
+                {
+                    if (navigationOverlap > 0)
+                    {
+                        // nudge to the right
+                        titleCompX += navigationOverlap;
+                    }
+                    else if (actionOverlap > 0)
+                    {
+                        // nudge to the left
+                        titleCompX -= actionOverlap;
+                        
+                        // force left padding
+                        if (titleCompX < (navigationGroupWidth + titlePaddingLeft))
+                            titleCompX = navigationGroupWidth + titlePaddingLeft;
+                    }
+                    
+                    // recompute action overlap and force right padding
+                    actionOverlap = (titleCompX + titleCompWidth + titlePaddingRight) - actionGroupX;
+                    
+                    if (actionOverlap > 0)
+                        titleCompWidth -= actionOverlap;
+                }
             }
             else
             {
                 titleDisplay.setStyle("textAlign", titleAlign);
-            }
                 
-            // shrink and/or move titleDisplay width if there is any overlap after padding
-            if ((titleCompX < navigationGroupWidth)
-                || ((titleCompX + titleCompWidth) > (actionGroupX - titlePaddingRight)))
-            {
-                titleCompX = navigationGroupWidth + titlePaddingLeft;
-                titleCompWidth = actionGroupX - titleCompX - titlePaddingRight;
+                // implement padding by adjusting width and position
+                titleCompX += titlePaddingLeft;
+                titleCompWidth -= titlePaddingLeft + titlePaddingRight;
             }
             
-            // vertical align center by subtracting the descent and top gutter
-            titleHeight = titleDisplay.getExplicitOrMeasuredHeight();
-            titleCompY = Math.floor((contentGroupsHeight - titleHeight + titleDisplay.descent) / 2);
-            titleCompY -= (UITextField.TEXT_HEIGHT_PADDING / 2);
+            // check for negative width
+            titleCompWidth = (titleCompWidth < 0) ? 0 : titleCompWidth;
             
             titleDisplay.setLayoutBoundsSize(titleCompWidth, titleHeight);
             titleDisplay.setLayoutBoundsPosition(titleCompX, titleCompY);
@@ -284,9 +344,12 @@ public class ActionBarSkin extends MobileSkin
         
         // Draw the gradient background
         var chromeColor:uint = getStyle("chromeColor");
-        var alpha:Number = getStyle("backgroundAlpha");
-        var alphas:Array = [alpha, alpha, alpha];
+        var backgroundAlphaValue:Number = getStyle("backgroundAlpha");
         var colors:Array = [];
+        
+        // apply alpha to border and chromeColor
+        border.alpha = backgroundAlphaValue;
+        var backgroundAlphas:Array = [backgroundAlphaValue, backgroundAlphaValue, backgroundAlphaValue];
         
         // exclude top and bottom 1px borders
         matrix.createGradientBox(unscaledWidth, contentGroupsHeight, Math.PI / 2, 0, 0);
@@ -295,8 +358,8 @@ public class ActionBarSkin extends MobileSkin
         colors[1] = chromeColor;
         colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
         
-        graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
-        graphics.drawRect(0, 1, unscaledWidth, contentGroupsHeight);
+        graphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ratios, matrix);
+        graphics.drawRect(0, BORDER_HEIGHT, unscaledWidth, contentGroupsHeight);
         graphics.endFill();
     }
 }
@@ -356,6 +419,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         titleDisplayShadow.selectable = false;
         titleDisplayShadow.multiline = false;
         titleDisplayShadow.wordWrap = false;
+        titleDisplayShadow.alpha = .45;
         
         addChild(titleDisplayShadow);
         addChild(titleDisplay);
@@ -396,7 +460,6 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         }
         
         textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-        
         descent = lineMetrics.descent;
         
         measuredWidth = textWidth;
@@ -417,7 +480,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
         titleDisplay.truncateToFit();
         
         titleDisplayShadow.commitStyles();
-        titleDisplayShadow.y = titleDisplay.y + 1; // 90 degree drop shadow
+        titleDisplayShadow.y = titleDisplay.y - 1; // -90 degree shadow
         titleDisplayShadow.width = unscaledWidth;
         titleDisplayShadow.height = unscaledHeight;
         
