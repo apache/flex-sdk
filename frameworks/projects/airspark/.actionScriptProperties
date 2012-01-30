@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionScriptProperties mainApplicationPath="airspark.as" projectUUID="e456729a-8257-4f21-9d3e-b510a8b315d6" version="6">
+  <compiler additionalCompilerArguments="-keep-as3-metadata=SkinPart -include-file=defaults.css,../defaults.css -include-file=gripper_up.png,../assets/gripper_up.png -include-file=mac_close_down.png,../assets/mac_close_down.png -include-file=mac_close_over.png,../assets/mac_close_over.png -include-file=mac_close_up.png,../assets/mac_close_up.png -include-file=mac_max_dis.png,../assets/mac_max_dis.png -include-file=mac_max_down.png,../assets/mac_max_down.png -include-file=mac_max_over.png,../assets/mac_max_over.png -include-file=mac_max_up.png,../assets/mac_max_up.png -include-file=mac_min_dis.png,../assets/mac_min_dis.png -include-file=mac_min_down.png,../assets/mac_min_down.png -include-file=mac_min_over.png,../assets/mac_min_over.png -include-file=mac_min_up.png,../assets/mac_min_up.png -include-file=win_close_down.png,../assets/win_close_down.png -include-file=win_close_over.png,../assets/win_close_over.png -include-file=win_close_up.png,../assets/win_close_up.png -include-file=win_max_dis.png,../assets/win_max_dis.png -include-file=win_max_down.png,../assets/win_max_down.png -include-file=win_max_over.png,../assets/win_max_over.png -include-file=win_max_up.png,../assets/win_max_up.png -include-file=win_min_dis.png,../assets/win_min_dis.png -include-file=win_min_down.png,../assets/win_min_down.png -include-file=win_min_over.png,../assets/win_min_over.png -include-file=win_min_up.png,../assets/win_min_up.png -include-file=win_restore_down.png,../assets/win_restore_down.png -include-file=win_restore_over.png,../assets/win_restore_over.png -include-file=win_restore_up.png,../assets/win_restore_up.png -namespace=library://ns.adobe.com/flex/spark,../manifest.xml -include-namespaces=library://ns.adobe.com/flex/spark -resource-bundle-list=../bundles.properties -library-path= -locale=" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+    <compilerSourcePath/>
+    <libraryPath defaultLinkType="0">
+      <libraryPathEntry kind="4" path="">
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/sparkskins.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/servicemonitor.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/airframework.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="1" linkType="1" path="${PROJECT_FRAMEWORKS}/locale/{locale}"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualisation.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="2" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/osmf.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="osmf_4.0.0.0.swf"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+          <libraryPathEntry index="2" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="framework_4.0.0.0.swf"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+          <libraryPathEntry index="3" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="spark_4.0.0.0.swf"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/airspark.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/applicationupdater_ui.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="1" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/textLayout.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="textLayout_1.0.0.554.swf"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+          <libraryPathEntry index="5" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="rpc_4.0.0.0.swf"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/applicationupdater.swc" useDefaultLinkType="false"/>
+        </excludedEntries>
+      </libraryPathEntry>
+      <libraryPathEntry kind="3" linkType="2" path="/textLayout/bin/textLayout.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/framework/bin/framework.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/airframework/bin/airframework.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="2" path="/spark/bin/spark.swc" useDefaultLinkType="false"/>
+    </libraryPath>
+    <sourceAttachmentPath/>
+  </compiler>
+  <applications>
+    <application path="airspark.as"/>
+  </applications>
+  <modules/>
+  <buildCSSFiles/>
+</actionScriptProperties>
