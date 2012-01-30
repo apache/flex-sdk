@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    title="Home">
+    
+    <fx:Script>
+        <![CDATA[
+        
+            // The event listener for the click event for 
+            // the ViewMenuItem controls.
+            private function itemClickInfo(event:MouseEvent):void {
+                switch (event.currentTarget.label) { 
+                    case "Add" : 
+                        myTA.text = "Add selected"; 
+                        break; 
+                    case "Cancel" : 
+                        myTA.text = "Cancel selected"; 
+                        break; 
+                    case "Delete" : 
+                        myTA.text = "Delete selected"; 
+                        break; 
+                    case "Edit" : 
+                        myTA.text = "Edit selected"; 
+                        break; 
+                    case "Search" : 
+                        myTA.text = "Search selected"; 
+                        break; 
+                    default : 
+                        myTA.text = "Error"; 
+                }                
+            }
+        ]]>
+    </fx:Script>
+    
+    <!-- Define the ViewMenuItem controls. -->
+    <s:viewMenuItems>
+        <s:ViewMenuItem label="Add" click="itemClickInfo(event);"/>
+        <s:ViewMenuItem label="Cancel" click="itemClickInfo(event);"/>
+        <s:ViewMenuItem label="Delete" click="itemClickInfo(event);"/>
+        <s:ViewMenuItem label="Edit" click="itemClickInfo(event);"/>
+        <s:ViewMenuItem label="Search" click="itemClickInfo(event);"/>
+    </s:viewMenuItems>
+    
+    <s:VGroup paddingTop="10" paddingLeft="10">
+        <s:TextArea id="myTA" text="Select a menu item"/>
+        <s:Button label="Open Menu" 
+            click="mx.core.FlexGlobals.topLevelApplication.viewMenuOpen=true;"/>
+        <s:Button label="Close Menu" 
+            click="mx.core.FlexGlobals.topLevelApplication.viewMenuOpen=false;"/>
+    </s:VGroup>
+</s:View>
