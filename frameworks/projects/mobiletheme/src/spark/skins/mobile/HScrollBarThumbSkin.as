@@ -19,7 +19,6 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 
 public class HScrollBarThumbSkin extends MobileSkin 
 {
-    
     public function HScrollBarThumbSkin()
     {
         super();
@@ -27,31 +26,19 @@ public class HScrollBarThumbSkin extends MobileSkin
     
     public var hostComponent:Button;
     
-    override public function getExplicitOrMeasuredWidth():Number
-    {
-        return 8;
-    }
-    
-    override public function getExplicitOrMeasuredHeight():Number
-    {
-        return 8;
-    }
-    
-    override protected function measure():void
-    {
-        measuredWidth = 8;
-        measuredHeight = 8;
-    }
-    
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         var g:Graphics = graphics;
         
-        var chromeColor:uint = getStyle("chromeColor");
+        var chromeColor:uint = getChromeColor();
         g.clear();
+        
+        // solid chromeColor border, alpha=1
         g.lineStyle(1, chromeColor);
+        
+        // solid chromeColor fill, alpha=.5
         g.beginFill(chromeColor, 0.5);
-        g.drawRoundRect(0.5, 0.5, unscaledWidth, unscaledHeight, 7, 7);
+        g.drawRoundRect(0.5, 0.5, unscaledWidth, unscaledHeight, unscaledHeight - 1, unscaledHeight - 1);
         g.endFill();
     }
     
