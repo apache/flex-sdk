@@ -349,7 +349,7 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
 
         // DPI scaling factor of the stage
         // FIXME (egeorgie): get this number from the SystemManager?
-        var dpiScaling:Number = Capabilities.screenDPI >= 240 ? 1.5 : 1;
+        var dpiScaling:Number = 1; //Capabilities.screenDPI >= 240 ? 1.5 : 1;
 
         // Get stage dimensions at default orientation
         var stageWidth:Number;
