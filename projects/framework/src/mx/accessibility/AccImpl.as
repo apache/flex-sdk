@@ -38,42 +38,42 @@ public class AccImpl extends AccessibilityImplementation
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_NORMAL:uint = 0x00000000;
+    /**
+     *  @private
+     */
+    private static const STATE_SYSTEM_NORMAL:uint = 0x00000000;
 
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Class methods
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  @private
+     */
+    private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
+    
+    /**
+     *  @private
+     */
+    private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
+    
+    /**
+     *  @private
+     */
+    private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
+    
+    /**
+     *  @private
+     */
+    private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Method for supporting Form Accessibility.
@@ -151,247 +151,248 @@ public class AccImpl extends AccessibilityImplementation
         return formName;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param master The UIComponent instance that this AccImpl instance
-	 *  is making accessible.
-	 */
-	public function AccImpl(master:UIComponent)
-	{
-		super();
+    /**
+     *  Constructor.
+     *
+     *  @param master The UIComponent instance that this AccImpl instance
+     *  is making accessible.
+     */
+    public function AccImpl(master:UIComponent)
+    {
+        super();
 
-		this.master = master;
-		
-		stub = false;
-		
-		// Hook in UIComponentAccProps setup here!
-		master.accessibilityProperties = new AccessibilityProperties();
-		
-		// Hookup events to listen for
-		var events:Array = eventsToHandle;
-		if (events)
-		{
-			var n:int = events.length;
-			for (var i:int = 0; i < n; i++)
-			{
-				master.addEventListener(events[i], eventHandler);
-			}
-		}
-	}
+        this.master = master;
+        
+        stub = false;
+        
+        // Hook in UIComponentAccProps setup here!
+        master.accessibilityProperties = new AccessibilityProperties();
+        
+        // Hookup events to listen for
+        var events:Array = eventsToHandle;
+        if (events)
+        {
+            var n:int = events.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                master.addEventListener(events[i], eventHandler);
+            }
+        }
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  A reference to the UIComponent instance that this AccImpl instance
-	 *  is making accessible.
-	 */
-	protected var master:UIComponent;
-	
-	/**
-	 *  Accessibility role of the component being made accessible.
-	 */
-	protected var role:uint;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  A reference to the UIComponent instance that this AccImpl instance
+     *  is making accessible.
+     */
+    protected var master:UIComponent;
+    
+    /**
+     *  Accessibility role of the component being made accessible.
+     */
+    protected var role:uint;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  All subclasses must override this function by returning an array
-	 *  of strings of the events to listen for.
-	 */
-	protected function get eventsToHandle():Array
-	{
-		return [ "errorStringChanged", "toolTipChanged" ];
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: AccessibilityImplementation
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  All subclasses must override this function by returning an array
+     *  of strings of the events to listen for.
+     */
+    protected function get eventsToHandle():Array
+    {
+        return [ "errorStringChanged", "toolTipChanged" ];
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: AccessibilityImplementation
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Returns the system role for the component.
-	 *
-	 *  @param childID uint.
-	 *
-	 *  @return Role associated with the component.
-	 *
-	 *  @tiptext Returns the system role for the component
-	 *  @helpid 3000
-	 */
-	override public function get_accRole(childID:uint):uint
-	{
-		return role;
-	}
-	
-	/**
-	 *  @private
-	 *  Returns the name of the component.
-	 *
-	 *  @param childID uint.
-	 *
-	 *  @return Name of the component.
-	 *
-	 *  @tiptext Returns the name of the component
-	 *  @helpid 3000
-	 */
-	override public function get_accName(childID:uint):String
-	{
-		var accName:String = getFormName(master);
+    /**
+     *  @private
+     *  Returns the system role for the component.
+     *
+     *  @param childID uint.
+     *
+     *  @return Role associated with the component.
+     *
+     *  @tiptext Returns the system role for the component
+     *  @helpid 3000
+     */
+    override public function get_accRole(childID:uint):uint
+    {
+        return role;
+    }
+    
+    /**
+     *  @private
+     *  Returns the name of the component.
+     *
+     *  @param childID uint.
+     *
+     *  @return Name of the component.
+     *
+     *  @tiptext Returns the name of the component
+     *  @helpid 3000
+     */
+    override public function get_accName(childID:uint):String
+    {
+        var accName:String = getFormName(master);
 
-		if (childID == 0 && 
-			master.accessibilityProperties && 
-			master.accessibilityProperties.name != null && 
-			master.accessibilityProperties.name != "")
-		{
-			accName += master.accessibilityProperties.name + " ";
-		}
+        if (childID == 0 && 
+            master.accessibilityProperties && 
+            master.accessibilityProperties.name != null && 
+            master.accessibilityProperties.name != "")
+        {
+            accName += master.accessibilityProperties.name + " ";
+        }
 
-		accName += getName(childID) + getStatusName();
-		
-		return (accName != null && accName != "") ? accName : null;
-	}
-	
-	/**
-	 *  @private
-	 *  Method to return an array of childIDs.
-	 *
-	 *  @return Array
-	 */
-	override public function getChildIDArray():Array
-	{
-		return [];
-	}
-	
-	/**
-	 *  @private
-	 *  IAccessible method for giving focus to a child item in the component
-	 *  (but not to the component itself; accSelect() is never called
-	 *  with a childID of 0).
-	 *  Even though this method does nothing, without it the Player
-	 *  causes an IAccessible "Member not found" error.
-	 */
-	override public function accSelect(selFlag:uint, childID:uint):void
-	{
-	}
+        accName += getName(childID) + getStatusName();
+        
+        return (accName != null && accName != "") ? accName : null;
+    }
+    
+    /**
+     *  @private
+     *  Method to return an array of childIDs.
+     *
+     *  @return Array
+     */
+    override public function getChildIDArray():Array
+    {
+        return [];
+    }
+    
+    /**
+     *  @private
+     *  IAccessible method for giving focus to a child item in the component
+     *  (but not to the component itself; accSelect() is never called
+     *  with a childID of 0).
+     *  Even though this method does nothing, without it the Player
+     *  causes an IAccessible "Member not found" error.
+     */
+    override public function accSelect(selFlag:uint, childID:uint):void
+    {
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Returns the name of the accessible component.
-	 *  All subclasses must implement this
-	 *  instead of implementing get_accName().
-	 */
-	protected function getName(childID:uint):String
-	{
-		return null;
-	}
-	
-	/**
-	 *  Utility method to determine state of the accessible component.
-	 */
-	protected function getState(childID:uint):uint
-	{
-		var accState:uint = STATE_SYSTEM_NORMAL;
-		
-		if (!UIComponent(master).enabled)
-		{
-			accState |= STATE_SYSTEM_UNAVAILABLE;
-		}
-		else
-		{
-			accState |= STATE_SYSTEM_FOCUSABLE
-		
-			if (UIComponent(master) == UIComponent(master).getFocus())
-				accState |= STATE_SYSTEM_FOCUSED;
-		}
+    /**
+     *  Returns the name of the accessible component.
+     *  All subclasses must implement this
+     *  instead of implementing get_accName().
+     */
+    protected function getName(childID:uint):String
+    {
+        return null;
+    }
+    
+    /**
+     *  Utility method to determine state of the accessible component.
+     */
+    protected function getState(childID:uint):uint
+    {
+        var accState:uint = STATE_SYSTEM_NORMAL;
+        
+        if (!UIComponent(master).enabled)
+        {
+            accState |= STATE_SYSTEM_UNAVAILABLE;
+        }
+        else
+        {
+            accState |= STATE_SYSTEM_FOCUSABLE
+        
+            if (UIComponent(master) == UIComponent(master).getFocus())
+                accState |= STATE_SYSTEM_FOCUSED;
+        }
 
-		return accState;
-	}
+        return accState;
+    }
 
-	/**
-	 *  @private
-	 */
-	private function getStatusName():String
-	{
-		var statusName:String = "";
-		
-		if (master.toolTip)
-			statusName += " " + master.toolTip;
-		
-		if (master is UIComponent && UIComponent(master).errorString)
-			statusName += " " + UIComponent(master).errorString;
-		
-		return statusName;
-	}
-	
-	/**
-	 *  @private
-	 */
-	protected function createChildIDArray(n:int):Array
-	{
-		var a:Array = new Array(n);
-		
-		for (var i:int = 0; i < n; i++)
-		{
-			a[i] = i + 1;
-		}
-		
-		return a;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  @private
+     */
+    private function getStatusName():String
+    {
+        var statusName:String = "";
+        
+        if (master.toolTip)
+            statusName += " " + master.toolTip;
+        
+        if (master is UIComponent && UIComponent(master).errorString)
+            statusName += " " + UIComponent(master).errorString;
+        
+        return statusName;
+    }
+    
+    /**
+     *  @private
+     */
+    protected function createChildIDArray(n:int):Array
+    {
+        var a:Array = new Array(n);
+        
+        for (var i:int = 0; i < n; i++)
+        {
+            a[i] = i + 1;
+        }
+        
+        return a;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Generic event handler.
-	 *  All AccImpl subclasses must implement this
-	 *  to listen for events from its master component. 
-	 */
-	protected function eventHandler(event:Event):void
-	{
-		$eventHandler(event);
-	}
+    /**
+     *  Generic event handler.
+     *  All AccImpl subclasses must implement this
+     *  to listen for events from its master component. 
+     */
+    protected function eventHandler(event:Event):void
+    {
+        $eventHandler(event);
+    }
 
-	/**
-	 *  Handles events common to all accessible UIComponents.
-	 */
-	protected final function $eventHandler(event:Event):void
-	{
-		switch (event.type)
-		{
-			case "errorStringChanged":
-			case "toolTipChanged":
-			{
-				Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
-				Accessibility.updateProperties();
-				break;
-			}
-		}
-	}
+    /**
+     *  @private
+     *  Handles events common to all accessible UIComponents.
+     */
+    protected final function $eventHandler(event:Event):void
+    {
+        switch (event.type)
+        {
+            case "errorStringChanged":
+            case "toolTipChanged":
+            {
+                Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
+                Accessibility.updateProperties();
+                break;
+            }
+        }
+    }
 }
 
 }
