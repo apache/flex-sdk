@@ -272,11 +272,14 @@ public interface IVisualElement extends ILayoutElement
     
     /**
      *  Specifies the desired layout direction for a visual element: one of "ltr" 
-     *  (left to right), "rtl" (right to left).   
+     *  (left to right), "rtl" (right to left), or null (inherit).   
      * 
-     *  This property is typically backed by an inheriting style.  Classes like GraphicElement,
-     *  which implement IVisualElement but do not support styles, must additionally support an 
-     *  explicit "inherit" value for this property. 
+     *  This property is typically backed by an inheriting style.  If null,
+     *  the layoutDirection style will be set to undefined.
+     * 
+     *  Classes like GraphicElement, which implement IVisualElement but do not 
+     *  support styles, must additionally support a null value for this property 
+     *  which means the layoutDirection must be inherited from its parent. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
