@@ -17,16 +17,16 @@
 -->
 <componentPackage>
     <component id="ActionBar" class="spark.components.ActionBar"/>
-    <component id="MobileApplication" class="spark.components.MobileApplication"/>
     <component id="MobileItemRenderer" class="spark.components.MobileItemRenderer"/>
     <component id="MobileIconItemRenderer" class="spark.components.MobileIconItemRenderer"/>
     <component id="SlideViewTransition" class="spark.effects.SlideViewTransition"/>
-    <component id="TabbedMobileApplication" class="spark.components.TabbedMobileApplication"/>
+    <component id="TabbedViewNavigatorApplication" class="spark.components.TabbedViewNavigatorApplication"/>
     <component id="TabbedViewNavigator" class="spark.components.TabbedViewNavigator"/>
     <component id="View" class="spark.components.View"/>
     <component id="ViewMenu" class="spark.components.ViewMenu"/>
     <component id="ViewMenuItem" class="spark.components.ViewMenuItem"/>
     <component id="ViewMenuLayout" class="spark.layouts.ViewMenuLayout"/>
+    <component id="ViewNavigatorApplication" class="spark.components.ViewNavigatorApplication"/>
     <component id="ViewNavigatorBase" class="spark.components.supportClasses.ViewNavigatorBase"/>
     <component id="ViewNavigator" class="spark.components.ViewNavigator"/>
 </componentPackage>
