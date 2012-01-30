@@ -518,6 +518,7 @@ public class ViewNavigator extends ViewNavigatorBase
     //  length
     //----------------------------------
     
+   [Bindable("lengthChanged")]
     /**
      *  Returns the number of views being managed by the navigator.
      */
@@ -1143,6 +1144,14 @@ public class ViewNavigator extends ViewNavigatorBase
                                     context:Object = null,
                                     transition:ViewTransition = null):void
     {
+        // ViewNavigator does not allow a push or replace operation to occur
+        // without the viewClass factory object defined.
+        if (action == ViewNavigatorAction.PUSH || action == ViewNavigatorAction.REPLACE)
+        {
+            if (!viewClass)
+                return;
+        }
+        
         // If the action queue doesn't exist, create it
         if (delayedNavigationActions.length == 0)
         {
@@ -1761,12 +1770,6 @@ public class ViewNavigator extends ViewNavigatorBase
             // before the next render
             callLater(viewAdded, [(transitionsEnabled ? pendingViewTransition : null)]);
         }
-        else
-        {
-            // Cancel operation if the viewClass class is null
-            viewChangeRequested = false;
-            navigatorActionCommitted();
-        }
         
         pendingViewTransition = null;
     }
@@ -1971,6 +1974,11 @@ public class ViewNavigator extends ViewNavigatorBase
             // Give the transition a chance to prepare before the view updates
             transition.captureStartValues();
         }
+
+        // This event is dispatched here to allow developers to incorporate
+        // length specific changes into the view navigator transitions
+        if (hasEventListener("lengthChanged"))
+	        dispatchEvent(new Event("lengthChanged"));
         
         // Invalidate the actionBar properties
         if (actionBar)
