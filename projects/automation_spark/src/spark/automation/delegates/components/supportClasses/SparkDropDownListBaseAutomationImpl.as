@@ -130,7 +130,7 @@ package spark.automation.delegates.components.supportClasses
 				{
 					sparkDropDownListBase.dropDown.addEventListener(AutomationRecordEvent.RECORD, 
 						dropdown_recordHandler, false, 0, true);
-				
+					
 					// DropDownListBase's dropDown is a pop up. So its parent is SystemManager.
 					// So scrollbars are recorded as children of Group.
 					// Setting its owner to DropDownListBase so that scrollbars get recorded as 
