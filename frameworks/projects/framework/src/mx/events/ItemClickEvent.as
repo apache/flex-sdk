@@ -22,6 +22,11 @@ import flash.events.Event;
  *  @see mx.controls.NavBar
  *  @see mx.controls.Button
  *  @see mx.controls.List
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ItemClickEvent extends Event
 {
@@ -58,6 +63,11 @@ public class ItemClickEvent extends Event
 	 *  </table>
 	 *
      *  @eventType itemClick 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const ITEM_CLICK:String = "itemClick";
 
@@ -85,6 +95,11 @@ public class ItemClickEvent extends Event
 	 *  @param relatedObject The child object that generated the event.
 	 *
 	 *  @param item The item in the data provider for the associated navigation item.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ItemClickEvent(type:String, bubbles:Boolean = false,
 								   cancelable:Boolean = false,
@@ -112,6 +127,11 @@ public class ItemClickEvent extends Event
 
 	/**
 	 *  The index of the associated navigation item.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var index:int;
 
@@ -121,6 +141,11 @@ public class ItemClickEvent extends Event
 
 	/**
 	 *  The item in the data provider of the associated navigation item.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var item:Object;
 
@@ -130,6 +155,11 @@ public class ItemClickEvent extends Event
 
 	/**
 	 *  The label of the associated navigation item.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var label:String;
 
@@ -140,6 +170,11 @@ public class ItemClickEvent extends Event
 	/**
 	 *  The child object that generated the event; for example,
 	 *  the button that a user clicked in a ButtonBar control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var relatedObject:InteractiveObject;
 
