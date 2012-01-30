@@ -52,6 +52,9 @@
 			<library-path dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs/">
 				<include name="FlexComponentBase.swc"/>
 			</library-path>
+            <library-path dir="${basedir}/libs/">
+				<include name="FlexContentHolderThumbnail.swc"/>
+			</library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
@@ -89,7 +92,9 @@
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 		    	<include name="framework.swc" />
 		    </external-library-path>
-
+            <library-path dir="${basedir}/libs/">
+				<include name="FlexContentHolderThumbnail.swc"/>
+			</library-path>
 		    <library-path dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs/">
 				<include name="FlexComponentBase.swc"/>
 			</library-path>
