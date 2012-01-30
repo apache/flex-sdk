@@ -264,7 +264,18 @@ public interface IResourceManager extends IEventDispatcher
      *  @return An Array of locale Strings.
      */
     function getLocales():Array /* of String */;
-    
+
+    /**
+     *  Returns an Array of Strings specifying all locales for which
+     *  ResourceBundle objects exist in the ResourceManager,
+     *  ordered using  user preferences as reported by
+     *  <code>Capabilities.language</code> or
+     *  <code>Capabilities.languages</code>.
+     * 
+     *  @return An Array of locale Strings.
+     */
+    function getPreferredLocaleChain():Array /* of String */;
+
     /**
      *  Returns an Array of Strings specifying the bundle names
      *  for all ResourceBundle objects that exist in the ResourceManager
@@ -609,13 +620,17 @@ public interface IResourceManager extends IEventDispatcher
                       locale:String = null):Class;
 
     /**
-     *  Used by modules loaders only.
+     *  Used only by classes which implement IFlexModuleFactory.
      */
     function installCompiledResourceBundles(
                                 applicationDomain:ApplicationDomain,
                                 locales:Array /* of String */,
                                 bundleNames:Array /* of String */):void;
 
+	/**
+	 *  Used only by classes which implement IFlexModuleFactory.
+	 */
+    function initializeLocaleChain(compiledLocales:Array):void; 
 }
 
 }
