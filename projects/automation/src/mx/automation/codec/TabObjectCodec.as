@@ -99,7 +99,8 @@ package mx.automation.codec
 				// we need to replace the above code to replace the getAutomationChildAt
 				// and numAutomationChildren with getAutomationChildren to avoid the
 				// multiple calcuation of the children.
-				var childList:Array = aoc.getAutomationChildren();
+				//var childList:Array = aoc.getAutomationChildren();
+				var childList:Array =  Automation.automationManager2.getAutomationChildrenArray(aoc);
 				if(childList)
 				{
 					var n:int  = childList.length;
