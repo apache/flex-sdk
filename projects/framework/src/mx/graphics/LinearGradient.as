@@ -12,8 +12,8 @@
 package mx.graphics
 {
 
-import flash.display.GradientType;
 import flash.display.Graphics;
+import flash.display.GradientType;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 
@@ -119,7 +119,6 @@ public class LinearGradient extends GradientBase implements IFill
 	public function LinearGradient()
  	{
 		super();
-		matrix = new Matrix();
 	}
 
 	//--------------------------------------------------------------------------
@@ -127,6 +126,11 @@ public class LinearGradient extends GradientBase implements IFill
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+	private static var commonMatrix:Matrix = new Matrix();
 
 	/**
 	 *  @inheritDoc
@@ -137,14 +141,14 @@ public class LinearGradient extends GradientBase implements IFill
 		var tx:Number = !isNaN(x) ? x + rc.left : rc.left;
 		var ty:Number = !isNaN(y) ? y + rc.top : rc.top;
 		
-		matrix.createGradientBox(w, rc.height, 
+		commonMatrix.createGradientBox(w, rc.height, 
 								!isNaN(mx_internal::_angle) ? 
 									mx_internal::_angle : mx_internal::rotationInRadians,
 								 tx, ty);
 								 
 		target.beginGradientFill(GradientType.LINEAR, mx_internal::colors,
 								 mx_internal::alphas, mx_internal::ratios,
-								 matrix, spreadMethod, interpolationMethod);	
+								 commonMatrix, spreadMethod, interpolationMethod);	
 	}
 
 	/**
