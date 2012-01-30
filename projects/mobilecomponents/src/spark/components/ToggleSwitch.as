@@ -112,7 +112,7 @@ use namespace mx_internal;
  *  By default, the label OFF corresponds to the unselected position and ON 
  *  corresponds to the selected position.</p>
  *
- *  <p>The following images shows a ToggleSwitch control. 
+ *  <p>The following image shows a ToggleSwitch control. 
  *  The labels below the control show the current switch label and position:</p>
  *
  * <p>
