@@ -76,7 +76,6 @@ package spark.automation.delegates.components
         public function SparkVideoPlayerAutomationImpl(obj:spark.components.VideoPlayer)
         {
             super(obj);
-            
         }
         
         /**
@@ -129,6 +128,9 @@ package spark.automation.delegates.components
         {
             
             var chilArray:Array = new Array();
+			if(sparkVideoPlayer.videoDisplay)
+				chilArray.push(sparkVideoPlayer.videoDisplay);
+			
             if(sparkVideoPlayer.currentTimeDisplay)
                 chilArray.push(sparkVideoPlayer.currentTimeDisplay);
             
