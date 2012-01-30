@@ -351,9 +351,9 @@ public class ActionBarSkin extends MobileSkin
             var titlePaddingLeft:Number = (layoutObject.paddingLeft) ? Number(layoutObject.paddingLeft) : 0;
             var titlePaddingRight:Number = (layoutObject.paddingRight) ? Number(layoutObject.paddingRight) : 0;
             
-            // vertical align center by subtracting the descent and top gutter
+            // vertical align center
             titleHeight = titleDisplay.getExplicitOrMeasuredHeight();
-            titleCompY = Math.round((contentGroupsHeight - titleHeight + titleDisplay.descent - StyleableTextField.TEXT_HEIGHT_PADDING) / 2);
+            titleCompY = Math.round((contentGroupsHeight - titleHeight)/2) + layoutBorderHeight;
             
             // align titleDisplay to the absolute center
             var titleAlign:String = getStyle("titleAlign");
@@ -478,8 +478,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
     private var titleDisplayShadow:StyleableTextField;
     private var title:String;
     private var titleChanged:Boolean;
-    public var descent:Number;
-    
+	
     public function TitleDisplayComponent()
     {
         super();
@@ -549,19 +548,14 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
             titleDisplay.text = title;
         titleDisplay.commitStyles();
         
-        var textSize:Point = titleDisplay.measuredTextSize;
-        textWidth = textSize.x;
-        
         if (title != "")
         {
-            textHeight = textSize.y;
-            descent = titleDisplay.getLineMetrics(0).descent;
+			textWidth = titleDisplay.getPreferredBoundsWidth();
+            textHeight = titleDisplay.getPreferredBoundsHeight();
         }
         else
         {
-            var lineMetrics:TextLineMetrics = measureText("Wj");
-            textHeight = lineMetrics.height + StyleableTextField.TEXT_HEIGHT_PADDING;
-            descent = lineMetrics.descent;
+            textHeight =  measureText("Wj").height + StyleableTextField.TEXT_HEIGHT_PADDING;
         }
         
         measuredWidth = textWidth;
@@ -574,22 +568,22 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        titleDisplay.width = unscaledWidth;
-        titleDisplay.height = unscaledHeight;
-        
+        		
         // reset text if it was truncated before.
         if (titleDisplay.isTruncated)
             titleDisplay.text = title;
         titleDisplay.commitStyles();
         
+		titleDisplay.setLayoutBoundsPosition(0, 0);
+		titleDisplay.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+
         // now truncate the text
         titleDisplay.truncateToFit();
         
         titleDisplayShadow.commitStyles();
-        titleDisplayShadow.y = titleDisplay.y + 1; // degree shadow down
-        titleDisplayShadow.width = unscaledWidth;
-        titleDisplayShadow.height = unscaledHeight;
+		titleDisplayShadow.setLayoutBoundsPosition(0, 1);
+		titleDisplayShadow.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+		
         titleDisplayShadow.alpha = getStyle("textShadowAlpha");
         
         // if labelDisplay is truncated, then push it down here as well.
