@@ -71,6 +71,18 @@
             <s:HorizontalLayout verticalAlign="middle" gap="5" />
         </s:layout>
 
+        <!-- close button -->
+        <!--- 
+            Defines the Button control for the close button in the title bar. 
+            By default, the button uses the spark.skins.default.MacMinimizeButtonSkin class
+            to define the skin for the close button.
+            
+            @see spark.skins.default.MacCloseButtonSkin 
+        -->
+        <s:Button id="closeButton" 
+            skinClass="spark.skins.default.MacCloseButtonSkin"
+            verticalCenter="0" />
+    
         <!-- mac minimize button --> 
         <!--- 
             Defines the Button control for the mimimized button in the title bar. 
@@ -95,18 +107,6 @@
             skinClass="spark.skins.default.MacMaximizeButtonSkin"
             verticalCenter="0" />
                         
-        <!-- close button -->
-        <!--- 
-            Defines the Button control for the close button in the title bar. 
-            By default, the button uses the spark.skins.default.MacMinimizeButtonSkin class
-            to define the skin for the close button.
-            
-            @see spark.skins.default.MacCloseButtonSkin 
-        -->
-        <s:Button id="closeButton" 
-            skinClass="spark.skins.default.MacCloseButtonSkin"
-            verticalCenter="0" />
-    
         <!-- Spacer. Create enough space move the titleIcon and titleText to the
              right so they are centered.
              "0 + titleText.width - titleText.width" is a trick so binding will call
