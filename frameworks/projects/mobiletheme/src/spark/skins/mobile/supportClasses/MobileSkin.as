@@ -56,24 +56,9 @@ public class MobileSkin extends UIComponent
     {
         if (value != _currentState)
         {
-            _previoustState = _currentState;
             _currentState = value;
             commitCurrentState();
         }
-    }
-    
-    //----------------------------------
-    //  previousState
-    //----------------------------------
-    
-    private var _previoustState:String;
-    
-    /**
-     *  The previous value of currentState 
-     */ 
-    protected function get previousState():String
-    {
-        return _previoustState;
     }
         
     /**
