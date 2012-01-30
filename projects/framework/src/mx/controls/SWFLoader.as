@@ -2535,7 +2535,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             var sm:ISystemManager = content as ISystemManager;
             if (sm != null)
 			{
-				var cm:Object = sm.getImplementation("mx.managers.ISystemManagerChildManager");
+				var cm:Object = sm.getImplementation("mx.managers::ISystemManagerChildManager");
                 Object(cm).regenerateStyleCache(recursive);
 			}
         }
@@ -2562,7 +2562,7 @@ public class SWFLoader extends UIComponent implements ISWFLoader
             var sm:ISystemManager = content as ISystemManager;
             if (sm != null)
 			{
-				var cm:Object = sm.getImplementation("mx.managers.ISystemManagerChildManager");
+				var cm:Object = sm.getImplementation("mx.managers::ISystemManagerChildManager");
                 Object(cm).notifyStyleChangeInChildren(styleProp, recursive);
 			}
         }
