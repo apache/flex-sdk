@@ -28,6 +28,10 @@ import mx.managers.ISystemManager;
  *  Note that for all other SWF content types, this class will return null
  *  for the movieClip getter and will result in a no-op for function calls.
  *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class MovieClipSWFLoader extends SWFLoader
 {
