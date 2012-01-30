@@ -161,7 +161,7 @@ public class MenuAccImpl extends ListBaseAccImpl
 	{
 		super(master);
 
-		role = 0x0B;
+		role = 0x0B; // ROLE_SYSTEM_MENUPOPUP
 	}
 
 	//--------------------------------------------------------------------------
@@ -198,10 +198,7 @@ public class MenuAccImpl extends ListBaseAccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		if (childID == 0)
-			return role;
-
-		return ROLE_SYSTEM_MENUITEM;
+		return childID == 0 ? role : ROLE_SYSTEM_MENUITEM;
 	}
 
 	/**
