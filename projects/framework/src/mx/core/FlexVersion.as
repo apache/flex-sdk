@@ -24,6 +24,11 @@ import mx.resources.ResourceManager;
  *  to match previous releases.
  *  This is a 'global' flag; you cannot apply one version to one component or group of components
  *  and a different version to another component or group of components.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FlexVersion 
 {
@@ -37,6 +42,11 @@ public class FlexVersion
 
     /** 
      *  The current released version of the Flex SDK, encoded as a uint.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CURRENT_VERSION:uint = 0x04000000;
 
@@ -46,6 +56,11 @@ public class FlexVersion
      *  Code can compare this constant against
      *  the <code>compatibilityVersion</code>
      *  to implement version-specific behavior.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const VERSION_4_0:uint = 0x04000000;
 
@@ -55,6 +70,11 @@ public class FlexVersion
      *  Code can compare this constant against
      *  the <code>compatibilityVersion</code>
      *  to implement version-specific behavior.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const VERSION_3_0:uint = 0x03000000;
 
@@ -64,6 +84,11 @@ public class FlexVersion
      *  Code can compare this constant against
      *  the <code>compatibilityVersion</code>
      *  to implement version-specific behavior.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const VERSION_2_0_1:uint = 0x02000001;
 
@@ -73,6 +98,11 @@ public class FlexVersion
      *  Code can compare this constant against
      *  the <code>compatibilityVersion</code>
      *  to implement version-specific behavior.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const VERSION_2_0:uint = 0x02000000;
 
@@ -80,6 +110,11 @@ public class FlexVersion
      *  A String passed as a parameter
      *  to the <code>compatibilityErrorFunction()</code> method
      *  if the compatibility version has already been set.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const VERSION_ALREADY_SET:String = "versionAlreadySet";
         // Also used as resource string, so be careful changing it.
@@ -88,6 +123,11 @@ public class FlexVersion
      *  A String passed as a parameter
      *  to the <code>compatibilityErrorFunction()</code> method 
      *  if the compatibility version has already been read.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const VERSION_ALREADY_READ:String = "versionAlreadyRead";
         // Also used as resource string, so be careful changing it.
@@ -119,6 +159,11 @@ public class FlexVersion
      *  which is the version that was attempted to be set; the second
      *  is a string that is the reason it failed, either
      *  <code>VERSION_ALREADY_SET</code> or <code>VERSION_ALREADY_READ</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     public static function get compatibilityErrorFunction():Function
     {
@@ -165,6 +210,11 @@ public class FlexVersion
      *  early enough that no code that depends on it has run yet.
      *
      *  @default FlexVersion.CURRENT_VERSION
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get compatibilityVersion():uint
     {
@@ -220,6 +270,11 @@ public class FlexVersion
      *  This is a pass-through to the <code>compatibilityVersion</code>
      *  property, which converts the number to and from a more
      *  human-readable String version.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function get compatibilityVersionString():String
     {
