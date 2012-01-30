@@ -60,7 +60,6 @@ use namespace mx_internal;
  *  The state used when the navigator is in portrait orientation.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -70,7 +69,6 @@ use namespace mx_internal;
  *  The state used when the navigator is in landscape orientation.
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -81,7 +79,6 @@ use namespace mx_internal;
  *  and the navigator controls are overlaid on top.
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -92,7 +89,6 @@ use namespace mx_internal;
  *  and the navigator controls are overlaid on top.
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -155,7 +151,6 @@ use namespace mx_internal;
  *  @see spark.transitions.ViewTransitionBase
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -189,7 +184,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -225,9 +219,8 @@ public class ViewNavigator extends ViewNavigatorBase
     *  A skin part that defines the action bar of the navigator. 
     *  
     *  @langversion 3.0
-    *  @playerversion Flash 10
-    *  @playerversion AIR 1.5
-    *  @productversion Flex 4
+    *  @playerversion AIR 2.5
+    *  @productversion Flex 4.5
     */
     public var actionBar:ActionBar;
     
@@ -246,7 +239,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -353,7 +345,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  run after the transition is complete.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -428,7 +419,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @inheritDoc
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -468,7 +458,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -497,7 +486,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @see spark.transitions.SlideViewTransition
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -528,7 +516,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @see spark.transitions.SlideViewTransition
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -568,7 +555,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @see View
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -602,7 +588,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @see View
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -668,7 +653,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @see View#createReturnObject()
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -704,7 +688,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -739,7 +722,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -782,7 +764,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -817,7 +798,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -857,7 +837,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @default ""
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -905,7 +884,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @see spark.skins.mobile.ActionBarSkin
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -940,7 +918,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -975,7 +952,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -995,7 +971,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -1014,7 +989,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1043,7 +1017,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1075,7 +1048,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param transition The view transition to play while switching views.    
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1097,7 +1069,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  when the action bar appears.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1124,7 +1095,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  when the action bar is hidden.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1157,7 +1127,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  interaction flags are disabled.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1193,7 +1162,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1212,7 +1180,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1289,7 +1256,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *         this property.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
@@ -1323,7 +1289,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param transition The view transition to play
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */  
@@ -1360,7 +1325,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *         this property.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
@@ -1462,7 +1426,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  and the action bar's visibility has changed.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1515,7 +1478,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @return An effect to play when the ActionBar control is hidden.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1534,7 +1496,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @return An effect to play when the ActionBar control is appears.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1588,7 +1549,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  pass.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1652,7 +1612,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param props The bounds properties that were captured for the actionBar.  
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1673,7 +1632,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1728,7 +1686,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  completes.</p>
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1831,7 +1788,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  process.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2047,7 +2003,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  the underlying ViewDescriptor object and prepares the transition.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2161,7 +2116,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  Called when a transition dispatches an FlexEvent.TRANSITION_END event.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2180,7 +2134,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2194,7 +2147,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2276,7 +2228,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -2314,7 +2265,6 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
