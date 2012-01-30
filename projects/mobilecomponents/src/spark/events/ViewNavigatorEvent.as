@@ -57,9 +57,9 @@ public class ViewNavigatorEvent extends Event
      *  @eventType removing
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public static const REMOVING:String = "removing";
     
