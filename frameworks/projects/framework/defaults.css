@@ -246,7 +246,6 @@ Alert
 	paddingLeft: 10;
 	paddingRight: 10;
 	paddingTop: 2;
-	roundedBottomCorners: true;
 }
 
 /*
@@ -264,9 +263,6 @@ Alert
 Application
 {
 	backgroundColor: #FFFFFF; 
-	backgroundImage: ClassReference("mx.skins.spark.ApplicationBackground");
-	backgroundSize: "100%";
-	backgroundGradientAlphas: 1, 1;
 	horizontalAlign: "center";
 	paddingBottom: 24;
 	paddingLeft: 24;
@@ -283,17 +279,13 @@ Application
 ApplicationControlBar
 {
     borderSkin: ClassReference("mx.skins.halo.HaloBorder");
-	borderStyle: "applicationControlBar";
 	cornerRadius: 5;
-	docked: false;
-	dropShadowEnabled: true;
 	fillAlphas: 0, 0;
 	fillColors: #FFFFFF, #FFFFFF;
 	paddingBottom: 4;
 	paddingLeft: 8;
 	paddingRight: 8;
 	paddingTop: 5;
-	shadowDistance: 5;
 }
 
 /*
@@ -348,7 +340,6 @@ Button
 
 ButtonBar
 {
-    borderSkin: ClassReference("mx.skins.spark.BorderSkin");
 	firstButtonStyleName: buttonBarFirstButtonStyle;
 	horizontalAlign: "center";
 	horizontalGap: -1;
@@ -404,9 +395,6 @@ ButtonBarButton
 
 CalendarLayout
 {
-	cellWidthPadding: 6;
-	cellHeightPadding: 6;
-	color: #2B333C;
 	horizontalGap: 7;
 	paddingBottom: 10;
 	paddingLeft: 6;
@@ -431,7 +419,6 @@ CalendarLayout
 
 CheckBox
 {
-	cornerRadius: 0;
 	disabledIcon: ClassReference(null);
 	disabledSkin: ClassReference(null);
 	downIcon: ClassReference(null);
@@ -439,7 +426,6 @@ CheckBox
 	fontWeight: "normal";
 	horizontalGap: 3;
 	icon: ClassReference("mx.skins.spark.CheckBoxSkin");
-	iconColor: #2B333C;
 	labelVerticalOffset: 1;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
@@ -472,9 +458,7 @@ ColorPicker
 /*	disabledSkin: null;
 	downSkin: null; */
 	fontSize: 11;
-	iconColor: #000000;
 /*	overSkin: null; */
-	shadowColor: #4D555E;
 	skin: ClassReference("mx.skins.spark.ColorPickerSkin");
 	swatchBorderSize: 0;
 /*	upSkin: null; */
@@ -491,7 +475,6 @@ ComboBox
 {
 	arrowButtonWidth: 18;
 /*	cornerRadius: 5; */
-	disabledIconColor: #919999;
 /*	disabledSkin: null 
 	downSkin: null */
 	dropdownStyleName: "comboDropdown";
@@ -553,7 +536,6 @@ Container
 ControlBar
 {
 	disabledOverlayAlpha: 0; 
-	borderStyle: "none";
 	paddingBottom: 11;
 	paddingLeft: 11;
 	paddingRight: 11;
@@ -584,7 +566,6 @@ DataGrid
 	alternatingItemColors: #EFF3FA, #FFFFFF;
 	columnDropIndicatorSkin: ClassReference("mx.skins.halo.DataGridColumnDropIndicator");
 	columnResizeSkin: ClassReference("mx.skins.halo.DataGridColumnResizeSkin");
-	headerColors: #FFFFFF, #E6E6E6;
 	headerDragProxyStyleName: "headerDragProxyStyle";
 	headerBackgroundSkin: ClassReference("mx.skins.spark.DataGridHeaderBackgroundSkin");
 	headerSeparatorSkin: ClassReference("mx.skins.spark.DataGridHeaderSeparatorSkin");
@@ -612,9 +593,7 @@ DataGridItemRenderer
 */
 DateChooser
 {
-	backgroundColor: #FFFFFF;
-	cornerRadius: 0;
-	headerColors: #FFFFFF, #D8D8D8;
+    cornerRadius: 0;
 /*	headerStyleName: "headerDateText";
 	nextMonthDisabledSkin: null
 	nextMonthDownSkin: null
@@ -638,7 +617,6 @@ DateChooser
 /*	prevYearUpSkin: null */
 	rollOverIndicatorSkin: ClassReference("mx.skins.spark.DateChooserRollOverIndicatorSkin");
 	selectionIndicatorSkin: ClassReference("mx.skins.spark.DateChooserSelectionIndicatorSkin");
-        todayColor: #C6D0DB;	
 	todayIndicatorSkin: ClassReference("mx.skins.spark.DateChooserTodayIndicatorSkin");
 	todayStyleName: "todayStyle";
 	weekDayStyleName: "weekDayStyle";
@@ -753,8 +731,6 @@ FormHeading
 {
 	fontSize: 12;
 	fontWeight: "bold";
-	borderStyle: "none";
-	verticalGap: 16;
 }
 
 /*
@@ -951,8 +927,6 @@ LinkBar
 
 ListBase
 {
-	backgroundColor: #FFFFFF;
-	backgroundDisabledColor: #DDDDDD;
 	borderStyle: "solid";
 	dropIndicatorSkin: ClassReference("mx.skins.halo.ListDropIndicator");
 	paddingBottom: 2;
@@ -975,14 +949,13 @@ ListBase
 
 Menu
 {
-	backgroundAlpha: 0.95;
 	borderStyle: "menuBorder";
 	branchDisabledIcon : ClassReference("mx.skins.spark.MenuArrowDisabled");
 	branchIcon : ClassReference("mx.skins.spark.MenuArrow");
 	checkDisabledIcon : ClassReference("mx.skins.spark.MenuCheckDisabled");
 	checkIcon : ClassReference("mx.skins.spark.MenuCheck");
 	dropIndicatorSkin: ClassReference("mx.skins.halo.ListDropIndicator");
-	dropShadowVisible: true;
+/*	dropShadowVisible: true;  in spark.css */
 	horizontalGap: 6;
 	leftIconGap: 18;
 	rightIconGap: 15;
@@ -1019,7 +992,6 @@ MenuBar
 /*	itemUpSkin: null
 	itemOverSkin: null
 	itemDownSkin: null */
-	translucent: false;
 }
 
 /*
@@ -1083,21 +1055,15 @@ Panel
     borderColor: 0;
 	borderSkin: ClassReference("mx.skins.spark.PanelBorderSkin");
 	borderStyle: "default";
-	borderThickness: 0;
-	/* borderThicknessBottom is NaN */
-	borderThicknessLeft: 10;
-	borderThicknessRight: 10;
-	borderThicknessTop: 2;
 	/* cornerRadius: 4; */
     cornerRadius: 0;
-	dropShadowVisible: true;
+/*	dropShadowVisible: true; in spark.css */
 	paddingBottom: 0;
 	paddingLeft: 0;
 	paddingRight: 0;
 	paddingTop: 0;
-	resizeEndEffect: "Dissolve";
-	resizeStartEffect: "Dissolve";
-	roundedBottomCorners: false;
+    resizeEndEffect: "Dissolve";
+    resizeStartEffect: "Dissolve";
 	statusStyleName: "windowStatus";
 	titleBackgroundSkin: ClassReference("mx.core.UIComponent");
 	titleStyleName: "windowStyles";
@@ -1182,8 +1148,6 @@ PrintDataGrid
 {
 	alternatingItemColors: #FFFFFF, #FFFFFF;
 	borderColor: 0;
-	columnResizeSkin: ClassReference("mx.skins.halo.DataGridColumnResizeSkin");
-	headerColors: #FFFFFF, #FFFFFF;
 	headerSeparatorSkin: ClassReference("mx.skins.halo.DataGridHeaderSeparator");
 	headerStyleName: "dataGridStyles";
 	horizontalGridLineColor: 0;
@@ -1207,7 +1171,6 @@ ProgressBar
 	indeterminateSkin: ClassReference("mx.skins.spark.ProgressIndeterminateSkin");
     leading: 0;
     maskSkin: ClassReference("mx.skins.spark.ProgressMaskSkin");
-	trackColors: #E7E7E7, #FFFFFF;
 	trackSkin: ClassReference("mx.skins.spark.ProgressBarTrackSkin");
 }
 
@@ -1219,7 +1182,6 @@ ProgressBar
 
 RadioButton
 {
-	cornerRadius: 7;	/* Needed for focus drawing */
 	disabledIcon: ClassReference(null);
 	disabledSkin: ClassReference(null);
 	downIcon: ClassReference(null);
@@ -1227,7 +1189,6 @@ RadioButton
 	fontWeight: "normal";
 	horizontalGap: 3;	
 	icon: ClassReference("mx.skins.spark.RadioButtonSkin");
-	iconColor: #2B333C;
 	labelVerticalOffset: 1;
 	overIcon: ClassReference(null);
 	overSkin: ClassReference(null);
@@ -1278,7 +1239,6 @@ RichTextEditor
 
 ScrollBar
 {
-	borderColor: #B7BABC;
 	/*cornerRadius: 4;*/
 /*	downArrowDisabledSkin: null
 	downArrowDownSkin: null
@@ -1286,16 +1246,11 @@ ScrollBar
 	downArrowSkin: ClassReference("mx.skins.spark.ScrollBarDownButtonSkin");
 /*	downArrowUpSkin: null
 	fillColors: #FFFFFF, #E7E7E7; // bailed these as ScrollBar is now a translucent component backed by backgroundColor-derived solid shapes */
-	paddingBottom: 0;
-	paddingLeft: 0;
-	paddingRight: 0;
-	paddingTop: 0;
 	thumbOffset: 0;
 /*	thumbDownSkin: null
 	thumbOverSkin: null */
 	thumbSkin: ClassReference("mx.skins.spark.ScrollBarThumbSkin");
 /*	thumbUpSkin: null */
-	trackColors: #94999b, #e7e7e7;	/* #d6d7d8; */
 	trackSkin: ClassReference("mx.skins.spark.ScrollBarTrackSkin");
 /*	upArrowDisabledSkin: null
 	upArrowDownSkin: null
@@ -1325,7 +1280,6 @@ ScrollControlBase
 
 Slider
 {
-	borderColor: #919999;
 	dataTipOffset: 16;
 	dataTipPrecision: 2;
 	labelOffset: -10;
@@ -1340,7 +1294,6 @@ Slider
 	tickColor: #6F7777;
 	tickOffset: -6;
 	tickThickness: 1;
-	trackColors: #E7E7E7, #E7E7E7;
 	trackHighlightSkin: ClassReference("mx.skins.spark.SliderTrackHighlightSkin");
 	trackSkin: ClassReference("mx.skins.spark.SliderTrackSkin");
 }
@@ -1357,7 +1310,6 @@ SwatchPanel
 	borderColor: #A5A9AE;
 	columnCount: 20;
 	fontSize: 11;
-	highlightColor: #FFFFFF;
 	horizontalGap: 0;
 	paddingBottom: 5;
 	paddingLeft: 5;
@@ -1365,7 +1317,6 @@ SwatchPanel
 	paddingTop: 4;
 	previewHeight: 22;
 	previewWidth: 45;
-	shadowColor: #4D555E;
 	swatchBorderColor: #000000;
 	swatchBorderSize: 1;
 	swatchGridBackgroundColor: #000000;
@@ -1407,7 +1358,6 @@ SwatchPanel
 
 SWFLoader
 {
-	borderStyle: "none";
 	brokenImageBorderSkin: ClassReference("mx.skins.halo.BrokenImageBorderSkin");
 	brokenImageSkin: Embed(source="Assets.swf",symbol="__brokenImage");
 }
@@ -1488,8 +1438,6 @@ TabNavigator
 
 TextArea
 {
-	backgroundColor: #FFFFFF;
-	backgroundDisabledColor: #DDDDDD;
 	borderStyle: "solid";
 	horizontalScrollBarStyleName: "textAreaHScrollBarStyle";
 	verticalScrollBarStyleName: "textAreaVScrollBarStyle";
@@ -1523,8 +1471,6 @@ TextArea
 
 TextInput
 {
-	backgroundColor: #FFFFFF;
-	backgroundDisabledColor: #DDDDDD;
 	borderSkin: ClassReference("mx.skins.spark.TextInputBorderSkin");
 	paddingTop: 2;
 	paddingLeft: 2;
@@ -1575,7 +1521,7 @@ TitleWindow
 	closeButtonOverSkin: Embed(source="Assets.swf",symbol="CloseButtonOver");
 	closeButtonUpSkin: Embed(source="Assets.swf",symbol="CloseButtonUp");
 	/*cornerRadius: 8;*/
-	dropShadowVisible: true;
+/*	dropShadowVisible: true; in spark.css */
 	paddingBottom: 4;
 	paddingLeft: 4;
 	paddingRight: 4;
@@ -1619,7 +1565,6 @@ ToolTip
 	paddingLeft: 4;
 	paddingRight: 4;
 	paddingTop: 2;
-	shadowColor: #000000;
 }
 
 /*
@@ -1679,9 +1624,8 @@ VDividedBox
 
 VideoDisplay
 {
-    backgroundColor: #000000;
 	borderStyle: "none";
-	contentBackgroundColor: #000000;
+/*	contentBackgroundColor: #000000;  in spark.css */
 }
 
 /*
