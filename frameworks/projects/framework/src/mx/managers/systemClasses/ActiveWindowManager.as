@@ -227,14 +227,14 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 
 				form = findLastActiveForm(f);
 				
-                e = new DynamicEvent("deactivatedForm", false, true);
-                e.form = form;
-                if (dispatchEvent(e))
-                {
-				    // make sure we have a valid top level window.
-				    // This can be null if top level window has been hidden for some reason.
-				    if (form)
-				    {
+				// make sure we have a valid top level window.
+				// This can be null if top level window has been hidden for some reason.
+				if (form)
+				{
+                    e = new DynamicEvent("deactivatedForm", false, true);
+                    e.form = form;
+                    if (dispatchEvent(e))
+                    {
 					    form.focusManager.activate();
 				    }
                 }
