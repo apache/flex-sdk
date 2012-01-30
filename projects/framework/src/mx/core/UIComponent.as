@@ -1932,7 +1932,7 @@ public class UIComponent extends FlexSprite
 
         invalidateProperties();
         if (parent && "childTransformChanged" in parent)
-        	parent["childTransformChanged"]();
+            parent["childTransformChanged"]();
 
         dispatchEvent(new Event("xChanged"));
     }
@@ -2249,7 +2249,7 @@ public class UIComponent extends FlexSprite
         }
         invalidateProperties();
         if (parent && "childTransformChanged" in parent)
-        	parent["childTransformChanged"]();
+            parent["childTransformChanged"]();
 
         dispatchEvent(new Event("yChanged"));
     }
@@ -8133,7 +8133,102 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  @copy mx.skins.ProgrammaticSkin#drawRoundRect()
+     *  Programatically draws a rectangle into this skin's Graphics object.
+     *
+     *  <p>The rectangle can have rounded corners.
+     *  Its edges are stroked with the current line style
+     *  of the Graphics object.
+     *  It can have a solid color fill, a gradient fill, or no fill.
+     *  A solid fill can have an alpha transparency.
+     *  A gradient fill can be linear or radial. You can specify
+     *  up to 15 colors and alpha values at specified points along
+     *  the gradient, and you can specify a rotation angle
+     *  or transformation matrix for the gradient.
+     *  Finally, the rectangle can have a rounded rectangular hole
+     *  carved out of it.</p>
+     *
+     *  <p>This versatile rectangle-drawing routine is used by many skins.
+     *  It calls the <code>drawRect()</code> or
+     *  <code>drawRoundRect()</code>
+     *  methods (in the flash.display.Graphics class) to draw into this
+     *  skin's Graphics object.</p>
+     *
+     *  @param x Horizontal position of upper-left corner
+     *  of rectangle within this skin.
+     *
+     *  @param y Vertical position of upper-left corner
+     *  of rectangle within this skin.
+     *
+     *  @param w Width of rectangle, in pixels.
+     *
+     *  @param h Height of rectangle, in pixels.
+     *
+     *  @param r Corner radius/radii of rectangle.
+     *  Can be <code>null</code>, a Number, or an Object.
+     *  If it is <code>null</code>, it specifies that the corners should be square
+     *  rather than rounded.
+     *  If it is a Number, it specifies the same radius, in pixels,
+     *  for all four corners.
+     *  If it is an Object, it should have properties named
+     *  <code>tl</code>, <code>tr</code>, <code>bl</code>, and
+     *  <code>br</code>, whose values are Numbers specifying
+     *  the radius, in pixels, for the top left, top right,
+     *  bottom left, and bottom right corners.
+     *  For example, you can pass a plain Object such as
+     *  <code>{ tl: 5, tr: 5, bl: 0, br: 0 }</code>.
+     *  The default value is null (square corners).
+     *
+     *  @param c The RGB color(s) for the fill.
+     *  Can be <code>null</code>, a uint, or an Array.
+     *  If it is <code>null</code>, the rectangle not filled.
+     *  If it is a uint, it specifies an RGB fill color.
+     *  For example, pass <code>0xFF0000</code> to fill with red.
+     *  If it is an Array, it should contain uints
+     *  specifying the gradient colors.
+     *  For example, pass <code>[ 0xFF0000, 0xFFFF00, 0x0000FF ]</code>
+     *  to fill with a red-to-yellow-to-blue gradient.
+     *  You can specify up to 15 colors in the gradient.
+     *  The default value is null (no fill).
+     *
+     *  @param alpha Alpha value(s) for the fill.
+     *  Can be null, a Number, or an Array.
+     *  This argument is ignored if <code>color</code> is null.
+     *  If <code>color</code> is a uint specifying an RGB fill color,
+     *  then <code>alpha</code> should be a Number specifying
+     *  the transparency of the fill, where 0.0 is completely transparent
+     *  and 1.0 is completely opaque.
+     *  You can also pass null instead of 1.0 in this case
+     *  to specify complete opaqueness.
+     *  If <code>color</code> is an Array specifying gradient colors,
+     *  then <code>alpha</code> should be an Array of Numbers, of the
+     *  same length, that specifies the corresponding alpha values
+     *  for the gradient.
+     *  In this case, the default value is <code>null</code> (completely opaque).
+     *
+     *  @param rot Matrix object used for the gradient fill. 
+     *  The utility methods <code>horizontalGradientMatrix()</code>, 
+     *  <code>verticalGradientMatrix()</code>, and
+     *  <code>rotatedGradientMatrix()</code> can be used to create the value for 
+     *  this parameter.
+     *
+     *  @param gradient Type of gradient fill. The possible values are
+     *  <code>GradientType.LINEAR</code> or <code>GradientType.RADIAL</code>.
+     *  (The GradientType class is in the package flash.display.)
+     *
+     *  @param ratios 
+     *  Specifies the distribution of colors. The number of entries must match
+     *  the number of colors defined in the <code>color</code> parameter.
+     *  Each value defines the percentage of the width where the color is 
+     *  sampled at 100%. The value 0 represents the left-hand position in 
+     *  the gradient box, and 255 represents the right-hand position in the 
+     *  gradient box. 
+     *
+     *  @param hole A rounded rectangular hole
+     *  that should be carved out of the middle
+     *  of the otherwise solid rounded rectangle
+     *  { x: #, y: #, w: #, h: #, r: # or { br: #, bl: #, tl: #, tr: # } }
+     *
+     *  @see flash.display.Graphics#beginGradientFill()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -8716,7 +8811,7 @@ public class UIComponent extends FlexSprite
             else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
                 rectCol = getStyle("themeColor");
             else
-            	rectCol = getStyle("focusColor");
+                rectCol = getStyle("focusColor");
 
             var thickness:Number = getStyle("focusThickness");
 
@@ -9591,9 +9686,9 @@ public class UIComponent extends FlexSprite
      */
     mx_internal function initThemeColor():Boolean
     {
-    	if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-    		return true;
-    		
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+            return true;
+            
         var styleName:Object /* String or UIComponent */ = _styleName;
 
         var tc:Object;  // Can be number or string
@@ -9760,7 +9855,7 @@ public class UIComponent extends FlexSprite
             textFormat.thickness = _inheritingStyles.fontThickness;
             
             textFormat.useTLF =
-				getTextFieldClassName() == "mx.core::UITLFTextField";
+                getTextFieldClassName() == "mx.core::UITLFTextField";
 
             cachedTextFormat = textFormat;
         }
@@ -10946,16 +11041,16 @@ public class UIComponent extends FlexSprite
         var moduleContext:IFlexModuleFactory = oldEmbeddedFontContext ?
                                                oldEmbeddedFontContext :
                                                moduleFactory;
-                                               		
-		var className:String = getQualifiedClassName(classObj);
+                                                    
+        var className:String = getQualifiedClassName(classObj);
 
-		// If the caller requests a UITextField,
-		// we may actually return a UITLFTextField,
-		// depending on the version number
-		// and the value of the textFieldClass style.
-		if (className == "mx.core::UITextField")
-			className = getTextFieldClassName();
-        					   
+        // If the caller requests a UITextField,
+        // we may actually return a UITLFTextField,
+        // depending on the version number
+        // and the value of the textFieldClass style.
+        if (className == "mx.core::UITextField")
+            className = getTextFieldClassName();
+                               
         // Not in font registry, so create in this font context.
         var obj:Object = createInModuleContext(moduleContext, className);
 
@@ -10966,18 +11061,18 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-	 *  @private
-	 *  Returns either "mx.core::UITextField" or "mx.core::UITLFTextField",
-	 *  based on the version number and the textFieldClass style.
-	 */
-	private function getTextFieldClassName():String
+     *  @private
+     *  Returns either "mx.core::UITextField" or "mx.core::UITLFTextField",
+     *  based on the version number and the textFieldClass style.
+     */
+    private function getTextFieldClassName():String
     {
-    	var c:Class = getStyle("textFieldClass");
-    	
-		if (!c || FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
-    		return "mx.core::UITextField";
-    	
-    	return getQualifiedClassName(c);
+        var c:Class = getStyle("textFieldClass");
+        
+        if (!c || FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            return "mx.core::UITextField";
+        
+        return getQualifiedClassName(c);
     }
 
     /**
