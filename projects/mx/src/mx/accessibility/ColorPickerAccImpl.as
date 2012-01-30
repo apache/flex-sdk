@@ -279,6 +279,10 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+				
 		switch (event.type)
 		{
 			case "childChange":
@@ -286,7 +290,8 @@ public class ColorPickerAccImpl extends ComboBaseAccImpl
 				var index:int = ComboBase(master).selectedIndex;
 				Accessibility.sendEvent(master, ColorPicker(master).dropdown.focusedIndex + 1, EVENT_OBJECT_SELECTION);
 				Accessibility.sendEvent(master, 0,
-								EVENT_OBJECT_VALUECHANGE, true)
+								EVENT_OBJECT_VALUECHANGE, true);
+				break;
 			}
 
 			case "valueCommit":
