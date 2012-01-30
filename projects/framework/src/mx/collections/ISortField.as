@@ -30,8 +30,13 @@ public interface ISortField
     //--------------------------------------------------------------------------
 
     /**
-     *  The options argument that is used with the Array.sortOn method.
-     *  Return -1 if this ISortField shouldn't be used in the method.
+     *  This helper property is used internally the Array.sortOn method by
+     *  the <code>Sort</code> class. Other uses of this property are not 
+     *  supported.
+     *  Return -1 if this ISortField shouldn't be used by the <code>Sort</code>
+     *  class to sort the field.
+     * 
+     *  
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -95,14 +100,30 @@ public interface ISortField
 
     /**
      *  Specifies that if the field being sorted contains numeric
-     *  (number/int/uint) values, or string representations of numeric values,
+     *  (<code>number/int/uint</code>) values, or string representations of numeric values,
      *  the comparator use a numeric comparison.
-     *  If this property is <code>false</code>, fields with string
-     *  representations of numbers are sorted using string comparison,
-     *  so 100 precedes 99, because "1" is a lower string value than "9".
+     *  <p>
+     *  This property is used by <code>SortField</code> class in case custom compare
+     *  function is not provided.
+     *  </p>
+     *  <p>
+     *  If this property is <code>true</code>, the built-in numeric compare
+     *  function is used. Each of data items is cast to a
+     *  <code>Number()</code> function before the comparison.
+     *  </p>
+     *  <p>
+     *  If this property is <code>false</code>, the built-in string compare
+     *  function is used. Each of data items is cast to a
+     *  <code>String()</code> function before the comparison.
+     *  </p>
+     *  <p>
      *  If this property is <code>null</code>, the first data item
      *  is introspected to see if it is a number or string and the sort
-     *  proceeds based on that introspection
+     *  proceeds based on that introspection.
+     *  </p>
+     *  
+     *  @default null
+     *  
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -113,7 +134,7 @@ public interface ISortField
     function set numeric(value:Object):void;
 
     /**
-     *  True if this ISortField uses a custom comparator function.
+     *  True if this <code>ISortField</code> uses a custom comparator function.
      *
      *  @see @compareFunction
      *
@@ -155,9 +176,9 @@ public interface ISortField
      *  If the field was sorted in descending order, for example, sort it
      *  in ascending order.
      *
-     *  <p>Note: an ICollectionView does not automatically update when the
-     *  ISortFields are modified; call its <code>refresh()</code> method to
-     *  update the view.</p>
+     *  <p>Note: an <code>ICollectionView</code> does not automatically 
+     *  update when the <code>ISortFields</code> are modified; call its 
+     *  <code>refresh()</code> method to update the view.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
