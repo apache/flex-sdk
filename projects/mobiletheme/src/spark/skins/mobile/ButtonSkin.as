@@ -13,16 +13,20 @@ package spark.skins.mobile
 {
     
 import flash.display.DisplayObject;
+import flash.display.GradientType;
 import flash.display.Graphics;
 
 import mx.core.DeviceDensity;
 import mx.core.mx_internal;
+import mx.utils.ColorUtil;
 
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
 import spark.skins.mobile160.assets.Button_down;
 import spark.skins.mobile160.assets.Button_up;
 import spark.skins.mobile240.assets.Button_down;
 import spark.skins.mobile240.assets.Button_up;
+import spark.skins.mobile320.assets.Button_down;
+import spark.skins.mobile320.assets.Button_up;
 
 
 use namespace mx_internal;
@@ -58,21 +62,37 @@ public class ButtonSkin extends ButtonSkinBase
         
         switch (authorDensity)
         {
-            case DeviceDensity.PPI_240:
+            case DeviceDensity.PPI_320:
             {
-                upBorderSkin = spark.skins.mobile240.assets.Button_up;
-                downBorderSkin = spark.skins.mobile240.assets.Button_down;
+                upBorderSkin = spark.skins.mobile320.assets.Button_up;
+                downBorderSkin = spark.skins.mobile320.assets.Button_down;
                 
-                // FIXME (jasonsj) subract gutter for measurement
-                layoutGap = 7;
+                layoutGap = 10;
                 layoutCornerEllipseSize = 20;
                 layoutPaddingLeft = 20;
                 layoutPaddingRight = 20;
                 layoutPaddingTop = 20;
                 layoutPaddingBottom = 20;
-                layoutBottomBorderShadow = 1;
+                layoutBorderSize = 2;
+                layoutMeasuredWidth = 64;
+                layoutMeasuredHeight = 86;
+                
+                break;
+            }
+            case DeviceDensity.PPI_240:
+            {
+                upBorderSkin = spark.skins.mobile240.assets.Button_up;
+                downBorderSkin = spark.skins.mobile240.assets.Button_down;
+                
+                layoutGap = 7;
+                layoutCornerEllipseSize = 15;
+                layoutPaddingLeft = 15;
+                layoutPaddingRight = 15;
+                layoutPaddingTop = 15;
+                layoutPaddingBottom = 14;
                 layoutBorderSize = 1;
                 layoutMeasuredWidth = 48;
+                layoutMeasuredHeight = 65;
                 
                 break;
             }
@@ -82,16 +102,15 @@ public class ButtonSkin extends ButtonSkinBase
                 upBorderSkin = spark.skins.mobile160.assets.Button_up;
                 downBorderSkin = spark.skins.mobile160.assets.Button_down;
                 
-                // FIXME (jasonsj) subract gutter for measurement
-                layoutGap = 9;
-                layoutCornerEllipseSize = 12;
-                layoutPaddingLeft = 15;
-                layoutPaddingRight = 15;
-                layoutPaddingTop = 15;
-                layoutPaddingBottom = 15;
-                layoutBottomBorderShadow = 1;
+                layoutGap = 5;
+                layoutCornerEllipseSize = 10;
+                layoutPaddingLeft = 10;
+                layoutPaddingRight = 10;
+                layoutPaddingTop = 10;
+                layoutPaddingBottom = 10;
                 layoutBorderSize = 1;
                 layoutMeasuredWidth = 32;
+                layoutMeasuredHeight = 43;
                 
                 break;
             }
@@ -105,8 +124,6 @@ public class ButtonSkin extends ButtonSkinBase
     //--------------------------------------------------------------------------
     
     protected var layoutCornerEllipseSize:uint;
-    
-    protected var layoutBottomBorderShadow:uint;
     
     //--------------------------------------------------------------------------
     //
@@ -148,7 +165,7 @@ public class ButtonSkin extends ButtonSkinBase
      *  @default Button_down
      */ 
     protected var downBorderSkin:Class;
-    
+    	
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -215,13 +232,22 @@ public class ButtonSkin extends ButtonSkinBase
         setElementPosition(bgImg, 0, 0);
     }
     
+	override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+	{
+		// In the down state, the fill shadow is defined in the FXG asset
+		if (currentState == "down")
+			chromeColorGraphics.beginFill(getChromeColor());
+		else
+			super.beginChromeColorFill(chromeColorGraphics);
+	}
+	
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
         // inset chrome color by BORDER_SIZE
         // bottom line is a shadow
         chromeColorGraphics.drawRoundRect(layoutBorderSize, layoutBorderSize, 
             unscaledWidth - (layoutBorderSize * 2), 
-            unscaledHeight - layoutBottomBorderShadow - (layoutBorderSize * 2), 
+            unscaledHeight - (layoutBorderSize * 2), 
             layoutCornerEllipseSize, layoutCornerEllipseSize);
     }
     
