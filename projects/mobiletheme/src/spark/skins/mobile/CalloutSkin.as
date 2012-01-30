@@ -27,7 +27,7 @@ import mx.utils.ColorUtil;
 
 import spark.components.ArrowDirection;
 import spark.components.Callout;
-import spark.components.CalloutContentBackgroundAppearance;
+import spark.components.ContentBackgroundAppearance;
 import spark.components.Group;
 import spark.core.SpriteVisualElement;
 import spark.effects.Fade;
@@ -357,6 +357,25 @@ public class CalloutSkin extends MobileSkin
     {
         super.commitProperties();
         
+        // add or remove the contentBackgroundGraphic
+        var contentBackgroundAppearance:String = getStyle("contentBackgroundAppearance");
+        
+        if (contentBackgroundAppearance == ContentBackgroundAppearance.INSET)
+        {
+            // create the contentBackgroundGraphic
+            if (contentBackgroundInsetClass && !contentBackgroundGraphic)
+                contentBackgroundGraphic = new contentBackgroundInsetClass() as SpriteVisualElement;
+            
+            if (contentBackgroundGraphic)
+                addChildAt(contentBackgroundGraphic, getChildIndex(contentGroup));
+        }
+        else if (contentBackgroundGraphic)
+        {
+            // if already created, remove the graphic for "flat" and "none"
+            removeChild(contentBackgroundGraphic);
+            contentBackgroundGraphic = null;
+        }
+        
         // always invalidate to accomodate arrow direction changes
         invalidateSize();
         invalidateDisplayList();
@@ -520,10 +539,10 @@ public class CalloutSkin extends MobileSkin
             frameHeight, frameEllipseSize, frameEllipseSize);
         bgFill.endFill();
         
+        // draw content background styles
         var contentBackgroundAppearance:String = getStyle("contentBackgroundAppearance");
         
-        // draw content background styles
-        if (contentBackgroundAppearance != CalloutContentBackgroundAppearance.NONE)
+        if (contentBackgroundAppearance != ContentBackgroundAppearance.NONE)
         {
             var contentEllipseSize:Number = contentCornerRadius * 2;
             var contentBackgroundAlpha:Number = getStyle("contentBackgroundAlpha");
@@ -544,20 +563,6 @@ public class CalloutSkin extends MobileSkin
                 contentEllipseSize, contentEllipseSize);
             maskGraphics.endFill();
             
-            // add or remove the contentBackgroundGraphic
-            if (contentBackgroundAppearance == CalloutContentBackgroundAppearance.INSET)
-            {
-                // create the contentBackgroundGraphic
-                if (contentBackgroundInsetClass && !contentBackgroundGraphic)
-                    contentBackgroundGraphic = new contentBackgroundInsetClass() as SpriteVisualElement;
-                
-                if (contentBackgroundGraphic)
-                {
-                    addChild(contentBackgroundGraphic);
-                    contentBackgroundGraphic.alpha = contentBackgroundAlpha;
-                }
-            }
-            
             // reset line style to none
             if (showBorder)
                 bgFill.lineStyle(NaN);
@@ -569,6 +574,9 @@ public class CalloutSkin extends MobileSkin
                 contentGroup.getLayoutBoundsY(),
                 contentWidth, contentHeight, contentEllipseSize, contentEllipseSize);
             bgFill.endFill();
+            
+            if (contentBackgroundGraphic)
+                contentBackgroundGraphic.alpha = contentBackgroundAlpha;
         }
         else // if (contentBackgroundAppearance == CalloutContentBackgroundAppearance.NONE))
         {
@@ -578,14 +586,6 @@ public class CalloutSkin extends MobileSkin
                 contentGroup.mask = null;
                 contentMask = null;
             }
-        }
-        
-        // if already created, remove the graphic for "flat" and "none"
-        if (contentBackgroundGraphic &&
-            (contentBackgroundAppearance != CalloutContentBackgroundAppearance.INSET))
-        {
-            removeChild(contentBackgroundGraphic);
-            contentBackgroundGraphic = null;
         }
         
         // draw highlight in the callout when the arrow is hidden
@@ -680,6 +680,16 @@ public class CalloutSkin extends MobileSkin
         // mask position is in the contentGroup coordinate space
         if (contentMask)
             setElementSize(contentMask, contentBackgroundWidth, contentBackgroundHeight);
+    }
+    
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        
+        var allStyles:Boolean = !styleProp || styleProp == "styleName";
+        
+        if (allStyles || (styleProp == "contentBackgroundAppearance"))
+            invalidateProperties();
     }
     
     /**
