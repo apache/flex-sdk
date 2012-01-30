@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark">
+    <fx:Style>
+        <!-- Stying ActionBar -->
+        @namespace s "library://ns.adobe.com/flex/spark";
+        s|ActionBar{
+            chromeColor:blue;
+        }        
+    </fx:Style>
+    <!-- Defining ActionBar as a child component -->
+    <s:Panel>
+        <s:ActionBar width="100%" title="Title">
+            <s:actionContent>
+               <s:Button label="Search"/>
+            </s:actionContent>
+            <s:navigationContent>
+                <s:Button label="Home"/>
+            </s:navigationContent>
+        </s:ActionBar>
+    </s:Panel>
+</s:Application>
