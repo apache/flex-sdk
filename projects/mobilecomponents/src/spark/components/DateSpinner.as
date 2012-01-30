@@ -848,6 +848,8 @@ public class DateSpinner extends SkinnableComponent
      *  Create a list object for the specified date part.
      * 
      *  @param datePart Use date part constants, e.g. YEAR_ITEM.
+	 *  @param itemIndex index of the date part in the overall list container
+	 *  @param itemCount number of date parts being shown
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -1174,7 +1176,6 @@ public class DateSpinner extends SkinnableComponent
         return generateDateItemObject(dateTimeFormatter.format(dateObj), value);
     }
 
-    // TODO: possibly optimize usages and remove this function
     private function findDateItemIndexInDataProvider(item:Number, dataProvider:IList):int
     {
         for (var i:int = 0; i < dataProvider.length; i++)
@@ -1278,7 +1279,6 @@ public class DateSpinner extends SkinnableComponent
         }
         if (minuteList)
         {
-            // TODO: calculate instead of iterate?
             newIndex = findDateItemIndexInDataProvider(selectedDate.minutes, minuteList.dataProvider);
             goToIndex(minuteList, newIndex, useAnimation);
         }
