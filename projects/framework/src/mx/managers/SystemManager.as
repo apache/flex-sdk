@@ -3272,8 +3272,8 @@ public class SystemManager extends MovieClip
 		if (isDispatchingResizeEvent)
 			return;
 
-		var w:Number;
-		var h:Number;
+                var w:Number = 0;
+                var h:Number = 0;
                 var m:Number;
                 var n:Number;
                 
@@ -3296,10 +3296,12 @@ public class SystemManager extends MovieClip
         // the sandbox root and align to StageAlign.TOP_LEFT.                        
         try 
         {
+            if (stage)
+            {
             w = stage.stageWidth;
             h = stage.stageHeight;
-            if (stage)
                 align = stage.align;
+        }
         }
         catch (error:SecurityError)
         {
@@ -3402,9 +3404,7 @@ public class SystemManager extends MovieClip
 			{
 				var n:int = forms.length;
 				var p:DisplayObject = DisplayObject(event.target);
-				var isApplication:Boolean = document is IRawChildrenContainer ? 
-											IRawChildrenContainer(document).rawChildren.contains(p) :
-											document.contains(p);
+                                var isApplication:Boolean = document.rawChildren.contains(p);
 				while (p)
 				{
 					for (var i:int = 0; i < n; i++)
