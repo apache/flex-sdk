@@ -28,7 +28,7 @@
             </s:HGroup>
 
             <s:VGroup>
-                <s:SimpleText color="blue" text="Drag the slider to resize the image."/>
+                <s:Label color="blue" text="Drag the slider to resize the image."/>
                 <mx:VSlider id="hSlider" 
                         dataTipPlacement="top" 
                         minimum="0" maximum="100" value="100" 
