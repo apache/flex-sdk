@@ -187,8 +187,21 @@ public class TextAreaSkin extends TextSkinBase
             // on iOS, resize the TextField and let the native control handle scrolling
             _isIOS = (Capabilities.version.indexOf("IOS") == 0);
             
-            if (!_isIOS)
+            if (_isIOS)
+            {
+                // hard-coded rightMargin for iOS native text control
+                // this value is independent of the paddingRight style
+                var rightMargin:Number = 19;
+                    
+                if (applicationDPI == DPIClassification.DPI_160)
+                    rightMargin = 9.5;
+                
+                textDisplay.rightMargin = rightMargin;
+            }
+            else
+            {
                 textDisplay.addEventListener(KeyboardEvent.KEY_DOWN, textDisplay_keyHandler);
+            }
             
             textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
             textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
