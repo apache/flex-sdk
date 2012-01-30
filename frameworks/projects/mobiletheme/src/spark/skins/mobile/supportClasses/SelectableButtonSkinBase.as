@@ -39,14 +39,24 @@ public class ToggleButtonSkinBase extends ButtonSkinBase
     private var currentStateIconClass:Class;
     
     /**
-     *  The Class used to create the icon in the unselected state
+     *  The Class used to create the icon in the up state
      */
-    protected var backgroundClass:Class;
+    protected var upIconClass:Class;
     
     /**
-     *  The Class used to create the icon in the selected state 
+     *  The Class used to create the icon in the selected up state 
      */
-    protected var selectedBackgroundClass:Class;
+    protected var upSelectedIconClass:Class;
+    
+    /**
+     *  The Class used to create the icon in the down state
+     */
+    protected var downIconClass:Class;
+    
+    /**
+     *  The Class used to create the icon in the selected down state 
+     */
+    protected var downSelectedIconClass:Class;
     
     //--------------------------------------------------------------------------
     //
@@ -59,13 +69,31 @@ public class ToggleButtonSkinBase extends ButtonSkinBase
      */
     override protected function commitCurrentState():void
     {    
+        super.commitCurrentState();
+        
         // Check for selected or not selected
         if (currentState != null)
         {
-            changeFXGSkin = true;
-            invalidateProperties();
-            invalidateSize();
-            invalidateDisplayList();
+            if (currentState == "up")
+                currentStateIconClass = upIconClass;
+            else if (currentState == "down")
+                currentStateIconClass = downIconClass;
+            else if (currentState == "upAndSelected")
+                currentStateIconClass = upSelectedIconClass;
+            else if (currentState == "downAndSelected")
+                currentStateIconClass = downSelectedIconClass;
+            else if (currentState.indexOf("AndSelected") != -1)
+                currentStateIconClass = upSelectedIconClass;
+            else
+                currentStateIconClass = upIconClass;
+                        
+            if (!(iconDisplay is currentStateIconClass))
+            {
+                changeFXGSkin = true;
+                invalidateProperties();
+                invalidateSize();
+                invalidateDisplayList();
+            }
         }
     }
     
@@ -76,26 +104,20 @@ public class ToggleButtonSkinBase extends ButtonSkinBase
     {
         super.commitProperties();
         
-        // TODO (jszeto) needs optimization
         if (changeFXGSkin)
         {
             changeFXGSkin = false;
             
-            // Remove iconDisplay
-            if (iconDisplay != null && iconDisplay.parent != null)
-                removeChild(iconDisplay);
-            
-            // TODO (jszeto) add null checks for the backgroundClasses
-            if (currentState.indexOf("AndSelected") != -1)
+            if (currentStateIconClass)
             {
-                iconDisplay = new selectedBackgroundClass();  
+                // Remove iconDisplay
+                if (iconDisplay != null)
+                    removeChild(iconDisplay);
+                
+                iconDisplay = new currentStateIconClass();  
+                
+                addChild(iconDisplay);
             }
-            else
-            {
-                iconDisplay = new backgroundClass();   
-            }
-            
-            addChild(iconDisplay);
         }
     }
     
