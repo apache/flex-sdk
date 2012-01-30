@@ -12,6 +12,7 @@
 package mx.events
 {
 
+import flash.display.LoaderInfo;
 import flash.events.Event;
 import flash.events.ProgressEvent;
 import flash.net.URLRequest;
@@ -244,7 +245,17 @@ public class RSLEvent extends ProgressEvent
 	 */
 	public var isResourceModule:Boolean;
 	
-	//----------------------------------
+    //----------------------------------
+    //  loaderInfo
+    //----------------------------------
+    
+    /**
+     *  The loaderInfo associated with this event. This is only set in the 
+     *  RSLEvent.RSL_COMPLETE event. Otherwise loaderInfo will be null.
+     */
+    public var loaderInfo:LoaderInfo;
+
+    //----------------------------------
 	//  rslIndex
 	//----------------------------------
 
