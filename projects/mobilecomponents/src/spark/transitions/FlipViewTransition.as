@@ -791,7 +791,6 @@ public class FlipViewTransition extends ViewTransitionBase
         // while we animate.
         transitionGroup = new Group();
 
-        // FIXME (chiedozi): If navigator isn't at (0,0), I don't think this will work
         // Size the transitionGroup to match the width and height of the navigator
         // so that the parent of the targetNavigator's layout remains unchanged 
         transitionGroup.width = targetNavigator.width;
