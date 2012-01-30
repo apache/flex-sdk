@@ -199,6 +199,38 @@ public class ViewTransitionBase extends EventDispatcher
      */ 
     private var verticalTransition:Boolean;
     
+    /**
+     *  @private
+     *  Flag used to determine whether the transition should wait a frame when
+     *  it receives the EFFECT_END event.  This is true by default.  It is only
+     *  set to false when the endTransitions() method is called.
+     */ 
+    private static var renderLastFrame:Boolean = true;
+    
+    /**
+     *  @private
+     *  Private vector that stores all the active transitions.
+     */ 
+    private static var activeTransitions:Vector.<ViewTransitionBase> = new Vector.<ViewTransitionBase>();
+
+    /**
+     *  @private
+     *  Ends all currently active view transitions.
+     */ 
+    mx_internal static function endTransitions():void
+    {
+        // Prevent the transitions from waiting a frame when they receive the
+        // EFFECT_END event.  See effectComplete().
+        renderLastFrame = false;
+        
+        // End all active transitions.  They will be removed from the vector
+        // in transitionComplete().
+        for (var i:int = 0; i < activeTransitions.length; i++)
+            activeTransitions[i].effect.end();
+        
+        // Restore render flag
+        renderLastFrame = true;
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -723,6 +755,7 @@ public class ViewTransitionBase extends EventDispatcher
     {   
         if (effect)
         {
+            activeTransitions.push(this);
             effect.addEventListener(EffectEvent.EFFECT_END, effectComplete);
             
             // Dispatch TRANSITION_START.
@@ -1109,6 +1142,8 @@ public class ViewTransitionBase extends EventDispatcher
     protected function transitionComplete():void
     {
         cleanUp();
+     
+        activeTransitions.splice(activeTransitions.indexOf(this), 1);
         
         if (hasEventListener(FlexEvent.TRANSITION_END))
             dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_END));
@@ -1480,11 +1515,18 @@ public class ViewTransitionBase extends EventDispatcher
         if (!consolidatedTransition)
             actionBarMoveEffect_effectUpdateHandler(null);
         
-        // We don't call transitionComplete just yet, we want to ensure
-        // that the last frame of animation actually gets rendered on screen
-        // before we clean up after ourselves.  This prevents a perceived 
-        // stutter on the very last frame.
-        navigator.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+        if (renderLastFrame)
+        {
+            // We don't call transitionComplete just yet, we want to ensure
+            // that the last frame of animation actually gets rendered on screen
+            // before we clean up after ourselves.  This prevents a perceived 
+            // stutter on the very last frame.
+            navigator.addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+        }
+        else
+        {
+            enterFrameHandler(null);
+        }
     }
     
     /**
@@ -1492,9 +1534,10 @@ public class ViewTransitionBase extends EventDispatcher
      */ 
     private function enterFrameHandler(event:Event):void
     {
-        navigator.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
-        effect = null;
+        if (event)
+            navigator.removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
         
+        effect = null;
         transitionComplete();
     }
     
