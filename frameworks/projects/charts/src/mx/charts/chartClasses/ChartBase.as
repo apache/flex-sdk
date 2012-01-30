@@ -5032,7 +5032,7 @@ public class ChartBase extends UIComponent implements IFocusManagerComponent
 		proxyOrigin = globalToLocal(proxyOrigin);
 		
 		var xOffset:Number;
-		if(layoutDirection == "rtl")
+		if(layoutDirection == LayoutDirection.RTL)
 			xOffset = - (proxyOrigin.x + event.localX);
 		else
 			xOffset = - (proxyOrigin.x - event.localX);
