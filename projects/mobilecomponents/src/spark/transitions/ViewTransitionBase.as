@@ -891,10 +891,10 @@ public class ViewTransitionBase extends EventDispatcher
         transitionGroup.validateNow();
         
         // Setup fade out targets.
-        if (!verticalTransition && cachedActionGroup)
+        if (!verticalTransition && cachedNavigationGroup)
             fadeOutTargets.push(cachedNavigationGroup.displayObject);
         
-        if (!verticalTransition && cachedNavigationGroup)
+        if (!verticalTransition && cachedActionGroup)
             fadeOutTargets.push(cachedActionGroup.displayObject);
         
         // Fade out action and navigation content
