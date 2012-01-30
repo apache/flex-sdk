@@ -4642,7 +4642,7 @@ public class UIComponent extends FlexSprite
         _nonInheritingStyles = value;
     }
 
-     //----------------------------------
+    //----------------------------------
     //  styleDeclaration
     //----------------------------------
 
