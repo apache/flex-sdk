@@ -87,6 +87,7 @@
 			<include-file name="defaults-2.0.1.css" path="${basedir}/defaults-2.0.1.css"/>
 			<include-file name="defaults-3.0.0.css" path="${basedir}/defaults-3.0.0.css"/>
 			<include-file name="Assets.swf" path="${basedir}/assets/Assets.swf"/>
+			<include-file name="assets/CalendarIcon.png" path="${basedir}/assets/CalendarIcon.png"/>
 			<locale/>
 			<accessible>true</accessible>
 			<keep-as3-metadata name="Bindable"/>
