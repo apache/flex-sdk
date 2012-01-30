@@ -26,6 +26,11 @@ import mx.styles.StyleManager;
 /**
  *  Defines the appearance of the cursor that appears while an operation is taking place. For example, 
  *  while the SWFLoader class loads an asset.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class BusyCursor extends FlexSprite
 {
@@ -39,6 +44,11 @@ public class BusyCursor extends FlexSprite
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function BusyCursor()
 	{
