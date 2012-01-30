@@ -21,6 +21,7 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.events.ResizeEvent;
 import mx.utils.DensityUtil;
 
 import spark.components.SkinnableContainer;
@@ -599,9 +600,9 @@ public class ViewNavigatorBase extends SkinnableContainer
     {
         removeEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
         
-        // Add weak listener so stage doesn't hold a reference to the navigator
-        systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, 
-            stage_orientationChangeHandler, false, 0, true);
+		// Create a weak listener so stage doesn't hold a reference to the view
+		FlexGlobals.topLevelApplication.addEventListener(ResizeEvent.RESIZE, 
+            stage_resizeHandler, false, 0, true);
     }
     
 	/**
@@ -622,7 +623,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     /**
      *  @private
      */ 
-    mx_internal function stage_orientationChangeHandler(event:StageOrientationEvent):void
+    mx_internal function stage_resizeHandler(event:ResizeEvent):void
     {
         disableNextControlAnimation = true;
         invalidateSkinState();
@@ -633,6 +634,18 @@ public class ViewNavigatorBase extends SkinnableContainer
     //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override protected function attachSkin():void
+    {
+        super.attachSkin();
+        
+        // Since a new skin was added, update the state of the controls
+        // added as part of the new skin
+        updateControlsForView(activeView);
+    }
     
     /**
      *  @private
