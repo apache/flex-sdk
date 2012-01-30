@@ -140,7 +140,7 @@ public class ObjectUtil
      * 
      *  @return Clone of the specified Object.
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 4
@@ -768,10 +768,10 @@ public class ObjectUtil
                     
                     if (aRef == bRef)
                         return 0;
-					// the cool thing about our dictionary is that if 
-					// we've seen objects and determined that they are inequal, then 
-					// we would've already exited out of this compare() call.  So the 
-					// only info in the dictionary are sets of equal items
+                    // the cool thing about our dictionary is that if 
+                    // we've seen objects and determined that they are inequal, then 
+                    // we would've already exited out of this compare() call.  So the 
+                    // only info in the dictionary are sets of equal items
                     
                     // let's first define them as equal
                     // this stops an "infinite loop" problem where A.i = B and B.i = A
@@ -887,7 +887,7 @@ public class ObjectUtil
      *    <li><code>name</code>: String containing the name of the class.</li>
      *    <li><code>properties</code>: Sorted list of the property names of the specified object,
      *    or references to the original key if the specified object is a Dictionary. The individual
-     * 	  array elements are QName instances, which contain both the local name of the property as well as the URI.</li>
+     *    array elements are QName instances, which contain both the local name of the property as well as the URI.</li>
      *  </ul>
     *  
     *  @langversion 3.0
@@ -1402,8 +1402,8 @@ public class ObjectUtil
     
     /**
      * @private
-	 * This is the "find" for our union-find algorithm when doing object searches.
-	 * The dictionary keeps track of sets of equal objects
+     * This is the "find" for our union-find algorithm when doing object searches.
+     * The dictionary keeps track of sets of equal objects
      */
     private static function getRef(o:Object, refs:Dictionary):Object
     {
