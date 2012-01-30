@@ -13,19 +13,46 @@
 
 <project name="utilities" default="main" basedir=".">
 
-	<property file="build.properties"/>
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+	<property file="${FLEX_HOME}/build.properties"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of utilities.swc"/>
 
 	<target name="clean">
-		<delete file="bundles.properties"/>
-		<delete file="${frameworks.dir}/libs/utilities.swc"/>
-		<delete file="${frameworks.dir}/libs/utilities.swc.incr"/>
+		<delete failonerror="false">
+			<fileset file="${basedir}/bundles.properties"/>
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="utilities.swc"/>
+				<include name="utilities.swc.incr"/>
+			</fileset>
+		</delete>
 	</target>
 
-	<target name="compile">
+	<target name="compile" description="Compiles utilities.swc">
 		<echo message="Compiling frameworks/libs/utilities.swc"/>
-		<ant dir="${frameworks.dir}" target="compc"/>
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			This project has no MXML tags and therefore no manifest.
+			Link in the classes (and their dependencies)
+			listed in UtilitiesClasses.as.
+			Link in accessibility support.
+			Don't put any resources into the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+			(This should be an empty list.)
+		-->
+		<compc output="${FLEX_HOME}/frameworks/libs/utilities.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+			<include-classes>UtilitiesClasses</include-classes>
+			<source-path path-element="${basedir}/src"/>
+			<library-path/>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="player/playerglobal.swc"/>
+			</external-library-path>
+			<locale/>
+			<accessible>true</accessible>
+		</compc>
 	</target>
 
 </project>
