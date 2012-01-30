@@ -4488,16 +4488,6 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
-	 * @inheritdoc
-	 * 
-	 */
-	public function invalidateStage():void
-	{
-		if (stage)
-			stage.invalidate();
-	}
-
-	/**
 	 * @private
 	 * 
 	 * Listen to messages this System Manager needs to service from its children.
@@ -4830,7 +4820,7 @@ public class SystemManager extends MovieClip
             bounds = getBounds(DisplayObject(this));
             
             var s:Rectangle = screen;        
-            var pt:Point = new Point(bounds.x, bounds.y);
+            var pt:Point = new Point(Math.max(0, bounds.x), Math.max(0, bounds.y));
             pt = localToGlobal(pt);
             bounds.x = pt.x;
             bounds.y = pt.y;
