@@ -146,16 +146,29 @@ public class ButtonSkin extends ButtonSkinBase
         }
         
         if (bgImg != null) 
-        {	
-            bgImg.x = bgImg.y = 0.5;
-            bgImg.width = unscaledWidth;
-            bgImg.height = unscaledHeight;
+        {
+            layoutBorder(bgImg, unscaledWidth, unscaledHeight);
         }
         
         drawBackground(unscaledWidth, unscaledHeight);
                     
         // The label and icon should be placed on top of the FXG skins
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+    }
+    
+    /**
+     *  Position the background of the skin. Override this function to position of the background. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */ 
+    protected function layoutBorder(bgImg:DisplayObject, unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        bgImg.x = bgImg.y = 0.5;
+        bgImg.width = unscaledWidth;
+        bgImg.height = unscaledHeight;
     }
     
     /**
