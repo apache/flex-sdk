@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.mobile
+package spark.components
 {
 import flash.display.DisplayObject;
 import flash.events.MouseEvent;
@@ -41,132 +41,65 @@ import spark.primitives.BitmapImage;
 use namespace mx_internal;
 
 //--------------------------------------
-//  Events
-//--------------------------------------
-
-/**
- *  Dispatched when the <code>data</code> property changes.
- *
- *  <p>When you use a component as an item renderer,
- *  the <code>data</code> property contains the data to display.
- *  You can listen for this event and update the component
- *  when the <code>data</code> property changes.</p>
- * 
- *  @eventType mx.events.FlexEvent.DATA_CHANGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="dataChange", type="mx.events.FlexEvent")]
-
-//--------------------------------------
 //  Styles
 //--------------------------------------
 
-// FIXME(rfrishbe): get these styles somehow
-//include "../../styles/metadata/BasicInheritingTextStyles.as"
-//include "../../styles/metadata/AdvancedInheritingTextStyles.as"
-//include "../../styles/metadata/SelectionFormatTextStyles.as"
+include "../styles/metadata/GapStyles.as"
 
 /**
- *  The colors to use for the backgrounds of the items in the list. 
- *  The value is an array of two or more colors. 
- *  The backgrounds of the list items alternate among the colors in the array. 
- * 
- *  @default undefined
- * 
+ *  Name of the CSS Style declaration to use for the styles for the
+ *  header component.
+ *  
  *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
-[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark, mobile")]
+[Style(name="headerStyleName", type="String", inherit="no")]
 
 /**
- *  Color of focus ring when the component is in focus
- *   
- *  @default 0x70B2EE
+ *  Name of the CSS Style declaration to use for the styles for the
+ *  subText component.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="subTextStyleName", type="String", inherit="no")]
 
 /**
- *  Color of the highlights when the mouse is over the component
- *   
- *  @default 0xCEDBEF
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */ 
-[Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
-// FIXME (rfrishbe): should be theme="" above
-
-/**
- *  Color of the highlights when the item is selected
- *   
- *  @default 0xCEDBEF
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */ 
-[Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
-// FIXME (rfrishbe): figure out why this isn't on defaultitemrenderer or itemrenderer
-
-/**
- *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
- *  the arrow of a scroll button
- *   
- *  @default 0x000000
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
-
-//--------------------------------------
-//  Excluded APIs
-//--------------------------------------
-
-[Exclude(name="focusBlendMode", kind="style")]
-[Exclude(name="focusThickness", kind="style")]
-
-/**
- *  The IconItemRenderer class is a performant item 
+ *  The MobileIconItemRenderer class is a performant item 
  *  renderer optimized for mobile devices.  It contains 
- *  an optional icon on the left, text in the middle, and 
- *  an optional decorator icon on the right.
- *
- *  <p>You can override the default item renderer
- *  by creating a custom item renderer.</p>
+ *  four optional parts: 1) an icon on the left, 2) headerText 
+ *  on top next to the icon, 3) subText below headerText and 
+ *  next to the icon, and 4) a decorator on the right.
  *
  *  @see spark.components.List
  *  @see mx.core.IDataRenderer
  *  @see spark.components.IItemRenderer
  *  @see spark.components.supportClasses.ItemRenderer
+ *  @see spark.components.MobileItemRenderer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class IconItemRenderer extends UIComponent
-    implements IDataRenderer, IItemRenderer
+public class MobileIconItemRenderer extends MobileItemRenderer
 {
     
-    // Image cache for all instances of this item renderer.
-    static private var _imageCache: ContentCache;
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Icon image cache
+     */
+    static private var _imageCache:ContentCache;
     
     //--------------------------------------------------------------------------
     //
@@ -179,68 +112,12 @@ public class IconItemRenderer extends UIComponent
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
-    public function IconItemRenderer()
+    public function MobileIconItemRenderer()
     {
         super();
-        addHandlers();
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Private Properties
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Flag that is set when the mouse is hovered over the item renderer.
-     */
-    private var hovered:Boolean = false;
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden properties: UIComponent
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function get baselinePosition():Number
-    {
-        // Copied from UITextField.baselinePosition
-        var tlm:TextLineMetrics;
-        
-        // The text styles aren't known until there is a parent.
-        if (!parent)
-            return NaN;
-        
-        // getLineMetrics() returns strange numbers for an empty string,
-        // so instead we get the metrics for a non-empty string.
-        var isEmpty:Boolean = (labelTextField.text == "");
-        if (isEmpty)
-            labelTextField.text = "Wj";
-        
-        tlm = labelTextField.getLineMetrics(0);
-        
-        if (isEmpty)
-            labelTextField.text = "";
-        
-        // TextFields have 2 pixels of padding all around.
-        return 2 + tlm.ascent;
     }
     
     //--------------------------------------------------------------------------
@@ -249,51 +126,20 @@ public class IconItemRenderer extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-    //----------------------------------
-    //  data
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _data:Object;
-    
     /**
      *  @private
      */
     private var dataChanged:Boolean;
     
-    [Bindable("dataChange")]
-    
-    /**
-     *  The implementation of the <code>data</code> property
-     *  as defined by the IDataRenderer interface.
-     *  When set, it stores the value and invalidates the component 
-     *  to trigger a relayout of the component.
-     *
-     *  @see mx.core.IDataRenderer
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get data():Object
-    {
-        return _data;
-    }
-    
     /**
      *  @private
      */
-    public function set data(value:Object):void
+    override public function set data(value:Object):void
     {
-        _data = value;
+        super.data = value;
         
         dataChanged = true;
         invalidateProperties();
-        
-        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
     }
     
     //----------------------------------
@@ -319,7 +165,12 @@ public class IconItemRenderer extends UIComponent
      *  Decorator that appears on the right side 
      *  of this item renderer 
      *
-     *  @default ""    
+     *  @default "" 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5   
      */
     public function get decoratorClass():Class
     {
@@ -341,6 +192,99 @@ public class IconItemRenderer extends UIComponent
     }
     
     //----------------------------------
+    //  headerField
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _headerField:String;
+    
+    /**
+     *  @private
+     */
+    private var headerFieldOrFunctionChanged:Boolean; 
+    
+    /**
+     *  The name of the field in the data provider items to display 
+     *  as the header. 
+     *  The <code>headerFunction</code> property overrides this property.
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get headerField():String
+    {
+        return _headerField;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set headerField(value:String):void
+    {
+        if (value == _headerField)
+            return;
+            
+        _headerField = value;
+        headerFieldOrFunctionChanged = true;
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  headerFunction
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _headerFunction:Function; 
+    
+    /**
+     *  A user-supplied function to run on each item to determine its header.  
+     *  The <code>headerFunction</code> property overrides 
+     *  the <code>headerField</code> property.
+     *
+     *  <p>You can supply a <code>headerFunction</code> that finds the 
+     *  appropriate fields and returns a displayable string. The 
+     *  <code>headerFunction</code> is also good for handling formatting and 
+     *  localization.</p>
+     *
+     *  <p>The header function takes a single argument which is the item in 
+     *  the data provider and returns a String.</p>
+     *  <pre>
+     *  myHeaderFunction(item:Object):String</pre>
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get headerFunction():Function
+    {
+        return _headerFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set headerFunction(value:Function):void
+    {
+        if (value == _headerFunction)
+            return;
+            
+        _headerFunction = value;
+        headerFieldOrFunctionChanged = true;
+        invalidateProperties(); 
+    }
+    
+    //----------------------------------
     //  iconField
     //----------------------------------
     
@@ -352,7 +296,7 @@ public class IconItemRenderer extends UIComponent
     /**
      *  @private 
      */ 
-    private var iconFieldChanged:Boolean;
+    private var iconFieldOrFunctionChanged:Boolean;
     
     /**
      *  @private 
@@ -373,6 +317,11 @@ public class IconItemRenderer extends UIComponent
      *  doesn't look for an icon.
      *
      *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get iconField():String
     {
@@ -388,7 +337,64 @@ public class IconItemRenderer extends UIComponent
             return;
         
         _iconField = value;
-        iconFieldChanged = true;
+        iconFieldOrFunctionChanged = true;
+        dataChanged = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  iconFunction
+    //----------------------------------
+    
+    /**
+     *  @private 
+     */ 
+    private var _iconFunction:Function;
+    
+    /**
+     *  A user-supplied function to run on each item to determine its icon.  
+     *  The <code>iconFunction</code> property overrides 
+     *  the <code>iconField</code> property.
+     *
+     *  <p>You can supply an <code>iconFunction</code> that finds the 
+     *  appropriate fields and returns a valid URL or object to be used as 
+     *  the icon.</p>
+     *
+     *  <p>The icon function takes a single argument which is the item in 
+     *  the data provider and returns an Object that gets passed to a 
+     *  <code>spark.primitives.BitmapImage</code> object as the <code>source</code>
+     *  property.  Icon function can return a valid URL pointing to an image 
+     *  or a Class file that represents an image.  To see what other types 
+     *  of objects can be returned from the icon 
+     *  function, check out <code>BitmapImage</code>'s documentation</p>
+     *  <pre>
+     *  myIconFunction(item:Object):Object</pre>
+     *
+     *  @default null
+     * 
+     *  @see spark.primitives.BitmapImage#source
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get iconFunction():Function
+    {
+        return _iconFunction;
+    }
+    
+    /**
+     *  @private
+     */ 
+    public function set iconFunction(value:Function):void
+    {
+        if (value == _iconFunction)
+            return;
+        
+        _iconFunction = value;
+        iconFieldOrFunctionChanged = true;
         dataChanged = true;
         
         invalidateProperties();
@@ -408,6 +414,11 @@ public class IconItemRenderer extends UIComponent
      *  intrinsic height of the image will be used.
      *
      *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get iconHeight():Number
     {
@@ -442,6 +453,11 @@ public class IconItemRenderer extends UIComponent
      *  intrinsic width of the image will be used.
      *
      *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get iconWidth():Number
     {
@@ -463,173 +479,97 @@ public class IconItemRenderer extends UIComponent
     }
     
     //----------------------------------
-    //  itemIndex
+    //  subTextField
     //----------------------------------
     
     /**
      *  @private
-     *  storage for the itemIndex property 
-     */    
-    private var _itemIndex:int;
+     */
+    private var _subTextField:String;
     
     /**
-     *  @inheritDoc 
+     *  @private
+     */
+    private var subTextFieldOrFunctionChanged:Boolean; 
+    
+    /**
+     *  The name of the field in the data provider items to display 
+     *  as the subText. 
+     *  The <code>subTextFunction</code> property overrides this property.
      *
-     *  @default 0
-     */    
-    public function get itemIndex():int
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get subTextField():String
     {
-        return _itemIndex;
+        // FIXME (rfrishbe): PARB this property name b/c confusing with "TextField" the component
+        return _subTextField;
     }
     
     /**
      *  @private
-     */    
-    public function set itemIndex(value:int):void
+     */
+    public function set subTextField(value:String):void
     {
-        if (value == _itemIndex)
+        if (value == _subTextField)
             return;
         
-        _itemIndex = value;
-        invalidateDisplayList();
+        _subTextField = value;
+        subTextFieldOrFunctionChanged = true;
+        invalidateProperties();
     }
     
     //----------------------------------
-    //  label
+    //  subTextFunction
     //----------------------------------
     
     /**
-     *  @private 
-     *  Storage var for label
-     */ 
-    private var _label:String = "";
-    
-    /**
      *  @private
      */
-    private var labelTextField:TextField;
+    private var _subTextFunction:Function;
     
     /**
-     *  @private
-     */
-    private var recreateLabelTextFieldStyles:Boolean;
-    
-    /**
-     *  @inheritDoc 
+     *  A user-supplied function to run on each item to determine its subText.  
+     *  The <code>subTextFunction</code> property overrides 
+     *  the <code>subTextField</code> property.
      *
-     *  @default ""    
-     */
-    public function get label():String
-    {
-        return _label;
-    }
-    
-    /**
-     *  @private
-     */ 
-    public function set label(value:String):void
-    {
-        if (value == _label)
-            return;
-        
-        _label = value;
-        
-        // Push the label down into the labelTextField,
-        // if it exists
-        if (labelTextField)
-            labelTextField.text = _label;
-    }    
-    
-    //----------------------------------
-    //  showsCaret
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the showsCaret property 
-     */
-    private var _showsCaret:Boolean = false;
-    
-    /**
-     *  @inheritDoc 
+     *  <p>You can supply a <code>subTextFunction</code> that finds the 
+     *  appropriate fields and returns a displayable string. The 
+     *  <code>subTextFunction</code> is also good for handling formatting and 
+     *  localization.</p>
      *
-     *  @default false  
-     */    
-    public function get showsCaret():Boolean
-    {
-        return _showsCaret;
-    }
-    
-    /**
-     *  @private
-     */    
-    public function set showsCaret(value:Boolean):void
-    {
-        if (value == _showsCaret)
-            return;
-        
-        _showsCaret = value;
-        invalidateDisplayList();
-    }
-    
-    //----------------------------------
-    //  selected
-    //----------------------------------
-    /**
-     *  @private
-     *  storage for the selected property 
-     */    
-    private var _selected:Boolean = false;
-    
-    /**
-     *  @inheritDoc 
+     *  <p>The subText function takes a single argument which is the item in 
+     *  the data provider and returns a String.</p>
+     *  <pre>
+     *  mySubTextFunction(item:Object):String</pre>
      *
-     *  @default false
-     */    
-    public function get selected():Boolean
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get subTextFunction():Function
     {
-        return _selected;
+        return _subTextFunction;
     }
     
     /**
      *  @private
-     */    
-    public function set selected(value:Boolean):void
+     */
+    public function set subTextFunction(value:Function):void
     {
-        if (value == _selected)
+        if (value == _subTextFunction)
             return;
         
-        _selected = value; 
-        invalidateDisplayList();
-    }
-    
-    //----------------------------------
-    //  dragging
-    //----------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the dragging property. 
-     */
-    private var _dragging:Boolean = false;
-    
-    /**
-     *  @inheritDoc  
-     */
-    public function get dragging():Boolean
-    {
-        return _dragging;
-    }
-    
-    /**
-     *  @private  
-     */
-    public function set dragging(value:Boolean):void
-    {
-        if (value == _dragging)
-            return;
-        
-        _dragging = value;
+        _subTextFunction = value;
+        subTextFieldOrFunctionChanged = true;
+        invalidateProperties(); 
     }
     
     //--------------------------------------------------------------------------
@@ -645,23 +585,12 @@ public class IconItemRenderer extends UIComponent
     {
         super.createChildren();
         
-        if (!labelTextField)
-        {
-            labelTextField = new TextField();
-            labelTextField.multiline = false;
-            labelTextField.wordWrap = false;
-            labelTextField.selectable = false;
-            
-            addChild(DisplayObject(labelTextField));
-            if (_label != "")
-                labelTextField.text = _label;
-            
-            recreateLabelTextFieldStyles = true;
-            invalidateProperties();
-        }
+        // create any children you need in here
         
-        // iconDisplay and decoratorClass are created in 
-        // commitProperties()
+        // iconDisplay, subTextDisplay, and decoratorDisplay are created in 
+        // commitProperties() since they are dependent on 
+        // other properties and we don't always create them
+        // headerText just uses labelElement to display its data
     }
     
     /**
@@ -692,9 +621,10 @@ public class IconItemRenderer extends UIComponent
             invalidateDisplayList();
         }
         
-        if (iconFieldChanged)
+        // FIXME (rfrishbe): handle iconFunction in here as well
+        if (iconFieldOrFunctionChanged)
         {
-            iconFieldChanged = false;
+            iconFieldOrFunctionChanged = false;
             
             // let's see if we need to create or remove it
             if (iconField && !iconDisplay)
@@ -707,7 +637,6 @@ public class IconItemRenderer extends UIComponent
                 iconDisplay.right = 0;
                 iconDisplay.top = 0;
                 iconDisplay.bottom = 0;
-                //				iconDisplay.setStyle("backgroundColor", 0xC0C0C0);
                 
                 if (_imageCache == null) {
                     _imageCache = new ContentCache();
@@ -755,112 +684,6 @@ public class IconItemRenderer extends UIComponent
             invalidateSize();
             invalidateDisplayList();
         }
-        
-        if (recreateLabelTextFieldStyles)
-        {
-            recreateLabelTextFieldStyles = false;
-            
-            var textFormat:TextFormat = getTextStyles();
-            
-            // FIXME (rfrishbe): should deal with embedded fonts better
-            
-            labelTextField.defaultTextFormat = textFormat;
-            
-            // need to set text here for the defaultTextFormat to take effect
-            labelTextField.text = labelTextField.text;
-            
-            invalidateSize();
-            invalidateDisplayList();
-        }
-    }
-    
-    /**
-     *  @private
-     *  Defined by what we use in getTextStyles();
-     */
-    private static const TEXT_CSS_STYLES:Object = 
-        {textAlign: true,
-            fontWeight: true,
-            color: true,
-            disabledColor: true,
-            fontFamily: true,
-            textIndent: true,
-            fontStyle: true,
-            kerning: true,
-            leading: true,
-            letterSpacing: true,
-            fontSize: true,
-            textDecoration: true};
-    
-    /**
-     *  Returns the TextFormat object that represents 
-     *  character formatting information for this UITextField object.
-     *
-     *  @return A TextFormat object. 
-     *
-     *  @see flash.text.TextFormat
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function getTextStyles():TextFormat
-    {
-        // Adapted from UITextField.getTextStyles()
-        var textFormat:TextFormat = new TextFormat();
-        
-        var textAlign:String = getStyle("textAlign");
-        
-        if (textAlign == "start")
-            textAlign = TextFormatAlign.LEFT;
-        else if (textAlign == "end")
-            textAlign = TextFormatAlign.RIGHT;
-        textFormat.align = textAlign; 
-        textFormat.bold = getStyle("fontWeight") == "bold";
-        if (enabled)
-            textFormat.color = getStyle("color");
-        else
-            textFormat.color = getStyle("disabledColor");
-        textFormat.font = StringUtil.trimArrayElements(getStyle("fontFamily"),",");
-        textFormat.indent = getStyle("textIndent");
-        textFormat.italic = getStyle("fontStyle") == "italic";
-        var kerning:* = getStyle("kerning");
-        // In Halo components based on TextField,
-        // kerning is supposed to be true or false.
-        // The default in TextField and Flex 3 is false
-        // because kerning doesn't work for device fonts
-        // and is slow for embedded fonts.
-        // In Spark components based on TLF and FTE,
-        // kerning is "auto", "on", or, "off".
-        // The default in TLF and FTE is "auto"
-        // (which means kern non-Asian characters)
-        // because kerning works even on device fonts
-        // and has miminal performance impact.
-        // Since a CSS selector or parent container
-        // can affect both Halo and Spark components,
-        // we need to map "auto" and "on" to true
-        // and "off" to false for Halo components
-        // here and in UIFTETextField.
-        // For Spark components, Label and CSSTextLayoutFormat,
-        // do the opposite mapping of true to "on" and false to "off".
-        // We also support a value of "default"
-        // (which we set in the global selector)
-        // to mean false for Halo and "auto" for Spark,
-        // to get the recommended behavior in both sets of components.
-        if (kerning == "auto" || kerning == "on")
-            kerning = true;
-        else if (kerning == "default" || kerning == "off")
-            kerning = false;
-        textFormat.kerning = kerning;
-        textFormat.leading = getStyle("leading");
-        //textFormat.leftMargin = ignorePadding ? 0 : getStyle("paddingLeft");
-        textFormat.letterSpacing = getStyle("letterSpacing");
-        //textFormat.rightMargin = ignorePadding ? 0 : getStyle("paddingRight");
-        textFormat.size = getStyle("fontSize");
-        textFormat.underline = getStyle("textDecoration") == "underline";
-        
-        return textFormat;
     }
     
     /**
@@ -877,6 +700,7 @@ public class IconItemRenderer extends UIComponent
         var myMeasuredMinWidth:Number = 0;
         var myMeasuredMinHeight:Number = 0;
         
+        // FIXME (rfrishbe): use padding and gaps
         // Icon is on left
         if (iconDisplay)
         {
@@ -885,7 +709,7 @@ public class IconItemRenderer extends UIComponent
             myMeasuredWidth += (isNaN(iconWidth) ? iconDisplay.getPreferredBoundsWidth() : iconWidth) + 5;
             myMeasuredHeight = Math.max(myMeasuredHeight, (isNaN(iconHeight) ? iconDisplay.getPreferredBoundsHeight() : iconHeight) + 10);
             myMeasuredMinWidth += (isNaN(iconWidth) ? iconDisplay.getMinBoundsWidth() : iconWidth) + 5;
-            myMeasuredMinHeight += Math.max(myMeasuredMinHeight, (isNaN(iconHeight) ? iconDisplay.getMinBoundsHeight() : iconHeight) + 10);
+            myMeasuredMinHeight = Math.max(myMeasuredMinHeight, (isNaN(iconHeight) ? iconDisplay.getMinBoundsHeight() : iconHeight) + 10);
         }
         
         // Text is aligned next to icon
@@ -919,76 +743,21 @@ public class IconItemRenderer extends UIComponent
         }
         
         // now set the local variables to the member variables.  Make sure it means our
-        // minimum height of 42
+        // minimum height of 80
         measuredWidth = myMeasuredWidth
-        measuredHeight = Math.max(42, myMeasuredHeight);
+        measuredHeight = Math.max(80, myMeasuredHeight);
         
         measuredMinWidth = myMeasuredMinWidth;
-        measuredMinHeight = Math.max(42, myMeasuredMinHeight);
+        measuredMinHeight = Math.max(80, myMeasuredMinHeight);
     }
     
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number,
-                                                  unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number,
+                                               unscaledHeight:Number):void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        graphics.clear();
-        
-        // figure out backgroundColor
-        var backgroundColor:uint;
-        var drawBackground:Boolean = true;
-        if (selected)
-            backgroundColor = getStyle("selectionColor");
-        else if (hovered)
-            backgroundColor = getStyle("rollOverColor");
-        else
-        {
-            var alternatingColors:Array = getStyle("alternatingItemColors");
-            
-            if (alternatingColors && alternatingColors.length > 0)
-            {
-                // translate these colors into uints
-                styleManager.getColorNames(alternatingColors);
-                
-                backgroundColor = alternatingColors[itemIndex % alternatingColors.length];
-            }
-            else
-            {
-                // don't draw background if it is the contentBackgroundColor. The
-                // list skin handles the background drawing for us.
-                drawBackground = false;
-            }
-        }
-        
-        // draw cackgroundColor
-        graphics.beginFill(backgroundColor, drawBackground ? 1 : 0);
-        
-        if (showsCaret)
-        {
-            graphics.lineStyle(1, getStyle("selectionColor"));
-            graphics.drawRect(0.5, 0.5, unscaledWidth-1, unscaledHeight-1);
-        }
-        else 
-        {
-            graphics.lineStyle();
-            graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-        }
-        
-        graphics.endFill();
-        
-        // draw seperators: two lines
-        // 1 pixel from bottom
-        graphics.lineStyle(1, 0x1C1C1C);
-        graphics.moveTo(0, unscaledHeight-1);
-        graphics.lineTo(unscaledWidth, unscaledHeight-1);
-        
-        // line on the bottom
-        graphics.lineStyle(1, 0x606060);
-        graphics.moveTo(0, unscaledHeight);
-        graphics.lineTo(unscaledWidth, unscaledHeight);
+        // no need to call super.layoutContents() since we're changing how it happens here
         
         // start laying out our children now
         var iconWidth:Number = 0;
@@ -1034,122 +803,29 @@ public class IconItemRenderer extends UIComponent
                 IFlexDisplayObject(decoratorDisplay).move(unscaledWidth - 10 - decoratorWidth, (unscaledHeight - decoratorHeight)/2);
             }
         }
+
+        // FIXME (rfrishbe): update for subText and header and use padding and gaps
         
         // text should take up the rest of the space
         var labelWidth:Number = unscaledWidth - iconWidth - decoratorWidth;
-        labelWidth -= 20; // padding of 10 always on left and right
+        labelWidth -= (getStyle("paddingLeft") + getStyle("paddingRight"));
         
         // don't forget the extra padding of 5 if these elements exist
         if (iconDisplay)
-            labelWidth -= 5;
+            labelWidth -= getStyle("horizontalGap");
         if (decoratorDisplay)
-            labelWidth -= 5;
+            labelWidth -= getStyle("horizontalGap");
         
         // padding of 5 from the left
-        var labelX:Number = 10;
+        var labelX:Number = getStyle("paddingLeft");
         if (iconDisplay)
-            labelX += iconWidth + 5;
+            labelX += iconWidth + getStyle("horizontalGap");
         
         labelTextField.width = labelWidth;
-        labelTextField.height = labelTextField.textHeight + 4;
+        labelTextField.height = labelTextField.textHeight + 4; // 4 is text field padding
         
         labelTextField.x = labelX;
         labelTextField.y = (unscaledHeight - labelTextField.height)/2;
-    }
-    
-    /**
-     *  @private
-     */
-    override public function styleChanged(styleName:String):void
-    {
-        var allStyles:Boolean = !styleName || styleName == "styleName";
-        
-        super.styleChanged(styleName);
-        
-        if (allStyles || styleName == "inputMode")
-        {
-            addHandlers();
-        }
-        
-        if (allStyles || styleName in TEXT_CSS_STYLES)
-        {
-            recreateLabelTextFieldStyles = true;
-            invalidateProperties();
-        }
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Event handling
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Keeps track of whether rollover/rollout events were added
-     * 
-     *  We need to be careful about calling add/remove event listener because 
-     *  of the reference counting going on in 
-     *  super.addEventListener/removeEventListener.
-     */
-    private var rolloverEventsAdded:Boolean = false;
-    
-    /**
-     *  @private
-     *  Attach the mouse events.
-     */
-    private function addHandlers():void
-    {
-        if (getStyle("inputMode") == "mouse")
-        {
-            if (!rolloverEventsAdded)
-            {
-                rolloverEventsAdded = true;
-                addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-                addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-            }
-        }
-        else
-        {
-            if (rolloverEventsAdded)
-            {
-                rolloverEventsAdded = false;
-                removeEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
-                removeEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-            }
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    private function anyButtonDown(event:MouseEvent):Boolean
-    {
-        var type:String = event.type;
-        return event.buttonDown || (type == "middleMouseDown") || (type == "rightMouseDown"); 
-    }
-    
-    /**
-     *  @private
-     *  Mouse rollOver event handler.
-     */
-    protected function itemRenderer_rollOverHandler(event:MouseEvent):void
-    {
-        if (!anyButtonDown(event))
-        {
-            hovered = true;
-            invalidateDisplayList();
-        }
-    }
-    
-    /**
-     *  @private
-     *  Mouse rollOut event handler.
-     */
-    protected function itemRenderer_rollOutHandler(event:MouseEvent):void
-    {
-        hovered = false;
-        invalidateDisplayList();
     }
     
 }
