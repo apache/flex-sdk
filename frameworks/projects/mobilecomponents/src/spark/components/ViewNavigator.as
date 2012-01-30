@@ -327,7 +327,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  The last action performed by the navigator.
      */
-    protected var lastAction:String = ViewNavigatorAction.NONE;
+    private var lastAction:String = ViewNavigatorAction.NONE;
     
     /**
      *  @private
@@ -368,7 +368,7 @@ public class ViewNavigator extends ViewNavigatorBase
     // 
     //--------------------------------------------------------------------------
     //----------------------------------
-    //  activeView
+    //  active
     //----------------------------------
     
     /**
@@ -383,6 +383,23 @@ public class ViewNavigator extends ViewNavigatorBase
             navigationStack.push(firstView, firstViewData);
             viewChangeRequested = true;
             invalidateProperties();
+        }
+        
+        // If the navigator isn't initialized, this means the first validation
+        // pass hasn't been completed yet.  The top view will be added in that
+        // process and doesn't need to be done here.
+        if (initialized)
+        {
+            if (value)
+            {
+                var view:View = createViewInstance(navigationStack.topView);
+                view.active = true;
+            }
+            else
+            {
+                activeView.active = false;
+                destoryViewInstance(navigationStack.topView);                
+            }
         }
     }
     
@@ -989,17 +1006,9 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  This method checks if the current view can be removed
-     *  from the display list.
-     * 
-     *  @return Returns true if the screen can be removed
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
      */
-    protected function canRemoveCurrentView():Boolean
+    override public function canRemoveCurrentView():Boolean
     {
         var view:View;
         
@@ -1543,26 +1552,10 @@ public class ViewNavigator extends ViewNavigatorBase
         if (currentViewData)
         {
             currentView = currentViewData.instance;
-            
-            removeElement(currentView);
             currentView.returnedObject = null;
             
-            currentView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
-                view_propertyChangeHandler);
-            
-            // Grab the data from the old view and persist it
-            if (lastAction == ViewNavigatorAction.PUSH)
-            {
-                currentViewData.data = currentView.data;
-                currentViewData.persistedData = currentView.serializeData();
-            }
-            
-            // Check if we can delete the reference for the view instance
-            if (lastAction == ViewNavigatorAction.POP || currentView.destructionPolicy == "auto")
-            {
-                currentView.navigator = null;
-                currentViewData.instance = null;
-            }
+            // Destroy the view
+            destoryViewInstance(currentViewData);
         }
 
         // Update view pointers
@@ -1666,43 +1659,7 @@ public class ViewNavigator extends ViewNavigatorBase
         
         if(pendingViewData.factory != null)
         {
-            var view:View;
-            
-            if (pendingViewData.instance == null)
-            {
-                view = new pendingViewData.factory();
-                pendingViewData.instance = view;
-            }
-            else
-            {
-                view = pendingViewData.instance;
-            }
-            
-            // Restore persistence data if necessary
-            if (pendingViewData.data == null && pendingViewData.persistedData != null)
-                pendingViewData.data = view.deserializePersistedData(pendingViewData.persistedData);
-            
-            view.navigator = this;
-            view.data = pendingViewData.data;
-            view.percentWidth = view.percentHeight = 100;
-            
-            // TODO (chiedozi): Need to think about how to handle the multiple
-            // pop use case.  The wrong view will get the return value.  Is that okay?
-            // Grab the views return object and set it on the new view
-            if (lastAction == ViewNavigatorAction.POP && activeView)
-                view.returnedObject = activeView.createReturnObject();
-            
-            // Update the views orientation state
-            if ((landscapeOrientation && view.hasState("landscape")) ||
-                (!landscapeOrientation && view.hasState("portrait")))
-            {
-                view.setCurrentState(view.getCurrentViewState(landscapeOrientation), false);
-                
-                // Force a validation properties pass on the view so that all state
-                // specific properties are enabled
-                view.validateProperties();
-            }   
-            
+            var view:View = createViewInstance(pendingViewData);
             addElement(view);
             
             // Put this before viewAdded() so that another validation pass can run 
@@ -1718,6 +1675,82 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         pendingViewTransition = null;
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function destoryViewInstance(viewData:ViewHistoryData):void
+    {
+        var currentView:View = viewData.instance;
+        
+        removeElement(currentView);
+        
+        currentView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+            view_propertyChangeHandler);
+        
+        // Grab the data from the old view and persist it
+        if (lastAction == ViewNavigatorAction.PUSH)
+        {
+            viewData.data = currentView.data;
+            viewData.persistedData = currentView.serializeData();
+        }
+        
+        // Check if we can delete the reference for the view instance
+        if (lastAction == ViewNavigatorAction.POP || currentView.destructionPolicy == "auto")
+        {
+            currentView.navigator = null;
+            viewData.instance = null;
+        }
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function createViewInstance(viewData:ViewHistoryData):View
+    {
+        var view:View;
+        
+        if (viewData.instance == null)
+        {
+            view = new viewData.factory();
+            viewData.instance = view;
+        }
+        else
+        {
+            view = viewData.instance;
+        }
+        
+        // Restore persistence data if necessary
+        if (viewData.data == null && viewData.persistedData != null)
+            viewData.data = view.deserializePersistedData(viewData.persistedData);
+        
+        view.navigator = this;
+        view.data = viewData.data;
+        view.percentWidth = view.percentHeight = 100;
+        
+        // Update the views orientation state
+        if ((landscapeOrientation && view.hasState("landscape")) ||
+            (!landscapeOrientation && view.hasState("portrait")))
+        {
+            view.setCurrentState(view.getCurrentViewState(landscapeOrientation), false);
+            
+            // Force a validation properties pass on the view so that all state
+            // specific properties are enabled
+            view.validateProperties();
+        }
+        
+        view.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, view_propertyChangeHandler);
+        
+        // TODO (chiedozi): Need to think about how to handle the multiple
+        // pop use case.  The wrong view will get the return value.  Is that okay?
+        // Grab the views return object and set it on the new view
+        if (lastAction == ViewNavigatorAction.POP && activeView)
+            view.returnedObject = activeView.createReturnObject();
+        
+        addElement(view);
+        
+        return view;
     }
     
     /**
@@ -1964,7 +1997,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function view_propertyChangeHandler(event:PropertyChangeEvent):void
+    private function view_propertyChangeHandler(event:PropertyChangeEvent):void
     {
         var property:Object = event.property;
         
