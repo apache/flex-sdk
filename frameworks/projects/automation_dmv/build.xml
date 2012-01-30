@@ -126,6 +126,7 @@
 				</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
+			<show-deprecation-warnings>false</show-deprecation-warnings>
 		</compc>
 	</target>
 		
