@@ -54,6 +54,7 @@ global
     firstBaselineOffset: "ascent";
 	focusAlpha: 0.4;
 	focusBlendMode: "normal";
+	focusColor: #009DFF;
 	focusRoundedCorners: "tl tr bl br";
 	focusSkin: ClassReference("mx.skins.halo.HaloFocusRect");
 	focusThickness: 2;
