@@ -16,18 +16,17 @@ import flash.display.DisplayObject;
 import flash.display.NativeWindowDisplayState;
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.events.NativeWindowDisplayStateEvent;
-import flash.geom.Rectangle;
 import flash.system.Capabilities;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
 
 import mx.core.IWindow;
-import mx.styles.StyleManager;
 
 import spark.components.Button;
 import spark.components.supportClasses.SkinnableComponent;
+import spark.primitives.BitmapImage;
 import spark.primitives.SimpleText;
+import spark.skins.*;
+import spark.skins.default.MacTitleBarSkin;
+import spark.skins.default.TitleBarSkin;
 
 /**
  *  The default title bar for a WindowedApplication or a Window.
@@ -98,6 +97,7 @@ public class TitleBar extends SkinnableComponent
     //  Skin Parts
     //
     //--------------------------------------------------------------------------
+    
     //----------------------------------
     //  closeButton
     //----------------------------------
@@ -141,6 +141,20 @@ public class TitleBar extends SkinnableComponent
     public var minimizeButton:Button;
     
     //----------------------------------
+    //  titleIconImage
+    //----------------------------------
+
+    /**
+     *  The title icon in the TitleBar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    [SkinPart (required="false")]
+    public var titleIconImage:BitmapImage;
+
+    //----------------------------------
     //  titleTextField
     //----------------------------------
 
@@ -153,7 +167,6 @@ public class TitleBar extends SkinnableComponent
      */
     [SkinPart (required="false")]
     public var titleText:SimpleText;
-
 
     //--------------------------------------------------------------------------
     //
@@ -272,9 +285,32 @@ public class TitleBar extends SkinnableComponent
 
     //--------------------------------------------------------------------------
     //
-    //  Overridden methods
+    //  Overridden methods: SkinnableComponent
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     * 
+     *  When we are running on the mac, switch to the mac skin and continue the load.
+     * 
+     */
+    override protected function loadSkin():void
+    {
+       if (isMac() && getStyle("skinClass") == TitleBarSkin)
+       {
+            setStyle("skinClass", MacTitleBarSkin);  
+       } 
+       
+       super.loadSkin();
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: SkinnableContainer
+    //
+    //--------------------------------------------------------------------------
+
     
     /**
      *  @private
@@ -354,20 +390,22 @@ public class TitleBar extends SkinnableComponent
             titleChanged = false;   
         }
 
-//        if (titleIconChanged)
-//        {
-//            if (titleIconObject)
-//            {
-//                removeChild(DisplayObject(titleIconObject));
-//                titleIconObject = null;
-//            }
-//            if (_titleIcon)
-//            {
-//                titleIconObject = new _titleIcon();
-//                addChild(DisplayObject(titleIconObject));
-//            }
-//            titleIconChanged = false;
-//        }
+        if (titleIconChanged)
+        {
+            if (mx_internal::titleIconObject)
+            {
+                titleIconImage.source = null;
+                mx_internal::titleIconObject = null;
+            }
+            
+            if (_titleIcon && titleIconImage)
+            {
+                mx_internal::titleIconObject = new _titleIcon();
+                titleIconImage.source = mx_internal::titleIconObject;
+            }
+            titleIconChanged = false;
+        }
+        
     }
 
 
@@ -400,12 +438,10 @@ public class TitleBar extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String 
     {
-        if (isMac())
-            return "mac";
-        else if (window.nativeWindow.displayState == NativeWindowDisplayState.MAXIMIZED)
-            return "maximized";
+        if (window.nativeWindow.displayState == NativeWindowDisplayState.MAXIMIZED)
+            return enabled ? "maximized" : "disabledMaximized";
             
-        return "normal";
+        return enabled ? "normal" : "disabled";
     }    
     
     //--------------------------------------------------------------------------
