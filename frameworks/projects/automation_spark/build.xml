@@ -36,7 +36,6 @@
 			<target-player>10.1</target-player>
 			<include-classes>AutomationSparkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
-			<source-path path-element="${FLEX_HOME}/frameworks/projects/automation/src"/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="framework.swc"/>
