@@ -798,23 +798,23 @@ public interface ILayoutElement extends IEventDispatcher
      *  provided, then update the x/y/z properties as necessary to keep 
      *  the transform center fixed.
      *
-     *  @param transformCenter the point, in the component's own coordinates, 
+     *  @param transformCenter The point, in the component's own coordinates, 
      *  to keep fixed relative to its parent.
      *
-     *  @param scale the new values for the scale of the transform
+     *  @param scale The new values for the scale of the transform.
      *
      *  @param rotation the new values for the rotation of the transform
      *
-     *  @param translation the new values for the translation of the transform
+     *  @param translation The new values for the translation of the transform.
      *
-     *  @param postLayoutScale the new values for the post-layout scale 
-     *  of the transform
+     *  @param postLayoutScale The new values for the post-layout scale 
+     *  of the transform.
      *
-     *  @param postLayoutRotation the new values for the post-layout rotation 
-     *  of the transform
+     *  @param postLayoutRotation The new values for the post-layout rotation 
+     *  of the transform.
      *
-     *  @param postLayoutTranslation the new values for the post-layout translation 
-     *  of the transform
+     *  @param postLayoutTranslation The new values for the post-layout translation 
+     *  of the transform.
      *
      *  @param invalidateLayout If <code>true</code>, the parent container size and display are
      *  invalidated. Layouts calling this method pass <code>false</code>
