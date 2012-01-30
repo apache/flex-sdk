@@ -322,7 +322,6 @@ global
     borderVisible : true;
     borderWeight : 1;
     focusThickness: 3;
-    highlightColor: #B2B2B2;
     symbolColor: #000000;
     fontLookup: "embeddedCFF";
     fontFamily: "_sans";
