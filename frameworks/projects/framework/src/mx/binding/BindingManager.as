@@ -64,9 +64,6 @@ public class BindingManager
      *
      * @param owner The instance or Class that owns the property to be set.
      *
-     * @param userNamespace The namespace that the property is defined
-     *                      in.  Can be null.
-     *
      * @param propertyName The name of the original property.
      *
      * @param backingPropertyName The name of renamed backing property.
@@ -82,21 +79,14 @@ public class BindingManager
      *                        this is the generated static event
      *                        dispatcher.
      */
-    public static function set(owner:Object, userNamespace:Namespace,
-                               propertyName:String, backingPropertyName:String,
+    public static function set(owner:Object, propertyName:String,
+                               backingPropertyName:String,
                                oldValue:Object, newValue:Object,
                                eventDispatcher:IEventDispatcher):void
     {
         if (oldValue !== newValue)
         {
-            if (userNamespace)
-            {
-                owner.userNamespace::[backingPropertyName] = newValue;
-            }
-            else
-            {
-                owner[backingPropertyName] = newValue;
-            }
+            owner.mx_internal::[backingPropertyName] = newValue;
 
             eventDispatcher.dispatchEvent(PropertyChangeEvent.createUpdateEvent(owner, propertyName, oldValue, newValue));
         }
