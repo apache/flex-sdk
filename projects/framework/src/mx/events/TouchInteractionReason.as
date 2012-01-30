@@ -13,17 +13,17 @@ package mx.events
 {
     
 /**
- *  The GestureCaptureReason class defines the constant values 
- *  for the <code>reason</code> property of the GestureCaptureEvent class.
+ *  The TouchInteractionReason class defines the constant values 
+ *  for the <code>reason</code> property of the TouchInteractionEvent class.
  * 
- *  @see mx.events.GestureCaptureEvent
+ *  @see mx.events.TouchInteractionEvent
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public final class GestureCaptureReason
+public final class TouchInteractionReason
 {
     
     //--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ public final class GestureCaptureReason
     //--------------------------------------------------------------------------
     
     /**
-     *  Indicates that the value of the property changed.
+     *  Indicates that the touch interaction is a scroll.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
