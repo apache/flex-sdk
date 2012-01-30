@@ -17,6 +17,7 @@
 -->
 <componentPackage>
     <component id="ActionBar" class="spark.components.ActionBar"/>
+    <component id="CrossFadeViewTransition" class="spark.transitions.CrossFadeViewTransition"/>
     <component id="MobileItemRenderer" class="spark.components.MobileItemRenderer"/>
     <component id="MobileIconItemRenderer" class="spark.components.MobileIconItemRenderer"/>
     <component id="SlideViewTransition" class="spark.transitions.SlideViewTransition"/>
