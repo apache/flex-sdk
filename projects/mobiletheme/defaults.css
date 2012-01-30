@@ -1,0 +1,250 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+@namespace "library://ns.adobe.com/flex/spark";
+
+/* Default Skins */
+AdaptableApplication
+{
+	skinClass: ClassReference("spark.skins.mobile.AndroidApplicationSkin");
+}
+
+Application
+{
+    backgroundColor: #FFFFFF;
+    skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
+}
+
+BorderContainer
+{
+    backgroundColor: #FFFFFF;
+    borderStyle : "solid"; 
+    cornerRadius: 0;
+    skinClass: ClassReference("spark.skins.spark.BorderContainerSkin");
+}
+
+Button
+{
+    skinClass: ClassReference("spark.skins.mobile.ButtonSkin");
+}
+
+Button.emphasized
+{
+    skinClass: ClassReference("spark.skins.spark.DefaultButtonSkin");
+}
+
+ButtonBar
+{
+    skinClass: ClassReference("spark.skins.spark.ButtonBarSkin");
+}
+
+CheckBox
+{
+    skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
+}
+
+ComboBox
+{
+    dropShadowVisible: true;
+    paddingBottom: 3;
+    paddingLeft: 3;
+    paddingRight: 3;
+    paddingTop: 5;
+    skinClass: ClassReference("spark.skins.spark.ComboBoxSkin");
+}
+
+DropDownList
+{
+    dropShadowVisible: true;
+    skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
+}
+
+HScrollBar
+{
+    skinClass: ClassReference("spark.skins.spark.HScrollBarSkin");
+}
+
+HSlider
+{
+    skinClass: ClassReference("spark.skins.spark.HSliderSkin");
+}
+
+List
+{
+	skinClass: ClassReference("spark.skins.spark.ListSkin");
+    dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
+	dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
+}
+
+MuteButton
+{
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.MuteButtonSkin");
+}
+
+NavigationBar
+{
+	skinClass: ClassReference("spark.skins.mobile.NavigationBarSkin");
+	backgroundColor: #CCCCCC;
+}
+
+NumericStepper
+{
+    skinClass: ClassReference("spark.skins.spark.NumericStepperSkin");
+}
+
+Panel
+{
+    backgroundColor: #FFFFFF;
+    borderAlpha: 0.5;
+    borderColor: 0;
+    cornerRadius: 0;
+    dropShadowVisible: true;
+	skinClass: ClassReference("spark.skins.spark.PanelSkin");
+}
+
+RadioButton
+{
+	skinClass: ClassReference("spark.skins.spark.RadioButtonSkin");
+}
+
+Scroller
+{
+    skinClass: ClassReference("spark.skins.spark.ScrollerSkin");
+}
+
+ScrubBar
+{
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.ScrubBarSkin");
+}
+
+SkinnableDataContainer
+{
+    skinClass: ClassReference("spark.skins.spark.SkinnableDataContainerSkin");
+}
+
+SkinnableComponent
+{
+    errorSkin: ClassReference("spark.skins.spark.ErrorSkin");
+    focusSkin: ClassReference("spark.skins.spark.FocusSkin");
+}
+
+SkinnableContainer
+{
+    skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
+}
+
+Spinner
+{
+    skinClass: ClassReference("spark.skins.spark.SpinnerSkin");    
+}
+
+SliderTabBar
+{
+	skinClass: ClassReference("spark.skins.mobile.TabBarSkin");
+}
+
+/*TabBar
+{
+    skinClass: ClassReference("spark.skins.spark.TabBarSkin");
+    cornerRadius: 4;
+}*/
+
+TabButton
+{
+	skinClass: ClassReference("spark.skins.mobile.TabButtonSkin");
+}
+
+TextArea
+{
+    paddingBottom: 3;
+    paddingLeft: 3;
+    paddingRight: 3;
+    paddingTop: 5;
+	skinClass: ClassReference("spark.skins.spark.TextAreaSkin");
+}
+
+TextInput
+{
+    paddingBottom: 3;
+    paddingLeft: 3;
+    paddingRight: 3;
+    paddingTop: 5;
+	skinClass: ClassReference("spark.skins.spark.TextInputSkin");
+}
+
+TitleWindow
+{
+	borderAlpha: 0.8;
+	borderColor: 0;
+	cornerRadius: 0;
+	dropShadowVisible: true;
+	skinClass: ClassReference("spark.skins.spark.TitleWindowSkin");
+}
+
+ToggleButton
+{
+	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
+}
+
+Toolbar
+{
+	skinClass: ClassReference("spark.skins.mobile.ToolbarSkin");
+	backgroundColor: #CCCCFF;
+}
+
+VideoPlayer
+{
+    dropShadowVisible: true;
+    skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
+}
+
+VolumeBar
+{
+    skinClass: ClassReference("spark.skins.spark.mediaClasses.normal.VolumeBarSkin");
+}
+
+VScrollBar
+{
+    skinClass: ClassReference("spark.skins.mobile.VScrollBarSkin");
+}
+
+VSlider
+{
+    skinClass: ClassReference("spark.skins.spark.VSliderSkin");
+}
+
+global
+{
+    /* Looks */
+    /* color: #000000; */
+    backgroundImageFillMode : "scale";
+    chromeColor: #CCCCCC;
+    borderVisible : true;
+    borderWeight : 1;
+    contentBackgroundColor: #FFFFFF;
+    rollOverColor: #CEDBEF;
+    focusColor: #70B2EE;
+    symbolColor: #000000;
+    fontLookup: "embeddedCFF";
+
+    /* Behaviors */
+    autoThumbVisibility: true;
+    fixedThumbSize: false;
+    fullScreenHideControlsDelay: 3000;
+    horizontalScrollPolicy: "auto";
+    liveDragging: true;
+    rollOverOpenDelay: 200;
+    slideDuration: 300;
+    smoothScrolling: true;
+    verticalScrollPolicy: "auto";
+}
