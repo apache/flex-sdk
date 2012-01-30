@@ -1409,6 +1409,9 @@ public class ViewTransitionBase extends EventDispatcher
      */
     private function actionBarMoveEffect_effectUpdateHandler(event:EffectEvent):void
     {
+        if (!actionBar)
+            return;
+            
         if (actionBar.actionGroup)
             actionBar.actionGroup.validateDisplayList();
         
