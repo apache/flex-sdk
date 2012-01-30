@@ -38,6 +38,12 @@ use namespace mx_internal;
 [Exclude(name="itemRollOut", kind="event")]
 [Exclude(name="itemRollOver", kind="event")]	
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("SpinnerList.png")]
+
 /*
 	
 TODO
