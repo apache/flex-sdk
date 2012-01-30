@@ -54,6 +54,9 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
     static private const exclusions:Array = ["labelDisplay", "labelDisplayShadow"];
     
     //--------------------------------------------------------------------------
@@ -160,6 +163,9 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
         graphics.endFill();
     }
     
+    /**
+     *  @private
+     */
     override protected function get focusSkinExclusions():Array 
     {
         return exclusions;
