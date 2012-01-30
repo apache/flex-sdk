@@ -1,40 +1,44 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the TabBar control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo TabBar control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-
             import mx.events.ItemClickEvent;
             import mx.controls.TabBar;
 
             [Bindable]
-            public var STATE_ARRAY:Array = [{label:"Alabama", data:"Montgomery"},
-                {label:"Alaska", data:"Juneau"},
-                {label:"Arkansas", data:"LittleRock"}
-            ];
-            
-    		private function clickEvt(event:ItemClickEvent):void {
-    			// Access target TabBar control.
-    			var targetComp:TabBar = TabBar(event.currentTarget);
-    			forClick.text="label is: " + event.label + ", index is: " + 
-    				event.index + ", capital is: " +
-    				targetComp.dataProvider[event.index].data;
-    		}	            
+            public var STATE_ARRAY:Array = [
+                    {label:"Alabama", data:"Montgomery"},
+                    {label:"Alaska", data:"Juneau"},
+                    {label:"Arkansas", data:"LittleRock"}
+                ];
+
+            private function clickEvt(evt:ItemClickEvent):void {
+                // Access target TabBar control.
+                var targetComp:TabBar = TabBar(evt.currentTarget);
+                forClick.text = "label is: " + evt.label + "\n" +
+                    "index is: " + evt.index + "\n" + 
+                    "capital is: " + targetComp.dataProvider[evt.index].data;
+            }
        ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:Panel title="TabBar Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+    <s:Panel title="Halo TabBar Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue" 
+                    text="Select a tab to change the current panel."/>
 
-        <mx:Label width="100%" color="blue" 
-            text="Select a tab to change the current panel."/>
+            <mx:TabBar itemClick="clickEvt(event);">
+                <mx:dataProvider>{STATE_ARRAY}</mx:dataProvider>
+            </mx:TabBar>
 
-        <mx:TabBar itemClick="clickEvt(event);">
-            <mx:dataProvider>{STATE_ARRAY}</mx:dataProvider>
-        </mx:TabBar>
+            <s:TextArea id="forClick" width="100%" height="100%" />
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:TextArea id="forClick" height="100%" width="100%"/>
-
-    </mx:Panel>
-</mx:Application>
+</s:Application>
