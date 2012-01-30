@@ -102,6 +102,7 @@ public class Sequence extends CompositeEffect
 	//
 	//--------------------------------------------------------------------------
  
+
  	/**
 	 *  @private
 	 */
@@ -109,6 +110,32 @@ public class Sequence extends CompositeEffect
 	{
 		super.initInstance(instance);
 	}
+
+    /**
+     * @inheritDoc
+     * 
+     * Sequence calculates this number to be the duration of each
+     * child effect, played one after the other.
+     */
+    override public function get compositeDuration():Number
+    {
+        var sequenceDuration:Number = 0;
+        for (var i:int = 0; i < children.length; ++i)
+        {
+            var childDuration:Number;
+            var child:Effect = Effect(children[i]);
+            if (child is CompositeEffect)
+                childDuration = CompositeEffect(child).compositeDuration;
+            else
+                childDuration = child.duration;
+            childDuration = 
+                childDuration * child.repeatCount +
+                (child.repeatDelay * (child.repeatCount - 1)) +
+                child.startDelay;
+            sequenceDuration += childDuration;
+        }
+        return sequenceDuration;
+    }
 }
 
 }
