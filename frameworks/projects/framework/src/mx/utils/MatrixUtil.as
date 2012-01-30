@@ -1232,6 +1232,66 @@ public final class MatrixUtil
     }
 
     /**
+     *  Determine if two Matrix instances are equal.
+     *  
+     *  @return true if the matrices are equal.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function isEqual(m1:Matrix, m2:Matrix):Boolean
+    {
+        return ((m1 && m2 && 
+            m1.a == m2.a &&
+            m1.b == m2.b &&
+            m1.c == m2.c &&
+            m1.d == m2.d &&
+            m1.tx == m2.tx &&
+            m1.ty == m2.ty) || 
+            (!m1 && !m2));
+    }
+    
+    /**
+     *  Determine if two Matrix3D instances are equal.
+     *  
+     *  @return true if the matrices are equal.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function isEqual3D(m1:Matrix3D, m2:Matrix3D):Boolean
+    {
+        if (m1 && m2 && m1.rawData.length == m2.rawData.length)
+        {
+            var r1:Vector.<Number> = m1.rawData;
+            var r2:Vector.<Number> = m2.rawData;
+            
+            return (r1[0] == r2[0] &&
+                    r1[1] == r2[1] &&
+                    r1[2] == r2[2] &&
+                    r1[3] == r2[3] &&
+                    r1[4] == r2[4] &&
+                    r1[5] == r2[5] &&
+                    r1[6] == r2[6] &&
+                    r1[7] == r2[7] &&
+                    r1[8] == r2[8] &&
+                    r1[9] == r2[9] &&
+                    r1[10] == r2[10] &&
+                    r1[11] == r2[11] &&
+                    r1[12] == r2[12] &&
+                    r1[13] == r2[13] &&
+                    r1[14] == r2[14] &&
+                    r1[15] == r2[15]);
+        }
+
+        return (!m1 && !m2);
+    }
+    
+    /**
      *  Calculates (x,y) such as to satisfy the linear system:
      *  | a * x + c * y = m
      *  | b * x + d * y = n
