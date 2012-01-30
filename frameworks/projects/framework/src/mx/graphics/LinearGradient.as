@@ -16,7 +16,6 @@ import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
-import mx.core.mx_internal;
 
 /**
  *  The LinearGradient class lets you specify the fill of a graphical element,
@@ -120,64 +119,7 @@ public class LinearGradient extends GradientBase implements IFill
 	public function LinearGradient()
  	{
 		super();
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-
- 	/**
-	 *  @private
-	 */
-	private var matrix:Matrix = new Matrix();
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-
-	//----------------------------------
-	//  angle
-	//----------------------------------
-
- 	/**
-	 *  @private
-	 *  Storage for the angle property.
-	 */
-	private var _rotation:Number = 0.0;
-	
-	[Bindable("propertyChange")]
-    [Inspectable(category="General")]
-
-	/**
-	 *  Controls the transition direction. 
-	 *
-	 *  <p>By default, the LinearGradient class defines a transition
-	 *  from left to right across the graphical element.</p>
-	 *   
-	 *  A value of 180.0 causes the transition
-	 *  to occur from right to left.
-	 *
-	 *  @default 0.0
-	 */
-	public function get angle():Number
-	{
-		return _rotation / Math.PI * 180;
-	}
-
- 	/**
-	 *  @private
-	 */
-	public function set angle(value:Number):void
-	{
-		var oldValue:Number = _rotation;
-		
-		_rotation = value / 180 * Math.PI;
-		
-		mx_internal::dispatchGradientChangedEvent("angle", oldValue, _rotation);
+		matrix = new Matrix();
 	}
 
 	//--------------------------------------------------------------------------
@@ -190,13 +132,19 @@ public class LinearGradient extends GradientBase implements IFill
 	 *  @inheritDoc
 	 */
 	public function begin(target:Graphics, rc:Rectangle):void
-	{			
-		matrix.createGradientBox(rc.width, rc.height, _rotation,
-								 rc.left, rc.top);
+	{
+		var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
+		var tx:Number = !isNaN(x) ? x : 0;
+		var ty:Number = !isNaN(y) ? y : 0;
+					
+		matrix.createGradientBox(w, rc.height, 
+								!isNaN(mx_internal::_angle) ? 
+									mx_internal::_angle : mx_internal::rotationInRadians,
+								 tx, ty);
 
 		target.beginGradientFill(GradientType.LINEAR, mx_internal::colors,
 								 mx_internal::alphas, mx_internal::ratios,
-								 matrix);		
+								 matrix, spreadMethod, interpolationMethod);		
 	}
 
 	/**
