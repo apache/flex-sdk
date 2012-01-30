@@ -63,44 +63,59 @@ in accordance with the terms of the license agreement accompanying it.
     </fx:Script>
     
     <s:states>
-        <s:State name="normal" />
-        <s:State name="disabled" />
+        <s:State name="normal"/>
+        <s:State name="closed"/>
+        <s:State name="disabled"/>
+        <s:State name="disabledAndClosed"/>
         <s:State name="normalAndLandscape" stateGroups="landscapeGroup"/>
-        <s:State name="disabledAndLandscape" stateGroups="landscapeGroup"/>
+        <s:State name="closedAndLandscape" stateGroups="landscapeGroup"/>
+        <s:State name="disabledAndLandscape" stateGroups="landscapeGroup" />
+        <s:State name="disabledAndClosedAndLandscape" stateGroups="landscapeGroup"/>
     </s:states>
     
-    <!-- border -->
-    <!--- @private -->
-    <s:Rect left="0" right="0" top="1" bottom="0" id="border">
-        <s:stroke>
-            <s:SolidColorStroke color="#000000" alpha=".35"/>   
-        </s:stroke>
-    </s:Rect>
-    
-    <!-- Divider line -->
-    <s:Rect left="0" right="0" top="0" height="0">
-        <s:stroke>
-            <s:SolidColorStroke color="#000000" alpha=".7"/>   
-        </s:stroke>
-    </s:Rect> 
+    <!-- TODO (egeorgie): Add transitions between closed and normal states -->
 
-    <!-- Background -->
-    <s:Rect left="1" right="1" top="1" bottom="1">
-        <s:fill>
-            <s:SolidColor color="#000000" alpha=".30"/>
-        </s:fill>
-    </s:Rect>
-    
-    <!--
-    Note: setting the minimum size to 0 here so that changes to the host component's
-    size will not be thwarted by this skin part's minimum size.   This is a compromise,
-    more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
-    -->
-    <!--- @copy spark.components.SkinnableContainer#contentGroup -->
-    <s:Group id="contentGroup" left="3" right="3" top="4" bottom="3" minWidth="0" minHeight="0">
-        <s:layout>
-            <s:ViewMenuLayout horizontalGap="2" verticalGap="1"
-                           requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/>
-        </s:layout>
-    </s:Group>    
+    <!-- The ViewMenu and its skin are sized to the application.
+         The menu chrome is a separate group that is anchored to the bottom of the skin. -->
+
+    <s:Group id="chromeGroup"
+             left="0"
+             right="0"
+             bottom="0">
+
+        <!-- border -->
+        <!--- @private -->
+        <s:Rect left="0" right="0" top="1" bottom="0" id="border">
+            <s:stroke>
+                <s:SolidColorStroke color="#000000" alpha=".35"/>   
+            </s:stroke>
+        </s:Rect>
+        
+        <!-- Divider line -->
+        <s:Rect left="0" right="0" top="0" height="0">
+            <s:stroke>
+                <s:SolidColorStroke color="#000000" alpha=".7"/>   
+            </s:stroke>
+        </s:Rect> 
+        
+        <!-- Background -->
+        <s:Rect left="1" right="1" top="1" bottom="1">
+            <s:fill>
+                <s:SolidColor color="#000000" alpha=".30"/>
+            </s:fill>
+        </s:Rect>
+        
+        <!--
+        Note: setting the minimum size to 0 here so that changes to the host component's
+        size will not be thwarted by this skin part's minimum size.   This is a compromise,
+        more about it here: http://bugs.adobe.com/jira/browse/SDK-21143
+        -->
+        <!--- @copy spark.components.SkinnableContainer#contentGroup -->
+        <s:Group id="contentGroup" left="3" right="3" top="4" bottom="3" minWidth="0" minHeight="0">
+            <s:layout>
+                <s:ViewMenuLayout horizontalGap="2" verticalGap="1"
+                                  requestedMaxColumnCount="3" requestedMaxColumnCount.landscapeGroup="6"/>
+            </s:layout>
+        </s:Group>    
+    </s:Group>
 </s:SparkSkin>
