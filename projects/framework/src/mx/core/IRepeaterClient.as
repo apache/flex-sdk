@@ -17,6 +17,11 @@ package mx.core
  *  that can have multiple instances created by a Repeater.
  *  The IRepeaterClient interface is implemented by the UIComponent class
  *  and so is inherited by all Flex framework controls and containers.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IRepeaterClient
 {
@@ -39,6 +44,11 @@ public interface IRepeaterClient
      *  For example, if the <code>id</code> is <code>"b"</code>
      *  and <code>instanceIndices</code> is <code>[ 2, 4 ]</code>,
      *  you would reference it on the document as <code>b[2][4]</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get instanceIndices():Array;
     
@@ -53,6 +63,11 @@ public interface IRepeaterClient
 
     /**
      *  @copy mx.core.UIComponent#isDocument
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get isDocument():Boolean;
 
@@ -77,6 +92,11 @@ public interface IRepeaterClient
      *  For example, even if a Repeater component starts at
      *  <code>dataProvider</code> item 4, the document reference of the first
      *  repeated component is <code>b[0]</code>, not <code>b[4]</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get repeaterIndices():Array;
     
@@ -93,6 +113,11 @@ public interface IRepeaterClient
      *  An Array that contains any enclosing Repeaters of the component.
      *  The Array is empty unless the component is within one or more Repeaters.
      *  The first element corresponds to the outermost Repeater. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get repeaters():Array;
     
@@ -115,6 +140,11 @@ public interface IRepeaterClient
      *  Developers should not need to call it.</p>
      *  
      *  @param parent The parent Repeater that created this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function initializeRepeaterArrays(parent:IRepeaterClient):void;
 }
