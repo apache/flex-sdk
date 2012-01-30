@@ -16,6 +16,7 @@ import flash.events.Event;
 
 import mx.core.IFlexModuleFactory;
 import mx.core.IToolTip;
+import mx.events.DynamicEvent;
 import mx.events.InterManagerRequest;
 import mx.events.ToolTipEvent;
 import mx.managers.IMarshalSystemManager;
@@ -150,20 +151,20 @@ public class ToolTipManagerMarshalMixin
         event.preventDefault();
 	}
 
-	public function removeChildHandler(event:Event):void
+	public function removeChildHandler(event:DynamicEvent):void
 	{
         // Remove it.
-        var sm:ISystemManager = toolTipManager.currentToolTip.systemManager as ISystemManager;
+        var sm:ISystemManager = event.sm;
 		mp = IMarshalSystemManager(sm.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));	
-		mp.removeChildFromSandboxRoot("toolTipChildren", toolTipManager.currentToolTip as DisplayObject);
+		mp.removeChildFromSandboxRoot("toolTipChildren", event.toolTip as DisplayObject);
         event.preventDefault();
 	}
 
-	public function addChildHandler(event:Event):void
+	public function addChildHandler(event:DynamicEvent):void
 	{
-        var sm:ISystemManager = toolTipManager.currentToolTip.systemManager as ISystemManager;
+        var sm:ISystemManager = event.sm;
 		mp = IMarshalSystemManager(sm.topLevelSystemManager.getImplementation("mx.managers::IMarshalSystemManager"));	
-		mp.addChildToSandboxRoot("toolTipChildren", toolTipManager.currentToolTip as DisplayObject);
+		mp.addChildToSandboxRoot("toolTipChildren", event.toolTip as DisplayObject);
         event.preventDefault();
 	}
 
