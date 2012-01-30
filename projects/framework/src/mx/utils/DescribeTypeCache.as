@@ -76,6 +76,11 @@ public class DescribeTypeCache
          *  @return Returns the cached record.
          *
          *  @see flash.utils#describeType()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function describeType(o:*):DescribeTypeCacheRecord
     {
@@ -117,6 +122,11 @@ public class DescribeTypeCache
      *
      *  @param valueName String that specifies the value for which the handler must be set.
          *  @param handler Function that should be called when user references valueName.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function registerCacheHandler(valueName:String, handler:Function):void
     {
