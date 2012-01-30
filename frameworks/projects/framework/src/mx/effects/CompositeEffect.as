@@ -428,6 +428,21 @@ public class CompositeEffect extends Effect
         }
     }
 
+    /**
+     * @private
+     * Override this property so that we can set it on all child effects
+     */
+    override mx_internal function set transitionInterruption(value:Boolean):void
+    {
+        super.transitionInterruption = value;
+
+        var n:int = children.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:Effect = children[i];            
+            child.transitionInterruption = value;
+        }
+    }
     //--------------------------------------------------------------------------
     //
     //  Methods
