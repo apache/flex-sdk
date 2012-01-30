@@ -11957,8 +11957,10 @@ public class UIComponent extends FlexSprite
                 msg = event.results[0].errorMessage;
             }
 
-            if (msg && validatorIndex != -1 && errorArray[validatorIndex] != msg)
+            if (msg && validatorIndex != -1)
             {
+                // Handle the case where this target already had this invalid
+                // event and the errorString has been cleared.
                 errorArray[validatorIndex] = msg;
                 errorString = errorArray.join("\n");
                 dispatchEvent(new FlexEvent(FlexEvent.INVALID));
