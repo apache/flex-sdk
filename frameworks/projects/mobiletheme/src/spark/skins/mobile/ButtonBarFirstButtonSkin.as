@@ -11,10 +11,9 @@
 
 package spark.skins.mobile
 {
-import flash.display.Graphics;
-
 import mx.core.DPIClassification;
 
+import spark.skins.mobile.supportClasses.ButtonBarButtonSkinBase;
 import spark.skins.mobile160.assets.ButtonBarFirstButton_down;
 import spark.skins.mobile160.assets.ButtonBarFirstButton_selected;
 import spark.skins.mobile160.assets.ButtonBarFirstButton_up;
@@ -24,7 +23,6 @@ import spark.skins.mobile240.assets.ButtonBarFirstButton_up;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_down;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_selected;
 import spark.skins.mobile320.assets.ButtonBarFirstButton_up;
-import spark.skins.mobile.supportClasses.ButtonBarButtonSkinBase;
 
 /**
  *  Button skin for the first Button in a ButtonBar.
@@ -49,8 +47,6 @@ public class ButtonBarFirstButtonSkin extends ButtonBarButtonSkinBase
     public function ButtonBarFirstButtonSkin()
     {
         super();
-        
-        useChromeColor = true;
         
         switch (applicationDPI)
         {
@@ -97,20 +93,13 @@ public class ButtonBarFirstButtonSkin extends ButtonBarButtonSkinBase
     /**
      *  @private
      */
-    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        var chromeColor:uint = getChromeColor();
-        chromeColorGraphics.beginFill(getChromeColor());
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
-    {
+        // omit super.drawBackground() to drawRoundRectComplex instead
         // draw a rounded rect with rounded corners on the left side only
-        chromeColorGraphics.drawRoundRectComplex(0, 0, unscaledWidth, unscaledHeight, cornerRadius, 0, cornerRadius, 0);
-        chromeColorGraphics.endFill();
+        graphics.beginFill(getStyle("chromeColor"));
+        graphics.drawRoundRectComplex(0, 0, unscaledWidth, unscaledHeight, cornerRadius, 0, cornerRadius, 0);
+        graphics.endFill();
     }
 }
 }
