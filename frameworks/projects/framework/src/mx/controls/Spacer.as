@@ -30,10 +30,10 @@ use namespace mx_internal;
  *
  *  <pre>
  *  &lt;mx:HBox&gt;
- *  	&lt;mx:Image source="Logo.jpg"/&gt;
- *  	&lt;mx:Label text="Company XYZ"/&gt;
- *  	&lt;mx:Spacer width="100%"/&gt;
- *  	&lt;mx:Button label="Close"/&gt;
+ *      &lt;mx:Image source="Logo.jpg"/&gt;
+ *      &lt;mx:Label text="Company XYZ"/&gt;
+ *      &lt;mx:Spacer width="100%"/&gt;
+ *      &lt;mx:Button label="Close"/&gt;
  *  &lt;/mx:HBox&gt;
  *  </pre>
  *
@@ -51,21 +51,21 @@ use namespace mx_internal;
  */
 public class Spacer extends UIComponent
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor
-	 */
-	public function Spacer()
-	{
-		super();
-	}
+    /**
+     *  Constructor.
+     */
+    public function Spacer()
+    {
+        super();
+    }
 }
 
 }
