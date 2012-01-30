@@ -7371,14 +7371,17 @@ public class UIComponent extends FlexSprite
         for (i = 0; i < classSelectors.length; i++)
         {
             var classSelector:CSSStyleDeclaration = classSelectors[i];
-            inheritChain =
-                classSelector.addStyleToProtoChain(inheritChain, this);
+            if (classSelector)
+            {
+                inheritChain =
+                    classSelector.addStyleToProtoChain(inheritChain, this);
 
-            nonInheritChain =
-                classSelector.addStyleToProtoChain(nonInheritChain, this);
+                nonInheritChain =
+                    classSelector.addStyleToProtoChain(nonInheritChain, this);
 
-            if (classSelector.effects)
-                registerEffects(classSelector.effects);
+                if (classSelector.effects)
+                    registerEffects(classSelector.effects);
+            }
         }
 
         // Finally, we'll add the in-line styles
