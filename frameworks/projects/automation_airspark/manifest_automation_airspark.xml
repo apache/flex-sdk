@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<componentPackage>
+
+<component id="SparkWindowAutomationImpl" class="spark.automation.delegates.components.SparkWindowAutomationImpl"/>  
+<component id="SparkWindowedApplicationAutomationImpl" class="spark.automation.delegates.components.SparkWindowedApplicationAutomationImpl"/>
+
+</componentPackage>
