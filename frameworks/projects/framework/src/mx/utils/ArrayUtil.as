@@ -26,27 +26,27 @@ package mx.utils
  */
 public class ArrayUtil
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Ensures that an Object can be used as an Array.
-	 *
+     *
      *  <p>If the Object is already an Array, it returns the object. 
      *  If the object is not an Array, it returns an Array
-	 *  in which the only element is the Object.
-	 *  As a special case, if the Object is null,
-	 *  it returns an empty Array.</p>
-	 *
+     *  in which the only element is the Object.
+     *  As a special case, if the Object is null,
+     *  it returns an empty Array.</p>
+     *
      *  @param obj Object that you want to ensure is an array.
-	 *
+     *
      *  @return An Array. If the original Object is already an Array, 
-     * 	the original Array is returned. Otherwise, a new Array whose
+     *  the original Array is returned. Otherwise, a new Array whose
      *  only element is the Object is returned or an empty Array if 
      *  the Object was null. 
      *  
@@ -57,21 +57,18 @@ public class ArrayUtil
      */
     public static function toArray(obj:Object):Array
     {
-		if (!obj) 
-			return [];
-		
-		else if (obj is Array)
-			return obj as Array;
-		
-		else
-		 	return [ obj ];
+        if (!obj) 
+            return [];
+        
+        else if (obj is Array)
+            return obj as Array;
+        
+        else
+            return [ obj ];
     }
     
     /**
      *  Returns the index of the item in the Array.
-     * 
-     *  Note that in this implementation the search is linear and is therefore 
-     *  O(n).
      * 
      *  @param item The item to find in the Array. 
      *
