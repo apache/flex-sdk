@@ -1225,7 +1225,10 @@ public class PieSeries extends Series
 	{
 		super.commitProperties();
 		
-		if (!_labelCache.factory)
+		var textFieldFactory:Class = getStyle('textFieldClass');
+		if(textFieldFactory != null)
+			_labelCache.factory = new ContextualClassFactory(textFieldFactory, moduleFactory);
+		else
 			_labelCache.factory = new ContextualClassFactory(UITextField, moduleFactory);
 		
 		if (dataTransform)
