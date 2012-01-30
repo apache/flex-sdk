@@ -55,7 +55,7 @@ import mx.events.StateChangeEvent;
 import mx.events.ValidationResultEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
-import mx.graphics.RoundedRectangle;
+import mx.geom.RoundedRectangle;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
 import mx.managers.CursorManager;
