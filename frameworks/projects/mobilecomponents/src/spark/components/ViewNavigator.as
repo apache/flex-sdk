@@ -1047,6 +1047,11 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             currentView = currentViewData.instance;
             currentView.active = false;
             currentView.includeInLayout = false;
+            
+            // Need to validateNow() to make sure our old screen is currently 
+            // up to date before starting the transition and possibly storing a bitmap 
+            // for the transition
+            currentView.validateNow();
         }
         
         // Store new view
