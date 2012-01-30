@@ -92,11 +92,11 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the component is added to a container as a content child
- *  by using the <code>addChild()</code> or <code>addChildAt()</code> method. 
- *  If the component is added to the container as a noncontent child by 
- *  using the <code>rawChildren.addChild()</code> or 
+ *  by using the <code>addChild()</code> or <code>addChildAt()</code> method.
+ *  If the component is added to the container as a noncontent child by
+ *  using the <code>rawChildren.addChild()</code> or
  *  <code>rawChildren.addChildAt()</code> method, the event is not dispatched.
- * 
+ *
  *  @eventType mx.events.FlexEvent.ADD
  */
 [Event(name="add", type="mx.events.FlexEvent")]
@@ -113,7 +113,7 @@ use namespace mx_internal;
 [Event(name="creationComplete", type="mx.events.FlexEvent")]
 
 /**
- *  Dispatched when an object has had its <code>commitProperties()</code>, 
+ *  Dispatched when an object has had its <code>commitProperties()</code>,
  *  <code>measure()</code>, and
  *  <code>updateDisplayList()</code> methods called (if needed).
  *
@@ -149,7 +149,7 @@ use namespace mx_internal;
  *
  *  <p>You can move the component by setting the <code>x</code>
  *  or <code>y</code> properties, by calling the <code>move()</code>
- *  method, by setting one 
+ *  method, by setting one
  *  of the following properties either on the component or on other
  *  components such that the LayoutManager needs to change the
  *  <code>x</code> or <code>y</code> properties of the component:</p>
@@ -173,13 +173,13 @@ use namespace mx_internal;
 [Event(name="move", type="mx.events.MoveEvent")]
 
 /**
- *  Dispatched at the beginning of the component initialization sequence. 
- *  The component is in a very raw state when this event is dispatched. 
- *  Many components, such as the Button control, create internal child 
- *  components to implement functionality; for example, the Button control 
- *  creates an internal UITextField component to represent its label text. 
- *  When Flex dispatches the <code>preinitialize</code> event, 
- *  the children, including the internal children, of a component 
+ *  Dispatched at the beginning of the component initialization sequence.
+ *  The component is in a very raw state when this event is dispatched.
+ *  Many components, such as the Button control, create internal child
+ *  components to implement functionality; for example, the Button control
+ *  creates an internal UITextField component to represent its label text.
+ *  When Flex dispatches the <code>preinitialize</code> event,
+ *  the children, including the internal children, of a component
  *  have not yet been created.
  *
  *  @eventType mx.events.FlexEvent.PREINITIALIZE
@@ -188,9 +188,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the component is removed from a container as a content child
- *  by using the <code>removeChild()</code> or <code>removeChildAt()</code> method. 
- *  If the component is removed from the container as a noncontent child by 
- *  using the <code>rawChildren.removeChild()</code> or 
+ *  by using the <code>removeChild()</code> or <code>removeChildAt()</code> method.
+ *  If the component is removed from the container as a noncontent child by
+ *  using the <code>rawChildren.removeChild()</code> or
  *  <code>rawChildren.removeChildAt()</code> method, the event is not dispatched.
  *
  *  @eventType mx.events.FlexEvent.REMOVE
@@ -216,7 +216,7 @@ use namespace mx_internal;
  *    <li><code>explicitHeight</code></li>
  *  </ul>
  *
- *  <p>The <code>resize</code> event is not 
+ *  <p>The <code>resize</code> event is not
  *  dispatched until after the property changes.</p>
  *
  *  @eventType mx.events.ResizeEvent.RESIZE
@@ -235,7 +235,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched from a component opened using the PopUpManager 
+ *  Dispatched from a component opened using the PopUpManager
  *  when the user clicks outside it.
  *
  *  @eventType mx.events.FlexMouseEvent.MOUSE_DOWN_OUTSIDE
@@ -243,7 +243,7 @@ use namespace mx_internal;
 [Event(name="mouseDownOutside", type="mx.events.FlexMouseEvent")]
 
 /**
- *  Dispatched from a component opened using the PopUpManager 
+ *  Dispatched from a component opened using the PopUpManager
  *  when the user scrolls the mouse wheel outside it.
  *
  *  @eventType mx.events.FlexMouseEvent.MOUSE_WHEEL_OUTSIDE
@@ -290,8 +290,8 @@ use namespace mx_internal;
 
 /**
  *  Dispatched by a component when the user moves the mouse over the component
- *  during a drag operation. 
- *  In an application running in Flash Player, 
+ *  during a drag operation.
+ *  In an application running in Flash Player,
  *  the event is dispatched many times when you move the mouse over any component.
  *  In an application running in AIR, the event is dispatched only once.
  *
@@ -303,34 +303,34 @@ use namespace mx_internal;
  *  For example, you could draw a border around the drop target,
  *  or give focus to the drop target.</p>
  *
- *  <p>If you want to accept the drag, you must call the 
+ *  <p>If you want to accept the drag, you must call the
  *  <code>DragManager.acceptDragDrop()</code> method. If you don't
  *  call <code>acceptDragDrop()</code>, you will not get any of the
  *  other drag events.</p>
  *
  *  <p>In Flash Player, the value of the <code>action</code> property is always
- *  <code>DragManager.MOVE</code>, even if you are doing a copy. 
- *  This is because the <code>dragEnter</code> event occurs before 
+ *  <code>DragManager.MOVE</code>, even if you are doing a copy.
+ *  This is because the <code>dragEnter</code> event occurs before
  *  the control recognizes that the Control key is pressed to signal a copy.
- *  The <code>action</code> property of the event object for the 
- *  <code>dragOver</code> event does contain a value that signifies the type of 
+ *  The <code>action</code> property of the event object for the
+ *  <code>dragOver</code> event does contain a value that signifies the type of
  *  drag operation. You may change the type of drag action by calling the
  *  <code>DragManager.showFeedback()</code> method.</p>
  *
- *  <p>In AIR, the default value of the <code>action</code> property is 
- *  <code>DragManager.COPY</code>.</p> 
+ *  <p>In AIR, the default value of the <code>action</code> property is
+ *  <code>DragManager.COPY</code>.</p>
  *
- *  <p>Because of the way data to a Tree control is structured, 
- *  the Tree control handles drag and drop differently from the other list-based controls. 
- *  For the Tree control, the event handler for the <code>dragDrop</code> event 
- *  only performs an action when you move or copy data in the same Tree control, 
- *  or copy data to another Tree control. 
- *  If you drag data from one Tree control and drop it onto another Tree control 
- *  to move the data, the event handler for the <code>dragComplete</code> event 
- *  actually performs the work to add the data to the destination Tree control, 
- *  rather than the event handler for the dragDrop event, 
- *  and also removes the data from the source Tree control. 
- *  This is necessary because to reparent the data being moved, 
+ *  <p>Because of the way data to a Tree control is structured,
+ *  the Tree control handles drag and drop differently from the other list-based controls.
+ *  For the Tree control, the event handler for the <code>dragDrop</code> event
+ *  only performs an action when you move or copy data in the same Tree control,
+ *  or copy data to another Tree control.
+ *  If you drag data from one Tree control and drop it onto another Tree control
+ *  to move the data, the event handler for the <code>dragComplete</code> event
+ *  actually performs the work to add the data to the destination Tree control,
+ *  rather than the event handler for the dragDrop event,
+ *  and also removes the data from the source Tree control.
+ *  This is necessary because to reparent the data being moved,
  *  Flex must remove it first from the source Tree control.</p>
  *
  *  @see mx.managers.DragManager
@@ -341,10 +341,10 @@ use namespace mx_internal;
 
 /**
  *  Dispatched by a component when the user moves the mouse while over the component
- *  during a drag operation. 
- *  In Flash Player, the event is dispatched 
+ *  during a drag operation.
+ *  In Flash Player, the event is dispatched
  *  when you drag an item over a valid drop target.
- *  In AIR, the event is dispatched when you drag an item over 
+ *  In AIR, the event is dispatched when you drag an item over
  *  any component, even if the component is not a valid drop target.
  *
  *  <p>In the handler, you can change the appearance of the drop target
@@ -388,9 +388,9 @@ use namespace mx_internal;
  *
  *  <p>You use this event handler to add the drag data to the drop target.</p>
  *
- *  <p>If you call <code>Event.preventDefault()</code> in the event handler 
- *  for the <code>dragDrop</code> event for 
- *  a Tree control when dragging data from one Tree control to another, 
+ *  <p>If you call <code>Event.preventDefault()</code> in the event handler
+ *  for the <code>dragDrop</code> event for
+ *  a Tree control when dragging data from one Tree control to another,
  *  it prevents the drop.</p>
  *
  *  @eventType mx.events.DragEvent.DRAG_DROP
@@ -409,9 +409,9 @@ use namespace mx_internal;
  *  you can delete the List control item from the source if you no longer
  *  need it.</p>
  *
- *  <p>If you call <code>Event.preventDefault()</code> in the event handler 
- *  for the <code>dragComplete</code> event for 
- *  a Tree control when dragging data from one Tree control to another, 
+ *  <p>If you call <code>Event.preventDefault()</code> in the event handler
+ *  for the <code>dragComplete</code> event for
+ *  a Tree control when dragging data from one Tree control to another,
  *  it prevents the drop.</p>
  *
  *  @eventType mx.events.DragEvent.DRAG_COMPLETE
@@ -420,11 +420,11 @@ use namespace mx_internal;
 
 /**
  *  Dispatched by the drag initiator when starting a drag operation.
- *  This event is used internally by the list-based controls; 
- *  you do not handle it when implementing drag and drop. 
- *  If you want to control the start of a drag-and-drop operation, 
+ *  This event is used internally by the list-based controls;
+ *  you do not handle it when implementing drag and drop.
+ *  If you want to control the start of a drag-and-drop operation,
  *  use the <code>mouseDown</code> or <code>mouseMove</code> event.
- * 
+ *
  *  @eventType mx.events.DragEvent.DRAG_START
  */
 [Event(name="dragStart", type="mx.events.DragEvent")]
@@ -450,7 +450,7 @@ use namespace mx_internal;
  *  before this event is fired, but those changes will not have
  *  been rendered on the screen.
  *  Thus, you might have to use the <code>callLater()</code> method
- *  to delay any other changes that you want to make until after the 
+ *  to delay any other changes that you want to make until after the
  *  changes have been rendered onscreen.</p>
  *
  *  @eventType mx.events.EffectEvent.EFFECT_END
@@ -518,8 +518,8 @@ use namespace mx_internal;
  *  Dispatched by the component when its ToolTip has been hidden
  *  and will be discarded soon.
  *
- *  <p>If you specify an effect using the 
- *  <code>ToolTipManager.hideEffect</code> property, 
+ *  <p>If you specify an effect using the
+ *  <code>ToolTipManager.hideEffect</code> property,
  *  this event is dispatched after the effect stops playing.</p>
  *
  *  <p>The sequence of ToolTip events is <code>toolTipStart</code>,
@@ -534,8 +534,8 @@ use namespace mx_internal;
 /**
  *  Dispatched by the component when its ToolTip is about to be hidden.
  *
- *  <p>If you specify an effect using the 
- *  <code>ToolTipManager.hideEffect</code> property, 
+ *  <p>If you specify an effect using the
+ *  <code>ToolTipManager.hideEffect</code> property,
  *  this event is dispatched before the effect starts playing.</p>
  *
  *  <p>The sequence of ToolTip events is <code>toolTipStart</code>,
@@ -550,8 +550,8 @@ use namespace mx_internal;
 /**
  *  Dispatched by the component when its ToolTip is about to be shown.
  *
- *  <p>If you specify an effect using the 
- *  <code>ToolTipManager.showEffect</code> property, 
+ *  <p>If you specify an effect using the
+ *  <code>ToolTipManager.showEffect</code> property,
  *  this event is dispatched before the effect starts playing.
  *  You can use this event to modify the ToolTip before it appears.</p>
  *
@@ -567,8 +567,8 @@ use namespace mx_internal;
 /**
  *  Dispatched by the component when its ToolTip has been shown.
  *
- *  <p>If you specify an effect using the 
- *  <code>ToolTipManager.showEffect</code> property, 
+ *  <p>If you specify an effect using the
+ *  <code>ToolTipManager.showEffect</code> property,
  *  this event is dispatched after the effect stops playing.</p>
  *
  *  <p>The sequence of ToolTip events is <code>toolTipStart</code>,
@@ -600,8 +600,8 @@ use namespace mx_internal;
 include "../styles/metadata/AnchorStyles.as";
 
 /**
- *  Color of the component highlight when validation fails. 
- *  Flex also sets the <code>borderColor</code> style of the component to this 
+ *  Color of the component highlight when validation fails.
+ *  Flex also sets the <code>borderColor</code> style of the component to this
  *  <code>errorColor</code> on a validation failure.
  *
  *  @default 0xFF0000
@@ -610,7 +610,7 @@ include "../styles/metadata/AnchorStyles.as";
 
 /**
  *  Blend mode used by the focus rectangle.
- *  For more information, see the <code>blendMode</code> property 
+ *  For more information, see the <code>blendMode</code> property
  *  of the flash.display.DisplayObject class.
  *
  *  @default "normal"
@@ -786,7 +786,7 @@ include "../styles/metadata/AnchorStyles.as";
  *    width="0"
  *    x="0"
  *    y="0"
- *  
+ *
  *  <b>Styles</b>
  *    bottom="undefined"
  *    errorColor="0xFF0000"
@@ -799,7 +799,7 @@ include "../styles/metadata/AnchorStyles.as";
  *    themeColor="haloGreen"
  *    top="undefined"
  *    verticalCenter="undefined"
- *  
+ *
  *  <b>Effects</b>
  *    addedEffect="<i>No default</i>"
  *    creationCompleteEffect="<i>No default</i>"
@@ -812,9 +812,9 @@ include "../styles/metadata/AnchorStyles.as";
  *    removedEffect="<i>No default</i>"
  *    resizeEffect="<i>No default</i>"
  *    rollOutEffect="<i>No default</i>"
- *    rollOverEffect="<i>No default</i>"    
+ *    rollOverEffect="<i>No default</i>"
  *    showEffect="<i>No default</i>"
- *  
+ *
  *  <b>Events</b>
  *    add="<i>No default</i>"
  *    creationComplete="<i>No default</i>"
@@ -862,7 +862,7 @@ public class UIComponent extends FlexSprite
     IUIComponent, IValidatorListener, IVisualItem
 {
     include "../core/Version.as";
-    
+
     //--------------------------------------------------------------------------
     //
     //  Class constants
@@ -966,7 +966,7 @@ public class UIComponent extends FlexSprite
 
         return _embeddedFontRegistry;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -1149,7 +1149,7 @@ public class UIComponent extends FlexSprite
     public function set initialized(value:Boolean):void
     {
         _initialized = value;
-        
+
         if (value)
         {
             setVisible(_visible, true);
@@ -1171,22 +1171,22 @@ public class UIComponent extends FlexSprite
     [Inspectable(environment="none")]
 
     /**
-     *  Set to <code>true</code> after immediate or deferred child creation, 
-     *  depending on which one happens. For a Container object, it is set 
-     *  to <code>true</code> at the end of 
-     *  the <code>createComponentsFromDescriptors()</code> method, 
-     *  meaning after the Container object creates its children from its child descriptors. 
-     *  
-     *  <p>For example, if an Accordion container uses deferred instantiation, 
-     *  the <code>processedDescriptors</code> property for the second pane of 
-     *  the Accordion container does not become <code>true</code> until after 
-     *  the user navigates to that pane and the pane creates its children. 
-     *  But, if the Accordion had set the <code>creationPolicy</code> property 
-     *  to <code>"all"</code>, the <code>processedDescriptors</code> property 
+     *  Set to <code>true</code> after immediate or deferred child creation,
+     *  depending on which one happens. For a Container object, it is set
+     *  to <code>true</code> at the end of
+     *  the <code>createComponentsFromDescriptors()</code> method,
+     *  meaning after the Container object creates its children from its child descriptors.
+     *
+     *  <p>For example, if an Accordion container uses deferred instantiation,
+     *  the <code>processedDescriptors</code> property for the second pane of
+     *  the Accordion container does not become <code>true</code> until after
+     *  the user navigates to that pane and the pane creates its children.
+     *  But, if the Accordion had set the <code>creationPolicy</code> property
+     *  to <code>"all"</code>, the <code>processedDescriptors</code> property
      *  for its second pane is set to <code>true</code> during application startup.</p>
-     *  
-     *  <p>For classes that are not containers, which do not have descriptors, 
-     *  it is set to <code>true</code> after the <code>createChildren()</code> 
+     *
+     *  <p>For classes that are not containers, which do not have descriptors,
+     *  it is set to <code>true</code> after the <code>createChildren()</code>
      *  method creates any internal component children.</p>
      */
     public function get processedDescriptors():Boolean
@@ -1200,7 +1200,7 @@ public class UIComponent extends FlexSprite
     public function set processedDescriptors(value:Boolean):void
     {
         _processedDescriptors = value;
-        
+
         if (value)
             dispatchEvent(new FlexEvent(FlexEvent.INITIALIZE));
     }
@@ -1233,7 +1233,7 @@ public class UIComponent extends FlexSprite
     {
         _updateCompletePendingFlag = value;
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Variables: Invalidation
@@ -1336,30 +1336,30 @@ public class UIComponent extends FlexSprite
      * True if createInFontContext has been called.
      */
     private var hasFontContextBeenSaved:Boolean = false;
-     
+
     /**
      *  @private
      * Holds the last recorded value of the module factory used to create the font.
      */
     private var oldEmbeddedFontContext:IFlexModuleFactory = null;
-     
+
     /**
      * @private
-     * 
+     *
      * Cache last value of embedded font.
      */
     private var cachedEmbeddedFont:EmbeddedFont = null;
-         
+
     /**
      * @private
-     * 
+     *
      * storage for advanced layout and transform properties.
      */
 	private var _xformOffsets:TransformOffset;
-	
+
     /**
      * @private
-     * 
+     *
      * storage for the modified Transform object that can dispatch change events correctly.
      */
     private var _transform:flash.geom.Transform;
@@ -1447,16 +1447,16 @@ public class UIComponent extends FlexSprite
 
     /**
      *  The owner of this UIComponent. By default, it is the parent of this UIComponent.
-     *  However, if this UIComponent object is a child component that is 
-     *  popped up by its parent, such as the dropdown list of a ComboBox control, 
-     *  the owner is the component that popped up this UIComponent object. 
+     *  However, if this UIComponent object is a child component that is
+     *  popped up by its parent, such as the dropdown list of a ComboBox control,
+     *  the owner is the component that popped up this UIComponent object.
      *
-     *  <p>This property is not managed by Flex, but by each component. 
-     *  Therefore, if you use the <code>PopUpManger.createPopUp()</code> or 
-     *  <code>PopUpManger.addPopUp()</code> method to pop up a child component, 
-     *  you should set the <code>owner</code> property of the child component 
+     *  <p>This property is not managed by Flex, but by each component.
+     *  Therefore, if you use the <code>PopUpManger.createPopUp()</code> or
+     *  <code>PopUpManger.addPopUp()</code> method to pop up a child component,
+     *  you should set the <code>owner</code> property of the child component
      *  to the component that popped it up.</p>
-     * 
+     *
      *  <p>The default value is the value of the <code>parent</code> property.</p>
      */
     public function get owner():DisplayObjectContainer
@@ -1508,7 +1508,7 @@ public class UIComponent extends FlexSprite
         {
         	// trace("UIComponent.get parent(): " + e);
         }
-        
+
         return null;
     }
 
@@ -1575,7 +1575,7 @@ public class UIComponent extends FlexSprite
     override public function set z(value:Number):void
     {
         if (z == value)
-            return;		
+            return;
 		if(_xformOffsets == null) allocateOffsets();
    		_xformOffsets.layoutZ = value;
    		invalidateTransform();
@@ -1583,7 +1583,7 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
-	 * 
+	 *
 	 */
 	public function get transformX():Number
 	{
@@ -1595,7 +1595,7 @@ public class UIComponent extends FlexSprite
     public function set transformX(value:Number):void
     {
         if (transformX == value)
-            return;		
+            return;
 		if(_xformOffsets == null) allocateOffsets();
    		_xformOffsets.transformX = value;
    		invalidateTransform();
@@ -1603,7 +1603,7 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
-	 * 
+	 *
 	 */
 	public function get transformY():Number
 	{
@@ -1615,7 +1615,7 @@ public class UIComponent extends FlexSprite
     public function set transformY(value:Number):void
     {
         if (transformY == value)
-            return;		
+            return;
 		if(_xformOffsets == null) allocateOffsets();
    		_xformOffsets.transformY = value;
    		invalidateTransform();
@@ -1623,7 +1623,7 @@ public class UIComponent extends FlexSprite
     }
 
 	/**
-	 * 
+	 *
 	 */
 	public function get transformZ():Number
 	{
@@ -1635,13 +1635,13 @@ public class UIComponent extends FlexSprite
     public function set transformZ(value:Number):void
     {
         if (transformZ == value)
-            return;		
+            return;
 		if(_xformOffsets == null) allocateOffsets();
    		_xformOffsets.transformZ = value;
    		invalidateTransform();
    		invalidateParentSizeAndDisplayList();
     }
-	
+
 	/**
 	 * Documentation is not currently available
 	 */
@@ -1658,7 +1658,7 @@ public class UIComponent extends FlexSprite
         if (rotation == value)
             return;
 
-        // trace("set scaleX:" + this + "value = " + value); 
+        // trace("set scaleX:" + this + "value = " + value);
         if(_xformOffsets == null)
 	        super.rotation = value;
 	   	else
@@ -1667,7 +1667,7 @@ public class UIComponent extends FlexSprite
 	   		_xformOffsets.layoutRotationZ = value;
 	   		invalidateTransform();
 	   	}
-       
+
    		invalidateParentSizeAndDisplayList();
     }
 
@@ -1684,8 +1684,8 @@ public class UIComponent extends FlexSprite
     override public function set rotationZ(value:Number):void
     {
     	rotation = value;
-    }	
-    
+    }
+
 	/**
 	 * Documentation is not currently available
 	 */
@@ -1701,7 +1701,7 @@ public class UIComponent extends FlexSprite
     {
         if (rotationX == value)
             return;
-		
+
 		if(_xformOffsets == null) allocateOffsets();
    		_xformOffsets.layoutRotationX = value;
    		invalidateTransform();
@@ -1723,7 +1723,7 @@ public class UIComponent extends FlexSprite
     {
         if (rotationY == value)
             return;
-		
+
 		if(_xformOffsets == null) allocateOffsets();
    		_xformOffsets.layoutRotationY = value;
    		invalidateTransform();
@@ -1796,7 +1796,7 @@ public class UIComponent extends FlexSprite
     /**
      *  Number that specifies the width of the component, in pixels,
      *  in the parent's coordinates.
-     *  The default value is 0, but this property will contain the actual component 
+     *  The default value is 0, but this property will contain the actual component
      *  width after Flex completes sizing the components in your application.
      *
      *  <p>Note: You can specify a percentage value in the MXML
@@ -1839,7 +1839,7 @@ public class UIComponent extends FlexSprite
         {
             invalidateProperties();
             invalidateDisplayList();
-            invalidateParentSizeAndDisplayList();            
+            invalidateParentSizeAndDisplayList();
 
             _width = value;
 
@@ -1864,7 +1864,7 @@ public class UIComponent extends FlexSprite
     /**
      *  Number that specifies the height of the component, in pixels,
      *  in the parent's coordinates.
-     *  The default value is 0, but this property will contain the actual component 
+     *  The default value is 0, but this property will contain the actual component
      *  height after Flex completes sizing the components in your application.
      *
      *  <p>Note: You can specify a percentage value in the MXML
@@ -1906,7 +1906,7 @@ public class UIComponent extends FlexSprite
         {
             invalidateProperties();
             invalidateDisplayList();
-            invalidateParentSizeAndDisplayList();            
+            invalidateParentSizeAndDisplayList();
 
             _height = value;
 
@@ -1934,8 +1934,8 @@ public class UIComponent extends FlexSprite
      *  magnified by a factor of 2, and a <code>scaleX</code> of 0.5
      *  means the object has been reduced by a factor of 2.</p>
      *
-     *  <p>A value of 0.0 is an invalid value. 
-     *  Rather than setting it to 0.0, set it to a small value, or set 
+     *  <p>A value of 0.0 is an invalid value.
+     *  Rather than setting it to 0.0, set it to a small value, or set
      *  the <code>visible</code> property to <code>false</code> to hide the component.</p>
      *
      *  @default 1.0
@@ -1950,7 +1950,7 @@ public class UIComponent extends FlexSprite
         if (prevValue == value)
             return;
 
-        // trace("set scaleX:" + this + "value = " + value); 
+        // trace("set scaleX:" + this + "value = " + value);
         if(_xformOffsets == null)
 	        super.scaleX = value;
 	   	else
@@ -1996,8 +1996,8 @@ public class UIComponent extends FlexSprite
      *  magnified by a factor of 2, and a <code>scaleY</code> of 0.5
      *  means the object has been reduced by a factor of 2.</p>
      *
-     *  <p>A value of 0.0 is an invalid value. 
-     *  Rather than setting it to 0.0, set it to a small value, or set 
+     *  <p>A value of 0.0 is an invalid value.
+     *  Rather than setting it to 0.0, set it to a small value, or set
      *  the <code>visible</code> property to <code>false</code> to hide the component.</p>
      *
      *  @default 1.0
@@ -2063,7 +2063,7 @@ public class UIComponent extends FlexSprite
    		invalidateTransform();
         dispatchEvent(new Event("scaleZChanged"));
     }
-    
+
     /**
      *  This property allows access to the Player's native implementation
      *  of the <code>scaleX</code> property, which can be useful since components
@@ -2080,7 +2080,7 @@ public class UIComponent extends FlexSprite
     {
         super.scaleX = value;
     }
-    
+
     /**
      *  This property allows access to the Player's native implementation
      *  of the <code>scaleY</code> property, which can be useful since components
@@ -2097,7 +2097,7 @@ public class UIComponent extends FlexSprite
     {
         super.scaleY = value;
     }
-    
+
     //----------------------------------
     //  visible
     //----------------------------------
@@ -2113,7 +2113,7 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  Controls the visibility of this UIComponent. If <code>true</code>, 
+     *  Controls the visibility of this UIComponent. If <code>true</code>,
      *  the object is visible.
      *
      *  <p>When setting to <code>true</code>, the object will dispatch
@@ -2144,16 +2144,16 @@ public class UIComponent extends FlexSprite
      *  You should set the <code>visible</code> property to show or hide
      *  a component instead of calling this method directly.
      *
-     *  @param value The new value of the <code>visible</code> property. 
-     *  Specify <code>true</code> to show the component, and <code>false</code> to hide it. 
+     *  @param value The new value of the <code>visible</code> property.
+     *  Specify <code>true</code> to show the component, and <code>false</code> to hide it.
      *
-     *  @param noEvent If <code>true</code>, do not dispatch an event. 
-     *  If <code>false</code>, dispatch a <code>show</code> event when 
-     *  the component becomes visible, and a <code>hide</code> event when 
+     *  @param noEvent If <code>true</code>, do not dispatch an event.
+     *  If <code>false</code>, dispatch a <code>show</code> event when
+     *  the component becomes visible, and a <code>hide</code> event when
      *  the component becomes invisible.
      */
     public function setVisible(value:Boolean,
-                               noEvent:Boolean = false):void 
+                               noEvent:Boolean = false):void
     {
         _visible = value;
 
@@ -2197,11 +2197,11 @@ public class UIComponent extends FlexSprite
     [Inspectable(enumeration="true,false", defaultValue="true")]
 
     /**
-     *  Specifies whether the UIComponent object receives <code>doubleClick</code> events. 
-     *  The default value is <code>false</code>, which means that the UIComponent object 
-     *  does not receive <code>doubleClick</code> events. 
+     *  Specifies whether the UIComponent object receives <code>doubleClick</code> events.
+     *  The default value is <code>false</code>, which means that the UIComponent object
+     *  does not receive <code>doubleClick</code> events.
      *
-     *  <p>The <code>mouseEnabled</code> property must also be set to <code>true</code>, 
+     *  <p>The <code>mouseEnabled</code> property must also be set to <code>true</code>,
      *  its default value, for the object to receive <code>doubleClick</code> events.</p>
      *
      *  @default false
@@ -2244,7 +2244,7 @@ public class UIComponent extends FlexSprite
     private var _enabled:Boolean = false;
 
     [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
-    [Bindable("enabledChanged")] 
+    [Bindable("enabledChanged")]
 
     /**
      *  @copy mx.core.IUIComponent#enabled
@@ -2266,7 +2266,7 @@ public class UIComponent extends FlexSprite
         cachedTextFormat = null;
 
         invalidateDisplayList();
-        
+
         dispatchEvent(new Event("enabledChanged"));
     }
 
@@ -2295,7 +2295,7 @@ public class UIComponent extends FlexSprite
      *  Storage for the filters property.
      */
     private var _filters:Array;
-    
+
     /**
      *  @private
      */
@@ -2303,7 +2303,7 @@ public class UIComponent extends FlexSprite
     {
         return _filters ? _filters : super.filters;
     }
-    
+
     /**
      *  @private
      */
@@ -2323,9 +2323,9 @@ public class UIComponent extends FlexSprite
                     e.removeEventListener(BaseFilter.CHANGE, filterChangeHandler);
             }
         }
-        
+
         _filters = value;
-        
+
         var clonedFilters:Array = [];
         if (_filters)
         {
@@ -2503,25 +2503,25 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Returns the <i>x</i> position of the mouse, in the content coordinate system.
-     *  Content coordinates specify a pixel position relative to the upper left 
-     *  corner of the component's content, and include all of the component's 
-     *  content area, including any regions that are currently clipped and must 
+     *  Content coordinates specify a pixel position relative to the upper left
+     *  corner of the component's content, and include all of the component's
+     *  content area, including any regions that are currently clipped and must
      *  be accessed by scrolling the component.
      */
     public function get contentMouseX():Number
     {
         return mouseX;
     }
-    
+
     //----------------------------------
     //  contentMouseY
     //----------------------------------
 
     /**
      *  Returns the <i>y</i> position of the mouse, in the content coordinate system.
-     *  Content coordinates specify a pixel position relative to the upper left 
-     *  corner of the component's content, and include all of the component's 
-     *  content area, including any regions that are currently clipped and must 
+     *  Content coordinates specify a pixel position relative to the upper left
+     *  corner of the component's content, and include all of the component's
+     *  content area, including any regions that are currently clipped and must
      *  be accessed by scrolling the component.
      */
     public function get contentMouseY():Number
@@ -2643,20 +2643,20 @@ public class UIComponent extends FlexSprite
     //----------------------------------
     //  resourceManager
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the resourceManager property.
      */
     private var _resourceManager:IResourceManager = ResourceManager.getInstance();
-    
+
     /**
      *  @private
      *  This metadata suppresses a trace() in PropertyWatcher:
      *  "warning: unable to bind to property 'resourceManager' ..."
      */
     [Bindable("unused")]
-    
+
     /**
      *  A reference to the object which manages
      *  all of the application's localized resources.
@@ -2679,10 +2679,10 @@ public class UIComponent extends FlexSprite
      *  has a references to its SystemManager
      */
     private var _systemManager:ISystemManager;
-    
+
     /**
      *  @private
-     *  if component has been reparented, we need to potentially 
+     *  if component has been reparented, we need to potentially
      *  reassign systemManager, cause we could be in a new Window.
      */
     private var _systemManagerDirty:Boolean = false;
@@ -2751,23 +2751,23 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      *  Returns the current system manager, <code>systemManager</code>,
-     *  unless it is null. 
+     *  unless it is null.
      *  If the current system manager is null,
      *  then search to find the correct system manager.
-     * 
+     *
      *  @return A system manager, will not be null.
      */
     mx_internal function getNonNullSystemManager():ISystemManager
     {
         var sm:ISystemManager = systemManager;
-        
-        if (!sm) 
+
+        if (!sm)
             sm = ISystemManager(SystemManager.getSWFRoot(this));
-        
-        if (!sm) 
+
+        if (!sm)
             return SystemManagerGlobals.topLevelSystemManagers[0];
 
-        return sm;      
+        return sm;
     }
 
     //----------------------------------
@@ -2821,7 +2821,7 @@ public class UIComponent extends FlexSprite
                 else
                 {
                     var textField:IUITextField = childList.getChildAt(i) as IUITextField;
-                    
+
                     if (textField)
                         textField.nestLevel = value + 1;
                 }
@@ -2855,7 +2855,7 @@ public class UIComponent extends FlexSprite
     /**
      *  Reference to the UIComponentDescriptor, if any, that was used
      *  by the <code>createComponentFromDescriptor()</code> method to create this
-     *  UIComponent instance. If this UIComponent instance 
+     *  UIComponent instance. If this UIComponent instance
      *  was not created from a descriptor, this property is null.
      *
      *  @see mx.core.UIComponentDescriptor
@@ -2923,7 +2923,7 @@ public class UIComponent extends FlexSprite
                 child.document = value;
             }
         }
-        
+
         _document = value;
     }
 
@@ -3045,7 +3045,7 @@ public class UIComponent extends FlexSprite
         // Look for the SystemManager's document,
         // which should be the Application.
         var o:Object = systemManager.document;
-        
+
         // If this UIComponent is its own root, then it is an Application.
         // We want to return its parent Application, or null
         // (if it has no parent because it is the top-level Application).
@@ -3077,7 +3077,7 @@ public class UIComponent extends FlexSprite
      *  A reference to the parent document object for this UIComponent.
      *  A document object is a UIComponent at the top of the hierarchy
      *  of a Flex application, MXML component, or AS component.
-     *  For the Application object, the <code>parentDocument</code> 
+     *  For the Application object, the <code>parentDocument</code>
      *  property is null.
      *  This property  is useful in MXML scripts to go up a level
      *  in the chain of document objects.
@@ -3098,7 +3098,7 @@ public class UIComponent extends FlexSprite
             if (sm)
                 return sm.document;
 
-            return null;            
+            return null;
         }
         else
         {
@@ -3136,9 +3136,9 @@ public class UIComponent extends FlexSprite
      *  Storage for the moduleFactory property.
      */
     private var _moduleFactory:IFlexModuleFactory;
-    
+
     [Inspectable(environment="none")]
-    
+
     /**
      *  The moduleFactory that is used to create TextFields in the correct SWF context. This is necessary so that
      *  embedded fonts will work.
@@ -3165,7 +3165,7 @@ public class UIComponent extends FlexSprite
                 child.moduleFactory = factory;
             }
         }
-        
+
         _moduleFactory = factory;
     }
 
@@ -3184,7 +3184,7 @@ public class UIComponent extends FlexSprite
      *  Storage for the inheritingStyles property.
      */
     private var _inheritingStyles:Object = StyleProtoChain.STYLE_UNINITIALIZED;
-    
+
     [Inspectable(environment="none")]
 
     /**
@@ -3199,7 +3199,7 @@ public class UIComponent extends FlexSprite
     {
         return _inheritingStyles;
     }
-    
+
     /**
      *  @private
      */
@@ -3256,7 +3256,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Storage for the inline inheriting styles on this object.
-     *  This CSSStyleDeclaration is created the first time that 
+     *  This CSSStyleDeclaration is created the first time that
      *  the <code>setStyle()</code> method
      *  is called on this component to set an inheriting style.
      *  Developers typically never need to access this property directly.
@@ -3297,18 +3297,18 @@ public class UIComponent extends FlexSprite
      *  Possible values in MXML are <code>"on"</code>,
      *  <code>"off"</code> and
      *  <code>"auto"</code> (default).
-     * 
+     *
      *  <p>Possible values in ActionScript are <code>UIComponentCachePolicy.ON</code>,
      *  <code>UIComponentCachePolicy.OFF</code> and
      *  <code>UIComponentCachePolicy.AUTO</code> (default).</p>
      *
      *  <p><ul>
-     *    <li>A value of <code>UIComponentCachePolicy.ON</code> means that 
+     *    <li>A value of <code>UIComponentCachePolicy.ON</code> means that
      *      the object is always cached as a bitmap.</li>
-     *    <li>A value of <code>UIComponentCachePolicy.OFF</code> means that 
+     *    <li>A value of <code>UIComponentCachePolicy.OFF</code> means that
      *      the object is never cached as a bitmap.</li>
-     *    <li>A value of <code>UIComponentCachePolicy.AUTO</code> means that 
-     *      the framework uses heuristics to decide whether the object should 
+     *    <li>A value of <code>UIComponentCachePolicy.AUTO</code> means that
+     *      the framework uses heuristics to decide whether the object should
      *      be cached as a bitmap.</li>
      *  </ul></p>
      *
@@ -3351,7 +3351,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Used by Flex to suggest bitmap caching for the object.
-     *  If <code>cachePolicy</code> is <code>UIComponentCachePolicy.AUTO</code>, 
+     *  If <code>cachePolicy</code> is <code>UIComponentCachePolicy.AUTO</code>,
      *  then <code>cacheHeuristic</code>
      *  is used to control the object's <code>cacheAsBitmap</code> property.
      */
@@ -3433,13 +3433,13 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Indicates whether the component can receive focus when tabbed to.
-     *  You can set <code>focusEnabled</code> to <code>false</code> 
-     *  when a UIComponent is used as a subcomponent of another component 
+     *  You can set <code>focusEnabled</code> to <code>false</code>
+     *  when a UIComponent is used as a subcomponent of another component
      *  so that the outer component becomes the focusable entity.
      *  If this property is <code>false</code>, focus will be transferred to
-     *  the first parent that has <code>focusEnable</code> 
+     *  the first parent that has <code>focusEnable</code>
      *  set to <code>true</code>.
-     *  
+     *
      *  @default true
      */
     public function get focusEnabled():Boolean
@@ -3470,10 +3470,10 @@ public class UIComponent extends FlexSprite
     /**
      *  Whether you can receive focus when clicked on.
      *  If <code>false</code>, focus will be transferred to
-     *  the first parent that is <code>mouseFocusEnable</code> 
+     *  the first parent that is <code>mouseFocusEnable</code>
      *  set to <code>true</code>.
-     *  For example, you can set this property to <code>false</code> 
-     *  on a Button control so that you can use the Tab key to move focus 
+     *  For example, you can set this property to <code>false</code>
+     *  on a Button control so that you can use the Tab key to move focus
      *  to the control, but not have the control get focus when you click on it.
      *
      *  @default true
@@ -3564,7 +3564,7 @@ public class UIComponent extends FlexSprite
      *  Storage for the measuredWidth property.
      */
     private var _measuredWidth:Number = 0;
-    
+
     [Inspectable(environment="none")]
 
     /**
@@ -3635,7 +3635,7 @@ public class UIComponent extends FlexSprite
     /**
      *  Number that specifies the width of a component as a percentage
      *  of its parent's size. Allowed values are 0-100. The default value is NaN.
-     *  Setting the <code>width</code> or <code>explicitWidth</code> properties 
+     *  Setting the <code>width</code> or <code>explicitWidth</code> properties
      *  resets this property to NaN.
      *
      *  <p>This property returns a numeric value only if the property was
@@ -3662,7 +3662,7 @@ public class UIComponent extends FlexSprite
 
         _percentWidth = value;
 
-         invalidateParentSizeAndDisplayList();            
+         invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -3681,7 +3681,7 @@ public class UIComponent extends FlexSprite
     /**
      *  Number that specifies the height of a component as a percentage
      *  of its parent's size. Allowed values are 0-100. The default value is NaN.
-     *  Setting the <code>height</code> or <code>explicitHeight</code> properties 
+     *  Setting the <code>height</code> or <code>explicitHeight</code> properties
      *  resets this property to NaN.
      *
      *  <p>This property returns a numeric value only if the property was
@@ -3708,7 +3708,7 @@ public class UIComponent extends FlexSprite
 
         _percentHeight = value;
 
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
     }
 
     //----------------------------------
@@ -3984,7 +3984,7 @@ public class UIComponent extends FlexSprite
         // We invalidate size because locking in width
         // may change the measured height in flow-based components.
         invalidateSize();
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
 
         dispatchEvent(new Event("explicitMinWidthChanged"));
     }
@@ -4046,7 +4046,7 @@ public class UIComponent extends FlexSprite
         // We invalidate size because locking in height
         // may change the measured width in flow-based components.
         invalidateSize();
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
 
         dispatchEvent(new Event("explicitMinHeightChanged"));
     }
@@ -4111,7 +4111,7 @@ public class UIComponent extends FlexSprite
         // Se invalidate size because locking in width
         // may change the measured height in flow-based components.
         invalidateSize();
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
 
         dispatchEvent(new Event("explicitMaxWidthChanged"));
     }
@@ -4176,7 +4176,7 @@ public class UIComponent extends FlexSprite
         // Se invalidate size because locking in height
         // may change the measured width in flow-based components.
         invalidateSize();
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
 
         dispatchEvent(new Event("explicitMaxHeightChanged"));
     }
@@ -4233,7 +4233,7 @@ public class UIComponent extends FlexSprite
         // We invalidate size because locking in width
         // may change the measured height in flow-based components.
         invalidateSize();
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
 
         dispatchEvent(new Event("explicitWidthChanged"));
     }
@@ -4290,7 +4290,7 @@ public class UIComponent extends FlexSprite
         // We invalidate size because locking in height
         // may change the measured width in flow-based components.
         invalidateSize();
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
 
         dispatchEvent(new Event("explicitHeightChanged"));
     }
@@ -4322,7 +4322,7 @@ public class UIComponent extends FlexSprite
     {
         return _includeInLayout;
     }
-    
+
     /**
      *  @private
      */
@@ -4354,7 +4354,7 @@ public class UIComponent extends FlexSprite
     //----------------------------------
 
     /**
-     *  The index of a repeated component. 
+     *  The index of a repeated component.
      *  If the component is not within a Repeater, the value is -1.
      */
     public function get instanceIndex():int
@@ -4406,12 +4406,12 @@ public class UIComponent extends FlexSprite
     /**
      *  A reference to the Repeater object
      *  in the parent document that produced this UIComponent.
-     *  Use this property, rather than the <code>repeaters</code> property, 
-     *  when the UIComponent is created by a single Repeater object. 
-     *  Use the <code>repeaters</code> property when this UIComponent is created 
-     *  by nested Repeater objects. 
+     *  Use this property, rather than the <code>repeaters</code> property,
+     *  when the UIComponent is created by a single Repeater object.
+     *  Use the <code>repeaters</code> property when this UIComponent is created
+     *  by nested Repeater objects.
      *
-     *  <p>The property is set to <code>null</code> when this UIComponent 
+     *  <p>The property is set to <code>null</code> when this UIComponent
      *  is not created by a Repeater.</p>
      */
     public function get repeater():IRepeater
@@ -4460,12 +4460,12 @@ public class UIComponent extends FlexSprite
     /**
      *  The index of the item in the data provider
      *  of the Repeater that produced this UIComponent.
-     *  Use this property, rather than the <code>repeaterIndices</code> property, 
-     *  when the UIComponent is created by a single Repeater object. 
-     *  Use the <code>repeaterIndices</code> property when this UIComponent is created 
-     *  by nested Repeater objects. 
+     *  Use this property, rather than the <code>repeaterIndices</code> property,
+     *  when the UIComponent is created by a single Repeater object.
+     *  Use the <code>repeaterIndices</code> property when this UIComponent is created
+     *  by nested Repeater objects.
      *
-     *  <p>This property is set to -1 when this UIComponent is 
+     *  <p>This property is set to -1 when this UIComponent is
      *  not created by a Repeater.</p>
      */
     public function get repeaterIndex():int
@@ -4492,12 +4492,12 @@ public class UIComponent extends FlexSprite
      *  An Array containing the indices of the items in the data provider
      *  of the Repeaters in the parent document that produced this UIComponent.
      *  The Array is empty unless this UIComponent is within one or more Repeaters.
-     * 
+     *
      *  <p>The first element in the Array corresponds to the outermost Repeater.
      *  For example, if <code>repeaterIndices</code> is [2,4] it means that the
      *  outer repeater used item <code>dataProvider[2]</code> and the inner repeater
      *  used item <code>dataProvider[4]</code>.</p>
-     * 
+     *
      *  <p>Note that this property differs from the <code>instanceIndices</code> property
      *  if the <code>startingIndex</code> property of any of the Repeaters is not 0.
      *  For example, even if a Repeater starts at <code>dataProvider[4]</code>,
@@ -4585,12 +4585,12 @@ public class UIComponent extends FlexSprite
     //----------------------------------
     //  states
     //----------------------------------
-    
+
     private var _states:Array /* of State */ = [];
 
     [Inspectable(arrayType="mx.states.State")]
     [ArrayElementType("mx.states.State")]
-    
+
     /**
      *  The view states that are defined for this component.
      *  You can specify the <code>states</code> property only on the root
@@ -4601,7 +4601,7 @@ public class UIComponent extends FlexSprite
     {
         return _states;
     }
-    
+
     /**
      *  @private
      */
@@ -4609,7 +4609,7 @@ public class UIComponent extends FlexSprite
     {
         _states = value;
     }
-    
+
     //----------------------------------
     //  transitions
     //----------------------------------
@@ -4624,7 +4624,7 @@ public class UIComponent extends FlexSprite
 
     [Inspectable(arrayType="mx.states.Transition")]
     [ArrayElementType("mx.states.Transition")]
-    
+
     /**
      *  An Array of Transition objects, where each Transition object defines a
      *  set of effects to play when a view state change occurs.
@@ -4635,7 +4635,7 @@ public class UIComponent extends FlexSprite
     {
         return _transitions;
     }
-    
+
     /**
      *  @private
      */
@@ -4656,12 +4656,12 @@ public class UIComponent extends FlexSprite
     /**
      *  The y-coordinate of the baseline
      *  of the first line of text of the component.
-     * 
+     *
      *  <p>This property is used to implement
      *  the <code>baseline</code> constraint style.
      *  It is also used to align the label of a FormItem
      *  with the controls in the FormItem.</p>
-     * 
+     *
      *  <p>Each component should override this property.</p>
      */
     public function get baselinePosition():Number
@@ -4671,7 +4671,7 @@ public class UIComponent extends FlexSprite
 
         if (!validateBaselinePosition())
             return NaN;
-        
+
         // Unless the height is very small, the baselinePosition
         // of a generic UIComponent is calculated as if there was
         // a UITextField using the component's styles
@@ -4681,12 +4681,12 @@ public class UIComponent extends FlexSprite
         // is vertically centered.
         // At the crossover height, these two calculations
         // produce the same result.
-        
+
         var lineMetrics:TextLineMetrics = measureText("Wj");
-        
+
         if (height < 2 + lineMetrics.ascent + 2)
             return int(height + (lineMetrics.ascent - height) / 2);
-        
+
         return 2 + lineMetrics.ascent;
     }
 
@@ -4706,11 +4706,11 @@ public class UIComponent extends FlexSprite
     {
         return ObjectUtil.getUnqualifiedClassName(this);
     }
-    
+
     //----------------------------------
     //  effectsStarted
     //----------------------------------
-    
+
     /**
      *  The list of effects that are currently playing on the component,
      *  as an Array of EffectInstance instances.
@@ -4718,12 +4718,12 @@ public class UIComponent extends FlexSprite
     public function get activeEffects():Array
     {
         return _effectsStarted;
-    } 
-    
+    }
+
     //----------------------------------
     //  flexContextMenu
     //----------------------------------
-    
+
     /**
      *  @private
      *  Storage for the flexContextMenu property.
@@ -4731,7 +4731,7 @@ public class UIComponent extends FlexSprite
     private var _flexContextMenu:IFlexContextMenu;
 
     /**
-     *  The context menu for this UIComponent. 
+     *  The context menu for this UIComponent.
      *
      *  @default null
      */
@@ -4747,9 +4747,9 @@ public class UIComponent extends FlexSprite
     {
         if (_flexContextMenu)
             _flexContextMenu.unsetContextMenu(this);
-        
+
         _flexContextMenu = value;
-        
+
         if (value != null)
             _flexContextMenu.setContextMenu(this);
     }
@@ -4768,7 +4768,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  The class style used by this component. This can be a String, CSSStyleDeclaration
-     *  or an IStyleClient. 
+     *  or an IStyleClient.
      *
      *  <p>If this is a String, it is the name of one or more whitespace delimited class
      *  declarations in an <code>mx:Style</code> tag or CSS file. You do not include the period
@@ -4841,7 +4841,7 @@ public class UIComponent extends FlexSprite
     {
         var oldValue:String = _toolTip;
         _toolTip = value;
-        
+
         ToolTipManager.registerToolTip(this, oldValue, value);
 
         dispatchEvent(new Event("toolTipChanged"));
@@ -4857,15 +4857,15 @@ public class UIComponent extends FlexSprite
     private var _uid:String;
 
     /**
-     *  A unique identifier for the object. 
-     *  Flex data-driven controls, including all controls that are 
-     *  subclasses of List class, use a UID to track data provider items. 
+     *  A unique identifier for the object.
+     *  Flex data-driven controls, including all controls that are
+     *  subclasses of List class, use a UID to track data provider items.
      *
-     *  <p>Flex can automatically create and manage UIDs. 
-     *  However, there are circumstances when you must supply your own 
-     *  <code>uid</code> property by implementing the IUID interface, 
-     *  or when supplying your own <code>uid</code> property improves processing efficiency. 
-     *  UIDs do not need to be universally unique for most uses in Flex. 
+     *  <p>Flex can automatically create and manage UIDs.
+     *  However, there are circumstances when you must supply your own
+     *  <code>uid</code> property by implementing the IUID interface,
+     *  or when supplying your own <code>uid</code> property improves processing efficiency.
+     *  UIDs do not need to be universally unique for most uses in Flex.
      *  One exception is for messages sent by data services.</p>
      *
      *  @see IUID
@@ -4941,7 +4941,7 @@ public class UIComponent extends FlexSprite
     //  Properties: Required to support automated testing
     //
     //--------------------------------------------------------------------------
-    
+
     //----------------------------------
     //  automationDelegate
     //----------------------------------
@@ -4983,10 +4983,10 @@ public class UIComponent extends FlexSprite
     public function get automationName():String
     {
         if (_automationName)
-            return _automationName; 
+            return _automationName;
         if (automationDelegate)
            return automationDelegate.automationName;
-        
+
         return "";
     }
 
@@ -5005,7 +5005,7 @@ public class UIComponent extends FlexSprite
     {
         if (automationDelegate)
            return automationDelegate.automationValue;
-        
+
         return [];
     }
 
@@ -5018,7 +5018,7 @@ public class UIComponent extends FlexSprite
      *  Storage for the <code>showInAutomationHierarchy</code> property.
      */
     private var _showInAutomationHierarchy:Boolean = true;
-    
+
     /**
      *  @inheritDoc
      */
@@ -5026,7 +5026,7 @@ public class UIComponent extends FlexSprite
     {
         return _showInAutomationHierarchy;
     }
-    
+
     /**
      *  @private
      */
@@ -5050,7 +5050,7 @@ public class UIComponent extends FlexSprite
      *  Storage for errorString property.
      */
     mx_internal var _errorString:String = "";
-    
+
     /**
      *  @private
      *  Flag set when error string changes.
@@ -5096,7 +5096,7 @@ public class UIComponent extends FlexSprite
         invalidateProperties();
         dispatchEvent(new Event("errorStringChanged"));
     }
-    
+
     /**
      *  @private
      *  Set the appropriate borderColor based on errorString.
@@ -5179,12 +5179,12 @@ public class UIComponent extends FlexSprite
         var formerParent:DisplayObjectContainer = child.parent;
         if (formerParent && !(formerParent is Loader))
             formerParent.removeChild(child);
-            
+
         // If there is an overlay, place the child underneath it.
         var index:int = overlayReferenceCount && child != overlay ?
                         Math.max(0, super.numChildren - 1) :
                         super.numChildren;
-        
+
         // Do anything that needs to be done before the child is added.
         // When adding a child to UIComponent, this will set the child's
         // virtual parent, its nestLevel, its document, etc.
@@ -5204,9 +5204,9 @@ public class UIComponent extends FlexSprite
 
         // Do anything that needs to be done after the child is added
         // and after all "added" handlers have executed.
-        // This is where 
+        // This is where
         childAdded(child);
-        
+
         return child;
     }
 
@@ -5215,11 +5215,11 @@ public class UIComponent extends FlexSprite
      */
     override public function addChildAt(child:DisplayObject,
                                         index:int):DisplayObject
-    {   
+    {
         var formerParent:DisplayObjectContainer = child.parent;
         if (formerParent && !(formerParent is Loader))
             formerParent.removeChild(child);
-            
+
         // If there is an overlay, place the child underneath it.
         if (overlayReferenceCount && child != overlay)
              index = Math.min(index, Math.max(0, super.numChildren - 1));
@@ -5253,7 +5253,7 @@ public class UIComponent extends FlexSprite
     override public function removeChildAt(index:int):DisplayObject
     {
         var child:DisplayObject = getChildAt(index);
-        
+
         removingChild(child);
 
         $removeChild(child);
@@ -5368,7 +5368,7 @@ public class UIComponent extends FlexSprite
         if (invalidatePropertiesFlag)
             UIComponentGlobals.layoutManager.invalidateProperties(this);
 
-        // systemManager getter tries to set the internal _systemManager varaible 
+        // systemManager getter tries to set the internal _systemManager varaible
         // if it is null. Hence a call to the getter is necessary.
 		// Stage can be null when an untrusted application is loaded by an application
 		// that isn't on stage yet.
@@ -5395,7 +5395,7 @@ public class UIComponent extends FlexSprite
     public function parentChanged(p:DisplayObjectContainer):void
     {
    		// trace("parentChanged: " + _parent + " of " + this + " changed to ");
-    		
+
         if (!p)
         {
             _parent = null;
@@ -5413,7 +5413,7 @@ public class UIComponent extends FlexSprite
         {
             _parent = p.parent;
         }
-        
+
    		// trace("               " + p);
 
     }
@@ -5434,18 +5434,18 @@ public class UIComponent extends FlexSprite
                                            document :
                                            ApplicationGlobals.application;
         }
-        
+
         // Propagate moduleFactory to the child, but don't overwrite an existing moduleFactory.
         if (child is UIComponent && UIComponent(child).moduleFactory == null)
         {
             if (moduleFactory != null)
                 UIComponent(child).moduleFactory = moduleFactory;
-            
+
             else if (document is IFlexModule && document.moduleFactory != null)
                 UIComponent(child).moduleFactory = document.moduleFactory;
-            
+
             else if (parent is UIComponent && UIComponent(parent).moduleFactory != null)
-                UIComponent(child).moduleFactory = UIComponent(parent).moduleFactory;               
+                UIComponent(child).moduleFactory = UIComponent(parent).moduleFactory;
         }
 
         // Set the font context in non-UIComponent children.
@@ -5453,10 +5453,10 @@ public class UIComponent extends FlexSprite
         if (child is IFontContextComponent && !child is UIComponent &&
             IFontContextComponent(child).fontContext == null)
             IFontContextComponent(child).fontContext = moduleFactory;
-        
+
         if (child is IUIComponent)
             IUIComponent(child).parentChanged(this);
-            
+
         // Set the nestLevel of the child to be one greater
         // than the nestLevel of this component.
         // The nestLevel setter will recursively set it on any
@@ -5469,7 +5469,7 @@ public class UIComponent extends FlexSprite
         if (child is InteractiveObject)
             if (doubleClickEnabled)
                 InteractiveObject(child).doubleClickEnabled = true;
-        
+
         // Sets up the inheritingStyles and nonInheritingStyles objects
         // and their proto chains so that getStyle() works.
         // If this object already has some children,
@@ -5525,7 +5525,7 @@ public class UIComponent extends FlexSprite
     {
         if (child is IUIComponent)
         {
-            // only reset document if the child isn't 
+            // only reset document if the child isn't
             // a document itself
             if (IUIComponent(child).document != child)
                 IUIComponent(child).document = null;
@@ -5586,7 +5586,7 @@ public class UIComponent extends FlexSprite
      *  for the first time that triggers the creation of its internal structure.
      *  If its internal structure includes other UIComponents, then this is a
      *  recursive process in which the tree of DisplayObjects grows by one leaf
-     *  node at a time.</p> 
+     *  node at a time.</p>
      *
      *  <p>If you are writing a component, you should not need
      *  to override this method.</p>
@@ -5595,7 +5595,7 @@ public class UIComponent extends FlexSprite
     {
         if (initialized)
             return;
-        
+
         // The "preinitialize" event gets dispatched after everything about this
         // DisplayObject has been initialized, and it has been attached to
         // its parent, but before any of its children have been created.
@@ -5613,7 +5613,7 @@ public class UIComponent extends FlexSprite
         // for this component. For some components accessible object is attached
         // to child component so it should be called after createChildren
         initializeAccessibility();
-        
+
         // This should always be the last thing that initialize() calls.
         initializationComplete();
     }
@@ -5674,7 +5674,7 @@ public class UIComponent extends FlexSprite
         // In the case, where the parent is a document, but isn't the
         // child's document, we want to copy the instanceIndices down.
         // See SDK-15317.
-        if (parent && parent.instanceIndices && 
+        if (parent && parent.instanceIndices &&
             ((!parent.isDocument) || (parent != descriptor.document)) &&
             !_instanceIndices)
         {
@@ -5717,8 +5717,8 @@ public class UIComponent extends FlexSprite
         invalidateSize();
         invalidateDisplayList();
     }
-    
-   
+
+
     //--------------------------------------------------------------------------
     //
     //  Methods: Invalidation
@@ -5780,9 +5780,9 @@ public class UIComponent extends FlexSprite
                 UIComponentGlobals.layoutManager.invalidateSize(this);
         }
     }
-    
+
 	/**
-	 *  Helper method to invalidate parent size and display list if 
+	 *  Helper method to invalidate parent size and display list if
 	 *  this object affects its layout (includeInLayout is true).
 	 */
     protected function invalidateParentSizeAndDisplayList():void
@@ -5830,7 +5830,7 @@ public class UIComponent extends FlexSprite
 	{
 		if(_xformOffsets && _xformOffsets.updatePending == false)
 		{
-			_xformOffsets.updatePending = true; 
+			_xformOffsets.updatePending = true;
 			if(isOnDisplayList() && UIComponentGlobals.layoutManager &&
 			invalidateDisplayListFlag == false)
 			{
@@ -5843,11 +5843,11 @@ public class UIComponent extends FlexSprite
     {
     	invalidateTransform();
     }
-        
+
     private function isOnDisplayList():Boolean
     {
     	var p:DisplayObjectContainer;
-    	
+
         try
         {
 	    	p = _parent ? _parent : super.parent;
@@ -5857,7 +5857,7 @@ public class UIComponent extends FlexSprite
         	// trace("UIComponent.isOnDisplayList(): " + e);
         	return true;		// we are on the display list but the parent is in another sandbox
         }
-        
+
         return p ? true : false;
     }
 
@@ -5919,7 +5919,7 @@ public class UIComponent extends FlexSprite
     {
         UIComponentGlobals.layoutManager.validateClient(this);
     }
-    
+
     /**
      *  @private
      *  This method is called at the beginning of each getter
@@ -5937,24 +5937,24 @@ public class UIComponent extends FlexSprite
         // and we can't compute a baselinePosition.
         if (!parent)
             return false;
-            
+
         // If this component hasn't been sized yet, assign it
         // an actual size that's based on its explicit or measured size.
         if (width == 0 && height == 0)
         {
             validateNow();
-            
+
             var w:Number = getExplicitOrMeasuredWidth();
             var h:Number = getExplicitOrMeasuredHeight();
-            
+
             setActualSize(w, h);
         }
-        
+
         // Ensure that this component's internal TextFields
         // are properly laid out, so that we can use
         // their locations to compute a baselinePosition.
         validateNow();
-        
+
         return true;
     }
 
@@ -5972,7 +5972,7 @@ public class UIComponent extends FlexSprite
      *  @param method Reference to a method to be executed later.
      *
      *  @param args Array of Objects that represent the arguments to pass to the method.
-     *  
+     *
      */
     public function callLater(method:Function,
                               args:Array /* of Object */ = null):void
@@ -5984,7 +5984,7 @@ public class UIComponent extends FlexSprite
         // Register to get the next "render" event
         // just before the next rasterization.
         var sm:ISystemManager = systemManager;
-        
+
         // Stage can be null when an untrusted application is loaded by an application
         // that isn't on stage yet.
         if (sm && (sm.stage || sm.useSWFBridge()))
@@ -6012,7 +6012,7 @@ public class UIComponent extends FlexSprite
     mx_internal function cancelAllCallLaters():void
     {
         var sm:ISystemManager = systemManager;
-        
+
         // Stage can be null when an untrusted application is loaded by an application
         // that isn't on stage yet.
         if (sm && (sm.stage || sm.useSWFBridge()))
@@ -6037,7 +6037,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Used by layout logic to validate the properties of a component
-     *  by calling the <code>commitProperties()</code> method.  
+     *  by calling the <code>commitProperties()</code> method.
      *  In general, subclassers should
      *  override the <code>commitProperties()</code> method and not this method.
      */
@@ -6085,7 +6085,7 @@ public class UIComponent extends FlexSprite
                     explicitWidth *= scalingFactorX;
                 if (!isNaN(explicitMaxWidth))
                     explicitMaxWidth *= scalingFactorX;
-    
+
                 _width *= scalingFactorX;
             }
 
@@ -6104,10 +6104,10 @@ public class UIComponent extends FlexSprite
                     explicitHeight *= scalingFactorY;
                 if (!isNaN(explicitMaxHeight))
                     explicitMaxHeight *= scalingFactorY;
-    
+
                 _height *= scalingFactorY;
             }
-            
+
 			oldScaleY = sY;
         }
 
@@ -6116,13 +6116,13 @@ public class UIComponent extends FlexSprite
 
         if (width != oldWidth || height != oldHeight)
             dispatchResizeEvent();
-        
+
         if (errorStringChanged)
         {
             errorStringChanged = false;
             setBorderColorForErrorString();
         }
-        
+
     }
 
     //--------------------------------------------------------------------------
@@ -6155,7 +6155,7 @@ public class UIComponent extends FlexSprite
                 // TODO EGeorgie: we don't need this invalidateDisplayList() here
                 // because we'll call it if the parent sets new actual size?
                 invalidateDisplayList();
-                invalidateParentSizeAndDisplayList();            
+                invalidateParentSizeAndDisplayList();
             }
         }
     }
@@ -6165,7 +6165,7 @@ public class UIComponent extends FlexSprite
      *  measure(). For example this is usually true when both explicitWidth and
      *  explicitHeight are set. For path, this is true when the bounds of the path
      *  have not changed.
-     */    
+     */
     protected function skipMeasure():Boolean
     {
         // We can skip the measure function if the object's width and height
@@ -6209,7 +6209,7 @@ public class UIComponent extends FlexSprite
                     _measuredMinWidth /= xScale;
                     _measuredWidth /= xScale;
                 }
-    
+
                 if (yScale != 1.0)
                 {
                     _measuredMinHeight /= yScale;
@@ -6240,7 +6240,7 @@ public class UIComponent extends FlexSprite
                     _measuredMinWidth *= xScale;
                     _measuredWidth *= xScale;
                 }
-    
+
                 if (yScale != 1.0)
                 {
                     _measuredMinHeight *= yScale;
@@ -6327,13 +6327,13 @@ public class UIComponent extends FlexSprite
      *  using the <code>addChild()</code> method, and when the component's
      *  <code>invalidateSize()</code> method is called. </p>
      *
-     *  <p>When you set a specific height and width of a component, 
-     *  Flex does not call the <code>measure()</code> method, 
-     *  even if you explicitly call the <code>invalidateSize()</code> method. 
-     *  That is, Flex only calls the <code>measure()</code> method if 
-     *  the <code>explicitWidth</code> property or the <code>explicitHeight</code> 
+     *  <p>When you set a specific height and width of a component,
+     *  Flex does not call the <code>measure()</code> method,
+     *  even if you explicitly call the <code>invalidateSize()</code> method.
+     *  That is, Flex only calls the <code>measure()</code> method if
+     *  the <code>explicitWidth</code> property or the <code>explicitHeight</code>
      *  property of the component is NaN. </p>
-     * 
+     *
      *  <p>In your override of this method, you must set the
      *  <code>measuredWidth</code> and <code>measuredHeight</code> properties
      *  to define the default size.
@@ -6393,13 +6393,13 @@ public class UIComponent extends FlexSprite
             if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             {
                 scalingFactor = Math.abs(xScale / oldScaleX);
-    
+
                 if (explicitMinWidth)
                     explicitMinWidth *= scalingFactor;
-    
+
                 if (!isNaN(explicitWidth))
                     explicitWidth *= scalingFactor;
-    
+
                 if (explicitMaxWidth)
                     explicitMaxWidth *= scalingFactor;
             }
@@ -6412,13 +6412,13 @@ public class UIComponent extends FlexSprite
             if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             {
                 scalingFactor = Math.abs(yScale / oldScaleY);
-    
+
                 if (explicitMinHeight)
                     explicitMinHeight *= scalingFactor;
-    
+
                 if (explicitHeight)
                     explicitHeight *= scalingFactor;
-    
+
                 if (explicitMaxHeight)
                     explicitMaxHeight *= scalingFactor;
             }
@@ -6460,7 +6460,7 @@ public class UIComponent extends FlexSprite
      *
      *  @return A Number which is unscaled width of the component.
      */
-    mx_internal function get unscaledWidth():Number
+    protected function get unscaledWidth():Number
     {
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             return width / Math.abs(scaleX);
@@ -6469,11 +6469,16 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  A convenience method for setting the unscaledWidth of a 
-     *  component. 
-     * 
+     *  @private
+     */
+    mx_internal function getUnscaledWidth():Number { return unscaledWidth; }
+
+    /**
+     *  A convenience method for setting the unscaledWidth of a
+     *  component.
+     *
      *  Setting this sets the width of the component as desired
-     *  before any transformation is applied. 
+     *  before any transformation is applied.
      */
     mx_internal function setUnscaledWidth(value:Number):void
     {
@@ -6486,14 +6491,14 @@ public class UIComponent extends FlexSprite
         // width can be pixel or percent not both
         if (!isNaN(newValue))
             _percentWidth = NaN;
-            
+
         _explicitWidth = newValue;
 
         // We invalidate size because locking in width
         // may change the measured height in flow-based components.
         invalidateSize();
 
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
     }
 
     /**
@@ -6505,7 +6510,7 @@ public class UIComponent extends FlexSprite
      *
      *  @return A Number which is unscaled height of the component.
      */
-    mx_internal function get unscaledHeight():Number
+    protected function get unscaledHeight():Number
     {
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
             return height / Math.abs(scaleY);
@@ -6514,11 +6519,16 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  A convenience method for setting the unscaledHeight of a 
-     *  component. 
-     * 
+     *  @private
+     */
+    mx_internal function getUnscaledHeight():Number { return unscaledHeight; }
+
+    /**
+     *  A convenience method for setting the unscaledHeight of a
+     *  component.
+     *
      *  Setting this sets the height of the component as desired
-     *  before any transformation is applied. 
+     *  before any transformation is applied.
      */
     mx_internal function setUnscaledHeight(value:Number):void
     {
@@ -6531,14 +6541,14 @@ public class UIComponent extends FlexSprite
         // height can be pixel or percent, not both
         if (!isNaN(newValue))
             _percentHeight = NaN;
-            
+
         _explicitHeight = newValue;
 
         // We invalidate size because locking in height
         // may change the measured width in flow-based components.
         invalidateSize();
 
-        invalidateParentSizeAndDisplayList();            
+        invalidateParentSizeAndDisplayList();
     }
 
     /**
@@ -6557,7 +6567,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  Measures the specified HTML text, which may contain HTML tags such
-     *  as <code>&lt;font&gt;</code> and <code>&lt;b&gt;</code>, 
+     *  as <code>&lt;font&gt;</code> and <code>&lt;b&gt;</code>,
      *  assuming that it is displayed
      *  in a single-line UITextField using a UITextFormat
      *  determined by the styles of this UIComponent.
@@ -6593,7 +6603,7 @@ public class UIComponent extends FlexSprite
     {
         if(_xformOffsets != null && _xformOffsets.updatePending == true)
         {
-         	applyComputedTransform();   	
+         	applyComputedTransform();
         }
 
         if (invalidateDisplayListFlag)
@@ -6629,7 +6639,7 @@ public class UIComponent extends FlexSprite
             updateDisplayList(unscaledWidth,unscaledHeight);
             lastUnscaledWidth = unscaledWidth;
             lastUnscaledHeight = unscaledHeight;
-            
+
             // TODO EGeorgie: should we reset the flag immediately after we check it?
             invalidateDisplayListFlag = false;
         }
@@ -6677,7 +6687,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  Returns a layout constraint value, which is the same as 
+     *  Returns a layout constraint value, which is the same as
      *  getting the constraint style for this component.
      *
      *  @param constraintName The name of the constraint style, which
@@ -6699,13 +6709,13 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  Sets a layout constraint value, which is the same as 
+     *  Sets a layout constraint value, which is the same as
      *  setting the constraint style for this component.
      *
      *  @param constraintName The name of the constraint style, which
      *  can be any of the following: left, right, top, bottom,
      *  verticalCenter, horizontalCenter, baseline
-     *  
+     *
      *  @value The value of the constraint can be specified in either
      *  of two forms. It can be specified as a numeric string, for
      *  example, "10" or it can be specified as identifier:numeric
@@ -6713,13 +6723,13 @@ public class UIComponent extends FlexSprite
      *  <code>id</code> of a ConstraintRow or ConstraintColumn. For
      *  example, a value of "cc1:10" specifies a value of 10 for the
      *  ConstraintColumn that has the <code>id</code> "cc1."
-     * 
+     *
      */
     public function setConstraintValue(constraintName:String, value:*):void
     {
         setStyle(constraintName, value);
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Methods: Drawing
@@ -6727,7 +6737,7 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
-     *  Returns a box Matrix which can be passed to the 
+     *  Returns a box Matrix which can be passed to the
      *  <code>drawRoundRect()</code> method
      *  as the <code>rot</code> parameter when drawing a horizontal gradient.
      *
@@ -6884,7 +6894,7 @@ public class UIComponent extends FlexSprite
             if (holeR is Number)
             {
                 ellipseSize = Number(holeR) * 2;
-                g.drawRoundRect(hole.x, hole.y, hole.w, hole.h, 
+                g.drawRoundRect(hole.x, hole.y, hole.w, hole.h,
                                 ellipseSize, ellipseSize);
             }
             else
@@ -6909,13 +6919,13 @@ public class UIComponent extends FlexSprite
       *  Calling this method is exactly the same as
       *  setting the component's <code>x</code> and <code>y</code> properties.
       *
-      *  <p>If you are overriding the <code>updateDisplayList()</code> method 
-      *  in a custom component, you should call the <code>move()</code> method 
-      *  rather than setting the <code>x</code> and <code>y</code> properties. 
-      *  The difference is that the <code>move()</code> method changes the location 
-      *  of the component and then dispatches a <code>move</code> event when you 
-      *  call the method, while setting the <code>x</code> and <code>y</code> 
-      *  properties changes the location of the component and dispatches 
+      *  <p>If you are overriding the <code>updateDisplayList()</code> method
+      *  in a custom component, you should call the <code>move()</code> method
+      *  rather than setting the <code>x</code> and <code>y</code> properties.
+      *  The difference is that the <code>move()</code> method changes the location
+      *  of the component and then dispatches a <code>move</code> event when you
+      *  call the method, while setting the <code>x</code> and <code>y</code>
+      *  properties changes the location of the component and dispatches
       *  the event on the next screen refresh.</p>
       *
       *  @param x Left position of the component within its parent.
@@ -6925,13 +6935,13 @@ public class UIComponent extends FlexSprite
     public function move(x:Number, y:Number):void
     {
         var changed:Boolean = false;
-		
+
         if (x != this.x)
         {
 	        if(_xformOffsets == null)
 		        super.x  = x;
 		else
-        		_xformOffsets.layoutX = x;		
+        		_xformOffsets.layoutX = x;
             dispatchEvent(new Event("xChanged"));
             changed = true;
         }
@@ -6971,7 +6981,7 @@ public class UIComponent extends FlexSprite
     public function setActualSize(w:Number, h:Number):void
     {
     	// trace("setActualSize: " + this + " width = " + w + " height = " + h);
-    	
+
         var changed:Boolean = false;
 
         if (_width != w)
@@ -7004,44 +7014,44 @@ public class UIComponent extends FlexSprite
     /**
      *  Converts a <code>Point</code> object from content coordinates to global coordinates.
      *  Content coordinates specify a pixel position relative to the upper left corner
-     *  of the component's content, and include all of the component's content area, 
-     *  including any regions that are currently clipped and must be 
+     *  of the component's content, and include all of the component's content area,
+     *  including any regions that are currently clipped and must be
      *  accessed by scrolling the component.
-     *  You use the content coordinate system to set and get the positions of children 
-     *  of a container that uses absolute positioning. 
-     *  Global coordinates specify a pixel position relative to the upper-left corner 
+     *  You use the content coordinate system to set and get the positions of children
+     *  of a container that uses absolute positioning.
+     *  Global coordinates specify a pixel position relative to the upper-left corner
      *  of the stage, that is, the outermost edge of the application.
-     *  
-     *  @param point A Point object that 
-     *  specifies the <i>x</i> and <i>y</i> coordinates in the content coordinate system 
+     *
+     *  @param point A Point object that
+     *  specifies the <i>x</i> and <i>y</i> coordinates in the content coordinate system
      *  as properties.
-     *  
-     *  @return A Point object with coordinates relative to the Stage. 
-     * 
+     *
+     *  @return A Point object with coordinates relative to the Stage.
+     *
      *  @see #globalToContent()
      */
     public function contentToGlobal(point:Point):Point
     {
         return localToGlobal(point);
     }
-    
+
     /**
      *  Converts a <code>Point</code> object from global to content coordinates.
-     *  Global coordinates specify a pixel position relative to the upper-left corner 
+     *  Global coordinates specify a pixel position relative to the upper-left corner
      *  of the stage, that is, the outermost edge of the application.
      *  Content coordinates specify a pixel position relative to the upper left corner
-     *  of the component's content, and include all of the component's content area, 
-     *  including any regions that are currently clipped and must be 
+     *  of the component's content, and include all of the component's content area,
+     *  including any regions that are currently clipped and must be
      *  accessed by scrolling the component.
-     *  You use the content coordinate system to set and get the positions of children 
-     *  of a container that uses absolute positioning. 
-     *  
-     *  @param point A Point object that 
-     *  specifies the <i>x</i> and <i>y</i> coordinates in the global (Stage) 
+     *  You use the content coordinate system to set and get the positions of children
+     *  of a container that uses absolute positioning.
+     *
+     *  @param point A Point object that
+     *  specifies the <i>x</i> and <i>y</i> coordinates in the global (Stage)
      *  coordinate system as properties.
-     *  
+     *
      *  @return Point A Point object with coordinates relative to the component.
-     * 
+     *
      *  @see #contentToGlobal()
      */
     public function globalToContent(point:Point):Point
@@ -7052,44 +7062,44 @@ public class UIComponent extends FlexSprite
     /**
      *  Converts a <code>Point</code> object from content to local coordinates.
      *  Content coordinates specify a pixel position relative to the upper left corner
-     *  of the component's content, and include all of the component's content area, 
-     *  including any regions that are currently clipped and must be 
+     *  of the component's content, and include all of the component's content area,
+     *  including any regions that are currently clipped and must be
      *  accessed by scrolling the component.
-     *  You use the content coordinate system to set and get the positions of children 
-     *  of a container that uses absolute positioning. 
-     *  Local coordinates specify a pixel position relative to the 
+     *  You use the content coordinate system to set and get the positions of children
+     *  of a container that uses absolute positioning.
+     *  Local coordinates specify a pixel position relative to the
      *  upper left corner of the component.
-     *  
-     *  @param point A Point object that specifies the <i>x</i> and <i>y</i> 
+     *
+     *  @param point A Point object that specifies the <i>x</i> and <i>y</i>
      *  coordinates in the content coordinate system as properties.
-     *  
-     *  @return Point A Point object with coordinates relative to the 
-     *  local coordinate system. 
-     * 
+     *
+     *  @return Point A Point object with coordinates relative to the
+     *  local coordinate system.
+     *
      *  @see #contentToGlobal()
      */
     public function contentToLocal(point:Point):Point
     {
         return point;
     }
-    
+
     /**
      *  Converts a <code>Point</code> object from local to content coordinates.
-     *  Local coordinates specify a pixel position relative to the 
+     *  Local coordinates specify a pixel position relative to the
      *  upper left corner of the component.
      *  Content coordinates specify a pixel position relative to the upper left corner
-     *  of the component's content, and include all of the component's content area, 
-     *  including any regions that are currently clipped and must be 
+     *  of the component's content, and include all of the component's content area,
+     *  including any regions that are currently clipped and must be
      *  accessed by scrolling the component.
-     *  You use the content coordinate system to set and get the positions of children 
-     *  of a container that uses absolute positioning. 
-     *  
-     *  @param point A Point object that specifies the <i>x</i> and <i>y</i> 
+     *  You use the content coordinate system to set and get the positions of children
+     *  of a container that uses absolute positioning.
+     *
+     *  @param point A Point object that specifies the <i>x</i> and <i>y</i>
      *  coordinates in the local coordinate system as properties.
-     *  
-     *  @return Point A Point object with coordinates relative to the 
-     *  content coordinate system. 
-     * 
+     *
+     *  @return Point A Point object with coordinates relative to the
+     *  content coordinate system.
+     *
      *  @see #contentToLocal()
      */
     public function localToContent(point:Point):Point
@@ -7165,10 +7175,10 @@ public class UIComponent extends FlexSprite
     mx_internal function getFocusObject():DisplayObject
     {
         var fm:IFocusManager = focusManager;
-        
+
         if (!fm || !fm.focusPane)
             return null;
-        
+
         return fm.focusPane.numChildren == 0 ?
                null :
                fm.focusPane.getChildAt(0);
@@ -7180,7 +7190,7 @@ public class UIComponent extends FlexSprite
      *  <p>UIComponent implements this by creating an instance of the class
      *  specified by the <code>focusSkin</code> style and positioning it
      *  appropriately.</p>
-     *  
+     *
      *  @param isFocused Determines if the focus indicator should be displayed. Set to
      *  <code>true</code> to display the focus indicator. Set to <code>false</code> to hide it.
      */
@@ -7264,14 +7274,14 @@ public class UIComponent extends FlexSprite
     /**
      *  Adjust the focus rectangle.
      *
-     *  @param The component whose focus rectangle to modify. 
+     *  @param The component whose focus rectangle to modify.
      *  If omitted, the default value is this UIComponent object.
      */
     protected function adjustFocusRect(obj:DisplayObject = null):void
     {
         if (!obj)
             obj = this;
-        
+
         // Something inside the lisder has a width and height of NaN
         if (isNaN(obj.width) || isNaN(obj.height))
             return;
@@ -7376,11 +7386,11 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
-     *  Set the current state. 
-     *  
+     *  Set the current state.
+     *
      *  @param stateName The name of the new view state.
-     *  
-     *  @param playTransition If <code>true</code>, play 
+     *
+     *  @param playTransition If <code>true</code>, play
      *  the appropriate transition when the view state changes.
      *
      *  @see #currentState
@@ -7391,7 +7401,7 @@ public class UIComponent extends FlexSprite
         // Flex 4 has no concept of an explicit base state, so ensure we
         // fall back to something appropriate.
         stateName = isBaseState(stateName) ? getDefaultState() : stateName;
-        
+
         // Only change if the requested state is different. Since the root
         // state can be either null or "", we need to add additional check
         // to make sure we're not going from null to "" or vice-versa.
@@ -7408,12 +7418,12 @@ public class UIComponent extends FlexSprite
             else
             {
                 _currentStateChanged = true;
-                
+
                 // We need to wait until we're fully initialized before commiting
                 // the current state. Otherwise children may not be created
                 // (if we're inside a deferred instantiation container), or
                 // bindings may not be fired yet.
-                addEventListener(FlexEvent.CREATION_COMPLETE, 
+                addEventListener(FlexEvent.CREATION_COMPLETE,
                                  creationCompleteHandler);
             }
         }
@@ -7439,7 +7449,7 @@ public class UIComponent extends FlexSprite
     {
         return (this is IStateClient2 && (states.length > 0)) ? states[0].name : null;
     }
-    
+
     /**
      *  @private
      *  Commit a pending current state change.
@@ -7566,7 +7576,7 @@ public class UIComponent extends FlexSprite
         var firstBaseStates:Array = getBaseStates(firstState);
         var secondBaseStates:Array = getBaseStates(secondState);
         var commonBase:String = "";
-        
+
         while (firstBaseStates[firstBaseStates.length - 1] ==
                secondBaseStates[secondBaseStates.length - 1])
         {
@@ -7578,17 +7588,17 @@ public class UIComponent extends FlexSprite
         }
 
         // Finally, check to see if one of the states is directly based on the other.
-        if (firstBaseStates.length && 
+        if (firstBaseStates.length &&
             firstBaseStates[firstBaseStates.length - 1] == secondState.name)
         {
             commonBase = secondState.name;
         }
-        else if (secondBaseStates.length && 
+        else if (secondBaseStates.length &&
                  secondBaseStates[secondBaseStates.length - 1] == firstState.name)
         {
             commonBase = firstState.name;
         }
-        
+
         return commonBase;
     }
 
@@ -7602,7 +7612,7 @@ public class UIComponent extends FlexSprite
     private function getBaseStates(state:State):Array
     {
         var baseStates:Array = [];
-        
+
         // Push each basedOn name
         while (state && state.basedOn)
         {
@@ -7624,7 +7634,7 @@ public class UIComponent extends FlexSprite
 
         if (stateName == lastState)
             return;
-            
+
         // Remove existing state overrides.
         // This must be done in reverse order
         if (state)
@@ -7654,7 +7664,7 @@ public class UIComponent extends FlexSprite
 
         if (stateName == lastState)
             return;
-            
+
         if (state)
         {
             // Apply "basedOn" overrides first
@@ -7679,14 +7689,14 @@ public class UIComponent extends FlexSprite
     private function initializeState(stateName:String):void
     {
         var state:State = getState(stateName);
-        
+
         while (state)
         {
             state.initialize();
             state = getState(state.basedOn);
         }
     }
-    
+
     /**
      *  @private
      *  Find the appropriate transition to play between two states.
@@ -7802,7 +7812,7 @@ public class UIComponent extends FlexSprite
      *
      *  <p>You should not need to call or override this method.</p>
      *
-     *  @param recursive Recursivly regenerates the style cache for 
+     *  @param recursive Recursivly regenerates the style cache for
      *  all children of this component.
      */
     public function regenerateStyleCache(recursive:Boolean):void
@@ -7814,7 +7824,7 @@ public class UIComponent extends FlexSprite
             this is IRawChildrenContainer ?
             IRawChildrenContainer(this).rawChildren :
             IChildList(this);
-        
+
         // Recursively call this method on each child.
         var n:int = childList.numChildren;
         for (var i:int = 0; i < n; i++)
@@ -7823,7 +7833,7 @@ public class UIComponent extends FlexSprite
 
             if (child is IStyleClient)
             {
-                // Does this object already have a proto chain? 
+                // Does this object already have a proto chain?
                 // If not, there's no need to regenerate a new one.
                 if (IStyleClient(child).inheritingStyles !=
                     StyleProtoChain.STYLE_UNINITIALIZED)
@@ -7833,7 +7843,7 @@ public class UIComponent extends FlexSprite
             }
             else if (child is IUITextField)
             {
-                // Does this object already have a proto chain? 
+                // Does this object already have a proto chain?
                 // If not, there's no need to regenerate a new one.
                 if (IUITextField(child).inheritingStyles)
                     StyleProtoChain.initTextField(IUITextField(child));
@@ -7882,7 +7892,7 @@ public class UIComponent extends FlexSprite
                _inheritingStyles[styleProp] :
                _nonInheritingStyles[styleProp];
     }
-    
+
 
     /**
      *  Sets a style property on this component instance.
@@ -7904,7 +7914,7 @@ public class UIComponent extends FlexSprite
     /**
      *  Deletes a style property from this component instance.
      *
-     *  <p>This does not necessarily cause the <code>getStyle()</code> method 
+     *  <p>This does not necessarily cause the <code>getStyle()</code> method
      *  to return <code>undefined</code>.</p>
      *
      *  @param styleProp The name of the style property.
@@ -7967,7 +7977,7 @@ public class UIComponent extends FlexSprite
         }
 
         // Next look for class selectors
-        if ((tc === null || !StyleManager.isValidStyleValue(tc)) && 
+        if ((tc === null || !StyleManager.isValidStyleValue(tc)) &&
             (styleName && !(styleName is ISimpleStyleClient)))
         {
             var classSelector:Object =
@@ -7987,7 +7997,7 @@ public class UIComponent extends FlexSprite
         if (tc === null || !StyleManager.isValidStyleValue(tc))
         {
             var typeSelectors:Array = getClassStyleDeclarations();
-            
+
             for (var i:int = 0; i < typeSelectors.length; i++)
             {
                 var typeSelector:CSSStyleDeclaration = typeSelectors[i];
@@ -7998,12 +8008,12 @@ public class UIComponent extends FlexSprite
                     rc = typeSelector.getStyle("rollOverColor");
                     sc = typeSelector.getStyle("selectionColor");
                 }
-                
+
                 if (tc !== null && StyleManager.isValidStyleValue(tc))
                     break;
             }
         }
-        
+
         // If we have a themeColor but no rollOverColor or selectionColor, call
         // setThemeColor here which will calculate rollOver/selectionColor based
         // on the themeColor.
@@ -8012,7 +8022,7 @@ public class UIComponent extends FlexSprite
             setThemeColor(tc);
             return true;
         }
-        
+
         return (tc !== null && StyleManager.isValidStyleValue(tc)) && !isNaN(rc) && !isNaN(sc);
     }
 
@@ -8057,7 +8067,7 @@ public class UIComponent extends FlexSprite
                 StringUtil.trimArrayElements(_inheritingStyles.fontFamily, ",");
             textFormat = new UITextFormat(getNonNullSystemManager(), font);
             textFormat.moduleFactory = moduleFactory;
-            
+
             textFormat.align = _inheritingStyles.textAlign;
             textFormat.bold = _inheritingStyles.fontWeight == "bold";
             textFormat.color = enabled ?
@@ -8145,7 +8155,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @private
-     * 
+     *
      *  Adds an overlay object that's always on top of our children.
      *  Calls createOverlay(), which returns the overlay object.
      *  Currently used by the Dissolve and Resize effects.
@@ -8163,11 +8173,11 @@ public class UIComponent extends FlexSprite
             // Have to set visibility immediately
             // to make sure we avoid flicker
             overlay.$visible = true;
-            
+
             fillOverlay(overlay, color, targetArea);
-            
+
             attachOverlay();
-                    
+
             if (!targetArea)
                 addEventListener(ResizeEvent.RESIZE, overlay_resizeHandler);
 
@@ -8185,7 +8195,7 @@ public class UIComponent extends FlexSprite
 
         dispatchEvent(new ChildExistenceChangedEvent(ChildExistenceChangedEvent.OVERLAY_CREATED, true, false, overlay));
     }
-    
+
     /**
      *  This is an internal method used by the Flex framework
      *  to support the Dissolve effect.
@@ -8214,8 +8224,8 @@ public class UIComponent extends FlexSprite
 
         var g:Graphics = overlay.graphics;
         g.clear();
-        g.beginFill(color);     
-        
+        g.beginFill(color);
+
         g.drawRoundRect(targetArea.x, targetArea.y,
                         targetArea.width, targetArea.height,
                         targetArea.cornerRadius * 2,
@@ -8224,7 +8234,7 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  @private  
+     *  @private
      *  Removes the overlay object added by addOverlay().
      */
     mx_internal function removeOverlay():void
@@ -8248,17 +8258,17 @@ public class UIComponent extends FlexSprite
     {
         fillOverlay(overlay, overlayColor, null);
     }
-    
+
     /**
      *  @private
      */
     mx_internal var _effectsStarted:Array = [];
-    
+
     /**
      *  @private
      */
     mx_internal var _affectedProperties:Object = {};
-    
+
     /**
      *  Contains <code>true</code> if an effect is currently playing on the component.
      */
@@ -8271,7 +8281,7 @@ public class UIComponent extends FlexSprite
     {
         _isEffectStarted = value;
     }
-    
+
     private var preventDrawFocus:Boolean = false;
 
     /**
@@ -8320,7 +8330,7 @@ public class UIComponent extends FlexSprite
      *  @param effectInst The effect instance object playing on the component.
      */
     public function effectFinished(effectInst:IEffectInstance):void
-    {   
+    {
         _endingEffectInstances.push(effectInst);
         invalidateProperties();
 
@@ -8328,7 +8338,7 @@ public class UIComponent extends FlexSprite
         UIComponentGlobals.layoutManager.addEventListener(
             FlexEvent.UPDATE_COMPLETE, updateCompleteHandler, false, 0, true);
     }
-    
+
     /**
      *  Ends all currently playing effects on the component.
      */
@@ -8368,7 +8378,7 @@ public class UIComponent extends FlexSprite
                     // Remove the effect from our array.
                     var removedInst:IEffectInstance = _effectsStarted[i];
                     _effectsStarted.splice(i, 1);
-    
+
                     // Remove the affected properties from our internal object
                     var aProps:Array = removedInst.effect.getAffectedProperties();
                     for (var k:int = 0; k < aProps.length; k++)
@@ -8560,7 +8570,7 @@ public class UIComponent extends FlexSprite
      *  and again whenever the ResourceManager dispatches
      *  a <code>"change"</code> Event to indicate
      *  that the localized resources have changed in some way.
-     * 
+     *
      *  <p>This event will be dispatched when you set the ResourceManager's
      *  <code>localeChain</code> property, when a resource module
      *  has finished loading, and when you call the ResourceManager's
@@ -8581,9 +8591,9 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
-     *  Prepares an IFlexDisplayObject for printing. 
-     *  For the UIComponent class, the method performs no action. 
-     *  Flex containers override the method to prepare for printing; 
+     *  Prepares an IFlexDisplayObject for printing.
+     *  For the UIComponent class, the method performs no action.
+     *  Flex containers override the method to prepare for printing;
      *  for example, by removing scroll bars from the printed output.
      *
      *  <p>This method is normally not used by application developers. </p>
@@ -8591,8 +8601,8 @@ public class UIComponent extends FlexSprite
      *  @param target The component to be printed.
      *  It may be the current component or one of its children.
      *
-     *  @return Object containing the properties of the current component 
-     *  required by the <code>finishPrint()</code> method 
+     *  @return Object containing the properties of the current component
+     *  required by the <code>finishPrint()</code> method
      *  to restore it to its previous state.
      *
      *  @see mx.printing.FlexPrintJob
@@ -8603,13 +8613,13 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  Called after printing is complete. 
-     *  For the UIComponent class, the method performs no action. 
+     *  Called after printing is complete.
+     *  For the UIComponent class, the method performs no action.
      *  Flex containers override the method to restore the container after printing.
      *
      *  <p>This method is normally not used by application developers. </p>
      *
-     *  @param obj Contains the properties of the component that 
+     *  @param obj Contains the properties of the component that
      *  restore it to its state before printing.
      *
      *  @param target The component that just finished printing.
@@ -8673,7 +8683,7 @@ public class UIComponent extends FlexSprite
 
         // trace("  >>calllaterdispatcher2");
         var sm:ISystemManager = systemManager;
-        
+
         // Stage can be null when an untrusted application is loaded by an application
         // that isn't on stage yet.
         if (sm && (sm.stage || sm.useSWFBridge()) && listeningForRender)
@@ -8689,7 +8699,7 @@ public class UIComponent extends FlexSprite
         // next time.
         var queue:Array = methodQueue;
         methodQueue = [];
-        
+
         // Call each method currently in the method queue.
         // These methods can call callLater(), causing additional
         // methods to be queued, but these will get called the next
@@ -8720,20 +8730,20 @@ public class UIComponent extends FlexSprite
         {
             _currentStateChanged = false;
             commitCurrentState();
-            
+
             // Need to call validateNow() to avoid screen flicker. This handler
-            // is called immediately before the component is displayed, and 
-            // changing states takes a frame to commit the changes, which 
-            // results in the base state flashing quickly on the screen before 
+            // is called immediately before the component is displayed, and
+            // changing states takes a frame to commit the changes, which
+            // results in the base state flashing quickly on the screen before
             // the desired state is entered.
             var newState:State = getState(currentState);
             if (newState && newState.overrides.length > 0)
                 validateNow();
         }
-        
+
         removeEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Event handlers: Keyboard
@@ -8744,7 +8754,7 @@ public class UIComponent extends FlexSprite
      *  The event handler called for a <code>keyDown</code> event.
      *  If you override this method, make sure to call the base class version.
      *
-     *  @param event The event object. 
+     *  @param event The event object.
      */
     protected function keyDownHandler(event:KeyboardEvent):void
     {
@@ -8755,7 +8765,7 @@ public class UIComponent extends FlexSprite
      *  The event handler called for a <code>keyUp</code> event.
      *  If you override this method, make sure to call the base class version.
      *
-     *  @param event The event object. 
+     *  @param event The event object.
      */
     protected function keyUpHandler(event:KeyboardEvent):void
     {
@@ -8766,7 +8776,7 @@ public class UIComponent extends FlexSprite
      *  Typically overridden by components containing UITextField objects,
      *  where the UITextField object gets focus.
      *
-     *  @param target A UIComponent object containing a UITextField object 
+     *  @param target A UIComponent object containing a UITextField object
      *  that can receive focus.
      *
      *  @return Returns <code>true</code> if the UITextField object has focus.
@@ -8780,7 +8790,7 @@ public class UIComponent extends FlexSprite
      *  The event handler called when a UIComponent object gets focus.
      *  If you override this method, make sure to call the base class version.
      *
-     *  @param event The event object. 
+     *  @param event The event object.
      */
     protected function focusInHandler(event:FocusEvent):void
     {
@@ -8789,8 +8799,8 @@ public class UIComponent extends FlexSprite
             var fm:IFocusManager = focusManager;
             if (fm && fm.showFocusIndicator)
                 drawFocus(true);
-                
-            ContainerGlobals.checkFocus(event.relatedObject, this);    
+
+            ContainerGlobals.checkFocus(event.relatedObject, this);
         }
     }
 
@@ -8798,7 +8808,7 @@ public class UIComponent extends FlexSprite
      *  The event handler called when a UIComponent object loses focus.
      *  If you override this method, make sure to call the base class version.
      *
-     *  @param event The event object. 
+     *  @param event The event object.
      */
     protected function focusOutHandler(event:FocusEvent):void
     {
@@ -8848,9 +8858,9 @@ public class UIComponent extends FlexSprite
   		}
   		catch (error:SecurityError)
   		{
-  			
+
   		}
-  
+
     }
 
     /**
@@ -8872,7 +8882,7 @@ public class UIComponent extends FlexSprite
 	    }
   		catch (error:SecurityError)
   		{
-  			
+
   		}
         _systemManagerDirty = true;
     }
@@ -9047,7 +9057,7 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
-     *  Returns <code>true</code> if the chain of <code>owner</code> properties 
+     *  Returns <code>true</code> if the chain of <code>owner</code> properties
      *  points from <code>child</code> to this UIComponent.
      *
      *  @param child A UIComponent.
@@ -9080,15 +9090,15 @@ public class UIComponent extends FlexSprite
 			// You can't own what you don't have access to.
 			return false;
 		}
-		
+
         return child == this;
     }
 
     /**
      * @private
-     * 
+     *
      * Get the embedded font for a set of font attributes.
-     */ 
+     */
     mx_internal function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
     {
         // Check if we can reuse a cached value.
@@ -9098,20 +9108,20 @@ public class UIComponent extends FlexSprite
                 cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
             {
                 return cachedEmbeddedFont;
-            }   
+            }
         }
-        
-        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);      
-        
+
+        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);
+
         return cachedEmbeddedFont;
     }
-    
+
     /**
      *  @private
      *  Finds a module factory that can create a TextField
      *  that can display the given font.
      *  This is important for embedded fonts, not for system fonts.
-     * 
+     *
      *  @param fontName The name of the fontFamily.
      *
      *  @param bold A flag which true if the font weight is bold,
@@ -9119,7 +9129,7 @@ public class UIComponent extends FlexSprite
      *
      *  @param italic A flag which is true if the font style is italic,
      *  and false otherwise.
-     * 
+     *
      *  @return The IFlexModuleFactory that represents the context
      *  where an object wanting to  use the font should be created.
      */
@@ -9127,9 +9137,9 @@ public class UIComponent extends FlexSprite
                                         italic:Boolean):IFlexModuleFactory
     {
         return embeddedFontRegistry.getAssociatedModuleFactory(
-               getEmbeddedFont(fontName, bold, italic), moduleFactory);     
+               getEmbeddedFont(fontName, bold, italic), moduleFactory);
     }
-   
+
     /**
      *  Creates a new object using a context
      *  based on the embedded font being used.
@@ -9143,10 +9153,10 @@ public class UIComponent extends FlexSprite
      *  By using the context of the application SWF,
      *  the RSL can create objects in the application SWF context
      *  that will have access to the application's  embedded fonts.</p>
-     * 
+     *
      *  <p>Call this method only after the font styles
      *  for this object are set.</p>
-     * 
+     *
      *  @param class The class to create.
      *
      *  @return The instance of the class created in the context
@@ -9156,7 +9166,7 @@ public class UIComponent extends FlexSprite
      */
     protected function createInFontContext(classObj:Class):Object
     {
-        hasFontContextBeenSaved = true;     
+        hasFontContextBeenSaved = true;
         var fontName:String = StringUtil.trimArrayElements(getStyle("fontFamily"), ",");
         var fontWeight:String = getStyle("fontWeight");
         var fontStyle:String = getStyle("fontStyle");
@@ -9165,24 +9175,24 @@ public class UIComponent extends FlexSprite
 
         // save for hasFontContextChanged()
         oldEmbeddedFontContext = getFontContext(fontName, bold, italic);
-        
+
         // not in font registry so create in this font context.
         var obj:Object = createInModuleContext(oldEmbeddedFontContext ?
                                                oldEmbeddedFontContext : moduleFactory,
-                                               getQualifiedClassName(classObj)); 
+                                               getQualifiedClassName(classObj));
         if (obj == null)
             obj = new classObj;
-        
+
         return obj;
     }
-    
-    
+
+
     /**
      *  Creates the object using a given moduleFactory.
      *  If the moduleFactory is null or the object
      *  cannot be created using the module factory,
      *  then fall back to creating the object using a systemManager.
-     * 
+     *
      *  @param moduleFactory The moduleFactory to create the class in;
      *  may be null.
      *
@@ -9194,22 +9204,22 @@ public class UIComponent extends FlexSprite
                                              className:String):Object
     {
         var newObject:Object = null;
-        
+
         if (moduleFactory)
-            newObject = moduleFactory.create(className);            
-        
+            newObject = moduleFactory.create(className);
+
         return newObject;
     }
-    
+
     /**
      *  @private
-     * 
-     *  Tests if the current font context has changed 
+     *
+     *  Tests if the current font context has changed
      *  since that last time createInFontContext() was called.
      */
     public function hasFontContextChanged():Boolean
     {
-        
+
         // If the font has not been set yet, then return false;
         // the font has not changed.
         if (!hasFontContextBeenSaved)
@@ -9229,7 +9239,7 @@ public class UIComponent extends FlexSprite
                 embeddedFont, moduleFactory);
         return fontContext != oldEmbeddedFontContext;
     }
-    
+
     /**
      *  @inheritDoc
      */
@@ -9249,7 +9259,7 @@ public class UIComponent extends FlexSprite
             return automationDelegate.resolveAutomationIDPart(criteria);
         return [];
     }
-    
+
     /**
      *  @inheritDoc
      */
@@ -9259,7 +9269,7 @@ public class UIComponent extends FlexSprite
             return automationDelegate.getAutomationChildAt(index);
         return null;
     }
-    
+
     /**
      *  @inheritDoc
      */
@@ -9269,7 +9279,7 @@ public class UIComponent extends FlexSprite
             return automationDelegate.numAutomationChildren;
         return 0;
     }
-    
+
     /**
      *  @inheritDoc
      */
@@ -9279,7 +9289,7 @@ public class UIComponent extends FlexSprite
             return automationDelegate.automationTabularData;
         return null;
     }
-    
+
     /**
      *  @inheritDoc
      */
@@ -9289,48 +9299,48 @@ public class UIComponent extends FlexSprite
             return automationDelegate.replayAutomatableEvent(event);
         return false;
     }
-    
-    
+
+
     /**
      *  @private
-     * 
+     *
      *  Get the bounds of this object that are visible to the user
      *  on the screen.
-     * 
+     *
      *  @param targetParent The parent to stop at when calculating the visible
      *  bounds. If null, this object's system manager will be used as
      *  the parent.
-     * 
-     *  @return a <code>Rectangle</code> including the visible portion of the this 
+     *
+     *  @return a <code>Rectangle</code> including the visible portion of the this
      *  object. The rectangle is in global coordinates.
-     */  
+     */
     public function getVisibleRect(targetParent:DisplayObject = null):Rectangle
     {
         if (!targetParent)
             targetParent = DisplayObject(systemManager);
-            
+
         var pt:Point = new Point(x, y);
         var thisParent:DisplayObject = $parent ? $parent : parent;
         pt = thisParent.localToGlobal(pt);
-        
+
         // bounds of this object to return. Keep in global coordinates
         // until the end and set back to targetParent coordinates.
         var bounds:Rectangle = new Rectangle(pt.x, pt.y, width, height);
         var current:DisplayObject = this;
         var currentRect:Rectangle = new Rectangle();
-        
+
         do
         {
             if (current is UIComponent)
             {
                 if (UIComponent(current).$parent)
                     current = UIComponent(current).$parent;
-                else 
+                else
                     current = UIComponent(current).parent;
             }
             else
                 current = current.parent;
-                
+
             if (current && current.scrollRect)
             {
                 // clip the bounds by the scroll rect
@@ -9340,9 +9350,9 @@ public class UIComponent extends FlexSprite
                 currentRect.y = pt.y;
                 bounds = bounds.intersection(currentRect);
             }
-        } while (current && current != targetParent); 
+        } while (current && current != targetParent);
 
-        return bounds;       
+        return bounds;
     }
 
     //--------------------------------------------------------------------------
@@ -9354,17 +9364,17 @@ public class UIComponent extends FlexSprite
     mx_internal static var dispatchEventHook:Function;
 
     /**
-     *  Dispatches an event into the event flow. 
-     *  The event target is the EventDispatcher object upon which 
+     *  Dispatches an event into the event flow.
+     *  The event target is the EventDispatcher object upon which
      *  the <code>dispatchEvent()</code> method is called.
      *
-     *  @param event The Event object that is dispatched into the event flow. 
-     *  If the event is being redispatched, a clone of the event is created automatically. 
-     *  After an event is dispatched, its <code>target</code> property cannot be changed, 
+     *  @param event The Event object that is dispatched into the event flow.
+     *  If the event is being redispatched, a clone of the event is created automatically.
+     *  After an event is dispatched, its <code>target</code> property cannot be changed,
      *  so you must create a new copy of the event for redispatching to work.
      *
-     *  @return A value of <code>true</code> if the event was successfully dispatched. 
-     *  A value of <code>false</code> indicates failure or that 
+     *  @return A value of <code>true</code> if the event was successfully dispatched.
+     *  A value of <code>false</code> indicates failure or that
      *  the <code>preventDefault()</code> method was called on the event.
      */
     override public function dispatchEvent(event:Event):Boolean
@@ -9397,8 +9407,8 @@ public class UIComponent extends FlexSprite
             return super.mouseY;
         return globalToLocal(new Point(0, root[fakeMouseY])).y;
     }
-	
-	
+
+
 	/**
 	 * Documentation is not currently available
 	 */
@@ -9419,27 +9429,27 @@ public class UIComponent extends FlexSprite
 		_xformOffsets = at;
 		invalidateTransform();
 	}
-	
 
-    
+
+
     private function setTransform(value:flash.geom.Transform):void
     {
         // Clean up the old event listeners
-        var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;       
+        var oldTransform:mx.geom.Transform = _transform as mx.geom.Transform;
         if (oldTransform)
         {
             oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
         }
-        
+
         var newTransform:mx.geom.Transform = value as mx.geom.Transform;
-        
+
         if (newTransform)
-        {   
+        {
             newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
         }
-    
-        _transform = value; 
-    } 
+
+        _transform = value;
+    }
 
     private function assignTransformMatrices():void
     {
@@ -9449,10 +9459,10 @@ public class UIComponent extends FlexSprite
 				matrix = m.clone();
 			else if(m3 != null)
 				matrix3D = m3.clone();
-			
+
 			invalidateSize();
     }
-    
+
 	/**
 	 * Documentation is not currently available
 	 */
@@ -9460,7 +9470,7 @@ public class UIComponent extends FlexSprite
     {
     	return super.transform;
     }
-    
+
 	/**
 	 * Documentation is not currently available
 	 */
@@ -9475,18 +9485,18 @@ public class UIComponent extends FlexSprite
 
     override public function set transform(value:flash.geom.Transform):void
     {
-    	setTransform(value);	
+    	setTransform(value);
 
         assignTransformMatrices();
-        super.transform.colorTransform = value.colorTransform; 
+        super.transform.colorTransform = value.colorTransform;
     }
 
-    
+
 
     private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
     {
         if (event.kind == PropertyChangeEventKind.UPDATE)
-        {           
+        {
             if (event.property == "matrix" || event.property == "matrix3D")
             {
             	assignTransformMatrices();
@@ -9520,7 +9530,7 @@ public class UIComponent extends FlexSprite
 		if(_xformOffsets != null)
 			_xformOffsets.addEventListener(Event.CHANGE,transformOffsetsChangedHandler);
 	}
-	
+
 	/**
 	 * @private
 	 */
@@ -9528,7 +9538,7 @@ public class UIComponent extends FlexSprite
 	{
 		return (_xformOffsets != null && _xformOffsets.userVisible == true)? _xformOffsets:null;
 	}
-	
+
 	/**
 	 * Documentation is not currently available.  the matrix of a component is the transform matrix used to calculate its layout
 	 * relative to its siblings. This matrix is modified by the values of the offset property to determine its final, computed matrix.
@@ -9537,7 +9547,7 @@ public class UIComponent extends FlexSprite
 	{
 		if(_xformOffsets != null)
 		{
-			return _xformOffsets.layoutMatrix;			
+			return _xformOffsets.layoutMatrix;
 		}
 		else
 		{
@@ -9551,7 +9561,7 @@ public class UIComponent extends FlexSprite
 	public function set matrix(value:Matrix):void
 	{
 		if(_xformOffsets == null)
-		{ 
+		{
 			super.transform.matrix = value;
             invalidateSize();
 		}
@@ -9581,10 +9591,10 @@ public class UIComponent extends FlexSprite
 	public function get matrix3D():Matrix3D
 	{
 		if(_xformOffsets == null) allocateOffsets();
-		return _xformOffsets.layoutMatrix3D;			
+		return _xformOffsets.layoutMatrix3D;
 	}
 
-	
+
 	/**
 	 * Documentation is not currently available
 	 */
@@ -9602,30 +9612,30 @@ public class UIComponent extends FlexSprite
 		if(value == layer)
 			return;
 		if(_xformOffsets == null) allocateOffsets();
-		_xformOffsets.layer = value;		
+		_xformOffsets.layer = value;
 		dispatchEvent(new FlexEvent("layerChange"));
 		if(parent != null && parent is UIComponent)
 			(parent as UIComponent).invalidateLayering();
 	}
-	
+
 	/**
-	 * Documentation is not currently available. 
+	 * Documentation is not currently available.
 	 */
     public function invalidateLayering():void
     {
-    	
+
     }
-	
+
 	/**
 	 * Documentation is not currently available.
-	 * Commits the computed transform stored in the xformOffsets object to the flash displayObject's transform. 
+	 * Commits the computed transform stored in the xformOffsets object to the flash displayObject's transform.
 	 */
 	protected function applyComputedTransform():void
 	{
 		_xformOffsets.updatePending = false;
 		if(_xformOffsets.computedIs3D)
 		{
-			super.transform.matrix3D = _xformOffsets.computedMatrix3D;				
+			super.transform.matrix3D = _xformOffsets.computedMatrix3D;
 		}
 		else
 		{
