@@ -34,6 +34,13 @@ use namespace mx_internal;
  */
 public class SpinnerListSkin extends MobileSkin
 {
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */
     public function SpinnerListSkin()
     {
         super();
