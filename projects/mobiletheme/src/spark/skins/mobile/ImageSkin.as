@@ -60,23 +60,17 @@ public class ImageSkin extends MobileSkin
             case DPIClassification.DPI_320:
             {
                 imageInvalidClass = spark.skins.mobile320.assets.ImageInvalid;
-                placeholderImageWidth = 68;
-                placeholderImageHeight = 68;
                 break;              
             }
             case DPIClassification.DPI_240:
             {
                 imageInvalidClass = spark.skins.mobile240.assets.ImageInvalid;
-                placeholderImageWidth = 50;
-                placeholderImageHeight = 50;
                 break;
             }
             default:
             {
                 // default PPI160
                 imageInvalidClass = spark.skins.mobile160.assets.ImageInvalid;
-                placeholderImageWidth = 34;
-                placeholderImageHeight = 34;
                 break;
             }
                 
@@ -166,28 +160,6 @@ public class ImageSkin extends MobileSkin
      *  @productversion Flex 4.5
      */
     protected var loadingIndicator:BusyIndicator = null;
-    
-    /**
-     *  Width of the placeholder images (i.e. "invalid image" icon
-     *  and loading indicator).
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    protected var placeholderImageWidth:int;
-
-    /**
-     *  Height of the placeholder images (i.e. "invalid image" icon
-     *  and loading indicator).
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    protected var placeholderImageHeight:int;
     
     //--------------------------------------------------------------------------
     //
