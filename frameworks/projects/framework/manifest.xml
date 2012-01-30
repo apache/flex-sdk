@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2010 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--
+
+    MX Components
+
+-->
+<componentPackage>
+
+    <!-- framework -->
+    <component id="AddChild" class="mx.states.AddChild"/>
+    <component id="AddItems" class="mx.states.AddItems"/>
+	<component id="AnimateProperty" class="mx.effects.AnimateProperty"/>
+    <component id="ArrayCollection" class="mx.collections.ArrayCollection"/>
+    <component id="ArrayList" class="mx.collections.ArrayList"/>
+    <component id="BevelFilter" class="flash.filters.BevelFilter" lookupOnly="true"/>
+    <component id="BitmapFill" class="mx.graphics.BitmapFill"/>
+    <component id="BitmapFillMode" class="mx.graphics.BitmapFillMode"/>
+    <component id="Blur" class="mx.effects.Blur"/>
+    <component id="BlurFilter" class="flash.filters.BlurFilter" lookupOnly="true"/>
+    <component id="ColorMatrixFilter" class="flash.filters.ColorMatrixFilter" lookupOnly="true"/>
+    <component id="ColorTransform" class="flash.geom.ColorTransform" lookupOnly="true"/>
+    <component id="TransformOffsets" class="mx.geom.TransformOffsets"/>
+    <component id="ConstraintColumn" class="mx.containers.utilityClasses.ConstraintColumn"/>
+    <component id="ConstraintRow" class="mx.containers.utilityClasses.ConstraintRow"/>
+    <component id="ConvolutionFilter" class="flash.filters.ConvolutionFilter" lookupOnly="true"/>
+    <component id="CreditCardValidator" class="mx.validators.CreditCardValidator"/>
+    <component id="CurrencyFormatter" class="mx.formatters.CurrencyFormatter"/>
+    <component id="CurrencyValidator" class="mx.validators.CurrencyValidator"/>
+    <component id="DateFormatter" class="mx.formatters.DateFormatter"/>
+    <component id="DateValidator" class="mx.validators.DateValidator"/>
+    <component id="DisplacementMapFilter" class="flash.filters.DisplacementMapFilter" lookupOnly="true"/>
+    <component id="Dissolve" class="mx.effects.Dissolve"/>
+    <component id="DropShadowFilter" class="flash.filters.DropShadowFilter" lookupOnly="true"/>
+    <component id="EffectTargetFilter" class="mx.effects.EffectTargetFilter"/>
+    <component id="EmailValidator" class="mx.validators.EmailValidator"/>
+    <component id="Fade" class="mx.effects.Fade"/>
+    <component id="GradientBevelFilter" class="flash.filters.GradientBevelFilter" lookupOnly="true"/>
+    <component id="GradientEntry" class="mx.graphics.GradientEntry"/>
+    <component id="GradientGlowFilter" class="flash.filters.GradientGlowFilter" lookupOnly="true"/>
+    <component id="Iris" class="mx.effects.Iris"/>
+    <component id="LinearGradient" class="mx.graphics.LinearGradient"/>
+    <component id="LinearGradientStroke" class="mx.graphics.LinearGradientStroke"/>
+    <component id="ListCollectionView" class="mx.collections.ListCollectionView"/>
+    <component id="MaskEffect" class="mx.effects.MaskEffect"/>
+    <component id="Matrix" class="flash.geom.Matrix" lookupOnly="true"/>
+    <component id="Matrix3D" class="flash.geom.Matrix3D" lookupOnly="true"/>
+    <component id="Move" class="mx.effects.Move"/>
+    <component id="NumberFormatter" class="mx.formatters.NumberFormatter"/>
+    <component id="NumberValidator" class="mx.validators.NumberValidator"/>
+    <component id="Parallel" class="mx.effects.Parallel"/>
+    <component id="Pause" class="mx.effects.Pause"/>
+    <component id="PhoneFormatter" class="mx.formatters.PhoneFormatter"/>
+    <component id="PhoneNumberValidator" class="mx.validators.PhoneNumberValidator"/>
+    <component id="Point" class="flash.geom.Point" lookupOnly="true"/>
+    <component id="ProgressBar" class="mx.controls.ProgressBar"/>
+    <component id="RadialGradient" class="mx.graphics.RadialGradient"/>
+    <component id="RadialGradientStroke" class="mx.graphics.RadialGradientStroke"/>
+    <component id="RegExpValidator" class="mx.validators.RegExpValidator"/>
+    <component id="AsyncListView" class="mx.collections.AsyncListView"/>
+    <component id="RemoveChild" class="mx.states.RemoveChild"/>
+    <component id="Rotate" class="mx.effects.Rotate"/>
+    <component id="Sequence" class="mx.effects.Sequence"/>
+    <component id="SetEventHandler" class="mx.states.SetEventHandler"/>
+    <component id="SetProperty" class="mx.states.SetProperty"/>
+    <component id="SetStyle" class="mx.states.SetStyle"/>
+    <component id="SetStyleAction" class="mx.effects.SetStyleAction"/>
+    <component id="SocialSecurityValidator" class="mx.validators.SocialSecurityValidator"/>
+    <component id="SolidColor" class="mx.graphics.SolidColor"/>
+    <component id="SolidColorStroke" class="mx.graphics.SolidColorStroke"/>
+    <component id="Sort" class="mx.collections.Sort"/>
+    <component id="SortField" class="mx.collections.SortField"/>
+    <component id="SoundEffect" class="mx.effects.SoundEffect"/>
+    <component id="Spacer" class="mx.controls.Spacer"/>
+    <component id="Sprite" class="flash.display.Sprite" lookupOnly="true"/>
+    <component id="State" class="mx.states.State"/>
+    <component id="StringValidator" class="mx.validators.StringValidator"/>
+    <component id="Stroke" class="mx.graphics.Stroke"/>
+    <component id="SWFLoader" class="mx.controls.SWFLoader"/>
+    <component id="TraceTarget" class="mx.logging.targets.TraceTarget"/>
+    <component id="Transform" class="mx.geom.Transform"/>
+    <component id="Transition" class="mx.states.Transition"/>
+    <component id="UIComponent" class="mx.core.UIComponent"/>
+    <component id="Validator" class="mx.validators.Validator"/>
+    <component id="XMLListCollection" class="mx.collections.XMLListCollection"/>
+    <component id="ZipCodeFormatter" class="mx.formatters.ZipCodeFormatter"/>
+    <component id="ZipCodeValidator" class="mx.validators.ZipCodeValidator"/>
+    <component id="Zoom" class="mx.effects.Zoom"/>
+
+    <!-- framework base classes with CSS type selectors -->
+    <component id="CursorManager" class="mx.managers.CursorManager" />
+    <component id="DragManager" class="mx.managers.DragManager" />
+    <component id="ToolTip" class="mx.controls.ToolTip" />
+    <component id="UIComponent" class="mx.core.UIComponent" />
+
+</componentPackage>
