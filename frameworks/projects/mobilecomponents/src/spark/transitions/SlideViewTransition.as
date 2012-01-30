@@ -467,6 +467,10 @@ public class SlideViewTransition extends ViewTransition
         if (cachedNavigator)
             cachedNavigator = null;
         
+        // Clear references
+        parentNavigator = null;
+        targetNavigator = null;
+        actionBar = null;
         effect = null;
 
         super.transitionComplete(event);
