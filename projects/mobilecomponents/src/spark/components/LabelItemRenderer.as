@@ -269,6 +269,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  @see mx.core.IDataRenderer
  *  @see spark.components.IItemRenderer
  *  @see spark.components.supportClasses.ItemRenderer
+ *  @includeExample examples/LabelItemRendererExample.mxml -noswf
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
