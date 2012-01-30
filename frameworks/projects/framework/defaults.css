@@ -263,7 +263,6 @@ Application
 	backgroundImage: ClassReference("mx.skins.halo.ApplicationBackground");
 	backgroundSize: "100%";
 	backgroundGradientAlphas: 1, 1;
-	backgroundGradientColors: #FFFFFF, #FFFFFF;
 	horizontalAlign: "center";
 	paddingBottom: 24;
 	paddingLeft: 24;
