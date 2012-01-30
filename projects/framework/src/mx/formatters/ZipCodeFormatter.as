@@ -64,6 +64,11 @@ import mx.managers.SystemManager;
  *  @includeExample examples/ZipCodeFormatterExample.mxml
  *  
  *  @see mx.formatters.SwitchSymbolFormatter
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ZipCodeFormatter extends Formatter
 {
@@ -88,6 +93,11 @@ public class ZipCodeFormatter extends Formatter
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ZipCodeFormatter()
 	{
@@ -124,6 +134,11 @@ public class ZipCodeFormatter extends Formatter
 	 *  <code>"###-###"</code> and <code>"### ###"</code>.
 	 *  	 
 	 *  @default "#####"
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get formatString():String
 	{
@@ -168,6 +183,11 @@ public class ZipCodeFormatter extends Formatter
 	 *
 	 *  @return Formatted String. Empty if an error occurs. A description 
 	 *  of the error condition is written to the <code>error</code> property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function format(value:Object):String
 	{
