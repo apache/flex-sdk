@@ -66,6 +66,7 @@ import mx.managers.IFocusManagerContainer;
 import mx.managers.ILayoutManagerClient;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
+import mx.managers.LayoutManager;
 import mx.managers.SystemManager;
 import mx.managers.SystemManagerGlobals;
 import mx.managers.SystemManagerProxy;
@@ -7801,6 +7802,9 @@ public class UIComponent extends FlexSprite
 
             // TODO EGeorgie: should we reset the flag immediately after we check it?
             invalidateDisplayListFlag = false;
+             
+            // LAYOUT_DEBUG
+            // LayoutManager.debugHelper.addElement(ILayoutElement(this));
         }
     }
 
