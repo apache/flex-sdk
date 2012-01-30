@@ -469,18 +469,18 @@ global
 
 @media (application-dpi: 160) AND (os-platform:"IOS")
 {
-	TextArea
-	{
-		padding-right: 9.5;
-		leading: 1.5;
-	}
+    TextArea
+    {
+        leading: 1.5;
+        paddingRight: 1.5;
+    }
 }
 
 @media (application-dpi: 320) AND (os-platform:"IOS")
 {
-	TextArea
-	{
-		padding-right: 19;
-		leading: 4.5;
-	}
+    TextArea
+    {
+        leading: 4.5;
+        paddingRight: 3;
+    }
 }
