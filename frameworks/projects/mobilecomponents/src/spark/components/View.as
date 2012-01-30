@@ -250,7 +250,8 @@ public class View extends Group implements IDataRenderer
     //  navigator
     //----------------------------------
     
-    [Bindable]
+    private var _navigator:ViewNavigator = null;
+    
     /**
      * The navigator that the view resides in.
      * 
@@ -259,7 +260,19 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var navigator:ViewNavigator;
+    
+    public function get navigator():ViewNavigator
+    {
+        return _navigator;
+    }
+    
+    /**
+     *  @private
+     */ 
+    mx_internal function setNavigator(value:ViewNavigator):void
+    {
+        _navigator = value;
+    }
     
     //--------------------------------------------------------------------------
     //
