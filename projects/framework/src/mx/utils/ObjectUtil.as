@@ -809,19 +809,7 @@ public class ObjectUtil
                         
                         // if the objects are dynamic they could have different 
                         // # of properties and should be treated on that basis first
-                        var isDynamicObject:Boolean = true;
-                        try
-                        {
-							// this test for checking whether an object is dynamic or not is 
-							// pretty hacky, but it assumes that no-one actually has a 
-							// property defined called "wootHackwoot"
-                            a["wootHackwoot"];
-                        }
-                        catch (e:Error)
-                        {
-                            // our object isn't from a dynamic class
-                            isDynamicObject = false;
-                        }
+                        var isDynamicObject:Boolean = isDynamicObject(a);
                         
                         // if it's dynamic, check to see that they have all the same properties
                         if (isDynamicObject)
@@ -1161,6 +1149,31 @@ public class ObjectUtil
         return internalHasMetadata(metadataInfo, propName, metadataName);
     }
 
+    /**
+     *  Returns true if the object is an instance of a dynamic class.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function isDynamicObject(obj:Object):Boolean
+    {
+        try
+        {
+            // this test for checking whether an object is dynamic or not is 
+            // pretty hacky, but it assumes that no-one actually has a 
+            // property defined called "wootHackwoot"
+            obj["wootHackwoot"];
+        }
+        catch (e:Error)
+        {
+            // our object isn't from a dynamic class
+            return false;
+        }
+        return true;
+    }
+    
     /**
      *  @private
      */
