@@ -18,13 +18,13 @@ import flash.display.Graphics;
 import flash.display.InteractiveObject;
 import flash.display.Shape;
 import flash.display.Sprite;
+import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import flash.display.Stage;
 import flash.utils.Proxy;
 
 import mx.automation.IAutomationObject;
@@ -37,13 +37,15 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirectionElement;
 import mx.core.ISWFLoader;
 import mx.core.IUIComponent;
+import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.effects.Blur;
-import mx.effects.IEffect;
 import mx.effects.Fade;
+import mx.effects.IEffect;
 import mx.events.DynamicEvent;
 import mx.events.EffectEvent;
 import mx.events.FlexEvent;
@@ -55,7 +57,6 @@ import mx.managers.SystemManager;
 import mx.managers.systemClasses.ActiveWindowManager;
 import mx.styles.IStyleClient;
 import mx.utils.NameUtil;
-import mx.core.UIComponent;
 
 use namespace mx_internal;
 
@@ -390,6 +391,9 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                 IUIComponent(window).getExplicitOrMeasuredWidth(),
                 IUIComponent(window).getExplicitOrMeasuredHeight());
         }
+        
+        if (window is ILayoutDirectionElement)
+            ILayoutDirectionElement(window).invalidateLayoutDirection();
 
         if (modal)
         {
