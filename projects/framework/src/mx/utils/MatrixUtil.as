@@ -769,6 +769,9 @@ public final class MatrixUtil
         if (-1.0e-9 < d && d < +1.0e-9)
             d = 0;
 
+        if (b == 0 && d == 0)
+            return null; // No solution
+        
         // Handle special cases first
         if (b == 0)
             return new Point( preferredX, h / Math.abs(d) );               
@@ -939,6 +942,9 @@ public final class MatrixUtil
             c = 0;
 
         // Handle special cases first
+        if (a == 0 && c == 0)
+            return null; // No solution
+        
         if (a == 0)
             return new Point( preferredX, w / Math.abs(c) );               
         else if (c == 0)
