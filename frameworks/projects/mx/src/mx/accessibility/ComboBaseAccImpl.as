@@ -264,6 +264,10 @@ public class ComboBaseAccImpl extends AccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+		
 		switch (event.type)
 		{
 			case "change":
