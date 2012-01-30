@@ -98,11 +98,11 @@ public class CSSSelector
 
     /**
      *  This selector may match a subset of components by specifying further
-     *  conditions, i.e. a matching component must have a particular id,
+     *  conditions (for example, a matching component must have a particular id,
      *  styleName (equivalent to a 'class' condition in CSS) or state
-     *  (equivalent to a 'pseudo' condition in CSS).
+     *  (equivalent to a 'pseudo' condition in CSS)).
      *  
-     *  If no conditions are specified this property is null.
+     *  <p>If no conditions are specified, this property is null.</p>
      *  
      *  @return Array of CSSCondition specified for this selector.
      *  
@@ -125,11 +125,11 @@ public class CSSSelector
      *  the precedence when applying several matching style declarations. Note
      *  that id conditions contribute 100 points, pseudo and class conditions
      *  each contribute 10 points, types (including descendants in a chain of
-     *  selectors) contribute 1 point. Universal selectors (i.e. *) contribute
+     *  selectors) contribute 1 point. Universal selectors ("*") contribute
      *  nothing. The result is the sum of these contributions. Selectors with a
      *  higher specificity override selectors of lower specificity. If
      *  selectors have equal specificity, the declaration order determines
-     *  the precedence (i.e. the last one wins).
+     *  the precedence (the last one wins).
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -168,12 +168,12 @@ public class CSSSelector
 
     /**
      *  The subject of this selector node (only). To get a String representation
-     *  of all conditions and descendants of this selector call the toString()
+     *  of all conditions and descendants of this selector call the <code>toString()</code>
      *  method.
      * 
-     *  If this selector represents the root node of a potential chain of
+     *  <p>If this selector represents the root node of a potential chain of
      *  selectors, the subject also represents the subject of the entire selector
-     *  expression.
+     *  expression.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -281,6 +281,8 @@ public class CSSSelector
     }
 
     /**
+     *  Returns a String representation of this selector.
+     *  
      *  @return A String representation of this selector including all of its
      *  syntax, conditions and ancestors.
      *  
