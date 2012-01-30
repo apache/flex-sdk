@@ -314,7 +314,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 	[Bindable("propertyChange")]
 	[Inspectable(category="General")]
 
-	[Deprecated(replacement="resizeMode", since="4.0")]
+	[Deprecated(replacement="fillMode", since="4.0")]
 	
 	/**
 	 *  Whether the bitmap is repeated to fill the area.
@@ -331,67 +331,67 @@ public class BitmapFill extends EventDispatcher implements IFill
 	 */
 	public function get repeat():Boolean
 	{
-		return _resizeMode == BitmapResizeMode.REPEAT; 
+		return _fillMode == BitmapFillMode.REPEAT; 
 	}
 	
 	public function set repeat(value:Boolean):void
 	{
-		var oldValue:Boolean = (_resizeMode == BitmapResizeMode.REPEAT);  
+		var oldValue:Boolean = (_fillMode == BitmapFillMode.REPEAT);  
 		if (value != oldValue)
 		{
-			//Setting repeat just sets resizeMode to repeat 
-			resizeMode = value ? BitmapResizeMode.REPEAT : BitmapResizeMode.SCALE; 
+			//Setting repeat just sets fillMode to repeat 
+			fillMode = value ? BitmapFillMode.REPEAT : BitmapFillMode.SCALE; 
 			dispatchFillChangedEvent("repeat", oldValue, value);
 		}
 	}
 	
 	//----------------------------------
-    //  resizeMode
+    //  fillMode
     //----------------------------------
 
     /**
      *  @private
      */
-    protected var _resizeMode:String = BitmapResizeMode.SCALE;
+    protected var _fillMode:String = BitmapFillMode.SCALE;
     
-    [Inspectable(category="General", enumeration="noScale,repeat,scale", defaultValue="scale")]
+    [Inspectable(category="General", enumeration="clip,repeat,scale", defaultValue="scale")]
     
     /**
-     *  The resizeMode determines how the bitmap fills in the dimensions. If you set the value
+     *  The fillMode determines how the bitmap fills in the dimensions. If you set the value
      *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
-     *  this property in ActionScript, use the constant (such as <code>BitmapResizeMode.NOSCALE</code>).
+     *  this property in ActionScript, use the constant (such as <code>BitmapFillMode.CLIP</code>).
      * 
-     *  When set to <code>BitmapResizeMode.NOSCALE</code> ("noScale"), the bitmap
+     *  When set to <code>BitmapFillMode.CLIP</code> ("clip"), the bitmap
      *  ends at the edge of the region.
      * 
-     *  When set to <code>BitmapResizeMode.REPEAT</code> ("repeat"), the bitmap 
+     *  When set to <code>BitmapFillMode.REPEAT</code> ("repeat"), the bitmap 
      *  repeats to fill the region.
      *
-     *  When set to <code>BitmapResizeMode.SCALE</code> ("scale"), the bitmap
+     *  When set to <code>BitmapFillMode.SCALE</code> ("scale"), the bitmap
      *  stretches to fill the region.
      * 
-     *  @default <code>BitmapResizeMode.SCALE</code>
+     *  @default <code>BitmapFillMode.SCALE</code>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get resizeMode():String 
+    public function get fillMode():String 
     {
-        return _resizeMode; 
+        return _fillMode; 
     }
     
     /**
      *  @private
      */
-    public function set resizeMode(value:String):void
+    public function set fillMode(value:String):void
     {
-    	var oldValue:String = _resizeMode; 
-        if (value != _resizeMode)
+    	var oldValue:String = _fillMode; 
+        if (value != _fillMode)
         {
-            _resizeMode = value;
-            dispatchFillChangedEvent("resizeMode", oldValue, value);
+            _fillMode = value;
+            dispatchFillChangedEvent("fillMode", oldValue, value);
         }
     }
 
@@ -831,7 +831,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 		if (!sourceAsBitmapData)
 			return;        
         
-        var repeatFill:Boolean = (resizeMode == BitmapResizeMode.REPEAT); 
+        var repeatFill:Boolean = (fillMode == BitmapFillMode.REPEAT); 
         
         // If we need to apply the alpha, we need to make another clone. So dispose of the old one.
         if (nonRepeatAlphaSource && applyAlphaMultiplier)
@@ -839,7 +839,7 @@ public class BitmapFill extends EventDispatcher implements IFill
             nonRepeatAlphaSource.dispose();
             nonRepeatAlphaSource = null;
         }
-        
+
         if (compoundTransform)
         {
             transformMatrix = compoundTransform.matrix;
@@ -850,8 +850,8 @@ public class BitmapFill extends EventDispatcher implements IFill
             transformMatrix.identity();
             transformMatrix.translate(-transformX, -transformY);
             
-            // If resizeMode is scale and our bitmapdata width and height are > 0, scale to fill the content area  
-            if (resizeMode == BitmapResizeMode.SCALE && sourceAsBitmapData.width > 0 && sourceAsBitmapData.height > 0)
+            // If fillMode is scale and our bitmapdata width and height are > 0, scale to fill the content area  
+            if (fillMode == BitmapFillMode.SCALE && sourceAsBitmapData.width > 0 && sourceAsBitmapData.height > 0)
                 transformMatrix.scale((bounds.width/sourceAsBitmapData.width), (bounds.height/sourceAsBitmapData.height)); 
             
             transformMatrix.scale(scaleX, scaleY);
@@ -859,7 +859,7 @@ public class BitmapFill extends EventDispatcher implements IFill
             transformMatrix.translate(x + bounds.left + transformX, y + bounds.top + transformY);
         }
         
-        // If repeat is true, resizeMode is repeat, or if the source bitmap size  
+        // If repeat is true, fillMode is repeat, or if the source bitmap size  
         // equals or exceeds the bounds, just use the source bitmap
         if (repeatFill || 
             (MatrixUtil.isDeltaIdentity(transformMatrix) && 
@@ -877,7 +877,7 @@ public class BitmapFill extends EventDispatcher implements IFill
             
             nonRepeatSourceCreated = false;
         }
-        else if (resizeMode == BitmapResizeMode.NOSCALE)
+        else if (fillMode == BitmapFillMode.CLIP)
         {
             // Regenerate the nonRepeatSource if it wasn't previously created or if the bounds 
             // dimensions have changed.
@@ -937,7 +937,7 @@ public class BitmapFill extends EventDispatcher implements IFill
         // will modify the source and we have no way to restore the source back its original alpha value. 
         if (applyAlphaMultiplier)
         {
-            // Clone the bitmapData if we didn't already make a copy for NOSCALE mode
+            // Clone the bitmapData if we didn't already make a copy for CLIP mode
             if (!nonRepeatAlphaSource)
                 nonRepeatAlphaSource = sourceAsBitmapData.clone();
             
