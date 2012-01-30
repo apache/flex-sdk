@@ -2360,6 +2360,13 @@ public class Window extends SkinnableContainer implements IWindow
 
         height = stage.stageHeight;
         width = stage.stageWidth;
+
+        // Restored from a minimized state.
+        if (event.beforeDisplayState == NativeWindowDisplayState.MINIMIZED)
+        {
+            addEventListener(EffectEvent.EFFECT_END, windowUnminimizeHandler);
+            dispatchEvent(new Event("windowUnminimize"));
+        }
     }
 
     /**
@@ -2383,32 +2390,6 @@ public class Window extends SkinnableContainer implements IWindow
             }
         }
 
-        // After here, afterState is normal
-        else if (event.beforeDisplayState == NativeWindowDisplayState.MINIMIZED)
-        {
-            addEventListener(EffectEvent.EFFECT_END, windowUnminimizeHandler);
-            dispatchEvent(new Event("windowUnminimize"));
-        }
-    }
-
-    /**
-     *  @private
-     */
-    private function windowMaximizeHandler(event:Event):void
-    {
-        removeEventListener(EffectEvent.EFFECT_END, windowMaximizeHandler);
-        if (!nativeWindow.closed)
-            stage.nativeWindow.maximize();
-    }
-
-    /**
-     *  @private
-     */
-    private function windowUnmaximizeHandler(event:Event):void
-    {
-        removeEventListener(EffectEvent.EFFECT_END, windowUnmaximizeHandler);
-        if (!nativeWindow.closed)
-            stage.nativeWindow.restore();
     }
 
     /**
