@@ -50,6 +50,8 @@ public class UITextFormat extends TextFormat
     //  embeddedFontRegistry
     //----------------------------------
 
+	private static var noEmbeddedFonts:Boolean;
+
     /**
      *  @private
      *  Storage for the embeddedFontRegistry property.
@@ -67,10 +69,17 @@ public class UITextFormat extends TextFormat
      */
     private static function get embeddedFontRegistry():IEmbeddedFontRegistry
     {
-        if (!_embeddedFontRegistry)
+        if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
-            _embeddedFontRegistry = IEmbeddedFontRegistry(
-                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+			try
+			{
+				_embeddedFontRegistry = IEmbeddedFontRegistry(
+					Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+			}
+			catch (e:Error)
+			{
+				noEmbeddedFonts = true;
+			}
         }
 
         return _embeddedFontRegistry;
@@ -228,13 +237,6 @@ public class UITextFormat extends TextFormat
      */
     private var systemManager:ISystemManager;
     
-    /**
-     * @private
-     * 
-     * Cache last value of embedded font.
-     */
-    private var cachedEmbeddedFont:EmbeddedFont = null;
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -482,9 +484,10 @@ public class UITextFormat extends TextFormat
         // to be used for text measurement. The text field factory keeps
         // the text fields to one per moduleFactory.
         var embeddedFont:Boolean = false;
-        var fontModuleFactory:IFlexModuleFactory =
+        var fontModuleFactory:IFlexModuleFactory = (noEmbeddedFonts || !embeddedFontRegistry) ? 
+			null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                getEmbeddedFont(font, bold, italic), moduleFactory);
+                font, bold, italic, this, moduleFactory);
 
         embeddedFont = (fontModuleFactory != null);
         if (fontModuleFactory == null)
@@ -549,28 +552,6 @@ public class UITextFormat extends TextFormat
         }
         
         return lineMetrics;
-    }
-
-    /**
-     * @private
-     * 
-     * Get the embedded font for a set of font attributes.
-     */ 
-    private function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
-    {
-        // Check if we can reuse a cached value.
-        if (cachedEmbeddedFont)
-        {
-            if (cachedEmbeddedFont.fontName == fontName &&
-                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
-            {
-                return cachedEmbeddedFont;
-            }   
-        }
-        
-        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);      
-        
-        return cachedEmbeddedFont;
     }
 
     /**
