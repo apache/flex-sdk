@@ -1731,13 +1731,6 @@ public class UIComponent extends FlexSprite
     /**
      * @private
      *
-     * when true, the transform on this component consists only of translation.  Otherwise, it may be arbitrarily complex.
-     */
-    protected var hasDeltaIdentityTransform:Boolean = true;
-
-    /**
-     * @private
-     *
      * storage for the modified Transform object that can dispatch change events correctly.
      */
     private var _transform:flash.geom.Transform;
@@ -2162,8 +2155,7 @@ public class UIComponent extends FlexSprite
 
         if (rotation == value)
             return;
-            
-        hasDeltaIdentityTransform = false;
+        
         if (_layoutFeatures == null)
         {
             // clamp the rotation value between -180 and 180.  This is what 
@@ -2528,8 +2520,6 @@ public class UIComponent extends FlexSprite
             var prevValue:Number = (_layoutFeatures == null)? scaleX:_layoutFeatures.layoutScaleX;
             if (prevValue == value)
                 return;
-    
-            hasDeltaIdentityTransform = false;
             
             // trace("set scaleX:" + this + "value = " + value); 
             if (_layoutFeatures == null)
@@ -2612,7 +2602,6 @@ public class UIComponent extends FlexSprite
             if (prevValue == value)
                 return;
     
-            hasDeltaIdentityTransform = false;
             if (_layoutFeatures == null)
                 super.scaleY = value;
             else
@@ -2671,7 +2660,6 @@ public class UIComponent extends FlexSprite
         if (_layoutFeatures == null)
             initAdvancedLayoutFeatures();
 
-		hasDeltaIdentityTransform = false;
 		_layoutFeatures.layoutScaleZ = value;
         invalidateTransform();
         invalidateProperties();
@@ -5388,7 +5376,7 @@ public class UIComponent extends FlexSprite
      */
     protected function get hasComplexLayoutMatrix():Boolean
     {
-        return (_layoutFeatures == null ? false : !MatrixUtil.isDeltaIdentity(_layoutFeatures.layoutMatrix))
+        return (_layoutFeatures == null ? false : !MatrixUtil.isDeltaIdentity(_layoutFeatures.layoutMatrix));
     }
 
     //----------------------------------
@@ -7492,22 +7480,19 @@ public class UIComponent extends FlexSprite
     }
 
     /**
-     *  Returns <code>true</code> when the <code>measureSizes()</code> method 
-     *  can skip the call to the <code>measure()</code> method. 
-     *  This is usually the case when both the <code>explicitWidth</code> and
-     *  <code>explicitHeight</code> properties are set. 
-     *  For path, this is <code>true</code> when the bounds of the path
+     *  Determines if the call to the <code>measure()</code> method can be skipped.
+     *  
+     *  @return Returns <code>true</code> when the <code>measureSizes()</code> method can skip the call to
+     *  the <code>measure()</code> method. For example this is usually <code>true</code> when both <code>explicitWidth</code> and
+     *  <code>explicitHeight</code> are set. For paths, this is <code>true</code> when the bounds of the path
      *  have not changed.
-     *
-     *  @return <code>true</code> when the <code>measureSizes()</code> method 
-     *  can skip the call to the <code>measure()</code> method.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
-    protected function skipMeasure():Boolean
+    protected function canSkipMeasurement():Boolean
     {
         // We can skip the measure function if the object's width and height
         // have been explicitly specified (e.g.: the object's MXML tag has
@@ -7532,7 +7517,7 @@ public class UIComponent extends FlexSprite
         var scalingFactor:Number;
         var newValue:Number;
 
-        if (skipMeasure())
+        if (canSkipMeasurement())
         {
             invalidateSizeFlag = false;
             _measuredMinWidth = 0;
@@ -11741,8 +11726,6 @@ public class UIComponent extends FlexSprite
     protected function initAdvancedLayoutFeatures():void
     {
         var features:AdvancedLayoutFeatures = new AdvancedLayoutFeatures();
-
-        hasDeltaIdentityTransform = false;
         
         features.layoutScaleX = scaleX;
         features.layoutScaleY = scaleY;
@@ -11901,7 +11884,6 @@ public class UIComponent extends FlexSprite
      */
     public function setLayoutMatrix(value:Matrix, invalidateLayout:Boolean):void
     {
-        hasDeltaIdentityTransform = false;
         if (_layoutFeatures == null)
         {
             // flash will make a copy of this on assignment.
@@ -12447,7 +12429,7 @@ public class UIComponent extends FlexSprite
 
     protected function nonDeltaLayoutMatrix():Matrix
     {
-        if (hasDeltaIdentityTransform)
+        if (hasComplexLayoutMatrix)
             return null;
         if (_layoutFeatures != null)
         {
