@@ -68,411 +68,435 @@ public class NumberFormatter extends Formatter
 {
     include "../core/Version.as";
     
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  Constructor.
-	 */
-	public function NumberFormatter()
-	{
-		super();
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-
-	//----------------------------------
-	//  decimalSeparatorFrom
-	//----------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
-	 *  @private
-	 *  Storage for the decimalSeparatorFrom property.
-	 */
-	private var _decimalSeparatorFrom:String;
-	
+     *  Constructor.
+     */
+    public function NumberFormatter()
+    {
+        super();
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  decimalSeparatorFrom
+    //----------------------------------
+
     /**
-	 *  @private
-	 */
-	private var decimalSeparatorFromOverride:String;
-	
+     *  @private
+     *  Storage for the decimalSeparatorFrom property.
+     */
+    private var _decimalSeparatorFrom:String;
+    
+    /**
+     *  @private
+     */
+    private var decimalSeparatorFromOverride:String;
+    
     [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  Decimal separator character to use
-	 *  when parsing an input String.
-	 *
-	 *  @default "."
+     *  when parsing an input String.
+     *
+     *  <p>When setting this property, ensure that the value of the 
+     *  <code>thousandsSeparatorFrom</code> property does not equal this property. 
+     *  Otherwise, an error occurs when formatting the value.</p>
+     *
+     *  @default "."
+     *
+     *  @see #format()
      */
-	public function get decimalSeparatorFrom():String
-	{
-		return _decimalSeparatorFrom;
-	}
+    public function get decimalSeparatorFrom():String
+    {
+        return _decimalSeparatorFrom;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set decimalSeparatorFrom(value:String):void
-	{
-		decimalSeparatorFromOverride = value;
-
-		_decimalSeparatorFrom = value != null ?
-								value :
-								resourceManager.getString(
-									"SharedResources", "decimalSeparatorFrom");
-	}
-
-	//----------------------------------
-	//  decimalSeparatorTo
-	//----------------------------------
-	
     /**
-	 *  @private
-	 *  Storage for the decimalSeparatorTo property.
-	 */
-	private var _decimalSeparatorTo:String;
-	
+     *  @private
+     */
+    public function set decimalSeparatorFrom(value:String):void
+    {
+        decimalSeparatorFromOverride = value;
+
+        _decimalSeparatorFrom = value != null ?
+                                value :
+                                resourceManager.getString(
+                                    "SharedResources", "decimalSeparatorFrom");
+    }
+
+    //----------------------------------
+    //  decimalSeparatorTo
+    //----------------------------------
+    
     /**
-	 *  @private
-	 */
-	private var decimalSeparatorToOverride:String;
-	
+     *  @private
+     *  Storage for the decimalSeparatorTo property.
+     */
+    private var _decimalSeparatorTo:String;
+    
+    /**
+     *  @private
+     */
+    private var decimalSeparatorToOverride:String;
+    
     [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  Decimal separator character to use
-	 *  when outputting formatted decimal numbers.
-	 *
-	 *  @default "."
+     *  when outputting formatted decimal numbers.
+     *
+     *  <p>When setting this property, ensure that the value of the  
+     *  <code>thousandsSeparatorTo</code> property does not equal this property. 
+     *  Otherwise, an error occurs when formatting the value.</p>
+     *
+     *  @default "."
+     *
+     *  @see #format()
      */
-	public function get decimalSeparatorTo():String
-	{
-		return _decimalSeparatorTo;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set decimalSeparatorTo(value:String):void
-	{
-		decimalSeparatorToOverride = value;
-
-		_decimalSeparatorTo = value != null ?
-							  value :
-							  resourceManager.getString(
-							    "SharedResources", "decimalSeparatorTo");
-	}
-
-	//----------------------------------
-	//  precision
-	//----------------------------------
+    public function get decimalSeparatorTo():String
+    {
+        return _decimalSeparatorTo;
+    }
 
     /**
-	 *  @private
-	 *  Storage for the precision property.
-	 */
-	private var _precision:Object;
-	
+     *  @private
+     */
+    public function set decimalSeparatorTo(value:String):void
+    {
+        decimalSeparatorToOverride = value;
+
+        _decimalSeparatorTo = value != null ?
+                              value :
+                              resourceManager.getString(
+                                "SharedResources", "decimalSeparatorTo");
+    }
+
+    //----------------------------------
+    //  precision
+    //----------------------------------
+
     /**
-	 *  @private
-	 */
-	private var precisionOverride:Object;
-	
+     *  @private
+     *  Storage for the precision property.
+     */
+    private var _precision:Object;
+    
+    /**
+     *  @private
+     */
+    private var precisionOverride:Object;
+    
     [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  Number of decimal places to include in the output String.
-	 *  You can disable precision by setting it to <code>-1</code>.
-	 *  A value of <code>-1</code> means do not change the precision. For example, 
-	 *  if the input value is 1.453 and <code>rounding</code> 
-	 *  is set to <code>NumberBaseRoundType.NONE</code>, return a value of 1.453.
-	 *  If <code>precision</code> is <code>-1</code> and you have set some form of 
-	 *  rounding, return a value based on that rounding type.
-	 *
-	 *  @default -1
+     *  You can disable precision by setting it to <code>-1</code>.
+     *  A value of <code>-1</code> means do not change the precision. For example, 
+     *  if the input value is 1.453 and <code>rounding</code> 
+     *  is set to <code>NumberBaseRoundType.NONE</code>, return a value of 1.453.
+     *  If <code>precision</code> is <code>-1</code> and you have set some form of 
+     *  rounding, return a value based on that rounding type.
+     *
+     *  @default -1
      */
-	public function get precision():Object
-	{
-		return _precision;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set precision(value:Object):void
-	{
-		precisionOverride = value;
-
-		_precision = value != null ?
-					 int(value) :
-					 resourceManager.getInt(
-					     "formatters", "numberFormatterPrecision");
-	}
-
-	//----------------------------------
-	//  rounding
-	//----------------------------------
+    public function get precision():Object
+    {
+        return _precision;
+    }
 
     /**
-	 *  @private
-	 *  Storage for the rounding property.
-	 */
-	private var _rounding:String;
-	
+     *  @private
+     */
+    public function set precision(value:Object):void
+    {
+        precisionOverride = value;
+
+        _precision = value != null ?
+                     int(value) :
+                     resourceManager.getInt(
+                         "formatters", "numberFormatterPrecision");
+    }
+
+    //----------------------------------
+    //  rounding
+    //----------------------------------
+
     /**
-	 *  @private
-	 */
-	private var roundingOverride:String;
-	
+     *  @private
+     *  Storage for the rounding property.
+     */
+    private var _rounding:String;
+    
+    /**
+     *  @private
+     */
+    private var roundingOverride:String;
+    
     [Inspectable(category="General", enumeration="none,up,down,nearest", defaultValue="null")]
-    	// !!@ Should enumeration include null?
+        // !!@ Should enumeration include null?
 
     /**
      *  Specifies how to round the number.
      *
-	 *  <p>In ActionScript, you can use the following constants to set this property: 
-	 *  <code>NumberBaseRoundType.NONE</code>, <code>NumberBaseRoundType.UP</code>,
-	 *  <code>NumberBaseRoundType.DOWN</code>, or <code>NumberBaseRoundType.NEAREST</code>.
+     *  <p>In ActionScript, you can use the following constants to set this property: 
+     *  <code>NumberBaseRoundType.NONE</code>, <code>NumberBaseRoundType.UP</code>,
+     *  <code>NumberBaseRoundType.DOWN</code>, or <code>NumberBaseRoundType.NEAREST</code>.
      *  Valid MXML values are "down", "nearest", "up", and "none".</p>
-	 *
-	 *  @default NumberBaseRoundType.NONE
- 	 *
-	 *  @see mx.formatters.NumberBaseRoundType
+     *
+     *  @default NumberBaseRoundType.NONE
+     *
+     *  @see mx.formatters.NumberBaseRoundType
      */
-	public function get rounding():String
-	{
-		return _rounding;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set rounding(value:String):void
-	{
-		roundingOverride = value;
-
-		_rounding = value != null ?
-					value :
-					resourceManager.getString(
-						"formatters", "rounding");
-	}
-
-	//----------------------------------
-	//  thousandsSeparatorFrom
-	//----------------------------------
+    public function get rounding():String
+    {
+        return _rounding;
+    }
 
     /**
-	 *  @private
-	 *  Storage for the thousandsSeparatorFrom property.
-	 */
-	private var _thousandsSeparatorFrom:String;
-	
+     *  @private
+     */
+    public function set rounding(value:String):void
+    {
+        roundingOverride = value;
+
+        _rounding = value != null ?
+                    value :
+                    resourceManager.getString(
+                        "formatters", "rounding");
+    }
+
+    //----------------------------------
+    //  thousandsSeparatorFrom
+    //----------------------------------
+
     /**
-	 *  @private
-	 */
-	private var thousandsSeparatorFromOverride:String;
-	
+     *  @private
+     *  Storage for the thousandsSeparatorFrom property.
+     */
+    private var _thousandsSeparatorFrom:String;
+    
+    /**
+     *  @private
+     */
+    private var thousandsSeparatorFromOverride:String;
+    
     [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  Character to use as the thousands separator
-	 *  in the input String.
-	 *
-	 *  @default ","
+     *  in the input String.
+     *
+     *  <p>When setting this property, ensure that the value of the
+     *  <code>decimalSeparatorFrom</code> property does not equal this property. 
+     *  Otherwise, an error occurs when formatting the value.</p>
+     *
+     *  @default ","
+     *
+     *  @see #format()
      */
-	public function get thousandsSeparatorFrom():String
-	{
-		return _thousandsSeparatorFrom;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set thousandsSeparatorFrom(value:String):void
-	{
-		thousandsSeparatorFromOverride = value;
-
-		_thousandsSeparatorFrom = value != null ?
-								  value :
-								  resourceManager.getString(
-								      "SharedResources",
-								      "thousandsSeparatorFrom");
-	}
-	
-	//----------------------------------
-	//  thousandsSeparatorTo
-	//----------------------------------
+    public function get thousandsSeparatorFrom():String
+    {
+        return _thousandsSeparatorFrom;
+    }
 
     /**
-	 *  @private
-	 *  Storage for the thousandsSeparatorTo property.
-	 */
-	private var _thousandsSeparatorTo:String;
-	
+     *  @private
+     */
+    public function set thousandsSeparatorFrom(value:String):void
+    {
+        thousandsSeparatorFromOverride = value;
+
+        _thousandsSeparatorFrom = value != null ?
+                                  value :
+                                  resourceManager.getString(
+                                      "SharedResources",
+                                      "thousandsSeparatorFrom");
+    }
+    
+    //----------------------------------
+    //  thousandsSeparatorTo
+    //----------------------------------
+
     /**
-	 *  @private
-	 */
-	private var thousandsSeparatorToOverride:String;
-	
+     *  @private
+     *  Storage for the thousandsSeparatorTo property.
+     */
+    private var _thousandsSeparatorTo:String;
+    
+    /**
+     *  @private
+     */
+    private var thousandsSeparatorToOverride:String;
+    
     [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  Character to use as the thousands separator
-	 *  in the output String.
-	 *
-	 *  @default ","
+     *  in the output String.
+     *
+     *  <p>When setting this property, ensure that the value of the  
+     *  <code>decimalSeparatorTo</code> property does not equal this property. 
+     *  Otherwise, an error occurs when formatting the value.</p>
+     *
+     *  @default ","
+     *
+     *  @see #format()
      */
-	public function get thousandsSeparatorTo():String
-	{
-		return _thousandsSeparatorTo;
-	}
+    public function get thousandsSeparatorTo():String
+    {
+        return _thousandsSeparatorTo;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set thousandsSeparatorTo(value:String):void
-	{
-		thousandsSeparatorToOverride = value;
-
-		_thousandsSeparatorTo = value != null ?
-								value :
-								resourceManager.getString(
-									"SharedResources",
-									"thousandsSeparatorTo");
-	}
-
-	//----------------------------------
-	//  useNegativeSign
-	//----------------------------------
-	
     /**
-	 *  @private
-	 *  Storage for the useNegativeSign property.
-	 */
-	private var _useNegativeSign:Object;
-	
+     *  @private
+     */
+    public function set thousandsSeparatorTo(value:String):void
+    {
+        thousandsSeparatorToOverride = value;
+
+        _thousandsSeparatorTo = value != null ?
+                                value :
+                                resourceManager.getString(
+                                    "SharedResources",
+                                    "thousandsSeparatorTo");
+    }
+
+    //----------------------------------
+    //  useNegativeSign
+    //----------------------------------
+    
     /**
-	 *  @private
-	 */
-	private var useNegativeSignOverride:Object;
-	
+     *  @private
+     *  Storage for the useNegativeSign property.
+     */
+    private var _useNegativeSign:Object;
+    
+    /**
+     *  @private
+     */
+    private var useNegativeSignOverride:Object;
+    
     [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  If <code>true</code>, format a negative number 
-	 *  by preceding it with a minus "-" sign.
-	 *  If <code>false</code>, format the number
-	 *  surrounded by parentheses, for example (400).
-	 *
-	 *  @default true
+     *  by preceding it with a minus "-" sign.
+     *  If <code>false</code>, format the number
+     *  surrounded by parentheses, for example (400).
+     *
+     *  @default true
      */
-	public function get useNegativeSign():Object
-	{
-		return _useNegativeSign;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set useNegativeSign(value:Object):void
-	{
-		useNegativeSignOverride = value;
-
-		_useNegativeSign = value != null ?
-						   Boolean(value) :
-						   resourceManager.getBoolean(
-						       "formatters", "useNegativeSign");
-	}
-
-	//----------------------------------
-	//  useThousandsSeparator
-	//----------------------------------
+    public function get useNegativeSign():Object
+    {
+        return _useNegativeSign;
+    }
 
     /**
-	 *  @private
-	 *  Storage for the useThousandsSeparator property.
-	 */
-	private var _useThousandsSeparator:Object;
-	
+     *  @private
+     */
+    public function set useNegativeSign(value:Object):void
+    {
+        useNegativeSignOverride = value;
+
+        _useNegativeSign = value != null ?
+                           Boolean(value) :
+                           resourceManager.getBoolean(
+                               "formatters", "useNegativeSign");
+    }
+
+    //----------------------------------
+    //  useThousandsSeparator
+    //----------------------------------
+
     /**
-	 *  @private
-	 */
-	private var useThousandsSeparatorOverride:Object;
-	
+     *  @private
+     *  Storage for the useThousandsSeparator property.
+     */
+    private var _useThousandsSeparator:Object;
+    
+    /**
+     *  @private
+     */
+    private var useThousandsSeparatorOverride:Object;
+    
     [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  If <code>true</code>, split the number into thousands increments
-	 *  by using a separator character.
-	 *
-	 *  @default true
+     *  by using a separator character.
+     *
+     *  @default true
      */
-	public function get useThousandsSeparator():Object
-	{
-		return _useThousandsSeparator;
-	}
-
-	/**
-	 *  @private
-	 */
-	public function set useThousandsSeparator(value:Object):void
-	{
-		useThousandsSeparatorOverride = value;
-
-		_useThousandsSeparator = value != null ?
-								 Boolean(value) :
-								 resourceManager.getBoolean(
-								     "formatters", "useThousandsSeparator");
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
+    public function get useThousandsSeparator():Object
+    {
+        return _useThousandsSeparator;
+    }
 
     /**
-	 *  @private    
+     *  @private
      */
-	override protected function resourcesChanged():void
-	{
-		super.resourcesChanged();
+    public function set useThousandsSeparator(value:Object):void
+    {
+        useThousandsSeparatorOverride = value;
 
-		decimalSeparatorFrom = decimalSeparatorFromOverride;
-		decimalSeparatorTo = decimalSeparatorToOverride;
-		precision = precisionOverride;
-		rounding = roundingOverride;
-		thousandsSeparatorFrom = thousandsSeparatorFromOverride;
-		thousandsSeparatorTo = thousandsSeparatorToOverride;
-		useNegativeSign = useNegativeSignOverride;
-		useThousandsSeparator = useThousandsSeparatorOverride;
-	}
+        _useThousandsSeparator = value != null ?
+                                 Boolean(value) :
+                                 resourceManager.getBoolean(
+                                     "formatters", "useThousandsSeparator");
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private    
+     */
+    override protected function resourcesChanged():void
+    {
+        super.resourcesChanged();
+
+        decimalSeparatorFrom = decimalSeparatorFromOverride;
+        decimalSeparatorTo = decimalSeparatorToOverride;
+        precision = precisionOverride;
+        rounding = roundingOverride;
+        thousandsSeparatorFrom = thousandsSeparatorFromOverride;
+        thousandsSeparatorTo = thousandsSeparatorToOverride;
+        useNegativeSign = useNegativeSignOverride;
+        useThousandsSeparator = useThousandsSeparatorOverride;
+    }
 
     /**
      *  Formats the number as a String.
-	 *  If <code>value</code> cannot be formatted, return an empty String 
-	 *  and write a description of the error to the <code>error</code> property.
-	 *
+     *  If <code>value</code> cannot be formatted, return an empty String 
+     *  and write a description of the error to the <code>error</code> property.
+     *
      *  @param value Value to format.
-	 *
+     *
      *  @return Formatted String. Empty if an error occurs.
      */
     override public function format(value:Object):String
     {
         // Reset any previous errors.
         if (error)
-			error = null;
+            error = null;
 
         if (useThousandsSeparator &&
-			((decimalSeparatorFrom == thousandsSeparatorFrom) ||
-			 (decimalSeparatorTo == thousandsSeparatorTo)))
+            ((decimalSeparatorFrom == thousandsSeparatorFrom) ||
+             (decimalSeparatorTo == thousandsSeparatorTo)))
         {
             error = defaultInvalidFormatError;
             return "";
@@ -485,9 +509,9 @@ public class NumberFormatter extends Formatter
         }
 
         var dataFormatter:NumberBase = new NumberBase(decimalSeparatorFrom,
-													  thousandsSeparatorFrom,
-													  decimalSeparatorTo,
-													  thousandsSeparatorTo);
+                                                      thousandsSeparatorFrom,
+                                                      decimalSeparatorTo,
+                                                      thousandsSeparatorTo);
 
         // -- value --
 
@@ -509,21 +533,21 @@ public class NumberFormatter extends Formatter
         var numFraction:int = numArrTemp[1] ? String(numArrTemp[1]).length : 0;
 
         if (precision <= numFraction)
-		{
+        {
             if (rounding != NumberBaseRoundType.NONE)
-			{
+            {
                 numStr = dataFormatter.formatRoundingWithPrecision(
-					numStr, rounding, int(precision));
-			}
-		}
+                    numStr, rounding, int(precision));
+            }
+        }
 
         var numValue:Number = Number(numStr);
         if (Math.abs(numValue) >= 1)
         {
             numArrTemp = numStr.split(".");
             var front:String = useThousandsSeparator ?
-							   dataFormatter.formatThousands(String(numArrTemp[0])) :
-							   String(numArrTemp[0]);
+                               dataFormatter.formatThousands(String(numArrTemp[0])) :
+                               String(numArrTemp[0]);
             if (numArrTemp[1] != null && numArrTemp[1] != "")
                 numStr = front + decimalSeparatorTo + numArrTemp[1];
             else
@@ -531,23 +555,23 @@ public class NumberFormatter extends Formatter
         }
         else if (Math.abs(numValue) > 0)
         {
-        	// Check if the string is in scientific notation
-        	if (numStr.indexOf("e") != -1)
-        	{
-	        	var temp:Number = Math.abs(numValue) + 1;
-	        	numStr = temp.toString();
-        	}
+            // Check if the string is in scientific notation
+            if (numStr.indexOf("e") != -1)
+            {
+                var temp:Number = Math.abs(numValue) + 1;
+                numStr = temp.toString();
+            }
             numStr = decimalSeparatorTo +
-					 numStr.substring(numStr.indexOf(".") + 1);
+                     numStr.substring(numStr.indexOf(".") + 1);
         }
         
         numStr = dataFormatter.formatPrecision(numStr, int(precision));
 
-		// If our value is 0, then don't show -0
-		if (Number(numStr) == 0)
-		{
-			isNegative = false;	
-		}
+        // If our value is 0, then don't show -0
+        if (Number(numStr) == 0)
+        {
+            isNegative = false; 
+        }
 
         if (isNegative)
             numStr = dataFormatter.formatNegative(numStr, useNegativeSign);
