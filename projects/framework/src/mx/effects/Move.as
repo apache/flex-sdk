@@ -14,6 +14,8 @@ package mx.effects
 
 import mx.effects.effectClasses.MoveInstance;
 
+[Alternative(replacement="spark.effects.Move", since="4.0")]
+
 /**
  *  The Move effect changes the position of a component
  *  over a specified time interval.
