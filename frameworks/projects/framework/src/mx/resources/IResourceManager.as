@@ -240,13 +240,31 @@ public interface IResourceManager extends IEventDispatcher
      *  methods such as <code>getString()</code>.
      *
      *  @param resourceBundle The resource bundle to be added.
+     *  @param useWeakReference Determines if the ResourceManager
+     *  keeps a weak reference to the resource bundle.
+     *  If useWeakReference is true then the ResourceManager will 
+     *  provide a weak reference to the resource bundle. When the 
+     *  caller chooses to use a weak reference it becomes the 
+     *  caller's responsibility to keep a hard reference the resource bundle 
+     *  so it is not garbaged collected prematurely. If useWeakReference is
+     *  false the ResourceManager will keep a hard reference to the resource
+     *  bundle so it will not be garbage collected.
+     *  
+     *  When a Flex sub-application or module automatically adds its compiled
+     *  resource bundles to the ResourceManager, it calls addResourceBundle()
+     *  with useWeakReference set to true, to avoid becoming pinned in memory.
+     *  If you create resource bundles at runtime in a sub-application or 
+     *  module, you should do the same. You then need to hold on to these 
+     *  resource bundles with a hard reference to prevent them from being 
+     *  garbage-collected.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    function addResourceBundle(resourceBundle:IResourceBundle):void;
+    function addResourceBundle(resourceBundle:IResourceBundle,
+                               useWeakReference:Boolean = false):void;
     
     /**
      *  Removes the specified ResourceBundle from the ResourceManager
@@ -746,7 +764,8 @@ public interface IResourceManager extends IEventDispatcher
     function installCompiledResourceBundles(
                                 applicationDomain:ApplicationDomain,
                                 locales:Array /* of String */,
-                                bundleNames:Array /* of String */):void;
+                                bundleNames:Array /* of String */,
+                                useWeakReference:Boolean = false):Array;
 
 	/**
 	 *  Used only by classes which implement IFlexModuleFactory.
