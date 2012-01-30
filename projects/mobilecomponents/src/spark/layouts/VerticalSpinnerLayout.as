@@ -169,7 +169,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
 		// TODO (jszeto) Modify LayoutIterator to not require seeding w/ index - 1
         var itemIndex:int = -1;
         var yPos:Number = 0;
-        var numVisibleElements:int = 0;
+        var numVisibleElements:int = -1;
         
         // Translate the vsp to the item index
         if (wrapElements)
