@@ -61,7 +61,7 @@ public class StyleProtoChain
      *  If they were simply initialized to {}, we couldn't determine
      *  whether the style chain has already been built or not.
      */
-    public static const STYLE_UNINITIALIZED:Object = {};
+    public static var STYLE_UNINITIALIZED:Object = {};
 
     //--------------------------------------------------------------------------
     //
@@ -613,9 +613,9 @@ public class StyleProtoChain
         if (EffectManager.getEventForEffectTrigger(styleProp) != "")
             EffectManager.setStyle(styleProp, object);
 
-        // If this UIComponent didn't previously have any inline styles,
-        // then regenerate the UIComponent's proto chain (and the proto chains
-        // of this UIComponent's descendants).
+        // If this object didn't previously have any inline styles,
+        // then regenerate its proto chain
+        // (and the proto chains of its descendants).
         var isInheritingStyle:Boolean =
             StyleManager.isInheritingStyle(styleProp);
         var isProtoChainInitialized:Boolean =
