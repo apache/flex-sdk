@@ -77,8 +77,8 @@ public class StageTextInputSkin extends StageTextSkinBase
         var paddingTop:Number = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
         
-        var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
-        var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
+        var unscaledTextWidth:Number = Math.max(0, unscaledWidth - paddingLeft - paddingRight);
+        var unscaledTextHeight:Number = Math.max(0, unscaledHeight - paddingTop - paddingBottom);
         
         // default vertical positioning is centered
         var textHeight:Number = getElementPreferredHeight(textDisplay);
