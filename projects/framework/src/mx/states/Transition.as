@@ -232,6 +232,7 @@ public class Transition
      * 
      *  @default InterruptionBehavior.END
      */
+    [Inspectable(category="General", enumeration="end,stop", defaultValue="end")]
     public var interruptionBehavior:String = InterruptionBehavior.END;
 }
 
