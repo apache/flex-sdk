@@ -9,12 +9,8 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-// Adobe Patent or Adobe Patent Pending Invention Included Within this File
-
-// Adobe patent application tracking #B518, entitled METHODS AND SYSTEMS 
-//   FOR ANIMATING DISPLAYED REPRESENTATIONS OF DATA ITEMS, inventors: Schiff
-// Adobe patent application tracking # B519, entitled METHODS AND SYSTEMS
-//   FOR ANIMATING DISPLAYED REPRESENTATIONS OF DATA ITEMS, inventors: Schiff
+// AdobePatentID="B518"
+// AdobePatentID="B519"
 
 package mx.collections
 {
