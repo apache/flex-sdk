@@ -56,6 +56,7 @@ internal class FrameworkClasses
 	import mx.core.SimpleApplication; SimpleApplication;
 	import mx.core.SoundAsset; SoundAsset;
 	import mx.core.TextFieldAsset; TextFieldAsset;
+	import mx.core.TextFieldFactory; TextFieldFactory;
 	import mx.effects.easing.Back; Back;
 	import mx.effects.easing.Bounce; Bounce;
 	import mx.effects.easing.Circular; Circular;
@@ -78,6 +79,15 @@ internal class FrameworkClasses
 	import mx.logging.Log; Log;
 	import mx.logging.targets.TraceTarget; TraceTarget;
 	import mx.managers.DragManager; DragManager;
+	import mx.managers.marshalClasses.CursorManagerMarshalMixin; CursorManagerMarshalMixin;
+	import mx.managers.marshalClasses.DragManagerMarshalMixin; DragManagerMarshalMixin;
+	import mx.managers.marshalClasses.FocusManagerMarshalMixin; FocusManagerMarshalMixin;
+	import mx.managers.marshalClasses.PopUpManagerMarshalMixin; PopUpManagerMarshalMixin;
+	import mx.managers.marshalClasses.ToolTipManagerMarshalMixin; ToolTipManagerMarshalMixin;
+	import mx.managers.systemClasses.ActiveWindowManager; ActiveWindowManager;
+	import mx.managers.systemClasses.ChildManager; ChildManager;
+	import mx.managers.systemClasses.MarshallPlan; MarshallPlan;
+	import mx.messaging.config.LoaderConfig; LoaderConfig;
 	import mx.modules.IModuleInfo; IModuleInfo;
 	import mx.modules.Module; Module;
 	import mx.modules.ModuleBase; ModuleBase;
