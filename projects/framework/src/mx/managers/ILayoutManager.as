@@ -16,7 +16,6 @@ import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
-import mx.core.Application;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
