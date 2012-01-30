@@ -27,6 +27,11 @@ public class ToggleButtonSkinBase extends ButtonSkinBase
     public function ToggleButtonSkinBase()
     {
         super();
+        gap = 15;
+        paddingLeft = 15;
+        paddingRight = 15;
+        paddingTop = 15;
+        paddingBottom = 15;
     }
     
     
@@ -108,10 +113,6 @@ public class ToggleButtonSkinBase extends ButtonSkinBase
         graphics.beginFill(0,0);
         graphics.drawRect(0,0,unscaledWidth, unscaledHeight);
         graphics.endFill();
-        
-		// Force strokes to be aligned on the pixel boundries.
-		iconDisplay.x += .5;
-		iconDisplay.y += .5;
     }
     
     
