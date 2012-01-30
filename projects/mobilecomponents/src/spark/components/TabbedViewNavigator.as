@@ -44,6 +44,8 @@ import spark.events.RendererExistenceEvent;
 
 use namespace mx_internal;
 
+[DefaultProperty("navigators")]
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -170,8 +172,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         super();
         
-        addEventListener(ElementExistenceEvent.ELEMENT_ADD, elementAddHandler);
-        addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, elementRemoveHandler);
+        _navigators = new Vector.<ViewNavigatorBase>();
     }
     
     //--------------------------------------------------------------------------
@@ -342,6 +343,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //  navigators
     //----------------------------------
     
+    private var _navigators:Vector.<ViewNavigatorBase>;
+    
     /**
      *  The view navigators that are managed by this TabbedViewNavigator.
      *  Each view navigator is represented as a tab in the tab bar 
@@ -360,17 +363,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function get navigators():Vector.<ViewNavigatorBase>
     {
-        var mxmlContent:Array = currentContentGroup.getMXMLContent();
-        
-        if (!mxmlContent)
-            return null;
-        
-        // When this class was first released, navigators was typed Vector
-        // and not Array.  In 4.5.2, TabbedViewNavigator moved away from this 
-        // model and uses mxmlContent to manage children.  To maintain backwards 
-        // compatibility, the return type for this method remained the same.
-        // As a result, the mxmlContent array will need to converted.
-        return Vector.<ViewNavigatorBase>(mxmlContent);
+        return _navigators;
     }
     
     /**
@@ -378,18 +371,38 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */ 
     public function set navigators(value:Vector.<ViewNavigatorBase>):void
     {
-        // When this class was first released, navigators was typed Vector
-        // and not Array.  In 4.5.2, TabbedViewNavigator moved away from this
-        // model and uses mxmlContent to manage children.  To maintain backwards 
-        // compatibility, the return type for this method remained the same.
-        // As a result, the value vector needs to be converted to an array
-        var contentArray:Array = new Array();
+        var i:int;
+        var navigator:ViewNavigatorBase;
         
-        for each (var navigator:ViewNavigatorBase in value)
-            contentArray.push(navigator);
+        // These flags are updated at the beginning of the method so
+        // that the selectedIndex setter doesn't ignore passed in value
+        dataProviderChanged = true;
+        invalidateProperties();
         
-        mxmlContent = contentArray;
+        // Clean up and remove all the previous navigators from the display list
+        if (_navigators)
+        {
+            for (i = 0; i < _navigators.length; ++i)
+            {
+                navigator = _navigators[i];
+                
+                cleanUpNavigator(navigator);
+                removeElement(navigator);
+            }
+        }
         
+        _navigators = value ? value.concat() : null;
+        
+        if (value)
+        {
+            for (i = 0; i < value.length; ++i)
+            {
+                navigator = _navigators[i];
+                addElement(navigator);
+                setupNavigator(navigator);
+            }
+        }
+       
         if (value && value.length > 0)
         {
             // Reset selectedIndex to -1 and proposed index to 0 so that the appropriate
@@ -404,10 +417,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         // The proposed selected index is reset because it is no longer valid
         // since the array of navigators has changed.
         selectedIndexChanged = false;
-        
-        // Invalidate property flags
-        dataProviderChanged = true;
-        invalidateProperties();
         
         // Notify listeners that the collection changed
         internalDispatchEvent(CollectionEventKind.RESET);
@@ -431,10 +440,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */    
     public function get selectedNavigator():ViewNavigatorBase
     {
-        if (length == 0 || selectedIndex < 0 || selectedIndex >= length) 
+        if (!navigators || length == 0 || selectedIndex < 0) 
             return null;
         
-        return getElementAt(selectedIndex) as ViewNavigatorBase;
+        return navigators[selectedIndex];
     }
     
     //--------------------------------------------------------------------------
@@ -602,28 +611,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     
     /**
      *  @private
-     */
-    private function addNavigatorListeners(navigator:ViewNavigatorBase):void
-    {
-        navigator.addEventListener("viewChangeComplete", navigator_viewChangeCompleteHandler);
-        navigator.addEventListener("viewChangeStart", navigator_viewChangeStartHandler);
-        navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
-        navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler); 
-    }
-    
-    /**
-     *  @private
-     */
-    private function removeNavigatorListeners(navigator:ViewNavigatorBase):void
-    {
-        navigator.removeEventListener("viewChangeComplete", navigator_viewChangeCompleteHandler);
-        navigator.removeEventListener("viewChangeStart", navigator_viewChangeStartHandler);
-        navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
-        navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler); 
-    }
-    
-    /**
-     *  @private
      */ 
     private function setupNavigator(navigator:ViewNavigatorBase):void
     {
@@ -654,7 +641,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 view_propertyChangeHandler);
         }
         
-        removeNavigatorListeners(navigator);
+        navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, 
+            navigator_elementAddHandler);
+        navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, 
+            navigator_elementRemoveHandler);
+        
         stopTrackingUpdates(navigator);
     }
     
@@ -678,9 +669,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             
             // If the data provider has changed, the navigator elements have
             // already been removed, so the following code doesn't need to run
-            if (!selectedIndexAdjusted && !dataProviderChanged && _selectedIndex >= 0 && _selectedIndex < length)
+            if (!selectedIndexAdjusted && !dataProviderChanged && _selectedIndex >= 0)
             {
-                navigator = getElementAt(_selectedIndex) as ViewNavigatorBase;
+                navigator = navigators[_selectedIndex];
                 navigator.setActive(false, !maintainNavigationStack);
                 navigator.visible = false;
                 navigator.includeInLayout = false;
@@ -689,20 +680,28 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                     navigator.activeView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                                 view_propertyChangeHandler);
                 
-                removeNavigatorListeners(navigator);
+                // Private event dispatched when a view has finished transitioning
+                navigator.removeEventListener("viewChangeComplete", navigator_viewChangeCompleteHandler);
+                navigator.removeEventListener("viewChangeStart", navigator_viewChangeStartHandler);
+                navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
+                navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
             }
             
             commitSelection();
             
             if (_selectedIndex >= 0)
             {
-                navigator = getElementAt(_selectedIndex) as ViewNavigatorBase;
+                navigator = navigators[_selectedIndex];
+                
+                navigator.addEventListener("viewChangeComplete", navigator_viewChangeCompleteHandler);
+                navigator.addEventListener("viewChangeStart", navigator_viewChangeStartHandler);
+                navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
+                navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
+                
                 navigator.setActive(true);
                 navigator.visible = true;
                 navigator.includeInLayout = true;
-                
-                addNavigatorListeners(navigator);
-                
+
                 // Update the states of the controls on the newly activated view navigator.
                 // The updateControlsForView() method will automatically bubble up to all
                 // parents of the navigator.
@@ -712,7 +711,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 // occurring in cases where multiple validation passes are required
                 // to completely validate a view
                 if (initialized)
-                    currentContentGroup.validateNow();
+                    contentGroup.validateNow();
                 
                 if (navigator.activeView)
                 {
@@ -998,14 +997,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         if (savedStacks)
         {
-            var navigator:ViewNavigatorBase;
             var len:Number = Math.min(savedStacks.length, length);
-            
-            for (var i:int = 0; i < len; i++)
-            {
-                navigator = getElementAt(i) as ViewNavigatorBase;                
-                navigator.loadViewData(savedStacks[i]);
-            }
+            for (var i:int = 0; i < len; ++i)
+                navigators[i].loadViewData(savedStacks[i]);
         }
     }
     
@@ -1015,16 +1009,20 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     override public function saveViewData():Object
     {
         var savedData:Object = super.saveViewData();
-        var childrenStates:Vector.<Object> = new Vector.<Object>();
+        
+        if (navigators)
+        {
+            var childrenStates:Vector.<Object> = new Vector.<Object>();
             
-        for (var i:int = 0; i < length; i++)
-            childrenStates.push((getElementAt(i) as ViewNavigatorBase).saveViewData());
+            for (var i:int = 0; i < navigators.length; ++i)
+                childrenStates.push(navigators[i].saveViewData());
             
-        if (!savedData)
-            savedData = {};
+            if (!savedData)
+                savedData = {};
             
-        savedData.selectedIndex = selectedIndex;
-        savedData.childrenStates = childrenStates;
+            savedData.selectedIndex = selectedIndex;
+            savedData.childrenStates = childrenStates;
+        }
         
         return savedData;
     }
@@ -1075,24 +1073,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         if (!indexCanChange(event.newIndex))
             event.preventDefault();
-    }
-    
-    /**
-     *  @private
-     */ 
-    private function elementRemoveHandler(event:ElementExistenceEvent):void
-    {
-        cleanUpNavigator(event.element as ViewNavigatorBase);
-        internalDispatchEvent(CollectionEventKind.REMOVE, event.element, event.index);
-    }
-    
-    /**
-     *  @private
-     */ 
-    private function elementAddHandler(event:ElementExistenceEvent):void
-    {
-        setupNavigator(event.element as ViewNavigatorBase);
-        internalDispatchEvent(CollectionEventKind.ADD, event.element, event.index);
     }
     
     /**
@@ -1330,7 +1310,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function get length():int
     {
-        return numElements;
+        if (!_navigators)
+            return 0;
+        
+        return _navigators.length;
     }
     
     /**
@@ -1382,8 +1365,12 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             throw new RangeError(message);
         }
         
+        navigators.splice(index, 0, item);
+                    
         setupNavigator(ViewNavigatorBase(item));
         addElementAt(ViewNavigatorBase(item), index);
+        
+        internalDispatchEvent(CollectionEventKind.ADD, item, index);
         
         if (selectedIndex == NO_PROPOSED_SELECTION)
         {
@@ -1421,7 +1408,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             throw new RangeError(message);
         }
         
-        return getElementAt(index);
+        return navigators[index];
     }
     
     /**
@@ -1438,7 +1425,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function getItemIndex(item:Object):int
     {
-        return getElementIndex(item as ViewNavigatorBase);
+        return navigators.indexOf(item);
     }
     
     /**
@@ -1486,12 +1473,27 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function removeAll():void
     {
+        var item:IVisualElement;
+        var len:int = length;
+        
         // Deactive the active navigator and its view
         if (selectedNavigator)
             selectedNavigator.setActive(false);
         
-        // Remove all navigators
-        navigators = null;
+        for (var i:int = 0; i < len; i++)
+        {
+            item = _navigators[i];
+            cleanUpNavigator(ViewNavigatorBase(item));
+            removeElement(item);
+        }
+        
+        navigators.length = 0;
+        selectedIndex = NO_PROPOSED_SELECTION;
+        dataProviderChanged = true;
+        
+        invalidateProperties();
+        
+        internalDispatchEvent(CollectionEventKind.RESET);
     }
     
     /**
@@ -1523,7 +1525,13 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             selectedIndexAdjusted = true;
         }
         
-        var removed:Object = removeElementAt(index);
+        var removed:Object = _navigators.splice(index, 1)[0];
+
+        cleanUpNavigator(ViewNavigatorBase(removed));
+        removeElement(IVisualElement(removed));
+                
+        internalDispatchEvent(CollectionEventKind.REMOVE, removed, index);
+        
         return removed;
     }
     
@@ -1558,8 +1566,11 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             throw new RangeError(message);
         }
         
-        var oldItem:Object = removeElementAt(index);
-        addElementAt(item as ViewNavigatorBase, index);
+        var oldItem:Object = _navigators[index];
+        _navigators[index] = item as ViewNavigatorBase;
+        
+        cleanUpNavigator(ViewNavigatorBase(oldItem));
+        setupNavigator(ViewNavigatorBase(item));
         
         if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
         {
@@ -1589,7 +1600,15 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */
     public function toArray():Array
     {
-        return contentGroup.getMXMLContent();
+        var n:int = _navigators.length;
+        var arraySource:Array = new Array(n);
+        
+        for (var i:int = 0; i < n; i++)
+        {
+            arraySource[i] = _navigators[i];
+        }
+        
+        return arraySource;
     }
     
     /**
