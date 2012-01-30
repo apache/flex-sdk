@@ -626,7 +626,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  <p>The message function takes a single argument which is the item in 
      *  the data provider and returns a String.</p>
      *  <pre>
-     *  mySubTextFunction(item:Object):String</pre>
+     *  myMessageFunction(item:Object):String</pre>
      *
      *  @default null
      *  
