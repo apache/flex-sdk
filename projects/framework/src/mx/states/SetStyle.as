@@ -41,7 +41,7 @@ import mx.styles.StyleManager;
  *
  *  @includeExample examples/StatesExample.mxml
  */
-public class SetStyle implements IOverride
+public class SetStyle extends OverrideBase implements IOverride
 {
     include "../core/Version.as";
 
@@ -110,6 +110,18 @@ public class SetStyle implements IOverride
      *  Storage for the old related property values, if used.
      */
     private var oldRelatedValues:Array;
+    
+    /**
+     *  @private
+     *  Flag which tracks if we're actively overriding a style.
+     */
+    private var applied:Boolean = false;
+    
+    /**
+     *  @private
+     *  Our most recent parent context.
+     */
+    private var parentContext:UIComponent = null;
 
     //--------------------------------------------------------------------------
     //
@@ -146,7 +158,7 @@ public class SetStyle implements IOverride
      * 
      *  @default null
      */
-    public var target:IStyleClient;
+    public var target:Object;
 
     //----------------------------------
     //  value
@@ -155,12 +167,34 @@ public class SetStyle implements IOverride
     [Inspectable(category="General")]
 
     /**
-     *
+     *  @private
+     *  Storage for the style value.
+     */
+    public var _value:Object;
+    
+    /**
      *  The new value for the style.
      *
-     *  @default null
+     *  @default undefined
      */
-    public var value:Object;
+    public function get value():Object
+    {
+        return _value;
+    }
+
+    /**
+     *  @private
+     */
+    public function set value(val:Object):void
+    {
+        _value = val;
+        
+        // Reapply if necessary.
+        if (applied) 
+        {
+            apply(parentContext);
+        }
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -182,46 +216,62 @@ public class SetStyle implements IOverride
      */
     public function apply(parent:UIComponent):void
     {
-        var obj:IStyleClient = target ? target : parent;
-        var relatedProps:Array = RELATED_PROPERTIES[name] ?
-                                 RELATED_PROPERTIES[name] :
-                                 null;
-
-        // Remember the current value so it can be restored
-        oldValue = obj.getStyle(name);
-
-        if (relatedProps)
+        var context:Object = getOverrideContext(target, parent);
+        if (context != null)
         {
-            oldRelatedValues = [];
-
-            for (var i:int = 0; i < relatedProps.length; i++)
-                oldRelatedValues[i] = obj[relatedProps[i]];
-        }
-
-        // Set new value
-        if (value === null)
-        {
-            obj.clearStyle(name);
-        }
-        else if (oldValue is Number)
-        {
-            // The "value" for colors can be several different formats:
-            // 0xNNNNNN, #NNNNNN or "red". We can't use
-            // StyleManager.isColorStyle() because that only returns true
-            // for inheriting color styles and misses non-inheriting styles like
-            // backgroundColor.
-            if (name.toLowerCase().indexOf("color") != -1)
-                obj.setStyle(name, StyleManager.getColorName(value));
-            else
-                obj.setStyle(name, Number(value));
-        }
-        else if (oldValue is Boolean)
-        {
-            obj.setStyle(name, toBoolean(value));
-        }
-        else
-        {
-            obj.setStyle(name, value);
+        	target = context;
+        	var obj:IStyleClient = IStyleClient(target);
+        	
+	        var relatedProps:Array = RELATED_PROPERTIES[name] ?
+	                                 RELATED_PROPERTIES[name] :
+	                                 null;
+	
+	        // Remember the original value so it can be restored later
+	        // after we are asked to remove our override (and only if we
+	        // aren't being asked to re-apply a value).
+	        if (!applied)
+	        {
+	            oldValue = obj.getStyle(name);
+	        }
+	
+	        if (relatedProps)
+	        {
+	            oldRelatedValues = [];
+	
+	            for (var i:int = 0; i < relatedProps.length; i++)
+	                oldRelatedValues[i] = obj[relatedProps[i]];
+	        }
+	
+	        // Set new value
+	        if (value === null)
+	        {
+	            obj.clearStyle(name);
+	        }
+	        else if (oldValue is Number)
+	        {
+	            // The "value" for colors can be several different formats:
+	            // 0xNNNNNN, #NNNNNN or "red". We can't use
+	            // StyleManager.isColorStyle() because that only returns true
+	            // for inheriting color styles and misses non-inheriting styles like
+	            // backgroundColor.
+	            if (name.toLowerCase().indexOf("color") != -1)
+	                obj.setStyle(name, StyleManager.getColorName(value));
+	            else
+	                obj.setStyle(name, Number(value));
+	        }
+	        else if (oldValue is Boolean)
+	        {
+	            obj.setStyle(name, toBoolean(value));
+	        }
+	        else
+	        {
+	            obj.setStyle(name, value);
+	        }
+	        
+	        // Save state in case our value is changed again while applied.  This can
+	        // occur when our style value is databound.
+	        applied = true;
+	        this.parentContext = parent;
         }
     }
 
@@ -230,30 +280,36 @@ public class SetStyle implements IOverride
      */
     public function remove(parent:UIComponent):void
     {
-        var obj:IStyleClient = target ? target : parent;
-
-        // Restore the old value
-        if (oldValue is Number)
-            obj.setStyle(name, Number(oldValue));
-        else if (oldValue is Boolean)
-            obj.setStyle(name, toBoolean(oldValue));
-        else if (oldValue === null)
-            obj.clearStyle(name);
-        else
-            obj.setStyle(name, oldValue);
-
-
-        var relatedProps:Array = RELATED_PROPERTIES[name] ?
-                                 RELATED_PROPERTIES[name] :
-                                 null;
-
-        // Restore related property values, if needed
-        if (relatedProps)
+        var obj:IStyleClient = IStyleClient(getOverrideContext(target, parent));
+        if (obj != null)
         {
-            for (var i:int = 0; i < relatedProps.length; i++)
-            {
-                obj[relatedProps[i]] = oldRelatedValues[i];
-            }
+	        // Restore the old value
+	        if (oldValue is Number)
+	            obj.setStyle(name, Number(oldValue));
+	        else if (oldValue is Boolean)
+	            obj.setStyle(name, toBoolean(oldValue));
+	        else if (oldValue === null)
+	            obj.clearStyle(name);
+	        else
+	            obj.setStyle(name, oldValue);
+	
+	
+	        var relatedProps:Array = RELATED_PROPERTIES[name] ?
+	                                 RELATED_PROPERTIES[name] :
+	                                 null;
+	
+	        // Restore related property values, if needed
+	        if (relatedProps)
+	        {
+	            for (var i:int = 0; i < relatedProps.length; i++)
+	            {
+	                obj[relatedProps[i]] = oldRelatedValues[i];
+	            }
+	        }
+	        
+	        // Clear our flags and override context.
+	        applied = false;
+	        parentContext = null;
         }
     }
 
