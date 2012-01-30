@@ -30,6 +30,11 @@ import mx.managers.SystemManagerGlobals;
  *  controlling the advanced anti-aliasing of fonts.</p>
  *
  *  @see mx.core.UITextField
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class UITextFormat extends TextFormat
 {
@@ -185,6 +190,11 @@ public class UITextFormat extends TextFormat
      *  This parameter is optional, with a default value of <code>null</code>.
      *
      *  @see flash.text.TextFormatAlign
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function UITextFormat(systemManager:ISystemManager,
                                  font:String = null,
@@ -256,6 +266,11 @@ public class UITextFormat extends TextFormat
      *  @default "advanced"
      *
      *  @see flash.text.AntiAliasType
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var antiAliasType:String;
     
@@ -284,6 +299,11 @@ public class UITextFormat extends TextFormat
      *  @default "pixel"
      *
      *  @see flash.text.GridFitType
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var gridFitType:String;
     
@@ -299,6 +319,11 @@ public class UITextFormat extends TextFormat
 
     /**
      *  The moduleFactory used to create TextFields for embedded fonts.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get moduleFactory():IFlexModuleFactory
     {
@@ -333,6 +358,11 @@ public class UITextFormat extends TextFormat
      *  
      *  @default 0
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var sharpness:Number;
     
@@ -356,6 +386,11 @@ public class UITextFormat extends TextFormat
      *  
      *  @default 0
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var thickness:Number;
     
@@ -379,6 +414,11 @@ public class UITextFormat extends TextFormat
      *  @return A TextLineMetrics object containing the text measurements.
      *
      *  @see flash.text.TextLineMetrics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function measureText(text:String, roundUp:Boolean = true):TextLineMetrics
     {
@@ -401,6 +441,11 @@ public class UITextFormat extends TextFormat
      *  @return A TextLineMetrics object containing the text measurements.
      *
      *  @see flash.text.TextLineMetrics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function measureHTMLText(htmlText:String, roundUp:Boolean = true):TextLineMetrics
     {
