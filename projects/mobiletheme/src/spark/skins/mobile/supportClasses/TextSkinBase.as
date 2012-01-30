@@ -242,8 +242,8 @@ public class TextSkinBase extends MobileSkin
 		// position & size border
 		if (border)
 		{
-			resizeElement(border, unscaledWidth, unscaledHeight);
-			positionElement(border, 0, 0);
+			setElementSize(border, unscaledWidth, unscaledHeight);
+			setElementPosition(border, 0, 0);
 		}
 		
 		// position & size the text
@@ -260,15 +260,15 @@ public class TextSkinBase extends MobileSkin
 		{
 			textDisplay.commitStyles();
 			
-			resizeElement(textDisplay, unscaledTextWidth, unscaledTextHeight);
-			positionElement(textDisplay, paddingLeft, textTopPosition);
+			setElementSize(textDisplay, unscaledTextWidth, unscaledTextHeight);
+			setElementPosition(textDisplay, paddingLeft, textTopPosition);
 		}
 		
 		if (promptDisplay)
 		{
 			promptDisplay.commitStyles();
-			resizeElement(promptDisplay, unscaledTextWidth, unscaledTextHeight);
-			positionElement(promptDisplay, paddingLeft, textTopPosition);
+			setElementSize(promptDisplay, unscaledTextWidth, unscaledTextHeight);
+			setElementPosition(promptDisplay, paddingLeft, textTopPosition);
 		}
 	}
 	
