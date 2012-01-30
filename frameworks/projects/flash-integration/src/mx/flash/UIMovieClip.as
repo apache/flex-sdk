@@ -4684,8 +4684,19 @@ public dynamic class UIMovieClip extends MovieClip
      */
     private function addFocusEventListeners():void
     {
-        stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler, false, 1, true);
-        stage.addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler, false, 0, true);
+        // If we get a security error because we're not allowed to add event listeners to the stage, 
+        // then just add them to the systemManager instead because we could be an untrusted app.
+        try
+        {
+            stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler, false, 1, true);
+            stage.addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler, false, 0, true);
+        }
+        catch (err:SecurityError)
+        {
+            systemManager.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler, false, 1, true);
+            systemManager.addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler, false, 0, true);
+        }
+        
         focusListenersAdded = true;
     }
     
@@ -4699,8 +4710,18 @@ public dynamic class UIMovieClip extends MovieClip
      */
     private function removeFocusEventListeners():void
     {
-        stage.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler);
-        stage.removeEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
+        // Same security issue as addFocusEventListeners()
+        try
+        {
+            stage.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler);
+            stage.removeEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
+        }
+        catch (err:SecurityError)
+        {
+            systemManager.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler);
+            systemManager.removeEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
+        }
+        
         focusListenersAdded = false;
     }
     
@@ -4782,11 +4803,34 @@ public dynamic class UIMovieClip extends MovieClip
         // Add a key focus change handler at the capture phase. We use this to 
         // determine focus direction in the setFocus() call.
         if (systemManager)
-            systemManager.stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeCaptureHandler,
-                                                 true, 0, true);
+        {
+            // If we get a security error because we're not allowed to add event listeners to the stage, 
+            // then just add them to the systemManager instead because we could be an untrusted app.
+            try
+            {
+                systemManager.stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeCaptureHandler,
+                                                     true, 0, true);
+            }
+            catch (err:SecurityError)
+            {
+                systemManager.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeCaptureHandler,
+                                               true, 0, true);
+            }
+        }
         else if (parentDocument && parentDocument.systemManager)
-            parentDocument.systemManager.stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeCaptureHandler,
-                                                 true, 0, true);
+        {
+            // Same security issue as above
+            try
+            {
+                parentDocument.systemManager.stage.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeCaptureHandler,
+                                                                    true, 0, true);
+            }
+            catch (err:SecurityError)
+            {
+                parentDocument.systemManager.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeCaptureHandler,
+                                                              true, 0, true);
+            }
+        }
     }
     
     /**
