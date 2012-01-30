@@ -730,20 +730,19 @@ public class MobileItemRenderer extends UIComponent
         if (labelDisplay)
         {
             // measure the label component
-            var textWidth:Number = 0;
             var textHeight:Number = 0;
             var labelLineMetrics:TextLineMetrics;
             
             if (label != "")
             {
                 labelLineMetrics = measureText(label);
-                textWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
                 textHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
             }
             
-            // text should take up the rest of the space
+            // text should take up the rest of the space width-wise, but only let it take up
+            // its measured textHeight so we can position it later based on verticalAlign
             var viewWidth:Number = unscaledWidth - getStyle("paddingLeft") + getStyle("paddingRight");
-            var labelWidth:Number = Math.max(Math.min(viewWidth, textWidth), 0);
+            var labelWidth:Number = Math.max(viewWidth, 0);
             
             var viewHeight:Number =  unscaledHeight - getStyle("paddingTop") - getStyle("paddingBottom");
             var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
