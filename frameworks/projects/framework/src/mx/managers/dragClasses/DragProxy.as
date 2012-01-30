@@ -31,12 +31,12 @@ import mx.effects.Move;
 import mx.effects.Zoom;
 import mx.events.DragEvent;
 import mx.events.EffectEvent;
-import mx.events.MarshalDragEvent;
-import mx.events.MarshalMouseEvent;
-import mx.events.MarshalEvent;
+import mx.events.SandboxRootDragEvent;
+import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxRootRequest;
 import mx.managers.CursorManager;
 import mx.managers.DragManager;
-import mx.managers.ISystemManager2;
+import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
@@ -68,8 +68,8 @@ public class DragProxy extends UIComponent
         this.dragInitiator = dragInitiator;
         this.dragSource = dragSource;
 
-        var sm:ISystemManager2 = dragInitiator.systemManager.
-									topLevelSystemManager as ISystemManager2;
+        var sm:ISystemManager = dragInitiator.systemManager.
+									topLevelSystemManager as ISystemManager;
 		
 		var ed:IEventDispatcher = sandboxRoot = sm.getSandboxRoot();
 
@@ -100,7 +100,7 @@ public class DragProxy extends UIComponent
 		super.initialize();
 
 		// in case we go offscreen
-		ISystemManager2(dragInitiator.systemManager).getSandboxRoot().addEventListener(MarshalMouseEvent.MOUSE_UP, 
+		dragInitiator.systemManager.getSandboxRoot().addEventListener(SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, 
 													 mouseLeaveHandler);
 
 		// Make sure someone has focus, otherwise we
@@ -350,12 +350,27 @@ public class DragProxy extends UIComponent
 		else
 		{
 			// wake up all the other DragManagers
-			var me:MarshalEvent = new MarshalEvent(MarshalEvent.INIT_MANAGER);
-			me.name = MarshalEvent.DRAG_MANAGER
+			var me:SandboxRootRequest = new SandboxRootRequest(SandboxRootRequest.INIT_MANAGER_REQUEST);
+			me.name = "mx.managers.IDragManagerImpl";
 			sandboxRoot.dispatchEvent(me);
 			// bounce this message off the sandbox root and hope
 			// another DragManager picks it up
-			var mde:MarshalDragEvent = new MarshalDragEvent(target, event);
+			var mde:SandboxRootDragEvent = new SandboxRootDragEvent(SandboxRootDragEvent.DISPATCH_DRAG_EVENT, false, false,
+													event.localX,
+													event.localY,
+													event.relatedObject,
+													event.ctrlKey,
+													event.altKey,
+													event.shiftKey,
+													event.buttonDown,
+													event.delta,
+													target,
+													event.type,
+													event.dragInitiator,
+													event.dragSource,
+													event.action,
+													event.draggedItem
+													);
 			sandboxRoot.dispatchEvent(mde);
 		}
 	}
@@ -395,7 +410,7 @@ public class DragProxy extends UIComponent
 
 		// trace("===>DragProxy:mouseMove");
 		var targetList:Array; /* of DisplayObject */
-		var tlr:IEventDispatcher = ISystemManager2(systemManager).getTopLevelRoot();
+		var tlr:IEventDispatcher = systemManager.getTopLevelRoot();
 /*		having trouble with getObjectsUnderPoint.  Some things seem to get in list
 		like cursors that shouldn't.  We roll our own for sandboxed apps and it works
 		better for now.
@@ -516,8 +531,8 @@ public class DragProxy extends UIComponent
     {
         var dragEvent:DragEvent;
 
-        var sm:ISystemManager2 = dragInitiator.systemManager.
-									topLevelSystemManager as ISystemManager2;
+        var sm:ISystemManager = dragInitiator.systemManager.
+									topLevelSystemManager as ISystemManager;
 		
 		var ed:IEventDispatcher = sandboxRoot;
 
@@ -531,7 +546,7 @@ public class DragProxy extends UIComponent
                                keyDownHandler);
 
 		// in case we go offscreen
-		ed.removeEventListener(MarshalMouseEvent.MOUSE_UP, 
+		ed.removeEventListener(SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, 
 							   mouseLeaveHandler);
 
         ed.removeEventListener(KeyboardEvent.KEY_UP,
@@ -632,26 +647,61 @@ public class DragProxy extends UIComponent
 	 */
 	private static function getObjectsUnderPoint(obj:DisplayObject, pt:Point, arr:Array):void
 	{
+		if (!obj.visible)
+			return;
+
+		try
+		{
+			if (!obj[$visible])
+				return;
+		}
+		catch (e:Error)
+		{
+		}
+
 		if (obj.hitTestPoint(pt.x, pt.y, true))
 		{
-			arr.push(obj);
+			if (obj is InteractiveObject && InteractiveObject(obj).mouseEnabled)
+				arr.push(obj);
 			if (obj is DisplayObjectContainer)
 			{
 				var doc:DisplayObjectContainer = obj as DisplayObjectContainer;
-				if (doc.numChildren)
+				if (doc.mouseChildren)
 				{
-					var n:int = doc.numChildren;
-					for (var i:int = 0; i < n; i++)
+					// we use this test so we can test in other application domains
+					if ("rawChildren" in doc)
 					{
-						try
+						var rc:Object = doc["rawChildren"];
+						n = rc.numChildren;
+						for (i = 0; i < n; i++)
 						{
-							var child:DisplayObject = doc.getChildAt(i);
-							if (child.visible)
-								getObjectsUnderPoint(child, pt, arr);
+							try
+							{
+								getObjectsUnderPoint(rc.getChildAt(i), pt, arr);
+							}
+							catch (e:Error)
+							{
+								//another sandbox?
+							}
 						}
-						catch (e:Error)
+					}
+					else
+					{
+						if (doc.numChildren)
 						{
-							// may not be in our sandbox
+							var n:int = doc.numChildren;
+							for (var i:int = 0; i < n; i++)
+							{
+								try
+								{
+									var child:DisplayObject = doc.getChildAt(i);
+									getObjectsUnderPoint(child, pt, arr);
+								}
+								catch (e:Error)
+								{
+									//another sandbox?
+								}
+							}
 						}
 					}
 				}
@@ -659,6 +709,7 @@ public class DragProxy extends UIComponent
 		}
 	}
 
+	private static var $visible:QName = new QName(mx_internal, "$visible");
 }
 
 }
