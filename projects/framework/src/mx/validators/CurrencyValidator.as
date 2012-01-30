@@ -62,6 +62,11 @@ import mx.managers.SystemManager;
  *  @see mx.validators.CurrencyValidatorAlignSymbol
  *
  *  @includeExample examples/CurrencyValidatorExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CurrencyValidator extends Validator
 {
@@ -102,6 +107,11 @@ public class CurrencyValidator extends Validator
      *  object for each field examined by the validator. 
      *
      *  @see mx.validators.ValidationResult
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function validateCurrency(validator:CurrencyValidator,
                                             value:Object,
@@ -373,6 +383,11 @@ public class CurrencyValidator extends Validator
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CurrencyValidator()
     {
@@ -415,6 +430,11 @@ public class CurrencyValidator extends Validator
      *  @default CurrencyValidatorAlignSymbol.LEFT
      *
      *  @see mx.validators.CurrencyValidatorAlignSymbol
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get alignSymbol():String
     {
@@ -456,6 +476,11 @@ public class CurrencyValidator extends Validator
      *  Can be <code>true</code> or <code>false</code>.
      *  
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get allowNegative():Object
     {
@@ -499,6 +524,11 @@ public class CurrencyValidator extends Validator
      *  <code>thousandsSeparator</code> and the <code>decimalSeparator</code>.
      *
      *  @default "$"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currencySymbol():String
     {
@@ -542,6 +572,11 @@ public class CurrencyValidator extends Validator
      *  <code>currencySymbol</code> and the <code>thousandsSeparator</code>.
      *  
      *  @default "."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get decimalSeparator():String
     {
@@ -583,6 +618,11 @@ public class CurrencyValidator extends Validator
      *  A value of NaN means it is ignored.
      *  
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxValue():Object
     {
@@ -624,6 +664,11 @@ public class CurrencyValidator extends Validator
      *  A value of NaN means it is ignored.
      *  
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minValue():Object
     {
@@ -669,6 +714,11 @@ public class CurrencyValidator extends Validator
      *  Setting it to -1, means it is ignored.
      * 
      *  @default 2
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get precision():Object
     {
@@ -711,6 +761,11 @@ public class CurrencyValidator extends Validator
      *  <code>currencySymbol</code> and the <code>decimalSeparator</code>.
      *  
      *  @default ","
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get thousandsSeparator():String
     {
@@ -758,6 +813,11 @@ public class CurrencyValidator extends Validator
      *  is in the wrong location.
      *  
      *  @default "The currency symbol occurs in an invalid location."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currencySymbolError():String
     {
@@ -798,6 +858,11 @@ public class CurrencyValidator extends Validator
      *  Error message when the decimal separator character occurs more than once.
      *  
      *  @default "The decimal separator can only occur once."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get decimalPointCountError():String
     {
@@ -838,6 +903,11 @@ public class CurrencyValidator extends Validator
      *  Error message when the value is greater than <code>maxValue</code>.
      *  
      *  @default "The amount entered is too large."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get exceedsMaxError():String
     {
@@ -878,6 +948,11 @@ public class CurrencyValidator extends Validator
      *  Error message when the currency contains invalid characters.
      *  
      *  @default "The input contains invalid characters."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get invalidCharError():String
     {
@@ -918,6 +993,11 @@ public class CurrencyValidator extends Validator
      *  Error message when the value contains an invalid formatting character.
      *  
      *  @default "One of the formatting parameters is invalid."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get invalidFormatCharsError():String
     {
@@ -958,6 +1038,11 @@ public class CurrencyValidator extends Validator
      *  Error message when the value is less than <code>minValue</code>.
      *  
      *  @default "The amount entered is too small."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get lowerThanMinError():String
     {
@@ -999,6 +1084,11 @@ public class CurrencyValidator extends Validator
      *  the <code>allowNegative</code> property is <code>false</code>.
      *  
      *  @default "The amount may not be negative."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get negativeError():String
     {
@@ -1041,6 +1131,11 @@ public class CurrencyValidator extends Validator
      *  
      *  @default "The amount entered has too many digits beyond 
      *  the decimal point."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get precisionError():String
     {
@@ -1081,6 +1176,11 @@ public class CurrencyValidator extends Validator
      *  Error message when the thousands separator is incorrectly placed.
      *  
      *  @default "The thousands separator must be followed by three digits."
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get separationError():String
     {
@@ -1145,6 +1245,11 @@ public class CurrencyValidator extends Validator
      *
      *  @return An Array of ValidationResult objects, with one ValidationResult 
      *  object for each field examined by the validator. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function doValidation(value:Object):Array
     {
