@@ -146,6 +146,10 @@ use namespace mx_internal;
  *  @see spark.components.ActionBar
  *  @see spark.components.TabbedViewNavigator
  *  @see spark.transitions.ViewTransitionBase
+ *
+ *  @includeExample examples/ViewNavigatorExample.mxml -noswf
+ *  @includeExample examples/ViewNavigatorExampleHomeView.mxml -noswf
+ *  @includeExample examples/ViewNavigatorExampleSearch.mxml -noswf
  * 
  *  @langversion 3.0
  *  @playerversion AIR 2.5
@@ -436,8 +440,8 @@ public class ViewNavigator extends ViewNavigatorBase
                 // persistence is enabled.
                 if (canDestroy || clearNavigationStack)
                     destroyViewInstance(navigationStack.topView, !clearNavigationStack);
-				else
-					deactiveView(activeView);
+                else
+                    deactiveView(activeView);
             }
         }
         
@@ -2003,7 +2007,7 @@ public class ViewNavigator extends ViewNavigatorBase
             return;
         
         // Deactivate the view if it is active
-		deactiveView(currentView);
+        deactiveView(currentView);
         removeElement(currentView);
         
         // Grab the data from the old view and persist it
@@ -2027,15 +2031,15 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */
-	private function deactiveView(view:View):void
-	{
-		if (view.isActive)
-			view.setActive(false);
-		
-		view.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
-			view_propertyChangeHandler);
-	}
-	
+    private function deactiveView(view:View):void
+    {
+        if (view.isActive)
+            view.setActive(false);
+        
+        view.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
+            view_propertyChangeHandler);
+    }
+    
     /**
      *  @private
      */
@@ -2212,7 +2216,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (!backKeyWasPressed && activeView && !activeView.backKeyHandledByView())
         {
             popView();
-        	backKeyWasPressed = true;
+            backKeyWasPressed = true;
         }
     }
     
