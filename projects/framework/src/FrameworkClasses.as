@@ -43,6 +43,7 @@ internal class FrameworkClasses
 	import mx.collections.ModifiedCollectionView; ModifiedCollectionView;
 	import mx.containers.utilityClasses.FlexChildInfo; FlexChildInfo;
 	import mx.containers.utilityClasses.IConstraintLayout; IConstraintLayout;
+      import mx.containers.utilityClasses.PostScaleAdapter; PostScaleAdapter;
 	import mx.controls.ButtonLabelPlacement; ButtonLabelPlacement;
     import mx.controls.MovieClipSWFLoader; MovieClipSWFLoader;
 	import mx.controls.colorPickerClasses.WebSafePalette; WebSafePalette;
