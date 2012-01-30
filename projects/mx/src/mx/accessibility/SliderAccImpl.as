@@ -222,9 +222,6 @@ public class SliderAccImpl extends AccImpl
 	 */
 	override protected function getName(childID:uint):String
 	{
-		
-		if (master.id)
-			 return master.id;
 		return "";
 	}
 
