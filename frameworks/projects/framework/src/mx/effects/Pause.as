@@ -101,6 +101,24 @@ public class Pause extends TweenEffect
      */
     public var eventName:String
 
+    /** 
+     * The duration property controls the amount of time that this effect
+     * will pause. The duration also serves as a timeout on waiting for
+     * the event to be fired, if <code>eventName</code> was set on this
+     * effect. If duration is less than 0, the effect will wait
+     * indefinitely for the event to fire. If it is set to any other time,
+     * including 0, the effect will end either when that duration has elapsed
+     * or when the named event fires, whichever comes first.
+     * 
+     * @default 500
+     * 
+     * @see mx.effects.IEffect#duration
+     */
+    override public function get duration():Number
+    {
+        return super.duration;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
