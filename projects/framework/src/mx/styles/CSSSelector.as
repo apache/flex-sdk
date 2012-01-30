@@ -135,7 +135,7 @@ public class CSSSelector
     {
         var s:uint = 0;
 
-        if ("*" != value && "global" != value)
+        if ("*" != value && "global" != value && "" != value)
             s = 1;
 
         if (conditions != null)
@@ -185,41 +185,53 @@ public class CSSSelector
      *  Determines whether this selector matches the given component.
      * 
      *  @param object The component to which the selector may apply.
-     *  @param ignoreType Whether to ignore the component type in the match.
      *  @return true if component is a match, or false if not. 
      */ 
-    public function isMatch(object:IAdvancedStyleClient, ignoreType:Boolean=false):Boolean
+    public function isMatch(object:IAdvancedStyleClient):Boolean
     {
         var match:Boolean = false;
+        var condition:CSSCondition = null;
 
         if (kind == CSSSelectorKind.TYPE_SELECTOR
             || kind == CSSSelectorKind.CONDITIONAL_SELECTOR)
         {
-            if (ignoreType || value == "*" || value == "global" || 
-                object.className == value)
+            if (value == "*" || value == "global" || object.isAssignableToType(value))
             {
                 match = true;
             }
 
             if (match && conditions != null)
             {
-                for each (var condition:CSSCondition in conditions)
+                for each (condition in conditions)
                 {
                     match = condition.isMatch(object);
                     if (!match)
-                        break;
+                        return false;
                 }
             }
         }
         else if (kind == CSSSelectorKind.DESCENDANT_SELECTOR)
         {
+            if (conditions != null)
+            {
+                // First, test if the conditions match
+                for each (condition in conditions)
+                {
+                    match = condition.isMatch(object);
+                    if (!match)
+                        return false;
+                }
+            }
+
             if (ancestor != null)
             {
+                // Then reset and test if ancestors match
+                match = false;
                 var parent:IAdvancedStyleClient = object.styleParent;
                 while (parent != null)
                 {
-                    // TODO: Handle * ancestor
-                    if (parent.className == ancestor.value)
+                    if (parent.isAssignableToType(ancestor.value)
+                        || "*" == ancestor.value)
                     {
                         match = ancestor.isMatch(parent);
                         break;
