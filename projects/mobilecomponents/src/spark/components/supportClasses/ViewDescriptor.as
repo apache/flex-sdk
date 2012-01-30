@@ -41,6 +41,7 @@ public class ViewDescriptor implements IExternalizable
      * 
      *  @param viewClass The class used to create the View
      *  @param data The data object to pass to the view when created
+     *  @param context The context of the view
      *  @param instance A reference to the instance of the View
      * 
      *  @langversion 3.0
