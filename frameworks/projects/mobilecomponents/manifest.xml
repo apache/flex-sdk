@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+
+    ADOBE SYSTEMS INCORPORATED
+    Copyright 2008 Adobe Systems Incorporated
+    All Rights Reserved.
+
+    NOTICE: Adobe permits you to use, modify, and distribute this file
+    in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<!--
+
+    Spark Components
+
+-->
+<componentPackage>
+
+	<!-- Slider -->
+    <component id="Screen" class="spark.components.Screen"/>
+    <component id="AdaptableScreen" class="spark.components.AdaptableScreen"/>
+    <component id="ScreenApplication" class="spark.components.ScreenApplication"/>
+    <component id="AdaptableApplication" class="spark.components.AdaptableApplication"/>
+    <component id="NavigationBar" class="spark.components.NavigationBar"/>
+    <component id="SliderTabBar" class="spark.components.SliderTabBar" />
+    <component id="TabItem" class="spark.components.supportClasses.TabItem" />
+    <component id="TabButton" class="spark.components.TabButton" />
+    <component id="Toolbar" class="spark.components.Toolbar" />
+    <component id="ScreenStack" class="spark.core.navigators.supportClasses.ScreenStack" />
+    <component id="SlideTransition" class="spark.effects.SlideTransition"/>
+
+</componentPackage>
