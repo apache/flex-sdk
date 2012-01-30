@@ -67,128 +67,128 @@ public class PlotChart extends CartesianChart
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class initialization
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function PlotChart()
-	{
-		super();
-	}
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function PlotChart()
+    {
+        super();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var plotChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.PlotChart", styleManager);
-		
-		var plotChartSeriesStyles:Array /* of Object */ = [];
-		
-		var defaultSkins:Array /* of IFactory */ = [ new ClassFactory(DiamondItemRenderer),
-			new ClassFactory(CircleItemRenderer),
-			new ClassFactory(BoxItemRenderer) ];
-		var defaultSizes:Array /* of Number */ = [ 5, 3.5, 3.5 ];
-		
-		var n:int = HaloDefaults.defaultFills.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var styleName:String = "haloPlotSeries"+i;
-			plotChartSeriesStyles[i] = styleName;
-			
-			var o:CSSStyleDeclaration =
-				HaloDefaults.createSelector("." + styleName, styleManager);
-			
-			var f:Function = function(o:CSSStyleDeclaration, skin:IFactory,
-									  fill:IFill, radius:Number):void
-			{
-				o.defaultFactory = function():void
-				{
-					this.fill = fill;
-					this.itemRenderer = skin;
-					this.radius = radius
-				}
-			}
-			
-			f(o, defaultSkins[i % defaultSkins.length],
-				HaloDefaults.defaultFills[i],
-				defaultSizes[i % defaultSizes.length]);
-		}
-		
-		plotChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.chartSeriesStyles = plotChartSeriesStyles;
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);			
-			this.fontSize = 10;
-			this.gridLinesStyleName = "bothGridLines";
-			this.textAlign = "left";
-			this.horizontalAxisStyleNames = ["blockNumericAxis"];
-			this.verticalAxisStyleNames = ["blockNumericAxis"];
-		}
-		
-		return true;
-	}
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var plotChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.PlotChart", styleManager);
+        
+        var plotChartSeriesStyles:Array /* of Object */ = [];
+        
+        var defaultSkins:Array /* of IFactory */ = [ new ClassFactory(DiamondItemRenderer),
+            new ClassFactory(CircleItemRenderer),
+            new ClassFactory(BoxItemRenderer) ];
+        var defaultSizes:Array /* of Number */ = [ 5, 3.5, 3.5 ];
+        
+        var n:int = HaloDefaults.defaultFills.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var styleName:String = "haloPlotSeries"+i;
+            plotChartSeriesStyles[i] = styleName;
+            
+            var o:CSSStyleDeclaration =
+                HaloDefaults.createSelector("." + styleName, styleManager);
+            
+            var f:Function = function(o:CSSStyleDeclaration, skin:IFactory,
+                                      fill:IFill, radius:Number):void
+            {
+                o.defaultFactory = function():void
+                {
+                    this.fill = fill;
+                    this.itemRenderer = skin;
+                    this.radius = radius
+                }
+            }
+            
+            f(o, defaultSkins[i % defaultSkins.length],
+                HaloDefaults.defaultFills[i],
+                defaultSizes[i % defaultSizes.length]);
+        }
+        
+        plotChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.chartSeriesStyles = plotChartSeriesStyles;
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.fontSize = 10;
+            this.gridLinesStyleName = "bothGridLines";
+            this.textAlign = "left";
+            this.horizontalAxisStyleNames = ["blockNumericAxis"];
+            this.verticalAxisStyleNames = ["blockNumericAxis"];
+        }
+        
+        return true;
+    }
 
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
 }
 
 }
