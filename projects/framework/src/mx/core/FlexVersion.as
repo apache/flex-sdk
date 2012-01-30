@@ -38,7 +38,16 @@ public class FlexVersion
     /** 
      *  The current released version of the Flex SDK, encoded as a uint.
      */
-    public static const CURRENT_VERSION:uint = 0x03000000;
+    public static const CURRENT_VERSION:uint = 0x04000000;
+
+    /** 
+     *  The <code>compatibilityVersion</code> value of Flex 4.0,
+     *  encoded numerically as a <code>uint</code>.
+     *  Code can compare this constant against
+     *  the <code>compatibilityVersion</code>
+     *  to implement version-specific behavior.
+     */
+    public static const VERSION_4_0:uint = 0x04000000;
 
     /** 
      *  The <code>compatibilityVersion</code> value of Flex 3.0,
