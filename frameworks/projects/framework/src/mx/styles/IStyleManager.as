@@ -340,46 +340,6 @@ public interface IStyleManager
 	function isParentSizeInvalidatingStyle(styleName:String):Boolean;
 	
     /**
-     *  Adds to the list of styles which may require a recalculation
-     *  of the contraints based on the parent container.
-     *  <p>When one of these styles is set with <code>setStyle()</code>,
-     *  the <code>invalidateEstimatedSizesOfChildren()</code> 
-     *  method is called on the component's
-     *  parent container to make the estimated sizes get recalculated
-     *  later.</p>
-     *
-     *  @param styleName The name of the style to register.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    function registerParentEstimatedSizeInvalidatingStyle(styleName:String):void;
-    
-    /**
-     *  Tests to see if the style changes the estimated sizes based on a component's parent container.
-     *
-     *  <p>When one of these styles is set with <code>setStyle()</code>,
-     *  the <code>invalidateEstimatedSizesOfChildren()</code> 
-     *  method is called on the component's
-     *  parent container to make the estimated sizes get recalculated
-     *  later.</p>
-     *
-     *  @param styleName The name of the style to test.
-     *
-     *  @return Returns <code>true</code> if the specified style is one
-     *  which may affect the measured size of the component's
-     *  parent container.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    function isParentEstimatedSizeInvalidatingStyle(styleName:String):Boolean;
-    
-    /**
      *  Adds to the list of styles which may affect the appearance
      *  or layout of the component's parent container.
      *  When one of these styles is set with <code>setStyle()</code>,
