@@ -24,6 +24,7 @@ package spark.automation.delegates.components.supportClasses
     
     import spark.automation.events.SparkValueChangeAutomationEvent;
     import spark.components.supportClasses.ScrollBarBase;
+    import spark.events.TrackBaseEvent;
     
     use namespace mx_internal;
     
@@ -87,7 +88,11 @@ package spark.automation.delegates.components.supportClasses
             super(obj);
             
             obj.addEventListener(Event.CHANGE, scrollHandler, false, -1, true);
+			obj.addEventListener(TrackBaseEvent.THUMB_PRESS, thumbPressHandler, false, -1, true);
+			obj.addEventListener(TrackBaseEvent.THUMB_RELEASE, thumbReleaseHandler, false, -1, true);
         }
+		
+		private var thumbDown:Boolean = false;
         
         /**
          *  @private
@@ -181,13 +186,40 @@ package spark.automation.delegates.components.supportClasses
          */
         private function scrollHandler(event:Event):void
         { 
-            // the event does not give the details of the value. So we need to provide this
-            // so that replay can happen accordingly
-            var valueChangeEvent:SparkValueChangeAutomationEvent = 
-                new SparkValueChangeAutomationEvent(
-                    SparkValueChangeAutomationEvent.CHANGE,false,false,scroll.value);
-            recordAutomatableEvent(valueChangeEvent);
+			if(!thumbDown) // record only if it not dispatched when thumb is down
+							//this records change events when user clicks on
+							// increment or decrement buttons
+			{
+				// the event does not give the details of the value. So we need to provide this
+				// so that replay can happen accordingly
+				var valueChangeEvent:SparkValueChangeAutomationEvent = 
+					new SparkValueChangeAutomationEvent(
+						SparkValueChangeAutomationEvent.CHANGE,false,false,scroll.value);
+				recordAutomatableEvent(valueChangeEvent);
+			}
         }
+		
+		/**
+		 *  @private
+		 */
+		private function thumbPressHandler(event:TrackBaseEvent):void
+		{ 
+			thumbDown = true;
+		}
+		
+		/**
+		 *  @private
+		 */
+		private function thumbReleaseHandler(event:TrackBaseEvent):void
+		{ 
+			thumbDown = false;
+			// the event does not give the details of the value. So we need to provide this
+			// so that replay can happen accordingly
+			var valueChangeEvent:SparkValueChangeAutomationEvent = 
+				new SparkValueChangeAutomationEvent(
+					SparkValueChangeAutomationEvent.CHANGE,false,false,scroll.value);
+			recordAutomatableEvent(valueChangeEvent);
+		}
         
     }
 }
