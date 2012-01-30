@@ -9675,8 +9675,13 @@ public class UIComponent extends FlexSprite
         if (!targetParent)
             targetParent = DisplayObject(systemManager);
 
-        var pt:Point = new Point(x, y);
         var thisParent:DisplayObject = $parent ? $parent : parent;
+        
+        //  If the object is not on the display list then it is not visible.
+        if (!thisParent)
+            return new Rectangle();
+            
+        var pt:Point = new Point(x, y);
         pt = thisParent.localToGlobal(pt);
 
         // bounds of this object to return. Keep in global coordinates
