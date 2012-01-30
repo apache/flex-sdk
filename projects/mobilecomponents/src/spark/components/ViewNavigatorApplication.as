@@ -6,6 +6,7 @@ package spark.components
     import flash.events.KeyboardEvent;
     import flash.events.StageOrientationEvent;
     import flash.net.registerClassAlias;
+    import flash.ui.Keyboard;
     
     import mx.core.IVisualElement;
     import mx.core.mx_internal;
@@ -508,7 +509,7 @@ package spark.components
             
             // We want to prevent the default down behavior for back key if navigator
             // is at root
-            if (key == 94 && navigator.selectedSectionLength > 1)
+            if (key == Keyboard.BACK && navigator.selectedSectionLength > 1)
                 event.preventDefault();
         }
         
@@ -519,14 +520,14 @@ package spark.components
         {
             var key:uint = event.keyCode;
             
-            if (key == 94 && navigator.selectedSectionLength > 1)
+            if (key == Keyboard.BACK && navigator.selectedSectionLength > 1)
                 navigator.popView();
         }
         
         public function get isLandscape():Boolean
         {
-            return systemManager.stage.orientation == StageOrientation.ROTATED_LEFT ||
-                systemManager.stage.orientation == StageOrientation.ROTATED_RIGHT;
+            return systemManager.stage.deviceOrientation == StageOrientation.ROTATED_LEFT ||
+                systemManager.stage.deviceOrientation == StageOrientation.ROTATED_RIGHT;
         }
         
         protected function persistViewData(event:Event = null):void
@@ -542,11 +543,6 @@ package spark.components
             
             if (view)
                 view.setCurrentState(view.getCurrentViewState(isLandscape), false);
-        }
-        
-        protected function orientationChangingHandler(event:StageOrientationEvent):void
-        {
-            
         }
         
         protected function orientationChangeHandler(event:StageOrientationEvent):void
@@ -584,7 +580,6 @@ package spark.components
             NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, applicationDeactivateHandler);
             NativeApplication.nativeApplication.addEventListener(Event.EXITING, applicationDeactivateHandler);
             
-            systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGING, orientationChangingHandler);
             systemManager.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, orientationChangeHandler);
             systemManager.stage.addEventListener(KeyboardEvent.KEY_DOWN, deviceKeyDownHandler);
             systemManager.stage.addEventListener(KeyboardEvent.KEY_UP, deviceKeyUpHandler);
