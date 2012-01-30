@@ -92,6 +92,63 @@ public dynamic class OrderedObject extends flash.utils.Proxy
      */
     private var _item:Object;
 
+
+    /**
+     *  @private
+     * 
+     *  Work around for the Flash Player bug #232854. The Proxy bug occurs when 
+     *  the Proxy class is used in a sibling ApplicationDomain of the main 
+     *  application's ApplicationDomain. When the Proxy class is used in a 
+     *  sibling ApplicationDomain the RTE looks like this:
+     * 
+     *  ArgumentError: Error #1063: Argument count mismatch on 
+     *  Object/http://adobe.com/AS3/2006/builtin::hasOwnProperty(). 
+     *  Expected 0, got 2. 
+     * 
+     *  Returns the specified property value of the proxied object.
+     *
+     *  @param name Typically a string containing the name of the property, or
+     *  possibly a QName where the property name is found by inspecting the
+     *  <code>localName</code> property.
+     *
+     *  @return The value of the property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    object_proxy function getObjectProperty(name:*):*
+    {
+        return getProperty(name);
+    }
+    
+    /**
+     *  @private
+     * 
+     *  Work around for the Flash Player bug #232854. See the comments in 
+     *  getObjectProperty() for more details.
+     * 
+     *  Call this method to set a property value instead of hashing into an 
+     *  OrderObject which would end up calling setProperty().
+     *
+     *  Updates the specified property on the proxied object.
+     *
+     *  @param name Object containing the name of the property that should be
+     *  updated on the proxied object.
+     *
+     *  @param value Value that should be set on the proxied object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    object_proxy function setObjectProperty(name:*, value:*):void
+    {
+        setProperty(name, value);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
