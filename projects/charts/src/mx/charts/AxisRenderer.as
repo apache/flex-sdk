@@ -1238,8 +1238,17 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
     {
         super.commitProperties();
         
-        if (!labelRenderer && !_labelCache.factory)
-            _labelCache.factory = textFieldFactory;
+        if (!labelRenderer)
+	  {
+		var textFieldClass:Class = getStyle('textFieldClass');
+		
+		if(textFieldClass != null)
+			textFieldFactory = new ContextualClassFactory(textFieldClass, moduleFactory);
+		else
+			textFieldFactory = new ContextualClassFactory(UITextField, moduleFactory);
+		
+		_labelCache.factory = textFieldFactory;
+	  }
         
         setupMouseDispatching();
     }
