@@ -14,11 +14,16 @@ package mx.utils
 
 import flash.display.DisplayObject;
 import flash.display.LoaderInfo;
+import flash.events.IEventDispatcher;
 import flash.system.Capabilities;
+import flash.utils.Dictionary;
 
+import mx.core.ApplicationDomainTarget;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.core.RSLData;
 import mx.events.Request;
+import mx.managers.SystemManagerGlobals;
 
 use namespace mx_internal;
 
@@ -197,6 +202,11 @@ use namespace mx_internal;
     /**
      *  @private
      * 
+     *  Takes a list of required rsls and determines:
+     *       - which RSLs have not been loaded
+     *       - the application domain and IModuleFactory where the
+     *         RSL should be loaded
+     * 
      *  @param moduleFactory The module factory of the application or module 
      *  to get load information for. If the moduleFactory has not loaded the 
      *  module, then its parent is asked for load information. Each successive
@@ -205,45 +215,256 @@ use namespace mx_internal;
      *  searched. Applications in different security domains or sibling
      *  ApplicationDomains do not share RSLs.
      *  
-     *  @param digest: The digest of the RSL to load.
-     *  @return The digest for loaded RSL if found, null otherwise. 
+     *  @param rsls An array of RSLs that are required for 
+     *  <code>moduleFactory</code>. Each RSL is in an array of RSLData where
+     *  the first element is the primary RSL and the remaining elements are 
+     *  failover RSLs.
+     *  @return Array of RSLData that represents the RSLs to load. RSLs that are
+     *  already loaded are not in the listed. 
      */
-    mx_internal static function getRSLLoadData(moduleFactory:IFlexModuleFactory, digest:String):String
+    mx_internal static function processRequiredRSLs(moduleFactory:IFlexModuleFactory, 
+                                                    rsls:Array):Array
     {
-        var currentModuleFactory:IFlexModuleFactory = moduleFactory;
-        while (currentModuleFactory != null)
+        var rslsToLoad:Array = [];  // of Array of RSLData (primary and failover), return value
+        var topLevelModuleFactory:IFlexModuleFactory = SystemManagerGlobals.topLevelSystemManagers[0];
+        var currentModuleFactory:IFlexModuleFactory = topLevelModuleFactory;
+        var parentModuleFactory:IFlexModuleFactory = null;
+        var loaded:Dictionary = new Dictionary();   // contains rsls that are loaded
+        var loadedLength:int = 0;
+        var resolved:Dictionary = new Dictionary(); // contains rsls that have the app domain resolved
+        var resolvedLength:int = 0;
+        var moduleFactories:Array = null;
+        
+        // Start at the top level module factory and work our way down the 
+        // module factory chain checking if the any of the rsls are loaded 
+        // and resolving application domain targets.
+        // We start at the top level module factory because the default rsls
+        // will all be loaded here and we won't often have to check other 
+        // module factories.
+        while (currentModuleFactory != moduleFactory)
         {
-            var cdRSLs:Array = currentModuleFactory.info()["cdRsls"];
-              
-            if (cdRSLs && cdRSLs.length > 0)
+            // Need to loop over all the rsls, to see which one are loaded
+            // and resolve application domains.
+            var n:int = rsls.length;
+            for (var i:int = 0; i < n; i++)
             {
-                // loop over info to find digest match
-                var n:int = cdRSLs.length;
+                var rsl:Array = rsls[i];
+
+                // Check if the RSL has already been loaded.
+                if (!loaded[rsl])
+                {
+                    if (isRSLLoaded(currentModuleFactory, rsl[0].digest))
+                    {
+                        loaded[rsl] = 1;
+                        loadedLength++;
+                        
+                        // We may find an rsl loaded in a module factory as we work
+                        // our way down the module factory list. If we find one then 
+                        // remove it.
+                        if (currentModuleFactory != topLevelModuleFactory)
+                        {
+                            var index:int = rslsToLoad.indexOf(rsl); 
+                            if (index != -1)
+                                rslsToLoad.splice(index, 1);                        
+                        }
+                    }
+                    else if (rslsToLoad.indexOf(rsl) == -1)
+                    {
+                        rslsToLoad.push(rsl);   // assume we have to load it
+                    }
+                } 
+
+                // Resolve the application domain target.
+                // If the curent module factory is the rsl owning module
+                // factory, then don't try to resolve the app domain 
+                // target because the only choice left is "current" 
+                // since this the last module factory we are checking
+                // and "current" is the default if no module factory
+                // is specified.
+                if (!loaded[rsl] && resolved[rsl] == null && 
+                    (currentModuleFactory == moduleFactory || 
+                    resolveApplicationDomainTarget(rsl, currentModuleFactory,
+                                                       parentModuleFactory,
+                                                       topLevelModuleFactory)))
+                {
+                    resolved[rsl] = 1;
+                    resolvedLength++;                        
+                }
+            }
+            
+            // If process all rsls then get out.
+            if (loadedLength + resolvedLength >= rsls.length)
+                break;
+                
+             // If we didn't find everything in the top level module factory then work
+            // down towards the rsl's owning module factory. 
+            // Build up the module factory parent chain so we can traverse it.
+            if (!moduleFactories)
+            {
+                moduleFactories = [moduleFactory];
+                currentModuleFactory = moduleFactory;
+                while (currentModuleFactory != topLevelModuleFactory)
+                {
+                    var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
+                    DisplayObject(currentModuleFactory).dispatchEvent(request); 
+                    currentModuleFactory = request.value as IFlexModuleFactory;
+                    if (currentModuleFactory != topLevelModuleFactory)
+                        moduleFactories.push(currentModuleFactory);
+                    
+                    if (!parentModuleFactory)
+                        parentModuleFactory = currentModuleFactory;
+                }
+            }
+
+            currentModuleFactory = moduleFactories.pop();
+        }
+        
+        return rslsToLoad;
+    }
+
+    /**
+     *  @private
+     *  Resolve the application domain target. 
+     * 
+     *  @param rsl to resolve.
+     *  @param currentModuleFactory The module factory to search for placeholders.
+     *  @param parentModuleFactory The rsl's parent module factory.
+     *  @param topLevelModuleFactory The top-level module factory.
+     * 
+     *  @return true if the application domain target was resolved, 
+     *  false otherwise.
+     */
+    private static function resolveApplicationDomainTarget(rsl:Array, 
+                                    currentModuleFactory:IFlexModuleFactory, 
+                                    parentModuleFactory:IFlexModuleFactory, 
+                                    topLevelModuleFactory:IFlexModuleFactory):Boolean 
+    {
+        var resolvedRSL:Boolean = false;
+        var targetModuleFactory:IFlexModuleFactory = null;
+        
+        var applicationDomainTarget:String = rsl[0].applicationDomainTarget;
+        if (applicationDomainTarget == ApplicationDomainTarget.DEFAULT)
+        {
+            if (hasPlaceholderRSL(currentModuleFactory, rsl[0].digest))
+            {
+                targetModuleFactory = currentModuleFactory;
+            }
+        }
+        else if (applicationDomainTarget == ApplicationDomainTarget.TOP_LEVEL)
+        {
+            targetModuleFactory = topLevelModuleFactory;
+        }
+        else if (applicationDomainTarget == ApplicationDomainTarget.CURRENT)
+        {
+            resolvedRSL = true;
+        }
+        else if (applicationDomainTarget == ApplicationDomainTarget.PARENT)
+        {
+            // If there is no parent, ignore the target and load into the current
+            // app domain. 
+            targetModuleFactory = parentModuleFactory;
+            resolvedRSL = true;
+        }
+        else
+        {
+            resolvedRSL = true; // bogus target, load into current application domain
+        }
+        
+        if (resolvedRSL || targetModuleFactory)
+        {
+            if (targetModuleFactory)
+                updateRSLModuleFactory(rsl, targetModuleFactory);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     *  @private
+     *  Determine if the moduleFactory has loaded an rsl that matches the 
+     *  specified digest.
+     * 
+     *  @param moduleFactory The module factory to search.
+     *  @param digest The digest to search for.
+     *  @return true if a loaded rsl matching the digest was found.
+     */
+    private static function isRSLLoaded(moduleFactory:IFlexModuleFactory, digest:String):Boolean
+    {
+        var preloadedRSLs:Dictionary = moduleFactory.preloadedRSLs;
+        
+        if (preloadedRSLs)
+        {
+            // loop over the rsls to find a matching digest
+            for each (var rsl:Array in preloadedRSLs)
+            {
+                var n:int = rsl.length;
                 for (var i:int = 0; i < n; i++)
                 {
-                    var rslConfiguration:Object = cdRSLs[i];
-                    var m:int = rslConfiguration.length;
-                    for (var j:int = 0; j < m; j++)
+                    if (rsl[i].digest == digest)
                     {
-                        if (rslConfiguration[j].digest == digest)
-                        {
-                            return digest;
-                        }
+                        return true;
                     }
                 }
             }
-                
-            // if didn't find object, then check the parent
-            var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
-            DisplayObject(moduleFactory).dispatchEvent(request); 
-            currentModuleFactory = request.value as IFlexModuleFactory;
-            if (currentModuleFactory)
+        }
+        
+        return false;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  Determine if the moduleFactory has a placeholder rsl that matches the 
+     *  specified digest.
+     * 
+     *  @param moduleFactory The module factory to search.
+     *  @param digest The digest to search for.
+     *  @return true if a placeholder rsl matching the digest was found.
+     */
+    private static function hasPlaceholderRSL(moduleFactory:IFlexModuleFactory, digest:String):Boolean
+    {
+        var phRSLs:Array = moduleFactory.info()["placeholderRsls"];
+        
+        if (phRSLs)
+        {
+            // loop over the rsls to find a matching digest
+            var n:int = phRSLs.length;
+            for (var i:int = 0; i < n; i++)
             {
-                return LoaderUtil.getRSLLoadData(currentModuleFactory, digest);
+                var rsl:Object = phRSLs[i];
+                var m:int = rsl.length;
+                for (var j:int = 0; j < m; j++)
+                {
+                    if (rsl[j].digest == digest)
+                    {
+                        return true;
+                    }
+                }
             }
         }
         
-        return null;
+        return false;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  Update the module factory of an rsl, both the primary rsl and all 
+     *  failover rsls.
+     * 
+     *  @param rsl One RSL represented by an array of RSLData. The 
+     *  first element in the array is the primary rsl, the others are failovers.
+     *  @param moduleFactory  The moduleFactory to set in the primary and 
+     *  failover rsls.
+     */
+    private static function updateRSLModuleFactory(rsl:Array, moduleFactory:IFlexModuleFactory):void
+    {
+        var n:int = rsl.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            rsl[i].moduleFactory = moduleFactory;
+        }
     }
     
     /**
