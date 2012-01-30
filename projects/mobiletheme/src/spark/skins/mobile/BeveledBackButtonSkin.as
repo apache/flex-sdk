@@ -70,8 +70,8 @@ public class BeveledBackButtonSkin extends ButtonSkin
                 layoutPaddingBottom = 0;
                 layoutPaddingLeft = 32;
                 layoutPaddingRight = 20;
-                minWidth = 116;
-                minHeight = 54;
+                measuredDefaultWidth = 116;
+                measuredDefaultHeight = 54;
                 
                 upBorderSkin = spark.skins.mobile320.assets.NavigationBackButton_up;
                 downBorderSkin = spark.skins.mobile320.assets.NavigationBackButton_down;
@@ -87,8 +87,8 @@ public class BeveledBackButtonSkin extends ButtonSkin
                 layoutPaddingBottom = 0;
                 layoutPaddingLeft = 23;
                 layoutPaddingRight = 15;
-                minWidth = 87;
-                minHeight = 42;
+                measuredDefaultWidth = 87;
+                measuredDefaultHeight = 42;
                 
                 upBorderSkin = spark.skins.mobile240.assets.NavigationBackButton_up;
                 downBorderSkin = spark.skins.mobile240.assets.NavigationBackButton_down;
@@ -104,8 +104,8 @@ public class BeveledBackButtonSkin extends ButtonSkin
                 layoutPaddingBottom = 0;
                 layoutPaddingLeft = 16;
                 layoutPaddingRight = 10;
-                minWidth = 58;
-                minHeight = 28;
+                measuredDefaultWidth = 58;
+                measuredDefaultHeight = 28;
                 
                 upBorderSkin = spark.skins.mobile160.assets.NavigationBackButton_up;
                 downBorderSkin = spark.skins.mobile160.assets.NavigationBackButton_down;
@@ -114,6 +114,9 @@ public class BeveledBackButtonSkin extends ButtonSkin
                 break;
             }
         }
+        
+        // beveled buttons do not scale down
+        minHeight = measuredDefaultHeight;
     }
     
     //--------------------------------------------------------------------------
