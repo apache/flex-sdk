@@ -18,53 +18,77 @@ import spark.skins.mobile.supportClasses.MobileSkin;
 
 
 public class HScrollBarSkin extends MobileSkin 
-{
-    
+{    
     public function HScrollBarSkin()
     {
         super();
+        
+        useChromeColor = true;
+        
+        switch (targetDensity)
+        {
+            case MobileSkin.PPI240:
+            {
+                layoutMeasuredWidth = 40;
+                layoutMeasuredHeight = 8;
+                
+                break;
+            }
+            default:
+            {
+                // default PPI160
+                layoutMeasuredWidth = 26;
+                layoutMeasuredHeight = 6;
+                
+                break;
+            }
+        }
     }
     
-    //////////////////////////////////////////
-    // Properties
-    //////////////////////////////////////////
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
     
     public var hostComponent:HScrollBar;
     
-    // Skin parts
+    //--------------------------------------------------------------------------
+    //
+    //  Skin parts 
+    //
+    //--------------------------------------------------------------------------
+    
     public var track:Button;
+    
     public var thumb:Button;
     
-    //////////////////////////////////////////
-    // Methods
-    //////////////////////////////////////////
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
      
     override protected function createChildren():void
     {
         // Create our skin parts: track and thumb.
         track = new Button();
         track.setStyle("skinClass", spark.skins.mobile.HScrollBarTrackSkin);
+        track.width = layoutMeasuredWidth;
+        track.height = layoutMeasuredHeight;
         addChild(track);
+        
         thumb = new Button();
         thumb.setStyle("skinClass", spark.skins.mobile.HScrollBarThumbSkin);
+        thumb.width = layoutMeasuredHeight;
+        thumb.height = layoutMeasuredHeight;
         addChild(thumb);
-    }
-    
-    override public function getExplicitOrMeasuredWidth():Number
-    {
-        return 40;
-    }
-    
-    override public function getExplicitOrMeasuredHeight():Number
-    {
-        return 8; // !!
     }
     
     override protected function measure():void
     {
-        // !! should use something better here
-        measuredWidth = 40;
-        measuredHeight = 8;
+        measuredWidth = layoutMeasuredWidth;
+        measuredHeight = layoutMeasuredHeight;
     }
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
