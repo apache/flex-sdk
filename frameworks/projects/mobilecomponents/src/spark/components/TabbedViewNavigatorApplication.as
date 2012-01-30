@@ -39,7 +39,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
     // allows us to properly store these set properties if the navigator skin
     // changes.
     
-    // TODO (Chiedozi): Just in a var
+    // TODO (chiedozi): Just use a variable instead of a bitfield
     /**
      *  @private
      */
@@ -97,6 +97,17 @@ public class TabbedMobileApplication extends MobileApplicationBase
     //--------------------------------------------------------------------------
     
     //----------------------------------
+    //  canCancelBackKeyBehavior
+    //----------------------------------
+    /**
+     *  @private
+     */ 
+    override public function get canCancelBackKeyBehavior():Boolean
+    {
+        return navigator && navigator.canCancelBackKeyBehavior;
+    }
+    
+    //----------------------------------
     //  navigators
     //----------------------------------
     /**
@@ -136,7 +147,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */ 
     override protected function backKeyHandler():void
     {
@@ -145,16 +156,7 @@ public class TabbedMobileApplication extends MobileApplicationBase
     }
     
     /**
-     *  @inheritDoc
-     */ 
-    // TODO (chiedozi): make a getter (PARB)
-    override public function canCancelDefaultBackKeyBehavior():Boolean
-    {
-        return  navigator && navigator.canCancelDefaultBackKeyBehavior();
-    }
-    
-    /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function orientationChangeHandler(event:StageOrientationEvent):void
     {
@@ -163,16 +165,19 @@ public class TabbedMobileApplication extends MobileApplicationBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     // TODO (chiedozi): PARB
     override protected function persistApplicationState():void
     {
         super.persistApplicationState();
+        
+        if (navigators.length > 0)
+            persistenceManager.setProperty("navigatorState", navigator.saveViewData());
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function registerPeristenceClassAliases():void
     {
@@ -185,11 +190,19 @@ public class TabbedMobileApplication extends MobileApplicationBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     override protected function restoreApplicationState():void
     {
         super.restoreApplicationState();
+        
+        if (persistenceManager.enabled)
+        {
+            var savedState:Object = persistenceManager.getProperty("navigatorState");
+            
+            if (savedState)
+                navigator.restoreViewData(savedState);
+        }
     }
     
     //--------------------------------------------------------------------------
