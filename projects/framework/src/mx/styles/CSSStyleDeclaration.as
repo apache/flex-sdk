@@ -77,6 +77,11 @@ use namespace mx_internal;
  *
  *  @see mx.core.UIComponent
  *  @see mx.styles.StyleManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CSSStyleDeclaration extends EventDispatcher
 {
@@ -114,6 +119,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  class selector, otherwise it represents a simple type selector.
      *  @param selector The selector chain used to match IAdvancedStyleClient
      *  components to this style declaration.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CSSStyleDeclaration(subject:String=null, selector:CSSSelector=null)
     {
@@ -204,6 +214,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *
      *  <p>If the UIComponent was written in ActionScript,
      *  this property is <code>null</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var defaultFactory:Function;
 
@@ -224,6 +239,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  <p>If this CSSStyleDeclaration is owned by a UIComponent,
      *  this function encodes the style attributes that were specified in MXML
      *  for an instance of that component.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var factory:Function;
 
@@ -237,6 +257,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  they override the name/value pairs in the objects produced by
      *  the  methods specified by the <code>defaultFactory</code> and 
      *  <code>factory</code> properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var overrides:Object;
 
@@ -249,6 +274,11 @@ public class CSSStyleDeclaration extends EventDispatcher
     /**
      *  A potential chain of rules used to match components to this style
      *  declaration. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function get selector():CSSSelector
     {
@@ -263,6 +293,11 @@ public class CSSStyleDeclaration extends EventDispatcher
 
     /**
      *  A String representation of the selector.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function get selectorString():String
     {
@@ -277,6 +312,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  the construction of a style declaration. Only global class selectors or
      *  simple type selectors are supported. Note that this style declaration is
      *  not automatically registered with the StyleManager when using this API.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     mx_internal function set selectorString(value:String):void
     {
@@ -308,6 +348,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  Determines the order of precedence when applying multiple style
      *  declarations to a component. If style declarations are of equal
      *  precedence, the last one wins. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get specificity():uint
     {
@@ -324,6 +369,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  The subject describes the name of a component that may be a potential
      *  match for this style declaration. The subject is determined as right
      *  most simple type selector in a potential chain of selectors.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get subject():String
     {
@@ -376,6 +426,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      * 
      *  @return true if this style declaration applies to the component, or
      *  false if not. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isMatch(object:IAdvancedStyleClient):Boolean
     {
@@ -412,6 +467,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *
      *  @return The value of the specified style property if set,
      *  or <code>undefined</code> if not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getStyle(styleProp:String):*
     {
@@ -477,6 +537,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  but the value <code>undefined</code> is not.
      *  Setting a style property to the value <code>undefined</code>
      *  is the same as calling the <code>clearStyle()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setStyle(styleProp:String, newValue:*):void
     {
@@ -635,6 +700,11 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  This is the same as setting the style value to <code>undefined</code>.
      *
      *  @param styleProp The name of the style property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clearStyle(styleProp:String):void
     {
