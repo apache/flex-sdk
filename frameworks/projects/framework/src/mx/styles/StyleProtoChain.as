@@ -18,7 +18,7 @@ import flash.system.ApplicationDomain;
 import flash.utils.getQualifiedClassName;
 import flash.utils.getQualifiedSuperclassName;
 
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -209,7 +209,7 @@ public class StyleProtoChain
                 }
                 else
                 {
-                    inheritChain = ApplicationGlobals.application.inheritingStyles;
+                    inheritChain = FlexGlobals.topLevelApplication.inheritingStyles;
                 }
             }
             else
