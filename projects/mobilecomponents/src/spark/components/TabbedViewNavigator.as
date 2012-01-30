@@ -1264,7 +1264,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         }
         
         if (activeView)
-            activeView.dispatchEvent(new FlexEvent(FlexEvent.VIEW_HIDE));
+            activeView.dispatchEvent(new Event("_navigationChange_"));
         
         _proposedSelectedIndex = value;
         selectedIndexChanged = true;
