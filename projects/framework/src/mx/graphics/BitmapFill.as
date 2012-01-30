@@ -392,14 +392,20 @@ public class BitmapFill extends EventDispatcher implements IFill
 			
 			var bitmapData:BitmapData;
 			
+			if (value is Class)
+			{
+				var cls:Class = Class(value);
+				value = new cls();
+			}
+			else if (value is String)
+			{
+				var tmpClass:Class = Class(getDefinitionByName(String(value)));
+				value = new tmpClass();
+			}
+			
 			if (value is BitmapData)
 			{
 				bitmapData = BitmapData(value);
-			}
-			else if (value is Class)
-			{
-				var cls:Class = Class(value);
-				tmpSprite = new cls();
 			}
 			else if (value is Bitmap)
 			{
@@ -408,11 +414,6 @@ public class BitmapFill extends EventDispatcher implements IFill
 			else if (value is DisplayObject)
 			{
 				tmpSprite = value as DisplayObject;
-			}
-			else if (value is String)
-			{
-				var tmpClass:Class = Class(getDefinitionByName(String(value)));
-				tmpSprite = new tmpClass();
 			}
 			else if (value == null)
 			{
@@ -425,7 +426,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 				
 			if (!bitmapData && tmpSprite)
 			{
-				bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height);
+				bitmapData = new BitmapData(tmpSprite.width, tmpSprite.height, true, 0);
 				bitmapData.draw(tmpSprite, new Matrix());
 			}
 			
