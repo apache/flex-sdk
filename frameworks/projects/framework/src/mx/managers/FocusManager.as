@@ -25,6 +25,7 @@ import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.system.Capabilities;
+import flash.system.IME;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 import flash.utils.Dictionary;
@@ -33,6 +34,7 @@ import mx.core.Application;
 import mx.core.FlexSprite;
 import mx.core.IButton;
 import mx.core.IChildList;
+import mx.core.IIMESupport;
 import mx.core.IRawChildrenContainer;
 import mx.core.IToggleButton;
 import mx.core.IUIComponent;
@@ -135,7 +137,10 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		this.popup = popup;
 		
         browserMode = Capabilities.playerType == "ActiveX" && !popup;
-
+        desktopMode = Capabilities.playerType == "Desktop" && !popup;
+        // Flash main windows come up activated, AIR main windows don't
+        windowActivated = !desktopMode;
+    
         container.focusManager = this; // this property name is reserved in the parent
 
         // trace("FocusManager constructor " + container + ".focusManager");
@@ -219,7 +224,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      *  We track whether we've been last activated or saw a TAB
      *  This is used in browser tab management
      */
-    private var lastAction:String;
+    mx_internal var lastAction:String;
 
     /**
      *  @private
@@ -227,6 +232,12 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      *  This value is also affected by whether you are a modal dialog or not
      */
     public var browserMode:Boolean;
+
+    /**
+     *  @private
+     *  Activation changes depending on whether we're running in AIR or not
+     */
+    public var desktopMode:Boolean;
 
     /**
      *  @private
@@ -252,7 +263,11 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     /**
      *  @private
      */
-    private var activated:Boolean = false;
+    private var activated:Boolean;
+    /**
+     *  @private
+     */
+    private var windowActivated:Boolean;
     
     /**
      * 	@private
@@ -306,7 +321,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     public function set showFocusIndicator(value:Boolean):void
     {
         var changed:Boolean = _showFocusIndicator != value;
-        
+        // trace("FM " + this + " showFocusIndicator = " + value);
         _showFocusIndicator = value;
 
         if (hasEventListener("showFocusIndicator"))
@@ -606,6 +621,14 @@ public class FocusManager extends EventDispatcher implements IFocusManager
  
             // trace("FM " + this + " setting last focus " + target);
             _lastFocus = findFocusManagerComponent(InteractiveObject(target));
+            var usesIME:Boolean;
+            if (_lastFocus is IIMESupport)
+            {
+                var imeFocus:IIMESupport = IIMESupport(_lastFocus);
+                if (imeFocus.editable)
+                    usesIME = true;
+            }
+            IME.enabled = usesIME;
 
 			// handle default button here
 			// we can't check for Button because of cross-versioning so
@@ -642,20 +665,78 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 //        var target:InteractiveObject = InteractiveObject(event.target);
         // trace("FM " + this + " activateHandler ", _lastFocus);
 		
-		// restore focus if this focus manager had last focus
-	    if (_lastFocus && !browserMode)
-	    	_lastFocus.setFocus();
-	    lastAction = "ACTIVATE";
+        // if we were the active FM when we were deactivated
+        // and we're not running in AIR, then dispatch the event now
+        // otherwise wait for the AIR events to fire
+        if (activated && !desktopMode)
+        {
+            dispatchEvent(new FlexEvent(FlexEvent.FLEX_WINDOW_ACTIVATE));
+		    // restore focus if this focus manager had last focus
+	        if (_lastFocus && !browserMode)
+	    	    _lastFocus.setFocus();
+	        lastAction = "ACTIVATE";
+        }
     }
 
     /**
-     *  @private  Useful for debugging
+     *  @private  
+     *  Dispatch event if we're not running in AIR.  AIR will
+     *  dispatch windowDeactivate that we respond to instead
      */
     private function deactivateHandler(event:Event):void
     {
         // var target:InteractiveObject = InteractiveObject(event.target);
         // trace("FM " + this + " deactivateHandler ", _lastFocus);
+
+        // if we are the active FM when we were deactivated
+        // and we're not running in AIR, then dispatch the event now
+        // otherwise wait for the AIR events to fire
+        if (activated && !desktopMode)
+        {
+            dispatchEvent(new FlexEvent(FlexEvent.FLEX_WINDOW_DEACTIVATE));
+        }
     }
+
+    /**
+     *  @private
+     *  restore focus to whoever had it last
+     */
+    private function activateWindowHandler(event:Event):void
+    {
+//        var target:InteractiveObject = InteractiveObject(event.target);
+        // trace("FM " + this + " activateWindowHandler ", _lastFocus);
+		
+        windowActivated = true;
+
+        if (activated)
+        {
+            dispatchEvent(new FlexEvent(FlexEvent.FLEX_WINDOW_ACTIVATE));
+		    // restore focus if this focus manager had last focus
+	        if (_lastFocus && !browserMode)
+	    	    _lastFocus.setFocus();
+	        lastAction = "ACTIVATE";
+        }
+    }
+
+    /**
+     *  @private  
+     *  If we're responsible for the focused control, remove focus from it
+     *  so it gets the same events as it would if the whole app lost focus
+     */
+    private function deactivateWindowHandler(event:Event):void
+    {
+        // var target:InteractiveObject = InteractiveObject(event.target);
+        // trace("FM " + this + " deactivateWindowHandler ", _lastFocus);
+
+        windowActivated = false;
+
+        if (activated)
+        {
+            dispatchEvent(new FlexEvent(FlexEvent.FLEX_WINDOW_DEACTIVATE));
+            if (form.systemManager.stage)
+                form.systemManager.stage.focus = null;
+        }
+    }   
 
     /**
      *  @inheritDoc
@@ -722,8 +803,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             return;
         }
 
-        //trace("FocusManager activating = " + this._form.systemManager.loaderInfo.url);
-        //trace("FocusManager activating " + this);
+        // trace("FocusManager activating = " + this._form.systemManager.loaderInfo.url);
+        // trace("FocusManager activating " + this);
 
         // listen for focus changes, use weak references for the stage
 		// form.systemManager can be null if the form is created in a sandbox and 
@@ -750,11 +831,16 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         form.addEventListener(FocusEvent.FOCUS_IN, focusInHandler, true);
         form.addEventListener(FocusEvent.FOCUS_OUT, focusOutHandler, true);
         form.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler); 
+        form.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownCaptureHandler, true); 
         form.addEventListener(KeyboardEvent.KEY_DOWN, defaultButtonKeyHandler);
         form.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
+        // AIR Window events, but don't want to link in AIREvent
+        form.addEventListener("windowActivate", activateWindowHandler);
+        form.addEventListener("windowDeactivate", deactivateWindowHandler);
 
         activated = true;
-
+        dispatchEvent(new FlexEvent(FlexEvent.FLEX_WINDOW_ACTIVATE));
+        
         // Restore focus to the last control that had it if there was one.
         if (_lastFocus)
             setFocus(_lastFocus);
@@ -784,7 +870,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     public function deactivate():void
     {
         // trace("FocusManager deactivating " + this);
-        //trace("FocusManager deactivating = " + this._form.systemManager.loaderInfo.url);
+        // trace("FocusManager deactivating = " + this._form.systemManager.loaderInfo.url);
          
         // listen for focus changes
 		var sm:ISystemManager = form.systemManager;
@@ -809,11 +895,13 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         form.removeEventListener(FocusEvent.FOCUS_IN, focusInHandler, true);
         form.removeEventListener(FocusEvent.FOCUS_OUT, focusOutHandler, true);
         form.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler); 
+        form.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownCaptureHandler, true); 
         form.removeEventListener(KeyboardEvent.KEY_DOWN, defaultButtonKeyHandler);
         // stop listening for default button in Capture phase
         form.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
 
         activated = false;
+        dispatchEvent(new FlexEvent(FlexEvent.FLEX_WINDOW_DEACTIVATE));
 
         if (hasEventListener("deactivateFM"))
     		dispatchEvent(new Event("deactivateFM"));
@@ -918,7 +1006,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      */
     private function sortFocusableObjectsTabIndex():void
     {
-        //trace("FocusableObjectsTabIndex");
+        //// trace("FocusableObjectsTabIndex");
         
         focusableCandidates = [];
         
@@ -1079,9 +1167,20 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             var doc:DisplayObjectContainer = DisplayObjectContainer(o);
             // Even if they aren't focusable now,
             // listen in case they become later.
-            o.addEventListener("tabChildrenChange", tabChildrenChangeHandler);
+            var checkChildren:Boolean;
 
-            if (doc.tabChildren)
+            if (o is IFocusManagerComponent)
+            {
+                o.addEventListener("hasFocusableChildrenChange", hasFocusableChildrenChangeHandler);
+                checkChildren = IFocusManagerComponent(o).hasFocusableChildren;
+            }
+            else
+            {
+                o.addEventListener("tabChildrenChange", tabChildrenChangeHandler);
+                checkChildren = doc.tabChildren;
+            }
+
+            if (checkChildren)
             {
                 if (o is IRawChildrenContainer)
                 {
@@ -1142,6 +1241,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         while (p && p != s)
         {
             if (!p.tabChildren)
+                return false;
+            if (p is IFocusManagerComponent && !(IFocusManagerComponent(p).hasFocusableChildren))
                 return false;
             p = p.parent;
         }
@@ -1545,7 +1646,10 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         if (o is DisplayObjectContainer)
         {
             if (!dontRemoveTabChildrenHandler)
+            {
                 o.removeEventListener("tabChildrenChange", tabChildrenChangeHandler);
+                o.removeEventListener("hasFocusableChildrenChange", hasFocusableChildrenChangeHandler);
+            }
 
             for (i = 0; i < focusableObjects.length; i++)
             {
@@ -1672,6 +1776,28 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         else
         {
             removeFocusables(o, true);
+        }
+    }
+
+    /**
+     *  @private
+     *  Add or remove if tabbing properties change.
+     */
+    private function hasFocusableChildrenChangeHandler(event:Event):void
+    {
+        if (event.target != event.currentTarget)
+            return;
+
+        calculateCandidates = true;
+
+        var o:IFocusManagerComponent = IFocusManagerComponent(event.target);
+        if (o.hasFocusableChildren)
+        {
+            addFocusables(DisplayObject(o), true);
+        }
+        else
+        {
+            removeFocusables(DisplayObject(o), true);
         }
     }
 
@@ -1864,6 +1990,23 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      *  causes the text to autoscroll to the end, making the
      *  mouse click set the insertion point in the wrong place.
      */
+    private function mouseDownCaptureHandler(event:MouseEvent):void
+    {
+        // trace("FocusManager mouseDownCaptureHandler in  = " + this._form.systemManager.loaderInfo.url);
+        // trace("FocusManager mouseDownCaptureHandler target " + event.target);
+        showFocusIndicator = false;
+    }
+
+    /**
+     *  @private
+     *  This gets called when the focus changes due to a mouse click.
+     *
+     *  Note: If the focus is changing to a TextField, we don't call
+     *  setFocus() on it because the player handles it;
+     *  calling setFocus() on a TextField which has scrollable text
+     *  causes the text to autoscroll to the end, making the
+     *  mouse click set the insertion point in the wrong place.
+     */
     private function mouseDownHandler(event:MouseEvent):void
     {
         // trace("FocusManager mouseDownHandler in  = " + this._form.systemManager.loaderInfo.url);
@@ -1880,8 +2023,6 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         if (!o)
             return;
 
-        showFocusIndicator = false;
-        
         // trace("FocusManager mouseDownHandler on " + o);
         
         // Make sure the containing component gets notified.
