@@ -3,7 +3,7 @@
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 	<property file="${FLEX_HOME}/build.properties"/>
-	<property name="local.playerglobal.version" value="10.3"/>
+	<property name="local.playerglobal.version" value="10.2"/>
 	<property name="locale" value="en_US"/>
 	
 	<target name="main" depends="clean,compile" description="Clean build of automation_spark.swc and en_US">
@@ -33,7 +33,7 @@
 			   output="${FLEX_HOME}/frameworks/libs/automation/automation_spark.swc">
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest_automation_spark.xml"/>
-			<target-player>10.3</target-player>
+			<target-player>10.2</target-player>
 			<include-classes>AutomationSparkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
