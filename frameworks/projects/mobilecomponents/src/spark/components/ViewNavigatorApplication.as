@@ -22,7 +22,7 @@ import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.MobileApplicationBase;
 import spark.components.supportClasses.NavigationStack;
-import spark.components.supportClasses.ViewProxy;
+import spark.components.supportClasses.ViewDescriptor;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -581,7 +581,7 @@ public class MobileApplication extends MobileApplicationBase
         
         // Register aliases for custom classes that will be written to
         // persistence store by navigator
-        registerClassAlias("ViewProxy", ViewProxy);
+        registerClassAlias("ViewDescriptor", ViewDescriptor);
         registerClassAlias("NavigationStack", NavigationStack);
     }
     
