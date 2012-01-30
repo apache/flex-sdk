@@ -16,11 +16,13 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.geom.Matrix;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
+
 import mx.automation.IAutomationObject;
 import mx.managers.ISystemManager;
 import mx.managers.IToolTipManagerClient;
@@ -1217,10 +1219,16 @@ public class UITextField extends FlexTextField
     {
         validateNow();
         
-        if (!stage)
+        // If we use device fonts, then the unscaled height is 
+        // textHeight * scaleX / scaleY
+        
+        if (!stage || embedFonts)
             return textHeight + TEXT_HEIGHT_PADDING;
 
-        return textHeight * transform.concatenatedMatrix.d + TEXT_HEIGHT_PADDING;
+        var m:Matrix = transform.concatenatedMatrix;
+        
+        return (textHeight * m.a 
+                / m.d) + TEXT_HEIGHT_PADDING;
     }
 
     //----------------------------------
@@ -1287,10 +1295,15 @@ public class UITextField extends FlexTextField
     {
         validateNow();
         
-        if (!stage)
+        // If we use device fonts, then the unscaled width is 
+        // textWidth * scaleX / scaleY
+        if (!stage || embedFonts)
             return textWidth + TEXT_WIDTH_PADDING;
 
-        return textWidth * transform.concatenatedMatrix.a + TEXT_WIDTH_PADDING;
+        var m:Matrix = transform.concatenatedMatrix;
+        
+        return (textWidth * m.a
+                / m.d) + TEXT_WIDTH_PADDING;
     }
 
     //----------------------------------
