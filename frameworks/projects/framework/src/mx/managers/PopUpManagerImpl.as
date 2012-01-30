@@ -565,14 +565,18 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             // right corner; compensate here.
             if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
             {
-                if (popUp is ILayoutDirectionElement &&
-                    ILayoutDirectionElement(popUp).layoutDirection == 
-                    LayoutDirection.RTL)
-                {
-                     x = -x /* to flip it on the other side of the x axis*/ 
-                         -popUp.width /* because 0 is the right edge */;
-    
-                }
+                // If popUp has layout direction different than the parent (or parent doesn't
+                // have layout direction and popUp is RTL) flip it to the other side of the x axis.
+                const popUpLDE:ILayoutDirectionElement = popUp as ILayoutDirectionElement;
+                const parentLDE:ILayoutDirectionElement = popUpParent as ILayoutDirectionElement;
+                
+                if (popUpLDE &&
+                    ((parentLDE && parentLDE.layoutDirection != popUpLDE.layoutDirection) ||
+                        (!parentLDE && popUpLDE.layoutDirection == LayoutDirection.RTL)))
+                 {
+                        x = -x /* to flip it on the other side of the x axis*/ 
+                            -popUp.width /* because 0 is the right edge */;                            
+                 }
             }
             
             pt = new Point(clippingOffset.x, clippingOffset.y);            
