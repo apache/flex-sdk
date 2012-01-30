@@ -103,6 +103,10 @@ global
 	paddingLeft: 0;
 	paddingRight: 0;
 	paddingTop: 0;
+	paragraphEndIndent: 0;
+	paragraphSpaceAfter: 0;
+	paragraphSpaceBefore: 0;
+	paragraphStartIndent: 0;
     rollOverColor: #CEDBEF;
 	roundedBottomCorners: true;
     renderingMode: "cff";
