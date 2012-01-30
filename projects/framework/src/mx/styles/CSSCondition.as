@@ -139,7 +139,7 @@ public class CSSCondition
         }
         else if (kind == CSSConditionKind.PSEUDO_CONDITION)
         {
-            if (object.currentState == value)
+            if (object.pseudoSelectorState == value)
                 match = true;
         }
 
