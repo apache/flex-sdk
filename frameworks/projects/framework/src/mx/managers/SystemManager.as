@@ -59,7 +59,6 @@ import mx.events.DynamicEvent;
 import mx.events.EventListenerRequest;
 import mx.events.FlexEvent;
 import mx.events.ResizeEvent;
-import mx.preloaders.SparkDownloadProgressBar;
 import mx.preloaders.Preloader;
 import mx.utils.LoaderUtil;
 
@@ -1799,8 +1798,6 @@ public class SystemManager extends MovieClip
             usePreloader = info()["usePreloader"];
 
 		var preloaderDisplayClass:Class = info()["preloader"] as Class;
-        if (usePreloader && !preloaderDisplayClass)
-            preloaderDisplayClass = SparkDownloadProgressBar;
 
         // Put cross-domain RSL information in the RSL list.
         var rslList:Array = [];
