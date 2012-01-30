@@ -28,7 +28,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class SpinnerListSkin extends MobileSkin
 {
@@ -63,7 +63,7 @@ public class SpinnerListSkin extends MobileSkin
 	 *
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */ 
 	public var scroller:Scroller;
 	
@@ -72,7 +72,7 @@ public class SpinnerListSkin extends MobileSkin
 	 *
 	 *  @langversion 3.0
 	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.5.2
+	 *  @productversion Flex 4.6
 	 */ 
 	public var dataGroup:DataGroup;
 	
