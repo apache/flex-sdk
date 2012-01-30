@@ -37,7 +37,7 @@ import mx.managers.dragClasses.DragProxy;
  *  Skin used to draw the default drag image, 
  *  which is also called the drag proxy.
  * 
- *  @default mx.skins.halo.DefaultDragImage
+ *  @default mx.skins.halo.DefaultDragImage (for both Halo and Spark themes)
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
