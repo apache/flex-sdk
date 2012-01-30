@@ -1578,13 +1578,15 @@ public class ViewNavigator extends SkinnableContainer implements ISelectableList
             currentViewChanged = true;
             executeViewChange();
         }
-        
-        lastAction = NO_ACTION;
-        viewChanging = false;
-        
-        // Notify listeners that the view change is complete
-        if (hasEventListener(Event.COMPLETE))
-            dispatchEvent(new Event(Event.COMPLETE));
+        else
+        {
+            lastAction = NO_ACTION;
+            viewChanging = false;
+            
+            // Notify listeners that the view change is complete
+            if (hasEventListener(Event.COMPLETE))
+                dispatchEvent(new Event(Event.COMPLETE));
+        }
     }
     
     /**
