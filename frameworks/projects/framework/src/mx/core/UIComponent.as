@@ -9699,9 +9699,9 @@ public class UIComponent extends FlexSprite
 
             focusObj.setActualSize(width + 2 * thickness,
                                    height + 2 * thickness);
-
+            
             var pt:Point;
-
+            
             if (rotation)
             {
                 var rotRad:Number = rotation * Math.PI / 180;
@@ -9714,14 +9714,31 @@ public class UIComponent extends FlexSprite
                 pt = new Point(obj.x - thickness, obj.y - thickness);
                 DisplayObject(focusObj).rotation = 0;
             }
-
+            
             if (obj.parent == this)
             {
                 // This adjustment only works if obj is a direct child of this.
                 pt.x += x;
                 pt.y += y;
             }
-            pt = parent.localToGlobal(pt);
+            
+            // If necessary, compenstate for mirroring, if the obj to receive
+            // focus isn't this component.  It is likely to be an icon within
+            // the component such as a radio button or check box.  This works
+            // as long as the focusObj is symmetric.
+            // ToDo(cframpto):ProgrammaticSkin implement ILayoutDirectionElement.
+            if (obj != this)
+            {
+                // The focusObj is attached to this component's parent.  Assume
+                // the focusObj is a class which doesn't support layoutDirection
+                // and will be laid out like the component's parent.  If the 
+                // component is being mirrored it means its layout differs from 
+                // its parent and we need to compenstate.
+                if (_layoutFeatures && _layoutFeatures.mirror)
+                    pt.x += this.width - obj.width;      
+            }
+            
+            pt = parent.localToGlobal(pt);                
             pt = parent.globalToLocal(pt);
             focusObj.move(pt.x, pt.y);
 
