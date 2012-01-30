@@ -145,7 +145,7 @@ public class SlideViewTransition extends ViewTransition
         if (tabBar)
         {
             tabBarWasVisible = componentIsVisible(tabBar);
-            if (tabBarWasVisible != nextView.showTabBar ||
+            if (tabBarWasVisible != nextView.tabBarVisible ||
                 nextView.overlayControls != currentView.overlayControls)
             {
                 cachedTabBar = generateBitmap(tabBar);
