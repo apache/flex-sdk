@@ -40,11 +40,33 @@ public interface IStyleManager2 extends IStyleManager
 	 */
 	function get selectors():Array;
 
+    //----------------------------------
+    //  typeHierarchyCache
+    //----------------------------------
+
+    function get typeHierarchyCache():Object;
+    function set typeHierarchyCache(value:Object):void;
+
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    function getStyleDeclarations(subject:String):Array;
+
+    /**
+     * @private
+     */ 
+    function hasPseudoCondition(value:String):Boolean;
+
+    /**
+     * @private
+     */ 
+    function hasAdvancedSelectors():Boolean;
 
 	/**
 	 *  @private
