@@ -186,6 +186,7 @@ public class View extends Group implements IDataRenderer
     
     private var _overlayControls:Boolean = false;
     
+    [Inspectable(category="General", defaultValue="false")]
     /**
      *  Determines the way the view's navigator's ui controls
      *  should lay out in relation to the view content.  If
@@ -224,6 +225,7 @@ public class View extends Group implements IDataRenderer
     //----------------------------------
     //  desctructionPolicy
     //----------------------------------
+    
     [Inspectable(category="General", enumeration="auto,none", defaultValue="auto")]
     /**
      *  Defines the destruction policy the view's navigator should use
@@ -283,6 +285,7 @@ public class View extends Group implements IDataRenderer
     //----------------------------------
     private var _actionBarVisible:Boolean = true;
     
+    [Inspectable(category="General", defaultValue="true")]
     /**
      *  Flag indicating whether a view should show the action bar or not.
      *  This doesn't necessarily correlate to the visible property of the
@@ -476,7 +479,8 @@ public class View extends Group implements IDataRenderer
 	//  tabBarVisible
 	//----------------------------------
 	private var _tabBarVisible:Boolean = true;
-	
+    
+    [Inspectable(category="General", defaultValue="true")]
 	/**
 	 *  Flag indicating whether a view should show the action bar or not.
 	 *  This doesn't necessarily correlate to the visible property of the
