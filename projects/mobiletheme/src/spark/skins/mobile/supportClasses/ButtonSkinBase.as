@@ -36,7 +36,7 @@ package spark.skins.mobile.supportClasses
     import spark.components.Group;
     import spark.components.IconPlacement;
     import spark.components.supportClasses.ButtonBase;
-    import spark.components.supportClasses.MobileTextField;
+    import spark.components.supportClasses.StyleableTextField;
     import spark.primitives.BitmapImage;
     import spark.skins.mobile.supportClasses.MobileSkin;
     
@@ -91,9 +91,9 @@ package spark.skins.mobile.supportClasses
         /**
          *  labelDisplay skin part.
          */
-        public var labelDisplay:MobileTextField;
+        public var labelDisplay:StyleableTextField;
         
-        protected var labelDisplayShadow:MobileTextField;      
+        protected var labelDisplayShadow:StyleableTextField;      
         
         /**
          *  If true, then create the iconDisplay using the icon style
@@ -144,11 +144,11 @@ package spark.skins.mobile.supportClasses
          */ 
         override protected function createChildren():void
         {                   
-            labelDisplay = MobileTextField(createInFontContext(MobileTextField));
+            labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
             labelDisplay.styleProvider = this;
             labelDisplay.addEventListener(FlexEvent.VALUE_COMMIT, labelDisplay_valueCommitHandler);
             
-            labelDisplayShadow = MobileTextField(createInFontContext(MobileTextField));
+            labelDisplayShadow = StyleableTextField(createInFontContext(StyleableTextField));
             labelDisplayShadow.styleProvider = this;
             
             labelDisplayShadow.colorName = "textShadowColor";
