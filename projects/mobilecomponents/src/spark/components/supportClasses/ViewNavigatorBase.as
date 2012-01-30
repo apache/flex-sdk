@@ -33,11 +33,11 @@ use namespace mx_internal;
  *  The ViewNavigatorBase class defines the base class logic and
  *  interface used by view navigators.  This class contains
  *  methods and properties related to view management, as well
- *  as integration points with MobileApplicationBase application
+ *  as integration points with ViewNavigatorApplicationBase application
  *  classes.
  * 
  *  @see spark.components.ViewNavigator
- *  @see spark.components.MobileApplication
+ *  @see spark.components.ViewNavigatorApplication
  */ 
 public class ViewNavigatorBase extends SkinnableContainer
 {
@@ -143,7 +143,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  will run.
      * 
      *  <p>This method is only called if the navigator is the main navigator
-     *  of a MobileApplication class</p>.
+     *  of a ViewNavigatorApplication class</p>.
      * 
      *  @default true
      *  
@@ -512,7 +512,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  If the navigator is the main navigator of the MobileApplication or
+     *  If the navigator is the main navigator of the ViewNavigatorApplication or
      *  class, this method is called when the back device key is pressed.
      *  
      *  @langversion 3.0
