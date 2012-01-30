@@ -14,8 +14,8 @@ package mx.effects
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
-import flash.utils.getQualifiedClassName;
 
+import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.mx_internal;
 import mx.effects.effectClasses.AddRemoveEffectTargetFilter;
@@ -192,15 +192,20 @@ public class Effect extends EventDispatcher implements IEffect
     // applyTransitionEndProperties flag, which is set on a per-Effect basis.
     mx_internal var applyEndValuesWhenDone:Boolean = false;
 
-    // TODO: consider making this attribute protected (vs. mx_internal)
-    // This flag controls whether a given Effect, when being played as
-    // part of a view state transition, wishes to replace any
-    // transient state set during its animation by the values declared
-    // in the ending view state (as captured by the propertyChanges
-    // array). For now, this flag is set to true by the new effects
-    // in Flex4 as well as the old CompositeEffect classes. Other effects
-    // leave the flag false for backward compatibility.
-    mx_internal var applyTransitionEndProperties:Boolean = false;
+    // This is new behavior for the Flex4 effects; previously, we would not
+    // set the end-state values automatically. Because of this switch, the
+    // default value is hinged on a compatibility check, so that applications
+    // can choose to have the older behavior instead.
+    /**
+     * This flag controls whether the effect, when run in a transition,
+     * will automatically apply the property values according to the end
+     * state, as opposed to leaving values as set by the effect itself.
+     * 
+     * @default true
+     */
+    protected var applyTransitionEndProperties:Boolean = 
+        (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0) ? 
+        false : true;
     
     /**
      *  @private
