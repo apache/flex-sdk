@@ -78,9 +78,7 @@ public class ViewNavigatorBase extends SkinnableContainer
     
     /**
      *  Flag indicating whether the navigator is active.  The parent navigator
-     *  will automatically set this flag to true or false as its state changes.  
-     *  This getter will dispatch <code>FlexEvent.NAVIGATOR_ACTIVATE</code> and 
-     *  <code>FlexEvent.NAVIGATOR_DEACTIVATE</code> as the value changes.
+     *  will automatically set this flag to true or false as its state changes.
      *  
      *  @default true
      * 
@@ -410,6 +408,8 @@ public class ViewNavigatorBase extends SkinnableContainer
     //  transitionsEnabled
     //----------------------------------
     
+    private var _transitionsEnabled:Boolean = true;
+    
     /**
      *  Flag indicating whether transitions are played by the 
      *  navigator when a view changes or when the actionBar or tab bar 
@@ -422,15 +422,32 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    public var transitionsEnabled:Boolean = true;
+    public function get transitionsEnabled():Boolean
+    {
+        return _transitionsEnabled;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set transitionsEnabled(value:Boolean):void
+    {
+        _transitionsEnabled = value;
+    }
     
     //----------------------------------
     //  useDefaultTransitions
     //----------------------------------
     
-    // TODO (chiedozi): PARB name, Getters/Setters
+    private var _useDefaultTransitions:Boolean = true;
+    
     /**
-     *
+     *  This flag indicates whether the navigator should play its
+     *  built-in default animations for its navigation operations.
+     *  If set to false, animations will not be played when a view
+     *  is changed unless passed as the <code>transition</code> parameter 
+     *  for one of the navigation operations.
+     *  
      *  @default true
      * 
      *  @langversion 3.0
@@ -438,7 +455,18 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    public var useDefaultTransitions:Boolean = true;
+    public function get useDefaultTransitions():Boolean
+    {
+        return _useDefaultTransitions;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set useDefaultTransitions(value:Boolean):void
+    {
+        _useDefaultTransitions = value;
+    }
     
     //--------------------------------------------------------------------------
     //
