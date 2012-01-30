@@ -164,16 +164,20 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 	 */
 	private function activateForm(f:Object):void
 	{
+        var e:DynamicEvent;
 
 		// trace("SM: activate " + f + " " + forms.length);
 		if (form)
 		{
 			if (form != f && forms.length > 1)
 			{
-				var e:DynamicEvent = new DynamicEvent("activateForm", false, true);
-				e.form = f;
+                if (hasEventListener("activateForm"))
+                {
+				    e = new DynamicEvent("activateForm", false, true);
+				    e.form = f;
+                }
 				// Switch the active form.
-				if (dispatchEvent(e))
+				if (!e || dispatchEvent(e))
 				{
 					var z:IFocusManagerContainer = IFocusManagerContainer(form);
 					// trace("OLW " + f + " deactivating old form " + z);
@@ -184,9 +188,13 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 
 		form = f;
 
-        e = new DynamicEvent("activatedForm", false, true);
-        e.form = f;
-        if (dispatchEvent(e))
+        var e2:DynamicEvent;
+        if (hasEventListener("activatedForm"))
+        {
+            e2 = new DynamicEvent("activatedForm", false, true);
+            e2.form = f;
+        }
+        if (!e2 || dispatchEvent(e2))
         {
 		    if (f.focusManager)
 		    {
@@ -213,6 +221,8 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 	 */
 	private function deactivateForm(f:Object):void
 	{
+        var e:DynamicEvent;
+
 		// trace(">>SM: deactivate " + f);
 
 		if (form)
@@ -220,23 +230,35 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 			// If there's more than one form and this is it, find a new form.
 			if (form == f && forms.length > 1)
 			{
-				var e:DynamicEvent = new DynamicEvent("deactivateForm", false, true);
-				e.form = form;
-				if (dispatchEvent(e))
+                if (hasEventListener("deactivateForm"))
+                {
+				    e = new DynamicEvent("deactivateForm", false, true);
+				    e.form = form;
+                }
+				if (!e || dispatchEvent(e))
 					form.focusManager.deactivate();
 
 				form = findLastActiveForm(f);
 				
+                var e2:DynamicEvent;
 				// make sure we have a valid top level window.
 				// This can be null if top level window has been hidden for some reason.
 				if (form)
 				{
-                    e = new DynamicEvent("deactivatedForm", false, true);
-                    e.form = form;
-                    if (dispatchEvent(e))
+                    if (hasEventListener("deactivatedForm"))
                     {
-					    form.focusManager.activate();
-				    }
+                        e2 = new DynamicEvent("deactivatedForm", false, true);
+                        e2.form = form;
+                    }
+                    if (!e2 || dispatchEvent(e2))
+                    {
+				        // make sure we have a valid top level window.
+				        // This can be null if top level window has been hidden for some reason.
+				        if (form)
+				        {
+					        form.focusManager.activate();
+				        }
+                    }
                 }
 			}
 		}
@@ -273,14 +295,19 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 	 */
 	 private function canActivatePopUp(f:Object):Boolean
 	 {
-		 
-		var e:Request = new Request("canActivateForm", false, true);
-		e.value = f;
-	 	if (!dispatchEvent(e))
-	 	{
-			return e.value;
-	 	}
-	 	else if (canActivateLocalComponent(f))
+		var e:Request;
+
+        if (hasEventListener("canActivateForm"))
+        {
+		    e = new Request("canActivateForm", false, true);
+		    e.value = f;
+	 	    if (!dispatchEvent(e))
+	 	    {
+			    return e.value;
+	 	    }
+        }
+
+	 	if (canActivateLocalComponent(f))
 			return true;
 			
 		return false;
@@ -332,7 +359,8 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 				// If this is a bridged application, send a message to the parent
 				// to let them know the form has been deactivated so they can
 				// activate a new form.
-				dispatchEvent(new FocusEvent("removeFocusManager", false, false, InteractiveObject(f)));
+                if (hasEventListener("removeFocusManager"))
+				    dispatchEvent(new FocusEvent("removeFocusManager", false, false, InteractiveObject(f)));
 				
 				forms.splice(i, 1);
 				
@@ -351,9 +379,9 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 	private function mouseDownHandler(event:MouseEvent):void
 	{
 		// trace("SM:mouseDownHandler " + this);
-		
-		if (!dispatchEvent(new FocusEvent(MouseEvent.MOUSE_DOWN, false, true, InteractiveObject(event.target))))
-			return;
+		if (hasEventListener(MouseEvent.MOUSE_DOWN))
+		    if (!dispatchEvent(new FocusEvent(MouseEvent.MOUSE_DOWN, false, true, InteractiveObject(event.target))))
+			    return;
 
 		if (numModalWindows == 0) // no modal windows are up
 		{
@@ -368,9 +396,14 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 				{
 					for (var i:int = 0; i < n; i++)
 					{
-						var request:Request = new Request("actualForm", false, true);
-						request.value = forms[i];
-						var form_i:Object = dispatchEvent(request) == false ? forms[i].window : forms[i];
+						var form_i:Object = forms[i];
+                        if (hasEventListener("actualForm"))
+                        {
+						    var request:Request = new Request("actualForm", false, true);
+						    request.value = forms[i];
+                            if (!dispatchEvent(request))
+                                form_i = forms[i].window;
+                        }
 						if (form_i == p)
 						{
 							var j:int = 0;
@@ -385,9 +418,15 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 								activate(IFocusManagerContainer(p));
 
 								if (p == systemManager.document)
-									dispatchEvent(new Event("activateApplication"));
+                                {
+                                    if (hasEventListener("activateApplication"))
+									    dispatchEvent(new Event("activateApplication"));
+                                }
 								else if (p is DisplayObject)
-									dispatchEvent(new FocusEvent("activateWindow", false, false, InteractiveObject(p)));
+                                {
+                                    if (hasEventListener("activateWindow"))
+    									dispatchEvent(new FocusEvent("activateWindow", false, false, InteractiveObject(p)));
+                                }
 							}
 							
 							if (systemManager.popUpChildren.contains(p))
@@ -405,11 +444,15 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 							for (j = 0; j < n; j++)
 							{
 								var f:DisplayObject;
-								request = new Request("isRemote", false, true);
-								request.value = forms[j];
-								var isRemotePopUp:Boolean = false;
-								if (!dispatchEvent(request))
-									isRemotePopUp = request.value as Boolean;
+                                isRemotePopUp = false;
+                                if (hasEventListener("isRemote"))
+                                {
+								    request = new Request("isRemote", false, true);
+								    request.value = forms[j];
+								    var isRemotePopUp:Boolean = false;
+								    if (!dispatchEvent(request))
+    									isRemotePopUp = request.value as Boolean;
+                                }
 								if (isRemotePopUp)
 								{
 									if (forms[j].window is String)
@@ -437,7 +480,7 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 					p = p.parent;
 				}
 			}
-			else 
+			else if (hasEventListener("activateApplication"))
 				dispatchEvent(new Event("activateApplication"));
 		}
 	}
