@@ -117,8 +117,8 @@ public class EmbeddedFont
 							   italic:Boolean):void
 	{
 		_fontName = fontName;
-		_fontStyle = EmbeddedFontRegistry.getFontStyle(bold, italic);
-	}
+		_fontStyle = EmbeddedFontRegistry.getInstance().getFontStyle(bold, italic);
+}
 }
 
 }
