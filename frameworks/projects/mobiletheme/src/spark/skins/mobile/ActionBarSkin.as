@@ -21,7 +21,6 @@ public class ActionBarSkin extends SliderSkin
     public var actionGroup:Group;
     public var titleDisplay:Label;
     private var highlight:Sprite;
-    private var border:Sprite;
     
     public function ActionBarSkin()
     {
@@ -36,23 +35,21 @@ public class ActionBarSkin extends SliderSkin
         highlight = new ActionBarHighlight();
         addChild(highlight);
         
-        border = new ActionBarBorder();
-        addChild(border);
-        
         navigationGroup = new Group();
         var hLayout:HorizontalLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
-        hLayout.verticalAlign = VerticalAlign.CONTENT_JUSTIFY;
+        hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
+		hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
         navigationGroup.layout = hLayout;
         addChild(navigationGroup);
         
         titleGroup = new Group();
         hLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.LEFT;
-        hLayout.verticalAlign = VerticalAlign.CONTENT_JUSTIFY;
+		hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
-        hLayout.paddingLeft = 10;
+		hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
         titleGroup.layout = hLayout;
         titleGroup.clipAndEnableScrolling = true;
         addChild(titleGroup);
@@ -60,8 +57,9 @@ public class ActionBarSkin extends SliderSkin
         actionGroup = new Group();
         hLayout = new HorizontalLayout();
         hLayout.horizontalAlign = HorizontalAlign.RIGHT;
-        hLayout.verticalAlign = VerticalAlign.CONTENT_JUSTIFY;
+		hLayout.verticalAlign = VerticalAlign.MIDDLE;
         hLayout.gap = 0;
+		hLayout.paddingLeft = hLayout.paddingTop = hLayout.paddingRight = hLayout.paddingBottom = 10;
         actionGroup.layout = hLayout;
         addChild(actionGroup);
         
@@ -69,6 +67,7 @@ public class ActionBarSkin extends SliderSkin
         titleDisplay.setStyle("fontSize", "18");
         titleDisplay.setStyle("verticalAlign", "middle");
         titleDisplay.setStyle("color", "0xFFFFFF");
+		titleDisplay.setStyle("fontWeight", "bold");
     }
     
     override protected function measure():void
@@ -80,9 +79,6 @@ public class ActionBarSkin extends SliderSkin
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        border.width = unscaledWidth;
-        border.height = unscaledHeight;
-        
         highlight.width = unscaledWidth;
         highlight.height = unscaledHeight;
         
@@ -90,13 +86,13 @@ public class ActionBarSkin extends SliderSkin
         var right:Number = unscaledWidth;
         
         // Position groups
-        if (navigationGroup.includeInLayout)
+        if (navigationGroup.numElements > 0 && navigationGroup.includeInLayout)
         {
             left += navigationGroup.measuredWidth;
             navigationGroup.setLayoutBoundsSize(left, unscaledHeight);
         }
         
-        if (actionGroup.includeInLayout)
+        if (actionGroup.numElements > 0 && actionGroup.includeInLayout)
         {
             right -= actionGroup.measuredWidth;
             actionGroup.setLayoutBoundsPosition(right, 0);
