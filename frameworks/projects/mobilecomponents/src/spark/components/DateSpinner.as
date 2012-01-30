@@ -49,7 +49,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -61,7 +61,7 @@ use namespace mx_internal;
  *  
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Event(name="valueCommit", type="mx.events.FlexEvent")]
 
@@ -88,7 +88,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="locale", type="String", inherit="yes")]
 
@@ -103,7 +103,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 [Style(name="accentColor", type="uint", format="Color", inherit="yes")]
 
@@ -150,7 +150,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 
 public class DateSpinner extends SkinnableComponent
@@ -167,7 +167,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected static const YEAR_ITEM:String = "yearItem";
 
@@ -177,7 +177,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected static const MONTH_ITEM:String = "monthItem";
 
@@ -187,7 +187,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected static const DATE_ITEM:String = "dateItem";
     
@@ -197,7 +197,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected static const HOUR_ITEM:String = "hourItem";
     
@@ -207,7 +207,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected static const MINUTE_ITEM:String = "minuteItem";
     
@@ -217,7 +217,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     protected static const MERIDIAN_ITEM:String = "meridianItem";
     
@@ -247,7 +247,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function DateSpinner()
     {
@@ -313,7 +313,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var dateItemList:IFactory;
     
@@ -323,7 +323,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public var listContainer:IVisualElementContainer;
     
@@ -338,7 +338,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2 
+     *  @productversion Flex 4.6 
      */ 
     protected var yearList:SpinnerList;
 
@@ -347,7 +347,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2 
+     *  @productversion Flex 4.6 
      */ 
     protected var monthList:SpinnerList;
     
@@ -356,7 +356,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2 
+     *  @productversion Flex 4.6 
      */ 
     protected var dateList:SpinnerList;
     
@@ -365,7 +365,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2 
+     *  @productversion Flex 4.6 
      */ 
     protected var hourList:SpinnerList;
     
@@ -374,7 +374,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2 
+     *  @productversion Flex 4.6 
      */ 
     protected var minuteList:SpinnerList;
     
@@ -383,7 +383,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2 
+     *  @productversion Flex 4.6 
      */ 
     protected var meridianList:SpinnerList;
     
@@ -415,7 +415,7 @@ public class DateSpinner extends SkinnableComponent
      *  @default DateSelectorDisplayMode.DATE
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */     
     public function get displayMode():String
     {
@@ -480,7 +480,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get maxDate():Date
     {
@@ -532,7 +532,7 @@ public class DateSpinner extends SkinnableComponent
      *           DateTimeFormatter only supports the range from 1601 to 30827
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get minDate():Date
     {
@@ -580,7 +580,7 @@ public class DateSpinner extends SkinnableComponent
      *  @default 1
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */     
     public function get minuteStepSize():int
     {
@@ -630,7 +630,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      * 
      */
     public function get selectedDate():Date
@@ -890,7 +890,7 @@ public class DateSpinner extends SkinnableComponent
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      * 
      */
     protected function createDateItemList(datePart:String, itemIndex:int, itemCount:int):SpinnerList
