@@ -768,7 +768,7 @@ package mx.core
             return _computedMatrix3D;
     
     
-        if (!postLayoutTransformOffsets && stretchX == 1 && stretchY == 1)
+        if (!postLayoutTransformOffsets && !mirror && stretchX == 1 && stretchY == 1)
         {
             return layout.matrix3D;
         }
