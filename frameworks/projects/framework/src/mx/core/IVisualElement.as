@@ -51,6 +51,7 @@ public interface IVisualElement extends ILayoutElement
     function get parent():DisplayObjectContainer;
     
 	/**
+	 * Documentation is not currently available.
      *  Determines the order in which items inside of groups and datagroups 
      *  are rendered. Groups and DataGroups order their items based on their 
      *  layer property, with the lowest layer in the back, and the higher in 
@@ -58,9 +59,9 @@ public interface IVisualElement extends ILayoutElement
      *  they are added to the Groups item list.
      * 
      *  @default 0
-     */
-    function set layer(value:Number):void;
-    function get layer():Number;
+	 */
+	function set layer(value:Number):void;
+	function get layer():Number;
 
     /**
      *  The y-coordinate of the baseline
