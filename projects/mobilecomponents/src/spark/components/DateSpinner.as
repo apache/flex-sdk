@@ -92,6 +92,12 @@ use namespace mx_internal;
  */
 [Style(name="accentColor", type="uint", format="Color", inherit="yes")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("DateSpinner.png")]
+
 /**
  *  The DateSpinner component presents an interface for picking a particular point
  *  in time. The interface is made up of a series of SpinnerList controls that show the
@@ -238,7 +244,7 @@ public class DateSpinner extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     
-    [SkinPart(required="true")]
+    [SkinPart]
     /**
      *  The default factory for creating SpinnerList interfaces for all fields.
      *  This is used by createDateItemList().
@@ -249,7 +255,7 @@ public class DateSpinner extends SkinnableComponent
      */
     public var dateItemList:IFactory;
     
-    [SkinPart(required="true")] // TODO: ask Glenn if can use required=true 
+    [SkinPart] 
     /**
      *  The container for the date part lists
      * 
@@ -788,8 +794,11 @@ public class DateSpinner extends SkinnableComponent
                         break;
                     }
                 }
-                tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                listContainer.addElement(tempList);
+                if (tempList && listContainer)
+                {
+                    tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
+                    listContainer.addElement(tempList);
+                }
             }
         }
         else // default case: DATE mode
@@ -828,8 +837,11 @@ public class DateSpinner extends SkinnableComponent
                         break;
                     }	
                 }
-                tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
-                listContainer.addElement(tempList);
+                if (tempList && listContainer)
+                {
+                    tempList.addEventListener(IndexChangeEvent.CHANGE, dateItemList_changeHandler);
+                    listContainer.addElement(tempList);                    
+                }
             }
         }
     }
@@ -1205,7 +1217,8 @@ public class DateSpinner extends SkinnableComponent
     // clean out the container: remove all elements, detach event listeners, null out references
     private function cleanContainer():void
     {
-        listContainer.removeAllElements();
+        if (listContainer)
+            listContainer.removeAllElements();
         
         if (yearList)
         {
