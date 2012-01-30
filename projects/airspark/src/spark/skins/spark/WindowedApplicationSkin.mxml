@@ -12,6 +12,10 @@
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
     alpha.disabledGroup="0.5" >
 
+    <fx:Metadata>
+      [HostComponent("spark.components.WindowedApplication")]
+    </fx:Metadata>
+
     <fx:Script>
         /*  Define the skin elements that should not be colorized. 
          *  For WindowedApplication, border and status bar backround are colorized,
@@ -33,7 +37,7 @@
     <!-- layer 1: background fill -->
     <s:Rect id="backgroundRect" left="1" right="1" top="1" bottom="1" >
         <s:fill>
-            <s:SolidColor id="bgFill" color="{fxComponent.backgroundColor as uint}" />
+            <s:SolidColor id="bgFill" color="{hostComponent.backgroundColor}" />
         </s:fill>
     </s:Rect>
 
