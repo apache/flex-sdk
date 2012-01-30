@@ -1858,7 +1858,7 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
                 load(_source);
         }
 		ISystemManager2(systemManager).getSandboxRoot().addEventListener(MarshalEvent.DRAG_MANAGER, 
-				mouseShieldHandler);
+				mouseShieldHandler, false, 0, true);
     }
 
     
@@ -2098,7 +2098,7 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
 		}
 		else
 		{
-			if (mouseShield.parent)
+			if (mouseShield && mouseShield.parent)
 				removeChild(mouseShield)
 		}
 	}
