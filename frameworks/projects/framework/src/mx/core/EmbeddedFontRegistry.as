@@ -80,6 +80,11 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	 * @param key A string that represents a key created by createFontKey(), may not be null.
 	 * 
 	 * return An embedded font with the attributes from the key.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	 private static function createEmbeddedFont(key:String):EmbeddedFont
 	 {
@@ -122,6 +127,11 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	 * Test if a string end with another string.
 	 * 
 	 * @returns index into string if it ends with the matching string, otherwise returns -1.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private static function endsWith(s:String, match:String):int
 	{
@@ -199,6 +209,11 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	 *  @param italic true if the font is italic, false otherwise.
 	 *
 	 *  @return A String that matches one of the values in flash.text.FontStyle.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function getFontStyle(bold:Boolean, italic:Boolean):String
 	{
@@ -222,6 +237,11 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	
 	/**
      *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function registerFont(font:EmbeddedFont,
 								 moduleFactory:IFlexModuleFactory):void
@@ -238,6 +258,11 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	
 	/**
      *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function deregisterFont(font:EmbeddedFont,
 								   moduleFactory:IFlexModuleFactory):void
@@ -261,6 +286,11 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	
 	/**
      *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getFonts():Array
 	{
@@ -276,6 +306,11 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	
 	/**
      *  @inheritDoc
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getAssociatedModuleFactory(
 						font:EmbeddedFont,
