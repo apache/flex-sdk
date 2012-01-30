@@ -50,6 +50,8 @@ public class ButtonSkin extends ButtonSkinBase
     
     private static const BOTTOM_BORDER_SHADOW:uint = 1;
     
+    private static const BORDER_SIZE:uint = 1;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -172,8 +174,12 @@ public class ButtonSkin extends ButtonSkinBase
     
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
     {
+        // inset chrome color by BORDER_SIZE
         // bottom line is a shadow
-        chromeColorGraphics.drawRoundRect(0, 0, unscaledWidth, unscaledHeight - BOTTOM_BORDER_SHADOW, CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
+        chromeColorGraphics.drawRoundRect(BORDER_SIZE, BORDER_SIZE, 
+            unscaledWidth - (BORDER_SIZE * 2), 
+            unscaledHeight - BOTTOM_BORDER_SHADOW - (BORDER_SIZE * 2), 
+            CORNER_ELLIPSE_SIZE, CORNER_ELLIPSE_SIZE);
     }
     
     /**
