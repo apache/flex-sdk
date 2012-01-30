@@ -27,6 +27,7 @@ package spark.automation.delegates.components.supportClasses
     
     import spark.automation.delegates.SparkRichEditableTextAutomationHelper;
     import spark.automation.tabularData.RichEditableTextTabularData;
+    import spark.components.RichEditableText;
     import spark.components.Scroller;
     import spark.components.supportClasses.SkinnableTextBase;
     
@@ -158,8 +159,8 @@ package spark.automation.delegates.components.supportClasses
                 return super.replayAutomatableEvent(interaction);
             
             // we have delegated the replay to the underlying the richEditabale Text.           
-            if(skinnableTextBase.textDisplay)
-                return skinnableTextBase.textDisplay.replayAutomatableEvent(interaction);
+            if(skinnableTextBase.textDisplay is RichEditableText)
+                return RichEditableText(skinnableTextBase.textDisplay).replayAutomatableEvent(interaction);
             else
                 return super.replayAutomatableEvent(interaction);
         }
@@ -211,7 +212,7 @@ package spark.automation.delegates.components.supportClasses
         
         override public function get automationTabularData():Object
         {
-            return new RichEditableTextTabularData(skinnableTextBase.textDisplay);
+            return new RichEditableTextTabularData(skinnableTextBase.textDisplay as RichEditableText);
         }
         
         
