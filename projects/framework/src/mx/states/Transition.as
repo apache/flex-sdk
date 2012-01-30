@@ -172,8 +172,18 @@ public class Transition
 	
     /**
      *  Whether the transition should automatically reverse itself 
-     *  when the opposite state transition begins playing.
-     *
+     *  when the opposite state transition begins playing. Also, this flag
+     *  specifies whether a transition for the opposite state change can
+     *  be used, playing in reverse, if a transition for the reverse state change 
+     *  does not exist. Transitions in the forward direction are of higher priority
+     *  and will be used if they exist, but if this flag is set, transitions
+     *  for the opposite direction will be used as a fallback. Note that
+     *  a transition will only be played in reverse if it is clearly a
+     *  reverse of the state change transition requested. For example, a
+     *  transition from * to * (any to any state) will always play in the
+     *  forward direction when used, because it qualifies as a valid transition
+     *  for any state change, so it will not trigger the reverse-playing logic.
+     * 
      *  <p>Flex does not currently play multiple transitions simultaneously.
      *  This means that when a new state transition occurs, if there
      *  is already one playing it is stopped by calling <code>end()</code>
