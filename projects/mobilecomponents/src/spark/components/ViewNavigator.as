@@ -1790,12 +1790,11 @@ public class ViewNavigator extends ViewNavigatorBase
         }
     }
 
-    UPDATE COMEMENT
     /**
      *  @private
      *  Activates the current view.  Called on the frame following the
-     *  navigator commit so that the player can render before the activate events
-     *  are dispatched.
+     *  navigator commit or when a TabbedViewNavigator activates a new
+     *  view.
      */ 
     private function completeViewCommitProcess(event:Event = null):void
     {
