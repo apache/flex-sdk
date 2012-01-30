@@ -24,7 +24,7 @@
     -->
 	<property name="local.playerglobal.version" value="10"/>
 
-	<target name="main" depends="clean,compile,en_US,ja_JP,doc" description="Clean build of framework.swc and its English and Japanese resources"/>
+	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of framework.swc and its English and Japanese resources"/>
 
 	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ko_KR,nb_NO,nl_NL,pt_BR,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
 
