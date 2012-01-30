@@ -139,19 +139,18 @@ public interface IViewCursor extends IEventDispatcher
      *  in a non-unique index, use the <code>findFirst()</code> or
      *  <code>findLast()</code> method.</p>
      *
-     *  <p>The values in the parameter must be configured as name-value pairs,
-     *  as in an associative array (or be the actual object to search for).
-     *  The values of the names specified must match properties
-     *  specified in the sort.
-     *  For example, if properties <code>x</code>, <code>y</code>, and
-     *  <code>z</code> are in the current sort, the values specified should be
-     *  <code>{x: <i>x-value</i>, y: <i>y-value</i>, z: <i>z-value</i>}</code>.</p>
-     *
-     *  <p>When all of the data is local this method returns
-     *  <code>true</code> if the item can be found and <code>false</code>
-     *  otherwise.
-     *  If the data is not local and an asynchronous operation must be
+     *  <p>If the data is not local and an asynchronous operation must be
      *  performed, an ItemPendingError is thrown.</p>
+     *  
+     *  @param values The search criteria. The values in the Object must be configured as name-value pairs,
+     *  as in an associative array (or be the actual object to search for). The values of the names specified must match properties
+     *  specified in the sort. For example, if properties <code>x</code>, <code>y</code>, and
+     *  <code>z</code> are in the current sort, the values specified should be
+     *  <code>{x: <i>x-value</i>, y: <i>y-value</i>, z: <i>z-value</i>}</code>.
+     *
+     *  @return When all of the data is local this method returns
+     *  <code>true</code> if the item can be found and <code>false</code>
+     *  otherwise. 
      *
      *  @see #findFirst()
      *  @see #findLast()
@@ -176,20 +175,19 @@ public interface IViewCursor extends IEventDispatcher
      *  in a non-unique index, use <code>findAny()</code>, which may be
      *  a little faster than the <code>findFirst() method</code>.</p>
      *
-     *  <p>The values specified must be configured as name-value pairs,
-     *  as in an associative array (or be the actual object to search for).
-     *  The values of the names specified must match properties
-     *  specified in the sort.
-     *  For example, if properties <code>x</code>, <code>y</code>, and
-     *  <code>z</code> are in the current sort, the values specified should be
-     *  <code>{x: <i>x-value</i>, y: <i>y-value</i>, z: <i>z-value</i>}</code>.</p>
-     *
-     *  <p>When all of the data is local this method returns
-     *  <code>true</code> if the item can be found and <code>false</code>
-     *  otherwise.
-     *  If the data is not local and an asynchronous operation must be
+     *  <p>If the data is not local and an asynchronous operation must be
      *  performed, an ItemPendingError is thrown.</p>
      *
+     *  @param values The search criteria. The values in the Object must be configured as name-value pairs,
+     *  as in an associative array (or be the actual object to search for). The values of the names specified must match properties
+     *  specified in the sort. For example, if properties <code>x</code>, <code>y</code>, and
+     *  <code>z</code> are in the current sort, the values specified should be
+     *  <code>{x: <i>x-value</i>, y: <i>y-value</i>, z: <i>z-value</i>}</code>.
+     *
+     *  @return When all of the data is local this method returns
+     *  <code>true</code> if the item can be found and <code>false</code>
+     *  otherwise. 
+     *  
      *  @see #findAny()
      *  @see #findLast()
      *  @see mx.collections.errors.ItemPendingError
@@ -213,20 +211,19 @@ public interface IViewCursor extends IEventDispatcher
      *  in a non-unique index, use the <code>findAny()</code> method, which
      *  may be a little faster.</p>
      *
-     *  <p>The values specified must be configured as name-value pairs,
-     *  as in an associative array (or be the actual object to search for).
-     *  The values of the names specified must match properties
-     *  specified in the sort.
-     *  For example, if properties <code>x</code>, <code>y</code>, and
-     *  <code>z</code> are in the current sort, the values specified should be
-     *  <code>{x: <i>x-value</i>, y: <i>y-value</i>, z: <i>z-value</i>}</code>.</p>
-     *
-     *  <p>When all of the data is local this method returns
-     *  <code>true</code> if the item can be found and <code>false</code>
-     *  otherwise.
-     *  If the data is not local and an asynchronous operation must be
+     *  <p>If the data is not local and an asynchronous operation must be
      *  performed, an ItemPendingError is thrown.</p>
      *
+     *  @param values The search criteria. The values in the Object must be configured as name-value pairs,
+     *  as in an associative array (or be the actual object to search for). The values of the names specified must match properties
+     *  specified in the sort. For example, if properties <code>x</code>, <code>y</code>, and
+     *  <code>z</code> are in the current sort, the values specified should be
+     *  <code>{x: <i>x-value</i>, y: <i>y-value</i>, z: <i>z-value</i>}</code>.
+     *
+     *  @return When all of the data is local this method returns
+     *  <code>true</code> if the item can be found and <code>false</code>
+     *  otherwise. 
+     *  
      *  @see #findAny()
      *  @see #findFirst()
      *  @see mx.collections.errors.ItemPendingError
@@ -239,6 +236,8 @@ public interface IViewCursor extends IEventDispatcher
      *  the insertion occurs at the end of the view.
      *  If the cursor is <code>beforeFirst</code> on a non-empty view,
      *  an error is thrown.
+     *  
+     *  @param item The item to insert before the cursor's current position.
      */
     function insert(item:Object):void;
 
@@ -319,12 +318,13 @@ public interface IViewCursor extends IEventDispatcher
      *  the cursor moves to the next item. If you remove the last item, the
      *  cursor is at the AFTER_LAST bookmark.
      *  
-     *
      *  <p>If the item after the removed item is not local and an asynchronous 
      *  operation must be performed, an ItemPendingError is thrown. 
      *  See the ItemPendingError documentation and the collections
      *  documentation  for more information on using the ItemPendingError.</p>
      * 
+     *  @return The item that was removed.
+     *  
      *  @see mx.collections.errors.ItemPendingError
      */
     function remove():Object;
