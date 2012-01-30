@@ -14,13 +14,12 @@ package spark.skins.mobile
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.events.Event;
-import flash.geom.Matrix;
 import flash.text.TextFormatAlign;
 
+import mx.core.DeviceDensity;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
-import mx.events.ResizeEvent;
 import mx.utils.ColorUtil;
 
 import spark.components.ActionBar;
@@ -63,9 +62,9 @@ public class ActionBarSkin extends MobileSkin
         // common
         borderClass = ActionBarBackground;
         
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 layoutBorderHeight = 1;
                 layoutShadowHeight = 3;
