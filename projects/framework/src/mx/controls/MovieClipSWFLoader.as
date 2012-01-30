@@ -182,7 +182,7 @@ public class MovieClipSWFLoader extends SWFLoader
     {
         var movieClip:MovieClip = this.movieClip;
         if (movieClip)
-            movieClip.gotoAndStop(0); // go to first frame and stop
+            movieClip.gotoAndStop(0, movieClip.scenes ? movieClip.scenes[0].name : null); // go to first frame and stop
     }
     
     /**
