@@ -401,7 +401,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  @productversion Flex 4.5
      */
     public function hideTabBar(animate:Boolean = true):void
-    {	
+    {   
         if (!tabBar)
             return;
         
@@ -413,10 +413,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     }
     
     /**
-     *  Shows the tab bar of the navigtor
+     *  Shows the tab bar of the navigator
      *  
      *  @param animate Flag indicating whether a hide effect should play.
-     *  This property is code>true</code> by default.
+     *  This property is <code>true</code> by default.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -979,10 +979,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         if (event.property == "tabBarVisible")
         {
-    		if (event.newValue)
-    			showTabBar();
-    		else
-    			hideTabBar();
+            if (event.newValue)
+                showTabBar();
+            else
+                hideTabBar();
         }
         else if (event.property == "overlayControls")
         {
