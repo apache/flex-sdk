@@ -2070,7 +2070,7 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     override mx_internal function backKeyHandler():void
     {
-        if (activeView && !activeView.backKeyHandler())
+        if (activeView && !activeView.backKeyHandledByView())
             popView();
     }
     
