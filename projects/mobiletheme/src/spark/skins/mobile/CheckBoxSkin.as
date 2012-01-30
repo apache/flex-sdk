@@ -14,7 +14,8 @@ package spark.skins.mobile
 import flash.display.DisplayObject;
 import flash.display.Graphics;
 
-import spark.skins.mobile.supportClasses.MobileSkin;
+import mx.core.DeviceDensity;
+
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 import spark.skins.mobile160.assets.CheckBox_down;
 import spark.skins.mobile160.assets.CheckBox_symbol;
@@ -53,9 +54,9 @@ public class CheckBoxSkin extends SelectableButtonSkinBase
         
         useChromeColor = true;
         
-        switch (targetDensity)
+        switch (authorDensity)
         {
-            case MobileSkin.PPI240:
+            case DeviceDensity.PPI_240:
             {
                 upIconClass = spark.skins.mobile240.assets.CheckBox_up;
                 upSelectedIconClass = spark.skins.mobile240.assets.CheckBox_up;
