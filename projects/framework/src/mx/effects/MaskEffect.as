@@ -28,6 +28,11 @@ import mx.events.TweenEvent;
  *  before the <code>tweenStart</code> event.</p>
  *
  *  @eventType mx.events.TweenEvent.TWEEN_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="tweenStart", type="mx.events.TweenEvent")]
 
@@ -38,6 +43,11 @@ import mx.events.TweenEvent;
  *  and <code>onScaleTweenUpdate()</code> methods.
  *
  *  @eventType mx.events.TweenEvent.TWEEN_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="tweenUpdate", type="mx.events.TweenEvent")]
 
@@ -52,6 +62,11 @@ import mx.events.TweenEvent;
  *  after the effect plays for the final time.</p>
  *
  *  @eventType mx.events.TweenEvent.TWEEN_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="tweenEnd", type="mx.events.TweenEvent")]
 
@@ -121,6 +136,11 @@ import mx.events.TweenEvent;
  *  
  *  @see mx.effects.effectClasses.MaskEffectInstance
  *  @see mx.effects.TweenEffect
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MaskEffect extends Effect
 {
@@ -147,6 +167,11 @@ public class MaskEffect extends Effect
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function MaskEffect(target:Object = null)
     {
@@ -194,6 +219,11 @@ public class MaskEffect extends Effect
      *
      *  <p>The function returns a single Shape object
      *  that defines the mask.</p>   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var createMaskFunction:Function;
     
@@ -204,6 +234,11 @@ public class MaskEffect extends Effect
     /**
      *  Easing function to use for moving the mask.
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */     
     public var moveEasingFunction:Function;
     
@@ -229,6 +264,11 @@ public class MaskEffect extends Effect
     /**
      *  Easing function to use for scaling the mask.
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public var scaleEasingFunction:Function;
     
@@ -245,6 +285,11 @@ public class MaskEffect extends Effect
      *  you must specify all four of these properties:
      *  <code>scaleXFrom</code>, <code>scaleYFrom</code>, 
      *  <code>scaleXTo</code>, and <code>scaleX</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var scaleXFrom:Number;
     
@@ -261,6 +306,11 @@ public class MaskEffect extends Effect
      *  you must specify all four of these properties:
      *  <code>scaleXFrom</code>, <code>scaleYFrom</code>, 
      *  <code>scaleXTo</code>, and <code>scaleX</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var scaleXTo:Number;
     
@@ -277,6 +327,11 @@ public class MaskEffect extends Effect
      *  you must specify all four of these properties:
      *  <code>scaleXFrom</code>, <code>scaleYFrom</code>, 
      *  <code>scaleXTo</code>, and <code>scaleX</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var scaleYFrom:Number;
     
@@ -293,6 +348,11 @@ public class MaskEffect extends Effect
      *  you must specify all four of these properties:
      *  <code>scaleXFrom</code>, <code>scaleYFrom</code>, 
      *  <code>scaleXTo</code>, and <code>scaleX</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var scaleYTo:Number;
 
@@ -328,6 +388,11 @@ public class MaskEffect extends Effect
      *  event listener for the <code>startEffect</code> event.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showTarget():Boolean
     {
@@ -356,6 +421,11 @@ public class MaskEffect extends Effect
      *  you must specify all four of these properties:
      *  <code>xFrom</code>, <code>yFrom</code>, <code>xTo</code>, 
      *  and <code>yTo</code>. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var xFrom:Number;
     
@@ -372,6 +442,11 @@ public class MaskEffect extends Effect
      *  you must specify all four of these properties:
      *  <code>xFrom</code>, <code>yFrom</code>, <code>xTo</code>, 
      *  and <code>yTo</code>. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var xTo:Number;
     
@@ -388,6 +463,11 @@ public class MaskEffect extends Effect
      *  you must specify all four of these properties:
      *  <code>xFrom</code>, <code>yFrom</code>, <code>xTo</code>, 
      *  and <code>yTo</code>. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var yFrom:Number;
     
@@ -404,6 +484,11 @@ public class MaskEffect extends Effect
      *  you must specify all four of these properties:
      *  <code>xFrom</code>, <code>yFrom</code>, <code>xTo</code>, 
      *  and <code>yTo</code>. </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var yTo:Number;
     
@@ -453,6 +538,11 @@ public class MaskEffect extends Effect
      *  properties modified by this effect.
      *
      *  @see mx.effects.Effect#getAffectedProperties()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getAffectedProperties():Array /* of String */
     {
@@ -499,6 +589,11 @@ public class MaskEffect extends Effect
      *  If you override this method, ensure that you call the super method.
      *
      *  @param event An event object of type TweenEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function tweenEventHandler(event:TweenEvent):void
     {
