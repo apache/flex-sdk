@@ -69,6 +69,11 @@ import mx.managers.IFocusManagerContainer;
  *  that aren't popped up.
  *  To get the list of all windows, including popups, tooltips and cursors,
  *  use the <code>rawChildren</code> property.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModuleFactory
 {
@@ -98,6 +103,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  the number of custom cursors (which will be either 0 or 1)
 	 *  and, if a custom cursor exists, you can access it as
 	 *  <code>cursorChildren.getChildAt(0)</code>.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get cursorChildren():IChildList;
 	
@@ -109,6 +119,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  A reference to the document object. 
 	 *  A document object is an Object at the top of the hierarchy of a 
 	 *  Flex application, MXML component, or AS component.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get document():Object;
 
@@ -133,6 +148,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	/**
 	 *  A single Sprite shared among components used as an overlay for drawing focus.
 	 *  You share it if you parent a focused component, not if you are IFocusManagerComponent.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get focusPane():Sprite;
 
@@ -147,6 +167,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 
 	/**
 	 *  The LoaderInfo object that represents information about the application.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get loaderInfo():LoaderInfo;
 
@@ -161,6 +186,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  clicking in another windows which would normally 
 	 *  activate the FocusManager in that window.  The PopUpManager
 	 *  modifies this count as it creates and destroy modal windows.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get numModalWindows():int;
 
@@ -189,6 +219,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  the number of topmost windows and you can access them as
 	 *  <code>popUpChildren.getChildAt(i)</code>.</p>
 	 *
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get popUpChildren():IChildList;
 
@@ -206,6 +241,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 * 
 	 *  <p>The IChildList object has methods like <code>getChildAt()</code>
 	 *  and properties like <code>numChildren</code>.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get rawChildren():IChildList;
 	
@@ -216,6 +256,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
     /**
      *  Contains all the bridges to other applications
      *  that this application is connected to.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get swfBridgeGroup():ISWFBridgeGroup;
     
@@ -228,6 +273,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *
 	 *  The Rectangle object contains <code>x</code>, <code>y</code>,
 	 *  <code>width</code>, and <code>height</code> properties.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get screen():Rectangle
 
@@ -238,6 +288,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	/**
 	 *  The flash.display.Stage that represents the application window
 	 *  mapped to this SystemManager
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get stage():Stage
 
@@ -259,6 +314,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  the number of tooltips (which will be either 0 or 1)
 	 *  and, if a tooltip exists, you can access it as
 	 *  <code>toolTipChildren.getChildAt(0)</code>.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get toolTipChildren():IChildList;
 	
@@ -270,6 +330,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  The ISystemManager responsible for the application window.
 	 *  This will be the same ISystemManager unless this application
 	 *  has been loaded into another application.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get topLevelSystemManager():ISystemManager;
 
@@ -284,6 +349,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  Called by the FocusManager, generally not called by application code.
 	 *
 	 *  @param f The top-level window in the application.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function addFocusManager(f:IFocusManagerContainer):void;
 
@@ -292,6 +362,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  Called by the FocusManager, generally not called by application code.
 	 *
 	 *  @param f The top-level window in the application.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function removeFocusManager(f:IFocusManagerContainer):void;
 
@@ -300,6 +375,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 * 
 	 *  @param f IFocusManagerContainer the top-level window
 	 *  whose FocusManager should be activated.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function activate(f:IFocusManagerContainer):void;
 	
@@ -309,6 +389,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 * 
 	 *  @param f IFocusManagerContainer the top-level window
 	 *  whose FocusManager should be deactivated.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function deactivate(f:IFocusManagerContainer):void;
 
@@ -321,6 +406,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  @param name Name of class, for example "mx.video.VideoManager".
 	 * 
 	 *  @return The Class represented by the <code>name</code>, or null.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function getDefinitionByName(name:String):Object;
 
@@ -331,6 +421,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *
 	 *  @return <code>true</code> if this ISystemManager is responsible
 	 *  for an application window.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function isTopLevel():Boolean;
 
@@ -344,6 +439,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
 	 *  @return <code>true</code> if the required font face is embedded
 	 *  in this application, or has been registered globally by using the 
 	 *  <code>Font.registerFont()</code> method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function isFontFaceEmbedded(tf:TextFormat):Boolean;
 
@@ -354,6 +454,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  @return <code>true</code> if the SystemManager
      *  is the root of all SystemManagers on the display list,
      *  and <code>false</code> otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function isTopLevelRoot():Boolean;
     
@@ -362,6 +467,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *
      *  @return The main application's systemManager if allowed by
 	 *  security restrictions or null if it is in a different SecurityDomain.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getTopLevelRoot():DisplayObject;
 
@@ -370,6 +480,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  top level system managers in this SecurityDomain
      *
      *  @return the highest-level systemManager in the sandbox
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getSandboxRoot():DisplayObject;
 
@@ -381,6 +496,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  @param bridge The bridge for the child.
      *
      *  @param owner The SWFLoader for the child.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addChildBridge(bridge:IEventDispatcher, owner:DisplayObject):void;
 
@@ -390,6 +510,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  or compiled with a different version of Flex.
      *
      *  @param bridge The bridge for the child
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeChildBridge(bridge:IEventDispatcher):void;
     
@@ -405,6 +530,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      	 *  @param trackClones Whether to keep a reference to the events as they are dispatched.
      	 *  
      	 *  @param toOtherSystemManagers Whether to dispatch the event to other top-level SystemManagers in AIR.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null, trackClones:Boolean = false, toOtherSystemManagers:Boolean = false):void
 
@@ -417,6 +547,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  should  communicate using sandbox bridges.
      *  If <code>false</code> the system manager may directly call
      *  other managers directly via references.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function useSWFBridge():Boolean;
     
@@ -426,6 +561,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  @param layer Name of IChildList in SystemManager
      *
      *  @param child DisplayObject to add
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addChildToSandboxRoot(layer:String, child:DisplayObject):void;
 
@@ -435,6 +575,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  @param layer Name of IChildList in SystemManager
      *
      *  @param child DisplayObject to add
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeChildFromSandboxRoot(layer:String, child:DisplayObject):void;
     
@@ -447,6 +592,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      *  @return <code>true</code> if <code>displayObject</code>
      *  is in a child application that is loaded in compatibility mode
      *  or in an untrusted sandbox, and <code>false</code> otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function isDisplayObjectInABridgedApplication(
                         displayObject:DisplayObject):Boolean;
@@ -462,6 +612,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      * 
      *  @return a <code>Rectangle</code> including the visible portion of the this 
      *  object. The rectangle is in global coordinates.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */  
     function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle;
     
@@ -476,6 +631,11 @@ public interface ISystemManager extends IEventDispatcher, IChildList, IFlexModul
      * 
      *  @param deploy <code>true</code> to deploy the mouse shields, <code>false</code>
      *  to remove the mouse shields.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function deployMouseShields(deploy:Boolean):void; 
 
