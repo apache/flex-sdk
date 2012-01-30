@@ -53,224 +53,227 @@ use namespace mx_internal;
  */
 public class Preloader extends Sprite
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *	Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function Preloader()
-	{
-		super()
-	}	
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function Preloader()
+    {
+        super()
+    }   
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var displayClass:IPreloaderDisplay = null;
-	
-	/**
-	 *  @private
-	 */
-	private var timer:Timer;
-	
-	/**
-	 *  @private
-	 */
-	private var showDisplay:Boolean;
-	
-	/**
-	 *  @private
-	 */
-	private var rslListLoader:RSLListLoader;
-	
-	/**
-	 *  @private
-	 */
-	private var resourceModuleListLoader:RSLListLoader;
+    /**
+     *  @private
+     */
+    private var displayClass:IPreloaderDisplay = null;
+    
+    /**
+     *  @private
+     */
+    private var timer:Timer;
+    
+    /**
+     *  @private
+     */
+    private var showDisplay:Boolean;
+    
+    /**
+     *  @private
+     */
+    private var rslListLoader:RSLListLoader;
+    
+    /**
+     *  @private
+     */
+    private var resourceModuleListLoader:RSLListLoader;
 
-	/**
-	 *  @private
-	 */
-	private var rslDone:Boolean = false;
-	
-	/**
-	 *  @private
-	 */
-	private var loadingRSLs:Boolean = false;
+    /**
+     *  @private
+     */
+    private var rslDone:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var loadingRSLs:Boolean = false;
 
-	/**
-	 *  @private
-	 */
-	private var waitingToLoadResourceModules:Boolean = false;
+    /**
+     *  @private
+     */
+    private var waitingToLoadResourceModules:Boolean = false;
 
-	/**
-	 *  @private
-	 */
-	private var sentDocFrameReady:Boolean = false;
+    /**
+     *  @private
+     */
+    private var sentDocFrameReady:Boolean = false;
 
-	/**
-	 *  @private
-	 */
-	private var app:IEventDispatcher = null;
-	
-	/**
-	 *  @private
-	 */
-	private var applicationDomain:ApplicationDomain = null;
+    /**
+     *  @private
+     */
+    private var app:IEventDispatcher = null;
+    
+    /**
+     *  @private
+     */
+    private var applicationDomain:ApplicationDomain = null;
     
     /**
      *  @private
      */
     private var waitedAFrame:Boolean = false;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**  
-	 *  Called by the SystemManager to initialize a Preloader object.
-	 * 
-	 *  @param showDisplay Determines if the display class should be displayed.
-	 *
-	 *  @param displayClassName The IPreloaderDisplay class to use
-	 *  for displaying the preloader status.
-	 *
-	 *  @param backgroundColor Background color of the application.
-	 *
-	 *  @param backgroundAlpha Background alpha of the application.
-	 *
-	 *  @param backgroundImage Background image of the application.
-	 *
-	 *  @param backgroundSize Background size of the application.
-	 *
-	 *  @param displayWidth Width of the application.
-	 *
-	 *  @param displayHeight Height of the application.
-	 *
-	 *  @param libs Array of string URLs for the runtime shared libraries.
-	 *
-	 *  @param sizes Array of uint values containing the byte size for each URL
-	 *  in the libs argument
-	 * 
-	 *  @param rslList Array of object of type RSLItem and CdRSLItem.
-	 *  This array describes all the RSLs to load.
-	 *  The libs and sizes parameters are ignored and must be set to null.
-	 *
-	 *  @param resourceModuleURLs Array of Strings specifying URLs
-	 *  from which to preload resource modules.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */ 
-	public function initialize(showDisplay:Boolean, 
-							   displayClassName:Class,
-							   backgroundColor:uint,
-							   backgroundAlpha:Number,
-							   backgroundImage:Object,
-							   backgroundSize:String,
-							   displayWidth:Number,
-							   displayHeight:Number,
-							   libs:Array = null,
-							   sizes:Array = null,
-							   rslList:Array = null,
-							   resourceModuleURLs:Array = null,
-							   applicationDomain:ApplicationDomain = null):void
-	{
+    /**  
+     *  Called by the SystemManager to initialize a Preloader object.
+     * 
+     *  @param showDisplay Determines if the display class should be displayed.
+     *
+     *  @param displayClassName The IPreloaderDisplay class to use
+     *  for displaying the preloader status.
+     *
+     *  @param backgroundColor Background color of the application.
+     *
+     *  @param backgroundAlpha Background alpha of the application.
+     *
+     *  @param backgroundImage Background image of the application.
+     *
+     *  @param backgroundSize Background size of the application.
+     *
+     *  @param displayWidth Width of the application.
+     *
+     *  @param displayHeight Height of the application.
+     *
+     *  @param libs Array of string URLs for the runtime shared libraries.
+     *
+     *  @param sizes Array of uint values containing the byte size for each URL
+     *  in the libs argument
+     * 
+     *  @param rslList Array of object of type RSLItem and CdRSLItem.
+     *  This array describes all the RSLs to load.
+     *  The libs and sizes parameters are ignored and must be set to null.
+     *
+     *  @param resourceModuleURLs Array of Strings specifying URLs
+     *  from which to preload resource modules.
+     *
+     *  @param applicationDomain The application domain in which 
+     *  your code is executing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */ 
+    public function initialize(showDisplay:Boolean, 
+                               displayClassName:Class,
+                               backgroundColor:uint,
+                               backgroundAlpha:Number,
+                               backgroundImage:Object,
+                               backgroundSize:String,
+                               displayWidth:Number,
+                               displayHeight:Number,
+                               libs:Array = null,
+                               sizes:Array = null,
+                               rslList:Array = null,
+                               resourceModuleURLs:Array = null,
+                               applicationDomain:ApplicationDomain = null):void
+    {
         if ((libs != null || sizes != null) && rslList != null)
         {
             // both args can't be used at the same time
             throw new Error("RSLs may only be specified by using libs and sizes or rslList, not both.");  // $NON-NLS-1$
         }
 
-		this.applicationDomain = applicationDomain;
+        this.applicationDomain = applicationDomain;
 
-		root.loaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-	
-		var n:int;
-		var i:int;
-		
-		// Store the RSL information.
-		// Keep this code for API backwards compatibility
-		if (libs && libs.length > 0)
-		{
-			if (rslList == null)
-			{
-				rslList = [];
-			}
-	
-			n = libs.length;
-			for (i = 0; i < n; i++)
-			{
-			    var node:RSLItem = new RSLItem(libs[i]);
-				rslList.push(node);
-			}
-		}
+        root.loaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+    
+        var n:int;
+        var i:int;
+        
+        // Store the RSL information.
+        // Keep this code for API backwards compatibility
+        if (libs && libs.length > 0)
+        {
+            if (rslList == null)
+            {
+                rslList = [];
+            }
+    
+            n = libs.length;
+            for (i = 0; i < n; i++)
+            {
+                var node:RSLItem = new RSLItem(libs[i]);
+                rslList.push(node);
+            }
+        }
 
-		var resourceModuleList:Array = [];
-		// Preloading resource modules is similar enough to loading RSLs
-		// that we can simply create ResourceModuleRSLItems for them
-		if (resourceModuleURLs && resourceModuleURLs.length > 0)
-		{
-			n = resourceModuleURLs.length;
-			for (i = 0; i < n; i++)
-			{
-				var resourceModuleNode:ResourceModuleRSLItem =
-					new ResourceModuleRSLItem(resourceModuleURLs[i], applicationDomain);
-				resourceModuleList.push(resourceModuleNode);
-			}
-		}
+        var resourceModuleList:Array = [];
+        // Preloading resource modules is similar enough to loading RSLs
+        // that we can simply create ResourceModuleRSLItems for them
+        if (resourceModuleURLs && resourceModuleURLs.length > 0)
+        {
+            n = resourceModuleURLs.length;
+            for (i = 0; i < n; i++)
+            {
+                var resourceModuleNode:ResourceModuleRSLItem =
+                    new ResourceModuleRSLItem(resourceModuleURLs[i], applicationDomain);
+                resourceModuleList.push(resourceModuleNode);
+            }
+        }
 
         rslListLoader = new RSLListLoader(rslList);
-		if (resourceModuleList.length)
-			resourceModuleListLoader = new RSLListLoader(resourceModuleList);
-		
-		this.showDisplay = showDisplay;
+        if (resourceModuleList.length)
+            resourceModuleListLoader = new RSLListLoader(resourceModuleList);
+        
+        this.showDisplay = showDisplay;
 
-		// Create the timer (really should be adding event listeners to root.LoaderInfo)	
-		timer = new Timer(10);
-		timer.addEventListener(TimerEvent.TIMER, timerHandler);
-		timer.start();
-		
-		// Create a new instance of the display class and attach it to the stage
-		if (showDisplay)
-		{
-			displayClass = new displayClassName(); 
-			// Listen for when the displayClass no longer needs to be on the stage
-			displayClass.addEventListener(Event.COMPLETE,
-										  displayClassCompleteHandler);
-			
-			// Add the display class as a child of the Preloader
-			addChild(DisplayObject(displayClass));
-						
-			displayClass.backgroundColor = backgroundColor;
-			displayClass.backgroundAlpha = backgroundAlpha;
-			displayClass.backgroundImage = backgroundImage;
-			displayClass.backgroundSize = backgroundSize;
-			displayClass.stageWidth = displayWidth;
-			displayClass.stageHeight = displayHeight;
-			displayClass.initialize();  
-			displayClass.preloader = this;
+        // Create the timer (really should be adding event listeners to root.LoaderInfo)    
+        timer = new Timer(10);
+        timer.addEventListener(TimerEvent.TIMER, timerHandler);
+        timer.start();
+        
+        // Create a new instance of the display class and attach it to the stage
+        if (showDisplay)
+        {
+            displayClass = new displayClassName(); 
+            // Listen for when the displayClass no longer needs to be on the stage
+            displayClass.addEventListener(Event.COMPLETE,
+                                          displayClassCompleteHandler);
+            
+            // Add the display class as a child of the Preloader
+            addChild(DisplayObject(displayClass));
+                        
+            displayClass.backgroundColor = backgroundColor;
+            displayClass.backgroundAlpha = backgroundAlpha;
+            displayClass.backgroundImage = backgroundImage;
+            displayClass.backgroundSize = backgroundSize;
+            displayClass.stageWidth = displayWidth;
+            displayClass.stageHeight = displayHeight;
+            displayClass.initialize();  
+            displayClass.preloader = this;
             
             // Listen for ENTER_FRAME to make sure that we are going to render the displayClass first,
             // before dispatching PRELOADER_DOC_FRAME_READY. This way we the run-time can render
@@ -281,319 +284,319 @@ public class Preloader extends Sprite
                 PerfUtil.getInstance().markTime("Preloader.displayClass created");
             }
             this.addEventListener(Event.ENTER_FRAME, waitAFrame);
-		}	
-		
-		// move below showDisplay so error messages can be displayed
-		if (rslListLoader.getItemCount() > 0)
-		{
-			// Start loading the RSLs.
-			rslListLoader.load(rslProgressHandler,
-							   rslCompleteHandler,
-							   rslErrorHandler,
-							   rslErrorHandler,
-							   rslErrorHandler);
-			loadingRSLs = true;
-		}
-		else if (resourceModuleListLoader && resourceModuleListLoader.getItemCount() > 0)
-		{
-			if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
-			{
-				rslListLoader = resourceModuleListLoader;
-				// Start loading the resourceModules
-				rslListLoader.load(rslProgressHandler,
-								   rslCompleteHandler,
-								   rslErrorHandler,
-								   rslErrorHandler,
-								   rslErrorHandler);
-			}
-			else
-			{
-				waitingToLoadResourceModules = true;
-				rslDone = true;
-			}
-		}
-		else
-		{
-		    rslDone = true;
-		}
-	}
-	
-	/**
-	 *  Called by the SystemManager after it has finished instantiating
-	 *  an instance of the application class. Flex calls this method; you 
-	 *  do not call it yourself.
-	 *
-	 *  @param app The application object.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function registerApplication(app:IEventDispatcher):void
-	{
-		// Listen for events from the application.
-		app.addEventListener("validatePropertiesComplete", appProgressHandler);
-		app.addEventListener("validateSizeComplete", appProgressHandler);
-		app.addEventListener("validateDisplayListComplete", appProgressHandler);
-		app.addEventListener(FlexEvent.CREATION_COMPLETE, appCreationCompleteHandler);
+        }   
+        
+        // move below showDisplay so error messages can be displayed
+        if (rslListLoader.getItemCount() > 0)
+        {
+            // Start loading the RSLs.
+            rslListLoader.load(rslProgressHandler,
+                               rslCompleteHandler,
+                               rslErrorHandler,
+                               rslErrorHandler,
+                               rslErrorHandler);
+            loadingRSLs = true;
+        }
+        else if (resourceModuleListLoader && resourceModuleListLoader.getItemCount() > 0)
+        {
+            if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
+            {
+                rslListLoader = resourceModuleListLoader;
+                // Start loading the resourceModules
+                rslListLoader.load(rslProgressHandler,
+                                   rslCompleteHandler,
+                                   rslErrorHandler,
+                                   rslErrorHandler,
+                                   rslErrorHandler);
+            }
+            else
+            {
+                waitingToLoadResourceModules = true;
+                rslDone = true;
+            }
+        }
+        else
+        {
+            rslDone = true;
+        }
+    }
+    
+    /**
+     *  Called by the SystemManager after it has finished instantiating
+     *  an instance of the application class. Flex calls this method; you 
+     *  do not call it yourself.
+     *
+     *  @param app The application object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function registerApplication(app:IEventDispatcher):void
+    {
+        // Listen for events from the application.
+        app.addEventListener("validatePropertiesComplete", appProgressHandler);
+        app.addEventListener("validateSizeComplete", appProgressHandler);
+        app.addEventListener("validateDisplayListComplete", appProgressHandler);
+        app.addEventListener(FlexEvent.CREATION_COMPLETE, appCreationCompleteHandler);
         
         // Cache for later cleanup.
         this.app = app;
-	}
-	
-	
-	/**
-	 *  @private
-	 *  Return the number of bytes loaded and total for the SWF and any RSLs.
-	 */
-	private function getByteValues():Object
-	{
-		var li:LoaderInfo = root.loaderInfo;
-		var loaded:int = li.bytesLoaded;
-		var total:int = li.bytesTotal;
-		
-		// Look up the rsl bytes and include those
-		var n:int = rslListLoader ? rslListLoader.getItemCount() : 0;
-		for (var i:int = 0; i < n; i++)
-		{
-			loaded += rslListLoader.getItem(i).loaded;
+    }
+    
+    
+    /**
+     *  @private
+     *  Return the number of bytes loaded and total for the SWF and any RSLs.
+     */
+    private function getByteValues():Object
+    {
+        var li:LoaderInfo = root.loaderInfo;
+        var loaded:int = li.bytesLoaded;
+        var total:int = li.bytesTotal;
+        
+        // Look up the rsl bytes and include those
+        var n:int = rslListLoader ? rslListLoader.getItemCount() : 0;
+        for (var i:int = 0; i < n; i++)
+        {
+            loaded += rslListLoader.getItem(i).loaded;
 
             // If the rsl total is zero then provide an average rsl size
             // to set rough expectations.
             var rslTotal:int = rslListLoader.getItem(i).total;
             total += rslTotal;
-		}
-		
-		return { loaded: loaded, total: total };
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function dispatchAppEndEvent(event:Object = null):void
-	{
-		// Dispatch the application initialization end event
-		dispatchEvent(new FlexEvent(FlexEvent.INIT_COMPLETE));
-		
-		if (!showDisplay)
-			displayClassCompleteHandler(null);
-	}
-	
-	/**
-	 *  @private
-	 *  We don't listen for the events directly
-	 *  because we don't know which RSL is sending the event.
-	 *  So we have the RSLNode listen to the events
-	 *  and then pass them along to the Preloader.
-	 */ 
-	mx_internal function rslProgressHandler(event:ProgressEvent):void
-	{
-	    var index:int = rslListLoader.getIndex();
-	    var item:RSLItem = rslListLoader.getItem(index);
-	    
-	    
-		var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_PROGRESS);
-		rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
-		rslEvent.bytesLoaded = event.bytesLoaded;
-		rslEvent.bytesTotal = event.bytesTotal;
-		rslEvent.rslIndex = index;
-		rslEvent.rslTotal = rslListLoader.getItemCount();
-		rslEvent.url = item.urlRequest;
-		dispatchEvent(rslEvent);
-	}
+        }
+        
+        return { loaded: loaded, total: total };
+    }
+    
+    /**
+     *  @private
+     */
+    private function dispatchAppEndEvent(event:Object = null):void
+    {
+        // Dispatch the application initialization end event
+        dispatchEvent(new FlexEvent(FlexEvent.INIT_COMPLETE));
+        
+        if (!showDisplay)
+            displayClassCompleteHandler(null);
+    }
+    
+    /**
+     *  @private
+     *  We don't listen for the events directly
+     *  because we don't know which RSL is sending the event.
+     *  So we have the RSLNode listen to the events
+     *  and then pass them along to the Preloader.
+     */ 
+    mx_internal function rslProgressHandler(event:ProgressEvent):void
+    {
+        var index:int = rslListLoader.getIndex();
+        var item:RSLItem = rslListLoader.getItem(index);
+        
+        
+        var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_PROGRESS);
+        rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
+        rslEvent.bytesLoaded = event.bytesLoaded;
+        rslEvent.bytesTotal = event.bytesTotal;
+        rslEvent.rslIndex = index;
+        rslEvent.rslTotal = rslListLoader.getItemCount();
+        rslEvent.url = item.urlRequest;
+        dispatchEvent(rslEvent);
+    }
 
-	
-	/**
-	 *  @private
-	 *  Load the next RSL in the list and dispatch an event.
-	 */
-	mx_internal function rslCompleteHandler(event:Event):void
-	{
-	    var index:int = rslListLoader.getIndex();
-	    var item:RSLItem = rslListLoader.getItem(index);
+    
+    /**
+     *  @private
+     *  Load the next RSL in the list and dispatch an event.
+     */
+    mx_internal function rslCompleteHandler(event:Event):void
+    {
+        var index:int = rslListLoader.getIndex();
+        var item:RSLItem = rslListLoader.getItem(index);
 
-		var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_COMPLETE);
-		rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
-		rslEvent.bytesLoaded = item.total;
-		rslEvent.bytesTotal = item.total;
+        var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_COMPLETE);
+        rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
+        rslEvent.bytesLoaded = item.total;
+        rslEvent.bytesTotal = item.total;
         rslEvent.loaderInfo = event.target as LoaderInfo;
         rslEvent.rslIndex = index;
-		rslEvent.rslTotal = rslListLoader.getItemCount();
-		rslEvent.url = item.urlRequest;
-		dispatchEvent(rslEvent);
-		
-		if (loadingRSLs && resourceModuleListLoader && index + 1 == rslEvent.rslTotal)
-		{
-			loadingRSLs = false;
-			waitingToLoadResourceModules = true;
-			// timer will switch over to loading resource modules
-		}
+        rslEvent.rslTotal = rslListLoader.getItemCount();
+        rslEvent.url = item.urlRequest;
+        dispatchEvent(rslEvent);
+        
+        if (loadingRSLs && resourceModuleListLoader && index + 1 == rslEvent.rslTotal)
+        {
+            loadingRSLs = false;
+            waitingToLoadResourceModules = true;
+            // timer will switch over to loading resource modules
+        }
 
-		rslDone = (index + 1 == rslEvent.rslTotal);
-	}
-		
-	
-	/**
-	 *  @private
-	 */
-	mx_internal function rslErrorHandler(event:ErrorEvent):void
-	{
-		// send an error event
-	    var index:int = rslListLoader.getIndex();
-	    var item:RSLItem = rslListLoader.getItem(index);
-		var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_ERROR);
-		rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
-		rslEvent.bytesLoaded = 0;
-		rslEvent.bytesTotal = 0;
-		rslEvent.rslIndex = index;
-		rslEvent.rslTotal = rslListLoader.getItemCount();
-		rslEvent.url = item.urlRequest;
-		rslEvent.errorText = decodeURI(event.text);
-		dispatchEvent(rslEvent);
+        rslDone = (index + 1 == rslEvent.rslTotal);
+    }
+        
+    
+    /**
+     *  @private
+     */
+    mx_internal function rslErrorHandler(event:ErrorEvent):void
+    {
+        // send an error event
+        var index:int = rslListLoader.getIndex();
+        var item:RSLItem = rslListLoader.getItem(index);
+        var rslEvent:RSLEvent = new RSLEvent(RSLEvent.RSL_ERROR);
+        rslEvent.isResourceModule = (rslListLoader == resourceModuleListLoader);
+        rslEvent.bytesLoaded = 0;
+        rslEvent.bytesTotal = 0;
+        rslEvent.rslIndex = index;
+        rslEvent.rslTotal = rslListLoader.getItemCount();
+        rslEvent.url = item.urlRequest;
+        rslEvent.errorText = decodeURI(event.text);
+        dispatchEvent(rslEvent);
 
-	}
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Listen or poll for progress events and dispatch events
-	 *  describing the current state of the download
-	 */
-	private function timerHandler(event:TimerEvent):void
-	{
-		// loaded swfs may not have root right away
-		if (!root)
-			return;
+    /**
+     *  @private
+     *  Listen or poll for progress events and dispatch events
+     *  describing the current state of the download
+     */
+    private function timerHandler(event:TimerEvent):void
+    {
+        // loaded swfs may not have root right away
+        if (!root)
+            return;
 
-		var bytes:Object = getByteValues();
-		var loaded:int = bytes.loaded;
-		var total:int = bytes.total;
-		
-		// Dispatch a progress event (later we might conditionalize this
-		// so that it isn't sent on a cache load).
-		dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS,
-										false, false, loaded, total));
+        var bytes:Object = getByteValues();
+        var loaded:int = bytes.loaded;
+        var total:int = bytes.total;
+        
+        // Dispatch a progress event (later we might conditionalize this
+        // so that it isn't sent on a cache load).
+        dispatchEvent(new ProgressEvent(ProgressEvent.PROGRESS,
+                                        false, false, loaded, total));
 
-		if (waitingToLoadResourceModules)
-		{
-			if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
-			{
-				waitingToLoadResourceModules = false;
-				rslListLoader = resourceModuleListLoader;
-				rslDone = false;
-				// Start loading the resourceModules
-				rslListLoader.load(rslProgressHandler,
-								   rslCompleteHandler,
-								   rslErrorHandler,
-								   rslErrorHandler,
-								   rslErrorHandler);
-			}
-		}
+        if (waitingToLoadResourceModules)
+        {
+            if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
+            {
+                waitingToLoadResourceModules = false;
+                rslListLoader = resourceModuleListLoader;
+                rslDone = false;
+                // Start loading the resourceModules
+                rslListLoader.load(rslProgressHandler,
+                                   rslCompleteHandler,
+                                   rslErrorHandler,
+                                   rslErrorHandler,
+                                   rslErrorHandler);
+            }
+        }
 
-		// Check if we are finished
-		if (rslDone &&
-			((loaded >= total && total > 0) || (total == 0 && loaded > 0) || (root is MovieClip && (MovieClip(root).totalFrames > 2) && (MovieClip(root).framesLoaded >= 2)) ))
-		{
-			if (!sentDocFrameReady)
-			{
-				// If there's a displayClass, don't send the PRELOADER_DOC_FRAME_READY 
-				// event before we render at least one frame
-				if (showDisplay && !waitedAFrame)
-					return;
+        // Check if we are finished
+        if (rslDone &&
+            ((loaded >= total && total > 0) || (total == 0 && loaded > 0) || (root is MovieClip && (MovieClip(root).totalFrames > 2) && (MovieClip(root).framesLoaded >= 2)) ))
+        {
+            if (!sentDocFrameReady)
+            {
+                // If there's a displayClass, don't send the PRELOADER_DOC_FRAME_READY 
+                // event before we render at least one frame
+                if (showDisplay && !waitedAFrame)
+                    return;
 
-				sentDocFrameReady = true;
-				// Dispatch a Frame1 done event.
-				dispatchEvent(new FlexEvent(FlexEvent.PRELOADER_DOC_FRAME_READY));
-				return;
-			}
+                sentDocFrameReady = true;
+                // Dispatch a Frame1 done event.
+                dispatchEvent(new FlexEvent(FlexEvent.PRELOADER_DOC_FRAME_READY));
+                return;
+            }
 
-			if (waitingToLoadResourceModules)
-			{
-				if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
-				{
-					waitingToLoadResourceModules = false;
-					rslListLoader = resourceModuleListLoader;
-					rslDone = false;
-					// Start loading the resourceModules
-					rslListLoader.load(rslProgressHandler,
-									   rslCompleteHandler,
-									   rslErrorHandler,
-									   rslErrorHandler,
-									   rslErrorHandler);
-					return;
-				}
-			}
+            if (waitingToLoadResourceModules)
+            {
+                if (applicationDomain.hasDefinition("mx.resources::ResourceManager"))
+                {
+                    waitingToLoadResourceModules = false;
+                    rslListLoader = resourceModuleListLoader;
+                    rslDone = false;
+                    // Start loading the resourceModules
+                    rslListLoader.load(rslProgressHandler,
+                                       rslCompleteHandler,
+                                       rslErrorHandler,
+                                       rslErrorHandler,
+                                       rslErrorHandler);
+                    return;
+                }
+            }
 
-			timer.removeEventListener(TimerEvent.TIMER, timerHandler);
-			
-			// Stop the timer.
-			timer.reset();
-		
-			// Dispatch a complete event.
-			dispatchEvent(new Event(Event.COMPLETE));
-			
-			// Dispatch an initProgress event.
-			dispatchEvent(new FlexEvent(FlexEvent.INIT_PROGRESS));
+            timer.removeEventListener(TimerEvent.TIMER, timerHandler);
+            
+            // Stop the timer.
+            timer.reset();
+        
+            // Dispatch a complete event.
+            dispatchEvent(new Event(Event.COMPLETE));
+            
+            // Dispatch an initProgress event.
+            dispatchEvent(new FlexEvent(FlexEvent.INIT_PROGRESS));
 
-		}
-	}
+        }
+    }
 
-	/**
-	 *  @private
-	 */
-	private function ioErrorHandler(event:IOErrorEvent):void
-	{
-		// Ignore the event
-	}
+    /**
+     *  @private
+     */
+    private function ioErrorHandler(event:IOErrorEvent):void
+    {
+        // Ignore the event
+    }
 
-	/**
-	 *  @private
-	 *	Called when the displayClass has finished animating
-	 *  and no longer needs to be displayed.
-	 */
-	private function displayClassCompleteHandler(event:Event):void
-	{
-	    // Cleanup
-		if (displayClass)
-			displayClass.removeEventListener(Event.COMPLETE, displayClassCompleteHandler);
-		
-		if (root) 
-		    root.loaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-		    
-		if (app) 
-		{
-    		app.removeEventListener("validatePropertiesComplete", appProgressHandler);
-    		app.removeEventListener("validateSizeComplete", appProgressHandler);
-    		app.removeEventListener("validateDisplayListComplete", appProgressHandler);
-    		app.removeEventListener(FlexEvent.CREATION_COMPLETE, appCreationCompleteHandler);
-    		app = null;
-    	}
-		    
-		// Send an event to the SystemManager that we are completely finished
-		dispatchEvent(new FlexEvent(FlexEvent.PRELOADER_DONE));
-	}
-		
-	/**
-	 *  @private
-	 */
-	private function appCreationCompleteHandler(event:FlexEvent):void
-	{		
-		dispatchAppEndEvent();
-	}
-	
-	/**
-	 *  @private
-	 */
-	private function appProgressHandler(event:Event):void
-	{		
-		dispatchEvent(new FlexEvent(FlexEvent.INIT_PROGRESS));
-	}
+    /**
+     *  @private
+     *  Called when the displayClass has finished animating
+     *  and no longer needs to be displayed.
+     */
+    private function displayClassCompleteHandler(event:Event):void
+    {
+        // Cleanup
+        if (displayClass)
+            displayClass.removeEventListener(Event.COMPLETE, displayClassCompleteHandler);
+        
+        if (root) 
+            root.loaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+            
+        if (app) 
+        {
+            app.removeEventListener("validatePropertiesComplete", appProgressHandler);
+            app.removeEventListener("validateSizeComplete", appProgressHandler);
+            app.removeEventListener("validateDisplayListComplete", appProgressHandler);
+            app.removeEventListener(FlexEvent.CREATION_COMPLETE, appCreationCompleteHandler);
+            app = null;
+        }
+            
+        // Send an event to the SystemManager that we are completely finished
+        dispatchEvent(new FlexEvent(FlexEvent.PRELOADER_DONE));
+    }
+        
+    /**
+     *  @private
+     */
+    private function appCreationCompleteHandler(event:FlexEvent):void
+    {       
+        dispatchAppEndEvent();
+    }
+    
+    /**
+     *  @private
+     */
+    private function appProgressHandler(event:Event):void
+    {       
+        dispatchEvent(new FlexEvent(FlexEvent.INIT_PROGRESS));
+    }
 
     /**
      *  @private
