@@ -275,8 +275,16 @@ package spark.automation.delegates.components.supportClasses
 					// Usually we dispatch mouseClick events. But as they are handled in a different way
 					// for this component, we are dispatching a roll_over and mouse_down events
 					isOpen = false;
-					help.replayMouseEvent(sparkDropDownListBase.openButton, new MouseEvent(MouseEvent.ROLL_OVER));
-					help.replayMouseEvent(sparkDropDownListBase.openButton, new MouseEvent(MouseEvent.MOUSE_DOWN));
+					if(sparkDropDownListBase.dropDown && event.type == DropDownEvent.OPEN)
+					{
+						// Don't replay open event if combo box is already open. Otherwise it closes it.
+						return true;
+					}
+					else
+					{						
+						help.replayMouseEvent(sparkDropDownListBase.openButton, new MouseEvent(MouseEvent.ROLL_OVER));
+						help.replayMouseEvent(sparkDropDownListBase.openButton, new MouseEvent(MouseEvent.MOUSE_DOWN));
+					}
 					
 				}
 				
