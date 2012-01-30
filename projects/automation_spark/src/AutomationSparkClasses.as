@@ -41,6 +41,7 @@ package
 		import spark.automation.delegates.components.SparkPanelAutomationImpl;SparkPanelAutomationImpl;
 		import spark.automation.delegates.components.SparkRadioButtonAutomationImpl;SparkRadioButtonAutomationImpl;
 		import spark.automation.delegates.components.SparkSkinnableContainerAutomationImpl;SparkSkinnableContainerAutomationImpl;
+		import spark.automation.delegates.components.SparkSkinnableDataContainerAutomationImpl;SparkSkinnableDataContainerAutomationImpl;
 		import spark.automation.delegates.components.SparkSpinnerAutomationImpl;SparkSpinnerAutomationImpl;
 		import spark.automation.delegates.components.SparkTabBarAutomationImpl;SparkTabBarAutomationImpl;
 		import spark.automation.delegates.components.SparkTextAreaAutomationImpl;SparkTextAreaAutomationImpl;
@@ -75,6 +76,7 @@ package
 		import spark.automation.delegates.skins.spark.SparkUITextFieldGridItemRendererAutomationImpl;SparkUITextFieldGridItemRendererAutomationImpl;
 
 		import spark.automation.tabularData.SkinnableContainerTabularData;SkinnableContainerTabularData;
+		import spark.automation.tabularData.SkinnableDataContainerTabularData;SkinnableDataContainerTabularData;
 		import spark.automation.tabularData.SparkDataGridTabularData;SparkDataGridTabularData;
 		
 		
