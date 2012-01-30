@@ -18,6 +18,7 @@ import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 
 import mx.core.FlexGlobals;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
@@ -582,6 +583,36 @@ public class ViewNavigatorBase extends SkinnableContainer
         // This is a method instead of a property because the default
         // implementation in ViewNavigator has a side effect
         return true;
+    }
+    
+    
+    /**
+     *  @private
+     *  Captures the important animation values of component to use
+     *  when animating the actionBar's visiblity.
+     *  
+     *  @param component The component to capture the values from
+     * 
+     *  @return Returns an object that contains the properties 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */    
+    mx_internal function captureAnimationValues(component:UIComponent):Object
+    {
+        var values:Object = {   x:component.x,
+                                y:component.y,
+                                width:component.width,
+                                height:component.height,
+                                explicitWidth:component.explicitWidth,
+                                explicitHeight:component.explicitHeight,
+                                visible: component.visible,
+                                includeInLayout: component.includeInLayout,
+                                cacheAsBitmap: component.cacheAsBitmap };
+        
+        return values;
     }
     
     /**
