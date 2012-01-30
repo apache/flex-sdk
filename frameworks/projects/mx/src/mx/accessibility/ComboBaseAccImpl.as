@@ -14,6 +14,7 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.collections.CursorBookmark;
 import mx.collections.IViewCursor;
 import mx.controls.ComboBase;
@@ -34,42 +35,6 @@ use namespace mx_internal;
 public class ComboBaseAccImpl extends AccImpl
 {
     include "../core/Version.as";
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_LISTITEM:uint = 0x22;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTED:uint = 0x00000002;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_VALUECHANGE:uint = 0x800E;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
 
 	//--------------------------------------------------------------------------
 	//
@@ -131,7 +96,7 @@ public class ComboBaseAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x2E; // ROLE_SYSTEM_COMBOBOX
+		role = AccConst.ROLE_SYSTEM_COMBOBOX
 	}
 	
 	//--------------------------------------------------------------------------
@@ -167,7 +132,7 @@ public class ComboBaseAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		return childID == 0 ? role : ROLE_SYSTEM_LISTITEM;
+		return childID == 0 ? role : AccConst.ROLE_SYSTEM_LISTITEM;
 	}
 
 	/**
@@ -207,10 +172,10 @@ public class ComboBaseAccImpl extends AccImpl
 		
 		if (childID > 0)
 		{
-			accState |= STATE_SYSTEM_SELECTABLE;
+			accState |= AccConst.STATE_SYSTEM_SELECTABLE;
 		
 			if (ComboBase(master).selectedIndex == childID - 1)
-				accState |= STATE_SYSTEM_SELECTED | STATE_SYSTEM_FOCUSED;
+				accState |= AccConst.STATE_SYSTEM_SELECTED | AccConst.STATE_SYSTEM_FOCUSED;
 		}
 
 		return accState;
@@ -260,17 +225,17 @@ public class ComboBaseAccImpl extends AccImpl
 					var childID:uint = index + 1;
 					
 					Accessibility.sendEvent(master, childID,
-											EVENT_OBJECT_SELECTION);
+											AccConst.EVENT_OBJECT_SELECTION);
 					
 					Accessibility.sendEvent(master, 0, 
-											EVENT_OBJECT_VALUECHANGE);
+											AccConst.EVENT_OBJECT_VALUECHANGE);
 				}
 				break;
 			}
 
 			case "valueCommit":
 			{
-				Accessibility.sendEvent(master, 0, EVENT_OBJECT_VALUECHANGE);
+				Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_VALUECHANGE);
 				break;
 			}
 		}
