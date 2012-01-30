@@ -3093,12 +3093,12 @@ public class SystemManager extends MovieClip
 
     
     /**
-         *  Go up the parent chain to get the top level system manager.
-	 * 
-         *  Returns <code>null</code> if not on the display list or we don't have
-         *  access to the top-level system manager.
-         *  
-         *  @return The root system manager.
+     *  Go up the parent chain to get the top level system manager.
+     * 
+     *  Returns <code>null</code> if not on the display list or we don't have
+     *  access to the top-level system manager.
+     *  
+     *  @return The root system manager.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -3115,7 +3115,7 @@ public class SystemManager extends MovieClip
 			if (sm.topLevelSystemManager)
 				sm = sm.topLevelSystemManager;
 			var parent:DisplayObject = DisplayObject(sm).parent;
-			var lastParent:DisplayObject = parent;
+            var lastParent:DisplayObject = DisplayObject(sm);
 			while (parent)
 			{
 				if (parent is Stage)
@@ -3132,10 +3132,10 @@ public class SystemManager extends MovieClip
 	}
 
 	/**
-         *  Go up the parent chain to get the top level system manager in this 
-         *  SecurityDomain.
+     *  Go up the parent chain to get the top level system manager in this 
+     *  SecurityDomain.
 	 * 
-         *  @return The root system manager in this SecurityDomain.
+     *  @return The root system manager in this SecurityDomain.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
