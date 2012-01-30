@@ -226,7 +226,7 @@ public class FlexModuleFactory extends MovieClip
      */
     public function  get preloadedRSLs():Dictionary
     {
-        // Overriden by compiler generate code.
+        // Overridden by compiler generate code.
         return null;                
     }
     
