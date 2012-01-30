@@ -133,8 +133,7 @@ public class GradientStroke extends GradientBase implements IStroke
     [Inspectable(category="General", enumeration="round,square,none", defaultValue="round")]
 
     /**
-     *  A value from the CapsStyle class
-     *  that specifies the type of caps at the end of lines.
+     *  Specifies the appearance of the ends of lines.
      *
      *  <p>Valid values are <code>CapsStyle.NONE</code>,
      *  <code>CapsStyle.ROUND</code>, and <code>CapsStyle.SQUARE</code>.
@@ -142,6 +141,8 @@ public class GradientStroke extends GradientBase implements IStroke
      *  <code>CapsStyle.ROUND</code>.</p>
      *
      *  @default CapsStyle.ROUND
+     * 
+     *  @see flash.display.CapStyle
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -190,6 +191,8 @@ public class GradientStroke extends GradientBase implements IStroke
      *  <code>JointStyle.ROUND</code>.</p>
      *  
      *  @default JointStyle.ROUND
+     * 
+     *  @see flash.display.JointStyle
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -234,10 +237,10 @@ public class GradientStroke extends GradientBase implements IStroke
      *  <p>Valid values range from 0 to 255
      *  (and values outside of that range are rounded to 0 or 255).</p>
      *
-     *  <p>This value is only used if the <code>jointStyle</code> 
+     *  <p>This value is only used if the <code>jointStyle</code> property 
      *  is set to <code>JointStyle.MITER</code>.</p>
      *
-     *  <p>The <code>miterLimit</code> value represents the length that a miter
+     *  <p>The value of the <code>miterLimit</code> property represents the length that a miter
      *  can extend beyond the point at which the lines meet to form a joint.
      *  The value expresses a factor of the line <code>thickness</code>.
      *  For example, with a <code>miterLimit</code> factor of 2.5
@@ -334,9 +337,7 @@ public class GradientStroke extends GradientBase implements IStroke
     [Inspectable(category="General", enumeration="normal,vertical,horizontal,none", defaultValue="normal")]
 
     /**
-     *  A value from the LineScaleMode class
-     *  that  specifies which scale mode to use.
-     *  Value valids are:
+     *  Specifies which scale mode to use. Value valids are:
      * 
      *  <ul>
      *  <li>
@@ -360,6 +361,8 @@ public class GradientStroke extends GradientBase implements IStroke
      *  </ul>
      * 
      *  @default LineScaleMode.NORMAL
+     *  
+     *  @see flash.display.LineScaleMode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
