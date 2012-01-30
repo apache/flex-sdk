@@ -7593,7 +7593,7 @@ public class UIComponent extends FlexSprite
      */
     public function invalidateLayoutDirection():void
     {       
-        const parentElt:IVisualElement = parent as IVisualElement;        
+        const parentElt:ILayoutDirectionElement = parent as ILayoutDirectionElement;        
         const thisLayoutDirection:String = layoutDirection;
         
         // If this element's layoutDirection doesn't match its parent's, then
@@ -7612,28 +7612,38 @@ public class UIComponent extends FlexSprite
             invalidateTransform();
         }
         
-        //  If this is a leaf node, then we're done.  If not, the styleChanged() machinery
-        //  (via commitProperties()) will deal with UIComponent children.   We have to 
-        //  deal with IVisualElement children that don't support styles, like 
-        //  GraphicElements, here.
-        
-        if (!(this is IVisualElementContainer))
-            return;
-        
-        
         // Children are notified only if the component's layoutDirection has changed.
         if (oldLayoutDirection != layoutDirection)
         {
-            const thisContainer:IVisualElementContainer = IVisualElementContainer(this);
-            const thisContainerNumElements:int = thisContainer.numElements;
+            var i:int;
             
-            for (var i:int = 0; i < thisContainerNumElements; i++)
+            //  If we have children, the styleChanged() machinery (via commitProperties()) will
+            //  deal with UIComponent children. We have to deal with IVisualElement and
+            //  ILayoutDirectionElement children that don't support styles, like GraphicElements, here.
+            if (this is IVisualElementContainer)
             {
-                var elt:IVisualElement = thisContainer.getElementAt(i);
-                // Can be null if IUITextField or IUIFTETextField.
-                if (elt && !(elt is IStyleClient)) 
-                    elt.invalidateLayoutDirection();
-            }      
+                const thisContainer:IVisualElementContainer = IVisualElementContainer(this);
+                const thisContainerNumElements:int = thisContainer.numElements;
+            
+                for (i = 0; i < thisContainerNumElements; i++)
+                {
+                    var elt:IVisualElement = thisContainer.getElementAt(i);
+                    // Can be null if IUITextField or IUIFTETextField.
+                    if (elt && !(elt is IStyleClient))
+                        elt.invalidateLayoutDirection();
+                }
+            }
+            else
+            {
+                const thisNumChildren:int = numChildren;
+                
+                for (i = 0; i < thisNumChildren; i++)
+                {
+                    var child:DisplayObject = getChildAt(i);
+                    if (!(child is IStyleClient) && child is ILayoutDirectionElement)
+                        ILayoutDirectionElement(child).invalidateLayoutDirection();
+                }
+            }
         }  
     }  
 
