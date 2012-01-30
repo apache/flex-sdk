@@ -18,6 +18,8 @@ import flash.display.JointStyle;
 import flash.display.LineScaleMode;
 
 import mx.core.DPIClassification;
+import mx.core.mx_internal;
+use namespace mx_internal;
 
 import spark.components.Button;
 import spark.skins.mobile.supportClasses.MobileSkin;
@@ -32,6 +34,19 @@ import spark.skins.mobile.supportClasses.MobileSkin;
  */
 public class HScrollBarThumbSkin extends MobileSkin 
 {
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    // These constants are also accessed from HScrollBarSkin
+    mx_internal static const PADDING_BOTTOM_320DPI:int = 5;
+    mx_internal static const PADDING_HORIZONTAL_320DPI:int = 4;
+    mx_internal static const PADDING_BOTTOM_240DPI:int = 4;
+    mx_internal static const PADDING_HORIZONTAL_240DPI:int = 3;
+    mx_internal static const PADDING_BOTTOM_DEFAULTDPI:int = 3;
+    mx_internal static const PADDING_HORIZONTAL_DEFAULTDPI:int = 2;
     
     //--------------------------------------------------------------------------
     //
@@ -56,20 +71,20 @@ public class HScrollBarThumbSkin extends MobileSkin
 		{
 			case DPIClassification.DPI_320:
 			{
-				paddingBottom = 5;
-				paddingHorizontal = 4;
+				paddingBottom = PADDING_BOTTOM_320DPI;
+				paddingHorizontal = PADDING_HORIZONTAL_320DPI;
 				break;
 			}
 			case DPIClassification.DPI_240:
 			{
-				paddingBottom = 4;
-				paddingHorizontal = 3;
+				paddingBottom = PADDING_BOTTOM_240DPI;
+				paddingHorizontal = PADDING_HORIZONTAL_240DPI;
 				break;
 			}
 			default:
 			{
-				paddingBottom = 3;
-				paddingHorizontal = 2;
+				paddingBottom = PADDING_BOTTOM_DEFAULTDPI;
+				paddingHorizontal = PADDING_HORIZONTAL_DEFAULTDPI;
 				break;
 			}
 		}
