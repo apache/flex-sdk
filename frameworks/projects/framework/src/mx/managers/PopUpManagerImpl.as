@@ -437,7 +437,11 @@ public class PopUpManagerImpl implements IPopUpManager
             IInvalidating(popUp).validateNow();
 
         const o:PopUpData = findPopupInfoByOwner(popUp);
-        if (o && o.parent)
+        
+        // If we don't find the pop owner or if the owner's parent is not specified or is not on the
+        // stage, then center based on the popUp's current parent.
+        var popUpParent:DisplayObject = (o && o.parent && o.parent.stage) ? o.parent : popUp.parent;
+        if (popUpParent)
         {
             var systemManager:ISystemManager = o.systemManager;
             var x:Number;
@@ -494,10 +498,10 @@ public class PopUpManagerImpl implements IPopUpManager
 
             // If parent is a UIComponent, check for clipping between
             // the object and its SystemManager
-            if (o.parent is UIComponent)
+            if (popUpParent is UIComponent)
             {
-                rect = UIComponent(o.parent).getVisibleRect();
-                var offset:Point = o.parent.globalToLocal(rect.topLeft);
+                rect = UIComponent(popUpParent).getVisibleRect();
+                var offset:Point = popUpParent.globalToLocal(rect.topLeft);
                 clippingOffset.x += offset.x;
                 clippingOffset.y += offset.y;
                 parentWidth = rect.width;
@@ -505,8 +509,8 @@ public class PopUpManagerImpl implements IPopUpManager
             }   
             else
             {          
-                parentWidth = o.parent.width;
-                parentHeight = o.parent.height;
+                parentWidth = popUpParent.width;
+                parentHeight = popUpParent.height;
             }
 
             // The appWidth may smaller than parentWidth if the application is
@@ -515,7 +519,7 @@ public class PopUpManagerImpl implements IPopUpManager
             y = Math.max(0, (Math.min(appHeight, parentHeight) - popUp.height) / 2);
             
             pt = new Point(clippingOffset.x, clippingOffset.y);
-            pt = o.parent.localToGlobal(pt);
+            pt = popUpParent.localToGlobal(pt);
             pt = popUp.parent.globalToLocal(pt);
             popUp.move(Math.round(x) + pt.x, Math.round(y) + pt.y);
         }
