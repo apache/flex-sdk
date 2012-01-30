@@ -8823,6 +8823,16 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General")]
 
     /**
+     *  <p>For components, this layout constraint property is a
+     *  facade on top of the similarly-named style. To set
+     *  a state-specific value of the property in MXML to its default 
+     *  value of <code>undefined</code>,
+     *  use the &#64;Clear() directive. For example, in MXML code,
+     *  <code>left.s2="&#64;Clear()"</code> unsets the <code>left</code>
+     *  constraint in state s2. Or in ActionScript code, 
+     *  <code>button.left = undefined</code> unsets the <code>left</code>
+     *  constraint on <code>button</code>.</p>
+     * 
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -8842,6 +8852,16 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General")]
 
     /**
+     *  <p>For components, this layout constraint property is a
+     *  facade on top of the similarly-named style. To set
+     *  the property to its default value of <code>undefined</code>,
+     *  use the &#64;Clear() directive in MXML or the <code>undefined</code>
+     *  value in ActionScript code. For example, in MXML code,
+     *  <code>right.s2="&#64;Clear()"</code> unsets the <code>right</code>
+     *  constraint in state s2. Or in ActionScript code, 
+     *  <code>button.right = undefined</code> unsets the <code>right</code>
+     *  constraint on <code>button</code>.</p>
+     *  
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -8861,6 +8881,16 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General")]
 
     /**
+     *  <p>For components, this layout constraint property is a
+     *  facade on top of the similarly-named style. To set
+     *  the property to its default value of <code>undefined</code>,
+     *  use the &#64;Clear() directive in MXML or the <code>undefined</code>
+     *  value in ActionScript code. For example, in MXML code,
+     *  <code>top.s2="&#64;Clear()"</code> unsets the <code>top</code>
+     *  constraint in state s2. Or in ActionScript code, 
+     *  <code>button.top = undefined</code> unsets the <code>top</code>
+     *  constraint on <code>button</code>.</p>
+     *  
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -8880,6 +8910,16 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General")]
 
     /**
+     *  <p>For components, this layout constraint property is a
+     *  facade on top of the similarly-named style. To set
+     *  the property to its default value of <code>undefined</code>,
+     *  use the &#64;Clear() directive in MXML or the <code>undefined</code>
+     *  value in ActionScript code. For example, in MXML code,
+     *  <code>bottom.s2="&#64;Clear()"</code> unsets the <code>bottom</code>
+     *  constraint in state s2. Or in ActionScript code, 
+     *  <code>button.bottom = undefined</code> unsets the <code>bottom</code>
+     *  constraint on <code>button</code>.</p>
+     *  
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -8899,6 +8939,17 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General")]
 
     /**
+     *  <p>For components, this layout constraint property is a
+     *  facade on top of the similarly-named style. To set
+     *  the property to its default value of <code>undefined</code>,
+     *  use the &#64;Clear() directive in MXML or the <code>undefined</code>
+     *  value in ActionScript code. For example, in MXML code,
+     *  <code>horizontalCenter.s2="&#64;Clear()"</code> unsets the 
+     *  <code>horizontalCenter</code>
+     *  constraint in state s2. Or in ActionScript code, 
+     *  <code>button.horizontalCenter = undefined</code> unsets the 
+     *  <code>horizontalCenter</code> constraint on <code>button</code>.</p>
+     *  
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -8918,6 +8969,16 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General")]
 
     /**
+     *  <p>For components, this layout constraint property is a
+     *  facade on top of the similarly-named style. To set
+     *  the property to its default value of <code>undefined</code>,
+     *  use the &#64;Clear() directive in MXML or the <code>undefined</code>
+     *  value in ActionScript code. For example, in MXML code,
+     *  <code>verticalCenter.s2="&#64;Clear()"</code> unsets the <code>verticalCenter</code>
+     *  constraint in state s2. Or in ActionScript code, 
+     *  <code>button.verticalCenter = undefined</code> unsets the <code>verticalCenter</code>
+     *  constraint on <code>button</code>.</p>
+     *  
      *  @inheritDoc
      *  
      *  @langversion 3.0
@@ -8937,6 +8998,16 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General")]
 
     /**
+     *  <p>For components, this layout constraint property is a
+     *  facade on top of the similarly-named style. To set
+     *  the property to its default value of <code>undefined</code>,
+     *  use the &#64;Clear() directive in MXML or the <code>undefined</code>
+     *  value in ActionScript code. For example, in MXML code,
+     *  <code>baseline.s2="&#64;Clear()"</code> unsets the <code>baseline</code>
+     *  constraint in state s2. Or in ActionScript code, 
+     *  <code>button.baseline = undefined</code> unsets the <code>baseline</code>
+     *  constraint on <code>button</code>.</p>
+     *  
      *  @inheritDoc
      *  
      *  @langversion 3.0
