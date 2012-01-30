@@ -143,7 +143,7 @@ public class ComboBaseAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x2E;
+		role = 0x2E; // ROLE_SYSTEM_COMBOBOX
 	}
 	
 	//--------------------------------------------------------------------------
@@ -179,10 +179,7 @@ public class ComboBaseAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		if (childID == 0)
-			return role;
-			
-		return ROLE_SYSTEM_LISTITEM;
+		return childID == 0 ? role : ROLE_SYSTEM_LISTITEM;
 	}
 
 	/**
