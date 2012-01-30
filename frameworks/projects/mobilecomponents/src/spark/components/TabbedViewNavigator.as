@@ -1097,6 +1097,12 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             if (isNaN(contentGroupProps.start.explicitWidth))
                 contentGroup.explicitWidth = NaN;
             
+            if (!isNaN(contentGroupProps.start.percentWidth))
+                contentGroup.percentWidth = contentGroupProps.start.percentWidth;
+            
+            if (!isNaN(contentGroupProps.start.percentHeight))
+                contentGroup.percentHeight = contentGroupProps.start.percentHeight;
+            
             contentGroupProps = null;
         }
     }
