@@ -31,6 +31,8 @@
 
 	<target name="compile" description="Compiles FlexComponentBase.swc">
 		<echo message="Compiling frameworks/projects/flash-integration/libs/FlexComponentBase.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<!--
 			Link in the classes (and their dependencies) for the MXML tags
