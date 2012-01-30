@@ -16,9 +16,12 @@ import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.events.EventDispatcher;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.utils.getDefinitionByName;
+
+import mx.events.PropertyChangeEvent;
 
 /** 
  *  Defines a set of values used to fill an area on screen
@@ -29,7 +32,7 @@ import flash.utils.getDefinitionByName;
  *  @see flash.display.BitmapData
  *  @see flash.display.DisplayObject
  */
-public class BitmapFill implements IFill
+public class BitmapFill extends EventDispatcher implements IFill
 {
 	include "../core/Version.as";
 
@@ -70,9 +73,12 @@ public class BitmapFill implements IFill
 	//--------------------------------------------------------------------------
 
 	//----------------------------------
-	//  centerX
+	//  originX
 	//----------------------------------
 
+	private var _originX:Number = 0;
+
+	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	
 	/**
@@ -82,12 +88,28 @@ public class BitmapFill implements IFill
 	 *
 	 *  @default 0 
 	 */
-	public var originX:Number = 0;
+	public function get originX():Number
+	{
+		return _originX;
+	}
+	
+	public function set originX(value:Number):void
+	{
+		var oldValue:Number = _originX;
+		if (value != oldValue)
+		{
+			_originX = value;
+			dispatchFillChangedEvent("originX", oldValue, value);
+		}
+	}
 	
 	//----------------------------------
-	//  centerY
+	//  originY
 	//----------------------------------
 
+	private var _originY:Number = 0;
+
+	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	
 	/**
@@ -97,12 +119,27 @@ public class BitmapFill implements IFill
 	 *
 	 *  @default 0 
 	 */
-	public var originY:Number = 0;
+	public function get originY():Number
+	{
+		return _originY;
+	}
+	
+	public function set originY(value:Number):void
+	{
+		var oldValue:Number = _originY;
+		if (value != oldValue)
+		{
+			_originY = value;
+			dispatchFillChangedEvent("originY", oldValue, value);
+		}
+	}
 
 	//----------------------------------
 	//  offsetX
 	//----------------------------------
-
+	private var _offsetX:Number = 0;
+	
+	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	
 	/**
@@ -111,12 +148,27 @@ public class BitmapFill implements IFill
 	 *
 	 *  @default 0
 	 */
-	public var offsetX:Number = 0;
+	public function get offsetX():Number
+	{
+		return _offsetX;
+	}
+	
+	public function set offsetX(value:Number):void
+	{
+		var oldValue:Number = _offsetX;
+		if (value != oldValue)
+		{
+			_offsetX = value;
+			dispatchFillChangedEvent("offsetX", oldValue, value);
+		}
+	}
 
 	//----------------------------------
 	//  offsetY
 	//----------------------------------
-
+	private var _offsetY:Number = 0;
+	
+	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	
 	/**
@@ -125,13 +177,30 @@ public class BitmapFill implements IFill
 	 *
 	 *  @default 0
 	 */
-	public var offsetY:Number = 0;
+	public function get offsetY():Number
+	{
+		return _offsetY;
+	}
+	
+	public function set offsetY(value:Number):void
+	{
+		var oldValue:Number = _offsetY;
+		if (value != oldValue)
+		{
+			_offsetY = value;
+			dispatchFillChangedEvent("offsetY", oldValue, value);
+		}
+	}
 
 	//----------------------------------
 	//  repeat
 	//----------------------------------
 
-	[Inspectable(category="General")]	
+	private var _repeat:Boolean = true;
+	
+	[Bindable("propertyChange")]
+    [Inspectable(category="General")]
+
 	
 	/**
 	 *  Whether the bitmap is repeated to fill the area.
@@ -141,12 +210,28 @@ public class BitmapFill implements IFill
 	 *
 	 *  @default true
 	 */
-	public var repeat:Boolean = true;
+	public function get repeat():Boolean
+	{
+		return _repeat;
+	}
+	
+	public function set repeat(value:Boolean):void
+	{
+		var oldValue:Boolean = _repeat;
+		if (value != oldValue)
+		{
+			_repeat = value;
+			dispatchFillChangedEvent("repeat", oldValue, value);
+		}
+	}
 
 	//----------------------------------
 	//  rotation
 	//----------------------------------
+	
+	private var _rotation:Number = 0;
 
+	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	
 	/**
@@ -155,12 +240,28 @@ public class BitmapFill implements IFill
 	 *  
 	 *  @default 0
 	 */
-	public var rotation:Number = 0.0;
+	public function get rotation():Number
+	{
+		return _rotation;
+	}
+	
+	public function set rotation(value:Number):void
+	{
+		var oldValue:Number = _rotation;
+		if (value != oldValue)
+		{
+			_rotation = value;
+			dispatchFillChangedEvent("rotation", oldValue, value);
+		}
+	}
 
 	//----------------------------------
 	//  scaleX
 	//----------------------------------
-
+	
+	private var _scaleX:Number = 1.0;
+	
+	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	
 	/**
@@ -170,12 +271,28 @@ public class BitmapFill implements IFill
 	 *
 	 *  @default 1.0
 	 */
-	public var scaleX:Number = 1.0;
+	public function get scaleX():Number
+	{
+		return _scaleX;
+	}
+	
+	public function set scaleX(value:Number):void
+	{
+		var oldValue:Number = _scaleX;
+		if (value != oldValue)
+		{
+			_scaleX = value;
+			dispatchFillChangedEvent("scaleX", oldValue, value);
+		}
+	}
 
 	//----------------------------------
 	//  scaleY
 	//----------------------------------
 	
+	private var _scaleY:Number = 1.0;
+	
+	[Bindable("propertyChange")]
 	[Inspectable(category="General")]	
 	
 	/**
@@ -185,7 +302,20 @@ public class BitmapFill implements IFill
 	 *
 	 *  @default 1.0 
 	 */
-	public var scaleY:Number = 1.0;
+	public function get scaleY():Number
+	{
+		return _scaleY;
+	}
+	
+	public function set scaleY(value:Number):void
+	{
+		var oldValue:Number = _scaleY;
+		if (value != oldValue)
+		{
+			_scaleY = value;
+			dispatchFillChangedEvent("scaleY", oldValue, value);
+		}
+	}
 
 	//----------------------------------
 	//  source
@@ -263,7 +393,10 @@ public class BitmapFill implements IFill
 	//  smooth
 	//----------------------------------
 
-	[Inspectable(category="General")]	
+	private var _smooth:Boolean = false;
+	
+	[Inspectable(category="General")]
+	[Bindable("propertyChange")]	
 	
 	/**
 	 *  A flag indicating whether to smooth the bitmap data
@@ -271,7 +404,20 @@ public class BitmapFill implements IFill
 	 *
 	 *  @default false
 	 */
-	public var smooth:Boolean = false;
+	public function get smooth():Boolean
+	{
+		return _smooth;
+	}
+	
+	public function set smooth(value:Boolean):void
+	{
+		var oldValue:Boolean = _smooth;
+		if (value != oldValue)
+		{
+			_smooth = value;
+			dispatchFillChangedEvent("smooth", oldValue, value);
+		}
+	}
 
 	//--------------------------------------------------------------------------
 	//
@@ -311,6 +457,16 @@ public class BitmapFill implements IFill
 		matrix.scale(scaleX, scaleY);
 		matrix.rotate(rotation);
 		matrix.translate(offsetX, offsetY);
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function dispatchFillChangedEvent(prop:String, oldValue:*,
+											  value:*):void
+	{
+        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop,
+															oldValue, value));
 	}
 }
 
