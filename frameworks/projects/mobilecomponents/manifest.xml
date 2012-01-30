@@ -22,6 +22,7 @@
     <component id="CalloutButton" class="spark.components.CalloutButton"/>
     <component id="CrossFadeViewTransition" class="spark.transitions.CrossFadeViewTransition"/>
     <component id="DateSpinner" class="spark.components.DateSpinner"/>
+    <component id="DateSpinnerItemRenderer" class="spark.components.calendarClasses.DateSpinnerItemRenderer"/>
     <component id="FlipViewTransition" class="spark.transitions.FlipViewTransition"/>
     <component id="IconItemRenderer" class="spark.components.IconItemRenderer"/>
     <component id="LabelItemRenderer" class="spark.components.LabelItemRenderer"/>
