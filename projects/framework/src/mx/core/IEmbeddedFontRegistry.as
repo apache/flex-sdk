@@ -65,7 +65,10 @@ public interface IEmbeddedFontRegistry
 	 *  <p>The <code>moduleFactory</code> is used to resolve the case
      *  where multiple fonts are registered with the same attributes.</p>
      * 
-     *  @param font Describes attributes of the font to register.
+     *  @param fontName FontFamily of the font
+     *  @param bold true for bold fontWeight
+     *  @param italic true for italic fontStyle
+     *  @param object The Object using this font
 	 *
 	 *  @param defaultModuleFactory Used to resolve conflicts in the case
 	 *  where the same font is registered for multiple module factories.
@@ -83,7 +86,8 @@ public interface IEmbeddedFontRegistry
      *  @productversion Flex 3
      */
 	function getAssociatedModuleFactory(
-					font:EmbeddedFont,
+					fontName:String, bold:Boolean, italic:Boolean,
+					object:Object,
 					defaultModuleFactory:IFlexModuleFactory):IFlexModuleFactory;
 
     /**
@@ -101,6 +105,14 @@ public interface IEmbeddedFontRegistry
      *  @productversion Flex 3
      */		
 	function getFonts():Array;
+
+    /**
+     *  Gets a string pattern based on the font attributes
+	 *
+     *  @return String describing font
+     */		
+	function getFontStyle(bold:Boolean, italic:Boolean):String
+
 }
 
 }
