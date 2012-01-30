@@ -228,8 +228,11 @@ public class SystemManagerProxy extends SystemManager
 									  _systemManager.sandboxBridgeGroup.parentBridge : null;
 		if (bridge)
 		{
-			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.ACTIVATE_WINDOW);
-			bridgeEvent.data = this;
+			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.ACTIVATE_WINDOW,
+																		false,
+																		false,
+																		_systemManager.sandboxBridgeGroup.parentBridge,
+																		this);
 			bridge.dispatchEvent(bridgeEvent);
 		}
 	}
