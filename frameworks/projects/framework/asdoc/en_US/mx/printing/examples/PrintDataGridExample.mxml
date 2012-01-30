@@ -108,7 +108,7 @@
                 </mx:columns>
             </mx:DataGrid>
 
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                 text="Specify the number of lines and click Fill Grid first. Then you can click Print."/>
 
             <s:TextInput id="dataItems" text="35"/>
