@@ -7030,6 +7030,9 @@ public class UIComponent extends FlexSprite
      */
     public function set errorString(value:String):void
     {
+        if (value == _errorString)
+            return;
+        
         oldErrorString = _errorString;
         _errorString = value;
 
@@ -8304,8 +8307,7 @@ public class UIComponent extends FlexSprite
         
         if (errorStringChanged)
         {
-            errorStringChanged = false;
-                        
+            errorStringChanged = false;          
             if (getStyle("showErrorTip"))
                 ToolTipManager.registerErrorString(this, oldErrorString, errorString);
             
