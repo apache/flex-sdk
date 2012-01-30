@@ -9859,7 +9859,7 @@ public class UIComponent extends FlexSprite
      */
     private function getTotalDuration(effect:IEffect):Number
     {
-        // FIXME (chaase): we should add timing properties to some
+        // TODO (chaase): we should add timing properties to some
         // interface to avoid these hacks
         var duration:Number = 0;
         var effectObj:Object = Object(effect);
