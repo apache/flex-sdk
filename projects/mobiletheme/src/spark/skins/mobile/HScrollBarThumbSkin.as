@@ -39,8 +39,8 @@ public class HScrollBarThumbSkin extends MobileSkin
     
     override protected function measure():void
     {
-        hostComponent.measuredWidth = 8;
-        hostComponent.measuredHeight = 8;   
+        measuredWidth = 8;
+        measuredHeight = 8;
     }
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
