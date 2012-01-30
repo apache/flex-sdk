@@ -129,21 +129,12 @@ public class SystemManagerProxy extends SystemManager
 	{
 		if (mouseCatcher)
 		{
-			// VERSION_SKEW
-			try
-			{
 			var g:Graphics = mouseCatcher.graphics;
-			var stageSize:Point = SystemManager(_systemManager).getStageSize();
+			var screen:Rectangle = SystemManager(_systemManager).screen;
 			g.clear();
 			g.beginFill(0x000000, 0);
-			g.drawRect(0, 0, stageSize.x, stageSize.y);
+			g.drawRect(0, 0, screen.width, screen.height);
 			g.endFill();
-				
-			}
-			catch (e:SecurityError)
-			{
-				// trace("resizeMouseCatcher: ignoring security error " + e);
-			}
 		}
 	}
 
@@ -171,8 +162,8 @@ public class SystemManagerProxy extends SystemManager
 			}
 		}
 
-		var stageSize:Point = SystemManager(_systemManager).getStageSize();
-		setActualSize(stageSize.x, stageSize.y);
+		var screen:Rectangle = SystemManager(_systemManager).screen;
+		setActualSize(screen.width, screen.height);
 	}
 	
 	/**
