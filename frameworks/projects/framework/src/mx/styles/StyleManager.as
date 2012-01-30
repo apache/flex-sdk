@@ -127,6 +127,18 @@ public class StyleManager
     /**
      *  @private
      */
+    mx_internal static function get typeHierarchyCache():Object
+    {
+        return impl.typeHierarchyCache;
+    }
+    mx_internal static function set typeHierarchyCache(value:Object):void
+    {
+        impl.typeHierarchyCache = value;
+    }
+
+    /**
+     *  @private
+     */
     mx_internal static function get typeSelectorCache():Object
     {
         return impl.typeSelectorCache;
@@ -166,6 +178,16 @@ public class StyleManager
     public static function hasPseudoSelector(subject:String):Boolean
     {
         return impl.hasPseudoSelector(subject);
+    }
+
+    /**
+     *  Determines whether any of the selectors registered with the style
+     *  manager have been advanced selectors (descendant selector, id selector,
+     *  non-global class selector, pseudo selector).
+     */ 
+    public static function hasAdvancedSelectors():Boolean
+    {
+        return impl.hasAdvancedSelectors();
     }
 
     /**
