@@ -98,7 +98,8 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *  "January", the date "1", and the year "2011" will be in blue text on the spinners. This color
  *  is not applied to time items.
  * 
- *  @default #0058A8
+ *  <p>The default value is inherited from the global styles; see the framework defaults.css for
+ *  the specific value.</p>
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3
@@ -140,7 +141,7 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *    selectedDate=""
  * 
  *    <strong>Styles</strong>
- *    accentColor="0x0058A8"
+ *    accentColor="0x0099FF"
  *  /&gt;
  *  </pre>
  * 
