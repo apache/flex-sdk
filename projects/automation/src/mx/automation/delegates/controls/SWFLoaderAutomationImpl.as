@@ -157,7 +157,7 @@ package mx.automation.delegates.controls
 			if (loader.source is URLRequest)
 				return [ URLRequest(loader.source).url ];
 			
-			return null;
+			return super.automationValue;
 		}
 		
 		//----------------------------------
