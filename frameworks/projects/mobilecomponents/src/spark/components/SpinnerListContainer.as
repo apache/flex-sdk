@@ -11,9 +11,11 @@
 package spark.components
 {
 /**
- *  Container for one or more SpinnerLists. The SpinnerLists are laid out horizontally.
+ *  Container for one or more SpinnerList controls. The SpinnerLists are laid out horizontally.
  *  The SpinnerListContainerSkin displays a frame, shadow gradients and a selection indicator.   
- *  	 
+ *       
+ * @see spark.components.SpinnerList
+ * 
  *  @includeExample examples/SpinnerListExample.mxml -noswf
  *  @includeExample examples/SpinnerListContainerExample.mxml -noswf
  * 
@@ -27,16 +29,16 @@ package spark.components
     
 public class SpinnerListContainer extends SkinnableContainer
 {
-	/**
-	 *  Constructor.
-	 *        
-	 *  @langversion 3.0
-	 *  @playerversion AIR 3
-	 *  @productversion Flex 4.6
-	 */ 	
-	public function SpinnerListContainer()
-	{
-		super();
-	}
+    /**
+     *  Constructor.
+     *        
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.6
+     */     
+    public function SpinnerListContainer()
+    {
+        super();
+    }
 }
 }
