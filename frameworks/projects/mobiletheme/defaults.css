@@ -17,22 +17,13 @@
 
 ActionBar
 {
-    chromeColor: #CCCCCC; /*TODO (jasonsj) REMOVE*/
     skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
-}
-
-/*TODO (jasonsj) REMOVE*/
-ActionBar Button
-{
-    color: #000000;
 }
 
 ActionBar #titleDisplay
 {
     fontSize: 28;
     fontWeight: bold;
-    color: #333333;
-    textShadowColor: #FFFFFF;
 }
 
 ActionBar Button:down
@@ -52,7 +43,7 @@ ActionBar Group#actionGroup Button
 
 Application
 {
-    backgroundColor: #464646; /*TODO (jasonsj) #FFFFFF*/
+    backgroundColor: #FFFFFF;
     skinClass: ClassReference("spark.skins.spark.ApplicationSkin");
 }
 
@@ -71,7 +62,7 @@ ButtonBase
 
 Button
 {
-    fontWeight : "bold";
+    fontWeight: "bold";
     skinClass: ClassReference("spark.skins.mobile.ButtonSkin");
 }
 
@@ -87,12 +78,12 @@ ButtonBar
 
 ButtonBase
 {
-    iconPlacement : "left";
+    iconPlacement: "left";
 }
 
 CheckBox
 {
-    skinClass : ClassReference("spark.skins.mobile.CheckBoxSkin");
+    skinClass: ClassReference("spark.skins.mobile.CheckBoxSkin");
 }
 
 ComboBox
@@ -131,7 +122,7 @@ List
 
 MobileApplication
 {
-    backgroundColor: #484848;/*TODO (jasonsj) #FFFFFF*/
+    backgroundColor: #FFFFFF;
     skinClass: ClassReference("spark.skins.mobile.MobileApplicationSkin");
 }
 
@@ -181,7 +172,7 @@ Panel
 
 RadioButton
 {
-    skinClass : ClassReference("spark.skins.mobile.RadioButtonSkin");
+    skinClass: ClassReference("spark.skins.mobile.RadioButtonSkin");
 }
 
 Scroller
@@ -218,7 +209,7 @@ Spinner
 
 TabbedMobileApplication
 {
-    backgroundColor: #464646;/*TODO (jasonsj) #FFFFFF*/
+    backgroundColor: #FFFFFF;
     skinClass: ClassReference("spark.skins.mobile.TabbedMobileApplicationSkin");
 }
 
@@ -279,7 +270,6 @@ ViewMenuItem
 {
     backgroundAlpha : .95;
     backgroundColor : #F7F7F7;
-    color : #000000;
     iconPlacement : "top";
     paddingBottom: 8;
     paddingLeft: 8;
@@ -315,22 +305,18 @@ VSlider
 global
 {
     /* Looks */
-    /* color: #000000; */
     backgroundAlpha : 1;
     backgroundImageFillMode : "scale";
-    chromeColor: #464646;/*TODO (jasonsj) #CCCCCC*/
     borderVisible : true;
     borderWeight : 1;
-    contentBackgroundColor: #3F3F3F;/*TODO (jasonsj) #FFFFFF*/
-    rollOverColor: #CEDBEF;
-    focusColor: #56A6FF;
     focusThickness: 3;
     symbolColor: #000000;
-	selectionColor: #B2B2B2;
     fontLookup: "embeddedCFF";
     fontFamily: "_sans";
     fontSize: 24;
-    color: #FFFFFF;/*TODO (jasonsj) #000000*/
+    color: #000000;
+    textShadowColor: #FFFFFF;
+    textShadowAlpha: .55;
     
     /* Behaviors */
     autoThumbVisibility: true;
