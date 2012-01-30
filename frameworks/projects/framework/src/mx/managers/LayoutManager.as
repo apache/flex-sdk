@@ -17,7 +17,7 @@ import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -384,7 +384,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
         {
             _layoutDebugHelper = new LayoutDebugHelper();
             _layoutDebugHelper.mouseEnabled = false;
-            ApplicationGlobals.application.systemManager.addChild(_layoutDebugHelper);
+            FlexGlobals.topLevelApplication.systemManager.addChild(_layoutDebugHelper);
         }
         return _layoutDebugHelper;
     } */
@@ -420,7 +420,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	 */
 	public function invalidateProperties(obj:ILayoutManagerClient ):void
 	{
-		if (!invalidatePropertiesFlag && ApplicationGlobals.application.systemManager)
+		if (!invalidatePropertiesFlag && FlexGlobals.topLevelApplication.systemManager)
 		{
 			invalidatePropertiesFlag = true;
 
@@ -430,7 +430,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				{
 					callLaterObject = new UIComponent();
 					callLaterObject.systemManager =
-						ApplicationGlobals.application.systemManager;
+						FlexGlobals.topLevelApplication.systemManager;
 					callLaterObject.callLater(waitAFrame);
 				}
 				else
@@ -484,7 +484,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	 */
 	public function invalidateSize(obj:ILayoutManagerClient ):void
 	{
-		if (!invalidateSizeFlag && ApplicationGlobals.application.systemManager)
+		if (!invalidateSizeFlag && FlexGlobals.topLevelApplication.systemManager)
 		{
 			invalidateSizeFlag = true;
 
@@ -494,7 +494,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				{
 					callLaterObject = new UIComponent();
 					callLaterObject.systemManager =
-						ApplicationGlobals.application.systemManager;
+						FlexGlobals.topLevelApplication.systemManager;
 					callLaterObject.callLater(waitAFrame);
 				}
 				else
@@ -533,7 +533,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 	 */
 	public function invalidateDisplayList(obj:ILayoutManagerClient ):void
 	{
-		if (!invalidateDisplayListFlag && ApplicationGlobals.application.systemManager)
+		if (!invalidateDisplayListFlag && FlexGlobals.topLevelApplication.systemManager)
 		{
 			invalidateDisplayListFlag = true;
 
@@ -543,7 +543,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				{
 					callLaterObject = new UIComponent();
 					callLaterObject.systemManager =
-						ApplicationGlobals.application.systemManager;
+						FlexGlobals.topLevelApplication.systemManager;
 					callLaterObject.callLater(waitAFrame);
 				}
 				else
@@ -554,9 +554,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				callLaterPending = true;
 			}
 		}
-		else if (!invalidateDisplayListFlag && !ApplicationGlobals.application.systemManager)
+		else if (!invalidateDisplayListFlag && !FlexGlobals.topLevelApplication.systemManager)
 		{
-			// trace("ApplicationGlobals.application.systemManager is null");
+			// trace("FlexGlobals.topLevelApplication.systemManager is null");
 		}
 
 		// trace("LayoutManager adding " + Object(obj) + " to invalidateDisplayListQueue");
@@ -728,7 +728,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				validateProperties();
 
 				// The Preloader listens for this event.
-				ApplicationGlobals.application.dispatchEvent(
+				FlexGlobals.topLevelApplication.dispatchEvent(
 					new Event("validatePropertiesComplete"));
 			}
 
@@ -737,7 +737,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				validateSize();
 
 				// The Preloader listens for this event.
-				ApplicationGlobals.application.dispatchEvent(
+				FlexGlobals.topLevelApplication.dispatchEvent(
 					new Event("validateSizeComplete"));
 			}
 
@@ -746,7 +746,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 				validateDisplayList();
 
 				// The Preloader listens for this event.
-				ApplicationGlobals.application.dispatchEvent(
+				FlexGlobals.topLevelApplication.dispatchEvent(
 					new Event("validateDisplayListComplete"));
 			}
 		}
