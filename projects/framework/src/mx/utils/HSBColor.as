@@ -101,7 +101,7 @@ public final class HSBColor
     }
     
     /**
-     * Converts and HSB color specified by the parameters to a
+     * Converts an HSB color specified by the parameters to a
      * uint RGB color.
      *  
      *  @langversion 3.0
@@ -109,7 +109,7 @@ public final class HSBColor
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function HSBtoRGB(hue:Number, saturation:Number, 
+    public static function convertHSBtoRGB(hue:Number, saturation:Number, 
         brightness:Number):uint
     {
         // Conversion taken from Foley, van Dam, et al
@@ -173,7 +173,7 @@ public final class HSBColor
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    static public function RGBtoHSB(rgb:uint):HSBColor
+    static public function convertRGBtoHSB(rgb:uint):HSBColor
     {
         // Conversion taken from Foley, van Dam, et al
         var hue:Number, saturation:Number, brightness:Number;
