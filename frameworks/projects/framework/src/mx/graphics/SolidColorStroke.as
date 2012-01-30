@@ -10,11 +10,11 @@
 package mx.graphics
 {
  
-import flash.display.CapsStyle;  
+import flash.display.CapsStyle;
 import flash.display.Graphics;
-import flash.display.GraphicsStroke;
 import flash.display.GraphicsSolidFill;
-import flash.display.JointStyle;  
+import flash.display.GraphicsStroke;
+import flash.display.JointStyle;
 import flash.events.EventDispatcher;
 import flash.geom.Rectangle;
 
@@ -476,21 +476,16 @@ public class SolidColorStroke extends EventDispatcher implements IStroke
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function apply(g:Graphics):void
+	public function apply(graphics:Graphics, bounds:Rectangle = null):void
 	{
-		draw(g, new Rectangle());
-	}
-	
-	public function draw(g:Graphics, rc:Rectangle):void
-	{
-		g.lineStyle(weight, color, alpha, pixelHinting,
+		graphics.lineStyle(weight, color, alpha, pixelHinting,
 					scaleMode, caps, joints, miterLimit);
 	}
 	
     /**
      *  @inheritDoc 
      */
-	public function generateGraphicsStroke(rc:Rectangle):GraphicsStroke
+	public function createGraphicsStroke(bounds:Rectangle):GraphicsStroke
 	{
 	    // Construct a new GraphicsStroke object and set all of 
         // its properties to match the SolidColorStroke's 
