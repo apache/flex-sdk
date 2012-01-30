@@ -65,13 +65,13 @@ public interface ILayoutItem
 
     /**
      *  The TBounds of the minimum item size.
-     *  <code>minSize</code> <= <code>preferredSize</code> must be true.
+     *  <code>minSize</code> &lt;= <code>preferredSize</code> must be true.
      */
     function get minSize():Point;
 
     /**
      *  The TBounds of the maximum item size.
-     *  <code>preferredSize</code> <= <code>maxSize</code> must be true.
+     *  <code>preferredSize</code> &lt;= <code>maxSize</code> must be true.
      */
     function get maxSize():Point;
     
