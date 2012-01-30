@@ -18,11 +18,11 @@
     
     <fx:Declarations>
         <s:Group id="rectMask" blendMode="normal" x="10"  y="20">
-	    <s:Ellipse width="170" height="220">
-	        <s:fill>
-	            <s:SolidColor color="0x33CC99" />
-	        </s:fill>
-	    </s:Ellipse>
+        <s:Ellipse width="170" height="220">
+            <s:fill>
+                <s:SolidColor color="0x33CC99" />
+            </s:fill>
+        </s:Ellipse>
         </s:Group> 
     </fx:Declarations>
     
@@ -31,7 +31,7 @@
             horizontalCenter="0" verticalCenter="0">
 
         <s:Group id="group2" horizontalCenter="0" y="10">
-	    <s:BitmapImage source="@Embed('ks5792.jpg')" />
+        <s:BitmapImage source="@Embed('/assets/ks5792.jpg')" />
         </s:Group>
         <s:Button label="Apply Luminosity mask" click="setMask()" 
             x="15" y="265" />
