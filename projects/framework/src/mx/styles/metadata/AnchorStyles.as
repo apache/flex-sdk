@@ -30,8 +30,8 @@
 [Style(name="baseline", type="String", inherit="no")]
 
 /**
- *  The vertical distance in pixels from the lower edge of the component
- *  to the lower edge of its content area.
+ *  The vertical distance, in pixels, from the bottom edge of the component 
+ *  to the bottom edge of its parent container's content area.
  *  If this style is set, the lower edge of the component is
  *  anchored to the bottom edge of its content area; when its container
  *  is resized, the two edges maintain their separation.
@@ -70,8 +70,8 @@
 [Style(name="horizontalCenter", type="String", inherit="no")]
 
 /**
- *  The horizontal distance in pixels from the left edge of the component's
- *  content area to the left edge of the component.
+ *  The horizontal distance, in pixels, from the left edge of the component 
+ *  to the left edge of its parent container's content area.
  *  If this style is set, the left edge of the component is
  *  anchored to the left edge of its content area; when its container
  *  is resized, the two edges maintain their separation.
@@ -90,8 +90,8 @@
 [Style(name="left", type="String", inherit="no")]
 
 /**
- *  The horizontal distance in pixels from the right edge of the component
- *  to the right edge of its content area.
+ *  The horizontal distance, in pixels, from the right edge of the component 
+ *  to the right edge of its parent container's content area.
  *  If this style is set, the right edge of the component is
  *  anchored to the right edge of its content area; when its container
  *  is resized, the two edges maintain their separation.
@@ -110,8 +110,8 @@
 [Style(name="right", type="String", inherit="no")]
 
 /**
- *  The vertical distance in pixels from the top edge of the control's
- *  content area to the top edge of the component.
+ *  The vertical distance, in pixels, from the top edge of the component 
+ *  to the top edge of its parent container's content area.
  *  If this style is set, the top edge of the component is
  *  anchored to the top edge of its content area; when its container
  *  is resized, the two edges maintain their separation.
