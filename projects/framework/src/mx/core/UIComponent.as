@@ -78,6 +78,7 @@ import mx.styles.IAdvancedStyleClient;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
+import mx.styles.IStyleManager2;
 import mx.styles.StyleProtoChain;
 import mx.utils.ColorUtil;
 import mx.utils.GraphicsUtil;
@@ -3434,6 +3435,34 @@ public class UIComponent extends FlexSprite
         return _resourceManager;
     }
 
+    //----------------------------------
+    //  styleManager
+    //----------------------------------
+    
+    /**
+     *  @private
+     * 
+     *  Returns the StyleManager object used by this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get styleManager():IStyleManager2
+    {
+        var styleManager:IStyleManager2;
+        
+        if (moduleFactory)
+            styleManager = moduleFactory.getImplementation("mx.styles::IStyleManager2") as IStyleManager2;
+        
+        if (!styleManager)
+            styleManager = SystemManagerGlobals.topLevelSystemManagers[0].
+                getImplementation("mx.styles::IStyleManager2") as IStyleManager2;
+        
+        return styleManager;
+    }
+    
     //----------------------------------
     //  systemManager
     //----------------------------------
