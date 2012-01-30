@@ -21,23 +21,25 @@ import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Timer;
+
 import mx.controls.ToolTip;
 import mx.core.FlexGlobals;
+import mx.core.FlexVersion;
 import mx.core.IFlexModule;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IToolTip;
 import mx.core.IUIComponent;
 import mx.core.LayoutDirection;
 import mx.core.mx_internal;
-import mx.effects.IAbstractEffect;
 import mx.effects.EffectManager;
+import mx.effects.IAbstractEffect;
 import mx.events.DynamicEvent;
 import mx.events.EffectEvent;
 import mx.events.ToolTipEvent;
 import mx.managers.IToolTipManagerClient;
 import mx.styles.IStyleClient;
 import mx.validators.IValidatorListener;
-import mx.core.ILayoutDirectionElement;
 
 use namespace mx_internal;
 
@@ -777,7 +779,9 @@ public class ToolTipManagerImpl extends EventDispatcher
                 currentText = IValidatorListener(displayObject).errorString;
                 var showErrorTip:Boolean;
                 if (displayObject is IStyleClient)
-                    showErrorTip = IStyleClient(displayObject).getStyle("showErrorTip");
+                    showErrorTip = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ||
+                                   IStyleClient(displayObject).getStyle("showErrorTip");
+                                   ;
                 if (currentText != null && currentText != "" && showErrorTip)
                 {
                     currentTarget = displayObject;
