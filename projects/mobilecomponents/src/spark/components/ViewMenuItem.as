@@ -34,6 +34,13 @@ use namespace mx_internal;
  *  for a menu item in the ViewMenu container. 
  *  Write an event handler for the <code>click</code> event 
  *  to perform an operation when the menu item is selected.
+ *
+ *  <p>The following image shows a ViewMenu container with five 
+ *  ViewMenuItem controls:</p>
+ *
+ * <p>
+ *  <img src="../../images/vm_open_menu_vm.png" alt="View menu" />
+ * </p>
  *  
  *  @mxml <p>The <code>&lt;s:ViewMenuItem&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
@@ -46,6 +53,9 @@ use namespace mx_internal;
  *  @see spark.layouts.ViewMenuLayout
  *  @see spark.components.supportClasses.ViewNavigatorApplicationBase
  *  @see spark.skins.mobile.ViewMenuItemSkin
+ *
+ *  @includeExample examples/ViewMenuExampleHome.mxml -noswf
+ *  @includeExample examples/ViewMenuExample.mxml -noswf
  *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
