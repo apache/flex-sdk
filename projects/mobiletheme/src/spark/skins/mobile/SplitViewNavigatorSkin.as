@@ -12,7 +12,6 @@
 package spark.skins.mobile
 {
 import spark.components.Callout;
-import spark.components.CalloutPosition;
 import spark.components.Group;
 import spark.components.SplitViewNavigator;
 import spark.layouts.HorizontalLayout;
@@ -102,14 +101,14 @@ public class SplitViewNavigatorSkin extends MobileSkin
         // Create the callout but don't add it to display list
         viewNavigatorCallout = new Callout();
         viewNavigatorCallout.id = "viewNavigatorCallout";
+        
+        // TODO (jasonsj): move sizing to SplitViewNavigator?
         viewNavigatorCallout.height = 500;
-        viewNavigatorCallout.setStyle("color", 0x000000);
-        viewNavigatorCallout.setStyle("contentBackgroundAlpha", 0);
     }
     
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     override protected function measure():void
     {
         super.measure();
