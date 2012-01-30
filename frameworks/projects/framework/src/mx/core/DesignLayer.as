@@ -158,7 +158,7 @@ package mx.core
          *  The visibility for this design layer instance.
          *
          *  <p>When updated, the appropriate change event for <code>effectiveVisibility</code> 
-         *  will be dispatched to all <code>layerPropertyChange<code> listeners for 
+         *  will be dispatched to all <code>layerPropertyChange</code> listeners for 
          *  this layer, as well as those of affected descendant layers if any.</p>
          *
          *  @default true
