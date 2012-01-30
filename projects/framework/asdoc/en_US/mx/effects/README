@@ -1,0 +1,3 @@
+Removed MyraidWebPro.ttf since it can't be contributed to Apache.  
+Some of the mx effects examples require an embedded font so they will be broken until another font is substituted.
+
