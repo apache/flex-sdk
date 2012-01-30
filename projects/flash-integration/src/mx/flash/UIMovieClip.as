@@ -4729,8 +4729,11 @@ public dynamic class UIMovieClip extends MovieClip
         // Same security issue as addFocusEventListeners()
         try
         {
-            stage.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler);
-            stage.removeEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
+            if (stage)
+            {
+                stage.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler);
+                stage.removeEventListener(FocusEvent.FOCUS_OUT, focusOutHandler);
+            }
         }
         catch (err:SecurityError)
         {
