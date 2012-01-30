@@ -83,8 +83,8 @@ public interface ILayoutElement
      *  layout transform matrix.
      *
      *  @see #getPreferredHeight
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getPreferredBoundsWidth(postTransform:Boolean=true):Number;
 
@@ -99,8 +99,8 @@ public interface ILayoutElement
      *  layout transform matrix.
      *
      *  @see #getPreferredWidth
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getPreferredBoundsHeight(postTransform:Boolean=true):Number;
 
@@ -113,8 +113,8 @@ public interface ILayoutElement
      *  layout transform matrix.
      *
      *  @see #getMinHeight
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getMinBoundsWidth(postTransform:Boolean=true):Number;
 
@@ -127,8 +127,8 @@ public interface ILayoutElement
      *  layout transform matrix.
      *
      *  @see #getMinWidth
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getMinBoundsHeight(postTransform:Boolean=true):Number;
 
@@ -141,8 +141,8 @@ public interface ILayoutElement
      *  layout transform matrix.
      *
      *  @see #getMaxHeight
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getMaxBoundsWidth(postTransform:Boolean=true):Number;
 
@@ -155,8 +155,8 @@ public interface ILayoutElement
      *  layout transform matrix.
      *
      *  @see #getMaxWidth
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getMaxBoundsHeight(postTransform:Boolean=true):Number;
     
@@ -170,8 +170,8 @@ public interface ILayoutElement
      *  layout transform matrix.
      *
      *  @see #getLayoutHeight
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getLayoutBoundsWidth(postTransform:Boolean=true):Number;
 
@@ -185,8 +185,8 @@ public interface ILayoutElement
      *  layout transform matrix.
      *
      *  @see #getLayoutWidth
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getLayoutBoundsHeight(postTransform:Boolean=true):Number;
 
@@ -199,8 +199,8 @@ public interface ILayoutElement
      *  from the element's layout size, layout position and layout transform matrix.
      * 
      *  @see #getLayoutPositionY
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getLayoutBoundsX(postTransform:Boolean=true):Number;
 
@@ -213,8 +213,8 @@ public interface ILayoutElement
      *  from the element's layout size, layout position and layout transform matrix.
      * 
      *  @see #getLayoutPositionX
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function getLayoutBoundsY(postTransform:Boolean=true):Number;
 
@@ -230,8 +230,8 @@ public interface ILayoutElement
      *  setLayoutPosition should be called after setLayoutSize.
      *
      *  @see #setLayoutSize
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function setLayoutBoundsPosition(x:Number, y:Number, postTransform:Boolean=true):void;
 
@@ -262,16 +262,34 @@ public interface ILayoutElement
      *  from the element's layout size, layout position and layout transform matrix.
      * 
      *  @see #setLayoutPosition
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      */
     function setLayoutBoundsSize(width:Number = Number.NaN,
                            height:Number = Number.NaN,
                            postTransform:Boolean=true):void;
 
     /**
-     *  Returns the layout transform Matrix for this element.
-     *  Don't directly modify the return value but call setLayoutMatrix instead. 
+     *  Returns the transform matrix that is used to calculate the component's
+     *  layout relative to its siblings.
+     *
+     *  <p>This matrix is typically defined by the
+     *  component's 2D properties such as <code>x</code>, <code>y</code>,
+     *  <code>rotation</code>, <code>scaleX</code>, <code>scaleY</code>,
+     *  <code>transformX</code>, and <code>transformY</code>.
+     *  Some components may have additional transform properties that
+     *  are applied on top of the layout matrix to determine the final,
+     *  computed matrix.  For example <code>UIComponent</code>
+     *  defines the <code>offsets</code> property.</p>
+     *  
+     *  @return <p>Returns the layout transform Matrix for this element.
+     *  Don't directly modify the return value but call setLayoutMatrix instead.</p>
+     * 
+     *  @see #setLayoutMatrix
+     *  @see #getLayoutMatrix3D
+     *  @see #setLayoutMatrix3D
+     *  @see mx.core.UIComponent#offsets
+     *  @see mx.graphics.graphicsClasses.GraphicElement#offsets
      */
     function getLayoutMatrix():Matrix;
 
@@ -279,24 +297,57 @@ public interface ILayoutElement
      *  Sets the transform Matrix that is used to calculate the component's layout
      *  size and position relative to its siblings.
      *
-     *  Note that layout Matrix is factored in the getPreferredSize(),
+     *  <p>This matrix is typically defined by the
+     *  component's 2D properties such as <code>x</code>, <code>y</code>,
+     *  <code>rotation</code>, <code>scaleX</code>, <code>scaleY</code>,
+     *  <code>transformX</code>, and <code>transformY</code>.
+     *  Some components may have additional transform properties that
+     *  are applied on top of the layout matrix to determine the final,
+     *  computed matrix.  For example <code>UIComponent</code>
+     *  defines the <code>offsets</code>.</p>
+     *  
+     *  <p>Note that layout Matrix is factored in the getPreferredSize(),
      *  getMinSize(), getMaxSize(), getLayoutSize() when computed in parent coordinates
      *  as well as in getLayoutPosition() in both parent and child coordinates.
-     *
-     *  <p>The method is typically used by layouts that calculate the transform
-     *  matrix explicitly and work with sizes in child coordinates, ingnoring
-     *  getLayoutPosition.  Calling this method does not cause a subsequent layout
-     *  pass (doesn't invalidate element's parent size or display list).</p>
+     *  Layouts that calculate the transform matrix explicitly typically call
+     *  this method and work with sizes in child coordinates.
+     *  Layouts calling this method pass <code>false</code>
+     *  to <code>triggerLayout</code> so that a subsequent layout pass is not
+     *  triggered.</p>
      * 
+     *  <p>Developers that call this method directly typically pass <code>true</code>
+     *  to <code>triggerLayout</code> so that the parent container is notified that
+     *  it needs to re-layout the children.</p>
+     * 
+     *  @see #getLayoutMatrix
+     *  @see #getLayoutMatrix3D
      *  @see #setLayoutMatrix3D
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  @see mx.core.UIComponent#offsets
+     *  @see mx.graphics.graphicsClasses.GraphicElement#offsets
      */
-    function setLayoutMatrix(m:Matrix):void;
+    function setLayoutMatrix(m:Matrix, triggerLayout:Boolean):void;
 
     /**
      *  Returns the layout transform Matrix3D for this element.
-     *  Don't directly modify the return value but call setLayoutMatrix instead. 
+     * 
+     *  <p>This matrix is typically defined by the
+     *  component's transform properties such as <code>x</code>, <code>y</code>, 
+     *  <code>z</code>, <code>rotationX</code>, <code>rotationY</code>,
+     *  <code>rotationZ</code>, <code>scaleX</code>, <code>scaleY</code>,
+     *  <code>scaleZ</code>, <code>transformX</code>, and <code>transformY</code>.
+     *  Some components may have additional transform properties that
+     *  are applied on top of the layout matrix to determine the final,
+     *  computed matrix.  For example <code>UIComponent</code>
+     *  defines the <code>offsets</code> property.</p>
+     * 
+     *  @return <p>Returns the layout transform Matrix3D for this element.
+     *  Don't directly modify the return value but call setLayoutMatrix instead.</p>
+     *  
+     *  @see #getLayoutMatrix
+     *  @see #setLayoutMatrix
+     *  @see #setLayoutMatrix3D
+     *  @see mx.core.UIComponent#offsets
+     *  @see mx.graphics.graphicsClasses.GraphicElement#offsets
      */
     function getLayoutMatrix3D():Matrix3D;
 
@@ -304,20 +355,36 @@ public interface ILayoutElement
      *  Sets the transform Matrix3D that is used to calculate the component's layout
      *  size and position relative to its siblings.
      *
-     *  Note that layout Matrix3D is factored in the getPreferredSize(),
+     *  <p>This matrix is typically defined by the
+     *  component's transform properties such as <code>x</code>, <code>y</code>, 
+     *  <code>z</code>, <code>rotationX</code>, <code>rotationY</code>,
+     *  <code>rotationZ</code>, <code>scaleX</code>, <code>scaleY</code>,
+     *  <code>scaleZ</code>, <code>transformX</code>, and <code>transformY</code>.
+     *  Some components may have additional transform properties that
+     *  are applied on top of the layout matrix to determine the final,
+     *  computed matrix.  For example <code>UIComponent</code>
+     *  defines the <code>offsets</code> property.</p>
+     *  
+     *  <p>Note that layout Matrix3D is factored in the getPreferredSize(),
      *  getMinSize(), getMaxSize(), getLayoutSize() when computed in parent coordinates
      *  as well as in getLayoutPosition() in both parent and child coordinates.
-     *
-     *  <p>The method is typically used by layouts that calculate the transform
-     *  matrix explicitly and work with sizes in child coordinates, ingnoring
-     *  getLayoutPosition.  Calling this method does not cause a subsequent layout
-     *  pass (doesn't invalidate element's parent size or display list).</p>
+     *  Layouts that calculate the transform matrix explicitly typically call
+     *  this method and work with sizes in child coordinates.
+     *  Layouts calling this method pass <code>false</code>
+     *  to <code>triggerLayout</code> so that a subsequent layout pass is not
+     *  triggered.</p>
      * 
-     *  @see #setLayoutMatrix3D
-     *  @see mx.core.UIComponent#layoutMatrix
-     *  @see mx.core.UIComponent#layoutMatrix3D
+     *  <p>Developers that call this method directly typically pass <code>true</code>
+     *  to <code>triggerLayout</code> so that the parent container is notified that
+     *  it needs to re-layout the children.</p>
+     * 
+     *  @see #getLayoutMatrix
+     *  @see #setLayoutMatrix
+     *  @see #getLayoutMatrix3D
+     *  @see mx.core.UIComponent#offsets
+     *  @see mx.graphics.graphicsClasses.GraphicElement#offsets
      */
-    function setLayoutMatrix3D(m:Matrix3D):void;
+    function setLayoutMatrix3D(m:Matrix3D, triggerLayout:Boolean):void;
 }
 
 }
