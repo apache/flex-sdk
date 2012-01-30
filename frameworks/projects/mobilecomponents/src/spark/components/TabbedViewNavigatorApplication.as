@@ -68,7 +68,7 @@ use namespace mx_internal;
  *        </tr>
  *        <tr>
  *           <td>Default skin class</td>
- *           <td>spark.skins.mobile.ViewNavigatorApplicationSkin</td>
+ *           <td>spark.skins.mobile.TabbedViewNavigatorApplicationSkin</td>
  *        </tr>
  *     </table>
  *
