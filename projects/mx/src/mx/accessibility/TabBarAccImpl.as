@@ -313,6 +313,10 @@ public class TabBarAccImpl extends AccImpl
 	 */
 	override protected function eventHandler(event:Event):void
 	{
+		// Let AccImpl class handle the events
+		// that all accessible UIComponents understand.
+		$eventHandler(event);
+
 		var index:int;
 				
 		switch (event.type)
