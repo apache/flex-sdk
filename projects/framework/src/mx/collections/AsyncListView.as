@@ -151,7 +151,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
             _list.removeEventListener(CollectionEvent.COLLECTION_CHANGE, handleCollectionChangeEvent);
         _list = value;
         if (_list)
-            _list.addEventListener(CollectionEvent.COLLECTION_CHANGE, handleCollectionChangeEvent);
+            _list.addEventListener(CollectionEvent.COLLECTION_CHANGE, handleCollectionChangeEvent, false, 0, true);
 
         dispatchEvent(new Event("listChanged"));
         dispatchEvent(new CollectionEvent(CollectionEvent.COLLECTION_CHANGE, false, false, CollectionEventKind.RESET));
