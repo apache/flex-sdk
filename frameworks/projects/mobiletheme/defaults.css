@@ -257,6 +257,16 @@ TextArea
     skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
 }
 
+TextArea VScrollBar
+{
+    skinClass: ClassReference("spark.skins.mobile.supportClasses.TextAreaVScrollBarSkin");
+}
+
+TextArea HScrollBar
+{
+    skinClass: ClassReference("spark.skins.mobile.supportClasses.TextAreaHScrollBarSkin");
+}
+
 TextInput
 {
     paddingBottom: 9;
