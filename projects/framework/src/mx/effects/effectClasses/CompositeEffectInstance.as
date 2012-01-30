@@ -28,6 +28,11 @@ use namespace mx_internal;
  *  you do not create one yourself.
  *
  *  @see mx.effects.CompositeEffect
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CompositeEffectInstance extends EffectInstance
 {
@@ -44,6 +49,11 @@ public class CompositeEffectInstance extends EffectInstance
 	 *
 	 *  @param target This argument is ignored for Composite effects.
 	 *  It is included only for consistency with other types of effects.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function CompositeEffectInstance(target:Object)
 	{
@@ -243,6 +253,11 @@ public class CompositeEffectInstance extends EffectInstance
 	 *
 	 *  @param childSet Array of child effects to be added
 	 *  to the CompositeEffect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function addChildSet(childSet:Array):void
 	{
@@ -307,6 +322,11 @@ public class CompositeEffectInstance extends EffectInstance
 	 *  Subclasses must implement this function.
 	 *
 	 *  @param The child effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function onEffectEnd(childEffect:IEffectInstance):void
 	{
