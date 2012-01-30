@@ -22,7 +22,7 @@ import spark.globalization.supportClasses.DateTimeFormatterEx;
  *   
  *  @langversion 3.0
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class YearProvider extends OnDemandDataProvider
 {
@@ -37,7 +37,7 @@ public class YearProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function YearProvider(locale:String, start:int = 1601, end:int = 9999,
                                  today:Date = null)
@@ -102,7 +102,7 @@ public class YearProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     override public function getItemAt(index:int, prefetch:int=0):Object
     {
@@ -127,7 +127,7 @@ public class YearProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     override public function getItemIndex(item:Object):int
     {
@@ -152,7 +152,7 @@ public class YearProvider extends OnDemandDataProvider
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     override public function toArray():Array
     {
