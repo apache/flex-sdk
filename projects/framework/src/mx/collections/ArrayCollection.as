@@ -77,6 +77,8 @@ public class ArrayCollection extends ListCollectionView implements IExternalizab
      *
      *  <p>Creates a new ArrayCollection using the specified source array.
      *  If no array is specified an empty array will be used.</p>
+     *
+     *  @param source The source Array.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
