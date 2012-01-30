@@ -312,9 +312,9 @@ public class FlexEvent extends Event
      *  @eventType contentCreationComplete
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
+     *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 4
+     *  @productversion Flex 3
      */
     public static const CONTENT_CREATION_COMPLETE:String = "contentCreationComplete";
 
