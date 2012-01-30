@@ -18,12 +18,10 @@ import mx.core.mx_internal;
  *  Represents a selector node in a potential chain of selectors used to match
  *  CSS style declarations to components.
  * 
- *  @see mx.styles.CSSSelectorKind
- *  
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class CSSSelector
 {
@@ -36,9 +34,7 @@ public class CSSSelector
     /**
      *  Constructor.
      * 
-     *  @param kind  The kind of selector. For valid values see the
-     *  CSSSelectorKind enumeration.
-     *  @param value  The plain representation of this selector without
+     *  @param subject The plain representation of this selector without
      *  conditions or ancestors.
      *  @param conditions  An optional Array of conditions used to match a
      *  subset of component instances. Currently only a single or a pair of
@@ -47,15 +43,14 @@ public class CSSSelector
      *  conditions are supported.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    public function CSSSelector(kind:uint, value:String, conditions:Array=null,
-            ancestor:CSSSelector=null)
+    public function CSSSelector(subject:String,
+            conditions:Array=null, ancestor:CSSSelector=null)
     {
-        _kind = kind;
-        _value = value;
+        _subject = subject;
         _conditions = conditions;
         _ancestor = ancestor;
     }
@@ -80,9 +75,9 @@ public class CSSSelector
      *  selector defined for an arbitrary ancestor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get ancestor():CSSSelector
     {
@@ -100,45 +95,22 @@ public class CSSSelector
 
     /**
      *  This selector may match a subset of components by specifying further
-     *  conditions, i.e. the component may have a particular id, styleName
-     *  (equivalent to a 'class' condition in CSS) or state (equivalent to a
-     *  'pseudo' condition in CSS).
-     * 
+     *  conditions, i.e. a matching component must have a particular id,
+     *  styleName (equivalent to a 'class' condition in CSS) or state
+     *  (equivalent to a 'pseudo' condition in CSS).
+     *  
+     *  If no conditions are specified this property is null.
+     *  
      *  @return Array of CSSCondition specified for this selector.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    public function get conditions():Array
+    public function get conditions():Array // of CSSCondition
     {
         return _conditions;
-    }
-
-    //----------------------------------
-    //  kind
-    //----------------------------------
-
-    /**
-     *  @private
-     */ 
-    private var _kind:uint;
-
-    /**
-     *  The kind of selector this instance represents. Options are type,
-     *  conditional or descendant.
-     * 
-     *  @see mx.styles.CSSSelectorKind
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */ 
-    public function get kind():uint
-    {
-        return _kind;
     }
 
     //----------------------------------
@@ -150,22 +122,22 @@ public class CSSSelector
      *  the precedence when applying several matching style declarations. Note
      *  that id conditions contribute 100 points, pseudo and class conditions
      *  each contribute 10 points, types (including descendants in a chain of
-     *  selectors) contribute 1 point. Global selectors (i.e. *) contribute
+     *  selectors) contribute 1 point. Universal selectors (i.e. *) contribute
      *  nothing. The result is the sum of these contributions. Selectors with a
      *  higher specificity override selectors of lower specificity. If
-     *  selectors have equival specificity, the declaration order determines
+     *  selectors have equal specificity, the declaration order determines
      *  the precedence (i.e. the last one wins).
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    public function get specificity():uint
+    public function get specificity():int
     {
-        var s:uint = 0;
+        var s:int = 0;
 
-        if ("*" != value && "global" != value && "" != value)
+        if ("*" != subject && "global" != subject && "" != subject)
             s = 1;
 
         if (conditions != null)
@@ -183,31 +155,31 @@ public class CSSSelector
     }
 
     //----------------------------------
-    //  value
+    //  subject
     //----------------------------------
 
     /**
      *  @private
      */ 
-    private var _value:String;
+    private var _subject:String;
 
     /**
-     *  The value of this selector node (only). To get a String representation
+     *  The subject of this selector node (only). To get a String representation
      *  of all conditions and descendants of this selector call the toString()
      *  method.
      * 
      *  If this selector represents the root node of a potential chain of
-     *  selectors, the value also represents the subject of the entire selector
+     *  selectors, the subject also represents the subject of the entire selector
      *  expression.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public function get value():String
+    public function get subject():String
     {
-        return _value;
+        return _subject;
     }
 
     //--------------------------------------------------------------------------
@@ -223,60 +195,59 @@ public class CSSSelector
      *  @return true if component is a match, or false if not. 
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
-    public function isMatch(object:IAdvancedStyleClient):Boolean
+    public function matchesStyleClient(object:IAdvancedStyleClient):Boolean
     {
         var match:Boolean = false;
         var condition:CSSCondition = null;
 
-        if (kind == CSSSelectorKind.TYPE_SELECTOR
-            || kind == CSSSelectorKind.CONDITIONAL_SELECTOR)
+        // If we have an ancestor then this is part of a descendant selector
+        if (ancestor)
         {
-            if (value == "*" || value == "" || object.isTypeSelectorMatch(value))
-            {
-                match = true;
-            }
-
-            if (match && conditions != null)
-            {
-                for each (condition in conditions)
-                {
-                    match = condition.isMatch(object);
-                    if (!match)
-                        return false;
-                }
-            }
-        }
-        else if (kind == CSSSelectorKind.DESCENDANT_SELECTOR)
-        {
-            if (conditions != null)
+            if (conditions)
             {
                 // First, test if the conditions match
                 for each (condition in conditions)
                 {
-                    match = condition.isMatch(object);
+                    match = condition.matchesStyleClient(object);
                     if (!match)
                         return false;
                 }
             }
 
-            if (ancestor != null)
+            // Then reset and test if any ancestor matches
+            match = false;
+            var parent:IAdvancedStyleClient = object.styleParent;
+            while (parent != null)
             {
-                // Then reset and test if ancestors match
-                match = false;
-                var parent:IAdvancedStyleClient = object.styleParent;
-                while (parent != null)
+                if (parent.matchesCSSType(ancestor.subject)
+                        || "*" == ancestor.subject)
                 {
-                    if (parent.isTypeSelectorMatch(ancestor.value)
-                        || "*" == ancestor.value)
-                    {
-                        match = ancestor.isMatch(parent);
-                        break;
-                    }
-                    parent = parent.styleParent;
+                    match = ancestor.matchesStyleClient(parent);
+                    break;
+                }
+                parent = parent.styleParent;
+            }
+        }
+        else
+        {
+            // Check the type selector matches
+            if (subject == "*" || subject == "" || object.matchesCSSType(subject))
+            {
+                match = true;
+            }
+
+            // Then check if any conditions match 
+            if (match && conditions != null)
+            {
+                for each (condition in conditions)
+                {
+                    match = condition.matchesStyleClient(object);
+                    if (!match)
+                        return false;
                 }
             }
         }
@@ -287,16 +258,15 @@ public class CSSSelector
     /**
      *  @private
      */ 
-    public function getPseudoSelector():String
+    mx_internal function getPseudoCondition():String
     {
         var result:String = null;
 
-        if ((kind == CSSSelectorKind.CONDITIONAL_SELECTOR
-            || kind == CSSSelectorKind.DESCENDANT_SELECTOR) && conditions != null)
+        if (conditions)
         {
             for each (var condition:CSSCondition in conditions)
             {
-                if (condition.kind == CSSConditionKind.PSEUDO_CONDITION)
+                if (condition.kind == CSSConditionKind.PSEUDO)
                 {
                     result = condition.value;
                     break;
@@ -312,9 +282,9 @@ public class CSSSelector
      *  syntax, conditions and ancestors.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function toString():String
     {
@@ -322,11 +292,11 @@ public class CSSSelector
 
         if (ancestor != null)
         {
-            s = ancestor.toString() + " " + value;
+            s = ancestor.toString() + " " + subject;
         }
         else
         {
-            s = value;
+            s = subject;
         }
 
         if (conditions != null)
