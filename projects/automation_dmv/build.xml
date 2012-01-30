@@ -3,7 +3,7 @@
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 	<property file="${FLEX_HOME}/build.properties"/>
-	<property name="local.playerglobal.version" value="10"/>
+	<property name="local.playerglobal.version" value="10.0"/>
 	<property name="locale" value="en_US"/>
 	
 	<macrodef name="bundle">
