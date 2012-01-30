@@ -20,11 +20,12 @@ import mx.charts.chartClasses.IAxis;
 import mx.charts.renderers.LineRenderer;
 import mx.charts.styles.HaloDefaults;
 import mx.core.ClassFactory;
-import mx.graphics.SolidColor;
-import mx.graphics.Stroke;
-import mx.styles.CSSStyleDeclaration;
 import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
+import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
+import mx.graphics.Stroke;
+import mx.styles.CSSStyleDeclaration;
 
 use namespace mx_internal;
 
@@ -143,23 +144,14 @@ public class LineChart extends CartesianChart
     {
         HaloDefaults.init(styleManager);
         
-        var lineChartStyle:CSSStyleDeclaration =
-            HaloDefaults.createSelector("mx.charts.LineChart", styleManager);
-        
         var lineChartSeriesStyles:Array /* of Object */ = [];
-        
-        lineChartStyle.defaultFactory = function():void
-        {
-            this.axisColor = 0xD5DEDD;
-            this.chartSeriesStyles = lineChartSeriesStyles;
-            this.dataTipRenderer = DataTip;
-            this.fill = new SolidColor(0xFFFFFF, 0);
-            this.calloutStroke = new Stroke(0x888888,2);            
-            this.fontSize = 10;
-            this.textAlign = "left";
-            this.horizontalAxisStyleNames = ["hangingCategoryAxis"];
-            this.verticalAxisStyleNames = ["blockNumericAxis"];
-        }
+		
+		var lineChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.LineChart");
+		lineChartStyle.setStyle("chartSeriesStyles", lineChartSeriesStyles);
+		lineChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+		lineChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+		lineChartStyle.setStyle("horizontalAxisStyleNames", ["hangingCategoryAxis"]);
+		lineChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
         
         var n:int = HaloDefaults.defaultColors.length;
         for (var i:int = 0; i < n; i++)
