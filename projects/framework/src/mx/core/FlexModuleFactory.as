@@ -37,7 +37,8 @@ import mx.resources.ResourceManager;
 /**
  *  @private
  */
-public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory, ITextLineCreator
+public class FlexModuleFactory extends MovieClip
+	implements IFlexModuleFactory, ITextLineCreator
 {
 	include "../core/Version.as";
 
@@ -207,25 +208,9 @@ public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory, 
 
 	//--------------------------------------------------------------------------
 	//
-	//  Methods
+	//  Methods: IFlexModuleFactory
 	//
 	//--------------------------------------------------------------------------
-
-  	/**
-	 *  Implementation of ITextLineCreator.createTextLine 
-   	 */
-    public function createTextLine(textBlock:TextBlock, previousLine:TextLine=null, width:Number=1000000, lineOffset:Number=0.0, fitSomething:Boolean=false):TextLine
-    {
-	    return textBlock.createTextLine(previousLine, width, lineOffset, fitSomething);
-    }
-
-  	/**
-	 *  Implementation of ITextLineCreator.recreateTextLine 
-   	 */
-    public function recreateTextLine(textBlock:TextBlock, textLine:TextLine, previousLine:TextLine=null, width:Number=1000000, lineOffset:Number=0.0, fitSomething:Boolean=false):TextLine
-    {
-	    return textBlock["recreateTextLine"] ? textBlock["recreateTextLine"](textLine, previousLine, width, lineOffset, fitSomething) : null;
-    }
 
   	/**
    	 *  @private
@@ -255,6 +240,60 @@ public class FlexModuleFactory extends MovieClip implements IFlexModuleFactory, 
     {
         return {};
     }
+
+	//--------------------------------------------------------------------------
+	//
+	//  Methods: ITextLineCreator
+	//
+	//--------------------------------------------------------------------------
+
+    /**
+	 *  Calls createTextLine() on the specified TextBlock
+	 *  with the specified parameters. 
+	 *  In order for a TextLine to use an embedded font,
+	 *  it must be created in the SWF where the font is.
+	 *  This factory method makes that possible.
+   	 */
+    public function createTextLine(textBlock:TextBlock, 
+    							   previousLine:TextLine = null,
+    							   width:Number = 1000000,
+    							   lineOffset:Number = 0.0,
+    							   fitSomething:Boolean = false):TextLine
+    {
+	    return textBlock.createTextLine(previousLine, width,
+	    								lineOffset, fitSomething);
+    }
+
+    /**
+	 *  Calls recreateTextLine() on the specified TextBlock
+	 *  with the specified parameters. 
+	 *  In order for a TextLine to use an embedded font,
+	 *  it must be recreated in the SWF where the font is.
+	 *  This factory method makes that possible.
+   	 */
+    public function recreateTextLine(textBlock:TextBlock,
+    								 textLine:TextLine,
+    								 previousLine:TextLine = null,
+    								 width:Number = 1000000,
+    								 lineOffset:Number = 0.0, 
+    								 fitSomething:Boolean = false):TextLine
+    {
+	    // The recreateTextLine() method was added to TextBlock
+	    // in Player 10.1, so it must be looked up by name
+	    // since we are compiling for Player 10.0.
+	    var recreateTextLine:Function = textBlock["recreateTextLine"];
+	    if (recreateTextLine == null)
+	    	return null;
+	    
+	    return recreateTextLine(textLine, previousLine, width,
+	    	   					lineOffset, fitSomething);
+    }
+
+	//--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
 
    /**
     *  @inheritDoc
