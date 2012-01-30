@@ -18,6 +18,7 @@ import mx.managers.SystemManager;
 [ResourceBundle("formatters")]
 [ResourceBundle("SharedResources")]
 
+[Alternative(replacement="spark.formatters.NumberFormatter", since="4.5")]
 /**
  *  The NumberFormatter class formats a valid number
  *  by adjusting the decimal rounding and precision,
