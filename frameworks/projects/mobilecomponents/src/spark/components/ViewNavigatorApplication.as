@@ -618,8 +618,11 @@ package spark.components
                     
                     if (persistenceManager.enabled)
                     {
-                        navigator.selectedIndex = persistenceManager.getProperty("selectedSection") as Number;
+                        var selectedSection:Number = persistenceManager.getProperty("selectedSection") as Number;
                         
+                        if (selectedSection && selectedSection > 0 && selectedSection < savedSections.length)
+                            navigator.selectedIndex = selectedSection;
+                             
                         if (navigator.tabBar)
                             navigator.tabBar.selectedIndex = navigator.selectedIndex;
                     }
