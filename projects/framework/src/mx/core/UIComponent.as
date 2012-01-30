@@ -11554,6 +11554,16 @@ public class UIComponent extends FlexSprite
         var ct:ColorTransform = value.colorTransform;
         var pp:PerspectiveProjection = value.perspectiveProjection;
         
+        var mxTransform:mx.geom.Transform = value as mx.geom.Transform;
+        if (mxTransform)
+        {
+            if (!mxTransform.applyMatrix)
+                m = null;
+            
+            if (!mxTransform.applyMatrix3D)
+                m3 = null;
+        }
+        
         setTransform(value);
         
         if(m != null)
