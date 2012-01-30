@@ -24,6 +24,11 @@ import mx.core.IUIComponent;
  *  @see mx.managers.DragManager
  *  @see mx.core.DragSource
  *  @see mx.core.UIComponent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DragEvent extends MouseEvent
 {
@@ -61,6 +66,11 @@ public class DragEvent extends MouseEvent
 	 *  </table>
 	 *
      *  @eventType dragComplete
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DRAG_COMPLETE:String = "dragComplete";
 
@@ -90,6 +100,11 @@ public class DragEvent extends MouseEvent
 	 *  </table>
 	 *
      *  @eventType dragDrop
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DRAG_DROP:String = "dragDrop";
 
@@ -118,6 +133,11 @@ public class DragEvent extends MouseEvent
 	 *  </table>
 	 *
      *  @eventType dragEnter
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DRAG_ENTER:String = "dragEnter";
 
@@ -147,6 +167,11 @@ public class DragEvent extends MouseEvent
 	 *  </table>
 	 *
      *  @eventType dragExit
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DRAG_EXIT:String = "dragExit";
 
@@ -176,6 +201,11 @@ public class DragEvent extends MouseEvent
 	 *  </table>
 	 *
      *  @eventType dragOver
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DRAG_OVER:String = "dragOver";
 
@@ -205,6 +235,11 @@ public class DragEvent extends MouseEvent
 	 *  </table>
 	 *
      *  @eventType dragStart
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const DRAG_START:String = "dragStart";
 
@@ -236,6 +271,11 @@ public class DragEvent extends MouseEvent
 	 *  @param altKey Indicates whether the <code>Alt</code> key was pressed.
 	 *
 	 *  @param shiftKey Indicates whether the <code>Shift</code> key was pressed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DragEvent(type:String, bubbles:Boolean = false,
 							  cancelable:Boolean = true,
@@ -270,6 +310,11 @@ public class DragEvent extends MouseEvent
 	 *  The requested action.
 	 *  One of <code>DragManager.COPY</code>, <code>DragManager.LINK</code>,
 	 *  <code>DragManager.MOVE</code>, or <code>DragManager.NONE</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var action:String;
 	
@@ -283,6 +328,11 @@ public class DragEvent extends MouseEvent
 	 *  this property contains the child IAutomationObject object near the mouse cursor.
 	 *  If the <code>dragInitiator</code> property does not contain 
 	 *  an IAutomationObject object,  this proprty is <code>null</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var draggedItem:Object;
 
@@ -292,6 +342,11 @@ public class DragEvent extends MouseEvent
 
 	/**
 	 *  The component that initiated the drag.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var dragInitiator:IUIComponent;
 
@@ -301,6 +356,11 @@ public class DragEvent extends MouseEvent
 
 	/**
 	 *  The DragSource object containing the data being dragged.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var dragSource:DragSource;
 	
