@@ -71,21 +71,6 @@ use namespace mx_internal;
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
 /**
- *  Dispatched when a child ViewNavigator has completed a view change
- *  process.  If a transition is played, this method is dispatched
- *  after the animation completes.
- * 
- *  @eventType flash.events.Event
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
- // FIXME (chiedozi): PARB
-[Event(name="complete", type="flash.events.Event")]
-
-/**
  *  Dispatched when the navigator's selected index has changed.  When
  *  this event is dispatched, the selectedIndex and activeNavigator
  *  properties will be referencing the newly selected navigator.
@@ -127,7 +112,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
 {
     //--------------------------------------------------------------------------
     //
-    //  Constants
+    //  Class variables
     //
     //--------------------------------------------------------------------------
     
@@ -136,6 +121,12 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      *  Static constant representing no proposed selection.
      */
     private static const NO_PROPOSED_SELECTION:int = -1;
+    
+    /**
+     *  @private
+     *  The animation duration used when hiding and showing the action bar.
+     */ 
+    private static const TAB_BAR_ANIMATION_DURATION:Number = 250;
     
     //--------------------------------------------------------------------------
     //
@@ -561,7 +552,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */ 
     private function setupNavigator(navigator:ViewNavigatorBase):void
     {
-        navigator.parentNavigator = this;
+        navigator.setParentNavigator(this);
         navigator.visible = false;
 
         // All navigators should be inactive when initialized.  The proper
@@ -582,9 +573,9 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
      */ 
     private function cleanUpNavigator(navigator:ViewNavigatorBase):void
     {
-        navigator.parentNavigator = null;
+        navigator.setParentNavigator(null);
         
-        if (navigator.active)
+        if (navigator.isActive)
             navigator.setActive(false);
 
         if (navigator.activeView)
@@ -617,7 +608,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         if (selectedIndexChanged || dataProviderChanged)
         {
             var navigator:ViewNavigatorBase;
-
+            
+            // Store the old index
+            var oldIndex:int = _selectedIndex;
+            
             // If the data provider has changed, the navigator elements have
             // already been removed, so the following code doesn't need to run
             if (!selectedIndexAdjusted && !dataProviderChanged && _selectedIndex >= 0)
@@ -630,7 +624,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                     navigator.activeView.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, 
                                                                 view_propertyChangeHandler);
                 
-                navigator.removeEventListener(Event.COMPLETE, navigator_completeHandler);
                 navigator.removeEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.removeEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
             }
@@ -641,7 +634,6 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
             {
                 navigator = navigators[_selectedIndex];
                 
-                navigator.addEventListener(Event.COMPLETE, navigator_completeHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_ADD, navigator_elementAddHandler);
                 navigator.addEventListener(ElementExistenceEvent.ELEMENT_REMOVE, navigator_elementRemoveHandler);
                 
@@ -665,12 +657,19 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
                 }
             }
             
+            // Dispatch selection change event
+            if (hasEventListener(IndexChangeEvent.CHANGE))
+            {
+                var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGE, false, false);
+                e.oldIndex = oldIndex;
+                e.newIndex = _selectedIndex;
+                
+                dispatchEvent(e);
+            }
+            
             selectedIndexAdjusted = false;
             dataProviderChanged = false;
             selectedIndexChanged = false;
-            
-            // Dispatch a complete event
-            dispatchEvent(new Event(Event.COMPLETE));
         }
         
         if (tabBarVisibilityChanged)
@@ -751,7 +750,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     {
         var animate:Animate = new Animate();
         animate.target = tabBar;
-        animate.duration = getStyle("animationDuration");
+        animate.duration = TAB_BAR_ANIMATION_DURATION;
         animate.motionPaths = new Vector.<MotionPath>();
         animate.motionPaths.push(new SimpleMotionPath("y", props.start.y, props.end.y));
         
@@ -794,7 +793,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         
         var animate:Animate = new Animate();
         animate.target = contentGroup;
-        animate.duration = getStyle("animationDuration");
+        animate.duration = TAB_BAR_ANIMATION_DURATION;
         animate.motionPaths = new Vector.<MotionPath>();
         animate.motionPaths.push(new SimpleMotionPath("y", contentGroupProps.start.y, 
                                                            contentGroupProps.end.y));
@@ -805,18 +804,8 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         contentGroup.cacheAsBitmap = true;  
         
         finalEffect.addChild(animate);
-        finalEffect.duration = getStyle("animationDuration");
+        finalEffect.duration = TAB_BAR_ANIMATION_DURATION;
         return finalEffect;
-    }
-    
-    /**
-     *  @private
-     *  Redispatches the child navigators COMPLETE event.
-     */ 
-    private function navigator_completeHandler(event:Event):void
-    {
-        if (hasEventListener(Event.COMPLETE))
-            dispatchEvent(event);
     }
     
     /**
