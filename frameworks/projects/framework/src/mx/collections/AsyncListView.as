@@ -139,7 +139,10 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     private function deleteAllPendingResponders():void
     {
         for each (var responder:ListItemResponder in pendingResponders)
-            responder.index = -1;
+        {
+            if (responder)
+                responder.index = -1;
+        }
         pendingResponders.length = 0;
     }
 
@@ -307,7 +310,10 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
         const r:Array = new Array();
         var index:int = 0;
         for each (var item:* in a)
-            r[index++] = item;
+        {
+            if (item !== undefined)
+                r[index++] = item;
+        }
         return r;
     }
     
@@ -577,7 +583,7 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
     public function getItemIndex(item:Object):int
     {
         for each (var responder:ListItemResponder in pendingResponders)
-            if (responder.item === item)
+            if (responder && responder.item === item)
                 return responder.index;
         return (list) ? list.getItemIndex(item) : -1;
     }
@@ -708,7 +714,10 @@ public class AsyncListView extends OnDemandEventDispatcher implements IList
         {
             var nRequests:int = 0;
             for each (var responder:ListItemResponder in pendingResponders)
-                nRequests += 1;
+            {
+                if (responder)
+                    nRequests += 1;
+            }
             s += " length=" + length + ", " + nRequests + " pending requests";
         }
         else
