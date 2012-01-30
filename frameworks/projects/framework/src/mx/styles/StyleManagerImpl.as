@@ -268,6 +268,13 @@ public class StyleManagerImpl implements IStyleManager3
 
     /**
      *  @private
+     *  Whether any advanced selectors have been registered with this style
+     *  manager.
+     */ 
+    private var _hasAdvancedSelectors:Boolean;
+
+    /**
+     *  @private
      *  A map of CSS subjects that have pseudo selectors. If a subject does
      *  have a pseudo selector, a state change requires styles to be
      *  recalculated.
@@ -364,6 +371,34 @@ public class StyleManagerImpl implements IStyleManager3
     }
 
     //----------------------------------
+    //  typeHierarchyCache
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _typeHierarchyCache:Object;
+
+    /**
+     *  @private
+     */
+    public function get typeHierarchyCache():Object
+    {
+        if (_typeHierarchyCache == null)
+            _typeHierarchyCache = {};
+
+        return _typeHierarchyCache;
+    }
+
+    /**
+     * @private
+     */ 
+    public function set typeHierarchyCache(value:Object):void
+    {
+        _typeHierarchyCache = value;
+    }
+
+    //----------------------------------
     //  typeSelectorCache
     //----------------------------------
 
@@ -438,6 +473,16 @@ public class StyleManagerImpl implements IStyleManager3
     }
 
     /**
+     *  Determines whether any of the selectors registered with the style
+     *  manager have been advanced selectors (descendant selector, id selector,
+     *  non-global class selector, pseudo selector).
+     */ 
+    public function hasAdvancedSelectors():Boolean
+    {
+        return _hasAdvancedSelectors;
+    }
+
+    /**
      * @private
      * Determines whether at least one pseudo-selector has been specified for
      * the given subject.
@@ -491,6 +536,10 @@ public class StyleManagerImpl implements IStyleManager3
 
             _pseudoSubjects[subject] = true;
         }
+
+        // Record whether this is an advanced selector
+        if (styleDeclaration.isAdvanced())
+            _hasAdvancedSelectors = true;
 
         // Flush cache and start over.
         if (_typeSelectorCache)
