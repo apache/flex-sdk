@@ -13,8 +13,11 @@ package mx.graphics
 {
 
 /**
- *  An enum of the resize modes that determine how a BitmapImage
- *  fills in the dimensions specified by the layout system.
+ *  The BitmapFillMode class defines an enumeration of the resize modes that 
+ *  determine how a BitmapImage fills in the dimensions specified by the layout system.
+ *
+ *  @see spark.components.Image#fillMode
+ *  @see spark.primitives.BitmapImage#fillMode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
