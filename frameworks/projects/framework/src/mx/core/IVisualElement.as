@@ -64,6 +64,24 @@ public interface IVisualElement extends IEventDispatcher
     /**
      * Documentation is not currently available.
      */
+    function get rotationX():Number;
+    function set rotationX(value:Number):void;
+    
+    /**
+     * Documentation is not currently available.
+     */
+    function get rotationY():Number;
+    function set rotationY(value:Number):void;
+    
+    /**
+     * Documentation is not currently available.
+     */
+    function get rotationZ():Number;
+    function set rotationZ(value:Number):void;
+
+    /**
+     * Documentation is not currently available.
+     */
     function get transformX():Number;
     function set transformX(value:Number):void;
 
@@ -82,13 +100,49 @@ public interface IVisualElement extends IEventDispatcher
     /**
      * Documentation is not currently available.
      */
-     function get offsets():TransformOffsets;
-     function set offsets(value:TransformOffsets):void;
+    function get offsets():TransformOffsets;
+    function set offsets(value:TransformOffsets):void;
      
     /**
      * Documentation is not currently available.
      */
-     function get baselinePosition():Number;
+    function get baselinePosition():Number;
+    
+    /**
+     * Documentation is not currently available.
+     */ 
+    function get x():Number;
+    function set x(value:Number):void;
+       
+    /**
+     * Documentation is not currently available.
+     */             
+    function get y():Number;
+    function set y(value:Number):void;
+
+    /**
+     * Documentation is not currently available.
+     */
+    function get z():Number;
+    function set z(value:Number):void;
+
+    /**
+     * Documentation is not currently available.
+     */
+    function get scaleX():Number;
+    function set scaleX(value:Number):void;
+
+    /**
+     * Documentation is not currently available.
+     */
+    function get scaleY():Number;
+    function set scaleY(value:Number):void;
+
+    /**
+     * Documentation is not currently available.
+     */
+    function get scaleZ():Number;
+    function set scaleZ(value:Number):void;
 
     /**
      *  The horizontal distance in pixels from the left edge of the component to the
