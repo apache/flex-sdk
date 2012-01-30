@@ -11,14 +11,11 @@
 
 -->
 
-<project name="graphics" default="main" basedir=".">
+<project name="flash-integration" default="main" basedir=".">
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
 	<property file="${FLEX_HOME}/build.properties"/>
-
-    <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
-    <property name="local.playerglobal.version" value="10"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of FlexComponentBase.swc"/>
 
@@ -50,8 +47,6 @@
 		<compc fork="true"
 			   output="${basedir}/libs/FlexComponentBase.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-            <!-- If you change this, update ${local.playerglobal.version} above. -->
-            <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
@@ -59,7 +54,7 @@
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+                <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 			<locale/>
 			<accessible>true</accessible>
