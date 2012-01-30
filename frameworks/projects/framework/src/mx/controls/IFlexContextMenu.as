@@ -17,6 +17,11 @@ package mx.controls
  *  Flex context menus.  
  *
  *  @see mx.core.UIComponent#flexContextMenu
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFlexContextMenu
 {
@@ -28,6 +33,11 @@ public interface IFlexContextMenu
 	 *  menu for this InteractiveObject, such as adding listeners, etc..
 	 * 
 	 *  @param component InteractiveObject to set context menu on
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	function setContextMenu(component:InteractiveObject):void;
 	
@@ -37,6 +47,11 @@ public interface IFlexContextMenu
 	 *  menu for this InteractiveObject, such as removing listeners, etc..
 	 * 
 	 *  @param component InteractiveObject to unset context menu on
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
 	function unsetContextMenu(component:InteractiveObject):void;
 
