@@ -76,7 +76,7 @@ public class StyleProtoChain
     /**
      *  @private
      *  Implements the getClassStyleDeclarations() logic
-     *  for UIComponent and TextGraphicElement.
+     *  for UIComponent and TextBase.
      *  The 'object' parameter will be one or the other.
      */
     public static function getClassStyleDeclarations(object:IStyleClient):Array
@@ -139,7 +139,7 @@ public class StyleProtoChain
 
     /**
      *  @private
-     *  Implements the initProtoChain() logic for UIComponent and TextGraphicElement.
+     *  Implements the initProtoChain() logic for UIComponent and TextBase.
      *  The 'object' parameter will be one or the other.
      */
     public static function initProtoChain(object:IStyleClient):void
@@ -639,7 +639,7 @@ public class StyleProtoChain
 
     /**
      *  @private
-     *  Implements the setStyle() logic for UIComponent and TextGraphicElement.
+     *  Implements the setStyle() logic for UIComponent and TextBase.
      *  The 'object' parameter will be one or the other.
      */
     public static function setStyle(object:IStyleClient, styleProp:String,
@@ -692,7 +692,7 @@ public class StyleProtoChain
 
     /**
      *  @private
-     *  Implements the styleChanged() logic for UIComponent and TextGraphicElement.
+     *  Implements the styleChanged() logic for UIComponent and TextBase.
      *  The 'object' parameter will be one or the other.
      */
     public static function styleChanged(object:IInvalidating, styleProp:String):void
@@ -733,8 +733,10 @@ public class StyleProtoChain
         var parent:IInvalidating;
         if (object is UIComponent)
             parent = UIComponent(object).parent as IInvalidating;
-        else if ("parent" in object) // object is TextGraphicElement
+        else if ("parent" in object) // object is TextBase
             parent = object["parent"] as IInvalidating;
+        
+        // FIXME (rfrishbe): clean up this logic around TextBase...now it's a UIC, so we don't need it anymore
 
         if (parent)
         {
