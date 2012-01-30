@@ -18,7 +18,6 @@ import flash.events.ErrorEvent;
 import flash.events.ProgressEvent;
 import flash.events.IOErrorEvent;
 import flash.events.SecurityErrorEvent;
-import flash.events.TimerEvent;
 import flash.net.URLRequest;
 import flash.net.URLLoader;
 import flash.net.URLLoaderDataFormat;
@@ -28,7 +27,7 @@ import flash.system.LoaderContext;
 import flash.system.Security;
 import flash.system.SecurityDomain;
 import flash.utils.ByteArray;
-import flash.utils.Timer;
+//import flash.utils.getTimer;        // PERFORMANCE_INFO
 
 import mx.events.RSLEvent;
 import mx.utils.SHA256;
@@ -64,7 +63,13 @@ public class CrossDomainRSLItem extends RSLItem
     private var isSigned:Array;     // each entry is a boolean value. "true" if the rsl in the parallel array is signed
     private var hashTypes:Array;     //  type of hash used to create the digest
     private var urlIndex:int = 0;   // index into url being loaded in rslsUrls and other parallel arrays
+
+    // this reference to the loader keeps the loader from being garbage 
+    // collected before the complete event can be sent. 
+    private var loadBytesLoader:Loader; 
     
+//    private var startTime:int;      // PERFORMANCE_INFO
+        
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -109,6 +114,8 @@ public class CrossDomainRSLItem extends RSLItem
         this.digests = digests;
         this.hashTypes = hashTypes;
         this.isSigned = isSigned;
+        
+        // startTime = getTimer(); // PERFORMANCE_INFO
     }
 
 
@@ -222,6 +229,9 @@ public class CrossDomainRSLItem extends RSLItem
                 return;
             }
         }
+        
+//        trace("start load of " + urlRequest.url + " at " + (getTimer() - startTime)); // PERFORMANCE_INFO
+        
         loader.load(urlRequest);
     }
     
@@ -252,7 +262,7 @@ public class CrossDomainRSLItem extends RSLItem
         }
         
         // load the bytes into the current application domain.
-        var loader:Loader = new Loader();
+        loadBytesLoader = new Loader();
         var context:LoaderContext = new LoaderContext();
         context.applicationDomain = ApplicationDomain.currentDomain;
         context.securityDomain = null;
@@ -310,12 +320,12 @@ public class CrossDomainRSLItem extends RSLItem
         }
 
         // load the rsl into memory
-        loader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadBytesCompleteHandler);
-        loader.loadBytes(urlLoader.data, context);
+        loadBytesLoader.contentLoaderInfo.addEventListener(Event.COMPLETE, loadBytesCompleteHandler);
+        loadBytesLoader.loadBytes(urlLoader.data, context);
         return true;
     }
 
-  
+
     /**
     *  Does the current url being processed have a failover?
     * 
@@ -370,6 +380,8 @@ public class CrossDomainRSLItem extends RSLItem
      */
     override public function itemCompleteHandler(event:Event):void
     {
+//        trace("complete load of " + url + " at " + (getTimer() - startTime)); // PERFORMANCE_INFO
+
         // complete loading the cross-domain rsl by calling loadBytes.
         completeCdRslLoad(event.target as URLLoader);
     }
@@ -379,6 +391,8 @@ public class CrossDomainRSLItem extends RSLItem
      */
     override public function itemErrorHandler(event:ErrorEvent):void
     {
+//        trace("error loading " + url + " at " + (getTimer() - startTime)); // PERFORMANCE_INFO
+
         // if a failover exists, try to load it. Otherwise call super()
         // for default error handling.
         if (hasFailover())
@@ -402,7 +416,10 @@ public class CrossDomainRSLItem extends RSLItem
      */ 
     private function loadBytesCompleteHandler(event:Event):void
     {
+        loadBytesLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE, loadBytesCompleteHandler);
+        loadBytesLoader = null;
         super.itemCompleteHandler(event);           
     }
+    
 }
 }
