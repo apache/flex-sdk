@@ -20,6 +20,8 @@ import mx.core.mx_internal;
 import spark.components.supportClasses.ViewDescriptor;
 use namespace mx_internal;
 
+[ExcludeClass]
+
 /**
  *  The NavigationStack class is a data structure that is internally used by 
  *  ViewNavigator to track the current set of views that are being managed 
