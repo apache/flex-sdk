@@ -24,8 +24,11 @@ import mx.core.mx_internal;
 import mx.events.SWFBridgeEvent;
 import mx.utils.NameUtil;
 import mx.utils.SecurityUtil;
+import mx.events.SWFBridgeRequest;
 
 use namespace mx_internal;
+
+[ExcludeClass]
 
 /**
  *  This class acts as the SystemManager for a popup window that is 
@@ -61,7 +64,7 @@ public class SystemManagerProxy extends SystemManager
 		// Capture mouseDown so we can switch top level windows and activate
 		// the right focus manager before the components inside start
 		// processing the event.
-		addEventListener(MouseEvent.MOUSE_DOWN, proxyMouseDownHandler, true); 
+		super.addEventListener(MouseEvent.MOUSE_DOWN, proxyMouseDownHandler, true);
 	}
 	
     //--------------------------------------------------------------------------
@@ -136,6 +139,25 @@ public class SystemManagerProxy extends SystemManager
 		return false; // proxy does not want to use the bridge
 	}	
 	
+    /**
+     *  @inheritDoc
+     */
+    override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, 
+                                            priority:int=0, useWeakReference:Boolean=false):void
+    {
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+        _systemManager.addEventListener(type, listener, useCapture, priority, useWeakReference);
+    }
+    
+    /**
+     *  @inheritDoc
+     */
+    override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void 
+    {
+        super.removeEventListener(type, listener, useCapture);
+        _systemManager.removeEventListener(type, listener, useCapture);     
+    }
+    
 	/**
 	 *  @inheritDoc
 	 */
@@ -158,9 +180,11 @@ public class SystemManagerProxy extends SystemManager
 			var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
                 SWFBridgeEvent.BRIDGE_WINDOW_ACTIVATE,
                 false, false,
-				mutualTrust ? this : NameUtil.displayObjectToString(this));
+                { notifier: bridge,
+                  window: mutualTrust ? this : NameUtil.displayObjectToString(this)
+                });
 			
-            bridge.dispatchEvent(bridgeEvent);
+            _systemManager.getSandboxRoot().dispatchEvent(bridgeEvent);
 		}
 	}
 
@@ -186,9 +210,11 @@ public class SystemManagerProxy extends SystemManager
             var bridgeEvent:SWFBridgeEvent = new SWFBridgeEvent(
                 SWFBridgeEvent.BRIDGE_WINDOW_DEACTIVATE,
 				false, false,
-				mutualTrust ? this : NameUtil.displayObjectToString(this));
+                { notifier: bridge,
+                  window: mutualTrust ? this : NameUtil.displayObjectToString(this)
+                });
 
-			bridge.dispatchEvent(bridgeEvent);
+			_systemManager.getSandboxRoot().dispatchEvent(bridgeEvent);
 		}
 	}
 	
@@ -247,7 +273,7 @@ public class SystemManagerProxy extends SystemManager
         // is a focus container. If our child is not a focus manager
         // container we will not be able to activate pop up in this proxy. 
         if (findFocusManagerContainer(this))
-            SystemManager(_systemManager).fireActivatedWindowEvent(this);
+            SystemManager(_systemManager).dispatchActivatedWindowEvent(this);
     }
 }
 
