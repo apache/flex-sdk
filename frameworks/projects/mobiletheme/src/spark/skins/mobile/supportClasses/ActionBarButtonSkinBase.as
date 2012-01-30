@@ -131,6 +131,9 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     //
     //--------------------------------------------------------------------------
     
+    /**
+     * @private
+     */
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         // omit super.drawBackground() to drawRect instead
