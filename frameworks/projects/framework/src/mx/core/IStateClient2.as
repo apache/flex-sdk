@@ -24,34 +24,13 @@ import flash.events.IEventDispatcher;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public interface IStateClient2 extends IEventDispatcher
+public interface IStateClient2 extends IEventDispatcher, IStateClient 
 {   
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-
-
-    //----------------------------------
-    //  currentState
-    //----------------------------------
-
-    /**
-     *  The current view state.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    function get currentState():String;
-    
-    /**
-     *  @private
-     */
-    function set currentState(value:String):void;
-    
     
     //----------------------------------
     //  states
@@ -95,6 +74,22 @@ public interface IStateClient2 extends IEventDispatcher
      *  @private
      */
     function set transitions(value:Array):void;
+    
+    /**
+     *  Determines whether the specified state has been defined on this
+     *  UIComponent. 
+     *
+     *  @param stateName The name of the state being checked. 
+     *
+     *  @return Whether or not the specified state has been defined 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function hasState(stateName:String):Boolean
+    
 }
 
 }
