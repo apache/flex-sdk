@@ -17,6 +17,8 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Loader;
 import flash.display.LoaderInfo;
+import flash.display.Shape;
+import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.HTTPStatusEvent;
@@ -43,6 +45,7 @@ import mx.core.mx_internal;
 import mx.events.SandboxBridgeEvent;
 import mx.events.FlexEvent;
 import mx.events.FocusRequest;
+import mx.events.MarshalEvent;
 import mx.managers.CursorManager;
 import mx.managers.FocusManager;
 import mx.managers.IFocusManager;
@@ -385,6 +388,11 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
      *  @private
      */
     private var explicitLoaderContext:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var mouseShield:Sprite;
 
     //--------------------------------------------------------------------------
     //
@@ -1189,6 +1197,8 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
 
         if (brokenImageBorder)
             brokenImageBorder.setActualSize(unscaledWidth, unscaledHeight);
+
+		sizeShield();
     }
 
     //--------------------------------------------------------------------------
@@ -1847,6 +1857,8 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
             if (_autoLoad)
                 load(_source);
         }
+		ISystemManager2(systemManager).getSandboxRoot().addEventListener(MarshalEvent.DRAG_MANAGER, 
+				mouseShieldHandler);
     }
 
     
@@ -2056,6 +2068,55 @@ public class SWFLoader extends UIComponent implements IFocusManagerBridge, IChil
 		}
 	}
 	
+	/**
+	 *	@private
+	 * 
+	 * 	Put up or takedown a mouseshield that covers the content
+	 *  of the application we loaded.
+	 */
+	private function mouseShieldHandler(event:Event):void
+	{
+		if (event["name"] != "mouseShield")
+			return;
+
+		if (accessibleFromChild())
+			return;
+
+		if (event["value"])
+		{
+			if (!mouseShield)
+			{
+				mouseShield = new Sprite();
+				mouseShield.graphics.beginFill(0, 0);
+				mouseShield.graphics.drawRect(0, 0, 100, 100);
+				mouseShield.graphics.endFill();
+			}
+			if (!mouseShield.parent)
+				addChild(mouseShield);
+			sizeShield();
+
+		}
+		else
+		{
+			if (mouseShield.parent)
+				removeChild(mouseShield)
+		}
+	}
+	
+	/**
+	 *	@private
+	 * 
+	 * 	size the shield if needed
+	 */
+	private function sizeShield():void
+	{
+		if (mouseShield && mouseShield.parent)
+		{
+			mouseShield.width = unscaledWidth;
+			mouseShield.height = unscaledHeight;
+		}
+	}
+
     /**
      *  @private
      * 
