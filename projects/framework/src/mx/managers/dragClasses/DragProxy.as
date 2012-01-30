@@ -41,6 +41,8 @@ import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
+use namespace mx_internal;
+
 [ExcludeClass]
 
 /**
@@ -664,7 +666,7 @@ public class DragProxy extends UIComponent
      */
     private function effectEndHandler(event:EffectEvent):void
     {
-        DragManager.mx_internal::endDrag();
+        DragManager.endDrag();
     }
 
 	/**
