@@ -15,6 +15,7 @@ package spark.transitions
 import flash.display.BlendMode;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import flash.geom.Point;
 
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -110,7 +111,14 @@ public class ZoomViewTransition extends ViewTransitionBase
     /**
      *  @private
      */
-    private var targetShapshot:BitmapImage;
+    private var targetSnapshot:BitmapImage;
+    
+    /**
+     *  @private
+     *  Stores the location of the cached navigator in the global coordinate space
+     *  so that the transition can properly position it when added to the display list.
+     */ 
+    private var targetSnapshotGlobalPosition:Point = new Point();
     
     /**
      *  @private
@@ -205,7 +213,7 @@ public class ZoomViewTransition extends ViewTransitionBase
         
         var oldVisibility:Boolean = endView.visible;
         endView.visible = false;
-        cachedNavigator = getSnapshot(targetNavigator, 0);
+        cachedNavigator = getSnapshot(targetNavigator, 0, cachedNavigatorGlobalPosition);
         endView.visible = oldVisibility;
     }
     
@@ -220,19 +228,30 @@ public class ZoomViewTransition extends ViewTransitionBase
     {       
         super.captureEndValues();
         
-        // Set targetShapshot to the snapshot that we will be
+        // Set targetSnapshot to the snapshot that we will be
         // transitioning in or out.
         if (consolidatedTransition)
         {
-            targetShapshot = (mode == ZoomViewTransitionMode.OUT) ?
-                cachedNavigator :
-                getSnapshot(targetNavigator.skin, 0);
+            if (mode == ZoomViewTransitionMode.OUT)
+            {
+                targetSnapshot = cachedNavigator;
+                targetSnapshotGlobalPosition = cachedNavigationGroupGlobalPosition.clone();
+            }
+            else
+            {
+                targetSnapshot = getSnapshot(targetNavigator.skin, 0, targetSnapshotGlobalPosition);
+            }
         }
         else
         {
-            targetShapshot = (mode == ZoomViewTransitionMode.OUT) ?
-                getSnapshot(startView, 0) :
-                getSnapshot(endView, 0);
+            if (mode == ZoomViewTransitionMode.OUT)
+            {
+                targetSnapshot = getSnapshot(startView, 0, targetSnapshotGlobalPosition);
+            }
+            else
+            {
+                targetSnapshot = getSnapshot(endView, 0, targetSnapshotGlobalPosition);
+            }
         }
     }
     
@@ -272,8 +291,8 @@ public class ZoomViewTransition extends ViewTransitionBase
                 endView.visible = false;
         }
         
-        if (targetShapshot)
-            transitionGroup.addElement(targetShapshot);
+        if (targetSnapshot)
+            addCachedElementToGroup(transitionGroup, targetSnapshot, targetSnapshotGlobalPosition);
         
         transitionGroup.validateNow();
  
@@ -309,17 +328,20 @@ public class ZoomViewTransition extends ViewTransitionBase
         // Add a group to contain our snapshot view of the original navigator.
         cachedNavigatorGroup = new Group();
         cachedNavigatorGroup.includeInLayout = false;
-        cachedNavigatorGroup.addElement(cachedNavigator);
-        cachedNavigator.includeInLayout = false;
 
-		var targetNavigatorIndex:int = getComponentChildIndex(targetNavigator, targetNavigator.parent as UIComponent);
-		
+        // On zoom out, place the cachedNavigator above the targetNavigator 
+		var index:int = getComponentChildIndex(targetNavigator, targetNavigator.parent as UIComponent);
+		if (mode == ZoomViewTransitionMode.OUT)
+            index++;
+        addComponentToContainerAt(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent, index);
+
+        cachedNavigator.includeInLayout = false;
+        addCachedElementToGroup(cachedNavigatorGroup, cachedNavigator, cachedNavigatorGlobalPosition);
+
         // Add our temporary transition group to our target navigator's parent
         // so we can make it and the original navigator siblings.
         if (mode == ZoomViewTransitionMode.OUT)
         {
-            addComponentToContainerAt(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent, targetNavigatorIndex + 1);
-            
             // We'll be zooming out our cachedNavigatorGroup.
             transitionGroup = cachedNavigatorGroup;
         }
@@ -327,12 +349,11 @@ public class ZoomViewTransition extends ViewTransitionBase
         {
             transitionGroup = new Group();
             transitionGroup.includeInLayout = false;
-            addComponentToContainerAt(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent, targetNavigatorIndex);
             
             // We'll be zooming in our snapshot of the new navigator. Host our 
             // snapshot and make sure it's rendered.
             cachedNavigatorGroup.addElement(transitionGroup);
-            transitionGroup.addElement(targetShapshot);
+            addCachedElementToGroup(transitionGroup, targetSnapshot, targetSnapshotGlobalPosition);
             cachedNavigatorGroup.validateNow();
             
             // Hide our real navigator.
