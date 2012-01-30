@@ -36,7 +36,7 @@ package spark.automation.delegates.components
 	import spark.automation.events.SparkDataGridItemSelectEvent;
 	import spark.automation.tabularData.SparkDataGridTabularData;
 	import spark.components.DataGrid;
-	import spark.components.IGridItemRenderer;
+	import spark.components.gridClasses.IGridItemRenderer;
 	import spark.events.GridEvent;
 	
 	use namespace mx_internal;
@@ -612,7 +612,7 @@ package spark.automation.delegates.components
 			{
 				case MouseEvent.CLICK:
 				{
-					return help.replayClick(grid.columnHeaderBar, MouseEvent(interaction));
+					return help.replayClick(grid.columnHeaderGroup, MouseEvent(interaction));
 				}
 				case GridEvent.GRID_DOUBLE_CLICK:
 				{
