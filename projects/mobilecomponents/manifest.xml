@@ -16,7 +16,6 @@
 
 -->
 <componentPackage>
-    <component id="ActionBar" class="spark.components.ActionBar"/>
     <component id="MobileApplication" class="spark.components.MobileApplication"/>
     <component id="View" class="spark.components.View"/>
     <component id="ViewNavigator" class="spark.components.ViewNavigator"/>
@@ -27,6 +26,7 @@
     <component id="AdaptableScreen" class="spark.components.AdaptableScreen"/>
     <component id="ScreenApplication" class="spark.components.ScreenApplication"/>
     <component id="AdaptableApplication" class="spark.components.AdaptableApplication"/>
+    <component id="ActionBar" class="spark.components.ActionBar"/>
     <component id="NavigationBar" class="spark.components.NavigationBar"/>
     <component id="SliderTabBar" class="spark.components.SliderTabBar" />
     <component id="TabItem" class="spark.components.supportClasses.TabItem" />
