@@ -220,7 +220,10 @@ global
     focusColor: #70B2EE;
     symbolColor: #000000;
     fontLookup: "embeddedCFF";
-
+    fontFamily: _sans;
+    fontSize: 14;
+    color: #FFFFFF;
+    
     /* Behaviors */
     autoThumbVisibility: true;
     fixedThumbSize: false;
