@@ -111,11 +111,11 @@ global
 	paragraphSpaceAfter: 0;
 	paragraphSpaceBefore: 0;
 	paragraphStartIndent: 0;
-    rollOverColor: #CEDBEF;
-	roundedBottomCorners: true;
     renderingMode: "cff";
 	repeatDelay: 500;
 	repeatInterval: 35;
+	rollOverColor: #CEDBEF;
+	roundedBottomCorners: true;
     selectionColor: #A8C6EE;
 	selectionDisabledColor: #DDDDDD;
 	selectionDuration: 250;
