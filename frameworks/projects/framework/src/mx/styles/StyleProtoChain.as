@@ -728,6 +728,13 @@ public class StyleProtoChain
             object.invalidateProperties();
         }
         
+        if (!styleProp || 
+            styleProp == "styleName" ||
+            styleProp == "layoutDirection")
+        {
+            object.invalidateProperties();
+        }        
+        
         // Check to see if this is one of the style properties
         // that is known to affect layout.
         if (!styleProp ||
