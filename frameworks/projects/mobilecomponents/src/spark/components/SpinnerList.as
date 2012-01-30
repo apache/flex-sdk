@@ -241,7 +241,7 @@ public class SpinnerList extends ListBase
     }
     
     /**
-     *  @inheritDoc
+     *  @copy spark.components.DataGroup#dataProvider
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
@@ -304,7 +304,7 @@ public class SpinnerList extends ListBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
