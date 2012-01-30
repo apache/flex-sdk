@@ -15,6 +15,7 @@ package mx.styles
 import flash.display.DisplayObject;
 import flash.events.EventDispatcher;
 import flash.utils.Dictionary;
+
 import mx.core.Singleton;
 import mx.core.mx_internal;
 import mx.managers.SystemManagerGlobals;
@@ -62,15 +63,15 @@ use namespace mx_internal;
  *  style properties on a CSSStyleDeclaration.</p>
  *
  *  <p>You can also create and install a CSSStyleDeclaration at run time
- *  using the <code>StyleManager.setStyleDeclaration()</code> method:
+ *  using the <code>StyleManager.addStyleDeclaration()</code> method:
  *  <pre>
- *  var newStyleDeclaration:CSSStyleDeclaration = new CSSStyleDeclaration();
+ *  var newStyleDeclaration:CSSStyleDeclaration = new CSSStyleDeclaration(".bigMargins");
  *  newStyleDeclaration.defaultFactory = function():void
  *  {
  *      leftMargin = 50;
  *      rightMargin = 50;
  *  }
- *  StyleManager.setStyleDeclaration(".bigMargins", newStyleDeclaration, true);
+ *  StyleManager.addStyleDeclaration(newStyleDeclaration, true);
  *  </pre>
  *  </p>
  *
@@ -106,18 +107,35 @@ public class CSSStyleDeclaration extends EventDispatcher
     /**
      *  Constructor.
      *
-     *  @param selector If not null, this CSSStyleDeclaration will be
-     *  registered with the StyleManager using the selector value.
+     *  @param subject If not null, this CSSStyleDeclaration will be registered
+     *  with StyleManager. If the selector argument is not also specified,
+     *  this String is interpreted to be the legacy syntax of a String based
+     *  selector; if the value starts with a dot it is interpreted as a global
+     *  class selector, otherwise it represents a simple type selector.
+     *  @param selector The selector chain used to match IStyleClient2
+     *  components to this style declaration.
      */
-    public function CSSStyleDeclaration(selector:String = null)
+    public function CSSStyleDeclaration(subject:String=null, selector:CSSSelector=null)
     {
         super();
 
-        if (selector)
+        if (subject)
         {
+            if (selector)
+            {
+                _subject = subject;
+                _selector = selector;
+                _specificity = _selector.specificity;
+            }
+            else
+            {
+                // A legacy Flex 3 styled constructor was used...
+                selectorString = subject;
+            }
+
             // do not reference StyleManager directly because this is a bootstrap class
-            styleManager = Singleton.getInstance("mx.styles::IStyleManager2") as IStyleManager2;
-            styleManager.setStyleDeclaration(selector, this, false);
+            styleManager = Singleton.getInstance("mx.styles::IStyleManager3") as IStyleManager3;
+            styleManager.addStyleDeclaration(this, false);
         }
     }
 
@@ -158,7 +176,7 @@ public class CSSStyleDeclaration extends EventDispatcher
      *  @private
      *  reference to StyleManager
      */
-    private var styleManager:IStyleManager2;
+    private var styleManager:IStyleManager3;
 
     //--------------------------------------------------------------------------
     //
@@ -222,11 +240,121 @@ public class CSSStyleDeclaration extends EventDispatcher
      */
     protected var overrides:Object;
 
+    //----------------------------------
+    //  selector
+    //----------------------------------
+
+    private var _selector:CSSSelector;
+
+    /**
+     *  A potential chain of rules used to match components to this style
+     *  declaration. 
+     */
+    mx_internal function get selector():CSSSelector
+    {
+        return _selector; 
+    }
+
+    //----------------------------------
+    //  selectorString
+    //----------------------------------
+
+    private var _selectorString:String;
+
+    /**
+     *  A String representation of the selector.
+     */
+    mx_internal function get selectorString():String
+    {
+        if (_selectorString == null && _selector != null)
+            _selectorString = _selector.toString();
+
+        return _selectorString; 
+    }
+
+    /**
+     *  Legacy support for setting a Flex 3 styled selector string after 
+     *  the construction of a style declaration. Only global class selectors or
+     *  simple type selectors are supported. Note that this style declaration is
+     *  not automatically registered with the StyleManager when using this API.
+     */ 
+    mx_internal function set selectorString(value:String):void
+    {
+        // For the legacy API, the first arugment is either a simple
+        // type selector or a global class selector
+        if (value.charAt(0) == ".")
+        {
+            var condition:CSSCondition = new CSSCondition(CSSConditionKind.CLASS_CONDITION, value.substr(1));
+            _selector = new CSSSelector(CSSSelectorKind.CONDITIONAL_SELECTOR, "", [condition]);
+            _subject = "global";
+        }
+        else
+        {
+            _subject = value;
+            _selector = new CSSSelector(CSSSelectorKind.TYPE_SELECTOR, value);
+        }
+
+        _specificity = _selector.specificity;
+        _selectorString = value;
+    }
+
+    //----------------------------------
+    //  specificity
+    //----------------------------------
+
+    private var _specificity:uint;
+
+    /**
+     *  Determines the order of precedence when applying multiple style
+     *  declarations to a component. If style declarations are of equal
+     *  precedence, the last one wins. 
+     */
+    public function get specificity():uint
+    {
+        return _specificity; 
+    }
+
+    //----------------------------------
+    //  subject
+    //----------------------------------
+
+    private var _subject:String;
+
+    /**
+     *  The subject describes the name of a component that may be a potential
+     *  match for this style declaration. The subject is determined as right
+     *  most simple type selector in a potential chain of selectors.
+     */
+    public function get subject():String
+    {
+        return _subject; 
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     * Determines whether this style declaration applies to the given component
+     * based on a match of the selector chain.
+     * 
+     * @return true if this style declaration applies to the component, or
+     * false if not. 
+     */
+    public function isMatch(object:IAdvancedStyleClient, ignoreType:Boolean=false):Boolean
+    {
+        return selector.isMatch(object, ignoreType);
+    }
+
+    /**
+     * @private
+     */  
+    public function isPseudoSelector():Boolean
+    {
+        return selector != null && selector.isPseudoSelector();
+    }
 
     /**
      *  Gets the value for a specified style property,
@@ -395,7 +523,7 @@ public class CSSStyleDeclaration extends EventDispatcher
         if (value is String)
         {
             if (!styleManager)
-                styleManager = Singleton.getInstance("mx.styles::IStyleManager2") as IStyleManager2;
+                styleManager = Singleton.getInstance("mx.styles::IStyleManager3") as IStyleManager3;
             var colorNumber:Number = styleManager.getColorName(value);
             if (colorNumber != NOT_A_COLOR)
                 value = colorNumber;
