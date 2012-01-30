@@ -38,6 +38,19 @@ use namespace mx_internal;
 [Event(name="effectEnd", type="mx.events.EffectEvent")]
 
 /**
+ *  Dispatched when the effect has been stopped,
+ *  which only occurs when the effect has 
+ *  been interrupted by a call to the <code>stop()</code> method.
+ *  The EFFECT_END event will also be dispatched to indicate that
+ *  the effect has ended. This extra event is sent first, as an
+ *  indicator to listeners that the effect did not reach its
+ *  end state.
+ *
+ *  @eventType mx.events.EffectEvent.EFFECT_STOP
+ */
+[Event(name="effectStop", type="mx.events.EffectEvent")]
+
+/**
  *  Dispatched when the effect starts playing.
  *
  *  @eventType mx.events.EffectEvent.EFFECT_START
@@ -239,30 +252,21 @@ public class Effect extends EventDispatcher implements IEffect
      */
     mx_internal var propertyChangesArray:Array; 
     
+    private var effectStopped:Boolean;
+        
+    /**
+     *  @private
+     *  Pointer back to the CompositeEffect that created this instance.
+     *  Value is null if we are not the child of a CompositeEffect
+     */
+    mx_internal var parentCompositeEffect:Effect;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
 
-    //----------------------------------
-    //  autoReverse
-    //----------------------------------
-
-    private var _autoReverse:Boolean = false;
-    
-    /**
-     * @inheritDoc
-     */
-    public function get autoReverse():Boolean
-    {
-        return _autoReverse;
-    }
-    public function set autoReverse(value:Boolean):void
-    {
-        _autoReverse = value;
-    }
-        
     //----------------------------------
     //  className
     //----------------------------------
@@ -324,19 +328,15 @@ public class Effect extends EventDispatcher implements IEffect
      */
     public function get duration():Number
     {
-        // Instance classes like Parallel or Sequence may have something more 
-        // interesting to return for duration
-        if (_instances)
+        if (!mx_internal::durationExplicitlySet &&
+            mx_internal::parentCompositeEffect)
         {
-            // Return duration of first valid instance
-            for (var i:int = 0; i < _instances.length; ++i)
-            {
-                var instance:IEffectInstance = IEffectInstance(_instances[i]);
-                if (instance)
-                    return instance.duration;
-            }
+            return mx_internal::parentCompositeEffect.duration;
         }
-        return _duration;
+        else
+        {
+            return _duration;
+        }
     }
     
     /**
@@ -496,58 +496,6 @@ public class Effect extends EventDispatcher implements IEffect
                 }
             }
         }
-    }
-
-    //----------------------------------
-    //  fromState
-    //----------------------------------
-
-    private var _fromState:String;
-    /**
-     *  The state that the effect is animating from, when played as a 
-     *  state transition effect. This information will be set by the component
-     *  setting the state that causes the transition. It is not intended for
-     *  use outside of the Flex framework classes internally.
-     * 
-     *  @default null
-     */
-    public function get fromState():String
-    {
-        return _fromState;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fromState(value:String):void
-    {
-        _fromState = value;
-    }
-
-    //----------------------------------
-    //  toState
-    //----------------------------------
-
-    private var _toState:String;
-    /**
-     *  The state that the effect is animating to, when played as a 
-     *  state transition effect. This information will be set by the component
-     *  setting the state that causes the transition. It is not intended for
-     *  use outside of the Flex framework classes internally.
-     * 
-     *  @default null
-     */
-    public function get toState():String
-    {
-        return _toState;
-    }
-
-    /**
-     *  @private
-     */
-    public function set toState(value:String):void
-    {
-        _toState = value;
     }
 
     //----------------------------------
@@ -861,20 +809,53 @@ public class Effect extends EventDispatcher implements IEffect
     //
     //--------------------------------------------------------------------------
     
+    // TODO (chaase): This function should be in an interface, to
+    // allow it to be called easily through an interface instead of
+    // having to import Effect just to call it
     /**
-     * @inheritDoc
+     * Sets the current time of an effect. Seek may be used to
+     * fast-forward or reverse to a particular point in time in an effect.
+     * 
+     * @param seekTime Number of milliseconds that the effect should
+     * play at. This number should be between 0 and the duration of the
+     * effect.
+     * 
+     * @see #duration
      */
     public function seek(seekTime:Number):void
     {
+        // If the effect is not yet playing, it should still be possible
+        // to seek into it. playing and then pausing it provides that
+        // capability
+        // TODO (chaase): Need better overall mechanism to seek into a
+        // non-playing effect. The internals of seeking in Animation
+        // are complicated and don't end up giving us the behavior we
+        // want, especially for successive seeks.
+        var started:Boolean = false;
+        if (_instances.length == 0)
+        {
+            play();
+            started = true;
+        }
         for (var i:int = 0; i < _instances.length; i++)
         {
             if (_instances[i])
-                IEffectInstance(_instances[i]).seek(seekTime);
+                EffectInstance(_instances[i]).seek(seekTime);
         }
+        if (started)
+            pause();
     }
 
+    // TODO (chaase): This property should be in an interface, to
+    // allow it to be called easily through an interface instead of
+    // having to import Effect just to call it
+    // TODO (chaase): Consider renaming this property; playheadTime
+    // is very video-specific
     /**
-     * @inheritDoc
+     *  Current position in time of the effect.
+     *  This property has a value between 0 and the actual duration 
+     *  (which includes the value of the <code>startDelay</code>, 
+     *  <code>repeatCount</code>, and <code>repeatDelay</code> properties).
      */
     public function get playheadTime():Number 
     {
@@ -966,6 +947,7 @@ public class Effect extends EventDispatcher implements IEffect
             }
                 
             EventDispatcher(newInstance).addEventListener(EffectEvent.EFFECT_START, effectStartHandler);
+            EventDispatcher(newInstance).addEventListener(EffectEvent.EFFECT_STOP, effectStopHandler);
             EventDispatcher(newInstance).addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
             
             _instances.push(newInstance);
@@ -1010,7 +992,9 @@ public class Effect extends EventDispatcher implements IEffect
         EventDispatcher(instance).removeEventListener(
 			EffectEvent.EFFECT_START, effectStartHandler);
         EventDispatcher(instance).removeEventListener(
-			EffectEvent.EFFECT_END, effectEndHandler);
+            EffectEvent.EFFECT_STOP, effectStopHandler);
+        EventDispatcher(instance).removeEventListener(
+            EffectEvent.EFFECT_END, effectEndHandler);
         
         var n:int = _instances.length;
         for (var i:int = 0; i < n; i++)
@@ -1027,6 +1011,8 @@ public class Effect extends EventDispatcher implements IEffect
                          playReversedFromEnd:Boolean = false):
                          Array /* of EffectInstance */
     {
+        effectStopped = false;
+        
         // If we have a propertyChangesArray, capture the current values
         // if they haven't been captured already, strip out any unchanged 
         // values, then apply the start values.
@@ -1522,6 +1508,20 @@ public class Effect extends EventDispatcher implements IEffect
     }
     
     /**
+     *  Called when an effect instance has been stopped by a call
+     *  to the <code>stop()</code> method. 
+     *  If you override this method, ensure that you call the super method.
+     *
+     *  @param event An event object of type EffectEvent.
+     */
+    protected function effectStopHandler(event:EffectEvent):void
+    {
+        // We use this event to determine whether we should set final
+        // state values in the ensuing endHandler() call
+        effectStopped = true;
+    }
+    
+    /**
      *  Called when an effect instance has finished playing. 
      *  If you override this method, ensure that you call the super method.
      *
@@ -1530,7 +1530,7 @@ public class Effect extends EventDispatcher implements IEffect
     protected function effectEndHandler(event:EffectEvent):void 
     {
         // Transitions should set the end values when done
-        if (applyEndValuesWhenDone)   
+        if (applyEndValuesWhenDone && !effectStopped)   
             applyEndValues(mx_internal::propertyChangesArray, targets);
 
         var instance:IEffectInstance = IEffectInstance(event.effectInstance);
