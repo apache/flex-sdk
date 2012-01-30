@@ -48,8 +48,6 @@ public class HScrollBarSkin extends MobileSkin
     {
         super();
         
-        useChromeColor = true;
-        
         minWidth = 20;
         thumbSkinClass = HScrollBarThumbSkin;
         var paddingBottom:int;
@@ -168,8 +166,10 @@ public class HScrollBarSkin extends MobileSkin
     /**
      *  @private 
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        super.layoutContents(unscaledWidth, unscaledHeight);
+        
         setElementSize(track, unscaledWidth, unscaledHeight);
     }
 }
