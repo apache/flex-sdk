@@ -51,6 +51,11 @@ use namespace mx_internal;
     shadowColor (when borderStyle is "toolTip")
     textAlign
     textDecoration
+*  
+*  @langversion 3.0
+*  @playerversion Flash 9
+*  @playerversion AIR 1.1
+*  @productversion Flex 3
 */
 
 include "../styles/metadata/BorderStyles.as"
@@ -68,6 +73,11 @@ include "../styles/metadata/TextStyles.as"
  *
  *  @see mx.managers.ToolTipManager
  *  @see mx.styles.CSSStyleDeclaration
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ToolTip extends UIComponent implements IToolTip, IFontContextComponent
 {
@@ -83,6 +93,11 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
     
     /**
      *  Maximum width in pixels for new ToolTip controls.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var maxWidth:Number = 300;
 
@@ -94,6 +109,11 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ToolTip()
     {
@@ -113,6 +133,11 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
     
     /**
      *  The internal object that draws the border.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var border:IFlexDisplayObject;
     
@@ -176,6 +201,11 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
      *  The text displayed by the ToolTip.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get text():String
     {
@@ -201,6 +231,11 @@ public class ToolTip extends UIComponent implements IToolTip, IFontContextCompon
 
     /**
      *  The internal UITextField that renders the text of this ToolTip.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var textField:IUITextField;
 
