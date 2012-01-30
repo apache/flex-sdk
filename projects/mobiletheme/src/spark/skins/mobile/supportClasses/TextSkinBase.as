@@ -106,11 +106,6 @@ public class TextSkinBase extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
-    override public function get isFocusColorSupported():Boolean
-    {
-        return false;
-    }
-    
     /**
      *  @private
      */
