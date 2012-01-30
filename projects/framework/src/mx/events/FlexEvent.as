@@ -1412,43 +1412,10 @@ public class FlexEvent extends Event
      *  @productversion Flex 3
      */
     public static const VALUE_COMMIT:String = "valueCommit";
-
-    /**
-     *  The <code>FlexEvent.OPEN</code> constant defines the value of the
-     *  <code>type</code> property of the event object for an <code>open</code> 
-     *  event.  This event is dispatched after a SkinnablePopUpContainer has been
-     *  added to the PopUpManager and the transition to its "normal" state has completed.
-     *
-     *  <p>The properties of the event object have the following values:</p>
-     * 
-     *  <table class="innertable">
-     *     <tr><th>Property</th><th>Value</th></tr>
-     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
-     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
-     *     <tr><td><code>returnValue</code></td><td>null</td></tr>
-     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the 
-     *       event listener that handles the event. For example, if you use 
-     *       <code>myButton.addEventListener()</code> to register an event listener, 
-     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
-     *     <tr><td><code>target</code></td><td>The Object that dispatched the event; 
-     *       it is not always the Object listening for the event. 
-     *       Use the <code>currentTarget</code> property to always access the 
-     *       Object listening for the event.</td></tr>
-     *     <tr><td><code>Type</code></td><td>FlexEvent.OPEN</td></tr>
-     *  </table>
-     *
-     *  @eventType open
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public static const OPEN:String = "open";
    
     /**
-     *  The <code>FlexEvent.STATE_TRANSITION_COMPLETE</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>stateTransitionComplete</code> event.
+     *  The <code>FlexEvent.STATE_CHANGE_COMPLETE</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>stateChangeComplete</code> event.
      *
      * <p>This event will only be dispatched when there are one or more relevant listeners 
      * attached to the dispatching object.</p>
@@ -1468,18 +1435,18 @@ public class FlexEvent extends Event
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType stateTransitionComplete
+     *  @eventType stateChangeComplete
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const STATE_TRANSITION_COMPLETE:String = "stateTransitionComplete";
+    public static const STATE_CHANGE_COMPLETE:String = "stateChangeComplete";
     
     /**
-     *  The <code>FlexEvent.STATE_TRANSITION_INTERRUPTED</code> constant defines the value of the
-     *  <code>type</code> property of the event object for a <code>stateTransitionInterrupted</code> event.
+     *  The <code>FlexEvent.STATE_CHANGE_INTERRUPTED</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>stateChangeInterrupted</code> event.
      *
      * <p>This event will only be dispatched when there are one or more relevant listeners 
      * attached to the dispatching object.</p>
@@ -1499,14 +1466,14 @@ public class FlexEvent extends Event
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType stateTransitionInterrupted
+     *  @eventType stateChangeInterrupted
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const STATE_TRANSITION_INTERRUPTED:String = "stateTransitionInterrupted";
+    public static const STATE_CHANGE_INTERRUPTED:String = "stateChangeInterrupted";
 
     //--------------------------------------------------------------------------
     //
