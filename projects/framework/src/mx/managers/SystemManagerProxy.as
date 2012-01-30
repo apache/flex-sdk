@@ -273,9 +273,9 @@ public class SystemManagerProxy extends SystemManager
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */  
-    override public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
+    override public function getVisibleApplicationRect(bounds:Rectangle = null, skipToSandboxRoot:Boolean = false):Rectangle
     {
-        return _systemManager.getVisibleApplicationRect(bounds);    
+        return _systemManager.getVisibleApplicationRect(bounds, skipToSandboxRoot);    
     }
 
     //--------------------------------------------------------------------------
