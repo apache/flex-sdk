@@ -353,7 +353,7 @@ public class SetStyle extends OverrideBase
             // Disable bindings for the base style if appropriate. If the binding
             // fires while our override is applied, the correct value will automatically
             // be applied when the binding is later enabled.
-            enableBindings(obj, name, false);
+            enableBindings(obj, parent, name, false);
         }
         else if (!applied)
         {
@@ -402,7 +402,7 @@ public class SetStyle extends OverrideBase
             // Re-enable bindings for the base style if appropriate. If the binding
             // fired while our override was applied, the current value will automatically
             // be applied once enabled.
-            enableBindings(obj, name);
+            enableBindings(obj, parent, name);
             
             var relatedProps:Array = RELATED_PROPERTIES[name] ?
                                      RELATED_PROPERTIES[name] :
