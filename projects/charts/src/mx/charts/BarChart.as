@@ -138,730 +138,730 @@ public class BarChart extends CartesianChart
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class initialization
-	//
-	//--------------------------------------------------------------------------
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private static var INVALIDATING_STYLES:Object =
-	{
-		barWidthRatio: 1,
-		maxBarWidth: 1
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private static var INVALIDATING_STYLES:Object =
+    {
+        barWidthRatio: 1,
+        maxBarWidth: 1
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function BarChart()
-	{
-		super();
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function BarChart()
+    {
+        super();
 
-		LinearAxis(verticalAxis).autoAdjust = false;
+        LinearAxis(verticalAxis).autoAdjust = false;
 
-		dataTipMode = "single";
+        dataTipMode = "single";
 
-		seriesFilters = [ new DropShadowFilter(2, 45, 0.2 * 0xFFFFFF)];
-	}
+        seriesFilters = [ new DropShadowFilter(2, 45, 0.2 * 0xFFFFFF)];
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _moduleFactoryInitialized:Boolean = false;
-	
-	/**
-	 *  @private
-	 */
-	private var _perSeriesBarWidthRatio:Number;
-	
-	/**
-	 *  @private
-	 */
-	private var _perSeriesMaxBarWidth:Number;
-	
-	/**
-	 *  @private
-	 */
-	private var _rightOffset:Number;
-	
-	/**
-	 *  @private
-	 */
-	private var _wasStacked:Boolean = false;
-	
-	/**
-	 * @private
-	 */
-	mx_internal var allLabelsMeasured:Boolean = false;
-	
-	/**
-	 * @private
-	 */
-	private var _allItems:Array /* of ChartItem */ = [];
-	
-	/**
-	 * @private
-	 */
-	private var _barSeriesLen:Number;
-	
-	/**
-	 * @private
-	 */
-	private var _needLabels:Boolean = false;
-	
-	/**
-	 * @private
-	 */
-	private var _tempField:Object; 
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
+    /**
+     *  @private
+     */
+    private var _moduleFactoryInitialized:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var _perSeriesBarWidthRatio:Number;
+    
+    /**
+     *  @private
+     */
+    private var _perSeriesMaxBarWidth:Number;
+    
+    /**
+     *  @private
+     */
+    private var _rightOffset:Number;
+    
+    /**
+     *  @private
+     */
+    private var _wasStacked:Boolean = false;
+    
+    /**
+     * @private
+     */
+    mx_internal var allLabelsMeasured:Boolean = false;
+    
+    /**
+     * @private
+     */
+    private var _allItems:Array /* of ChartItem */ = [];
+    
+    /**
+     * @private
+     */
+    private var _barSeriesLen:Number;
+    
+    /**
+     * @private
+     */
+    private var _needLabels:Boolean = false;
+    
+    /**
+     * @private
+     */
+    private var _tempField:Object; 
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
     //----------------------------------
-	//  type
+    //  type
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the type property.
-	 */
-	private var _type:String = "clustered";
+    /**
+     *  @private
+     *  Storage for the type property.
+     */
+    private var _type:String = "clustered";
 
-	[Inspectable(category="General", enumeration="stacked,100%,clustered,overlaid", defaultValue="clustered")]
+    [Inspectable(category="General", enumeration="stacked,100%,clustered,overlaid", defaultValue="clustered")]
 
-	/**
-	 *  The type of bar chart to render. Possible values are:    
-	 *  <ul>
-	 *    <li><code>"clustered"</code>:
-	 *    Bars are grouped by category.
-	 *    This is the default value.</li>
-	 *  
-	 *    <li><code>"overlaid"</code>:
-	 *    Multiple bars are rendered on top of each other by category,
-	 *    with the last series specified on top.</li>
-	 *  
-	 *    <li><code>"stacked"</code>:
-	 *    Bars are stacked end to end and grouped by category.
-	 *    Each bar represents the cumulative value of the values beneath it.</li>
-	 *  
-	 *    <li><code>"100%"</code>:
-	 *    Bars are stacked end to end, adding up to 100%.
-	 *    Each bar represents the percent that it contributes
-	 *    to the sum of the values for that category.</li>
-	 *  </ul>
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get type():String
-	{
-		return _type;
-	}
+    /**
+     *  The type of bar chart to render. Possible values are:    
+     *  <ul>
+     *    <li><code>"clustered"</code>:
+     *    Bars are grouped by category.
+     *    This is the default value.</li>
+     *  
+     *    <li><code>"overlaid"</code>:
+     *    Multiple bars are rendered on top of each other by category,
+     *    with the last series specified on top.</li>
+     *  
+     *    <li><code>"stacked"</code>:
+     *    Bars are stacked end to end and grouped by category.
+     *    Each bar represents the cumulative value of the values beneath it.</li>
+     *  
+     *    <li><code>"100%"</code>:
+     *    Bars are stacked end to end, adding up to 100%.
+     *    Each bar represents the percent that it contributes
+     *    to the sum of the values for that category.</li>
+     *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get type():String
+    {
+        return _type;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set type(value:String):void
-	{
-		_type = value;
+    /**
+     *  @private
+     */
+    public function set type(value:String):void
+    {
+        _type = value;
 
-		invalidateSeries();
-		invalidateData();
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UIComponent
-	//
-	//--------------------------------------------------------------------------
-	
-	
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var barChartStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.BarChart", styleManager);
-		
-		barChartStyle.defaultFactory = function():void
-		{
-			this.axisColor = 0xD5DEDD;
-			this.barWidthRatio = 0.65;
-			this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;		
-			this.dataTipRenderer = DataTip;
-			this.fill = new SolidColor(0xFFFFFF, 0);
-			this.calloutStroke = new Stroke(0x888888,2);			
-			this.fontSize = 10;
-			this.gridLinesStyleName = "horizontalGridLines";
-			this.textAlign = "left";			
-			this.horizontalAxisStyleNames = ["blockNumericAxis"];
-			this.verticalAxisStyleNames = ["blockCategoryAxis"];
-		}
-		
-		return true;
-	}
+        invalidateSeries();
+        invalidateData();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    
+    /**
+     *  @private
+     */
+    private function initStyles():Boolean
+    {
+        HaloDefaults.init(styleManager);
+        
+        var barChartStyle:CSSStyleDeclaration =
+            HaloDefaults.createSelector("mx.charts.BarChart", styleManager);
+        
+        barChartStyle.defaultFactory = function():void
+        {
+            this.axisColor = 0xD5DEDD;
+            this.barWidthRatio = 0.65;
+            this.chartSeriesStyles = HaloDefaults.chartBaseChartSeriesStyles;       
+            this.dataTipRenderer = DataTip;
+            this.fill = new SolidColor(0xFFFFFF, 0);
+            this.calloutStroke = new Stroke(0x888888,2);            
+            this.fontSize = 10;
+            this.gridLinesStyleName = "horizontalGridLines";
+            this.textAlign = "left";            
+            this.horizontalAxisStyleNames = ["blockNumericAxis"];
+            this.verticalAxisStyleNames = ["blockCategoryAxis"];
+        }
+        
+        return true;
+    }
 
-	
-	/**
-	 *  @inheritDoc
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override public function set moduleFactory(factory:IFlexModuleFactory):void
-	{
-		super.moduleFactory = factory;
-		
-		if (_moduleFactoryInitialized)
-			return;
-		
-		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
-	}
-	
-	/**
-	 * @private
-	 */
-	override protected function createChildren():void
+    
+    /**
+     *   A module factory is used as context for using embedded fonts and for finding the style manager that controls the styles for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (_moduleFactoryInitialized)
+            return;
+        
+        _moduleFactoryInitialized = true;
+        
+        // our style settings
+        initStyles();
+    }
+    
+    /**
+     * @private
+     */
+    override protected function createChildren():void
     {
         super.createChildren();
-		var labelClass:Class = getLabelClass();
-		_tempField = new labelClass();
+        var labelClass:Class = getLabelClass();
+        _tempField = new labelClass();
         _tempField.visible = false;
         _tempField.text="W...";
         _tempField.toolTip = "";
         addChild(_tempField as DisplayObject);
         _tempField.validateNow();
     }
-	
-	private function getLabelClass():Class
-	{
-		var labelClass:Class = getStyle("labelClass");
-		if(labelClass == null)
-		{
-			try{
-				labelClass = Class(ApplicationDomain.currentDomain.
-					getDefinition("spark.components::Label"));
-			}
-			catch(e:Error)
-			{
-				labelClass = Class(ApplicationDomain.currentDomain.
-					getDefinition("mx.controls::Label"));
-			}
-		}
-		return labelClass;
-	}
+    
+    private function getLabelClass():Class
+    {
+        var labelClass:Class = getStyle("labelClass");
+        if(labelClass == null)
+        {
+            try{
+                labelClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("spark.components::Label"));
+            }
+            catch(e:Error)
+            {
+                labelClass = Class(ApplicationDomain.currentDomain.
+                    getDefinition("mx.controls::Label"));
+            }
+        }
+        return labelClass;
+    }
 
 
-	/**
-	 *  @private
-	 */
-	override public function styleChanged(styleProp:String):void
-	{
-		if (styleProp == null || INVALIDATING_STYLES[styleProp] != undefined)
-			invalidateSeries();
-
-		super.styleChanged(styleProp);
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: ChartBase
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	override protected function customizeSeries(seriesGlyph:Series, i:uint):void
-	{
-		if ((seriesGlyph is BarSeries) || (seriesGlyph is BarSet))
-		{
-			var series:Object = seriesGlyph;
-
-			if (!isNaN(_perSeriesBarWidthRatio))
-				series.barWidthRatio = _perSeriesBarWidthRatio;
-	
-			if (!isNaN(_perSeriesMaxBarWidth))
-				series.maxBarWidth = _perSeriesMaxBarWidth;
-				
-			if (_type == "overlaid")		
-				series.offset = 0;
-			else
-				series.offset = _rightOffset - i * _perSeriesBarWidthRatio;
-			
-			if (series is BarSeries)
-			{
-				series.stacker = null;
-				series.stackTotals = null;
-			}
-		}
-	}
-	
-	/**
-	 *  @private
-	 */
-	override protected function applySeriesSet(seriesSet:Array /* of Series */,
-											   transform:DataTransform):Array /* of Series */
-	{
-		
-		var barWidthRatio:Number = getStyle("barWidthRatio");
-		var maxBarWidth:Number = getStyle("maxBarWidth");
-		var g:IChartElement;
-		var n:int = seriesSet.length;
-
-		switch (_type)
-		{
-			case "stacked":
-			case "100%":
-			{
-				_wasStacked = true;
-
-				for (var i:int = 0; i < n; i++)
-				{
-					seriesSet[i].offset = 0;
-				}
-
-				var newSeriesGlyph:BarSet = new BarSet();
-				newSeriesGlyph.series = seriesSet;
-				for (i = 0; i < n; i++)
-				{
-					g = seriesSet[i] as IChartElement;
-					if (!g)
-						continue;
-					if (g.labelContainer) 			
- 						newSeriesGlyph.labelContainer.addChild(seriesSet[i].labelContainer);
-				}
-
-				if (!isNaN(barWidthRatio))
-					newSeriesGlyph.barWidthRatio = barWidthRatio;
-
-				if (!isNaN(maxBarWidth))
-					newSeriesGlyph.maxBarWidth = maxBarWidth;
-
-				newSeriesGlyph.type = _type;
-
-				invalidateData();
-				return [ newSeriesGlyph ];
-			}
-							
-			case "clustered":
-			default:
-			{
-				
-				var barSeriesCount:int = 0;
-				for each(var series:Series in seriesSet) {
-					if(series is BarSet || series is BarSeries)
-						barSeriesCount++;
-				}
-				
-				_perSeriesBarWidthRatio = barWidthRatio / barSeriesCount;
-				_perSeriesMaxBarWidth = maxBarWidth / barSeriesCount;
-				_rightOffset = barWidthRatio / 2 - _perSeriesBarWidthRatio / 2;
-				n = seriesSet.length;
-				var count:int = 0;
-				for (i = 0; i < n; i++)
-				{
-					var newSeries:IChartElement = seriesSet[i];
-					if (newSeries is BarSeries || newSeries is BarSet)
-					{
-						customizeSeries(Series(seriesSet[i]), count);
-						count++;
-					}
-				}
-				
-				return seriesSet;
-			}
-
-			case "overlaid":
-			{
-				_perSeriesBarWidthRatio = barWidthRatio;
-				_perSeriesMaxBarWidth = maxBarWidth;
-
-				_rightOffset = 0;
-				super.applySeriesSet(seriesSet, transform);
-				break;
-			}
-		}
-
-		return seriesSet;
-	}
-				
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: CartesianChart
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 * Determines positions and dimensions of labels for all series in the chart
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	override mx_internal function measureLabels():Object
-	{
-		getSeriesLabelPosSet();
-		if (!_needLabels)
-			return null;
-		var n:int = series.length;
-		var allSeriesTransform:Boolean = true;
-		
-		if (type == "stacked" || type == "overlaid" || type == "100%")
-			allLabelsMeasured = false;
-		
-		_allItems = [];
-		_barSeriesLen = 0;
-		for (var i:int = 0; i < n; i++)
-		{
-			findChartItems(series[i]);			
-		}
-		_allItems.sort(sortOnY);	//sort all items with respect to thier position along Y-axis
-		var itemsLen:Number = _allItems.length;
-		for (i = itemsLen - 1; i >= 0; i--)
-		{
-			var v:BarSeriesItem = _allItems[i];
-			var barSeries:BarSeries = BarSeries(BarSeriesItem(_allItems[i]).element);
-			var labelPosition:String = barSeries.labelPos;		
-		
-			if (labelPosition == "inside" || labelPosition == "outside")
-			{
-				
-				var base:Number = barSeries.seriesRenderData.renderedBase;
-				var size:Number = barSeries.getStyle('fontSize');
-				if (barSeries.labelFunction != null)
-					barSeries.measuringField.text = v.labelText = barSeries.labelFunction(v, barSeries);
- 				else if (barSeries.labelField != null)
-					barSeries.measuringField.text = v.labelText = v.item[barSeries.labelField];
-				else if (barSeries.dataFunction != null)
-					barSeries.measuringField.text = v.labelText = barSeries.dataFunction(barSeries, v.item, 'xNumber');
-				else
-					barSeries.measuringField.text = v.labelText = v.item[barSeries.xField];		
-			
-				barSeries.measuringField.validateNow();
- 				
-				var labelRotation:Number = barSeries.labelAngle;
-				var labelSizeLimit:Number = barSeries.maxLabelSize;
-				if (labelPosition == "outside" && (type == "stacked" || type == "overlaid" || type == "100%"))
-				{
-					labelPosition = "inside";
-					barSeries.labelPos = 'inside';
-						//today, labelPosition = inside is only supported for stacked, 100% and overlaid
-				}		
-							
-			
-		    	if (labelPosition == 'outside')
-		    	{
-		    		v.labelHeight = 2 * barSeries.seriesRenderData.renderedHalfWidth;
-					if (!(isNaN(labelRotation)) && labelRotation != 0 && barSeries.measuringField.embedFonts)
-					{
-						var r:Number = -labelRotation / Math.PI * 180;
-								//for future enhancement
-								//check for type of chart if we need to support labelPosition = outside for all types of charts
-						if (type == "clustered")
-						{
-							if (i > n - 1)
-								v.labelWidth = Math.abs((_allItems[i - i%n - 1].y + BarSeries(_allItems[i - i%n - 1].element).seriesRenderData.renderedYOffset
-								               + BarSeries(_allItems[i - i%n - 1].element).seriesRenderData.renderedHalfWidth -
-								               (v.y + barSeries.seriesRenderData.renderedYOffset - 
-							            	   barSeries.seriesRenderData.renderedHalfWidth))/ Math.cos(r));
-							else
-								v.labelWidth = Math.abs((_allItems[0].y + BarSeries(_allItems[0].element).seriesRenderData.renderedYOffset
-								               - BarSeries(_allItems[0].element).seriesRenderData.renderedHalfWidth - 
-								               (v.y + barSeries.seriesRenderData.renderedYOffset - 
-							            	   barSeries.seriesRenderData.renderedHalfWidth))/ Math.cos(r));
-						}
-						else
-						{
-							if (i > n - 1)
-								v.labelWidth = Math.abs((_allItems[i - n].y + BarSeries(_allItems[i - n].element).seriesRenderData.renderedYOffset
-							    	           + BarSeries(_allItems[i - n].element).seriesRenderData.renderedHalfWidth - 
-						    	    	       (v.y + barSeries.seriesRenderData.renderedYOffset - 
-						        	    	   barSeries.seriesRenderData.renderedHalfWidth))/ Math.cos(r));
-							else
-								v.labelWidth = Math.abs((_allItems[0].y + BarSeries(_allItems[0].element).seriesRenderData.renderedYOffset
-							    	           - BarSeries(_allItems[0].element).seriesRenderData.renderedHalfWidth - 
-							        	       (v.y + barSeries.seriesRenderData.renderedYOffset - 
-						            		   barSeries.seriesRenderData.renderedHalfWidth))/ Math.cos(r));
-						}
-						v.labelY=v.y + barSeries.seriesRenderData.renderedYOffset + barSeries.seriesRenderData.renderedHalfWidth;
-					}
-					else
-					{
-						if (v.x > (isNaN(v.min) ? base : v.min))
-						{
-							v.labelWidth = barSeries.dataToLocal(NumericAxis(barSeries.dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS)).computedMaximum,0).x - barSeries.dataToLocal(v.xNumber,0).x;
-							v.labelX = v.x;
-							if (v.labelWidth == 0)
-							{
-								v.labelWidth = Math.abs(v.x -(isNaN(v.min) ? base : v.min));
-								v.labelX = isNaN(v.min) ? base : v.min;
-							}
-						}
-						else
-						{
-							v.labelWidth = barSeries.dataToLocal(v.xNumber,0).x - barSeries.dataToLocal(NumericAxis(barSeries.dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS)).computedMinimum,0).x;
-							v.labelX = v.x - v.labelWidth;
-							if (v.labelWidth == 0)
-							{
-								v.labelWidth = Math.abs(v.x -(isNaN(v.min) ? base : v.min));
-								v.labelX = v.x;
-							}
-						}
-						v.labelY=v.y + barSeries.seriesRenderData.renderedYOffset - barSeries.seriesRenderData.renderedHalfWidth;
-					}
-					var labelScale:Number = 1;
-					if (barSeries.measuringField.textWidth > v.labelWidth || barSeries.measuringField.textHeight > v.labelHeight)
-					{
-						labelScale = v.labelWidth / barSeries.measuringField.textWidth;
-						labelScale = Math.min(labelScale, v.labelHeight / barSeries.measuringField.textHeight);
-						if (size * labelScale > labelSizeLimit)
-							barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale);
-						else
-						{
-							_tempField.setStyle('fontSize',size);
-							_tempField.validateNow();
-							if (_tempField.measuredWidth > v.labelWidth || _tempField.measuredHeight > v.labelHeight)
-							{
-								labelScale = v.labelWidth / _tempField.measuredWidth;						
-								labelScale = Math.min(labelScale, v.labelHeight / _tempField.measuredHeight);
-								if (size * labelScale > labelSizeLimit)
-									barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale);	
-								else
-								{
-									v.labelText = "";
-									v.labelWidth = 1;
-								}
-							}
-						}
-					}
-							
-					if (!isNaN(labelRotation) && labelRotation!=0 && barSeries.measuringField.embedFonts)
-					{
-						v.labelHeight = barSeries.measuringField.textHeight + 2;
-						if (v.x > (isNaN(v.min) ? base : v.min))
-							v.labelX = v.x + v.labelHeight;
-						else
-							v.labelX = v.x - 2 * v.labelHeight;
-						v.labelY = v.labelY - v.labelHeight;
-						v.labelWidth = v.labelWidth - v.labelHeight;
-					}				
-	 	    	}
-	 	    	else if (labelPosition == "inside")
- 		    	{
- 		    		v.labelWidth = Math.abs(v.x -(isNaN(v.min) ? base : v.min));
-					v.labelHeight = 2 * barSeries.seriesRenderData.renderedHalfWidth;
-					v.labelY=v.y + barSeries.seriesRenderData.renderedYOffset - barSeries.seriesRenderData.renderedHalfWidth;
-			
-					if (v.x > (isNaN(v.min) ? base : v.min))
-						v.labelX = isNaN(v.min) ? base : v.min;
-					else
-						v.labelX = v.x;
-					labelScale = 1;
-					if (barSeries.measuringField.textWidth > v.labelWidth || (barSeries.measuringField.textHeight) > v.labelHeight)
-					{
-						labelScale = v.labelWidth / barSeries.measuringField.textWidth;
-						labelScale = Math.min(labelScale, v.labelHeight / barSeries.measuringField.textHeight);
-						if (size * labelScale > labelSizeLimit)
-							barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale);
-						else
-						{
-							_tempField.setStyle('fontSize',size);
-							_tempField.validateNow();
-							if (_tempField.measuredWidth > v.labelWidth || _tempField.measuredHeight + 2 > v.labelHeight)
-							{
-								labelScale = v.labelWidth / _tempField.measuredWidth;						
-								labelScale = Math.min(labelScale, v.labelHeight / _tempField.measuredHeight);
-								if (size * labelScale > labelSizeLimit)
-									barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale);	
-								else
-								{
-									v.labelText = "";
-									v.labelWidth = 1;
-								}
-							}
-						}
-					}
-					var prevItemsCount:int =_barSeriesLen - 1 - (i % _barSeriesLen);
-					for (var j:int = 1; j <= prevItemsCount; j++)
-							//test for overlaps with previous labels
-					{
-						var tempItem:BarSeriesItem = _allItems[i + j];
-						if (v.labelY == tempItem.labelY)
-						{
-							if (((v.labelX >= tempItem.labelX) && (v.labelX < (tempItem.labelX + tempItem.labelWidth))) ||
-									((v.labelX <= tempItem.labelX) && ((v.labelX + v.labelWidth) > tempItem.labelX)))
-							{
-								v.labelText = "";
-								v.labelWidth = 1;
-							}
-						}
-					}						
- 				}
- 			}
- 		    else
-			{
-				barSeries.seriesRenderData.labelData = null;
-				barSeries.labelCache.count = 0;
-			}
- 		}
- 		allLabelsMeasured = true;
- 		for (i = 0; i < n; i++)
- 		{
- 			invalidateDisplay(series[i]);
- 		}
- 		return null;
-	}
-	
-	//------------------------------------------------------------------------------------
-	//
-	// Methods
-	//
-	//------------------------------------------------------------------------------------
-	
-	mx_internal function getSeriesLabelPos(series:Series):void
-	{
-		if (series is BarSeries)
-		{
-			var barSeries:BarSeries = BarSeries(series);
-			var position:String = barSeries.labelPos;
-			if (position == "inside" || position == "outside" || position == "none")
-				_needLabels = true;	
-		}
-	    else if (series is BarSet)
-	    {
-	    	var setSeries:Array /* of Series */ = BarSet(series).series;
-	    	var n:int = setSeries.length;
-	    	for (var i:int = 0; i < n; i++)
-	    	{
-	    		getSeriesLabelPos(setSeries[i]);
-	    	}
-	    }	
-	}
-	
-	mx_internal function getSeriesLabelPosSet():void
-	{
-		var n:int = series.length;
-		_needLabels = false;
-		for (var i:int = 0; i < n; i++)
-		{
-			if (_needLabels)
-				return;
-			getSeriesLabelPos(series[i]);
-		}
-	}
-	 
-	/**
-	 * @private
-	 */
-	 private function sortOnY(a:BarSeriesItem,b:BarSeriesItem):int
-	 {
-	 	var offset1:Number = BarSeries(a.element).seriesRenderData.renderedYOffset;
-	 	var offset2:Number = BarSeries(b.element).seriesRenderData.renderedYOffset;
-	 	if (a.y + offset1 > b.y + offset2)
-	 		return 1;
-	 	else if (a.y + offset1 < b.y + offset2)
-	 		return -1;
-	 	else
-	 	{
-	 		if (a.xNumber > b.xNumber)
-	 			return 1;
-	 		else if (a.xNumber < b.xNumber)
-	 			return -1;
-	 		else
-	 			return 0;
-	 	}	 		
-	 }
-	 
     /**
-   	 * @private
-  	 */
- 	 private function findChartItems(series:Series):void
- 	 {
- 	 	var n:int;
- 	 	var i:int;
- 	 	if (series is BarSeries)
- 	 	{
- 	 		_barSeriesLen = _barSeriesLen + 1;
- 	 		var barSeries:BarSeries = BarSeries(series);
- 	 		var seriesItems:Array /* of BarSeriesItem */ = barSeries.seriesRenderData.filteredCache;
- 			n = seriesItems.length;
- 			barSeries.labelCache.count = n;
- 			barSeries.seriesRenderData.labelScale = 1;
- 			
- 			for (i = 0; i < n; i++)
- 			{
- 				_allItems.push(BarSeriesItem(seriesItems[i]));
- 			}			
- 	 	}
- 	 	else if (series is BarSet)
- 	 	{
- 	 		var setSeries:Array /* of Series */ = BarSet(series).series;
- 	 		n = setSeries.length;
- 	 		for (i = 0; i < n; i++)
- 	 		{
- 	 			findChartItems(setSeries[i]);
- 	 		}
- 	 	}
- 	 }
- 	/**
-	 * @private
- 	 */
- 	 private function invalidateDisplay(series:Series):void
- 	 {
- 	 	if (series is BarSeries)
- 	 		BarSeries(series).updateLabels();
- 	 	else if (series is BarSet)
- 	 	{
- 	 		var setSeries:Array /* of Series */ = BarSet(series).series;
- 	 		var n:int = setSeries.length;
- 	 		for (var i:int = 0; i < n; i++)
- 	 		{
- 	 			invalidateDisplay(setSeries[i]);
- 	 		}
- 	 	}
- 	 }
-	
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        if (styleProp == null || INVALIDATING_STYLES[styleProp] != undefined)
+            invalidateSeries();
+
+        super.styleChanged(styleProp);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: ChartBase
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function customizeSeries(seriesGlyph:Series, i:uint):void
+    {
+        if ((seriesGlyph is BarSeries) || (seriesGlyph is BarSet))
+        {
+            var series:Object = seriesGlyph;
+
+            if (!isNaN(_perSeriesBarWidthRatio))
+                series.barWidthRatio = _perSeriesBarWidthRatio;
+    
+            if (!isNaN(_perSeriesMaxBarWidth))
+                series.maxBarWidth = _perSeriesMaxBarWidth;
+                
+            if (_type == "overlaid")        
+                series.offset = 0;
+            else
+                series.offset = _rightOffset - i * _perSeriesBarWidthRatio;
+            
+            if (series is BarSeries)
+            {
+                series.stacker = null;
+                series.stackTotals = null;
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function applySeriesSet(seriesSet:Array /* of Series */,
+                                               transform:DataTransform):Array /* of Series */
+    {
+        
+        var barWidthRatio:Number = getStyle("barWidthRatio");
+        var maxBarWidth:Number = getStyle("maxBarWidth");
+        var g:IChartElement;
+        var n:int = seriesSet.length;
+
+        switch (_type)
+        {
+            case "stacked":
+            case "100%":
+            {
+                _wasStacked = true;
+
+                for (var i:int = 0; i < n; i++)
+                {
+                    seriesSet[i].offset = 0;
+                }
+
+                var newSeriesGlyph:BarSet = new BarSet();
+                newSeriesGlyph.series = seriesSet;
+                for (i = 0; i < n; i++)
+                {
+                    g = seriesSet[i] as IChartElement;
+                    if (!g)
+                        continue;
+                    if (g.labelContainer)           
+                        newSeriesGlyph.labelContainer.addChild(seriesSet[i].labelContainer);
+                }
+
+                if (!isNaN(barWidthRatio))
+                    newSeriesGlyph.barWidthRatio = barWidthRatio;
+
+                if (!isNaN(maxBarWidth))
+                    newSeriesGlyph.maxBarWidth = maxBarWidth;
+
+                newSeriesGlyph.type = _type;
+
+                invalidateData();
+                return [ newSeriesGlyph ];
+            }
+                            
+            case "clustered":
+            default:
+            {
+                
+                var barSeriesCount:int = 0;
+                for each(var series:Series in seriesSet) {
+                    if(series is BarSet || series is BarSeries)
+                        barSeriesCount++;
+                }
+                
+                _perSeriesBarWidthRatio = barWidthRatio / barSeriesCount;
+                _perSeriesMaxBarWidth = maxBarWidth / barSeriesCount;
+                _rightOffset = barWidthRatio / 2 - _perSeriesBarWidthRatio / 2;
+                n = seriesSet.length;
+                var count:int = 0;
+                for (i = 0; i < n; i++)
+                {
+                    var newSeries:IChartElement = seriesSet[i];
+                    if (newSeries is BarSeries || newSeries is BarSet)
+                    {
+                        customizeSeries(Series(seriesSet[i]), count);
+                        count++;
+                    }
+                }
+                
+                return seriesSet;
+            }
+
+            case "overlaid":
+            {
+                _perSeriesBarWidthRatio = barWidthRatio;
+                _perSeriesMaxBarWidth = maxBarWidth;
+
+                _rightOffset = 0;
+                super.applySeriesSet(seriesSet, transform);
+                break;
+            }
+        }
+
+        return seriesSet;
+    }
+                
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: CartesianChart
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     * Determines positions and dimensions of labels for all series in the chart
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override mx_internal function measureLabels():Object
+    {
+        getSeriesLabelPosSet();
+        if (!_needLabels)
+            return null;
+        var n:int = series.length;
+        var allSeriesTransform:Boolean = true;
+        
+        if (type == "stacked" || type == "overlaid" || type == "100%")
+            allLabelsMeasured = false;
+        
+        _allItems = [];
+        _barSeriesLen = 0;
+        for (var i:int = 0; i < n; i++)
+        {
+            findChartItems(series[i]);          
+        }
+        _allItems.sort(sortOnY);    //sort all items with respect to thier position along Y-axis
+        var itemsLen:Number = _allItems.length;
+        for (i = itemsLen - 1; i >= 0; i--)
+        {
+            var v:BarSeriesItem = _allItems[i];
+            var barSeries:BarSeries = BarSeries(BarSeriesItem(_allItems[i]).element);
+            var labelPosition:String = barSeries.labelPos;      
+        
+            if (labelPosition == "inside" || labelPosition == "outside")
+            {
+                
+                var base:Number = barSeries.seriesRenderData.renderedBase;
+                var size:Number = barSeries.getStyle('fontSize');
+                if (barSeries.labelFunction != null)
+                    barSeries.measuringField.text = v.labelText = barSeries.labelFunction(v, barSeries);
+                else if (barSeries.labelField != null)
+                    barSeries.measuringField.text = v.labelText = v.item[barSeries.labelField];
+                else if (barSeries.dataFunction != null)
+                    barSeries.measuringField.text = v.labelText = barSeries.dataFunction(barSeries, v.item, 'xNumber');
+                else
+                    barSeries.measuringField.text = v.labelText = v.item[barSeries.xField];     
+            
+                barSeries.measuringField.validateNow();
+                
+                var labelRotation:Number = barSeries.labelAngle;
+                var labelSizeLimit:Number = barSeries.maxLabelSize;
+                if (labelPosition == "outside" && (type == "stacked" || type == "overlaid" || type == "100%"))
+                {
+                    labelPosition = "inside";
+                    barSeries.labelPos = 'inside';
+                        //today, labelPosition = inside is only supported for stacked, 100% and overlaid
+                }       
+                            
+            
+                if (labelPosition == 'outside')
+                {
+                    v.labelHeight = 2 * barSeries.seriesRenderData.renderedHalfWidth;
+                    if (!(isNaN(labelRotation)) && labelRotation != 0 && barSeries.measuringField.embedFonts)
+                    {
+                        var r:Number = -labelRotation / Math.PI * 180;
+                                //for future enhancement
+                                //check for type of chart if we need to support labelPosition = outside for all types of charts
+                        if (type == "clustered")
+                        {
+                            if (i > n - 1)
+                                v.labelWidth = Math.abs((_allItems[i - i%n - 1].y + BarSeries(_allItems[i - i%n - 1].element).seriesRenderData.renderedYOffset
+                                               + BarSeries(_allItems[i - i%n - 1].element).seriesRenderData.renderedHalfWidth -
+                                               (v.y + barSeries.seriesRenderData.renderedYOffset - 
+                                               barSeries.seriesRenderData.renderedHalfWidth))/ Math.cos(r));
+                            else
+                                v.labelWidth = Math.abs((_allItems[0].y + BarSeries(_allItems[0].element).seriesRenderData.renderedYOffset
+                                               - BarSeries(_allItems[0].element).seriesRenderData.renderedHalfWidth - 
+                                               (v.y + barSeries.seriesRenderData.renderedYOffset - 
+                                               barSeries.seriesRenderData.renderedHalfWidth))/ Math.cos(r));
+                        }
+                        else
+                        {
+                            if (i > n - 1)
+                                v.labelWidth = Math.abs((_allItems[i - n].y + BarSeries(_allItems[i - n].element).seriesRenderData.renderedYOffset
+                                               + BarSeries(_allItems[i - n].element).seriesRenderData.renderedHalfWidth - 
+                                               (v.y + barSeries.seriesRenderData.renderedYOffset - 
+                                               barSeries.seriesRenderData.renderedHalfWidth))/ Math.cos(r));
+                            else
+                                v.labelWidth = Math.abs((_allItems[0].y + BarSeries(_allItems[0].element).seriesRenderData.renderedYOffset
+                                               - BarSeries(_allItems[0].element).seriesRenderData.renderedHalfWidth - 
+                                               (v.y + barSeries.seriesRenderData.renderedYOffset - 
+                                               barSeries.seriesRenderData.renderedHalfWidth))/ Math.cos(r));
+                        }
+                        v.labelY=v.y + barSeries.seriesRenderData.renderedYOffset + barSeries.seriesRenderData.renderedHalfWidth;
+                    }
+                    else
+                    {
+                        if (v.x > (isNaN(v.min) ? base : v.min))
+                        {
+                            v.labelWidth = barSeries.dataToLocal(NumericAxis(barSeries.dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS)).computedMaximum,0).x - barSeries.dataToLocal(v.xNumber,0).x;
+                            v.labelX = v.x;
+                            if (v.labelWidth == 0)
+                            {
+                                v.labelWidth = Math.abs(v.x -(isNaN(v.min) ? base : v.min));
+                                v.labelX = isNaN(v.min) ? base : v.min;
+                            }
+                        }
+                        else
+                        {
+                            v.labelWidth = barSeries.dataToLocal(v.xNumber,0).x - barSeries.dataToLocal(NumericAxis(barSeries.dataTransform.getAxis(CartesianTransform.HORIZONTAL_AXIS)).computedMinimum,0).x;
+                            v.labelX = v.x - v.labelWidth;
+                            if (v.labelWidth == 0)
+                            {
+                                v.labelWidth = Math.abs(v.x -(isNaN(v.min) ? base : v.min));
+                                v.labelX = v.x;
+                            }
+                        }
+                        v.labelY=v.y + barSeries.seriesRenderData.renderedYOffset - barSeries.seriesRenderData.renderedHalfWidth;
+                    }
+                    var labelScale:Number = 1;
+                    if (barSeries.measuringField.textWidth > v.labelWidth || barSeries.measuringField.textHeight > v.labelHeight)
+                    {
+                        labelScale = v.labelWidth / barSeries.measuringField.textWidth;
+                        labelScale = Math.min(labelScale, v.labelHeight / barSeries.measuringField.textHeight);
+                        if (size * labelScale > labelSizeLimit)
+                            barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale);
+                        else
+                        {
+                            _tempField.setStyle('fontSize',size);
+                            _tempField.validateNow();
+                            if (_tempField.measuredWidth > v.labelWidth || _tempField.measuredHeight > v.labelHeight)
+                            {
+                                labelScale = v.labelWidth / _tempField.measuredWidth;                       
+                                labelScale = Math.min(labelScale, v.labelHeight / _tempField.measuredHeight);
+                                if (size * labelScale > labelSizeLimit)
+                                    barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale); 
+                                else
+                                {
+                                    v.labelText = "";
+                                    v.labelWidth = 1;
+                                }
+                            }
+                        }
+                    }
+                            
+                    if (!isNaN(labelRotation) && labelRotation!=0 && barSeries.measuringField.embedFonts)
+                    {
+                        v.labelHeight = barSeries.measuringField.textHeight + 2;
+                        if (v.x > (isNaN(v.min) ? base : v.min))
+                            v.labelX = v.x + v.labelHeight;
+                        else
+                            v.labelX = v.x - 2 * v.labelHeight;
+                        v.labelY = v.labelY - v.labelHeight;
+                        v.labelWidth = v.labelWidth - v.labelHeight;
+                    }               
+                }
+                else if (labelPosition == "inside")
+                {
+                    v.labelWidth = Math.abs(v.x -(isNaN(v.min) ? base : v.min));
+                    v.labelHeight = 2 * barSeries.seriesRenderData.renderedHalfWidth;
+                    v.labelY=v.y + barSeries.seriesRenderData.renderedYOffset - barSeries.seriesRenderData.renderedHalfWidth;
+            
+                    if (v.x > (isNaN(v.min) ? base : v.min))
+                        v.labelX = isNaN(v.min) ? base : v.min;
+                    else
+                        v.labelX = v.x;
+                    labelScale = 1;
+                    if (barSeries.measuringField.textWidth > v.labelWidth || (barSeries.measuringField.textHeight) > v.labelHeight)
+                    {
+                        labelScale = v.labelWidth / barSeries.measuringField.textWidth;
+                        labelScale = Math.min(labelScale, v.labelHeight / barSeries.measuringField.textHeight);
+                        if (size * labelScale > labelSizeLimit)
+                            barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale);
+                        else
+                        {
+                            _tempField.setStyle('fontSize',size);
+                            _tempField.validateNow();
+                            if (_tempField.measuredWidth > v.labelWidth || _tempField.measuredHeight + 2 > v.labelHeight)
+                            {
+                                labelScale = v.labelWidth / _tempField.measuredWidth;                       
+                                labelScale = Math.min(labelScale, v.labelHeight / _tempField.measuredHeight);
+                                if (size * labelScale > labelSizeLimit)
+                                    barSeries.seriesRenderData.labelScale = Math.min(labelScale,barSeries.seriesRenderData.labelScale); 
+                                else
+                                {
+                                    v.labelText = "";
+                                    v.labelWidth = 1;
+                                }
+                            }
+                        }
+                    }
+                    var prevItemsCount:int =_barSeriesLen - 1 - (i % _barSeriesLen);
+                    for (var j:int = 1; j <= prevItemsCount; j++)
+                            //test for overlaps with previous labels
+                    {
+                        var tempItem:BarSeriesItem = _allItems[i + j];
+                        if (v.labelY == tempItem.labelY)
+                        {
+                            if (((v.labelX >= tempItem.labelX) && (v.labelX < (tempItem.labelX + tempItem.labelWidth))) ||
+                                    ((v.labelX <= tempItem.labelX) && ((v.labelX + v.labelWidth) > tempItem.labelX)))
+                            {
+                                v.labelText = "";
+                                v.labelWidth = 1;
+                            }
+                        }
+                    }                       
+                }
+            }
+            else
+            {
+                barSeries.seriesRenderData.labelData = null;
+                barSeries.labelCache.count = 0;
+            }
+        }
+        allLabelsMeasured = true;
+        for (i = 0; i < n; i++)
+        {
+            invalidateDisplay(series[i]);
+        }
+        return null;
+    }
+    
+    //------------------------------------------------------------------------------------
+    //
+    // Methods
+    //
+    //------------------------------------------------------------------------------------
+    
+    mx_internal function getSeriesLabelPos(series:Series):void
+    {
+        if (series is BarSeries)
+        {
+            var barSeries:BarSeries = BarSeries(series);
+            var position:String = barSeries.labelPos;
+            if (position == "inside" || position == "outside" || position == "none")
+                _needLabels = true; 
+        }
+        else if (series is BarSet)
+        {
+            var setSeries:Array /* of Series */ = BarSet(series).series;
+            var n:int = setSeries.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                getSeriesLabelPos(setSeries[i]);
+            }
+        }   
+    }
+    
+    mx_internal function getSeriesLabelPosSet():void
+    {
+        var n:int = series.length;
+        _needLabels = false;
+        for (var i:int = 0; i < n; i++)
+        {
+            if (_needLabels)
+                return;
+            getSeriesLabelPos(series[i]);
+        }
+    }
+     
+    /**
+     * @private
+     */
+     private function sortOnY(a:BarSeriesItem,b:BarSeriesItem):int
+     {
+        var offset1:Number = BarSeries(a.element).seriesRenderData.renderedYOffset;
+        var offset2:Number = BarSeries(b.element).seriesRenderData.renderedYOffset;
+        if (a.y + offset1 > b.y + offset2)
+            return 1;
+        else if (a.y + offset1 < b.y + offset2)
+            return -1;
+        else
+        {
+            if (a.xNumber > b.xNumber)
+                return 1;
+            else if (a.xNumber < b.xNumber)
+                return -1;
+            else
+                return 0;
+        }           
+     }
+     
+    /**
+     * @private
+     */
+     private function findChartItems(series:Series):void
+     {
+        var n:int;
+        var i:int;
+        if (series is BarSeries)
+        {
+            _barSeriesLen = _barSeriesLen + 1;
+            var barSeries:BarSeries = BarSeries(series);
+            var seriesItems:Array /* of BarSeriesItem */ = barSeries.seriesRenderData.filteredCache;
+            n = seriesItems.length;
+            barSeries.labelCache.count = n;
+            barSeries.seriesRenderData.labelScale = 1;
+            
+            for (i = 0; i < n; i++)
+            {
+                _allItems.push(BarSeriesItem(seriesItems[i]));
+            }           
+        }
+        else if (series is BarSet)
+        {
+            var setSeries:Array /* of Series */ = BarSet(series).series;
+            n = setSeries.length;
+            for (i = 0; i < n; i++)
+            {
+                findChartItems(setSeries[i]);
+            }
+        }
+     }
+    /**
+     * @private
+     */
+     private function invalidateDisplay(series:Series):void
+     {
+        if (series is BarSeries)
+            BarSeries(series).updateLabels();
+        else if (series is BarSet)
+        {
+            var setSeries:Array /* of Series */ = BarSet(series).series;
+            var n:int = setSeries.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                invalidateDisplay(setSeries[i]);
+            }
+        }
+     }
+    
 }
 
 }
