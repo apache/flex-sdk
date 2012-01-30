@@ -33,9 +33,9 @@ import spark.components.supportClasses.ViewHistoryData;
 import spark.components.supportClasses.ViewNavigatorBase;
 import spark.effects.Animate;
 import spark.effects.Fade;
-import spark.effects.ViewTransition;
 import spark.effects.Move;
 import spark.effects.Resize;
+import spark.effects.ViewTransition;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.events.IndexChangeEvent;
@@ -157,19 +157,6 @@ use namespace mx_internal;
  */
 public class ViewNavigator extends ViewNavigatorBase
 {
-    //--------------------------------------------------------------------------
-    //
-    //  Constants
-    //
-    //--------------------------------------------------------------------------
-    
-    // TODO (chiedozi): Should expose this to user
-    private static const NO_ACTION:int = -1;
-    private static const PUSH_ACTION:int = 0;
-    private static const POP_ACTION:int = 1;
-    private static const REPLACE_VIEW_ACTION:int = 2;
-    private static const REPLACE_STACK_ACTION:int = 3;
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -300,6 +287,11 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
+     */ 
+    private var delayedNavigationActions:Vector.<Object> = new Vector.<Object>();
+    
+    /**
+     *  @private
      *  Flag indicates that the navigator has been requested to show
      *  a different view. 
      */
@@ -311,18 +303,23 @@ public class ViewNavigator extends ViewNavigatorBase
     private var emptyViewData:ViewHistoryData = null;
     
     /**
-     * @private
-     * This following property stores the <code>mouseEnabled</code>
-     * value defined on the navigator so that it can be
-     * restored after a view transition.
+     *  @private
+     */
+    private var explicitFrameRate:Number;
+    
+    /**
+     *  @private
+     *  This following property stores the <code>mouseEnabled</code>
+     *  value defined on the navigator so that it can be
+     *  restored after a view transition.
      */
     private var explicitMouseEnabled:Boolean;
     
     /**
-     * @private
-     * This following property stores the <code>mouseChildren</code>
-     * value defined on the navigator so that it can be
-     * restored after a view transition.
+     *  @private
+     *  This following property stores the <code>mouseChildren</code>
+     *  value defined on the navigator so that it can be
+     *  restored after a view transition.
      */
     private var explicitMouseChildren:Boolean;
     
@@ -330,7 +327,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  The last action performed by the navigator.
      */
-    protected var lastAction:int = NO_ACTION;
+    protected var lastAction:String = ViewNavigatorAction.NONE;
     
     /**
      *  @private
@@ -370,22 +367,33 @@ public class ViewNavigator extends ViewNavigatorBase
     //  Properties
     // 
     //--------------------------------------------------------------------------
-
     //----------------------------------
     //  activeView
     //----------------------------------
     
     /**
-     *  The currently selected section.
-     *
-     *  @default null
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
+     */ 
+    override public function set active(value:Boolean):void
+    {
+        super.active = value;
+        
+        if (navigationStack.length == 0 && firstView != null)
+        {
+            navigationStack.push(firstView, firstViewData);
+            viewChangeRequested = true;
+            invalidateProperties();
+        }
+    }
+    
+    //----------------------------------
+    //  activeView
+    //----------------------------------
+    
+    /**
+     *  @private
      */
-    public function get activeView():View
+    override public function get activeView():View
     {
         if (currentViewData && currentViewData != emptyViewData)
             return currentViewData.instance;
@@ -398,9 +406,9 @@ public class ViewNavigator extends ViewNavigatorBase
     //----------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */  
-    override public function canCancelDefaultBackKeyBehavior():Boolean
+    override public function get canCancelBackKeyBehavior():Boolean
     {
         return length > 1;
     }
@@ -408,6 +416,8 @@ public class ViewNavigator extends ViewNavigatorBase
     //----------------------------------
     //  firstView
     //----------------------------------
+    
+    private var _firstView:Class;
     
     /**
      *  This property is the object to use to initialize the first view
@@ -422,7 +432,7 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     public function get firstView():Class
     {
-        return navigationStack.firstView;
+        return _firstView;
     }
     
     /**
@@ -430,12 +440,14 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     public function set firstView(value:Class):void
     {
-        navigationStack.firstView = value;
+        _firstView = value;
     }
     
     //----------------------------------
     //  firstViewData
     //----------------------------------
+    
+    private var _firstViewData:Object;
     
     /**
      * This is the initialization data to pass to the first view when the
@@ -450,75 +462,21 @@ public class ViewNavigator extends ViewNavigatorBase
      */
     public function get firstViewData():Object
     {
-        return navigationStack.firstViewData;
+        return _firstViewData;
     }
     /**
      * @private
      */
     public function set firstViewData(value:Object):void
     {
-        navigationStack.firstViewData = value;
-    }
-    
-    //----------------------------------
-    //  icon
-    //----------------------------------
-    /**
-     *  Returns the icon that should be used when this navigator is represented
-     *  by a visual component.
-     * 
-     *  @default null
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get icon():Class
-    {
-        return navigationStack.icon;    
-    }
-    /**
-     *  @private
-     */
-    public function set icon(value:Class):void
-    {
-        navigationStack.icon = value;
-    }
-    
-    //----------------------------------
-    //  label
-    //----------------------------------
-    
-    [Bindable]
-    /**
-     *  The label to be used when this stack is represented by a visual component.
-     * 
-     *  @default null
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get label():String
-    {
-        return navigationStack.label;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set label(value:String):void
-    {    
-        navigationStack.label = value;
+        _firstViewData = value;
     }
     
     //----------------------------------
     //  landscapeOrientation
     //----------------------------------
     /**
-     *  @inheritDoc
+     *  @private
      */
     override public function set landscapeOrientation(value:Boolean):void
     {
@@ -536,7 +494,7 @@ public class ViewNavigator extends ViewNavigatorBase
     //----------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     public function get length():int
     {
@@ -548,14 +506,14 @@ public class ViewNavigator extends ViewNavigatorBase
     //----------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */
     override public function set navigationStack(value:NavigationStack):void
     {
         super.navigationStack = value;
         
         viewChangeRequested = true;
-        lastAction = REPLACE_STACK_ACTION;
+        lastAction = ViewNavigatorAction.REPLACE_STACK;
         
         invalidateProperties();
     }
@@ -594,207 +552,6 @@ public class ViewNavigator extends ViewNavigatorBase
      */ 
 	public var useDefaultTransitions:Boolean = true;
     
-    //--------------------------------------------------------------------------
-    //
-    // Public Methods
-    // 
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Helper method that executes a pop navigation operation.
-     * 
-     *  @param transition The view transition to play
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    private function executePopAction(transition:ViewTransition):void
-    {
-        if (!canRemoveCurrentView())
-            return;
-        
-        // If the currentView navigation data object is the same as the
-        // new one, the activeView doesn't need to be changed.  This can
-        // happen if a pushView() is followed immediately by a popView().
-        if (navigationStack.topView == currentViewData)
-        {
-            if (viewChanging)
-            {
-                revalidateWhenComplete = false;
-            }
-            else
-            {
-                viewChangeRequested = false;    
-            }
-            
-            lastAction = NO_ACTION;
-            return;
-        }
-        
-        pendingViewTransition = transition;
-        if (pendingViewTransition == null && useDefaultTransitions)
-            pendingViewTransition = defaultPopTransition;
-        
-        lastAction = POP_ACTION;
-        
-        if (viewChanging)
-        {
-            revalidateWhenComplete = true;
-        }
-        else
-        {
-            viewChangeRequested = true;
-            invalidateProperties();
-        }
-    }
-    
-    /**
-     *  Removes all of the views from the navigator.  This will transition
-     *  the current view to a blank screen.  
-     *
-     *  @param transition The view transition to play
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function popAll(transition:ViewTransition = null):void
-    {
-        if (navigationStack.length == 0)
-            return;
-        
-        navigationStack.clear();
-        executePopAction(transition);
-    }
-    
-    /**
-     *  Pops the top view off the navigation stack.
-     * 
-     *  @param transition The view transition to play
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */    
-    public function popView(transition:ViewTransition = null):void
-    {
-        if (navigationStack.length == 0)
-            return;
-        
-        navigationStack.pop();
-        executePopAction(transition);
-    }
-    
-    /**
-     *  Removes all views except the bottom one from the navigation stack.
-     *  
-     *  @param transition The view transition to play
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function popToFirstView(transition:ViewTransition = null):void
-    {
-        if (navigationStack.length < 2)
-            return;
-        
-        navigationStack.popToFirstView();
-        executePopAction(transition);
-    }
-    
-    /**
-     *  Pushes a new view to the top of the navigation stack
-     * 
-     *  @param factory The class used to create the view
-     *  @param data The data object to pass to the view
-     *  @param transition The view transition to play
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function pushView(factory:Class, 
-                             data:Object = null,
-                             transition:ViewTransition = null):void
-    {
-        if (factory == null || !canRemoveCurrentView())
-            return;
-        
-        lastAction = PUSH_ACTION;
-        
-        pendingViewTransition = transition;
-        if (pendingViewTransition == null && useDefaultTransitions)
-            pendingViewTransition = defaultPushTransition;
-        
-        navigationStack.push(factory, data);
-        
-        if (viewChanging)
-        {
-            revalidateWhenComplete = true;
-        }
-        else
-        {
-            viewChangeRequested = true;
-            invalidateProperties();
-        }
-    }
-
-    /**
-     *  Shows the action bar.
-     * 
-     *  @param animate Indicates whether a show effect should be played.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-	public function showActionBar(animate:Boolean = true):void
-	{
-		if (actionBar && !actionBar.visible)
-		{
-			animateActionBarVisbility = animate;
-			actionBarVisibilityInvalidated = true;
-			invalidateProperties();
-		}
-		else
-		{
-			actionBarVisibilityInvalidated = false;
-		}
-	}
-    
-    /**
-     *  Hides the action bar.
-     * 
-     *  @param animate Indicates whether a hide effect should be played.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-	public function hideActionBar(animate:Boolean = true):void
-	{	
-		if (actionBar && actionBar.visible)
-		{
-			animateActionBarVisbility = animate;
-			actionBarVisibilityInvalidated = true;
-			invalidateProperties();
-		}
-		else
-		{
-			actionBarVisibilityInvalidated = false;
-		}
-	}
-	
     //--------------------------------------------------------------------------
     //
     //  UI Template Properties
@@ -939,7 +696,7 @@ public class ViewNavigator extends ViewNavigatorBase
     public function set navigationLayout(value:LayoutBase):void
     {
         _navigationLayout = value;
-
+        
         if (!activeView || (activeView && !activeView.navigationLayout))
         {            
             navigationLayoutInvalidated = true;
@@ -1065,6 +822,137 @@ public class ViewNavigator extends ViewNavigatorBase
     
     //--------------------------------------------------------------------------
     //
+    // Public Methods
+    // 
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Removes all of the views from the navigator.  This will transition
+     *  the current view to a blank screen.  
+     *
+     *  @param transition The view transition to play
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function popAll(transition:ViewTransition = null):void
+    {
+        if (navigationStack.length == 0 || !canRemoveCurrentView())
+            return;
+        
+        scheduleAction(ViewNavigatorAction.POP_ALL, null, null, transition);
+    }
+    
+    /**
+     *  Pops the top view off the navigation stack.
+     * 
+     *  @param transition The view transition to play
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */    
+    public function popView(transition:ViewTransition = null):void
+    {
+        if (navigationStack.length == 0 || !canRemoveCurrentView())
+            return;
+        
+        scheduleAction(ViewNavigatorAction.POP, null, null, transition);
+    }
+    
+    /**
+     *  Removes all views except the bottom one from the navigation stack.
+     *  
+     *  @param transition The view transition to play
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function popToFirstView(transition:ViewTransition = null):void
+    {
+        if (navigationStack.length < 2 || !canRemoveCurrentView())
+            return;
+        
+        scheduleAction(ViewNavigatorAction.POP_TO_FIRST, null, null, transition);
+    }
+    
+    /**
+     *  Pushes a new view to the top of the navigation stack.
+     * 
+     *  @param factory The class used to create the view
+     *  @param data The data object to pass to the view
+     *  @param transition The view transition to play
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function pushView(factory:Class, 
+                             data:Object = null,
+                             transition:ViewTransition = null):void
+    {
+        if (factory == null || !canRemoveCurrentView())
+            return;
+        
+        scheduleAction(ViewNavigatorAction.PUSH, factory, data, transition);
+    }
+
+    /**
+     *  Shows the action bar.
+     * 
+     *  @param animate Indicates whether a show effect should be played.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+	public function showActionBar(animate:Boolean = true):void
+	{
+		if (actionBar && !actionBar.visible)
+		{
+			animateActionBarVisbility = animate;
+			actionBarVisibilityInvalidated = true;
+			invalidateProperties();
+		}
+		else
+		{
+			actionBarVisibilityInvalidated = false;
+		}
+	}
+    
+    /**
+     *  Hides the action bar.
+     * 
+     *  @param animate Indicates whether a hide effect should be played.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+	public function hideActionBar(animate:Boolean = true):void
+	{	
+		if (actionBar && actionBar.visible)
+		{
+			animateActionBarVisbility = animate;
+			actionBarVisibilityInvalidated = true;
+			invalidateProperties();
+		}
+		else
+		{
+			actionBarVisibilityInvalidated = false;
+		}
+	}
+	
+    //--------------------------------------------------------------------------
+    //
     // Private Methods
     // 
     //--------------------------------------------------------------------------
@@ -1182,6 +1070,185 @@ public class ViewNavigator extends ViewNavigatorBase
 			
 		if (actionBarVisibilityInvalidated)
             commitVisibilityChanges();
+    }
+    
+    /**
+     *  @private
+     *  This method registers a navigation operation with the navigators
+     *  action queue.  Navigation operations aren't performed until the
+     *  following frame to allow components to properly update their
+     *  visual state before any complicated actionScript code is run by the
+     *  navigator.
+     * 
+     *  <p>This method will execute all operations when the next ENTER_FRAME
+     *  event is dispatched by the runtime.</P.
+     * 
+     *  @param action The navigation operation that is being performed.  Should
+     *  be one of the constants in ViewNavigatorAction.
+     *  @param factory The class that will be created in the case of a push action
+     *  @param data The data object to pass to the view in the case of a push action
+     *  @param transition The view transition to play
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */  
+    private function scheduleAction(action:String, factory:Class = null, 
+                                 data:Object = null, transition:ViewTransition = null):void
+    {
+        // If the action queue doesn't exist, create it
+        if (delayedNavigationActions.length == 0)
+        {
+            addEventListener(Event.ENTER_FRAME, executeDelayedActions);
+            
+            // Up the framerate so that we get the next ENTER_FRAME event
+            // as fast as possible.  This will be restored when this event
+            // is handled.
+            try
+            {
+                explicitFrameRate = systemManager.stage.frameRate;
+                systemManager.stage.frameRate = 1000;
+            }
+            catch (e:SecurityError)
+            {
+                // Ignore the possible security error
+            }
+        }
+        
+        delayedNavigationActions.push({action:action, factory:factory, 
+            data:data, transition:transition});
+    }
+    
+    /**
+     *  @private
+     *  Executes all the navigation operations that have been queued
+     *  by the navigation methods (e.g., popView, pushView).  
+
+     *  @param transition The view transition to play
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */  
+    private function executeDelayedActions(event:Event):void
+    {
+        removeEventListener(Event.ENTER_FRAME, executeDelayedActions);
+        
+        // Restore framerate
+        try
+        {
+            systemManager.stage.frameRate = explicitFrameRate;
+        }
+        catch (e:SecurityError)
+        {
+            // Ignore the possible securtiy error
+        }
+        
+        if (delayedNavigationActions.length == 0)
+            return;
+        
+        var parameters:Object;
+        var n:int = delayedNavigationActions.length;
+        for (var i:int = 0; i < n; ++i)
+        {
+            parameters = delayedNavigationActions[i];
+            executeAction(parameters.action, parameters.factory, 
+                parameters.data, parameters.transition); 
+        }
+        
+        delayedNavigationActions.length = 0;
+        
+        // If there is a parent navigator, we need to validate from the parent
+        // down to prevent renderering flickers due to invalid layout values
+        // TODO (chiedozi): Investigate why i have to do this
+        if (parentNavigator)
+            parentNavigator.validateNow();
+        else
+            validateNow();
+    }
+    
+    /**
+     *  @private
+     *  Helper method that executes navigation operations for the navigator.
+     * 
+     *  @param action The navigation operation that is being performed.  Should
+     *  be one of the constants in ViewNavigatorAction.
+     *  @param factory The class that will be created in the case of a push action
+     *  @param data The data object to pass to the view in the case of a push action
+     *  @param transition The view transition to play
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */    
+    private function executeAction(action:String, factory:Class = null, 
+                                   data:Object = null, transition:ViewTransition = null):void
+    {
+        var defaultTransition:ViewTransition;
+        
+        // Perform the correct operation on the navigation stack based on
+        // the navigation action
+        if (action == ViewNavigatorAction.PUSH)
+        {
+            lastAction = ViewNavigatorAction.PUSH;
+            defaultTransition = defaultPushTransition;
+            navigationStack.push(factory, data);
+        }
+        else
+        {
+            defaultTransition = defaultPopTransition;
+            
+            if (action == ViewNavigatorAction.POP)
+            {
+                navigationStack.pop();
+            }
+            else if (action == ViewNavigatorAction.POP_TO_FIRST)
+            {
+                navigationStack.popToFirstView();
+            }
+            else if (action == ViewNavigatorAction.POP_ALL)
+            {
+                navigationStack.clear();
+            }
+            
+            // If the currentView navigation data object is the same as the
+            // new one, the activeView doesn't need to be changed.  This can
+            // happen if a pushView() is followed immediately by a popView().
+            if (navigationStack.topView == currentViewData)
+            {
+                if (viewChanging)
+                {
+                    revalidateWhenComplete = false;
+                }
+                else
+                {
+                    viewChangeRequested = false;    
+                }
+                
+                lastAction = ViewNavigatorAction.NONE;
+                return;
+            }
+            
+            lastAction = ViewNavigatorAction.POP;
+        }
+        
+        pendingViewTransition = transition;
+        if (pendingViewTransition == null && useDefaultTransitions)
+            pendingViewTransition = defaultTransition;
+
+        // TODO (chiedozi): Comment this more
+        if (viewChanging)
+        {
+            revalidateWhenComplete = true;
+        }
+        else
+        {
+            viewChangeRequested = true;
+            invalidateProperties();
+        }
     }
     
     /**
@@ -1484,14 +1551,14 @@ public class ViewNavigator extends ViewNavigatorBase
                 view_propertyChangeHandler);
             
             // Grab the data from the old view and persist it
-            if (lastAction == PUSH_ACTION)
+            if (lastAction == ViewNavigatorAction.PUSH)
             {
                 currentViewData.data = currentView.data;
                 currentViewData.persistedData = currentView.serializeData();
             }
             
             // Check if we can delete the reference for the view instance
-            if (lastAction == POP_ACTION || currentView.destructionPolicy == "auto")
+            if (lastAction == ViewNavigatorAction.POP || currentView.destructionPolicy == "auto")
             {
                 currentView.navigator = null;
                 currentViewData.instance = null;
@@ -1553,7 +1620,7 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         else
         {
-            lastAction = NO_ACTION;
+            lastAction = ViewNavigatorAction.NONE;
             viewChanging = false;
             
             // Notify listeners that the view change is complete
@@ -1622,7 +1689,7 @@ public class ViewNavigator extends ViewNavigatorBase
             // TODO (chiedozi): Need to think about how to handle the multiple
             // pop use case.  The wrong view will get the return value.  Is that okay?
             // Grab the views return object and set it on the new view
-            if (lastAction == POP_ACTION && activeView)
+            if (lastAction == ViewNavigatorAction.POP && activeView)
                 view.returnedObject = activeView.createReturnObject();
             
             // Update the views orientation state
@@ -1655,17 +1722,30 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
-     *  Grabs the persistence data of the current view.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
      */
-    mx_internal function persistCurrentView():void
+    override public function saveViewData():Object
     {
+        var savedData:Object = super.saveViewData();
+        
         if (currentViewData && currentViewData.instance)
             currentViewData.persistedData = currentViewData.instance.serializeData();
+        
+        if (!savedData)
+            savedData = {};
+        
+        savedData.navigationStack = navigationStack;
+        return savedData;
+    }
+    
+    /**
+     *  @private
+     */ 
+    override public function restoreViewData(value:Object):void
+    {
+        super.restoreViewData(value);
+        
+        if (value)
+            navigationStack = value.navigationStack as NavigationStack; 
     }
     
     /**
@@ -1784,7 +1864,7 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1797,7 +1877,7 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -1960,4 +2040,19 @@ public class ViewNavigator extends ViewNavigatorBase
         }
     }
 }
+}
+
+
+/**
+ * @private
+ */
+class ViewNavigatorAction
+{
+    public static const NONE:String = "none";
+    public static const PUSH:String = "push";
+    public static const POP:String = "pop";
+    public static const POP_ALL:String = "popAll";
+    public static const POP_TO_FIRST:String = "popToFirst";
+    public static const REPLACE_VIEW:String = "replaceView";
+    public static const REPLACE_STACK:String = "replaceStack";    
 }
