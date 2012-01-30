@@ -137,6 +137,62 @@ public class LinearGradient extends GradientBase implements IFill
 
 	//--------------------------------------------------------------------------
 	//
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
+
+    //----------------------------------
+	//  matrix
+	//----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set matrix(value:Matrix):void
+    {
+    	scaleX = NaN;
+    	super.matrix = value;
+    }
+
+	//----------------------------------
+    //  scaleX
+    //----------------------------------
+    
+    private var _scaleX:Number;
+    
+    [Bindable("propertyChange")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  The horizontal scale of the gradient transform, which defines the width of the (unrotated) gradient
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get scaleX():Number
+    {
+        return _scaleX; 
+    }
+    
+    /**
+     *  @private
+     */
+    public function set scaleX(value:Number):void
+    {
+        var oldValue:Number = _scaleX;
+        if (value != oldValue && !compoundTransform)
+        {
+            _scaleX = value;
+            dispatchGradientChangedEvent("scaleX", oldValue, value);
+        }
+    }
+
+	//--------------------------------------------------------------------------
+	//
+	//
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
@@ -159,7 +215,7 @@ public class LinearGradient extends GradientBase implements IFill
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public function begin(target:Graphics, rc:Rectangle):void
+	public function begin(target:Graphics, bounds:Rectangle):void
 	{
 		commonMatrix.identity();
 		
@@ -187,18 +243,18 @@ public class LinearGradient extends GradientBase implements IFill
 					if (normalizedAngle > 90)
 						normalizedAngle = 180 - normalizedAngle;
 					
-					var side:Number = rc.width;
+					var side:Number = bounds.width;
 					// Get the hypotenuse of the largest triangle that can fit in the bounds
-					var hypotenuse:Number = Math.sqrt(rc.width * rc.width + rc.height * rc.height);
+					var hypotenuse:Number = Math.sqrt(bounds.width * bounds.width + bounds.height * bounds.height);
 					// Get the angle of that largest triangle
-					var hypotenuseAngle:Number =  Math.acos(rc.width / hypotenuse) * 180 / Math.PI;
+					var hypotenuseAngle:Number =  Math.acos(bounds.width / hypotenuse) * 180 / Math.PI;
 					
 					// If the angle is larger than the hypotenuse angle, then use the height 
 					// as the adjacent side of the triangle
 					if (normalizedAngle > hypotenuseAngle)
 					{
 						normalizedAngle = 90 - normalizedAngle;
-						side = rc.height;
+						side = bounds.height;
 					}
 					
 					// Solve for the hypotenuse given an adjacent side and an angle. 
@@ -207,7 +263,7 @@ public class LinearGradient extends GradientBase implements IFill
 				else 
 				{
 					// Use either width or height based on the rotation
-					length = (rotation % 180) == 0 ? rc.width : rc.height;
+					length = (rotation % 180) == 0 ? bounds.width : bounds.height;
 				}
 	    	}
 	    	
@@ -231,15 +287,15 @@ public class LinearGradient extends GradientBase implements IFill
 	    	 
 		    commonMatrix.rotate (!isNaN(_angle) ? _angle : rotationInRadians);
 		    if (isNaN(tx))
-		    	tx = rc.width / 2;
+	    		tx = bounds.width / 2;
 		    if (isNaN(ty))
-		    	ty = rc.height / 2;
-		    commonMatrix.translate(tx + rc.left, ty + rc.top);						 
+	    		ty = bounds.height / 2;
+	    	commonMatrix.translate(tx + bounds.left, ty + bounds.top);						 
 		}
 		else
 		{
-			commonMatrix.scale(rc.width / GRADIENT_DIMENSION, 1);
-			commonMatrix.translate(rc.left + rc.width / 2, 0);
+			commonMatrix.scale(bounds.width / GRADIENT_DIMENSION, 1);
+			commonMatrix.translate(bounds.left + bounds.width / 2, 0);
 			commonMatrix.concat(compoundTransform.matrix);
 		}			 
 		
