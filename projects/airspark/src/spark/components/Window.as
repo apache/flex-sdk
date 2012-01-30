@@ -63,7 +63,7 @@ use namespace mx_internal;
  *  @eventType mx.events.AIREvent.APPLICATION_ACTIVATE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="applicationActivate", type="mx.events.AIREvent")]
@@ -74,7 +74,7 @@ use namespace mx_internal;
  *  @eventType mx.events.AIREvent.APPLICATION_DEACTIVATE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="applicationDeactivate", type="mx.events.AIREvent")]
@@ -85,7 +85,7 @@ use namespace mx_internal;
  *  @eventType mx.events.AIREvent.WINDOW_ACTIVATE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="windowActivate", type="mx.events.AIREvent")]
@@ -96,7 +96,7 @@ use namespace mx_internal;
  *  @eventType mx.events.AIREvent.WINDOW_DEACTIVATE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="windowDeactivate", type="mx.events.AIREvent")]
@@ -109,7 +109,7 @@ use namespace mx_internal;
  *  @see flash.display.NativeWindow
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="close", type="flash.events.Event")]
@@ -123,7 +123,7 @@ use namespace mx_internal;
  *  @see flash.display.NativeWindow
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="closing", type="flash.events.Event")]
@@ -135,7 +135,7 @@ use namespace mx_internal;
  *  @eventType flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="displayStateChange", type="flash.events.NativeWindowDisplayStateEvent")]
@@ -147,7 +147,7 @@ use namespace mx_internal;
  *  @eventType flash.events.NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="displayStateChanging", type="flash.events.NativeWindowDisplayStateEvent")]
@@ -159,7 +159,7 @@ use namespace mx_internal;
  *  @eventType flash.events.NativeWindowBoundsEvent.MOVING
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="moving", type="flash.events.NativeWindowBoundsEvent")]
@@ -170,7 +170,7 @@ use namespace mx_internal;
  *  @eventType flash.events.Event.NETWORK_CHANGE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="networkChange", type="flash.events.Event")]
@@ -182,7 +182,7 @@ use namespace mx_internal;
  *  @eventType flash.events.NativeWindowBoundsEvent.RESIZING
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="resizing", type="flash.events.NativeWindowBoundsEvent")]
@@ -194,7 +194,7 @@ use namespace mx_internal;
  *  @eventType mx.events.AIREvent.WINDOW_COMPLETE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="windowComplete", type="mx.events.AIREvent")]
@@ -205,7 +205,7 @@ use namespace mx_internal;
  *  @eventType mx.events.FlexNativeWindowBoundsEvent.WINDOW_MOVE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="windowMove", type="mx.events.FlexNativeWindowBoundsEvent")]
@@ -216,7 +216,7 @@ use namespace mx_internal;
  *  @eventType mx.events.FlexNativeWindowBoundsEvent.WINDOW_RESIZE
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Event(name="windowResize", type="mx.events.FlexNativeWindowBoundsEvent")]
@@ -229,7 +229,7 @@ use namespace mx_internal;
  *  Played when the window is closed.
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Effect(name="closeEffect", event="windowClose")]
@@ -238,7 +238,7 @@ use namespace mx_internal;
  *  Played when the component is minimized.
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Effect(name="minimizeEffect", event="windowMinimize")]
@@ -247,7 +247,7 @@ use namespace mx_internal;
  *  Played when the component is unminimized.
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Effect(name="unminimizeEffect", event="windowUnminimize")]
@@ -293,7 +293,7 @@ use namespace mx_internal;
  *  factoryClass.
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 [Frame(factoryClass="mx.managers.WindowedSystemManager")]
@@ -352,7 +352,6 @@ use namespace mx_internal;
  *    alwaysInFront="false"
  *    backgroundColor="white"
  *    colorCorrection="default"
- *    height="100"
  *    maxHeight="10000"
  *    maximizable="true"
  *    maxWidth="10000"
@@ -381,13 +380,16 @@ use namespace mx_internal;
  *    <strong>Events</strong>
  *    applicationActivate="<i>No default</i>"
  *    applicationDeactivate="<i>No default</i>"
+ *    close="<i>No default</i>"
  *    closing="<i>No default</i>"
  *    displayStateChange="<i>No default</i>"
  *    displayStateChanging="<i>No default</i>"
  *    moving="<i>No default</i>"
  *    networkChange="<i>No default</i>"
  *    resizing="<i>No default</i>"
+ *    windowActivate="<i>No default</i>"
  *    windowComplete="<i>No default</i>"
+ *    windowDeactivate="<i>No default</i>"
  *    windowMove="<i>No default</i>"
  *    windowResize="<i>No default</i>"
  *  /&gt;
@@ -397,7 +399,7 @@ use namespace mx_internal;
  * 
  *  
  *  @langversion 3.0
- *  @playerversion AIR 1.1
+ *  @playerversion AIR 1.5
  *  @productversion Flex 3
  */
 public class Window extends SkinnableContainer implements IWindow
@@ -434,7 +436,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @param component the component whose Window you wish to find.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public static function getWindow(component:UIComponent):IWindow
@@ -455,7 +457,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function Window()
@@ -571,7 +573,7 @@ public class Window extends SkinnableContainer implements IWindow
     //----------------------------------
 
     /**
-     *  A skin part that defines the gripper button used to resize the window. 
+     *  The skin part that defines the gripper button used to resize the window. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -586,7 +588,7 @@ public class Window extends SkinnableContainer implements IWindow
     //----------------------------------
 
     /**
-     *  The SkinPart that displays the status bar.
+     *  The skin part that defines the display of the status bar.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -600,10 +602,10 @@ public class Window extends SkinnableContainer implements IWindow
     //----------------------------------
 
     /**
-     *  A reference to the UITextField that displays the status bar's text.
+     *  The skin part that defines the display of the status bar's text.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     [SkinPart (required="false")]
@@ -614,7 +616,7 @@ public class Window extends SkinnableContainer implements IWindow
     //----------------------------------
 
     /**
-     *  The UIComponent that displays the title bar.
+     *  The skin part that defines the title bar.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
@@ -701,7 +703,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Specifies the maximum height of the application's window.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function set maxHeight(value:Number):void
@@ -746,7 +748,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Specifies the maximum width of the application's window.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function set maxWidth(value:Number):void
@@ -779,7 +781,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Specifies the minimum height of the application's window.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get minHeight():Number
@@ -824,7 +826,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Specifies the minimum width of the application's window.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get minWidth():Number
@@ -867,7 +869,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */ 
     override public function get visible():Boolean
@@ -976,7 +978,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @see flash.display.NativeWindow#alwaysInFront
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get alwaysInFront():Boolean
@@ -1014,7 +1016,6 @@ public class Window extends SkinnableContainer implements IWindow
      *  @default 0xFFFFFF
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
@@ -1081,7 +1082,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  A flag indicating whether the window has been closed.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get closed():Boolean
@@ -1107,7 +1108,6 @@ public class Window extends SkinnableContainer implements IWindow
     *  @default ColorCorrection.DEFAULT
     *  
     *  @langversion 3.0
-    *  @playerversion Flash 10
     *  @playerversion AIR 1.5
     *  @productversion Flex 4
     */
@@ -1156,7 +1156,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  has been opened.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get maximizable():Boolean
@@ -1194,7 +1194,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Returns the cursor manager for this Window.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     override public function get cursorManager():ICursorManager
@@ -1222,7 +1222,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  in which case this property is ignored.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function set menu(value:FlexNativeMenu):void
@@ -1247,7 +1247,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  been opened.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get minimizable():Boolean
@@ -1276,7 +1276,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  The underlying NativeWindow that this Window component uses.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get nativeWindow():NativeWindow
@@ -1303,7 +1303,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  has been opened.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get resizable():Boolean
@@ -1367,7 +1367,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get showGripper():Boolean
@@ -1398,7 +1398,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Storage for the showStatusBar property.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     private var _showStatusBar:Boolean = true;
@@ -1414,7 +1414,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get showStatusBar():Boolean
@@ -1445,7 +1445,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Storage for the showTitleBar property.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     private var _showTitleBar:Boolean = true;
@@ -1461,7 +1461,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @default true
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get showTitleBar():Boolean
@@ -1507,7 +1507,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @default ""
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get status():String
@@ -1553,7 +1553,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @see flash.display.NativeWindowInitOptions#systemChrome
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get systemChrome():String
@@ -1598,7 +1598,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @default ""
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get title():String
@@ -1644,7 +1644,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get titleIcon():Class
@@ -1685,7 +1685,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  <p>This property is read-only after the window has been opened.</p>
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get transparent():Boolean
@@ -1729,7 +1729,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  @see flash.display.NativeWindowInitOptions#type
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function get type():String
@@ -1795,8 +1795,8 @@ public class Window extends SkinnableContainer implements IWindow
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-    	super.partRemoved(partName, instance);
-    	
+        super.partRemoved(partName, instance);
+        
         if (instance == gripper)
         {
             gripper.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
@@ -1819,8 +1819,8 @@ public class Window extends SkinnableContainer implements IWindow
         height = _bounds.height;
 
         super.createChildren();
-	}
-	
+    }
+    
 
     /**
      *  @private
@@ -1954,7 +1954,7 @@ public class Window extends SkinnableContainer implements IWindow
                 titleBar.includeInLayout = _showTitleBar;
             }
 
-			showTitleBarChanged = false;
+            showTitleBarChanged = false;
         }
 
         if (titleIconChanged)
@@ -2030,7 +2030,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Closes the window. This action is cancelable.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function close():void
@@ -2065,7 +2065,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Maximizes the window, or does nothing if it's already maximized.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function maximize():void
@@ -2092,7 +2092,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  Minimizes the window.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function minimize():void
@@ -2114,7 +2114,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  unminimizes it if it's minimized).
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function restore():void
@@ -2150,7 +2150,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  is not currently active).
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function activate():void
@@ -2167,7 +2167,7 @@ public class Window extends SkinnableContainer implements IWindow
      *  is <code>true</code>.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function open(openWindowActive:Boolean = true):void
@@ -2185,11 +2185,11 @@ public class Window extends SkinnableContainer implements IWindow
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window behind.
      *
-     *  @return <code>true</code> if the window was succesfully sent behind;
+     *  @return <code>true</code> if the window was successfully sent behind;
      *          <code>false</code> if the window is invisible or minimized.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function orderInBackOf(window:IWindow):Boolean
@@ -2208,11 +2208,11 @@ public class Window extends SkinnableContainer implements IWindow
      *  @param window The IWindow (Window or WindowedAplication)
      *  to order this window in front of.
      *
-     *  @return <code>true</code> if the window was succesfully sent in front;
+     *  @return <code>true</code> if the window was successfully sent in front;
      *          <code>false</code> if the window is invisible or minimized.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function orderInFrontOf(window:IWindow):Boolean
@@ -2226,11 +2226,11 @@ public class Window extends SkinnableContainer implements IWindow
     /**
      *  Orders the window behind all others in the same application.
      *
-     *  @return <code>true</code> if the window was succesfully sent to the back;
+     *  @return <code>true</code> if the window was successfully sent to the back;
      *  <code>false</code> if the window is invisible or minimized.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function orderToBack():Boolean
@@ -2244,11 +2244,11 @@ public class Window extends SkinnableContainer implements IWindow
     /**
      *  Orders the window in front of all others in the same application.
      *
-     *  @return <code>true</code> if the window was succesfully sent to the front;
+     *  @return <code>true</code> if the window was successfully sent to the front;
      *  <code>false</code> if the window is invisible or minimized.
      *  
      *  @langversion 3.0
-     *  @playerversion AIR 1.1
+     *  @playerversion AIR 1.5
      *  @productversion Flex 3
      */
     public function orderToFront():Boolean
@@ -2275,7 +2275,6 @@ public class Window extends SkinnableContainer implements IWindow
      *  @return A string specifying the name of the state to apply to the skin.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
