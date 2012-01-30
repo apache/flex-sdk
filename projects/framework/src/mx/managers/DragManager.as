@@ -122,58 +122,58 @@ public class DragManager
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constant that specifies that the type of drag action is "none".
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const NONE:String = "none";
+    /**
+     *  Constant that specifies that the type of drag action is "none".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const NONE:String = "none";
 
-	/**
-	 *  Constant that specifies that the type of drag action is "copy".
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const COPY:String = "copy";
+    /**
+     *  Constant that specifies that the type of drag action is "copy".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const COPY:String = "copy";
 
-	/**
-	 *  Constant that specifies that the type of drag action is "move".
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const MOVE:String = "move";
+    /**
+     *  Constant that specifies that the type of drag action is "move".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const MOVE:String = "move";
 
-	/**
-	 *  Constant that specifies that the type of drag action is "link".
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static const LINK:String = "link";
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Class variables
-	//
-	//--------------------------------------------------------------------------
-	
+    /**
+     *  Constant that specifies that the type of drag action is "link".
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const LINK:String = "link";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  @private
      *  Linker dependency on implementation class.
@@ -182,189 +182,190 @@ public class DragManager
 
     /**
      *  @private
-	 *  Storage for the impl getter.
-	 *  This gets initialized on first access,
-	 *  not at static initialization time, in order to ensure
-	 *  that the Singleton registry has already been initialized.
+     *  Storage for the impl getter.
+     *  This gets initialized on first access,
+     *  not at static initialization time, in order to ensure
+     *  that the Singleton registry has already been initialized.
      */
     private static var _impl:IDragManager;
-	
-	/**
-	 *  @private
-	 *  The singleton instance of DragManagerImpl which was
-	 *  registered as implementing the IDragManager interface.
-	 */
-	private static function get impl():IDragManager
-	{
-		if (!_impl)
-		{
-			_impl = IDragManager(
-				Singleton.getInstance("mx.managers::IDragManager"));
-		}
+    
+    /**
+     *  @private
+     *  The singleton instance of DragManagerImpl which was
+     *  registered as implementing the IDragManager interface.
+     */
+    private static function get impl():IDragManager
+    {
+        if (!_impl)
+        {
+            _impl = IDragManager(
+                Singleton.getInstance("mx.managers::IDragManager"));
+        }
 
-		return _impl;
-	}
+        return _impl;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Class properties
-	//
-	//--------------------------------------------------------------------------
-	
+    //--------------------------------------------------------------------------
+    //
+    //  Class properties
+    //
+    //--------------------------------------------------------------------------
+    
     //----------------------------------
-	//  dragProxy
-    //----------------------------------
-
-	/**
-	 *  @private
-	 *  Object being dragged around.
-	 */
-	mx_internal static function get dragProxy():DragProxy
-	{
-	    return Object(impl).dragProxy;
-	}
-
-    //----------------------------------
-	//  isDragging
+    //  dragProxy
     //----------------------------------
 
-	/**
-	 *  Read-only property that returns <code>true</code>
-	 *  if a drag is in progress.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static function get isDragging():Boolean
-	{
-		return impl.isDragging;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Class methods
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  @private
+     *  Object being dragged around.
+     */
+    mx_internal static function get dragProxy():DragProxy
+    {
+        return Object(impl).dragProxy;
+    }
 
-	/**
-	 *  Initiates a drag and drop operation.
-	 *
-	 *  @param dragInitiator IUIComponent that specifies the component initiating
-	 *  the drag.
-	 *
-	 *  @param dragSource DragSource object that contains the data
-	 *  being dragged.
-	 *
-	 *  @param mouseEvent The MouseEvent that contains the mouse information
-	 *  for the start of the drag.
-	 *
-	 *  @param dragImage The image to drag. This argument is optional.
-	 *  If omitted, a standard drag rectangle is used during the drag and
-	 *  drop operation. If you specify an image, you must explicitly set a 
-	 *  height and width of the image or else it will not appear.
-	 *
-	 *  @param xOffset Number that specifies the x offset, in pixels, for the
-	 *  <code>dragImage</code>. This argument is optional. If omitted, the drag proxy
-	 *  is shown at the upper-left corner of the drag initiator. The offset is expressed
-	 *  in pixels from the left edge of the drag proxy to the left edge of the drag
-	 *  initiator, and is usually a negative number.
-	 *
-	 *  @param yOffset Number that specifies the y offset, in pixels, for the
-	 *  <code>dragImage</code>. This argument is optional. If omitted, the drag proxy
-	 *  is shown at the upper-left corner of the drag initiator. The offset is expressed
-	 *  in pixels from the top edge of the drag proxy to the top edge of the drag
-	 *  initiator, and is usually a negative number.
-	 *
-	 *  @param imageAlpha Number that specifies the alpha value used for the
-	 *  drag image. This argument is optional. If omitted, the default alpha
-	 *  value is 0.5. A value of 0.0 indicates that the image is transparent;
-	 *  a value of 1.0 indicates it is fully opaque. 
+    //----------------------------------
+    //  isDragging
+    //----------------------------------
+
+    /**
+     *  Read-only property that returns <code>true</code>
+     *  if a drag is in progress.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function get isDragging():Boolean
+    {
+        return impl.isDragging;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Initiates a drag and drop operation.
+     *
+     *  @param dragInitiator IUIComponent that specifies the component initiating
+     *  the drag.
+     *
+     *  @param dragSource DragSource object that contains the data
+     *  being dragged.
+     *
+     *  @param mouseEvent The MouseEvent that contains the mouse information
+     *  for the start of the drag.
+     *
+     *  @param dragImage The image to drag. This argument is optional.
+     *  If omitted, a standard drag rectangle is used during the drag and
+     *  drop operation. If you specify an image, you must explicitly set a 
+     *  height and width of the image or else it will not appear.
+     *
+     *  @param xOffset Number that specifies the x offset, in pixels, for the
+     *  <code>dragImage</code>. This argument is optional. If omitted, the drag proxy
+     *  is shown at the upper-left corner of the drag initiator. The offset is expressed
+     *  in pixels from the left edge of the drag proxy to the left edge of the drag
+     *  initiator, and is usually a negative number.
+     *
+     *  @param yOffset Number that specifies the y offset, in pixels, for the
+     *  <code>dragImage</code>. This argument is optional. If omitted, the drag proxy
+     *  is shown at the upper-left corner of the drag initiator. The offset is expressed
+     *  in pixels from the top edge of the drag proxy to the top edge of the drag
+     *  initiator, and is usually a negative number.
+     *
+     *  @param imageAlpha Number that specifies the alpha value used for the
+     *  drag image. This argument is optional. If omitted, the default alpha
+     *  value is 0.5. A value of 0.0 indicates that the image is transparent;
+     *  a value of 1.0 indicates it is fully opaque. 
          *
          *  @param allowMove Indicates if a drop target is allowed to move the dragged data.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static function doDrag(
-			dragInitiator:IUIComponent, 
-			dragSource:DragSource, 
-			mouseEvent:MouseEvent,
-			dragImage:IFlexDisplayObject = null, // instance of dragged item(s)
-			xOffset:Number = 0,
-			yOffset:Number = 0,
-			imageAlpha:Number = 0.5,
-			allowMove:Boolean = true):void
-	{
-		impl.doDrag(dragInitiator, dragSource, mouseEvent, dragImage, xOffset,
-				yOffset, imageAlpha, allowMove);
-	}
-	
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function doDrag(
+            dragInitiator:IUIComponent, 
+            dragSource:DragSource, 
+            mouseEvent:MouseEvent,
+            dragImage:IFlexDisplayObject = null, // instance of dragged item(s)
+            xOffset:Number = 0,
+            yOffset:Number = 0,
+            imageAlpha:Number = 0.5,
+            allowMove:Boolean = true):void
+    {
+        impl.doDrag(dragInitiator, dragSource, mouseEvent, dragImage, xOffset,
+                yOffset, imageAlpha, allowMove);
+    }
+    
 
-	
-	/**
-	 *  Call this method from your <code>dragEnter</code> event handler if you accept
-	 *  the drag/drop data.
-	 *  For example: 
-	 *
-	 *  <pre>DragManager.acceptDragDrop(event.target);</pre>
-	 *
-	 *	@param target The drop target accepting the drag.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static function acceptDragDrop(target:IUIComponent):void
-	{
-		impl.acceptDragDrop(target);
-	}
-	
-	/**
-	 *  Sets the feedback indicator for the drag and drop operation.
-	 *  Possible values are <code>DragManager.COPY</code>, <code>DragManager.MOVE</code>,
-	 *  <code>DragManager.LINK</code>, or <code>DragManager.NONE</code>.
-	 *
-	 *  @param feedback The type of feedback indicator to display.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static function showFeedback(feedback:String):void
-	{
-		impl.showFeedback(feedback);
-	}
-	
-	/**
-	 *  Returns the current drag and drop feedback.
-	 *
-	 *  @return  Possible return values are <code>DragManager.COPY</code>, 
-	 *  <code>DragManager.MOVE</code>,
-	 *  <code>DragManager.LINK</code>, or <code>DragManager.NONE</code>.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public static function getFeedback():String
-	{
-		return impl.getFeedback();
-	}
-	
-	/**
-	 *  @private
-	 */
-	mx_internal static function endDrag():void
-	{
-		impl.endDrag();
-	}
+    
+    /**
+     *  Call this method from your <code>dragEnter</code> event handler if you accept
+     *  the drag/drop data.
+     *  Typically, you cast <code>event.target</code> to the data type of the  drop target.
+     *  In the following example, the drop target is an MX Canvas container: 
+     *
+     *  <pre>DragManager.acceptDragDrop(Canvas(event.target));</pre>
+     *
+     *  @param target The drop target accepting the drag.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function acceptDragDrop(target:IUIComponent):void
+    {
+        impl.acceptDragDrop(target);
+    }
+    
+    /**
+     *  Sets the feedback indicator for the drag and drop operation.
+     *  Possible values are <code>DragManager.COPY</code>, <code>DragManager.MOVE</code>,
+     *  <code>DragManager.LINK</code>, or <code>DragManager.NONE</code>.
+     *
+     *  @param feedback The type of feedback indicator to display.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function showFeedback(feedback:String):void
+    {
+        impl.showFeedback(feedback);
+    }
+    
+    /**
+     *  Returns the current drag and drop feedback.
+     *
+     *  @return  Possible return values are <code>DragManager.COPY</code>, 
+     *  <code>DragManager.MOVE</code>,
+     *  <code>DragManager.LINK</code>, or <code>DragManager.NONE</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getFeedback():String
+    {
+        return impl.getFeedback();
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal static function endDrag():void
+    {
+        impl.endDrag();
+    }
 }
 }
 
