@@ -34,8 +34,6 @@ internal class AutomationAirClasses
 	import mx.automation.delegates.controls.fileSystemClasses.FileSystemDataGridNameColumnRendererAutomationImpl;FileSystemDataGridNameColumnRendererAutomationImpl;
 	import mx.automation.delegates.controls.FileSystemTreeAutomationImpl;FileSystemTreeAutomationImpl;
 	import mx.automation.delegates.controls.FlexNativeMenuAutomationImpl;FlexNativeMenuAutomationImpl;
-	import spark.automation.delegates.components.SparkWindowedApplicationAutomationImpl;SparkWindowedApplicationAutomationImpl;
-	import spark.automation.delegates.components.SparkWindowAutomationImpl;SparkWindowAutomationImpl;
 	//Maintain alphabetical order
 }
 
