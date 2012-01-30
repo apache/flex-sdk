@@ -634,7 +634,7 @@ public class DragProxy extends UIComponent
             var m:Move = new Move(this);
             m.addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
             m.xFrom = x;
-            m.yFrom = this.y;
+            m.yFrom = y;
             m.xTo = parent.mouseX;
             m.yTo = parent.mouseY;
             m.duration = 200;
