@@ -117,10 +117,12 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         super();
 
 		var info:Object = SystemManagerGlobals.info;
-		processInfo(info);
+        if (info)
+		    processInfo(info);
 
-		SystemManagerGlobals.topLevelSystemManagers[0].
-			addEventListener(FlexEvent.NEW_CHILD_APPLICATION, newChildApplicationHandler, true);
+        if (SystemManagerGlobals.topLevelSystemManagers.length)
+		    SystemManagerGlobals.topLevelSystemManagers[0].
+			    addEventListener(FlexEvent.NEW_CHILD_APPLICATION, newChildApplicationHandler, true);
     }
     
     //--------------------------------------------------------------------------
