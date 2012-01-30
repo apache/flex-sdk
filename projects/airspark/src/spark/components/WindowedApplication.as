@@ -36,6 +36,7 @@ import flash.geom.Rectangle;
 import mx.controls.Alert;
 import mx.controls.FlexNativeMenu;
 import mx.controls.HTML;
+import mx.core.IVisualElement;
 import mx.core.IWindow;
 import mx.core.mx_internal;
 import mx.events.AIREvent;
@@ -45,8 +46,7 @@ import mx.managers.DragManager;
 import mx.managers.NativeDragManagerImpl;
 
 import spark.components.windowClasses.TitleBar;
-import spark.primitives.Rect;
-import spark.primitives.SimpleText;
+import spark.primitives.supportClasses.TextGraphicElement;
 
 //--------------------------------------
 //  Events
@@ -265,25 +265,6 @@ import spark.primitives.SimpleText;
 //--------------------------------------
 //  SkinStates
 //--------------------------------------
-
-/**
- *  The application is enabled and active.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("normal")]
-
-/**
- *  The application is disabled and active.
- *  
- *  @langversion 3.0
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("disabled")]
 
 /**
  *  The application is enabled and inactive.
@@ -550,7 +531,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @productversion Flex 4
      */
     [SkinPart (required = "false")]
-    public var statusBar:Group;
+    public var statusBar:IVisualElement;
 
     //----------------------------------
     //  statusText
@@ -564,7 +545,7 @@ public class WindowedApplication extends Application implements IWindow
      *  @productversion Flex 3
      */
     [SkinPart (required="false")]
-    public var statusText:SimpleText;
+    public var statusText:TextGraphicElement;
     
     //----------------------------------
     //  titleBar
@@ -579,23 +560,6 @@ public class WindowedApplication extends Application implements IWindow
      */
     [SkinPart (required="false")]
     public var titleBar:TitleBar;
-
-    //----------------------------------
-    //  titleBarBackgroundRect
-    //----------------------------------
-
-    /**
-     *  The background behind the title bar. A white background
-     *  is placed behind the title bar because the title bar has
-     *  its alpha property set to 0.5 when the application is 
-     *  inactive.
-     *  
-     *  @langversion 3.0
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    [SkinPart (required="false")]
-    public var titleBarBackgroundRect:Rect;
 
     //--------------------------------------------------------------------------
     //
@@ -1726,12 +1690,6 @@ public class WindowedApplication extends Application implements IWindow
             {
                 titleBar.visible = _showTitleBar;
                 titleBar.includeInLayout = _showTitleBar;
-            }
-            
-            if (titleBarBackgroundRect)
-            {
-                titleBarBackgroundRect.visible = _showTitleBar;
-                titleBarBackgroundRect.includeInLayout = _showTitleBar;
             }
             
             showTitleBarChanged = false;
