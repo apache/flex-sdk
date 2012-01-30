@@ -230,7 +230,6 @@ public class ImageSkin extends MobileSkin
             if (!loadingIndicator)
             {
                 loadingIndicator = new BusyIndicator();
-                setElementSize(loadingIndicator, placeholderImageWidth, placeholderImageHeight);
                 addChild(loadingIndicator);
             }            
             
