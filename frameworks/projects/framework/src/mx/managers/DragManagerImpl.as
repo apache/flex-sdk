@@ -34,6 +34,7 @@ import mx.events.MarshalEvent;
 import mx.events.MarshalDragEvent;
 import mx.managers.ISystemManager2;
 import mx.managers.dragClasses.DragProxy;
+import mx.managers.SystemManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 
@@ -250,6 +251,12 @@ public class DragManagerImpl implements IDragManager
 		sandboxRoot.dispatchEvent(me);
 		// trace("<--dispatch isDragging for DragManagerImpl", sm, true);
 		
+		me = new MarshalEvent(MarshalEvent.DRAG_MANAGER);
+		me.name = "mouseShield";
+		me.value = true;
+		// trace("-->dispatch add mouseShield.for DragManagerImpl", sm);
+		sandboxRoot.dispatchEvent(me);
+
 		this.dragInitiator = dragInitiator;
 
 		// The drag proxy is a UIComponent with a single child -
@@ -432,6 +439,11 @@ public class DragManagerImpl implements IDragManager
 			sandboxRoot.dispatchEvent(me);
 			// trace("<--dispatch endDrag for DragManagerImpl", sm);
 		}
+		me = new MarshalEvent(MarshalEvent.DRAG_MANAGER);
+		me.name = "mouseShield";
+		me.value = false;
+		// trace("-->dispatch remove mouseShield.for DragManagerImpl", sm);
+		sandboxRoot.dispatchEvent(me);
 		
 		dragInitiator = null;
 		bDoingDrag = false;
@@ -476,24 +488,9 @@ public class DragManagerImpl implements IDragManager
 
 		var marshalEvent:Object = event;
 
-		if (marshalEvent.dragTarget.loaderInfo.applicationDomain != sm.loaderInfo.applicationDomain)
-		{
-			// see if we parent the application domain of the dragtarget
-			var ad:ApplicationDomain = marshalEvent.dragTarget.loaderInfo.applicationDomain.parentDomain;
-			var inOurAD:Boolean = false;
-			while (ad)
-			{
-				if (ad == ApplicationDomain.currentDomain)
-				{
-					inOurAD = true;
-					break;
-				}
-				ad = ad.parentDomain;
-			}
-			if (!inOurAD)
-				return;
-		}
-
+		var swfRoot:DisplayObject = SystemManager.getSWFRoot(marshalEvent.dragTarget);
+		if (!swfRoot)
+			return;	// doesn't belong to this appdomain
 
 		var dragEvent:DragEvent = new DragEvent(marshalEvent.eventType, marshalEvent.bubbles, marshalEvent.cancelable);
 		dragEvent.localX = marshalEvent.localX;
