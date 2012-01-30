@@ -92,11 +92,11 @@ public class SystemManagerProxy extends SystemManager
 	
 	private function proxyMouseDownHandler(event:MouseEvent):void
 	{
-		// Tell the top-level system manager we are active.
+		// Tell our parent system manager we are active.
 		var sm:ISystemManager2 = ISystemManager2(_systemManager);
-		if (sm.sandboxBridgeGroup && sm.sandboxBridgeGroup.topLevelSystemManagerBridge)
+		if (sm.sandboxBridgeGroup && sm.sandboxBridgeGroup.parentBridge)
 		{
-			var bridge:IEventDispatcher = sm.sandboxBridgeGroup.topLevelSystemManagerBridge;
+			var bridge:IEventDispatcher = sm.sandboxBridgeGroup.parentBridge;
 			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.ACTIVATE_WINDOW,
 																	    false, false,
 	       																sm.sandboxBridgeGroup.parentBridge, 
@@ -242,7 +242,7 @@ public class SystemManagerProxy extends SystemManager
 		// trace("SM Proxy: deactivate " + f );
 
 		var sm:ISystemManager2 = ISystemManager2(_systemManager);
-		var bridge:IEventDispatcher = sm.sandboxBridgeGroup ? sm.sandboxBridgeGroup.topLevelSystemManagerBridge : null;
+		var bridge:IEventDispatcher = sm.sandboxBridgeGroup ? sm.sandboxBridgeGroup.parentBridge : null;
 		if (bridge)
 		{
 			var bridgeEvent:SandboxBridgeEvent = new SandboxBridgeEvent(SandboxBridgeEvent.DEACTIVATE_WINDOW,
