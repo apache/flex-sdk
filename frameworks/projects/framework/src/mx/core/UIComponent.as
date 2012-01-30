@@ -738,7 +738,7 @@ include "../styles/metadata/AnchorStyles.as";
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="mx.accessibility.UIComponentAccImpl")]
+[AccessibilityClass(implementation="mx.accessibility.UIComponentAccProps")]
 
 [ResourceBundle("core")]
 
@@ -945,7 +945,7 @@ public class UIComponent extends FlexSprite
 
     /**
      *  @private
-     *  Placeholder for mixin by UIComponentAccImpl.
+     *  Placeholder for mixin by UIComponentAccProps.
      */
     mx_internal static var createAccessibilityImplementation:Function;
 
