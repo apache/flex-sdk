@@ -1789,6 +1789,7 @@ public class ViewNavigator extends ViewNavigatorBase
         // Deactivate the current view
         if (currentViewData)
         {
+            // FIXME (chiedozi): Do we need to remove view from layout?
             currentView = currentViewData.instance;
             currentView.active = false;
             currentView.includeInLayout = false;
@@ -1797,6 +1798,9 @@ public class ViewNavigator extends ViewNavigatorBase
             // up to date before starting the transition and possibly storing a bitmap 
             // for the transition
             currentView.validateNow();
+            
+            // Restore the includeInLayout flag on the currentView
+            currentView.includeInLayout = true;
         }
         
         // Store new view
