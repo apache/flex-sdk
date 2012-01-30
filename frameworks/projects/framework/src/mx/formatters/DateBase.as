@@ -13,9 +13,8 @@ package mx.formatters
 {
 
 import flash.events.Event;
+
 import mx.core.mx_internal;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -546,6 +545,14 @@ public class DateBase
 				// seconds in minute
 				var sec:int = int(date.getSeconds());
 				result += setValue(sec, key);
+				return result;
+			}
+			
+			case "Q":
+			{
+				// milliseconds in second
+				var ms:int = int(date.getMilliseconds());
+				result += setValue(ms, key);
 				return result;
 			}
 		}
