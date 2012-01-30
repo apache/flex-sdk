@@ -179,6 +179,9 @@ public class SplashScreenImage
      */
     public function getImageClass(aspectRatio:String, dpi:Number, resolution:Number):Class
     {
+        if (!_mxmlContent)
+            return null;
+
         // Find best matching source
         var bestMatch:SplashScreenImageSource;
         const length:int = _mxmlContent.length;
