@@ -67,7 +67,7 @@ public class ToggleSwitchSkin extends MobileSkin
                 layoutThumbWidth = 94;
                 layoutThumbHeight = 56;
                 layoutStrokeWeight = 2;
-                layoutOuterStrokeWeight = 2;
+                layoutBorderSize = 2;
                 layoutTextShadowOffset = -2;
                 layoutInnerPadding = 14;
                 layoutOuterPadding = 22;
@@ -79,7 +79,7 @@ public class ToggleSwitchSkin extends MobileSkin
                 layoutThumbWidth = 70;
                 layoutThumbHeight = 42;
                 layoutStrokeWeight = 2;
-                layoutOuterStrokeWeight = 1;
+                layoutBorderSize = 1;
                 layoutTextShadowOffset = -1;
                 layoutInnerPadding = 10;
                 layoutOuterPadding = 17;
@@ -92,7 +92,7 @@ public class ToggleSwitchSkin extends MobileSkin
                 layoutThumbWidth = 47;
                 layoutThumbHeight = 28;
                 layoutStrokeWeight = 1;
-                layoutOuterStrokeWeight = 1;
+                layoutBorderSize = 1;
                 layoutTextShadowOffset = -1;
                 layoutInnerPadding = 7;
                 layoutOuterPadding = 11;
@@ -101,9 +101,9 @@ public class ToggleSwitchSkin extends MobileSkin
             }
         }
         
-        layoutCornerRadius = layoutThumbHeight / 2;
-        selectedLabelText = resourceManager.getString("components","toggleSwitchSelectedLabel");
-        unselectedLabelText =  resourceManager.getString("components","toggleSwitchUnselectedLabel");
+        layoutCornerEllipseSize = layoutThumbHeight;
+        selectedLabel = resourceManager.getString("components","toggleSwitchSelectedLabel");
+        unselectedLabel =  resourceManager.getString("components","toggleSwitchUnselectedLabel");
     }
     
     //----------------------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ public class ToggleSwitchSkin extends MobileSkin
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    protected var layoutCornerRadius:Number;
+    protected var layoutCornerEllipseSize:Number;
     
     /**
      * The stroke weight outlining the graphics of the skin
@@ -149,15 +149,15 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutStrokeWeight:Number;
     
     /**
-     *  The stroke weight outlining the component
+     *  The size of the border surrounding the component
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    protected var layoutOuterStrokeWeight:Number;
+    protected var layoutBorderSize:Number;
     
-	/**
+    /**
      * The padding between the labels and the thumb
      * 
      *  @langversion 3.0
@@ -186,40 +186,24 @@ public class ToggleSwitchSkin extends MobileSkin
     
     /**
      *  The label for the selected side of the component
+     *  Exposed for styling purposes only
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    public var selectedLabelDisplay:StyleableTextField;
-
-    /**
-     *  The label's shadow for the unselected side of the component
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
-     */
-    public var selectedLabelDisplayShadow:StyleableTextField;
+    public var selectedLabelDisplay:LabelDisplayComponent;
     
     /**
      *  The label for the unselected side of the component
+     *  Exposed for styling purposes only
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    public var unselectedLabelDisplay:StyleableTextField;
+    public var unselectedLabelDisplay:LabelDisplayComponent;
     
-    /**
-     *  The label's shadow for the unselected side of the component
-     * 
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
-     */
-    public var unselectedLabelDisplayShadow:StyleableTextField;
-
     /**
      *  The content clipped by the track that slides to match the thumb's
      *  position. Contents include a background and the (un)selected labels.
@@ -227,16 +211,16 @@ public class ToggleSwitchSkin extends MobileSkin
      *  shadow, foreground.
      */
     private var slidingContentBackground:SpriteVisualElement;
-    private var slidingContentForeground:SpriteVisualElement;
+    private var slidingContentForeground:UIComponent;
     private var slidingContentOverlayClass:Class;
     private var slidingContentOverlay:DisplayObject;
     
-	/**
-	 *  The contents inside the skin, not including the outline
-	 *  stroke
-	 */
-	private var contents:SpriteVisualElement;
-	
+    /**
+     *  The contents inside the skin, not including the outline
+     *  stroke
+     */
+    private var contents:UIComponent;
+    
     //----------------------------------------------------------------------------------------------
     //
     //  Skin parts
@@ -318,49 +302,49 @@ public class ToggleSwitchSkin extends MobileSkin
     }
     
     //----------------------------------
-    //  selectedLabelText
+    //  selectedLabel
     //----------------------------------
     
-    private var _selectedLabelText:String;
+    private var _selectedLabel:String;
     /**
      *  The text of the label showing when the component is selected.
-     *  Subclasses can override this to customize the selected label.
+     *  Subclasses can set or override this to customize the selected label.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    protected function get selectedLabelText():String 
+    protected function get selectedLabel():String 
     {
-        return _selectedLabelText;
+        return _selectedLabel;
     }
     
-    protected function set selectedLabelText(value:String):void
+    protected function set selectedLabel(value:String):void
     {
-        _selectedLabelText = value;
+        _selectedLabel = value;
     }
     
     //----------------------------------
-    //  unselectedLabelText
+    //  unselectedLabel
     //----------------------------------
-
-    private var _unselectedLabelText:String;
+    
+    private var _unselectedLabel:String;
     /**
      *  The text of the label showing when the component is not selected.
-     *  Subclasses can override this to customize the unselected label.
+     *  Subclasses can set or override this to customize the unselected label.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    protected function get unselectedLabelText():String 
+    protected function get unselectedLabel():String 
     {
-        return _unselectedLabelText;
+        return _unselectedLabel;
     }
     
-    protected function set unselectedLabelText(value:String):void
+    protected function set unselectedLabel(value:String):void
     {
-        _unselectedLabelText = value;
+        _unselectedLabel = value;
     }
     
     //----------------------------------------------------------------------------------------------
@@ -378,24 +362,24 @@ public class ToggleSwitchSkin extends MobileSkin
         super.drawBackground(unscaledWidth, unscaledHeight);
         
         // calculate skin dimensions - outer stroke
-        var calculatedContentWidth:Number = Math.max(unscaledWidth - 2 * layoutOuterStrokeWeight, 
+        var calculatedContentWidth:Number = Math.max(unscaledWidth - 2 * layoutBorderSize, 
             getElementPreferredWidth(thumb));
-        var calculatedContentHeight:Number = Math.max(unscaledHeight - 2 * layoutOuterStrokeWeight, 
+        var calculatedContentHeight:Number = Math.max(unscaledHeight - 2 * layoutBorderSize, 
             getElementPreferredHeight(thumb));
-
+        
         drawSlidingContent(calculatedContentWidth, calculatedContentHeight);
         drawTrack(calculatedContentWidth, calculatedContentHeight);
         drawThumb(calculatedContentWidth, calculatedContentHeight);
         drawMask(calculatedContentWidth, calculatedContentHeight);
-		
-		// simulate outer stroke using a larger filled rounded rect
+        
+        // simulate outer stroke using a larger filled rounded rect
         graphics.clear();
         graphics.beginFill(0xffffff, 0.3);
-		graphics.drawRoundRect(0, (calculatedContentHeight - layoutThumbHeight) / 2, 
-            calculatedContentWidth + 2 * layoutOuterStrokeWeight, 
-            layoutThumbHeight + 2 * layoutOuterStrokeWeight, 
-            2 * layoutCornerRadius + layoutOuterStrokeWeight);
-		graphics.endFill();
+        graphics.drawRoundRect(0, (calculatedContentHeight - layoutThumbHeight) / 2, 
+            calculatedContentWidth + 2 * layoutBorderSize, 
+            layoutThumbHeight + 2 * layoutBorderSize, 
+            layoutCornerEllipseSize + layoutBorderSize);
+        graphics.endFill();
     }
     
     /**
@@ -407,14 +391,14 @@ public class ToggleSwitchSkin extends MobileSkin
         super.layoutContents(unscaledWidth, unscaledHeight);
         
         // calculate skin dimensions - outer stroke
-        var calculatedContentWidth:Number = Math.max(unscaledWidth - 2 * layoutOuterStrokeWeight, 
+        var calculatedContentWidth:Number = Math.max(unscaledWidth - 2 * layoutBorderSize, 
             getElementPreferredWidth(thumb));
-        var calculatedContentHeight:Number = Math.max(unscaledHeight - 2 * layoutOuterStrokeWeight, 
+        var calculatedContentHeight:Number = Math.max(unscaledHeight - 2 * layoutBorderSize, 
             getElementPreferredHeight(thumb));
-
-		setElementSize(contents, calculatedContentWidth, layoutThumbHeight);
-		setElementPosition(contents, layoutOuterStrokeWeight, 
-            layoutOuterStrokeWeight + (calculatedContentHeight - layoutThumbHeight) / 2);
+        
+        setElementSize(contents, calculatedContentWidth, layoutThumbHeight);
+        setElementPosition(contents, layoutBorderSize, 
+            layoutBorderSize + (calculatedContentHeight - layoutThumbHeight) / 2);
         
         layoutTrack(calculatedContentWidth, layoutThumbHeight);
         layoutThumb(calculatedContentWidth, layoutThumbHeight);
@@ -428,25 +412,17 @@ public class ToggleSwitchSkin extends MobileSkin
      */
     override protected function measure():void 
     {
-        if (selectedLabelDisplay.isTruncated || unselectedLabelDisplay.isTruncated) 
-        {
-            selectedLabelDisplay.text = selectedLabelText;
-            unselectedLabelDisplay.text = unselectedLabelText;
-        }
-        selectedLabelDisplay.commitStyles();
-        unselectedLabelDisplay.commitStyles();
-        
         // The skin must be at least as large as the thumb + outer stroke
-        measuredMinWidth = layoutThumbWidth + 2 * layoutOuterStrokeWeight;
-        measuredMinHeight = layoutThumbWidth + 2 * layoutOuterStrokeWeight;
+        measuredMinWidth = layoutThumbWidth + 2 * layoutBorderSize;
+        measuredMinHeight = layoutThumbWidth + 2 * layoutBorderSize;
         
         // The preferred size will display all label text
         var labelWidth:Number = Math.max(getElementPreferredWidth(selectedLabelDisplay), 
             getElementPreferredWidth(unselectedLabelDisplay));
         
         measuredWidth = layoutThumbWidth + labelWidth + layoutInnerPadding + 
-            layoutOuterPadding + 2 * layoutOuterStrokeWeight;
-        measuredHeight = layoutThumbHeight + 2 * layoutOuterStrokeWeight;
+            layoutOuterPadding + 2 * layoutBorderSize;
+        measuredHeight = layoutThumbHeight + 2 * layoutBorderSize;
     }
     
     /**
@@ -457,17 +433,17 @@ public class ToggleSwitchSkin extends MobileSkin
         if (currentState && currentState.indexOf("disabled") >= 0) 
         { 
             alpha = 0.5;
-            selectedLabelDisplayShadow.visible = false;
-            unselectedLabelDisplayShadow.visible = false;
+            selectedLabelDisplay.showShadow(false);
+            unselectedLabelDisplay.showShadow(false);
         }
         else
         {
             alpha = 1.0;
-            selectedLabelDisplayShadow.visible = true;
-            unselectedLabelDisplayShadow.visible = true;
+            selectedLabelDisplay.showShadow(true);
+            unselectedLabelDisplay.showShadow(true);
         }
     }
-
+    
     /**
      *  @private
      */
@@ -475,41 +451,31 @@ public class ToggleSwitchSkin extends MobileSkin
     {
         super.createChildren();
         
-		contents = new SpriteVisualElement();
-		addChild(contents);
-		
-		// SlidingContent: background, overlay, labels
+        contents = new UIComponent();
+        addChild(contents);
+        
+        // SlidingContent: background, overlay, labels
         slidingContentBackground = new SpriteVisualElement();
         contents.addChild(slidingContentBackground);
-
+        
         slidingContentOverlay = new slidingContentOverlayClass();
         contents.addChild(slidingContentOverlay);
         
-        slidingContentForeground = new SpriteVisualElement();
+        slidingContentForeground = new UIComponent(); //SpriteVisualElement();
         contents.addChild(slidingContentForeground);
         
-        selectedLabelDisplayShadow = StyleableTextField(createInFontContext(StyleableTextField));
-        selectedLabelDisplayShadow.styleName = this;
-        selectedLabelDisplayShadow.colorName = "textShadowColor";
-        selectedLabelDisplayShadow.text = selectedLabelText;
-        slidingContentForeground.addChild(selectedLabelDisplayShadow);
+        selectedLabelDisplay = new LabelDisplayComponent();
+        selectedLabelDisplay.id = "selectedLabelDisplay";
+        selectedLabelDisplay.text = selectedLabel;
+        selectedLabelDisplay.shadowYOffset = layoutTextShadowOffset;
+        slidingContentForeground.addChild(selectedLabelDisplay);
         
-        selectedLabelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        selectedLabelDisplay.styleName = this;
-        selectedLabelDisplay.text = selectedLabelText;
-        slidingContentForeground.addChild(selectedLabelDisplay);			
-        
-        unselectedLabelDisplayShadow = StyleableTextField(createInFontContext(StyleableTextField));
-        unselectedLabelDisplayShadow.styleName = this;
-        unselectedLabelDisplayShadow.colorName = "textShadowColor";
-        unselectedLabelDisplayShadow.text = unselectedLabelText;
-        slidingContentForeground.addChild(unselectedLabelDisplayShadow);
-        
-        unselectedLabelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
-        unselectedLabelDisplay.styleName = this;
-        unselectedLabelDisplay.text = unselectedLabelText;
+        unselectedLabelDisplay = new LabelDisplayComponent();
+        unselectedLabelDisplay.id = "unselectedLabelDisplay";
+        unselectedLabelDisplay.text = unselectedLabel;
+        unselectedLabelDisplay.shadowYOffset = layoutTextShadowOffset;
         slidingContentForeground.addChild(unselectedLabelDisplay);
-
+        
         // Track
         track = new SpriteVisualElement();
         contents.addChild(SpriteVisualElement(track));
@@ -529,23 +495,6 @@ public class ToggleSwitchSkin extends MobileSkin
         contents.addChild(contentMask);
     }
     
-    /**
-     *  @private
-     */
-    override public function styleChanged(styleProp:String):void 
-    {
-        super.styleChanged(styleProp);
-        // Because their parent is not an ISimpleStyleClient, we need to update
-        // these manually.
-        var labels:Array = [ selectedLabelDisplay, selectedLabelDisplayShadow, 
-            unselectedLabelDisplay, unselectedLabelDisplayShadow ];
-        for each (var textField:StyleableTextField in labels)
-        {
-            if (textField)
-                textField.styleChanged(styleProp);
-        }
-    }
-
     //----------------------------------------------------------------------------------------------
     //
     //  Methods
@@ -582,56 +531,19 @@ public class ToggleSwitchSkin extends MobileSkin
      */
     private function layoutSlidingContent(skinWidth:Number, skinHeight:Number):void 
     {
-        var visibleTrackArea:Number = skinWidth - layoutThumbWidth;
+        var visibleTrackWidth:Number = skinWidth - layoutThumbWidth;
+        var labelWidth:Number = visibleTrackWidth - layoutInnerPadding - layoutOuterPadding;
         
-        layoutLabels(selectedLabelDisplay, selectedLabelDisplayShadow, (-visibleTrackArea + layoutOuterPadding), 0, 
-            (visibleTrackArea - layoutInnerPadding - layoutOuterPadding), layoutThumbHeight, 
-            layoutTextShadowOffset, selectedLabelText);
-        layoutLabels(unselectedLabelDisplay, unselectedLabelDisplayShadow, (layoutThumbWidth + layoutInnerPadding), 0, 
-            (visibleTrackArea - layoutInnerPadding - layoutOuterPadding), layoutThumbHeight, 
-            layoutTextShadowOffset, unselectedLabelText);
+        setElementSize(selectedLabelDisplay, labelWidth, layoutThumbHeight);
+        setElementPosition(selectedLabelDisplay, -visibleTrackWidth + layoutOuterPadding, 0);
+        
+        setElementSize(unselectedLabelDisplay, labelWidth, layoutThumbHeight);
+        setElementPosition(unselectedLabelDisplay, layoutThumbWidth + layoutInnerPadding, 0);
         
         setElementSize(slidingContentOverlay, skinWidth, layoutThumbHeight);
         setElementPosition(slidingContentOverlay, 0, (skinHeight - layoutThumbHeight) / 2);
         
         moveSlidingContent();
-    }
-    
-    /**
-     *  Position a label and its shadow within the given rectangle
-     */
-    private function layoutLabels(label:StyleableTextField, labelShadow:StyleableTextField, 
-                                  x:Number, y:Number, width:Number, height:Number, 
-                                  shadowYOffset:Number, labelText:String):void 
-    {
-        if (label.isTruncated) {
-            label.text = labelText;
-            labelShadow.text = labelText;
-        }
-        
-        var textWidth:Number = getElementPreferredWidth(label);
-        var textHeight:Number = getElementPreferredHeight(label);
-        
-        var labelWidth:Number = Math.max(Math.min(textWidth, width), 0);
-        var labelHeight:Number = textHeight;
-        
-        labelShadow.alpha = getStyle("textShadowAlpha");
-        
-        label.commitStyles();
-        labelShadow.commitStyles();
-        
-        setElementSize(label, labelWidth, labelHeight);
-        setElementSize(labelShadow, labelWidth, labelHeight);
-        if (textWidth > labelWidth) {
-            label.truncateToFit();
-            labelShadow.truncateToFit();
-        }
-        
-        var labelX:Number = x + (width - labelWidth) / 2;
-        var labelY:Number = y + (height - labelHeight) / 2;
-        
-        setElementPosition(label, labelX, labelY);
-        setElementPosition(labelShadow, labelX, labelY + shadowYOffset);
     }
     
     /**
@@ -644,7 +556,7 @@ public class ToggleSwitchSkin extends MobileSkin
         graphics.lineStyle(layoutStrokeWeight, 0, .3);
         graphics.drawRoundRect(layoutStrokeWeight / 2, layoutStrokeWeight / 2, 
             skinWidth - layoutStrokeWeight, 
-            (layoutThumbHeight - layoutStrokeWeight), (layoutCornerRadius * 2 - layoutStrokeWeight / 2));
+            (layoutThumbHeight - layoutStrokeWeight), (layoutCornerEllipseSize - layoutStrokeWeight / 2));
         graphics.lineStyle();
     }
     
@@ -686,7 +598,7 @@ public class ToggleSwitchSkin extends MobileSkin
         
         colorMatrix.createGradientBox(layoutThumbWidth, layoutThumbHeight, Math.PI / 2);
         graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, colorMatrix);
-        graphics.drawRoundRect(0, 0, layoutThumbWidth, layoutThumbHeight, layoutCornerRadius * 2);
+        graphics.drawRoundRect(0, 0, layoutThumbWidth, layoutThumbHeight, layoutCornerEllipseSize);
         graphics.endFill();
         
         // Base gradient fill, one stroke weight inside outline
@@ -705,7 +617,7 @@ public class ToggleSwitchSkin extends MobileSkin
         graphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, colorMatrix);
         graphics.drawRoundRect(layoutStrokeWeight, layoutStrokeWeight, 
             layoutThumbWidth - layoutStrokeWeight * 2, 
-            layoutThumbHeight - layoutStrokeWeight * 2, layoutCornerRadius * 2 - layoutStrokeWeight * 2);
+            layoutThumbHeight - layoutStrokeWeight * 2, layoutCornerEllipseSize - layoutStrokeWeight * 2);
         graphics.endFill();
         
         // Thumb highlight, one stroke weight inside outline
@@ -727,14 +639,14 @@ public class ToggleSwitchSkin extends MobileSkin
         graphics.lineGradientStyle(GradientType.LINEAR, colors, alphas, ratios, colorMatrix);
         graphics.drawRoundRect(layoutStrokeWeight * 1.5, layoutStrokeWeight * 1.5, 
             layoutThumbWidth - layoutStrokeWeight * 3, layoutThumbHeight - layoutStrokeWeight * 3, 
-            layoutCornerRadius * 2 - layoutStrokeWeight * 3);
+            layoutCornerEllipseSize - layoutStrokeWeight * 3);
         graphics.lineStyle();
         
         // When alpha is set, we do not want the thumb to show through to the track 
         var thumbMask:Sprite = Sprite(SpriteVisualElement(thumb).mask);
         thumbMask.graphics.clear();
         thumbMask.graphics.beginFill(0xffffff);
-        thumbMask.graphics.drawRoundRect(0, 0, layoutThumbWidth, layoutThumbHeight, 2 * layoutCornerRadius);
+        thumbMask.graphics.drawRoundRect(0, 0, layoutThumbWidth, layoutThumbHeight, layoutCornerEllipseSize);
         thumbMask.graphics.endFill();
         SpriteVisualElement(thumb).opaqueBackground = baseColor;
     }
@@ -756,7 +668,7 @@ public class ToggleSwitchSkin extends MobileSkin
         var graphics:Graphics = SpriteVisualElement(contents.mask).graphics;
         graphics.clear();
         graphics.beginFill(0x0);
-        graphics.drawRoundRect(0, 0, skinWidth, layoutThumbHeight, layoutCornerRadius * 2);
+        graphics.drawRoundRect(0, 0, skinWidth, layoutThumbHeight, layoutCornerEllipseSize);
         graphics.endFill();
     }
     
@@ -769,11 +681,11 @@ public class ToggleSwitchSkin extends MobileSkin
         setElementPosition(contents.mask, 0, (skinHeight - layoutThumbHeight) / 2);
     }
     
-	/**
+    /**
      *  Move the sliding content to line up with thumbPosition.
-	 *  This version assumes the thumb and track share the same coordinate system.
-	 */
-	private function moveSlidingContent():void 
+     *  This version assumes the thumb and track share the same coordinate system.
+     */
+    private function moveSlidingContent():void 
     {
         if (!hostComponent)
             return;
@@ -782,9 +694,9 @@ public class ToggleSwitchSkin extends MobileSkin
         var y:Number = thumb.getLayoutBoundsY();
         setElementPosition(slidingContentBackground, x, y);
         setElementPosition(slidingContentForeground, x, y);
-	}
-
-	//----------------------------------------------------------------------------------------------
+    }
+    
+    //----------------------------------------------------------------------------------------------
     //
     //  Event handlers
     //
@@ -795,7 +707,148 @@ public class ToggleSwitchSkin extends MobileSkin
      */
     private function thumbPositionChanged_handler(event:Event):void 
     {
-		moveSlidingContent();
+        moveSlidingContent();
     }
 }
+}
+
+import flash.events.Event;
+
+import mx.core.UIComponent;
+import mx.core.mx_internal;
+import mx.events.FlexEvent;
+
+import spark.components.supportClasses.StyleableTextField;
+import spark.core.IDisplayText;
+
+use namespace mx_internal;
+
+/**
+ *  @private
+ *  Component combining two labels to create the effect of text and its drop
+ *  shadow. The component can be used with advanced style selectors and the
+ *  styles "color", "textShadowColor", and "textShadowAlpha". Based off of
+ *  ActionBar.TitleDisplayComponent. These two should eventually be factored.
+ */
+class LabelDisplayComponent extends UIComponent implements IDisplayText
+{
+    public var shadowYOffset:Number = 0;
+    private var labelChanged:Boolean = false;
+    private var labelDisplay:StyleableTextField;
+    private var labelDisplayShadow:StyleableTextField;
+    private var _text:String;
+    
+    public function LabelDisplayComponent() 
+    {
+        super();
+        _text = "";
+    }
+    
+    override public function get baselinePosition():Number 
+    {
+        return labelDisplay.baselinePosition;
+    }
+    
+    override protected function createChildren():void 
+    {
+        super.createChildren();
+        
+        labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
+        labelDisplay.styleName = this;
+        labelDisplay.editable = false;
+        labelDisplay.selectable = false;
+        labelDisplay.multiline = false;
+        labelDisplay.wordWrap = false;
+        labelDisplay.addEventListener(FlexEvent.VALUE_COMMIT,
+            labelDisplay_valueCommitHandler);
+        
+        labelDisplayShadow = StyleableTextField(createInFontContext(StyleableTextField));
+        labelDisplayShadow.styleName = this;
+        labelDisplayShadow.colorName = "textShadowColor";
+        labelDisplayShadow.editable = false;
+        labelDisplayShadow.selectable = false;
+        labelDisplayShadow.multiline = false;
+        labelDisplayShadow.wordWrap = false;
+        
+        addChild(labelDisplayShadow);
+        addChild(labelDisplay);
+    }
+    
+    override protected function commitProperties():void 
+    {
+        super.commitProperties();
+        
+        if (labelChanged)
+        {
+            labelDisplay.text = text;
+            invalidateSize();
+            invalidateDisplayList();
+            labelChanged = false;
+        }
+    }
+    
+    override protected function measure():void 
+    {
+        if (labelDisplay.isTruncated)
+            labelDisplay.text = text;
+        labelDisplay.commitStyles();
+        measuredWidth = labelDisplay.getPreferredBoundsWidth();
+        measuredHeight = labelDisplay.getPreferredBoundsHeight();
+    }
+    
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void 
+    {
+        if (labelDisplay.isTruncated)
+            labelDisplay.text = text;
+        labelDisplay.commitStyles();
+        
+        var labelHeight:Number = labelDisplay.getPreferredBoundsHeight();
+        var labelY:Number = (unscaledHeight - labelHeight) / 2;
+        
+        var labelWidth:Number = Math.min(unscaledWidth, labelDisplay.getPreferredBoundsWidth());
+        var labelX:Number = (unscaledWidth - labelWidth) / 2;
+        
+        labelDisplay.setLayoutBoundsSize(labelWidth, labelHeight);
+        labelDisplay.setLayoutBoundsPosition(labelX, labelY);
+        
+        labelDisplay.truncateToFit();
+        
+        labelDisplayShadow.commitStyles();
+        labelDisplayShadow.setLayoutBoundsSize(labelWidth, labelHeight);
+        labelDisplayShadow.setLayoutBoundsPosition(labelX, labelY + shadowYOffset);
+        
+        labelDisplayShadow.alpha = getStyle("textShadowAlpha");
+        
+        // unless the label was truncated, labelDisplayShadow.text was set in
+        // the value commit handler
+        if (labelDisplay.isTruncated)
+            labelDisplayShadow.text = labelDisplay.text;
+    }
+    
+    private function labelDisplay_valueCommitHandler(event:Event):void 
+    {
+        labelDisplayShadow.text = labelDisplay.text;
+    }
+    
+    public function get text():String 
+    {
+        return _text;
+    }
+    
+    public function set text(value:String):void 
+    {
+        _text = value;
+        labelChanged = true;
+        invalidateProperties();
+    }
+    
+    public function get isTruncated():Boolean 
+    {
+        return labelDisplay.isTruncated;
+    }
+    
+    public function showShadow(value:Boolean):void 
+    {
+        labelDisplayShadow.visible = value;
+    }
 }
