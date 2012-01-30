@@ -90,12 +90,16 @@ public interface IBrowserManager extends IEventDispatcher
      *
      *  <p>When set, the <code>APPLICATION_URL_CHANGE</code> event is dispatched. If the event
      *  is cancelled, the <code>setBrowserURL()</code> method will not be called.</p>
+     *
+     * @param value The new fragment to use after the '#' in the URL.
      */
     function setFragment(value:String):void;
 
     /** 
      *  Changes the text in the browser's title bar.
      *  This method does not affect the browser's history.
+     *
+     * @param value The new title to use in the browser's title bar.
      */
     function setTitle(value:String):void;
 
