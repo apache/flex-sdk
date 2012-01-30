@@ -15,9 +15,16 @@ package mx.accessibility
 import flash.accessibility.Accessibility;
 import flash.accessibility.AccessibilityImplementation;
 import flash.accessibility.AccessibilityProperties;
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import mx.containers.Form;
+import mx.containers.FormHeading;
+import mx.containers.FormItem;
+import mx.controls.Label;
+import mx.core.Container;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.managers.SystemManager;
 
 use namespace mx_internal;
 
@@ -88,6 +95,83 @@ public class AccImpl extends AccessibilityImplementation
 	{
 	}	
 
+    /**
+     *  Method for supporting Form Accessibility.
+     *  @review
+     */
+    public static function getFormName(component:UIComponent):String
+    {
+        var formName:String = "";
+        
+        // Return nothing if we are a container 
+        if (component is Container)
+            return formName;
+
+        // keeping this DisplayObjectContainer since parent returns
+        // that as root is not a UIComponent.
+        var par:DisplayObjectContainer = component.parent; 
+        // continue looking up the parent chain
+        // until root (or application) or FormItem is found.
+        while (par && !(par is FormItem) &&
+               !(par is SystemManager) && par != component.root)
+        {
+            par = par.parent;
+        }
+
+        if (par && par is FormItem)
+            formName = updateFormItemString(FormItem(par));
+
+        return formName;
+    }
+    
+    /**
+     *  @private
+     *  Method for supporting Form Accessibility.
+     */
+    private static function updateFormItemString(formItem:FormItem):String
+    {
+        var formName:String = "";
+        
+        const itemLabel:Label = formItem.itemLabel;
+        const accProp:AccessibilityProperties = (itemLabel ? itemLabel.accessibilityProperties : null);
+        if (accProp && accProp.silent)
+            return accProp.name;
+
+        var form:UIComponent = UIComponent(formItem.parent);
+
+        // If we are located within a Form, then look for the first FormHeading
+        // that is a sibling that is above us in the parent's child hierarchy
+        if (form is Form)
+        {
+            var formItemIndex:int = form.getChildIndex(formItem);
+            for (var i:int = formItemIndex; i >= 0; i--)
+            {
+                var child:UIComponent = UIComponent(form.getChildAt(i));
+                if (child is FormHeading)
+                {
+                    formName = FormHeading(child).label + " ";
+                    break;
+                }
+            }
+        }
+
+        // Add in text if we are a required field
+        if (formItem.required)
+            formName += "Required Field ";
+
+        // Add in the label from the formItem
+        if (formItem.label != "")
+            formName += formItem.label + " ";
+
+        if (accProp && !accProp.silent)
+        {
+            accProp.silent = true;
+            accProp.name = formName;
+        }
+
+        return formName;
+    }
+
 	//--------------------------------------------------------------------------
 	//
 	//  Constructor
@@ -108,7 +192,7 @@ public class AccImpl extends AccessibilityImplementation
 		
 		stub = false;
 		
-		// Hook in UIComponentAccImpl setup here!
+		// Hook in UIComponentAccProps setup here!
 		master.accessibilityProperties = new AccessibilityProperties();
 		
 		// Hookup events to listen for
@@ -191,12 +275,15 @@ public class AccImpl extends AccessibilityImplementation
 	 */
 	override public function get_accName(childID:uint):String
 	{
-		var accName:String = UIComponentAccImpl.getFormName(master);
+		var accName:String = getFormName(master);
 
-		if (childID == 0 && master.accessibilityProperties 
-			&& master.accessibilityProperties.name 
-				&& master.accessibilityProperties.name != "")
+		if (childID == 0 && 
+			master.accessibilityProperties && 
+			master.accessibilityProperties.name != null && 
+			master.accessibilityProperties.name != "")
+		{
 			accName += master.accessibilityProperties.name + " ";
+		}
 
 		accName += getName(childID) + getStatusName();
 
@@ -212,7 +299,7 @@ public class AccImpl extends AccessibilityImplementation
 	/**
 	 *  Returns the name of the accessible component.
 	 *  All subclasses must implement this
-	 *  instead of implementing get_accName.
+	 *  instead of implementing get_accName().
 	 */
 	protected function getName(childID:uint):String
 	{
@@ -220,14 +307,16 @@ public class AccImpl extends AccessibilityImplementation
 	}
 	
 	/**
-	 *  Utility method determines state of the accessible component.
+	 *  Utility method to determine state of the accessible component.
 	 */
 	protected function getState(childID:uint):uint
 	{
 		var accState:uint = STATE_SYSTEM_NORMAL;
 		
 		if (!UIComponent(master).enabled)
+		{
 			accState |= STATE_SYSTEM_UNAVAILABLE;
+		}
 		else
 		{
 			accState |= STATE_SYSTEM_FOCUSABLE
@@ -271,12 +360,6 @@ public class AccImpl extends AccessibilityImplementation
 		switch (event.type)
 		{
 			case "errorStringChanged":
-			{
-				Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
-				Accessibility.updateProperties();
-				break;
-			}
-			
 			case "toolTipChanged":
 			{
 				Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
