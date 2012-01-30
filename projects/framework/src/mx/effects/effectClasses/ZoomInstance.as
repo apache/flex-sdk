@@ -469,7 +469,7 @@ public class ZoomInstance extends TweenEffectInstance
         // Zero-duration effects have no tween, so if !tween, tell 
         // our superclass to layout and it will happen after we're done.
         if (tween)
-            tween.mx_internal::needToLayout = true;
+            tween.needToLayout = true;
         else
             needToLayout = true;
 
@@ -496,7 +496,7 @@ public class ZoomInstance extends TweenEffectInstance
 			// to be rendered as with a width and height of zero. To
 			// avoid that situation, set its _width and _height explicitly.	
 			if (target.parent && target.parent.autoLayout == false)
-				target.mx_internal::_width = curWidth;	
+				target._width = curWidth;	
 		}
 		if (!isNaN(origPercentHeight))
 		{
@@ -505,12 +505,12 @@ public class ZoomInstance extends TweenEffectInstance
 			target.percentHeight = origPercentHeight;
 
 			if (target.parent && target.parent.autoLayout == false)
-				target.mx_internal::_height = curHeight;
+				target._height = curHeight;
 		}
 
 		super.onTweenEnd(value);
 		
-		if (mx_internal::hideOnEffectEnd)
+		if (hideOnEffectEnd)
 		{
 			EffectManager.suspendEventHandling();
 			
