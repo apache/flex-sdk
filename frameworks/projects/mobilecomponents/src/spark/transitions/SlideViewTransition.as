@@ -12,6 +12,8 @@
 package spark.transitions
 {
     
+import flash.geom.Point;
+
 import mx.core.mx_internal;
 import mx.effects.IEffect;
 
@@ -25,6 +27,7 @@ import spark.effects.Animate;
 import spark.effects.Move;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
+import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
     
@@ -69,6 +72,50 @@ public class SlideViewTransition extends ViewTransitionBase
     //  Variables
     //
     //--------------------------------------------------------------------------
+    /**
+     *  @private
+     *  Padding used to generate the actionbar bitmap.  This is needed so that
+     *  drop shadows can be properly captured.
+     */ 
+    mx_internal var actionBarBitmapPadding:uint = 4;
+    
+    /**
+     *  @private
+     *  Flag used to indicate whether the tab bar should animate in or out.
+     */ 
+    private var animateTabBar:Boolean = false;
+    
+    /**
+     *  @private
+     *  Bitmap image of the action bar before it is updated with the properties
+     *  of the new view.  This snapshot is leveraged by this transition when
+     *  doing a full screen animation.
+     */
+    private var cachedActionBar:BitmapImage;
+    
+    /**
+     *  @private
+     *  Stores the location of the action bar in the global coordinate space
+     *  so that the transition can properly position the cached actionbar
+     *  when added to the display list.
+     */ 
+    private var cachedActionBarGlobalPosition:Point;
+    
+    /**
+     *  @private
+     *  Bitmap image of the tab bar before it is updated with the properties
+     *  of the new view.  This snapshot is leveraged by this transition when
+     *  doing a full screen animation.
+     */
+    private var cachedTabBar:BitmapImage;
+    
+    /**
+     *  @private 
+     *  Stores the location of the action bar in the global coordinate space
+     *  so that the transition can properly position the cached actionbar
+     *  when added to the display list.
+     */
+    private var cachedTabBarGlobalPosition:Point;
     
     /**
      *  @private
@@ -108,6 +155,7 @@ public class SlideViewTransition extends ViewTransitionBase
     
     private var _direction:String = ViewTransitionDirection.LEFT;
     
+    [Inspectable(category="General", enumeration="left,right,up,down", defaultValue="left")]
     /**
      *  Specifies the direction of slide transition.
      *
@@ -136,6 +184,7 @@ public class SlideViewTransition extends ViewTransitionBase
     
     private var _mode:String = SlideViewTransitionMode.PUSH;
     
+    [Inspectable(category="General", enumeration="push,cover,uncover", defaultValue="push")]
     /**
      *  Specifies the type of slide transition to perform.
      *
@@ -179,11 +228,53 @@ public class SlideViewTransition extends ViewTransitionBase
         // properties that are then restored after the transition is over.
         navigatorProps = new Object(); 
         
-        // Snapshot the entire navigator.
-        var oldVisibility:Boolean = endView.visible;
-        endView.visible = false;
-        cachedNavigator = getSnapshot(targetNavigator, 0);
-        endView.visible = oldVisibility;
+        
+        // Animate the tab bar if the overlayControls mode or visibility is toggled
+        animateTabBar = tabBar && (startView.overlayControls != endView.overlayControls ||
+                                   startView.tabBarVisible != endView.tabBarVisible);
+        
+        // Snapshot the entire navigator or actionBar depending on the mode.
+        if (mode == SlideViewTransitionMode.UNCOVER)
+        {
+            var oldVisibility:Boolean = endView.visible;
+            endView.visible = false;
+            
+            if (targetNavigator is TabbedViewNavigator && !animateTabBar)
+            {
+                cachedNavigator = getSnapshot(targetNavigator.contentGroup, 0);
+                cachedNavigator.x = targetNavigator.contentGroup.x;
+                cachedNavigator.y = targetNavigator.contentGroup.y;
+            }
+            else                
+                cachedNavigator = getSnapshot(targetNavigator, 0);
+                
+            endView.visible = oldVisibility;
+        }
+        else
+        {
+            cachedActionBar = getSnapshot(navigator.actionBar);
+        }
+        
+        // Save the position of the action in global coordinates
+        cachedActionBarGlobalPosition = actionBar.parent.localToGlobal(new Point(actionBar.x, actionBar.y));
+        
+        // Cache the tab bar bitmap and location
+        if (tabBar)
+        {
+            cachedTabBar = getSnapshot(TabbedViewNavigator(targetNavigator).tabBar);
+            cachedTabBarGlobalPosition = tabBar.parent.localToGlobal(new Point(tabBar.x, tabBar.y));
+            navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
+            navigatorProps.tabBarCacheAsBitmap = tabBar.cacheAsBitmap;
+        }
+        
+        // Save navigator bounds
+        navigatorProps.navigatorContentGroupInitialX = navigator.contentGroup.x;
+        navigatorProps.navigatorContentGroupInitialY = navigator.contentGroup.y;
+        navigatorProps.startViewIncludeInLayout = startView.includeInLayout;
+        navigatorProps.endViewIncludeInLayout = endView.includeInLayout;
+        
+        if (startView)
+            startView.includeInLayout = false;
     }
     
     /**
@@ -218,7 +309,7 @@ public class SlideViewTransition extends ViewTransitionBase
                 startView.contentGroup.cacheAsBitmap = true;
             }
             
-            if (!(mode == SlideViewTransitionMode.COVER))
+            if (mode != SlideViewTransitionMode.COVER)
                 slideTargets.push(startView);
         }
         
@@ -239,7 +330,7 @@ public class SlideViewTransition extends ViewTransitionBase
                 endView.contentGroup.cacheAsBitmap = true;
             }
                 
-            if (!(mode == SlideViewTransitionMode.UNCOVER))
+            if (mode != SlideViewTransitionMode.UNCOVER)
                 slideTargets.push(endView);
             
             if (mode == SlideViewTransitionMode.UNCOVER)
@@ -281,7 +372,7 @@ public class SlideViewTransition extends ViewTransitionBase
         }
         
         // Position the end view prior to start of transition.
-        if (!(mode == SlideViewTransitionMode.UNCOVER))
+        if (mode != SlideViewTransitionMode.UNCOVER)
             endView[animatedProperty] = -slideDistance - slideOffset;
         
         // Construction animation sequence.
@@ -310,62 +401,113 @@ public class SlideViewTransition extends ViewTransitionBase
         // surfaces, and adjust z-order if necessary.
         var slideTargets:Array = new Array();
         
-        navigatorProps.contentGroupIncludeInLayout = targetNavigator.contentGroup.includeInLayout;
-        targetNavigator.contentGroup.includeInLayout = false;
+        // If the view exists inside a TabbedViewNavigator, remove its content
+        // group from layout.
+        navigatorProps.navigatorContentGroupIncludeInLayout = navigator.contentGroup.includeInLayout;
+        navigator.contentGroup.includeInLayout = false;
         
         transitionGroup = new Group();
-        transitionGroup.includeInLayout=false;
+        transitionGroup.includeInLayout = false;
+        
+        // Add the necessary views to the slide targets array.  When in PUSH mode,
+        // both start and end views are added.
+        if (mode != SlideViewTransitionMode.COVER)
+            slideTargets.push(startView);
+        
+        if (mode != SlideViewTransitionMode.UNCOVER)
+            slideTargets.push(endView);
         
         // Ensure the views are in the right stacking order based on our
         // transition mode (cover vs. uncover for instance).
         if (mode == SlideViewTransitionMode.COVER)
         {
+            // Add the transition group on top of the contentGroup.  It's important that its placed on
+            // top so that alpha characteristics of the cached ActionBar are shown properly
             var childIndex:uint = targetNavigator.skin.getChildIndex(targetNavigator.contentGroup);
-            addComponentToContainerAt(transitionGroup, targetNavigator.skin, childIndex);
+            addComponentToContainerAt(transitionGroup, targetNavigator.skin, childIndex + 1);
         }
         else
+        {
+            // Add the transition group to the top of the skin
             addComponentToContainer(transitionGroup, targetNavigator.skin);
-        
-        if (targetNavigator is TabbedViewNavigator)
+        }
+
+        if (actionBar)
         {
-            var tabBar:ButtonBarBase = TabbedViewNavigator(targetNavigator).tabBar;
+            if (mode != SlideViewTransitionMode.UNCOVER)
+                slideTargets.push(actionBar);
             
-            if (tabBar)
-            {
-                if (!(mode == SlideViewTransitionMode.UNCOVER))
-                    slideTargets.push(tabBar);
-                navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
-                tabBar.includeInLayout = false;
-            }
-        }
-        else if (targetNavigator is ViewNavigator)
-        {
-            if (actionBar)
-            {
-                if (mode != SlideViewTransitionMode.UNCOVER)
-                    slideTargets.push(actionBar);
-                
-                navigatorProps.actionBarIncludeInLayout = actionBar.includeInLayout;
-                actionBar.includeInLayout = false;
-                
-                navigatorProps.actionBarCacheAsBitmap = actionBar.cacheAsBitmap;
-                actionBar.cacheAsBitmap = true;
-            }
+            navigatorProps.actionBarIncludeInLayout = actionBar.includeInLayout;
+            actionBar.includeInLayout = false;
+            
+            navigatorProps.actionBarCacheAsBitmap = actionBar.cacheAsBitmap;
+            actionBar.cacheAsBitmap = true;
         }
         
-        if (endView.contentGroup)
+        if (startView)
         {
-            navigatorProps.endViewIncludeInLayout = endView.contentGroup.includeInLayout;
-            endView.contentGroup.includeInLayout = false;
+            // Store initial position of startView's contentGroup
+            navigatorProps.startViewX = startView.x;
+            navigatorProps.startViewY = startView.y;
+            
+            var delta:int = navigator.contentGroup.x - navigatorProps.navigatorContentGroupInitialX;
+            if (delta != 0)
+                startView.x -= delta;
+            
+            delta = navigator.contentGroup.y - navigatorProps.navigatorContentGroupInitialY;
+            if (delta != 0)
+                startView.y -= delta;
+            
+            navigatorProps.startViewCacheAsBitmap = startView.contentGroup.cacheAsBitmap;
+            startView.contentGroup.cacheAsBitmap = true;
+        }
+
+        if (endView)
+        {
+            navigatorProps.endViewIncludeInLayout = endView.includeInLayout;
+            endView.includeInLayout = false;
             
             navigatorProps.endViewCacheAsBitmap = endView.contentGroup.cacheAsBitmap;
             endView.contentGroup.cacheAsBitmap = true;
         }
         
-        if (cachedNavigator)
+        if (cachedActionBar)
         {
-            cachedNavigator.includeInLayout = false;
-            transitionGroup.addElement(cachedNavigator);
+            // Reposition the cached actionBar
+            var localPos:Point = transitionGroup.globalToLocal(cachedActionBarGlobalPosition);
+            
+            // FIXME (chiedozi): Need to remove the 4 pixel buffer
+            cachedActionBar.x = localPos.x - actionBarBitmapPadding;
+            cachedActionBar.y = localPos.y - actionBarBitmapPadding;
+            
+            cachedActionBar.includeInLayout = false;
+            transitionGroup.addElement(cachedActionBar);
+        }
+        
+        if (tabBar)
+        {
+            // Cache the tabBar as bitmap for performance
+            navigatorProps.tabBarCacheAsBitmap = tabBar.cacheAsBitmap;
+            tabBar.cacheAsBitmap = true;
+            
+            if (animateTabBar)
+            {
+                if (mode != SlideViewTransitionMode.UNCOVER)
+                    slideTargets.push(tabBar);
+                
+                navigatorProps.tabBarIncludeInLayout = tabBar.includeInLayout;
+                tabBar.includeInLayout = false;
+                
+                if (cachedTabBar)
+                {
+                    // Need to removed the 4 pixel buffer
+                    cachedTabBar.x = tabBar.x - actionBarBitmapPadding;
+                    cachedTabBar.y = tabBar.y - actionBarBitmapPadding;
+                    
+                    cachedTabBar.includeInLayout = false;
+                    transitionGroup.addElement(cachedTabBar);
+                }
+            }
         }
         
         var slideDistance:Number;
@@ -398,37 +540,41 @@ public class SlideViewTransition extends ViewTransitionBase
                 slideDistance = -targetNavigator.width;
                 break;
         }
-                        
-        // Position the control bars prior to our transition.
         
-        if (targetNavigator == parentNavigator)
+        // Position the elements of the animation
+        if (mode != SlideViewTransitionMode.UNCOVER)
         {
-            if (targetNavigator is TabbedViewNavigator)
-            {
-                tabBar = TabbedViewNavigator(targetNavigator).tabBar;
-                
-                if (tabBar && !(mode == SlideViewTransitionMode.UNCOVER))
-                    tabBar[animatedProperty] = -slideDistance;
-            }
+            endView[animatedProperty] = -slideDistance + endView[animatedProperty];
+            
+            if (actionBar)
+                actionBar[animatedProperty] = -slideDistance + actionBar[animatedProperty];
+            
+            if (animateTabBar)
+                tabBar[animatedProperty] = -slideDistance + tabBar[animatedProperty];
         }
         else
         {
-            if (targetNavigator is ViewNavigator && actionBar && (!(mode == SlideViewTransitionMode.UNCOVER)))
-                actionBar[animatedProperty] = -slideDistance;
+            if (cachedNavigator)
+            {
+                cachedNavigator.includeInLayout = false;
+                transitionGroup.addElement(cachedNavigator);
+            }
         }
         
-        if (!(mode == SlideViewTransitionMode.UNCOVER))
-           targetNavigator.contentGroup[animatedProperty] = -slideDistance + targetNavigator.contentGroup[animatedProperty];
-                
         // Validate to ensure our snapshots are rendered.
         transitionGroup.validateNow();
         
-        // Setup slide targets as appropriate.
-        if (cachedNavigator && mode != SlideViewTransitionMode.COVER)
-            slideTargets.push(cachedNavigator.displayObject);
+        // Add the cached images to the display list.  This has to occur after the validation
+        // so that the displayObjects for the bitmaps are created.  Otherwise the displayObject
+        // property will be null.
+        if (cachedActionBar && mode != SlideViewTransitionMode.COVER)
+            slideTargets.push(cachedActionBar.displayObject);
         
-        if (mode != SlideViewTransitionMode.UNCOVER)
-            slideTargets.push(targetNavigator.contentGroup);
+        if (cachedTabBar && mode != SlideViewTransitionMode.COVER)
+            slideTargets.push(cachedTabBar.displayObject);
+        
+        if (cachedNavigator && mode == SlideViewTransitionMode.UNCOVER)
+            slideTargets.push(cachedNavigator.displayObject);
         
         // Construct animation sequence.
         var animate:Animate = new Animate();
@@ -481,36 +627,44 @@ public class SlideViewTransition extends ViewTransitionBase
         }
         else
         {
-            if (targetNavigator is TabbedViewNavigator)
+
+            if (tabBar)
             {
-                var tabBar:ButtonBarBase = TabbedViewNavigator(targetNavigator).tabBar;
-                
-                if (tabBar)
-                    tabBar.includeInLayout = navigatorProps.tabBarIncludeInLayout;
+                tabBar.includeInLayout = navigatorProps.tabBarIncludeInLayout;
+                tabBar.cacheAsBitmap = navigatorProps.tabBarCacheAsBitmap;
             }
-            else if (targetNavigator is ViewNavigator)
+
+            if (actionBar)
             {
-                if (actionBar)
-                {
-                    actionBar.includeInLayout = navigatorProps.actionBarIncludeInLayout;
-                    actionBar.cacheAsBitmap = navigatorProps.actionBarCacheAsBitmap;
-                }
+                actionBar.includeInLayout = navigatorProps.actionBarIncludeInLayout;
+                actionBar.cacheAsBitmap = navigatorProps.actionBarCacheAsBitmap;
             }
             
-            if (endView.contentGroup)
+            if (startView)
             {
-                endView.contentGroup.includeInLayout = navigatorProps.endViewIncludeInLayout;
+                startView.includeInLayout = navigatorProps.startViewIncludeInLayout;
+                startView.contentGroup.cacheAsBitmap = navigatorProps.startViewCacheAsBitmap;
+                startView.setLayoutBoundsPosition(navigatorProps.startViewX, navigatorProps.startViewY);
+            }
+            
+            if (endView)
+            {
+                endView.includeInLayout = navigatorProps.endViewIncludeInLayout;
                 endView.contentGroup.cacheAsBitmap = navigatorProps.endViewCacheAsBitmap;
             }
             
+            navigator.contentGroup.includeInLayout = navigatorProps.navigatorContentGroupIncludeInLayout;
+            
             if (transitionGroup)
                 removeComponentFromContainer(transitionGroup, targetNavigator.skin);
-        
-            targetNavigator.contentGroup.includeInLayout = navigatorProps.contentGroupIncludeInLayout;
         }
 
         transitionGroup = null;
         cachedNavigator = null;
+        cachedActionBar = null;
+        cachedActionBarGlobalPosition = null;
+        cachedTabBar = null;
+        cachedTabBarGlobalPosition = null;
         
         super.cleanUp();
     }
