@@ -66,6 +66,7 @@ internal class FrameworkClasses
 	import mx.core.ISelectableList; ISelectableList;
 	import mx.core.ISystemCursorClient; ISystemCursorClient;
 	import mx.core.ITextInput; ITextInput;
+    import mx.core.InteractionMode; InteractionMode;
 	import mx.core.IUID; IUID;
 	import mx.core.MovieClipAsset; MovieClipAsset;
 	import mx.core.MovieClipLoaderAsset; MovieClipLoaderAsset;
@@ -85,8 +86,8 @@ internal class FrameworkClasses
     import mx.events.IndexChangedEvent; IndexChangedEvent;
 	import mx.events.ItemClickEvent; ItemClickEvent;
 	import mx.events.ModuleEvent; ModuleEvent;
-    import mx.events.GestureCaptureEvent; GestureCaptureEvent;
-    import mx.events.GestureCaptureReason; GestureCaptureReason;
+    import mx.events.TouchInteractionEvent; TouchInteractionEvent;
+    import mx.events.TouchInteractionReason; TouchInteractionReason;
 	import mx.filters.BaseFilter; BaseFilter;
 	import mx.filters.BaseDimensionFilter; BaseDimensionFilter;
 	import mx.filters.IBitmapFilter; IBitmapFilter;
