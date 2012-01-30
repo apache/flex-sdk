@@ -6263,6 +6263,19 @@ public class UIComponent extends FlexSprite
     /**
      *  Returns a layout constraint value, which is the same as 
      *  getting the constraint style for this component.
+     *
+     *  @param constraintName The name of the constraint style, which
+     *  can be any of the following: left, right, top, bottom,
+     *  verticalCenter, horizontalCenter, baseline
+     *
+     *  @return Returns the layout constraint value, which can be
+     *  specified in either of two forms. It can be specified as a
+     *  numeric string, for example, "10" or it can be specified as
+     *  identifier:numeric string. For identifier:numeric string,
+     *  identifier is the <code>id</code> of a ConstraintRow or
+     *  ConstraintColumn. For example, a value of "cc1:10" specifies a
+     *  value of 10 for the ConstraintColumn that has the
+     *  <code>id</code> "cc1."
      */
     public function getConstraintValue(constraintName:String):*
     {
@@ -6272,6 +6285,19 @@ public class UIComponent extends FlexSprite
     /**
      *  Sets a layout constraint value, which is the same as 
      *  setting the constraint style for this component.
+     *
+     *  @param constraintName The name of the constraint style, which
+     *  can be any of the following: left, right, top, bottom,
+     *  verticalCenter, horizontalCenter, baseline
+     *  
+     *  @value The value of the constraint can be specified in either
+     *  of two forms. It can be specified as a numeric string, for
+     *  example, "10" or it can be specified as identifier:numeric
+     *  string. For identifier:numeric string, identifier is the
+     *  <code>id</code> of a ConstraintRow or ConstraintColumn. For
+     *  example, a value of "cc1:10" specifies a value of 10 for the
+     *  ConstraintColumn that has the <code>id</code> "cc1."
+     * 
      */
     public function setConstraintValue(constraintName:String, value:*):void
     {
