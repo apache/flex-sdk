@@ -113,7 +113,7 @@ public interface IVisualElementContainer
      *
      *  @return The element that was added.
      * 
-     *  @event elementAdd spark.events.ElementExistenceChangedEvent Dispatched when 
+     *  @event elementAdd spark.events.ElementExistenceEvent Dispatched when 
      *  the element is added to the child list.
      * 
      *  @throws ArgumentError If the element is the same as the container.
