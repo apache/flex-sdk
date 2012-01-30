@@ -276,23 +276,28 @@ use namespace mx_internal;
                     }
                 } 
 
-                // Resolve the application domain target.
-                // If the curent module factory is the rsl owning module
-                // factory, then don't try to resolve the app domain 
-                // target because the only choice left is "current" 
-                // since this the last module factory we are checking
-                // and "current" is the default if no module factory
-                // is specified.
-                if (!loaded[rsl] && resolved[rsl] == null && 
-                    (currentModuleFactory == moduleFactory || 
-                    resolveApplicationDomainTarget(rsl,
-                                                   moduleFactory,
-                                                   currentModuleFactory,
-                                                   parentModuleFactory,
-                                                   topLevelModuleFactory)))
+                // If the rsl is already loaded or already resolved then
+                // skip resolving it.
+                if (!loaded[rsl] && resolved[rsl] == null)
                 {
-                    resolved[rsl] = 1;
-                    resolvedLength++;                        
+                    // Get the parent module factory if we are going to need to 
+                    // resolve the application domain target.
+                    if (!parentModuleFactory && 
+                        RSLData(rsl[0]).applicationDomainTarget == ApplicationDomainTarget.PARENT)
+                    {
+                        parentModuleFactory = getParentModuleFactory(moduleFactory);           
+                    }
+                    
+                    // Resolve the application domain target.
+                    if (resolveApplicationDomainTarget(rsl,
+                            moduleFactory,
+                            currentModuleFactory,
+                            parentModuleFactory,
+                            topLevelModuleFactory))
+                    {
+                        resolved[rsl] = 1;
+                        resolvedLength++;                        
+                    }
                 }
             }
             
@@ -309,9 +314,8 @@ use namespace mx_internal;
                 currentModuleFactory = moduleFactory;
                 while (currentModuleFactory != topLevelModuleFactory)
                 {
-                    var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
-                    DisplayObject(currentModuleFactory).dispatchEvent(request); 
-                    currentModuleFactory = request.value as IFlexModuleFactory;
+
+                    currentModuleFactory = getParentModuleFactory(currentModuleFactory);
                     
                     // If we couldn't get the parent module factory, then we 
                     // will have to load into the highest application domain
@@ -335,6 +339,21 @@ use namespace mx_internal;
         return rslsToLoad;
     }
 
+    /**
+     *  @private
+     *  Get the parent module factory. 
+     * 
+     *  @param moduleFactory The module factory to get the parent of.
+     * 
+     *  @return the parent module factory if available, null otherwise. 
+     */
+    private static function getParentModuleFactory(moduleFactory:IFlexModuleFactory):IFlexModuleFactory    
+    {
+        var request:Request = new Request(Request.GET_PARENT_FLEX_MODULE_FACTORY_REQUEST);
+        DisplayObject(moduleFactory).dispatchEvent(request); 
+        return request.value as IFlexModuleFactory;
+    }
+    
     /**
      *  @private
      *  Resolve the application domain target. 
