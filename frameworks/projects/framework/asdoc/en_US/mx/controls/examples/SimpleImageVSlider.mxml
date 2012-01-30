@@ -1,46 +1,45 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the VSlider control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo VSlider control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-   
-          private var imageWidth:Number=0;
-          private var imageHeight:Number=0;
-          
-          // Event handler function to change the image size.
-          private function changeSize():void
-	      {
-	         phoneImage.width=uint(imageWidth*hSlider.value/100);
-	         phoneImage.height=uint(imageHeight*hSlider.value/100);
-	      }
+            private var imageWidth:Number = 0;
+            private var imageHeight:Number = 0;
+
+            // Event handler function to change the image size.
+            private function changeSize():void
+            {
+                phoneImage.width = uint(imageWidth * hSlider.value / 100);
+                phoneImage.height = uint(imageHeight * hSlider.value / 100);
+            }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-        <mx:Panel id="panel" title="VSlider Control Example" 
-            height="100%" width="100%" 
-            layout="horizontal"
-            paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
-        
-            <mx:HBox width="50%">
+    <s:Panel id="panel" title="Halo VSlider Control Example" 
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <s:HGroup left="10" right="10" top="10" bottom="10">
+            <s:HGroup width="200">
                 <mx:Image id="phoneImage" source="@Embed('assets/Nokia_6630.png')" 
-                    creationComplete="imageWidth=phoneImage.width; imageHeight=phoneImage.height;" />
-            </mx:HBox>
+                        creationComplete="imageWidth = phoneImage.width; imageHeight = phoneImage.height;" />
+            </s:HGroup>
 
-            <mx:VBox horizontalAlign="center">
-                <mx:Label color="blue" text="Drag the slider to resize the image."/>
-    
+            <s:VGroup>
+                <s:SimpleText color="blue" text="Drag the slider to resize the image."/>
                 <mx:VSlider id="hSlider" 
-                    dataTipPlacement="top" 
-                    minimum="0" maximum="100" value="100" 
-                    tickColor="black" 
-                    snapInterval="1" tickInterval="10" 
-                    labels="['0%','100%']" 
-                    allowTrackClick="true" 
-                    liveDragging="true" 
-                    change="changeSize();"/>
-            </mx:VBox>
-            
-        </mx:Panel>
-</mx:Application>   
-       
+                        dataTipPlacement="top" 
+                        minimum="0" maximum="100" value="100" 
+                        tickColor="black" 
+                        snapInterval="1" tickInterval="10" 
+                        labels="[0%,100%]" 
+                        allowTrackClick="true" 
+                        liveDragging="true" 
+                        change="changeSize();"/>
+            </s:VGroup>
+        </s:HGroup>
+    </s:Panel>
+
+</s:Application>
