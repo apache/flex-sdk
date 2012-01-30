@@ -45,6 +45,7 @@ import flash.utils.Timer;
 import flash.utils.getQualifiedClassName;
 
 import mx.core.FlexSprite;
+import mx.core.FlexVersion;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
@@ -3547,6 +3548,16 @@ public class SystemManager extends MovieClip
             bounds.y = pt.y;
             bounds.width = s.width;
             bounds.height = s.height;
+            
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_6)
+            {
+                // softKeyboardRect is in global coordinates.
+                // Keyboard size may change size while active. Listen for
+                // SoftKeyboardEvents on the stage and call 
+                // getVisibleApplicationRect() to get updated visible bounds.
+                var softKeyboardRect:Rectangle = stage.softKeyboardRect;
+                bounds.height = bounds.height - softKeyboardRect.height;
+            }
         }
         
 		if (!topLevel)
