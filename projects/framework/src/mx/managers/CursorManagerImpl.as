@@ -617,15 +617,22 @@ public class CursorManagerImpl implements ICursorManager
                     		listenForContextMenu = true;
                     	}     	
                     }
+					var pt:Point;
                     // make sure systemManager is not other implementation of ISystemManager
                     if (systemManager is SystemManager)
                     {
-                    	cursorHolder.x = SystemManager(systemManager).mouseX + item.x;
-                    	cursorHolder.y = SystemManager(systemManager).mouseY + item.y;
+						pt = new Point(SystemManager(systemManager).mouseX + item.x, SystemManager(systemManager).mouseY + item.y);
+						pt = SystemManager(systemManager).localToGlobal(pt);
+						pt = cursorHolder.parent.globalToLocal(pt);
+                    	cursorHolder.x = pt.x;
+                    	cursorHolder.y = pt.y;
                     }
                     // WindowedSystemManager
                     else if (systemManager is DisplayObject)
                     {
+						pt = new Point(DisplayObject(systemManager).mouseX + item.x, DisplayObject(systemManager).mouseY + item.y);
+						pt = DisplayObject(systemManager).localToGlobal(pt);
+						pt = cursorHolder.parent.globalToLocal(pt);
                     	cursorHolder.x = DisplayObject(systemManager).mouseX + item.x;
                     	cursorHolder.y = DisplayObject(systemManager).mouseY + item.y;
                     }
@@ -787,16 +794,13 @@ public class CursorManagerImpl implements ICursorManager
      */
     private function marshalMouseMoveHandler(event:Event):void
     {
-		if (event is MarshalMouseEvent)
-			return;
-    	
 		// mouse is outside our sandbox, restore it.
 		// the other CM should alter it if needed
 		// when we get a mousemove in our sandbox
 		// we should alter it as well
         cursorHolder.visible = false;
-            Mouse.show();
-        }
+        Mouse.show();
+    }
     
     /**
      *  @private
