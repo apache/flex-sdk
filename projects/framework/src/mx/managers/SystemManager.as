@@ -1325,7 +1325,7 @@ public class SystemManager extends MovieClip
     }
 
     /**
-     * @inheritDoc
+     *  @copy mx.core.ISWFBridgeProvider#parentAllowsChild
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
