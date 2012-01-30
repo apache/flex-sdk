@@ -82,6 +82,12 @@ public class ButtonSkinBase extends MobileSkin
     private var _icon:Object;           // The currently set icon, can be Class, DisplayObject, URL
     
     /**
+     *  @private
+     *  Flag that is set when the currentState changes from enabled to disabled
+     */
+    private var enabledChanged:Boolean; 
+    
+    /**
      *  labelDisplay skin part.
      */
     public var labelDisplay:StyleableTextField;
@@ -93,6 +99,24 @@ public class ButtonSkinBase extends MobileSkin
      */  
     protected var useIconStyle:Boolean = true;
     
+    private var _hostComponent:ButtonBase;
+    
+    /** 
+     * @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
+    public function get hostComponent():ButtonBase
+    {
+        return _hostComponent;
+    }
+    
+    /**
+     * @private
+     */
+    public function set hostComponent(value:ButtonBase):void
+    {
+        _hostComponent = value;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Layout variables
@@ -103,24 +127,25 @@ public class ButtonSkinBase extends MobileSkin
     
     protected var layoutGap:int;
     
+    /**
+     *  Left padding for icon or labelDisplay
+     */
     protected var layoutPaddingLeft:int;
     
+    /**
+     *  Right padding for icon or labelDisplay
+     */
     protected var layoutPaddingRight:int;
     
+    /**
+     *  Top padding for icon or labelDisplay
+     */
     protected var layoutPaddingTop:int;
     
-    protected var layoutPaddingBottom:int;
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden properties
-    //
-    //--------------------------------------------------------------------------
-    
-    /** 
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
+    /**
+     *  Bottom padding for icon or labelDisplay
      */
-    public var hostComponent:ButtonBase; // SkinnableComponent will popuplate
+    protected var layoutPaddingBottom:int;
     
     //--------------------------------------------------------------------------
     //
@@ -131,26 +156,24 @@ public class ButtonSkinBase extends MobileSkin
     /**
      *  @private 
      */ 
-    override protected function commitCurrentState():void
+    override public function set currentState(value:String):void
     {
-        super.commitCurrentState();
+        var isDisabled:Boolean = currentState && currentState.indexOf("disabled") >= 0;
         
-        commitDisabled(currentState.indexOf("disabled") >= 0);
-    }
-    
-    /**
-     *  @private 
-     */ 
-    protected function commitDisabled(isDisabled:Boolean):void
-    {
-        alpha = isDisabled ? 0.5 : 1;
+        super.currentState = value;
+        
+        if (isDisabled != currentState.indexOf("disabled") >= 0)
+        {
+            enabledChanged = true;
+            invalidateProperties();
+        }
     }
     
     /**
      *  @private 
      */ 
     override protected function createChildren():void
-    {                   
+    {
         labelDisplay = StyleableTextField(createInFontContext(StyleableTextField));
         labelDisplay.styleName = this;
         
@@ -194,11 +217,18 @@ public class ButtonSkinBase extends MobileSkin
     {
         super.commitProperties();
         
-        if (iconChanged)
+        if (useIconStyle && iconChanged)
         {
+            // force enabled update when icon changes
+            enabledChanged = true;
+            setIcon(getStyle("icon"));
+        }
+        
+        if (enabledChanged)
+        {
+            commitDisabled();
+            enabledChanged = false;
             iconChanged = false;
-            if (useIconStyle)
-                setIcon(getStyle("icon"));
         }
     }
     
@@ -213,6 +243,7 @@ public class ButtonSkinBase extends MobileSkin
         
         var textWidth:Number = 0;
         var textHeight:Number = 0;
+        var textDescent:Number = 0;
         
         // reset text if it was truncated before.
         if (hostComponent && labelDisplay.isTruncated)
@@ -260,12 +291,16 @@ public class ButtonSkinBase extends MobileSkin
                 h += layoutGap;
         }
         
+        // minimums
+        measuredMinWidth = w
+        measuredMinHeight = h;
+        
         w += layoutPaddingLeft + layoutPaddingRight;
         h += layoutPaddingTop + layoutPaddingBottom;
         
+        // measured sizes are no smaller than spec for touch-based sizes
         measuredWidth = Math.max(w, layoutMeasuredWidth);
-        measuredMinHeight = measuredHeight = Math.max(h, layoutMeasuredHeight);
-        measuredMinWidth = iconWidth + layoutPaddingLeft + layoutPaddingRight;
+        measuredHeight = Math.max(h, layoutMeasuredHeight);
     }
     
     /**
@@ -359,6 +394,8 @@ public class ButtonSkinBase extends MobileSkin
             {
                 labelWidth = 0;
             }
+            
+            // button viewHeight may be smaller than the labelDisplay textHeight
             labelHeight = Math.min(viewHeight, textHeight);
             
             if (textAlign == "left")
@@ -386,8 +423,10 @@ public class ButtonSkinBase extends MobileSkin
                 iconX  = labelX + labelWidth + horizontalGap; 
             }
             
-            // FIXME (jasonsj): enforcement of layoutPaddingTop && layoutPaddingBottom for text
-            iconY  = ((viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom) / 2) + layoutPaddingTop;
+            iconY = ((viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom) / 2) + layoutPaddingTop;
+            
+            // vertial center labelDisplay based on ascent
+            // text "height" = min(measuredTextSize.y, viewHeight) - descent + gutter
             labelY = ((viewHeight - labelHeight + textDescent - StyleableTextField.TEXT_HEIGHT_PADDING) / 2);
         }
         else
@@ -399,9 +438,12 @@ public class ButtonSkinBase extends MobileSkin
             
             if (textWidth > 0)
             {
+                // label width is constrained to left and right edges
                 labelWidth = Math.max(viewWidth - layoutPaddingLeft - layoutPaddingRight, 0);
-                labelHeight =
-                    Math.min(viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom - verticalGap, textHeight);
+                
+                // label height is constrained to available height after icon, padding and gap heights
+                labelHeight = Math.max(viewHeight - iconHeight - layoutPaddingTop - layoutPaddingBottom - verticalGap, 0);
+                labelHeight = Math.min(labelHeight, textHeight);
             }
             else
             {
@@ -432,9 +474,11 @@ public class ButtonSkinBase extends MobileSkin
             }
             else
             {
-                iconY += ((viewHeight - labelHeight - iconHeight - 
-                    layoutPaddingTop - layoutPaddingBottom - verticalGap) / 2) + layoutPaddingTop;
-                labelY += iconY + iconHeight + verticalGap;
+                // label bottom is constrained by layoutPaddingBottom
+                labelY = viewHeight - layoutPaddingBottom - labelHeight;
+                
+                // icon is vertically centered in the space above the label
+                iconY = Math.max(((labelY - iconHeight - verticalGap) / 2), layoutPaddingTop);
             }
         }
         
@@ -465,6 +509,16 @@ public class ButtonSkinBase extends MobileSkin
     //  Class methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  Commit alpha values for the skin when in a disabled state.
+     * 
+     *  @see mx.core.UIComponent#enabled
+     */
+    protected function commitDisabled():void
+    {
+        alpha = hostComponent.enabled ? 1 : 0.5;
+    }
     
     /**
      *  The current skin part that displays the icon.
@@ -508,7 +562,7 @@ public class ButtonSkinBase extends MobileSkin
         if (needsHolder && !iconHolder)
         {
             iconHolder = new Group();
-            this.addChildAt(iconHolder, 0);
+            addChild(iconHolder);
         }
         else if (!needsHolder && iconHolder)
         {
@@ -532,7 +586,7 @@ public class ButtonSkinBase extends MobileSkin
                 else
                     iconInstance = icon;
                 
-                addChildAt(iconInstance as DisplayObject, 0);
+                addChild(iconInstance as DisplayObject);
             }
         }
         
