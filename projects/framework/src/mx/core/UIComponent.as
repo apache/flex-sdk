@@ -2967,7 +2967,10 @@ public class UIComponent extends FlexSprite
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  @inheritDoc
+     *  Whether or not the display object is visible. 
+     *  Display objects that are not visible are disabled. 
+     *  For example, if <code>visible=false</code> for an InteractiveObject instance, 
+     *  it cannot be clicked. 
      *
      *  <p>When setting to <code>true</code>, the object dispatches
      *  a <code>show</code> event.
