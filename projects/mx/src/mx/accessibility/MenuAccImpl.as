@@ -14,6 +14,7 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.controls.Menu;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -33,62 +34,6 @@ use namespace mx_internal;
 public class MenuAccImpl extends ListBaseAccImpl
 {
     include "../core/Version.as";
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_MENUITEM:uint = 0x0C;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_CHECKED:uint = 0x00000010;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_HASPOPUP:uint = 0x40000000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_HOTTRACKED:uint = 0x00000080;
-	
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_UNAVAILABLE:uint = 0x00000001;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
-	
-	/**
-	 *  @private
-	 */
-	private static const EVENT_SYSTEM_MENUPOPUPSTART:uint = 0x00000006;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_SYSTEM_MENUPOPUPEND:uint = 0x00000007;
 
 	//--------------------------------------------------------------------------
 	//
@@ -150,7 +95,7 @@ public class MenuAccImpl extends ListBaseAccImpl
 	{
 		super(master);
 
-		role = 0x0B; // ROLE_SYSTEM_MENUPOPUP
+		role = AccConst.ROLE_SYSTEM_MENUPOPUP;
 	}
 
 	//--------------------------------------------------------------------------
@@ -187,7 +132,7 @@ public class MenuAccImpl extends ListBaseAccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		return childID == 0 ? role : ROLE_SYSTEM_MENUITEM;
+		return childID == 0 ? role : AccConst.ROLE_SYSTEM_MENUITEM;
 	}
 
 	/**
@@ -212,18 +157,18 @@ public class MenuAccImpl extends ListBaseAccImpl
 
 			if (!Menu(master).dataDescriptor.isEnabled(item))
 			{
-				accState |= STATE_SYSTEM_UNAVAILABLE;
+				accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
 				return accState;
 			}
 
 			//if (Menu(master).dataDescriptor.isFocused(item))
-			accState |= STATE_SYSTEM_HOTTRACKED | STATE_SYSTEM_FOCUSED;
+			accState |= AccConst.STATE_SYSTEM_HOTTRACKED | AccConst.STATE_SYSTEM_FOCUSED;
 			
 			if (Menu(master).dataDescriptor.isToggled(item))
-				accState |= STATE_SYSTEM_CHECKED;
+				accState |= AccConst.STATE_SYSTEM_CHECKED;
 
 			if (Menu(master).dataDescriptor.isBranch(item))
-				accState |= STATE_SYSTEM_HASPOPUP;
+				accState |= AccConst.STATE_SYSTEM_HASPOPUP;
 		}
 		return accState;
 	}
@@ -306,10 +251,10 @@ public class MenuAccImpl extends ListBaseAccImpl
 					childID = index + 1;
 
 					Accessibility.sendEvent(MenuEvent(event).menu, childID,
-											EVENT_OBJECT_FOCUS);
+											AccConst.EVENT_OBJECT_FOCUS);
 
 					Accessibility.sendEvent(MenuEvent(event).menu, childID,
-											EVENT_OBJECT_SELECTION);
+											AccConst.EVENT_OBJECT_SELECTION);
 				}
 				break;
 			}
@@ -322,10 +267,10 @@ public class MenuAccImpl extends ListBaseAccImpl
 					childID = index + 1;
 
 					Accessibility.sendEvent(MenuEvent(event).menu, childID,
-											EVENT_OBJECT_FOCUS);
+											AccConst.EVENT_OBJECT_FOCUS);
 
 					Accessibility.sendEvent(MenuEvent(event).menu, childID,
-											EVENT_OBJECT_SELECTION);
+											AccConst.EVENT_OBJECT_SELECTION);
 				}
 				break;
 			}
@@ -333,14 +278,14 @@ public class MenuAccImpl extends ListBaseAccImpl
 			case MenuEvent.MENU_SHOW:
 			{
 				Accessibility.sendEvent(MenuEvent(event).menu, 0,
-										EVENT_SYSTEM_MENUPOPUPSTART);
+										AccConst.EVENT_SYSTEM_MENUPOPUPSTART);
 				break;
 			}
 
 			case MenuEvent.MENU_HIDE:
 			{
 				Accessibility.sendEvent(MenuEvent(event).menu, 0,
-										EVENT_SYSTEM_MENUPOPUPEND);
+										AccConst.EVENT_SYSTEM_MENUPOPUPEND);
 				break;
 			}
 		}
