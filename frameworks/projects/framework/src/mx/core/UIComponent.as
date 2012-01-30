@@ -77,8 +77,8 @@ import mx.styles.CSSStyleDeclaration;
 import mx.styles.IAdvancedStyleClient;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
-import mx.styles.StyleManager;
 import mx.styles.IStyleManager2;
+import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.ColorUtil;
 import mx.utils.GraphicsUtil;
@@ -3436,7 +3436,7 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      * 
-     *  Returns the StyleManager object used by this component.
+     *  Returns the style manager used by this component.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3445,16 +3445,7 @@ public class UIComponent extends FlexSprite
      */
     public function get styleManager():IStyleManager2
     {
-        var styleManager:IStyleManager2;
-        
-        if (moduleFactory)
-            styleManager = moduleFactory.getImplementation("mx.styles::IStyleManager2") as IStyleManager2;
-        
-        if (!styleManager)
-            styleManager = SystemManagerGlobals.topLevelSystemManagers[0].
-                getImplementation("mx.styles::IStyleManager2") as IStyleManager2;
-        
-        return styleManager;
+        return StyleManager.getStyleManager(moduleFactory);
     }
     
     //----------------------------------
@@ -3997,8 +3988,9 @@ public class UIComponent extends FlexSprite
     [Inspectable(environment="none")]
 
     /**
-     *  The moduleFactory that is used to create TextFields in the correct SWF context. This is necessary so that
-     *  embedded fonts will work.
+     *  A module factory is used as context for using embeded fonts and for
+     *  finding the style manager that controls the styles for this 
+     *  component. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -9868,8 +9860,8 @@ public class UIComponent extends FlexSprite
     protected function stateChanged(oldState:String, newState:String, recursive:Boolean):void
     {
         if (currentCSSState && oldState != newState &&
-               (StyleManager.hasPseudoCondition(oldState) ||
-                StyleManager.hasPseudoCondition(newState)))
+               (styleManager.hasPseudoCondition(oldState) ||
+                styleManager.hasPseudoCondition(newState)))
         {
             regenerateStyleCache(recursive);
             initThemeColor();
@@ -9906,8 +9898,8 @@ public class UIComponent extends FlexSprite
      *  not the same as <code>false</code>, <code>""</code>,
      *  <code>NaN</code>, <code>0</code>, or <code>null</code>.
      *  No valid style value is ever <code>undefined</code>.
-     *  You can use the static method
-     *  <code>StyleManager.isValidStyleValue()</code>
+     *  You can use the method
+     *  <code>IStyleManager2.isValidStyleValue()</code>
      *  to test whether the value was set.</p>
      *
      *  @param styleProp Name of the style property.
@@ -9921,7 +9913,7 @@ public class UIComponent extends FlexSprite
      */
     public function getStyle(styleProp:String):*
     {
-        return StyleManager.inheritingStyles[styleProp] ?
+        return styleManager.inheritingStyles[styleProp] ?
                _inheritingStyles[styleProp] :
                _nonInheritingStyles[styleProp];
     }
@@ -10028,11 +10020,11 @@ public class UIComponent extends FlexSprite
             sc = _styleDeclaration.getStyle("selectionColor");
         }
 
-        if (StyleManager.hasAdvancedSelectors())
+        if (styleManager.hasAdvancedSelectors())
         {
             // Next look for matching selectors (working backwards, starting
             // with the most specific selector)
-            if (tc === null || !StyleManager.isValidStyleValue(tc))
+            if (tc === null || !styleManager.isValidStyleValue(tc))
             {
                 var styleDeclarations:Array = StyleProtoChain.getMatchingStyleDeclarations(this);
                 for (i = styleDeclarations.length - 1; i >= 0; i--)
@@ -10045,7 +10037,7 @@ public class UIComponent extends FlexSprite
                         sc = decl.getStyle("selectionColor");
                     }
 
-                    if (tc !== null && StyleManager.isValidStyleValue(tc))
+                    if (tc !== null && styleManager.isValidStyleValue(tc))
                         break;
                 }
             }
@@ -10053,12 +10045,12 @@ public class UIComponent extends FlexSprite
         else
         {
             // Next look for class selectors
-            if ((tc === null || !StyleManager.isValidStyleValue(tc)) &&
+            if ((tc === null || !styleManager.isValidStyleValue(tc)) &&
                 (styleName && !(styleName is ISimpleStyleClient)))
             {
                 var classSelector:Object =
                     styleName is String ?
-                    StyleManager.getStyleDeclaration("." + styleName) :
+                    styleManager.getStyleDeclaration("." + styleName) :
                     styleName;
 
                 if (classSelector)
@@ -10070,7 +10062,7 @@ public class UIComponent extends FlexSprite
             }
 
             // Finally look for type selectors
-            if (tc === null || !StyleManager.isValidStyleValue(tc))
+            if (tc === null || !styleManager.isValidStyleValue(tc))
             {
                 var typeSelectors:Array = getClassStyleDeclarations();
 
@@ -10085,7 +10077,7 @@ public class UIComponent extends FlexSprite
                         sc = typeSelector.getStyle("selectionColor");
                     }
 
-                    if (tc !== null && StyleManager.isValidStyleValue(tc))
+                    if (tc !== null && styleManager.isValidStyleValue(tc))
                         break;
                 }
             }
@@ -10094,13 +10086,13 @@ public class UIComponent extends FlexSprite
         // If we have a themeColor but no rollOverColor or selectionColor, call
         // setThemeColor here which will calculate rollOver/selectionColor based
         // on the themeColor.
-        if (tc !== null && StyleManager.isValidStyleValue(tc) && isNaN(rc) && isNaN(sc))
+        if (tc !== null && styleManager.isValidStyleValue(tc) && isNaN(rc) && isNaN(sc))
         {
             setThemeColor(tc);
             return true;
         }
 
-        return (tc !== null && StyleManager.isValidStyleValue(tc)) && !isNaN(rc) && !isNaN(sc);
+        return (tc !== null && styleManager.isValidStyleValue(tc)) && !isNaN(rc) && !isNaN(sc);
     }
 
     /**
@@ -10117,7 +10109,7 @@ public class UIComponent extends FlexSprite
             newValue = Number(value);
 
         if (isNaN(newValue))
-            newValue = StyleManager.getColorName(value);
+            newValue = styleManager.getColorName(value);
 
         var newValueS:Number = ColorUtil.adjustBrightness2(newValue, 50);
 
