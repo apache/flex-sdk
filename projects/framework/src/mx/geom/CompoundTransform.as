@@ -125,6 +125,7 @@ package mx.geom
      * @private
      * flags that get passed to the invalidate method indicating why the invalidation is happening.
      */
+	private static const INVALIDATE_FROM_NONE:uint = 			0;						
 	private static const INVALIDATE_FROM_PROPERTY:uint = 		4;						
 	private static const INVALIDATE_FROM_MATRIX:uint = 			5;						
 	private static const INVALIDATE_FROM_MATRIX3D:uint = 		6;						
@@ -142,6 +143,10 @@ package mx.geom
 
 	private static const RADIANS_PER_DEGREES:Number = Math.PI / 180;
 
+    /**
+     * @private
+     */
+	mx_internal var owner:AdvancedLayoutFeatures;
 	//----------------------------------------------------------------------------
 	
 	/**
@@ -153,7 +158,7 @@ package mx.geom
 		if(value == _x)
 			return;
 		translateBy(value-_x,0,0);
-		invalidate(0,false);
+		invalidate(INVALIDATE_FROM_NONE,false);
 	}
     /**
      * @private
@@ -173,7 +178,7 @@ package mx.geom
 		if(value == _y)
 			return;
 		translateBy(0,value-_y,0);
-		invalidate(0,false);
+		invalidate(INVALIDATE_FROM_NONE,false);
 	}
 	
     /**
@@ -194,7 +199,7 @@ package mx.geom
 		if(value == _z)
 			return;
 		translateBy(0,0,value-_z);
-		invalidate(0,true);
+		invalidate(INVALIDATE_FROM_NONE,true);
 	}
 	
     /**
@@ -207,7 +212,7 @@ package mx.geom
 	}
 	
 	//------------------------------------------------------------------------------
-	
+
 	
 	/**
 	 * the rotationX, in degrees, of the transform
@@ -346,7 +351,7 @@ package mx.geom
 	 */
 	mx_internal function get is3D():Boolean
 	{
-		if((_flags & M3D_FLAGS_VALID) == false)
+		if((_flags & M3D_FLAGS_VALID) == 0)
 			update3DFlags();
 		return ((_flags & IS_3D) != 0);
 	}
@@ -364,7 +369,7 @@ package mx.geom
 		_transformX = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,true);
 	}
-	
+
     /**
      * @private
      */
@@ -467,6 +472,7 @@ package mx.geom
 			dispatchEvent(new Event(Event.CHANGE));	
 	}
 	
+	private static const EPSILON:Number = .0001;
 	/**
 	 * @private
 	 * updates the flags that indicate whether the layout, offset, and/or computed transforms are 3D in nature.  
@@ -475,7 +481,7 @@ package mx.geom
   	 */
 	private function update3DFlags():void
 	{			
-		if((_flags & M3D_FLAGS_VALID) == false)
+		if((_flags & M3D_FLAGS_VALID) == 0)
 		{
 			var matrixIs3D:Boolean = false;
 
@@ -483,10 +489,10 @@ package mx.geom
 			{
 				case SOURCE_PROPERTIES:
 					matrixIs3D = ( // note that rotationZ is the same as rotation, and not a 3D affecting							
-					  	_scaleZ != 1 ||  // property.
-					  	(Math.abs(_rotationX)%360) != 0 ||
-					  	(Math.abs(_rotationY)%360) != 0 ||
-					  	_z != 0
+					  	(Math.abs(_scaleZ-1) > EPSILON) ||  // property.
+					  	((Math.abs(_rotationX)+EPSILON)%360) > 2*EPSILON ||
+					  	((Math.abs(_rotationY)+EPSILON)%360) > 2*EPSILON ||
+					  	Math.abs(_z) > EPSILON
 					  	);
 					break;
 				case SOURCE_MATRIX:
@@ -507,7 +513,7 @@ package mx.geom
 	}
 	
 	
-	private function translateBy(x:Number,y:Number,z:Number = 0):void
+	mx_internal function translateBy(x:Number,y:Number,z:Number = 0):void
 	{
 		if(_flags & MATRIX_VALID)
 		{
@@ -528,6 +534,7 @@ package mx.geom
 			data[14] += z;
 			_matrix3D.rawData = data;			
 		}	
+		invalidate(INVALIDATE_FROM_NONE,z != 0);
 	}
 	
 
@@ -678,7 +685,7 @@ package mx.geom
 		else
 			m.identity();
 		
-			AdvancedLayoutFeatures.build3DMatrix(m,_transformX,_transformY,_transformZ,
+			AdvancedLayoutFeatures.build3DMatrix(m,transformX,transformY,transformZ,
 					  _scaleX,_scaleY,_scaleZ,
 					  _rotationX,_rotationY,_rotationZ,						  
 					  _x,_y,_z);
@@ -702,6 +709,34 @@ package mx.geom
 			_matrix3D.append(v);			
 		}
 		invalidate(INVALIDATE_FROM_MATRIX3D,true);
+	}
+
+	public function transformAround(rx:Number,ry:Number,rz:Number,sx:Number,sy:Number,sz:Number,tx:Number,ty:Number,tz:Number):void
+	{
+		if(owner != null)
+		{
+			var is3D:Boolean = ((!isNaN(rx) && rx != 0) || (!isNaN(ry) && ry != 0) || (!isNaN(sz) && sz != 1));
+			var token:* = owner.prepareForTransformCenterAdjustment(false,is3D,tx,ty,tz);
+
+			if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
+			
+			if(!isNaN(rx))
+				_rotationX = rx;
+			if(!isNaN(ry))
+				_rotationY = ry;
+			if(!isNaN(rz))
+				_rotationZ = rz;
+			if(!isNaN(sx))
+				_scaleX = sx;
+			if(!isNaN(sx))
+				_scaleY = sy;
+			if(!isNaN(sz))
+				_scaleZ = sz;			
+	
+			invalidate(INVALIDATE_FROM_PROPERTY,is3D);
+			owner.completeTransformCenterAdjustment(token,is3D);
+		}
+		// TODO: support transformAround when we don't have an owner.
 	}
 }
 }
