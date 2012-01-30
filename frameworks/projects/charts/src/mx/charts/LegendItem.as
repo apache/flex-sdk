@@ -388,26 +388,6 @@ public class LegendItem extends UIComponent
 	//  Overridden methods: UIComponent
 	//
 	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private function initStyles():Boolean
-	{
-		HaloDefaults.init(styleManager);
-		
-		var o:CSSStyleDeclaration = HaloDefaults.createSelector("mx.charts.LegendItem", styleManager);
-		
-		o.defaultFactory = function():void
-		{
-			this.fill = new SolidColor(0);
-			this.fontWeight = "bold";
-			this.fontSize = 10;
-		}
-		
-		return true;
-	}
-
 	
 	/**
 	 *  @inheritDoc
@@ -425,9 +405,6 @@ public class LegendItem extends UIComponent
 			return;
 		
 		_moduleFactoryInitialized = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
 	/**
