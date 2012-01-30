@@ -1241,7 +1241,7 @@ public class FocusManager implements IFocusManager
 		// trace("winner = ", o);
 
 		// If we are about to wrap focus around, send focus back to the parent.
-		if (!popup && focusInfo.wrapped)
+		if (!popup && (focusInfo.wrapped || !focusInfo.displayObject))
 		{
 			if (getParentBridge())
 			{
@@ -1250,6 +1250,12 @@ public class FocusManager implements IFocusManager
 			}
 		}
 		
+		if (!focusInfo.displayObject)
+		{
+			event.preventDefault();
+			return;
+		}
+
 		setFocusToComponent(focusInfo.displayObject, event.shiftKey);		
 	}
 
