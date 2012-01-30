@@ -1016,13 +1016,13 @@ public class StyleableTextField extends TextField
      *  The padding to be added to textWidth to get the width
      *  of a TextField that can display the text without clipping.
      */ 
-    private static const TEXT_WIDTH_PADDING:int = 5;
+    mx_internal static const TEXT_WIDTH_PADDING:int = 5;
     
     /**
      *  @private
      *  The padding to be added to textHeight to get the height
      *  of a TextField that can display the text without clipping.
      */ 
-    private static const TEXT_HEIGHT_PADDING:int = 4;
+    mx_internal static const TEXT_HEIGHT_PADDING:int = 4;
 }
 }
