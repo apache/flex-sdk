@@ -143,11 +143,8 @@ public class SpinnerListSkin extends MobileSkin
 	
 	override protected function measure():void
 	{
-		measuredMinWidth = scroller.getPreferredBoundsWidth() + borderThickness * 2;
-		measuredMinHeight = scroller.getPreferredBoundsHeight();
-		
-		measuredWidth = measuredMinWidth;
-		measuredHeight = measuredMinHeight;
+        measuredWidth = scroller.getPreferredBoundsWidth() + borderThickness * 2;
+        measuredHeight = scroller.getPreferredBoundsHeight();
 	}
     
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
