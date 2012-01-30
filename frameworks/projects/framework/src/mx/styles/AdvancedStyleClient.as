@@ -24,7 +24,7 @@ import mx.styles.*;
 import mx.utils.NameUtil;
 
 /**
- *  A base class that can be used
+ *  The <code>AdvancedStyleClient</code> is a base class that can be used
  *  when implementing an object that uses the
  *  <code>IAdvancedStyleClient</code> interface.  The base class supplies
  *  implementations of the methods and properties required for an object
@@ -40,7 +40,7 @@ import mx.utils.NameUtil;
  *  that contains the MXML declaration. For more details, see the description
  *  of the <code>initilized</code> method.</p>
  *
- *  @see mx.styles.IAdvancedStyleClient
+ *  @see mx.core.styles.IAdvancedStyleClient
  *  @see #initialized
  *
  *  @langversion 3.0
@@ -180,13 +180,6 @@ public class AdvancedStyleClient extends EventDispatcher
     //----------------------------------
 
     /**
-     *  @private
-     */
-    private var _styleDeclarationVar:CSSStyleDeclaration;
-
-    [Inspectable(environment="none")]
-
-    /**
      *  The style declaration that holds the inline styles declared by this
      *  object.
      *
@@ -197,6 +190,10 @@ public class AdvancedStyleClient extends EventDispatcher
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
+    private var _styleDeclarationVar:CSSStyleDeclaration;
+
+    [Inspectable(environment="none")]
+
     public function get styleDeclaration():CSSStyleDeclaration
     {
         return _styleDeclarationVar;
