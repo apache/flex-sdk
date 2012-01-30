@@ -22,6 +22,11 @@ import mx.core.mx_internal;
  *  effect; you do not create one yourself.
  *
  *  @see mx.effects.SetStyleAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class SetStyleActionInstance extends ActionEffectInstance
 {
@@ -37,6 +42,11 @@ public class SetStyleActionInstance extends ActionEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SetStyleActionInstance(target:Object)
 	{
@@ -55,6 +65,11 @@ public class SetStyleActionInstance extends ActionEffectInstance
 
 	/** 
 	 *  The name of the style property being changed.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var name:String;
 	
@@ -70,6 +85,11 @@ public class SetStyleActionInstance extends ActionEffectInstance
 	
 	/** 
 	 *  The new value for the property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get value():*
 	{
