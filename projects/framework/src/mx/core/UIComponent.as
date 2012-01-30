@@ -3756,9 +3756,7 @@ public class UIComponent extends FlexSprite
     //----------------------------------
     
     /**
-     *  @private
-     * 
-     *  Returns the style manager used by this component.
+     *  Returns the StyleManager instance used by this component.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
