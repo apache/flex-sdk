@@ -1940,13 +1940,12 @@ public class IconItemRenderer extends LabelItemRenderer
         myMeasuredHeight += paddingHeight;
         myMeasuredMinHeight += paddingHeight;
         
-        // now set the local variables to the member variables.  Make sure it means our
-        // minimum height of 80
+        // now set the local variables to the member variables.
         measuredWidth = myMeasuredWidth
-        measuredHeight = Math.max(itemMinimumHeight, myMeasuredHeight);
+        measuredHeight = myMeasuredHeight;
         
         measuredMinWidth = myMeasuredMinWidth;
-        measuredMinHeight = Math.max(itemMinimumHeight, myMeasuredMinHeight);
+        measuredMinHeight = myMeasuredMinHeight;
     }
     
     /**
