@@ -37,7 +37,17 @@ package spark.components
     /**
      *  @inheritDoc
      */
+    [Event(name="applicationPersisting", type="mx.events.FlexEvent")]
+    
+    /**
+     *  @inheritDoc
+     */
     [Event(name="applicationRestore", type="mx.events.FlexEvent")]
+    
+    /**
+     *  @inheritDoc
+     */
+    [Event(name="applicationRestoring", type="mx.events.FlexEvent")]
     
     public class MobileApplication extends Application
     {
@@ -568,8 +578,8 @@ package spark.components
             {
                 // Dispatch event for saving persistence data
                 var eventDispatched:Boolean = true;
-                if (hasEventListener(FlexEvent.APPLICATION_PERSIST))
-                    eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSIST, false, true));
+                if (hasEventListener(FlexEvent.APPLICATION_PERSISTING))
+                    eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSISTING, false, true));
                 
                 if (eventDispatched)
                 {
@@ -589,6 +599,9 @@ package spark.components
                     }
                     
                     persistenceManager.flush();
+                    
+                    if (hasEventListener(FlexEvent.APPLICATION_PERSIST))
+                        eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_PERSIST));
                 }
             }
         }
@@ -635,8 +648,8 @@ package spark.components
                 
                 // Dispatch event for loading persistence data
                 var eventDispatched:Boolean = true;
-                if (hasEventListener(FlexEvent.APPLICATION_RESTORE))
-                    eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_RESTORE, false, true))
+                if (hasEventListener(FlexEvent.APPLICATION_RESTORING))
+                    eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_RESTORING, false, true));
 
                 if (eventDispatched)
                 {
@@ -657,10 +670,13 @@ package spark.components
                         if (navigator.tabBar)
                             navigator.tabBar.selectedIndex = navigator.selectedIndex;
                     }
+                    
+                    // Clear previously persisted data
+                    persistenceManager.clear();
+                    
+                    if (hasEventListener(FlexEvent.APPLICATION_RESTORE))
+                        eventDispatched = dispatchEvent(new FlexEvent(FlexEvent.APPLICATION_RESTORE));
                 }
-                
-                // Clear previously persisted data
-                persistenceManager.clear();
             }
             
             // If the sections property is not set by this point, MobileApplication will
