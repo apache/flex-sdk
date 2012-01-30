@@ -200,7 +200,7 @@ package mx.collections
 	     *  @playerversion AIR 1.1
 	     *  @productversion Flex 3
 	     */
-		public function get sort():Sort
+		public function get sort():ISort
 		{
 			return null;
 		}
@@ -213,7 +213,7 @@ package mx.collections
 	     *  @playerversion AIR 1.1
 	     *  @productversion Flex 3
 	     */
-		public function set sort(value:Sort):void
+		public function set sort(value:ISort):void
 		{
 		}
 		
