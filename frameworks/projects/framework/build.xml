@@ -22,10 +22,10 @@
           can externally link against framework.swc, since air is player 9.
           If you change this, update <target-player/> in the <compc/> tasks.
     -->
-	<property name="local.playerglobal.version" value="9"/>
+	<property name="local.playerglobal.version" value="10"/>
 
 	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of framework.swc and its English and Japanese resources"/>
-
+	
 	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ko_KR,nb_NO,nl_NL,pt_BR,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
 
 	<target name="clean">
@@ -63,12 +63,8 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/framework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-            <!--
-                NOTE: we are continuing to build against player 9 so that airframework.swc
-                      can externally link against framework.swc, since air is player 9.
-                      If you change this, update ${local.playerglobal.version} above.
-            -->
-            <target-player>9</target-player>
+      
+            <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
@@ -107,7 +103,7 @@
                       can externally link against framework.swc, since air is player 9.
                       If you change this, update ${local.playerglobal.version} above.
             -->
-            <target-player>9</target-player>
+            <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
  			<include-resource-bundles bundle="SharedResources"/>
 			<include-resource-bundles bundle="collections"/>
