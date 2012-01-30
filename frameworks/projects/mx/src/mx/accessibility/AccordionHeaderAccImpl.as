@@ -211,18 +211,13 @@ public class AccordionHeaderAccImpl extends AccImpl
 	{
 		var tab:Button = Button(master);
 		
-		var parentAccordion:Accordion = Accordion(master.parent);
-
-		if (childID > 0) 
+		if (childID > 0)
+		{
+			var parentAccordion:Accordion = Accordion(master.parent);
 			tab = parentAccordion.getHeaderAt(parentAccordion.focusedIndex);
+		}
 
-		var name:String = tab.label + " Tab";
-
-		//if (tab.selected) // until 125587 is fixed.
-		if (tab == parentAccordion.getHeaderAt(parentAccordion.selectedIndex))
-			name += ", Active";
-
-		return name;
+		return tab.label;
 	}
 
 	//--------------------------------------------------------------------------
