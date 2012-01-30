@@ -831,6 +831,18 @@ public class ActionBar extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        return getBaselinePositionForPart(titleDisplay as IVisualElement);
+    }
+    
     /**
      *  @private
      *  
