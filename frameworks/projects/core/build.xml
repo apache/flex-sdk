@@ -92,7 +92,7 @@
 
 		<!-- Call asdoc to generate dita xml files -->
 		<exec executable="${FLEX_HOME}/bin/${asdocexe}" failonerror="true">
-			<arg line="-doc-classes FlexClasses -sp ${basedir}/src -sp ${FLEX_HOME}/frameworks/projects/framework/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
+			<arg line="-doc-classes FlexClasses -lenient=true -sp ${basedir}/src -sp ${FLEX_HOME}/frameworks/projects/framework/src -keep-xml=true -skip-xsl=true -output ${FLEX_HOME}/tempDoc"/>
 		</exec>
 
 		<!-- updates flex.swc with asdoc xml -->
