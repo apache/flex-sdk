@@ -93,6 +93,12 @@ use namespace mx_internal;
 
 [Exclude(name="textAlign", kind="style")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("ToggleSwitch.png")]
+
 /**
  *  The Spark ToggleSwitch component is a component that can flip between
  *  a selected and non selected state. The ToggleSwitch has a <code>thumb</code>
@@ -125,7 +131,7 @@ public class ToggleSwitch extends ToggleButtonBase
     /**
      * The amount the mouse can move before we consider the event a drag and not a click
      */
-    private static const MOUSE_MOVE_TOLERANCE:Number = 0.01;
+    private static const MOUSE_MOVE_TOLERANCE:Number = 0.15;
     
     //----------------------------------------------------------------------------------------------
     //
@@ -607,15 +613,30 @@ public class ToggleSwitch extends ToggleButtonBase
         lastMouseX = event.stageX;
     }
     
-    private function thinnedMouseDragHandler():void 
+    /**
+     *  Move the thumb to line up with the current mouse position
+     *  The mouse needs to move at least MOUSE_MOVE_TOLERANCE before
+     *  the thumb begins to move.
+     *  On touch devices, the mouse position fired near mouse up can
+     *  be unreliable.
+     */
+    private function thinnedMouseDragHandler(event:Event):void 
     {
         if (mouseCaptured && track && thumb) 
         {
             var deltaX:Number = (lastMouseX - stageOffset.x) / getGlobalTrackRange();
-            // don't set mouseMoved unless the mouse position has changed
-            if (!mouseMoved && Math.abs(deltaX) > MOUSE_MOVE_TOLERANCE) 
+            // don't set mouseMoved unless the mouse position has changed enough
+            // don't rely on the last drag handler fired as part of mouse up
+            if (!mouseMoved && Math.abs(deltaX) > MOUSE_MOVE_TOLERANCE &&
+                event.type != MouseEvent.MOUSE_UP) 
                 mouseMoved = true;
-            moveToPosition(positionOffset + deltaX);
+            // only move if we have passed the threshold
+            // dampen the movement by that threshold
+            if (mouseMoved)
+            {
+                moveToPosition(positionOffset + deltaX + 
+                    (selected ? MOUSE_MOVE_TOLERANCE : -MOUSE_MOVE_TOLERANCE));
+            }
         }
     }
     
@@ -770,9 +791,7 @@ class MouseDragUtil
         
         if (!dragTimer.running) 
         {
-            mouseMoveThinnedHandler();
-            event.updateAfterEvent();
-            
+            mouseMoveThinnedHandler(event);
             dragPending = false;
             dragTimer.start();
         } 
@@ -786,8 +805,7 @@ class MouseDragUtil
     {
         if (dragPending) 
         {
-            mouseMoveThinnedHandler();
-            event.updateAfterEvent();
+            mouseMoveThinnedHandler(event);
             dragPending = false;
         } 
         else 
@@ -802,9 +820,7 @@ class MouseDragUtil
         {
             if (dragPending) 
             {
-                mouseMoveThinnedHandler();
-                if (event is MouseEvent)
-                    MouseEvent(event).updateAfterEvent();
+                mouseMoveThinnedHandler(event);
                 dragPending = false;
             }
             dragTimer.stop();
