@@ -293,15 +293,6 @@ public class TabbedMobileApplication extends MobileApplicationBase
     /**
      *  @private
      */
-    override protected function orientationChangeHandler(event:StageOrientationEvent):void
-    {
-        if (navigator)
-            navigator.landscapeOrientation = landscapeOrientation;
-    }
-    
-    /**
-     *  @private
-     */
     // TODO (chiedozi): PARB
     override protected function persistApplicationState():void
     {
@@ -355,7 +346,6 @@ public class TabbedMobileApplication extends MobileApplicationBase
             var newNavigatorProperties:uint = 0;
             
             navigator.creationPolicy = _explicitCreationPolicy;
-            navigator.landscapeOrientation = landscapeOrientation;
             
             if (navigatorProperties.navigators !== undefined)
             {
