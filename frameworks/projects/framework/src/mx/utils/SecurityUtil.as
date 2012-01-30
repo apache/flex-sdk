@@ -12,9 +12,10 @@
 package mx.utils
 {
 
-import mx.sandbox.ISandboxBridgeGroup;
-import mx.managers.ISystemManager2;
 import flash.events.IEventDispatcher;
+
+import mx.sandbox.ISandboxBridgeGroup;
+import mx.managers.ISystemManager;
 
 /**
  *  Utilities for working with sandboxes.
@@ -32,7 +33,7 @@ public class SandboxUtil
 	/**
 	 *  Tests if there is mutual trust between a SystemManager and its parent.
 	 */ 
-	public static function hasMutualTrustWithParent(sm:ISystemManager2):Boolean
+	public static function hasMutualTrustWithParent(sm:ISystemManager):Boolean
 	{
 		var sandboxBridgeGroup:ISandboxBridgeGroup = sm.sandboxBridgeGroup;
 		
@@ -52,7 +53,7 @@ public class SandboxUtil
      *  and one of its bridged applications.
 	 */ 
 	public static function hasMutualTrustWithChild(
-                                sm:ISystemManager2,
+                                sm:ISystemManager,
                                 bridge:IEventDispatcher):Boolean
 	{
 		var sandboxBridgeGroup:ISandboxBridgeGroup = sm.sandboxBridgeGroup;
