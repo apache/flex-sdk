@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- First view shown when ViewNavigatorApplication loads -->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" title="Home View">
+	
+    <s:Label x="43" y="47" text="Enter your name"/>
+    <s:TextInput id="ti" x="41" y="84" width="251"/>
+
+    <!-- Click submit to load the next view -->
+    <s:Button x="42" y="147" width="131" height="60" label="Submit"
+        click="navigator.pushView(views.ViewNavigatorApplicationView2, ti.text)"/>
+</s:View>
