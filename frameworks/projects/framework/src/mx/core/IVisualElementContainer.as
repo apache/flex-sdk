@@ -15,6 +15,11 @@ package mx.core
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IVisualElementContainer
 {
@@ -26,6 +31,11 @@ public interface IVisualElementContainer
      *  The number of visual elements in this visual container.
      * 
      *  @return The number of elements in this visual container
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get numElements():int;
     
@@ -37,6 +47,11 @@ public interface IVisualElementContainer
      *  @return The element at the specified index.
      * 
      *  @throws RangeError If the index position does not exist in the child list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function getElementAt(index:int):IVisualElement
     
@@ -62,6 +77,11 @@ public interface IVisualElementContainer
      *  the element is added to the child list.
      * 
      *  @throws ArgumentError If the element is the same as the visual container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */   
     function addElement(element:IVisualElement):IVisualElement;
     
@@ -90,6 +110,11 @@ public interface IVisualElementContainer
      *  @throws ArgumentError If the element is the same as the visual container.
      * 
      *  @throws RangeError If the index position does not exist in the child list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addElementAt(element:IVisualElement, index:int):IVisualElement;
     
@@ -108,6 +133,11 @@ public interface IVisualElementContainer
      * 
      *  @throws ArgumentError If the element parameter is not a child of 
      *  this visual container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeElement(element:IVisualElement):IVisualElement;
     
@@ -120,6 +150,11 @@ public interface IVisualElementContainer
      *  @return The element removed from the visual container.
      * 
      *  @throws RangeError If the index does not exist in the child list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeElementAt(index:int):IVisualElement;
     
@@ -135,6 +170,11 @@ public interface IVisualElementContainer
      *  @return The index position of the element to identify.
      * 
      *  @throws ArgumentError If the element is not a child of this visual container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     function getElementIndex(element:IVisualElement):int;
     
@@ -160,6 +200,11 @@ public interface IVisualElementContainer
      *
      *  @throws ArgumentError - If the element parameter is not a child 
      *  of this visual container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function setElementIndex(element:IVisualElement, index:int):void;
     
@@ -173,6 +218,11 @@ public interface IVisualElementContainer
      *
      *  @param element1 The first visual element.
      *  @param element2 The second visual element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function swapElements(element1:IVisualElement, element2:IVisualElement):void;
     
@@ -187,6 +237,11 @@ public interface IVisualElementContainer
      * 
      *  @throws RangeError If either index does not exist in 
      *  the visual container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function swapElementsAt(index1:int, index2:int):void;
 
