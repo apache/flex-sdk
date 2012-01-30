@@ -27,7 +27,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
- public class HScrollBarSkin extends MobileSkin 
+public class HScrollBarSkin extends MobileSkin 
 {   
     //--------------------------------------------------------------------------
     //
@@ -47,17 +47,18 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         super();
         
         useChromeColor = true;
-
-		layoutMeasuredWidth = 20;
-		
-		// Depending on density set our measured height
+        
+        layoutMeasuredWidth = 20;
+        thumbSkinClass = HScrollBarThumbSkin;
+        
+        // Depending on density set our measured height
         switch (applicationDPI)
         {
-			case DPIClassification.DPI_320:
-			{
-				layoutMeasuredHeight = 12;   
-				break;
-			}
+            case DPIClassification.DPI_320:
+            {
+                layoutMeasuredHeight = 12;   
+                break;
+            }
             case DPIClassification.DPI_240:
             {
                 layoutMeasuredHeight = 9;   
@@ -82,6 +83,10 @@ import spark.skins.mobile.supportClasses.MobileSkin;
      */
     public var hostComponent:HScrollBar;
     
+    /**
+     *  Skin to use for the thumb Button skin part
+     */
+    protected var thumbSkinClass:Class;
     
     //--------------------------------------------------------------------------
     //
@@ -133,7 +138,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
         if (!thumb)
         {
             thumb = new Button();
-            thumb.setStyle("skinClass", spark.skins.mobile.HScrollBarThumbSkin);
+            thumb.setStyle("skinClass", thumbSkinClass);
             thumb.width = layoutMeasuredHeight;
             thumb.height = layoutMeasuredHeight;
             addChild(thumb);
