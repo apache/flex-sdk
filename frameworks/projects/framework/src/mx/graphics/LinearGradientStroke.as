@@ -115,8 +115,12 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
     //
     //--------------------------------------------------------------------------
 
-	[Deprecated(replacement="draw")]
+    /**
+     *  @inheritDoc
+     */
+	private static var commonMatrix:Matrix = new Matrix();
 
+	[Deprecated(replacement="draw")]
     /**
      *  Applies the properties to the specified Graphics object.
      *  
@@ -143,14 +147,14 @@ public class LinearGradientStroke extends GradientStroke implements IStroke
 		var bX:Number = !isNaN(x) ? x + rc.left : rc.left;
 		var bY:Number = !isNaN(y) ? y + rc.top : rc.top;
         
-        matrix.createGradientBox(w, rc.height, 
+        commonMatrix.createGradientBox(w, rc.height, 
 								!isNaN(mx_internal::_angle) ? 
 									mx_internal::_angle : mx_internal::rotationInRadians,
 								 bX, bY);	
 								 
 		g.lineGradientStyle(GradientType.LINEAR, mx_internal::colors,
                             mx_internal::alphas, mx_internal::ratios,
-                            matrix, spreadMethod,
+                            commonMatrix, spreadMethod,
                             interpolationMethod);						 
     }
 }
