@@ -768,26 +768,14 @@ public class BubbleSeries extends Series
         {
             if (!_horizontalAxis)
             {
-                if (c.secondSeries.indexOf(this) != -1 && c.secondHorizontalAxis)
-                {
-                    if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.secondHorizontalAxis)
-                        CartesianTransform(dataTransform).setAxis(
-                            CartesianTransform.HORIZONTAL_AXIS,c.secondHorizontalAxis);
-                }
-                else if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.horizontalAxis)
+                if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.horizontalAxis)
                         CartesianTransform(dataTransform).setAxis(
                             CartesianTransform.HORIZONTAL_AXIS,c.horizontalAxis);
             }
                             
             if (!_verticalAxis)
             {
-                if (c.secondSeries.indexOf(this) != -1 && c.secondVerticalAxis)
-                {
-                    if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.secondVerticalAxis)
-                        CartesianTransform(dataTransform).setAxis(
-                            CartesianTransform.VERTICAL_AXIS,c.secondVerticalAxis);
-                }
-                else if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.verticalAxis)
+                if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.verticalAxis)
                         CartesianTransform(dataTransform).setAxis(
                             CartesianTransform.VERTICAL_AXIS, c.verticalAxis);
             }
@@ -796,12 +784,7 @@ public class BubbleSeries extends Series
             {
                 if (c is BubbleChart)
                 {
-                    if (c.secondSeries.indexOf(this) != -1 && (c as BubbleChart).secondRadiusAxis)
-                    {
-                        if (dataTransform.axes[RADIUS_AXIS] != (c as BubbleChart).secondRadiusAxis)
-                            dataTransform.setAxis(RADIUS_AXIS, (c as BubbleChart).secondRadiusAxis);
-                    }
-                    else if (dataTransform.axes[RADIUS_AXIS] != (c as BubbleChart).radiusAxis)
+                    if (dataTransform.axes[RADIUS_AXIS] != (c as BubbleChart).radiusAxis)
                             dataTransform.setAxis(RADIUS_AXIS, (c as BubbleChart).radiusAxis);
                 }
             }
@@ -916,12 +899,6 @@ public class BubbleSeries extends Series
                     allSeriesTransform = false;
             }
         
-            n = cChart.secondSeries.length;
-            for (i = 0; i < n; i++)
-            {
-                if (cChart.getSeriesTransformState(cChart.secondSeries[i]))
-                    allSeriesTransform = false;
-            }
             if (allSeriesTransform)
                 cChart.measureLabels();
         }       
