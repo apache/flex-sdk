@@ -108,19 +108,19 @@ public class ViewTransitionBase extends EventDispatcher
      *  Constant used in tandem with the actionBarTransitionMode property to 
      *  hint the default action bar transition behavior.
      */
-	mx_internal static const ACTION_BAR_MODE_FADE:String = "fade";
+    mx_internal static const ACTION_BAR_MODE_FADE:String = "fade";
     
     /**
      *  Constant used in tandem with the actionBarTransitionMode property to 
      *  hint the default action bar transition behavior.
      */
-	mx_internal static const ACTION_BAR_MODE_FADE_AND_SLIDE:String = "fadeAndSlide";
-	
-	/**
-	 *  Constant used in tandem with the actionBarTransitionMode property to 
-	 *  hint the default action bar transition behavior.
-	 */
-	mx_internal static const ACTION_BAR_MODE_NONE:String = "none";
+    mx_internal static const ACTION_BAR_MODE_FADE_AND_SLIDE:String = "fadeAndSlide";
+    
+    /**
+     *  Constant used in tandem with the actionBarTransitionMode property to 
+     *  hint the default action bar transition behavior.
+     */
+    mx_internal static const ACTION_BAR_MODE_NONE:String = "none";
     
     //--------------------------------------------------------------------------
     //
@@ -165,25 +165,25 @@ public class ViewTransitionBase extends EventDispatcher
      *  startView's action bar width.
      */ 
     private var cachedActionBarWidth:Number;
-	
-	/**
-	 *  @private
-	 *  Transient display object used to hold temporary bitmap snapshots
-	 *  during transition.
-	 */ 
-	private var transitionGroup:Group;
-	
-	/**
-	 *  @private
-	 *  Flag to assist with cleanup of any constructs used only for vertical
-	 *  transitions (e.g. clipping masks).
-	 */ 
-	private var verticalTransition:Boolean;
-	
-	
-	/**
-	 *  @private
-	 */
+    
+    /**
+     *  @private
+     *  Transient display object used to hold temporary bitmap snapshots
+     *  during transition.
+     */ 
+    private var transitionGroup:Group;
+    
+    /**
+     *  @private
+     *  Flag to assist with cleanup of any constructs used only for vertical
+     *  transitions (e.g. clipping masks).
+     */ 
+    private var verticalTransition:Boolean;
+    
+    
+    /**
+     *  @private
+     */
     
     //--------------------------------------------------------------------------
     //
@@ -229,8 +229,8 @@ public class ViewTransitionBase extends EventDispatcher
      *  The easing behavior for this transition. The IEaser object is
      *  generally propagated to the IEffect instance managing the actual
      *  transition animation.
-	 * 
-	 *  @default new Sine(.5);
+     * 
+     *  @default new Sine(.5);
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -383,8 +383,8 @@ public class ViewTransitionBase extends EventDispatcher
      *  tab bar transitions are not performed.
      *
      *  <p>Note that even when set to false, there are cases
-	 *  where its not feasible to transition the action bar 
-	 *  or tab bar, such as when the action bar or 
+     *  where its not feasible to transition the action bar 
+     *  or tab bar, such as when the action bar or 
      *  tab bar does not exist in one of the two views or
      *  if the tab bar or action bar changes size.</p>
      *
@@ -419,7 +419,7 @@ public class ViewTransitionBase extends EventDispatcher
     //----------------------------------
     
     /**
-	 *  @private
+     *  @private
      *  Convenience property used by ViewTransitionBase overrides to hint the behavior of
      *  the default action bar transition as appropriate for the type and nature
      *  of the specific view transition. Can be one either ViewTransitionBase.ACTION_BAR_MODE_FADE, 
@@ -436,7 +436,7 @@ public class ViewTransitionBase extends EventDispatcher
     //----------------------------------
     
     /**
-	 *  @private
+     *  @private
      *  Convenience property used by ViewTransitionBase overrides to hint the direction 
      *  of the default action bar transition when the actionBarTransitionMode is set to 
      *  "fadeAndSlide". Can be or null or set to one of the ViewTransitionDirection
@@ -452,7 +452,7 @@ public class ViewTransitionBase extends EventDispatcher
     //----------------------------------
     
     /**
-	 *  @private
+     *  @private
      *  Cached image of the cumulative view of the owning navigator
      *  captured by the default captureStartValues() implementation.
      *  This snapshot is generally leveraged by transitions that need to
@@ -465,7 +465,7 @@ public class ViewTransitionBase extends EventDispatcher
     //----------------------------------
     
     /**
-	 *  @private
+     *  @private
      *  Cached image of the action bar's action group. This image is 
      *  only captured by default if action group content exists in the
      *  previous view.
@@ -477,7 +477,7 @@ public class ViewTransitionBase extends EventDispatcher
     //----------------------------------
     
     /**
-	 *  @private
+     *  @private
      *  Cached image of the action bar's title group. This image is 
      *  only captured by default if title group content exists in the
      *  previous view.
@@ -489,44 +489,44 @@ public class ViewTransitionBase extends EventDispatcher
     //----------------------------------
     
     /**
-	 *  @private
+     *  @private
      *  Cached image of the action bar's navigation group. This image is 
      *  only captured by default if navigation group content exists in the
      *  previous view.
      */
     mx_internal var cachedNavigationGroup:BitmapImage;
-	
-	//----------------------------------
-	//  targetNavigator
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 *  Convenience property which caches our primary containing navigator, 
-	 *  this is usually our owning ViewNavigator but may be an outer TabNavigator
-	 */
-	protected var targetNavigator:ViewNavigatorBase;
-	
-	//----------------------------------
-	//  parentNavigator
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 *  Convenience property which caches our primary containing navigator, 
-	 *  this is usually our owning ViewNavigator but may be an outer TabNavigator
-	 */
-	protected var parentNavigator:ViewNavigatorBase;
-	
-	//----------------------------------
-	//  actionBar
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 *  Convenience property which caches our associated action bar. 
-	 */
-	protected var actionBar:ActionBar;
+    
+    //----------------------------------
+    //  targetNavigator
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Convenience property which caches our primary containing navigator, 
+     *  this is usually our owning ViewNavigator but may be an outer TabNavigator
+     */
+    protected var targetNavigator:ViewNavigatorBase;
+    
+    //----------------------------------
+    //  parentNavigator
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Convenience property which caches our primary containing navigator, 
+     *  this is usually our owning ViewNavigator but may be an outer TabNavigator
+     */
+    protected var parentNavigator:ViewNavigatorBase;
+    
+    //----------------------------------
+    //  actionBar
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Convenience property which caches our associated action bar. 
+     */
+    protected var actionBar:ActionBar;
     
     //--------------------------------------------------------------------------
     //
@@ -549,18 +549,18 @@ public class ViewTransitionBase extends EventDispatcher
      */
     public function captureStartValues():void
     {
-		// Remember some common references.
-		parentNavigator = navigator.parentNavigator;
-		targetNavigator = parentNavigator ? parentNavigator : navigator;
-		if (navigator is ViewNavigator)
-		    actionBar = ViewNavigator(navigator).actionBar;
-		
+        // Remember some common references.
+        parentNavigator = navigator.parentNavigator;
+        targetNavigator = parentNavigator ? parentNavigator : navigator;
+        if (navigator is ViewNavigator)
+            actionBar = ViewNavigator(navigator).actionBar;
+        
         // Determine first if we're able to transition our control bars independently
         // of our view content.  If we are, then capture the necessary action bar
         // bitmap snapshots for use later by our default action bar transition.
         consolidatedTransition = consolidatedTransition ? 
-			consolidatedTransition : !canTransitionControlBarContent();
-		    
+            consolidatedTransition : !canTransitionControlBarContent();
+           
         // Snapshot component parts of action bar in preparation for our 
         // default action bar transition, (if appropriate).
         if (!consolidatedTransition && navigator is ViewNavigator)
@@ -690,7 +690,7 @@ public class ViewTransitionBase extends EventDispatcher
             // Prepare view effect
             var viewEffect:IEffect = createViewEffect();
             if (viewEffect)
-                Parallel(effect).addChild(createViewEffect());
+                Parallel(effect).addChild(viewEffect);
         }
         else
         {
@@ -718,22 +718,22 @@ public class ViewTransitionBase extends EventDispatcher
     {
         var slideDistance:Number;
         var animatedProperty:String;
-		
+        
         var actionBarSkin:UIComponent = actionBar.skin;
         var fadeOutTargets:Array = new Array();
         var fadeInTargets:Array = new Array();
         
         // Return if we have a noop action bar transition mode.
         if (!actionBar || actionBarTransitionMode == ACTION_BAR_MODE_NONE || 
-			!actionBarTransitionMode)
+            !actionBarTransitionMode)
             return null;
         
         transitionGroup = new Group();
         transitionGroup.includeInLayout = false;
-		addComponentToContainer(transitionGroup, actionBarSkin);
-		transitionGroup.width = actionBar.width;
-		transitionGroup.height = actionBar.height;
-		
+        addComponentToContainer(transitionGroup, actionBarSkin);
+        transitionGroup.width = actionBar.width;
+        transitionGroup.height = actionBar.height;
+        
         // Construct our parallel effect.
         var effect:Parallel = new Parallel();
         
@@ -748,14 +748,14 @@ public class ViewTransitionBase extends EventDispatcher
             case ViewTransitionDirection.DOWN:
                 animatedProperty = "y";
                 slideDistance = -actionBar.height / 2.5;
-				transitionGroup.clipAndEnableScrolling = true;
+                transitionGroup.clipAndEnableScrolling = true;
                 verticalTransition = true;
                 break;
             
             case ViewTransitionDirection.UP:
                 animatedProperty = "y";
                 slideDistance = actionBar.height / 2.5;
-				transitionGroup.clipAndEnableScrolling = true;
+                transitionGroup.clipAndEnableScrolling = true;
                 verticalTransition = true;
                 break;
             
@@ -785,11 +785,11 @@ public class ViewTransitionBase extends EventDispatcher
                 titleComponent.alpha = 0;
                 titleComponent[animatedProperty] += slideDistance;
                 fadeInTargets.push(titleComponent);
-				
-				if (verticalTransition)
-					transitionGroup.addElementAt(titleComponent, 0);
+                
+                if (verticalTransition)
+                    transitionGroup.addElementAt(titleComponent, 0);
             }
-			
+            
             if (cachedTitleGroup)
                 transitionGroup.addElement(cachedTitleGroup);
         }
@@ -800,7 +800,7 @@ public class ViewTransitionBase extends EventDispatcher
         if (cachedNavigationGroup)
         {
             transitionGroup.addElement(cachedNavigationGroup);
-			if (!verticalTransition)
+            if (!verticalTransition)
                 fadeOutTargets.push(cachedNavigationGroup);
         }
         
@@ -810,7 +810,7 @@ public class ViewTransitionBase extends EventDispatcher
         if (cachedActionGroup)
         {
             transitionGroup.addElement(cachedActionGroup);
-			if (!verticalTransition)
+            if (!verticalTransition)
                 fadeOutTargets.push(cachedActionGroup);
         }
         
@@ -824,8 +824,8 @@ public class ViewTransitionBase extends EventDispatcher
                 actionBar.navigationGroup.cacheAsBitmap = true;
                 actionBar.navigationGroup.alpha = 0;
                 fadeInTargets.push(actionBar.navigationGroup);
-				if (verticalTransition)
-					transitionGroup.addElementAt(actionBar.navigationGroup, 0);
+                if (verticalTransition)
+                    transitionGroup.addElementAt(actionBar.navigationGroup, 0);
             }
             
             if (endView.actionContent)
@@ -834,20 +834,19 @@ public class ViewTransitionBase extends EventDispatcher
                 actionBar.actionGroup.cacheAsBitmap = true;
                 actionBar.actionGroup.alpha = 0;
                 fadeInTargets.push(actionBar.actionGroup);
-				if (verticalTransition)
-					transitionGroup.addElementAt(actionBar.actionGroup, 0);
+                if (verticalTransition)
+                    transitionGroup.addElementAt(actionBar.actionGroup, 0);
             }
         }
         
         // Fade out action and navigation content
-		var fadeOut:Animate = new Animate();
-		vector = new Vector.<MotionPath>();
-		vector.push(new SimpleMotionPath("alpha", 1, 0));
-		fadeOut.motionPaths = vector;
-		fadeOut.easer = new spark.effects.easing.Sine(.7);
-		fadeOut.targets = fadeOutTargets;
-		fadeOut.duration = duration * .7;
-		
+        var fadeOut:Animate = new Animate();
+        vector = new Vector.<MotionPath>();
+        vector.push(new SimpleMotionPath("alpha", 1, 0));
+        fadeOut.motionPaths = vector;
+        fadeOut.targets = fadeOutTargets;
+        fadeOut.duration = duration * .7;
+        
         // Fade out and slide old select content
         var animation:Animate = new Animate();
         var vector:Vector.<MotionPath> = new Vector.<MotionPath>();
@@ -855,23 +854,23 @@ public class ViewTransitionBase extends EventDispatcher
         vector.push(new SimpleMotionPath(animatedProperty, null, null, -slideDistance));
         animation.motionPaths = vector;
         animation.easer = new spark.effects.easing.Sine(.7);
-		var fadeOutSlideTargets:Array = new Array();
-	
-		if (cachedTitleGroup)
-			fadeOutSlideTargets.push(cachedTitleGroup);
-		
-		if (cachedActionGroup && verticalTransition)
-			fadeOutSlideTargets.push(cachedActionGroup);
-		
-		if (cachedNavigationGroup && verticalTransition)
-			fadeOutSlideTargets.push(cachedNavigationGroup);
-		
-		if (fadeOutSlideTargets.length)
-		{
-		    animation.targets = fadeOutSlideTargets;
-		    animation.duration = duration;
+        var fadeOutSlideTargets:Array = new Array();
+    
+        if (cachedTitleGroup)
+            fadeOutSlideTargets.push(cachedTitleGroup);
+        
+        if (cachedActionGroup && verticalTransition)
+            fadeOutSlideTargets.push(cachedActionGroup);
+        
+        if (cachedNavigationGroup && verticalTransition)
+            fadeOutSlideTargets.push(cachedNavigationGroup);
+        
+        if (fadeOutSlideTargets.length)
+        {
+            animation.targets = fadeOutSlideTargets;
+            animation.duration = duration;
             effect.addChild(animation);
-		}
+        }
 
         // Construct animation for our fade in and slide elements.
         var fadeAndSlide:Animate = new Animate();
@@ -889,7 +888,7 @@ public class ViewTransitionBase extends EventDispatcher
 
         // Ensure bitmaps are rendered prior to invocation of our effect.
         transitionGroup.validateNow();
-        
+		        
         return effect;
     }
     
@@ -962,8 +961,8 @@ public class ViewTransitionBase extends EventDispatcher
      */
     protected function transitionComplete():void
     {
-		cleanUp();
-		
+        cleanUp();
+        
         if (hasEventListener(FlexEvent.TRANSITION_END))
             dispatchEvent(new FlexEvent(FlexEvent.TRANSITION_END));
     }
@@ -994,72 +993,74 @@ public class ViewTransitionBase extends EventDispatcher
                 actionBar.actionGroup.cacheAsBitmap = false;
             }
             
-			// Restore title group and title content to their original state.
-			if (actionBar && actionBar.titleGroup && actionBar.titleGroup.visible)
-				actionBar.titleGroup.cacheAsBitmap = false;
-			
-			if (actionBar && actionBar.titleDisplay
-				&& (actionBar.titleDisplay is DisplayObject)
-				&& DisplayObject(actionBar.titleDisplay).visible)
-			{
-				DisplayObject(actionBar.titleDisplay).cacheAsBitmap = false;
-			}
-			
-			// Restore title group and title content to their original home.
-			if (actionBar && verticalTransition)
-			{
-				var titleComponent:UIComponent = actionBar.titleGroup;
-				if (!titleComponent || !titleComponent.visible)
-					titleComponent = actionBar.titleDisplay as UIComponent;
-				
-				if (titleComponent)
-				{
-					transitionGroup.removeElement(titleComponent);
-					addComponentToContainer(titleComponent, actionBar.skin);
-				}
-			}
-			
-			// Restore navigation group to their proper home.
-			if (endView.navigationContent && actionBar && verticalTransition)
-			{
-				transitionGroup.removeElement(actionBar.navigationGroup);
-				if (actionBar.titleDisplay)
-				{
-					var childIndex:uint = actionBar.skin.getChildIndex(actionBar.titleDisplay as DisplayObject);
-					addComponentToContainerAt(actionBar.navigationGroup, actionBar.skin, childIndex);
-				}
-				else
-					addComponentToContainer(actionBar.navigationGroup, actionBar.skin);
-			}
-			
-			// Restore action group to their proper home.
-			if (endView.actionContent && actionBar && verticalTransition)
-			{
-				transitionGroup.removeElement(actionBar.actionGroup);
-				if (actionBar.titleDisplay)
-				{
-					childIndex = actionBar.skin.getChildIndex(actionBar.titleDisplay as DisplayObject);
-					addComponentToContainerAt(actionBar.actionGroup, actionBar.skin, childIndex);
-				}
-				else
-				    addComponentToContainer(actionBar.actionGroup, actionBar.skin);
-			}
-			
-			removeComponentFromContainer(transitionGroup, actionBar.skin);
+            // Restore title group and title content to their original state.
+            if (actionBar && actionBar.titleGroup && actionBar.titleGroup.visible)
+                actionBar.titleGroup.cacheAsBitmap = false;
+            
+            if (actionBar && actionBar.titleDisplay
+                && (actionBar.titleDisplay is DisplayObject)
+                && DisplayObject(actionBar.titleDisplay).visible)
+            {
+                DisplayObject(actionBar.titleDisplay).cacheAsBitmap = false;
+            }
+            
+            // Restore title group and title content to their original home.
+            if (actionBar && verticalTransition)
+            {
+                var titleComponent:UIComponent = actionBar.titleGroup;
+                if (!titleComponent || !titleComponent.visible)
+                    titleComponent = actionBar.titleDisplay as UIComponent;
+                
+                if (titleComponent)
+                {
+                    transitionGroup.removeElement(titleComponent);
+                    addComponentToContainer(titleComponent, actionBar.skin);
+                }
+            }
+            
+            // Restore navigation group to their proper home.
+            if (endView.navigationContent && actionBar && verticalTransition)
+            {
+                transitionGroup.removeElement(actionBar.navigationGroup);
+                if (actionBar.titleDisplay)
+                {
+                    var childIndex:uint = actionBar.skin.getChildIndex(actionBar.titleDisplay as DisplayObject);
+                    addComponentToContainerAt(actionBar.navigationGroup, actionBar.skin, childIndex);
+                }
+                else
+                    addComponentToContainer(actionBar.navigationGroup, actionBar.skin);
+            }
+            
+            // Restore action group to their proper home.
+            if (endView.actionContent && actionBar && verticalTransition)
+            {
+                transitionGroup.removeElement(actionBar.actionGroup);
+                if (actionBar.titleDisplay)
+                {
+                    childIndex = actionBar.skin.getChildIndex(actionBar.titleDisplay as DisplayObject);
+                    addComponentToContainerAt(actionBar.actionGroup, actionBar.skin, childIndex);
+                }
+                else
+                    addComponentToContainer(actionBar.actionGroup, actionBar.skin);
+            }
+            
+            removeComponentFromContainer(transitionGroup, actionBar.skin);
             actionBar.skin.scrollRect = null;
-			
-			verticalTransition = false;
-			cachedActionBarHeight = 0;
-			cachedActionBarWidth = 0;
+            
+            verticalTransition = false;
+            cachedActionBarHeight = 0;
+            cachedActionBarWidth = 0;
             
             transitionGroup = null;
             cachedTitleGroup = null;
             cachedNavigationGroup = null;
             cachedActionGroup = null;
-			actionBar = null;
-			parentNavigator = null;
-			targetNavigator = null;
         }
+        
+        consolidatedTransition = false;
+        actionBar = null;
+        parentNavigator = null;
+        targetNavigator = null;
     }
     
     /**
@@ -1140,18 +1141,18 @@ public class ViewTransitionBase extends EventDispatcher
         snapShot.height = bounds.height;
         snapShot.x = target.x + bounds.left;
         snapShot.y = target.y + bounds.top;
-        
+                        
         // Exclude from layout.
         snapShot.includeInLayout = false;
         
         return snapShot; 
     }
     
-	//--------------------------------------------------------------------------
-	//
-	//  Private Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
     
     /**
      * @private
@@ -1162,73 +1163,73 @@ public class ViewTransitionBase extends EventDispatcher
         transitionComplete();
         effect = null;
     }
-	
-	/**
-	 * @private
-	 * Helper method to test whether a component is visible to user.
-	 */ 
-	protected function componentIsVisible(component:UIComponent):Boolean
-	{
-		return component && component.visible && 
-			component.width && component.height && component.alpha;
-	}
-	
-	/**
-	 *  @private
-	 *  Helper method to add a UIComponent instance to either an IVisualElementContainer
-	 *  or DisplayObjectContainer. 
-	 */ 
-	protected function addComponentToContainerAt(component:UIComponent, 
-											   container:UIComponent, 
-										       index:int):void
-	{
-		if (container is IVisualElementContainer)
-			IVisualElementContainer(container).addElementAt(component, index);
-		else
-			container.addChildAt(component, index);
-	}
-	
-	/**
-	 *  @private
-	 *  Helper method to add a UIComponent instance to either an IVisualElementContainer
-	 *  or DisplayObjectContainer.
-	 */ 
-	protected function addComponentToContainer(component:UIComponent, 
-											   container:UIComponent):void
-	{
-		if (container is IVisualElementContainer)
-			IVisualElementContainer(container).addElement(component);
-		else
-			container.addChild(component);
-	}
-	
-	/**
-	 *  @private
-	 *  Helper method to remove a UIComponent instance from either an IVisualElementContainer
-	 *  or DisplayObjectContainer.
-	 */ 
-	protected function removeComponentFromContainer(component:UIComponent, 
-													 container:UIComponent):void
-	{
-		if (container is IVisualElementContainer)
-			IVisualElementContainer(container).removeElement(component);
-		else
-			container.removeChild(component);
-	}
-	
-	/**
-	 *  @private
-	 *  Helper method to set the child index of the given component.
-	 */ 
-	protected function setComponentChildIndex(component:UIComponent, 
-											  container:UIComponent, 
-											  index:int):void
-	{
-		if (container is IVisualElementContainer)
-			IVisualElementContainer(container).setElementIndex(component, index);
-		else
-			container.setChildIndex(component, index);
-	}
+    
+    /**
+     * @private
+     * Helper method to test whether a component is visible to user.
+     */ 
+    protected function componentIsVisible(component:UIComponent):Boolean
+    {
+        return component && component.visible && 
+            component.width && component.height && component.alpha;
+    }
+    
+    /**
+     *  @private
+     *  Helper method to add a UIComponent instance to either an IVisualElementContainer
+     *  or DisplayObjectContainer. 
+     */ 
+    protected function addComponentToContainerAt(component:UIComponent, 
+                                               container:UIComponent, 
+                                               index:int):void
+    {
+        if (container is IVisualElementContainer)
+            IVisualElementContainer(container).addElementAt(component, index);
+        else
+            container.addChildAt(component, index);
+    }
+    
+    /**
+     *  @private
+     *  Helper method to add a UIComponent instance to either an IVisualElementContainer
+     *  or DisplayObjectContainer.
+     */ 
+    protected function addComponentToContainer(component:UIComponent, 
+                                               container:UIComponent):void
+    {
+        if (container is IVisualElementContainer)
+            IVisualElementContainer(container).addElement(component);
+        else
+            container.addChild(component);
+    }
+    
+    /**
+     *  @private
+     *  Helper method to remove a UIComponent instance from either an IVisualElementContainer
+     *  or DisplayObjectContainer.
+     */ 
+    protected function removeComponentFromContainer(component:UIComponent, 
+                                                     container:UIComponent):void
+    {
+        if (container is IVisualElementContainer)
+            IVisualElementContainer(container).removeElement(component);
+        else
+            container.removeChild(component);
+    }
+    
+    /**
+     *  @private
+     *  Helper method to set the child index of the given component.
+     */ 
+    protected function setComponentChildIndex(component:UIComponent, 
+                                              container:UIComponent, 
+                                              index:int):void
+    {
+        if (container is IVisualElementContainer)
+            IVisualElementContainer(container).setElementIndex(component, index);
+        else
+            container.setChildIndex(component, index);
+    }
 
 }
     
