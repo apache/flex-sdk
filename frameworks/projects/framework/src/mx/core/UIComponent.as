@@ -7960,7 +7960,7 @@ public class UIComponent extends FlexSprite
 
             if (sizeChanging && includeInLayout)
             {
-                // FIXME (egeorgie): we don't need this invalidateDisplayList() here
+                // TODO (egeorgie): we don't need this invalidateDisplayList() here
                 // because we'll call it if the parent sets new actual size?
                 invalidateDisplayList();
                 invalidateParentSizeAndDisplayList();
@@ -8525,7 +8525,6 @@ public class UIComponent extends FlexSprite
             lastUnscaledWidth = unscaledWidth;
             lastUnscaledHeight = unscaledHeight;
 
-            // FIXME (egeorgie): should we reset the flag immediately after we check it?
             invalidateDisplayListFlag = false;
              
             // LAYOUT_DEBUG
