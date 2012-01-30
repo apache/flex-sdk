@@ -45,7 +45,10 @@ internal class FrameworkClasses
 	import mx.containers.utilityClasses.IConstraintLayout; IConstraintLayout;
       import mx.containers.utilityClasses.PostScaleAdapter; PostScaleAdapter;
 	import mx.controls.ButtonLabelPlacement; ButtonLabelPlacement;
-    import mx.controls.MovieClipSWFLoader; MovieClipSWFLoader;
+	import mx.controls.MovieClipSWFLoader; MovieClipSWFLoader;
+	import mx.controls.ProgressBarDirection; ProgressBarDirection;
+	import mx.controls.ProgressBarLabelPlacement; ProgressBarLabelPlacement;
+	import mx.controls.ProgressBarMode; ProgressBarMode;
 	import mx.controls.colorPickerClasses.WebSafePalette; WebSafePalette;
 	import mx.controls.menuClasses.IMenuDataDescriptor; IMenuDataDescriptor;
 	import mx.controls.listClasses.IDropInListItemRenderer; IDropInListItemRenderer;
