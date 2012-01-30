@@ -93,27 +93,35 @@ public class NameUtil
 
 		// Start at the specified object and walk up the parent chain
 		// to build up the string to return.
-		for (var o:DisplayObject = displayObject;
-			 o != null;
-			 o = o.parent)
+		try
 		{
-			// If this object is in the display tree,
-			// stop after we've prepended the topmost Application instance.
-			if (o.parent && o.stage && o.parent == o.stage)
-				break;
-
-			var s:String = o.name;
-			
-			if (o is IRepeaterClient)
+			for (var o:DisplayObject = displayObject;
+				 o != null;
+				 o = o.parent)
 			{
-				var indices:Array = IRepeaterClient(o).instanceIndices;
-				if (indices)
-					s += "[" + indices.join("][") + "]";
+				// If this object is in the display tree,
+				// stop after we've prepended the topmost Application instance.
+				if (o.parent && o.stage && o.parent == o.stage)
+					break;
+	
+				var s:String = o.name;
+				
+				if (o is IRepeaterClient)
+				{
+					var indices:Array = IRepeaterClient(o).instanceIndices;
+					if (indices)
+						s += "[" + indices.join("][") + "]";
+				}
+	
+				result = result == null ? s : s + "." + result;
 			}
-
-			result = result == null ? s : s + "." + result;
 		}
-
+		catch (e:SecurityError)
+		{
+			// Ignore error and continue with what we have.	
+			// We may not have access to our parent if we are loaded into a sandbox.
+		}
+		
 		return result;
 	}
 }
