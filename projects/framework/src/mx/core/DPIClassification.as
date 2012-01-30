@@ -25,16 +25,16 @@ public final class DPIClassification
     /**
      *  Density value for low-density devices.
      */
-    public static const DPI_160:int = 160;
+    public static const DPI_160:Number = 160;
 
     /**
      *  Density value for medium-density devices.
      */
-    public static const DPI_240:int = 240;
+    public static const DPI_240:Number = 240;
 
     /**
      *  Density value for high-density devices.
      */
-    public static const DPI_320:int = 320;
+    public static const DPI_320:Number = 320;
 }
 }
