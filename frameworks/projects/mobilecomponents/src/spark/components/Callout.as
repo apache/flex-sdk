@@ -33,6 +33,11 @@ import mx.utils.PopUpUtil;
 
 use namespace mx_internal;
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[IconFile("Callout.png")]
 
 /**
  *  The Callout class is a SkinnablePopUpContainer that functions as a pop-up
