@@ -107,12 +107,13 @@ public class DateSpinnerSkin extends MobileSkin
     {
         super.layoutContents(unscaledWidth, unscaledHeight);
         
-        // Always set the SpinnerListContainer to its measured sized, regardless of our size
+        // Always set the SpinnerListContainer to its measured width, regardless of our size
         var containerWidth:Number = SpinnerListContainer(listContainer).getPreferredBoundsWidth();
-        var containerHeight:Number = SpinnerListContainer(listContainer).getPreferredBoundsHeight();
+        var containerHeight:Number = unscaledHeight;
         
         setElementSize(listContainer, containerWidth, containerHeight);
-        setElementPosition(listContainer, 0, 0);
+        // if width is greater than necessary, center the component
+        setElementPosition(listContainer, Math.max((unscaledWidth - containerWidth)/2, 0), 0);
     }
     
 }
