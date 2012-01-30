@@ -58,6 +58,11 @@ import mx.managers.SystemManager;
  *  @includeExample examples/DateFormatterExample.mxml
  *  
  *  @see mx.formatters.DateBase
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DateFormatter extends Formatter
 {
@@ -89,6 +94,11 @@ public class DateFormatter extends Formatter
      *  @param str Date that is formatted as a String. 
      *
      *  @return Date object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected static function parseDateString (str:String):Date
     {
@@ -311,6 +321,11 @@ public class DateFormatter extends Formatter
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DateFormatter()
     {
@@ -474,6 +489,11 @@ public class DateFormatter extends Formatter
      *  </table>
      *
      *  @default "MM/DD/YYYY"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get formatString():String
     {
@@ -521,6 +541,11 @@ public class DateFormatter extends Formatter
      *
      *  @return Formatted String. Empty if an error occurs. A description 
      *  of the error condition is written to the <code>error</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function format(value:Object):String
     {       
