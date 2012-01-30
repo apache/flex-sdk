@@ -59,7 +59,7 @@ public class Preloader extends Sprite
 	//--------------------------------------------------------------------------
 
 	/**
-	 *	Constructor
+	 *	Constructor.
 	 */
 	public function Preloader()
 	{
