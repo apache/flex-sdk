@@ -407,7 +407,7 @@ public class UITextField extends FlexTextField
      */
     override public function get x():Number
     {
-        // FIXME(hmuller): by default get x returns transform.matrix.tx rounded to the nearest 20th.
+        // TODO(hmuller): by default get x returns transform.matrix.tx rounded to the nearest 20th.
         // should do the same here, if we're returning _x.
         return (mirror) ? _x : super.x;
     }
