@@ -616,6 +616,10 @@ public class ViewNavigator extends ViewNavigatorBase
    [Bindable("lengthChanged")]
     /**
      *  Returns the number of views being managed by the navigator.
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get length():int
     {
@@ -1016,9 +1020,12 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @param data The data object to pass to the view. 
      *  This argument is written to the <code>data</code> property of the new view.
      *  
-     *  @param context An arbitrary object used to describe the context
-     *         of the push.  When the new view is created, it can
-     *         reference this property.
+     *  @param context An arbitrary object written to 
+     *  the <code>ViewNavigator.context</code> property. 
+     *  When the new view is created, it can reference this property 
+     *  and perform an action based on its value. 
+     *  For example, the view could display data in different ways based 
+     *  on the value of <code>context</code>.
      *  
      *  @param transition The view transition to play while switching views.    
      * 
