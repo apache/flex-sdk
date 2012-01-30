@@ -12,21 +12,16 @@
 package spark.components
 {
 import flash.display.DisplayObject;
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
 import flash.events.TimerEvent;
 import flash.net.URLRequest;
-import flash.system.Capabilities;
-import flash.text.TextFieldType;
-import flash.text.TextLineMetrics;
 import flash.utils.Timer;
 
 import mx.controls.listClasses.*;
-import mx.core.FlexGlobals;
 import mx.core.DPIClassification;
-import mx.core.IFlexDisplayObject;
-import mx.core.IVisualElement;
-import mx.core.UIComponentGlobals;
-import mx.core.UITextField;
-import mx.core.UITextFormat;
+import mx.core.FlexGlobals;
 import mx.core.mx_internal;
 import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
@@ -1282,6 +1277,9 @@ public class IconItemRenderer extends LabelItemRenderer
             if ((iconField || (iconFunction != null)) && !iconDisplay)
             {
                 createIconDisplay();
+                
+                if (iconDisplay)
+                    attachLoadingListenersToIconDisplay();
             }
             else if (!(iconField || (iconFunction != null)) && iconDisplay)
             {
@@ -1643,6 +1641,28 @@ public class IconItemRenderer extends LabelItemRenderer
         decoratorDisplay = null;
     }
     
+    /**
+     *  @private
+     */
+    private function attachLoadingListenersToIconDisplay():void
+    {
+        if (iconDisplay)
+        {
+            iconDisplay.addEventListener(IOErrorEvent.IO_ERROR, iconDisplay_loadErrorHandler, false, 0, true);
+            iconDisplay.addEventListener(SecurityErrorEvent.SECURITY_ERROR, iconDisplay_loadErrorHandler, false, 0, true);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Method is called when an IOError or SecurityError is dispatched
+     *  while trying to load the icon display.  The default implementation
+     *  sets the iconDisplay's source to the iconPlaceholder.
+     */ 
+    mx_internal function iconDisplay_loadErrorHandler(event:Event):void
+    {
+        iconDisplay.source = iconPlaceholder;
+    }
     
     /**
      *  @private
