@@ -534,7 +534,6 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */
-     // FIXME (chiedozi): Should this be on base class?
     override mx_internal function set navigationStack(value:NavigationStack):void
     {
         super.navigationStack = value;
@@ -546,7 +545,6 @@ public class ViewNavigator extends ViewNavigatorBase
     //----------------------------------
     //  poppedViewReturnedObject
     //----------------------------------
-    // FIXME (chiedozi): PARB - HTTPService uses lastResult, maybe we should match - lastReturnedObject?
     private var _poppedViewReturnedObject:ViewReturnObject = null;
 
     /**
@@ -1833,7 +1831,7 @@ public class ViewNavigator extends ViewNavigatorBase
         
         // Restore persistence data if necessary
         if (viewProxy.data == null && viewProxy.persistenceData != null)
-            viewProxy.data = view.deserializePersistedData(viewProxy.persistenceData);
+            viewProxy.data = view.deserializeData(viewProxy.persistenceData);
         
         view.setNavigator(this);
         view.data = viewProxy.data;
@@ -1915,9 +1913,9 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */ 
-    override public function restoreViewData(value:Object):void
+    override public function loadViewData(value:Object):void
     {
-        super.restoreViewData(value);
+        super.loadViewData(value);
         
         if (value)
             navigationStack = value.navigationStack as NavigationStack; 
@@ -1942,18 +1940,13 @@ public class ViewNavigator extends ViewNavigatorBase
         // Deactivate the current view
         if (currentViewDescriptor)
         {
-            // FIXME (chiedozi): Do we need to remove view from layout?
             currentView = currentViewDescriptor.instance;
             currentView.setActive(false);
-            currentView.includeInLayout = false;
             
             // Need to validateNow() to make sure our old screen is currently 
             // up to date before starting the transition and possibly storing a bitmap 
             // for the transition
             currentView.validateNow();
-            
-            // Restore the includeInLayout flag on the currentView
-            currentView.includeInLayout = true;
         }
         
         // Store new view
@@ -2076,7 +2069,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    override mx_internal function backKeyHandler():void
+    override mx_internal function backKeyUpHandler():void
     {
         if (activeView && !activeView.backKeyHandledByView())
             popView();
