@@ -39,6 +39,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirection;
 import mx.core.ILayoutElement;
 import mx.core.IStateClient;
 import mx.core.IUIComponent;
@@ -3085,7 +3086,58 @@ public dynamic class UIMovieClip extends MovieClip
     {
         rotation = value;
     }
+	
+	//----------------------------------
+	//  layoutDirection
+	//----------------------------------
+	
+	private var _layoutDirection:String = "inherit";
+	
+	public function get layoutDirection():String
+	{
+        if (_layoutDirection != "inherit")
+            return _layoutDirection;
+        
+        const parentElt:ILayoutDirection = parent as ILayoutDirection;
+        return (parentElt) ? parentElt.layoutDirection : "ltr";
+	}
+	
+	/**
+	 *  @copy mx.core.IVisualElement#layoutDirection
+	 */
+	public function set layoutDirection(value:String):void
+	{
+		if (_layoutDirection == value)
+			return;
+		
+		_layoutDirection = value;
+        invalidateLayoutDirection();
+    }
     
+    /**
+     * @copy mx.core.ILayoutDirection#invalidateLayoutDirection()  
+     */
+    public function invalidateLayoutDirection():void
+    {
+        const parentElt:ILayoutDirection = parent as ILayoutDirection;
+        if (!parentElt)
+            return;
+        
+        // If this element's layoutDirection doesn't match its parent's, then
+        // set the _layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
+        // required, then clear the _layoutFeatures.mirror flag.
+        
+        const mirror:Boolean = (_layoutDirection != "inherit") && (_layoutDirection != parentElt.layoutDirection);        
+        if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
+        {
+            if (_layoutFeatures == null)
+                initAdvancedLayoutFeatures();
+            _layoutFeatures.mirror = mirror;
+            invalidateTransform();
+            invalidateParentSizeAndDisplayList();            
+        }
+    }        
+	
     /**
      *  Defines a set of adjustments that can be applied to the component's transform in a way that is 
      *  invisible to the component's parent's layout. For example, if you want a layout to adjust 
@@ -3595,6 +3647,7 @@ public dynamic class UIMovieClip extends MovieClip
         features.layoutX = x;
         features.layoutY = y;
         features.layoutZ = z;
+		features.layoutWidth = _width;  // for the mirror transform			
         
         // Initialize the internal variable last,
         // since the transform getters depend on it.
