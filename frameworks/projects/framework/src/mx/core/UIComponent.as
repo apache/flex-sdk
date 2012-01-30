@@ -70,6 +70,7 @@ import mx.resources.ResourceManager;
 import mx.states.State;
 import mx.states.Transition;
 import mx.styles.CSSStyleDeclaration;
+import mx.styles.IAdvancedStyleClient;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
@@ -860,7 +861,7 @@ public class UIComponent extends FlexSprite
     implements IAutomationObject, IChildList, IConstraintClient,
     IDeferredInstantiationUIComponent, IFlexDisplayObject, IFlexModule,
     IInvalidating, ILayoutManagerClient, IPropertyChangeNotifier,
-    IRepeaterClient, IStateClient, IStyleClient, IToolTipManagerClient,
+    IRepeaterClient, IStateClient, IAdvancedStyleClient, IToolTipManagerClient,
     IUIComponent, IValidatorListener, IVisualItem
 {
     include "../core/Version.as";
@@ -7540,6 +7541,10 @@ public class UIComponent extends FlexSprite
         removeState(_currentState, commonBaseState);
         _currentState = requestedCurrentState;
 
+        // Update styles
+        //if (StyleManager.hasPseudoSelector(className))
+        //   regenerateStyleCache(false);
+
         // If we're going back to the base state, dispatch an
         // enter state event, otherwise apply the state.
         if (isBaseState(currentState))
@@ -7832,6 +7837,16 @@ public class UIComponent extends FlexSprite
     public function getClassStyleDeclarations():Array
     {
         return StyleProtoChain.getClassStyleDeclarations(this);
+    }
+
+    /**
+     *  A component's parent is used to evalate descendant selectors. A parent
+     *  must also be an IAdvancedStyleClient to participate in advanced style
+     *  declarations.
+     */ 
+    public function get styleParent():IAdvancedStyleClient
+    {
+        return parent as IAdvancedStyleClient;
     }
 
     /**
