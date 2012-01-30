@@ -87,7 +87,10 @@ public class DateAndTimeProvider extends OnDemandDataProvider
         _length = ((endDate.time - startDate.time) / MS_IN_DAY) + 1;
         
         formatter = new DateTimeFormatterEx();
-        formatter.setStyle("locale", locale);
+        if (locale)
+            formatter.setStyle("locale", locale);
+        else
+            formatter.clearStyle("locale");
         formatter.dateTimeSkeletonPattern = DateTimeFormatterEx.DATESTYLE_MMMEEEd;
         
         todayDate = today;
