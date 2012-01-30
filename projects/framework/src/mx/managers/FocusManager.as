@@ -33,8 +33,10 @@ import mx.core.ISWFLoader;
 import mx.core.IButton;
 import mx.core.IChildList;
 import mx.core.IRawChildrenContainer;
+import mx.core.ISWFBridgeProvider;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
+import mx.core.SWFBridgeGroup;
 import mx.events.FlexEvent;
 import mx.events.FocusRequestDirection;
 import mx.events.SWFBridgeEvent;
@@ -150,15 +152,22 @@ public class FocusManager implements IFocusManager
 		{
         	container.systemManager.addFocusManager(container); // build a message that does the equal
 
+            var sm:ISystemManager = form.systemManager;
+
+            // Set up our swfBridgeGroup. If this is a pop up then the parent 
+            // bridge is empty, otherwise its the form's system manager's bridge.
+            swfBridgeGroup = new SWFBridgeGroup(sm);
+            if (!popup)
+                swfBridgeGroup.parentBridge = sm.swfBridgeGroup.parentBridge; 
+            
 			// add ourselves to our parent focus manager if this is a bridged 
 			// application not a dialog or other popup.
-			var sm:ISystemManager = form.systemManager;
-			if (sm.useSWFBridge() && !popup)
+			if (sm.useSWFBridge())
 			{
-				sm.addEventListener(SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING, removeFromParentBridge);
+			    sm.addEventListener(SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING, removeFromParentBridge);
 
 				// have the child listen to move requests from the parent.
-				var bridge:IEventDispatcher = sm.swfBridgeGroup.parentBridge;
+				var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
 		       	if (bridge)
 	    	   	{
 	       			bridge.addEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
@@ -167,7 +176,7 @@ public class FocusManager implements IFocusManager
 	       		}
 	    
 	   			// add listener activate/deactivate requests
-	   			if (!(form.systemManager is SystemManagerProxy))
+	   			if (bridge && !(form.systemManager is SystemManagerProxy))
 	   			{
 	   				bridge.addEventListener(SWFBridgeRequest.ACTIVATE_FOCUS_REQUEST, focusRequestActivateHandler);
 	   				bridge.addEventListener(SWFBridgeRequest.DEACTIVATE_FOCUS_REQUEST, focusRequestDeactivateHandler);
@@ -253,7 +262,15 @@ public class FocusManager implements IFocusManager
 	 */
 	 private var fauxFocus:DisplayObject;
 	 
-	 private var bridgedFocusManagers:Dictionary;
+	 /**
+	  *  @private
+	  * 
+	  *  The focus manager maintains its own bridges so a focus manager in a pop
+	  *  up can move focus to another focus manager in the same pop up. That is,
+	  *  A pop ups can be a collection of focus managers working together just
+	  *  as is done in the System Manager's document. 
+	  */
+	 private var swfBridgeGroup:SWFBridgeGroup;
 
 	/**
 	 * @private
@@ -277,6 +294,15 @@ public class FocusManager implements IFocusManager
 	 * 
 	 */
 	 private var popup:Boolean;
+	 
+	 /**
+	  *  @private
+	  * 
+	  *  Used when a the skip parameter can't be passed into 
+	  *  dispatchEventFromSWFBridges() because the caller doesn't take
+	  *  a skip parameter.
+	  */ 
+	 private var skipBridge:IEventDispatcher;
 	 
 	//--------------------------------------------------------------------------
     //
@@ -690,8 +716,7 @@ public class FocusManager implements IFocusManager
             setFocus(_lastFocus);
 
 		// activate children in compatibility mode or in sandboxes.
-		if (bridgedFocusManagers)
-			sendEventToBridgedFocusManagers(new SWFBridgeRequest(SWFBridgeRequest.ACTIVATE_FOCUS_REQUEST));
+    	dispatchEventFromSWFBridges(new SWFBridgeRequest(SWFBridgeRequest.ACTIVATE_FOCUS_REQUEST), skipBridge);
 
     }
 
@@ -740,9 +765,7 @@ public class FocusManager implements IFocusManager
         activated = false;
 
 		// deactivate children in compatibility mode or in sandboxes.
-		if (bridgedFocusManagers)
-			sendEventToBridgedFocusManagers(new SWFBridgeRequest(SWFBridgeRequest.DEACTIVATE_FOCUS_REQUEST));
-
+		dispatchEventFromSWFBridges(new SWFBridgeRequest(SWFBridgeRequest.DEACTIVATE_FOCUS_REQUEST), skipBridge);
     }
 
     /**
@@ -794,6 +817,18 @@ public class FocusManager implements IFocusManager
 	 */
 	public function moveFocus(direction:String, fromDisplayObject:DisplayObject = null):void
 	{
+	    if (direction == FocusRequestDirection.TOP)
+	    {
+	        setFocusToTop();
+	        return;
+	    }
+
+        if (direction == FocusRequestDirection.BOTTOM)
+        {
+            setFocusToBottom();
+            return;
+        }
+        	    
 		var keyboardEvent:KeyboardEvent = new KeyboardEvent(KeyboardEvent.KEY_DOWN);
 		keyboardEvent.keyCode = Keyboard.TAB;
 		keyboardEvent.shiftKey = (direction == FocusRequestDirection.FORWARD) ? false : true;
@@ -1453,7 +1488,7 @@ public class FocusManager implements IFocusManager
     {
         var i:int;
         var o:DisplayObject = DisplayObject(event.target);
- 
+
         // trace("FM got added for " + event.target);
 
         if (o is IFocusManagerComponent)
@@ -1876,19 +1911,26 @@ public class FocusManager implements IFocusManager
 	  	}
 	  	
 		if (focusSetLocally)
-			dispatchActivatedFocusManagerEvent(null);
+		{
+            dispatchActivatedFocusManagerEvent(null);
+            lastActiveFocusManager = this;
+		}
     }
 
     private function focusRequestActivateHandler(event:Event):void
 	{
 		// trace("FM focusRequestActivateHandler");
+		skipBridge = IEventDispatcher(event.target);
 		activate();
+		skipBridge = null;
 	}
 
     private function focusRequestDeactivateHandler(event:Event):void
 	{
 		// trace("FM focusRequestDeactivateHandler");
+        skipBridge = IEventDispatcher(event.target);
 		deactivate();
+        skipBridge = null;
 	}
 
     private function bridgeEventActivateHandler(event:Event):void
@@ -1897,16 +1939,13 @@ public class FocusManager implements IFocusManager
 		if (event is SWFBridgeEvent)
 			return;
 			
-		var eObj:Object = Object(event);
-
 		//trace("FM bridgeEventActivateHandler for " + form.systemManager.loaderInfo.url);
-		//trace("before clearing, lastFocus = " + lastFocus);
 		
 		// clear last focus if we aren't active.
 		lastActiveFocusManager = null;
 		_lastFocus = null;
 
-		dispatchActivatedFocusManagerEvent(eObj);			
+		dispatchActivatedFocusManagerEvent(IEventDispatcher(event.target));			
 	}
 
     /**
@@ -1936,28 +1975,22 @@ public class FocusManager implements IFocusManager
 	 * When the top-level focus manager is called the bridge becomes
 	 * one of the focus managers managed by the top-level focus manager.
 	 */	
-	public function addSWFBridge(bridge:IEventDispatcher):void
+	public function addSWFBridge(bridge:IEventDispatcher, owner:DisplayObject):void
 	{
 //    	trace("FocusManager.addFocusManagerBridge: in  = " + this._form.systemManager.loaderInfo.url);
-
+        if (!owner)
+            return;
+            
 		var sm:ISystemManager = _form.systemManager;
-		var displayObject:DisplayObject = DisplayObject(sm.swfBridgeGroup.getChildBridgeProvider(bridge));
-		if (displayObject)
+       	if (focusableObjects.indexOf(owner) == -1)
 		{
-           	if (focusableObjects.indexOf(displayObject) == -1)
-			{
-				focusableObjects.push(displayObject);
-        	    calculateCandidates = true;
-   			}	
-		}
-	    else
-	    	throw new Error();		// should never get here.
+			focusableObjects.push(owner);
+    	    calculateCandidates = true;
+   		}	
 
 		// listen for move requests from the bridge.
-		if (!bridgedFocusManagers)
-			bridgedFocusManagers = new Dictionary(true);
-
-		bridgedFocusManagers[bridge] = 1;			
+        swfBridgeGroup.addChildBridge(bridge, ISWFBridgeProvider(owner));
+        
    		bridge.addEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
         bridge.addEventListener(SWFBridgeRequest.SET_SHOW_FOCUS_INDICATOR_REQUEST, 
                                 setShowFocusIndicatorRequestHandler);
@@ -1971,7 +2004,7 @@ public class FocusManager implements IFocusManager
 	public function removeSWFBridge(bridge:IEventDispatcher):void
 	{
 		var sm:ISystemManager = _form.systemManager;
-		var displayObject:DisplayObject = DisplayObject(sm.swfBridgeGroup.getChildBridgeProvider(bridge));
+		var displayObject:DisplayObject = DisplayObject(swfBridgeGroup.getChildBridgeProvider(bridge));
 		if (displayObject)
 		{
 			var index:int = focusableObjects.indexOf(displayObject);
@@ -1991,25 +2024,9 @@ public class FocusManager implements IFocusManager
                                     setShowFocusIndicatorRequestHandler);
   		bridge.removeEventListener(SWFBridgeEvent.BRIDGE_FOCUS_MANAGER_ACTIVATE, 
    					    		    bridgeEventActivateHandler);
-		if (bridgedFocusManagers)			
-			delete bridgedFocusManagers[bridge];
-		
+        swfBridgeGroup.removeChildBridge(bridge);		
 	}
 	
-	/**
-	 * @return true if the focus manager contains any focus manager
-	 * 		   bridges.
-	 */
-	private function hasAnyFocusManagerBridges():Boolean
-	{
-		for (var iter:Object in bridgedFocusManagers)
-		{
-			return true;
-		}
-		
-		return false;
-	}   
-
 	/**
 	 */
 	private function removeFromParentBridge(event:Event):void
@@ -2017,12 +2034,12 @@ public class FocusManager implements IFocusManager
 		// add ourselves to our parent focus manager if this is a bridged 
 		// application not a dialog or other popup.
 		var sm:ISystemManager = form.systemManager;
-		if (sm.useSWFBridge() && !popup)
+		if (sm.useSWFBridge())
 		{
 			sm.removeEventListener(SWFBridgeEvent.BRIDGE_APPLICATION_UNLOADING, removeFromParentBridge);
 
 			// have the child listen to move requests from the parent.
-			var bridge:IEventDispatcher = sm.swfBridgeGroup.parentBridge;
+			var bridge:IEventDispatcher = swfBridgeGroup.parentBridge;
 		    if (bridge)
 	    	{
 	       		bridge.removeEventListener(SWFBridgeRequest.MOVE_FOCUS_REQUEST, focusRequestMoveHandler);
@@ -2031,7 +2048,7 @@ public class FocusManager implements IFocusManager
 	       	}
 	
 	   		// add listener activate/deactivate requests
-	   		if (!(form.systemManager is SystemManagerProxy))
+	   		if (bridge && !(form.systemManager is SystemManagerProxy))
 	   		{
 	   			bridge.removeEventListener(SWFBridgeRequest.ACTIVATE_FOCUS_REQUEST, focusRequestActivateHandler);
 	   			bridge.removeEventListener(SWFBridgeRequest.DEACTIVATE_FOCUS_REQUEST, focusRequestDeactivateHandler);
@@ -2073,9 +2090,8 @@ public class FocusManager implements IFocusManager
      */ 
     private function getParentBridge():IEventDispatcher
     {
-    	var sm:ISystemManager = _form.systemManager;
-    	if (sm.swfBridgeGroup)
-    		return sm.swfBridgeGroup.parentBridge;
+    	if (swfBridgeGroup)
+    		return swfBridgeGroup.parentBridge;
     		
 		return null;		
     }
@@ -2095,8 +2111,7 @@ public class FocusManager implements IFocusManager
                                             false,
                                             null,   // bridge is set before it is dispatched
                                             value);
-        var sm:ISystemManager = form.systemManager;
-        sm.dispatchEventFromSWFBridges(request, skip);
+        dispatchEventFromSWFBridges(request, skip);
     }
     
 	/**
@@ -2107,60 +2122,69 @@ public class FocusManager implements IFocusManager
 	 *  @param eObj if a SandboxBridgeEvent, then propagate the message,
 	 * 			   if null, start a new message.
 	 */
-	private function dispatchActivatedFocusManagerEvent(eObj:Object):void
+	private function dispatchActivatedFocusManagerEvent(skip:IEventDispatcher = null):void
 	{
-		// If in a popup, then don't send this message to non-popup 
-		// focus managers that are part of the application.
-		if (popup)
-			return;
-			
-		var sm:ISystemManager = form.systemManager;
-		if (sm && sm.swfBridgeGroup)
-		{
-			var lastBridge:IEventDispatcher = eObj ? eObj.target : null;
-	       	var parentBridge:IEventDispatcher = sm.swfBridgeGroup.parentBridge;
 
-//			TODODJL: don't send the ACTIVATED_FOCUS_MANAGER message if we are already
-//			active.	       	
-//	       	if (lastActiveFocusManager == this)
-//	       	{
-//	       		// trace("FM: dispatchActivatedFocusManagerEvent already active, skipping messages");
-//	       		return;		// already active
-//	       	}
+		// Don't send the ACTIVATED_FOCUS_MANAGER message if we are already
+		// active.	       	
+       	if (lastActiveFocusManager == this)
+       	{
+       		// trace("FM: dispatchActivatedFocusManagerEvent already active, skipping messages");
+       		return;		// already active
+       	}
 	       		
-	       	// need to create the event locally so the "is this a message from ourselves"
-	       	// check works. Otherwise the message is created in the same domain. 
-    		eObj = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_FOCUS_MANAGER_ACTIVATE);
-			
-	       	// send message to top-level that we are active
-	       	if (parentBridge && parentBridge != lastBridge)
-	       		parentBridge.dispatchEvent(Event(eObj));
-	       	
-	       			// send to children
-			for (var iter:Object in bridgedFocusManagers)
-			{
-				if (iter != lastBridge)
-				{
-					var childBridge:IEventDispatcher = IEventDispatcher(iter);
-					childBridge.dispatchEvent(Event(eObj));
-				}
-			}
-
-		}
+    	var event:SWFBridgeEvent = new SWFBridgeEvent(SWFBridgeEvent.BRIDGE_FOCUS_MANAGER_ACTIVATE);
+        dispatchEventFromSWFBridges(event, skip);			
 	}
 	
 	/**
-	 * Send the event to all the subordinate focus managers.
-	 */
-	private function sendEventToBridgedFocusManagers(event:Event):void
-	{
-		for (var iter:Object in bridgedFocusManagers)
-		{
-			IEventDispatcher(iter).dispatchEvent(event);
-		}
-	}
+     *  A Focus Manager has its own set of child bridges that may be different from the child
+     *  bridges of its System Manager if the Focus Manager is managing a pop up. In the case of
+     *  a pop up don't send messages to the SM parent bridge because that will be the form. But
+     *  do send the messages to the bridges in bridgeFocusManagers dictionary.
+     */
+    private function dispatchEventFromSWFBridges(event:Event, skip:IEventDispatcher = null):void
+    {
 
 
+        var clone:Event;
+        // trace(">>dispatchEventFromSWFBridges", this, event.type);
+        var sm:ISystemManager = form.systemManager;
+        
+        if (!popup)
+        {
+            var parentBridge:IEventDispatcher = swfBridgeGroup.parentBridge;
+            
+            if (parentBridge && parentBridge != skip)
+            {
+                // Ensure the requestor property has the correct bridge.
+                clone = event.clone();
+                if (clone is SWFBridgeRequest)
+                    SWFBridgeRequest(clone).requestor = parentBridge;
+         
+                parentBridge.dispatchEvent(clone);
+            }
+        }
+        
+        var children:Array = swfBridgeGroup.getChildBridges();
+        for (var i:int = 0; i < children.length; i++)
+        {
+            if (children[i] != skip)
+            {
+                // trace("send to child", i, event.type);
+                clone = event.clone();
+    
+                // Ensure the requestor property has the correct bridge.
+                if (clone is SWFBridgeRequest)
+                    SWFBridgeRequest(clone).requestor = IEventDispatcher(children[i]);
+
+                IEventDispatcher(children[i]).dispatchEvent(clone);
+            }
+        }
+
+        // trace("<<dispatchEventFromSWFBridges", this, event.type);
+    }
+	
 	private function getBrowserFocusComponent(shiftKey:Boolean):InteractiveObject
 	{
     	var focusComponent:InteractiveObject = form.systemManager.stage.focus;
