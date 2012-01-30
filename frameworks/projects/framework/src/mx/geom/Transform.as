@@ -43,7 +43,7 @@ use namespace mx_internal;
 public class Transform extends flash.geom.Transform
 {
     /**
-     *  Constructor
+     *  Constructor.
      * 
      * 
      *  @langversion 3.0
@@ -151,6 +151,9 @@ public class Transform extends flash.geom.Transform
     
     // TODO (jszeto): SDK-22046 If the Player team changes the return type, 
     // we will need to update
+    /**
+     *  @inheritDoc
+     */ 
     override public function set matrix3D(value:Matrix3D):* 
     {
         if (target is ILayoutElement && value != null)
@@ -248,6 +251,9 @@ public class Transform extends flash.geom.Transform
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @inheritDoc
+     */ 
     override public function getRelativeMatrix3D(relativeTo:DisplayObject):Matrix3D
     {
         if (target && "$transform" in target) // UIComponent/UIMovieClip
