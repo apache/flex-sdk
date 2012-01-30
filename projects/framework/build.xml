@@ -66,7 +66,7 @@
 		<attribute name="locale"/>
 		<sequential>
 			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
-			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/framework_rb.swc" >
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/framework_rb.swc" update="true">
 				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
 					<include name="*.*"/>
 				</zipfileset>
