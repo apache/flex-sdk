@@ -14,11 +14,20 @@ package mx.charts.series
 
 import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.display.Sprite;
 import flash.filters.DropShadowFilter;
+import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.utils.Dictionary;
+
+import mx.charts.BarChart;
 import mx.charts.DateTimeAxis;
 import mx.charts.HitData;
+import mx.charts.chartClasses.CartesianChart;
+import mx.charts.chartClasses.CartesianTransform;
 import mx.charts.chartClasses.DataDescription;
+import mx.charts.chartClasses.GraphicsUtilities;
+import mx.charts.chartClasses.IAxis;
 import mx.charts.chartClasses.IBar;
 import mx.charts.chartClasses.IStackable;
 import mx.charts.chartClasses.IStackable2;
@@ -34,29 +43,22 @@ import mx.charts.styles.HaloDefaults;
 import mx.collections.CursorBookmark;
 import mx.collections.ICollectionView;
 import mx.collections.IViewCursor;
+import mx.controls.Label;
 import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
+import mx.core.IUITextField;
+import mx.core.LayoutDirection;
+import mx.core.UIComponent;
+import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
 import mx.graphics.SolidColor;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.charts.chartClasses.CartesianTransform;
-import flash.utils.Dictionary;
-import mx.charts.chartClasses.GraphicsUtilities;
-import mx.controls.Label;
-import mx.core.UIComponent;
-import flash.display.Sprite;
-import mx.charts.BarChart;
-import mx.core.IUITextField;
-import mx.core.UITextField;
-import flash.geom.Point;
-import mx.charts.chartClasses.IAxis;
-import mx.charts.chartClasses.CartesianChart;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -2484,7 +2486,7 @@ public class BarSeries extends Series implements IStackable2, IBar
             label.setStyle('fontSize',size * renderData.labelScale);
             if (v.x > (isNaN(v.min) ? renderData.renderedBase : v.min))	// If on positive side of axis
 			{
-				if(chart && chart.layoutDirection == "rtl")	//Align labels to right in rtl layout
+				if(chart && chart.layoutDirection == LayoutDirection.RTL)	//Align labels to right in rtl layout
 					label.setStyle('textAlign','right');
 				else
                 	label.setStyle('textAlign','left');
@@ -2498,7 +2500,7 @@ public class BarSeries extends Series implements IStackable2, IBar
                 }
                 else
                 {
-					if(chart && chart.layoutDirection == "rtl")	//Align labels to left in rtl layout
+					if(chart && chart.layoutDirection == LayoutDirection.RTL)	//Align labels to left in rtl layout
 						label.setStyle('textAlign','left');
 					else
 						label.setStyle('textAlign','right');
