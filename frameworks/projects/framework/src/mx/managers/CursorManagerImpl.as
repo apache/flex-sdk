@@ -24,6 +24,7 @@ import flash.events.IOErrorEvent;
 import flash.events.MouseEvent;
 import flash.events.ProgressEvent;
 import flash.geom.Point;
+import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.ui.Mouse;
@@ -105,6 +106,11 @@ public class CursorManagerImpl implements ICursorManager
 		// trace("--->update request for CursorManagerImpl", sm);
 		sandboxRoot.dispatchEvent(me);
 		// trace("<---update request for CursorManagerImpl", sm);
+		
+		// If available, get soft-link to the TextView class to use in mouseMoveHandler().
+        // ToDo: revisit the correct way to do this for modules.
+        if (ApplicationDomain.currentDomain.hasDefinition("mx.components.TextView"))
+            textViewClass = Class(ApplicationDomain.currentDomain.getDefinition("mx.components.TextView"));
     }
 
     //--------------------------------------------------------------------------
@@ -182,6 +188,12 @@ public class CursorManagerImpl implements ICursorManager
      *  @private
      */
     private var sourceArray:Array = [];
+
+    /**
+     *  @private
+     *  Soft-link to TextView class object, if available.
+     */
+    private var textViewClass:Class;
 
     //--------------------------------------------------------------------------
     //
@@ -829,15 +841,17 @@ public class CursorManagerImpl implements ICursorManager
 
         var target:Object = event.target;
         
+        var isInputTextField:Boolean = 
+            (target is TextField && target.type == TextFieldType.INPUT) ||
+                (textViewClass && target is textViewClass && target["selectable"]);
+        
         // Do target test.
-        if (!overTextField &&
-            target is TextField && target.type == TextFieldType.INPUT)
+        if (!overTextField && isInputTextField)
         {   
             overTextField = true;
             showSystemCursor = true;
         } 
-        else if (overTextField &&
-                 !(target is TextField && target.type == TextFieldType.INPUT))
+        else if (overTextField && !isInputTextField)
         {
             overTextField = false;
             showCustomCursor = true;
