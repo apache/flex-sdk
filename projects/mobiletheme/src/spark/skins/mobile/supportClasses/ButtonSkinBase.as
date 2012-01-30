@@ -27,11 +27,13 @@ package spark.skins.mobile
     import mx.core.UIComponent;
     import mx.core.UITextField;
     import mx.core.mx_internal;
+    import mx.events.FlexEvent;
     import mx.states.SetProperty;
     import mx.states.State;
     import mx.utils.ColorUtil;
     
     import spark.components.supportClasses.ButtonBase;
+    import spark.components.supportClasses.MobileTextField;
     import spark.skins.MobileSkin;
     
     use namespace mx_internal;
@@ -66,6 +68,10 @@ package spark.skins.mobile
         public function ButtonSkinBase()
         {
             super();
+            
+            setStyle("textAlign", "center");
+            // TODO (jszeto) Ask XD if shadow color is dependant upon text color
+            setStyle("textShadowColor", 0x000000);
         }
         
         //--------------------------------------------------------------------------
@@ -76,8 +82,12 @@ package spark.skins.mobile
         
         private var iconClassChanged:Boolean = true;
         
-        protected var textField:IUITextField;
-        protected var textFieldShadow:IUITextField;      
+        /**
+         *  labelDisplay skin part.
+         */
+        public var labelDisplay:MobileTextField;
+        
+        protected var labelDisplayShadow:MobileTextField;      
         
         // Holds the icon
         protected var iconDisplay:DisplayObject;
@@ -113,26 +123,18 @@ package spark.skins.mobile
          */ 
         override protected function createChildren():void
         {                   
-            textField = IUITextField(createInFontContext(UITextField));
-            textFieldShadow = IUITextField(createInFontContext(UITextField));
+            labelDisplay = MobileTextField(createInFontContext(MobileTextField));
+            labelDisplay.styleProvider = this;
+            labelDisplay.addEventListener(FlexEvent.VALUE_COMMIT, labelDisplay_valueCommitHandler);
             
-            // TODO (jszeto) Ask XD if shadow color is dependant upon text color
-            textFieldShadow.setColor(0x000000);
-            textFieldShadow.alpha = .20;
+            labelDisplayShadow = MobileTextField(createInFontContext(MobileTextField));
+            labelDisplayShadow.styleProvider = this;
             
-            addChild(UITextField(textFieldShadow));
-            addChild(UITextField(textField));
+            labelDisplayShadow.colorName = "textShadowColor";
+            labelDisplayShadow.alpha = .30;
             
-            updateLabel();
-            
-            // SkinnableComponent doesn't notify us if we have been removed 
-            // from the hostComponent, so we use a weak reference
-            if (hostComponent != null) 
-            { 
-                hostComponent.addEventListener("contentChange", 
-                    hostComponent_contentChangeHandler, 
-                    false, 0, true);
-            }
+            addChild(labelDisplayShadow);
+            addChild(labelDisplay);
         }
         
         /**
@@ -148,6 +150,11 @@ package spark.skins.mobile
             }
             
             super.styleChanged(styleProp);
+            
+            if (labelDisplay)
+                labelDisplay.styleChanged(styleProp);
+            if (labelDisplayShadow)
+                labelDisplayShadow.styleChanged(styleProp);
         }
         
         override protected function commitProperties():void
@@ -389,15 +396,19 @@ package spark.skins.mobile
                 }
             }
             
-            textField.x = Math.round(labelX);
-            textField.y = Math.round(labelY);
-            textField.height = labelHeight;
-            textField.width = labelWidth;
+            labelDisplay.commitStyles();
+            labelDisplay.x = Math.round(labelX);
+            labelDisplay.y = Math.round(labelY);
+            labelDisplay.height = labelHeight;
+            labelDisplay.width = labelWidth;
+            labelDisplay.truncateToFit();
             
-            textFieldShadow.x = Math.round(labelX);
-            textFieldShadow.y = Math.round(labelY + 1);
-            textFieldShadow.height = labelHeight;
-            textFieldShadow.width = labelWidth;
+            labelDisplayShadow.commitStyles();
+            labelDisplayShadow.x = Math.round(labelX);
+            labelDisplayShadow.y = Math.round(labelY + 1);
+            labelDisplayShadow.height = labelHeight;
+            labelDisplayShadow.width = labelWidth;
+            labelDisplayShadow.truncateToFit();
             
             if (iconDisplay)
             {                
@@ -415,25 +426,10 @@ package spark.skins.mobile
         /**
          *  @private 
          */ 
-        private function hostComponent_contentChangeHandler(event:Event):void 
+        private function labelDisplay_valueCommitHandler(event:Event):void 
         {
-            updateLabel();
+            labelDisplayShadow.text = labelDisplay.text;
         }
-        
-        /**
-         *  @private 
-         */ 
-        private function updateLabel():void 
-        {
-            if (hostComponent != null && textField) 
-            {
-                textField.text = hostComponent.label;
-                textFieldShadow.text = hostComponent.label;
-                invalidateSize();
-            }
-        }
-        
-
         
     }
 }
