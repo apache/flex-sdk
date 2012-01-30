@@ -43,6 +43,11 @@ public class EventUtil
 
 	/**
 	 *  Mapping of MouseEvents to SandboxMouseEvent types.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function get sandboxMouseEventMap():Object
 	{
@@ -78,6 +83,11 @@ public class EventUtil
 
 	/**
 	 *  Mapping of SandboxMouseEvent to MouseEvents types.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function get mouseEventMap():Object
 	{
