@@ -20,6 +20,14 @@ import spark.components.VScrollBar;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 
+/**
+ *  ActionScript-based skin for VScrollBar components in mobile applications. 
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5 
+ *  @productversion Flex 4.5
+ */
 public class VScrollBarSkin extends MobileSkin
 {
     
