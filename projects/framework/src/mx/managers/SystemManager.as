@@ -2075,13 +2075,13 @@ public class SystemManager extends MovieClip
 
 		for (var p:* in allSystemManagers)
 		{
-			var sm:SystemManager = p as SystemManager;
+			var sm:ISystemManager = p as ISystemManager;
 			var domain:ApplicationDomain = sm.loaderInfo.applicationDomain;
 			try
 			{
 				var cls:Class = Class(domain.getDefinition(className));
 				if (object is cls)
-					return sm;
+					return sm as DisplayObject;
 			}
 			catch(e:Error)
 			{
