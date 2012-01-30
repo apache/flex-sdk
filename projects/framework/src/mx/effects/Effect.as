@@ -29,8 +29,8 @@ import mx.utils.NameUtil;
 use namespace mx_internal;
 
 /**
- *  Dispatched when the effect finishes playing,
- *  either when the effect finishes playing or when the effect 
+ *  Dispatched when one of the effect's instances finishes playing,
+ *  either when the instance finishes playing or when the effect 
  *  is interrupted by a call to the <code>end()</code> method.
  *
  *  @eventType mx.events.EffectEvent.EFFECT_END
@@ -1804,18 +1804,23 @@ public class Effect extends EventDispatcher implements IEffect
      */
     protected function effectEndHandler(event:EffectEvent):void 
     {
+        var lastTime:Boolean = !_instances || _instances.length == 1;
+
         // Transitions should set the end values when done
-        if (applyEndValuesWhenDone && !effectStopped)   
+        if (applyEndValuesWhenDone && !effectStopped && lastTime)   
             applyEndValues(propertyChangesArray, targets);
 
         var instance:IEffectInstance = IEffectInstance(event.effectInstance);
         
         deleteInstance(instance);
-        propertyChangesArray = null;
-        applyEndValuesWhenDone = false;
-
+        
         dispatchEvent(event);
-
+        
+        if (lastTime)
+        {
+            propertyChangesArray = null;
+            applyEndValuesWhenDone = false;    
+        }
     }
 
 }
