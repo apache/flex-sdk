@@ -11,13 +11,13 @@
 
 package mx.effects.effectClasses
 {
-
 import flash.events.TimerEvent;
 import flash.utils.Timer;
+
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.effects.IEffectInstance;
 import mx.effects.EffectInstance;
+import mx.effects.IEffectInstance;
 
 use namespace mx_internal;
 
@@ -84,6 +84,17 @@ public class ParallelInstance extends CompositeEffectInstance
 	//
 	//--------------------------------------------------------------------------
 
+    /**
+     * Returns the duration of this Parallel effect, which is the
+     * max of the duration of all child effects. This does not include
+     * any startDelay or repeatCount/repeatDelay on the Parallel effect, 
+     * but just the durations of the child effects.
+     */
+    override public function get duration():Number
+    {
+        return durationWithoutRepeat;
+    }
+    
 	//----------------------------------
 	//  durationWithoutRepeat
 	//----------------------------------
@@ -91,27 +102,58 @@ public class ParallelInstance extends CompositeEffectInstance
 	/**
 	 *  @private
 	 */
-	override mx_internal function get durationWithoutRepeat():Number
-	{
-		var _duration:Number = 0;
-		
-		// Get the largest actualDuration of all of our children
-		var n:int = childSets.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var instances:Array = childSets[i];
-			_duration = Math.max(instances[0].actualDuration, _duration);
-		}
-		
-		return _duration;
-	}
+    override mx_internal function get durationWithoutRepeat():Number
+    {
+        var compositeDuration:Number = 0;
+        
+        // Get the largest actualDuration of all of our children
+        var n:int = childSets.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var instances:Array = childSets[i];
+            var childInstanceDur:Number =
+                instances[0].mx_internal::durationExplicitlySet ?
+                instances[0].actualDuration :
+                super.duration * instances[0].repeatCount +
+                    (instances[0].repeatDelay * instances[0].repeatCount - 1) +
+                    instances[0].startDelay;             
+           
+            compositeDuration = Math.max(childInstanceDur, compositeDuration);
+        }
+        
+        return compositeDuration;
+    }
 	
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden methods
 	//
 	//--------------------------------------------------------------------------
-	
+
+    /**
+     * @inheritDoc
+     * 
+     * In a Parallel effect, seek will cause all child effects to seek to
+     * the same <code>seekTime</code>. This may cause child effects to 
+     * lessen their startDelay (if they are currently waiting to be played),
+     * start playing (if the seekTime is greater than their startDelay), or
+     * come to an end (if the seekTime is greater than their startDelay plus
+     * their duration).
+     */
+    override public function seek(seekTime:Number):void
+    {
+        // Tell all of our active children to seek()
+        
+        var n:int = childSets.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var instances:Array = childSets[i];
+            for (var j:int = 0; j < instances.length; ++j)
+                instances[j].seek(seekTime);
+        }
+        super.seek(seekTime);
+    }
+
 	/**
 	 *  @private
 	 */
