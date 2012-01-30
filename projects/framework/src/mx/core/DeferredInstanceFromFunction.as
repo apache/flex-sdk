@@ -20,6 +20,11 @@ package mx.core
  *  a reference to the object thereafter.
  *
  *  @see DeferredInstanceFromClass
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DeferredInstanceFromFunction implements IDeferredInstance
 {
@@ -36,6 +41,11 @@ public class DeferredInstanceFromFunction implements IDeferredInstance
 	 *
 	 *  @param generator A function that creates and returns an instance
 	 *  of the required object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DeferredInstanceFromFunction(generator:Function)
     {
@@ -74,6 +84,11 @@ public class DeferredInstanceFromFunction implements IDeferredInstance
 	 *  specified in this class' <code>generator</code> constructor parameter.
 	 * 
 	 *  @return An instance of the object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getInstance():Object
 	{
