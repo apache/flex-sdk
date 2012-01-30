@@ -70,7 +70,7 @@ public class SplitViewNavigatorSkin extends MobileSkin
     /**
      *  @copy spark.components.SplitViewNavigator#viewNavigatorPopUp
      */ 
-    public var viewNavigatorPopUp:SkinnablePopUpContainer;
+    public var viewNavigatorPopUp:Callout;
     
     //--------------------------------------------------------------------------
     //
