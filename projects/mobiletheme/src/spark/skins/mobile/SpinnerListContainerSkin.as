@@ -93,6 +93,8 @@ public class SpinnerListContainerSkin extends MobileSkin
 				break;
 			}
 		}
+        
+        minWidth = 30;
 	}
 	
 	//--------------------------------------------------------------------------
