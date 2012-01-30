@@ -21,11 +21,13 @@ import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
+import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.utils.ColorUtil;
 import mx.utils.object_proxy;
 
 import spark.components.supportClasses.SkinnableComponent;
+import spark.components.supportClasses.StyleableTextField;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.skins.IHighlightBitmapCaptureClient;
@@ -349,65 +351,155 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         chromeColorGraphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
     }
 
-    /**
-     *  A helper method for positioning skin parts.
-     * 
-     *  Developers can use this method instead of checking for and using
-     *  various interfaces such as ILayoutElement, IFlexDisplayObject, etc.
-     *
-     *  @see #resizePart  
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5 
-     *  @productversion Flex 4.5
-     */
-    protected function positionPart(part:Object, x:Number, y:Number):void
-    {
-        if (part is ILayoutElement)
-        {
-            ILayoutElement(part).setLayoutBoundsPosition(x, y, false);
-        }
-        else if (part is IFlexDisplayObject)
-        {
-            IFlexDisplayObject(part).move(x, y);   
-        }
-        else
-        {
-            part.x = x;
-            part.y = y;
-        }
-    }
+	/**
+	 *  A helper method to position the children of this item renderer.
+	 * 
+	 *  <p>You can use this method instead of checking for and using
+	 *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+	 *
+	 *  @param element The child to position.
+	 *
+	 *  @param x The x-coordinate of the child.
+	 *
+	 *  @param y The y-coordinate of the child.
+	 *
+	 *  @see #resizeElement  
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.1
+	 *  @playerversion AIR 2.5 
+	 *  @productversion Flex 4.5
+	 */
+	protected function positionElement(element:Object, x:Number, y:Number):void
+	{
+		if (element is ILayoutElement)
+		{
+			ILayoutElement(element).setLayoutBoundsPosition(x, y, false);
+		}
+		else if (element is IFlexDisplayObject)
+		{
+			IFlexDisplayObject(element).move(x, y);   
+		}
+		else
+		{
+			element.x = x;
+			element.y = y;
+		}
+	}
 
-    /**
-     *  A helper method for resizing skin parts.
-     * 
-     *  Developers can use this method instead of checking for and using
-     *  various interfaces such as ILayoutElement, IFlexDisplayObject, etc.
-     *
-     *  @see #positionPart  
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5 
-     *  @productversion Flex 4.5
-     */
-    protected function resizePart(part:Object, width:Number, height:Number):void
-    {
-        if (part is ILayoutElement)
-        {
-            ILayoutElement(part).setLayoutBoundsSize(width, height, false);
-        }
-        else if (part is IFlexDisplayObject)
-        {
-            IFlexDisplayObject(part).setActualSize(width, height);
-        }
-        else
-        {
-            part.width = width;
-            part.height = height;
-        }
-    }
+	/**
+	 *  A helper method to size the children of this item renderer.
+	 * 
+	 *  <p>You can use this method instead of checking for and using
+	 *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+	 *
+	 *  @param element The child to position.
+	 *
+	 *  @param x The width of the child.
+	 *
+	 *  @param y The height of the child.
+	 *
+	 *  @see #positionElement  
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.1
+	 *  @playerversion AIR 2.5 
+	 *  @productversion Flex 4.5
+	 */
+	protected function resizeElement(element:Object, width:Number, height:Number):void
+	{
+		if (element is ILayoutElement)
+		{
+			ILayoutElement(element).setLayoutBoundsSize(width, height, false);
+		}
+		else if (element is IFlexDisplayObject)
+		{
+			IFlexDisplayObject(element).setActualSize(width, height);
+		}
+		else
+		{
+			element.width = width;
+			element.height = height;
+		}
+	}
+	
+	/**
+	 *  A helper method to retrieve the preferred width of an element
+	 * 
+	 *  <p>You can use this method instead of checking for and using
+	 *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+	 *
+	 *  @param element The child to retrieve the width for
+	 *
+	 *  @see #sizeElement
+	 *  @see #getElementPreferredHeight  
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.1
+	 *  @playerversion AIR 2.5 
+	 *  @productversion Flex 4.5
+	 */
+	protected function getElementPreferredWidth(element:Object):Number
+	{
+		if (element is ILayoutElement)
+		{
+			return ILayoutElement(element).getPreferredBoundsWidth();
+		}
+		else if (element is IFlexDisplayObject)
+		{
+			return IFlexDisplayObject(element).measuredWidth;
+		}
+		else if (element is StyleableTextField)
+		{
+			// commit styles to get an accurate measurement
+			StyleableTextField(element).commitStyles();
+			
+			return StyleableTextField(element).measuredWidth;
+		}
+		else
+		{
+			return element.width;
+		}
+	}
+	
+	/**
+	 *  A helper method to retrieve the preferred height of an element
+	 * 
+	 *  <p>You can use this method instead of checking for and using
+	 *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+	 *
+	 *  @param element The child to retrieve the height for
+	 *
+	 *  @see #sizeElement
+	 *  @see #getElementPreferredWidth 
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.1
+	 *  @playerversion AIR 2.5 
+	 *  @productversion Flex 4.5
+	 */
+	protected function getElementPreferredHeight(element:Object):Number
+	{
+		if (element is ILayoutElement)
+		{
+			return ILayoutElement(element).getPreferredBoundsHeight();
+		}
+		else if (element is IFlexDisplayObject)
+		{
+			return IFlexDisplayObject(element).measuredHeight;
+		}
+		else if (element is StyleableTextField)
+		{
+			// commit styles to get an accurate measurement
+			StyleableTextField(element).commitStyles();
+			
+			return StyleableTextField(element).measuredHeight;
+		}
+		else
+		{
+			return element.height;
+		}
+	}
 	
 	/**
 	 *  List of id's of items that should be excluded when rendering the focus ring.
