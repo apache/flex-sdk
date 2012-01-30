@@ -12,25 +12,28 @@
 package mx.core
 {
 
+import __AS3__.vec.Vector;
+
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.GradientType;
+import flash.display.Graphics;
 import flash.display.InteractiveObject;
 import flash.display.Loader;
 import flash.display.Sprite;
 import flash.display.Stage;
-import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.EventPhase;
 import flash.events.FocusEvent;
 import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
-import flash.geom.Vector3D;
-import flash.geom.Matrix3D;
 import flash.geom.Matrix;
+import flash.geom.Matrix3D;
+import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-
+import flash.geom.Transform;
+import flash.geom.Vector3D;
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
 
@@ -46,11 +49,13 @@ import mx.events.EffectEvent;
 import mx.events.FlexEvent;
 import mx.events.MoveEvent;
 import mx.events.PropertyChangeEvent;
+import mx.events.PropertyChangeEventKind;
 import mx.events.ResizeEvent;
 import mx.events.StateChangeEvent;
 import mx.events.ValidationResultEvent;
 import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
+import mx.geom.CompoundTransform;
 import mx.geom.Transform;
 import mx.graphics.RoundedRectangle;
 import mx.managers.CursorManager;
@@ -81,11 +86,6 @@ import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 import mx.validators.IValidatorListener;
 import mx.validators.ValidationResult;
-import __AS3__.vec.Vector;
-import flash.geom.Transform;
-import mx.events.PropertyChangeEventKind;
-import mx.geom.CompoundTransform;
-import flash.geom.PerspectiveProjection;
 
 use namespace mx_internal;
 
@@ -7477,8 +7477,13 @@ public class UIComponent extends FlexSprite
             !(isBaseState(stateName) && isBaseState(currentState)))
         {
             requestedCurrentState = stateName;
-            playStateTransition = playTransition;
-
+            // Don't play transition if we're just getting started
+            // In Flex4, there is no "base state", so if isBaseState() is true
+            // then we're just going into our first real state
+            playStateTransition =  
+                (this is IStateClient2) && isBaseState(currentState) ?
+                false : 
+                playTransition;
             if (initialized)
             {
                 commitCurrentState();
