@@ -402,15 +402,10 @@ use namespace mx_internal;
  *  &lt;s:Window
  *    <strong>Properties</strong>
  *    alwaysInFront="false"
- *    backgroundColor="white"
  *    colorCorrection="default"
- *    maxHeight="2880 less the height of the system chrome"
  *    maximizable="true"
- *    maxWidth="2880 less the width of the system chrome"
  *    menu="<i>null</i>"
- *    minHeight="dependent on the operating system and the AIR systemChrome setting"
  *    minimizable="true"
- *    minWidth="dependent on the operating system and the AIR systemChrome setting"
  *    resizable="true"
  *    showStatusBar="true"
  *    status=""
@@ -419,8 +414,11 @@ use namespace mx_internal;
  *    titleIcon="<i>null</i>"
  *    transparent="false"
  *    type="normal"
- *    visible="true"
- *    width="100"
+ * 
+ *    <strong>Styles</strong>
+ *    backgroundAlpha="1.0"
+ *    backgroundColor="0xFFFFFF"
+ *    resizeAffordanceWidth="6"
  * 
  *    <strong>Effects</strong>
  *    closeEffect="<i>No default</i>"
@@ -500,7 +498,7 @@ public class Window extends SkinnableContainer implements IWindow
     /**
      *  Returns the Window to which a component is parented.
      *
-     *  @param component the component whose Window you wish to find.
+     *  @param component The component whose Window you wish to find.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
