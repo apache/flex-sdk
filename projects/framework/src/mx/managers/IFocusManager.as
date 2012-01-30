@@ -223,11 +223,18 @@ public interface IFocusManager
      *  The direction of the move is specified
      *  with the <code>direction</code> argument.
      * 
-     *  @param direction <code>FORWARD</code> moves to from the control
-     *  that currently has focus to controls with a higher tab index.
-     *  If more than one control has the is, the next control
+     *  @param direction <code>FocusRequestDirection.FORWARD</code> moves to
+     *  from the control that currently has focus to controls with a higher tab index.
+     *  If more than one control has the same index, the next control
      *  in the flow of the document is visited.
-     *  <code>BACKWARD</code> moves to controls with a lower tab index.
+     *  <code>FocusRequestDirection.BACKWARD</code> moves to controls with 
+     *  a lower tab index.
+     *  <code>FocusRequestDirection.TOP</code> move the focus to the control 
+     *  with the lowest tab index. If more than one control has the same index,
+     *  focus is moved to the first control in the flow of the document. 
+     *  <code>FocusRequestDirection.BOTTOM</code> move the focus to the control 
+     *  with the highest tab index. If more than one control has the same index,
+     *  focus is moved to the last control in the flow of the document. 
      *
      *  @param fromDisplayObject The starting point from which focus is moved. 
      *  If an object is provided, this overrides the default behavior 
@@ -244,8 +251,9 @@ public interface IFocusManager
      *  or using different versions of a focus manager.
      * 
      *  @param bridge The bridge to another focus manager.
+     *  @param owner The display object that owns the bridge.
      */
-    function addSWFBridge(bridge:IEventDispatcher):void
+    function addSWFBridge(bridge:IEventDispatcher, owner:DisplayObject):void
     
     /**
      *  Removes a focus manager.
