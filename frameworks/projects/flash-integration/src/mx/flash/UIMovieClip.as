@@ -39,7 +39,6 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
-import mx.core.ILayoutDirection;
 import mx.core.ILayoutElement;
 import mx.core.IStateClient;
 import mx.core.IUIComponent;
@@ -3092,19 +3091,22 @@ public dynamic class UIMovieClip extends MovieClip
 	//----------------------------------
 	
 	private var _layoutDirection:String = "inherit";
-	
+    
+    /**
+     *  @inheritDoc
+     */
 	public function get layoutDirection():String
 	{
         if (_layoutDirection != "inherit")
             return _layoutDirection;
         
-        const parentElt:ILayoutDirection = parent as ILayoutDirection;
+        const parentElt:IVisualElement = parent as IVisualElement;
         return (parentElt) ? parentElt.layoutDirection : "ltr";
 	}
 	
-	/**
-	 *  @copy mx.core.IVisualElement#layoutDirection
-	 */
+    /**
+     *  @private
+     */
 	public function set layoutDirection(value:String):void
 	{
 		if (_layoutDirection == value)
@@ -3115,11 +3117,11 @@ public dynamic class UIMovieClip extends MovieClip
     }
     
     /**
-     * @copy mx.core.ILayoutDirection#invalidateLayoutDirection()  
+     * @inheritDoc 
      */
     public function invalidateLayoutDirection():void
     {
-        const parentElt:ILayoutDirection = parent as ILayoutDirection;
+        const parentElt:IVisualElement = parent as IVisualElement;
         if (!parentElt)
             return;
         
