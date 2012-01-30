@@ -89,6 +89,11 @@ public class CrossDomainRSLItem extends RSLItem
     *                  loaded is a signed or unsigned RSL. If the value is true the RSL is signed. 
     *                  If the value is false the RSL is unsigned.
     *  @param rootURL provides the url used to locate relative RSL urls. 
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */  
     public function CrossDomainRSLItem(rslUrls:Array,
                              policyFileUrls:Array, 
@@ -124,6 +129,11 @@ public class CrossDomainRSLItem extends RSLItem
     * @param securityErrorHandler  receives SecurityErrorEvent.SECURITY_ERROR events, may be null
     * @param rslErrorHandler       receives RSLEvent.RSL_ERROR events, may be null
     * 
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     override public function load(progressHandler:Function,
                                   completeHandler:Function,
@@ -158,6 +168,11 @@ public class CrossDomainRSLItem extends RSLItem
         {
             trace(" in LOCAL_WITH_NETWORK sandbox");                    
         }
+*  
+*  @langversion 3.0
+*  @playerversion Flash 9
+*  @playerversion AIR 1.1
+*  @productversion Flex 3
 */
 
         urlRequest = new URLRequest(LoaderUtil.createAbsoluteURL(rootURL, rslUrls[urlIndex]));
@@ -305,6 +320,11 @@ public class CrossDomainRSLItem extends RSLItem
     *  Does the current url being processed have a failover?
     * 
     * @return true if a failover url exists, false otherwise.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function hasFailover():Boolean
     {
@@ -314,6 +334,11 @@ public class CrossDomainRSLItem extends RSLItem
     
     /**
     *  Load the next url from the list of failover urls.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function loadFailover():void
     {
