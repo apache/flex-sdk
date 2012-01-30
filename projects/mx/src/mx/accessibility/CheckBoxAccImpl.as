@@ -12,6 +12,7 @@
 package mx.accessibility
 {
 
+import mx.accessibility.AccConst;
 import mx.controls.Button;
 import mx.controls.CheckBox;
 import mx.core.UIComponent;
@@ -31,17 +32,6 @@ use namespace mx_internal;
 public class CheckBoxAccImpl extends ButtonAccImpl
 {
     include "../core/Version.as";
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_CHECKED:uint = 0x00000010;
 
 	//--------------------------------------------------------------------------
 	//
@@ -103,7 +93,7 @@ public class CheckBoxAccImpl extends ButtonAccImpl
 	{
 		super(master);
 
-		role = 0x2C; // ROLE_SYSTEM_CHECKBUTTON
+		role = AccConst.ROLE_SYSTEM_CHECKBUTTON;
 	}
 
 	//--------------------------------------------------------------------------
@@ -129,7 +119,7 @@ public class CheckBoxAccImpl extends ButtonAccImpl
 		var accState:uint = getState(childID);
 		
 		if (Button(master).selected)
-			accState |= STATE_SYSTEM_CHECKED;
+			accState |= AccConst.STATE_SYSTEM_CHECKED;
 
 		return accState;
 	}
