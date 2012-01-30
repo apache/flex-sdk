@@ -15,8 +15,8 @@ package mx.styles
 import flash.events.IEventDispatcher;
 import flash.system.ApplicationDomain;
 import flash.system.SecurityDomain;
+
 import mx.core.Singleton;
-import mx.core.mx_internal;
 
 /**
  *  The StyleManager class manages the following:
@@ -63,21 +63,23 @@ public class StyleManager
      *  not at static initialization time, in order to ensure
      *  that the Singleton registry has already been initialized.
      */
-    private static var _impl:IStyleManager2;
+    private static var _impl:IStyleManager3;
 
     /**
      *  @private
      *  The singleton instance of StyleManagerImpl which was
      *  registered as implementing the IStyleManager2 interface.
      */
-    private static function get impl():IStyleManager2
+    private static function get impl():IStyleManager3
     {
         if (!_impl)
         {
-            _impl = IStyleManager2(
-                Singleton.getInstance("mx.styles::IStyleManager2"));
+            // TODO: Do we need to check compatibility first?
+
+            _impl = IStyleManager3(
+                Singleton.getInstance("mx.styles::IStyleManager3"));
         }
-        
+
         return _impl;
     }
 
@@ -155,7 +157,29 @@ public class StyleManager
     {
         return impl.selectors;
     }
-    
+
+    /**
+     *  Determines whether any of the selectors for this subject declared a
+     *  pseudo selector (which is state specific). This is used to avoid
+     *  unnecessary style regeneration between state changes.
+     */ 
+    public static function hasPseudoSelector(subject:String):Boolean
+    {
+        return impl.hasPseudoSelector(subject);
+    }
+
+    /**
+     *  Gets the list of style declarations for the given subject. The subject
+     *  is the right most simple type selector in a potential selector chain.
+     * 
+     *  @param subject The style subject.
+     *  @return Object of the style declarations of this subject.
+     */ 
+    public static function getStyleDeclarations(subject:String):Object
+    {
+        return impl.getStyleDeclarations(subject);
+    }
+
     /**
      *  Gets the CSSStyleDeclaration object that stores the rules
      *  for the specified CSS selector.
