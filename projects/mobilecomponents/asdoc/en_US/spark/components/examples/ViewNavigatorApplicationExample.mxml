@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate ViewNavigatorApplication component -->
+<s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    firstView="views.ViewNavigatorApplicationHomeView" 
+	title="Default">
+
+    <!-- Default navigation controls of the ActionBar -->
+    <s:navigationContent>
+        <!-- Click to move to the bottom view in the navigation stack -->
+        <s:Button label="Home" click="navigator.popToFirstView()"/>
+    </s:navigationContent>
+
+</s:ViewNavigatorApplication>
