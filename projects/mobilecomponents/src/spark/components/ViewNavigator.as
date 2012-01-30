@@ -397,8 +397,6 @@ public class ViewNavigator extends ViewNavigatorBase
         if (value == active)
             return;
         
-        super.setActive(value);
-        
         if (value)
         {
             createTopView();
@@ -409,7 +407,7 @@ public class ViewNavigator extends ViewNavigatorBase
         else
         {
             if (activeView)
-            {                
+            {            
                 if ((activeView.destructionPolicy != ContainerDestructionPolicy.NEVER && 
                     destructionPolicy != ContainerDestructionPolicy.NEVER) ||
                     !maintainNavigationStack)
@@ -419,6 +417,10 @@ public class ViewNavigator extends ViewNavigatorBase
             if (!maintainNavigationStack)
                 navigationStack.popToFirstView();
         }
+        
+        // Call super after the above code so that the view has a chance
+        // to be created before its active property is set.
+        super.setActive(value);
     }
     
     //----------------------------------
@@ -1706,6 +1708,8 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             if (firstView != null)
                 navigationStack.push(firstView, firstViewData);
+            else
+                return;
         }
         
         // Update the current view reference
@@ -1772,6 +1776,10 @@ public class ViewNavigator extends ViewNavigatorBase
         
         if (!currentView)
             return;
+        
+        // Deactivate the view if it is active
+        if (currentView.active)
+            currentView.setActive(false);
         
         removeElement(currentView);
         
