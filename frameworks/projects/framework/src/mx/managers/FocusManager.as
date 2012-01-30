@@ -979,6 +979,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      */
     private function isParent(p:DisplayObjectContainer, o:DisplayObject):Boolean
     {
+        if (p == o)
+            return false;
+        
         if (p is IRawChildrenContainer)
             return IRawChildrenContainer(p).rawChildren.contains(o);
         
