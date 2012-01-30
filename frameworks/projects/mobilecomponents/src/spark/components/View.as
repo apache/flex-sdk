@@ -128,7 +128,7 @@ use namespace mx_internal;
  *  Users navigate the views of the application by using the touch screen, 
  *  components built into the application, and the input controls of the mobile device.</p>
  *
- *  <p>The following images shows a View container with a List control:</p>
+ *  <p>The following image shows a View container with a List control:</p>
  *
  * <p>
  *  <img src="../../images/vn_single_section_home_vn.png" alt="View container" />
