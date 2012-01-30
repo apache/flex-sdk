@@ -13,6 +13,7 @@ package mx.formatters
 {
 
 import flash.events.Event;
+import mx.formatters.IFormatter;
 import mx.core.mx_internal;
 import mx.managers.ISystemManager;
 import mx.managers.SystemManager;
@@ -46,7 +47,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class Formatter
+public class Formatter implements IFormatter 
 {
     include "../core/Version.as";
 
