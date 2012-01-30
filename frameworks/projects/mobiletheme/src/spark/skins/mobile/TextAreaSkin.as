@@ -99,6 +99,9 @@ public class TextAreaSkin extends TextSkinBase
                 break;
             }
         }
+        
+        // default the text display width to be layoutMeasuredWidth
+        oldUnscaledWidth = layoutMeasuredWidth;
     }
     
     //--------------------------------------------------------------------------
@@ -119,6 +122,24 @@ public class TextAreaSkin extends TextSkinBase
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:TextArea;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  The width of the component on the previous layout manager 
+     *  pass.  This gets set in updateDisplayList() and used in measure() on 
+     *  the next layout pass.  This is so our "guessed width" in measure() 
+     *  will be as accurate as possible since textDisplay is multiline and 
+     *  the textDisplay height is dependent on the width.
+     * 
+     *  In the constructor this is actually set based on the DPI.
+     */
+    private var oldUnscaledWidth:Number;
     
     //--------------------------------------------------------------------------
     //
@@ -182,9 +203,11 @@ public class TextAreaSkin extends TextSkinBase
         
         var paddingTop:Number = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
         
-        // TextDisplay always defaults to 440 pixels wide, and tall enough to 
-        // show all text.
+        // TextDisplay always defaults to 440 pixels wide (the value is DPI dependent), 
+        // and tall enough to show all text.
         // 
         // You can set an explicit width and the height will adjust accordingly. The opposite
         // is not true: setting an explicit height will not adjust the width accordingly.
@@ -192,10 +215,23 @@ public class TextAreaSkin extends TextSkinBase
         measuredWidth = layoutMeasuredWidth;
         
         // now we need to measure textDisplay's height.  Unfortunately, this is tricky and 
-        // is dependent on textDisplay's width
+        // is dependent on textDisplay's width.  Let's use the heuristic that our width 
+        // is the same as our last width.
+        // We don't use layoutMeasuredWidth, because that value is just a constant and doesn't
+        // take into account the fact that the TextArea could have an explicitWidth or could 
+        // be constrained by some value.  However, we still default oldTextDisplayWidth to 
+        // be layoutMeasuredWidth the first time through.
+        var textDisplayEstimatedWidth:Number = oldUnscaledWidth - paddingLeft - paddingRight;
         
+        // now we need to measure textDisplay's height.  Unfortunately, this is tricky and 
+        // is dependent on textDisplay's width.  
+        // Use the old textDisplay width as an estimte for the new one.  
+        // If we are wrong, we'll find out in updateDisplayList()
+        setElementSize(textDisplay, textDisplayEstimatedWidth, NaN);
         
-        measuredHeight = Math.max(layoutMeasuredHeight, textDisplay.measuredTextSize.y + paddingTop + paddingBottom);
+        var textDisplayHeight:Number = getElementPreferredHeight(textDisplay);
+        
+        measuredHeight = Math.max(layoutMeasuredHeight, textDisplayHeight + paddingTop + paddingBottom);
     }
     
     /**
@@ -226,21 +262,38 @@ public class TextAreaSkin extends TextSkinBase
         textDisplayGroup.paddingTop = paddingTop;
         textDisplayGroup.paddingBottom = paddingBottom;
         
+        // because the text is multi-line, measuring and layout 
+        // can be somewhat tricky
         var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
-        
-        // set width first to measure height correctly
-        textDisplay.width = unscaledTextWidth;
-        
         var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         var textHeight:Number = unscaledTextHeight;
         
-        // TextField height should match it's content or the TextArea bounds
+        // TextField height should match its content or the TextArea bounds
         // iOS special case to prevent Flex Scroller scrolling
         if (!_isIOS || !textDisplay.editable)
             textHeight = Math.max(textDisplay.measuredTextSize.y, textHeight);
         
+        // grab old measured textDisplay height before resizing it
+        var oldPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
+        
+        // keep track of oldUnscaledWidth so we have a good guess as to the width 
+        // of the textDisplay on the next measure() pass
+        oldUnscaledWidth = unscaledWidth;
+        
+        // set the width of textDisplay to textWidth.
+        // set the height to oldTextHeight.  If the height's actually wrong, 
+        // we'll invalidateSize() and go through this layout pass again anyways
         setElementSize(textDisplay, unscaledTextWidth, textHeight);
         
+        // grab new measured textDisplay height after the textDisplay has taken its final width
+        var newPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
+        
+        // if the resize caused the textDisplay's height to change (because of 
+        // text reflow), then we need to remeasure ourselves with our new width
+        if (oldPreferredTextHeight != newPreferredTextHeight)
+            invalidateSize();
+        
+        // Now that we're done with laying out the textDisplay, 
         // size the Group to the StyleableTextField plus padding
         setElementSize(textDisplayGroup, unscaledWidth, paddingTop + textHeight + paddingBottom);
         
