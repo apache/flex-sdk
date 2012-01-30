@@ -11,9 +11,14 @@
 
 package spark.skins.mobile
 {
+import mx.core.IContainerInvalidating;
+import mx.core.ILayoutElement;
+import mx.core.mx_internal;
 import mx.effects.IEffect;
 import mx.states.State;
 import mx.states.Transition;
+import mx.managers.ILayoutManagerContainerClient;
+use namespace mx_internal;
 
 import spark.components.ActionBar;
 import spark.components.ButtonBar;
@@ -116,14 +121,38 @@ public class ViewNavigatorSkin extends MobileSkin
         }
     }
 	
-	/**
-	 *  @private
-	 */
-	override public function validateEstimatedSizesOfChildren():void
-	{
-		actionBar.setEstimatedSize(estimatedWidth, NaN);
-		contentGroup.setEstimatedSize(estimatedWidth, NaN);
-	}
+    /**
+     *  @private 
+     */
+    override mx_internal function validateEstimatedSizesOfChild(child:ILayoutElement):void
+    {
+        var cw:Number;
+        var ch:Number;
+        var c:Number;
+        var oldcw:Number = child.estimatedWidth;
+        var oldch:Number = child.estimatedHeight;
+        // the child actionBar and contentGroup are
+        // constrained to the width of the skin, but their
+        // height is not constrained
+        cw = estimatedWidth;
+        if (isNaN(cw) && !isNaN(explicitWidth))
+            cw = explicitWidth;
+        ch = NaN;
+        
+        child.setEstimatedSize(cw, ch);
+        if (child is ILayoutManagerContainerClient)
+        {
+            var sameWidth:Boolean = isNaN(cw) && isNaN(oldcw) || cw == oldcw;
+            var sameHeight:Boolean = isNaN(ch) && isNaN(oldch) || ch == oldch;
+            if (!(sameHeight && sameWidth))
+            {
+                if (child is IContainerInvalidating)
+                    IContainerInvalidating(child).invalidateEstimatedSizesOfChildren();
+                ILayoutManagerContainerClient(child).validateEstimatedSizesOfChildren();
+            }
+        }
+    }
+    
     
     /**
      *  @private 
@@ -157,7 +186,8 @@ public class ViewNavigatorSkin extends MobileSkin
         var actionBarHeight:Number = 0;
         
         // The action bar is always placed at 0,0 and stretches the entire
-        // width of the navigator
+        // width of the navigator.
+        // If this changes, also update validateEstimatedSizesOfChild
         if (actionBar.includeInLayout)
         {
             actionBarHeight = Math.min(actionBar.getPreferredBoundsHeight(), unscaledHeight);
@@ -169,6 +199,7 @@ public class ViewNavigatorSkin extends MobileSkin
         // If the hostComponent is in overlay mode, the contentGroup extends
         // the entire bounds of the navigator and the alpha for the action 
         // bar changes
+        // If this changes, also update validateEstimatedSizesOfChild
         if (currentState == "portraitAndOverlay" || currentState == "landscapeAndOverlay")
         {
             // FIXME (chiedozi): Update when XD spec is written
