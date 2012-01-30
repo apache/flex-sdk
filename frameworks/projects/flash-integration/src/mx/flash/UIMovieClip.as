@@ -556,7 +556,7 @@ use namespace mx_internal;
 
     
 /**
- *  Components created in Adobe Flash CS3 Professional for use in Flex 
+ *  Components created in Adobe Flash Professional for use in Flex 
  *  are subclasses of the mx.flash.UIMovieClip class. 
  *  The UIMovieClip class implements the interfaces necessary for a Flash component 
  *  to be used like a normal Flex component. Therefore, a subclass of UIMovieClip 
@@ -565,14 +565,14 @@ use namespace mx_internal;
  *  and work with effects in the same way as can any Flex component.
  *
  *  <p>The following procedure describes the basic process for creating 
- *  a Flex component in Flash CS3:</p>
+ *  a Flex component in Flash Professional:</p>
  *
  *  <ol>
  *    <li>Install the Adobe Flash Workflow Integration Kit.</li> 
  *    <li>Create symbols for your dynamic assets in the FLA file.</li>
  *    <li>Run Commands &gt; Make Flex Component to convert your symbol 
  *      to a subclass of the UIMovieClip class, and to configure 
- *      the Flash CS3 publishing settings for use with Flex.</li> 
+ *      the Flash Professional publishing settings for use with Flex.</li> 
  *    <li>Publish your FLA file as a SWC file.</li> 
  *    <li>Reference the class name of your symbols in your Flex application 
  *      as you would any class.</li> 
