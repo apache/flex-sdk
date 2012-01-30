@@ -123,10 +123,12 @@ HSlider
 
 IconItemRenderer
 {
-    horizontalGap: 15;
-    verticalGap: 15;
-    iconDelay: 500;
-    messageStyleName: "iconItemRendererMessageStyle";
+	paddingBottom: 12;
+	paddingTop: 12;
+	horizontalGap: 10;
+	verticalGap: 9;
+	iconDelay: 500;
+	messageStyleName: "iconItemRendererMessageStyle";
 }
 
 .iconItemRendererMessageStyle
@@ -152,6 +154,7 @@ List
     borderColor: #000000;
     borderAlpha: 1;
     verticalScrollPolicy: on;
+	borderVisible: false;
 }
 
 MuteButton
