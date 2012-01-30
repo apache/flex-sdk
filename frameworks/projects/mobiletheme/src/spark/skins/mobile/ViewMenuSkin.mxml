@@ -11,7 +11,7 @@ in accordance with the terms of the license agreement accompanying it.
 
 -->
 
-<!--- The default skin class for a Spark ViewMenu.  
+<!--- The default skin class for a Spark ViewMenu in a mobile application.  
 
 @see spark.components.ViewMenu
 
@@ -53,20 +53,29 @@ in accordance with the terms of the license agreement accompanying it.
                 super.initializationComplete();
             }
                 
+            /**
+             *  @copy spark.skins.mobile.supportClasses.MobileSkin#applicationDPI
+             */
             public function get applicationDPI():int
             {
                 return FlexGlobals.topLevelApplication.applicationDPI;
             }
-			
-			override protected function measure():void
-			{
-				super.measure();
-				
-				// not actually used in normal situations, but 
-				// is here to prevent bug 28950 if ViewMenu is misused
-				measuredHeight = 200;
-			}
             
+            /**
+             *  @private
+             */
+            override protected function measure():void
+            {
+                super.measure();
+                
+                // not actually used in normal situations, but 
+                // is here to prevent bug 28950 if ViewMenu is misused
+                measuredHeight = 200;
+            }
+            
+            /**
+             *  @private
+             */
             override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
             {
                 super.updateDisplayList(unscaledWidth, unscaledHeight);
