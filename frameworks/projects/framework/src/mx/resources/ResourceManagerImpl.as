@@ -118,10 +118,22 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     {
         super();
 
-		var info:Object = SystemManagerGlobals.info;
+        if (SystemManagerGlobals.topLevelSystemManagers.length)
+        {
+            if (SystemManagerGlobals.topLevelSystemManagers[0].currentFrame == 1)
+            {
+                ignoreMissingBundles = true;
+                SystemManagerGlobals.topLevelSystemManagers[0].
+                    addEventListener(Event.ENTER_FRAME, enterFrameHandler);
+            }
+        }
+        
+        var info:Object = SystemManagerGlobals.info;
         if (info)
             processInfo(info, false);
 
+        ignoreMissingBundles = false;
+        
         if (SystemManagerGlobals.topLevelSystemManagers.length)
 		    SystemManagerGlobals.topLevelSystemManagers[0].
 			    addEventListener(FlexEvent.NEW_CHILD_APPLICATION, newChildApplicationHandler);
@@ -133,6 +145,13 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     * 
+     *  Whether or not to throw an error.
+     */
+    private var ignoreMissingBundles:Boolean;
+    
     /**
      *  @private
      * 
@@ -282,9 +301,12 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             {
                 var bundleName:String = bundleNames[j];
                 
-                bundles[bundleCount++] = installCompiledResourceBundle(
+                var bundle:IResourceBundle = installCompiledResourceBundle(
                     applicationDomain, locale, bundleName, 
                     useWeakReference);
+                
+                if (bundle)
+                    bundles[bundleCount++] = bundle;
             }
         }
         
@@ -362,6 +384,9 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         
         if (!bundleClass)
         {
+            if (ignoreMissingBundles)
+                return null;
+            
             throw new Error(
                 "Could not find compiled resource bundle '" + bundleName +
                 "' for locale '" + locale + "'.");
@@ -1094,6 +1119,26 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         }
     }
 
+    /**
+     *  @private
+     */
+    private function enterFrameHandler(event:Event):void
+    {
+        if (SystemManagerGlobals.topLevelSystemManagers.length)
+        {
+            if (SystemManagerGlobals.topLevelSystemManagers[0].currentFrame == 2)
+            {
+                SystemManagerGlobals.topLevelSystemManagers[0].
+                    removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
+            }
+            else
+                return;
+        }
+        
+        var info:Object = SystemManagerGlobals.info;
+        if (info)
+            processInfo(info, false);
+    }
 }
 
 }
