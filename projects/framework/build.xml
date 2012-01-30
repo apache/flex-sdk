@@ -70,10 +70,10 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/libs/framework.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
-            <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>10</target-player>
 			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/manifest.xml"/>
-		    <namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/halo"/>
 			<include-classes>FrameworkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
@@ -108,13 +108,8 @@
 		<compc fork="true"
 			   output="${FLEX_HOME}/frameworks/locale/${locale}/framework_rb.swc"
 			   locale="${locale}">
-            <!--
-                NOTE: we are continuing to build against player 9 so that airframework.swc
-                      can externally link against framework.swc, since air is player 9.
-                      If you change this, update ${local.playerglobal.version} above.
-            -->
-            <target-player>10</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
+			<target-player>10</target-player>
  			<include-resource-bundles bundle="SharedResources"/>
 			<include-resource-bundles bundle="collections"/>
 			<include-resource-bundles bundle="containers"/>
