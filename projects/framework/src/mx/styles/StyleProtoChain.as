@@ -34,6 +34,24 @@ public class StyleProtoChain
 
     //--------------------------------------------------------------------------
     //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  The inheritingStyles and nonInheritingStyles properties
+     *  are initialized to this empty Object.
+     *  This allows the getStyle() and getStyle()
+     *  methods to simply access inheritingStyles[] and nonInheritingStyles[]
+     *  without needing to first check whether those objects exist.
+     *  If they were simply initialized to {}, we couldn't determine
+     *  whether the style chain has already been built or not.
+     */
+    public static const STYLE_UNINITIALIZED:Object = {};
+    
+    //--------------------------------------------------------------------------
+    //
     //  Class methods
     //
     //--------------------------------------------------------------------------
@@ -65,7 +83,8 @@ public class StyleProtoChain
         // Push items onto the proto chain in reverse order, beginning with
         // 6) Follow the usual search path for the styleName object
         var nonInheritChain:Object = styleName.nonInheritingStyles;
-        if (!nonInheritChain || nonInheritChain == StyleManager.STYLE_UNINITIALIZED)
+        if (!nonInheritChain ||
+            nonInheritChain == StyleProtoChain.STYLE_UNINITIALIZED)
         {
             nonInheritChain = StyleManager.stylesRoot;
 
@@ -74,8 +93,11 @@ public class StyleProtoChain
         }
 
         var inheritChain:Object = styleName.inheritingStyles;
-        if (!inheritChain || inheritChain == StyleManager.STYLE_UNINITIALIZED)
+        if (!inheritChain ||
+            inheritChain == StyleProtoChain.STYLE_UNINITIALIZED)
+        {
             inheritChain = StyleManager.stylesRoot;
+        }
 
         // If there's no type selector on this object, then we can collapse
         // 6 steps to 2 (see above)
