@@ -29,27 +29,6 @@ public class EventUtil
 	//
 	//--------------------------------------------------------------------------
 	
-	/**
-	 * Determine if the type of an event is a mouse event.  This method should be
-	 * replaced by the maps before we ship.
-	 *
-	 * @return true if the type is a one of the events in MouseEvent, false otherwise.
-	 * 
-	 */
-	public static function isMouseEvent(type:String):Boolean
-	{
-		if (type == MouseEvent.CLICK || type == MouseEvent.DOUBLE_CLICK ||
-			type == MouseEvent.MOUSE_DOWN || type == MouseEvent.MOUSE_MOVE ||
-			type == MouseEvent.MOUSE_OUT || type == MouseEvent.MOUSE_OVER ||
-			type == MouseEvent.MOUSE_UP ||  type == MouseEvent.MOUSE_WHEEL ||
-			type == MouseEvent.ROLL_OUT ||  type == MouseEvent.ROLL_OVER)
-		{
-			return true;
-		}
-		
-		return false;
-	}
-
 	private static var _marshalEventMap:Object;
 
 	/**
