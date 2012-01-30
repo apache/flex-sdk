@@ -47,6 +47,11 @@ use namespace mx_internal;
  *  For each event, corresponding to an event trigger, it determines if 
  *  there is an effect assigned to the object. 
  *  If an effect is defined, it plays the effect. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class EffectManager extends EventDispatcher
 {
@@ -136,6 +141,11 @@ public class EffectManager extends EventDispatcher
 	 *  <code>resumeEventHandling()</code>.  
 	 *  Used internally so that an effect that is updating the screen
 	 *  does not cause another effect to be triggered.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function suspendEventHandling():void
 	{
@@ -149,6 +159,11 @@ public class EffectManager extends EventDispatcher
 	 *  <code>suspendEventHandling()</code> method 
 	 *  so that an effect that is updating the screen
 	 *  does not cause another effect to be triggered.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function resumeEventHandling():void
 	{
@@ -159,6 +174,11 @@ public class EffectManager extends EventDispatcher
 	 *  Immediately ends any effects currently playing on a target.
 	 *
 	 *  @param target The target component on which to end all effects.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function endEffectsForTarget(target:IUIComponent):void
 	{
@@ -704,6 +724,11 @@ public class EffectManager extends EventDispatcher
 						{
 							return;
 						}
+						*  
+						*  @langversion 3.0
+						*  @playerversion Flash 9
+						*  @playerversion AIR 1.1
+						*  @productversion Flex 3
 						*/
 
 						otherInst.end();
@@ -857,6 +882,11 @@ class EffectNode
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function EffectNode(factory:Effect, instance:EffectInstance)
 	{
