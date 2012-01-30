@@ -586,28 +586,20 @@ public interface ILayoutElement extends IEventDispatcher
     function setLayoutBoundsPosition(x:Number, y:Number, postLayoutTransform:Boolean = true):void;
 
     /**
-     *  Sets the layout size to the specified dimensions.  
+     *  Sets the layout size of the element.  
      *  This is the size that the element uses to draw on screen.
      *  
-     *  <p>If one of the dimensions is left unspecified (NaN), it's size
-     *  is set such that element can be optimally sized to fit the other
-     *  dimension.  This setting is useful when the caller does not want to 
-     *  overconstrain the element. 
-     *  For example, when the element's width and height
-     *  are corelated (text components, components with complex transforms)
-     *  If both dimensions are unspecified, the element has its layout size
-     *  set to its preferred size.</p>
+     *  <p>If the <code>width</code> and/or <code>height</code> parameters are left unspecified (NaN),
+     *  Flex sets the element's layout size to its preferred width and/or preferred height.</p>
      * 
-     *  <p><code>setLayoutBoundPosition()</code> does not clip against minium or maximum sizes.</p>
-     *
      *  <p>Note that calls to the <code>setLayoutBoundSize()</code> method can affect the layout position, so 
      *  call <code>setLayoutBoundPosition()</code> after calling <code>setLayoutBoundSize()</code>.</p>
      *
-     *  @param width The target width.
+     *  @param width The element's layout width.
      *
-     *  @param height The target height.
+     *  @param height The element's layout height.
      *
-     *  @param postLayoutTransform When postLayoutTransform is true, the specified dimensions
+     *  @param postLayoutTransform When postLayoutTransform is true, the specified sizes
      *  are those of the element's bounding box.
      *  Bounding box is in element's parent coordinate space and is calculated
      *  from the element's layout size, layout position and layout transform matrix.
