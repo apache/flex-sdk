@@ -394,6 +394,23 @@ public class UITextFormat extends TextFormat
      */
     public var thickness:Number;
     
+    //----------------------------------
+    //  useTLF
+    //----------------------------------
+    
+    /**
+     *  Determines how the <code>measureText()</code>
+     *  and <code>measureHTMLText()</code> methods do text measurement.
+     * 
+     *  <p>If <code>true</code>, they use an offscreen instance
+     *  of the TLFTextField class in the Text Layout Framework.
+     *  If <code>false</code>, they use an offscreen instance
+     *  of the TextField class in the Flash Player.
+     * 
+     *  @default false
+     */
+    public var useTLF:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -477,8 +494,10 @@ public class UITextFormat extends TextFormat
             fontModuleFactory = systemManager;
         }
         
-        var measurementTextField:TextField = null;
-        measurementTextField = TextField(textFieldFactory.createTextField(fontModuleFactory)); 
+        var measurementTextField:Object /* either TextField or TLFTextField */ =
+        	useTLF ?
+        	textFieldFactory.createTLFTextField(fontModuleFactory) :
+        	textFieldFactory.createTextField(fontModuleFactory);
         
         // Clear any old text from the TextField.
         // Otherwise, new text will get the old TextFormat. 
