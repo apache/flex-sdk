@@ -697,10 +697,10 @@ public class RectangularDropShadow
 		// Create a Shape containing a round rectangle that the
 		// specified corner radii and very short sides.
 		var roundRectWidth:Number = Math.max(tlRadius, blRadius) + 
-								    3 * distance + 
+								    3 * Math.max(Math.abs(distance), 2) + 
 									Math.max(trRadius, brRadius);
 		var roundRectHeight:Number = Math.max(tlRadius, trRadius) +
-									 3 * distance +
+									 3 * Math.max(Math.abs(distance), 2) +
 									 Math.max(blRadius, brRadius);
 
 		if (roundRectWidth < 0 || roundRectHeight < 0)
