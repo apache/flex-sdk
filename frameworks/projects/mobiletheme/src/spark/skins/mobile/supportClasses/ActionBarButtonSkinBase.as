@@ -75,8 +75,8 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 layoutPaddingBottom = 10;
                 layoutPaddingLeft = 20;
                 layoutPaddingRight = 20;
-                layoutMeasuredWidth = 106;
-                layoutMeasuredHeight = 86;
+                minWidth = 106;
+                minHeight = 86;
                 
                 break;
             }
@@ -87,8 +87,8 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 layoutPaddingBottom = 8;
                 layoutPaddingLeft = 16;
                 layoutPaddingRight = 16;
-                layoutMeasuredWidth = 81;
-                layoutMeasuredHeight = 65;
+                minWidth = 81;
+                minHeight = 65;
                 
                 break;
             }
@@ -100,8 +100,8 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 layoutPaddingBottom = 5;
                 layoutPaddingLeft = 10;
                 layoutPaddingRight = 10;
-                layoutMeasuredWidth = 53;
-                layoutMeasuredHeight = 43;
+                minWidth = 53;
+                minHeight = 43;
                 
                 break;
             }
@@ -130,17 +130,6 @@ public class ActionBarButtonSkinBase extends ButtonSkin
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    override protected function measure():void
-    {
-        super.measure();
-        
-        measuredWidth = Math.max(layoutMeasuredWidth, measuredWidth);
-        measuredHeight =  Math.max(layoutMeasuredHeight, measuredHeight);
-    }
     
     /**
      *  ActionBar buttons only draw chromeColor in the down state.
