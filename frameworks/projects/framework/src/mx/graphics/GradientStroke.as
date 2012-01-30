@@ -37,7 +37,7 @@ public class GradientStroke extends GradientBase
      *  <code>LineScaleMode.NONE</code>, <code>LineScaleMode.NORMAL</code>,
      *  and <code>LineScaleMode.VERTICAL</code>.
      *  This parameter is optional,
-     *  with a default value of <code>LineScaleMode.NONE</code>. 
+     *  with a default value of <code>LineScaleMode.NORMAL</code>. 
      *
      *  @param caps A value from the CapsStyle class
      *  that specifies the type of caps at the end of lines.
