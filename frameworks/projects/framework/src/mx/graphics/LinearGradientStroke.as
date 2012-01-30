@@ -250,10 +250,11 @@ public class LinearGradientStroke extends GradientStroke
         }
         else
         {
-            matrix.identity();
-            matrix.scale(rect.width / GRADIENT_DIMENSION, 1);
-            matrix.translate(rect.left + rect.width / 2, 0);
-            matrix.concat(compoundTransform.matrix);  
+            matrix.identity();            
+            matrix.translate(GRADIENT_DIMENSION / 2, GRADIENT_DIMENSION / 2);
+            matrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
+            matrix.concat(compoundTransform.matrix);
+            matrix.translate(rect.left, rect.top);
         }
     }
     
