@@ -12,10 +12,12 @@
 package spark.components.supportClasses
 {
 import flash.events.Event;
+import flash.events.KeyboardEvent;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
+import flash.ui.Keyboard;
 
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -87,6 +89,9 @@ public class MobileTextField extends TextField implements IEditableText
         // Add a high priority change handler so we can capture the event
         // and re-dispatch as a TextOperationEvent
         addEventListener(Event.CHANGE, changeHandler, false, 100);
+        
+        // Add a key down listener to listen for enter key
+        addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -591,6 +596,21 @@ public class MobileTextField extends TextField implements IEditableText
             
             // dispatch the new event
             dispatchEvent(newEvent);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function keyDownHandler(event:KeyboardEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        // Dispatch an "enter" event
+        if (event.keyCode == Keyboard.ENTER)
+        {
+            dispatchEvent(new FlexEvent(FlexEvent.ENTER));
         }
     }
     
