@@ -17,7 +17,6 @@
 -->
 <componentPackage>
     <component id="ActionBar" class="spark.components.ActionBar"/>
-    <component id="FlipViewTransition" class="spark.effects.FlipViewTransition"/>
     <component id="MobileApplication" class="spark.components.MobileApplication"/>
     <component id="MobileItemRenderer" class="spark.components.MobileItemRenderer"/>
     <component id="MobileIconItemRenderer" class="spark.components.MobileIconItemRenderer"/>
