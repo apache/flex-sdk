@@ -1,53 +1,58 @@
-<?xml version="1.0"?>
-<!-- Simple example to demonstrate the Menu control. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Halo Menu control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-       
+            import mx.controls.Alert;
             import mx.controls.Menu;
             import mx.events.MenuEvent;
-            import mx.controls.Alert;           
-            import flash.geom.Point;
 
             private var point1:Point = new Point();
             private var myMenu:Menu;
-   
+
             // Create and display the Menu control.
             private function showMenu():void {
-                myMenu= Menu.createMenu(panel, myMenuData, false);
-                myMenu.labelField="@label";
-                myMenu.addEventListener("itemClick", menuHandler);
-                
+                myMenu = Menu.createMenu(panel, myMenuData, false);
+                myMenu.labelField = "@label";
+                myMenu.addEventListener(MenuEvent.ITEM_CLICK, menuHandler);
+
                 // Calculate position of Menu in Application's coordinates. 
-                point1.x=mybutton.x;
-                point1.y=mybutton.y;                
-                point1=mybutton.localToGlobal(point1);
+                point1.x = myButton.x;
+                point1.y = myButton.y;
+                point1 = myButton.localToGlobal(point1);
 
                 myMenu.show(point1.x + 25, point1.y + 25);
             }
-       
+
             // Event handler for the Menu control's change event.
-            private function menuHandler(event:MenuEvent):void  {
-                Alert.show("Label: " + event.item.@label, "Clicked menu item");
-            }    
+            private function menuHandler(evt:MenuEvent):void  {
+                Alert.show("Label: " + evt.item.@label, "Clicked menu item");
+            }
         ]]>
-    </mx:Script>
+    </fx:Script>
 
-    <mx:XML id="myMenuData">
-        <root>
-            <menuitem label="MenuItem 1" eventName="copy"/>
-            <menuitem label="MenuItem 2" eventName="paste"/>
-        </root>
-    </mx:XML>
+    <fx:Declarations>
+        <fx:XML id="myMenuData">
+            <root>
+                <menuitem label="MenuItem 1" eventName="copy"/>
+                <menuitem label="MenuItem 2" eventName="paste"/>
+            </root>
+        </fx:XML>
+    </fx:Declarations>
 
-    <mx:Panel id="panel" title="Menu Control Example" height="75%" width="75%" 
-        paddingTop="10" paddingLeft="10">
+    <s:Panel id="panel"
+            title="Halo Menu Control Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:SimpleText width="100%" color="blue"
+                    text="Click the button to open the Halo Menu control."/>
 
-        <mx:Label width="100%" color="blue"
-           text="Click the button to open the Menu control."/>
+            <s:Button id="myButton" label="Open Menu" click="showMenu();"/>
+        </s:VGroup>
+    </s:Panel>
 
-        <mx:Button id="mybutton" label="Open Menu" click="showMenu();"/>
-
-    </mx:Panel>
-</mx:Application>          
+</s:Application>
