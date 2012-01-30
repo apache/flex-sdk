@@ -204,6 +204,25 @@ public class Transition
      *  @productversion Flex 3
      */
 	public var autoReverse:Boolean = false;
+    
+    /**
+     *  This property controls how this transition behaves with respect to
+     *  any currently-running transition. By default, the current transition will
+     *  end, which snaps all values to their end values. This was the default
+     *  behavior as of Flex 4, before this property existed. But if the value
+     *  "stop" is selected for this property, the previous transition will stop
+     *  in place, leaving values where they are and the next transition will 
+     *  start with those values.
+     * 
+     *  <p>This property takes precedence over the <code>autoReverse</code>
+     *  property, so that if <code>interruptionBehavior</code> is set to "stop"
+     *  on a transition, that transition will stop a running transition in place
+     *  and will be played, even if the previous transition is the reverse of the
+     *  new one.</p>
+     * 
+     *  @default InterruptionBehavior.END
+     */
+    public var interruptionBehavior:String = InterruptionBehavior.END;
 }
 
 }
