@@ -13,6 +13,8 @@ package mx.styles
 {
 
 import flash.events.IEventDispatcher;
+import flash.system.ApplicationDomain;
+import flash.system.SecurityDomain;
 
 /**
  *  The IStyleManager class manages the following:
@@ -512,12 +514,14 @@ public interface IStyleManager
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @productversion Flex 4
      */
-	function loadStyleDeclarations(
-					url:String, update:Boolean = true,
-					trustContent:Boolean = false):IEventDispatcher;
-    
+    function loadStyleDeclarations(
+                    url:String, update:Boolean = true,
+                    trustContent:Boolean = false,
+                    applicationDomain:ApplicationDomain = null,
+                    securityDomain:SecurityDomain = null):IEventDispatcher;
+
     /**
      *  Unloads a style SWF.
      *
