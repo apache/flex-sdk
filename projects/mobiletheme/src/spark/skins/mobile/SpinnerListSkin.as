@@ -49,7 +49,7 @@ public class SpinnerListSkin extends MobileSkin
 			}	
 		}
 		
-		minWidth = 112;
+		minWidth = 16;
 	}
 	
 	//--------------------------------------------------------------------------
