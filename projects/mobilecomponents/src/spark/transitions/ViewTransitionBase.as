@@ -585,6 +585,12 @@ public class ViewTransitionBase extends EventDispatcher
      */
     protected var actionBar:ActionBar;
     
+    /**
+     *  @private
+     *  Convenience property which caches our associated tab bar.
+     */
+    protected var tabBar:ButtonBarBase;
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -609,8 +615,12 @@ public class ViewTransitionBase extends EventDispatcher
         // Remember some common references.
         parentNavigator = navigator.parentNavigator;
         targetNavigator = parentNavigator ? parentNavigator : navigator;
+        
         if (navigator is ViewNavigator)
             actionBar = ViewNavigator(navigator).actionBar;
+        
+        if (targetNavigator is TabbedViewNavigator)
+            tabBar = TabbedViewNavigator(targetNavigator).tabBar;
         
         // Determine first if we're able to transition our control bars independently
         // of our view content.  If we are, then capture the necessary action bar
@@ -1129,6 +1139,7 @@ public class ViewTransitionBase extends EventDispatcher
         
         consolidatedTransition = false;
         actionBar = null;
+        tabBar = null;
         parentNavigator = null;
         targetNavigator = null;
         navigator = null;
@@ -1218,18 +1229,18 @@ public class ViewTransitionBase extends EventDispatcher
         if (!target.visible || target.width == 0 || target.height == 0)
             return null;
 
-        var snapShot:BitmapImage = new BitmapImage();
+        var snapshot:BitmapImage = new BitmapImage();
         
         // Ensure bitmap leverages its own display object for performance
         // reasons.
-        snapShot.alwaysCreateDisplayObject = true;
+        snapshot.alwaysCreateDisplayObject = true;
         
         // Capture image, with consideration for transform and color matrix.
         // Return null if an error is thrown.
         var bounds:Rectangle = new Rectangle();
         try
         {
-            snapShot.source = BitmapUtil.getSnapshotWithPadding(target, padding, true, bounds);
+            snapshot.source = BitmapUtil.getSnapshotWithPadding(target, padding, true, bounds);
         }
         catch (e:SecurityError)
         {
@@ -1237,8 +1248,8 @@ public class ViewTransitionBase extends EventDispatcher
         }
         
         // Size and offset snapShot to match our image bounds data.
-        snapShot.width = bounds.width;
-        snapShot.height = bounds.height;
+        snapshot.width = bounds.width;
+        snapshot.height = bounds.height;
 
         var m:Matrix = new Matrix();
         m.translate(bounds.left, bounds.top);
@@ -1251,12 +1262,12 @@ public class ViewTransitionBase extends EventDispatcher
             inverted.invert();
             m.concat(inverted);
         }
-        snapShot.setLayoutMatrix(m, false);
+        snapshot.setLayoutMatrix(m, false);
 
         // Exclude from layout.
-        snapShot.includeInLayout = false;
+        snapshot.includeInLayout = false;
         
-        return snapShot; 
+        return snapshot; 
     }
     
     //--------------------------------------------------------------------------
