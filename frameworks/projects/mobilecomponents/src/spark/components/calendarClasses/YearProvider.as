@@ -40,7 +40,7 @@ public class YearProvider extends OnDemandDataProvider
      *  @productversion Flex 4.5.2
      */
     public function YearProvider(locale:String, start:int = 1601, end:int = 9999,
-                                 today:Date = null, todayAccentColor:uint = 0)
+                                 today:Date = null)
     {
         super();
         
@@ -55,7 +55,6 @@ public class YearProvider extends OnDemandDataProvider
         formatter.dateTimePattern = formatter.getYearPattern();
         
         todayDate = today;
-        accentColor = todayAccentColor;
     }
 
     //----------------------------------------------------------------------------------------------
@@ -71,9 +70,6 @@ public class YearProvider extends OnDemandDataProvider
     private var endYear:int;
     
     private var todayDate:Date;
-
-    // color to apply as accent color for dates that match today's date
-    private var accentColor:uint;
     
     // formatter to use in localizing the date labels
     private var formatter:DateTimeFormatterEx;
@@ -120,7 +116,7 @@ public class YearProvider extends OnDemandDataProvider
         if (todayDate)
         {
             if (year == todayDate.fullYear)
-                item["accentColor"] = accentColor;
+                item["_emphasized_"] = true;
         }
         
         return item;
