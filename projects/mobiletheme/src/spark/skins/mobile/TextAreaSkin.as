@@ -14,13 +14,16 @@ package spark.skins.mobile
 
 import flash.events.Event;
 import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
 import flash.events.SoftKeyboardEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
+import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
 
 import mx.core.DPIClassification;
+import mx.core.EventPriority;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
@@ -155,6 +158,10 @@ public class TextAreaSkin extends TextSkinBase
     private var lastTextHeight:Number;
     private var lastTextWidth:Number;
     
+    private var isTextDisplayTall:Boolean = true;
+    private var growTextDisplay:Boolean = false;
+    private var shrinkTextDisplay:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -186,7 +193,11 @@ public class TextAreaSkin extends TextSkinBase
             textDisplay.addEventListener(Event.CHANGE, textDisplay_changeHandler);
             textDisplay.addEventListener(FlexEvent.VALUE_COMMIT, textDisplay_changeHandler);
             textDisplay.addEventListener(Event.SCROLL, textDisplay_scrollHandler);
+            // Use a lower priority so that the StyleableTextField event handler is called first. 
+            // That handler cancels the event and we need to check for that case
+            textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, textDisplay_softKeyboardActivatingHandler, false, EventPriority.DEFAULT_HANDLER);
             textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, textDisplay_softKeyboardActivateHandler);
+            textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, textDisplay_softKeyboardDeactivateHandler);
             
             textDisplay.left = getStyle("paddingLeft");
             textDisplay.top = getStyle("paddingTop");
@@ -302,8 +313,12 @@ public class TextAreaSkin extends TextSkinBase
         
         var unscaledTextWidth:Number = unscaledWidth - paddingLeft - paddingRight;
         var unscaledTextHeight:Number = unscaledHeight - paddingTop - paddingBottom;
-        var textHeight:Number = unscaledTextHeight;
+        var textHeight:Number;
         var textWidth:Number = explicitLineBreak ? textDisplay.measuredTextSize.x : unscaledTextWidth;
+        
+        var lineIndex:int;
+        var topCharIndex:int;
+        var charBounds:Rectangle;
         
         // grab old measured textDisplay height before resizing it
         var oldPreferredTextHeight:Number = getElementPreferredHeight(textDisplay);
@@ -312,10 +327,55 @@ public class TextAreaSkin extends TextSkinBase
         textDisplay.commitStyles();
         textDisplay.setLayoutBoundsSize(textWidth, NaN);
         
+        // In iOS, when we go into editing mode, the runtime overlays a native 
+        // text control over the textDisplay. In order to prevent the text 
+        // from overflowing the component and to get scrolling support, the 
+        // native text control must be the same size as the TextArea
+        if (_isIOS)
+        {
+            if (shrinkTextDisplay)
+            {
+                // Switching to edit mode. Convert from viewport scrolling to 
+                // TextField scrolling
+                var vsp:Number = textDisplayGroup.verticalScrollPosition;
+                            
+                var lineMetrics:TextLineMetrics = textDisplay.getLineMetrics(0);
+                var lineHeight:Number = lineMetrics.ascent + lineMetrics.descent;
+                
+                // TODO Figure out how to get the x offset. Right now is hard coded to 2
+                // At least half the line should be showing before we scroll to that line
+                // This makes the conversion from pixel to line based scrolling a little less jumpy
+                lineIndex = textDisplay.getLineIndexAtPoint(2, vsp + lineHeight / 2);
+                
+                textDisplayGroup.verticalScrollPosition = 0;
+                isTextDisplayTall = false;
+                //trace("TAS.layoutContents shrinkText vsp",vsp,"lineIndex",lineIndex);
+            }
+            
+            else if (growTextDisplay)
+            {
+                // Leaving edit mode. Convert from TextField scrolling to 
+                // viewport scrolling
+                var scrollV:Number = textDisplay.scrollV;
+                
+                // TODO (jszeto) investigate using lineMetrics.lineHeight * scrollV instead of getCharBoundaries
+                topCharIndex = textDisplay.getLineOffset(scrollV - 1);
+                charBounds = textDisplay.getCharBoundaries(topCharIndex);
+                // If the charBounds is null, just set vsp to 0
+                if (charBounds == null)
+                    charBounds = new Rectangle(0, 0, 0, 0);
+                textDisplay.scrollV = 1;
+                isTextDisplayTall = true;
+                //trace("TAS.layoutContents growText scrollV",scrollV,"topCharIndex",topCharIndex,"charBounds",charBounds);
+            }
+        }
+        
         // TextField height should match its content or the TextArea bounds at minimum
         // iOS special case to prevent Flex Scroller scrolling when editable
-        if (!_isIOS || !textDisplay.editable)
-            textHeight = Math.max(textDisplay.measuredTextSize.y, textHeight);
+        if (isTextDisplayTall)
+            textHeight = Math.max(textDisplay.measuredTextSize.y, unscaledTextHeight);
+        else
+            textHeight = unscaledTextHeight;
         
         // FIXME (jasonsj): iOS native scroll bar appears even when explictHeight
         //                  is not specified. Focus-in is jumpy.
@@ -352,15 +412,31 @@ public class TextAreaSkin extends TextSkinBase
         if (oldPreferredTextHeight != newPreferredTextHeight)
             invalidateSize();
         
+        if (_isIOS)
+        {
+            if (shrinkTextDisplay)
+                textDisplay.scrollV = lineIndex;
+            else if (growTextDisplay) 
+                textDisplayGroup.verticalScrollPosition = charBounds.y;
+            
+            if (shrinkTextDisplay || growTextDisplay)
+                scroller.validateNow();
+            
+            shrinkTextDisplay = false;
+            growTextDisplay = false;
+        }
+        
+        //trace("TAS.layoutContents tH",textHeight,"tW",textWidth,"invalidateCaret",invalidateCaretPosition);
+        
         // checking if text fits in TextArea
         // does not apply to iOS due to native text editing and scrolling
         // invalidateCaretPosition will never be true for iOS
-        if (invalidateCaretPosition)
+        if (invalidateCaretPosition && isTextDisplayTall)
         {
             // if the caret is outside the viewport, update the Group verticalScrollPosition
             var charIndex:int = textDisplay.selectionBeginIndex;
             var caretBounds:Rectangle = textDisplay.getCharBoundaries(charIndex);
-            var lineIndex:int = textDisplay.getLineIndexOfChar(charIndex);
+            lineIndex = textDisplay.getLineIndexOfChar(charIndex);
             
             // getCharBoundaries() returns null for new lines
             if (!caretBounds)
@@ -440,7 +516,10 @@ public class TextAreaSkin extends TextSkinBase
                 // It will scroll the TextArea so the caret is in view
                 convertBoundsToLocal(caretBounds);
                 if (caretBounds.bottom != oldCaretBounds.bottom || caretBounds.top != oldCaretBounds.top)
+                {
+                    //trace("TAS.layoutContents send caret CHANGE");
                     dispatchEvent(new CaretBoundsChangeEvent(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,true,true,oldCaretBounds,caretBounds));
+                }
                 
                 oldCaretBounds = caretBounds;   
             }
@@ -449,9 +528,10 @@ public class TextAreaSkin extends TextSkinBase
         }
         
         // Make sure final scroll position is valid
-        snapTextScrollPosition();
+        if (isTextDisplayTall)
+            snapTextScrollPosition();
     }
-
+    
     /**
      *  @private
      *  Make sure the scroll positions are valid, and adjust if needed.
@@ -592,6 +672,25 @@ public class TextAreaSkin extends TextSkinBase
     
     /**
      *  @private
+     *  When entering edit mode on iOS, we need to shrink the textDisplay to 
+     *  the size of the TextArea  
+     */ 
+    private function textDisplay_softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        if (_isIOS && isTextDisplayTall)
+        {
+            //trace("TAS.SK ACTIVATING targ",event.target);
+            shrinkTextDisplay = true;
+            invalidateDisplayList();
+            validateNow();
+        }
+    }  
+    
+    /**
+     *  @private
      *  Send a caret change event to an ancestor Scroller
      */
     private function textDisplay_softKeyboardActivateHandler(event:SoftKeyboardEvent):void
@@ -605,9 +704,24 @@ public class TextAreaSkin extends TextSkinBase
             
             if (oldCaretBounds != newCaretBounds)
             {
+                //trace("TAS.SK ACTIVATE",keyboardRect,"dispatch caret CHANGE");
                 dispatchEvent(new CaretBoundsChangeEvent(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,true,true,oldCaretBounds,newCaretBounds));
                 oldCaretBounds = newCaretBounds;
             }
+        }
+    }
+    
+    /**
+     *  @private
+     *  On iOS, when leaving edit mode, we need to restore the textDisplay to the
+     *  height of the text.
+     */  
+    private function textDisplay_softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
+    {
+        if (_isIOS && !isTextDisplayTall)
+        {
+            growTextDisplay = true;
+            invalidateDisplayList();
         }
     }
     
