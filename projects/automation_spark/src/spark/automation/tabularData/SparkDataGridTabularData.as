@@ -132,7 +132,7 @@ package spark.automation.tabularData
 				var colValues:Array = [];
 				for(var j:int = 0; j < col; j++)
 				{
-					var autObj:IAutomationObject = renderers[i][j] as IAutomationObject;
+					var autObj:IAutomationObject = renderers[i+1][j] as IAutomationObject;	//i+1 in order to by pass header item
 					if(autObj)
 					{
 						colValues.push(autObj.automationValue.join(" | "));
