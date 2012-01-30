@@ -147,6 +147,14 @@ IconItemRenderer
     color: #333333;
 }
 
+Image
+{
+    skinClass: ClassReference("spark.skins.mobile.ImageSkin");
+    enableLoadingState: false;
+    showErrorSkin : false;
+    smoothingQuality: "default";
+}
+
 LabelItemRenderer
 {
     paddingBottom: 24;
