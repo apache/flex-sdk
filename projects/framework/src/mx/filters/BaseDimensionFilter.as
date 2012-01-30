@@ -1,4 +1,4 @@
-package flex.filters
+package mx.filters
 {
 import flash.events.IEventDispatcher;
 import flash.filters.BitmapFilterQuality;
