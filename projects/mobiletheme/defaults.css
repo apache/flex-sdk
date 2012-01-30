@@ -82,7 +82,7 @@ HSlider
 
 List
 {
-	skinClass: ClassReference("spark.skins.spark.ListSkin");
+	skinClass: ClassReference("spark.skins.mobile.ListSkin");
     dragIndicatorClass: ClassReference("spark.components.supportClasses.ListItemDragProxy");
 	dropIndicatorSkin: ClassReference("spark.skins.spark.ListDropIndicator");
 }
