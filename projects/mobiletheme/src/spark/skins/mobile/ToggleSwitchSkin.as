@@ -20,17 +20,11 @@ import flash.events.Event;
 import mx.core.DPIClassification;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
-import mx.graphics.GradientEntry;
-import mx.graphics.LinearGradient;
-import mx.graphics.SolidColor;
 import mx.utils.ColorUtil;
 
-import spark.components.Group;
 import spark.components.ToggleSwitch;
 import spark.components.supportClasses.StyleableTextField;
-import spark.core.IDisplayText;
 import spark.core.SpriteVisualElement;
-import spark.primitives.Rect;
 import spark.skins.mobile.supportClasses.MobileSkin;
 import spark.skins.mobile160.assets.ToggleSwitch_contentShadow;
 import spark.skins.mobile240.assets.ToggleSwitch_contentShadow;
@@ -72,6 +66,7 @@ public class ToggleSwitchSkin extends MobileSkin
                 layoutThumbWidth = 94;
                 layoutThumbHeight = 56;
                 layoutStrokeWeight = 2;
+                layoutOuterStrokeWeight = 2;
                 layoutTextShadowOffset = -2;
                 layoutInnerPadding = 14;
                 layoutOuterPadding = 22;
@@ -83,6 +78,7 @@ public class ToggleSwitchSkin extends MobileSkin
                 layoutThumbWidth = 70;
                 layoutThumbHeight = 42;
                 layoutStrokeWeight = 2;
+                layoutOuterStrokeWeight = 1;
                 layoutTextShadowOffset = -1;
                 layoutInnerPadding = 10;
                 layoutOuterPadding = 17;
@@ -95,6 +91,7 @@ public class ToggleSwitchSkin extends MobileSkin
                 layoutThumbWidth = 47;
                 layoutThumbHeight = 28;
                 layoutStrokeWeight = 1;
+                layoutOuterStrokeWeight = 1;
                 layoutTextShadowOffset = -1;
                 layoutInnerPadding = 7;
                 layoutOuterPadding = 11;
@@ -104,6 +101,8 @@ public class ToggleSwitchSkin extends MobileSkin
         }
         
         layoutCornerRadius = layoutThumbHeight / 2;
+        selectedLabelText = resourceManager.getString("components","toggleSwitchSelectedLabel");
+        unselectedLabelText =  resourceManager.getString("components","toggleSwitchUnselectedLabel");
     }
     
     //----------------------------------------------------------------------------------------------
@@ -149,6 +148,15 @@ public class ToggleSwitchSkin extends MobileSkin
     protected var layoutStrokeWeight:Number;
     
     /**
+     *  The stroke weight outlining the component
+     * 
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    protected var layoutOuterStrokeWeight:Number;
+    
+	/**
      * The padding between the labels and the thumb
      * 
      *  @langversion 3.0
@@ -190,11 +198,20 @@ public class ToggleSwitchSkin extends MobileSkin
     /**
      *  The content clipped by the track that slides to match the thumb's
      *  position. Contents include a background and the (un)selected labels.
+     *  The sliding content is stacked, from back to front, as background,
+     *  shadow, foreground.
      */
-    private var slidingContent:SpriteVisualElement;
+    private var slidingContentBackground:SpriteVisualElement;
+    private var slidingContentForeground:SpriteVisualElement;
     private var slidingContentOverlayClass:Class;
     private var slidingContentOverlay:DisplayObject;
     
+	/**
+	 *  The contents inside the skin, not including the outline
+	 *  stroke
+	 */
+	private var contents:SpriteVisualElement;
+	
     //----------------------------------------------------------------------------------------------
     //
     //  Skin parts
@@ -279,32 +296,46 @@ public class ToggleSwitchSkin extends MobileSkin
     //  selectedLabelText
     //----------------------------------
     
+    private var _selectedLabelText:String;
     /**
-     *  The text of the label showing when the component is selected
+     *  The text of the label showing when the component is selected.
+     *  Subclasses can override this to customize the selected label.
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    private function get selectedLabelText():String 
+    protected function get selectedLabelText():String 
     {
-        return resourceManager.getString("components","toggleSwitchSelectedLabel");
+        return _selectedLabelText;
+    }
+    
+    protected function set selectedLabelText(value:String):void
+    {
+        _selectedLabelText = value;
     }
     
     //----------------------------------
     //  unselectedLabelText
     //----------------------------------
 
+    private var _unselectedLabelText:String;
     /**
-     *  The text of the label showing when the component is not selected
+     *  The text of the label showing when the component is not selected.
+     *  Subclasses can override this to customize the unselected label.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3
      *  @productversion Flex 4.5.2
      */
-    private function get unselectedLabelText():String 
+    protected function get unselectedLabelText():String 
     {
-        return resourceManager.getString("components", "toggleSwitchUnselectedLabel");
+        return _unselectedLabelText;
+    }
+    
+    protected function set unselectedLabelText(value:String):void
+    {
+        _unselectedLabelText = value;
     }
     
     //----------------------------------------------------------------------------------------------
@@ -321,14 +352,25 @@ public class ToggleSwitchSkin extends MobileSkin
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
         
-        // calculate skin dimensions
-        var calculatedSkinWidth:Number = Math.max(unscaledWidth, getElementPreferredWidth(thumb));
-        var calculatedSkinHeight:Number = Math.max(unscaledHeight, getElementPreferredHeight(thumb));
+        // calculate skin dimensions - outer stroke
+        var calculatedContentWidth:Number = Math.max(unscaledWidth - 2 * layoutOuterStrokeWeight, 
+            getElementPreferredWidth(thumb));
+        var calculatedContentHeight:Number = Math.max(unscaledHeight - 2 * layoutOuterStrokeWeight, 
+            getElementPreferredHeight(thumb));
 
-        drawSlidingContent(calculatedSkinWidth, calculatedSkinHeight);
-        drawTrack(calculatedSkinWidth, calculatedSkinHeight);
-        drawThumb(calculatedSkinWidth, calculatedSkinHeight);
-        drawMask(calculatedSkinWidth, calculatedSkinHeight);
+        drawSlidingContent(calculatedContentWidth, calculatedContentHeight);
+        drawTrack(calculatedContentWidth, calculatedContentHeight);
+        drawThumb(calculatedContentWidth, calculatedContentHeight);
+        drawMask(calculatedContentWidth, calculatedContentHeight);
+		
+		// simulate outer stroke using a larger filled rounded rect
+        graphics.clear();
+        graphics.beginFill(0xffffff, 0.3);
+		graphics.drawRoundRect(0, (calculatedContentHeight - layoutThumbHeight) / 2, 
+            calculatedContentWidth + 2 * layoutOuterStrokeWeight, 
+            layoutThumbHeight + 2 * layoutOuterStrokeWeight, 
+            2 * layoutCornerRadius + layoutOuterStrokeWeight);
+		graphics.endFill();
     }
     
     /**
@@ -339,14 +381,21 @@ public class ToggleSwitchSkin extends MobileSkin
     {
         super.layoutContents(unscaledWidth, unscaledHeight);
         
-        // calculate skin dimensions
-        var calculatedSkinWidth:Number = Math.max(unscaledWidth, getElementPreferredWidth(thumb));
-        var calculatedSkinHeight:Number = Math.max(unscaledHeight, getElementPreferredHeight(thumb));
+        // calculate skin dimensions - outer stroke
+        var calculatedContentWidth:Number = Math.max(unscaledWidth - 2 * layoutOuterStrokeWeight, 
+            getElementPreferredWidth(thumb));
+        var calculatedContentHeight:Number = Math.max(unscaledHeight - 2 * layoutOuterStrokeWeight, 
+            getElementPreferredHeight(thumb));
+
+		setElementSize(contents, calculatedContentWidth, layoutThumbHeight);
+		setElementPosition(contents, layoutOuterStrokeWeight, 
+            layoutOuterStrokeWeight + (calculatedContentHeight - layoutThumbHeight) / 2);
         
-        layoutSlidingContent(calculatedSkinWidth, calculatedSkinHeight);
-        layoutTrack(calculatedSkinWidth, calculatedSkinHeight);
-        layoutThumb(calculatedSkinWidth, calculatedSkinHeight);
-        layoutMask(calculatedSkinWidth, calculatedSkinHeight);
+        layoutTrack(calculatedContentWidth, layoutThumbHeight);
+        // Sliding content must be positioned after the track has been sized
+        layoutSlidingContent(calculatedContentWidth, layoutThumbHeight);
+        layoutThumb(calculatedContentWidth, layoutThumbHeight);
+        layoutMask(calculatedContentWidth, layoutThumbHeight);
     }
     
     /**
@@ -360,26 +409,36 @@ public class ToggleSwitchSkin extends MobileSkin
             unselectedLabel.text = unselectedLabelText;
         }
         
-        // The skin must be at least as large as the thumb
-        measuredMinWidth = layoutThumbWidth;
-        measuredMinHeight = layoutThumbWidth;
+        // The skin must be at least as large as the thumb + outer stroke
+        measuredMinWidth = layoutThumbWidth + 2 * layoutOuterStrokeWeight;
+        measuredMinHeight = layoutThumbWidth + 2 * layoutOuterStrokeWeight;
         
         // The preferred size will display all label text
         var labelWidth:Number = Math.max(getElementPreferredWidth(selectedLabel), 
             getElementPreferredWidth(unselectedLabel));
         
-        measuredWidth = layoutThumbWidth + labelWidth + layoutInnerPadding + layoutOuterPadding;
-        measuredHeight = layoutThumbHeight;
+        measuredWidth = layoutThumbWidth + labelWidth + layoutInnerPadding + 
+            layoutOuterPadding + 2 * layoutOuterStrokeWeight;
+        measuredHeight = layoutThumbHeight + 2 * layoutOuterStrokeWeight;
     }
     
     /**
      *  @private
      */
-    override protected function commitCurrentState():void {
+    override protected function commitCurrentState():void 
+    {
         if (currentState && currentState.indexOf("disabled") >= 0) 
+        { 
             alpha = 0.5;
+            selectedLabelShadow.visible = false;
+            unselectedLabelShadow.visible = false;
+        }
         else
+        {
             alpha = 1.0;
+            selectedLabelShadow.visible = true;
+            unselectedLabelShadow.visible = true;
+        }
     }
 
     /**
@@ -389,46 +448,58 @@ public class ToggleSwitchSkin extends MobileSkin
     {
         super.createChildren();
         
-        // SlidingContent: background, overlay, labels
-        slidingContent = new SpriteVisualElement();
+		contents = new SpriteVisualElement();
+		addChild(contents);
+		
+		// SlidingContent: background, overlay, labels
+        slidingContentBackground = new SpriteVisualElement();
+        contents.addChild(slidingContentBackground);
+
         slidingContentOverlay = new slidingContentOverlayClass();
-        slidingContent.addChild(slidingContentOverlay);
+        contents.addChild(slidingContentOverlay);
+        
+        slidingContentForeground = new SpriteVisualElement();
+        contents.addChild(slidingContentForeground);
         
         selectedLabelShadow = StyleableTextField(createInFontContext(StyleableTextField));
         selectedLabelShadow.styleName = this;
         selectedLabelShadow.colorName = "textShadowColor";
         selectedLabelShadow.text = selectedLabelText;
-        slidingContent.addChild(selectedLabelShadow);
+        slidingContentForeground.addChild(selectedLabelShadow);
         
         selectedLabel = StyleableTextField(createInFontContext(StyleableTextField));
         selectedLabel.styleName = this;
         selectedLabel.text = selectedLabelText;
-        slidingContent.addChild(selectedLabel);			
+        slidingContentForeground.addChild(selectedLabel);			
         
         unselectedLabelShadow = StyleableTextField(createInFontContext(StyleableTextField));
         unselectedLabelShadow.styleName = this;
         unselectedLabelShadow.colorName = "textShadowColor";
         unselectedLabelShadow.text = unselectedLabelText;
-        slidingContent.addChild(unselectedLabelShadow);
+        slidingContentForeground.addChild(unselectedLabelShadow);
         
         unselectedLabel = StyleableTextField(createInFontContext(StyleableTextField));
         unselectedLabel.styleName = this;
         unselectedLabel.text = unselectedLabelText;
-        slidingContent.addChild(unselectedLabel);
-
-        addChild(slidingContent);
+        slidingContentForeground.addChild(unselectedLabel);
 
         // Track
         track = new SpriteVisualElement();
-        addChild(SpriteVisualElement(track));
+        contents.addChild(SpriteVisualElement(track));
         
         // Thumb
         thumb = new SpriteVisualElement();
-        addChild(SpriteVisualElement(thumb));
+        contents.addChild(SpriteVisualElement(thumb));
         
-        // Clipping Mask
-        mask = new SpriteVisualElement();
-        addChild(mask);
+        // Thumb clipping mask
+        var thumbMask:Sprite = new Sprite();
+        SpriteVisualElement(thumb).mask = thumbMask;
+        SpriteVisualElement(thumb).addChild(thumbMask);
+        
+        // Content clipping mask
+        var contentMask:Sprite = new SpriteVisualElement();
+        contents.mask = contentMask;
+        contents.addChild(contentMask);
     }
     
     //----------------------------------------------------------------------------------------------
@@ -444,25 +515,19 @@ public class ToggleSwitchSkin extends MobileSkin
      */
     private function drawSlidingContent(skinWidth:Number, skinHeight:Number):void 
     {
-        slidingContent.graphics.clear();
+        slidingContentBackground.graphics.clear();
         
         // selected side of the sliding content
-        slidingContent.graphics.beginFill(getStyle("accentColor"));
-        slidingContent.graphics.drawRect(layoutThumbWidth - skinWidth, 0, skinWidth - layoutThumbWidth / 2, 
+        slidingContentBackground.graphics.beginFill(getStyle("accentColor"));
+        slidingContentBackground.graphics.drawRect(layoutThumbWidth - skinWidth, 0, skinWidth - layoutThumbWidth / 2, 
             layoutThumbHeight);
-        slidingContent.graphics.endFill();
+        slidingContentBackground.graphics.endFill();
         
         // unselected side of the sliding content
-        slidingContent.graphics.beginFill(ColorUtil.adjustBrightness2(getStyle("chromeColor"), -25));
-        slidingContent.graphics.drawRect(layoutThumbWidth / 2, 0, skinWidth - layoutThumbWidth / 2, 
+        slidingContentBackground.graphics.beginFill(ColorUtil.adjustBrightness2(getStyle("chromeColor"), -25));
+        slidingContentBackground.graphics.drawRect(layoutThumbWidth / 2, 0, skinWidth - layoutThumbWidth / 2, 
             layoutThumbHeight);
-        slidingContent.graphics.endFill();
-        
-        // clear the thumb area
-        slidingContent.graphics.beginFill(getStyle("chromeColor"));
-        slidingContent.graphics.drawRoundRect(0, 0, layoutThumbWidth, layoutThumbHeight, 
-            layoutCornerRadius * 2);
-        slidingContent.graphics.endFill();
+        slidingContentBackground.graphics.endFill();
     }
     
     /**
@@ -471,7 +536,8 @@ public class ToggleSwitchSkin extends MobileSkin
      *  The origin of SlidingContent overlaps the origin of the thumb, and the
      *  positioning is handled by thumbPositionChanged_handler.
      */
-    private function layoutSlidingContent(skinWidth:Number, skinHeight:Number):void {
+    private function layoutSlidingContent(skinWidth:Number, skinHeight:Number):void 
+    {
         var visibleTrackArea:Number = skinWidth - layoutThumbWidth;
         
         layoutLabels(selectedLabel, selectedLabelShadow, (-visibleTrackArea + layoutOuterPadding), 0, 
@@ -481,9 +547,10 @@ public class ToggleSwitchSkin extends MobileSkin
             (visibleTrackArea - layoutInnerPadding - layoutOuterPadding), layoutThumbHeight, 
             layoutTextShadowOffset);
         
-        setElementSize(slidingContentOverlay, 2 * skinWidth - layoutThumbWidth, layoutThumbHeight);
-        setElementPosition(slidingContentOverlay, layoutThumbWidth - skinWidth, 
-            (skinHeight - layoutThumbHeight) / 2);
+        setElementSize(slidingContentOverlay, skinWidth, layoutThumbHeight);
+        setElementPosition(slidingContentOverlay, 0, (skinHeight - layoutThumbHeight) / 2);
+        
+        moveSlidingContent();
     }
     
     /**
@@ -518,7 +585,8 @@ public class ToggleSwitchSkin extends MobileSkin
     /**
      *  Draw the track and its shadow
      */
-    private function drawTrack(skinWidth:Number, skinHeight:Number):void {
+    private function drawTrack(skinWidth:Number, skinHeight:Number):void 
+    {
         var graphics:Graphics = SpriteVisualElement(track).graphics;
         graphics.clear();
         graphics.lineStyle(layoutStrokeWeight, 0, .3);
@@ -541,7 +609,8 @@ public class ToggleSwitchSkin extends MobileSkin
      * Draw the thumb. The thumb has an outer border, inner gradient, and
      * inner highlight stroke.
      */
-    private function drawThumb(skinWidth:Number, skinHeight:Number):void {
+    private function drawThumb(skinWidth:Number, skinHeight:Number):void 
+    {
         var graphics:Graphics = SpriteVisualElement(thumb).graphics;
         var colors:Array = [];
         var alphas:Array = [];
@@ -592,7 +661,7 @@ public class ToggleSwitchSkin extends MobileSkin
         colors[1] = 0xffffff;
         colors[2] = 0x0;
         
-        alphas[0] = 1;
+        alphas[0] = .9;
         alphas[1] = 0;
         alphas[2] = .2;
         
@@ -608,6 +677,14 @@ public class ToggleSwitchSkin extends MobileSkin
             layoutThumbWidth - layoutStrokeWeight * 3, layoutThumbHeight - layoutStrokeWeight * 3, 
             layoutCornerRadius * 2 - layoutStrokeWeight * 3);
         graphics.lineStyle();
+        
+        // When alpha is set, we do not want the thumb to show through to the track 
+        var thumbMask:Sprite = Sprite(SpriteVisualElement(thumb).mask);
+        thumbMask.graphics.clear();
+        thumbMask.graphics.beginFill(0xffffff);
+        thumbMask.graphics.drawRoundRect(0, 0, layoutThumbWidth, layoutThumbHeight, 2 * layoutCornerRadius);
+        thumbMask.graphics.endFill();
+        SpriteVisualElement(thumb).opaqueBackground = baseColor;
     }
     
     /**
@@ -624,11 +701,11 @@ public class ToggleSwitchSkin extends MobileSkin
      */
     private function drawMask(skinWidth:Number, skinHeight:Number):void 
     {
-            var graphics:Graphics = SpriteVisualElement(mask).graphics;
-            graphics.clear();
-            graphics.beginFill(0x0);
-            graphics.drawRoundRect(0, 0, skinWidth, layoutThumbHeight, layoutCornerRadius * 2);
-            graphics.endFill();
+        var graphics:Graphics = SpriteVisualElement(contents.mask).graphics;
+        graphics.clear();
+        graphics.beginFill(0x0);
+        graphics.drawRoundRect(0, 0, skinWidth, layoutThumbHeight, layoutCornerRadius * 2);
+        graphics.endFill();
     }
     
     /**
@@ -636,27 +713,37 @@ public class ToggleSwitchSkin extends MobileSkin
      */
     private function layoutMask(skinWidth:Number, skinHeight:Number):void 
     {
-        setElementSize(mask, skinWidth, layoutThumbHeight);
-        setElementPosition(mask, 0, (skinHeight - layoutThumbHeight) / 2);
+        setElementSize(contents.mask, skinWidth, layoutThumbHeight);
+        setElementPosition(contents.mask, 0, (skinHeight - layoutThumbHeight) / 2);
     }
     
-    //----------------------------------------------------------------------------------------------
+	/**
+     *  Move the sliding content to line up with thumbPosition.
+	 *  This version assumes the thumb and track share the same coordinate system.
+	 */
+	private function moveSlidingContent():void 
+    {
+        if (!hostComponent)
+            return;
+        var x:Number = (track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth()) * 
+            hostComponent.thumbPosition + track.getLayoutBoundsX();
+        var y:Number = thumb.getLayoutBoundsY();
+        setElementPosition(slidingContentBackground, x, y);
+        setElementPosition(slidingContentForeground, x, y);
+	}
+
+	//----------------------------------------------------------------------------------------------
     //
     //  Event handlers
     //
     //----------------------------------------------------------------------------------------------
     
     /**
-     *  When the thumb position changes, reposition the sliding content. The
-     *  version here assumes the thumb and track share the same coordinate system.
+     *  When the thumb position changes, reposition the sliding content. 
      */
     private function thumbPositionChanged_handler(event:Event):void 
     {
-        if (!hostComponent)
-            return;
-        var x:Number = (track.getLayoutBoundsWidth() - thumb.getLayoutBoundsWidth()) * 
-            hostComponent.thumbPosition;
-        setElementPosition(slidingContent, x, thumb.getLayoutBoundsY());
+		moveSlidingContent();
     }
 }
 }
