@@ -3997,6 +3997,11 @@ public class UIComponent extends FlexSprite
     //----------------------------------
     
     /**
+     *  @private
+     */
+    private var _styleManager:IStyleManager2;
+
+    /**
      *  Returns the StyleManager instance used by this component.
      *  
      *  @langversion 3.0
@@ -4006,7 +4011,10 @@ public class UIComponent extends FlexSprite
      */
     public function get styleManager():IStyleManager2
     {
-        return StyleManager.getStyleManager(moduleFactory);
+        if (!_styleManager)
+            _styleManager = StyleManager.getStyleManager(moduleFactory);
+
+        return _styleManager;
     }
     
     //----------------------------------
@@ -4582,6 +4590,8 @@ public class UIComponent extends FlexSprite
      */
     public function set moduleFactory(factory:IFlexModuleFactory):void
     {
+        _styleManager = null;
+        
         var n:int = numChildren;
         for (var i:int = 0; i < n; i++)
         {
@@ -10889,6 +10899,19 @@ public class UIComponent extends FlexSprite
     public function matchesCSSType(cssType:String):Boolean
     {
         return StyleProtoChain.matchesCSSType(this, cssType);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.6
+     */
+    public function hasCSSState():Boolean
+    {
+        return currentCSSState != null;
     }
 
     /**
