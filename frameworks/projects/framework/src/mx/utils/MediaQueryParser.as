@@ -195,11 +195,18 @@ public class MediaQueryParser
         var tokens:Array = [];
         // if leading off with "(" then 
         // "all and" is implied
-        if (mediaQuery.indexOf("(") == 0)
+		var pos:int = mediaQuery.indexOf("(");
+        if (pos == 0)
         {
             tokens.push("all");
             tokens.push("and");
         }
+		else if (pos == -1)
+		{
+			// no parens means the whole thing should
+			// be the media type
+			return [ mediaQuery ];
+		}
         
         var parenLevel:int = 0;
         var inComment:Boolean = false;
