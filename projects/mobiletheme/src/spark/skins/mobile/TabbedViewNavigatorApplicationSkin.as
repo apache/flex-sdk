@@ -60,14 +60,14 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
     //--------------------------------------------------------------------------
     
     /**
-     * The navigator for the application
+     * The tabbed navigator for the application
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var navigator:TabbedViewNavigator;
+    public var tabbedNavigator:TabbedViewNavigator;
     
     
     /**
@@ -102,10 +102,10 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
      */
     override protected function createChildren():void
     {
-        navigator = new TabbedViewNavigator();
-        navigator.id = "navigator";
+        tabbedNavigator = new TabbedViewNavigator();
+        tabbedNavigator.id = "tabbedNavigator";
         
-        addChild(navigator);
+        addChild(tabbedNavigator);
     }
     
     /**
@@ -113,8 +113,8 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        navigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
-        navigator.setLayoutBoundsPosition(0, 0);
+        tabbedNavigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+        tabbedNavigator.setLayoutBoundsPosition(0, 0);
     }
 }
 }
