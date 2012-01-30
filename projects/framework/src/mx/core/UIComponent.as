@@ -8363,6 +8363,7 @@ public class UIComponent extends FlexSprite
         var tc:Object;  // Can be number or string
         var rc:Number;
         var sc:Number;
+        var i:int;
 
         // First look for locally-declared styles
         if (_styleDeclaration)
@@ -8372,41 +8373,66 @@ public class UIComponent extends FlexSprite
             sc = _styleDeclaration.getStyle("selectionColor");
         }
 
-        // Next look for class selectors
-        if ((tc === null || !StyleManager.isValidStyleValue(tc)) &&
-            (styleName && !(styleName is ISimpleStyleClient)))
+        if (StyleManager.hasAdvancedSelectors())
         {
-            var classSelector:Object =
-                styleName is String ?
-                StyleManager.getStyleDeclaration("." + styleName) :
-                styleName;
-
-            if (classSelector)
+            // Next look for matching selectors (working backwards, starting
+            // with the most specific selector)
+            if (tc === null || !StyleManager.isValidStyleValue(tc))
             {
-                tc = classSelector.getStyle("themeColor");
-                rc = classSelector.getStyle("rollOverColor");
-                sc = classSelector.getStyle("selectionColor");
+                var styleDeclarations:Array = StyleProtoChain.getMatchingStyleDeclarations(this);
+                for (i = styleDeclarations.length - 1; i >= 0; i--)
+                {
+                    var decl:CSSStyleDeclaration = styleDeclarations[i];
+                    if (decl)
+                    { 
+                        tc = decl.getStyle("themeColor");
+                        rc = decl.getStyle("rollOverColor");
+                        sc = decl.getStyle("selectionColor");
+                    }
+
+                    if (tc !== null && StyleManager.isValidStyleValue(tc))
+                        break;
+                }
             }
         }
-
-        // Finally look for type selectors
-        if (tc === null || !StyleManager.isValidStyleValue(tc))
+        else
         {
-            var typeSelectors:Array = getClassStyleDeclarations();
-
-            for (var i:int = 0; i < typeSelectors.length; i++)
+            // Next look for class selectors
+            if ((tc === null || !StyleManager.isValidStyleValue(tc)) &&
+                (styleName && !(styleName is ISimpleStyleClient)))
             {
-                var typeSelector:CSSStyleDeclaration = typeSelectors[i];
+                var classSelector:Object =
+                    styleName is String ?
+                    StyleManager.getStyleDeclaration("." + styleName) :
+                    styleName;
 
-                if (typeSelector)
+                if (classSelector)
                 {
-                    tc = typeSelector.getStyle("themeColor");
-                    rc = typeSelector.getStyle("rollOverColor");
-                    sc = typeSelector.getStyle("selectionColor");
+                    tc = classSelector.getStyle("themeColor");
+                    rc = classSelector.getStyle("rollOverColor");
+                    sc = classSelector.getStyle("selectionColor");
                 }
+            }
 
-                if (tc !== null && StyleManager.isValidStyleValue(tc))
-                    break;
+            // Finally look for type selectors
+            if (tc === null || !StyleManager.isValidStyleValue(tc))
+            {
+                var typeSelectors:Array = getClassStyleDeclarations();
+
+                for (i = 0; i < typeSelectors.length; i++)
+                {
+                    var typeSelector:CSSStyleDeclaration = typeSelectors[i];
+
+                    if (typeSelector)
+                    {
+                        tc = typeSelector.getStyle("themeColor");
+                        rc = typeSelector.getStyle("rollOverColor");
+                        sc = typeSelector.getStyle("selectionColor");
+                    }
+
+                    if (tc !== null && StyleManager.isValidStyleValue(tc))
+                        break;
+                }
             }
         }
 
