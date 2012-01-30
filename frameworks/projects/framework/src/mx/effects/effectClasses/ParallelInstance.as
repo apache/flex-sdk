@@ -29,6 +29,11 @@ use namespace mx_internal;
  *  you do not create one yourself.
  *
  *  @see mx.effects.Parallel
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class ParallelInstance extends CompositeEffectInstance
 {
@@ -45,6 +50,11 @@ public class ParallelInstance extends CompositeEffectInstance
 	 *
 	 *  @param target This argument is ignored for Parallel effects.
 	 *  It is included only for consistency with other types of effects.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ParallelInstance(target:Object)
 	{
@@ -299,6 +309,11 @@ public class ParallelInstance extends CompositeEffectInstance
 	 *  Interrupts any effects that are currently playing, skips over
 	 *  any effects that haven't started playing, and jumps immediately
 	 *  to the end of the composite effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function end():void
 	{
@@ -329,6 +344,11 @@ public class ParallelInstance extends CompositeEffectInstance
 	 *  If you create a subclass of CompositeEffect, you must implement this method.
          *
          * @param childEffect A child effect that has finished. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override protected function onEffectEnd(childEffect:IEffectInstance):void
 	{
@@ -439,6 +459,11 @@ public class ParallelInstance extends CompositeEffectInstance
      * start playing (if the seekTime is greater than their startDelay), or
      * come to an end (if the seekTime is greater than their startDelay plus
      * their duration).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function seek(seekTime:Number):void
     {
