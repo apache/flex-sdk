@@ -322,7 +322,7 @@ public class JPEGEncoder implements IImageEncoder
      *
      *  @param bitmapData The input BitmapData object.
      *
-     *  @returns A ByteArray object containing JPEG-encoded image data.
+     *  @return Returns a ByteArray object containing JPEG-encoded image data.
      */
     public function encode(bitmapData:BitmapData):ByteArray
     {
@@ -353,7 +353,7 @@ public class JPEGEncoder implements IImageEncoder
      *  @param transparent If <code>false</code>,
 	 *  alpha channel information is ignored.
      *
-     *  @returns A ByteArray object containing JPEG-encoded image data. 
+     *  @return Returns a ByteArray object containing JPEG-encoded image data. 
      */
     public function encodeByteArray(byteArray:ByteArray, width:int, height:int,
 									transparent:Boolean = true):ByteArray
