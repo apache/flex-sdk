@@ -20,32 +20,32 @@
     <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
     <property name="local.playerglobal.version" value="10.2"/>
 
-	<target name="main" depends="clean,compile" description="Clean build of flex.swc"/>
+	<target name="main" depends="clean,compile" description="Clean build of core.swc"/>
 
 	<target name="clean">
 		<delete failonerror="false">
 			<fileset file="${basedir}/bundles.properties"/>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
-				<include name="flex.swc"/>
-				<include name="flex.swc.incr"/>
+				<include name="core.swc"/>
+				<include name="core.swc.incr"/>
 			</fileset>
 		</delete>
 	</target>
 
-	<target name="compile" description="Compiles flex.swc">
-		<echo message="Compiling frameworks/libs/flex.swc"/>
+	<target name="compile" description="Compiles core.swc">
+		<echo message="Compiling frameworks/libs/core.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<!--
-			flex.swc contains a subset of the classes in framework.swc;
+			core.swc contains a subset of the classes in framework.swc;
 			only very core classes required to support MXML should be part
-			of flex.swc, for use by developers who don't need the entire framework.
+			of core.swc, for use by developers who don't need the entire framework.
 			Therefore this project does not have its own source
 			and instead finds the source files inside the project for framework.swc.
 			This project has no MXML tags and therefore no manifest.
 			Link in the classes (and their dependencies)
-			listed in FlexClasses.as.
+			listed in CoreClasses.as.
 			Keep the standard metadata when compiling.
 			Link in accessibility support.
 			Don't include any resources in the SWC. (The classes don't require any.)
@@ -54,12 +54,12 @@
 			(This should be an empty list.)
 		-->
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/flex.swc"
+			   output="${FLEX_HOME}/frameworks/libs/core.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
             <target-player>10.2</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
-			<include-classes>FlexClasses</include-classes>
+			<include-classes>CoreClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
             <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
@@ -78,7 +78,7 @@
 		</compc>
 	</target>
 
-	<target name="doc" depends="clean-temp-docs" description="updates flex.swc with asdoc xml">
+	<target name="doc" depends="clean-temp-docs" description="updates core.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -99,14 +99,14 @@
 		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
 		    <compiler.source-path path-element="${basedir}/src"/>
 		    <compiler.source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
-		    <doc-classes class="FlexClasses"/>
+		    <doc-classes class="CoreClasses"/>
             <load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
             <load-config filename="${FLEX_HOME}/frameworks/projects/framework/framework-config.xml"/>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
-		<!-- updates flex.swc with asdoc xml -->
-		<zip destfile="${FLEX_HOME}/frameworks/libs/flex.swc" update="true">
+		<!-- updates core.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/libs/core.swc" update="true">
 		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
 			    <include name="*.*"/>
 				<exclude name="ASDoc_Config.xml"/>
