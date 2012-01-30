@@ -40,5 +40,48 @@ import flash.system.Security;
         return results[0];
     }
 
+    /**
+     *  @private 
+     * 
+     *  Use this method when you want to load resources with relative URLs.
+     * 
+     *  Combine a root url with a possibly relative url to get a absolute url.
+     *  Use this method to convert a relative url to an absolute URL that is 
+     *  relative to a root URL.
+     * 
+     *  @param rootURL An url that will form the root of the absolute url.
+     *  This is typically the url of the application loading the url.
+     * 
+     *  @param url The url of the resource to load (may be relative).
+     * 
+     *  @return If <code>url</code> is already an absolute URL, then it is 
+     *  returned as is. If <code>url</code> is relative, then an absolute URL is
+     *  returned where <code>url</code> is relative to <code>rootURL</code>.  
+     */ 
+    public static function createAbsoluteURL(rootURL:String, url:String):String
+    {
+        var absoluteURL:String = url;
+
+        // make relative paths relative to the SWF loading it, not the top-level SWF
+        if (!(url.indexOf(":") > -1 || url.indexOf("/") == 0 || url.indexOf("\\") == 0))
+        {
+            if (rootURL)
+            {
+                var lastIndex:int = Math.max(rootURL.lastIndexOf("\\"), rootURL.lastIndexOf("/"));
+                if (lastIndex <= 8)
+                {
+                    rootURL += "/";
+                    lastIndex = rootURL.length - 1;  // adding one later
+                }
+
+                if (lastIndex != -1)
+                    absoluteURL = rootURL.substr(0, lastIndex + 1) + url;
+            }
+        }
+
+        return absoluteURL;
+    }
+
+
     }
 }
