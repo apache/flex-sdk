@@ -21,7 +21,6 @@ import flash.geom.Matrix;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
-import flash.text.TextLineMetrics;
 
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
@@ -219,20 +218,20 @@ public class ButtonSkinBase extends MobileSkin
         
         var textWidth:Number = 0;
         var textHeight:Number = 0;
-        var lineMetrics:TextLineMetrics;
+        
+        // reset text if it was truncated before.
+        if (hostComponent && labelDisplay.isTruncated)
+            labelDisplay.text = hostComponent.label;
+        labelDisplay.commitStyles();
         
         if (hostComponent && hostComponent.label != "")
         {
-            // FIXME (rfrishbe): rather than use lineMetrics, we should be using labelDisplay.textWidth.
-            // We need to change it here and in multiple places
-            lineMetrics = measureText(hostComponent.label);
-            textWidth = lineMetrics.width + TEXT_WIDTH_PADDING;
-            textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            textWidth = labelDisplay.textWidth + TEXT_WIDTH_PADDING;
+            textHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
         }
         else
         {
-            lineMetrics = measureText("Wj");
-            textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            textHeight = measureText("Wj").height + UITextField.TEXT_HEIGHT_PADDING;
         }
         
         var iconDisplay:DisplayObject = getIconDisplay();
@@ -306,18 +305,19 @@ public class ButtonSkinBase extends MobileSkin
         var textWidth:Number = 0;
         var textHeight:Number = 0;
         
-        var lineMetrics:TextLineMetrics;
+        // reset text if it was truncated before.
+        if (hostComponent && labelDisplay.isTruncated)
+            labelDisplay.text = hostComponent.label;
+        labelDisplay.commitStyles();
         
         if (hostComponent && hostComponent.label != "")
         {
-            lineMetrics = measureText(hostComponent.label);
-            textWidth = lineMetrics.width + TEXT_WIDTH_PADDING;
-            textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            textWidth = labelDisplay.textWidth + TEXT_WIDTH_PADDING;
+            textHeight = labelDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING;
         }
         else
         {
-            lineMetrics = measureText("Wj");
-            textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            textHeight = measureText("Wj").height + UITextField.TEXT_HEIGHT_PADDING;
         }
         
         var textAlign:String = "center"; // getStyle("textAlign");
@@ -445,10 +445,6 @@ public class ButtonSkinBase extends MobileSkin
         labelDisplay.commitStyles();
         resizePart(labelDisplay, labelWidth, labelHeight);
         positionPart(labelDisplay, Math.max(0, Math.round(labelX)), Math.max(0, Math.round(labelY))); 
-        
-        // before truncating text, we need to reset it to its original value
-        if (hostComponent && labelDisplay.isTruncated)
-            labelDisplay.text = hostComponent.label;
         
         if (textWidth > labelWidth)
         {
