@@ -378,7 +378,17 @@ public class DragProxy extends UIComponent
 	private function isSameOrChildApplicationDomain(target:Object):Boolean
 	{
 		var swfRoot:DisplayObject = SystemManager.getSWFRoot(target);
-		return (swfRoot != null);
+		if (swfRoot)
+			return true;
+
+		var me:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST);
+		me.name = "hasSWFBridges";
+		sandboxRoot.dispatchEvent(me);
+		
+		// if no bridges, it might be a private/internal class so return true and hope we're right
+		if (!me.value) return true;
+
+		return false;
 	}
 
     /**
