@@ -191,14 +191,16 @@ public class HaloFocusRect extends ProgrammaticSkin implements IStyleClient
 				
 			// outer ring
 			g.beginFill(rectColor, focusAlpha);
-			GraphicsUtil.drawRoundRectComplex(g, 0, 0, w, h, tl, tr, bl, br);
+			GraphicsUtil.drawRoundRectComplex2(g, 0, 0, w, h, NaN, NaN,
+                        tl, NaN, tr, NaN, bl, NaN, br, NaN);
 			tl = tl ? cornerRadius : 0;
 			tr = tr ? cornerRadius : 0;
 			bl = bl ? cornerRadius : 0;
 			br = br ? cornerRadius : 0;
-			GraphicsUtil.drawRoundRectComplex(g, focusThickness, focusThickness,
+			GraphicsUtil.drawRoundRectComplex2(g, focusThickness, focusThickness,
 								   w - 2 * focusThickness, h - 2 * focusThickness,
-								   tl, tr, bl, br);
+                                   NaN, NaN,
+								   tl, NaN, tr, NaN, bl, NaN, br, NaN);
 			g.endFill();
 			
 			// inner ring
@@ -208,16 +210,18 @@ public class HaloFocusRect extends ProgrammaticSkin implements IStyleClient
 			bl = bl ? nr : 0;
 			br = br ? nr : 0;
 			g.beginFill(rectColor, focusAlpha);
-			GraphicsUtil.drawRoundRectComplex(g, focusThickness / 2, focusThickness / 2,
+			GraphicsUtil.drawRoundRectComplex2(g, focusThickness / 2, focusThickness / 2,
 								   w - focusThickness, h - focusThickness,
-								   tl, tr, bl, br);
+                                   NaN, NaN,
+								   tl, NaN, tr, NaN, bl, NaN, br, NaN);
 			tl = tl ? cornerRadius : 0;
 			tr = tr ? cornerRadius : 0;
 			bl = bl ? cornerRadius : 0;
 			br = br ? cornerRadius : 0;
-			GraphicsUtil.drawRoundRectComplex(g, focusThickness, focusThickness,
+			GraphicsUtil.drawRoundRectComplex2(g, focusThickness, focusThickness,
 								   w - 2 * focusThickness, h - 2 * focusThickness,
-								   tl, tr, bl, br);
+                                   NaN, NaN,
+								   tl, NaN, tr, NaN, bl, NaN, br, NaN);
 			g.endFill();
 		}
 		else
