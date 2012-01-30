@@ -24,6 +24,7 @@ import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
+import flash.text.TextLineMetrics;
 import flash.ui.Keyboard;
 
 import mx.core.DesignLayer;
@@ -171,6 +172,7 @@ public class StyleableTextField extends TextField
         {
             _measuredTextSize = new Point();
             invalidateTextSizeFlag = true;
+			invalidateBaselineBottomOffset = true;
         }
         
         if (invalidateTextSizeFlag)
@@ -304,6 +306,82 @@ public class StyleableTextField extends TextField
         styleChanged("styleName");
     }
     
+	//----------------------------------
+	//  Text alignment helpers
+	//----------------------------------
+	/**
+	 *  Distance from the top edge of the containing text field to the text
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.1
+	 *  @playerversion AIR 2.0
+	 *  @productversion Flex 4.5
+	 */
+	public function get textTopOffset():Number
+	{
+		// FIXME mcho:  add ascentShift style
+		var ascentShift:Number = 3;
+		// Height of gutter and the baseline
+		return StyleableTextField.TEXT_HEIGHT_PADDING/2 + ascentShift;
+	}
+	
+	/**
+	 *  Distance from the bottom edge of the containing text field to the baseline 
+	 *  of the last line of text
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.1
+	 *  @playerversion AIR 2.0
+	 *  @productversion Flex 4.5
+	 */
+	public function get baselineBottomOffset():Number
+	{
+		commitStyles();
+		
+		if (invalidateBaselineBottomOffset)
+		{
+			// getLineMetrics() returns strange numbers for an empty string,
+			// so instead we get the metrics for a non-empty string.
+			var isEmpty:Boolean = (text == "");
+			if (isEmpty)
+				super.text = "Wj";
+			
+			var metrics:TextLineMetrics = getLineMetrics(0);
+			
+			if (isEmpty)
+				super.text = "";
+			
+			// bottom gutter and descent
+			_baselineBottomOffset = StyleableTextField.TEXT_HEIGHT_PADDING/2 + metrics.descent;	
+			if (numLines == 1) // account for the extra leading on single line text
+				_baselineBottomOffset += metrics.leading;
+
+			invalidateBaselineBottomOffset = false;
+		}
+		
+		return _baselineBottomOffset;
+	}
+		
+
+	
+	/**
+	 *  Distance between textTopOffset and baselineBottomOffset.  Essentially
+	 *  the height of the first line of text to the baseline of the bottom line
+	 *  of text
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.1
+	 *  @playerversion AIR 2.0
+	 *  @productversion Flex 4.5
+	 */
+	public function get textTopToLastBaselineHeight() :Number
+	{
+		return measuredTextSize.y - textTopOffset - baselineBottomOffset;
+	}
+	
+	
+	
+	
     //--------------------------------------------------------------------------
     //
     //  IDisplayText implementation
@@ -341,6 +419,7 @@ public class StyleableTextField extends TextField
         super.text = value;
         _isTruncated = false;
         invalidateTextSizeFlag = true;
+		invalidateBaselineBottomOffset = true;
         
         if (hasEventListener(FlexEvent.VALUE_COMMIT))
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
@@ -643,6 +722,7 @@ public class StyleableTextField extends TextField
         replaceText(selectionAnchorPosition, selectionActivePosition, text);
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateTextSizeFlag = true;
+		invalidateBaselineBottomOffset = true;
     }
     
     /**
@@ -665,6 +745,7 @@ public class StyleableTextField extends TextField
         super.appendText(text);
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         invalidateTextSizeFlag = true;
+		invalidateBaselineBottomOffset = true;
     }
     
     /**
@@ -797,6 +878,7 @@ public class StyleableTextField extends TextField
             // changed
             invalidateTextSizeFlag = true;
             invalidateBaselinePosition = true;
+			invalidateBaselineBottomOffset = true;
         }
     }
     
@@ -919,6 +1001,7 @@ public class StyleableTextField extends TextField
             _isTruncated = true;
             invalidateTextSizeFlag = true;
             invalidateBaselinePosition = true;
+			invalidateBaselineBottomOffset = true;
             
             // Make sure all text is visible
             scrollH = 0;
@@ -971,6 +1054,7 @@ public class StyleableTextField extends TextField
         if (!(event is TextOperationEvent))
         {
             invalidateTextSizeFlag = true;
+			invalidateBaselineBottomOffset = true;
             
             var newEvent:TextOperationEvent = new TextOperationEvent(event.type);
             
@@ -1620,6 +1704,17 @@ public class StyleableTextField extends TextField
      */
     private var _baselinePosition:Number;
     
+	/**
+	 *  @private
+	 */
+	private var invalidateBaselineBottomOffset:Boolean = true;
+	
+	/**
+	 *  @private
+	 */
+	private var _baselineBottomOffset:Number;
+	
+	
     /**
      *  @private
      *  The padding to be added to textWidth to get the width
