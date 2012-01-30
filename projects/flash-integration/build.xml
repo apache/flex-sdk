@@ -48,8 +48,7 @@
 			   output="${basedir}/libs/FlexComponentBase.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
-			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
-			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
+            <include-classes>FlashIntegrationClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
 			<library-path/>
