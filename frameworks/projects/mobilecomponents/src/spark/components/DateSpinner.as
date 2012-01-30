@@ -660,11 +660,11 @@ public class DateSpinner extends SkinnableComponent
             // check minDate <= selectedDate <= maxDate
             if (!selectedDate || selectedDate.time < minDate.time)
             {
-                _selectedDate = minDate;
+                _selectedDate = new Date(minDate.time);
             }
             else if (selectedDate.time > maxDate.time)
             {
-                _selectedDate = maxDate;
+                _selectedDate = new Date(maxDate.time);
             }
             
             minDateChanged = false;
@@ -1209,6 +1209,85 @@ public class DateSpinner extends SkinnableComponent
                     newEnabledValue = false;
                 
                 curObj = listData[i];
+                if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
+                {
+                    o = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
+                    o["accentColor"] = curObj["accentColor"];
+                    listData[i] = o;
+                }
+            }
+        }
+        
+        // disable hours that fall outside of the min/max dates
+        if (hourList && (displayMode == DateSelectorDisplayMode.TIME || displayMode == DateSelectorDisplayMode.DATE_AND_TIME))
+        {
+            tempDate = new Date(thisDate.time);
+            listData = hourList.dataProvider;
+            listLength = listData.length;
+            
+            var minDateMatch:Boolean = (tempDate.fullYear == minDate.fullYear
+                && tempDate.month == minDate.month
+                && tempDate.date == minDate.date);
+            var maxDateMatch:Boolean = (tempDate.fullYear == maxDate.fullYear
+                && tempDate.month == maxDate.month
+                && tempDate.date == maxDate.date);
+            
+            for (i = 0; i < listLength; i++)
+            {
+                curObj = listData[i];
+                
+                newEnabledValue = true;
+                 
+                if (!use24HourTime)
+                    tempDate.hours = (i + 1) % 12 + ((selectedDate.hours >= 12)? 12 : 0);
+                else
+                    tempDate.hours = i;
+                
+                if (minDateMatch && tempDate.hours < minDate.hours)
+                    newEnabledValue = false;
+                
+                if (maxDateMatch && tempDate.hours > maxDate.hours)
+                    newEnabledValue = false;
+                
+                if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
+                {
+                    o = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
+                    o["accentColor"] = curObj["accentColor"];
+                    listData[i] = o;
+                }
+            }
+        }
+        
+        // disable minutes that fall outside of the min/max dates
+        if (minuteList && (displayMode == DateSelectorDisplayMode.TIME || displayMode == DateSelectorDisplayMode.DATE_AND_TIME))
+        {
+            tempDate = new Date(thisDate.time);
+            listData = minuteList.dataProvider;
+            listLength = listData.length;
+            
+            var minHourMatch:Boolean = (tempDate.fullYear == minDate.fullYear
+                && tempDate.month == minDate.month
+                && tempDate.date == minDate.date
+                && tempDate.hours == minDate.hours);
+            var maxHourMatch:Boolean = (tempDate.fullYear == maxDate.fullYear
+                && tempDate.month == maxDate.month
+                && tempDate.date == maxDate.date
+                && tempDate.hours == maxDate.hours);
+            
+            for (i = 0; i < listLength; i++)
+            {
+                curObj = listData[i];
+                
+                newEnabledValue = true;
+                
+                tempDate.minutes = curObj.data;
+               
+                if (minHourMatch && tempDate.minutes < minDate.minutes)
+                    newEnabledValue = false;
+                
+                if (maxHourMatch && tempDate.minutes > maxDate.minutes)
+                    newEnabledValue = false;
+                
                 if (curObj[SpinnerList.ENABLED_PROPERTY_NAME] != newEnabledValue)
                 {
                     o = generateDateItemObject(curObj.label, curObj.data, newEnabledValue);
