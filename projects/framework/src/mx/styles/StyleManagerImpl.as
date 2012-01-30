@@ -141,6 +141,15 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
 
     /**
      *  @private
+     *  Used to assign the selectorIndex in CSSStyleDeclaration so we can track
+     *  the order they were added to the StyleManager.  
+     *  MatchStyleDeclarations has to return the declarations in the order 
+     *  they were declared
+     */ 
+    private var selectorIndex:int = 0;
+    
+    /**
+     *  @private
      */
     private var mqp:MediaQueryParser;
     
@@ -657,9 +666,15 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
         return false;
     }
 
+    private static var propNames:Array = ["class", "id", "pseudo", "unconditional"];
+
     /**
      *  Retrieve all style declarations applicable to this subject. The subject
-     *  is the right most simple type selector in a selector chain.
+     *  is the right most simple type selector in a selector chain. Returns a 
+     *  map of selectors with four properties: class for class selectors,
+     *  id for id selectors, pseudo for pseudo selectors and unconditional
+     *  for selectors without conditions
+     * 
      * 
      *  @param subject The subject of the style declaration's selector.
      *  
@@ -668,7 +683,7 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function getStyleDeclarations(subject:String):Array // of CSSStyleDeclaration
+    public function getStyleDeclarations(subject:String):Object
     {
         // For Flex 3 and earlier, if we were passed a subject with a package
         // name, such as "mx.controls.Button", strip off the package name
@@ -683,23 +698,29 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
             }
         }
 
-        // NOTE: It's important the the parent declarations come before this style
+        // NOTE: It's important the parent declarations come before this style
         // manager's styles because the order here is the order they are added to the 
         // prototype chain.
-        var theSubjects:Array = null;
+        var theSubjects:Object = null;
 
         if (parent)
             theSubjects = parent.getStyleDeclarations(subject);
 
+        var subjectsObject:Object = _subjects[subject];
         if (!theSubjects)
         {
-            theSubjects = _subjects[subject] as Array;
+            if (subjectsObject)
+                theSubjects = subjectsObject;
         }
-        else
-        {
-            var subjectsArray:Array = _subjects[subject] as Array;
-            if (subjectsArray)
-                theSubjects = theSubjects.concat(subjectsArray);
+        else if (subjectsObject)
+        {    
+            var mergedSubjects:Object = {};
+            for each (var prop:String in propNames)
+            {
+                mergedSubjects[prop] = subjectsObject[prop];
+            }
+            mergedSubjects.parent = theSubjects;
+            theSubjects = mergedSubjects;
         }
         
         return theSubjects;
@@ -873,6 +894,7 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
 
         // Populate the selectors Array for this style declaration
         styleDeclaration.selectorRefCount++;
+        styleDeclaration.selectorIndex = selectorIndex++;
         _selectors[selector] = styleDeclaration;
 
         // We also index by subject to help match advanced selectors
@@ -912,15 +934,25 @@ public class StyleManagerImpl extends EventDispatcher implements IStyleManager2
 
         if (subject != null)
         {
-            var declarations:Array = _subjects[subject] as Array;
+            // determine the kind of selector and add it to the appropriate 
+            // bin of selectors for this subject
+            var kind:String = styleDeclaration.selector.conditions ? 
+                    styleDeclaration.selector.conditions[0].kind : 
+                    "unconditional";
+            var declarations:Object = _subjects[subject];
             if (declarations == null)
             {
-                declarations = [styleDeclaration];
+                declarations = {};
+                declarations[kind] = [styleDeclaration];
                 _subjects[subject] = declarations;
             }
             else
             {
-                declarations.push(styleDeclaration);
+                var declarationList:Array = declarations[kind] as Array;
+                if (declarationList == null)
+                    declarations[kind] = [styleDeclaration];   
+                else
+                    declarationList.push(styleDeclaration);
             }
         }
 
