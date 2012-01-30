@@ -29,7 +29,7 @@ import flash.utils.Proxy;
 import mx.automation.IAutomationObject;
 import mx.containers.Canvas;
 import mx.controls.Alert;
-import mx.core.ApplicationGlobals;
+import mx.core.FlexGlobals;
 import mx.core.FlexSprite;
 import mx.core.IChildList;
 import mx.core.IFlexDisplayObject;
@@ -1001,7 +1001,7 @@ public class PopUpManagerImpl implements IPopUpManager
                     o.blurTarget = applicationRequest.value;
                 }
                 else
-                    o.blurTarget = ApplicationGlobals.application;
+                    o.blurTarget = FlexGlobals.topLevelApplication;
 
                 const blur:Blur = new Blur(o.blurTarget);
                 blur.blurXFrom = blur.blurYFrom = 0;
@@ -1078,7 +1078,7 @@ public class PopUpManagerImpl implements IPopUpManager
             o.modalWindow.visible = false;
         }
         
-        var sm:ISystemManager = ISystemManager(ApplicationGlobals.application.systemManager);
+        var sm:ISystemManager = ISystemManager(FlexGlobals.topLevelApplication.systemManager);
         if (sm.useSWFBridge())
         {
             var sbRoot:DisplayObject = sm.getSandboxRoot();
@@ -1251,7 +1251,7 @@ public class PopUpManagerImpl implements IPopUpManager
         else
             request = SWFBridgeRequest.marshal(event);
 
-        var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
+        var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(FlexGlobals.topLevelApplication));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
 
         // process the message
@@ -1295,7 +1295,7 @@ public class PopUpManagerImpl implements IPopUpManager
         else
             request = SWFBridgeRequest.marshal(event);
 
-        var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
+        var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(FlexGlobals.topLevelApplication));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
         
         // the highest popUpData in the list is the most recent modal window.
@@ -1334,7 +1334,7 @@ public class PopUpManagerImpl implements IPopUpManager
         else
             request = SWFBridgeRequest.marshal(event);
 
-        var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(ApplicationGlobals.application));
+        var sm:ISystemManager = getTopLevelSystemManager(DisplayObject(FlexGlobals.topLevelApplication));
         var sbRoot:DisplayObject = sm.getSandboxRoot();
         
         // the highest popUpData in the list is the most recent modal window.
