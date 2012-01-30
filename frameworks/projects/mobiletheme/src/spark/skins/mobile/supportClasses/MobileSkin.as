@@ -17,11 +17,13 @@ import flash.display.Graphics;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 
+import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.core.ILayoutElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.utils.ColorUtil;
+import mx.utils.object_proxy;
 
 import spark.components.supportClasses.SkinnableComponent;
 import spark.core.DisplayObjectSharingMode;
@@ -30,6 +32,7 @@ import spark.skins.IHighlightBitmapCaptureClient;
 
 use namespace mx_internal;
 
+// FIXME (jasonsj): B-feature for IFocusColorSkin may be removed
 /**
  *  Actionscript based skin for mobile applications. This skin is the 
  *  base class for all of the actionscript mobile skins. As an optimization, 
@@ -40,8 +43,21 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
-public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureClient
+public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureClient /*, IFocusColorSkin*/
 {
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    // FIXME (jasonsj): define enums for PPI
+    public static const PPI160:uint = 160;
+    
+    public static const PPI240:uint = 240;
+    
+    public static const PPI320:uint = 320;
+    
     // Used for gradient background
     protected static var matrix:Matrix = new Matrix();
     
@@ -52,6 +68,31 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     private static const DEFAULT_SYMBOL_COLOR_VALUE:uint = 0x00;
     
     private static var colorTransform:ColorTransform = new ColorTransform();
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    public function MobileSkin()
+    {
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Layout variables
+    //
+    //--------------------------------------------------------------------------
+    
+    protected var layoutMeasuredWidth:uint = 0;
+    
+    protected var layoutMeasuredHeight:uint = 0;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  Specifies whether or not this skin should be affected by the <code>chromeColor</code> style.
@@ -77,13 +118,24 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      */
     protected var useSymbolColor:Boolean = false;
     
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-    public function MobileSkin()
+    private var _focus:Boolean = false;
+    
+    //----------------------------------
+    //  targetDensity
+    //----------------------------------
+    
+    /**
+     * Read-only target PPI of the application.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get targetDensity():uint
     {
+        // FIXME (jasonsj): Hack until scaling is implemented
+        return ("targetPPI" in FlexGlobals.topLevelApplication) ? FlexGlobals.topLevelApplication.targetPPI : 240;
     }
     
     //----------------------------------
@@ -129,7 +181,30 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
             commitCurrentState();
         }
     }
-        
+    
+    // FIXME (jasonsj): B-feature for IFocusColorSkin may be removed    
+    public function get isFocusColorSupported():Boolean
+    {
+        return true;
+    }
+    
+    // FIXME (jasonsj): B-feature for IFocusColorSkin may be removed
+    public function get useFocusColor():Boolean
+    {
+        return _focus;
+    }
+    
+    // FIXME (jasonsj): B-feature for IFocusColorSkin may be removed
+    public function set useFocusColor(value:Boolean):void
+    {
+        if (_focus != value)
+        {
+            _focus = value;
+            invalidateDisplayList();
+        }
+    }
+    
+    
     /**
      *  Called whenever the currentState changes. Skins should override
      *  this function if they make any appearance changes during 
@@ -171,7 +246,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        if (useChromeColor)
+        if (useChromeColor || _focus)
         {
             graphics.clear();
             
@@ -237,12 +312,18 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     {
         var colors:Array = [];
         matrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0);
-        var chromeColor:uint = getStyle("chromeColor");
+        var chromeColor:uint = getChromeColor();
         colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
         colors[1] = chromeColor;
         colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
         
         chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, alphas, ratios, matrix);
+    }
+    
+    protected function getChromeColor():uint
+    {
+        var chromeColorStyle:String = (_focus) ? "focusColor" : "chromeColor";
+        return getStyle(chromeColorStyle);
     }
     
     /**
