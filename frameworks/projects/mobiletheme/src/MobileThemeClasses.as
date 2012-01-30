@@ -34,6 +34,7 @@ import spark.skins.mobile.SliderSkin; SliderSkin;
 import spark.skins.mobile.TabBarSkin; spark.skins.mobile.TabBarSkin;
 import spark.skins.mobile.TabButtonSkin; TabButtonSkin;
 import spark.skins.mobile.ToolbarSkin; ToolbarSkin;
+import spark.skins.mobile.HScrollBarSkin; spark.skins.mobile.HScrollBarSkin;
 import spark.skins.mobile.VScrollBarSkin; spark.skins.mobile.VScrollBarSkin;
 }
 }
