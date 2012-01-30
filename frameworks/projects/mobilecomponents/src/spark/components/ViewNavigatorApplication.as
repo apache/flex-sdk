@@ -21,7 +21,7 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
-import spark.components.supportClasses.MobileApplicationBase;
+import spark.components.supportClasses.ViewNavigatorApplicationBase;
 import spark.components.supportClasses.NavigationStack;
 import spark.components.supportClasses.ViewDescriptor;
 import spark.layouts.supportClasses.LayoutBase;
@@ -31,7 +31,7 @@ use namespace mx_internal;
 [DefaultProperty("navigationStack")]
 
 /**
- *  MobileApplication is an application class meant to provide a simple
+ *  ViewNavigatorApplication is an application class meant to provide a simple
  *  framework for applications that employ a view-based navigation model.
  *  When used, this class functions as the main entry point for the application
  *  and provides support for hardware device keys, orientation detection and
@@ -47,7 +47,7 @@ use namespace mx_internal;
  *  what View should be displayed first when the application is
  *  initialized.</p>
  * 
- *  <p>Unlike Application, MobileApplication is not meant to accept
+ *  <p>Unlike Application, ViewNavigatorApplication is not meant to accept
  *  UIComponents has children.  Instead, all visual components should
  *  children of the various views managed by the application.</p>
  *
@@ -56,7 +56,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class MobileApplication extends MobileApplicationBase
+public class ViewNavigatorApplication extends ViewNavigatorApplicationBase
 {
     //--------------------------------------------------------------------------
     //
@@ -122,7 +122,7 @@ public class MobileApplication extends MobileApplicationBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function MobileApplication()
+    public function ViewNavigatorApplication()
     {
         super();
     }
@@ -604,7 +604,7 @@ public class MobileApplication extends MobileApplicationBase
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden Methods: MobileApplicationBase
+    //  Overridden Methods: ViewNavigatorApplicationBase
     //
     //--------------------------------------------------------------------------
     
