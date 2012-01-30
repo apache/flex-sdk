@@ -55,6 +55,7 @@ internal class FrameworkClasses
 	import mx.core.SimpleApplication; SimpleApplication;
 	import mx.core.SoundAsset; SoundAsset;
 	import mx.core.TextFieldAsset; TextFieldAsset;
+	import mx.core.UITLFTextField; UITLFTextField;
 	import mx.effects.easing.Back; Back;
 	import mx.effects.easing.Bounce; Bounce;
 	import mx.effects.easing.Circular; Circular;
