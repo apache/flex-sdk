@@ -25,6 +25,11 @@ package mx.core
  *  usually determines the value of the <code>borderMetrics</code> style. 
  *  For graphical skin classes, Flex examines the <code>scale9Grid</code>
  *  property to determine the value of the <code>borderMetrics</code> style.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IBorder
 {
@@ -44,6 +49,11 @@ public interface IBorder
      *  and <code>bottom</code>.
      *  The value of each property is equal to the thickness of one side
      *  of the border, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get borderMetrics():EdgeMetrics;
 
