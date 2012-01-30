@@ -87,7 +87,8 @@ use namespace mx_internal;
  *  @see spark.components.TabbedViewNavigator
  *  @see spark.components.TabBar
  *  @see spark.skins.mobile.TabbedViewNavigatorApplicationSkin
- *
+ *  @includeExample examples/TabbedViewNavigatorApplicationExample.mxml -noswf
+ * 
  *  @langversion 3.0
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
