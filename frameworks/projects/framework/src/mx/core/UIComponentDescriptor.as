@@ -44,6 +44,11 @@ package mx.core
  *  @see mx.core.Container#childDescriptors
  *  @see mx.core.Container#creationPolicy
  *  @see mx.core.Container#createComponentsFromDescriptors()
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public class UIComponentDescriptor extends ComponentDescriptor
 {
@@ -63,6 +68,11 @@ public class UIComponentDescriptor extends ComponentDescriptor
 	 *  <code>type</code>, <code>id</code>, <code>propertiesFactory</code>,
 	 *  <code>events</code>, <code>stylesFactory</code>,
 	 *  and <code>effects</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function UIComponentDescriptor(descriptorProperties:Object)
     {
@@ -103,6 +113,11 @@ public class UIComponentDescriptor extends ComponentDescriptor
      *  <p>This property is used by the Container method
 	 *  <code>createComponentsFromDescriptors()</code>
 	 *  to register the effects with the EffectManager.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var effects:Array;
 
@@ -154,6 +169,11 @@ public class UIComponentDescriptor extends ComponentDescriptor
 	 *
      *  <p>The <code>stylesFactory</code> property is <code>null</code>
 	 *  if no MXML styles were specified for the component instance.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var stylesFactory:Function;
 
