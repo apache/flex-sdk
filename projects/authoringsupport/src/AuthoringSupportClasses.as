@@ -22,7 +22,7 @@ package
  *  the SWC are found by a dependency analysis starting from the classes
  *  listed here.
  */
-internal class UtilitiesClasses
+internal class AuthoringSupportClasses
 {
 	import FlashComponentPlaceholder; FlashComponentPlaceholder;
 	import FlashContainerPlaceholder; FlashContainerPlaceholder;
