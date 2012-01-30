@@ -224,14 +224,21 @@ public class Binding
             return;
         }
 
-		try
-		{
-			isExecuting = true;
-			wrapFunctionCall(this, innerExecute, o);
-		}
+        try
+        {
+	    isExecuting = true;
+	    wrapFunctionCall(this, innerExecute, o);
+        }
+        catch(error:Error)
+        {
+	    // Certain errors are normal during binding execution, so we swallow them.
+	    // 1507 - invalid null argument 
+            if (error.errorID != 1507) 
+                throw error;
+        }
         finally
         {
-        	isExecuting = false;
+            isExecuting = false;
         }
     }
 
