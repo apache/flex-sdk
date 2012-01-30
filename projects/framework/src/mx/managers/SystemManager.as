@@ -744,7 +744,7 @@ public class SystemManager extends MovieClip
                 _fontList[p] = o[p];
             }
 
-            // FIXME: font rules across SWF boundaries have not been finalized!
+            // FIXME (aharui): font rules across SWF boundaries have not been finalized!
 
 			// Top level systemManager may not be defined if SWF is loaded
 			// as a background image in download progress bar.
