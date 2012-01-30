@@ -21,6 +21,11 @@ import flash.geom.Rectangle;
  *
  *  @see mx.graphics.LinearGradient
  *  @see mx.graphics.RadialGradient
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IFill
 {	
@@ -42,6 +47,11 @@ public interface IFill
 	 *  If the dimensions of the Rectangle are smaller than the dimensions
 	 *  of the <code>target</code>, the fill expands to fill the entire
 	 *  <code>target</code>.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function begin(target:Graphics, rc:Rectangle):void;
 	
@@ -49,6 +59,11 @@ public interface IFill
 	 *  Ends the fill.
 	 *  
 	 *  @param target The Graphics object that is being filled. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function end(target:Graphics):void;
 }
