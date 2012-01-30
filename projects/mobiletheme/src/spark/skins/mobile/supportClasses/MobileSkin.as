@@ -32,7 +32,6 @@ import spark.skins.IHighlightBitmapCaptureClient;
 
 use namespace mx_internal;
 
-// FIXME (jasonsj): do we need blendMode handling like Group?
 /**
  *  ActionScript-based skin for mobile applications. This skin is the 
  *  base class for all of the ActionScript mobile skins. As an optimization, 
@@ -51,38 +50,23 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     //
     //--------------------------------------------------------------------------
     
-    // Used for gradient background
-    protected static var matrix:Matrix = new Matrix();
-    
-    protected static const MOBILE_THEME_DARK_COLOR:uint = 0x484848;
-    
-    protected static const MOBILE_THEME_LIGHT_COLOR:uint = 0xCCCCCC;
+    /**
+     *  @private
+     *  Use for TODO
+     */
+    mx_internal static const MOBILE_THEME_DARK_COLOR:uint = 0x484848;
     
     /**
-     * An array of color distribution ratios.
-     * This is used in the chrome color fill.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
+     *  Use for TODO
      */
-    protected static const CHROME_COLOR_RATIOS:Array = [0, 127.5];
+    mx_internal static const MOBILE_THEME_LIGHT_COLOR:uint = 0xCCCCCC;
     
     /**
-     * An array of alpha values for the corresponding colors in the colors array. 
-     * This is used in the chrome color fill.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
+     *  @private
+     *  Use for TODO
      */
-    protected static const CHROME_COLOR_ALPHAS:Array = [1, 1];
-    
-    private static const DEFAULT_SYMBOL_COLOR_VALUE:uint = 0x00;
-    
-    private static var colorTransform:ColorTransform = new ColorTransform();
+    mx_internal static const DEFAULT_SYMBOL_COLOR_VALUE:uint = 0x00;
     
     //--------------------------------------------------------------------------
     //
@@ -109,18 +93,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     //--------------------------------------------------------------------------
     
     /**
-     *  Specifies whether or not this skin should be affected by the <code>chromeColor</code> style.
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    protected var useChromeColor:Boolean = false;
-    
-    /**
      *  Specifies whether or not this skin should be affected by the <code>symbolColor</code> style.
      *
      *  @default false
@@ -133,9 +105,43 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     protected var useSymbolColor:Boolean = false;
     
     //----------------------------------
-    //  applicationDPI
+    //  colorMatrix
     //----------------------------------
     
+    private static var _colorMatrix:Matrix = new Matrix();
+    
+    /**
+     *  @private
+     */
+    mx_internal static function get colorMatrix():Matrix
+    {
+        if (!_colorMatrix)
+            _colorMatrix = new Matrix();
+        
+        return _colorMatrix;
+    }
+    
+    //----------------------------------
+    //  colorTransform
+    //----------------------------------
+    
+    private static var _colorTransform:ColorTransform;
+    
+    /**
+     *  @private
+     */
+    mx_internal static function get colorTransform():ColorTransform
+    {
+        if (!_colorTransform)
+            _colorTransform = new ColorTransform();
+        
+        return _colorTransform;
+    }
+    
+    //----------------------------------
+    //  applicationDPI
+    //----------------------------------
+
     /**
      *  Returns the DPI of the application. This property can only be set in MXML on the root application.
      *  
@@ -144,7 +150,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get applicationDPI():Number
+    protected function get applicationDPI():Number
     {
         return FlexGlobals.topLevelApplication.applicationDPI;
     }
@@ -162,7 +168,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get symbolItems():Array
+    protected function get symbolItems():Array
     {
         return null;
     }
@@ -235,58 +241,18 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        graphics.clear();
+        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
-        if (useChromeColor)
-        {
-            graphics.clear();
-            
-            // create gradient
-            beginChromeColorFill(graphics);
-            
-            // draw gradient shape
-            drawChromeColor(graphics, unscaledWidth, unscaledHeight);
-            
-            graphics.endFill();
-        }
+        layoutContents(unscaledWidth, unscaledHeight);
         
-        // symbol color
         if (useSymbolColor)
-        {
-            var symbols:Array = symbolItems;
-            var len:uint = (symbols) ? symbols.length : 0;
-            
-            if (len > 0)
-            {
-                var symbolColor:uint = getStyle("symbolColor");
-                var symbolObj:Object;
-                var transformInitialized:Boolean = false;
-                
-                for (var i:uint = 0; i < len; i++)
-                {
-                    symbolObj = this[symbols[i]];
-                    
-                    // SparkSkin assumed symbols were IFill objects
-                    // with a color property. MobileSkin instead assumes symbols
-                    // are DisplayObjects.
-                    if (symbolObj is DisplayObject)
-                    {
-                        if (!transformInitialized)
-                        {
-                            colorTransform.redOffset = ((symbolColor & (0xFF << 16)) >> 16) - DEFAULT_SYMBOL_COLOR_VALUE;
-                            colorTransform.greenOffset = ((symbolColor & (0xFF << 8)) >> 8) - DEFAULT_SYMBOL_COLOR_VALUE;
-                            colorTransform.blueOffset = (symbolColor & 0xFF) - DEFAULT_SYMBOL_COLOR_VALUE;
-                            colorTransform.alphaMultiplier = alpha;
-                            
-                            transformInitialized = true;
-                        }
-                        
-                        DisplayObject(symbolObj).transform.colorTransform = colorTransform;
-                    }
-                }
-            }
-        }
+            applySymbolColor();
+        
+        drawBackground(unscaledWidth, unscaledHeight);
     }
+    
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -294,11 +260,38 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     //--------------------------------------------------------------------------
     
     /**
-     *  Apply a color transform on a DisplayObject
+     *  Positions the children for this skin.
      * 
-     *  @param displayObject
-     *  @param tintColor
-     *  @param originalColor
+     *  <p>This method, along with <code>colorizeContents()</code>, is called 
+     *  by the <code>updateDisplayList()</code> method.</p>
+     * 
+     *  <p>This method positions skin parts and graphic children of the skin.  
+     *  Subclasses should override this to position their children.</p>
+     * 
+     *  @param unscaledWidth Specifies the width of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleX</code> property of the component.
+     *
+     *  @param unscaledHeight Specifies the height of the component, in pixels,
+     *  in the component's coordinates, regardless of the value of the
+     *  <code>scaleY</code> property of the component.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        
+    }
+    
+    /**
+     *  A helper method to set a color transform on a DisplayObject.
+     * 
+     *  @param displayObject The display object to transform
+     *  @param originalColor The original color
+     *  @param tintColor The desired color
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -307,11 +300,6 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      */
     protected function applyColorTransform(displayObject:DisplayObject, originalColor:uint, tintColor:uint):void
     {
-        // FIXME (jasonsj): track what's already been tinted
-        // FIXME (jasonsj): track previous color transform to bypass initialization
-        if (originalColor == tintColor)
-            return;
-        
         colorTransform.redOffset = ((tintColor & (0xFF << 16)) >> 16) - ((originalColor & (0xFF << 16)) >> 16);
         colorTransform.greenOffset = ((tintColor & (0xFF << 8)) >> 8) - ((originalColor & (0xFF << 8)) >> 8);
         colorTransform.blueOffset = (tintColor & 0xFF) - (originalColor & 0xFF);
@@ -321,50 +309,13 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     }
     
     /**
-     *  Use <code>beginFill</code> or <code>beginGradientFill</code> to specify
-     *  the <code>chromeColor</code> drawn by <code>drawChromeColor</code>.
+     *  Renders a background for the skin.
      * 
-     *  The default implementation uses a linear gradient fill.
+     *  <p>This method, along with <code>layoutContents()</code>, is called 
+     *  by the <code>updateDisplayList()</code>.</p>
      * 
-     *  @param chromeColorGraphics The Graphics object to fill.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
-    {
-        var colors:Array = [];
-        matrix.createGradientBox(unscaledWidth, unscaledHeight, Math.PI / 2, 0, 0);
-        var chromeColor:uint = getChromeColor();
-        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 70);
-        colors[1] = chromeColor;
-        
-        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, CHROME_COLOR_ALPHAS, CHROME_COLOR_RATIOS, matrix);
-    }
-    
-    /**
-     *  Gets the value of the <code>chromeColor</code> style property.
-     * 
-     *  @return The value of the <code>chromeColor</code> style property. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    protected function getChromeColor():uint
-    {
-        return getStyle("chromeColor");
-    }
-    
-    /**
-     *  Uses the skin's Graphics object to draw a shape containing the
-     *  <code>chromeColor</code>. Fill parameters are defined by
-     *  <code>beginChromeColorFill</code>.
-     * 
-     *  @param chromeColorGraphics The Graphics object on which to draw.
+     *  <p>This method draws the background chromeColor.
+     *  Override this method to change the appearance of the chromeColor.</p>
      * 
      *  @param unscaledWidth Specifies the width of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
@@ -379,9 +330,48 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
+    protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        chromeColorGraphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function applySymbolColor():void
+    {
+        var symbols:Array = symbolItems;
+        var len:uint = (symbols) ? symbols.length : 0;
+        
+        if (len > 0)
+        {
+            var symbolColor:uint = getStyle("symbolColor");
+            var symbolObj:Object;
+            var transformInitialized:Boolean = false;
+            
+            for (var i:uint = 0; i < len; i++)
+            {
+                symbolObj = this[symbols[i]];
+                
+                // SparkSkin assumed symbols were IFill objects
+                // with a color property. MobileSkin instead assumes symbols
+                // are DisplayObjects.
+                if (symbolObj is DisplayObject)
+                {
+                    if (!transformInitialized)
+                    {
+                        colorTransform.redOffset = ((symbolColor & (0xFF << 16)) >> 16) - DEFAULT_SYMBOL_COLOR_VALUE;
+                        colorTransform.greenOffset = ((symbolColor & (0xFF << 8)) >> 8) - DEFAULT_SYMBOL_COLOR_VALUE;
+                        colorTransform.blueOffset = (symbolColor & 0xFF) - DEFAULT_SYMBOL_COLOR_VALUE;
+                        colorTransform.alphaMultiplier = alpha;
+                        
+                        transformInitialized = true;
+                    }
+                    
+                    DisplayObject(symbolObj).transform.colorTransform = colorTransform;
+                }
+            }
+        }
     }
     
     /**
@@ -554,7 +544,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get focusSkinExclusions():Array 
+    protected function get focusSkinExclusions():Array 
     {
         return null;
     }
