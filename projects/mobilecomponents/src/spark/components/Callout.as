@@ -1628,21 +1628,19 @@ public class Callout extends SkinnablePopUpContainer
      */
     private function systemManager_resizeHandler(event:Event):void
     {
-        // Watch out for explicit sizes temporarily set by a soft keyboard
-        // resize effect. canSkipMeasurement() will return false unless these
-        // values are cleared.
-        if (isSoftKeyboardEffectActive)
-        {
-            // Clear temporary explicit sizes
-            if (!softKeyboardEffectExplicitWidthFlag)
-                width = NaN;
-            
-            if (!softKeyboardEffectExplicitHeightFlag)
-                height = NaN;
-        }
+        // Remove explicit settings if due to Resize effect
+        softKeyboardEffectResetExplicitSize();
         
         // Screen resize might require a new arrow direction and callout position
         invalidatePosition();
+        
+        if (!isSoftKeyboardEffectActive)
+        {
+            // Force validation and use new screen size only if the keyboard
+            // effect is not active. The stage dimensions may be invalid while 
+            // the soft keyboard is active. See SDK-31860.
+            validateNow();
+        }
     }
 }
 }
