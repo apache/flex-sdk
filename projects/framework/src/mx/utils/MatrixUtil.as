@@ -544,6 +544,12 @@ public final class MatrixUtil
      *  calculated size (x,y) transformed with <code>matrix</code> will fit in the
      *  specified <code>width</code> and <code>height</code>.
      * 
+     *  @param explicitWidth Explicit width for the calculated size. The function
+     *  will first try to find a solution using this width.
+     * 
+     *  @param explicitHeight Preferred height for the calculated size. The function
+     *  will first try to find a solution using this height.
+     * 
      *  @param preferredWidth Preferred width for the calculated size. If possible
      *  the function will set the calculated size width to this value.
      * 
@@ -568,6 +574,7 @@ public final class MatrixUtil
      *  @productversion Flex 3
      */ 
     public static function fitBounds(width:Number, height:Number, matrix:Matrix,
+                                     explicitWidth:Number, explicitHeight:Number,
                                      preferredWidth:Number, preferredHeight:Number,
                                      minWidth:Number, minHeight:Number,
                                      maxWidth:Number, maxHeight:Number):Point
@@ -575,9 +582,11 @@ public final class MatrixUtil
         if (isNaN(width) && isNaN(height))
             return new Point(preferredWidth, preferredHeight);
             
+        var actualSize:Point;
+        
         if (!isNaN(width) && !isNaN(height))
         {
-            var actualSize:Point = calcUBoundsToFitTBounds(width, height, matrix,
+            actualSize = calcUBoundsToFitTBounds(width, height, matrix,
                                                            minWidth, minHeight, 
                                                            maxWidth, maxHeight); 
             
@@ -607,17 +616,71 @@ public final class MatrixUtil
         }
         else if (!isNaN(width))
         {
-            return calcUBoundsToFitTBoundsWidth(width, matrix,
-                                                preferredWidth, preferredHeight, 
-                                                minWidth, minHeight, 
-                                                maxWidth, maxHeight);
+            // cases 1 and 2: only explicit width or explicit height is specified,
+            // so we try to find a solution with that hard constraint.
+            if (!isNaN(explicitWidth) && isNaN(explicitHeight))
+            {
+                actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
+                                                          explicitWidth, preferredHeight, 
+                                                          explicitWidth, minHeight, 
+                                                          explicitWidth, maxHeight);
+                
+                if (actualSize)
+                    return actualSize;
+            }
+            else if (isNaN(explicitWidth) && !isNaN(explicitHeight))
+            {
+                actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
+                                                          preferredWidth, explicitHeight, 
+                                                          minWidth, explicitHeight, 
+                                                          maxWidth, explicitHeight);
+                if (actualSize)
+                    return actualSize;
+            }
+            
+            // case 3: default case. When explicitWidth, explicitHeight are both set
+            // or not set, we use the preferred size since calcUBoundsToFitTBoundsWidth
+            // will just pick one.
+            actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
+                                                      preferredWidth, preferredHeight, 
+                                                      minWidth, minHeight, 
+                                                      maxWidth, maxHeight);
+            
+            return actualSize;
         }
         else
         {
-            return calcUBoundsToFitTBoundsHeight(height, matrix,
-                                                 preferredWidth, preferredHeight, 
-                                                 minWidth, minHeight, 
-                                                 maxWidth, maxHeight);
+            // cases 1 and 2: only explicit width or explicit height is specified,
+            // so we try to find a solution with that hard constraint.
+            if (!isNaN(explicitWidth) && isNaN(explicitHeight))
+            {
+                actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
+                                                           explicitWidth, preferredHeight, 
+                                                           explicitWidth, minHeight, 
+                                                           explicitWidth, maxHeight);
+                
+                if (actualSize)
+                    return actualSize;
+            }
+            else if (isNaN(explicitWidth) && !isNaN(explicitHeight))
+            {
+                actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
+                                                           preferredWidth, explicitHeight, 
+                                                           minWidth, explicitHeight, 
+                                                           maxWidth, explicitHeight);
+                if (actualSize)
+                    return actualSize;
+            }
+            
+            // case 3: default case. When explicitWidth, explicitHeight are both set
+            // or not set, we use the preferred size since calcUBoundsToFitTBoundsWidth
+            // will just pick one.
+            actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
+                                                       preferredWidth, preferredHeight, 
+                                                       minWidth, minHeight, 
+                                                       maxWidth, maxHeight);
+            
+            return actualSize;
         }
     }
 
