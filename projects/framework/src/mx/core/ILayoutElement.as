@@ -28,7 +28,55 @@ import flash.geom.Vector3D;
  */
 public interface ILayoutElement extends IEventDispatcher
 {
-/**
+    /**
+     *  The height that a component is likely to be given at layout time.  It is
+     *  determined from things like the parent's estimatedHeight, and the
+     *  component's percentHeight, explicitHeight, top and bottom constraints
+     *  and other aspects of the parent's layout algorithm.
+     *  It is NaN if there isn't enough information to compute the height.
+     *  The component can use this information in calculating its
+     *  measuredWidth if the measuredWidth is dependent on the layout
+     *  height.
+     * 
+     *  Note that significantly incorrect estimation of this property can cause
+     *  layout problems and even infinite loops in Scroller and similar
+     *  containers that are going to guess on a scrollbar configuration
+     *  based on measurements influenced by this value.
+     *
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get estimatedHeight():Number;
+        
+    /**
+     *  The width that a component is likely to be given at layout time.  It is
+     *  determined from things like the parent's estimatedWidth, and the
+     *  component's percentWidth, explicitWidth, left and right constraints
+     *  and other aspects of the parent's layout algorithm.
+     *  It is NaN if there isn't enough information to compute the width.
+     *  The component can use this information in calculating its
+     *  measuredHeight if the measuredHeight is dependent on the layout
+     *  width.
+     *
+     *  Note that significantly incorrect estimation of this property can cause
+     *  layout problems and even infinite loops in Scroller and similar
+     *  containers that are going to guess on a scrollbar configuration
+     *  based on measurements influenced by this value.
+     *
+     *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get estimatedWidth():Number;
+    
+    /**
      *  The horizontal distance in pixels from the left edge of the component to the
      *  anchor target's left edge.
      *
@@ -771,6 +819,30 @@ public interface ILayoutElement extends IEventDispatcher
      */
     function setLayoutMatrix3D(value:Matrix3D, invalidateLayout:Boolean):void;
 
+    /**
+     *  Set the element's estimatedWidth and estimatedHeight.   
+     * 
+     *  @param estimatedWidth the new estimatedWidth
+     *  @param estimatedHeight the new estimatedHeight
+     *  @param invalidateSize if false, do not invalidate, just store the numbers
+     * 
+     *  Implementations typically never invalidateSize, unless they are flow-based
+     *  (width affects height or vice-versa), then they call invalidateSize if
+     *  the new estimatedWidth and/or estimatedHeight would affect the
+     *  measuredWidth and/or measuredHeight.
+     *
+     *  @see #estimatedWidth
+     *  @see #estimatedHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function setEstimatedSize(estimatedWidth:Number = NaN, 
+								estimatedHeight:Number = NaN,
+								invalidateSize:Boolean = true):void;
+    
     /**
      *  A utility method to update the rotation, scale, and translation of the 
      *  transform while keeping a particular point, specified in the component's 
