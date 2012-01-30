@@ -25,9 +25,11 @@ import spark.components.ViewMenu;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  The ActionScript based skin used for TabbedViewNavigatorApplication.  
+ *  The ActionScript-based skin used for TabbedViewNavigatorApplication.  
  *  This skin contains a single TabbedViewNavigator that spans the
  *  entire content area of the application.
+ * 
+ * @see spark.components.TabbedViewNavigatorApplication
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -88,6 +90,9 @@ public class TabbedViewNavigatorApplicationSkin extends MobileSkin
     //  Overridden Properties
     //
     //--------------------------------------------------------------------------
+    /** 
+     *  @copy spark.skins.spark.ApplicationSkin#hostComponent
+     */
     public var hostComponent:TabbedViewNavigatorApplication;
     
     
