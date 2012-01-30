@@ -329,6 +329,7 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *    alwaysInFront="false"
  *    autoExit="true"
+ *    backgroundFrameRate="1"
  *    dockIconMenu="<i>null</i>"
  *    maxHeight="10000"
  *    maxWidth="10000"
@@ -1004,8 +1005,8 @@ public class WindowedApplication extends Application implements IWindow
     private var _backgroundFrameRate:Number = 1;
 
     /**
-     *  Specifies framerate to use when the application is inactive.
-     *  When set to -1 no background framerate throttling will occur.
+     *  Specifies the frame rate to use when the application is inactive.
+     *  When set to -1, no background frame rate throttling occurs.
      *
      *  @default 1
      *  
