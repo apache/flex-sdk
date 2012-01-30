@@ -146,6 +146,8 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
     		if (_height != value)
     		{
     			_height = value;
+                if (!isNaN(_height))
+                    mx_internal::contentSize = false;
     			if (container)
     			{
     				container.invalidateSize();
@@ -363,6 +365,8 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
             _explicitHeight = NaN;
 
         _percentHeight = value;
+        if (!isNaN(_percentHeight))
+            mx_internal::contentSize = false;
         
         if (container)
         {
