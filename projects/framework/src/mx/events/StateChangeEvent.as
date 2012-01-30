@@ -20,6 +20,11 @@ import flash.events.Event;
  *
  *  @see mx.core.UIComponent
  *  @see mx.states.State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class StateChangeEvent extends Event
 {
@@ -58,6 +63,11 @@ public class StateChangeEvent extends Event
 	 *  </table>
 	 *
      *  @eventType currentStateChange
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CURRENT_STATE_CHANGE:String = "currentStateChange";
 
@@ -88,6 +98,11 @@ public class StateChangeEvent extends Event
 	 *  </table>
 	 *
      *  @eventType currentStateChanging
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CURRENT_STATE_CHANGING:String = "currentStateChanging";
 
@@ -112,6 +127,11 @@ public class StateChangeEvent extends Event
 	 *  @param oldState The name of the view state the component is exiting.
 	 *
 	 *  @param newState The name of the view state the component is entering.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function StateChangeEvent(type:String, bubbles:Boolean = false,
 									 cancelable:Boolean = false,
@@ -136,6 +156,11 @@ public class StateChangeEvent extends Event
 
 	/**
 	 *  The name of the view state that the component is entering.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var newState:String;
 
@@ -145,6 +170,11 @@ public class StateChangeEvent extends Event
 
 	/**
 	 *  The name of the view state that the component is exiting.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var oldState:String;
 
