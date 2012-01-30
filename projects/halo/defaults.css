@@ -331,6 +331,7 @@ Button
 /*	upIcon: null; 
 	upSkin: null */
 	skin: ClassReference("mx.skins.halo.ButtonSkin");
+	emphasizedSkin: ClassReference(null);
 	verticalGap: 2;
 }
 
