@@ -24,6 +24,7 @@ import flash.display.Stage;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
+import flash.events.KeyboardEvent;
 import flash.events.EventDispatcher;
 import flash.events.EventPhase;
 import flash.events.IEventDispatcher;
@@ -37,6 +38,7 @@ import flash.system.ApplicationDomain;
 import flash.system.Capabilities;
 import flash.text.Font;
 import flash.text.TextFormat;
+import flash.ui.Keyboard;
 import flash.utils.ByteArray;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
@@ -86,6 +88,7 @@ import mx.utils.NameUtil;
 import mx.utils.LoaderUtil;
 import mx.utils.ObjectUtil;
 import mx.utils.SecurityUtil;
+import flash.events.KeyboardEvent;
 
 // NOTE: Minimize the non-Flash classes you import here.
 // Any dependencies of SystemManager have to load in frame 1,
@@ -286,6 +289,10 @@ public class SystemManager extends MovieClip
 			compiledLocales[0] :
 			"en_US";
 
+        // This listener is intended to run before any other KeyboardEvent listeners
+        // so that it can redispatch a cancelable=true copy of the event. 
+        addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true, 1000);
+        
 		executeCallbacks();
 
 		// Make sure to stop the playhead on the current frame.
@@ -1944,7 +1951,7 @@ public class SystemManager extends MovieClip
 			initFunction(this);
 		}
 	}
-
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Methods: Child management
@@ -3085,7 +3092,6 @@ public class SystemManager extends MovieClip
 		Singleton.registerClass("mx.core::ITextFieldFactory", 
 			Class(getDefinitionByName("mx.core::TextFieldFactory")));
 
-
 		executeCallbacks();
 		doneExecutingInitCallbacks = true;
 
@@ -3107,6 +3113,45 @@ public class SystemManager extends MovieClip
 
 		deferredNextFrame();
 	}
+
+    /**
+     *  @private
+     *  The Flash Player dispatches KeyboardEvents with cancelable=false. 
+     *  We'd like to be able to use the preventDefault() method on some
+     *  KeyBoard events to record the fact that they've been handled. 
+     *  This method stops propagation of the original event and redispatches
+     *  the new one from the original event's target.
+     * 
+     *  We're only handling a small subset of keyboard events, to 
+     *  avoid unnecessary copying.   Most of events in the subset are
+     *  handled by both FxScroller and by classes like FxTextArea or
+     *  or FxList that include an FxScroller in their skin. 
+     */
+    private function keyDownHandler(e:KeyboardEvent):void
+    {
+        if (!e.cancelable)
+        {
+            switch (e.keyCode)
+            {
+                case Keyboard.UP:
+                case Keyboard.DOWN:
+                case Keyboard.PAGE_UP:
+                case Keyboard.PAGE_DOWN:
+                case Keyboard.HOME:
+                case Keyboard.END:
+                case Keyboard.LEFT:
+                case Keyboard.RIGHT:
+                case Keyboard.ENTER:
+                {
+                    e.stopImmediatePropagation();
+                    var cancelableEvent:KeyboardEvent =
+                        new KeyboardEvent(e.type, e.bubbles, true, e.charCode, e.keyCode, 
+                                          e.keyLocation, e.ctrlKey, e.altKey, e.shiftKey)              
+                    e.target.dispatchEvent(cancelableEvent);
+                }
+            }
+        }
+    }
 
 	private function installCompiledResourceBundles():void
 	{
