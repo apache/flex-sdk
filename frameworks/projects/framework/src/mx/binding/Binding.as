@@ -14,6 +14,7 @@ package mx.binding
 
 import mx.collections.errors.ItemPendingError;
 import mx.core.mx_internal;
+import flash.utils.Dictionary;
 
 use namespace mx_internal;
 
@@ -56,7 +57,7 @@ public class Binding
         this.destFunc = destFunc;
         this.destString = destString;
 
-        isEnabled = true;
+        _isEnabled = true;
         isExecuting = false;
         isHandlingEvent = false;
         hasHadValue = false;
@@ -73,11 +74,33 @@ public class Binding
 
     /**
      *  @private
+     *  Internal storage for isEnabled property.
+     */
+    mx_internal var _isEnabled:Boolean;
+
+    /**
+     *  @private
      *  Indicates that a Binding is enabled.
      *  Used to disable bindings.
      */
-    mx_internal var isEnabled:Boolean;
+    mx_internal function get isEnabled():Boolean
+    {
+        return _isEnabled;
+    }
 
+    /**
+     *  @private
+     */
+    mx_internal function set isEnabled(value:Boolean):void
+    {
+        _isEnabled = value;
+        
+        if (value)
+        {
+            processDisabledRequests();
+        }
+    }
+    
 	/**
  	 *  @private
      *  Indicates that a Binding is executing.
@@ -92,6 +115,14 @@ public class Binding
 	 *  that re-executes the the binding.
      */
     mx_internal var isHandlingEvent:Boolean;
+    
+    /**
+     *  @private
+     *  Queue of watchers that fired while we were disabled.
+     *  We will resynch with our binding if isEnabled is set to true
+     *  and one or more of our watchers fired while we were disabled.
+     */
+    mx_internal var disabledRequests:Dictionary;
 
 	/**
  	 *  @private
@@ -175,6 +206,10 @@ public class Binding
     {
         if (!isEnabled)
         {
+            if (o != null)
+            {
+                registerDisabledExecute(o);
+            }
             return;
         }
 
@@ -200,6 +235,39 @@ public class Binding
         }
     }
 
+    /**
+     * @private 
+     * Take note of any execute request that occur when we are disabled. 
+     */
+    private function registerDisabledExecute(o:Object):void
+    {
+        if (o != null)
+        {
+            disabledRequests = (disabledRequests != null) ? disabledRequests : 
+                new Dictionary(true);
+            
+            disabledRequests[o] = true;
+        }
+    }  
+    
+    /**
+     * @private 
+     * Resynch with any watchers that may have updated while we were disabled.
+     */
+    private function processDisabledRequests():void
+    {
+        if (disabledRequests != null)
+        {
+            for (var key:Object in disabledRequests) 
+            {
+                execute(key);
+            }
+
+            disabledRequests = null;
+        }
+    }  
+    
+    
     /**
 	 *  @private
 	 *  Note: use of this wrapper needs to be reexamined. Currently there's at least one situation where a
