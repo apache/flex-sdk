@@ -12,13 +12,16 @@
 package spark.components
 {
 
+import flash.display.CapsStyle;
 import flash.display.Graphics;
+import flash.display.LineScaleMode;
 import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.TimerEvent;
 import flash.geom.Matrix;
 import flash.geom.Matrix3D;
+import flash.geom.Point;
 import flash.geom.Transform;
 import flash.geom.Vector3D;
 import flash.utils.Timer;
@@ -66,7 +69,7 @@ use namespace mx_internal;
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark,mobile")]
 
 /**
- *  The BusyIndicator defines a component to display a when a long-running 
+ *  The BusyIndicator defines a component to display when a long-running 
  *  operation is in progress. This component is a spinner with twelve spokes.
  *  The color of the spokes is controled by the value of the symbolColor style.
  *  The transparency of this component can be modified using the alpha property
@@ -82,9 +85,9 @@ use namespace mx_internal;
  *  <p>The BusyIndicator has the following default characteristics:</p>
  *  <table class="innertable">
  *     <tr><th>Characteristic</th><th>Description</th></tr>
- *     <tr><td>Default size</td><td>160 DPI: 22x22 pixels<br>
- *                                  240 DPI: 34x34 pixels<br>
- *                                  320 DPI: 44x44 pixels</td></tr>
+ *     <tr><td>Default size</td><td>160 DPI: 28x28 pixels<br>
+ *                                  240 DPI: 40x40 pixels<br>
+ *                                  320 DPI: 56x56 pixels</td></tr>
  *     <tr><td>Minimum size</td><td>20x20 pixels</td></tr>
  *     <tr><td>Maximum size</td><td>No limit</td></tr>
  *  </table>
@@ -95,7 +98,7 @@ use namespace mx_internal;
  * 
  *  @mxml
  *  
-*  <p>The <code>&lt;s:BusyCursor&gt;</code> tag inherits the symbolColor style
+ *  <p>The <code>&lt;s:BusyCursor&gt;</code> tag inherits the symbolColor style
  *  and adds the rotationInterval style.</p>
  *  
  *  <pre>
@@ -135,6 +138,11 @@ public class BusyIndicator extends UIComponent
      */ 
     static private const DEFAULT_MINIMUM_SIZE:Number = 20;
 
+    /**
+     *  @private
+     */ 
+    static private const RADIANS_PER_DEGREE:Number = Math.PI / 180;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -153,7 +161,7 @@ public class BusyIndicator extends UIComponent
     {
         super();
         
-        alpha = 0.65;       // default alpha
+        alpha = 0.60;       // default alpha
         
         // Listen to added to stage and removed from stage.
         // Start rotating when we are on the stage and stop
@@ -206,12 +214,35 @@ public class BusyIndicator extends UIComponent
      *  Diameter of the spinner for this component.
      */ 
     private var spinnerDiameter:int;
+
+    /**
+     *  @private
+     *  Cache the last value of applicationDPI.
+     */ 
+    private var _applicationDPI:int;
     
     //--------------------------------------------------------------------------
     //
-    //  Public Properties 
+    //  Private Properties 
     //
     //--------------------------------------------------------------------------
+    /**
+     *  @private
+     * 
+     *  Get the applicationDPI in use.
+     */ 
+    private function get applicationDPI():int
+    {
+        if (_applicationDPI)
+            return _applicationDPI;
+        
+        var application:Object = FlexGlobals.topLevelApplication;
+        
+        if ("applicationDPI" in application)
+            _applicationDPI = application["applicationDPI"];
+
+        return _applicationDPI; 
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -243,32 +274,40 @@ public class BusyIndicator extends UIComponent
     /**
      *  @private
      */
+    override public function invalidateDisplayList():void
+    {   
+        super.invalidateDisplayList();
+        
+        if (currentRotation > 0)
+            postLayoutTransformOffsets = new TransformOffsets();
+    }
+
+    /**
+     *  @private
+     */
     override protected function measure():void
     {
         super.measure();
         
         // Set the default measured size depending on the
         // applicationDPI
-        var applicationDPI:int = 0;
-        var application:Object = FlexGlobals.topLevelApplication;
         
-        if ("applicationDPI" in application)
-            applicationDPI = application["applicationDPI"];
+        //trace("applicationDPI = " + applicationDPI);
         
         if (applicationDPI == 320)
         {
-            measuredWidth = 44;
-            measuredHeight = 44;
+            measuredWidth = 56;
+            measuredHeight = 56;
         }
         else if (applicationDPI == 240)
         {
-            measuredWidth = 34;
-            measuredHeight = 34;
+            measuredWidth = 40;
+            measuredHeight = 40;
         }
         else if (applicationDPI == 160)
         {
-            measuredWidth = 22;
-            measuredHeight = 22;
+            measuredWidth = 28;
+            measuredHeight = 28;
         }
         else
         {
@@ -353,8 +392,34 @@ public class BusyIndicator extends UIComponent
         var diameter:Number = Math.min(width, height);
         diameter = Math.max(DEFAULT_MINIMUM_SIZE, diameter);
         if (diameter % 2 != 0)
-        {
             diameter--;
+        
+        diameter = spinnerDiameterFixup(diameter);
+        
+        return diameter;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  Modify the spinnerDiameter to avoid diameters that end up causing the 
+     *  spinner to jitter. This will cause us to reuse the spokeWidth and 
+     *  spokeHeight of the previous diameter size.
+     */ 
+    private function spinnerDiameterFixup(diameter:Number):Number
+    {
+        if (applicationDPI == 240)
+        {
+            // For diameter 30, use the settings for diameter 28 (29 is the same)
+            if (diameter >= 30 && diameter <= 33)
+                diameter = 28;
+        }
+        else if (applicationDPI == 160)
+        {
+            if (diameter == 24)
+                diameter = 22;
+            else if (diameter == 28)
+                diameter = 26;
         }
         
         return diameter;
@@ -363,8 +428,7 @@ public class BusyIndicator extends UIComponent
    /**
     *   @private
     * 
-    *   Removes the old spinner children, if any, and adds
-    *   new ones.
+    *   Draw the spinner.
     */
     private function updateSpinnerChildren(diameter:Number):void
     {
@@ -373,150 +437,192 @@ public class BusyIndicator extends UIComponent
         if (isRotating)
             stopRotation();
        
-        var n:int = numChildren;
-        for (var i:int = 0; i < n; i++)
-        {
-            removeChildAt(0);
-        }
-
-        // FIXME (dloverin): need to reset the accumulated 
-        // transform matrix information. Current attempts
-        // have not worked.
-
-        //setLayoutMatrix3D(new Matrix3D(), false);
-        //postLayoutTransformOffsets = new TransformOffsets();
-        
-        // Add the spinner children that when combined create the 
-        // spinner.
         spinnerDiameter = diameter;
-        
-        var spinnerChildren:Array = createSpinnerChildren();
-        n = spinnerChildren.length;
-        
-        for (i = 0; i < n; i++)
-            addChild(spinnerChildren[i]);
+    
+        drawSpinnerChildren();
         
         if (isRotating)
             startRotation();
     }
 
-    
     /**
-     *   @private
+     *  @private
      * 
-     *   Create the three spinner chilren and returns them in 
-     *   an array.
-     * 
-     *   The spinner children are created based on the current
-     *   value of the symbolColor style and the spinnerDiameter.
-     * 
-     *   The spinner has twelve spokes in the position of a clock
-     *   face. Each spoke has a differnt alpha. Three children
-     *   are used for different parts of the clockface. Each
-     *   child contains four spokes. The first child contains
-     *   the spokes for 12, 3, 6, and 9 o'clock. 
-     *   
-     *   The second child
-     *   is drawn the same as the first child (but with different
-     *   alphas) but is roatated 30 degrees. The second child
-     *   represents 1, 4, 7, and 10 o'clock.
-     * 
-     *   The third child is drawn the same with differnt alpha
-     *   but it is rotated 60 degrees. The third child represents
-     *   2, 5, 8, and 11 o'clock.
-     *
-     */
-    private function createSpinnerChildren():Array 
+     *  Draw the twelve spokes of the children.
+     */ 
+    mx_internal function drawSpinnerChildren():void 
     {
         
         var spokeColor:uint = getStyle("symbolColor");
-        var g:Graphics;
-        var spinner12:Shape = new Shape();
-        var spinner1:Shape = new Shape();
-        var spinner2:Shape = new Shape();
-        var localSpinnerDiameter:int = spinnerDiameter;
-        var halfSpinnerDiameter:int = spinnerDiameter / 2;
+        var g:Graphics = graphics;
+        var spinnerRadius:int = spinnerDiameter / 2;
         var spinnerWidth:int = spinnerDiameter;
-        var halfSpinnerWidth:int = spinnerWidth / 2;
-        var halfSpinnerHeight:int = spinnerDiameter / 2;
-        var spokeWidth:int = spinnerDiameter / 10;
-        var spokeHeight:int = spinnerDiameter / 4;
-        var halfSpokeWidth:int = spokeWidth / 2;
-        var halfSpokeHeight:int = spokeHeight / 2;
-        var eWidth:int = spokeWidth;
-        var eHeight:int = spokeWidth / 2;
-        var m:Matrix;
-       
-        // First child
-        g = spinner12.graphics;
+        var spokeHeight:Number = spinnerDiameter / 3.7;
+        var insideDiameter:Number = spinnerDiameter - (spokeHeight * 2); 
+        var spokeWidth:Number = insideDiameter / 5;
+        var eHeight:Number = spokeWidth / 2;
+        var center:Number = spinnerRadius - 1;
+        var spinnerPadding:Number = 0;
         
-        // 12
-        g.beginFill(spokeColor, 1);
-        g.drawRoundRect(halfSpinnerDiameter - halfSpokeWidth, 1, spokeWidth, spokeHeight, eWidth, eHeight);
         
-        // 9
-        g.beginFill(spokeColor, 0.89);
-        g.drawRoundRect(1, halfSpinnerDiameter - halfSpokeWidth, spokeHeight, spokeWidth,  eWidth, eHeight);
+        // Modify the spoke width and height for various DPI and spinnerDiameter
+        // combinations. These combinations cause the spinner to jitter when
+        // it is rotated. Override the calculated spokeHeight and spokeWidth
+        // with hard-coded values.
+        if (applicationDPI == 240)
+        {
+            if (spinnerDiameter >= 28 && spinnerDiameter <= 29)
+            {
+                spokeHeight = 8;
+                spokeWidth = 2.5;
+            }
+            else if (spinnerDiameter >= 34 && spinnerDiameter <= 35)
+            {
+                spokeHeight = 9;
+                spokeWidth = 4;
+            }
+            else if (spinnerDiameter >= 36 && spinnerDiameter <= 39)
+            {
+                spokeWidth += 0.5;
+            }
+            
+        }
+        else if (applicationDPI == 160)
+        {
+            if (spinnerDiameter == 20)
+            {
+                spokeHeight = 6;
+                spokeWidth = 1.4;
+                spinnerPadding = 0.5;
+            }
+        }
+        else if (applicationDPI == 320)
+        {
+            if (spinnerDiameter == 28)
+            {
+                spokeWidth = 2;
+            }
+            else if (spinnerDiameter == 36)
+            {
+                spokeWidth = 2;
+                spinnerPadding = 1;
+            }
+            else if (spinnerDiameter == 40)
+            {
+                spokeWidth = 3;
+                spinnerPadding = 1;
+            }
+            else if (spinnerDiameter == 48)
+            {
+                spokeWidth = 5;
+            }
+        }
+
+//        // Undocumented styles to modified the spokeWidth
+//        // and spokeHeight.
+//        if (getStyle("spokeWidth") !== undefined)
+//        {
+//            spokeWidth = getStyle("spokeWidth");
+//            eHeight = spokeWidth / 2;
+//        }
+//        
+//        if (getStyle("spokeHeight") !== undefined)
+//            spokeHeight = getStyle("spokeHeight");
+//        
+//        // spinnerPadding is the padding between the outside
+//        // edge of the circle and the edge of a spoke. 
+//        if (getStyle("spinnerPadding") !== undefined)
+//            spinnerPadding = getStyle("spinnerPadding");
+//
+//        trace("spoke height = " + spokeHeight);
+//        trace("spoke width = " + spokeWidth);
+//        trace("center = " + center);
         
-        // 6
-        g.beginFill(spokeColor, 0.73);
-        g.drawRoundRect(halfSpinnerDiameter - halfSpokeWidth, localSpinnerDiameter - spokeHeight - 1, spokeWidth, spokeHeight,  eWidth, eHeight);
-        
-        // 3
-        g.beginFill(spokeColor, 0.53);
-        g.drawRoundRect(localSpinnerDiameter - spokeHeight - 1, halfSpinnerDiameter - halfSpokeWidth, spokeHeight, spokeWidth, eWidth, eHeight);
-        
-        // Second child
-        g = spinner1.graphics;
+        g.clear();
         
         // 1
-        g.beginFill(spokeColor, 0.45);
-        g.drawRoundRect(halfSpinnerDiameter - halfSpokeWidth, 1, spokeWidth, spokeHeight, eWidth, eHeight);
-        
-        // 10
-        g.beginFill(spokeColor, 0.93);
-        g.drawRoundRect(1, halfSpinnerDiameter - halfSpokeWidth, spokeHeight, spokeWidth,  eWidth, eHeight);
-        
-        // 7
-        g.beginFill(spokeColor, 0.80);
-        g.drawRoundRect(halfSpinnerDiameter - halfSpokeWidth, localSpinnerDiameter - spokeHeight - 1, spokeWidth, spokeHeight,  eWidth, eHeight);
-        
-        // 4
-        g.beginFill(spokeColor, 0.55);
-        g.drawRoundRect(localSpinnerDiameter - spokeHeight - 1, halfSpinnerDiameter - halfSpokeWidth, spokeHeight, spokeWidth, eWidth, eHeight);
-        
-        m = new Matrix();
-        m.translate(-halfSpinnerDiameter,-halfSpinnerDiameter);
-        m.rotate( (30 * Math.PI) / 180);
-        m.translate(halfSpinnerDiameter, halfSpinnerDiameter);
-        spinner1.transform.matrix = m;
-        
-        // Third child
-        g = spinner2.graphics;
+        drawSpoke(0.20, 300, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 2
-        g.beginFill(spokeColor, 0.49);
-        g.drawRoundRect(halfSpinnerDiameter - halfSpokeWidth, 1, spokeWidth, spokeHeight, eWidth, eHeight);
+        drawSpoke(0.25, 330, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
-        // 11
-        g.beginFill(spokeColor, 0.95);
-        g.drawRoundRect(1, halfSpinnerDiameter - halfSpokeWidth, spokeHeight, spokeWidth,  eWidth, eHeight);
+        // 3
+        drawSpoke(0.30, 0, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
-        // 8
-        g.beginFill(spokeColor, 0.82);
-        g.drawRoundRect(halfSpinnerDiameter - halfSpokeWidth, localSpinnerDiameter - spokeHeight - 1, spokeWidth, spokeHeight,  eWidth, eHeight);
+        // 4
+        drawSpoke(0.35, 30, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
         // 5
-        g.beginFill(spokeColor, 0.65);
-        g.drawRoundRect(localSpinnerDiameter - spokeHeight - 1, halfSpinnerDiameter - halfSpokeWidth, spokeHeight, spokeWidth, eWidth, eHeight);
+        drawSpoke(0.40, 60, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
-        m = new Matrix();
-        m.translate(-halfSpinnerDiameter,-halfSpinnerDiameter);
-        m.rotate( (60 * Math.PI) / 180);
-        m.translate(halfSpinnerDiameter, halfSpinnerDiameter);
-        spinner2.transform.matrix = m;
+        // 6
+        drawSpoke(0.45, 90, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
         
-        return [spinner12, spinner1, spinner2];
+        // 7
+        drawSpoke(0.50, 120, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+
+        // 8
+        drawSpoke(0.60, 150, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+
+        // 9
+        drawSpoke(0.70, 180, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        
+        // 10
+        drawSpoke(0.80, 210, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        
+        // 11
+        drawSpoke(0.90, 240, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+        
+        // 12
+        drawSpoke(1.0, 270, spokeWidth, spokeHeight, spokeColor, spinnerRadius, eHeight, spinnerPadding);
+    }
+    
+    
+    /**
+     *  @private
+     * 
+     *  @param spokeAlpha: alpha value of the spoke.
+     *  @param spokeWidth: width of the spoke in points.
+     *  @param spokeHeight: the lenght of the spoke in pixels.
+     *  @param spokeColor: the color of the spoke.
+     *  @param spinnerRadius: radius of the spinner.
+     *  @param eHeight: estimated height of the rounded end of the spinner.
+     *  @param spinnerPadding: number of pixels between the outside
+     *  radius of the spinner and the spokes. This is used to make 
+     *  spinners with skinny spokes look better by moving them
+     *  closer to the center of the spinner.
+     */ 
+    private function drawSpoke(spokeAlpha:Number, degrees:int,
+                               spokeWidth:Number, 
+                               spokeHeight:Number, 
+                               spokeColor:uint, 
+                               spinnerRadius:Number, 
+                               eHeight:Number,
+                               spinnerPadding:Number):void
+    {
+        var g:Graphics = graphics;
+        var outsidePoint:Point = new Point();
+        var insidePoint:Point = new Point();
+        
+        g.lineStyle(spokeWidth, spokeColor, spokeAlpha, false, LineScaleMode.NORMAL, CapsStyle.ROUND);
+        outsidePoint = calculatePointOnCircle(spinnerRadius - 1, spinnerRadius - eHeight - spinnerPadding, degrees);
+        insidePoint = calculatePointOnCircle(spinnerRadius - 1, spinnerRadius - spokeHeight + eHeight - spinnerPadding, degrees);
+        g.moveTo(outsidePoint.x, outsidePoint.y);
+        g.lineTo(insidePoint.x,  insidePoint.y);
+            
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function calculatePointOnCircle(center:Number, radius:Number, degrees:Number):Point
+    {
+        var point:Point = new Point();
+        var radians:Number = degrees * RADIANS_PER_DEGREE;
+        point.x = center + radius * Math.cos(radians);
+        point.y = center + radius * Math.sin(radians);
+        
+        return point;
     }
     
     /**
@@ -712,12 +818,15 @@ public class BusyIndicator extends UIComponent
      */
     private function timerHandler(event:TimerEvent):void
     {
-        
         var spinnerRadius:int = (spinnerDiameter / 2);
-        var transformCenter:Vector3D = new Vector3D(spinnerRadius, spinnerRadius);
+        var transformCenter:Vector3D = new Vector3D(spinnerRadius - 1, spinnerRadius - 1);
+ 
         currentRotation += 30;
         var rotation3D:Vector3D = new Vector3D(0, 0, currentRotation);
-        transformAround(transformCenter, null, rotation3D, null, null, null, null, false);
+        if (currentRotation >= 360)
+            currentRotation = 0;
+        
+        transformAround(transformCenter, null, null, null, null, rotation3D, null, false);
         
         event.updateAfterEvent();
     }
