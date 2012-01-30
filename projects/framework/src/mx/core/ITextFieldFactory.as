@@ -30,6 +30,11 @@ public interface ITextFieldFactory
 	 *  @param moduleFactory May not be null.
 	 *
 	 *  @return A TextField created in the context of the module factory.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function createTextField(moduleFactory:IFlexModuleFactory):TextField;
 }
