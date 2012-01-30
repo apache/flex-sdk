@@ -17,21 +17,19 @@ import flash.events.Event;
 import flash.text.TextFormatAlign;
 
 import mx.core.DeviceDensity;
-import mx.core.UIComponent;
-import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.utils.ColorUtil;
 
 import spark.components.ActionBar;
 import spark.components.Group;
 import spark.components.supportClasses.StyleableTextField;
-import spark.core.IDisplayText;
 import spark.core.SpriteVisualElement;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalAlign;
 import spark.skins.mobile.assets.ActionBarBackground;
 import spark.skins.mobile.supportClasses.MobileSkin;
+import spark.skins.mobile320.assets.ActionBarBackground;
 
 use namespace mx_internal;
 
@@ -49,6 +47,14 @@ public class ActionBarSkin extends MobileSkin
 {
     //--------------------------------------------------------------------------
     //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+    
+    mx_internal static const ACTIONBAR_CHROME_COLOR_RATIOS:Array = [0, 80];
+    
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -59,17 +65,27 @@ public class ActionBarSkin extends MobileSkin
         
         useChromeColor = true;
         
-        // common
-        borderClass = ActionBarBackground;
-        
         switch (authorDensity)
         {
+            case DeviceDensity.PPI_320:
+            {
+                layoutBorderHeight = 2;
+                layoutShadowHeight = 6;
+                layoutContentGroupHeight = 86;
+                layoutTitleGroupHorizontalPadding = 26;
+                
+                borderClass = spark.skins.mobile320.assets.ActionBarBackground;
+                
+                break;
+            }
             case DeviceDensity.PPI_240:
             {
                 layoutBorderHeight = 1;
                 layoutShadowHeight = 3;
                 layoutContentGroupHeight = 65;
                 layoutTitleGroupHorizontalPadding = 20;
+                
+                borderClass = spark.skins.mobile.assets.ActionBarBackground;
                 
                 break;
             }
@@ -78,8 +94,10 @@ public class ActionBarSkin extends MobileSkin
                 // default PPI160
                 layoutBorderHeight = 1;
                 layoutShadowHeight = 3;
-                layoutContentGroupHeight = 44;
+                layoutContentGroupHeight = 43;
                 layoutTitleGroupHorizontalPadding = 13;
+                
+                borderClass = spark.skins.mobile.assets.ActionBarBackground;
                 
                 break;
             }
@@ -262,8 +280,8 @@ public class ActionBarSkin extends MobileSkin
             navigationGroupWidth = navigationGroup.getPreferredBoundsWidth();
             titleCompX += navigationGroupWidth;
             
-            navigationGroup.setLayoutBoundsSize(navigationGroupWidth, contentGroupsHeight);
-            navigationGroup.setLayoutBoundsPosition(0, layoutBorderHeight);
+            setElementSize(navigationGroup, navigationGroupWidth, contentGroupsHeight);
+            setElementPosition(navigationGroup, 0, layoutBorderHeight);
         }
         
         if (_actionVisible)
@@ -272,11 +290,12 @@ public class ActionBarSkin extends MobileSkin
             actionGroupWidth = actionGroup.getPreferredBoundsWidth();
             actionGroupX = unscaledWidth - actionGroupWidth;
             
-            actionGroup.setLayoutBoundsSize(actionGroupWidth, contentGroupsHeight);
-            actionGroup.setLayoutBoundsPosition(actionGroupX, layoutBorderHeight);
+            setElementSize(actionGroup, actionGroupWidth, contentGroupsHeight);
+            setElementPosition(actionGroup, actionGroupX, layoutBorderHeight);
         }
         
         titleCompWidth = unscaledWidth - navigationGroupWidth - actionGroupWidth;
+        
         if (titleCompWidth <= 0)
         {
             titleDisplay.visible = false;
@@ -288,8 +307,8 @@ public class ActionBarSkin extends MobileSkin
             titleGroup.visible = true;
             
             // use titleGroup for titleContent
-            titleGroup.setLayoutBoundsSize(titleCompWidth, contentGroupsHeight);
-            titleGroup.setLayoutBoundsPosition(titleCompX, layoutBorderHeight);
+            setElementSize(titleGroup, titleCompWidth, contentGroupsHeight);
+            setElementPosition(titleGroup, titleCompX, layoutBorderHeight);
         }
         else
         {
@@ -303,7 +322,7 @@ public class ActionBarSkin extends MobileSkin
             
             // vertical align center by subtracting the descent and top gutter
             titleHeight = titleDisplay.getExplicitOrMeasuredHeight();
-            titleCompY = Math.round((contentGroupsHeight - titleHeight - UITextField.TEXT_HEIGHT_PADDING + titleDisplay.descent) / 2);
+            titleCompY = Math.round((contentGroupsHeight - titleHeight + titleDisplay.descent - StyleableTextField.TEXT_HEIGHT_PADDING) / 2);
             
             // align titleDisplay to the absolute center
             var titleAlign:String = getStyle("titleAlign");
@@ -370,8 +389,8 @@ public class ActionBarSkin extends MobileSkin
             // check for negative width
             titleCompWidth = (titleCompWidth < 0) ? 0 : titleCompWidth;
             
-            titleDisplay.setLayoutBoundsSize(titleCompWidth, titleHeight);
-            titleDisplay.setLayoutBoundsPosition(titleCompX, titleCompY);
+            setElementSize(titleDisplay, titleCompWidth, titleHeight);
+            setElementPosition(titleDisplay, titleCompX, titleCompY);
             
             titleDisplay.visible = true;
         }
@@ -388,16 +407,15 @@ public class ActionBarSkin extends MobileSkin
         
         // apply alpha to border and chromeColor
         border.alpha = backgroundAlphaValue;
-        var backgroundAlphas:Array = [backgroundAlphaValue, backgroundAlphaValue, backgroundAlphaValue];
+        var backgroundAlphas:Array = [backgroundAlphaValue, backgroundAlphaValue];
         
         // exclude top and bottom 1px borders
         matrix.createGradientBox(unscaledWidth, unscaledHeight - (layoutBorderHeight * 2), Math.PI / 2, 0, 0);
         
         colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
         colors[1] = chromeColor;
-        colors[2] = ColorUtil.adjustBrightness2(chromeColor, -20);
         
-        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ratios, matrix);
+        chromeColorGraphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ACTIONBAR_CHROME_COLOR_RATIOS, matrix);
     }
     
     override protected function drawChromeColor(chromeColorGraphics:Graphics, unscaledWidth:Number, unscaledHeight:Number):void
@@ -412,7 +430,6 @@ import flash.geom.Point;
 import flash.text.TextLineMetrics;
 
 import mx.core.UIComponent;
-import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
@@ -507,7 +524,7 @@ class TitleDisplayComponent extends UIComponent implements IDisplayText
             // ignore text width...we just need textHeight, but we need to use 
             // measureText("Wj") to figure this out
             var lineMetrics:TextLineMetrics = measureText("Wj");
-            textHeight = measureText("Wj").height + UITextField.TEXT_HEIGHT_PADDING;
+            textHeight = lineMetrics.height + StyleableTextField.TEXT_HEIGHT_PADDING;
             descent = lineMetrics.descent;
         }
         
