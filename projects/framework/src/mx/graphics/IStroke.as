@@ -17,6 +17,11 @@ import flash.geom.Rectangle;
 
 /**
  *  Defines the interface that classes that define a line must implement.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IStroke
 {
@@ -33,6 +38,11 @@ public interface IStroke
 	/**
 	 *  The line weight, in pixels.
 	 *  For many chart lines, the default value is 1 pixel.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function get weight():Number;
 	
@@ -68,6 +78,11 @@ public interface IStroke
      *  </ul>
      * 
      *  @default LineScaleMode.NORMAL
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get scaleMode():String;
 	
@@ -81,6 +96,11 @@ public interface IStroke
 	 *  Applies the properties to the specified Graphics object.
 	 *   
 	 *  @param g The Graphics object to apply the properties to.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function apply(g:Graphics):void;
 	
