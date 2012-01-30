@@ -1264,6 +1264,13 @@ public class IconItemRenderer extends LabelItemRenderer
             {
                 destroyDecoratorDisplay();
             }
+
+            // if we have a decorator display and decoratorChanged was 
+            // set to true, then we should make sure we're pointing to 
+            // the right decorator source to display.
+            if (decoratorDisplay)
+                decoratorDisplay.source = decorator;
+			            
             
             invalidateSize();
             invalidateDisplayList();
@@ -1517,7 +1524,6 @@ public class IconItemRenderer extends LabelItemRenderer
         messageDisplay.selectable = false;
         messageDisplay.multiline = true;
         messageDisplay.wordWrap = true;
-        messageDisplay.cacheAsBitmap = true;
         
         var messageStyleName:String = getStyle("messageStyleName");
         if (messageStyleName)
@@ -1610,7 +1616,6 @@ public class IconItemRenderer extends LabelItemRenderer
     {
         decoratorDisplay = new decoratorDisplayClass();
         decoratorDisplay.parentChanged(this);
-        decoratorDisplay.source = decorator;
         
         decoratorNeedsDisplayObjectAssignment = true;
     }
