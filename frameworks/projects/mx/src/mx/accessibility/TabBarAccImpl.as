@@ -14,6 +14,7 @@ package mx.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import mx.accessibility.AccConst;
 import mx.containers.TabNavigator;
 import mx.controls.TabBar;
 import mx.controls.tabBarClasses.Tab;
@@ -34,47 +35,6 @@ use namespace mx_internal;
 public class TabBarAccImpl extends AccImpl
 {
     include "../core/Version.as";
-
-	//--------------------------------------------------------------------------
-	//
-	//  Class constants
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	private static const ROLE_SYSTEM_PAGETAB:uint = 0x25;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTABLE:uint = 0x00200000;
-
-	/**
-	 *  @private
-	 */
-	private static const STATE_SYSTEM_SELECTED:uint = 0x00000002;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_FOCUS:uint = 0x8005;
-
-	/**
-	 *  @private
-	 */
-	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
 
 	//--------------------------------------------------------------------------
 	//
@@ -136,7 +96,7 @@ public class TabBarAccImpl extends AccImpl
 	{
 		super(master);
 
-		role = 0x3C; // ROLE_SYSTEM_PAGETABLIST
+		role = AccConst.ROLE_SYSTEM_PAGETABLIST;
 	}
 
 	//--------------------------------------------------------------------------
@@ -172,7 +132,7 @@ public class TabBarAccImpl extends AccImpl
 	 */
 	override public function get_accRole(childID:uint):uint
 	{
-		return childID == 0 ? role : ROLE_SYSTEM_PAGETAB;
+		return childID == 0 ? role : AccConst.ROLE_SYSTEM_PAGETAB;
 	}
 
 	/**
@@ -193,15 +153,15 @@ public class TabBarAccImpl extends AccImpl
 		
 		if (childID > 0)
 		{
-			accState = STATE_SYSTEM_SELECTABLE | STATE_SYSTEM_FOCUSABLE;
+			accState = AccConst.STATE_SYSTEM_SELECTABLE | AccConst.STATE_SYSTEM_FOCUSABLE;
 
 			var index:int = childID - 1;
 
 			if (index == tabBar.selectedIndex)
-				accState |= STATE_SYSTEM_SELECTED;
+				accState |= AccConst.STATE_SYSTEM_SELECTED;
 				
 			if (index == tabBar.focusedIndex)
-				accState |= STATE_SYSTEM_FOCUSED;
+				accState |= AccConst.STATE_SYSTEM_FOCUSED;
 		}		
 		return accState;
 	}
@@ -337,7 +297,7 @@ public class TabBarAccImpl extends AccImpl
 				if (index >= 0)
 				{
 					Accessibility.sendEvent(master, index + 1,
-											EVENT_OBJECT_FOCUS);
+											AccConst.EVENT_OBJECT_FOCUS);
 				}
 				break;
 			}
@@ -350,7 +310,7 @@ public class TabBarAccImpl extends AccImpl
 				if (index >= 0)
 				{
 					Accessibility.sendEvent(master, index + 1,
-											EVENT_OBJECT_SELECTION);
+											AccConst.EVENT_OBJECT_SELECTION);
 				}
 				break;
 			}
