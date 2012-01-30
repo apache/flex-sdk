@@ -14,6 +14,7 @@ package mx.graphics
 
 import flash.display.Graphics;
 import flash.display.GraphicsStroke;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 
 /**
@@ -135,21 +136,27 @@ public interface IStroke
 	 *   
 	 *  @param graphics The Graphics object to apply the properties to.
 	 *  
-	 *  @param bounds The bounds of the shape that the stroke is applied to. 
+	 *  @param targetBounds The bounds of the shape that the stroke is applied to. 
 	 * 
+     *  @param targetOrigin The Point that defines the origin (0,0) of the shape in the 
+     *  coordinate system of target.  
+     * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	function apply(graphics:Graphics, bounds:Rectangle = null):void;
+	function apply(graphics:Graphics, targetBounds:Rectangle, targetOrigin:Point):void;
 
     /**
      *  Generates a GraphicsStroke object representing 
      *  this stroke. 
      * 
-     *  @param rect The stroke's bounding box.
+     *  @param targetBounds The stroke's bounding box.
      *  
+     *  @param targetOrigin The Point that defines the origin (0,0) of the shape in the 
+     *  coordinate system of target. 
+     * 
      *  @return The Drawing API-2 GraphicsStroke object representing 
      *  this stroke. 
      *  
@@ -158,7 +165,7 @@ public interface IStroke
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-	function createGraphicsStroke(rect:Rectangle):GraphicsStroke; 
+	function createGraphicsStroke(targetBounds:Rectangle, targetOrigin:Point):GraphicsStroke; 
 }
 
 }
