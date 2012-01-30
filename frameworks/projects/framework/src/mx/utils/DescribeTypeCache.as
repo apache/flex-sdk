@@ -72,7 +72,7 @@ public class DescribeTypeCache
          *  ActionScript value, including all available ActionScript types, object instances,
          *  primitive types (such as <code>uint</code>), and class objects.
          *
-         *  @return The cached record.
+         *  @return Returns the cached record.
          *
          *  @see flash.utils#describeType() 
 	 */
