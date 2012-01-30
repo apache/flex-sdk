@@ -1279,6 +1279,23 @@ public class DateSpinner extends SkinnableComponent
         return obj;
     }
     
+    // returns true if any of the lists are currently animating
+    private function get spinnersAnimating():Boolean
+    {
+        if (!listContainer)
+            return false;
+        
+        var len:int = listContainer.numElements;
+        for (var i:int = 0; i < len; i++)
+        {
+            var list:SpinnerList = listContainer.getElementAt(i) as SpinnerList;
+            // return true as soon as we have one list still in touch interaction
+            if (list && list.scroller && list.scroller.inTouchInteraction)
+                return true;
+        }
+        return false;
+    }
+    
     // identify the dateList item that has the longest width in DATE_AND_TIME mode    
     private function findLongestDateItem():Object
     {
@@ -1347,91 +1364,96 @@ public class DateSpinner extends SkinnableComponent
      */	
     private function dateItemList_changeHandler(event:IndexChangeEvent):void
     {
+        if (spinnersAnimating)
+        {
+            // don't commit any changes until all spinners have come to a stop
+            return;
+        }
+        
+        // start with the previous selectedDate
         var newDate:Date = new Date(selectedDate.time);
-        
-        var newValue:* = SpinnerList(event.target).selectedItem;
-        
+
         var tempDate:Date;
         var cd:CalendarDate;
         
         selectedDateModifiedByUser = true;
         
-        switch (event.target)
+        var numLists:int = listContainer.numElements;
+        var currentList:SpinnerList;
+        
+        // loop through all lists in the container and adjust selectedDate to their values
+        for (var i:int = 0; i < numLists; i++)
         {
-            case monthList:
-                // rollback date if past end of month
-                if (dateList)
-                {
-                    tempDate = new Date(selectedDate.fullYear, newValue.data, 1);
-                    cd = new CalendarDate(tempDate);
-                    if (dateList.selectedItem.data > cd.numDaysInMonth)
-                        newDate.date = cd.numDaysInMonth;
-                }
-                newDate.month = newValue.data;
-                break;
-            case dateList:
-                // for DATE_AND_TIME mode data is a Date.time value
-                if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
-                {
-                    var spinnerDate:Date = new Date(newValue.data);
-                    newDate.fullYear = spinnerDate.fullYear;
-                    newDate.month = spinnerDate.month;
-                    newDate.date = spinnerDate.date;
-                }
-                else
-                {
-                    newDate.date = newValue.data;
-                }
-                break;
-            case yearList:
-                // rollback date if past end of month
-                if (dateList)
-                {
-                    tempDate = new Date(newValue.data, selectedDate.month, 1);
-                    cd = new CalendarDate(tempDate);
-                    if (dateList.selectedItem.data > cd.numDaysInMonth)
-                        newDate.date = cd.numDaysInMonth;
-                }
-                newDate.fullYear = newValue.data;
-                break;
-            case hourList:
-                if (use24HourTime)
-                {
-                    newDate.hours = newValue.data;
-                }
-                else
-                {
-                    // a little trickier; need to convert to 24-hour time
-                    // assumption is that if !use24HourTime, meridianList exists
-                    newDate.hours = ((newValue.data + 12) % 12) + (meridianList.selectedItem.data == "pm" ? 12 : 0); 
-                }
-                break;
-            case minuteList:
-                newDate.minutes = newValue.data;
-                break;
-            case meridianList:
-                if (newValue.data == "am" && newDate.hours > 11)
-                    newDate.hours -= 12;
-                else if (newValue.data == "pm" && newDate.hours < 12)
-                    newDate.hours += 12;
-                break;
-            default:
-                // unknown list; don't know how to handle
-                selectedDateModifiedByUser = false;
-                break;
+            currentList = listContainer.getElementAt(i) as SpinnerList;
+            var newValue:* = currentList.selectedItem;
+            
+            switch (currentList)
+            {
+                case monthList:
+                    // rollback date if past end of month
+                    if (dateList)
+                    {
+                        tempDate = new Date(selectedDate.fullYear, newValue.data, 1);
+                        cd = new CalendarDate(tempDate);
+                        if (dateList.selectedItem.data > cd.numDaysInMonth)
+                            newDate.date = cd.numDaysInMonth;
+                    }
+                    newDate.month = newValue.data;
+                    break;
+                case dateList:
+                    // for DATE_AND_TIME mode data is a Date.time value
+                    if (displayMode == DateSelectorDisplayMode.DATE_AND_TIME)
+                    {
+                        var spinnerDate:Date = new Date(newValue.data);
+                        newDate.fullYear = spinnerDate.fullYear;
+                        newDate.month = spinnerDate.month;
+                        newDate.date = spinnerDate.date;
+                    }
+                    else
+                    {
+                        newDate.date = newValue.data;
+                    }
+                    break;
+                case yearList:
+                    // rollback date if past end of month
+                    if (dateList)
+                    {
+                        tempDate = new Date(newValue.data, selectedDate.month, 1);
+                        cd = new CalendarDate(tempDate);
+                        if (dateList.selectedItem.data > cd.numDaysInMonth)
+                            newDate.date = cd.numDaysInMonth;
+                    }
+                    newDate.fullYear = newValue.data;
+                    break;
+                case hourList:
+                    if (use24HourTime)
+                    {
+                        newDate.hours = newValue.data;
+                    }
+                    else
+                    {
+                        // a little trickier; need to convert to 24-hour time
+                        // assumption is that if !use24HourTime, meridianList exists
+                        newDate.hours = ((newValue.data + 12) % 12) + (meridianList.selectedItem.data == "pm" ? 12 : 0); 
+                    }
+                    break;
+                case minuteList:
+                    newDate.minutes = newValue.data;
+                    break;
+                case meridianList:
+                    if (newValue.data == "am" && newDate.hours > 11)
+                        newDate.hours -= 12;
+                    else if (newValue.data == "pm" && newDate.hours < 12)
+                        newDate.hours += 12;
+                    break;
+                default:
+                    // unknown list; don't know how to handle
+                    selectedDateModifiedByUser = false;
+                    break;
+            }
         }
+
         selectedDate = newDate;
     }
-    
-//    private var animatingList:Vector.<SpinnerList> = new Vector.<SpinnerList>();
-    
-//    private function dateItemList_touchEventHandler(event:TouchInteractionEvent):void
-//    {
-//        if (event.type == TouchInteractionEvent.TOUCH_INTERACTION_START)
-//        {
-//            if (animatingList.c ...
-//        }
-//        trace("touch event [" + event.type + "] start on: " + event.target);
-//    }
 }
 }
