@@ -13,21 +13,49 @@
 
 <project name="graphics" default="main" basedir=".">
 
-	<property file="build.properties"/>
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+	<property file="${FLEX_HOME}/build.properties"/>
 
 	<target name="main" depends="clean,compile" description="Clean build of FlexComponentBase.swc"/>
 
 	<target name="clean">
-		<delete file="bundles.properties"/>
-		<delete file="${basedir}/libs/FlexComponentBase.swc"/>
-		<delete file="${basedir}/libs/FlexComponentBase.swc.incr"/>
-		<delete dir="${basedir}/libs"/>
+		<delete failonerror="false">
+			<fileset file="${basedir}/bundles.properties"/>
+			<fileset dir="${basedir}/libs">
+				<include name="FlexComponentBase.swc"/>
+				<include name="FlexComponentBase.swc.incr"/>
+			</fileset>
+		</delete>
 	</target>
 
-	<target name="compile">
-		<mkdir dir="${basedir}/libs"/>
-		<echo message="Compiling frameworks/projects/flash_integration/libs/FlexComponentBase.swc"/>
-		<ant dir="${frameworks.dir}" target="compc"/>
+	<target name="compile" description="Compiles FlexComponentBase.swc">
+		<echo message="Compiling frameworks/projects/flash-integration/libs/FlexComponentBase.swc"/>
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the MXML tags
+			listed in manifest.xml.
+			Compile against framework source, and link it into FlexComponentBase.swc
+			(only a few interfaces will be linked in).
+			Don't put any resources into the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+			(This should be an empty list.)
+		-->
+		<compc output="${basedir}/libs/FlexComponentBase.swc"
+			   resource-bundle-list="${basedir}/bundles.properties">
+			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
+			<include-namespaces uri="http://www.adobe.com/2006/mxml"/>
+			<source-path path-element="${basedir}/src"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+			<library-path/>
+			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+				<include name="player/playerglobal.swc"/>
+			</external-library-path>
+			<locale/>
+			<accessible>true</accessible>
+			<compute-digest>false</compute-digest>
+		</compc>
 	</target>
 
 </project>
