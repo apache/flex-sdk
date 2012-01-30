@@ -41,6 +41,14 @@ public class TextInputSkin extends TextSkinBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function TextInputSkin()
     {
         super();
@@ -88,8 +96,8 @@ public class TextInputSkin extends TextSkinBase
     //
     //--------------------------------------------------------------------------
     
-    /**
-     *  A strongly typed property that references the component to which this skin is applied.
+    /** 
+     *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:TextInput;  // SkinnableComponent will populate
     
