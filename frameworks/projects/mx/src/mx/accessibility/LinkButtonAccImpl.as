@@ -12,6 +12,7 @@
 package mx.accessibility
 {
 
+import mx.accessibility.AccConst;
 import mx.controls.LinkButton;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -91,7 +92,7 @@ public class LinkButtonAccImpl extends ButtonAccImpl
 	{
 		super(master);
 		
-		role = 0x1E; // ROLE_SYSTEM_LINK
+		role = AccConst.ROLE_SYSTEM_LINK;
 	}
 	
 	//--------------------------------------------------------------------------
