@@ -40,14 +40,6 @@ import spark.events.PopUpEvent;
 import spark.managers.IPersistenceManager;
 import spark.managers.PersistenceManager;
 
-[Exclude(name="controlBarContent", kind="property")]
-[Exclude(name="controlBarGroup", kind="property")]
-[Exclude(name="controlBarLayout", kind="property")]
-[Exclude(name="controlBarVisible", kind="property")]
-[Exclude(name="layout", kind="property")]
-[Exclude(name="preloaderChromeColor", kind="property")]
-[Exclude(name="backgroundAlpha", kind="style")]
-
 use namespace mx_internal;
 
 //--------------------------------------
@@ -82,6 +74,17 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Event(name="navigatorStateSaving", type="mx.events.FlexEvent")]
+
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+[Exclude(name="controlBarContent", kind="property")]
+[Exclude(name="controlBarGroup", kind="property")]
+[Exclude(name="controlBarLayout", kind="property")]
+[Exclude(name="controlBarVisible", kind="property")]
+[Exclude(name="layout", kind="property")]
+[Exclude(name="preloaderChromeColor", kind="property")]
+[Exclude(name="backgroundAlpha", kind="style")]
 
 /**
  *  The ViewNavigatorApplicationBase class is the base class used for all 
