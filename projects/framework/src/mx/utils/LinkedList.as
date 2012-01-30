@@ -74,7 +74,7 @@ public class LinkedList
      */
     public function get head():LinkedListNode
     {
-		return (_head.next == _tail) ? null : _head.next;
+        return (_head.next == _tail) ? null : _head.next;
     }
     
     //----------------------------------
@@ -93,23 +93,23 @@ public class LinkedList
     {
         return _length;
     }
-	
-	//----------------------------------
-	//  tail
-	//----------------------------------
-	
-	/**
-	 *  Node representing tail of the list.
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4.5
-	 */
-	public function get tail():LinkedListNode
-	{
-		return (_tail.prev == _head) ? null : _tail.prev;
-	}
+    
+    //----------------------------------
+    //  tail
+    //----------------------------------
+    
+    /**
+     *  Node representing tail of the list.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get tail():LinkedListNode
+    {
+        return (_tail.prev == _head) ? null : _tail.prev;
+    }
         
     //--------------------------------------------------------------------------
     //
@@ -122,8 +122,11 @@ public class LinkedList
      * 
      *  @param value Value to insert. If the value is not a LinkedListNode
      *  one will be created.
+     * 
      *  @param prev The previous node to insert relative to.
      *  
+     *  @return The new node.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -146,7 +149,10 @@ public class LinkedList
      * 
      *  @param value Value to insert. If the value is not a LinkedListNode
      *  one will be created.
+     * 
      *  @param prev The node to insert relative to.
+     *  
+     *  @return The new node.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -170,7 +176,8 @@ public class LinkedList
      *  Searches through all nodes for the given value.
      * 
      *  @param value The value to find.
-     *  @param prev The previous node to insert relative to.
+     *
+     *  @return The node location.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -204,7 +211,7 @@ public class LinkedList
         {
             node.prev.next = node.next;
             node.next.prev = node.prev;  
-			node.next = node.prev = null;
+            node.next = node.prev = null;
             _length--;
         }
         return node;
