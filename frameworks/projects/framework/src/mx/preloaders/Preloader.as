@@ -347,9 +347,6 @@ public class Preloader extends Sprite
             // If the rsl total is zero then provide an average rsl size
             // to set rough expectations.
             var rslTotal:int = rslListLoader.getItem(i).total;
-            if (rslTotal == 0)
-                rslTotal = 200000;
-            
             total += rslTotal;
 		}
 		
