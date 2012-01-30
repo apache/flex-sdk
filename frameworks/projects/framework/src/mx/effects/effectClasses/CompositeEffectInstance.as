@@ -218,7 +218,18 @@ public class CompositeEffectInstance extends EffectInstance
 			timerTween.stop();
 	}
 
-	/**
+    /**
+     *  @private
+     */
+    override public function end():void
+    {	
+        super.end();
+        
+        if (timerTween)
+            timerTween.endTween();
+    }
+
+    /**
 	 *  @private
 	 */
 	override public function resume():void
