@@ -14,11 +14,6 @@
  *  but for backward compatibility, their ancestor methods have to be included
  *  directly into IFlexDisplayObject, so these also have to be kept in 
  *  this separate include file so it can be used in ITextField
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
  */
 
     /**
