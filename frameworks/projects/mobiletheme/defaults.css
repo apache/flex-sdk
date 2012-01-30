@@ -112,25 +112,24 @@ IconItemRenderer
 {
 	horizontalGap: 15;
 	verticalGap: 15;
-	fontWeight: bold;
 	iconDelay: 500;
 	messageStyleName: "iconItemRendererMessageStyle";
 }
 
 .iconItemRendererMessageStyle
 {
-	fontWeight: normal;
 	fontSize: 20;
 	color: #333333;
 }
 
 LabelItemRenderer
 {
-	paddingBottom: 15;
+	paddingBottom: 20;
 	paddingLeft: 15;
 	paddingRight: 15;
-	paddingTop: 15;
+	paddingTop: 20;
 	verticalAlign: "middle";
+	selectionColor: #70B2EE;
 }
 
 List
@@ -335,7 +334,7 @@ global
     borderVisible : true;
     borderWeight : 1;
     contentBackgroundColor: #F0F0F0;
-    downColor: #A8C6EE; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
+    downColor: #70B2EE; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
     focusThickness: 3;
     symbolColor: #000000;
     fontLookup: "embeddedCFF";
@@ -364,6 +363,14 @@ global
         fontSize: 18pt;
     }
     
+	LabelItemRenderer
+	{
+		paddingBottom: 16;
+		paddingLeft: 10;
+		paddingRight: 10;
+		paddingTop: 16;	
+	}
+
     TextArea
     {
         paddingBottom: 6;
@@ -399,6 +406,14 @@ global
         fontSize: 36pt;
     }
     
+	LabelItemRenderer
+	{
+		paddingBottom: 32;
+		paddingLeft: 20;
+		paddingRight: 20;
+		paddingTop: 32;	
+	}
+
     TextArea
     {
         paddingBottom: 12;
