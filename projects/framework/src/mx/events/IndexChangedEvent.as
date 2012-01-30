@@ -303,9 +303,6 @@ public class IndexChangedEvent extends Event
      *  @param newIndex The zero-based index after the change.
      *
      *  @param triggerEvent The event that triggered this event.
-     * 
-     *  @param multipleSelectionChange Whether or not the selection change was from a 
-     *  change in multiple selection. 
      *  
      *  
      *  @langversion 3.0
@@ -327,7 +324,6 @@ public class IndexChangedEvent extends Event
         this.oldIndex = oldIndex;
         this.newIndex = newIndex;
         this.triggerEvent = triggerEvent;
-        this.multipleSelectionChange = multipleSelectionChange; 
     }
 
     //--------------------------------------------------------------------------
@@ -404,21 +400,6 @@ public class IndexChangedEvent extends Event
      */
     public var triggerEvent:Event;
 
-    //----------------------------------
-    //  multipleSelectionChange
-    //----------------------------------
-
-    /**
-     *  Whether or not the change in selection was from a multiple selection
-     *  change or not. If true, the newIndex and oldIndex parameters are -1. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var multipleSelectionChange:Boolean;
-
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: Event
@@ -431,8 +412,8 @@ public class IndexChangedEvent extends Event
     override public function clone():Event
     {
         return new IndexChangedEvent(type, bubbles, cancelable,
-                                     relatedObject, oldIndex, newIndex,
-                                     triggerEvent, multipleSelectionChange);
+                                     relatedObject, oldIndex, 
+                                     newIndex, triggerEvent);
     }
 }
 
