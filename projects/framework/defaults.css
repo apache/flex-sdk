@@ -257,11 +257,11 @@ Alert
 
 Application
 {
-	backgroundColor: #869CA7; 
+	backgroundColor: #FFFFFF; 
 	backgroundImage: ClassReference("mx.skins.halo.ApplicationBackground");
 	backgroundSize: "100%";
 	backgroundGradientAlphas: 1, 1;
-	/* backgroundGradientColors: #9CB0BA, #68808C; */
+	backgroundGradientColors: #FFFFFF, #FFFFFF;
 	horizontalAlign: "center";
 	paddingBottom: 24;
 	paddingLeft: 24;
