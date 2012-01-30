@@ -112,19 +112,19 @@ public class ListCollectionView extends Proxy
      */
     private var pendingUpdates:Array;
 
-	/**
+    /**
      *  @private
      *  Flag that indicates whether a RESET type of collectionChange 
      *  event should be emitted when reset() is called. 
      */
     mx_internal var dispatchResetEvent:Boolean = true;
 
-	/**
-	 *  @private
-	 *  Used for accessing localized Error messages.
-	 */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -417,8 +417,8 @@ public class ListCollectionView extends Proxy
     {
         if (index < 0 || index >= length)
         {
-        	var message:String = resourceManager.getString(
-        		"collections", "outOfBounds", [ index ]);
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
             throw new RangeError(message);
         }
 
@@ -441,8 +441,8 @@ public class ListCollectionView extends Proxy
     {
         if (index < 0 || !list || index >= length)
          {
-        	var message:String = resourceManager.getString(
-        		"collections", "outOfBounds", [ index ]);
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
             throw new RangeError(message);
         }
 
@@ -477,8 +477,8 @@ public class ListCollectionView extends Proxy
     {
         if (index < 0 || !list || index > length)
         {
-        	var message:String = resourceManager.getString(
-        		"collections", "outOfBounds", [ index ]);
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
             throw new RangeError(message);
         }
 
@@ -488,16 +488,16 @@ public class ListCollectionView extends Proxy
         {
             listIndex = list.length;
         }
-		else if (localIndex && filterFunction != null)
-		{
-			// if end of filtered list, put at end of source list
-			if (listIndex == localIndex.length)
-				listIndex = list.length;
-			// if somewhere in filtered list, find it and insert before it
-			// or at beginning
-			else 
+        else if (localIndex && filterFunction != null)
+        {
+            // if end of filtered list, put at end of source list
+            if (listIndex == localIndex.length)
+                listIndex = list.length;
+            // if somewhere in filtered list, find it and insert before it
+            // or at beginning
+            else 
                 listIndex = list.getItemIndex(localIndex[index]);
-		}
+        }
         list.addItemAt(item, listIndex);
     }
 
@@ -544,39 +544,39 @@ public class ListCollectionView extends Proxy
      */
     private function getFilteredItemIndex(item:Object):int
     { 
-		//loc is wrong 
-		//the intent of this function is to find where this new item 
-		//should be in the filtered list, by looking at the main list 
-		//for it's neighbor that is also in this filtered list 
-		//and trying to insert item after that neighbor in the insert locao filtered list 
+        //loc is wrong 
+        //the intent of this function is to find where this new item 
+        //should be in the filtered list, by looking at the main list 
+        //for it's neighbor that is also in this filtered list 
+        //and trying to insert item after that neighbor in the insert locao filtered list 
     
-		//1st get the position in the original list 
-		var loc:int = list.getItemIndex(item); 
+        //1st get the position in the original list 
+        var loc:int = list.getItemIndex(item); 
     
-		//if it's 0 then item must be also the first in the filtered list 
-		if (loc == 0) 
-		    return 0; 
+        //if it's 0 then item must be also the first in the filtered list 
+        if (loc == 0) 
+            return 0; 
     
-		// scan backwards for an item that also in the filtered list 
-		for (var i:int = loc - 1; i >= 0; i--) 
-		{ 
-			var prevItem:Object = list.getItemAt(i); 
-			if (filterFunction(prevItem)) 
-			{ 
-				var len:int = localIndex.length; 
-				// get the index of the item in the filtered set 
-				//for (var j:int = 0; j < len; j++) 
-				for (var j:int = 0; j < len; j++) 
-				{ 
-					if (localIndex[j] == prevItem) 
-						return j + 1; 
-				}
-			} 
-		} 
+        // scan backwards for an item that also in the filtered list 
+        for (var i:int = loc - 1; i >= 0; i--) 
+        { 
+            var prevItem:Object = list.getItemAt(i); 
+            if (filterFunction(prevItem)) 
+            { 
+                var len:int = localIndex.length; 
+                // get the index of the item in the filtered set 
+                //for (var j:int = 0; j < len; j++) 
+                for (var j:int = 0; j < len; j++) 
+                { 
+                    if (localIndex[j] == prevItem) 
+                        return j + 1; 
+                }
+            } 
+        } 
 
-		//turns out that there are no neighbors of item in the filtered 
-		//list, so item is the 1st item 
-		return 0; 
+        //turns out that there are no neighbors of item in the filtered 
+        //list, so item is the 1st item 
+        return 0; 
     } 
 
 
@@ -587,8 +587,8 @@ public class ListCollectionView extends Proxy
     {
         if (index < 0 || index >= length)
         {
-        	var message:String = resourceManager.getString(
-        		"collections", "outOfBounds", [ index ]);
+            var message:String = resourceManager.getString(
+                "collections", "outOfBounds", [ index ]);
             throw new RangeError(message);
         }
 
@@ -641,7 +641,9 @@ public class ListCollectionView extends Proxy
     }
 
     /**
-     *  Pretty prints the contents of this view to a string and returns it.
+     *  Prints the contents of this view to a string and returns it.
+     * 
+     *  @return The contents of this view, in string form.
      */
     public function toString():String
     {
@@ -665,8 +667,8 @@ public class ListCollectionView extends Proxy
     //--------------------------------------------------------------------------
 
     /**
-	 *  @private
-	 *  Attempts to call getItemAt(), converting the property name into an int.
+     *  @private
+     *  Attempts to call getItemAt(), converting the property name into an int.
      */
     override flash_proxy function getProperty(name:*):*
     {
@@ -682,13 +684,13 @@ public class ListCollectionView extends Proxy
                 index = int(n);
         }
         catch(e:Error) // localName was not a number
-		{
-		}
+        {
+        }
 
         if (index == -1)
         {
-        	var message:String = resourceManager.getString(
-        		"collections", "unknownProperty", [ name ]);
+            var message:String = resourceManager.getString(
+                "collections", "unknownProperty", [ name ]);
             throw new Error(message);
         }
         else
@@ -698,8 +700,8 @@ public class ListCollectionView extends Proxy
     }
     
     /**
-	 *  @private
-	 *  Attempts to call setItemAt(), converting the property name into an int.
+     *  @private
+     *  Attempts to call setItemAt(), converting the property name into an int.
      */
     override flash_proxy function setProperty(name:*, value:*):void
     {
@@ -715,13 +717,13 @@ public class ListCollectionView extends Proxy
                 index = int(n);
         }
         catch(e:Error) // localName was not a number
-		{
-		}
+        {
+        }
 
         if (index == -1)
         {
-        	var message:String = resourceManager.getString(
-        		"collections", "unknownProperty", [ name ]);
+            var message:String = resourceManager.getString(
+                "collections", "unknownProperty", [ name ]);
             throw new Error(message);
         }
         else
@@ -751,8 +753,8 @@ public class ListCollectionView extends Proxy
                 index = int(n);
         }
         catch(e:Error) // localName was not a number
-		{
-		}
+        {
+        }
 
         if (index == -1)
             return false;
@@ -786,8 +788,8 @@ public class ListCollectionView extends Proxy
 
     /**
      *  @private
-	 *  Any methods that can't be found on this class shouldn't be called,
-	 *  so return null
+     *  Any methods that can't be found on this class shouldn't be called,
+     *  so return null
      */
     override flash_proxy function callProperty(name:*, ... rest):*
     {
@@ -870,7 +872,7 @@ public class ListCollectionView extends Proxy
     {
         var addedItems:Array = localIndex ? [] : items;
         var addLocation:int = sourceLocation;
-		var firstOne:Boolean = true;
+        var firstOne:Boolean = true;
 
         if (localIndex)
         {
@@ -881,36 +883,36 @@ public class ListCollectionView extends Proxy
                 if (filterFunction == null || filterFunction(item))
                 {
                     if (sort)
-					{
+                    {
                         loc = findItem(item, Sort.ANY_INDEX_MODE, true);
-						if (firstOne)
-						{
-							addLocation = loc;
-							firstOne = false;
-						}
-					}
-					else
-					{
-						loc = getFilteredItemIndex(item);
-						if (firstOne)
-						{
-							addLocation = loc;
-							firstOne = false;
-						}
-					}
+                        if (firstOne)
+                        {
+                            addLocation = loc;
+                            firstOne = false;
+                        }
+                    }
+                    else
+                    {
+                        loc = getFilteredItemIndex(item);
+                        if (firstOne)
+                        {
+                            addLocation = loc;
+                            firstOne = false;
+                        }
+                    }
 
                     if (sort && sort.unique && sort.compareFunction(item, localIndex[loc]) == 0)
                     {
                         // We cause all adds to fail here, not just the one.
                         var message:String = resourceManager.getString(
-                        	"collections", "incorrectAddition");
+                            "collections", "incorrectAddition");
                         throw new CollectionViewError(message);
                     }
                     localIndex.splice(loc++, 0, item);
                     addedItems.push(item);
                 }
- 				else
- 					addLocation = -1;
+                else
+                    addLocation = -1;
              }
         }
 
@@ -946,7 +948,7 @@ public class ListCollectionView extends Proxy
         if (!sort)
         {
             var message:String = resourceManager.getString(
-            	"collections", "itemNotFound");
+                "collections", "itemNotFound");
             throw new CollectionViewError(message);
         }
         if (localIndex.length == 0)
@@ -968,8 +970,8 @@ public class ListCollectionView extends Proxy
     {
         if (index < 0 || index > length)
         {
-        	var message:String = resourceManager.getString(
-        		"collections", "invalidIndex", [ index ]);
+            var message:String = resourceManager.getString(
+                "collections", "invalidIndex", [ index ]);
             throw new CollectionViewError(message);
         }
 
@@ -1007,7 +1009,7 @@ public class ListCollectionView extends Proxy
             || ListCollectionViewBookmark(bookmark).view != this)
         {
             var message:String = resourceManager.getString(
-            	"collections", "bookmarkNotFound");
+                "collections", "bookmarkNotFound");
             throw new CollectionViewError(message);
         }
 
@@ -1301,7 +1303,7 @@ public class ListCollectionView extends Proxy
                 localIndex.splice(removeLocation, 1);
             }
 
-			var addLocation:int = addItemsToView([item], removeLocation, false);
+            var addLocation:int = addItemsToView([item], removeLocation, false);
 
             if (dispatch)
             {
@@ -1441,10 +1443,10 @@ public class ListCollectionView extends Proxy
         internalRefresh(false);
         if (dispatchResetEvent)
         {
-	        var event:CollectionEvent =
-	            new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-	        event.kind = CollectionEventKind.RESET;
-	        dispatchEvent(event);
+            var event:CollectionEvent =
+                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            event.kind = CollectionEventKind.RESET;
+            dispatchEvent(event);
         }
     }
 
@@ -1555,12 +1557,12 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      */
     private var invalid:Boolean;
 
-	/**
-	 *  @private
-	 *  Used for accessing localized Error messages.
-	 */
-	private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -1822,7 +1824,7 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
             if (view.length > 0)
             {
                 var message:String = resourceManager.getString(
-                	"collections", "invalidInsert");
+                    "collections", "invalidInsert");
                 throw new CursorError(message);
             }
             else
@@ -1945,7 +1947,7 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
         if (beforeFirst || afterLast)
         {
             var message:String = resourceManager.getString(
-            	"collections", "invalidRemove");
+                "collections", "invalidRemove");
             throw new CursorError(message);
         }
         var oldIndex:int = currentIndex;
@@ -2042,14 +2044,14 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
                     setCurrent(null);
                     
                     message = resourceManager.getString(
-                    	"collections", "bookmarkInvalid");
+                        "collections", "bookmarkInvalid");
                     throw new CursorError(message);
                 }
             }
             catch(bmError:CollectionViewError)
             {
                 message = resourceManager.getString(
-                	"collections", "bookmarkInvalid");
+                    "collections", "bookmarkInvalid");
                 throw new CursorError(message);
             }
         }
@@ -2084,7 +2086,7 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
         if (invalid)
         {
             var message:String = resourceManager.getString(
-            	"collections", "invalidCursor");
+                "collections", "invalidCursor");
             throw new CursorError(message);
         }
     }
