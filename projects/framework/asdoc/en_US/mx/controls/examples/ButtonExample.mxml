@@ -6,12 +6,12 @@
 
     <fx:Script>
         <![CDATA[
-            import flash.events.Event;
+            import flash.events.Event; 
 
             // Event handler function to print a message
             // describing the selected Halo Button control.
             private function printMessage(evt:Event):void {
-                message.text += evt.target.label + " pressed" + "\n";
+                message.text += evt.target.label + " pressed" + "\n"; 
             }
         ]]>
     </fx:Script>
@@ -26,7 +26,7 @@
     
                  <!-- The button can contain an image, as in the "Button with Icon" button -->
                  <!-- The button can contain an image, as in the "Button with Icon" button -->
-                 <mx:Button id="iconButton" icon="@Embed('assets/mm-icon.png')" label="Button with Icon"
+                 <mx:Button id="iconButton" icon="@Embed('assets/logo.gif')" label="Button with Icon"
                          paddingLeft="12" paddingRight="18" labelPlacement="right" color="#993300" click="printMessage(event);"/>
     
                  <!-- The size of the button and the label attributes can be customized -->
