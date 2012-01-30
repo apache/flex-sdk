@@ -39,11 +39,6 @@ public class TitleWindowAccImpl extends PanelAccImpl
 	/**
 	 *  @private
 	 */
-	private static const STATE_SYSTEM_FOCUSED:uint = 0x00000004;
-
-	/**
-	 *  @private
-	 */
 	private static const STATE_SYSTEM_MOVEABLE:uint = 0x00040000;
 
 	/**
@@ -91,15 +86,16 @@ public class TitleWindowAccImpl extends PanelAccImpl
 	mx_internal static function createAccessibilityImplementation(
 								component:UIComponent):void
 	{
+		// The AccessibilityImplementation is placed on the
+		// TitleWindow's titleBar, not on the TitleWindow itself.
+		// If it were placed on the TitleWindow itself,
+		// the AccessibilityImplementations of the TitleWindow's children
+		// would be ignored.
 		var titleBar:UIComponent = TitleWindow(component).getTitleBar();
-
-		var titleBarAccImpl:TitleWindowAccImpl =
+		titleBar.accessibilityImplementation =
 			new TitleWindowAccImpl(component);
 
-		titleBar.accessibilityImplementation = titleBarAccImpl;
-
 		Accessibility.sendEvent(titleBar, 0, EVENT_OBJECT_CREATE);
-
 		Accessibility.updateProperties();
 	}
 
@@ -127,7 +123,7 @@ public class TitleWindowAccImpl extends PanelAccImpl
 													 eventHandler);
 		
 		Panel(master).closeButton.addEventListener(MouseEvent.MOUSE_UP,
-														eventHandler);
+												   eventHandler);
 	}
 	
 	//--------------------------------------------------------------------------
@@ -152,25 +148,7 @@ public class TitleWindowAccImpl extends PanelAccImpl
 	{
 		var accState:uint = getState(childID);
 		
-		switch (childID)
-		{
-			case 1:
-			{
-				break;
-			}
-
-			case 2:
-			{
-				accState |= STATE_SYSTEM_FOCUSED;
-				break;
-			}
-
-			default:
-			{
-				accState |= STATE_SYSTEM_MOVEABLE;
-				break;
-			}
-		}
+		accState |= STATE_SYSTEM_MOVEABLE;
 		
 		return accState;
 	}
