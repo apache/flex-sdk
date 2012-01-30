@@ -14,20 +14,102 @@
 <project name="framework" default="main" basedir=".">
 
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
-
 	<property file="${FLEX_HOME}/build.properties"/>
-
+	<property name="locale" value="en_US"/>
     <!--
     NOTE: We are continuing to build against player 9 so that airframework.swc
           can externally link against framework.swc, since air is player 9.
           If you change this, update <target-player/> in the <compc/> tasks.
     -->
-	<property name="local.playerglobal.version" value="10"/>
+    <property name="local.playerglobal.version" value="10"/>
+  	
+	<macrodef name="bundle">
+		<attribute name="locale"/>
+			<sequential>
+				<echo message="Compiling frameworks/locale/@{locale}/framework_rb.swc"/>
+			<!-- Load the <compc> task. We can't do this at the <project> level -->
+			<!-- because targets that run before flexTasks.jar gets built would fail. -->
+			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+			<compc fork="true"
+				   output="${FLEX_HOME}/frameworks/locale/@{locale}/framework_rb.swc"
+				   locale="@{locale}">
+				<jvmarg line="${compc.jvm.args}"/>
+				<target-player>10</target-player>
+				<include-resource-bundles bundle="SharedResources"/>
+				<include-resource-bundles bundle="collections"/>
+				<include-resource-bundles bundle="containers"/>
+				<include-resource-bundles bundle="controls"/>
+				<include-resource-bundles bundle="core"/>
+				<include-resource-bundles bundle="effects"/>
+				<include-resource-bundles bundle="formatters"/>
+				<include-resource-bundles bundle="logging"/>
+				<include-resource-bundles bundle="modules"/>
+				<include-resource-bundles bundle="skins"/>
+				<include-resource-bundles bundle="states"/>
+				<include-resource-bundles bundle="styles"/>
+				<include-resource-bundles bundle="utils"/>
+				<include-resource-bundles bundle="validators"/>
+				<include-namespaces/>
+				<include-classes/>
+				<source-path path-element="${basedir}/bundles/@{locale}"/>
+				<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+				<include-libraries/>
+				<library-path/>
+				<external-library-path dir="${FLEX_HOME}/frameworks/libs">
+					<include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+				</external-library-path>
+			</compc>
+		</sequential>
+	</macrodef>	
+	
+	<macrodef name="fat-swc">
+		<attribute name="locale"/>
+		<sequential>
+			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/framework_rb.swc" >
+				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+					<include name="*.*"/>
+				</zipfileset>
+			</zip>
+			<delete dir="${basedir}/bundles/@{locale}/docs" failonerror="false"/>
+		</sequential>
+	</macrodef>	
 
-	<target name="main" depends="clean,compile,en_US" description="Clean build of framework.swc and its English resources"/>
-
-	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ja_JP,ko_KR,nb_NO,nl_NL,pt_BR,ru_RU,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
-
+	<macrodef name="bundler">
+		<attribute name="locale"/>
+		<sequential>
+			<bundle locale="@{locale}"/>
+			<fat-swc locale="@{locale}"/>
+		</sequential>
+	</macrodef>
+	
+	<target name="main" depends="clean,compile" description="Clean build of framework.swc and en_US">
+		<bundle locale="${locale}"/>
+	</target>
+	
+	<target name="other.locales" depends="bundles-clean,bundles" description="Build other locale SWCs"/>
+	
+	<!-- This is a private target for building automation_flashflexkit_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+	<target name="bundles">
+		<bundler locale="da_DK"/><!-- Danish resources -->
+		<bundler locale="de_DE"/><!-- German resources -->
+		<bundler locale="en_US"/><!-- American English resources  -->
+		<bundler locale="es_ES"/><!-- Spanish resources -->
+		<bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_FR"/><!-- French resources -->
+		<bundler locale="it_IT"/><!-- Italian resources -->
+		<bundler locale="ja_JP"/><!-- Japanese resources -->
+		<bundler locale="ko_KR"/><!-- Korean resources -->
+		<bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
+		<bundler locale="nl_NL"/><!-- Dutch resources -->
+		<bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+		<bundler locale="ru_RU"/><!-- Swedish resources -->
+		<bundler locale="sv_SE"/><!-- Swedish resources -->
+		<bundler locale="zh_CN"/><!-- Simplified Chinese resources -->
+		<bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
+	</target>
+		
 	<target name="clean">
 		<delete failonerror="false">
 			<fileset dir="${basedir}" >
@@ -38,6 +120,11 @@
 				<include name="framework.swc"/>
 				<include name="framework.swc.incr"/>
 			</fileset>
+		</delete>
+	</target>
+	
+	<target name="bundles-clean">
+		<delete failonerror="false">
 			<fileset dir="${FLEX_HOME}/frameworks/locale">
 				<include name="*/framework_rb.swc"/>
 				<include name="*/framework_rb.swc.incr"/>
@@ -95,198 +182,7 @@
 			<keep-as3-metadata name="Transient"/>
 		</compc>
 	</target>
-
-	<!-- This is a private target for building framework_rb.swc for various locales. -->
-	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
-	<target name="bundle">
-		<echo message="Compiling frameworks/locale/${locale}/framework_rb.swc"/>
-		<!-- Load the <compc> task. We can't do this at the <project> level -->
-		<!-- because targets that run before flexTasks.jar gets built would fail. -->
-		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
-		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/locale/${locale}/framework_rb.swc"
-			   locale="${locale}">
-			<jvmarg line="${compc.jvm.args}"/>
-			<target-player>10</target-player>
- 			<include-resource-bundles bundle="SharedResources"/>
-			<include-resource-bundles bundle="collections"/>
-			<include-resource-bundles bundle="containers"/>
-			<include-resource-bundles bundle="controls"/>
-			<include-resource-bundles bundle="core"/>
-			<include-resource-bundles bundle="effects"/>
-			<include-resource-bundles bundle="formatters"/>
-			<include-resource-bundles bundle="logging"/>
-			<include-resource-bundles bundle="modules"/>
-			<include-resource-bundles bundle="skins"/>
-			<include-resource-bundles bundle="states"/>
-			<include-resource-bundles bundle="styles"/>
-			<include-resource-bundles bundle="utils"/>
-			<include-resource-bundles bundle="validators"/>
-			<include-namespaces/>
-			<include-classes/>
-			<source-path path-element="${basedir}/bundles/${locale}"/>
-			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
-			<include-libraries/>
-			<library-path/>
-            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
-			</external-library-path>
-		</compc>
-	</target>
-
-	    <!-- updates framework_rb.swc with asdoc xml -->
-	<target name="fat-swc">
-		<mkdir dir="${basedir}/bundles/${locale}/docs" />
-        <zip destfile="${FLEX_HOME}/frameworks/locale/${locale}/framework_rb.swc" update="true">
-            <zipfileset dir="${basedir}/bundles/${locale}/docs" prefix="docs">
-                <include name="*.*"/>
-            </zipfileset>
-        </zip>
-	</target>
 	
-	<!-- Targets for compiling framework_rb.swc for various locales -->
-
-	<target name="da_DK" description="Danish resources">
-		<antcall target="bundle">
-			<param name="locale" value="da_DK"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="da_DK"/>
-		</antcall>
-	</target>
-
-	<target name="de_DE" description="German resources">
-		<antcall target="bundle">
-			<param name="locale" value="de_DE"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="de_DE"/>
-		</antcall>
-	</target>
-
-	<target name="en_US" description="American English resources">
-		<antcall target="bundle">
-			<param name="locale" value="en_US"/>
-		</antcall>
-	</target>
-
-	<target name="es_ES" description="Spanish resources">
-		<antcall target="bundle">
-			<param name="locale" value="es_ES"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="es_ES"/>
-		</antcall>
-	</target>
-
-	<target name="fi_FI" description="Finnish resources">
-		<antcall target="bundle">
-			<param name="locale" value="fi_FI"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="fi_FI"/>
-		</antcall>
-	</target>
-
-	<target name="fr_FR" description="French resources">
-		<antcall target="bundle">
-			<param name="locale" value="fr_FR"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="fr_FR"/>
-		</antcall>
-	</target>
-
-	<target name="it_IT" description="Italian resources">
-		<antcall target="bundle">
-			<param name="locale" value="it_IT"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="it_IT"/>
-		</antcall>
-	</target>
-
-	<target name="ja_JP" description="Japanese resources">
-		<antcall target="bundle">
-			<param name="locale" value="ja_JP"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="ja_JP"/>
-		</antcall>
-	</target>
-
-	<target name="ko_KR" description="Korean resources">
-		<antcall target="bundle">
-			<param name="locale" value="ko_KR"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="ko_KR"/>
-		</antcall>
-	</target>
-
-	<target name="nb_NO" description="Norwegian Bokmal resources">
-		<antcall target="bundle">
-			<param name="locale" value="nb_NO"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="nb_NO"/>
-		</antcall>
-	</target>
-
-	<target name="nl_NL" description="Dutch resources">
-		<antcall target="bundle">
-			<param name="locale" value="nl_NL"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="nl_NL"/>
-		</antcall>
-	</target>
-
-	<target name="pt_BR" description="Brazilian Portuguese resources">
-		<antcall target="bundle">
-			<param name="locale" value="pt_BR"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="pt_BR"/>
-		</antcall>
-	</target>
-
-    <target name="ru_RU" description="Swedish resources">
-        <antcall target="bundle">
-            <param name="locale" value="ru_RU"/>
-        </antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="ru_RU"/>
-		</antcall>
-    </target>
-
-    <target name="sv_SE" description="Swedish resources">
-		<antcall target="bundle">
-			<param name="locale" value="sv_SE"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="sv_SE"/>
-		</antcall>
-	</target>
-
-	<target name="zh_CN" description="Simplified Chinese resources">
-		<antcall target="bundle">
-			<param name="locale" value="zh_CN"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="zh_CN"/>
-		</antcall>
-	</target>
-
-	<target name="zh_TW" description="Traditional Chinese resources">
-		<antcall target="bundle">
-			<param name="locale" value="zh_TW"/>
-		</antcall>
-		<antcall target="fat-swc">
-			<param name="locale" value="zh_TW"/>
-		</antcall>
-	</target>
-
 	<target name="doc" depends="clean-temp-docs" description="updates framework.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
