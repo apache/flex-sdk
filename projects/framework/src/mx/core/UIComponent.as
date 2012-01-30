@@ -3649,7 +3649,7 @@ public class UIComponent extends FlexSprite
                 continue;
 
             if (child.document == _document ||
-                child.document == ApplicationGlobals.application)
+                child.document == FlexGlobals.topLevelApplication)
             {
                 child.document = value;
             }
@@ -6437,7 +6437,7 @@ public class UIComponent extends FlexSprite
         {
             IUIComponent(child).document = document ?
                                            document :
-                                           ApplicationGlobals.application;
+                                           FlexGlobals.topLevelApplication;
         }
 
         // Propagate moduleFactory to the child, but don't overwrite an existing moduleFactory.
