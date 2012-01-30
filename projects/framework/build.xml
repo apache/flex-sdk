@@ -18,11 +18,11 @@
 	<property file="${FLEX_HOME}/build.properties"/>
 
     <!-- 
-        NOTE: Overriding from build.properties. We are continuing to build against
-              player 9 so that airframework.swc can externally link against framework.swc,
-              since air is player 9. If you change this, update <target-player/> in the <compc/> tasks.
+    NOTE: We are continuing to build against player 9 so that airframework.swc
+          can externally link against framework.swc, since air is player 9.
+          If you change this, update <target-player/> in the <compc/> tasks.
     -->
-	<property name="playerglobal.version" value="9"/>
+	<property name="local.playerglobal.version" value="9"/>
 
 	<target name="main" depends="clean,compile,en_US,ja_JP" description="Clean build of framework.swc and its English and Japanese resources"/>
 
@@ -66,7 +66,7 @@
             <!--
                 NOTE: we are continuing to build against player 9 so that airframework.swc
                       can externally link against framework.swc, since air is player 9.
-                      If you change this, update ${playerglobal.version} above.
+                      If you change this, update ${local.playerglobal.version} above.
             -->
             <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
@@ -76,7 +76,7 @@
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 			<include-file name="defaults.css" path="${basedir}/defaults.css"/>
 			<include-file name="defaults-2.0.0.css" path="${basedir}/defaults-2.0.0.css"/>
@@ -105,7 +105,7 @@
             <!--
                 NOTE: we are continuing to build against player 9 so that airframework.swc
                       can externally link against framework.swc, since air is player 9.
-                      If you change this, update ${playerglobal.version} above.
+                      If you change this, update ${local.playerglobal.version} above.
             -->
             <target-player>9</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
@@ -129,7 +129,7 @@
 			<include-libraries/>
 			<library-path/>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
 			</external-library-path>
 		</compc>
 	</target>
