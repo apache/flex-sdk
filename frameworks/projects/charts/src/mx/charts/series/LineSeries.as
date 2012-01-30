@@ -39,15 +39,16 @@ import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.IStroke;
 import mx.graphics.LinearGradientStroke;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -947,26 +948,14 @@ public class LineSeries extends Series
         {
             if (!_horizontalAxis)
             {
-                if (c.secondSeries.indexOf(this) != -1 && c.secondHorizontalAxis)
-                {
-                    if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.secondHorizontalAxis)
-                        CartesianTransform(dataTransform).setAxis(
-                            CartesianTransform.HORIZONTAL_AXIS,c.secondHorizontalAxis);
-                }
-                else if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.horizontalAxis)
+                if (dataTransform.axes[CartesianTransform.HORIZONTAL_AXIS] != c.horizontalAxis)
                         CartesianTransform(dataTransform).setAxis(
                             CartesianTransform.HORIZONTAL_AXIS,c.horizontalAxis);
             }
                             
             if (!_verticalAxis)
             {
-                if (c.secondSeries.indexOf(this) != -1 && c.secondVerticalAxis)
-                {
-                    if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.secondVerticalAxis)
-                        CartesianTransform(dataTransform).setAxis(
-                            CartesianTransform.VERTICAL_AXIS,c.secondVerticalAxis);
-                }
-                else if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.verticalAxis)
+                if (dataTransform.axes[CartesianTransform.VERTICAL_AXIS] != c.verticalAxis)
                         CartesianTransform(dataTransform).setAxis(
                             CartesianTransform.VERTICAL_AXIS, c.verticalAxis);
             }
@@ -1252,13 +1241,6 @@ public class LineSeries extends Series
                 if (cChart.getSeriesTransformState(cChart.series[i]))
                     allSeriesTransform = false;
             }
-        
-            n = cChart.secondSeries.length;
-            for (i = 0; i < n; i++)
-            {
-                if (cChart.getSeriesTransformState(cChart.secondSeries[i]))
-                    allSeriesTransform = false;
-            }
             if (allSeriesTransform)
                 cChart.measureLabels();
         }   
@@ -1425,8 +1407,8 @@ public class LineSeries extends Series
                 var hd:HitData = new HitData(createDataID(v.index),Math.sqrt(0),v.x,v.y,v);
 
                 var istroke:IStroke = getStyle("lineStroke");
-                if (istroke is Stroke)
-                    hd.contextColor = Stroke(istroke).color;
+                if (istroke is SolidColorStroke)
+                    hd.contextColor = SolidColorStroke(istroke).color;
                 else if (istroke is LinearGradientStroke)
                 {
                     var gb:LinearGradientStroke = LinearGradientStroke(istroke);
@@ -1540,8 +1522,8 @@ public class LineSeries extends Series
             var hd:HitData = new HitData(createDataID(minItem.index),Math.sqrt(minDist2),minItem.x,minItem.y,minItem);
 
             var istroke:IStroke = getStyle("lineStroke");
-            if (istroke is Stroke)
-                hd.contextColor = Stroke(istroke).color;
+            if (istroke is SolidColorStroke)
+                hd.contextColor = SolidColorStroke(istroke).color;
             else if (istroke is LinearGradientStroke)
             {
                 var gb:LinearGradientStroke = LinearGradientStroke(istroke);
@@ -2039,10 +2021,11 @@ public class LineSeries extends Series
 
 
 import flash.display.Graphics;
+
 import mx.charts.series.LineSeries;
 import mx.graphics.IStroke;
-import mx.graphics.Stroke;
 import mx.graphics.LinearGradientStroke;
+import mx.graphics.SolidColorStroke;
 import mx.skins.ProgrammaticSkin;
 
 /**
@@ -2097,9 +2080,9 @@ class LineSeriesLegendMarker extends ProgrammaticSkin
         var fillStroke:IStroke = getStyle("lineStroke");
         var color:Number;
 
-        if (fillStroke is Stroke)
+        if (fillStroke is SolidColorStroke)
         {
-            color = Stroke(fillStroke).color;
+            color = SolidColorStroke(fillStroke).color;
         }
         else if (fillStroke is LinearGradientStroke)
         {
