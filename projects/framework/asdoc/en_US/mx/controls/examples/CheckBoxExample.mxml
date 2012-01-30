@@ -47,7 +47,7 @@
             </s:VGroup>
 
             <s:VGroup>
-                <s:SimpleText text="Items in my cart "/>
+                <s:Label text="Items in my cart "/>
                 <s:TextArea id="cartItems" width="300" height="50" verticalScrollPolicy="off"/>
                 <!-- Event handler sendMessages() is used to handle event click -->
                 <mx:CheckBox id="couponCB" label="Send me coupons for items in my cart"
