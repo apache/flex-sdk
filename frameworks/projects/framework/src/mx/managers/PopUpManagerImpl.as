@@ -957,13 +957,17 @@ public class PopUpManagerImpl implements IPopUpManager
             if (blurAmount)
             {
                 // Ensure we blur the appropriate top level document.
-                // Get the application document of the sandbox root.
-                // Use a request to get the document so APIs may change
-                // between Flex versions.
-                var sbRootApp:Object;   // sbRoot.application;
-                
-                if (sm != sbRoot)
+                if (DisplayObject(sm).parent is Stage)
                 {
+                    // Checking this case first allows WindowedSystemManagers be the blur target.
+                    o.blurTarget = sm.document;
+                }
+                else if (sm != sbRoot)
+                {
+                    // Get the application document of the sandbox root.
+                    // Use a request to get the document so APIs may change
+                    // between Flex versions.
+                    var sbRootApp:Object;
                     var applicationRequest:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST,
                                                                        false, false,
                                                                        "application",
