@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Master View">
+	
+	<fx:Script>
+		<![CDATA[
+			import spark.components.SplitViewNavigator;
+			import spark.components.ViewNavigator;
+			import spark.events.IndexChangeEvent;
+			
+			protected function listChangeHandler(event:IndexChangeEvent):void
+			{
+				var splitNavigator:SplitViewNavigator = navigator.parentNavigator as SplitViewNavigator;
+				var detailNavigator:ViewNavigator = splitNavigator.getViewNavigatorAt(1) as ViewNavigator;
+				
+				detailNavigator.pushView(views.DetailView, event.newIndex);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:ArrayList id="listData">
+			<fx:String>Item 0</fx:String>
+			<fx:String>Item 1</fx:String>
+			<fx:String>Item 2</fx:String>
+			<fx:String>Item 3</fx:String>
+			<fx:String>Item 4</fx:String>
+			<fx:String>Item 5</fx:String>
+			<fx:String>Item 6</fx:String>
+			<fx:String>Item 7</fx:String>
+			<fx:String>Item 8</fx:String>
+			<fx:String>Item 9</fx:String>
+			<fx:String>Item 10</fx:String>
+			<fx:String>Item 11</fx:String>
+			<fx:String>Item 12</fx:String>
+			<fx:String>Item 13</fx:String>
+			<fx:String>Item 14</fx:String>
+			<fx:String>Item 15</fx:String>
+			<fx:String>Item 16</fx:String>
+			<fx:String>Item 17</fx:String>
+			<fx:String>Item 18</fx:String>
+			<fx:String>Item 19</fx:String>
+		</s:ArrayList>
+	</fx:Declarations>
+	
+	<s:List width="100%" height="100%" dataProvider="{listData}" change="listChangeHandler(event)"/>
+
+</s:View>
