@@ -46,7 +46,7 @@
 	</target>
 	
 	<target name="prepare" description="Copies manifests to project directories so the IDE can find them">
-		<copy file="${FLEX_HOME}/frameworks/halo-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
+		<copy file="${FLEX_HOME}/frameworks/mx-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
 	</target>
 	
 	<target name="compile" depends="prepare" description="Compiles framework.swc">
@@ -72,9 +72,9 @@
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
 			<target-player>10</target-player>
-			<namespace uri="library://ns.adobe.com/flex/halo" manifest="${basedir}/manifest.xml"/>
+			<namespace uri="library://ns.adobe.com/flex/mx" manifest="${basedir}/manifest.xml"/>
 			<namespace uri="http://www.adobe.com/2006/mxml" manifest="${basedir}/manifest.xml"/>
-			<include-namespaces uri="library://ns.adobe.com/flex/halo"/>
+			<include-namespaces uri="library://ns.adobe.com/flex/mx"/>
 			<include-classes>FrameworkClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
 			<library-path/>
