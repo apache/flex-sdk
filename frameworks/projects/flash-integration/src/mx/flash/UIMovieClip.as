@@ -44,6 +44,7 @@ import mx.core.IStateClient;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.LayoutElementUIComponentUtils;
+import mx.core.LayoutDirection;
 import mx.core.UIComponentDescriptor;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -3101,7 +3102,7 @@ public dynamic class UIMovieClip extends MovieClip
             return _layoutDirection;
         
         const parentElt:IVisualElement = parent as IVisualElement;
-        return (parentElt) ? parentElt.layoutDirection : "ltr";
+        return (parentElt) ? parentElt.layoutDirection : LayoutDirection.LTR;
 	}
 	
     /**
