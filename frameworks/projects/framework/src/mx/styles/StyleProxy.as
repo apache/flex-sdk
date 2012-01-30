@@ -23,6 +23,11 @@ use namespace mx_internal;
  *  style-source/style-destination pairs.
  * 
  *  @see mx.styles.IAdvancedStyleClient
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class StyleProxy implements IAdvancedStyleClient
 {
@@ -39,6 +44,11 @@ public class StyleProxy implements IAdvancedStyleClient
      *  
      *  @param source The object that implements the IStyleClient interface.
      *  @param filterMap The set of styles to pass from the source to the subcomponent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function StyleProxy(source:IStyleClient, filterMap:Object)
     {
@@ -71,6 +81,11 @@ public class StyleProxy implements IAdvancedStyleClient
      *  to a different style in the subcomponent. This is useful if both the parent 
      *  component and the subcomponent share the same style, but you want to be able to 
      *  control the values seperately.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filterMap():Object
     {
@@ -105,6 +120,11 @@ public class StyleProxy implements IAdvancedStyleClient
     /**
      *  The object that implements the IStyleClient interface. This is the object
      *  that is being proxied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():IStyleClient
     {
@@ -132,6 +152,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#className
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get className():String
     {
@@ -144,6 +169,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#inheritingStyles
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get inheritingStyles():Object
     {
@@ -164,6 +194,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#nonInheritingStyles
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nonInheritingStyles():Object
     {
@@ -186,6 +221,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#styleDeclaration
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get styleDeclaration():CSSStyleDeclaration
     {
@@ -206,6 +246,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.ISimpleStyleClient#styleName
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get styleName():Object
     {
@@ -235,6 +280,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IAdvancedStyleClient#id
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get id():String
     {
@@ -247,6 +297,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IAdvancedStyleClient#styleParent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get styleParent():IAdvancedStyleClient
     {
@@ -261,6 +316,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.ISimpleStyleClient#styleChanged()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function styleChanged(styleProp:String):void
     {
@@ -269,6 +329,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#getStyle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getStyle(styleProp:String):*
     {
@@ -277,6 +342,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#setStyle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setStyle(styleProp:String, newValue:*):void
     {
@@ -285,6 +355,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#clearStyle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function clearStyle(styleProp:String):void
     {
@@ -293,6 +368,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#getClassStyleDeclarations()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getClassStyleDeclarations():Array
     {
@@ -301,6 +381,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#notifyStyleChangeInChildren()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function notifyStyleChangeInChildren(styleProp:String,
                                                 recursive:Boolean):void
@@ -310,6 +395,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#regenerateStyleCache()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function regenerateStyleCache(recursive:Boolean):void
     {
@@ -319,6 +409,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IStyleClient#registerEffects()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function registerEffects(effects:Array):void
     {
@@ -333,6 +428,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IAdvancedStyleClient#isPseudoSelectorMatch()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isPseudoSelectorMatch(pseudoState:String):Boolean
     {
@@ -341,6 +441,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IAdvancedStyleClient#isTypeSelectorMatch()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function isTypeSelectorMatch(type:String):Boolean
     {
@@ -349,6 +454,11 @@ public class StyleProxy implements IAdvancedStyleClient
 
     /**
      *  @copy mx.styles.IAdvancedStyleClient#applyStateStyles()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
     {
