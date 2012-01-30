@@ -339,15 +339,7 @@ public class Flex
 		var numChildren:int = childInfoArray.length;
 		var flexConsumed:Number; // space consumed by flexible compontents
 		var done:Boolean;
-		
-		// We now do something a little tricky so that we can 
-		// support partial filling of the space. If our total
-		// percent < 100% then we can trim off some space.
-		var unused:Number = spaceToDistribute -
-							(spaceForChildren * totalPercent / 100);
-		if (unused > 0)
-			spaceToDistribute -= unused;
-
+        
 		// Continue as long as there are some remaining flexible children.
 		// The "done" flag isn't strictly necessary, except that it catches
 		// cases where round-off error causes totalPercent to not exactly
@@ -357,6 +349,17 @@ public class Flex
 			flexConsumed = 0; // space consumed by flexible compontents
 			done = true; // we are optimistic
 			
+            // We now do something a little tricky so that we can 
+            // support partial filling of the space. If our total
+            // percent < 100% then we can trim off some space.
+            // This unused space can be used to fulfill mins and maxes.
+            var unused:Number = spaceToDistribute -
+                                (spaceForChildren * totalPercent / 100);
+            if (unused > 0)
+                spaceToDistribute -= unused;
+            else
+                unused = 0;
+            
 			// Space for flexible children is the total amount of space
 			// available minus the amount of space consumed by non-flexible
 			// components.Divide that space in proportion to the percent
@@ -391,7 +394,16 @@ public class Flex
 					childInfoArray[numChildren] = childInfo;
 
 					totalPercent -= childInfo.percent;
-					spaceToDistribute -= min;
+                    // Use unused space first before reducing flexible space.
+                    if (unused >= min)
+                    {
+                        unused -= min;
+                    }
+                    else
+                    {
+                        spaceToDistribute -= min - unused;
+                        unused = 0;
+                    }
 					done = false;
 					break;
 				}
@@ -404,7 +416,16 @@ public class Flex
 					childInfoArray[numChildren] = childInfo;
 
 					totalPercent -= childInfo.percent;
-					spaceToDistribute -= max;
+                    // Use unused space first before reducing flexible space.
+                    if (unused >= max)
+                    {
+                        unused -= max;
+                    }
+                    else
+                    {
+                        spaceToDistribute -= max - unused;
+                        unused = 0;
+                    }
 					done = false;
 					break;
 				}
@@ -418,7 +439,7 @@ public class Flex
 		} 
 		while (!done);
 
-		return Math.max(0, Math.floor(spaceToDistribute - flexConsumed))
+		return Math.max(0, Math.floor((spaceToDistribute + unused) - flexConsumed))
 	}
 	
 	/**
