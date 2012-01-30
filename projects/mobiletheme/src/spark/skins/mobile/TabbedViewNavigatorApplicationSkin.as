@@ -11,12 +11,12 @@
 
 package spark.skins.mobile
 {
-import spark.components.TabbedMobileApplication;
+import spark.components.TabbedViewNavigatorApplication;
 import spark.components.TabbedViewNavigator;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  The ActionScript based skin used for TabbedMobileApplication.  
+ *  The ActionScript based skin used for TabbedViewNavigatorApplication.  
  *  This skin contains a single TabbedViewNavigator that spans the
  *  entire content area of the application.
  * 
@@ -25,7 +25,7 @@ import spark.skins.mobile.supportClasses.MobileSkin;
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
-public class TabbedMobileApplicationSkin extends MobileSkin
+public class TabbedViewNavigatorApplicationSkin extends MobileSkin
 {
     //--------------------------------------------------------------------------
     //
@@ -40,7 +40,7 @@ public class TabbedMobileApplicationSkin extends MobileSkin
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function TabbedMobileApplicationSkin()
+    public function TabbedViewNavigatorApplicationSkin()
     {
         super();
     }
@@ -66,7 +66,7 @@ public class TabbedMobileApplicationSkin extends MobileSkin
     //  Overridden Properties
     //
     //--------------------------------------------------------------------------
-    public var hostComponent:TabbedMobileApplication;
+    public var hostComponent:TabbedViewNavigatorApplication;
     
     
     //--------------------------------------------------------------------------
