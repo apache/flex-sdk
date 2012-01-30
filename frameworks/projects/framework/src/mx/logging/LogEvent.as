@@ -19,6 +19,11 @@ import flash.events.Event;
  *  The loging system dispatches a single event each time a process requests
  *  information be logged.
  *  This event can be captured by any object for storage or formatting.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LogEvent extends Event
 {
@@ -32,6 +37,11 @@ public class LogEvent extends Event
 
     /**
      *  Event type constant; identifies a logging event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const LOG:String = "log";
 
@@ -47,6 +57,11 @@ public class LogEvent extends Event
      *  @param The level a string is desired for.
 	 *
      *  @return The level specified in English.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getLevelString(value:uint):String
     {
@@ -120,6 +135,11 @@ public class LogEvent extends Event
      *    <li><code>LogEventLevel.ALL</code> intended to force a target to
      *    process all messages.</li>
      *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function LogEvent(message:String = "",
 							 level:int = 0 /* LogEventLevel.ALL */)
@@ -161,6 +181,11 @@ public class LogEvent extends Event
      *      <li><code>LogEventLevel.FATAL</code> designates events that are very
      *      harmful and will eventually lead to application failure.</li>
      *    </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var level:int;
 
@@ -170,6 +195,11 @@ public class LogEvent extends Event
 
     /**
      *  Provides access to the message that was logged.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var message:String;
 
