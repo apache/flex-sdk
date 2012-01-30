@@ -14,6 +14,7 @@ package
 	import mx.containers.Canvas;
 	import mx.controls.Image;
 	import mx.flash.ContainerMovieClip;
+	import mx.flash.FlexContentHolder;
 	
 	[IconFile("flash_container_icon_small.png")]
 	public class FlashContainerPlaceholder extends ContainerMovieClip
