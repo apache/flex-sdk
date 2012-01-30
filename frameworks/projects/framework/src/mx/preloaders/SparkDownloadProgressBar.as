@@ -13,7 +13,6 @@ package mx.preloaders
 {
 
 import flash.display.DisplayObject;
-import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.display.Loader;
 import flash.display.LoaderInfo;
@@ -21,24 +20,19 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
-import flash.events.TimerEvent;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
-import flash.geom.Rectangle;
 import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
 import flash.system.LoaderContext;
 import flash.text.TextField;
 import flash.text.TextFormat;
-import flash.utils.Timer;
 import flash.utils.getDefinitionByName;
 import flash.utils.getTimer;
 
-import mx.core.FlexVersion;
 import mx.events.FlexEvent;
 import mx.events.RSLEvent;
 import mx.graphics.RectangularDropShadow;
-import mx.graphics.RoundedRectangle;
 import mx.managers.ISystemManager;
 
 /**
@@ -290,6 +284,12 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	//  backgroundImage
 	//----------------------------------
 
+    /**
+     *  @private
+     *  Storage for the backgroundImage property.
+     */
+    private var _backgroundImage:Object;
+    
 	/**
 	 *  The background image of the application,
 	 *  which is passed in by the preloader.
@@ -312,7 +312,7 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 */
 	public function get backgroundImage():Object
 	{
-		return null;
+		return _backgroundImage;
 	}
 	
 	/**
@@ -320,12 +320,18 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	 */
 	public function set backgroundImage(value:Object):void
 	{
-		// noop
+		_backgroundImage = value;
 	}
 	
 	//----------------------------------
 	//  backgroundSize
 	//----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the backgroundSize property.
+     */
+    private var _backgroundSize:String = "";
 
 	/**
      *  Scales the image specified by <code>backgroundImage</code>
@@ -343,18 +349,18 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
 	 */
-	public function get backgroundSize():String
-	{
-		return null;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set backgroundSize(value:String):void
-	{
-		// noop
-	}
+    public function get backgroundSize():String
+    {
+        return _backgroundSize;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set backgroundSize(value:String):void
+    {
+        _backgroundSize = value;
+    }
 	
 	//----------------------------------
 	//  preloader
@@ -501,6 +507,9 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 			g.beginFill(backgroundColor, backgroundAlpha);
 			g.drawRect(0, 0, stageWidth, stageHeight);
 		}
+                
+        if (backgroundImage != null)
+            loadBackgroundImage(backgroundImage);
 			
 		// Determine the size
 		var totalWidth:Number = Math.min(stageWidth - 10, 207);
@@ -731,6 +740,115 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 		return elapsedTime > 300 && count == 2;
 	}
 
+    
+    /**
+     *  @private
+     */
+    private function loadBackgroundImage(classOrString:Object):void
+    {
+        var cls:Class;
+        
+        // The "as" operator checks to see if classOrString
+        // can be coerced to a Class
+        if (classOrString && classOrString as Class)
+        {
+            // Load background image given a class pointer
+            cls = Class(classOrString);
+            initBackgroundImage(new cls());
+        }
+        else if (classOrString && classOrString is String)
+        {
+            try
+            {
+                cls = Class(getDefinitionByName(String(classOrString)));
+            }
+            catch(e:Error)
+            {
+                // ignore
+            }
+
+            if (cls)
+            {
+                var newStyleObj:DisplayObject = new cls();
+                initBackgroundImage(newStyleObj);
+            }
+            else
+            {
+                // Loading the image is slightly different
+                // than in Loader.loadContent()... is this on purpose?
+
+                // Load background image from external URL
+                var loader:Loader = new Loader();
+                loader.contentLoaderInfo.addEventListener(
+                    Event.COMPLETE, loader_completeHandler);
+                loader.contentLoaderInfo.addEventListener(
+                    IOErrorEvent.IO_ERROR, loader_ioErrorHandler);  
+                var loaderContext:LoaderContext = new LoaderContext();
+                loaderContext.applicationDomain = new ApplicationDomain(ApplicationDomain.currentDomain);
+                loader.load(new URLRequest(String(classOrString)), loaderContext);      
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function initBackgroundImage(image:DisplayObject):void
+    {
+        addChildAt(image,0);
+        
+        var backgroundImageWidth:Number = image.width;
+        var backgroundImageHeight:Number = image.height;
+        
+        // Scale according to backgroundSize
+        var percentage:Number = calcBackgroundSize();
+        if (isNaN(percentage))
+        {
+            var sX:Number = 1.0;
+            var sY:Number = 1.0;
+        }
+        else
+        {
+            var scale:Number = percentage * 0.01;
+            sX = scale * stageWidth / backgroundImageWidth;
+            sY = scale * stageHeight / backgroundImageHeight;
+        }
+        
+        image.scaleX = sX;
+        image.scaleY = sY;
+
+        // Center everything.
+        // Use a scrollRect to position and clip the image.
+        var offsetX:Number =
+            Math.round(0.5 * (stageWidth - backgroundImageWidth * sX));
+        var offsetY:Number =
+            Math.round(0.5 * (stageHeight - backgroundImageHeight * sY));
+
+        image.x = offsetX;
+        image.y = offsetY;
+
+        // Adjust alpha to match backgroundAlpha
+        if (!isNaN(backgroundAlpha))
+            image.alpha = backgroundAlpha;
+    }
+    
+    /**
+     *  @private
+     */
+    private function calcBackgroundSize():Number
+    {   
+        var percentage:Number = NaN;
+        
+        if (backgroundSize)
+        {
+            var index:int = backgroundSize.indexOf("%");
+            if (index != -1)
+                percentage = Number(backgroundSize.substr(0, index));
+        }
+        
+        return percentage;
+    }
+
 	//--------------------------------------------------------------------------
 	//
 	//  Event handlers
@@ -843,7 +961,12 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 									   initCompleteHandler);
 	
 		if (!_showingDisplay)
+		{
 			show();
+			// Call setDownloadProgress here to draw
+			// the progress bar background.
+			setDownloadProgress(100, 100);
+		}
 		
 		var errorField:ErrorField = new ErrorField(this);
 		errorField.show(event.errorText);
@@ -852,7 +975,7 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	/**
 	 *  Event listener for the <code>FlexEvent.INIT_PROGRESS</code> event. 
 	 *  This implementation updates the progress bar
-	 *  each time the event is dispatched, and changes the text of the label. 
+	 *  each time the event is dispatched. 
 	 *
 	 *  @param event The event object.
 	 *  
@@ -899,6 +1022,24 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
 	{
 		dispatchEvent(new Event(Event.COMPLETE)); 
 	}
+
+    /**
+     *  @private
+     */
+    private function loader_completeHandler(event:Event):void
+    {
+        var target:DisplayObject = DisplayObject(LoaderInfo(event.target).loader);
+        
+        initBackgroundImage(target);
+    }
+    
+    /**
+     *  @private
+     */
+    private function loader_ioErrorHandler(event:IOErrorEvent):void
+    {
+        // Swallow the error
+    }
 	
 }
 
