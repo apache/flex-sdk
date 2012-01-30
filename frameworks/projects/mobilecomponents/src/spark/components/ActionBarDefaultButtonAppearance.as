@@ -17,7 +17,6 @@ package spark.components
  *  of the <code>defaultButtonAppearance</code> style of ActionBar.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
@@ -34,7 +33,6 @@ public final class ActionBarDefaultButtonAppearance
      *  navigation and action content groups.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
@@ -45,7 +43,6 @@ public final class ActionBarDefaultButtonAppearance
      *  navigation and action content groups.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
