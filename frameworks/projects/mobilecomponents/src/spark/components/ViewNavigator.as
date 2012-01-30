@@ -30,8 +30,9 @@ import mx.managers.LayoutManager;
 import mx.resources.ResourceManager;
 
 import spark.components.supportClasses.NavigationStack;
-import spark.components.supportClasses.ViewNavigatorBase;
 import spark.components.supportClasses.ViewDescriptor;
+import spark.components.supportClasses.ViewNavigatorAction;
+import spark.components.supportClasses.ViewNavigatorBase;
 import spark.components.supportClasses.ViewReturnObject;
 import spark.core.ContainerDestructionPolicy;
 import spark.effects.Animate;
@@ -311,12 +312,6 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
-     *  The last action performed by the navigator.
-     */
-    private var lastAction:String = ViewNavigatorAction.NONE;
-    
-    /**
-     *  @private
      *  The view data for the pending view.
      */ 
     private var pendingViewDescriptor:ViewDescriptor = null;
@@ -376,7 +371,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @private
      *  Only gets called by TabbedViewNavigator.
      */ 
-    override mx_internal function setActive(value:Boolean):void
+    override mx_internal function setActive(value:Boolean, clearNavigationStack:Boolean = false):void
     {
         if (value == isActive)
             return;
@@ -391,20 +386,18 @@ public class ViewNavigator extends ViewNavigatorBase
         else
         {
             if (activeView)
-            {            
-                if ((activeView.destructionPolicy != ContainerDestructionPolicy.NEVER && 
-                    destructionPolicy != ContainerDestructionPolicy.NEVER) ||
-                    !maintainNavigationStack)
+            {
+                var canDestroy:Boolean = (activeView.destructionPolicy != ContainerDestructionPolicy.NEVER) && 
+                                         (destructionPolicy != ContainerDestructionPolicy.NEVER);
+                
+                if (canDestroy || clearNavigationStack)
                     destroyViewInstance(navigationStack.topView);
             }
-            
-            if (!maintainNavigationStack)
-                navigationStack.popToFirstView();
         }
         
         // Call super after the above code so that the view has a chance
         // to be created before its active property is set.
-        super.setActive(value);
+        super.setActive(value, clearNavigationStack);
     }
     
     //----------------------------------
@@ -423,15 +416,15 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     //----------------------------------
-    //  cancelBackKeyBehavior
+    //  exitApplicationOnBackKey
     //----------------------------------
     
     /**
      *  @private
      */  
-    override public function get canCancelBackKeyBehavior():Boolean
+    override public function get exitApplicationOnBackKey():Boolean
     {
-        return length > 1;
+        return length <= 1;
     }
     
     //----------------------------------
@@ -551,40 +544,6 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     //----------------------------------
-    //  maintainNavigationStack
-    //----------------------------------
-    private var _maintainNavigationStack:Boolean = true;
-    
-    /**
-     *  This property indicates whether the navigation stack of the view
-     *  should remain intact when the navigator is deactivated by its
-     *  parent navigator.  If set to true, when reactivated the view history
-     *  will remain the same.  If false, the navigator will display the
-     *  first view in its navigation stack.
-     * 
-     *  @default true
-     *  
-     *  @see spark.components.TabbedViewNavigator
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get maintainNavigationStack():Boolean
-    {
-        return _maintainNavigationStack;
-    }
-    
-    /**
-     *  @private
-     */ 
-    public function set maintainNavigationStack(value:Boolean):void
-    {
-        _maintainNavigationStack = value;
-    }
-    
-    //----------------------------------
     //  navigationStack
     //----------------------------------
     
@@ -597,8 +556,6 @@ public class ViewNavigator extends ViewNavigatorBase
         super.navigationStack = value;
         
         viewChangeRequested = true;
-        lastAction = ViewNavigatorAction.REPLACE_STACK;
-        
         invalidateProperties();
     }
     
@@ -616,7 +573,7 @@ public class ViewNavigator extends ViewNavigatorBase
      * 
      *  <p>This object is guarenteed to be valid when the new view receives 
      *  the <code>FlexEvent.ADD</code> event, and is destroyed after
-     *  the view receives a <code>FlexEvent.VIEW_ACTIVATE</code> event.</p>
+     *  the view receives a <code>ViewNavigatorEvent.VIEW_ACTIVATE</code> event.</p>
      * 
      *  @default null
      *  
@@ -1008,7 +965,7 @@ public class ViewNavigator extends ViewNavigatorBase
         if (viewClass == null || !canRemoveCurrentView())
             return;
         
-        scheduleAction(ViewNavigatorAction.REPLACE_VIEW, viewClass, data, context, transition);
+        scheduleAction(ViewNavigatorAction.REPLACE, viewClass, data, context, transition);
     }
     
     /**
@@ -1072,7 +1029,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function beginViewChange():void
+    protected function committingNavigatorAction():void
     {
         viewChanging = true;
 
@@ -1086,7 +1043,7 @@ public class ViewNavigator extends ViewNavigatorBase
     /**
      *  @private
      */
-    override public function canRemoveCurrentView():Boolean
+    override mx_internal function canRemoveCurrentView():Boolean
     {
         var view:View;
         
@@ -1148,7 +1105,7 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
         if (viewChangeRequested)
-            commitViewChange();
+            commitNavigatorAction();
         
         // Updating the action bar properties and visibility is the responsibility
         // of commitViewChange if the current view has changed because they must take
@@ -1159,6 +1116,17 @@ public class ViewNavigator extends ViewNavigatorBase
 			
 		if (actionBarVisibilityInvalidated)
             commitVisibilityChanges();
+    }
+    
+    /**
+     *  @private
+     */ 
+    private function get lastActionWasAPop():Boolean
+    {
+        return ((lastAction == ViewNavigatorAction.POP) ||
+            (lastAction == ViewNavigatorAction.POP_ALL) ||
+            (lastAction == ViewNavigatorAction.POP_TO_FIRST) ||
+            (lastAction == ViewNavigatorAction.REPLACE));
     }
     
     /**
@@ -1289,17 +1257,17 @@ public class ViewNavigator extends ViewNavigatorBase
     {
         var defaultTransition:ViewTransition;
         
+        lastAction = action;
+        
         // Perform the correct operation on the navigation stack based on
         // the navigation action
         if (action == ViewNavigatorAction.PUSH)
         {
-            lastAction = ViewNavigatorAction.PUSH;
             defaultTransition = defaultPushTransition;
             navigationStack.pushView(viewClass, data, context);
         }
-        else if (action == ViewNavigatorAction.REPLACE_VIEW)
+        else if (action == ViewNavigatorAction.REPLACE)
         {
-        	lastAction = ViewNavigatorAction.REPLACE_VIEW;
             defaultTransition = defaultPushTransition;
             navigationStack.popView();
             navigationStack.pushView(viewClass, data, context);
@@ -1338,12 +1306,10 @@ public class ViewNavigator extends ViewNavigatorBase
                 lastAction = ViewNavigatorAction.NONE;
                 return;
             }
-            
-            lastAction = ViewNavigatorAction.POP;
         }
         
         pendingViewTransition = transition;
-        if (pendingViewTransition == null && useDefaultTransitions)
+        if (pendingViewTransition == null)
             pendingViewTransition = defaultTransition;
 
         // TODO (chiedozi): Comment this more
@@ -1405,7 +1371,10 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             if (transitionsEnabled && animateActionBarVisbility)
             {
-                actionBarVisibilityEffect = createVisibilityAnimation();
+                actionBarVisibilityEffect = showingActionBar ?
+                                            createActionBarShowEffect() :                        
+                                            createActionBarHideEffect();
+                                                
                 actionBarVisibilityEffect.addEventListener(EffectEvent.EFFECT_END, 
                     visibilityAnimation_completeHandler);
                 actionBarVisibilityEffect.play();
@@ -1421,18 +1390,44 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  Creates the effect to play when the actionBar is hidden or shown.
-     *  The produced effect is responsible for animating both the actionBar and
-     *  the contentGroup of the navigator.
+     *  Creates the effect to play when the ActionBar is hidden.
+     *  The produced effect is responsible for animating both the 
+     *  actionBar and the contentGroup of the navigator.
      * 
-     *  @return An effect to play
+     *  @return An effect to play when the ActionBar is hidden
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-	protected function createVisibilityAnimation():IEffect
+    protected function createActionBarHideEffect():IEffect
+    {
+        return createActionBarVisibilityEffect();
+    }
+    
+    
+    /**
+     *  Creates the effect to play when the actionBar is hidden.
+     *  The produced effect is responsible for animating both the 
+     *  actionBar and the contentGroup of the navigator.
+     * 
+     *  @return An effect to play when the ActionBar is shown
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    protected function createActionBarShowEffect():IEffect
+    {
+        return createActionBarVisibilityEffect();
+    }
+    
+    /**
+     *  @private
+     */   
+	private function createActionBarVisibilityEffect():IEffect
 	{
 		var effect:IEffect;
 		var finalEffect:Parallel = new Parallel();
@@ -1451,7 +1446,16 @@ public class ViewNavigator extends ViewNavigatorBase
         // The actionbar will be visible if we are animating it
 		if (actionBar.visible)
 		{
-            effect = createActionBarVisibilityEffect(actionBar.visible, actionBarProps);
+            var animate:Animate = new Animate();
+            animate.target = actionBar;
+            animate.duration = ACTION_BAR_ANIMATION_DURATION;
+            animate.motionPaths = new Vector.<MotionPath>();
+            animate.motionPaths.push(new SimpleMotionPath("y", actionBarProps.start.y, actionBarProps.end.y));
+            
+            actionBar.includeInLayout = false;
+            actionBar.cacheAsBitmap = true;
+            
+            effect = animate;
             effect.target = actionBar;
             
             finalEffect.addChild(effect);
@@ -1554,34 +1558,6 @@ public class ViewNavigator extends ViewNavigatorBase
     }
     
     /**
-     *  Creates the effect to play on the actionBar component when the navigator
-     *  is generating the animation.  This effect should only target the actionBar
-     *  as it will be played in parallel with other effects that animate the other
-     *  navigator skin parts.
-     * 
-     *  @param hiding Indicates whether the acton bar is hiding or showing
-     *  @param props The bounds properties that were captured for the actionBar.  
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private function createActionBarVisibilityEffect(hiding:Boolean, props:Object):IEffect
-    {
-        var animate:Animate = new Animate();
-        animate.target = actionBar;
-        animate.duration = ACTION_BAR_ANIMATION_DURATION;
-        animate.motionPaths = new Vector.<MotionPath>();
-        animate.motionPaths.push(new SimpleMotionPath("y", props.start.y, props.end.y));
-
-        actionBar.includeInLayout = false;
-        actionBar.cacheAsBitmap = true;
-        
-        return animate;
-    }
-    
-    /**
      *  @private
      *  Creates the effect to play on the contentGroup when the navigator is
      *  generating an animation to play to hide or show the action bar.  This effect
@@ -1652,7 +1628,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function endViewChange():void
+    protected function navigatorActionCommitted():void
     {
         // Destroy the previous view
         if (currentViewDescriptor)
@@ -1699,12 +1675,13 @@ public class ViewNavigator extends ViewNavigatorBase
         // saved mouseChildren and mouseEnabled flags aren't overwritten.
         mouseChildren = explicitMouseChildren;
         mouseEnabled = explicitMouseEnabled;
-        
+
+        // FIXME (chiedozi): Comment revalidation
         if (revalidateWhenComplete)
         {
             revalidateWhenComplete = false;
             viewChangeRequested = true;
-            commitViewChange();
+            commitNavigatorAction();
         }
         else
         {
@@ -1727,7 +1704,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function commitViewChange():void
+    protected function commitNavigatorAction():void
     {
         // TODO (chiedozi): Perf only
 //        CONFIG::performanceInstrumentation
@@ -1744,13 +1721,12 @@ public class ViewNavigator extends ViewNavigatorBase
         if (actionBarVisibilityEffect)
             actionBarVisibilityEffect.end();
         
-        if (activeView && (lastAction == ViewNavigatorAction.POP || 
-                           lastAction == ViewNavigatorAction.REPLACE_VIEW))
+        if (activeView && lastActionWasAPop)
         {
             _poppedViewReturnedObject = createViewReturnObject(currentViewDescriptor);
         }
         
-        beginViewChange();
+        committingNavigatorAction();
         
         pendingViewDescriptor = navigationStack.topView;
         
@@ -1778,7 +1754,7 @@ public class ViewNavigator extends ViewNavigatorBase
         {
             // Cancel operation if the viewClass class is null
             viewChangeRequested = false;
-            endViewChange();
+            navigatorActionCommitted();
         }
         
         pendingViewTransition = null;
@@ -1901,9 +1877,7 @@ public class ViewNavigator extends ViewNavigatorBase
         // view is being replaced or popped of the stack, we know we can delete it.
         // Otherwise a push is happening and we need to check the destructionPolicy
         // of the view.
-        if (lastAction == ViewNavigatorAction.POP || 
-            lastAction == ViewNavigatorAction.REPLACE_VIEW || 
-            currentView.destructionPolicy != ContainerDestructionPolicy.NEVER)
+        if (lastActionWasAPop || currentView.destructionPolicy != ContainerDestructionPolicy.NEVER)
         {
             currentView.setNavigator(null);
             viewProxy.instance = null;
@@ -2034,7 +2008,7 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         else
         {
-            endViewChange();
+            navigatorActionCommitted();
         }
     }
 
@@ -2064,7 +2038,7 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function transitionComplete(event:Event):void
+    private function transitionComplete(event:Event):void
     {
         ViewTransition(event.target).removeEventListener(Event.COMPLETE, transitionComplete);
         
@@ -2075,7 +2049,7 @@ public class ViewNavigator extends ViewNavigatorBase
         }
         
 		finalViewTransition = null;
-        endViewChange();
+        navigatorActionCommitted();
     }
     
     /**
@@ -2086,9 +2060,10 @@ public class ViewNavigator extends ViewNavigatorBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    override public function backKeyHandler():void
+    override mx_internal function backKeyHandler():void
     {
-        popView();
+        if (activeView && !activeView.backKeyHandler())
+            popView();
     }
     
     /**
@@ -2257,19 +2232,4 @@ public class ViewNavigator extends ViewNavigatorBase
         }
     }
 }
-}
-
-
-/**
- * @private
- */
-class ViewNavigatorAction
-{
-    public static const NONE:String = "none";
-    public static const PUSH:String = "push";
-    public static const POP:String = "pop";
-    public static const POP_ALL:String = "popAll";
-    public static const POP_TO_FIRST:String = "popToFirst";
-    public static const REPLACE_VIEW:String = "replaceView";
-    public static const REPLACE_STACK:String = "replaceStack";    
 }
