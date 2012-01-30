@@ -380,8 +380,21 @@ public class AccImpl extends AccessibilityImplementation
         if (formItem.accessibilityProperties)
         {
             f = formItem.accessibilityProperties.name
-            if (formItem.itemLabel && formItem.itemLabel.accessibilityEnabled)
-                formItem.itemLabel.accessibilityEnabled = false;
+            // TODO (gosmith) The purpose of the following two lines is to
+            // make the FormItem "silent" so that its MSAA Name doesn't get
+            // spoken. It doesn't need to be spoken since the Name of each
+            // control inside the FormItem includes the FormItem's Name.
+            // However, they seem to cause SDK-25042 and other problems.
+            // Apparently, setting accessibilityProperties.silent to true
+            // can make the accessibility models of JAWS and the Player
+            // get out of sync, causing problems with child counts,
+            // disabling virtual cursor mode in JAWS, and even causing
+            // the Player to crash when JAWS asks for an object
+            // that the Player thinks is no longer accessible.
+            // Since we need a last-minute safe fix for these problems
+            // I'm commenting these lines out.
+//          if (formItem.itemLabel && formItem.itemLabel.accessibilityEnabled)
+//              formItem.itemLabel.accessibilityEnabled = false;
         }
         if (f == "")
             f = formItem.label;
