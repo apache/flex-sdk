@@ -312,11 +312,13 @@ public class ZoomViewTransition extends ViewTransitionBase
         cachedNavigatorGroup.addElement(cachedNavigator);
         cachedNavigator.includeInLayout = false;
 
+		var targetNavigatorIndex:int = getComponentChildIndex(targetNavigator, targetNavigator.parent as UIComponent);
+		
         // Add our temporary transition group to our target navigator's parent
         // so we can make it and the original navigator siblings.
         if (mode == ZoomViewTransitionMode.OUT)
         {
-            addComponentToContainer(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent);
+            addComponentToContainerAt(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent, targetNavigatorIndex + 1);
             
             // We'll be zooming out our cachedNavigatorGroup.
             transitionGroup = cachedNavigatorGroup;
@@ -325,7 +327,7 @@ public class ZoomViewTransition extends ViewTransitionBase
         {
             transitionGroup = new Group();
             transitionGroup.includeInLayout = false;
-            addComponentToContainer(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent);
+            addComponentToContainerAt(cachedNavigatorGroup, DisplayObjectContainer(targetNavigator).parent as UIComponent, targetNavigatorIndex);
             
             // We'll be zooming in our snapshot of the new navigator. Host our 
             // snapshot and make sure it's rendered.
