@@ -50,15 +50,13 @@
 			<include-classes>UtilitiesClasses</include-classes>
 			<source-path path-element="${basedir}/src"/>
             <include-file name="manifest.xml" path="${basedir}/manifest.xml"/>
-			<library-path dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs/">
-				<include name="FlexComponentBase.swc"/>
-			</library-path>
             <library-path dir="${basedir}/libs/">
 				<include name="FlexContentHolderThumbnail.swc"/>
 			</library-path>
             <external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
+                <include name="flash-integration.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<locale/>
@@ -93,13 +91,11 @@
 		    </external-library-path>
 		    <external-library-path dir="${FLEX_HOME}/frameworks/libs">
 		    	<include name="framework.swc" />
+                <include name="flash-integration.swc"/>
 		    	<include name="textLayout.swc" />
 		    </external-library-path>
             <library-path dir="${basedir}/libs/">
 				<include name="FlexContentHolderThumbnail.swc"/>
-			</library-path>
-		    <library-path dir="${FLEX_HOME}/frameworks/projects/flash-integration/libs/">
-				<include name="FlexComponentBase.swc"/>
 			</library-path>
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
