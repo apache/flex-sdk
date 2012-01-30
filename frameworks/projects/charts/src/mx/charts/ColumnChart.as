@@ -418,11 +418,7 @@ public class ColumnChart extends CartesianChart
 			this.fontSize = 10;
 			this.fill = new SolidColor(0xFFFFFF, 0);
 			this.calloutStroke = new Stroke(0x888888,2);            
-			this.horizontalAxisStyleName = "blockCategoryAxis";
-			this.secondHorizontalAxisStyleName = "blockCategoryAxis";
-			this.secondVerticalAxisStyleName = "blockNumericAxis";
 			this.textAlign = "left";
-			this.verticalAxisStyleName = "blockNumericAxis";
 			this.horizontalAxisStyleNames = ["blockCategoryAxis"];
 			this.verticalAxisStyleNames = ["blockNumericAxis"];
 		}
@@ -602,26 +598,6 @@ public class ColumnChart extends CartesianChart
         }
     }           
     
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden methods: CartesianChart
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    override protected function initSecondaryMode():void
-    {
-        super.initSecondaryMode();
-
-        if (!secondVerticalAxis)
-            secondVerticalAxis = new LinearAxis();
-
-        if (!secondVerticalAxisRenderer)
-            secondVerticalAxisRenderer = new AxisRenderer();            
-    }
-    
     /**
      * Determines positions and dimensions of labels for all series in the chart
      *  
@@ -637,7 +613,6 @@ public class ColumnChart extends CartesianChart
             return null;
         var len:int = series.length;
         var n:int;
-        var secondSeriesLen:int = secondSeries.length;
         var allSeriesTransform:Boolean = true;
         
         if (type == "stacked" || type == "overlaid" || type == "100%")
@@ -650,11 +625,6 @@ public class ColumnChart extends CartesianChart
             findChartItems(series[i]);           
         }
         
-        n = secondSeriesLen;
-        for (i = 0; i < n; i++)
-        {
-            findChartItems(secondSeries[i]);         
-        }
         _allItems.sort(sortOnX);    //sort all items with respect to their position along X-axis
         
         var itemsLen:Number = _allItems.length;
@@ -746,7 +716,7 @@ public class ColumnChart extends CartesianChart
                             {
                                 if (v.y < (isNaN(v.min) ? base : v.min))
                                 {   
-                                    v.labelWidth = dataToLocal(0,v.yNumber).y - dataToLocal(0,NumericAxis(columnSeries.dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS)).computedMaximum).y;
+                                    v.labelWidth = columnSeries.dataToLocal(0,v.yNumber).y - columnSeries.dataToLocal(0,NumericAxis(columnSeries.dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS)).computedMaximum).y;
                                     v.labelY = v.y;
                                     if (v.labelY < this.dataRegion.top)
                                     {
@@ -756,7 +726,7 @@ public class ColumnChart extends CartesianChart
                                 }
                                 else
                                 {
-                                    v.labelWidth = dataToLocal(0,NumericAxis(columnSeries.dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS)).computedMinimum).y - dataToLocal(0,v.yNumber).y;
+                                    v.labelWidth = columnSeries.dataToLocal(0,NumericAxis(columnSeries.dataTransform.getAxis(CartesianTransform.VERTICAL_AXIS)).computedMinimum).y - columnSeries.dataToLocal(0,v.yNumber).y;
                                     v.labelY = v.y + v.labelWidth;
                                     if (v.labelY > this.dataRegion.bottom)
                                     {
@@ -1088,11 +1058,6 @@ public class ColumnChart extends CartesianChart
         {
             invalidateDisplay(series[i]);
         }
-        n = secondSeriesLen;
-        for (i = 0; i < n; i++)
-        {
-            invalidateDisplay(secondSeries[i]);
-        }
         return null;
     }
     
@@ -1131,13 +1096,6 @@ public class ColumnChart extends CartesianChart
             if (_needLabels)
                 return;
             getSeriesLabelPos(series[i]);
-        }
-        n = secondSeries.length;
-        for (i = 0; i < n; i++)
-        {
-            if (_needLabels)
-                return;
-            getSeriesLabelPos(secondSeries[i]);
         }
     }
     
