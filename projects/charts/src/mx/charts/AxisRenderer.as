@@ -1759,7 +1759,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
         // we check the Axis to see what the default should be.     
         var canDropLabelsStyle:Object = getStyle("canDropLabels");
         var canDropLabels:Boolean;
-        var userSetCanDropLabels:Boolean = false;
+        
         if (canDropLabelsStyle == null)
         {
             // Since style cache fails with unset styles, we store
@@ -1770,14 +1770,14 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
         {
             canDropLabels = canDropLabelsStyle != false &&
                             canDropLabelsStyle != "false";
-            userSetCanDropLabels = canDropLabels;
+            
         }
         
         var firstLabel:ARLabelData = _labels[0];
         //Decide the last label based on the canDropLabels
         var lastLabel:ARLabelData;
         
-        if (userSetCanDropLabels)
+        if (canDropLabels)
         {
         	
          	var prevLabel:ARLabelData = firstLabel;
@@ -1834,7 +1834,7 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
             {
                 maxSkipCount = skipCount;
             }     
-            lastLabel = prevLabel;
+			lastLabel = _labels[maxSkipCount + 1] ? _labels[maxSkipCount + 1] : _labels[_labels.length - 1];
         }
         	
         else
@@ -3287,7 +3287,11 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
                     labelData = _labels[i];
                     labelData.instance = _labelCache.instances[visCount++];
 					var label:Object = labelData.instance;// as Label;
-                    label.text = labelData.text;
+                    
+					if(label.hasOwnProperty("htmlText"))
+						label.htmlText = labelData.text;
+					else
+						label.text = labelData.text;
 					if(sparkLabelClass && labelData.instance is sparkLabelClass)
 					{
 						label.setStyle("paddingTop", 5);
