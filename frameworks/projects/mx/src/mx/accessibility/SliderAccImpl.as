@@ -26,6 +26,11 @@ use namespace mx_internal;
 /**
  *  SliderAccImpl is a subclass of AccessibilityImplementation
  *  which implements accessibility for the Slider class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SliderAccImpl extends AccImpl
 {
@@ -101,6 +106,11 @@ public class SliderAccImpl extends AccImpl
 	 *  Afterwards, when instances of Slider are initialized,
 	 *  their <code>accessibilityImplementation</code> property
 	 *  will be set to an instance of this class.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function enableAccessibility():void
 	{
@@ -132,6 +142,11 @@ public class SliderAccImpl extends AccImpl
 	 *
 	 *  @param master The UIComponent instance that this AccImpl instance
 	 *  is making accessible.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SliderAccImpl(master:UIComponent)
 	{
@@ -248,6 +263,11 @@ public class SliderAccImpl extends AccImpl
 	
 	/**
 	 *  Utility method determines state of the accessible component.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override protected function getState(childID:uint):uint
 	{
