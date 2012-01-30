@@ -138,7 +138,12 @@ import flash.geom.Point;
     function areInaccessibleObjectsUnderPoint(point:Point):Boolean;
 
     /**
-     *  @copy flash.display.DisplayObjectContainer#tabChildren
+     *  Determines whether the children of the object are tab enabled. 
+     *  
+     *  <p><b>Note:</b> Do not use this property with Flex.
+     *  Instead, use the <code>UIComponent.hasFocusableChildren</code> property.</p>
+     *
+     *  @see mx.core.UIComponent#hasFocusableChildren
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
