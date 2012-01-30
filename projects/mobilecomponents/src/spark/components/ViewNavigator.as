@@ -272,6 +272,13 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
+     *  Flag indicates that the backKey handler has run and the navigator
+     *  is waiting a validation pass.
+     */
+    private var backKeyWasPressed:Boolean = false;
+    
+    /**
+     *  @private
      *  The view data for the active view.
      */
     private var currentViewDescriptor:ViewDescriptor = null;
@@ -447,10 +454,19 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
+     *  This method is used to determine whether the application can
+     *  return to the home screen on Android when the back key is
+     *  pressed.  An application can return to the home screen if the
+     *  length of the navigator is 1 or less.
      */  
     override mx_internal function get exitApplicationOnBackKey():Boolean
     {
-        return length <= 1;
+        // If a back key is already being processed, we know that this
+        // method is being called as a result of a duplicate back key press
+        // during the same validation pass.  So don't return to the home screen
+        // and let the navigator process the navigation action during the
+        // next validation.
+        return !backKeyWasPressed && length <= 1;
     }
     
     //----------------------------------
@@ -1800,6 +1816,8 @@ public class ViewNavigator extends ViewNavigatorBase
         if (hasEventListener("viewChangeComplete"))
             dispatchEvent(new Event("viewChangeComplete"));
             
+        // Clear flag indicating that the back key was pressed
+        backKeyWasPressed = false;
         lastAction = ViewNavigatorAction.NONE;
     }
     
@@ -2149,15 +2167,23 @@ public class ViewNavigator extends ViewNavigatorBase
     
     /**
      *  @private
+     *  
+     *  This method is called when the backKey is pressed on a mobile device.
+     *  ViewNavigator only allows one back operation to occur during a single
+     *  validation pass.  When one is received, the navigator will ignore all
+     *  backKey events until the pop navigation operation is completed.
      * 
      *  @langversion 3.0
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     override mx_internal function backKeyUpHandler():void
-    { 
-        if (activeView && !activeView.backKeyHandledByView())
+    {
+        if (!backKeyWasPressed && activeView && !activeView.backKeyHandledByView())
+        {
             popView();
+        	backKeyWasPressed = true;
+        }
     }
     
     /**
