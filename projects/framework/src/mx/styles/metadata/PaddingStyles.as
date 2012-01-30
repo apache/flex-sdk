@@ -13,7 +13,8 @@
  *  Number of pixels between the component's left border
  *  and the left edge of its content area.
  *  <p>The default value is 0.</p>
- *  <p>The default value for a Button control is 10.</p>
+ *  <p>The default value for a Button control in the Halo theme is 10
+ *     and in the Spark theme is 6.</p>
  *  <p>The default value for the ComboBox control is 5.</p>
  *  <p>The default value for the Form container is 16.</p>
  *  <p>The default value for the Tree control is 2.</p>
@@ -29,7 +30,8 @@
  *  Number of pixels between the component's right border
  *  and the right edge of its content area.
  *  <p>The default value is 0.</p>
- *  <p>The default value for a Button control is 10.</p>
+ *  <p>The default value for a Button control in the Halo theme is 10
+ *     and in the Spark theme is 6.</p>
  *  <p>The default value for the ComboBox control is 5.</p>
  *  <p>The default value for the Form container is 16.</p>
  *  
