@@ -587,101 +587,237 @@ public final class MatrixUtil
         if (!isNaN(width) && !isNaN(height))
         {
             actualSize = calcUBoundsToFitTBounds(width, height, matrix,
-                                                           minWidth, minHeight, 
-                                                           maxWidth, maxHeight); 
+                                                 minWidth, minHeight, 
+                                                 maxWidth, maxHeight); 
             
             // If we couldn't fit in both dimensions, try to fit only one and
             // don't stick out of the other
             if (!actualSize)
             {
-                actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
-                                                          preferredWidth, preferredHeight, 
-                                                          minWidth, minHeight, 
-                                                          maxWidth, maxHeight);
+                var actualSize1:Point;
+                actualSize1 = fitTBoundsWidth(width, matrix,
+                                              explicitWidth, explicitHeight,
+                                              preferredWidth, preferredHeight,
+                                              minWidth, minHeight,
+                                              maxWidth, maxHeight);
 
                 // If we fit the width, but not the height                                                          
-                if (actualSize && transformSize(actualSize.x, actualSize.y, matrix).y > height)
-                {
-                    actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
-                                                               preferredWidth, preferredHeight, 
-                                                               minWidth, minHeight, 
-                                                               maxWidth, maxHeight);
+                if (actualSize1 && transformSize(actualSize1.x, actualSize1.y, matrix).y > height)
+                     actualSize1 = null;
 
-                    // If we fit the height, but not the width
-                    if (actualSize && transformSize(actualSize.x, actualSize.y, matrix).x > width)
-                       actualSize = null; // No solution
+                var actualSize2:Point
+                actualSize2 = fitTBoundsHeight(height, matrix,
+                                               explicitWidth, explicitHeight,
+                                               preferredWidth, preferredHeight,
+                                               minWidth, minHeight,
+                                               maxWidth, maxHeight);
+
+                // If we fit the height, but not the width
+                if (actualSize2 && transformSize(actualSize2.x, actualSize2.y, matrix).x > width)
+                   actualSize2 = null;
+                
+                if (actualSize1 && actualSize2)
+                {
+                    // Pick a solution
+                    actualSize = ((actualSize1.x * actualSize1.y) > (actualSize2.x * actualSize1.y)) ? actualSize1 : actualSize2;
+                }
+                else if (actualSize1)
+                {
+                    actualSize = actualSize1;
+                }
+                else
+                {
+                    actualSize = actualSize2;
                 }
             }
             return actualSize;
         }
         else if (!isNaN(width))
         {
-            // cases 1 and 2: only explicit width or explicit height is specified,
-            // so we try to find a solution with that hard constraint.
-            if (!isNaN(explicitWidth) && isNaN(explicitHeight))
-            {
-                actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
-                                                          explicitWidth, preferredHeight, 
-                                                          explicitWidth, minHeight, 
-                                                          explicitWidth, maxHeight);
-                
-                if (actualSize)
-                    return actualSize;
-            }
-            else if (isNaN(explicitWidth) && !isNaN(explicitHeight))
-            {
-                actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
-                                                          preferredWidth, explicitHeight, 
-                                                          minWidth, explicitHeight, 
-                                                          maxWidth, explicitHeight);
-                if (actualSize)
-                    return actualSize;
-            }
-            
-            // case 3: default case. When explicitWidth, explicitHeight are both set
-            // or not set, we use the preferred size since calcUBoundsToFitTBoundsWidth
-            // will just pick one.
-            actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
-                                                      preferredWidth, preferredHeight, 
-                                                      minWidth, minHeight, 
-                                                      maxWidth, maxHeight);
-            
-            return actualSize;
+            return fitTBoundsWidth(width, matrix,
+                                   explicitWidth, explicitHeight,
+                                   preferredWidth, preferredHeight,
+                                   minWidth, minHeight,
+                                   maxWidth, maxHeight);
         }
         else
         {
-            // cases 1 and 2: only explicit width or explicit height is specified,
-            // so we try to find a solution with that hard constraint.
-            if (!isNaN(explicitWidth) && isNaN(explicitHeight))
-            {
-                actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
-                                                           explicitWidth, preferredHeight, 
-                                                           explicitWidth, minHeight, 
-                                                           explicitWidth, maxHeight);
-                
-                if (actualSize)
-                    return actualSize;
-            }
-            else if (isNaN(explicitWidth) && !isNaN(explicitHeight))
-            {
-                actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
-                                                           preferredWidth, explicitHeight, 
-                                                           minWidth, explicitHeight, 
-                                                           maxWidth, explicitHeight);
-                if (actualSize)
-                    return actualSize;
-            }
-            
-            // case 3: default case. When explicitWidth, explicitHeight are both set
-            // or not set, we use the preferred size since calcUBoundsToFitTBoundsWidth
-            // will just pick one.
-            actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
-                                                       preferredWidth, preferredHeight, 
-                                                       minWidth, minHeight, 
-                                                       maxWidth, maxHeight);
-            
-            return actualSize;
+            return fitTBoundsHeight(height, matrix,
+                                    explicitWidth, explicitHeight,
+                                    preferredWidth, preferredHeight,
+                                    minWidth, minHeight,
+                                    maxWidth, maxHeight);
         }
+    }
+    
+    /**
+     *  @private
+     * 
+     *  <code>fitTBoundsWidth</code> Calculates a size (x,y) for a bounding box (0,0,x,y)
+     *  such that the bounding box transformed with <code>matrix</code> will fit
+     *  into the specified width.
+     *  
+     *  @param width This is the width of the bounding box that calculated size
+     *  needs to fit in.
+     * 
+     *  @param matrix This defines the transformations that the function will take
+     *  into account when calculating the size. The bounding box (0,0,x,y) of the
+     *  calculated size (x,y) transformed with <code>matrix</code> will fit in the
+     *  specified <code>width</code> and <code>height</code>.
+     * 
+     *  @param explicitWidth Explicit width for the calculated size. The function
+     *  will first try to find a solution using this width.
+     * 
+     *  @param explicitHeight Preferred height for the calculated size. The function
+     *  will first try to find a solution using this height.
+     * 
+     *  @param preferredWidth Preferred width for the calculated size. If possible
+     *  the function will set the calculated size width to this value.
+     * 
+     *  @param preferredHeight Preferred height for the calculated size. If possible
+     *  the function will set the calculated size height to this value.
+     * 
+     *  @param minWidth The minimum allowed value for the calculated size width.
+     * 
+     *  @param minHeight The minimum allowed value for the calculated size height.
+     * 
+     *  @param maxWidth The maximum allowed value for the calculated size width.
+     * 
+     *  @param maxHeight The maximum allowed value for the calculated size height.
+     * 
+     *  @return Returns the size (x,y) such that the bounding box (0,0,x,y) will
+     *  fit into (0,0,width,height) after transformation with <code>matrix</code>.
+     *  Returns null if there is no possible solution.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */    
+    private static function fitTBoundsWidth(width:Number, matrix:Matrix,
+                                            explicitWidth:Number, explicitHeight:Number,
+                                            preferredWidth:Number, preferredHeight:Number,
+                                            minWidth:Number, minHeight:Number,
+                                            maxWidth:Number, maxHeight:Number):Point
+    {
+        var actualSize:Point;
+
+        // cases 1 and 2: only explicit width or explicit height is specified,
+        // so we try to find a solution with that hard constraint.
+        if (!isNaN(explicitWidth) && isNaN(explicitHeight))
+        {
+            actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
+                explicitWidth, preferredHeight, 
+                explicitWidth, minHeight, 
+                explicitWidth, maxHeight);
+            
+            if (actualSize)
+                return actualSize;
+        }
+        else if (isNaN(explicitWidth) && !isNaN(explicitHeight))
+        {
+            actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
+                preferredWidth, explicitHeight, 
+                minWidth, explicitHeight, 
+                maxWidth, explicitHeight);
+            if (actualSize)
+                return actualSize;
+        }
+        
+        // case 3: default case. When explicitWidth, explicitHeight are both set
+        // or not set, we use the preferred size since calcUBoundsToFitTBoundsWidth
+        // will just pick one.
+        actualSize = calcUBoundsToFitTBoundsWidth(width, matrix,
+            preferredWidth, preferredHeight, 
+            minWidth, minHeight, 
+            maxWidth, maxHeight);
+        
+        return actualSize;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  <code>fitTBoundsWidth</code> Calculates a size (x,y) for a bounding box (0,0,x,y)
+     *  such that the bounding box transformed with <code>matrix</code> will fit
+     *  into the specified height.
+     *  
+     *  @param height This is the height of the bounding box that the calculated
+     *  size needs to fit in.
+     * 
+     *  @param matrix This defines the transformations that the function will take
+     *  into account when calculating the size. The bounding box (0,0,x,y) of the
+     *  calculated size (x,y) transformed with <code>matrix</code> will fit in the
+     *  specified <code>width</code> and <code>height</code>.
+     * 
+     *  @param explicitWidth Explicit width for the calculated size. The function
+     *  will first try to find a solution using this width.
+     * 
+     *  @param explicitHeight Preferred height for the calculated size. The function
+     *  will first try to find a solution using this height.
+     * 
+     *  @param preferredWidth Preferred width for the calculated size. If possible
+     *  the function will set the calculated size width to this value.
+     * 
+     *  @param preferredHeight Preferred height for the calculated size. If possible
+     *  the function will set the calculated size height to this value.
+     * 
+     *  @param minWidth The minimum allowed value for the calculated size width.
+     * 
+     *  @param minHeight The minimum allowed value for the calculated size height.
+     * 
+     *  @param maxWidth The maximum allowed value for the calculated size width.
+     * 
+     *  @param maxHeight The maximum allowed value for the calculated size height.
+     * 
+     *  @return Returns the size (x,y) such that the bounding box (0,0,x,y) will
+     *  fit into (0,0,width,height) after transformation with <code>matrix</code>.
+     *  Returns null if there is no possible solution.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */    
+    private static function fitTBoundsHeight(height:Number, matrix:Matrix,
+                                             explicitWidth:Number, explicitHeight:Number,
+                                             preferredWidth:Number, preferredHeight:Number,
+                                             minWidth:Number, minHeight:Number,
+                                             maxWidth:Number, maxHeight:Number):Point
+    {
+        var actualSize:Point;
+
+        // cases 1 and 2: only explicit width or explicit height is specified,
+        // so we try to find a solution with that hard constraint.
+        if (!isNaN(explicitWidth) && isNaN(explicitHeight))
+        {
+            actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
+                explicitWidth, preferredHeight, 
+                explicitWidth, minHeight, 
+                explicitWidth, maxHeight);
+            
+            if (actualSize)
+                return actualSize;
+        }
+        else if (isNaN(explicitWidth) && !isNaN(explicitHeight))
+        {
+            actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
+                preferredWidth, explicitHeight, 
+                minWidth, explicitHeight, 
+                maxWidth, explicitHeight);
+            if (actualSize)
+                return actualSize;
+        }
+        
+        // case 3: default case. When explicitWidth, explicitHeight are both set
+        // or not set, we use the preferred size since calcUBoundsToFitTBoundsWidth
+        // will just pick one.
+        actualSize = calcUBoundsToFitTBoundsHeight(height, matrix,
+            preferredWidth, preferredHeight, 
+            minWidth, minHeight, 
+            maxWidth, maxHeight);
+        
+        return actualSize;
     }
 
     /**
@@ -717,10 +853,6 @@ public final class MatrixUtil
                                                          maxX:Number, 
                                                          maxY:Number):Point
     {
-        // Make sure preferredX, preferredY are between minX and maxX
-        preferredX = Math.max(minX, Math.min(maxX, preferredX));
-        preferredY = Math.max(minY, Math.min(maxY, preferredY));
-        
         // Untransformed bounds size is (x,y). The corners of the untransformed
         // bounding box are p1(0,0) p2(x,0) p3(0,y) p4(x,y).
         // Matrix is | a c tx |
@@ -773,6 +905,9 @@ public final class MatrixUtil
             return null; // No solution
         
         // Handle special cases first
+        if (b == 0 && d == 0)
+            return null; // No solution
+        
         if (b == 0)
             return new Point( preferredX, h / Math.abs(d) );               
         else if (d == 0)
@@ -787,9 +922,10 @@ public final class MatrixUtil
         var x:Number;
         var y:Number;
         
-        if (d1 != 0)
+        if (d1 != 0 && preferredX > 0)
         {
             const invD1:Number = 1 / d1;
+            preferredX = Math.max(minX, Math.min(maxX, preferredX));
             x = preferredX;
             
             // Case1:
@@ -815,9 +951,10 @@ public final class MatrixUtil
             }
         }
         
-        if (b != 0)
+        if (b != 0 && preferredY > 0)
         {
             const invB:Number = 1 / b;
+            preferredY = Math.max(minY, Math.min(maxY, preferredY));
             y = preferredY;
             
             // Case3:
@@ -889,10 +1026,6 @@ public final class MatrixUtil
                                                         maxX:Number,
                                                         maxY:Number):Point
     {
-        // Make sure preferredX, preferredY are between minX and maxX
-        preferredX = Math.max(minX, Math.min(maxX, preferredX));
-        preferredY = Math.max(minY, Math.min(maxY, preferredY));
-        
         // Untransformed bounds size is (x,y). The corners of the untransformed
         // bounding box are p1(0,0) p2(x,0) p3(0,y) p4(x,y).
         // Matrix is | a c tx |
@@ -959,9 +1092,10 @@ public final class MatrixUtil
         var x:Number;
         var y:Number;
         
-        if (c1 != 0)
+        if (c1 != 0 && preferredX > 0)
         {
             const invC1:Number = 1 / c1;
+            preferredX = Math.max(minX, Math.min(maxX, preferredX));
             x = preferredX;
 
             // Case1:
@@ -987,9 +1121,10 @@ public final class MatrixUtil
             }
         }
         
-        if (a != 0)
+        if (a != 0 && preferredY > 0)
         {
             const invA:Number = 1 / a;
+            preferredY = Math.max(minY, Math.min(maxY, preferredY));
             y = preferredY;
 
             // Case3:
@@ -1295,14 +1430,14 @@ public final class MatrixUtil
             if (c1 == 0 || a == 0 || a == -c1)
                return null;
                
-            if (Math.abs(a * h) - Math.abs(b * w) > 1.0e-9)
+            if (Math.abs(a * h - b * w) > 1.0e-9)
                return null; // No solution in this case
                
             // Determinant is zero, the equations (1) & (2) are equivalent and
             // we have only one equation:
             // (1) w = abs( ax + c1y )
             //
-            // Solve it finding x and y as close as possible:   
+            // Solve it finding x and y as close as possible:
             return solveEquation(a, c1, w, minX, minX, maxX, maxY, b, d1);
         }
         
