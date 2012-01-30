@@ -20,38 +20,14 @@ import mx.events.PropertyChangeEvent;
 
 import spark.components.SkinnableContainer;
 import spark.components.View;
-import spark.events.DisplayLayerObjectExistenceEvent;
 import spark.core.ContainerDestructionPolicy;
+import spark.events.DisplayLayerObjectExistenceEvent;
 
 use namespace mx_internal;
 
 //--------------------------------------
 //  Events
 //--------------------------------------
-
-/**
- *  Dispatched when the navigator has been activated.
- * 
- *  @eventType mx.events.FlexEvent.NAVIGATOR_ACTIVATE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
-[Event(name="navigatorActivate", type="mx.events.FlexEvent")]
-
-/**
- *  Dispatched when the navigator has been deactivated.
- * 
- *  @eventType mx.events.FlexEvent.NAVIGATOR_DEACTIVATE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10.1
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
-[Event(name="navigatorDeactivate", type="mx.events.FlexEvent")]
 
 /**
  *  The ViewNavigatorBase class defines the base class logic and
@@ -113,7 +89,7 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get active():Boolean
+    public function get isActive():Boolean
     {
         return _active;
     }
@@ -131,11 +107,6 @@ public class ViewNavigatorBase extends SkinnableContainer
             
             if (activeView)
                 activeView.setActive(value);
-            
-            var eventName:String = _active ? FlexEvent.NAVIGATOR_ACTIVATE : 
-                                             FlexEvent.NAVIGATOR_DEACTIVATE;
-            if (hasEventListener(eventName))
-                dispatchEvent(new FlexEvent(eventName));
         }
     }
 
@@ -344,20 +315,22 @@ public class ViewNavigatorBase extends SkinnableContainer
     protected var _navigationStack:NavigationStack;
     
     /**
+     *  @private
      *  The navigation stack that is being managed by the navigator.
      *  An empty navigation stack is automatically created when
      *  a navigator is created.
      * 
      *  @default null
      */ 
-    public function get navigationStack():NavigationStack
+    mx_internal function get navigationStack():NavigationStack
     {
         return _navigationStack;
     }
+    
     /**
      *  @private
      */ 
-    public function set navigationStack(value:NavigationStack):void
+    mx_internal function set navigationStack(value:NavigationStack):void
     {
         if (value == null)
             _navigationStack = new NavigationStack();
@@ -408,6 +381,8 @@ public class ViewNavigatorBase extends SkinnableContainer
     //----------------------------------
     //  parentNavigator
     //----------------------------------
+    private var _parentNavigator:ViewNavigatorBase;
+    
     /**
      *  The parent navigator for this navigator.
      * 
@@ -418,7 +393,18 @@ public class ViewNavigatorBase extends SkinnableContainer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var parentNavigator:ViewNavigatorBase;
+    public function get parentNavigator():ViewNavigatorBase
+    {
+        return _parentNavigator;
+    }
+    
+    /**
+     *  @private
+     */ 
+    mx_internal function setParentNavigator(value:ViewNavigatorBase):void
+    {
+        _parentNavigator = value;        
+    }
     
     //----------------------------------
     //  transitionsEnabled
