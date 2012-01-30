@@ -62,7 +62,7 @@ Button
 
 Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.mobile.ButtonSkin");
+    skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
 }
 
 ButtonBar
