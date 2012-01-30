@@ -307,6 +307,13 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
  *         of the action area.</p></li>
  *  </ul>
  *
+ *  <p>The following images shows the ActionBar with a home button in the navigation area, 
+ *  a text input control in the title area, and a search button in the action area:</p>
+ *
+ * <p>
+ *  <img src="../../images/ab_search_override_ab.png" alt="Action Bar" />
+ * </p>
+ *
  *  <p>For a mobile application with a single section, meaning a single  
  *  ViewNavigator container, all views share the same action bar. 
  *  For a mobile application with multiple sections, meaning one with multiple 
