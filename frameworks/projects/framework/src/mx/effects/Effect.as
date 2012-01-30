@@ -1422,15 +1422,16 @@ public class Effect extends EventDispatcher implements IEffect
      */
     protected function effectEndHandler(event:EffectEvent):void 
     {
+        // Transitions should set the end values when done
+        if (applyEndValuesWhenDone)   
+            applyEndValues(mx_internal::propertyChangesArray, targets);
+
         var instance:IEffectInstance = IEffectInstance(event.effectInstance);
         
         deleteInstance(instance);
 
         dispatchEvent(event);
 
-        // Transitions should set the end values when done
-        if (applyEndValuesWhenDone)   
-            applyEndValues(mx_internal::propertyChangesArray, targets);
     }
 
 }
