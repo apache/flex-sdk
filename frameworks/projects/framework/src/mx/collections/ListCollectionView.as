@@ -500,35 +500,6 @@ public class ListCollectionView extends Proxy
         }
         list.addItemAt(item, listIndex);
     }
-    
-    /**
-     *  Adds a list of items to the current list, placing them at the end of
-     *  the list in the order they are passed.
-     * 
-     *  @param IList The list of items to add to the current list
-     */
-    public function addAll(addList:IList):void
-    {
-        addAllAt(addList, length);
-    }
-    
-    /**
-     *  Adds a list of items to the current list, placing them at the position
-     *  index passed in to the function.  The items are placed at the index location
-     *  and placed in the order they are recieved.
-     * 
-     *  @param IList The list of items to add to the current list
-     *  @param index The location of the current list to place the new items.
-     *  @throws RangeError if index is less than 0 or greater than the length of the list. 
-     */
-    public function addAllAt(addList:IList, index:int):void
-    {
-        var length:int = addList.length;
-        for(var i:int=0; i < length; i++)
-        {
-            this.addItemAt(addList.getItemAt(i), i+index);
-        }
-    }
 
     /**
      * @inheritDoc 
