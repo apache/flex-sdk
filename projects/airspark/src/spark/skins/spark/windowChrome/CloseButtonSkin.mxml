@@ -35,10 +35,10 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:BitmapImage source="@Embed('../../../../../assets/win_close_up.png')" includeIn="up" left="0" verticalCenter="0" resizeMode="noScale" />
+    <s:BitmapImage source="@Embed('../../../../../assets/win_close_up.png')" includeIn="up" left="0" verticalCenter="0" fillMode="clip" />
     
-    <s:BitmapImage source="@Embed('../../../../../assets/win_close_over.png')" includeIn="over" left="0" verticalCenter="0" resizeMode="noScale"/>
+    <s:BitmapImage source="@Embed('../../../../../assets/win_close_over.png')" includeIn="over" left="0" verticalCenter="0" fillMode="clip"/>
 
-    <s:BitmapImage source="@Embed('../../../../../assets/win_close_down.png')" includeIn="down" left="0" verticalCenter="0" resizeMode="noScale"/>
+    <s:BitmapImage source="@Embed('../../../../../assets/win_close_down.png')" includeIn="down" left="0" verticalCenter="0" fillMode="clip"/>
     
 </s:Skin>
