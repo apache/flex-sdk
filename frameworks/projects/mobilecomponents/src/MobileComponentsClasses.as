@@ -22,6 +22,7 @@ internal class MobileComponentsClasses
  *  from the classes specified in manifest.xml.
  *  For example, Button does not have a reference to ButtonSkin,
  *  but ButtonSkin needs to be in framework.swc along with Button.
- */ 
+ */
+    import spark.preloaders.SplashScreen; SplashScreen;
 }
 }
