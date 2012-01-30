@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009"
+					 xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Script>
+		<![CDATA[
+			
+			[Embed("soccer-ball.jpg")]
+			private var andImage:Class;
+			override public function getImageClass(aspectRatio:String, dpi:Number, resolution:Number):Class
+			{
+				// Are we running on IOS ?
+				
+				if (Capabilities.version.indexOf("IOS") == 0)
+					return andImage;
+				return super.getImageClass(aspectRatio, dpi, resolution);
+			}
+		]]>
+	</fx:Script>
+	<!-- no settings, so this acts as default-->
+	<s:SplashScreenImageSource source="@Embed('image_not_found.jpg')"/>
+	<!-- specific settings  -->
+	<s:SplashScreenImageSource source="@Embed('pinkball.jpg')"
+							   dpi="160" minResolution="0"/>
+	<s:SplashScreenImageSource source="@Embed('yellowball.jpg')"
+							   dpi="160" minResolution="500"/>
+	<s:SplashScreenImageSource source="@Embed('orangball.png')"
+							   dpi="160" minResolution="1000"/>
+	<s:SplashScreenImageSource source="@Embed('yellowball.jpg')"
+							   dpi="160" minResolution="1000" aspectRatio="portrait"/>
+	<s:SplashScreenImageSource source="@Embed('yellowball.jpg')"
+							   dpi="240" aspectRatio="portrait"/>
+	<s:SplashScreenImageSource source="@Embed('pinkball.jpg')"
+							   dpi="240" aspectRatio="landscape"/>
+	<s:SplashScreenImageSource source="@Embed('pinkball.jpg')"
+							   dpi="320"/>
+</s:SplashScreenImage>
