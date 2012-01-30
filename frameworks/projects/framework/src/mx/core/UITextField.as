@@ -165,16 +165,6 @@ public class UITextField extends FlexTextField
         The width and height of the TextField are 4 pixels greater than
         the textWidth and textHeight.
     
-    *  
-    
-    *  @langversion 3.0
-    
-    *  @playerversion Flash 9
-    
-    *  @playerversion AIR 1.1
-    
-    *  @productversion Flex 3
-    
     */
 
     //--------------------------------------------------------------------------
