@@ -16,7 +16,7 @@ import flash.display.Graphics;
 import flash.events.Event;
 import flash.text.TextFormatAlign;
 
-import mx.core.DeviceDensity;
+import mx.core.DPIClassification;
 import mx.core.mx_internal;
 import mx.utils.ColorUtil;
 
@@ -73,9 +73,9 @@ public class ActionBarSkin extends MobileSkin
         
         useChromeColor = true;
         
-        switch (authorDensity)
+        switch (applicationDPI)
         {
-            case DeviceDensity.PPI_320:
+            case DPIClassification.DPI_320:
             {
                 layoutBorderHeight = 2;
                 layoutShadowHeight = 6;
@@ -86,7 +86,7 @@ public class ActionBarSkin extends MobileSkin
                 
                 break;
             }
-            case DeviceDensity.PPI_240:
+            case DPIClassification.DPI_240:
             {
                 layoutBorderHeight = 1;
                 layoutShadowHeight = 3;
