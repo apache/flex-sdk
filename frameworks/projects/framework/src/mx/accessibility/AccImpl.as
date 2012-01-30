@@ -55,6 +55,29 @@ public class AccImpl extends AccessibilityImplementation
     //--------------------------------------------------------------------------
 
     /**
+     *  Method for supporting state Accessibility.
+     *  Returns true if an ancestor of the component has enabled set to false.
+     */
+    public static function isAncestorDisabled(component:UIComponent):Boolean
+    {
+        // keeping this DisplayObjectContainer since parent returns
+        // that as root is not a UIComponent.
+        var par:DisplayObjectContainer = component.parent; 
+        // continue looking up the parent chain
+        // until root (or application) or FormItem is found.
+        while (par && (par is UIComponent && UIComponent(par).enabled) &&
+               !(par is SystemManager) && par != component.root)
+        {
+            par = par.parent;
+        }
+
+        if (!(par is UIComponent))
+            return false;
+            
+        return !UIComponent(par).enabled;
+    }
+    
+    /**
      *  Method for supporting Form Accessibility.
      *  
      *  @langversion 3.0
@@ -370,7 +393,7 @@ public class AccImpl extends AccessibilityImplementation
     {
         var accState:uint = AccConst.STATE_SYSTEM_NORMAL;
         
-        if (!UIComponent(master).enabled)
+        if (!UIComponent(master).enabled || isAncestorDisabled(master))
         {
             accState &= ~AccConst.STATE_SYSTEM_FOCUSABLE;
             accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
