@@ -10,7 +10,7 @@
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
             <mx:VRule rollOverEffect="WipeUp" strokeWidth="1" strokeColor="red"/>
-            <s:SimpleText width="100%" color="blue" 
+            <s:Label width="100%" color="blue" 
                     text="Move mouse over the Halo VRule control to redraw it."/>
         </s:VGroup>
    </s:Panel>
