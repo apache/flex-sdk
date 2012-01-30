@@ -54,17 +54,6 @@ include "../styles/metadata/GapStyles.as"
 
 /**
  *  Name of the CSS Style declaration to use for the styles for the
- *  header component.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="headerStyleName", type="String", inherit="no")]
-
-/**
- *  Name of the CSS Style declaration to use for the styles for the
  *  message component.
  *  
  *  @langversion 3.0
@@ -77,8 +66,8 @@ include "../styles/metadata/GapStyles.as"
 /**
  *  The MobileIconItemRenderer class is a performant item 
  *  renderer optimized for mobile devices.  It contains 
- *  four optional parts: 1) an icon on the left, 2) header 
- *  on top next to the icon, 3) message below header and 
+ *  four optional parts: 1) an icon on the left, 2) label 
+ *  on top next to the icon, 3) message below label and 
  *  next to the icon, and 4) a decorator on the right.
  *
  *  @see spark.components.List
@@ -139,28 +128,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     /**
      *  @private
-     *  Holds the styles specific to the header object based on headerStyleName
-     */
-    private var headerStyles:CSSStyleDeclaration;
-    
-    /**
-     *  @private
-     *  Cached UITextFormat object used for measurement purposes for header
-     */
-    private var cachedHeaderFormat:UITextFormat;
-    
-    /**
-     *  @private
-     *  Stores the text of the header component.  This is calculated in 
-     *  commitProperties() based on headerField and headerFunction.
-     * 
-     *  <p>We can't just use labelDisplay.text because it may contain 
-     *  a truncated value.</p>
-     */
-    private var headerText:String = "";
-    
-    /**
-     *  @private
      *  Holds the styles specific to the message object based on messageStyleName
      */
     private var messageStyles:CSSStyleDeclaration;
@@ -169,7 +136,17 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @private
      *  Cached UITextFormat object used for measurement purposes for message
      */
-    private var cachedSubTextFormat:UITextFormat;
+    private var cachedMessageTextFormat:UITextFormat;
+    
+    /**
+     *  @private
+     *  Stores the text of the label component.  This is calculated in 
+     *  commitProperties() based on labelFunction, labelField, and label.
+     * 
+     *  <p>We can't just use labelDisplay.text because it may contain 
+     *  a truncated value.</p>
+     */
+    private var labelText:String = "";
     
     /**
      *  @private
@@ -180,8 +157,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  a truncated value (Technically we don't truncate message's text 
      *  at the moment because it's multi-line text, but in the future 
      *  we may not do that, and this feels more consistent with 
-     *  how we deal with headers, so we still keep this "extra"
-     *  variable around even though technically it's not needed.</p>
+     *  how we deal with labels, so we still keep this "extra"
+     *  variable around even though technically it's not needed).</p>
      */
     private var messageText:String = "";
     
@@ -194,27 +171,42 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     /**
      *  @private
      */
-    private var dataChanged:Boolean;
-    
-    /**
-     *  @private
-     */
     override public function set data(value:Object):void
     {
         super.data = value;
         
-        dataChanged = true;
+        iconChanged = true;
+        labelChanged = true;
+        messageChanged = true;
+        
         invalidateProperties();
     }
     
     /**
-     *  @private
+     *  @inheritDoc
+     * 
+     *  <p>If no labelFunction and labelField (labelField === <code>null</code>)
+     *  are defined on this item renderer,
+     *  then we will use the <code>label</code> property that gets 
+     *  pushed in from the list via the <code>IItemRenderer</code> contract.  
+     *  However if <code>labelField</code> is explicitly set to 
+     *  <code>""</code> (the empty string),
+     *  then no label will show up at all.</p>
+     * 
+     *  @see spark.components.MobileIconItemRenderer#labelField
+     *  @see spark.components.MobileIconitemRenderer#labelFunction
+     *  @see spark.components.IItemRenderer#label
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5   
      */
     override public function set label(value:String):void
     {
         super.label = value;
         
-        dataChanged = true;
+        labelChanged = true;
         invalidateProperties();
     }
     
@@ -318,23 +310,39 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     }
     
     //----------------------------------
-    //  headerField
+    //  labelField
     //----------------------------------
     
     /**
      *  @private
      */
-    private var _headerField:String;
+    private var _labelField:String = null;
     
     /**
      *  @private
      */
-    private var headerFieldOrFunctionChanged:Boolean; 
+    private var labelFieldOrFunctionChanged:Boolean;
+    
+    /**
+     *  @private
+     */
+    private var labelChanged:Boolean; 
     
     /**
      *  The name of the field in the data provider items to display 
-     *  as the header. 
-     *  The <code>headerFunction</code> property overrides this property.
+     *  as the label. 
+     *  The <code>labelFunction</code> property overrides this property.
+     * 
+     *  <p>If no labelFunction and labelField (labelField === <code>null</code>)
+     *  are defined on this item renderer,
+     *  then we will use the <code>label</code> property that gets 
+     *  pushed in from the list via the <code>IItemRenderer</code> contract.  
+     *  However if <code>labelField</code> is explicitly set to 
+     *  <code>""</code> (the empty string),
+     *  then no label will show up at all.</p>
+     * 
+     *  @see spark.components.MobileIconItemRenderer#labelFunction
+     *  @see spark.components.IItemRenderer#label
      *
      *  @default null
      *  
@@ -343,49 +351,60 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get headerField():String
+    public function get labelField():String
     {
-        return _headerField;
+        return _labelField;
     }
     
     /**
      *  @private
      */
-    public function set headerField(value:String):void
+    public function set labelField(value:String):void
     {
-        if (value == _headerField)
+        if (value == _labelField)
             return;
             
-        _headerField = value;
-        headerFieldOrFunctionChanged = true;
-        dataChanged = true;
+        _labelField = value;
+        labelFieldOrFunctionChanged = true;
+        labelChanged = true;
         
         invalidateProperties();
     }
     
     //----------------------------------
-    //  headerFunction
+    //  labelFunction
     //----------------------------------
     
     /**
      *  @private
      */
-    private var _headerFunction:Function; 
+    private var _labelFunction:Function; 
     
     /**
-     *  A user-supplied function to run on each item to determine its header.  
-     *  The <code>headerFunction</code> property overrides 
-     *  the <code>headerField</code> property.
+     *  A user-supplied function to run on each item to determine its label.  
+     *  The <code>labelFunction</code> property overrides 
+     *  the <code>labelField</code> property.
      *
-     *  <p>You can supply a <code>headerFunction</code> that finds the 
+     *  <p>You can supply a <code>labelFunction</code> that finds the 
      *  appropriate fields and returns a displayable string. The 
-     *  <code>headerFunction</code> is also good for handling formatting and 
+     *  <code>labelFunction</code> is also good for handling formatting and 
      *  localization.</p>
      *
-     *  <p>The header function takes a single argument which is the item in 
+     *  <p>The label function takes a single argument which is the item in 
      *  the data provider and returns a String.</p>
      *  <pre>
-     *  myHeaderFunction(item:Object):String</pre>
+     *  myLabelFunction(item:Object):String</pre>
+     * 
+     *  <p>If no labelFunction and labelField (labelField === <code>null</code>)
+     *  are defined on this item renderer,
+     *  then we will use the <code>label</code> property that gets 
+     *  pushed in from the list via the <code>IItemRenderer</code> contract.  
+     *  However if <code>labelField</code> is explicitly set to 
+     *  <code>""</code> (the empty string),
+     *  then no label will show up at all.</p>
+     * 
+     *  @see spark.components.MobileIconItemRenderer#labelFunction
+     *  @see spark.components.IItemRenderer#label
      *
      *  @default null
      *  
@@ -394,22 +413,22 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get headerFunction():Function
+    public function get labelFunction():Function
     {
-        return _headerFunction;
+        return _labelFunction;
     }
     
     /**
      *  @private
      */
-    public function set headerFunction(value:Function):void
+    public function set labelFunction(value:Function):void
     {
-        if (value == _headerFunction)
+        if (value == _labelFunction)
             return;
             
-        _headerFunction = value;
-        headerFieldOrFunctionChanged = true;
-        dataChanged = true;
+        _labelFunction = value;
+        labelFieldOrFunctionChanged = true;
+        labelChanged = true;
         
         invalidateProperties(); 
     }
@@ -427,6 +446,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  @private 
      */ 
     private var iconFieldOrFunctionChanged:Boolean;
+    
+    /**
+     *  @private 
+     */ 
+    private var iconChanged:Boolean;
     
     /**
      *  @private 
@@ -468,7 +492,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         _iconField = value;
         iconFieldOrFunctionChanged = true;
-        dataChanged = true;
+        iconChanged = true;
         
         invalidateProperties();
     }
@@ -525,7 +549,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         _iconFunction = value;
         iconFieldOrFunctionChanged = true;
-        dataChanged = true;
+        iconChanged = true;
         
         invalidateProperties();
     }
@@ -625,7 +649,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     /**
      *  @private
      */
-    private var messageFieldOrFunctionChanged:Boolean; 
+    private var messageFieldOrFunctionChanged:Boolean;
+    
+    /**
+     *  @private
+     */
+    private var messageChanged:Boolean;
     
     /**
      *  The name of the field in the data provider items to display 
@@ -654,7 +683,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         _messageField = value;
         messageFieldOrFunctionChanged = true;
-        dataChanged = true;
+        messageChanged = true;
         
         invalidateProperties();
     }
@@ -705,7 +734,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         _messageFunction = value;
         messageFieldOrFunctionChanged = true;
-        dataChanged = true;
+        messageChanged = true;
         
         invalidateProperties(); 
     }
@@ -725,16 +754,10 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         
         // create any children you need in here
         
-        // since labelDisplay gets created in super.createChildren(), lets make 
-        // sure it's using the right styles
-        labelDisplay.getStyleFunction = headerGetStyleFunction;
-        headerFieldOrFunctionChanged = true;
-        invalidateProperties();
-        
         // iconDisplay, messageDisplay, and decoratorDisplay are created in 
         // commitProperties() since they are dependent on 
         // other properties and we don't always create them
-        // headerText just uses labelElement to display its data
+        // labelText just uses labelElement to display its data
     }
     
     /**
@@ -744,8 +767,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     {
         super.notifyStyleChangeInChildren(styleProp, recursive);
         
-        cachedHeaderFormat = null;
-        cachedSubTextFormat = null;
+        cachedMessageTextFormat = null;
     }
     
     /**
@@ -756,15 +778,6 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         var allStyles:Boolean = !styleName || styleName == "styleName";
         
         super.styleChanged(styleName);
-        
-        // if header styles may have changed, let's null out the old 
-        // value and notify labelDisplay
-        if (allStyles || styleName == "headerStyleName")
-        {
-            headerStyles = null;
-            if (labelDisplay)
-                labelDisplay.styleChanged("styleName");
-        }
         
         // if message styles may have changed, let's null out the old 
         // value and notify messageDisplay
@@ -798,6 +811,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             if (decoratorDisplay)
             {
                 removeChild(decoratorDisplay);
+                decoratorDisplay = null;
             }
             
             // if we need to create it, do it here
@@ -877,39 +891,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             invalidateDisplayList();
         }
         
-        if (headerFieldOrFunctionChanged)
-        {
-            headerFieldOrFunctionChanged = false;
-            
-            // let's see if we need to create or remove it
-            if ((headerField || (headerFunction != null)) && !labelDisplay)
-            {
-                // get styles for this text component
-                
-                // need to create it
-                labelDisplay = MobileTextField(createInFontContext(MobileTextField));
-                labelDisplay.getStyleFunction = headerGetStyleFunction;
-                labelDisplay.editable = false;
-                labelDisplay.selectable = false;
-                labelDisplay.multiline = false;
-                labelDisplay.wordWrap = true;
-                
-                addChild(labelDisplay);
-            }
-            else if (!(headerField || (headerFunction != null)) && labelDisplay)
-            {
-                // need to remove it
-                removeChild(labelDisplay);
-                labelDisplay = null;
-            }
-            
-            invalidateSize();
-            invalidateDisplayList();
-        }
+        // label is created in super.createChildren()
         
-        if (dataChanged)
+        if (iconChanged)
         {
-            dataChanged = false;
+            iconChanged = false;
             
             // if icon, try setting that
             if (iconFunction != null)
@@ -929,8 +915,12 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 {
                 }
             }
+        }
+        
+        if (messageChanged)
+        {
+            messageChanged = false;
             
-            // if message, try setting that
             if (messageFunction != null)
             {
                 messageText = messageFunction(data);
@@ -950,31 +940,78 @@ public class MobileIconItemRenderer extends MobileItemRenderer
                 {
                 }
             }
+        }
+        
+        if (labelChanged)
+        {
+            labelChanged = false;
             
-            // if header, try setting that
-            if (headerFunction != null)
+            // if label, try setting that
+            if (labelFunction != null)
             {
-                headerText = headerFunction(data)
-                labelDisplay.text = headerText;
+                labelText = labelFunction(data);
+                if (!labelDisplay)
+                    createLabelDisplay();
+                labelDisplay.text = labelText;
             }
-            else if (headerField)
+            else if (labelField) // if labelField is not null or "", then this is a user-set value
             {
                 try
                 {
-                    if (headerField in data && data[headerField] != null)
+                    if (labelField in data && data[labelField] != null)
                     {
-                        headerText = data[headerField];
-                        labelDisplay.text = headerText;
+                        labelText = data[labelField];
+                        if (!labelDisplay)
+                            createLabelDisplay();
+                        labelDisplay.text = labelText;
                     }
                 }
                 catch(e:Error)
                 {
                 }
             }
+            else if (label && labelField === null) // if there's a label and labelField === null, then show label
+            {
+                labelText = label;
+                if (!labelDisplay)
+                    createLabelDisplay();
+                labelDisplay.text = labelText;
+            }
+            else // if labelField === ""
+            {
+                // get rid of labelDisplay if present
+                if (labelDisplay)
+                    removeLabelDisplay();
+            }
             
             invalidateSize();
             invalidateDisplayList();
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function createLabelDisplay():void
+    {
+        // need to create it
+        labelDisplay = MobileTextField(createInFontContext(MobileTextField));
+        labelDisplay.styleProvider = this;
+        labelDisplay.editable = false;
+        labelDisplay.selectable = false;
+        labelDisplay.multiline = false;
+        labelDisplay.wordWrap = false;
+        
+        addChild(labelDisplay);
+    }
+    
+    /**
+     *  @private
+     */
+    private function removeLabelDisplay():void
+    {
+        removeChild(labelDisplay);
+        labelDisplay = null;
     }
     
     /**
@@ -997,54 +1034,40 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             var myIconWidth:Number = (isNaN(iconWidth) ? iconDisplay.getPreferredBoundsWidth() : iconWidth);
             var myIconHeight:Number = (isNaN(iconHeight) ? iconDisplay.getPreferredBoundsHeight() : iconHeight);
             
-            myMeasuredWidth += iconWidth;
+            myMeasuredWidth += myIconWidth;
             myMeasuredHeight = Math.max(myMeasuredHeight, myIconHeight);
-            myMeasuredMinWidth += iconWidth;
+            myMeasuredMinWidth += myIconWidth;
             myMeasuredMinHeight = Math.max(myMeasuredMinHeight, myIconHeight);
         }
         
         // Text is aligned next to icon
         var labelLineMetrics:TextLineMetrics;
-        var labelWidth:Number;
-        var labelHeight:Number;
+        var labelWidth:Number = 0;
+        var labelHeight:Number = 0;
         var messageLineMetrics:TextLineMetrics;
-        var messageWidth:Number;
-        var messageHeight:Number;
-        if (labelDisplay && messageDisplay)
+        var messageWidth:Number = 0;
+        var messageHeight:Number = 0;
+        
+        if (labelDisplay)
         {
-            labelLineMetrics = measureHeaderText(headerText);
+            labelLineMetrics = measureText(labelText);
             
             labelWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
             labelHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+        }
             
-            messageLineMetrics = measureSubTextText(messageText);
+        if (messageDisplay)
+        {
+            messageLineMetrics = measureMessageText(messageText);
             
             messageWidth = messageLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
             messageHeight = messageLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-            
-            myMeasuredWidth += Math.max(labelWidth, messageWidth);
-            myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight);
         }
-        else if (labelDisplay && !messageDisplay)
-        {
-            labelLineMetrics = measureHeaderText(headerText);
-            
-            labelWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
-            labelHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-            
-            myMeasuredWidth += labelWidth;
-            myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight);
-        }
-        else if (!labelDisplay && messageDisplay)
-        {
-            messageLineMetrics = measureSubTextText(messageText);
-            
-            messageWidth = messageLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
-            messageHeight = messageLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-            
-            myMeasuredWidth += messageWidth;
-            myMeasuredHeight = Math.max(myMeasuredHeight, messageHeight);
-        }
+
+        var verticalGap:Number = (labelDisplay && messageDisplay) ? getStyle("verticalGap") : 0;
+        
+        myMeasuredWidth += Math.max(labelWidth, messageWidth);
+        myMeasuredHeight = Math.max(myMeasuredHeight, labelHeight + messageHeight + verticalGap);
         
         // Decorator is up next
         if (decoratorDisplay)
@@ -1066,35 +1089,22 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         }
         
         // now to add on padding and horizontal gap
+        // verticalGap is already handled above when there's a label
+        // and a message since that's the only place verticalGap matters
         var numHorizontalSections:int = 0;
-        var numVerticalSections:int = 0;
         if (iconDisplay)
             numHorizontalSections++;
         
         if (decoratorDisplay)
             numHorizontalSections++;
         
-        if (labelDisplay && messageDisplay)
-        {
+        if (labelDisplay || messageDisplay)
             numHorizontalSections++;
-            numVerticalSections = 2;
-        }
-        else if (labelDisplay || messageDisplay)
-        {
-            numHorizontalSections++;
-            numVerticalSections = 1;
-        }
-        else if (!labelDisplay && !messageDisplay)
-        {
-            numVerticalSections = 1;
-        }
         
         var extraWidth:Number = getStyle("paddingLeft") + getStyle("paddingRight");
         if (numHorizontalSections > 0)
             extraWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
         var extraHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
-        if (numVerticalSections == 2)
-            extraHeight += getStyle("verticalGap");
         
         myMeasuredWidth += extraWidth;
         myMeasuredMinWidth += extraWidth;
@@ -1138,8 +1148,8 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // set the icon's position and size
             iconDisplayHolder.setLayoutBoundsSize(this.iconWidth, this.iconHeight);
             
-            iconWidth = iconDisplay.getLayoutBoundsWidth();
-            iconHeight = iconDisplay.getLayoutBoundsHeight();
+            iconWidth = iconDisplayHolder.getLayoutBoundsWidth();
+            iconHeight = iconDisplayHolder.getLayoutBoundsHeight();
             
             // paddingLeft for x, paddingTop for y
             iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, paddingTop);
@@ -1171,7 +1181,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             }
         }
 
-        // Figure out how much space we have for header and message as well as the 
+        // Figure out how much space we have for label and message as well as the 
         // starting left position
         var labelComponentsViewWidth:Number = viewWidth - iconWidth - decoratorWidth;
         
@@ -1185,17 +1195,17 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         if (iconDisplay)
             labelComponentsX += iconWidth + getStyle("horizontalGap");
         
-        // calculte the natural sizes for header and message (if present)
-        var headerTextWidth:Number = 0;
-        var headerTextHeight:Number = 0;
-        var headerLineMetrics:TextLineMetrics;
+        // calculte the natural sizes for label and message (if present)
+        var labelTextWidth:Number = 0;
+        var labelTextHeight:Number = 0;
+        var labelLineMetrics:TextLineMetrics;
         
         if (labelDisplay && labelDisplay.text != "")
         {
             labelDisplay.commitStyles();
-            headerLineMetrics = measureHeaderText(headerText);
-            headerTextWidth = headerLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
-            headerTextHeight = headerLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            labelLineMetrics = measureText(labelText);
+            labelTextWidth = labelLineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
+            labelTextHeight = labelLineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
         }
         
         if (messageDisplay && messageDisplay.text != "")
@@ -1206,15 +1216,15 @@ public class MobileIconItemRenderer extends MobileItemRenderer
         }
         
         // now size and position the elements, 3 different configurations we care about:
-        // 1) header and message
-        // 2) header only
+        // 1) label and message
+        // 2) label only
         // 3) message only
         
         // label display goes on top
-        // subtext display goes below
+        // message display goes below
         
-        var headerWidth:Number = 0;
-        var headerHeight:Number = 0;
+        var labelWidth:Number = 0;
+        var labelHeight:Number = 0;
         var messageWidth:Number = 0;
         var messageHeight:Number = 0;
         var verticalGap:Number = 0;
@@ -1225,18 +1235,18 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             
             // handle labelDisplay.  it can only be 1 line
             
-            headerWidth = Math.max(Math.min(labelComponentsViewWidth, headerTextWidth), 0);
-            headerHeight = Math.max(Math.min(viewHeight, headerTextHeight), 0);
+            labelWidth = Math.max(Math.min(labelComponentsViewWidth, labelTextWidth), 0);
+            labelHeight = Math.max(Math.min(viewHeight, labelTextHeight), 0);
             
-            labelDisplay.width = headerWidth;
-            labelDisplay.height = headerHeight;
+            labelDisplay.width = labelWidth;
+            labelDisplay.height = labelHeight;
             
             labelDisplay.x = Math.round(labelComponentsX);
             labelDisplay.y = Math.round(paddingTop);
             
             // reset text if it was truncated before.  then attempt to truncate it
             if (labelDisplay.isTruncated)
-                labelDisplay.text = headerText;
+                labelDisplay.text = labelText;
             labelDisplay.truncateToFit();
         }
         
@@ -1245,7 +1255,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             // handle message
             // don't use the measured text width or height because that only takes the first line in to account
             messageWidth = Math.max(labelComponentsViewWidth, 0);
-            messageHeight = Math.max(viewHeight - headerHeight - verticalGap, 0);
+            messageHeight = Math.max(viewHeight - labelHeight - verticalGap, 0);
             
             messageDisplay.width = messageWidth;
             messageDisplay.height = messageHeight;
@@ -1259,7 +1269,7 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             messageHeight = Math.min(messageHeight, messageDisplay.textHeight + UITextField.TEXT_HEIGHT_PADDING);
             
             messageDisplay.x = Math.round(labelComponentsX);
-            messageDisplay.y = Math.round(paddingTop + headerHeight + verticalGap);
+            messageDisplay.y = Math.round(paddingTop + labelHeight + verticalGap);
             
             // since it's multi-line, no need to truncate
             //if (messageDisplay.isTruncated)
@@ -1279,17 +1289,17 @@ public class MobileIconItemRenderer extends MobileItemRenderer
             if (messageDisplay)
                 messageDisplay.y = unscaledHeight - paddingBottom - messageHeight;
             if (labelDisplay)
-                labelDisplay.y = unscaledHeight - paddingBottom - messageHeight - verticalGap - headerHeight;
+                labelDisplay.y = unscaledHeight - paddingBottom - messageHeight - verticalGap - labelHeight;
         }
         else //if (getStyle("verticalAlign") == "middle")
         {
             if (iconDisplay)
                 iconDisplayHolder.setLayoutBoundsPosition(paddingLeft, Math.round((unscaledHeight - iconHeight)/2));
-            var textTotalHeight:Number = headerHeight + messageHeight + verticalGap;
+            var textTotalHeight:Number = labelHeight + messageHeight + verticalGap;
             if (labelDisplay)
                 labelDisplay.y = Math.round((unscaledHeight - textTotalHeight)/2);
             if (messageDisplay)
-                messageDisplay.y = Math.round((unscaledHeight - textTotalHeight)/2 + verticalGap + headerHeight);
+                messageDisplay.y = Math.round((unscaledHeight - textTotalHeight)/2 + verticalGap + labelHeight);
         }
         // made "middle" last even though it's most likely so it is the default and if someone 
         // types "center", then it will still vertically center itself.
@@ -1297,32 +1307,9 @@ public class MobileIconItemRenderer extends MobileItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Methods: Helper functions for determining styles for header and message
+    //  Methods: Helper functions for determining styles for message
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private 
-     *  Function we pass in to header for it to grab the styles and push 
-     *  them in to the TextFormat object used by that MobileTextField.
-     */
-    private function headerGetStyleFunction(styleProp:String):*
-    {
-        // grab the header specific styles
-        if (!headerStyles)
-            headerStyles = styleManager.getStyleDeclaration("." + getStyle("headerStyleName"));
-        
-        // see if they are in the header styles
-        var styleValue:*;
-        if (headerStyles)
-            styleValue = headerStyles.getStyle(styleProp);
-        
-        // if they are not there, try grabbing it from this component directly
-        if (styleValue === undefined)
-            styleValue = getStyle(styleProp);
-        
-        return styleValue;
-    }
     
     /**
      *  @private 
@@ -1353,24 +1340,11 @@ public class MobileIconItemRenderer extends MobileItemRenderer
      *  UIComponent.measureText() because we are adding a few additional styles 
      *  to it based on headerStyleName and messageStyleName.
      */
-    private function measureHeaderText(text:String):TextLineMetrics
+    private function measureMessageText(text:String):TextLineMetrics
     {
         // Copied from UIComponent.measureText()
-        cachedHeaderFormat = determineTextFormatWithGetStyleFunction(headerGetStyleFunction, cachedHeaderFormat);
-        return cachedHeaderFormat.measureText(text);
-    }
-    
-    /**
-     *  @private 
-     *  Function to help figure out the sizes of the header and message.  We cannot use 
-     *  UIComponent.measureText() because we are adding a few additional styles 
-     *  to it based on headerStyleName and messageStyleName.
-     */
-    private function measureSubTextText(text:String):TextLineMetrics
-    {
-        // Copied from UIComponent.measureText()
-        cachedSubTextFormat = determineTextFormatWithGetStyleFunction(messageGetStyleFunction, cachedSubTextFormat);
-        return cachedSubTextFormat.measureText(text);
+        cachedMessageTextFormat = determineTextFormatWithGetStyleFunction(messageGetStyleFunction, cachedMessageTextFormat);
+        return cachedMessageTextFormat.measureText(text);
     }
     
     /**
