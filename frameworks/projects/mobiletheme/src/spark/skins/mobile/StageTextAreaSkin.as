@@ -31,7 +31,7 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0 
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  */
 public class StageTextAreaSkin extends StageTextSkinBase
 {
@@ -61,7 +61,7 @@ public class StageTextAreaSkin extends StageTextSkinBase
      *  
      *  @langversion 3.0
      *  @playerversion AIR 3.0
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function StageTextAreaSkin()
     {
