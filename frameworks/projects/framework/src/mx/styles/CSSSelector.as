@@ -195,7 +195,7 @@ public class CSSSelector
         if (kind == CSSSelectorKind.TYPE_SELECTOR
             || kind == CSSSelectorKind.CONDITIONAL_SELECTOR)
         {
-            if (value == "*" || value == "" || object.isAssignableToType(value))
+            if (value == "*" || value == "" || object.isTypeSelectorMatch(value))
             {
                 match = true;
             }
@@ -230,7 +230,7 @@ public class CSSSelector
                 var parent:IAdvancedStyleClient = object.styleParent;
                 while (parent != null)
                 {
-                    if (parent.isAssignableToType(ancestor.value)
+                    if (parent.isTypeSelectorMatch(ancestor.value)
                         || "*" == ancestor.value)
                     {
                         match = ancestor.isMatch(parent);
