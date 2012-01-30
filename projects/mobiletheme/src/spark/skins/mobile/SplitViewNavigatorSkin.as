@@ -101,6 +101,7 @@ public class SplitViewNavigatorSkin extends MobileSkin
         
         // Create the callout but don't add it to display list
         viewNavigatorCallout = new Callout();
+        viewNavigatorCallout.id = "viewNavigatorCallout";
         viewNavigatorCallout.height = 500;
         viewNavigatorCallout.setStyle("color", 0x000000);
         viewNavigatorCallout.setStyle("contentBackgroundAlpha", 0);
