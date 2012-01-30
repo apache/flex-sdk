@@ -67,11 +67,6 @@ public class AccordionHeaderAccImpl extends AccImpl
 	 */
 	private static const EVENT_OBJECT_SELECTION:uint = 0x8006;
 
-	/**
-	 *  @private
-	 */
-	private static const MAX_NUM:uint = 100000;	
-
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -249,15 +244,12 @@ public class AccordionHeaderAccImpl extends AccImpl
 		{
 			case "focusDraw":
 			{
-				// sending + 10000 to ensure sending out different number
-				// than sent last time in change.
-
-				//event.currentTarget here is the AccordionHeader (a/k/a 'master')
+				// event.currentTarget here is the AccordionHeader (a/k/a 'master')
 				index = Accordion(event.currentTarget.parent).focusedIndex;
 
 				if (index >= 0 && master == Accordion(event.currentTarget.parent).getHeaderAt(index))
 				{
-					Accessibility.sendEvent(DisplayObject(event.currentTarget), index + MAX_NUM + 1,
+					Accessibility.sendEvent(DisplayObject(event.currentTarget), index + 1,
 											EVENT_OBJECT_FOCUS, true);
 					break;
 				}
@@ -265,7 +257,7 @@ public class AccordionHeaderAccImpl extends AccImpl
 
 			case "change":
 			{
-				//event.currentTarget here is the Accordion (a/k/a 'master.parent')
+				// event.currentTarget here is the Accordion (a/k/a 'master.parent')
 				index = Accordion(event.currentTarget).selectedIndex;
 				if (index >= 0 && master == Accordion(event.currentTarget).getHeaderAt(index))
 				{
