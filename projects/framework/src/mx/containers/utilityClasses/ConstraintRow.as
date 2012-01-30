@@ -34,6 +34,11 @@ use namespace mx_internal;
  *  and content. These options dictate the position of the constraint row, 
  *  the amount of space the constraint row takes in the container, and 
  *  how the constraint row deals with a change in the size of the container. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ConstraintRow extends EventDispatcher implements IMXMLObject
 {
@@ -47,6 +52,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ConstraintRow()
 	{
@@ -78,6 +88,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
 
     /**
      *  The container being partitioned by this ConstraintRow instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get container():IInvalidating
     {
@@ -109,6 +124,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      *  Number that specifies the height of the ConstraintRow instance, in pixels,
      *  in the parent's coordinates.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get height():Number
     {
@@ -153,6 +173,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      *  ConstraintRow instance, in pixels, in the ConstraintRow 
      *  instance's coordinates.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get explicitHeight():Number
     {
@@ -195,6 +220,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      *  ID of the ConstraintRow instance. This value becomes the instance name 
      *  of the constraint row and should not contain white space or special 
      *  characters. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get id():String
     {
@@ -224,6 +254,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      *  Number that specifies the maximum height of the ConstraintRow instance,
      *  in pixels, in the ConstraintRow instance's coordinates.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxHeight():Number
     {
@@ -262,6 +297,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      *  Number that specifies the minimum height of the ConstraintRow instance,
      *  in pixels, in the ConstraintRow instance's coordinates.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minHeight():Number
     {
@@ -300,6 +340,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      *  Number that specifies the height of a component as a percentage
      *  of its parent's size. Allowed values are 0-100. The default value is NaN.
      *  Setting the <code>width</code> property resets this property to NaN.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get percentHeight():Number
     {
@@ -368,6 +413,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
       *  @param document The MXML document containing this ConstraintRow.
       *
       *  @param id Ignored.
+      *  
+      *  @langversion 3.0
+      *  @playerversion Flash 9
+      *  @playerversion AIR 1.1
+      *  @productversion Flex 3
       */
     public function initialized(document:Object, id:String):void
     {
@@ -381,6 +431,11 @@ public class ConstraintRow extends EventDispatcher implements IMXMLObject
      *
      *  @param height Height of constaint row computed during parent container
      *  processing.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setActualHeight(h:Number):void
     {
