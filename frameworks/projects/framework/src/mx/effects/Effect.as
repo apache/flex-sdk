@@ -301,6 +301,12 @@ public class Effect extends EventDispatcher implements IEffect
      */
     mx_internal var propertyChangesArray:Array; 
     
+    /**
+     *  @private
+     *  Track the property set in the play() function
+     */
+    mx_internal var playReversed:Boolean;
+    
     private var effectStopped:Boolean;
         
     /**
@@ -1192,6 +1198,7 @@ public class Effect extends EventDispatcher implements IEffect
     {
         effectStopped = false;
         isPaused = false;
+        playReversed = playReversedFromEnd;
         
         // If we have a propertyChangesArray, capture the current values
         // if they haven't been captured already, strip out any unchanged 
@@ -1211,6 +1218,15 @@ public class Effect extends EventDispatcher implements IEffect
             applyStartValues(propertyChangesArray,
                              this.targets);
 
+            if (playReversedFromEnd)
+            {
+                for (var j:int = 0; j < propertyChangesArray.length; ++j)
+                {
+                    var tmpStart:Object = propertyChangesArray[j].start;
+                    propertyChangesArray[j].start = propertyChangesArray[j].end;
+                    propertyChangesArray[j].end = tmpStart;
+                }
+            }
             // Revalidate after applying the start values, to get everything
             // back the way it should be before starting the animation
             LayoutManager.getInstance().validateNow();
@@ -1820,6 +1836,15 @@ public class Effect extends EventDispatcher implements IEffect
      */
     protected function effectEndHandler(event:EffectEvent):void 
     {
+        if (playReversed && propertyChangesArray != null)
+        {
+            for (var j:int = 0; j < propertyChangesArray.length; ++j)
+            {
+                var tmpStart:Object = propertyChangesArray[j].start;
+                propertyChangesArray[j].start = propertyChangesArray[j].end;
+                propertyChangesArray[j].end = tmpStart;
+            }
+        }
         var lastTime:Boolean = !_instances || _instances.length == 1;
 
         // Transitions should set the end values when done
