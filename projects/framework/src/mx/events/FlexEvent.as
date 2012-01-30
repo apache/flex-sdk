@@ -222,7 +222,7 @@ public class FlexEvent extends Event
      *       Object listening for the event.</td></tr>
      *  </table>
      *
-     *  @eventType deferredContentCreate
+     *  @eventType contentCreationComplete
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -709,6 +709,34 @@ public class FlexEvent extends Event
      *  @productversion Flex 4
      */
     public static const MUTED_CHANGE:String = "mutedChange";
+
+    /**
+     *  The <code>FlexEvent.NAVIGATION_CHANGE</code> constant defines the value of the
+     *  <code>type</code> property of the event object for a <code>navigationChange</code> event.
+     *
+     *  <p>The properties of the event object have the following values:</p>
+     *  <table class="innertable">
+     *     <tr><th>Property</th><th>Value</th></tr>
+     *     <tr><td><code>bubbles</code></td><td>false</td></tr>
+     *     <tr><td><code>cancelable</code></td><td>false</td></tr>
+     *     <tr><td><code>currentTarget</code></td><td>The Object that defines the
+     *       event listener that handles the event. For example, if you use
+     *       <code>myButton.addEventListener()</code> to register an event listener,
+     *       myButton is the value of the <code>currentTarget</code>. </td></tr>
+     *     <tr><td><code>target</code></td><td>The Object that dispatched the event;
+     *       it is not always the Object listening for the event.
+     *       Use the <code>currentTarget</code> property to always access the
+     *       Object listening for the event.</td></tr>
+     *  </table>
+     *
+     *  @eventType navigationChange
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static const NAVIGATION_CHANGE:String = "navigationChange";
 
     /**
      *  @private
