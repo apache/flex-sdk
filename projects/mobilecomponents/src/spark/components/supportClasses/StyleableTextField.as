@@ -1021,9 +1021,10 @@ public class StyleableTextField extends FlexTextField
             sharpness = getStyle("fontSharpness");
             thickness = getStyle("fontThickness");
             
-            // ignore padding in the text...most components deal with it themselves
-            //textFormat.leftMargin = getStyle("paddingLeft");
-            //textFormat.rightMargin = getStyle("paddingRight");
+            // most components ignore margin and just set x and y, but some (like TextInput)
+            // set the margin increase their hitArea
+            textFormat.leftMargin = leftMargin;
+            textFormat.rightMargin = rightMargin;
             
             // Check for embedded fonts
             embedFonts = isFontEmbedded(textFormat);
@@ -1146,6 +1147,10 @@ public class StyleableTextField extends FlexTextField
         var originalText:String = super.text;
         var oldIsTruncated:Boolean = _isTruncated;
         var w:Number = width;
+        if (leftMargin is Number)
+            w -= Number(leftMargin);
+        if (rightMargin is Number)
+            w -= Number(rightMargin);
         
         _isTruncated = false;
         
@@ -2070,6 +2075,11 @@ public class StyleableTextField extends FlexTextField
     // Delegate function for scrollToRange. If defined, the scrollToRange
     // method is delegated to this function.
     mx_internal var scrollToRangeDelegate:Function;
+    
+    // the left and right margin for this StyleableTextField.  By default
+    // it is null, which corresponds to 0.
+    mx_internal var leftMargin:Object;
+    mx_internal var rightMargin:Object;
     
     private static var supportedStyles:String = "textAlign fontFamily fontWeight fontStyle color fontSize textDecoration textIndent leading letterSpacing"
     
