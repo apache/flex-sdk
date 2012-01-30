@@ -17,7 +17,7 @@
     <property file="${FLEX_HOME}/build.properties"/>
 	<property name="locale" value="en_US"/>
     <!-- If you change this, update <target-player/> in the <compc/> tasks. -->
-    <property name="local.playerglobal.version" value="11.0"/>
+    <property name="local.playerglobal.version" value="11.1"/>
 
 		<macrodef name="bundle">
 			<attribute name="locale"/>
@@ -31,7 +31,7 @@
 					   output="${FLEX_HOME}/frameworks/locale/@{locale}/airspark_rb.swc"
 					   locale="@{locale}">
 					<!-- If you change this, update ${local.playerglobal.version} above. -->
-					<target-player>11.0</target-player>
+					<target-player>11.1</target-player>
 					<jvmarg line="${compc.jvm.args}"/>
 					<include-resource-bundles bundle="core"/>
 					<include-namespaces/>
@@ -180,7 +180,7 @@
 			   output="${FLEX_HOME}/frameworks/libs/air/airspark.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
             <!-- If you change this, update ${local.playerglobal.version} above. -->
-		    <target-player>11.0</target-player>
+		    <target-player>11.1</target-player>
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
 			<include-namespaces uri="library://ns.adobe.com/flex/spark"/>
