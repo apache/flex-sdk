@@ -17,6 +17,14 @@ import spark.components.TabbedViewNavigator;
 import spark.components.supportClasses.ButtonBarBase;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
+/**
+ *  The ActionScript-based skin used for TabbedViewNavigator components.
+ * 
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5 
+ *  @productversion Flex 4.5
+ * 
+ */
 public class TabbedViewNavigatorSkin extends MobileSkin
 {
     //--------------------------------------------------------------------------
@@ -46,21 +54,21 @@ public class TabbedViewNavigatorSkin extends MobileSkin
      *  @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
     public var hostComponent:TabbedViewNavigator;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @copy spark.components.SkinnableContainer#contentGroup
-	 */
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @copy spark.components.SkinnableContainer#contentGroup
+     */
     public var contentGroup:Group;
-	
-	/**
-	 *  @copy spark.components.TabbedViewNavigator#tabBar
-	 */
+    
+    /**
+     *  @copy spark.components.TabbedViewNavigator#tabBar
+     */
     public var tabBar:ButtonBarBase;
     
     //--------------------------------------------------------------------------
@@ -92,6 +100,9 @@ public class TabbedViewNavigatorSkin extends MobileSkin
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function commitCurrentState():void
     {
         super.commitCurrentState();
