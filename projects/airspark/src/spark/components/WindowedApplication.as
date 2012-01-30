@@ -364,6 +364,9 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *  /&gt;
  *  </pre>
  * 
+ *  @see spark.components.Windowed
+ *  @see spark.skins.default.FlexChromeSkin
+ *  @see spark.skins.default.WindowedApplicationSkin
  *  
  *  @langversion 3.0
  *  @playerversion AIR 1.5
@@ -1233,12 +1236,14 @@ public class WindowedApplication extends Application implements IWindow
     private var showGripperChanged:Boolean = true;
 
     /**
-     *  If <code>true</code>, the gripper is visible.
+     *  If <code>true</code>, the gripper button is visible.
      *
      *  <p>On Mac OS X a window with <code>systemChrome</code>
      *  set to <code>"standard"</code>
      *  always has an operating system gripper, so this property is ignored
-     *  in that case.</p>
+     *  in that case. 
+     *  On other systems, the gripper button only appears when using 
+     *  the Flex Chrome, not the system chrome.</p>
      *
      *  @default true
      *  
@@ -1283,6 +1288,10 @@ public class WindowedApplication extends Application implements IWindow
 
     /**
      *  If <code>true</code>, the status bar is visible.
+     *
+     *  <p>The status bar only appears when you use Flex chrome or 
+     *  when you use the WindowedApplicationSkin class as the skin
+     *  for the WindowedApplication.</p>
      *
      *  @default true
      *  
