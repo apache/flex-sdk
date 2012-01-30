@@ -2432,7 +2432,12 @@ public class BarSeries extends Series implements IStackable2, IBar
         labelCache.count = n;             
         var labels:Array /* of Label */ = labelCache.instances;
         var dataTransform:CartesianTransform=CartesianTransform(dataTransform);
-
+		
+		var sparkLabelClass:Class;
+		if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+		{
+			sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+		}
         var label:Object;
         var align:String = getStyle('labelAlign');
         var size:Number = getStyle('fontSize');
@@ -2441,12 +2446,16 @@ public class BarSeries extends Series implements IStackable2, IBar
             var v:BarSeriesItem =activeCount[i];
             label=labels[i];
             label.x=v.labelX;
-            label.y=v.labelY+4;
+            label.y=v.labelY;
             label.text=v.labelText;
             label.width=v.labelWidth;
             label.height=v.labelHeight;
             label.setStyle('fontSize',size * renderData.labelScale);
-            
+			if(sparkLabelClass && labels[i] is sparkLabelClass)
+			{
+				label.setStyle("paddingTop", 5);
+				label.setStyle("paddingLeft", 3);
+			}
             if (align == 'left')
             {
                 if (v.x > (isNaN(v.min) ? renderData.renderedBase : v.min))
@@ -2485,7 +2494,11 @@ public class BarSeries extends Series implements IStackable2, IBar
         labelCache.count = n;             
         var labels:Array /* of Label */ = labelCache.instances;
         var label:Object;
-        
+		var sparkLabelClass:Class;
+		if(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"))
+		{
+			sparkLabelClass = Class(ApplicationDomain.currentDomain.getDefinition("spark.components.Label"));
+		}
         var rotation:Number = getStyle('labelRotation');        
         var size:Number = getStyle('fontSize');
         for (var i:int = 0; i < n; i++)
@@ -2493,11 +2506,16 @@ public class BarSeries extends Series implements IStackable2, IBar
             var v:BarSeriesItem =activeCount[i];
             label=labels[i];
             label.x=v.labelX;
-            label.y=v.labelY+4;
+            label.y=v.labelY;
             label.width=v.labelWidth;
             label.height=v.labelHeight;
             label.text=v.labelText;
             label.setStyle('fontSize',size * renderData.labelScale);
+			if(sparkLabelClass && labels[i] is sparkLabelClass)
+			{
+				label.setStyle("paddingTop", 5);
+				label.setStyle("paddingLeft", 2);
+			}
             if (v.x > (isNaN(v.min) ? renderData.renderedBase : v.min))	// If on positive side of axis
 			{
 				if(chart && chart.layoutDirection == LayoutDirection.RTL)	//Align labels to right in rtl layout
