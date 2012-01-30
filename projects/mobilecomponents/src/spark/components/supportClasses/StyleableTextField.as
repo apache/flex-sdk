@@ -1387,7 +1387,14 @@ public class StyleableTextField extends FlexTextField
      */
     private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
     {
-        event.preventDefault();
+        // Cancelling an ACTIVATING event will close the softKeyboard if it is 
+        // currently active on iOS only. Add a check to only cancel the event
+        // if the softKeyboard is not active. Otherwise, the softKeyboard will
+        // close if you start a touch scroll from a text component.
+        var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
+        
+        if (!(topLevelApp && topLevelApp.isSoftKeyboardActive))
+            event.preventDefault();
     }
     
     //--------------------------------------------------------------------------
