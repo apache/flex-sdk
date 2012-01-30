@@ -34,6 +34,11 @@ import mx.utils.UIDUtil;
  *  Dispatched when the IList has been updated in some way.
  *  
  *  @eventType mx.events.CollectionEvent.COLLECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
@@ -63,6 +68,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
     /**
      *  Construct a new XMLListAdapter using the specified XMLList as its source.
      *  If no source is specified an empty XMLList will be used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function XMLListAdapter(source:XMLList = null)
     {
@@ -100,6 +110,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  The number of items in this list.  
      * 
      *  @return -1 if the length is unknown while 0 means no items
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get length():int
     {
@@ -121,6 +136,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  Changes made directly to the underlying XMLList (e.g., calling 
      *  <code>delete theList[someIndex]</code> will not cause <code>CollectionEvents</code> 
      *  to be dispatched.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get source():XMLList
     {
@@ -173,6 +193,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  Add the specified item to the end of the list.
      *  Equivalent to addItemAt(item, length);
      *  @param item the item to add
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addItem(item:Object):void
     {
@@ -187,6 +212,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  @param item the item to place at the index
      *  @param index the index at which to place the item
      *  @throws RangeError if index is less than 0     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addItemAt(item:Object, index:int):void
     {
@@ -243,6 +273,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  @throws ItemPendingError if the data for that index needs to be 
      *                          loaded from a remote location
      *  @throws RangeError if the index < 0 or index >= length
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItemAt(index:int, prefetch:int = 0):Object
     {
@@ -264,6 +299,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      * 
      *  @param item the item to find
      *  @return the index of the item, -1 if the item is not in the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getItemIndex(item:Object):int
     {
@@ -304,6 +344,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  @see mx.events.CollectionEvent
      *  @see mx.core.IPropertyChangeNotifier
      *  @see mx.events.PropertyChangeEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function itemUpdated(item:Object, property:Object = null, 
                                 oldValue:Object = null, 
@@ -323,6 +368,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 
     /** 
      * Remove all items from the list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeAll():void
     {
@@ -351,6 +401,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  @param index the index from which to remove the item
      *  @return the item that was removed
      *  @throws RangeError is index is less than 0 or greater than length     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeItemAt(index:int):Object
     {
@@ -391,6 +446,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  @param index the index at which to place the item
      *  @return the item that was replaced, null if none
      *  @throws RangeError if index is less than 0     
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setItemAt(item:Object, index:int):Object
     {    
@@ -430,6 +490,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      * 
      *  @throws ItemPendingError if the data is not yet completely loaded
      *  from a remote location
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function toArray():Array
     {
@@ -445,6 +510,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 
 	/**
      *  Pretty prints the contents of this XMLListAdapter to a string and returns it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	override public function toString():String
 	{
@@ -456,6 +526,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
     
 	/**
      *  True if we're processing a addItem or removeItem call
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function busy():Boolean
 	{
@@ -470,6 +545,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 
 	/**
 	 *  Enables event dispatch for this list.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function enableEvents():void
 	{
@@ -482,6 +562,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 	 *  Disables event dispatch for this list.
 	 *  To re-enable events call enableEvents(), enableEvents() must be called
 	 *  a matching number of times as disableEvents().
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected function disableEvents():void
 	{
@@ -490,6 +575,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 	
 	/**
 	 *  clears busy flag
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function clearBusy():void
 	{
@@ -501,6 +591,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 	/**
 	 *  Sets busy flag.  Tree DP's check it so they
 	 *  know whether to fake events for it or not.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private function setBusy():void
 	{
@@ -511,6 +606,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      *  Called whenever any of the contained items in the list fire an
      *  ObjectChange event.  
      *  Wraps it in a CollectionEventKind.UPDATE.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     protected function itemUpdateHandler(event:PropertyChangeEvent):void
     {
@@ -529,6 +629,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      * in some way.  The initial implementation stab is very lenient,
      * any changeType will cause an update no matter how much further down
      * in a hierarchy.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function xmlNotification(currentTarget:Object, 
                                         type:String, 
@@ -623,6 +728,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
     /** 
      *  This is called by addItemAt and when the source is initially
      *  assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function startTrackUpdates(item:Object, uid:String):void
     {
@@ -632,6 +742,11 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
     /** 
      *  This is called by removeItemAt, removeAll, and before a new
      *  source is assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function stopTrackUpdates(item:Object):void
     {
@@ -648,11 +763,21 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 	 *  indicates if events should be dispatched.
 	 *  calls to enableEvents() and disableEvents() effect the value when == 0
 	 *  events should be dispatched. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _dispatchEvents:int = 0;
     
 	/**
 	 *  non-zero if we're processing an addItem or removeItem
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _busy:int = 0;
 
