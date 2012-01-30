@@ -15,6 +15,7 @@ package mx.effects.effectClasses
 import mx.core.mx_internal;
 import mx.styles.StyleManager;
 import mx.core.IFlexModuleFactory;
+import mx.core.IFlexModule;
 
 use namespace mx_internal;
 
@@ -145,7 +146,9 @@ public class SetStyleActionInstance extends ActionEffectInstance
 				// backgroundColor.
 				if (name.toLowerCase().indexOf("color") != -1)
                 {
-                    var moduleFactory:IFlexModuleFactory = target.moduleFactory;
+                    var moduleFactory:IFlexModuleFactory = null;
+                    if (target is IFlexModule)
+                        moduleFactory = target.moduleFactory;
                     target.setStyle(name, 
                         StyleManager.getStyleManager(moduleFactory).getColorName(value));                    
                 }
