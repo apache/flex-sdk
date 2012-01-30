@@ -130,12 +130,12 @@
     <!-- layer 3: gripper -->
     <!--- 
         Defines the Button control for the gripper button. 
-        By default, the button uses the spark.skins.spark.GripperSkin class
+        By default, the button uses the spark.skins.spark.windowChrome.GripperSkin class
         to define the skin for the gripper button.
             
-        @see spark.skins.spark.GripperSkin 
+        @see spark.skins.spark.windowChrome.GripperSkin 
     -->
-    <s:Button id="gripper" right="3" bottom="3" skinClass="spark.skins.spark.GripperSkin" /> 
+    <s:Button id="gripper" right="3" bottom="3" skinClass="spark.skins.spark.windowChrome.GripperSkin" /> 
 
     <!-- layer 4: border -->
     
