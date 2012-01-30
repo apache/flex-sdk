@@ -14,7 +14,7 @@ package mx.core
 import mx.collections.IList;
 
 /**
- *  Dispatched when the selectedIndex property changes.
+ *  Dispatched when the <code>selectedIndex</code> property changes.
  *
  *  @eventType mx.events.IndexChangedEvent.CHANGE
  *  
@@ -26,10 +26,9 @@ import mx.collections.IList;
 [Event(name="change")]
 
 /**
- *  ISelectableList is an interface that indicates that the
- *  implementor is a IList that supports a selectedIndex
- *  property that should be mirrored by a listening object
- *  like a ButtonBar
+ *  The ISelectableList interface indicates that the
+ *  implementor is an IList element that supports a <code>selectedIndex</code>
+ *  property.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -39,11 +38,15 @@ import mx.collections.IList;
 public interface ISelectableList extends IList
 {
     /**
-     *  The selectedIndex property that indicates the 
-     *  index of a selected IList item.
+     *  The index of the selected IList item.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-	function set selectedIndex(value:int):void;
-	function get selectedIndex():int;
+    function set selectedIndex(value:int):void;
+    function get selectedIndex():int;
 }
 
 }
