@@ -66,9 +66,9 @@ public class SplitViewNavigatorSkin extends MobileSkin
     public var contentGroup:Group;
     
     /**
-     *  @copy spark.components.SplitViewNavigator#viewNavigatorCallout
+     *  @copy spark.components.SplitViewNavigator#viewNavigatorPopUp
      */ 
-    public var viewNavigatorCallout:Callout;
+    public var viewNavigatorPopUp:SkinnablePopUpContainer;
     
     //--------------------------------------------------------------------------
     //
@@ -106,8 +106,8 @@ public class SplitViewNavigatorSkin extends MobileSkin
         addChild(contentGroup);
         
         // Create the callout but don't add it to display list
-        viewNavigatorCallout = new Callout();
-        viewNavigatorCallout.id = "viewNavigatorCallout";
+        viewNavigatorPopUp = new Callout();
+        viewNavigatorPopUp.id = "viewNavigatorPopUp";
     }
     
     /**
@@ -132,8 +132,8 @@ public class SplitViewNavigatorSkin extends MobileSkin
         contentGroup.setLayoutBoundsPosition(0, 0);
 
         // Set the maximum height of the callout to be equal to the dimensions of the SplitViewNavigator
-        viewNavigatorCallout.maxWidth = unscaledWidth - (viewNavigatorCallout.margin * 2);
-        viewNavigatorCallout.maxHeight = unscaledHeight - (viewNavigatorCallout.margin * 2);
+        viewNavigatorPopUp.maxWidth = unscaledWidth - (viewNavigatorPopUp.margin * 2);
+        viewNavigatorPopUp.maxHeight = unscaledHeight - (viewNavigatorPopUp.margin * 2);
     }
     
     /**
