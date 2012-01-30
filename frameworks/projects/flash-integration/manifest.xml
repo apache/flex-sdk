@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<!--
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
+-->
+
+<componentPackage>
+
+    <!-- doesn't matter what we put in here as long as it links in the classes.  Flash Authoring ignores this and the namespace it's mapped too...it just needs to be linked through a manifest file and the class linked in here must also extend MovieClip, otherwise Flash Authoring will complain -->
+    <component id="FlexComponentBase" class="mx.flash.FlexContentHolder"/>
+
+</componentPackage>
