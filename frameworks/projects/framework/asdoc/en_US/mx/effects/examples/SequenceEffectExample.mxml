@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Simple example to demonstrate the Sequence effect. -->
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <mx:Script>
+    <fx:Script>
         <![CDATA[
-            import mx.effects.easing.*;                   
+            import mx.effects.easing.*;
         ]]>
-    </mx:Script>
+    </fx:Script>
+    <fx:Declarations>
+        <mx:Sequence id="movePauseMove">
+            <mx:Move xBy="150" duration="2000" easingFunction="Bounce.easeOut"/>
+            <mx:Pause duration="2000"/>
+            <mx:Move xBy="-150" duration="2000" easingFunction="Bounce.easeIn"/>
+        </mx:Sequence>
+    </fx:Declarations>
 
-    <mx:Sequence id="movePauseMove">
-        <mx:Move xBy="150" duration="2000" easingFunction="Bounce.easeOut"/>
-        <mx:Pause duration="2000"/>
-        <mx:Move xBy="-150" duration="2000" easingFunction="Bounce.easeIn"/>
-    </mx:Sequence>
+    <s:Panel title="Sequence Effect Example" width="75%" height="75%" >
+        <s:VGroup left="20" right="20" top="20" bottom="20">
 
-    <mx:Panel title="Sequence Effect Example" width="75%" height="75%" 
-        paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10">
-
-        <mx:Text width="100%" color="blue" 
+        <s:SimpleText width="100%" color="blue"
 		    text="Click the phone image to start the Sequence effect. The effect pauses for 2 seconds between moves."/>
 
         <mx:Image
-            source="@Embed(source='assets/Nokia_6630.png')" 
+            source="@Embed(source='assets/Nokia_6630.png')"
             mouseDownEffect="{movePauseMove}"/>
-
-    </mx:Panel>
-</mx:Application>
+        </s:VGroup>
+    </s:Panel>
+</s:Application>
