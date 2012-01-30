@@ -1601,6 +1601,30 @@ public class WindowedApplication extends Application implements IWindow
         // The initial window is always of type "normal".
         return NativeWindowType.NORMAL;
     }
+    
+    
+    //----------------------------------
+    //  useNativeDragManager
+    //----------------------------------
+    
+    [Inspectable(defaultValue="true")]
+    
+    /**
+     *  Specifies if the DragManager should use the NativeDragManagerImpl implementation class.
+     *  If false, then the DragManagerImpl class will be used. 
+     *   
+     *  <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    
+    /*  This property is not directly read by the systemManager. It is here so that it gets 
+     *  picked up by the compiler and included in the info() structure 
+     *  for the generated system manager.  */
+    public var useNativeDragManager:Boolean = true;
 
     //--------------------------------------------------------------------------
     //
