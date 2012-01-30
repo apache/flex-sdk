@@ -1,0 +1,53 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2009 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+<languageVersion : 1.0;>
+kernel Exclusion
+<   namespace : "Flame";
+    vendor : "Adobe";
+    version : 1;
+    description : "Exclusion blend mode";
+>
+{
+    input image4 dst;
+    input image4 src;
+    output pixel4 result;
+
+    void
+    evaluatePixel()
+    {
+        pixel4 a = sampleNearest(dst,outCoord()); // cb
+        pixel4 b = sampleNearest(src,outCoord()); // cs
+        
+        // remove premultiplied (srcCP/srcA, dstCP/dstA)
+        //pixel3 cb, cs;
+        pixel3 cb = a.rgb;
+        pixel3 cs = b.rgb;
+
+        if (a.a > 0.0) {
+            cb.rgb = a.rgb / a.a;
+        }
+        if (b.a > 0.0) {
+            cs.rgb = b.rgb / b.a;
+        }
+        
+        // dstA' = (1-srcA)*dstA + srcA
+        result.a = (1.0-b.a)*a.a + b.a;
+        
+        // temp for Blend(srcCP/srcA, dstCP/dstA)
+        float3 blendResult;
+        
+        // cb + cs � 2*cs*cb
+        blendResult.rgb = cb.rgb + cs.rgb - 2.0*cs.rgb*cb.rgb;
+        
+        // dstCP' = (1-srcA)*dstCP + (1-dstA)*srcCP + srcA*dstA*Blend(srcCP/srcA, dstCP/dstA)
+        result.rgb = ((1.0-b.a)*a.rgb) + ((1.0-a.a)*b.rgb) + b.a*a.a*blendResult.rgb;
+    }
+}
