@@ -1281,7 +1281,7 @@ public class Effect extends EventDispatcher implements IEffect
      */
     public function stop():void
     {   
-        var n:int = _instances.length;
+        var n:int = _instances.length - 1;
         for (var i:int = n; i >= 0; i--)
         {
             var instance:IEffectInstance = IEffectInstance(_instances[i]);
