@@ -46,6 +46,7 @@ public class HSliderThumbSkin extends MobileSkin
     //--------------------------------------------------------------------------
 
     /**
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -53,33 +54,33 @@ public class HSliderThumbSkin extends MobileSkin
      *  @productversion Flex 4.5
      * 
      */
-	public function HSliderThumbSkin()
-	{
-		super();
+    public function HSliderThumbSkin()
+    {
+        super();
         
         useChromeColor = true;
         
         // set the right assets and dimensions to use based on the screen density
         switch (authorDensity)
         {
-			case DeviceDensity.PPI_320:
-			{
-				thumbImageWidth = 58;
-				thumbImageHeight = 58;
-				
-				thumbNormalClass = spark.skins.mobile320.assets.HSliderThumb_normal;
-				thumbPressedClass = spark.skins.mobile320.assets.HSliderThumb_pressed;
-				
+            case DeviceDensity.PPI_320:
+            {
+                thumbImageWidth = 58;
+                thumbImageHeight = 58;
+                
+                thumbNormalClass = spark.skins.mobile320.assets.HSliderThumb_normal;
+                thumbPressedClass = spark.skins.mobile320.assets.HSliderThumb_pressed;
+                
                 hitZoneOffset = 10;
                 hitZoneSideLength = 80;
 
-				// chromeColor ellipse goes up to the thumb border
-				chromeColorEllipseWidth = chromeColorEllipseHeight = 56;
-				chromeColorEllipseX = 1;
-				chromeColorEllipseY = 1;
-				
-				break;				
-			}
+                // chromeColor ellipse goes up to the thumb border
+                chromeColorEllipseWidth = chromeColorEllipseHeight = 56;
+                chromeColorEllipseX = 1;
+                chromeColorEllipseY = 1;
+                
+                break;              
+            }
             case DeviceDensity.PPI_240:
             {
                 thumbImageWidth = 44;
@@ -109,7 +110,7 @@ public class HSliderThumbSkin extends MobileSkin
                 hitZoneOffset = 5;
                 hitZoneSideLength = 40;
 
-				// chromeColor ellipse goes up to the thumb border
+                // chromeColor ellipse goes up to the thumb border
                 chromeColorEllipseWidth = chromeColorEllipseHeight = 29;
                 chromeColorEllipseX = chromeColorEllipseY = 0;
                 
@@ -117,19 +118,19 @@ public class HSliderThumbSkin extends MobileSkin
             }
                 
         }
-	}
-	
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-	
+    
     /** 
      * @copy spark.skins.spark.ApplicationSkin#hostComponent
      */
-	public var hostComponent:Button;
-	
+    public var hostComponent:Button;
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -303,7 +304,7 @@ public class HSliderThumbSkin extends MobileSkin
             // hide the pressed button
             if (thumbSkin_pressed)
                 thumbSkin_pressed.visible = false;
-		}
+        }
         else if (currentState == "down")
         {
             // show the pressed button
@@ -331,19 +332,19 @@ public class HSliderThumbSkin extends MobileSkin
     /**
      *  @private 
      */ 
-	override protected function measure():void
-	{
+    override protected function measure():void
+    {
         measuredWidth = thumbImageWidth;
         measuredHeight = thumbImageHeight;
-	}
-	
+    }
+    
     /**
      *  @private 
      */ 
-	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-	{
-		setElementSize(currentThumbSkin, unscaledWidth, unscaledHeight);
-		setElementPosition(currentThumbSkin, 0, 0)
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        setElementSize(currentThumbSkin, unscaledWidth, unscaledHeight);
+        setElementPosition(currentThumbSkin, 0, 0)
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
