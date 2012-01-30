@@ -51,17 +51,9 @@ public class ViewNavigatorSkin extends MobileSkin
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    // TODO (chiedozi): File a request to exclude skinstates
     public function ViewNavigatorSkin()
     {
         super();
-        
-        states = [
-            new State({name:"portrait"}),
-            new State({name:"portraitAndOverlay"}),
-            new State({name:"landscape"}),
-            new State({name:"landscapeAndOverlay"})
-            ];
     }
     
     //--------------------------------------------------------------------------
