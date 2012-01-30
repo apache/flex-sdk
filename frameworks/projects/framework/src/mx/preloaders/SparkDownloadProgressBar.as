@@ -560,14 +560,14 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
                       totalWidth,
                       totalHeight);
         
-        var baseColor:uint = getPreloaderBaseColor();
-        if (baseColor != DEFAULT_COLOR)
+        var chromeColor:uint = getPreloaderChromeColor();
+        if (chromeColor != DEFAULT_COLOR)
         {
             var colorTransform:ColorTransform = new ColorTransform();
             
-            colorTransform.redOffset = ((baseColor & (0xFF << 16)) >> 16) - DEFAULT_COLOR_VALUE;
-            colorTransform.greenOffset = ((baseColor & (0xFF << 8)) >> 8) - DEFAULT_COLOR_VALUE;
-            colorTransform.blueOffset = (baseColor & 0xFF) - DEFAULT_COLOR_VALUE;
+            colorTransform.redOffset = ((chromeColor & (0xFF << 16)) >> 16) - DEFAULT_COLOR_VALUE;
+            colorTransform.greenOffset = ((chromeColor & (0xFF << 8)) >> 8) - DEFAULT_COLOR_VALUE;
+            colorTransform.blueOffset = (chromeColor & 0xFF) - DEFAULT_COLOR_VALUE;
             
             _bgSprite.transform.colorTransform = colorTransform;
             _barFrameSprite.transform.colorTransform = colorTransform;
@@ -583,13 +583,13 @@ public class SparkDownloadProgressBar extends Sprite implements IPreloaderDispla
      *  We don't have a reliable way to get the system manager for the currently
      *  loading application. During normal progres bar instantiation, the parent.parent
      *  is the system manager loading the app, so that is what we'll use.
-     *  This is only needed to grab the "preloaderBaseColor" property from the info() 
+     *  This is only needed to grab the "preloaderChromeColor" property from the info() 
      *  structure.
      */
-    private function getPreloaderBaseColor():uint
+    private function getPreloaderChromeColor():uint
     {
         const sm:ISystemManager = parent.parent as ISystemManager;
-        const valueObject:Object = (sm) ? sm.info()["preloaderBaseColor"] : null;
+        const valueObject:Object = (sm) ? sm.info()["preloaderChromeColor"] : null;
 
         var valueString:String = valueObject as String;
         if (valueString && (valueString.charAt(0) == "#"))
