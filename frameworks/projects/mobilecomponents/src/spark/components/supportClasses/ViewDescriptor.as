@@ -22,9 +22,11 @@ import spark.components.View;
 /**
  *  The ViewDescriptor object is a data structure used to store information
  *  about a view that is being managed by a ViewNavigator.
+ *
+ *  @see spark.components.ViewNavigator
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
+ *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -39,13 +41,16 @@ public class ViewDescriptor implements IExternalizable
     /**
      *  Constructor.
      * 
-     *  @param viewClass The class used to create the View
-     *  @param data The data object to pass to the view when created
-     *  @param context The context of the view
-     *  @param instance A reference to the instance of the View
+     *  @param viewClass The class used to create the View object.
+     * 
+     *  @param data The data object to pass to the view when it is created.
+     * 
+     *  @param context The context of the view.
+     * 
+     *  @param instance A reference to the instance of the View object.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.1
+     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -71,9 +76,12 @@ public class ViewDescriptor implements IExternalizable
     //----------------------------------
     
     /**
-     *  The string that describes the context in which this view was
-     *  created.  This property is assigned to the <code>context</code>
-     *  parameter that is passed into <code>ViewNavigator.pushView()</code>.
+     *  The string that describes the context in which this view was created.  
+     *  This property is assigned to the <code>context</code>
+     *  parameter that is passed to the 
+     *  <code>ViewNavigator.pushView()</code> method.
+     *
+     *  @see spark.components.ViewNavigator#pushView()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -87,9 +95,12 @@ public class ViewDescriptor implements IExternalizable
     //----------------------------------
     
     /**
-     *  The current data object that is being used by the view.  When a view
-     *  is removed from a navigation stack, this value will be updated to
-     *  match the view's instance's current data object.
+     *  The current data object that is being used by the view.  
+     *  When a view is removed from a navigation stack, this value 
+     *  is updated to match the view's instance's current 
+     *  <code>data</code> object.
+     *
+     *  @see spark.components.View#data
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -103,9 +114,9 @@ public class ViewDescriptor implements IExternalizable
     //----------------------------------
     
     /**
-     *  A reference to the instance that is represented by this view object.
-     *  ViewNavigator will create and assign the instance as needed.  This
-     *  property will be nulled out when a view is destroyed.
+     *  A reference to the View instance that is represented by this object.
+     *  The ViewNavigator creates and assigns the instance as needed.  
+     *  This property is set to null when a view is destroyed.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -121,8 +132,8 @@ public class ViewDescriptor implements IExternalizable
     /**
      *  The serialized data that the view has requested be saved to disk when
      *  the application is writing data to a shared object or external file.
-     *  This object is the result of the <code>serializeData()</code> method
-     *  on View.
+     *  This object is the result of calling 
+     *  the <code>serializeData()</code> method on the View object.
      *   
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -136,8 +147,10 @@ public class ViewDescriptor implements IExternalizable
     //----------------------------------
     
     /**
-     *  The class used to create the view.  ViewNavigator will expect this
-     *  class to subclass View.
+     *  The class used to create the view.  
+     *  The ViewNavigator expects this class to be a subclass of View.
+     *
+     *  @see spark.components.View
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
