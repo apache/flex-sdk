@@ -285,6 +285,30 @@ public class ActionBarSkin extends MobileSkin
     /**
      *  @private
      */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        
+        if (styleProp == "textAlign")
+        {
+            var titleAlign:String = getStyle("textAlign");
+            
+            if (titleAlign == "center")
+            { 
+                // If the title align is set to center, the alignment is set to LEFT
+                // so that the skin can manually center the component in layoutContents
+                titleDisplay.setStyle("textAlign", TextFormatAlign.LEFT);
+            }
+            else
+            {
+                titleDisplay.setStyle("textAlign", titleAlign);
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     */
     override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.layoutContents(unscaledWidth, unscaledHeight);
@@ -375,7 +399,6 @@ public class ActionBarSkin extends MobileSkin
             else if (titleAlign == "center")
             { 
                 // use LEFT instead of CENTER
-                titleDisplay.setStyle("textAlign", TextFormatAlign.LEFT);
                 titleCompWidth = titleDisplay.getExplicitOrMeasuredWidth();
                 
                 // use x position of titleDisplay to implement CENTER
@@ -418,8 +441,6 @@ public class ActionBarSkin extends MobileSkin
             }
             else
             {
-                titleDisplay.setStyle("textAlign", titleAlign);
-                
                 // implement padding by adjusting width and position
                 titleCompX += titlePaddingLeft;
                 titleCompWidth = titleCompWidth - titlePaddingLeft - titlePaddingRight;
