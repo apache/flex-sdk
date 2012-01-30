@@ -19,6 +19,11 @@ import mx.events.CollectionEvent;
  *  Dispatched when the ICollectionView has been updated in some way.
  *
  *  @eventType mx.events.CollectionEvent.COLLECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="collectionChange", type="mx.events.CollectionEvent")]
 
@@ -43,6 +48,11 @@ import mx.events.CollectionEvent;
  *  @see mx.collections.IViewCursor
  *  @see mx.collections.errors.ItemPendingError
  *  @see mx.collections.IList
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ICollectionView extends IEventDispatcher
 {
@@ -59,6 +69,11 @@ public interface ICollectionView extends IEventDispatcher
     /**
      *  The number of items in this view.
 	 *  0 means no items, while -1 means that the length is unknown.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get length():int;
 
@@ -87,6 +102,11 @@ public interface ICollectionView extends IEventDispatcher
 	 *  you retrieve the data.</p>
 	 *
      *  @see #refresh()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get filterFunction():Function;
     
@@ -113,6 +133,11 @@ public interface ICollectionView extends IEventDispatcher
 	 *  collection before you retrieve the data.</p>
 	 *
      *  @see #refresh()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get sort():Sort;
     
@@ -132,6 +157,11 @@ public interface ICollectionView extends IEventDispatcher
      *
      *  @return A new IViewCursor implementation.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function createCursor():IViewCursor;
 
@@ -148,6 +178,11 @@ public interface ICollectionView extends IEventDispatcher
 	 *
      *  @return true if the ICollectionView, after applying any filter,
      *  contains the item; false otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function contains(item:Object):Boolean;
 
@@ -166,6 +201,11 @@ public interface ICollectionView extends IEventDispatcher
 	 *  Note that <code>disableAutoUpdate</code> only affects the
      *  individual view; edits may be detected on an individual
 	 *  basis by other views.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function disableAutoUpdate():void;
 
@@ -174,6 +214,11 @@ public interface ICollectionView extends IEventDispatcher
 	 *  See <code>disableAutoUpdate</code> for more information.
 	 *
      *  @see #disableAutoUpdate()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function enableAutoUpdate():void;
 
@@ -199,6 +244,11 @@ public interface ICollectionView extends IEventDispatcher
      *  @see mx.events.CollectionEvent
      *  @see mx.core.IPropertyChangeNotifier
      *  @see mx.events.PropertyChangeEvent
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function itemUpdated(item:Object, property:Object = null,
                          oldValue:Object = null, newValue:Object = null):void;
@@ -224,6 +274,11 @@ public interface ICollectionView extends IEventDispatcher
      *
      *  @return <code>true</code> if the refresh() was complete,
 	 *  <code>false</code> if the refresh() is incomplete.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function refresh():Boolean;
 }
