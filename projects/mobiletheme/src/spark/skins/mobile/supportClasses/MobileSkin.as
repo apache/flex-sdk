@@ -32,6 +32,7 @@ import spark.skins.IHighlightBitmapCaptureClient;
 
 use namespace mx_internal;
 
+// FIXME (jasonsj): do we need blendMode handling like Group?
 // FIXME (jasonsj): B-feature for IFocusColorSkin may be removed
 /**
  *  ActionScript-based skin for mobile applications. This skin is the 
@@ -53,6 +54,10 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     
     // Used for gradient background
     protected static var matrix:Matrix = new Matrix();
+    
+    protected static const MOBILE_THEME_DARK_COLOR:uint = 0x484848;
+    
+    protected static const MOBILE_THEME_LIGHT_COLOR:uint = 0xCCCCCC;
     
     /**
      * An array of color distribution ratios.
@@ -262,7 +267,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
      *  @private
      */ 
     override public function setCurrentState(stateName:String,
-                                    playTransition:Boolean = true):void
+                                             playTransition:Boolean = true):void
     {
         currentState = stateName;
     }
@@ -323,6 +328,38 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
                 }
             }
         }
+    }
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Apply a color transform on a DisplayObject
+     * 
+     *  @param displayObject
+     *  @param tintColor
+     *  @param originalColor
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5 
+     *  @productversion Flex 4.5
+     */
+    protected function applyColorTransform(displayObject:DisplayObject, originalColor:uint, tintColor:uint):void
+    {
+        // FIXME (jasonsj): track what's already been tinted
+        // FIXME (jasonsj): track previous color transform to bypass initialization
+        if (originalColor == tintColor)
+            return;
+        
+        colorTransform.redOffset = ((tintColor & (0xFF << 16)) >> 16) - ((originalColor & (0xFF << 16)) >> 16);
+        colorTransform.greenOffset = ((tintColor & (0xFF << 8)) >> 8) - ((originalColor & (0xFF << 8)) >> 8);
+        colorTransform.blueOffset = (tintColor & 0xFF) - (originalColor & 0xFF);
+        colorTransform.alphaMultiplier = alpha;
+        
+        displayObject.transform.colorTransform = colorTransform;
     }
     
     /**
@@ -390,7 +427,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     {
         chromeColorGraphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
     }
-
+    
     /**
      *  A helper method to position children elements of this component.
      * 
@@ -432,7 +469,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
             element.y = y;
         }
     }
-
+    
     /**
      *  A helper method to size children elements of this component.
      * 
@@ -577,6 +614,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
     private static var exclusionAlphaValues:Array;
     
     private static var oldContentBackgroundAlpha:Number;
+    
     private static var contentBackgroundAlphaSetLocally:Boolean;
     
     /**
@@ -716,7 +754,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
         }
         
         exclusionAlphaValues = null;
-
+        
         if (!isNaN(oldContentBackgroundAlpha))
         {
             if (contentBackgroundAlphaSetLocally)
@@ -726,7 +764,7 @@ public class MobileSkin extends UIComponent implements IHighlightBitmapCaptureCl
             needRedraw = true;
             oldContentBackgroundAlpha = NaN;
         }
-
+        
         return needRedraw;
     }
 }
