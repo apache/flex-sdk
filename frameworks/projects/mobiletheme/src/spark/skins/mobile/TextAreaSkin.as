@@ -69,9 +69,8 @@ public class TextAreaSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile320.assets.TextInput_border;
                 layoutCornerEllipseSize = 24;
-                layoutMeasuredWidth = 612;
-                minWidth = 48;
-                minHeight = 106;
+                measuredDefaultWidth = 612;
+                measuredDefaultHeight = 106;
                 layoutBorderSize = 2;
                 
                 break;
@@ -80,9 +79,8 @@ public class TextAreaSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile240.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 440;
-                minWidth = 24;
-                minHeight = 70;
+                measuredDefaultWidth = 440;
+                measuredDefaultHeight = 70;
                 layoutBorderSize = 1;
                 
                 break;
@@ -91,9 +89,8 @@ public class TextAreaSkin extends TextSkinBase
             {
                 borderClass = spark.skins.mobile160.assets.TextInput_border;
                 layoutCornerEllipseSize = 12;
-                layoutMeasuredWidth = 306;
-                minWidth = 24;
-                minHeight = 53;
+                measuredDefaultWidth = 306;
+                measuredDefaultHeight = 53;
                 layoutBorderSize = 1;
                 
                 break;
@@ -125,12 +122,6 @@ public class TextAreaSkin extends TextSkinBase
     //  Variables
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Default width per DPI.
-     */
-    private var layoutMeasuredWidth:Number;
     
     /**
      *  @private
@@ -239,7 +230,7 @@ public class TextAreaSkin extends TextSkinBase
         // You can set an explicit width and the height will adjust accordingly. The opposite
         // is not true: setting an explicit height will not adjust the width accordingly.
         
-        measuredWidth = layoutMeasuredWidth;
+        measuredWidth = measuredDefaultWidth;
         
         // now we need to measure textDisplay's height.  Unfortunately, this is tricky and 
         // is dependent on textDisplay's width.  Let's use the heuristic that our width 
