@@ -243,12 +243,63 @@ use namespace mx_internal;
 
 /**
  *  The StyleableStageText class is a text primitive for use in ActionScript
- *  skins which is used to present the user with a native text input field. 
+ *  skins which is used to present the user with a native text input field.
  *  It cannot be used in MXML markup, is not compatible with effects, and
  *  is not compatible with transformations such as rotation, scale, and skew.
+ *  It does not support embedded fonts.</p>
  * 
+ *  <p>StageText allows for better text entry and manipulation experiences on mobile devices 
+ *  using native text fields.
+ *  The native fields provide correct visuals, text spacing and reflow, selection behavior, and 
+ *  text entry assistance.  
+ *  This class can also be used on desktop platforms where it behaves as a wrapper around TextField.
+ *  </p>
+ *     
+ *  <p><b>Limitation of StageText-based controls:</b>
+ * 
+ *  <li>Native text input fields cannot be clipped by other Flex content and are rendered in a 
+ *  layer above the Stage. 
+ *  Because of this limitation, components that use StageText-based skin classes will always appear 
+ *  to be on top of other Flex components. 
+ *  Flex popups and drop-downs will also be obscured by any visible native text fields. 
+ *  Finally, native text fields' relative z-order cannot be controlled by the application.</li>
+ * 
+ *  <li>StageText uses a native text control both for text display and text entry. 
+ *  These native controls cannot use embedded fonts directly. 
+ *  Other text controls may be used as workarounds if embedded font support is a requirement.</li>
+ * 
+ *  <li>StageText does not support links or html markup. Only plain text is supported.</li>
+ * 
+ *  <li>StageText <code>text</code> is always selectable.</li>
+ * 
+ *  <li>StageText does not support fractional alpha values.</li>
+ * 
+ *  <li>The padding around native text controls may be different than the padding around 
+ *  TextField controls.</li>
+ * 
+ *  <li>StageText does not support programmatic control of scroll position at this time. </li>
+ * 
+ *  <li>StageText does not dispatch low-level keyboard events for most keys. 
+ *  Most notably, the tab key will not dispatch keyDown or keyUp events. 
+ *  As a consequence, focus cannot be removed from a component using StageText with the tab key.</li>
+ * 
+ *  <li>StageText is currently not capable of measuring text. 
+ *  Because of this, any functionality which requires determining the dimensions of text is not 
+ *  supported.</li>
+ * 
+ *  <li>Similiar to other native applications, when you tap outside of the native text field the 
+ *  text field gives up focus and the soft keyboard goes away.  
+ *  This differs from when you tap outside of a TextField and the focus stays in the TextField and 
+ *  the soft keyboard remains visible.</li>
+ * 
+ *  <li>Scrolling form workflows do not work.
+ *  In the near-term, StageText will not support an event model necessary to allow for 
+ *  touch-based scrolling of forms containing native text fields.</li>
+ *  </p>
+ *  
  *  @see flash.text.StageText
- *
+ *  @see spark.components.supportClasses.StyleableTextField
+ * 
  *  @langversion 3.0
  *  @playerversion AIR 3.0
  *  @productversion Flex 4.5.2
