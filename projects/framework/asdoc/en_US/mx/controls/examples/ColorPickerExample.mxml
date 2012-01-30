@@ -8,12 +8,12 @@
             width="75%" height="75%" 
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:SimpleText width="100%" color="blue"
+            <s:Label width="100%" color="blue"
                     text="Select the background color of the Halo VBox container."/>
             <mx:ColorPicker id="cp" showTextField="true" selectedColor="0xFFFFFF"/>
 
             <mx:VBox width="100%" height="100%" backgroundColor="{cp.selectedColor}" borderStyle="solid"/>
-            <s:SimpleText color="blue" text="selectedColor: 0x{cp.selectedColor.toString(16)}"/> 
+            <s:Label color="blue" text="selectedColor: 0x{cp.selectedColor.toString(16)}"/> 
         </s:VGroup>
     </s:Panel>
 
