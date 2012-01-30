@@ -345,8 +345,9 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         var orientation:String = stage.deviceOrientation;
 
         // DPI scaling factor of the stage
-        // FIXME (egeorgie): get this number from the SystemManager?
-        var dpiScaling:Number = 1; //Capabilities.screenDPI >= 240 ? 1.5 : 1;
+        var dpiScale:Number = 1;
+        if (parent.parent is SystemManager)
+            dpiScale = SystemManager(parent.parent).densityScale;
 
         // Get stage dimensions at default orientation
         var stageWidth:Number;
@@ -354,13 +355,13 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         if (orientation == StageOrientation.ROTATED_LEFT ||
             orientation == StageOrientation.ROTATED_RIGHT)
         {
-            stageWidth = stage.stageHeight / dpiScaling;
-            stageHeight = stage.stageWidth / dpiScaling;
+            stageWidth = stage.stageHeight / dpiScale;
+            stageHeight = stage.stageWidth / dpiScale;
         }
         else
         {
-            stageWidth = stage.stageWidth / dpiScaling;
-            stageHeight = stage.stageHeight / dpiScaling;
+            stageWidth = stage.stageWidth / dpiScale;
+            stageHeight = stage.stageHeight / dpiScale;
         }
 
         // The image dimensions
@@ -429,8 +430,8 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
             m.rotate(rotation);
 
         // Align center of image (0,0) to center of stage: 
-        var stageWidthAfterOrientationAndDPI:Number = stage.stageWidth / dpiScaling;
-        var stageHeightAfterOrientationAndDPI:Number = stage.stageHeight / dpiScaling;
+        var stageWidthAfterOrientationAndDPI:Number = stage.stageWidth / dpiScale;
+        var stageHeightAfterOrientationAndDPI:Number = stage.stageHeight / dpiScale;
         m.translate(stageWidthAfterOrientationAndDPI / 2, stageHeightAfterOrientationAndDPI / 2);
 
         // Apply matrix
