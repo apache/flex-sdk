@@ -57,7 +57,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="transitionStart", type="flash.events.Event")]
+[Event(name="transitionStart", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when the transition is complete.
@@ -66,7 +66,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="transitionEnd", type="flash.events.Event")]
+[Event(name="transitionEnd", type="mx.events.FlexEvent")]
 
 
 /**
@@ -1167,6 +1167,10 @@ public class ViewTransitionBase extends EventDispatcher
             if (componentIsVisible(actionBar) != endView.actionBarVisible)
                 return false;
         }
+        
+        // Test for valid views.
+        if (!startView || !endView)
+            return false;
         
         // Test for value of overlayControls changing.
         if (startView.overlayControls != endView.overlayControls)
