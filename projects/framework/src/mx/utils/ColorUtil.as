@@ -18,6 +18,11 @@ package mx.utils
  *  You do not create instances of ColorUtil;
  *  instead you simply call static methods such as 
  *  the <code>ColorUtil.adjustBrightness()</code> method.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ColorUtil
 {
@@ -45,6 +50,11 @@ public class ColorUtil
 	 *  is the same as the original color.
 	 *
 	 *  @return New RGB color.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function adjustBrightness(rgb:uint, brite:Number):uint
 	{
@@ -70,6 +80,11 @@ public class ColorUtil
 	 *  is the same as the original color.
 	 *
 	 *  @return New RGB color.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function adjustBrightness2(rgb:uint, brite:Number):uint
 	{
@@ -118,6 +133,11 @@ public class ColorUtil
 	 *  @param rgb2 Second RGB color.
 	 *
 	 *  @return RGB multiplication of the two colors.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static function rgbMultiply(rgb1:uint, rgb2:uint):uint
 	{
