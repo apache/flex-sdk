@@ -51,7 +51,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class SetProperty extends OverrideBase implements IOverride
+public class SetProperty extends OverrideBase
 {
     include "../core/Version.as";
 
@@ -135,18 +135,6 @@ public class SetProperty extends OverrideBase implements IOverride
      */
     private var oldRelatedValues:Array;
     
-    /**
-     *  @private
-     *  Flag which tracks if we're actively overriding a property.
-     */
-    private var applied:Boolean = false;
-    
-    /**
-     *  @private
-     *  Our most recent parent context.
-     */
-    private var parentContext:UIComponent = null;
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -251,20 +239,6 @@ public class SetProperty extends OverrideBase implements IOverride
     //--------------------------------------------------------------------------
 
     /**
-     *  IOverride interface method; this class implements it as an empty method.
-     * 
-     *  @copy IOverride#initialize()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function initialize():void
-    {
-    }
-
-    /**
      * Utility function to return the pseudonym of the property
      * name if it exists on the object
      */
@@ -306,8 +280,9 @@ public class SetProperty extends OverrideBase implements IOverride
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function apply(parent:UIComponent):void
+    override public function apply(parent:UIComponent):void
     {   
+        parentContext = parent;
         var obj:* = getOverrideContext(target, parent);
         if (obj != null)
         {
@@ -355,12 +330,19 @@ public class SetProperty extends OverrideBase implements IOverride
 	
 	        // Set new value
 	        setPropertyValue(obj, propName, newValue, oldValue);
-	        
-	        // Save state in case our value is changed again while applied.  This can
-	        // occur when our value property is databound.
-	        applied = true;
-	        this.parentContext = parent;
         }
+        else if (!applied)
+        {
+            // Our target context is unavailable so we attempt to register
+            // a listener on our parent document to detect when/if it becomes
+            // valid.
+            addContextListener(target);
+        }
+        
+        // Save state in case our value or target is changed while applied. This
+        // can occur when our value property is databound or when a target is 
+        // deferred instantiated.
+        applied = true;
     }
 
     /**
@@ -371,10 +353,10 @@ public class SetProperty extends OverrideBase implements IOverride
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function remove(parent:UIComponent):void
+    override public function remove(parent:UIComponent):void
     {   
         var obj:* = getOverrideContext(appliedTarget, parent);
-        if (obj != null && applied)
+        if (obj != null && appliedTarget)
         {
             var propName:String = PSEUDONYMS[name] ? getPseudonym(obj, name) : name;
 	        
@@ -401,13 +383,20 @@ public class SetProperty extends OverrideBase implements IOverride
 	                setPropertyValue(obj, relatedProps[i],
 	                        oldRelatedValues[i], oldRelatedValues[i]);
 	            }
-	        }
-	        
-	        // Clear our flags and override context.
-	        applied = false;
-	        parentContext = null;
-	        appliedTarget = null;
+            }
         }
+        else
+        {
+            // It seems our override is no longer active, but we were never
+            // able to successfully apply ourselves, so remove our context
+            // listener if applicable.
+            removeContextListener();
+        }
+        
+        // Clear our flags and override context.
+        applied = false;
+        parentContext = null;
+        appliedTarget = null;
     }
 
     /**
