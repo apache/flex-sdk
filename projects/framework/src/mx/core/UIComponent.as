@@ -7039,6 +7039,7 @@ public class UIComponent extends FlexSprite
             else
             {
                 pt = new Point(obj.x - thickness, obj.y - thickness);
+                DisplayObject(focusObj).rotation = 0;
             }
 
             if (obj.parent == this)
