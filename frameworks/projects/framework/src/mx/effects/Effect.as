@@ -184,6 +184,23 @@ public class Effect extends EventDispatcher implements IEffect
     //
     //--------------------------------------------------------------------------
 
+    // Transitions will force the values animated by this effect to get set to
+    // their final values, as specified in the end state, when the effect finishes.
+    // This flag is set to true when the effect is being played by a transition,
+    // but applying the values is still gated by the value of the
+    // applyTransitionEndProperties flag, which is set on a per-Effect basis.
+    mx_internal var applyEndValuesWhenDone:Boolean = false;
+
+    // TODO: consider making this attribute protected (vs. mx_internal)
+    // This flag controls whether a given Effect, when being played as
+    // part of a view state transition, wishes to replace any
+    // transient state set during its animation by the values declared
+    // in the ending view state (as captured by the propertyChanges
+    // array). For now, this flag is set to true by the new effects
+    // in Flex4 as well as the old CompositeEffect classes. Other effects
+    // leave the flag false for backward compatibility.
+    mx_internal var applyTransitionEndProperties:Boolean = false;
+    
     /**
      *  @private
      */
@@ -922,6 +939,8 @@ public class Effect extends EventDispatcher implements IEffect
             // Revalidate after applying the start values, to get everything
             // back the way it should be before starting the animation
             LayoutManager.getInstance().validateNow();
+            
+            applyEndValuesWhenDone = true;
         }
         
         var newInstances:Array = createInstances(targets);
@@ -1243,6 +1262,71 @@ public class Effect extends EventDispatcher implements IEffect
         }
     }
     
+    /**
+     *  @private
+     *  Applies the start values found in the array of PropertyChanges
+     *  to the relevant targets.
+     */
+    mx_internal function applyEndValues(propChanges:Array,
+                                    targets:Array):void
+    {
+        // For now, only new Flex4 effects will apply end values when transitions
+        // are over, to preserve the previous behavior of Flex3 effects
+        if (!applyTransitionEndProperties)
+            return;
+            
+        var effectProps:Array = relevantProperties;
+                    
+        var n:int = propChanges.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var m:int;
+            var j:int;
+
+            var target:Object = propChanges[i].target;
+            var apply:Boolean = false;
+            
+            m = targets.length;
+            for (j = 0; j < m; j++)
+            {
+                if (targets[j] == target)
+                {   
+                    apply = filterInstance(propChanges, target);
+                    break;
+                }
+            }
+            
+            if (apply)
+            {
+                // Walk the properties in the target
+                m = effectProps.length;
+                for (j = 0; j < m; j++)
+                {
+                    if (effectProps[j] in propChanges[i].end &&
+                        effectProps[j] in target)
+                    {
+                        applyValueToTarget(target, effectProps[j],
+                                propChanges[i].end[effectProps[j]],
+                                propChanges[i].end);
+                    }
+                }
+                
+                // Walk the styles in the target
+                m = relevantStyles.length;
+                for (j = 0; j < m; j++)
+                {
+                    trace("relevantStyles[j] = " + relevantStyles[j]);
+                    if (relevantStyles[j] in propChanges[i].end &&
+                        target is IStyleClient)
+                    {
+                        trace("AnimProp: style, value = " + relevantStyles[j] + ", " +
+                            propChanges[i].end[relevantStyles[j]]);
+                        target.setStyle(relevantStyles[j], propChanges[i].end[relevantStyles[j]]);
+                    }
+                }
+            }
+        }
+    }
     
     /**
      *  Used internally by the Effect infrastructure.
@@ -1338,6 +1422,10 @@ public class Effect extends EventDispatcher implements IEffect
         deleteInstance(instance);
 
         dispatchEvent(event);
+
+        // Transitions should set the end values when done
+        if (applyEndValuesWhenDone)   
+            applyEndValues(mx_internal::propertyChangesArray, targets);
     }
 
 }
