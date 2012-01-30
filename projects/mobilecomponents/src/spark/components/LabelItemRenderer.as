@@ -835,10 +835,10 @@ public class MobileItemRenderer extends UIComponent
         // its measured textHeight so we can position it later based on verticalAlign
         var labelWidth:Number = Math.max(viewWidth, 0);
         var labelHeight:Number = Math.max(Math.min(viewHeight, textHeight), 0);
-        resizeElement(labelDisplay, labelWidth, labelHeight);    
+        setElementSize(labelDisplay, labelWidth, labelHeight);    
         
         var labelY:Number = Math.round(vAlign * (viewHeight - labelHeight)) + paddingTop;
-        positionElement(labelDisplay, paddingLeft, labelY);
+        setElementPosition(labelDisplay, paddingLeft, labelY);
 
         // attempt to truncate the text now that we have its official width
         labelDisplay.truncateToFit();
@@ -851,25 +851,16 @@ public class MobileItemRenderer extends UIComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  A helper method to position the children of this item renderer.
-     * 
-     *  <p>You can use this method instead of checking for and using
-     *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+     *  @copy spark.skins.mobile.MobileSkin#setElementPosition
      *
-     *  @param element The child to position.
-     *
-     *  @param x The x-coordinate of the child.
-     *
-     *  @param y The y-coordinate of the child.
-     *
-     *  @see #resizeElement  
+     *  @see #setElementSize  
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
-    protected function positionElement(element:Object, x:Number, y:Number):void
+    protected function setElementPosition(element:Object, x:Number, y:Number):void
     {
         if (element is ILayoutElement)
         {
@@ -887,25 +878,16 @@ public class MobileItemRenderer extends UIComponent
     }
     
     /**
-     *  A helper method to size the children of this item renderer.
-     * 
-     *  <p>You can use this method instead of checking for and using
-     *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
+     *  @copy spark.skins.mobile.MobileSkin#setElementSize
      *
-     *  @param element The child to position.
-     *
-     *  @param x The width of the child.
-     *
-     *  @param y The height of the child.
-     *
-     *  @see #positionElement  
+     *  @see #setElementPosition  
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      */
-    protected function resizeElement(element:Object, width:Number, height:Number):void
+    protected function setElementSize(element:Object, width:Number, height:Number):void
     {
         if (element is ILayoutElement)
         {
@@ -923,14 +905,11 @@ public class MobileItemRenderer extends UIComponent
     }
     
     /**
-     *  A helper method to retrieve the preferred width of an element
+     *  @copy spark.skins.mobile.MobileSkin#getElementPreferredWidth
+     *
+     *  @see #setElementPosition  
      * 
-     *  <p>You can use this method instead of checking for and using
-     *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
-     *
-     *  @param element The child to retrieve the width for
-     *
-     *  @see #sizeElement
+     *  @see #setElementSize
      *  @see #getElementPreferredHeight  
      * 
      *  @langversion 3.0
@@ -950,9 +929,6 @@ public class MobileItemRenderer extends UIComponent
         }
         else if (element is StyleableTextField)
         {
-            // commit styles to get an accurate measurement
-            StyleableTextField(element).commitStyles();
-
             return StyleableTextField(element).measuredTextSize.x;
         }
         else
@@ -962,15 +938,12 @@ public class MobileItemRenderer extends UIComponent
     }
     
     /**
-     *  A helper method to retrieve the preferred height of an element
+     *  @copy spark.skins.mobile.MobileSkin#getElementPreferredHeight
+     *
+     *  @see #setElementPosition  
      * 
-     *  <p>You can use this method instead of checking for and using
-     *  various interfaces such as ILayoutElement or IFlexDisplayObject.</p>
-     *
-     *  @param element The child to retrieve the height for
-     *
-     *  @see #sizeElement
-     *  @see #getElementPreferredWidth 
+     *  @see #setElementSize
+     *  @see #getElementPreferredWidth
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -989,9 +962,6 @@ public class MobileItemRenderer extends UIComponent
         }
         else if (element is StyleableTextField)
         {
-            // commit styles to get an accurate measurement
-            StyleableTextField(element).commitStyles();
-                
             return StyleableTextField(element).measuredTextSize.y;
         }
         else
