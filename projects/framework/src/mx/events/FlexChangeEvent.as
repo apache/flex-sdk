@@ -97,13 +97,20 @@ public class FlexChangeEvent extends Event
      */
     public static const REMOVE_CHILD_BRIDGE:String = "removeChildBridge";
 
-
     /**
      *  @private
      * 
-     *  Dispatched by a CSSStyleDeclaration when a style property is changed.
+     *  Dispatched by a StyleManager when a style property is changed.
+     * 
+     *  The data parameter is an object that describes what changed:
+     *  
+     *  "property" - This property describes what kind of style manager
+     *  property changed. 
+     *  If the "property" property is "inheritingStyles" then the 
+     *  StyleManager's inheritingStyles property was updated. 
+     *  
      */
-    public static const STYLE_CHANGED:String = "styleChanged";
+    public static const STYLE_MANAGER_CHANGE:String = "styleManagerChange";
     
     //--------------------------------------------------------------------------
     //
