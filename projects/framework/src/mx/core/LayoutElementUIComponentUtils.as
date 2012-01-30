@@ -275,6 +275,8 @@ public class LayoutElementUIComponentUtils
             return obj.x;
         
         var fitSize:Point = MatrixUtil.fitBounds(width, height, transformMatrix,
+                                                 obj.explicitWidth,
+                                                 obj.explicitHeight,
                                                  getPreferredUBoundsWidth(obj),
                                                  getPreferredUBoundsHeight(obj),
                                                  getMinUBoundsWidth(obj),
@@ -307,6 +309,8 @@ public class LayoutElementUIComponentUtils
             return obj.y;
         
         var fitSize:Point = MatrixUtil.fitBounds(width, height, transformMatrix,
+                                                 obj.explicitWidth,
+                                                 obj.explicitHeight,
                                                  getPreferredUBoundsWidth(obj),
                                                  getPreferredUBoundsHeight(obj),
                                                  getMinUBoundsWidth(obj),
@@ -499,6 +503,8 @@ public class LayoutElementUIComponentUtils
         }
 
         var fitSize:Point = MatrixUtil.fitBounds(width, height, transformMatrix,
+                                                 obj.explicitWidth,
+                                                 obj.explicitHeight,
                                                  getPreferredUBoundsWidth(obj),
                                                  getPreferredUBoundsHeight(obj),
                                                  getMinUBoundsWidth(obj),
