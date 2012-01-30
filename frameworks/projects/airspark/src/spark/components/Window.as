@@ -1843,6 +1843,10 @@ public class Window extends SkinnableContainer implements IWindow
                 systemChrome == NativeWindowSystemChrome.STANDARD)
                 nativeWindow.height = chromeHeight() + _bounds.height;
                 
+            // Set _width and _height.  This will update the mirroring
+            // transform if applicable.
+            setActualSize(_bounds.width, _bounds.height);
+            
             // We use temporary variables because when we set stageWidth or 
             // stageHeight _bounds will be overwritten when we receive 
             // a RESIZE event.
@@ -2689,6 +2693,10 @@ public class Window extends SkinnableContainer implements IWindow
         bounds.width = stage.stageWidth;
         bounds.height = stage.stageHeight;
 
+        // Set _width and _height.  This will update the mirroring
+        // transform if applicable.
+        setActualSize(_bounds.width, _bounds.height);
+        
         validateNow();
         var e:FlexNativeWindowBoundsEvent =
             new FlexNativeWindowBoundsEvent(FlexNativeWindowBoundsEvent.WINDOW_RESIZE, event.bubbles, event.cancelable,
