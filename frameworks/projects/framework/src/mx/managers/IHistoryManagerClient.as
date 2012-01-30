@@ -23,6 +23,11 @@ package mx.managers
  *  component that is registered with the HistoryManager.</p> 
  *
  *  @see mx.managers.HistoryManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface IHistoryManagerClient
 {
@@ -57,6 +62,11 @@ public interface IHistoryManagerClient
 	 *	</pre>
 	 *
 	 *  @return The state of this object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function saveState():Object;
 	
@@ -85,6 +95,11 @@ public interface IHistoryManagerClient
 	 *  	}
 	 *  }
 	 *  </pre>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function loadState(state:Object):void;
 	
@@ -93,6 +108,11 @@ public interface IHistoryManagerClient
 	 *  Implemented by UIComponent.
 	 *
 	 *  @return The unique identifier for this object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	function toString():String;
 }
