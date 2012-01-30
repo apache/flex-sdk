@@ -39,13 +39,14 @@ import mx.core.ClassFactory;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.graphics.IFill;
 import mx.graphics.SolidColor;
+import mx.graphics.SolidColorStroke;
 import mx.graphics.Stroke;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
-import mx.core.IFlexModuleFactory;
 
 use namespace mx_internal;
 
@@ -693,16 +694,11 @@ public class BubbleSeries extends Series
 	{
 		HaloDefaults.init(styleManager);
 		
-		var seriesStyle:CSSStyleDeclaration =
-			HaloDefaults.createSelector("mx.charts.series.BubbleSeries", styleManager);        
-		
-		seriesStyle.defaultFactory = function():void
-		{
-			this.fill = new SolidColor(0x444444);
-			this.fills = [];
-			this.itemRenderer = new ClassFactory(CircleItemRenderer);
-			this.stroke = new Stroke(0, 1, 0.2);
-		}
+		var bubbleSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.BubbleSeries");
+		bubbleSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.CircleItemRenderer));
+		bubbleSeriesStyle.setStyle("fill", new SolidColor(0x444444));
+		bubbleSeriesStyle.setStyle("fills", []);
+		bubbleSeriesStyle.setStyle("stroke", new SolidColorStroke(0,1,0.2));
 		
 		return true;
 	}
