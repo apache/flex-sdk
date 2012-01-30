@@ -25,7 +25,13 @@ package mx.utils
 public final class HSBColor
 {
     /**
-     * Constructs an HSBColor with optional parameters
+     *  Constructs an HSBColor with optional parameters.
+     *
+     *  @param hue The hue.
+     *
+     *  @param saturation The saturation.
+     *
+     *  @param brightness The brightness.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -101,8 +107,16 @@ public final class HSBColor
     }
     
     /**
-     * Converts an HSB color specified by the parameters to a
-     * uint RGB color.
+     *  Converts an HSB color specified by the parameters to a
+     *  uint RGB color.
+     *
+     *  @param hue The hue.
+     *
+     *  @param saturation The saturation.
+     *
+     *  @param brightness The brightness.
+     *
+     *  @return An RGB color.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -166,7 +180,11 @@ public final class HSBColor
     }
     
     /**
-     * Converts a color from RGB format into an HSBColor
+     *  Converts a color from RGB format into an HSBColor.
+     *
+     *  @param rgb The RGB color.
+     *
+     *  @return The HSBColor object representing the RGB color. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
