@@ -18,6 +18,7 @@ import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 
 import spark.core.ContainerDestructionPolicy;
+import spark.events.ViewNavigatorEvent;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -25,6 +26,20 @@ use namespace mx_internal;
 //--------------------------------------
 //  Events
 //--------------------------------------
+
+/**
+ *  Dispatched when the back key is pressed when a view exists inside
+ *  a mobile application.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ * 
+ *  @eventType mx.events.FlexEvent.BACK_KEY_PRESSED
+ * 
+ */
+[Event(name="backKeyPressed", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when the <code>data</code> property changes.
@@ -42,40 +57,40 @@ use namespace mx_internal;
 /**
  *  Dispatched when the current view has been activated.
  * 
- *  @eventType mx.events.FlexEvent.VIEW_ACTIVATE
+ *  @eventType mx.events.ViewNavigatorEvent.VIEW_ACTIVATE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="viewActivate", type="mx.events.FlexEvent")]
+[Event(name="viewActivate", type="spark.events.ViewNavigatorEvent")]
 
 /**
  *  Dispatched when the current view has been deactivated.
  * 
- *  @eventType mx.events.FlexEvent.VIEW_DEACTIVATE
+ *  @eventType mx.events.ViewNavigatorEvent.VIEW_DEACTIVATE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="viewDeactivate", type="mx.events.FlexEvent")]
+[Event(name="viewDeactivate", type="spark.events.ViewNavigatorEvent")]
 
 /**
  *  Dispatched when the screen is about to be removed in response
  *  to a screen change.  Calling <code>preventDefault()</code> 
  *  while handling this event will cancel the screen change.
  * 
- *  @eventType mx.events.FlexEvent.REMOVING
+ *  @eventType mx.events.ViewNavigatorEvent.REMOVING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-[Event(name="removing", type="mx.events.FlexEvent")]
+[Event(name="removing", type="spark.events.ViewNavigatorEvent")]
 
 /**
  *  The View class is the base container class for all Views used by view
@@ -148,9 +163,12 @@ public class View extends Group implements IDataRenderer
         {
             _active = value;
             
-            var eventName:String = _active ? FlexEvent.VIEW_ACTIVATE : FlexEvent.VIEW_DEACTIVATE;
+            var eventName:String = _active ? 
+                ViewNavigatorEvent.VIEW_ACTIVATE : 
+                ViewNavigatorEvent.VIEW_DEACTIVATE;
+            
             if (hasEventListener(eventName))
-                dispatchEvent(new FlexEvent(eventName));
+                dispatchEvent(new ViewNavigatorEvent(eventName, false, false, navigator.lastAction));
         }
     }
 
@@ -159,6 +177,7 @@ public class View extends Group implements IDataRenderer
     //----------------------------------
     
     /**
+     *  @private
      *  Determines if the current view can be removed by a navigator.  The default 
      *  implementation dispatches a <code>FlexEvent.REMOVING</code> event.  If
      *  preventDefault() is called on the event, this property will return false.
@@ -170,15 +189,36 @@ public class View extends Group implements IDataRenderer
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */    
-    public function canRemove():Boolean
+    mx_internal function canRemove():Boolean
     {
-        if (hasEventListener(FlexEvent.REMOVING))
+        if (hasEventListener(ViewNavigatorEvent.REMOVING))
         {
-            var event:FlexEvent = new FlexEvent(FlexEvent.REMOVING, false, true);
+            var event:ViewNavigatorEvent = 
+                new ViewNavigatorEvent(ViewNavigatorEvent.REMOVING, 
+                                       false, true, navigator.lastAction);
+            
             return dispatchEvent(event);
         }
         
         return true;
+    }
+    
+    /**
+     *  @private
+     */ 
+    mx_internal function backKeyHandler():Boolean
+    {
+        if (hasEventListener(FlexEvent.BACK_KEY_PRESSED))
+        {
+            var event:FlexEvent = new FlexEvent(FlexEvent.BACK_KEY_PRESSED, false, true);
+            var eventCanceled:Boolean = !dispatchEvent(event);
+            
+            // If the event was canceled, that means the application
+            // is doing its own custom logic for the back key
+            return eventCanceled;
+        }
+        
+        return false;
     }
     
     //----------------------------------
@@ -230,7 +270,7 @@ public class View extends Group implements IDataRenderer
     //  destructionPolicy
     //----------------------------------
     
-    [Inspectable(category="General", enumeration="auto,always,never", defaultValue="auto")]
+    [Inspectable(category="General", enumeration="auto,never", defaultValue="auto")]
     /**
      *  Defines the destruction policy the view's navigator should use
      *  when this view is removed. If set to "auto", the navigator will
