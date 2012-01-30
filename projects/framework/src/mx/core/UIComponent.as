@@ -7767,9 +7767,8 @@ public class UIComponent extends FlexSprite
         removeState(_currentState, commonBaseState);
         _currentState = requestedCurrentState;
 
-        // Update styles
-        //if (StyleManager.hasPseudoSelector(className))
-        //   regenerateStyleCache(false);
+        // Update state specific styles
+        applyStateStyles(oldState, _currentState, true);
 
         // If we're going back to the base state, dispatch an
         // enter state event, otherwise apply the state.
@@ -8093,6 +8092,15 @@ public class UIComponent extends FlexSprite
     //--------------------------------------------------------------------------
 
     /**
+     *  The current state of this component used to match CSS pseudo-selectors.
+     *  If no state exists, returns null.
+     */
+    public function get pseudoSelectorState():String
+    {
+        return currentState;
+    }
+
+    /**
      *  A component's parent is used to evalate descendant selectors. A parent
      *  must also be an IAdvancedStyleClient to participate in advanced style
      *  declarations.
@@ -8100,6 +8108,25 @@ public class UIComponent extends FlexSprite
     public function get styleParent():IAdvancedStyleClient
     {
         return parent as IAdvancedStyleClient;
+    }
+
+    /**
+     *  Apply state-specific styles to this component. If there is a chance
+     *  of a matching CSS pseudo-selector for the current state, the style
+     *  cache needs to be regenerated for this instance and, potentially all
+     *  children, if the recursive param is set to true.
+     */
+    public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
+    {
+        if (pseudoSelectorState && oldState != newState &&
+               (StyleManager.hasPseudoSelector(oldState) ||
+                StyleManager.hasPseudoSelector(newState)))
+        {
+            regenerateStyleCache(recursive);
+            initThemeColor();
+            styleChanged(null);
+            notifyStyleChangeInChildren(null, recursive);
+        }
     }
 
     /**
@@ -8166,7 +8193,7 @@ public class UIComponent extends FlexSprite
      *
      *  <p>You should not need to call or override this method.</p>
      *
-     *  @param recursive Recursivly regenerates the style cache for
+     *  @param recursive Recursively regenerates the style cache for
      *  all children of this component.
      */
     public function regenerateStyleCache(recursive:Boolean):void
