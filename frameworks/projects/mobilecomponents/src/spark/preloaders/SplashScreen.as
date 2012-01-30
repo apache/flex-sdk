@@ -358,9 +358,7 @@ public class SplashScreen extends Sprite implements IPreloaderDisplay
         var orientation:String = stage.deviceOrientation;
 
         // DPI scaling factor of the stage
-        var dpiScale:Number = 1;
-        if (parent.parent is SystemManager)
-            dpiScale = SystemManager(parent.parent).densityScale;
+        var dpiScale:Number = this.root.scaleX;
 
         // Get stage dimensions at default orientation
         var stageWidth:Number;
