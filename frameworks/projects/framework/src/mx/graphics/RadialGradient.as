@@ -15,7 +15,9 @@ package mx.graphics
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
+
 import mx.core.mx_internal;
 
 use namespace mx_internal;
@@ -140,6 +142,11 @@ public class RadialGradient extends GradientBase implements IFill
         super();
     }
         
+    /**
+     *  @private
+     */
+    private static var commonMatrix:Matrix = new Matrix();
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -206,7 +213,7 @@ public class RadialGradient extends GradientBase implements IFill
             
             dispatchGradientChangedEvent("focalPointRatio", oldValue, value);
         }
-    }
+    } 
     
     //----------------------------------
 	//  matrix
@@ -306,22 +313,12 @@ public class RadialGradient extends GradientBase implements IFill
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	private static var commonMatrix:Matrix = new Matrix();
-
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    public function begin(target:Graphics, bounds:Rectangle):void
+    public function begin(target:Graphics, targetBounds:Rectangle, targetOrigin:Point):void
     {
-    	var w:Number = !isNaN(scaleX) ? scaleX : bounds.width;
-    	var h:Number = !isNaN(scaleY) ? scaleY : bounds.height;
-		var regX:Number = bounds.left + (!isNaN(x) ? x : bounds.width / 2);
-		var regY:Number = bounds.top + (!isNaN(y) ? y : bounds.height / 2);
+    	var w:Number = !isNaN(scaleX) ? scaleX : targetBounds.width;
+    	var h:Number = !isNaN(scaleY) ? scaleY : targetBounds.height;
+		var regX:Number =  !isNaN(x) ? x + targetOrigin.x : targetBounds.left + targetBounds.width / 2;
+		var regY:Number =  !isNaN(y) ? y + targetOrigin.y : targetBounds.top + targetBounds.height / 2;
 			
 		commonMatrix.identity();
 		
@@ -332,10 +329,10 @@ public class RadialGradient extends GradientBase implements IFill
 	        commonMatrix.translate(regX, regY);						
 		}
 	 	else
-	 	{
+	 	{            
             commonMatrix.scale(1 / GRADIENT_DIMENSION, 1 / GRADIENT_DIMENSION);
             commonMatrix.concat(compoundTransform.matrix);
-            commonMatrix.translate(bounds.left, bounds.top);	
+            commonMatrix.translate(targetOrigin.x, targetOrigin.y);
 	 	}
 	  		  	
         target.beginGradientFill(GradientType.RADIAL, colors, alphas, ratios,
