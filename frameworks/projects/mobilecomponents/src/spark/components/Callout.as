@@ -69,6 +69,12 @@ use namespace mx_internal;
  *  Callout also adds an optional <code>arrow</code> skin part that visually
  *  displays the direction toward the owner.
  *
+ *  <p>The following images shows a Callout container labeled 'Settings':</p>
+ *
+ * <p>
+ *  <img src="../../images/ca_calloutViewNav_ca.png" alt="Callout container" />
+ * </p>
+ *
  *  <p>You can also use the CalloutButton control to open a callout container. 
  *  The CalloutButton control encapsulates in a single control the callout container 
  *  and all of the logic necessary to open and close the callout. 
