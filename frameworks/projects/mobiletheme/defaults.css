@@ -295,7 +295,7 @@ global
     symbolColor: #000000;
 	selectionColor: #B2B2B2;
     fontLookup: "embeddedCFF";
-    fontFamily: _sans;
+    fontFamily: "_sans";
     fontSize: 24;
     color: #FFFFFF;
     
