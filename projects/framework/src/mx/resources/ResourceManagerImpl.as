@@ -701,7 +701,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             if (!bundleMap)
                 continue;
             
-            var bundle:ResourceBundle = bundleMap[bundleName];
+            var bundle:IResourceBundle = bundleMap[bundleName];
             if (!bundle)
                 continue;
                 
