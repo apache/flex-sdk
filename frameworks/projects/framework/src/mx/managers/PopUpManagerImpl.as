@@ -257,7 +257,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
      *  @param parent DisplayObject to be used for determining which SystemManager's layers
      *  to use and optionally  the reference point for centering the new
      *  top level window.  It may not be the actual parent of the popup as all popups
-     *  are parented by the SystemManager.
+     *  are parented by the SystemManager. Also, it must not be a descendant of
+     *  the popup.
      *
      *  @param modal If <code>true</code>, the window is modal which means that
      *  the user will not be able to interact with other popups until the window
