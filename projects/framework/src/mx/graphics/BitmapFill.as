@@ -599,7 +599,7 @@ public class BitmapFill extends EventDispatcher implements IFill
 			}
             
             // If the bitmapData isn't transparent (ex. JPEG), then copy it into a transparent bitmapData
-            if (!bitmapData.transparent)
+            if (bitmapData && !bitmapData.transparent)
             {
                 // FIXME (jszeto) : Only clone this if alpha is not 1. Dispose of this bitmap when we no longer need it
                 var transparentBitmap:BitmapData = new BitmapData(bitmapData.width, bitmapData.height, true);
