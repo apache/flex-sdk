@@ -76,8 +76,6 @@ include "../styles/metadata/StyleableTextFieldTextStyles.as"
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *
- *  @default 0xFFFFFF
- *  
  *  @langversion 3.0
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
