@@ -1767,6 +1767,7 @@ public class WindowedApplication extends Application implements IWindow
             {
                 win.type = NativeWindowType.UTILITY;
                 win.systemChrome = NativeWindowSystemChrome.STANDARD;
+                win.showStatusBar = false;
                 
                 win.title = resourceManager.getString("core", "viewSource");
                 
