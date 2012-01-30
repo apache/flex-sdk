@@ -208,7 +208,7 @@ AccordionHeader
 /*	selectedUpIcon: null; */
 	selectedUpSkin: ClassReference(null);
 	skin: ClassReference("mx.skins.spark.AccordionHeaderSkin");
-	textAlign: "left";
+	textAlign: "start";
 /*	upIcon: null; */
 	upSkin: ClassReference(null);
 }
@@ -425,7 +425,7 @@ CheckBox
 	selectedUpIcon: ClassReference(null);
 	selectedUpSkin: ClassReference(null); 
 	skin: ClassReference(null);
-	textAlign: "left";
+	textAlign: "start";
 	upIcon: ClassReference(null);
 	upSkin: ClassReference(null); 
 }
@@ -1064,7 +1064,7 @@ PopUpButton
 Menu.popUpMenu
 {
 	fontWeight: "normal";
-	textAlign: "left";
+	textAlign: "start";
 }
 
 /*
@@ -1153,7 +1153,7 @@ RadioButton
 	selectedUpIcon: ClassReference(null);
 	selectedUpSkin: ClassReference(null);
 	skin: ClassReference(null);
-	textAlign: "left";
+	textAlign: "start";
 	upIcon: ClassReference(null);
 	upSkin: ClassReference(null);
 }
