@@ -241,10 +241,13 @@ public class DateSpinner extends SkinnableComponent
     // the NumberFormatter to identify the longest yearList item in DATE mode
     private var numberFormatter:NumberFormatter;
     
+    // caching the longest digit (the array value) between index and 9, inclusive, and refresh when locale changes
+    private var longestDigitArray:Array = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
+    
     private var dateObj:Date = new Date();
     private var use24HourTime:Boolean;
     
-    // stores the longest dateList item and updates only when locale changes
+    // store the longest dateList item and updates only when locale changes
     private var longestDateItem:Object;
     private var longestYearItem:Object;
     
@@ -1068,7 +1071,7 @@ public class DateSpinner extends SkinnableComponent
     private function getLongestLabel(list:IList):Object
     {
         var idx:int = -1;
-        var maxWidth:int = 0;
+        var maxWidth:Number = 0;
         var labelWidth:Number;
         for (var i:int = 0; i < list.length; i++)
         {
@@ -1289,24 +1292,27 @@ public class DateSpinner extends SkinnableComponent
         return false;
     }
     
-    // identify the dateList item that has the longest width in DATE_AND_TIME mode    
+    // identify the dateList item that has the longest width in DATE_AND_TIME mode
     private function findLongestDateItem():Object
     {
         updateDayMonthDateFormatter();
         
-        dateTimeFormatter.dateTimePattern =  dayMonthDateFormatter.getMonthPattern();
-        
-        var longestDateItemObj:Object = dateList.dataProvider.getItemAt(0);
-        var longestMonth:int = 0;
         var labelWidth:Number = -1;
-        var maxWidth:int = 0;
-        var dateStr:String;
+        var maxWidth:Number = 0;
         dateObj.date = 1;
+        dateObj.hours = 11;
+        dateObj.minutes = 0;
+        dateObj.seconds = 0;
+        dateObj.milliseconds = 0;
         
-        // find the longest month
+        // 1) find the longest month
+        var longestMonth:int = 0;
+        dateTimeFormatter.dateTimePattern = dayMonthDateFormatter.getMonthPattern();
+        
         for (var month:int = 0; month < 12; month++)
         {
             dateObj.month = month;
+           
             labelWidth = measureText(dateTimeFormatter.format(dateObj)).width;
             if (labelWidth > maxWidth)
             {
@@ -1316,88 +1322,123 @@ public class DateSpinner extends SkinnableComponent
         }
         
         dateObj.month = longestMonth;
-        maxWidth = 0;
         
-        // find the longest dateList item
-        for (var date:int = 1; date <= 31; date++)
+        // 2) find the longest date
+        var longestDate:int = 0;
+        var longestDateWidth:Number;
+        maxWidth = 0;
+        updateNumberFormatter();
+        
+        for (var date:int = 1; date <= 28; date++)
         {
-            dateObj.date = date;
-            dateStr = dayMonthDateFormatter.format(dateObj);
-            labelWidth = measureText(dateStr).width;
+            labelWidth = measureText(numberFormatter.format(date)).width;
             if (labelWidth > maxWidth)
             {
                 maxWidth = labelWidth;
-                // TODO: dateObj.time for second argument?
-                longestDateItemObj = generateDateItemObject(dateStr, dateObj.time);
+                longestDate = date;
             }
+        }
+        
+        longestDateWidth = maxWidth;
+        dateObj.date = longestDate;
+        
+        // 3) find the longest date item
+        var longestDateItemObj:Object = dateList.dataProvider.getItemAt(0);
+        var formattedDateStr:String;
+        maxWidth = 0;
+        
+        for (var year:int = 2000; year <= 2010; year++)
+        {
+            dateObj.fullYear = year;
+            formattedDateStr = dayMonthDateFormatter.format(dateObj);
+            labelWidth = measureText(formattedDateStr).width;
+            if (labelWidth > maxWidth)
+            {
+                maxWidth = labelWidth;
+                longestDateItemObj = generateDateItemObject(formattedDateStr, dateObj.time);
+            }
+        }
+        
+        // 4) compare to date 29, 30, 31
+        var trueLongestDate:int = longestDate;
+        maxWidth = longestDateWidth;
+ 
+        for (date = 29; date <= 31; date++)
+        {
+            labelWidth = measureText(numberFormatter.format(date)).width;
+            if (labelWidth > maxWidth)
+            {
+                maxWidth = labelWidth;
+                trueLongestDate = date;
+            }
+        }
+        
+        if (trueLongestDate != longestDate)
+        {
+            formattedDateStr = String(longestDateItemObj.label);
+            
+            // replace all the occurrence of the previous longest date to the true longest date
+            longestDateItemObj.label = String(longestDateItemObj.label).replace(new RegExp(numberFormatter.format(longestDate), "g"), 
+                numberFormatter.format(trueLongestDate));
+            
+            // since the result can be wrong date such as "Wed, Feb 31," assign null to data
+            longestDateItemObj.data = null;
         }
         
         return longestDateItemObj;
     }
     
-    // TODO: rename variable names and relocate the function.
     // identify the yearList item that has the longest width in DATE mode 
     // the range of year should be from 1601 to 9999
     private function findLongestYearItem():Object
     {
-        // TODO: create functions e.g. getLongestDigit(6) returns the longest digit among 6, 7, 8, 9
-        var longestDigitIncludingZero:int;
-        var longestDigitExcludingZero:int;
-        var longestDigitOf6789:int;
-        var longestDigitOf789:int;
-        
-        var maxWidthForlongestDigitIncludingZero:Number = 0;
-        var maxWidthForlongestDigitExcludingZero:Number = 0;
-        var maxWidthForlongestDigitOf6789:Number = 0;
-        var maxWidthForlongestDigitOf789:Number = 0;
-        
-        var labelWidth:Number;
-        
-        // instantiate the number formatter and update its locale
+        // instantiate the number formatter and set its locale to the DateSpinner's locale
+        // and refresh longestDigitArray to pick the longest digit in a current locale format.
         updateNumberFormatter();
         
-        // find the four types of the longest digit 
-        for (var i:int = 0; i < 10; i++) 
-        {
-            labelWidth = measureText(numberFormatter.format(i)).width;
-            
-            if (labelWidth > maxWidthForlongestDigitIncludingZero)
-            {
-                maxWidthForlongestDigitIncludingZero = labelWidth;
-                longestDigitIncludingZero = i;
-            }
-            
-            if (i >= 1 && labelWidth > maxWidthForlongestDigitExcludingZero)
-            {
-                maxWidthForlongestDigitExcludingZero = labelWidth;
-                longestDigitExcludingZero = i;
-            }
-            
-            if (i >= 6 && labelWidth > maxWidthForlongestDigitOf6789)
-            {
-                maxWidthForlongestDigitOf6789 = labelWidth;
-                longestDigitOf6789 = i;
-            }
-            
-            if (i >= 7 && labelWidth > maxWidthForlongestDigitOf789)
-            {
-                maxWidthForlongestDigitOf789 = labelWidth;
-                longestDigitOf789 = i;
-            }
-        }
-        
         // generate the longest width year
-        var longestYear:int = longestDigitExcludingZero * 1000;
+        var longestYear:int = getLongestDigit(1) * 1000;
         
-        if (longestDigitExcludingZero > 1)
-            longestYear += longestDigitIncludingZero * 111;
-        else // longestDigitExcludingZero == 1
-            longestYear += ((longestDigitIncludingZero == 0)? longestDigitOf789 : longestDigitOf6789) * 100 +
-                longestDigitIncludingZero * 10 + longestDigitIncludingZero;
-
+        // if the first (left-most) digit is greater than 1, then the rest digit is just the longest digit of 0~9.
+        if (getLongestDigit(1) > 1)
+            longestYear += getLongestDigit() * 111;
+        
+        // if the first digit is 1, then the second digit should be greater than or equal to
+        // (1) 7 if none of last two digits is 0.
+        // (2) 6 if both last two digits are 0.
+        else
+            longestYear += ((getLongestDigit() == 0)? getLongestDigit(7) : getLongestDigit(6)) * 100 +
+                getLongestDigit() * 10 + getLongestDigit();
+         
         dateObj.fullYear = longestYear;
         dateTimeFormatter.dateTimePattern = dateTimeFormatterEx.getYearPattern();
         return generateDateItemObject(dateTimeFormatter.format(dateObj), longestYear);
+    }
+    
+    // return the longest digit between min and 9, inclusive
+    // call updateNumberFormatter() before calling this function to refresh longestDigitArray
+    private function getLongestDigit(min:int = 0):int
+    {
+        var longestDigit:int = longestDigitArray[min];
+        var labelWidth:Number = -1;
+        var maxWidth:Number = 0;
+        
+        if (longestDigit == -1)
+        {
+            for (var i:int = min; i < 10; i++)
+            {
+                labelWidth = measureText(numberFormatter.format(i)).width;
+                if (labelWidth > maxWidth)
+                {
+                    maxWidth = labelWidth;
+                    longestDigit = i;
+                }
+            }
+            
+            longestDigitArray[min] = longestDigit;
+        }
+        
+        return longestDigit;
     }
     
     // instantiate the number formatter and update its locale property
@@ -1405,6 +1446,10 @@ public class DateSpinner extends SkinnableComponent
     {
         if(!numberFormatter)
             numberFormatter = new NumberFormatter();
+        
+        // reset to -1
+        for (var i:int = 0; i < longestDigitArray.length; i++) 
+            longestDigitArray[i] = -1;
         
         var localeStr:String = getStyle("locale");
         if (localeStr)
