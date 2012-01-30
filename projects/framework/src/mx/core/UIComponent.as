@@ -1400,6 +1400,7 @@ public class UIComponent extends FlexSprite
         focusRect = false; // We do our own focus drawing.
         // We are tab enabled by default if IFocusManagerComponent
         tabEnabled = (this is IFocusManagerComponent);
+        tabFocusEnabled = (this is IFocusManagerComponent);
 
         // Whether the component can accept user interaction.
         // The default is true. If you set enabled to false for a container,
@@ -4409,6 +4410,55 @@ public class UIComponent extends FlexSprite
     public function set mouseFocusEnabled(value:Boolean):void
     {
         _mouseFocusEnabled =  value;
+    }
+
+    //----------------------------------
+    //  tabFocusEnabled
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the tabFocusEnabled property.
+     */
+    private var _tabFocusEnabled:Boolean = true;
+
+    [Bindable("tabFocusEnabledChange")]
+    [Inspectable(defaultValue="true")]
+
+    /**
+     *  A flag that indicates whether child objects can receive focus
+     * 
+     *  <p>This is similar to the <code>tabEnabled</code> property
+     *  used by the Flash Player.</p>
+     * 
+     *  <p>This is usually <code>true</code> for components that
+     *  handle keyboard input, but some components in controlbars
+     *  have them set to <code>false</code> because they should not steal
+     *  focus from another component like an editor.
+     *  </p>
+     *
+     *  @default true
+     *  
+     *  @langversion 4.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get tabFocusEnabled():Boolean
+    {
+        return _tabFocusEnabled;
+    }
+
+    /**
+     *  @private
+     */
+    public function set tabFocusEnabled(value:Boolean):void
+    {
+        if (value != _tabFocusEnabled)
+        {
+            _tabFocusEnabled = value;
+            dispatchEvent(new Event("tabFocusEnabledChange"));
+        }
     }
 
     //--------------------------------------------------------------------------
