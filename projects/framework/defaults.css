@@ -1312,6 +1312,7 @@ SwatchPanel
 	borderColor: #A5A9AE;
 	columnCount: 20;
 	fontSize: 11;
+	highlightColor: #FFFFFF;
 	horizontalGap: 0;
 	paddingBottom: 5;
 	paddingLeft: 5;
@@ -1319,6 +1320,7 @@ SwatchPanel
 	paddingTop: 4;
 	previewHeight: 22;
 	previewWidth: 45;
+	shadowColor: #4D555E;
 	swatchBorderColor: #000000;
 	swatchBorderSize: 1;
 	swatchGridBackgroundColor: #000000;
