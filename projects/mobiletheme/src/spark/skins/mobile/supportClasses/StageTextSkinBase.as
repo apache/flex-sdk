@@ -3,15 +3,20 @@ package spark.skins.mobile.supportClasses
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
-import flash.geom.Rectangle;
+import flash.geom.Point;
 
 import mx.core.DPIClassification;
+import mx.core.mx_internal;
 
 import spark.components.supportClasses.SkinnableTextBase;
 import spark.components.supportClasses.StyleableStageText;
+import spark.components.supportClasses.StyleableTextField;
+import spark.core.IDisplayText;
 import spark.skins.mobile160.assets.TextInput_border;
 import spark.skins.mobile240.assets.TextInput_border;
 import spark.skins.mobile320.assets.TextInput_border;
+
+use namespace mx_internal;
 
 /**
  *  ActionScript-based skin for text input controls in mobile applications. 
@@ -160,7 +165,7 @@ public class StageTextSkinBase extends MobileSkin
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
      */
-    public var promptDisplay:StyleableStageText;
+    public var promptDisplay:IDisplayText;
 
     //--------------------------------------------------------------------------
     //
@@ -279,7 +284,7 @@ public class StageTextSkinBase extends MobileSkin
         else if (!showPrompt && promptDisplay)
         {
             promptDisplay.removeEventListener(FocusEvent.FOCUS_IN, promptDisplay_focusInHandler);
-            removeChild(promptDisplay);
+            removeChild(promptDisplay as DisplayObject);
             promptDisplay = null;
         }
         
@@ -313,18 +318,17 @@ public class StageTextSkinBase extends MobileSkin
      *  Create a control appropriate for displaying the prompt text in a mobile
      *  input field.
      */
-    protected function createPromptDisplay():StyleableStageText
+    protected function createPromptDisplay():IDisplayText
     {
-        var prompt:StyleableStageText = new StyleableStageText();
-        
+        var prompt:StyleableTextField = StyleableTextField(createInFontContext(StyleableTextField));
         prompt.styleName = this;
         prompt.editable = false;
-        prompt.commitStyles();
+        prompt.mouseEnabled = false;
+        prompt.useTightTextBounds = false;
         
         // StageText objects appear in their own layer on top of the display
-        // list. So, since StyleableStageText uses a StageText for display, it
-        // goes on top as well. It isn't possible to put StageText objects under
-        // any non-Stage objects.
+        // list. So, even though this prompt may be created after the StageText
+        // for textDisplay, textDisplay will still be on top.
         addChild(prompt);
         
         return prompt;
@@ -337,10 +341,10 @@ public class StageTextSkinBase extends MobileSkin
      */
     protected function measureTextComponent(hostComponent:SkinnableTextBase):void
     {
-        var paddingLeft:Number = getStyle("paddingLeft");
-        var paddingRight:Number = getStyle("paddingRight");
-        var paddingTop:Number = getStyle("paddingTop");
-        var paddingBottom:Number = getStyle("paddingBottom");
+        var paddingLeft:Number = getCorrectedPadding("paddingLeft");
+        var paddingRight:Number = getCorrectedPadding("paddingRight");
+        var paddingTop:Number = getCorrectedPadding("paddingTop");
+        var paddingBottom:Number = getCorrectedPadding("paddingBottom");
         var textHeight:Number = getStyle("fontSize");
         
         if (textDisplay)
@@ -358,6 +362,29 @@ public class StageTextSkinBase extends MobileSkin
         }
         
         measuredHeight = paddingTop + textHeight + paddingBottom;
+    }
+    
+    /**
+     *  @private
+     *  Utility function used to get the value of any of the left, right, top,
+     *  or bottom padding styles modified to take any internal padding of the
+     *  platform text control into account.
+     */
+    protected function getCorrectedPadding(paddingStyleName:String):Number
+    {
+        var padding:Number = getStyle(paddingStyleName);
+        
+        if (textDisplay)
+        {
+            var internalPadding:Point = textDisplay.calculateInternalPadding();
+            
+            if (paddingStyleName == "paddingLeft" || paddingStyleName == "paddingRight")
+                padding = Math.max(0, padding - internalPadding.x);
+            else if (paddingStyleName == "paddingTop" || paddingStyleName == "paddingBottom")
+                padding = Math.max(0, padding - internalPadding.y);
+        }
+        
+        return padding;
     }
 
     //--------------------------------------------------------------------------
