@@ -27,9 +27,10 @@ import spark.skins.mobile320.assets.TransparentNavigationButton_up;
 use namespace mx_internal;
 
 /**
+ *  The default skin class for buttons in the navigation area of the Spark ActionBar component 
+ *  in mobile applications.  
  * 
  *  @langversion 3.0
- *  @playerversion Flash 10.1
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
@@ -45,7 +46,6 @@ public class TransparentNavigationButtonSkin extends ActionBarButtonSkinBase
      *  Constructor.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5 
      *  @productversion Flex 4.5
      * 
