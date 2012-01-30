@@ -102,7 +102,7 @@ public class RadioButtonAccImpl extends CheckBoxAccImpl
 	{
 		super(master);
 
-		role = 0x2D;
+		role = 0x2D; // ROLE_SYSTEM_RADIOBUTTON
 	}
 }
 
