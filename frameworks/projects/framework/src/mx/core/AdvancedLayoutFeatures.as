@@ -10,11 +10,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.core
 {
+	import flash.events.Event;
 	import flash.geom.Matrix;
 	import flash.geom.Matrix3D;
-    import flash.geom.Point;
+	import flash.geom.Point;
 	import flash.geom.Vector3D;
-	import flash.events.Event;
+	
 	import mx.geom.CompoundTransform;
 	import mx.geom.TransformOffsets;
 	use namespace mx_internal;	
@@ -447,7 +448,6 @@ package mx.core
 		_flags &= ~COMPUTED_MATRIX_VALID;
 		_flags &= ~COMPUTED_MATRIX3D_VALID;
 	}
-	
 	
 	
 	/**
