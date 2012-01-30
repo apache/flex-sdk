@@ -44,7 +44,7 @@ public interface IIMESupport
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-	function get editable():Boolean;
+//	function get editable():Boolean;
 
 	//----------------------------------
 	//  imeMode
