@@ -14,10 +14,13 @@
 /* Global style declaration */
 global
 {
+    alignmentBaseline: "useDominantBaseline";
 	backgroundAlpha: 1.0; /* this runs the opacity of nearly every square piece of the components */
 	/* backgroundDisabledColor: #DDDDDD; */
 	backgroundSize: "auto";
+    baselineShift: 0;
 	bevel: true;
+    blockProgression: "tb";
 	borderAlpha: 1.0;
   	borderCapColor: #919999;
 	borderColor: #B7BABC;
@@ -26,11 +29,19 @@ global
 	borderStyle: "inset";
 	borderThickness: 1;
 	buttonColor: #6F7777;
+    cffHinting: "horizontalStem";
 	closeDuration: 250;
 	color: #0B333C;
+    columnCount: "auto";
+    columnGap: 0;
+    columnWidth: "auto";
 	cornerRadius: 0;
+    digitCase: "default";
+    digitWidth: "default";
+    direction: "ltr";
 	disabledColor: #AAB3B3;
 	disabledIconColor: #999999;
+    dominantBaseline: "roman";
 	dropShadowColor: #000000;
 	dropShadowEnabled: false;
 	embedFonts: false;
@@ -39,6 +50,7 @@ global
 	fillColor: #FFFFFF; /* kill this?? */
 	fillColors: #FFFFFF, #CCCCCC, #FFFFFF, #EEEEEE;
 	filled: true;
+    firstBaselineOffset: "ascent";
 	focusAlpha: 0.4;
 	focusBlendMode: "normal";
 	focusRoundedCorners: "tl tr bl br";
@@ -47,6 +59,7 @@ global
 	fontAntiAliasType: "advanced";
 	fontFamily: "Verdana";
 	fontGridFitType: "pixel";
+    fontLookup: "device";
 	fontSharpness: 0;
 	fontSize: 10;
 	fontStyle: "normal";
@@ -63,9 +76,20 @@ global
 	iconColor: #111111;
 	indentation: 17;
 	indicatorGap: 14;
+    justificationRule: "space";
+    justificationStyle: "pushInKinsoku";
 	kerning: false;
 	leading: 2;
+    ligatureLevel: "common";
 	letterSpacing: 0;
+    lineBreak: "toFit";
+    lineHeight: "120%";
+    lineThrough: false;
+    locale: "en";
+    marginBottom: 0;
+    marginLeft: 0;
+    marginRight: 0;
+    marginTop: 0;
 	modalTransparency: 0.5;
 	modalTransparencyBlur: 3;
 	modalTransparencyColor: #DDDDDD;
@@ -76,6 +100,7 @@ global
 	paddingRight: 0;
 	paddingTop: 0;
 	roundedBottomCorners: true;
+    renderingMode: "cff";
 	repeatDelay: 500;
 	repeatInterval: 35;
 	selectionDisabledColor: #DDDDDD;
@@ -87,24 +112,29 @@ global
 	stroked: false;
 	strokeWidth: 1;
 	textAlign: "left";
+    textAlignLast: "start";
+    textAlpha: 1.0;
 	textDecoration: "none";
 	textIndent: 0;
 	textRollOverColor: #2B333C;
+    textRotation: "auto";
 	textSelectedColor: #2B333C;
-
 	themeColor: #009DFF;		/* haloBlue */
 	/*
 	//themeColor: #80FF4D;		// haloGreen
 	//themeColor: #FFB600;		// haloOrange
 	//themeColor: #AECAD9;		// haloSilver
 	*/
-
+    trackingLeft: 0;
+    trackingRight: 0;
+    typographicCase: "default";
 	useRollOver: true;
 	version: "4.0.0";
 	verticalAlign: "top";
 	verticalGap: 6;
 	verticalGridLineColor: #D5DDDD;
 	verticalGridLines: true;
+    whitespaceCollapse: "collapse";
 }
 
 /*
