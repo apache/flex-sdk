@@ -28,17 +28,67 @@ use namespace mx_internal;
 
 [DefaultProperty("items")]
 
+/**
+ *  Normal and landscape state.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
 [SkinState("normalAndLandscape")]
+
+/**
+ *  Disabled and landscape state.
+ *  
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
 [SkinState("disabledAndLandscape")]
 
 /**
- *  The ViewMenu class display a set of ViewMenuItems. MobileApplication 
- *  will automatically create and display an ViewMenu when the user has 
- *  pressed the device's Menu button. 
- * 
- *  ViewMenu's default layout is ViewMenuLayout
- * 
- *  Set the items property to a Vector of ViewMenuItems.
+ *  The ViewMenu container defines a menu in a View container.
+ *  Each menu item is defined by using the ViewMenuItem control. 
+ *  The application container automatically creates and displays a 
+ *  ViewMenu container when the user presses the device's menu button. 
+ *  You can also use the <code>MobileApplicationBase.viewMenuOpen</code> property
+ *  to open the menu programmatically.
+ *
+ *  <p>The ViewMenuLayout class define the layout of the menu.
+ *  Alternatively, you can create your own custom layout class.</p>
+ *
+ *  <p>Define the menu items by using the <code>View.viewMenuItems</code> property,
+ *  as the following example shows:</p>
+ *  
+ *  <pre>
+ *  &lt;s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+ *      xmlns:s="library://ns.adobe.com/flex/spark" 
+ *      title="Home"&gt; 
+ *
+ *    ...
+ *
+ *    &lt;s:viewMenuItems&gt; 
+ *        &lt;s:ViewMenuItem label="Add" click="itemClickInfo(event);"/&gt; 
+ *        &lt;s:ViewMenuItem label="Cancel" click="itemClickInfo(event);"/&gt; 
+ *        &lt;s:ViewMenuItem label="Delete" click="itemClickInfo(event);"/&gt; 
+ *        &lt;s:ViewMenuItem label="Edit" click="itemClickInfo(event);"/&gt; 
+ *        &lt;s:ViewMenuItem label="Search" click="itemClickInfo(event);"/&gt; 
+ *    &lt;/s:viewMenuItems&gt;
+ *
+ *  &lt;/s:View&gt;
+ *  </pre>
+ *
+ *  <p>Notice that you do not explicitly define the ViewMenu container. 
+ *  The ViewMenu container is created automatically 
+ *  to hold the ViewMenuItem controls.</p>
+ *  
+ *  @see spark.components.ViewMenuItem
+ *  @see spark.layouts.ViewMenuLayout
+ *  @see spark.components.supportClasses.MobileApplicationBase
+ *
+ *  @langversion 3.0
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */ 
 
 /*
@@ -63,8 +113,13 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
     //  Constructor
     //
     //--------------------------------------------------------------------------
+
     /**
-     *  Constructor 
+     *  Constructor. 
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function ViewMenu()
     {
@@ -88,16 +143,23 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
     private var caretIndexChanged:Boolean = false;
     
     /**
-     *  The item that is currently in the caret state. A value of -1 means that
-     *  no item is in the caret state.  
+     *  The menu item that is currently in the caret state. 
+     *  A value of -1 means that no item is in the caret state.  
      * 
      *  @default -1
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */   
     public function get caretIndex():int
     {
         return _caretIndex;
     }
     
+    /**
+     *  @private
+     */   
     public function set caretIndex(value:int):void
     {
         if (_caretIndex == value)
@@ -117,13 +179,21 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
     private var _items:Vector.<ViewMenuItem>;
     
     /**
-     *  The Vector of ViewMenuItems to display in the ViewMenu
+     *  The Vector of ViewMenuItem controls to display 
+     *  in the ViewMenu container.
+     *
+     *  @langversion 3.0
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */    
     public function get items():Vector.<ViewMenuItem>
     {
         return _items;
     }
     
+    /**
+     *  @private
+     */   
     public function set items(value:Vector.<ViewMenuItem>):void
     {
         _items = value;
@@ -148,6 +218,9 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */   
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -200,9 +273,12 @@ public class ViewMenu extends SkinnableContainer implements IFocusManagerCompone
         adjustSelectionAndCaretUponNavigation(event); 
     }
     
-    override protected function getCurrentSkinState():String
+     /**
+     *  @private
+     */   
+   override protected function getCurrentSkinState():String
     {
-    	// TODO (jszeto): Just concat "AndLandscape" with super call if in landscape orientation
+        // TODO (jszeto): Just concat "AndLandscape" with super call if in landscape orientation
         if (FlexGlobals.topLevelApplication.aspectRatio == "portrait")
             return super.getCurrentSkinState();
         else
