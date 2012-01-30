@@ -26,6 +26,10 @@
         static private const exclusions:Array = ["backgroundRect", "bgFill", "contentGroup", "titleBar",
                                                  "titleBarBackground", "titleBarBgFill", "statusText",
                                                  "borderBgFill", "border"];
+
+	/** 
+	 * @inheritDoc
+	 */
         override public function get colorizeExclusions():Array {return exclusions;}
     </fx:Script>
     
