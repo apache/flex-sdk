@@ -230,13 +230,20 @@ public class DateSpinner extends SkinnableComponent
     
     private var refreshDateTimeFormatter:Boolean = true;
     
-    // the internal DateTimeFormatter that provdies a set of extended functionalities
+    // the internal DateTimeFormatter that provides a set of extended functionalities
     private var dateTimeFormatterEx:DateTimeFormatterEx = new DateTimeFormatterEx();
     
     private var dateTimeFormatter:DateTimeFormatter = new DateTimeFormatter();
     
+    // the DateTimeFormatterEx that uses MMMEEEd skeleton pattern to identify
+    // the longest dateList item in DATE_AND_TIME mode
+    private var dayMonthDateFormatter:DateTimeFormatterEx;
+    
     private var dateObj:Date = new Date();
     private var use24HourTime:Boolean;
+    
+    // stores the longest dateList item and updates only when locale changes
+    private var longestDateItem:Object;
     
     //--------------------------------------------------------------------------
     //
@@ -691,6 +698,8 @@ public class DateSpinner extends SkinnableComponent
             
             syncSelectedDate = true;
             
+            longestDateItem = null;
+            
             invalidateProperties();
         }
     }
@@ -858,7 +867,7 @@ public class DateSpinner extends SkinnableComponent
         if (yearList && populateYearDataProvider)
         {
             yearList.dataProvider = generateYears(today);
-            //			yearList.dataProvider = new YearRangeList(localeStr, minDate.fullYear, maxDate.fullYear);
+            // yearList.dataProvider = new YearRangeList(localeStr, minDate.fullYear, maxDate.fullYear);
             
             yearList.typicalItem = getLongestLabel(yearList.dataProvider);
         }
@@ -877,7 +886,10 @@ public class DateSpinner extends SkinnableComponent
                     localeStr, today, getStyle("accentColor"));
                 
                 // set size to longest string
-                dateList.typicalItem = dateList.dataProvider.getItemAt(0); // TODO: localize? better way to do this? add a dot? ask Masa
+                if (!longestDateItem)
+                    longestDateItem = findLongestDateItem();
+                
+                dateList.typicalItem = longestDateItem;
             }
             else
             {
@@ -1265,6 +1277,62 @@ public class DateSpinner extends SkinnableComponent
     {
         var obj:Object = { dateItem:datePart, position:position };
         return obj;
+    }
+    
+    // identify the dateList item that has the longest width in DATE_AND_TIME mode    
+    private function findLongestDateItem():Object
+    {
+        if (!dayMonthDateFormatter)
+        {
+            dayMonthDateFormatter = new DateTimeFormatterEx();
+            dayMonthDateFormatter.dateTimeSkeletonPattern = DateTimeFormatterEx.DATESTYLE_MMMEEEd;
+        }
+        
+        var localeStr:String = getStyle("locale");
+        if (localeStr)
+            dayMonthDateFormatter.setStyle("locale", localeStr);
+        else
+            dayMonthDateFormatter.clearStyle("locale");
+        
+        // TODO: talk with the global team to make it much faster.
+        dateTimeFormatter.dateTimePattern =  dayMonthDateFormatter.getMonthPattern();
+        
+        var longestDateItem:Object;
+        var longestMonth:int = 0;
+        var labelWidth:Number = -1;
+        var maxWidth:int = 0;
+        var dateStr:String;
+        dateObj.date = 1;
+        
+        // find the longest month
+        for (var month:int = 0; month < 12; month++)
+        {
+            dateObj.month = month;
+            labelWidth = measureText(dateTimeFormatter.format(dateObj)).width;
+            if (labelWidth > maxWidth)
+            {
+                maxWidth = labelWidth;
+                longestMonth = month;
+            }
+        }
+        
+        dateObj.month = longestMonth;
+        maxWidth = 0;
+        
+        // find the longest dateList item
+        for (var date:int = 1; date <= 31; date++)
+        {
+            dateObj.date = date;
+            dateStr = dayMonthDateFormatter.format(dateObj);
+            labelWidth = measureText(dateStr).width;
+            if (labelWidth > maxWidth)
+            {
+                maxWidth = labelWidth;
+                longestDateItem = dateStr;
+            }
+        }
+        
+        return longestDateItem;
     }
   
     //----------------------------------------------------------------------------------------------
