@@ -33,7 +33,7 @@
  *  which maps Unicode character order to glyph order.</p>
  * 
  *  <p>Note: This style only applies when an MX component
- *  specifies UITLFTextField as its <code>textFieldClass</code>.</p>
+ *  specifies UIFTETextField as its <code>textFieldClass</code>.</p>
  *
  *  <p>The <code>direction</code> also affects the alignment
  *  of the text within the bounds of the TLFTextField.
@@ -259,7 +259,7 @@
  *  to font glyphs and to find fallback fonts.</p>
  *
  *  <p>Note: This style only applies when an MX component
- *  specifies UITLFTextField as its <code>textFieldClass</code>.</p>
+ *  specifies UIFTETextField as its <code>textFieldClass</code>.</p>
  *
  *  @default "en"
  *
@@ -312,7 +312,7 @@
  *
  *  <p>It can be set to either the mx.core.UITextField class
  *  (to use the classic TextField class built into Flash Player)
- *  or the mx.core.UITLFTextField class
+ *  or the mx.core.UIFTETextField class
  *  (to use the Text Layout Framework to get improved text rendering,
  *  including bidirectional layout).</p>
  *
