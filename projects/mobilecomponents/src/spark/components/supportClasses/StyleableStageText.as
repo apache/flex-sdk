@@ -60,7 +60,6 @@ import spark.core.ISoftKeyboardHintClient;
 import spark.effects.Fade;
 import spark.events.PopUpEvent;
 import spark.events.TextOperationEvent;
-import spark.transitions.supportClasses.ViewTransitionUtil;
 
 use namespace mx_internal;
 
@@ -518,6 +517,14 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private var stageTextVisibleChangePending:Boolean = false;
     private var stageTextVisible:Boolean;
     private var viewTransitionRunning:Boolean = false;
+    
+    /**
+     *  @private
+     *  This flag is used to track if this text component has already requested
+     *  that ViewTransitions be disabled.  This prevents the stage text from
+     *  incrementing ViewNavigator's suspend count multiple times.
+     */ 
+    private var suspendedViewTransitions:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -1337,7 +1344,10 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
                 // of keeping this change as localized as possible, we are
                 // limiting transition suspend/resume to Android.
                 if (!isDesktop && viewTransitionRunning && isAndroid)
-                    ViewTransitionUtil.resumeTransitions();
+                {
+                    ViewNavigator.resumeTransitions();
+                    suspendedViewTransitions = false;
+                }
             }
         }
         else if (_completeEventPending)
@@ -2621,7 +2631,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
     private function viewTransition_prepareHandler(event:Event):void
     {
         // When a view transition runs, the first event that we see is
-        // "prepare", which is dispatched by the ViewTransitionUtil singleton.
+        // "viewTransitionPrepare", which is dispatched by ViewNavigator.
         // This event gives StyleableStageText a chance to suspend the
         // transition. Suspension of the transition is necessary if the 
         // StageText is not ready to give us a bitmap. Otherwise, by the time
@@ -2637,8 +2647,11 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         // limiting transition suspend/resume to Android.
         if (!isDesktop && isAndroid)
         {
-            if (completeEventPending)
-                ViewTransitionUtil.suspendTransitions();
+            if (completeEventPending && !suspendedViewTransitions)
+            {
+                ViewNavigator.suspendTransitions();
+                suspendedViewTransitions = true;
+            }
             else
                 ignoreProxyUpdatesDuringTransition = true;
         }
@@ -2719,7 +2732,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         stageText.stage.addEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true, 0, true);
         stageText.stage.addEventListener(EffectEvent.EFFECT_END, stage_effectEndHandler, true, 0, true);
         stageText.stage.addEventListener(FlexEvent.TRANSITION_END, stage_transitionEndHandler, false, 0, true);
-        ViewTransitionUtil.instance.addEventListener("prepare", viewTransition_prepareHandler, false, 0, true);
+        stageText.stage.addEventListener("viewTransitionPrepare", viewTransition_prepareHandler, false, 0, true);
         
         stageText.stage.addEventListener("enabledChanged", stage_enabledChangedHandler, true, 0, true);
         
@@ -2805,7 +2818,7 @@ public class StyleableStageText extends UIComponent implements IEditableText, IS
         stageText.stage.removeEventListener(EffectEvent.EFFECT_START, stage_effectStartHandler, true);
         stageText.stage.removeEventListener(EffectEvent.EFFECT_END, stage_effectEndHandler, true);
         stageText.stage.removeEventListener(FlexEvent.TRANSITION_END, stage_transitionEndHandler);
-        ViewTransitionUtil.instance.removeEventListener("prepare", viewTransition_prepareHandler);
+        stageText.stage.removeEventListener("viewTransitionPrepare", viewTransition_prepareHandler);
         
         stageText.stage.removeEventListener("enabledChanged", stage_enabledChangedHandler, true);
         
