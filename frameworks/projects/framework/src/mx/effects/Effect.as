@@ -935,14 +935,15 @@ public class Effect extends EventDispatcher implements IEffect
     // playheadTime
     //----------------------------------
 
-    // FIXME (chaase): This property should be in an interface, to
-    // allow it to be called easily through an interface instead of
-    // having to import Effect just to call it
-    // FIXME (chaase): This property should be in an interface, to
-    // allow it to be called easily through an interface instead of
-    // having to import Effect just to call it. Maybe add to IEffect
-    // since it's unlikely that anyone implements that interface
-    // besides Effect.
+    /**
+     * @private
+     * Backing storage for the playheadTime property. Note that this
+     * value is just a backup, used if the effect is not currently running.
+     * A running effect will query its effect instance for the value
+     * instead.
+     */
+    private var _playheadTime:Number = 0;
+    
     /**
      *  Current time position of the effect.
      *  This property has a value between 0 and the total duration, 
@@ -961,7 +962,8 @@ public class Effect extends EventDispatcher implements IEffect
             if (_instances[i])
                 return IEffectInstance(_instances[i]).playheadTime;
         }
-        return 0;
+        // Effect isn't running: return the cached value
+        return _playheadTime;
     }
     public function set playheadTime(value:Number):void
     {
@@ -985,6 +987,7 @@ public class Effect extends EventDispatcher implements IEffect
         }
         if (started)
             pause();
+        _playheadTime = value;
     }
 
     //--------------------------------------------------------------------------
