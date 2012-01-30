@@ -63,7 +63,6 @@ include "../styles/metadata/GapStyles.as"
  *  @default 500
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -76,7 +75,6 @@ include "../styles/metadata/GapStyles.as"
  *  @default iconItemRendererMessageStyle
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -174,7 +172,6 @@ include "../styles/metadata/GapStyles.as"
  *  @includeExample examples/IconItemRendererExample.mxml -noswf
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
@@ -204,7 +201,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  Constructor.
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -370,7 +366,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @see spark.components.IItemRenderer#label
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5   
      */
@@ -409,7 +404,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  that allows up to 100 entries.</p>
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5   
      */
@@ -462,7 +456,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -481,7 +474,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default "" 
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5   
      */
@@ -541,7 +533,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -602,7 +593,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -659,7 +649,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  display the icon data of the item renderer.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -673,7 +662,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -716,7 +704,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @see mx.graphics.BitmapFillMode
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -772,7 +759,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @see spark.primitives.BitmapImage#source
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -812,7 +798,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default NaN
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -830,9 +815,9 @@ public class IconItemRenderer extends LabelItemRenderer
             return;
         
         _iconHeight = value;
-		
-		if (iconDisplay)
-			iconDisplay.explicitHeight = _iconHeight;
+        
+        if (iconDisplay)
+            iconDisplay.explicitHeight = _iconHeight;
         
         invalidateSize();
         invalidateDisplayList();
@@ -857,7 +842,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default null
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -903,7 +887,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @see mx.graphics.BitmapScaleMode
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -942,7 +925,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default NaN
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -960,9 +942,9 @@ public class IconItemRenderer extends LabelItemRenderer
             return;
         
         _iconWidth = value;
-		
-		if (iconDisplay)
-			iconDisplay.explicitWidth = _iconWidth;
+        
+        if (iconDisplay)
+            iconDisplay.explicitWidth = _iconWidth;
         
         invalidateSize();
         invalidateDisplayList();
@@ -982,7 +964,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  display the message data of the item renderer.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1009,7 +990,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1060,7 +1040,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
@@ -1100,7 +1079,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  can share our display object.</p>
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
@@ -1136,7 +1114,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @param element The element that has changed size.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
@@ -1163,7 +1140,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @param element The element that has changed.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
@@ -1188,7 +1164,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @param element The element that has changed size.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
@@ -1213,7 +1188,6 @@ public class IconItemRenderer extends LabelItemRenderer
      *  @param element The element that has changed.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
@@ -1360,8 +1334,8 @@ public class IconItemRenderer extends LabelItemRenderer
                 {
                     if (iconField in data && data[iconField] != null)
                         setIconDisplaySource(data[iconField]);
-					else
-						setIconDisplaySource(null);
+                    else
+                        setIconDisplaySource(null);
                 }
                 catch(e:Error)
                 {
@@ -1532,10 +1506,10 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Creates the messageDisplay component
+     *  @private
+     *  Creates the <code>messageDisplay</code> component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.2
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1563,10 +1537,10 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Destroys the messageDisplay component
+     *  @private
+     *  Destroys the messageDisplay component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.2
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1577,10 +1551,10 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Creates the iconDisplay component
+     *  @private
+     *  Creates the iconDisplay component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.2
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1603,10 +1577,10 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Destroys the iconDisplay component
+     *  @private
+     *  Destroys the iconDisplay component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.2
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1629,10 +1603,10 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Creates the decoratorDisplay component
+     *  @private
+     *  Creates the decoratorDisplay component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.2
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1646,10 +1620,10 @@ public class IconItemRenderer extends LabelItemRenderer
     }
     
     /**
-     *  Destroys the decoratorDisplay component
+     *  @private
+     *  Destroys the decoratorDisplay component.
      * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.2
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
@@ -1865,8 +1839,8 @@ public class IconItemRenderer extends LabelItemRenderer
         if (numHorizontalSections > 0)
             paddingAndGapWidth += (getStyle("horizontalGap") * (numHorizontalSections - 1));
         
-		var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
-		var hasMessage:Boolean = messageDisplay && messageDisplay.text != "";
+        var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
+        var hasMessage:Boolean = messageDisplay && messageDisplay.text != "";
 
         var verticalGap:Number = (hasLabel && hasMessage) ? getStyle("verticalGap") : 0;
         var paddingHeight:Number = getStyle("paddingTop") + getStyle("paddingBottom");
@@ -1905,7 +1879,7 @@ public class IconItemRenderer extends LabelItemRenderer
         var labelHeight:Number = 0;
         var messageWidth:Number = 0;
         var messageHeight:Number = 0;
-		
+        
         if (hasLabel)
         {
             // reset text if it was truncated before.
@@ -1960,6 +1934,9 @@ public class IconItemRenderer extends LabelItemRenderer
         super.invalidateDisplayList();
     }
     
+    /**
+     *  @private
+     */
     override public function validateDisplayList():void
     {
         super.validateDisplayList();
@@ -2007,8 +1984,8 @@ public class IconItemRenderer extends LabelItemRenderer
         var decoratorWidth:Number = 0;
         var decoratorHeight:Number = 0;
 
-		var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
-		var hasMessage:Boolean = messageDisplay && messageDisplay.text != "";
+        var hasLabel:Boolean = labelDisplay && labelDisplay.text != "";
+        var hasMessage:Boolean = messageDisplay && messageDisplay.text != "";
 
         var paddingLeft:Number   = getStyle("paddingLeft");
         var paddingRight:Number  = getStyle("paddingRight");
@@ -2041,7 +2018,7 @@ public class IconItemRenderer extends LabelItemRenderer
             iconHeight = iconDisplay.getLayoutBoundsHeight();
             
             // use vAlign to position the icon.
-			var iconDisplayY:Number = Math.round(vAlign * (viewHeight - iconHeight)) + paddingTop;
+            var iconDisplayY:Number = Math.round(vAlign * (viewHeight - iconHeight)) + paddingTop;
             setElementPosition(iconDisplay, paddingLeft, iconDisplayY);
         }
         
@@ -2114,7 +2091,7 @@ public class IconItemRenderer extends LabelItemRenderer
             // height only takes up what it needs so we can properly place the message
             // and make sure verticalAlign is operating on a correct value.
             labelWidth = Math.max(labelComponentsViewWidth, 0);
-			labelHeight = labelTextHeight;
+            labelHeight = labelTextHeight;
 
             if (labelWidth == 0)
                 setElementSize(labelDisplay, NaN, 0);
@@ -2164,7 +2141,7 @@ public class IconItemRenderer extends LabelItemRenderer
                 if (oldPreferredMessageHeight != newPreferredMessageHeight)
                     invalidateSize();
     
-    			messageHeight = newPreferredMessageHeight;
+                messageHeight = newPreferredMessageHeight;
             }
             
             // since it's multi-line, no need to truncate
@@ -2174,29 +2151,29 @@ public class IconItemRenderer extends LabelItemRenderer
         }
 
         // Position the text components now that we know all heights so we can respect verticalAlign style
-		var totalHeight:Number = 0;
-		var labelComponentsY:Number = 0; 
+        var totalHeight:Number = 0;
+        var labelComponentsY:Number = 0; 
 
-		// Heights used in our alignment calculations.  We only care about the "real" ascent 
-		var labelAlignmentHeight:Number = 0; 
-		var messageAlignmentHeight:Number = 0; 
-		
-		if (hasLabel)
-			labelAlignmentHeight = getElementPreferredHeight(labelDisplay);
-		if (hasMessage)
-			messageAlignmentHeight = getElementPreferredHeight(messageDisplay);
+        // Heights used in our alignment calculations.  We only care about the "real" ascent 
+        var labelAlignmentHeight:Number = 0; 
+        var messageAlignmentHeight:Number = 0; 
+        
+        if (hasLabel)
+            labelAlignmentHeight = getElementPreferredHeight(labelDisplay);
+        if (hasMessage)
+            messageAlignmentHeight = getElementPreferredHeight(messageDisplay);
 
-		totalHeight = labelAlignmentHeight + messageAlignmentHeight + verticalGap;			
-		labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
+        totalHeight = labelAlignmentHeight + messageAlignmentHeight + verticalGap;          
+        labelComponentsY = Math.round(vAlign * (viewHeight - totalHeight)) + paddingTop;
 
-		if (labelDisplay)
-			setElementPosition(labelDisplay, labelComponentsX, labelComponentsY);
-		
-		if (messageDisplay)
-		{
-			var messageY:Number = labelComponentsY + labelAlignmentHeight + verticalGap;
-			setElementPosition(messageDisplay, labelComponentsX, messageY);
-		}
+        if (labelDisplay)
+            setElementPosition(labelDisplay, labelComponentsX, labelComponentsY);
+        
+        if (messageDisplay)
+        {
+            var messageY:Number = labelComponentsY + labelAlignmentHeight + verticalGap;
+            setElementPosition(messageDisplay, labelComponentsX, messageY);
+        }
     }
     
 }
