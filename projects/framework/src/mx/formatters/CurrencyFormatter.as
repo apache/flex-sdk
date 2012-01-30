@@ -18,6 +18,7 @@ import mx.managers.SystemManager;
 [ResourceBundle("formatters")]
 [ResourceBundle("SharedResources")]
 
+[Alternative(replacement="spark.formatters.CurrencyFormatter", since="4.5")]
 /**
  *  The CurrencyFormatter class formats a valid number as a currency value.
  *  It adjusts the decimal rounding and precision, the thousands separator, 
