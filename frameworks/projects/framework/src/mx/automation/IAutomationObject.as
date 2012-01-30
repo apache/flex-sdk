@@ -225,6 +225,25 @@ public interface IAutomationObject
      *  @productversion Flex 3
      */
     function createAutomationIDPart(child:IAutomationObject):Object;
+	
+    /**
+     *  Returns a set of properties as automation ID that identify the child within
+     *  this container.  These values should not change during the
+     *  lifespan of the application
+     * 
+     *  @param child Child for which to provide the id.
+     * 
+     *  @param properties which needs to be considered for forming the Id.
+     *
+     *  @return Sets of properties describing the child which can
+     *          later be used to resolve the component.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function createAutomationIDPartWithRequiredProperties(child:IAutomationObject, properties:Array):Object;
 
     /**
      *  Resolves a child by using the id provided. The id is a set 
@@ -257,6 +276,19 @@ public interface IAutomationObject
      *  @productversion Flex 3
      */
     function getAutomationChildAt(index:int):IAutomationObject;
+	
+    /**
+     *  Provides the automation object list .  This list
+     *  does not include any children that are composites.
+     *
+     *  @return the automation children.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    function getAutomationChildren():Array;
 
     /**
      *  Replays the specified event.  A component author should probably call 
