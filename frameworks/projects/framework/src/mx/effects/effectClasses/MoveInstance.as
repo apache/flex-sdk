@@ -13,8 +13,8 @@ package mx.effects.effectClasses
 {
 
 import flash.events.Event;
-import mx.core.Container;
 import mx.core.EdgeMetrics;
+import mx.core.IContainer;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
@@ -315,7 +315,7 @@ public class MoveInstance extends TweenEffectInstance
 										 [ xTo, yTo ], duration);
 		
 		// Set back to initial position before the screen refreshes
-		var p:Container = target.parent as Container;
+		var p:IContainer = target.parent as IContainer;
 		
 		if (p)
 		{
@@ -331,7 +331,8 @@ public class MoveInstance extends TweenEffectInstance
 				yFrom + target.height > b || yTo + target.height > b)
 			{
 				forceClipping = true;
-				p.forceClipping = true;
+                if ("forceClipping" in p)
+				    p["forceClipping"] = true;
 			}
 		
 		}
@@ -392,7 +393,7 @@ public class MoveInstance extends TweenEffectInstance
 		
 		if (!forceClipping && checkClipping)
 		{
-			var p:Container = target.parent as Container;
+			var p:IContainer = target.parent as IContainer;
 			
 			if (p)
 			{
@@ -406,7 +407,8 @@ public class MoveInstance extends TweenEffectInstance
 					value[1] < t || value[1] + target.height > b)
 				{
 					forceClipping = true;
-					p.forceClipping = true;
+                    if ("forceClipping" in p)
+                        p["forceClipping"] = true;
 				}
 			}
 		}
@@ -447,12 +449,13 @@ public class MoveInstance extends TweenEffectInstance
 		
 		if (forceClipping)
 		{
-			var p:Container = target.parent as Container;
+			var p:IContainer = target.parent as IContainer;
 			
 			if (p) 
 			{
 				forceClipping = false;
-				p.forceClipping = false;
+                if ("forceClipping" in p)
+                    p["forceClipping"] = false;
 			}
 		}	
 		
