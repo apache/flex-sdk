@@ -167,7 +167,8 @@ package spark.automation.delegates.components.supportClasses
 				var propertyNameMap:Object = automationClass.propertyNameMap;
 				if (propertyNameMap["enableIndexBasedSelection"])
 				{
-					trace("TBD - We should find the item renderer and convert it to index");
+					var message:String = "TBD - We should find the item renderer and convert it to index";
+					Automation.automationDebugTracer.traceMessage("SparkListBaseAutomationImpl","recordListItemSelectEvent()",message);
 					selectionType = SparkListItemSelectEvent.SELECT_INDEX;
 					indexSelection = true;
 				}
