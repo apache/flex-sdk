@@ -1592,7 +1592,8 @@ public class FocusManager implements IFocusManager
      */
     private function creationCompleteHandler(event:FlexEvent):void
     {
-        if (DisplayObject(form).visible && !activated)
+        var o:DisplayObject = DisplayObject(form);
+        if (o.parent && o.visible && !activated)
             form.systemManager.activate(form);
     }
 
