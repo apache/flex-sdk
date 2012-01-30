@@ -72,6 +72,11 @@ import mx.effects.effectClasses.SequenceInstance;
  *  @see mx.effects.effectClasses.SequenceInstance
  *  
  *  @includeExample examples/SequenceEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Sequence extends CompositeEffect
 {
@@ -88,6 +93,11 @@ public class Sequence extends CompositeEffect
 	 *
 	 *  @param target This argument is ignored for Sequence effects.
 	 *  It is included only for consistency with other types of effects.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function Sequence(target:Object = null)
 	{
@@ -116,6 +126,11 @@ public class Sequence extends CompositeEffect
      * 
      * Sequence calculates this number to be the duration of each
      * child effect, played one after the other.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get compositeDuration():Number
     {
