@@ -151,8 +151,7 @@ public class GradientStroke extends GradientBase implements IStroke
         {
             _caps = value;
             
-            mx_internal::dispatchGradientChangedEvent(
-                                "caps", oldValue, value);
+            dispatchGradientChangedEvent("caps", oldValue, value);
         }
     }
         
@@ -200,8 +199,7 @@ public class GradientStroke extends GradientBase implements IStroke
         {
             _joints = value;
             
-            mx_internal::dispatchGradientChangedEvent(
-                                "joints", oldValue, value);
+            dispatchGradientChangedEvent("joints", oldValue, value);
         }
     }
     
@@ -256,8 +254,7 @@ public class GradientStroke extends GradientBase implements IStroke
         {
             _miterLimit = value;
             
-            mx_internal::dispatchGradientChangedEvent(
-                                "miterLimit", oldValue, value);
+            dispatchGradientChangedEvent("miterLimit", oldValue, value);
         }
     }
 
@@ -307,8 +304,7 @@ public class GradientStroke extends GradientBase implements IStroke
         {
             _pixelHinting = value;
             
-            mx_internal::dispatchGradientChangedEvent(
-                                "pixelHinting", oldValue, value);
+            dispatchGradientChangedEvent("pixelHinting", oldValue, value);
         }
     }
     
@@ -373,8 +369,7 @@ public class GradientStroke extends GradientBase implements IStroke
         {
             _scaleMode = value;
             
-            mx_internal::dispatchGradientChangedEvent(
-                                "scaleMode", oldValue, value);
+            dispatchGradientChangedEvent("scaleMode", oldValue, value);
         }
     }
     
@@ -414,8 +409,7 @@ public class GradientStroke extends GradientBase implements IStroke
         {
             _weight = value;
             
-            mx_internal::dispatchGradientChangedEvent(
-                                "weight", oldValue, value);
+            dispatchGradientChangedEvent("weight", oldValue, value);
         }
     }
     
