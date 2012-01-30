@@ -868,37 +868,41 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function set visible(value:Boolean):void
     {
-        if (!nativeWindow)
+        setVisible(value);
+    }
+    
+    /**
+     *  @private
+     *  We override setVisible because there's the flash display object concept 
+     *  of visibility and also the nativeWindow concept of visibility.
+     */
+    override public function setVisible(value:Boolean,
+                                        noEvent:Boolean = false):void
+    {
+        // first handle the native window stuff
+        if (!_nativeWindow)
         {
             _nativeWindowVisible = value;
             invalidateProperties();
         }
-        else
+        else if (!_nativeWindow.closed)
         {
-            if (!nativeWindow.closed)
+            if (value)
             {
-                var e:FlexEvent;
-                if (value)
-                {
-                    e = new FlexEvent(FlexEvent.SHOW);
-                    _nativeWindow.visible = value;
-                    dispatchEvent(e);
-                }
+                _nativeWindow.visible = value;
+            }
+            else
+            {
+                // in the conditions below we will play an effect
+                if (getStyle("hideEffect") && initialized && $visible != value)
+                    addEventListener(EffectEvent.EFFECT_END, hideEffectEndHandler);
                 else
-                {
-                    e = new FlexEvent(FlexEvent.HIDE);
-                    if (getStyle("hideEffect"))
-                    {
-                        addEventListener(EffectEvent.EFFECT_END, hideEffectEndHandler);
-                    }
-                    else
-                    {
-                        _nativeWindow.visible = value;
-                    }
-                    dispatchEvent(e);
-                }
-            }               
+                    _nativeWindow.visible = value;
+            }
         }
+        
+        // now call super.setVisible
+        super.setVisible(value, noEvent);
     }
 
     //----------------------------------
