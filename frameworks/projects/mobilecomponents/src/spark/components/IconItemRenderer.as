@@ -24,6 +24,7 @@ import mx.core.UIComponentGlobals;
 import mx.core.UITextField;
 import mx.core.UITextFormat;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 import mx.graphics.BitmapFillMode;
 import mx.graphics.BitmapScaleMode;
 import mx.styles.CSSStyleDeclaration;
@@ -178,6 +179,8 @@ public class IconItemRenderer extends LabelItemRenderer
             _imageCache.enableCaching = true;
             _imageCache.maxCacheEntries = 100;
         }
+        
+        addEventListener(FlexEvent.MEASURED_SIZE_PRELIMINARY, measuredSizePreliminaryHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -1887,6 +1890,17 @@ public class IconItemRenderer extends LabelItemRenderer
             ISharedDisplayObject(iconDisplay.displayObject).redrawRequested = false;
             iconDisplay.validateDisplayList();
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function measuredSizePreliminaryHandler(event:FlexEvent):void
+    {
+        // block the event if there is no icon to display
+        // otherwise the size will not get cached
+        if (iconDisplay && iconDisplay.source == null)
+            event.stopImmediatePropagation();
     }
     
 }
