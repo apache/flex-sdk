@@ -12,7 +12,6 @@
 package spark.skins.mobile.supportClasses
 {
 import flash.display.DisplayObject;
-import flash.display.Graphics;
 
 /**
  *  ActionScript-based skin for toggle buttons. This class can not be used 
@@ -55,8 +54,8 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         // downIconClass,
         // downSelectedIconClass
         useIconStyle = false;
-        useChromeColor = true;
         useSymbolColor = true;
+        useCenterAlignment = false;
     }
     
     /**
@@ -174,19 +173,9 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
         super.createChildren();
     }
     
-    override public function get symbolItems():Array
+    override protected function get symbolItems():Array
     {
         return symbols;
-    }
-    
-    /**
-     *  @private
-     *  CheckBox <code>chromeColor</code> is flat, no gradient.
-     */
-    override protected function beginChromeColorFill(chromeColorGraphics:Graphics):void
-    {
-        // solid color fill for selectable buttons
-        chromeColorGraphics.beginFill(getChromeColor());
     }
     
     /**
@@ -262,17 +251,9 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
     /**
      *  @private 
      */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        // TODO (jszeto) Does this need to go into a seperate DisplayObject to avoid it from getting 
-        // clobbered by subclasses?
-        
-        // Draw a transparent hit area
-        graphics.beginFill(0,0);
-        graphics.drawRect(0,0,unscaledWidth, unscaledHeight);
-        graphics.endFill();
+        super.layoutContents(unscaledWidth, unscaledHeight);
         
         // position the symbols to align with the background "icon"
         if (_symbolIcon)
@@ -280,6 +261,19 @@ public class SelectableButtonSkinBase extends ButtonSkinBase
             var currentIcon:DisplayObject = getIconDisplay();
             setElementPosition(_symbolIcon, currentIcon.x, currentIcon.y);
         }
+    }
+    
+    /**
+     *  @private 
+     */
+    override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        super.drawBackground(unscaledWidth, unscaledHeight);
+        
+        // Draw a transparent hit area
+        graphics.beginFill(0, 0);
+        graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        graphics.endFill();
     }
 }
 }
