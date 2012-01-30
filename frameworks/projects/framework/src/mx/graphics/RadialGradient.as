@@ -125,7 +125,6 @@ public class RadialGradient extends GradientBase implements IFill
     public function RadialGradient()
     {
         super();
-        matrix = new Matrix();
     }
         
     //--------------------------------------------------------------------------
@@ -231,6 +230,11 @@ public class RadialGradient extends GradientBase implements IFill
     /**
      *  @inheritDoc
      */
+	private static var commonMatrix:Matrix = new Matrix();
+
+    /**
+     *  @inheritDoc
+     */
     public function begin(target:Graphics, rc:Rectangle):void
     {
     	var w:Number = !isNaN(scaleX) ? scaleX : rc.width;
@@ -241,14 +245,14 @@ public class RadialGradient extends GradientBase implements IFill
 		tx -= w / 2;
 		ty -= h / 2;		
 				
-        matrix.createGradientBox(w, h, 
+        commonMatrix.createGradientBox(w, h, 
 								!isNaN(mx_internal::_angle) ? 
 									mx_internal::_angle : mx_internal::rotationInRadians,
 								 tx, ty);
             
         target.beginGradientFill(GradientType.RADIAL, mx_internal::colors,
 								 mx_internal::alphas, mx_internal::ratios,
-								 matrix, spreadMethod, interpolationMethod, focalPointRatio);      
+								 commonMatrix, spreadMethod, interpolationMethod, focalPointRatio);      
     }
 
     /**
