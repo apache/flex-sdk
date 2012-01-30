@@ -12,10 +12,12 @@
 package mx.states 
 {
 import flash.display.DisplayObject;
-
+import flash.events.Event;
+import flash.events.IEventDispatcher;
 import mx.collections.IList;
 import mx.core.ContainerCreationPolicy;
 import mx.core.IChildList;
+import mx.core.IDeferredContentOwner;
 import mx.core.ITransientDeferredInstance;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
@@ -540,7 +542,8 @@ public class AddItems extends OverrideBase
         
         if ( (propertyName == null || propertyName == "mxmlContent") && (dest is IVisualElementContainer))
         {
-            addItemsToContentHolder(dest as IVisualElementContainer, localItems);
+            if (!addItemsToContentHolder(dest as IVisualElementContainer, localItems))
+                return;
         }
         else if (propertyName == null && dest is IChildList)
         {
@@ -581,9 +584,16 @@ public class AddItems extends OverrideBase
                 // able to successfully apply ourselves, so remove our context
                 // listener if applicable.
                 removeContextListener();
-                applied = false;
-                parentContext = null;
             }
+            else if (_waitingForDeferredContent)
+            {
+                // Or we were waiting around for deferred content of our target
+                // to be created and it never happened, so we'll stop listening
+                // for now.
+                removeCreationCompleteListener();
+            }
+            applied = false;
+            parentContext = null;
             return;
         }
                     
@@ -699,16 +709,34 @@ public class AddItems extends OverrideBase
         return index;
     }
     
+    private var _waitingForDeferredContent:Boolean = false;
+    
     /**
      *  @private
      */
-    protected function addItemsToContentHolder(dest:IVisualElementContainer, items:Array):void
+    protected function addItemsToContentHolder(dest:IVisualElementContainer, items:Array):Boolean
     {
+        // If we are being asked to add more children to a deferred content owner,
+        // but the deferred content has yet to be created, we will defer application
+        // until it is safe to do so.
+        if (dest is IDeferredContentOwner && dest is IEventDispatcher)
+        {
+            var dco:IDeferredContentOwner= dest as IDeferredContentOwner;
+            if (!dco.deferredContentCreated)
+            {
+                IEventDispatcher(dest).addEventListener("contentCreationComplete", onDestinationContentCreated);
+                _waitingForDeferredContent = true;
+                return false;
+            }            
+        }
+        
         if (startIndex == -1)
             startIndex = dest.numElements;
         
         for (var i:int = 0; i < items.length; i++)
             dest.addElementAt(items[i], startIndex + i);
+        
+        return true;
     }
        
     /**
@@ -779,6 +807,33 @@ public class AddItems extends OverrideBase
         {
             dest[propertyName] = value;
         }
+    }
+    
+    /**
+     *  @private
+     *  We've detected that our IDeferredContentOwnder target has created its
+     *  content, so it's safe to apply our override content now.
+     */
+    private function onDestinationContentCreated(e:Event):void
+    {
+        if (parentContext)
+        {
+            removeCreationCompleteListener();
+            apply(parentContext);
+        }   
+    }
+    
+    /**
+     *  @private
+     *  Remove our contentCreationComplete listener.
+     */
+    private function removeCreationCompleteListener():void
+    {
+        if (parentContext)
+        {
+            parentContext.removeEventListener("contentCreationComplete", onDestinationContentCreated);
+            _waitingForDeferredContent = false;
+        }   
     }
 }
 
