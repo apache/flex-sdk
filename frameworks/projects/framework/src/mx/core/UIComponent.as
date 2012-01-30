@@ -6593,7 +6593,7 @@ public class UIComponent extends FlexSprite
     {
         if(_xformOffsets != null && _xformOffsets.updatePending == true)
         {
-         	validateTransform();   	
+         	applyComputedTransform();   	
         }
 
         if (invalidateDisplayListFlag)
@@ -9620,7 +9620,7 @@ public class UIComponent extends FlexSprite
 	 * Documentation is not currently available.
 	 * Commits the computed transform stored in the xformOffsets object to the flash displayObject's transform. 
 	 */
-	protected function validateTransform():void
+	protected function applyComputedTransform():void
 	{
 		_xformOffsets.updatePending = false;
 		if(_xformOffsets.computedIs3D)
