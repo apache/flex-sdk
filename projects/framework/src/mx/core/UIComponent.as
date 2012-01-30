@@ -8644,7 +8644,9 @@ public class UIComponent extends FlexSprite
             // changing states takes a frame to commit the changes, which 
             // results in the base state flashing quickly on the screen before 
             // the desired state is entered.
-            validateNow();
+            var newState:State = getState(currentState);
+            if (newState && newState.overrides.length > 0)
+                validateNow();
         }
         
         removeEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
