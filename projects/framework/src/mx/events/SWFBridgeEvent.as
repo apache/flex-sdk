@@ -21,6 +21,10 @@ import flash.events.IEventDispatcher;
  *  The events are informational in nature as opposed to a SWFBridgeRequest,
  *  which request an object do something on its behalf.
  *  
+ *  <p>This class defines event constants that refer to "activation".
+ *  In this case, activation means one of the components in the application can receive the keyboard 
+ *  input focus. When an application is activated, the component that last had focus receives focus again.</p>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
