@@ -42,6 +42,11 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	/**
 	 *  @private
 	 */
+	private static var cachedFontsForObjects:Dictionary = new Dictionary(true);
+
+	/**
+	 *  @private
+	 */
 	private static var instance:IEmbeddedFontRegistry;
 
 	//--------------------------------------------------------------------------
@@ -202,6 +207,12 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 		}
 	}
 	
+	//--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
+	
 	/**
 	 *  Convert a font styles into a String as using by flash.text.FontStyle.
 	 * 
@@ -216,7 +227,7 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	 *  @playerversion AIR 1.1
 	 *  @productversion Flex 3
 	 */
-	public static function getFontStyle(bold:Boolean, italic:Boolean):String
+	public function getFontStyle(bold:Boolean, italic:Boolean):String
 	{
         var style:String = FontStyle.REGULAR;
 
@@ -229,12 +240,6 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 		
 		return style;
 	}	
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
 	
 	/**
      *  @inheritDoc
@@ -314,15 +319,25 @@ public class EmbeddedFontRegistry implements IEmbeddedFontRegistry
 	 *  @productversion Flex 3
 	 */
 	public function getAssociatedModuleFactory(
-						font:EmbeddedFont,
+						fontName:String, bold:Boolean, italic:Boolean,
+						object:Object,
 						defaultModuleFactory:IFlexModuleFactory):
 						IFlexModuleFactory
 	{
+
+		var font:EmbeddedFont;
+		font = cachedFontsForObjects[object];
+		if (!font)
+		{
+			font = new EmbeddedFont(fontName, bold, italic);
+			cachedFontsForObjects[object] = font;
+		}
+
 		var fontDictionary:Dictionary = fonts[createFontKey(font)];
 		if (fontDictionary)
 		{
 			// First lookup in the dictionary. If not found, then
-			// take the first moduelFactory in the dictionary.
+			// take the first moduleFactory in the dictionary.
 			// A module can register a font that is not unique and still
 			// use that font as long as its components specify the moduleFactory.
 			// A module can use fonts in other modules but
