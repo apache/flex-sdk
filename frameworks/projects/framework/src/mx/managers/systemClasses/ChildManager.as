@@ -182,7 +182,8 @@ public class ChildManager implements ISystemManagerChildManager
 	 */
 	public function childAdded(child:DisplayObject):void
 	{
-		child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
+        if (child.hasEventListener(FlexEvent.ADD))
+		    child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
 
 		if (child is IUIComponent)
 			IUIComponent(child).initialize(); // calls child.createChildren()
@@ -193,7 +194,8 @@ public class ChildManager implements ISystemManagerChildManager
      */
 	public function removingChild(child:DisplayObject):void
 	{
-		child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
+        if (child.hasEventListener(FlexEvent.REMOVE))
+		    child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
 	}
 
 	/**
