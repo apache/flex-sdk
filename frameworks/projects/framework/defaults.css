@@ -74,6 +74,7 @@ global
 	horizontalGridLineColor: #F7F7F7;
 	horizontalGridLines: false;
 	iconColor: #111111;
+    inactiveSelectionColor: #E8E8E8;
 	indentation: 17;
 	indicatorGap: 14;
     justificationRule: "space";
@@ -128,6 +129,7 @@ global
     trackingLeft: 0;
     trackingRight: 0;
     typographicCase: "default";
+    unfocusedSelectionColor: #E8E8E8;
 	useRollOver: true;
 	version: "4.0.0";
 	verticalAlign: "top";
