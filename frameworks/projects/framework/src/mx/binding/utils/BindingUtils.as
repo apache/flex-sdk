@@ -50,6 +50,8 @@ public class BindingUtils
      *
      *  @param host The object that hosts the property or property chain
      *  to be watched. 
+     *  The <code>host</code> maintains a list of <code>sites</code> to update 
+     *  when <code>prop</code> changes.
      *
      *  @param chain A value specifying the property or chain to be watched.
      *  Legal values are:
@@ -89,10 +91,10 @@ public class BindingUtils
      *  Typically these tags are used to indicate fine-grained value changes, 
      *  such as modifications in a text field prior to confirmation.
      *
-     *  @param useWeakReference Determines whether
-     *  the reference to the host is strong or weak. A strong
-     *  reference (the default) prevents the host from being
-     *  garbage-collected. A weak reference does not.
+     *  @param useWeakReference Determines whether the reference to <code>site</code>
+     *  is strong or weak. 
+     *  A strong reference (the default) prevents <code>site</code> from being garbage-collected. 
+     *  A weak reference does not. 
      *  Added for Flex 4.
      *
      *  @return A ChangeWatcher instance, if at least one property name has
@@ -145,6 +147,8 @@ public class BindingUtils
      *
      *  @param host The host of the property. 
      *  See the <code>bindProperty()</code> method for more information.
+     *  The <code>host</code> maintains a list of <code>setters</code> to update 
+     *  when <code>prop</code> changes.
      *
      *  @param name The name of the property, or property chain. 
      *  See the <code>bindProperty()</code> method for more information.
@@ -153,10 +157,10 @@ public class BindingUtils
      *  called only on committing change events.
      *  See the <code>bindProperty()</code> method for more information.
      *
-     *  @param useWeakReference Determines whether
-     *  the reference to the host is strong or weak. A strong
-     *  reference (the default) prevents the host from being
-     *  garbage-collected. A weak reference does not.
+     *  @param useWeakReference Determines whether the reference to <code>setter</code>
+     *  is strong or weak. 
+     *  A strong reference (the default) prevents <code>setter</code> from being garbage-collected. 
+     *  A weak reference does not. 
      *  Added for Flex 4.
      *
      *  @return A ChangeWatcher instance, if at least one property name
