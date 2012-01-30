@@ -18,6 +18,7 @@ import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 
+import spark.components.DataGroup;
 import spark.components.SpinnerList;
 import spark.components.supportClasses.GroupBase;
 import spark.core.NavigationUnit;
@@ -363,44 +364,50 @@ public class VerticalSpinnerLayout extends VerticalLayout
 	{
 		var index:int = Math.floor(position.y / rowHeight); // may be larger than numElements to indicate wrapping
 		
-		var element:ILayoutElement;
+        var item:Object;
 		var startIndex:int = index % target.numElements;
         var distance:int = 0;
         var direction:int = autoScrollAscending ? 1 : -1;
+        var dataGroup:DataGroup = target as DataGroup;
+        
 		if (startIndex < 0)
             startIndex += target.numElements;
 		
 		// If the element at index % numElements) is not selectable, find the nearest one that is              
         var iter:LayoutIterator = new LayoutIterator(target, startIndex);
         
-        while (Math.abs(distance) <= (target.numElements / 2) + 1)
+        if (dataGroup)
         {
-            // Try searching in one direction
-            iter.currentIndex = startIndex + distance * direction;
-            element = iter.getCurrentElement();    
-            
-            if (isElementEnabled(element))
-                break;
-            
-            if (distance != 0)
+            while (Math.abs(distance) <= (target.numElements / 2) + 1)
             {
-                // Flip the direction
-                direction *= -1;
-                
-                // Try searching in the other direction
+                // Try searching in one direction
                 iter.currentIndex = startIndex + distance * direction;
-                element = iter.getCurrentElement();    
+
+                item = dataGroup.dataProvider.getItemAt(normalizeItemIndex(iter.currentIndex));
                 
-                if (isElementEnabled(element))
+                if (isElementEnabled(item))
                     break;
                 
-                // Flip the direction back
-                direction *= -1;
+                if (distance != 0)
+                {
+                    // Flip the direction
+                    direction *= -1;
+                    
+                    // Try searching in the other direction
+                    iter.currentIndex = startIndex + distance * direction;
+                    item = dataGroup.dataProvider.getItemAt(normalizeItemIndex(iter.currentIndex));   
+                    
+                    if (isElementEnabled(item))
+                        break;
+                    
+                    // Flip the direction back
+                    direction *= -1;
+                }
+                
+                distance++;
             }
-            
-            distance++;
         }
-		
+        
 		// If we don't allow wrapping, then cap the max index
 		if(!wrapElements)
 			index = Math.max(0, Math.min(index, target.numElements - 1));
@@ -480,7 +487,7 @@ public class VerticalSpinnerLayout extends VerticalLayout
         // casting as an object
         try
         {
-            if (!element || element["enabled"] == undefined || element["enabled"] == true)
+            if (!element || element["_enabled_"] == undefined || element["_enabled_"] == true)
                 return true;
         }
         catch (e:Error)
