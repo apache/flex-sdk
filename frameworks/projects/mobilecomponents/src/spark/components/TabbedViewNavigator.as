@@ -277,6 +277,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     //  activeView
     //----------------------------------
     
+    [Bindable("viewChangeComplete")]
     /**
      *  @private
      */
