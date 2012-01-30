@@ -306,6 +306,7 @@ ToggleSwitch
     color: #FFFFFF;
     fontSize: 27;
     skinClass: ClassReference("spark.skins.mobile.ToggleSwitchSkin");
+    slideDuration: 125;
     textShadowAlpha: 1;
     textShadowColor: #000000;
 }
