@@ -1445,8 +1445,7 @@ public class StyleManagerImpl implements IStyleManager2
             
             // Register the style module to use this style manager.
             moduleEvent.module.factory.registerImplementation("mx.styles::IStyleManager2", instance);
-            if ("setStyleDeclarations" in styleModule)
-                styleModule["setStyleDeclarations"](instance);
+            styleModule.setStyleDeclarations(instance);
             styleModules[moduleEvent.module.url].styleModule = styleModule;
             
             if (update)
