@@ -21,14 +21,14 @@ import mx.binding.BindabilityInfo;
 
 /**
  *  @private
- *  DescribeTypeCache is a convenience class that is used to 
+ *  DescribeTypeCache is a convenience class that is used to
  *  cache the return values of <code>flash.utils.describeType()</code>
  *  so that calls made subsequent times return faster.
  *
  *  This class also lets you set handler functions for specific value types.
  *  These will get called when the user tries to access these values on
  *  the <code>DescribeTypeCacheRecord</code> class.
- * 
+ *
  *  @see mx.utils.DescribeTypeCacheRecord
  */
 public class DescribeTypeCache
@@ -53,7 +53,7 @@ public class DescribeTypeCache
      *  @private
      */
     private static var typeCache:Object = {};
-    
+
     /**
      *  @private
      */
@@ -67,28 +67,33 @@ public class DescribeTypeCache
 
     /**
      *  Calls <code>flash.utils.describeType()</code> for the first time and caches
-         *  the return value so that subsequent calls return faster. 
+         *  the return value so that subsequent calls return faster.
          *
-         *  @param o Can be either a string describing a fully qualified class name or any 
+         *  @param o Can be either a string describing a fully qualified class name or any
          *  ActionScript value, including all available ActionScript types, object instances,
          *  primitive types (such as <code>uint</code>), and class objects.
          *
          *  @return Returns the cached record.
          *
-         *  @see flash.utils#describeType() 
+         *  @see flash.utils#describeType()
      */
     public static function describeType(o:*):DescribeTypeCacheRecord
     {
         var className:String;
+        var cacheKey:String;
 
         if (o is String)
-            className = o;
+            cacheKey = className = o;
         else
-            className = getQualifiedClassName(o);
+            cacheKey = className = getQualifiedClassName(o);
 
-        if (className in typeCache)
+        //Need separate entries for describeType(Foo) and describeType(myFoo)
+        if(o is Class)
+            cacheKey += "$";
+
+        if (cacheKey in typeCache)
         {
-            return typeCache[className];
+            return typeCache[cacheKey];
         }
         else
         {
@@ -99,7 +104,7 @@ public class DescribeTypeCache
             var record:DescribeTypeCacheRecord = new DescribeTypeCacheRecord();
             record.typeDescription = typeDescription;
             record.typeName = className;
-            typeCache[className] = record;
+            typeCache[cacheKey] = record;
 
             return record;
         }
@@ -128,7 +133,7 @@ public class DescribeTypeCache
 
         return undefined;
     }
-    
+
     /**
      *  @private
      */
