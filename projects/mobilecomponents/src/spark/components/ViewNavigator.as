@@ -385,17 +385,20 @@ public class ViewNavigator extends ViewNavigatorBase
             
             // If the view is already initialized, that means it was cached.  We can complete the
             // activation process if the view hasn't been invalidated in any way.
-            if (activeView.initialized && 
-                !activeView.invalidatePropertiesFlag && 
-                !activeView.invalidateSizeFlag && 
-                !activeView.invalidateDisplayListFlag)
+            if (activeView)
             {
-                completeViewCommitProcess();
-            }
-            else
-            {
-                // Wait until the view validates before activating it
-                activeView.addEventListener(FlexEvent.UPDATE_COMPLETE, completeViewCommitProcess);
+                if (activeView.initialized && 
+                    !activeView.invalidatePropertiesFlag && 
+                    !activeView.invalidateSizeFlag && 
+                    !activeView.invalidateDisplayListFlag)
+                {
+                    completeViewCommitProcess();
+                }
+                else
+                {
+                    // Wait until the view validates before activating it
+                    activeView.addEventListener(FlexEvent.UPDATE_COMPLETE, completeViewCommitProcess);
+                }
             }
             
             // Need to force a validation on the actionBar
