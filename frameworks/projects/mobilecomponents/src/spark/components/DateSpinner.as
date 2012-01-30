@@ -564,7 +564,7 @@ public class DateSpinner extends SkinnableComponent
     {
         // no-op if null; there must always be a selectedDate
         if (value == null)
-            value = new Date();
+            value = todayDate;
         
         // short-circuit if no change
         if (value.time == _selectedDate.time)
@@ -582,7 +582,7 @@ public class DateSpinner extends SkinnableComponent
     {
         // no-op if null; there must always be a selectedDate
         if (value == null)
-            value = new Date();
+            value = todayDate;
             
         // short-circuit if no change
         if (value.time == _selectedDate.time)
@@ -711,6 +711,9 @@ public class DateSpinner extends SkinnableComponent
                     // last adjustment to make sure we didn't accidentally go below minDate
                     if (selectedDate.time < minDate.time)
                         _selectedDate.minutes += minuteStepSize;
+                    
+                    // make sure to use animation for this
+                    useAnimationToSetSelectedDate = true;
                 }
                 
                 minuteStepSizeChanged = false;
