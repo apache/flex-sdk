@@ -155,7 +155,7 @@ package mx.geom
 	public function set x(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _x)
+		if (value == _x)
 			return;
 		translateBy(value-_x,0,0);
 		invalidate(INVALIDATE_FROM_NONE,false);
@@ -180,7 +180,7 @@ package mx.geom
 	public function set y(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _y)
+		if (value == _y)
 			return;
 		translateBy(0,value-_y,0);
 		invalidate(INVALIDATE_FROM_NONE,false);
@@ -206,7 +206,7 @@ package mx.geom
 	public function set z(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _z)
+		if (value == _z)
 			return;
 		translateBy(0,0,value-_z);
 		invalidate(INVALIDATE_FROM_NONE,true);
@@ -239,7 +239,7 @@ package mx.geom
 		value = MatrixUtil.clampRotation(value);
             
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _rotationX)
+		if (value == _rotationX)
 			return;
 		_rotationX = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,true);
@@ -269,7 +269,7 @@ package mx.geom
 		value = MatrixUtil.clampRotation(value);
         
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _rotationY)
+		if (value == _rotationY)
 			return;
 		_rotationY = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,true);
@@ -299,7 +299,7 @@ package mx.geom
 		value = MatrixUtil.clampRotation(value);
         
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _rotationZ)
+		if (value == _rotationZ)
 			return;
 		_rotationZ = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,false);
@@ -328,7 +328,7 @@ package mx.geom
 	public function set scaleX(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _scaleX)
+		if (value == _scaleX)
 			return;
 		_scaleX = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,false);
@@ -354,7 +354,7 @@ package mx.geom
 	public function set scaleY(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _scaleY)
+		if (value == _scaleY)
 			return;
 		_scaleY = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,false);
@@ -381,7 +381,7 @@ package mx.geom
 	public function set scaleZ(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _scaleZ)
+		if (value == _scaleZ)
 			return;
 		_scaleZ = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,true);
@@ -403,7 +403,7 @@ package mx.geom
 	 */
 	public function get is3D():Boolean
 	{
-		if((_flags & M3D_FLAGS_VALID) == 0)
+		if ((_flags & M3D_FLAGS_VALID) == 0)
 			update3DFlags();
 		return ((_flags & IS_3D) != 0);
 	}
@@ -420,7 +420,7 @@ package mx.geom
 	public function set transformX(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _transformX)
+		if (value == _transformX)
 			return;
 		_transformX = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,true);
@@ -446,7 +446,7 @@ package mx.geom
 	public function set transformY(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _transformY)
+		if (value == _transformY)
 			return;
 		_transformY = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,true);
@@ -471,7 +471,7 @@ package mx.geom
 	public function set transformZ(value:Number):void
 	{
 		if ((_flags & PROPERTIES_VALID) == false) validatePropertiesFromMatrix();
-		if(value == _transformZ)
+		if (value == _transformZ)
 			return;
 		_transformZ = value;
 		invalidate(INVALIDATE_FROM_PROPERTY,true);
@@ -520,7 +520,7 @@ package mx.geom
 				_flags &= ~MATRIX_VALID;
 				break;
 		}						
-		if(affects3D)
+		if (affects3D)
 			_flags &= ~M3D_FLAGS_VALID;
 			
 	}
@@ -534,7 +534,7 @@ package mx.geom
   	 */
 	private function update3DFlags():void
 	{			
-		if((_flags & M3D_FLAGS_VALID) == 0)
+		if ((_flags & M3D_FLAGS_VALID) == 0)
 		{
 			var matrixIs3D:Boolean = false;
 
@@ -561,7 +561,7 @@ package mx.geom
 					break;								
 			}
 
-			if(matrixIs3D)
+			if (matrixIs3D)
 				_flags |= IS_3D;
 			else
 				_flags &= ~IS_3D;
@@ -582,18 +582,18 @@ package mx.geom
 	*/
 	public function translateBy(x:Number,y:Number,z:Number = 0):void
 	{
-		if(_flags & MATRIX_VALID)
+		if (_flags & MATRIX_VALID)
 		{
 			_matrix.tx += x;
 			_matrix.ty += y;
 		}
-		if(_flags & PROPERTIES_VALID)
+		if (_flags & PROPERTIES_VALID)
 		{
 			_x += x;
 			_y += y;
 			_z += z;
 		}
-		if(_flags & MATRIX3D_VALID)
+		if (_flags & MATRIX3D_VALID)
 		{
 			var data:Vector.<Number> = _matrix3D.rawData;
 			data[12] += x;
@@ -617,14 +617,14 @@ package mx.geom
 	public function get matrix():Matrix
 	{
 		
-		if(_flags & MATRIX_VALID)
+		if (_flags & MATRIX_VALID)
 			return _matrix;
 			
-		if((_flags & PROPERTIES_VALID) == false)
+		if ((_flags & PROPERTIES_VALID) == false)
 			validatePropertiesFromMatrix();
 			
 		var m:Matrix = _matrix;
-		if(m == null)
+		if (m == null)
 			m = _matrix = new Matrix();
 		else
 			m.identity();
@@ -642,7 +642,7 @@ package mx.geom
 	 */	
 	public function set matrix(v:Matrix):void
 	{
-		if(_matrix== null)
+		if (_matrix== null)
 		{
 			_matrix = v.clone();
 		}
@@ -663,7 +663,7 @@ package mx.geom
 	 */
 	private function validatePropertiesFromMatrix():void
 	{	    
-	    if(sourceOfTruth == SOURCE_MATRIX3D)
+	    if (sourceOfTruth == SOURCE_MATRIX3D)
 	    {
 	    	var result:Vector.<Vector3D> = _matrix3D.decompose();
 	    	_rotationX = result[1].x / RADIANS_PER_DEGREES;
@@ -673,7 +673,7 @@ package mx.geom
 	    	_scaleY = result[2].y;
 	    	_scaleZ = result[2].z;
 
-			if(_transformX != 0 || _transformY != 0 || _transformZ != 0)
+			if (_transformX != 0 || _transformY != 0 || _transformZ != 0)
 			{
 				var postTransformTCenter:Vector3D = _matrix3D.transformVector(new Vector3D(_transformX,_transformY,_transformZ));
 		    	_x = postTransformTCenter.x - _transformX;
@@ -687,7 +687,7 @@ package mx.geom
 	    		_z = result[0].z;
 	  		}
 	    }                        
-	    else if(sourceOfTruth == SOURCE_MATRIX)
+	    else if (sourceOfTruth == SOURCE_MATRIX)
 	    {
 	    	MatrixUtil.decomposeMatrix(decomposition,_matrix,_transformX,_transformY);
 	    	_x = decomposition[0];
@@ -717,14 +717,14 @@ package mx.geom
 	 */
 	public function get matrix3D():Matrix3D
 	{
-		if(_flags & MATRIX3D_VALID)
+		if (_flags & MATRIX3D_VALID)
 			return _matrix3D;
 		
-		if((_flags & PROPERTIES_VALID) == false)
+		if ((_flags & PROPERTIES_VALID) == false)
 			validatePropertiesFromMatrix();
 							
 		var m:Matrix3D = _matrix3D;
-		if(m == null)
+		if (m == null)
 			m =  _matrix3D = new Matrix3D();
 		else
 			m.identity();
@@ -743,7 +743,7 @@ package mx.geom
 	 */
 	public function set matrix3D(v:Matrix3D):void
 	{
-		if(_matrix3D == null)
+		if (_matrix3D == null)
 		{
 			_matrix3D = v.clone();
 		}
