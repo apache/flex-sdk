@@ -214,6 +214,7 @@ package spark.automation.tabularData
 					
 					a = tmp;
 					i = -1;
+					n = a.length;
 				}
 			}
 			return a;
