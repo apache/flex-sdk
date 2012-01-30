@@ -5845,7 +5845,7 @@ public class UIComponent extends FlexSprite
         }
        
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Methods: Measurement
@@ -5882,6 +5882,17 @@ public class UIComponent extends FlexSprite
     }
 
     /**
+     *  @return Returns true when the measureSizes() code can skip the call to
+     *  measure(). For example this is usually true when both explicitWidth and
+     *  explicitHeight are set. For path, this is true when the bounds of the path
+     *  have not changed.
+     */    
+    protected function skipMeasure():Boolean
+    {
+        return !isNaN(explicitWidth) && !isNaN(explicitHeight);
+    }
+
+    /**
      *  @private
      */
     private function measureSizes():Boolean
@@ -5901,8 +5912,15 @@ public class UIComponent extends FlexSprite
         // If an object's width and height have been explicitly specified,
         // then the explicitWidth and explicitHeight properties contain
         // Numbers (as opposed to NaN)
-        if (isNaN(explicitWidth) ||
-            isNaN(explicitHeight))
+        
+        
+        if (skipMeasure())
+        {
+            invalidateSizeFlag = false;
+            _measuredMinWidth = 0;
+            _measuredMinHeight = 0;
+        }
+        else
         {
             var xScale:Number = Math.abs(scaleX);
             var yScale:Number = Math.abs(scaleY);
@@ -5946,12 +5964,6 @@ public class UIComponent extends FlexSprite
                 _measuredMinHeight *= yScale;
                 _measuredHeight *= yScale;
             }
-        }
-        else
-        {
-            invalidateSizeFlag = false;
-            _measuredMinWidth = 0;
-            _measuredMinHeight = 0;
         }
 
         adjustSizesForScaleChanges();
