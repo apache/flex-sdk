@@ -1151,7 +1151,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 	            var focusable:IFocusManagerComponent = IFocusManagerComponent(o);
 	            if (focusable.focusEnabled)
 	            {
-	                if (focusable.tabEnabled && isTabVisible(o))
+	                if (focusable.tabFocusEnabled && isTabVisible(o))
 	                {
 						addToFocusables = true;	                	
 	                }
@@ -1166,7 +1166,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 	                calculateCandidates = true;
     	            // trace("FM added " + o);
     	        }
-                o.addEventListener("tabEnabledChange", tabEnabledChangeHandler);
+                o.addEventListener("tabFocusEnabledChange", tabFocusEnabledChangeHandler);
                 o.addEventListener("tabIndexChange", tabIndexChangeHandler);
    			}
 
@@ -1635,7 +1635,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                         _lastFocus = null;
                     }
                     // trace("FM removed " + o);
-                    o.removeEventListener("tabEnabledChange", tabEnabledChangeHandler);
+                    o.removeEventListener("tabFocusEnabledChange", tabFocusEnabledChangeHandler);
                     o.removeEventListener("tabIndexChange", tabIndexChangeHandler);
                     focusableObjects.splice(i, 1);
                     focusableCandidates = [];
@@ -1672,7 +1672,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                     }
                     // trace("FM removed " + focusableObjects[i]);
                     focusableObjects[i].removeEventListener(
-                        "tabEnabledChange", tabEnabledChangeHandler);
+                        "tabFocusEnabledChange", tabFocusEnabledChangeHandler);
                     focusableObjects[i].removeEventListener(
                         "tabIndexChange", tabIndexChangeHandler);
                     focusableObjects.splice(i, 1);
@@ -1735,20 +1735,20 @@ public class FocusManager extends EventDispatcher implements IFocusManager
      *  @private
      *  Add or remove if tabbing properties change.
      */
-    private function tabEnabledChangeHandler(event:Event):void
+    private function tabFocusEnabledChangeHandler(event:Event):void
     {
         calculateCandidates = true;
 
-        var o:InteractiveObject = InteractiveObject(event.target);
+        var o:IFocusManagerComponent = IFocusManagerComponent(event.target);
         var n:int = focusableObjects.length;
         for (var i:int = 0; i < n; i++)
         {
             if (focusableObjects[i] == o)
                 break;
         }
-        if (o.tabEnabled)
+        if (o.tabFocusEnabled)
         {
-            if (i == n && isTabVisible(o))
+            if (i == n && isTabVisible(DisplayObject(o)))
             {
                 // trace("FM tpc added " + o);
                 // add it if were not already
