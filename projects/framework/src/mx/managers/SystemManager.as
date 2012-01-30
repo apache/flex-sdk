@@ -21,6 +21,7 @@ import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.display.Stage;
 import flash.display.StageAlign;
+import flash.display.StageQuality;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -236,6 +237,7 @@ public class SystemManager extends MovieClip
         {
             stage.scaleMode = StageScaleMode.NO_SCALE;
             stage.align = StageAlign.TOP_LEFT;
+            stage.quality = StageQuality.HIGH;
         }
 
         // If we don't have a stage then we are not top-level,
