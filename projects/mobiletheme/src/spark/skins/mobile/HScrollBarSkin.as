@@ -96,9 +96,9 @@ public class HScrollBarSkin extends MobileSkin
     public var hostComponent:HScrollBar;
     
     /**
-     *  @private 
+     *  Minimum width for the thumb 
      */
-    private var minThumbWidth:Number;
+    protected var minThumbWidth:Number;
     
     /**
      *  Skin to use for the thumb Button skin part
