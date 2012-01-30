@@ -48,6 +48,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get left():Object;
+    
+    /**
+     *  @private
+     */
     function set left(value:Object):void;
 
     /**
@@ -71,6 +75,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get right():Object;
+    
+    /**
+     *  @private
+     */
     function set right(value:Object):void;
 
     /**
@@ -94,6 +102,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get top():Object;
+    
+    /**
+     *  @private
+     */
     function set top(value:Object):void;
 
     /**
@@ -117,6 +129,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get bottom():Object;
+    
+    /**
+     *  @private
+     */
     function set bottom(value:Object):void;
 
     /**
@@ -143,6 +159,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get horizontalCenter():Object;
+    
+    /**
+     *  @private
+     */
     function set horizontalCenter(value:Object):void;
 
     /**
@@ -169,6 +189,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get verticalCenter():Object;
+    
+    /**
+     *  @private
+     */
     function set verticalCenter(value:Object):void;
 
     /**
@@ -193,6 +217,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get baseline():Object;
+    
+    /**
+     *  @private
+     */
     function set baseline(value:Object):void;
 
     /**
@@ -213,6 +241,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get percentWidth():Number;
+    
+    /**
+     *  @private
+     */
     function set percentWidth(value:Number):void;
 
     /**
@@ -233,6 +265,10 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */
     function get percentHeight():Number;
+    
+    /**
+     *  @private
+     */
     function set percentHeight(value:Number):void;
  
     /**
@@ -251,6 +287,11 @@ public interface ILayoutElement extends IEventDispatcher
      *  @productversion Flex 3
      */   
     function get includeInLayout():Boolean;
+    
+    /**
+     *  @private
+     */
+    function set includeInLayout(value:Boolean):void;
     
     /**
      *  @return Returns the element's preferred width.  Preferred width is
