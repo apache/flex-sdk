@@ -375,7 +375,7 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *    alwaysInFront="false"
  *    autoExit="true"
- *    backgroundFrameRate="1"
+ *    backgroundFrameRate="-1"
  *    dockIconMenu="<i>null</i>"
  *    menu="<i>null</i>"
  *    showStatusBar="true"
@@ -1046,13 +1046,13 @@ public class WindowedApplication extends Application implements IWindow
      *  @private
      *  Storage for the backgroundFrameRate property.
      */
-    private var _backgroundFrameRate:Number = 1;
+    private var _backgroundFrameRate:Number = -1;
 
     /**
      *  Specifies the frame rate to use when the application is inactive.
      *  When set to -1, no background frame rate throttling occurs.
      *
-     *  @default 1
+     *  @default -1
      *  
      *  @langversion 3.0
      *  @playerversion AIR 1.5
