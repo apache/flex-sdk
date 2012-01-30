@@ -242,21 +242,21 @@ public interface IResourceManager extends IEventDispatcher
      *  @param resourceBundle The resource bundle to be added.
      *  @param useWeakReference Determines if the ResourceManager
      *  keeps a weak reference to the resource bundle.
-     *  If useWeakReference is true then the ResourceManager will 
-     *  provide a weak reference to the resource bundle. When the 
+     *  If <code>useWeakReference</code> is <code>true</code> then the ResourceManager 
+     *  provides a weak reference to the resource bundle. When the 
      *  caller chooses to use a weak reference it becomes the 
      *  caller's responsibility to keep a hard reference the resource bundle 
-     *  so it is not garbaged collected prematurely. If useWeakReference is
-     *  false the ResourceManager will keep a hard reference to the resource
+     *  so it is not garbaged collected prematurely. If <code>useWeakReference</code> is
+     *  <code>false</code>, the ResourceManager keeps a hard reference to the resource
      *  bundle so it will not be garbage collected.
      *  
-     *  When a Flex sub-application or module automatically adds its compiled
-     *  resource bundles to the ResourceManager, it calls addResourceBundle()
-     *  with useWeakReference set to true, to avoid becoming pinned in memory.
+     *  <p>When a Flex sub-application or module automatically adds its compiled
+     *  resource bundles to the ResourceManager, it calls the <code>addResourceBundle()</code>
+     *  with <code>useWeakReference</code> set to <code>true</code>, to avoid becoming pinned in memory.
      *  If you create resource bundles at runtime in a sub-application or 
      *  module, you should do the same. You then need to hold on to these 
      *  resource bundles with a hard reference to prevent them from being 
-     *  garbage-collected.
+     *  garbage collected.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -754,8 +754,31 @@ public interface IResourceManager extends IEventDispatcher
                       locale:String = null):Class;
 
     /**
-     *  Used only by classes which implement IFlexModuleFactory.
+    *  Creates instances of all ResourceBundle subclasses that were compiled into the SWF
+    *  and adds them to the ResourceManager.
+    * 
+    *  <p>For example, if the <code>locales</code> parameter is [ "en_US", "ja_JP" ]
+    *  and the <code>bundleNames</code> parameter is [ "core", "controls" ],
+    *  then four resource bundles will be installed.</p>
+    * 
+    *  <p>This method is used only by classes that implement the IFlexModuleFactory interface.</p>
+    *
+    *  @param applicationDomain  The ApplicationDomain that is used to look up the resource bundle
+    *  classes by name.
+    *
+    *  @param locales An Array of Strings that specify the locales for which the SWF was compiled.
+    *
+    *  @param bundleNames An Array of Strings that specify the names of the resource bundles
+    *  that were compiled into the SWF.
+    *
+    *  @param useWeakReference A flag that specifyies whether the resource bundles should be
+    *  intalled into the ResourceManager using a weak reference.
+    *
+    *  @return An Array of the ResourceBundle instances that were created
+    *  and added to the ResourceManager.
      *  
+     * @see mx.core.IFlexModuleFactory
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -767,14 +790,28 @@ public interface IResourceManager extends IEventDispatcher
                                 bundleNames:Array /* of String */,
                                 useWeakReference:Boolean = false):Array;
 
-	/**
-	 *  Used only by classes which implement IFlexModuleFactory.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
+    /**
+    *  Initializes the <code>localeChain</code> property of the ResourceManager
+    *  using an algorithm that compares the operating system's list of user-preferred
+    *  locales with the list of locales available in the SWF.
+    * 
+    *  <p>For example, if the user has indicated in the operating system that she
+    *  prefers French, and the SWF was compiled for the locales en_US, fr_FR, and de_DE,
+    *  then the <code>localeChain</code> will be set so that the first locale in it
+    *  is fr_FR.</p>
+    * 
+    *  <p>This method is used only by classes that implement the IFlexModuleFactory interface.</p>
+    *
+    *  @param  compiledLocales An Array of Strings specifying the locales
+    *  for which the SWF was compiled.
+    * 
+     * @see mx.core.IFlexModuleFactory
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     function initializeLocaleChain(compiledLocales:Array):void; 
 }
 
