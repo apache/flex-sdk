@@ -140,6 +140,11 @@ CheckBox
     skinClass: ClassReference("spark.skins.mobile.CheckBoxSkin");
 }
 
+DateSpinner
+{
+	skinClass: ClassReference("spark.skins.mobile.DateSpinnerSkin");    
+}
+
 HScrollBar
 {
     skinClass: ClassReference("spark.skins.mobile.HScrollBarSkin");
@@ -216,6 +221,26 @@ SkinnableTextBase:normalWithPrompt
 SkinnableTextBase:disabledWithPrompt 
 {
     fontStyle: normal;
+}
+
+SpinnerList
+{
+	skinClass: ClassReference("spark.skins.mobile.SpinnerListSkin");    
+}
+
+SpinnerListContainer
+{
+	skinClass: ClassReference("spark.skins.mobile.SpinnerListContainerSkin");    
+}
+
+SpinnerListItemRenderer
+{
+	paddingTop : 18;
+	paddingBottom : 18;
+	paddingLeft : 45;
+	paddingRight : 45;
+	fontSize : 27;
+	textAlign : "left";
 }
 
 TabbedViewNavigatorApplication
@@ -411,6 +436,16 @@ global
         paddingTop: 16;
     }
     
+	SpinnerListItemRenderer
+	{
+		paddingTop : 12;
+		paddingBottom : 12;
+		paddingLeft : 30;
+		paddingRight : 30;
+		fontSize : 18;
+		textAlign : "left";
+	}
+	
     TextArea
     {
         paddingBottom: 6;
@@ -501,6 +536,16 @@ global
         paddingTop: 32;  
     }
     
+	SpinnerListItemRenderer
+	{
+		paddingTop : 24;
+		paddingBottom : 24;
+		paddingLeft : 60;
+		paddingRight : 60;
+		fontSize : 36;
+		textAlign : "left";
+	}
+	
     TextArea
     {
         paddingBottom: 12;
