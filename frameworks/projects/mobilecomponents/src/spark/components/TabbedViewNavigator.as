@@ -489,10 +489,10 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */ 
-    override mx_internal function backKeyHandler():void
+    override mx_internal function backKeyUpHandler():void
     {
         if (activeNavigator)
-            activeNavigator.backKeyHandler();    
+            activeNavigator.backKeyUpHandler();    
     }
     
     /**
@@ -907,7 +907,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
     /**
      *  @private
      */ 
-    override public function restoreViewData(value:Object):void
+    override public function loadViewData(value:Object):void
     {
         var savedStacks:Vector.<Object>;
         var savedSelectedIndex:Number = value.selectedIndex as Number;
@@ -924,7 +924,7 @@ public class TabbedViewNavigator extends ViewNavigatorBase implements ISelectabl
         {
             var len:Number = Math.min(savedStacks.length, length);
             for (var i:int = 0; i < len; ++i)
-                navigators[i].restoreViewData(savedStacks[i]);
+                navigators[i].loadViewData(savedStacks[i]);
         }
     }
     
