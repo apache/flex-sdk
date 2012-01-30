@@ -4407,6 +4407,74 @@ public dynamic class UIMovieClip extends MovieClip
         
         return [];
     }
+    
+    //----------------------------------
+    //  automationOwner
+    //----------------------------------
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get automationOwner():DisplayObjectContainer
+    {
+        return owner;
+    }
+    
+    //----------------------------------
+    //  automationParent
+    //----------------------------------
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get automationParent():DisplayObjectContainer
+    {
+        return parent;
+    }
+    
+    //----------------------------------
+    //  automationEnabled
+    //----------------------------------
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get automationEnabled():Boolean
+    {
+        return enabled;
+    }
+    
+    //----------------------------------
+    //  automationVisible
+    //----------------------------------
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4
+     */
+    public function get automationVisible():Boolean
+    {
+        return visible;
+    }
 
     //----------------------------------
     //  showInAutomationHierarchy
