@@ -11,7 +11,7 @@
 
 package spark.automation.tabularData
 {
-	
+	import mx.automation.Automation;
 	import mx.automation.IAutomationObject;
 	import mx.automation.IAutomationTabularData;
 	import mx.core.mx_internal;
@@ -238,7 +238,8 @@ package spark.automation.tabularData
 				// we may need to get the renderer deails for the dropdown list in a
 				// different way as no renderers are available (and hence no datagroup)
 				// itslef not present when the dropDown list is not visible.
-				trace("To be handled in SparkListBaseTabularData and it is happening in DropDownList - while getting selected item");
+				var message:String = "To be handled in SparkListBaseTabularData and it is happening in DropDownList - while getting selected item";
+				Automation.automationDebugTracer.traceMessage("SparkListBaseTabularData","getAutomationValueForData()",message);
 			}
 			
 			return [];
