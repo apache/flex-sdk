@@ -24,7 +24,7 @@ var doc = null;
 
 // info parsed from publish profile XML about what we want to change
 var playerVersionChanged = false;
-var minPlayerVersion = 9;
+var minPlayerVersion = 10;
 var asVersionChanged = false;
 var minAsVersion = 3;
 var permitDebuggingChanged = false;
@@ -178,6 +178,7 @@ function importSwcToLibrary() {
 
 	// add component to stage
 	swcCopiedtoLibrary = true;
+
 	fl.componentsPanel.addItemToDocument({x:0, y:0}, "Flex", "FlexComponentBase");
 	
 	// delete it from the stage
@@ -189,25 +190,31 @@ function importSwcToLibrary() {
 // main function for changing document
 function prepareDocument() {
 	// get document dom, bail if cannot
+
 	doc = fl.getDocumentDOM();
+
 	if (doc == null) {
 		alert("You must have a FLA open as your active document to run this command.");
 		return false;
 	}
 
-	if (doc.asVersion < 3 || parseInt(doc.getPlayerVersion()) < 9) {
-		if (!confirm("Flex Components must target Flash Player 9 and ActionScript 3.0.\n\nWould you like to change the document settings to target Flash Player 9 and ActionScript 3.0?"))
+	if (doc.asVersion < minAsVersion || parseInt(doc.getPlayerVersion()) < minPlayerVersion) {
+		if (!confirm("Flex Components must target Flash Player " + minPlayerVersion + " and ActionScript " + minAsVersion + ".\n\nWould you like to change the document settings to target Flash Player " + minPlayerVersion + " and ActionScript " + minAsVersion + "?"))
 			return false;
 	}
+
 	if (!fixPublishProfile()) {
 		return false;
 	}
+
 	if (!fixFrameRate()) {
 		return false;
 	}
+
 	if (!importSwcToLibrary()) {
 		return false;
 	}
+
 	return true;
 }
 
