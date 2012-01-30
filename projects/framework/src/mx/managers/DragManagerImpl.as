@@ -302,6 +302,12 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 			}
 		}
 
+        // Set the layoutDirection of the dragProxy and dragImage to match the dragInitiator
+        // to ensure that they will be in the right position and orientation.
+        if (dragInitiator is ILayoutDirectionElement &&
+            ILayoutDirectionElement(dragInitiator).layoutDirection == LayoutDirection.RTL)
+            dragProxy.layoutDirection = LayoutDirection.RTL;
+        
 		dragImage.setActualSize(proxyWidth, proxyHeight);
 		dragProxy.setActualSize(proxyWidth, proxyHeight);
 		
@@ -335,17 +341,8 @@ public class DragManagerImpl extends EventDispatcher implements IDragManager
 		var mouseX:Number = point.x;
 		var mouseY:Number = point.y;
 
-        // If the target's layout is rtl that means the proxy origin x
-        // is currently offset from the right edge of the dragInitiator. Fix that:
-        var originX:Number = -xOffset;
-        if (dragInitiator is ILayoutDirectionElement)
-        {
-            if (ILayoutDirectionElement(dragInitiator).layoutDirection == LayoutDirection.RTL)
-                originX += dragInitiator.getExplicitOrMeasuredWidth();
-        }
-        
         // Find the proxy origin in global space
-        var proxyOrigin:Point = DisplayObject(dragInitiator).localToGlobal(new Point(originX, -yOffset));
+        var proxyOrigin:Point = DisplayObject(dragInitiator).localToGlobal(new Point(-xOffset, -yOffset));
         proxyOrigin = DisplayObject(sandboxRoot).globalToLocal(proxyOrigin);
         
         // Set dragProxy.offset to the mouse offset within the drag proxy.
