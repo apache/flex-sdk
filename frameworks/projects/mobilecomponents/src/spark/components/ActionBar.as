@@ -978,14 +978,14 @@ public class ActionBar extends SkinnableComponent
             
             var newContentGroupProperties:uint = 0;
             
-            if (contentGroupProperties[index].content !== undefined)
+            if (contentGroupProperties[index].content != null)
             {
                 group.mxmlContent = contentGroupProperties[index].content;
                 newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
                     CONTENT_PROPERTY_FLAG, true);
             }
             
-            if (contentGroupProperties[index].layout !== undefined)
+            if (contentGroupProperties[index].layout != null)
             {
                 group.layout = contentGroupProperties[index].layout;
                 newContentGroupProperties = BitFlagUtil.update(newContentGroupProperties, 
