@@ -200,9 +200,8 @@ package spark.components
         private var _firstView:Class;
         
         /**
-         *  This property is the object to use to initialize the root screen
-         *  of the stack.  This can be a Class, instance or Factory that creates
-         *  an object that extends <code>Screen</code>.
+         *  This property is the object to use to initialize the first view
+         *  of the stack.
          */
         public function get firstView():Class
         {
@@ -564,7 +563,8 @@ package spark.components
         
         protected function orientationChangeHandler(event:StageOrientationEvent):void
         {
-            navigator.activeView.setCurrentState(navigator.activeView.getCurrentViewState(isLandscape), false);
+			if (navigator.activeView)
+            	navigator.activeView.setCurrentState(navigator.activeView.getCurrentViewState(isLandscape), false);
         }
         
         protected function applicationActivateHandler(event:Event):void
@@ -685,7 +685,7 @@ package spark.components
             if (sections == null || sections.length == 0)
             {
                 // Create the empty screen stack and initialize it with the
-                // desired firstView and initial data
+                // desired firstView and its data
                 var section:ViewNavigatorSection = new ViewNavigatorSection();
                 section.firstView = firstView;
                 section.firstViewData = firstViewData;
