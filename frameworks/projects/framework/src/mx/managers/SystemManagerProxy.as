@@ -197,7 +197,17 @@ public class SystemManagerProxy extends SystemManager
 			bridge.dispatchEvent(bridgeEvent);
 		}
 	}
-
+	
+    /**
+     *  @inheritdoc
+     * 
+     *  proxy to real system manager.
+     */  
+    override public function getVisibleApplicationRect(bounds:Rectangle = null):Rectangle
+    {
+        return _systemManager.getVisibleApplicationRect(bounds);    
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -239,8 +249,11 @@ public class SystemManagerProxy extends SystemManager
      */
     private function proxyMouseDownHandler(event:MouseEvent):void
     {
-        // Tell our parent system manager we are active.
-        SystemManager(_systemManager).fireActivatedWindowEvent(this);
+        // Tell our parent system manager we are active if our child
+        // is a focus container. If our child is not a focus manager
+        // container we will not be able to activate pop up in this proxy. 
+        if (findFocusManagerContainer(this))
+            SystemManager(_systemManager).fireActivatedWindowEvent(this);
     }
     
     /**
