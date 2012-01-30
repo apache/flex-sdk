@@ -3090,14 +3090,14 @@ public dynamic class UIMovieClip extends MovieClip
 	//  layoutDirection
 	//----------------------------------
 	
-	private var _layoutDirection:String = "inherit";
+	private var _layoutDirection:String = null;
     
     /**
      *  @inheritDoc
      */
 	public function get layoutDirection():String
 	{
-        if (_layoutDirection != "inherit")
+        if (_layoutDirection != null)
             return _layoutDirection;
         
         const parentElt:IVisualElement = parent as IVisualElement;
