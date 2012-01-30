@@ -6680,11 +6680,11 @@ public class UIComponent extends FlexSprite
     /**
      *  @private
      */
-	protected function validateTransform():void
+	protected function validateMatrix():void
 	{
         if(_layoutFeatures != null && _layoutFeatures.updatePending == true)
         {
-            applyComputedTransform();
+            applyComputedMatrix();
         }
         
         if (_maintainProjectionCenter)
@@ -6701,7 +6701,7 @@ public class UIComponent extends FlexSprite
      */
     public function validateDisplayList():void
     {
-    	validateTransform();
+    	validateMatrix();
     	
         if (invalidateDisplayListFlag)
         {
@@ -10071,7 +10071,7 @@ public class UIComponent extends FlexSprite
     /**
      * Commits the computed matrix built from the combination of the layout matrix and the transform offsets to the flash displayObject's transform.
      */
-    protected function applyComputedTransform():void
+    protected function applyComputedMatrix():void
     {
         _layoutFeatures.updatePending = false;
         if(_layoutFeatures.is3D)
