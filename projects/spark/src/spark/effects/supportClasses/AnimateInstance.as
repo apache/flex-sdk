@@ -433,10 +433,14 @@ public class FxAnimateInstance extends EffectInstance
             // knowing that they will derive their duration from their effects) and
             // actual keyframe-based MotionPaths.
             for (j = 0; j < keyframes.length; ++j)
-                duration = Math.max(duration, keyframes[j].time);
+                if (isNaN(keyframes[j].time))
+                    keyframes[j].time = duration;
+                else
+                    duration = Math.max(duration, keyframes[j].time);
 
-            mp.scaleKeyframes(keyframes[keyframes.length-1].time);
         }
+        for (i = 0; i < animationProperties.length; ++i)
+            animationProperties[i].scaleKeyframes(duration);
 
         animation = new Animation(duration);
         animation.animationProperties = animationProperties;
