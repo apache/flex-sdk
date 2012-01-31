@@ -241,8 +241,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  The base class for skinnable components, such as the Spark TextInput
  *  and TextArea, that include an instance of IEditableText in their skin
  *  to provide text display, scrolling, selection, and editing.
- *  IEditableText is RichEditableText for the Spark theme and StyleableTextField
- *  for the Mobile theme.
+ *  By default, IEditableText is RichEditableText for the Spark theme and StyleableStageText
+ *  for the Mobile theme. StyleableTextField is also available for the Mobile theme.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -462,7 +462,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  The IEditableText that may be present
      *  in any skin assigned to this component.
      *  This is RichEditableText for the Spark theme
-     *  and StyleableTextField for the Mobile theme.
+     *  and StyleableStageText for the Mobile theme.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -906,10 +906,10 @@ public class SkinnableTextBase extends SkinnableComponent
      *  spark.components.RichEditableText.editable</b></p>
      *
      *  <p><b>For the Mobile theme, see
-     *  spark.components.supportClasses.StyleableTextField.editable</b></p>
+     *  spark.components.supportClasses.StyleableStageText.editable</b></p>
      * 
      *  @see spark.components.RichEditableText#editable
-     *  @see spark.components.supportClasses.StyleableTextField#editable
+     *  @see spark.components.supportClasses.StyleableStageText#editable
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1132,10 +1132,10 @@ public class SkinnableTextBase extends SkinnableComponent
      *  spark.components.RichEditableText.selectable</b></p>
      *
      *  <p><b>For the Mobile theme, see
-     *  spark.components.supportClasses.StyleableTextField.selectable</b></p>
+     *  spark.components.supportClasses.StyleableStageText.selectable</b></p>
      * 
      *  @see spark.components.RichEditableText#selectable
-     *  @see spark.components.supportClasses.StyleableTextField#selectable
+     *  @see spark.components.supportClasses.StyleableStageText#selectable
      *  
      *  @default true
      * 
@@ -1192,10 +1192,10 @@ public class SkinnableTextBase extends SkinnableComponent
      *  spark.components.RichEditableText.selectionActivePosition</b></p>
      *
      *  <p><b>For the Mobile theme, see
-     *  spark.components.supportClasses.StyleableTextField.selectionActivePosition</b></p>
+     *  spark.components.supportClasses.StyleableStageText.selectionActivePosition</b></p>
      * 
      *  @see spark.components.RichEditableText#selectionActivePosition
-     *  @see spark.components.supportClasses.StyleableTextField#selectionActivePosition
+     *  @see spark.components.supportClasses.StyleableStageText#selectionActivePosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1225,10 +1225,10 @@ public class SkinnableTextBase extends SkinnableComponent
      *  spark.components.RichEditableText.selectionAnchorPosition</b></p>
      *
      *  <p><b>For the Mobile theme, see
-     *  spark.components.supportClasses.StyleableTextField.selectionAnchorPosition</b></p>
+     *  spark.components.supportClasses.StyleableStageText.selectionAnchorPosition</b></p>
      * 
      *  @see spark.components.RichEditableText#selectionAnchorPosition
-     *  @see spark.components.supportClasses.StyleableTextField#selectionAnchorPosition
+     *  @see spark.components.supportClasses.StyleableStageText#selectionAnchorPosition
      *   
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1312,10 +1312,10 @@ public class SkinnableTextBase extends SkinnableComponent
      *  spark.components.RichEditableText.text</b></p>
      *
      *  <p><b>For the Mobile theme, see
-     *  spark.components.supportClasses.StyleableTextField.text</b></p>
+     *  spark.components.supportClasses.StyleableStageText.text</b></p>
      * 
      *  @see spark.components.RichEditableText#text
-     *  @see spark.components.supportClasses.StyleableTextField#text
+     *  @see spark.components.supportClasses.StyleableStageText#text
      * 
      *  @default ""
      *  
@@ -1391,7 +1391,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *      <li><code>"all"</code> - capitalize every letter</li>
      *  </ul>
      *
-     *  <p><b>For the Desktop theme, this is not supported.</b></p>
+     *  <p><b>For the Spark theme, this is not supported.</b></p>
      * 
      *  @default "none"
      * 
@@ -1440,7 +1440,7 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  Hint indicating whether a soft keyboard should use its auto-correct
      *  behavior, if supported.
-     *  <p><b>For the Desktop theme, this is not supported.</b></p>
+     *  <p><b>For the Spark theme, this is not supported.</b></p>
      * 
      *  @default true
      *  
@@ -1504,7 +1504,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *          entered text should be searched for</li>
      *  </ul>
      *
-     *  <p><b>For the Desktop theme, this is not supported.</b></p>
+     *  <p><b>For the Spark theme, this is not supported.</b></p>
      * 
      *  @default "default"
      *  
@@ -1571,7 +1571,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *          '.com'</li>
      *  </ul>
      *
-     *  <p><b>For the Desktop theme, this is not supported.</b></p>
+     *  <p><b>For the Spark theme, this is not supported.</b></p>
      * 
      *  @default "default" 
      * 
