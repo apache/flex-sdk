@@ -47,7 +47,7 @@ public class GridLayout extends LayoutBase
     {
         super();
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Property Overrides
@@ -105,91 +105,35 @@ public class GridLayout extends LayoutBase
     }
     
     /**
-     *  @private
+	 *  @private
+     *  Computes new values for the grid's measuredWidth,Height and 
+	 *  measuredMinWidth,Height properties.  
+     * 
+     *  If grid.requestedRowCount is GTE 0, then measuredHeight is estimated 
+	 *  content height for as many rows.  Otherwise the measuredHeight is the estimated 
+	 *  content height for all rows.  The measuredWidth calculation is similar.  The 
+	 *  measuredMinWidth,Height properties are also similar however if the corresponding 
+	 *  requestedMin property isn't specified, then the measuredMin size is the same 
+	 *  as the measured size.
      */
     override public function measure():void
     {
         if (!grid)
             return;
         
-        var measuredWidth:Number = 0;
-        var measuredHeight:Number = 0;
+        var measuredWidth:Number = gridDimensions.getContentWidth(grid.requestedColumnCount);
+        var measuredHeight:Number = gridDimensions.getContentHeight(grid.requestedRowCount);
+		var measuredMinWidth:Number = gridDimensions.getContentHeight(grid.requestedMinColumnCount);
+		var measuredMinHeight:Number = gridDimensions.getContentHeight(grid.requestedMinRowCount);
+		
 
-        if (!isNaN(grid.explicitWidth))
-        {
-            measuredWidth = grid.explicitWidth;
-        }
-        else
-        {
-            const columns:IList = grid.columns;
-            const numColumns:int = columns ? columns.length : 0;
-            
-            if (numColumns)
-            {
-                const defaultColumnWidth:Number =
-                    !isNaN(typicalLayoutElement.getLayoutBoundsWidth()) ? 
-                    typicalLayoutElement.getLayoutBoundsWidth() :
-                    typicalLayoutElement.getPreferredBoundsWidth();
-                
-                const columnGap:Number = gridDimensions.columnGap;
-                
-                for (var i:int = 0; i < numColumns; i++)
-                {
-                    var c:GridColumn = columns.getItemAt(i) as GridColumn;
-                    if (c && c.visible)
-                    {
-                        if (!isNaN(c.width))
-                            measuredWidth += c.width + columnGap;
-                        else
-                            measuredWidth += defaultColumnWidth + columnGap;
-                    }
-                }
-                
-                if (measuredWidth > 0)
-                    measuredWidth -= columnGap;
-            }
-        }
-        
-        if (!isNaN(grid.explicitHeight))
-        {
-            measuredHeight = grid.explicitWidth;
-        }
-        else
-        {
-            const rowCount:int = grid.dataProvider ? grid.dataProvider.length : 0;
-            
-            if (rowCount)
-            {
-                const rowGap:Number = gridDimensions.rowGap;
-                const defaultRowHeight:Number = 
-                    typicalLayoutElement.getPreferredBoundsHeight();
-    
-                measuredHeight = rowCount * (defaultRowHeight + rowGap);
-                
-                // One less row gap if there isn't a column header bar.
-                const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
-                if (!columnHeaderBar || !columnHeaderBar.visible)
-                    measuredHeight -= rowGap;
-            }
-        }
-                    
-        // ToDo:(cframpto) how is this suppose to work if the DataGrid
-        // doesn't have an explicit size and the measuredHeight is large?
-                
-        measuredWidth = 600;
-        measuredHeight = 480;
-        
         // Use Math.ceil() to make sure that if the content partially occupies
         // the last pixel, we'll count it as if the whole pixel is occupied.
         
         grid.measuredWidth = Math.ceil(measuredWidth);    
         grid.measuredHeight = Math.ceil(measuredHeight);
-        
-        // Not used if virtual layout so don't bother to calculate.
-        grid.measuredMinWidth = grid.measuredWidth;    
-        grid.measuredMinHeight = grid.measuredHeight; 
-        
-       //trace("GridLayout.measure", grid.measuredWidth, grid.measuredHeight);        
+        grid.measuredMinWidth = Math.ceil(measuredMinWidth);    
+        grid.measuredMinHeight = Math.ceil(measuredMinHeight);
     }
     
     /**
@@ -247,8 +191,8 @@ public class GridLayout extends LayoutBase
         // Update the content size.  Make sure that if the content spans partially 
         // over a pixel to the right/bottom, the content size includes the whole pixel.
         
-        const contentWidth:Number = Math.ceil(gridDimensions.contentWidth);
-        const contentHeight:Number = Math.ceil(gridDimensions.contentHeight);
+        const contentWidth:Number = Math.ceil(gridDimensions.getContentWidth());
+        const contentHeight:Number = Math.ceil(gridDimensions.getContentHeight());
         grid.setContentSize(contentWidth, contentHeight);        
     }
     
@@ -544,7 +488,6 @@ public class GridLayout extends LayoutBase
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
                 layoutGridElement(renderer, cellX, cellY, colWidth, rowHeight);
                 
-                // TBD(hmuller): need a local preferred bounds method once layoutGridElement supports constraints
                 gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 cellX += colWidth + colGap;
             }
