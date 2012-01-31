@@ -424,10 +424,10 @@ public class ButtonBarBase extends ListBase
         if (newIndex == selectedIndex)
         {
             if (!requireSelection)
-                selectedIndex = NO_SELECTION;
+                setSelectedIndex(NO_SELECTION, true);
         }
         else
-            selectedIndex = newIndex;
+            setSelectedIndex(newIndex, true);
         
         // Changing the selectedIndex typically causes a call to itemSelected() at 
         // commitProperties() time.   We'll update the caretIndex then.  If this 
