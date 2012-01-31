@@ -12,12 +12,12 @@
 package
 {
 
-internal class Flex4Classes
+internal class SparkClasses
 {
 
 /**
  *  @private
- *  This class is used to link additional classes into flex4.swc
+ *  This class is used to link additional classes into spark.swc
  *  beyond those that are found by dependecy analysis starting
  *  from the classes specified in manifest.xml.
  *  For example, Button does not have a reference to ButtonSkin,
