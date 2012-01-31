@@ -5,7 +5,7 @@
     xmlns:mx="library://ns.adobe.com/flex/halo"
     xmlns:s="library://ns.adobe.com/flex/spark" >
     
-    <mx:Box borderThickness="2" borderStyle="solid" x="10" y="10">
+    <mx:Box borderStyle="solid" x="10" y="10">
         <s:HGroup>
             <s:DataGroup id="viewport" left="10" top="10"
                          clipAndEnableScrolling="true"
