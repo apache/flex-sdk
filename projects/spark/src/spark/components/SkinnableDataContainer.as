@@ -371,6 +371,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
      *  @productversion Flex 4
      */
     [Bindable("dataProviderChanged")]
+    [Inspectable(category="Data")]
     
     public function get dataProvider():IList
     {       
@@ -395,6 +396,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
     //----------------------------------
     //  itemRenderer
     //----------------------------------
+    
+    [Inspectable(category="Data")]
     
     /**
      *  @copy spark.components.DataGroup#itemRenderer
@@ -430,6 +433,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
     //  itemRendererFunction
     //----------------------------------
     
+    [Inspectable(category="Data")]
+    
     /**
      *  @copy spark.components.DataGroup#itemRendererFunction
      *  
@@ -463,6 +468,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
     //----------------------------------
     //  layout
     //----------------------------------
+    
+    [Inspectable(category="General")]
     
     /**
      *  @copy spark.components.supportClasses.GroupBase#layout
@@ -500,6 +507,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
     //  typicalItem
     //----------------------------------
 
+    [Inspectable(category="Data")]
+    
     /**
      *  @copy spark.components.DataGroup#typicalItem
      *  
