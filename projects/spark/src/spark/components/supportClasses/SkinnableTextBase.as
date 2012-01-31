@@ -23,7 +23,6 @@ import mx.core.IIMESupport;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
-import mx.styles.StyleProxy;
 import mx.utils.BitFlagUtil;
 
 import spark.components.TextSelectionHighlighting;
@@ -236,16 +235,6 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @private
      */
     private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 12;
-
-    /**
-     *  @private
-     */
-    private static const paddingStyleFilters:Object = {
-        "paddingLeft":"paddingLeft",
-        "paddingTop":"paddingTop",
-        "paddingRight":"paddingRight",
-        "paddingBottom":"paddingBottom"
-    }
         
     //--------------------------------------------------------------------------
     //
@@ -821,9 +810,6 @@ public class SkinnableTextBase extends SkinnableComponent
 
             textDisplay.addEventListener(FlexEvent.VALUE_COMMIT,
                                          textDisplay_valueCommitHandler);
-            
-            // Proxy padding styles to the textDisplay
-            textDisplay.styleName = new StyleProxy(this, paddingStyleFilters);
         }
     }
 
