@@ -448,8 +448,9 @@ public class SkinnableComponent extends UIComponent
                 
                 if (focusSkinClass)
                     focusObj = new focusSkinClass();
-                    
-                super.addChildAt(focusObj, 0);
+                
+                if (focusObj)
+                    super.addChildAt(focusObj, 0);
             }
             if (focusObj && "focusObject" in focusObj)
                 focusObj["focusObject"] = this;
