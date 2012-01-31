@@ -60,9 +60,12 @@ public class PanelAccImpl extends AccImpl
 
     /**
      *  @private
-     *  Creates  Panel's AccessibilityImplementation object.
-     *  This method is called from UIComponent's
-     *  initializeAccessibility() method.
+     *  Creates Panel's AccessibilityImplementation object.
+	 *  This method is called from Panel's
+	 *  partAdded() method, not its initializeAccessibility() method,
+	 *  because the PanelAccImpl needs to be attached
+	 *  to the Panel's titleBar.
+	 *  The partRemoved() method removes the acc impl from the titleDisplay.
      */
     mx_internal static function createAccessibilityImplementation(
                                 component:UIComponent):void
@@ -73,11 +76,12 @@ public class PanelAccImpl extends AccImpl
         // the AccessibilityImplementations of the Panel's children
         // would be ignored.
         var titleDisplay:UIComponent = Panel(component).titleDisplay;
-        
         if (titleDisplay)
         {
-            titleDisplay.accessibilityImplementation = new PanelAccImpl(component);
-            if (Panel(component).tabIndex > 0 && titleDisplay.tabIndex == -1)
+            titleDisplay.accessibilityImplementation =
+				new PanelAccImpl(component);
+            
+			if (Panel(component).tabIndex > 0 && titleDisplay.tabIndex == -1)
                 titleDisplay.tabIndex = Panel(component).tabIndex;
         }
     }
