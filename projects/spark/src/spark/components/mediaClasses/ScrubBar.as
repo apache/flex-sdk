@@ -87,14 +87,6 @@ public class VideoPlayerScrubBar extends HSlider
     
     //--------------------------------------------------------------------------
     //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-
-    private var tempTrackSize:Number = NaN;
-    
-    //--------------------------------------------------------------------------
-    //
     // Properties
     //
     //--------------------------------------------------------------------------
@@ -162,41 +154,16 @@ public class VideoPlayerScrubBar extends HSlider
             
             invalidateDisplayList();
         }
-        else if (instance == track)
-        {
-            tempTrackSize = NaN;                                      
-        }
     }
     
     /**
      *  @private
      */
-    override protected function updateDisplayList(unscaledWidth:Number, 
-                                                  unscaledHeight:Number):void
+    override protected function completeTrackLayout():void
     {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-
+        super.completeTrackLayout();
         sizeBufferedArea(valueToPosition(bufferedValue) + thumbSize);
         sizePlayedArea(valueToPosition(value) + thumbSize);
-    }
-    
-    /**
-     *  @private
-     *  Force the component to set itself up correctly now that the
-     *  track is completely loaded.
-     */
-    override protected function track_updateCompleteHandler(event:Event):void
-    {
-        super.track_updateCompleteHandler(event);
-        
-        //TODO: Consider the case where the track moves (like the move
-        //effect). Perhaps this handler should run every time... 
-        if (trackSize != tempTrackSize)
-        {
-            sizeBufferedArea(valueToPosition(bufferedValue) + thumbSize);
-            sizePlayedArea(valueToPosition(value) + thumbSize);
-            tempTrackSize = trackSize;
-        }
     }
     
     /**
@@ -212,7 +179,7 @@ public class VideoPlayerScrubBar extends HSlider
     protected function sizeBufferedArea(bufferedAreaSize:Number):void
     {
         if (bufferedArea)
-            DisplayObject(bufferedArea).width = Math.round(bufferedAreaSize);
+            bufferedArea.setLayoutBoundsSize(Math.round(bufferedAreaSize), NaN);
     }
     
     /**
@@ -228,7 +195,7 @@ public class VideoPlayerScrubBar extends HSlider
     protected function sizePlayedArea(playedAreaSize:Number):void
     {
         if (playedArea)
-            DisplayObject(playedArea).width = Math.round(playedAreaSize);
+            playedArea.setLayoutBoundsSize(Math.round(playedAreaSize), NaN);            
     }
     
     /**
