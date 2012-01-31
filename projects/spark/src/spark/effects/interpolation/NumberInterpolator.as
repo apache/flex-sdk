@@ -95,14 +95,14 @@ public class NumberInterpolator implements IInterpolator
     public function interpolate(fraction:Number, startValue:Object, 
         endValue:Object):Object
     {
-        if ((startValue is Number && isNaN(Number(startValue))) || 
-            (endValue is Number && isNaN(Number(endValue))))
-            throw new Error(resourceManager.getString("sparkEffects", "cannotCalculateValue", [startValue, endValue]));
         // Quick test for 0 or 1 to avoid round-off error on either end
         if (fraction == 0)
             return startValue;
         else if (fraction == 1)
             return endValue;
+        if ((startValue is Number && isNaN(Number(startValue))) || 
+            (endValue is Number && isNaN(Number(endValue))))
+            throw new Error(resourceManager.getString("sparkEffects", "cannotCalculateValue", [startValue, endValue]));
         return Number(startValue) + (fraction * (Number(endValue) - Number(startValue)));
     }
     
