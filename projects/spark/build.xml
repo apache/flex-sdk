@@ -59,7 +59,7 @@
 			<source-path path-element="${basedir}/src"/>
 			<library-path />
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
-                <include name="player/${playerglobal.version}/playerglobal.swc"/>
+                <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
                 <include name="text_edit.swc"/>
                 <include name="text_flex.swc"/>
