@@ -263,7 +263,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *    editable="true"
  *    imeMode="null"  <b>[Spark theme only]</b>
  *    maxChars="0"
- *    prompt="null"  <b>[Spark theme only]</b>
+ *    prompt="null"
  *    restrict="null"
  *    returnLabelKey="default"  <b>[Mobile theme only]</b>
  *    selectable="true"
@@ -796,8 +796,6 @@ public class SkinnableTextBase extends SkinnableComponent
      *  </pre>
      *  </p>
      *
-     *  <p><b>For the Mobile theme, this is not supported.</b></p>
-     * 
      *  @default null
      *
      *  @langversion 3.0
