@@ -56,7 +56,7 @@ import mx.core.IButton;
  *        </tr>
  *     </table>
  *
- *  @mxml <p>The <code>&lt;Button&gt;</code> tag inherits all of the tag 
+ *  @mxml <p>The <code>&lt;s:Button&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
