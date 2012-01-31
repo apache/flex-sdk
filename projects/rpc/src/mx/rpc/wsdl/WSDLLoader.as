@@ -139,7 +139,7 @@ public class WSDLLoader extends XMLLoader
             }
             else
             {
-                wsdl = new WSDL(xml);
+                wsdl = new WSDL(xml, topLevelWSDL ? topLevelWSDL.schemaManager : null);
                 // FIXME: An import without a valid namespace is an error!
                 parent.addImport(ns, wsdl);
             }
@@ -252,8 +252,13 @@ public class WSDLLoader extends XMLLoader
 
             schemaLoader.schemaImports(schema, parentLocation, schemaManager);
 
-            if (wsdl != topLevelWSDL)
-                topLevelWSDL.addSchema(schema);
+            // Fix for SDK-18926. Commenting out the following two lines that would add
+            // the imported schema to the parent wsdl's SchemaManager. topLevelWSDL already
+            // has information about this schema, since the same SchemaManager instance is
+            // used across nested wsdls (see SDK-18926 comment in WSDL.as). Adding this
+            // schema again would now cause a loop.
+//            if (wsdl != topLevelWSDL)
+//                topLevelWSDL.addSchema(schema);
         }
     }
 
