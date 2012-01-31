@@ -712,40 +712,6 @@ public class FxApplication extends FxContainer
             }
         }
     }
-
-    /**
-     *  @private
-     *  Application also handles themeColor defined
-     *  on the global selector.
-     */
-    override mx_internal function initThemeColor():Boolean
-    {
-        var result:Boolean = super.initThemeColor();
-        
-        if (!result)
-        {
-            var tc:Object;  // Can be number or string
-            var rc:Number;
-            var sc:Number;
-            var globalSelector:CSSStyleDeclaration = 
-                StyleManager.getStyleDeclaration("global");
-            
-            if (globalSelector)
-            {
-                tc = globalSelector.getStyle("themeColor");
-                rc = globalSelector.getStyle("rollOverColor");
-                sc = globalSelector.getStyle("selectionColor");
-            }
-            
-            if (tc && isNaN(rc) && isNaN(sc))
-            {
-                setThemeColor(tc);
-            }
-            result = true;
-        }
-        
-        return result;
-    }
     
     /**
      *  @private
