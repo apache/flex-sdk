@@ -18,6 +18,7 @@ import flash.geom.Point;
 import flash.ui.Keyboard;
 import mx.controls.Button;
 import mx.controls.ButtonPhase;
+import mx.core.FlexVersion;
 import mx.core.mx_internal;
 import mx.events.SliderEvent;
 import mx.managers.ISystemManager;
@@ -156,8 +157,11 @@ public class SliderThumb extends Button
 	{
 		super.measure();
 
-		measuredWidth = 12;
-		measuredHeight = 12;
+		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+		{
+			measuredWidth = 12;
+			measuredHeight = 12;
+		}
 	}
 	
 	/**
