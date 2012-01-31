@@ -29,8 +29,8 @@ import mx.core.DesignLayer;
 import mx.core.FlexSprite;
 import mx.core.IFlexModule;
 import mx.core.IFlexModuleFactory;
-import mx.core.IID;
 import mx.core.IInvalidating;
+import mx.core.IMXMLObject;
 import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
@@ -58,7 +58,7 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 public class SpriteVisualElement extends FlexSprite
-    implements IVisualElement, IID, IFlexModule
+    implements IVisualElement, IMXMLObject, IFlexModule
 {
     /**
      *  Constructor.
@@ -1810,6 +1810,25 @@ public class SpriteVisualElement extends FlexSprite
     //  Methods
     //
     //--------------------------------------------------------------------------
+
+	/**
+	 *  Called automatically by the MXML compiler when the SpriteVisualElement
+	 *  is created using an MXML tag.
+	 *  If you create the SpriteVisualElement through ActionScript you 
+	 *  must set the <code>id</code> property manually.
+	 *
+	 *  @param document The MXML document containing this SpriteVisualElement (not used).
+	 *  @param id The MXML id for this SpriteVisualElement.
+	 *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+	 */
+	public function initialized(document:Object, id:String):void
+	{
+		this.id = id;
+	}
 
     /**
      * @private
