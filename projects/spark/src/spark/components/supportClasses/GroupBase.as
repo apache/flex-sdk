@@ -92,7 +92,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
 
 /**
- *  Color of the fill of an item renderer
+ *  Color of the fill of an item renderer.
  *   
  *  @default 0xFFFFFF
  *  
@@ -114,7 +114,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="disabledAlpha", type="Number", inherit="no", theme="spark")]
 
 /**
- *  Color of focus ring when the component is in focus
+ *  Color of focus ring when the component is in focus.
  *   
  *  @default 0x70B2EE
  *  
@@ -126,7 +126,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  Color of the highlights when the mouse is over the component
+ *  Color of the highlights when the mouse is over the component.
  *   
  *  @default 0xCEDBEF
  *  
@@ -139,7 +139,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
- *  the arrow of a scroll button
+ *  the arrow of a scroll button.
  *   
  *  @default 0x000000
  * 
