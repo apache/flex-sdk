@@ -130,7 +130,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  /&gt;
  *  </pre>
  *
- *  @see spark.skins.default.ListSkin
+ *  @see spark.skins.spark.ListSkin
  *
  *  @includeExample examples/ListExample.mxml
  *  
