@@ -47,7 +47,9 @@ public dynamic class AsyncToken extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructs an instance of the token with the specified message.
+     * Constructs an instance of the token with the specified message.
+     *
+     * @param message The message with which the token is associated.
      */
     public function AsyncToken(message:IMessage)
     {
