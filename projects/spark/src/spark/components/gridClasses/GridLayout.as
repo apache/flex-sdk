@@ -502,7 +502,10 @@ public class GridLayout extends LayoutBase
 			
             var column:GridColumn = getGridColumn(columnIndex);
             if (!isNaN(column.width))
+            {
                 cellWidth = column.width;
+                gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
+            }
             
             if (isNaN(cellWidth) || isNaN(cellHeight))
             {
@@ -1490,7 +1493,7 @@ public class GridLayout extends LayoutBase
     {
         const rowIndex:int = grid.caretRowIndex;
         const colIndex:int = grid.caretColumnIndex;
-        const factory:IFactory = grid.caretIndicator;        
+        const factory:IFactory = grid.caretIndicator; 
         caretIndicator = layoutIndicator(container, factory, caretIndicator, rowIndex, colIndex);        
     }
     
@@ -1814,7 +1817,7 @@ public class GridLayout extends LayoutBase
         
         if (elt is DefaultGridItemRenderer)
         {
-            if (!isNaN(width) || !isNaN(height))            
+            if (!isNaN(width) || !isNaN(height)) 
                 elt.setLayoutBoundsSize(width, height);
             DefaultGridItemRenderer(elt).validateNow();
         }
