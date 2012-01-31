@@ -15,11 +15,13 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
+import flash.sampler.NewObjectSample;
 
 import mx.core.IDataRenderer;
 import mx.core.IVisualElement;
 import mx.core.LayoutDirection;
 import mx.core.mx_internal;
+import mx.utils.PopUpUtil;
 
 import spark.components.supportClasses.SliderBase;
 
@@ -163,32 +165,28 @@ public class HSlider extends SliderBase
         
         if (tipAsDisplayObject && thumb)
         {
-            const tipWidth:Number = tipAsDisplayObject.width;
-            var relX:Number = thumb.getLayoutBoundsX() - (tipWidth - thumb.getLayoutBoundsWidth()) / 2;
-
             // If this component's coordinate system is RTL (x increases to the right), then
             // getLayoutBoundsX() returns the right edge, not the left.
+            // We are working in thumb.parent coordinates and we assume that there's no scale factor
+            // between the tooltip and the thumb.parent.
+            const tipWidth:Number = tipAsDisplayObject.width;
+            var relX:Number = thumb.getLayoutBoundsX() - (tipWidth - thumb.getLayoutBoundsWidth()) / 2;
             if (layoutDirection == LayoutDirection.RTL)
                 relX += tipAsDisplayObject.width;
             
-            var o:Point = new Point(relX, initialPosition.y);
-            var r:Point = thumb.parent.localToGlobal(o);  
-            
-            // Get the screen bounds
-            var screenBounds:Rectangle = systemManager.getVisibleApplicationRect(null, true);
             // Get the tips bounds. We only care about the dimensions.
             var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
-            
-                // Make sure the tip doesn't exceed the bounds of the screen
-                r.x = Math.floor( Math.max(screenBounds.left, 
-                                    Math.min(screenBounds.right - tipBounds.width, r.x)));
-                r.y = Math.floor( Math.max(screenBounds.top, 
-                                    Math.min(screenBounds.bottom - tipBounds.height, r.y)));
-            
-            r = tipAsDisplayObject.parent.globalToLocal(r);
-            
-            tipAsDisplayObject.x = r.x;
-            tipAsDisplayObject.y = r.y;
+
+            // Ensure that we don't overlap the screen
+            var pt:Point = PopUpUtil.positionOverComponent(thumb.parent,
+                                                           systemManager,
+                                                           tipBounds.width, 
+                                                           tipBounds.height,
+                                                           NaN,
+                                                           null,
+                                                           new Point(relX, initialPosition.y));
+            tipAsDisplayObject.x = Math.floor(pt.x);
+            tipAsDisplayObject.y = Math.floor(pt.y);
         }
     }
 }
