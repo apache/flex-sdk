@@ -265,6 +265,12 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
     //  selectedValue
     //----------------------------------
 
+    /**
+     *  @private
+     *  Storage for the selectedValue property.
+     */
+    private var _selectedValue:Object;
+
     [Bindable("change")]
     [Bindable("valueCommit")]
     [Inspectable(category="General")]
@@ -303,6 +309,11 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     public function set selectedValue(value:Object):void
     {
+        // The rbg might set the selectedValue before the radio buttons are
+        // initialized and inserted in the group.  This will hold the selected 
+        // value until it can be put in the group.
+        _selectedValue = value;
+        
         var n:int = numRadioButtons;
         for (var i:int = 0; i < n; i++)
         {
@@ -311,11 +322,13 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                 radioButton.label == value)
             {
                 changeSelection(i, false);
+                _selectedValue = null;
+                
+                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+
                 break;
             }
         }
-
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
 
     //----------------------------------
@@ -450,6 +463,10 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         for (var i:int = 0; i < radioButtons.length; i++)
             radioButtons[i].indexNumber = i;
         
+        // There is a pending selectedValue.  See if we can set it now.
+        if (_selectedValue != null)
+            selectedValue = _selectedValue;
+                
         // If this radio button is selected, then it becomes the selection
         // for the group.
         if (instance.selected == true)
