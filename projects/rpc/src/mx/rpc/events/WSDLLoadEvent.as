@@ -18,8 +18,8 @@ import mx.rpc.wsdl.WSDL;
 [ExcludeClass]
 
 /**
- *  The WSDLLoadEvent class represents the event object for the event dispatched 
- *  when a WSDL XML document has loaded successfully.
+ * The WSDLLoadEvent class represents the event object for the event dispatched 
+ * when a WSDL XML document has loaded successfully.
  */
 public class WSDLLoadEvent extends XMLLoadEvent
 {
