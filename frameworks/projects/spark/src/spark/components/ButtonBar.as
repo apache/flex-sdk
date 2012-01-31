@@ -11,7 +11,6 @@
 
 package mx.components
 {
-import flash.display.DisplayObject;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
@@ -19,6 +18,7 @@ import flash.ui.Keyboard;
 
 import mx.components.baseClasses.FxListBase;
 import mx.core.IFactory;
+import mx.core.IVisualElement;
 import mx.events.ItemExistenceChangedEvent;
 import mx.managers.IFocusManagerComponent;
 
@@ -121,13 +121,6 @@ public class FxButtonBar extends FxListBase
         {
             if ("selected" in renderer)
                 renderer.selected = selected;
-            else
-            {
-                // TODO: localize below (and other messages)
-                throw new Error("The item renderer needs to support the \"selected\" property " + 
-                        "for selection to work.  An easy way to accomplish this is by wrapping " + 
-                        "your component in a DefaultComplexItemRenderer");
-            }
         }
     }
         
@@ -228,7 +221,7 @@ public class FxButtonBar extends FxListBase
      */
     private function item_clickHandler(event:MouseEvent):void
     {
-        var index:int = dataGroup.getRendererItem(event.currentTarget);
+        var index:int = dataGroup.getRendererItem(event.currentTarget as IVisualElement);
 		
 		selectedIndex = index;
     }
@@ -245,7 +238,7 @@ public class FxButtonBar extends FxListBase
 		var renderer:Object;
 
 		currentButton = focusManager.getFocus();
-		index = dataGroup.getRendererItem(currentButton);
+		index = dataGroup.getRendererItem(currentButton as IVisualElement);
 
 		var n:int = dataProvider.length;
 		var zz:int = 0;
@@ -275,7 +268,7 @@ public class FxButtonBar extends FxListBase
             {
 				focusManager.showFocusIndicator = true;
 				currentButton = focusManager.getFocus();
-		        index = dataGroup.getRendererItem(currentButton);
+		        index = dataGroup.getRendererItem(currentButton as IVisualElement);
 				if (index > 0)
 				{
 					renderer = dataGroup.getItemRenderer(index-1);
@@ -289,7 +282,7 @@ public class FxButtonBar extends FxListBase
             {
 				focusManager.showFocusIndicator = true;
 				currentButton = focusManager.getFocus();
-		        index = dataGroup.getRendererItem(currentButton);
+		        index = dataGroup.getRendererItem(currentButton as IVisualElement);
 				if (index < dataProvider.length - 1)
 				{
 					renderer = dataGroup.getItemRenderer(index+1);
