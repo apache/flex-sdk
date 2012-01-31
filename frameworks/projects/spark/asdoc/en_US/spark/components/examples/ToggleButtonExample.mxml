@@ -1,39 +1,34 @@
 <?xml version="1.0"?>
 <!-- Simple example to demonstrate the Spark ToggleButton control -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo">
+
     <fx:Script>
         <![CDATA[
-
-            import spark.components.Button;
-            import flash.events.Event;
-
             // Event handler function to print a message
-            // describing the FxToggleButton selected state.
-            // Toggle the fontWeight of the Label between bold and normal
-            private function printMessage(event:Event):void  {
-                if (event.target.selected){
+            // describing the Spark ToggleButton selected state.
+            // Toggle the fontWeight of the SimpleText between bold and normal
+            private function printMessage(evt:Event):void  {
+                if (evt.target.selected){
                     message.text += "fontWeight: bold" + "\n";
-                    lbl.setStyle('fontWeight', 'bold');
-                    togBtn.label = 'Bold';
-                }
-                else{
+                    lbl.setStyle("fontWeight", "bold");
+                    togBtn.label = "Bold";
+                } else{
                     message.text += "fontWeight: normal" + "\n";
-                    lbl.setStyle('fontWeight', 'normal');
-                    togBtn.label = 'Normal';
+                    lbl.setStyle("fontWeight", "normal");
+                    togBtn.label = "Normal";
                 }
             }
         ]]>
     </fx:Script>
 
-    <mx:Panel title="Spark ToggleButton Control Example" height="75%" width="75%"
-        horizontalCenter="0" verticalCenter="0" paddingTop="10" paddingBottom="10"
-        paddingLeft="10" paddingRight="10">
+    <s:Panel title="Spark ToggleButton Control Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0">
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:ToggleButton id="togBtn" label="Normal" click="printMessage(event);" />
+            <s:SimpleText id="lbl" text="Label" />
+            <s:TextArea id="message" height="100%" width="100%" color="#0000FF" />
+        </s:VGroup>
+    </s:Panel>
 
-            <s:VGroup>
-                <s:ToggleButton id="togBtn" label="Normal" click="printMessage(event);"/>
-                <mx:Label id="lbl" text="Label" />
-            </s:VGroup>
-
-            <s:TextArea id="message" height="100%" width="100%" color="#0000FF"/>
-    </mx:Panel>
 </s:Application>
