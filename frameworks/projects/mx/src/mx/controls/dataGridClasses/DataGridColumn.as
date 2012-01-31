@@ -298,21 +298,8 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      * Holds the last recorded value of the module factory used to create the font.
      */
     private var oldEmbeddedFontContext:IFlexModuleFactory = null;
+    private var oldHeaderEmbeddedFontContext:IFlexModuleFactory = null;
 
-    /**
-     *  @private
-     * 
-     *  true if font properties do not need to be set.
-     */
-    private var fontPropertiesSet:Boolean = false;
-    
-    /**
-     *  @private
-     * True if createInFontContext has been called.
-     */
-    private var hasFontContextBeenSaved:Boolean = false;
-     
-        
     /**
      *  @private
      * 
@@ -368,6 +355,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  Storage for the itemRenderer property.
      */
     private var _itemRenderer:IFactory;
+    private var _contextItemRenderer:IFactory;
 
     [Bindable("itemRendererChanged")]
     [Inspectable(category="Other")]
@@ -404,6 +392,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         {
             owner.invalidateList();
             owner.columnRendererChanged(this);
+            _contextItemRenderer = null;
         }
 
         dispatchEvent(new Event("itemRendererChanged"));
@@ -853,6 +842,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  Storage for the headerRenderer property.
      */
     private var _headerRenderer:IFactory;
+    private var _contextHeaderRenderer:IFactory;
 
     [Bindable("headerRendererChanged")]
     [Inspectable(category="Other")]
@@ -889,6 +879,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         {
             owner.invalidateList();
             owner.columnRendererChanged(this);
+            _contextHeaderRenderer = null;
         }
 
         dispatchEvent(new Event("headerRendererChanged"));
@@ -1154,6 +1145,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  Storage for the nullItemRenderer property.
      */
     private var _nullItemRenderer:IFactory;
+    private var _contextNullItemRenderer:IFactory;
 
     [Bindable("nullItemRendererChanged")]
     [Inspectable(category="Other")]
@@ -1190,6 +1182,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         {
             owner.invalidateList();
             owner.columnRendererChanged(this);
+            _contextNullItemRenderer = null;
         }
 
         dispatchEvent(new Event("nullItemRendererChanged"));
@@ -1599,13 +1592,6 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             }
         }
 
-        // save the current font context
-        if (!fontPropertiesSet)
-        {
-            fontPropertiesSet = true;
-            saveFontContext(owner ? owner.moduleFactory : null);        
-        }
-
         return chain;
     }
 
@@ -1614,8 +1600,16 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      */
     override public function setStyle(styleProp:String, value:*):void
     {
-        fontPropertiesSet = false;
-        
+     
+        if (styleProp == "fontFamily" || styleProp == "fontWeight" || styleProp == "fontStyle")
+        {
+            if (owner)
+            {
+                owner.fontContextChanged = true;
+                owner.invalidateProperties();
+            }
+        }
+
         var oldValue:Object = getStyle(styleProp);
         var regenerate:Boolean = false;
 
@@ -1653,11 +1647,6 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
                 owner.regenerateStyleCache(true);
             }
             
-            if (hasFontContextChanged(owner.moduleFactory))
-            {
-                owner.columnRendererChanged(this);
-            }
-
             owner.invalidateList();            
         }
 
@@ -1840,12 +1829,22 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     public function getItemRendererFactory(forHeader:Boolean, data:Object):IFactory
     {
         if (forHeader)
-            return replaceItemRendererFactory(headerRenderer);
+        {
+            if (!_contextHeaderRenderer)
+                _contextHeaderRenderer = replaceItemRendererFactory(headerRenderer, true);
+            return _contextHeaderRenderer;
+        }
 
         if (!data)
-            return replaceItemRendererFactory(nullItemRenderer);
+        {
+            if (!_contextNullItemRenderer)
+                _contextNullItemRenderer = replaceItemRendererFactory(nullItemRenderer);
+            return _contextNullItemRenderer;
+        }
 
-        return replaceItemRendererFactory(itemRenderer);
+        if (!_contextItemRenderer)
+            _contextItemRenderer = replaceItemRendererFactory(itemRenderer);
+        return _contextItemRenderer;
     }
 
     /**
@@ -1859,7 +1858,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *    the existing class factory with a ContextualClassFactory so the item can
      *    be created in the correct context.
      */
-    private function replaceItemRendererFactory(rendererFactory:IFactory):IFactory
+    private function replaceItemRendererFactory(rendererFactory:IFactory, forHeader:Boolean = false):IFactory
     {
         // No use of embedded font so just return
         if (oldEmbeddedFontContext == null)
@@ -1872,7 +1871,8 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             rendererFactory = owner.itemRenderer;
         
         if (rendererFactory is ClassFactory)
-            return new ContextualClassFactory(ClassFactory(rendererFactory).generator, oldEmbeddedFontContext);
+            return new ContextualClassFactory(ClassFactory(rendererFactory).generator, 
+                forHeader ? oldHeaderEmbeddedFontContext : oldEmbeddedFontContext);
         
         return rendererFactory;
     }
@@ -1903,50 +1903,98 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      * 
      * Save the current font context to member fields.
      */
-    private function saveFontContext(flexModuleFactory:IFlexModuleFactory):void
+    mx_internal function determineFontContext():void
     {
+        var embeddedFontContext:IFlexModuleFactory;
+
         // Save for hasFontContextChanged()
-        hasFontContextBeenSaved = true;
         var fontName:String = StringUtil.trimArrayElements(getStyle("fontFamily"), ",");
         var fontWeight:String = getStyle("fontWeight");
         var fontStyle:String = getStyle("fontStyle");
+        if (fontName == null)
+            fontName = StringUtil.trimArrayElements(owner.getStyle("fontFamily"), ",");
+        if (fontWeight == null)
+            fontWeight = owner.getStyle("fontWeight");
+        if (fontStyle == null)
+            fontStyle = owner.getStyle("fontStyle");
         var bold:Boolean = fontWeight == "bold";
         var italic:Boolean = fontStyle == "italic";
-        oldEmbeddedFontContext = (noEmbeddedFonts || !embeddedFontRegistry) ? 
+        embeddedFontContext = (noEmbeddedFonts || !embeddedFontRegistry) ? 
 			null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                fontName, bold, italic, this, flexModuleFactory);             
+                fontName, bold, italic, this, owner.moduleFactory);    
+
+        if (embeddedFontContext != oldEmbeddedFontContext)
+        {
+            oldEmbeddedFontContext = embeddedFontContext;
+            owner.invalidateList();
+            owner.columnRendererChanged(this);
+            _contextItemRenderer = null;
+            _contextNullItemRenderer = null;
+        }
+            
+        var headerStyleName:Object =
+            owner.getStyle("headerStyleName");
+        if (headerStyleName)
+        {
+            if (headerStyleName is String)
+            {
+                headerStyleName = StyleManager.getStyleDeclaration(String(headerStyleName));
+            }
+        }
+        if (headerStyleName)
+        {
+            var headerFontName:String = StringUtil.trimArrayElements(headerStyleName.getStyle("fontFamily"), ",");
+            if (headerFontName)
+                fontName = headerFontName;
+            var headerFontWeight:String = headerStyleName.getStyle("fontWeight");
+            if (headerFontWeight)
+                fontWeight = headerFontWeight;
+            var headerFontStyle:String = headerStyleName.getStyle("fontStyle");
+            if (headerFontStyle)
+                fontStyle = headerFontStyle;
+            bold = fontWeight == "bold";
+            italic = fontStyle == "italic";
+        }
+
+        headerStyleName = getStyle("headerStyleName");
+        if (headerStyleName)
+        {
+            if (headerStyleName is String)
+            {
+                headerStyleName = StyleManager.getStyleDeclaration(String(headerStyleName));
+            }
+        }
+
+        if (headerStyleName)
+        {
+            headerFontName = StringUtil.trimArrayElements(headerStyleName.getStyle("fontFamily"), ",");
+            if (headerFontName)
+                fontName = headerFontName;
+            headerFontWeight = headerStyleName.getStyle("fontWeight");
+            if (headerFontWeight)
+                fontWeight = headerFontWeight;
+            headerFontStyle = headerStyleName.getStyle("fontStyle");
+            if (headerFontStyle)
+                fontStyle = headerFontStyle;
+            bold = fontWeight == "bold";
+            italic = fontStyle == "italic";
+        }
+
+        embeddedFontContext = (noEmbeddedFonts || !embeddedFontRegistry) ? 
+			null : 
+            embeddedFontRegistry.getAssociatedModuleFactory(
+                fontName, bold, italic, this, owner.moduleFactory);    
+
+        if (embeddedFontContext != oldHeaderEmbeddedFontContext)
+        {
+            oldHeaderEmbeddedFontContext = embeddedFontContext;
+            cachedHeaderRenderer = null;
+            owner.dataGridHeader.headerItemsChanged = true;
+            _contextHeaderRenderer = null;
+        }
     }
     
-    /**
-     *  @private
-     *  Test if the current font context has changed
-     *  since that last time saveFontContext() was called.
-     */
-    mx_internal function hasFontContextChanged(
-                            flexModuleFactory:IFlexModuleFactory):Boolean
-    {
-        
-        // If the font has not been saved yet, then return false,
-        // the font context has not changed.
-        if (!hasFontContextBeenSaved)
-            return false;
-
-        var fontName:String =
-            StringUtil.trimArrayElements(getStyle("fontFamily"), ",");
-        var fontWeight:String = getStyle("fontWeight");
-        var fontStyle:String = getStyle("fontStyle");
-        
-        // Check if the module factory has changed.
-        var bold:Boolean = fontWeight == "bold";
-        var italic:Boolean = fontStyle == "italic";
-        var fontContext:IFlexModuleFactory = (noEmbeddedFonts || !embeddedFontRegistry) ? 
-			null : 
-            embeddedFontRegistry.getAssociatedModuleFactory(
-                fontName, bold, italic, this, flexModuleFactory)
-        return fontContext != oldEmbeddedFontContext;
-    }
-
     /**
      *  @private
      */
