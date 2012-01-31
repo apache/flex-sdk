@@ -264,8 +264,39 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
     //  resizeMode
     //----------------------------------
+    private static const _NORMAL_UINT:uint = 0;
+    private static const _SCALE_UINT:uint = 1;
+    private var _resizeMode:uint = _NORMAL_UINT;
 
-    private var _resizeMode:uint = ResizeMode._NORMAL_UINT;
+    /**
+     *  Converts from the <code>String</code> to the <code>uint</code>
+     *  representation of the enumeration value.
+     *
+     *  @param value The String representation of the enumeration.
+     *
+     *  @return The uint value corresponding to the String.
+     */
+    private static function resizeModeToUINT(value:String):uint
+    {
+        if (value == ResizeMode.SCALE)
+            return _SCALE_UINT;
+        return _NORMAL_UINT;
+    }
+
+    /**
+     *  Converts from the <code>uint</code> to the <code>String</code>
+     *  representation of the enumeration values.
+     *
+     *  @param value The uint value of the enumeration. 
+     *
+     *  @return The String corresponding to the uint value.
+     */
+    private static function resizeModeToString(value:uint):String
+    {
+        if (value == _SCALE_UINT)
+            return ResizeMode.SCALE;
+        return ResizeMode.NORMAL;
+    }
     
     /**
      *  The ResizeMode for this container.  If the resize mode
@@ -281,18 +312,18 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function get resizeMode():String
     {
-        return ResizeMode.toString(_resizeMode);
+        return resizeModeToString(_resizeMode);
     }
     
     public function set resizeMode(stringValue:String):void
     {
-        var value:uint = ResizeMode.toUINT(stringValue); 
+        var value:uint = resizeModeToUINT(stringValue); 
         if (_resizeMode == value)
             return;
             
         _resizeMode = value;
         
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
         {
             super.scaleX = 1; 
             super.scaleY = 1;
@@ -312,7 +343,7 @@ public class GroupBase extends UIComponent implements IViewport
      */
     override public function setActualSize(w:Number, h:Number):void
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
         {
             // TODO EGeorgie: make sure we don't invalidate again while
             // setting the scale!
@@ -344,7 +375,7 @@ public class GroupBase extends UIComponent implements IViewport
      */    
     override public function get scaleX():Number
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
             return 1;
 
         return super.scaleX;
@@ -355,7 +386,7 @@ public class GroupBase extends UIComponent implements IViewport
      */    
     override public function set scaleX(value:Number):void
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
             return;
 
         super.scaleX = value;
@@ -374,7 +405,7 @@ public class GroupBase extends UIComponent implements IViewport
      */    
     override public function get scaleY():Number
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
             return 1;
 
         return super.scaleY;
@@ -385,7 +416,7 @@ public class GroupBase extends UIComponent implements IViewport
      */    
     override public function set scaleY(value:Number):void
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
             return;
 
         super.scaleY = value;
@@ -399,7 +430,7 @@ public class GroupBase extends UIComponent implements IViewport
      */    
     override public function get width():Number
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
             return super.width * $scaleX;
 
         return super.width;
@@ -413,7 +444,7 @@ public class GroupBase extends UIComponent implements IViewport
      */    
     override public function get height():Number
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
             return super.height * $scaleY;
 
         return super.height;
@@ -425,7 +456,7 @@ public class GroupBase extends UIComponent implements IViewport
     override protected function skipMeasure():Boolean
     {
         // We never want to skip measure, if we resize by scaling
-        return _resizeMode == ResizeMode._SCALE_UINT ? false : super.skipMeasure();
+        return _resizeMode == _SCALE_UINT ? false : super.skipMeasure();
     }
 
     /**
@@ -490,7 +521,7 @@ public class GroupBase extends UIComponent implements IViewport
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
+        if (_resizeMode == _SCALE_UINT)
         {
             unscaledWidth = measuredWidth;
             unscaledHeight = measuredHeight;
