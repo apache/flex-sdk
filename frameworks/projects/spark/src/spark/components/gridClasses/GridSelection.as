@@ -1123,8 +1123,8 @@ public class GridSelection
         _selectionLength = rowCount * columnCount;
         
         if (preserveSelection && 
-            selectionMode == GridSelectionMode.SINGLE_ROW || 
-            selectionMode == GridSelectionMode.SINGLE_CELL)
+            (selectionMode == GridSelectionMode.SINGLE_ROW || 
+            selectionMode == GridSelectionMode.SINGLE_CELL))
         {
             selectedItem = grid.dataProvider.getItemAt(rowIndex);
         }
