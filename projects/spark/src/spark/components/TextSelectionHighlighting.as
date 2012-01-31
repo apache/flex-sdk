@@ -20,7 +20,7 @@ package spark.components
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public final class TextSelectionVisibility
+public final class TextSelectionHighlighting
 {
     include "../core/Version.as";
         
