@@ -442,9 +442,15 @@ public class List extends ListBase implements IFocusManagerComponent
     [Bindable("change")]
     /**
      *  A Vector of ints representing the indices of the currently selected  
-     *  item or items. If multiple selection is disabled by setting 
+     *  item or items. 
+     *  If multiple selection is disabled by setting 
      *  <code>allowMultipleSelection</code> to <code>false</code>, and this property  
      *  is set, the data item corresponding to the first index in the Vector is selected.  
+     *
+     *  <p>If multiple selection is enabled by setting 
+     *  <code>allowMultipleSelection</code> to <code>true</code>, this property  
+     *  contains a list of the selected indices in the reverse order in which they were selected. 
+     *  That means the first element in the Vector corresponds to the last item selected.</p>
      *  
      *  @default null
      *  
@@ -481,6 +487,11 @@ public class List extends ListBase implements IFocusManagerComponent
      *  If multiple selection is disabled by setting <code>allowMultipleSelection</code>
      *  to <code>false</code>, and this property is set, the data item 
      *  corresponding to the first item in the Vector is selected.  
+     *
+     *  <p>If multiple selection is enabled by setting 
+     *  <code>allowMultipleSelection</code> to <code>true</code>, this property  
+     *  contains a list of the selected items in the reverse order in which they were selected. 
+     *  That means the first element in the Vector corresponds to the last item selected.</p>
      * 
      *  @default null
      *  
