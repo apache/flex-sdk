@@ -62,6 +62,11 @@ use namespace mx_internal;
  *  @eventType mx.events.IndexChangedEvent.CHANGE
  *  @helpid 3012
  *  @tiptext change event
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.IndexChangedEvent")]
 
@@ -80,6 +85,11 @@ use namespace mx_internal;
  *  Some components, such as the ApplicationControlBar container,
  *  have a different default value. For the ApplicationControlBar container, 
  *  the default value is <code>[ 0.0, 0.0 ]</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
 
@@ -98,6 +108,11 @@ use namespace mx_internal;
  *  <p>Some components, such as the ApplicationControlBar container,
  *  have a different default value. For the ApplicationControlBar container, 
  *  the default value is <code>[ 0xFFFFFF, 0xFFFFFF ]</code>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
 
@@ -105,6 +120,11 @@ use namespace mx_internal;
  *  Specifies the alpha transparency value of the focus skin.
  *  
  *  @default 0.4
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusAlpha", type="Number", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
 
@@ -120,6 +140,11 @@ use namespace mx_internal;
  *  The default value depends on the component class; if not overridden for
  *  the class, default value is <code>"tl tr bl br"</code>.
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusRoundedCorners", type="String", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
 
@@ -127,6 +152,11 @@ use namespace mx_internal;
  *  Skin used to draw the focus rectangle.
  *
  *  @default mx.skins.halo.HaloFocusRect
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusSkin", type="Class", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
 
@@ -134,6 +164,11 @@ use namespace mx_internal;
  *  Thickness, in pixels, of the focus rectangle outline.
  *
  *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="focusThickness", type="Number", format="Length", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
 
@@ -145,12 +180,22 @@ use namespace mx_internal;
  *  of the AccordionHeader class, including <code>fillAlphas</code>, <code>fillColors</code>, 
  *  <code>focusAlpha</code>, <code>focusRounderCorners</code>, 
  *  <code>focusSkin</code>, <code>focusThickness</code>, and <code>selectedFillColors</code>.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerStyleName", type="String", inherit="no")]
 
 /**
  *  Number of pixels between children in the horizontal direction.
  *  The default value is 8.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
@@ -158,17 +203,32 @@ use namespace mx_internal;
  *  Height of each accordion header, in pixels.
  *  The default value is automatically calculated based on the font styles for
  *  the header.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="headerHeight", type="Number", format="Length", inherit="no")]
 
 /**
  *  Duration, in milliseconds, of the animation from one child to another.
  *  The default value is 250.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openDuration", type="Number", format="Time", inherit="no")]
 
 /**
  *  Tweening function used by the animation from one child to another.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openEasingFunction", type="Function", inherit="no")]
 
@@ -176,6 +236,11 @@ use namespace mx_internal;
  *  Number of pixels between the container's bottom border and its content area.
  *  The default value is -1, so the bottom border of the last header
  *  overlaps the Accordion container's bottom border.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -183,6 +248,11 @@ use namespace mx_internal;
  *  Number of pixels between the container's top border and its content area.
  *  The default value is -1, so the top border of the first header
  *  overlaps the Accordion container's top border.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -192,18 +262,33 @@ use namespace mx_internal;
  *  Pass the same color for both values for "flat" looking control.
  *  The default value is <code>undefined</code>, which means the colors
  *  are derived from <code>themeColor</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedFillColors", type="Array", arrayType="uint", format="Color", inherit="no", deprecatedReplacement="headerStyleName", deprecatedSince="3.0")]
 
 /**
  *  Color of header text when rolled over.
  *  The default value is 0x2B333C.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Color of selected text.
  *  The default value is 0x2B333C.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
 
@@ -211,6 +296,11 @@ use namespace mx_internal;
  *  Number of pixels between children in the vertical direction.
  *  The default value is -1, so the top and bottom borders
  *  of adjacent headers overlap.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGap", type="Number", format="Length", inherit="no")]
 
@@ -240,6 +330,11 @@ use namespace mx_internal;
 [Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="focusSkin", kind="style")]
 [Exclude(name="focusThickness", kind="style")]
+*  
+*  @langversion 3.0
+*  @playerversion Flash 9
+*  @playerversion AIR 1.1
+*  @productversion Flex 3
 */
 [Exclude(name="horizontalScrollBarStyleName", kind="style")]
 [Exclude(name="verticalScrollBarStyleName", kind="style")]
@@ -344,6 +439,11 @@ use namespace mx_internal;
  *
  *  @tiptext Accordion allows for navigation between different child views
  *  @helpid 3013
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Accordion extends Container implements IHistoryManagerClient, IFocusManagerComponent
 {
@@ -369,6 +469,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Accordion()
     {
@@ -643,6 +748,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *  The height of the area, in pixels, in which content is displayed.
      *  You can override this getter if your content
      *  does not occupy the entire area of the container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get contentHeight():Number
     {
@@ -675,6 +785,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *  The width of the area, in pixels, in which content is displayed.
      *  You can override this getter if your content
      *  does not occupy the entire area of the container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get contentWidth():Number
     {
@@ -712,6 +827,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *  property is set to the content associated with the header.
      *
      *  @see mx.containers.accordionClasses.AccordionHeader
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get headerRenderer():IFactory
     {
@@ -756,6 +876,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *  @default true
      *
      *  @see mx.managers.HistoryManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get historyManagementEnabled():Boolean
     {
@@ -793,6 +918,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *  the size of its current child.
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get resizeToContent():Boolean
     {
@@ -829,6 +959,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *
      *  @tiptext Specifies the child view that is currently displayed
      *  @helpid 3401
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedChild():Container
     {
@@ -878,6 +1013,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *
      *  @tiptext Specifies the index of the child view that is currently displayed
      *  @helpid 3402
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedIndex():int
     {
@@ -1477,6 +1617,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
     /**
      *  @copy mx.managers.IHistoryManagerClient#saveState()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function saveState():Object
     {
@@ -1486,6 +1631,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
     /**
      *  @copy mx.managers.IHistoryManagerClient#loadState()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function loadState(state:Object):void
     {
@@ -1519,6 +1669,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
      *  @param index Zero-based index of the child.
      *
      *  @return Button object representing the navigator button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getHeaderAt(index:int):Button
     {
