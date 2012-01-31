@@ -3092,7 +3092,7 @@ public class Grid extends Group implements IDataGridElement
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getItemRendererAt(rowIndex:int, columnIndex:int):IVisualElement
+    public function getItemRendererAt(rowIndex:int, columnIndex:int):IGridItemRenderer
     {
         return gridLayout.getItemRendererAt(rowIndex, columnIndex);
     }
