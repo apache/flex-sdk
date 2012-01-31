@@ -516,7 +516,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     /**
      *  @copy spark.components.supportClasses.GroupBase#layout
      *
-     *  @default VerticalLayout
+     *  @default BasicLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
