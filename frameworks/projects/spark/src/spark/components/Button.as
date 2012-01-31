@@ -27,7 +27,6 @@ import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import mx.graphics.baseClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
-import mx.utils.BitFlagUtil;
 import mx.utils.StringUtil;
 
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
@@ -154,8 +153,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxButton extends FxComponent implements IFocusManagerComponent, 
-    IDataRenderer, IButton
+public class FxButton extends FxComponent implements IFocusManagerComponent, IButton
 {
     include "../core/Version.as";
 
@@ -196,15 +194,15 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
         // add event listeners to the button
         addHandlers();
     }   
-    
+
     //--------------------------------------------------------------------------
     //
     //  Skin Parts
     //
     //--------------------------------------------------------------------------
-    
+
     [SkinPart(required="false")]
-    
+
     /**
      *  A skin part that defines the  label of the button. 
      *  
@@ -213,69 +211,74 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var labelField:TextGraphicElement;
-    
+    public var labelElement:TextGraphicElement;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  Storage for the data property.
-     */
-    private var _data:Object;
-    
-    [Bindable("dataChange")]
+
+    //----------------------------------
+    //  content
+    //----------------------------------
 
     /**
-     *  The <code>data</code> property lets you pass an arbitrary object
+     *  @private
+     *  Storage for the content property.
+     */
+    private var _content:Object;
+    
+    [Bindable("contentChange")]
+
+    /**
+     *  The <code>content</code> property lets you pass an arbitrary object
      *  to be used in a custom skin of the button.
      * 
-     *  When a skin defines the optional part <code>labelField</code> then
-     *  a string representation of <code>data</code> will be pushed down to
+     *  When a skin defines the optional part <code>labelElement</code> then
+     *  a string representation of <code>content</code> will be pushed down to
      *  that part's <code>text</code> property.
      *
-     *  The default skin uses this mechanism to render the <code>data</code>
+     *  The default skin uses this mechanism to render the <code>content</code>
      *  as the button label.  
      * 
-     *  <p>When FxButton is used as an item renderer, the <code>data</code>
-     *  property will be set to the item value.</p>
-     *
      *  <p>The <code>label</code> property is a <code>String</code> typed
      *  facade of this property.  This property is bindable and it shares
-     *  the "dataChange" event with the <code>label</code> property.</p>
+     *  the "contentChange" event with the <code>label</code> property.</p>
      * 
      *  @default null
-     *  @eventType dataChange
+     *  @eventType contentChange
      *  @see #label
-     *  @see mx.core.IDataRenderer
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get data():Object
+    public function get content():Object
     {
-        return _data;
+        return _content;
     }
 
     /**
      *  @private
      */
-    public function set data(value:Object):void
+    public function set content(value:Object):void
     {
-        _data = value;
+        _content = value;
 
-        // Push to the optional labelField skin part
-        if (labelField)
-            labelField.text = label;
-        dispatchEvent(new Event("dataChange"));
+        // Push to the optional labelElement skin part
+        if (labelElement)
+            labelElement.text = label;
+        dispatchEvent(new Event("contentChange"));
     }
 
-    [Bindable("dataChange")]
+    //----------------------------------
+    //  label
+    //----------------------------------
+
+    [Bindable("contentChange")]
+
     /**
      *  Text to appear on the FxButton control.
      * 
@@ -289,13 +292,13 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      *  <p>This is the default FxButton property.</p>
      *
      *  <p>This property is a <code>String</code> typed facade to the
-     *  <code>data</code> property.  This property is bindable and it shares
-     *  dispatching the "dataChange" event with the <code>data</code>
+     *  <code>content</code> property.  This property is bindable and it shares
+     *  dispatching the "contentChange" event with the <code>content</code>
      *  property.</p> 
      *  
      *  @default ""
-     *  @see #data
-     *  @eventType dataChange
+     *  @see #content
+     *  @eventType contentChange
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -304,9 +307,9 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */
     public function set label(value:String):void
     {
-        // label property is just a proxy to the data.
-        // The data setter will dispatch the event.
-        data = value;
+        // label property is just a proxy to the content.
+        // The content setter will dispatch the event.
+        content = value;
     }
 
     /**
@@ -314,22 +317,19 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */
     public function get label():String          
     {
-        return (data != null) ? data.toString() : "";
+        return (content != null) ? content.toString() : "";
     }
     
-    // -----------------------------------------------------------------------
-    //
-    // Public properties defining the state of the button.
-    //
-    // -----------------------------------------------------------------------
-    
+    //----------------------------------
+    //  hovered
+    //----------------------------------
+
     /**
      *  @private
-     *  <code>true</code> when we need to check whether to dispatch
-     *  a button down event
+     *  Storage for the hovered property 
      */
-     private var checkForButtonDownConditions:Boolean = false; 
-    
+    private var _hovered:Boolean = false;    
+
     /**
      *  Indicates whether the mouse pointer is over the button.
      *  Used to determine the skin state.
@@ -339,23 +339,32 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    protected function get hoveredOver():Boolean
+    protected function get hovered():Boolean
     {
-        return BitFlagUtil.isSet(flags, hoveredOverFlag);
+        return _hovered;
     }
     
     /**
      *  @private
      */ 
-    protected function set hoveredOver(value:Boolean):void
+    protected function set hovered(value:Boolean):void
     {
-        if (BitFlagUtil.isSet(flags, hoveredOverFlag) == value)
+        if (value == _hovered)
             return;
-         
-        flags = BitFlagUtil.update(flags, hoveredOverFlag, value);
-        
+
+        _hovered = value;
         invalidateButtonState();
     }
+
+    //----------------------------------
+    //  mouseCaptured
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the mouseCaptured property 
+     */
+    private var _mouseCaptured:Boolean = false;    
 
     /**
      *  Indicates whether the mouse is down and the mouse pointer was
@@ -369,7 +378,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */    
     protected function get mouseCaptured():Boolean
     {
-        return BitFlagUtil.isSet(flags, mouseCapturedFlag);
+        return _mouseCaptured;
     }
     
     /**
@@ -377,11 +386,10 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */
     protected function set mouseCaptured(value:Boolean):void
     {
-        if (BitFlagUtil.isSet(flags, mouseCapturedFlag) == value)
+        if (value == _mouseCaptured)
             return;
-         
-        flags = BitFlagUtil.update(flags, mouseCapturedFlag, value);
-        
+
+        _mouseCaptured = value;        
         invalidateButtonState();
 
         // System mouse handlers are not needed when the button is not mouse captured
@@ -396,11 +404,21 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
     {
         if (enabled == value)
             return;
+
         super.enabled = value;
-        
         invalidateButtonState();
     }
     
+    //----------------------------------
+    //  keyboardPressed
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the keyboardPressed property 
+     */
+    private var _keyboardPressed:Boolean = false;    
+
     /**
      *  Indicates whether a keyboard key is pressed while the button is in focus.
      *  Used to determine the skin state.
@@ -412,7 +430,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */ 
     protected function get keyboardPressed():Boolean
     {
-        return BitFlagUtil.isSet(flags, keyboardPressedFlag);
+        return _keyboardPressed;
     }
     
     /**
@@ -420,14 +438,23 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */
     protected function set keyboardPressed(value:Boolean):void
     {
-        if (BitFlagUtil.isSet(flags, keyboardPressedFlag) == value)
+        if (value == _keyboardPressed)
             return;
-         
-        flags = BitFlagUtil.update(flags, keyboardPressedFlag, value);
-        
+
+        _keyboardPressed = value;
         invalidateButtonState();
     }
     
+    //----------------------------------
+    //  stickyHighlighting
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the stickyHighlighting property 
+     */
+    private var _stickyHighlighting:Boolean = false;    
+
     /**
      *  If <code>false</code>, the button displays its down skin
      *  when the user presses it but changes to its over skin when
@@ -445,7 +472,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */
     public function get stickyHighlighting():Boolean
     {
-        return BitFlagUtil.isSet(flags, stickyHighlightingFlag);
+        return _stickyHighlighting
     }
 
     /**
@@ -453,11 +480,10 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */
     public function set stickyHighlighting(value:Boolean):void
     {
-        if (BitFlagUtil.isSet(flags, stickyHighlightingFlag) == value)
+        if (value == _stickyHighlighting)
             return;
-         
-        flags = BitFlagUtil.update(flags, stickyHighlightingFlag, value);
-        
+
+        _stickyHighlighting = value;
         invalidateButtonState();
     }
 
@@ -478,6 +504,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      *  focus manager.
      *
      *  @default false
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get emphasized():Boolean 
     { 
@@ -504,48 +535,68 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
         }   
     }
     
-    /**
-     *  @private
-     */
-    protected static const hoveredOverFlag:uint         = 1 << 0;
-    /**
-     *  @private
-     */
-    protected static const mouseCapturedFlag:uint       = 1 << 1;
-    /**
-     *  @private
-     */
-    protected static const keyboardPressedFlag:uint     = 1 << 2;
-    /**
-     *  @private
-     */
-    protected static const autoRepeatFlag:uint          = 1 << 3;
-    /**
-     *  @private
-     */
-    protected static const stickyHighlightingFlag:uint  = 1 << 4;
-    /**
-     *  @private
-     */
-    protected static const downEventFiredFlag:uint      = 1 << 5;
-    /**
-     *  @private
-     */
-    protected static const explicitToolTip:uint         = 1 << 6;
-    /**
-     *  @private
-     */
-    protected static const lastFlag:uint                = 1 << 6;
+    //----------------------------------
+    //  autoRepeat
+    //----------------------------------
 
     /**
-     *  A uint to store bitflags (booleans compressed down into one integer).
-     *  
+     *  @private
+     */
+    private var _autoRepeat:Boolean;
+
+    [Inspectable(defaultValue="false")]
+
+    /**
+     *  Specifies whether to dispatch repeated <code>buttonDown</code>
+     *  events if the user holds down the mouse button.
+     *
+     *  @default false
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected var flags:uint = 0;
+    public function get autoRepeat():Boolean
+    {
+        return _autoRepeat;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set autoRepeat(value:Boolean):void
+    {
+        if (value == _autoRepeat)
+            return;
+         
+        _autoRepeat = value;
+        checkAutoRepeatTimerConditions(isDown());
+    }
+
+    //----------------------------------
+    //  toolTip
+    //----------------------------------
+
+    [Inspectable(category="General", defaultValue="null")]
+    
+    private var _explicitToolTip:Boolean = false;
+
+    /**
+     *  @private
+     */
+    override public function set toolTip(value:String):void
+    {
+        super.toolTip = value;
+        
+        // If explicit tooltip is cleared, we need to make sure our
+        // updateDisplayList is called, so that we add automatic tooltip
+        // in case the label is truncated.
+        if (_explicitToolTip && !value)
+            invalidateDisplayList();
+
+        _explicitToolTip = value != null;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -562,7 +613,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(labelField);
+        return getBaselinePositionForPart(labelElement);
     }
     
     //--------------------------------------------------------------------------
@@ -578,14 +629,21 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
     {
         super.partAdded(partName, instance);
         
-        if (instance == labelField)
+        if (instance == labelElement)
         {
-            labelField.text = label;
+            labelElement.text = label;
             
             // Temporary ...
-            labelField.setStyle("verticalAlign", getStyle("verticalAlign"));
+            labelElement.setStyle("verticalAlign", getStyle("verticalAlign"));
         }
     }
+    
+    /**
+     *  @private
+     *  Remember whether we have fired an event already,
+     *  so that we don't fire a second time.
+     */
+    private var _downEventFired:Boolean = false;
     
     /**
      *  @private
@@ -599,12 +657,12 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
             var isCurrentlyDown:Boolean = isDown();
 
             // Only if down state has changed, do we need to do something
-            if (BitFlagUtil.isSet(flags, downEventFiredFlag) != isCurrentlyDown)
+            if (_downEventFired != isCurrentlyDown)
             {
-                flags = BitFlagUtil.update(flags, downEventFiredFlag, isCurrentlyDown);
                 if (isCurrentlyDown)
                     dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
-            
+
+                _downEventFired = isCurrentlyDown;
                 checkAutoRepeatTimerConditions(isCurrentlyDown);
             }
             
@@ -626,12 +684,13 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
         if (keyboardPressed)
             return true;
         
-        if (mouseCaptured && (hoveredOver || stickyHighlighting))
+        if (mouseCaptured && (hovered || stickyHighlighting))
             return true;
         return false;
     }
-    
+
     /**
+     *  @private
      *  Marks the button state invalid, so that the button skin's state
      *  can be set properly and "buttonDown" events can be dispatched where
      *  appropriate.
@@ -641,7 +700,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function invalidateButtonState():void
+    private function invalidateButtonState():void
     {
         checkForButtonDownConditions = true;
         invalidateProperties();
@@ -659,7 +718,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
         if (isDown())
             return "down";
             
-        if (hoveredOver || mouseCaptured)
+        if (hovered || mouseCaptured)
             return "over";
             
         return "up";
@@ -708,8 +767,8 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
     }
     
     /**
-     *  This method handles the mouse events, calls the <code>onClick</code> method 
-     *  where appropriate and updates the <code>hoveredOver</code> and
+     *  This method handles the mouse events, calls the <code>clickHandler</code> method 
+     *  where appropriate and updates the <code>hovered</code> and
      *  <code>mouseCaptured</code> properties.
      *  <p>This method gets called to handle MouseEvent.ROLL_OVER, MouseEvent.ROLL_OUT,
      *  MouseEvent.MOUSE_DOWN, MouseEvent.MOUSE_UP, MouseEvent.CLICK and 
@@ -734,13 +793,13 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
                 // if the user rolls over while holding the mouse button
                 if (mouseEvent.buttonDown && !mouseCaptured)
                     return;
-                    hoveredOver = true;
+                    hovered = true;
                 break;
             }
 
             case MouseEvent.ROLL_OUT:
             {
-                hoveredOver = false;
+                hovered = false;
                 break;
             }
             
@@ -757,7 +816,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
             case MouseEvent.MOUSE_UP:
             {
                 if (event.currentTarget == this)
-                    hoveredOver = true;
+                    hovered = true;
             } //fallthrough:
             case SandboxMouseEvent.MOUSE_UP_SOMEWHERE:
             {
@@ -774,7 +833,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
                 if (!enabled)
                     event.stopImmediatePropagation();
                 else
-                    onClick(MouseEvent(event));
+                    clickHandler(MouseEvent(event));
                 return;
             }
         }
@@ -784,7 +843,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
     
     /**
      *  Override in subclasses to handle the click event rather than
-     *  adding a separate handler. onClick will not get called if the
+     *  adding a separate handler. clickHandler will not get called if the
      *  button is disabled. 
      *  
      *  @langversion 3.0
@@ -792,7 +851,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function onClick(event:MouseEvent):void
+    protected function clickHandler(event:MouseEvent):void
     {
     }
 
@@ -841,47 +900,19 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
         event.updateAfterEvent();
     }
 
-    //----------------------------------
-    //  autoRepeat
-    //----------------------------------
+    /**
+     *  @private
+     *  <code>true</code> when we need to check whether to dispatch
+     *  a button down event
+     */
+    private var checkForButtonDownConditions:Boolean = false;
 
     /**
      *  @private
      *  Timer for doing auto-repeat.
      */
     private var autoRepeatTimer:Timer;
-
-    [Inspectable(defaultValue="false")]
-
-    /**
-     *  Specifies whether to dispatch repeated <code>buttonDown</code>
-     *  events if the user holds down the mouse button.
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get autoRepeat():Boolean
-    {
-        return BitFlagUtil.isSet(flags, autoRepeatFlag);
-    }
     
-    /**
-     *  @private
-     */
-    public function set autoRepeat(value:Boolean):void
-    {
-        if (BitFlagUtil.isSet(flags, autoRepeatFlag) == value)
-            return;
-         
-        flags = BitFlagUtil.update(flags, autoRepeatFlag, value);
-
-        checkAutoRepeatTimerConditions( isDown() );
-    }
-
     /**
      *  @private
      */
@@ -940,28 +971,6 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
         dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
     }
     
-    //----------------------------------
-    //  toolTip
-    //----------------------------------
-
-    [Inspectable(category="General", defaultValue="null")]
-
-    /**
-     *  @private
-     */
-    override public function set toolTip(value:String):void
-    {
-        super.toolTip = value;
-
-        flags = BitFlagUtil.update(flags, explicitToolTip, value != null);
-        
-        // If explicit tooltip is cleared, we need to make sure our
-        // updateDisplayList is called, so that we add automatic tooltip
-        // in case the label is truncated.
-        if (!BitFlagUtil.isSet(flags, explicitToolTip))
-            invalidateDisplayList();
-    }
-
     /**
      *  @private
      */
@@ -970,18 +979,18 @@ public class FxButton extends FxComponent implements IFocusManagerComponent,
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        // Bail out if we don't have a label or the tooltip is not explicitly set.
-        if (!labelField || BitFlagUtil.isSet(flags, explicitToolTip))
+        // Bail out if we don't have a label or the tooltip is explicitly set.
+        if (!labelElement || _explicitToolTip)
             return;
 
         // Check if the label text is truncated
         // TODO EGeorgie: use TextGraphicElement API to check for truncated text.
-        labelField.validateNow();
-        var truncated:Boolean = labelField.getLayoutBoundsWidth() < labelField.getPreferredBoundsWidth() ||
-                                labelField.getLayoutBoundsHeight() < labelField.getPreferredBoundsHeight();
+        labelElement.validateNow();
+        var truncated:Boolean = labelElement.getLayoutBoundsWidth() < labelElement.getPreferredBoundsWidth() ||
+                                labelElement.getLayoutBoundsHeight() < labelElement.getPreferredBoundsHeight();
         
         // If the label is truncated, show the whole label string as a tooltip
-        super.toolTip = truncated ? labelField.text : null;
+        super.toolTip = truncated ? labelElement.text : null;
     } 
 }
 
