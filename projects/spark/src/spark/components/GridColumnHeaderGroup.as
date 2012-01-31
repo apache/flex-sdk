@@ -288,7 +288,7 @@ use namespace mx_internal;
 /**
  *  Displays a row of column headers and separators aligned with the grid's layout.  
  * 
- *  <p>Headers are rendererd with the headerRenderer and separators with the columnSeparator.
+ *  <p>Headers are rendered with the headerRenderer and separators with the columnSeparator.
  *  The layout, which can not be changed, is virtual: renderers and separators that have been 
  *  scrolled out of view are reused.</p>
  * 
@@ -616,8 +616,18 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.components.gridClasses.GridColumnHeaderGroupLayout#getColumnIndexAt()
+     *  Returns the column index corresponding to the specified coordinates,
+     *  or -1 if the coordinates are out of bounds. The coordinates are 
+     *  resolved with respect to the GridColumnHeaderGroup layout target.
+     * 
+     *  <p>If all of the columns or rows for the grid have not yet been scrolled
+     *  into view, the returned index may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
      *  
+     *  @param x The pixel's x coordinate relative to the columnHeaderGroup
+     *  @param y The pixel's y coordinate relative to the columnHeaderGroup
+     *  @return the index of the column or -1 if the coordinates are out of bounds. 
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -629,8 +639,28 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridColumnHeaderGroupLayout#getSeparatorIndexAt()
+     *  Returns the column separator index corresponding to the specified 
+     *  coordinates, or -1 if the coordinates don't overlap a separator. The 
+     *  coordinates are resolved with respect to the GridColumnHeaderGroup layout target.
+     * 
+     *  <p>A separator is considered to "overlap" the specified location if the
+     *  x coordinate is within <code>separatorMouseWidth</code> of separator's
+     *  horizontal midpoint.</p>
      *  
+     *  <p>The separator index is the same as the index of the column on the left
+     *  (assuming that this component's layoutDirection is "ltr").  That means 
+     *  that all column headers are flanked by two separators, except for the first
+     *  visible column, which just has a separator on the right, and the last visible
+     *  column, which just has a separator on the left.</p>
+     * 
+     *  <p>If all of the columns or rows for the grid have not yet been scrolled
+     *  into view, the returned index may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     *  
+     *  @param x The pixel's x coordinate relative to the columnHeaderGroup
+     *  @param y The pixel's y coordinate relative to the columnHeaderGroup
+     *  @return the index of the column or -1 if the coordinates don't overlap a separator.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -642,8 +672,21 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }    
         
     /**
-     *  @copy spark.components.gridClasses.GridColumnHeaderGroupLayout#getHeaderRendererAt()
+     *  If the requested header renderer is visible, returns a reference to 
+     *  the header renderer currently displayed for the specified column. 
+     *  Note that once the returned header renderer is no longer visible it 
+     *  may be recycled and its properties reset.  
+     * 
+     *  <p>If the requested header renderer is not visible then, 
+     *  each time this method is called, a new header renderer is created.  The
+     *  new item renderer is not visible</p>
+     * 
+     *  <p>The width of the returned renderer is the same as for item renderers
+     *  returned by DataGrid/getItemRendererAt().</p>
      *  
+     *  @param columnIndex The 0-based column index of the header renderer's column
+     *  @return The item renderer or null if the column index is invalid.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
@@ -655,13 +698,21 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.gridClasses.GridColumnHeaderGroupLayout#getHeaderBounds()
-     *  
+     *  Returns the current pixel bounds of the specified header (renderer), or null if 
+     *  no such column exists.  Header bounds are reported in GridColumnHeaderGroup coordinates.
+     * 
+     *  <p>If all of the visible columns preceeding the specified column have not 
+     *  yet been scrolled into view, the returned bounds may only be an approximation, 
+     *  based on all of the Grid's <code>typicalItem</code>s.</p>
+     * 
+     *  @param columnIndex The 0-based index of the column. 
+     *  @return A <code>Rectangle</code> that represents the column header's pixel bounds, or null.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     */
+     */  
     public function getHeaderBounds(columnIndex:int):Rectangle
     {
         return GridColumnHeaderGroupLayout(layout).getHeaderBounds(columnIndex);
@@ -682,6 +733,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     private var pressSeparatorIndex:int = -1;   // separator button press occurred on
     
     /**
+     *  @private
+     * 
      *  This method is called when a MOUSE_DOWN event occurs within the column header group and 
      *  for all subsequent MOUSE_MOVE events until the button is released (even if the 
      *  mouse leaves the column header group).  The last event in such a "down drag up" gesture is 
@@ -751,6 +804,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
+     * 
      *  This method is called whenever a MOUSE_MOVE event occurs and the
      *  button is not pressed.   Despite the fact that the area considered to be
      *  occupied by the separators overlaps the headers (see <code>mouseSeparatorWidth</code>)
@@ -803,6 +858,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
+     *     
      *  Called when the mouse moves out of the GridColumnHeaderGroup. 
      *  By default it dispatches either a GRID_ROLL_OUT or a
      *  SEPARATOR_ROLL_OUT event.
@@ -832,6 +889,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }
     
     /**
+     *  @private 
+     * 
      *  This method is called whenever a CLICK MouseEvent occurs on the 
      *  column header group if both the corresponding down and up events occur 
      *  within the same column header cell. By default it dispatches a 
@@ -859,6 +918,8 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     }
     
     /**
+     *  @private
+     *  
      *  This method is called whenever a DOUBLE_CLICK MouseEvent occurs 
      *  if the corresponding sequence of down and up events occur within 
      *  the same column header cell.  It dispatches a GRID_DOUBLE_CLICK event.
