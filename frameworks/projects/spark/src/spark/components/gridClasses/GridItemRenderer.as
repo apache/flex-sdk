@@ -24,6 +24,7 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.ToolTipEvent;
 import mx.managers.ISystemManager;
+import mx.managers.IToolTipManagerClient;
 import mx.managers.ToolTipManager;
 import mx.utils.PopUpUtil;
 
@@ -88,6 +89,26 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
 	//  Static Methods
 	//
 	//--------------------------------------------------------------------------
+    
+    /**
+     * If the effective value of showDataTips has changed for this column, then
+     * set the renderer's toolTip property to a placeholder.  The real tooltip
+     * text is computed in the TOOL_TIP_SHOW handler below.
+     */    
+    static mx_internal function initializeRendererToolTip(renderer:IGridItemRenderer):void
+    {
+        const toolTipClient:IToolTipManagerClient = renderer as IToolTipManagerClient;
+        if (!toolTipClient)
+            return;
+        
+        const showDataTips:Boolean = (renderer.rowIndex != -1) && renderer.column && renderer.column.getShowDataTips();
+        const dataTip:String = toolTipClient.toolTip;
+        
+        if (!dataTip)
+            toolTipClient.toolTip = "<dataTip>";
+        else if (!showDataTips && dataTip)
+            toolTipClient.toolTip = null;
+    }
 	
 	/**
 	 *  Shows the tooltip for one of the grid's item renderers.
@@ -762,18 +783,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     {
         super.updateDisplayList(width, height);
         
-        // If the effective value of showDataTips has changed for this column, then
-        // set the renderer's tooltTip property to a placeholder.  The real tooltip
-        // text is computed in the TOOL_TIP_SHOW handler below.
-        
-        // TODO (hmuller) - this code should be common with DefaultGridItemRenderer        
-        
-        const showDataTips:Boolean = rowIndex != -1 && column && column.getShowDataTips();
-        const dataTip:String = toolTip;
-        if (showDataTips && !dataTip)
-            toolTip = "<dataTip>";
-        else if (!showDataTips && dataTip)
-            toolTip = null;
+        initializeRendererToolTip(this);
     } 
         
     /**
