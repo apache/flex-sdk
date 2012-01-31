@@ -172,20 +172,9 @@ use namespace mx_internal;
 
 include "../styles/metadata/BarColorStyle.as"
 include "../styles/metadata/BorderStyles.as"
+include "../styles/metadata/ContainerBackgroundStyles.as"
 include "../styles/metadata/PaddingStyles.as"
 include "../styles/metadata/TextStyles.as"
-
-// Re-define backgroundAlpha and backgroundColor styles here to set the theme attribute to spark and halo
-
-/**
- *  @inheritDoc
- */
-[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo, spark")]
-
-/**
- *  @inheritDoc
- */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="halo, spark")]
 
 /**
  *  If a background image is specified, this style specifies
