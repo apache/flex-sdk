@@ -3191,6 +3191,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         dataProvider.sort = sort;
         dataProvider.refresh();
+        columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
         return true;
     }
 
@@ -3887,9 +3888,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             return;
     
         const columnIndices:Vector.<int> = Vector.<int>([column.columnIndex]);
-        
-        if (sortByColumns(columnIndices))
-            columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
+        sortByColumns(columnIndices);
     }
     
     /**
