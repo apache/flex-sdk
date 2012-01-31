@@ -185,7 +185,7 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      */
     override public function play():void
     {
-        // TODO (chaase): Should take the 'from' snapshot on the
+        // FIXME (chaase): Should take the 'from' snapshot on the
         // fly, in case the object has changed since the overall
         // effect (composite, etc) started much earlier and the
         // object has changed since propertyChanges was initialized 
