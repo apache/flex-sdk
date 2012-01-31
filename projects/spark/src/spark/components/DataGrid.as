@@ -12,6 +12,7 @@
 package spark.components
 {
 import flash.display.DisplayObject;
+import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.EventPhase;
 import flash.events.FocusEvent;
@@ -28,6 +29,7 @@ import mx.core.IFactory;
 import mx.core.IIMESupport;
 import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.CursorManager;
@@ -581,7 +583,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  The DataGrid displays a row of column headings above a scrollable grid. 
- *  The gird is arranged as a collection of individual cells arranged 
+ *  The grid is arranged as a collection of individual cells arranged 
  *  in rows and columns. 
  *  The DataGrid control is designed to support smooth scrolling through 
  *  large numbers of rows and columns.
@@ -2027,6 +2029,45 @@ public class DataGrid extends SkinnableContainerBase
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  This component holds the focus and accessibilityImplementation (DataGridAccImpl)
+     *  for the DataGrid to enable accessibility when the focus shifts to DataGrid descendants, 
+     *  notably item editors.
+     * 
+     *  DataGridAccImpl/createAccessibilityImplementation() initializes the focusOwner's
+     *  accessibilityImplementation, rather than the DataGrid's, so that the MSAA 
+     *  representation of descendant components will not be "obscured" by DataGridAccImpl.   
+     * 
+     *  @see #createChidlren(), #setFocus(), #isOurFocus().
+     */ 
+    mx_internal var focusOwner:UIComponent;
+    
+    
+    /**
+     *  @private
+     *  Create the focusOwner - a component that holds the keyboard focus for the DataGrid
+     *  for the sake of the accessibility implementation.
+     * 
+     *  This component fails to add its DataGridAccImpl accessibilityImplementation to
+     *  the MSAA if it doesn't render, so we draw one alpha=0.0 pixel here and make it
+     *  $visible=true.
+     */
+    override protected function createChildren():void
+    {
+        super.createChildren();
+        
+        focusOwner = new UIComponent();
+        const g:Graphics = focusOwner.graphics;
+        g.clear();
+        g.beginFill(0x000000, 0.0);
+        g.drawRect(0, 0, 1, 1);
+        g.endFill();
+        $addChild(focusOwner);
+        focusOwner.$visible = true;
+    }
+    
 
     /**
      *  @private
@@ -2036,6 +2077,23 @@ public class DataGrid extends SkinnableContainerBase
         if (DataGrid.createAccessibilityImplementation != null)
             DataGrid.createAccessibilityImplementation(this);
     }
+    
+    /**
+     *  @private
+     */
+    override public function setFocus():void
+    {
+        if (grid)
+            focusOwner.setFocus();
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function isOurFocus(target:DisplayObject):Boolean
+    {
+        return (target == focusOwner) || super.isOurFocus(target);
+    }    
     
     /**
      *  @private
@@ -2105,11 +2163,6 @@ public class DataGrid extends SkinnableContainerBase
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-        // If the key is passed down to the Scroller it will come back here when
-        // it bubbles back up.  It may or may not have default prevented.
-        if (event.eventPhase != EventPhase.AT_TARGET)
-            return;
-        
         if (!grid || event.isDefaultPrevented())
             return;
 
