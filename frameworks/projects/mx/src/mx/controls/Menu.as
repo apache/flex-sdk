@@ -41,6 +41,7 @@ import mx.core.ApplicationGlobals;
 import mx.core.ClassFactory;
 import mx.core.EdgeMetrics;
 import mx.core.EventPriority;
+import mx.core.IFlexDisplayObject;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
@@ -1010,6 +1011,26 @@ public class Menu extends List implements IFocusManagerContainer
         return _hasRoot;
     }
 
+    //--------------------------------------------------------------------------
+    //  defaultButton
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    public function get defaultButton():IFlexDisplayObject
+    {
+        return null;
+    }
+
+    /**
+     *  @private
+     */
+    public function set defaultButton(value:IFlexDisplayObject):void
+    {
+        
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
