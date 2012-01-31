@@ -23,7 +23,7 @@ PENDING: https://bugs.adobe.com/jira/browse/SDK-29478
             </s:HGroup>
         </s:controlBarContent>
         
-        <s:DataGrid id="dataGrid" left="5" right="5">
+        <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5">
             <s:ArrayCollection>
                 <s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
                 <s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
