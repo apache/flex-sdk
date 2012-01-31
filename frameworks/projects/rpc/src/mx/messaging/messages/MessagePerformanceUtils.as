@@ -286,16 +286,8 @@ package mx.messaging.messages
         }   
 
         /**
-         * Time, in milliseconds, that this message sat on the server after it was ready 
-         * to be pushed to this client but before it was picked up by a poll request.
-         * 
-         * <p>For a streaming or RTMP (LiveCycle Data Services ES only) channel, this value is always 0.</p>
-         *  
-         *  @langversion 3.0
-         *  @playerversion Flash 9
-         *  @playerversion AIR 1.1
-         *  @productversion BlazeDS 4
-         *  @productversion LCDS 3 
+         * Time that the message waited on the server after it was ready to be pushed to the client
+         * but had not yet been polled for.
          */     
         public function get serverPollDelay():Number
         {
