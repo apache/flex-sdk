@@ -24,7 +24,11 @@ import mx.components.FxScroller;
 import mx.components.baseClasses.GroupBase;
 import mx.components.Skin;
 
+[ExcludeClass]
 
+/**
+ *  @private
+ */
 internal class FxScrollerLayout extends LayoutBase
 {
     public function FxScrollerLayout()    
@@ -65,28 +69,6 @@ internal class FxScrollerLayout extends LayoutBase
         if (!scroller) 
             return;
             
-        var hsb:FxScrollBar = scroller.horizontalScrollBar;
-        var showHSB:Boolean = false;
-        switch(scroller.horizontalScrollPolicy) {
-            case ScrollPolicy.ON: 
-                if (hsb) showHSB = true; 
-                break;
-            case ScrollPolicy.AUTO: 
-                if (hsb) showHSB = hsb.visible; 
-                break;
-        } 
-
-        var vsb:FxScrollBar = scroller.verticalScrollBar;
-        var showVSB:Boolean = false;
-        switch(scroller.verticalScrollPolicy) {
-           case ScrollPolicy.ON: 
-                if (vsb) showVSB = true; 
-                break;
-            case ScrollPolicy.AUTO: 
-                if (vsb) showVSB = vsb.visible; 
-                break;
-        }
-        
         var measuredW:Number = 0;
         var measuredH:Number = 0;
         var minW:Number = 0;
@@ -98,6 +80,28 @@ internal class FxScrollerLayout extends LayoutBase
             var viewportElt:ILayoutElement = LayoutElementFor(viewport);
             measuredW = viewportElt.getPreferredBoundsWidth();
             measuredH = viewportElt.getPreferredBoundsHeight();
+        }
+        
+        var hsb:FxScrollBar = scroller.horizontalScrollBar;
+        var showHSB:Boolean = false;
+        switch(scroller.horizontalScrollPolicy) {
+            case ScrollPolicy.ON: 
+                if (hsb) showHSB = true; 
+                break;
+            case ScrollPolicy.AUTO: 
+                if (hsb) showHSB = hsb.visible;  
+                break;
+        } 
+
+        var vsb:FxScrollBar = scroller.verticalScrollBar;
+        var showVSB:Boolean = false;
+        switch(scroller.verticalScrollPolicy) {
+           case ScrollPolicy.ON: 
+                if (vsb) showVSB = true; 
+                break;
+            case ScrollPolicy.AUTO: 
+                if (vsb) showVSB = vsb.visible;  
+                break;
         }
         
         if (showHSB)
@@ -118,8 +122,8 @@ internal class FxScrollerLayout extends LayoutBase
         var g:GroupBase = target;
         g.measuredWidth = measuredW;
         g.measuredHeight = measuredH;
-        g.minWidth = minW; 
-        g.minHeight = minH;
+        g.measuredMinWidth = minW; 
+        g.measuredMinHeight = minH;
     }
     
     /** 
@@ -135,17 +139,6 @@ internal class FxScrollerLayout extends LayoutBase
      * 
      *  The scrollbars are made visible if the viewport's content size is
      *  bigger than the actual size.
-     * 
-     *  If the visibility of either scrollbar changes we apply invalidateSize()
-     *  to the ScrollerSkin.
-     * 
-     *  This causes new values for measuredWidth,Height to be computed, and 
-     *  it causes the update process to be restarted.
-     * 
-     *  Note also: the logic for calling updateDisplayList and then restarting
-     *  the process if the component has become invalid is in
-     *  mx.managers.LayoutManager::validateDisplayList.
-     * 
      */
     override public function updateDisplayList(w:Number, h:Number):void
     {  
