@@ -210,7 +210,9 @@ include "../styles/metadata/TextStyles.as"
 
 /**
  *  Width of the arrow button in pixels.
- *  @default 22
+ *  
+ *  The default value for the Halo theme is 22.
+ *  The default value for the Spark theme is 18.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -238,7 +240,8 @@ include "../styles/metadata/TextStyles.as"
  *  The length of the transition when the drop-down list closes, in milliseconds.
  *  The default transition has the drop-down slide up into the ComboBox.
  *
- *  @default 250
+ *  The default value for the Halo theme is 250.
+ *  The default value for the Spark theme is 50.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -279,7 +282,7 @@ include "../styles/metadata/TextStyles.as"
  *  allows you to control the appearance of the drop-down list or its item
  *  renderers.
  * 
- * [deprecated]
+ *  [deprecated]
  *
  *  @default "comboDropDown"
  *  
@@ -308,7 +311,8 @@ include "../styles/metadata/TextStyles.as"
  *  Length of the transition when the drop-down list opens, in milliseconds.
  *  The default transition has the drop-down slide down from the ComboBox.
  *
- *  @default 250
+ *  The default value for the Halo theme is 250.
+ *  The default value for the Spark theme is 0.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -337,7 +341,8 @@ include "../styles/metadata/TextStyles.as"
  *  <code>paddingTop</code> and <code>paddingBottom</code> affect the size 
  *  of the ComboBox control, but do not affect the position of the editable text field.
  *  
- *  @default 0 
+ *  The default value for the Halo theme is 0.
+ *  The default value for the Spark theme is -2.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -353,7 +358,8 @@ include "../styles/metadata/TextStyles.as"
  *  <code>paddingTop</code> and <code>paddingBottom</code> affect the size 
  *  of the ComboBox control, but do not affect the position of the editable text field.
  *  
- *  @default 0
+ *  The default value for the Halo theme is 0.
+ *  The default value for the Spark theme is -1.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -364,7 +370,10 @@ include "../styles/metadata/TextStyles.as"
 
 /**
  *  The rollOverColor of the drop-down list.
-
+ *  
+ *  The default value for the Halo theme is <code>0xB2E1FF</code>.
+ *  The default value for the Spark theme is <code>0xCEDBEF</code>.
+ * 
  *  @see mx.controls.List
  *  
  *  @langversion 3.0
@@ -376,7 +385,10 @@ include "../styles/metadata/TextStyles.as"
 
 /**
  *  The selectionColor of the drop-down list.
-
+ *  
+ *  The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
+ * 
  *  @see mx.controls.List
  *  
  *  @langversion 3.0
@@ -417,7 +429,8 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  The textRollOverColor of the drop-down list.
  * 
- *  @default #2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @see mx.controls.List
  *  
@@ -431,7 +444,9 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  The textSelectedColor of the drop-down list.
  * 
- *  @default #2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
+ * 
  *  @see mx.controls.List
  *  
  *  @langversion 3.0
