@@ -103,14 +103,6 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     private var textDisplay:RichEditableText;
 
-    
-    /**
-     *  @private
-     *  TLF doesn't guarantee it won't touch the context menu.  It removes it
-     *  when it switches from the factory to the composer so we need to save it.
-     */
-    private var userContextMenu:ContextMenu;
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -200,7 +192,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
     /**
      *  @private
      * 
-     * If the user specified a custom context menu then save it and use
+     * If the user specified a custom context menu then use
      * it rather than the default context menu. It must be set before the
      * first mouse over/mouse hover or foucsIn event to be used.
      * 
@@ -209,22 +201,15 @@ public class RichEditableTextContainerManager extends TextContainerManager
      */
     override tlf_internal function getContextMenu():ContextMenu
     {
-        // ToDo(cframpto): can't differentiate between the user removing the
-        // context menu because they don't want it and TLF removing it and
-        // it is requesting it again.  Need additional API to support
-        // contextMenus correctly.  Ideally could specify the context
+        // ToDo(cframpto): Ideally could specify the context
         // menu on the TextArea or the TextInput and it wouldn't be obscured
         // by TLF's context menu.
-        
-        if (textDisplay.contextMenu)
-            userContextMenu = textDisplay.contextMenu as ContextMenu;
 
-        if (!userContextMenu)
-            userContextMenu = super.getContextMenu();
-        
-        return userContextMenu;        
+        // Return null to use the existing contextMenu on the container.
+        // Otherwise the TCM will overwrite this contextMenu.
+        return textDisplay.contextMenu != null ? null : super.getContextMenu();
     }
-
+    
     /**
      *  @private
      */
@@ -310,6 +295,10 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // Default is to batch text input.  If the component, like ComboBox
         // wants to act on each keystroke then set this to false.
         editManager.allowDelayedOperations = textDisplay.batchTextInput;
+        
+        // RET doesn't need the EditManager to do any updates since its
+        // damageHandler forces an update every time the textFlow is modified.
+        editManager.delayUpdates = true;
         
         return editManager;
     }
