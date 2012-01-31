@@ -743,6 +743,7 @@ public class NumericStepper extends UIComponent
         "borderSkin" : "borderSkin",
         "borderStyle" : "borderStyle",
         "borderThickness" : "borderThickness",
+        "borderVisible" : "borderVisible",
         "dropShadowColor" : "dropShadowColor",
         "dropShadowEnabled" : "dropShadowEnabled",
         "embedFonts" : "embedFonts",
