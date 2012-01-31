@@ -109,33 +109,40 @@ public class FadeInstance extends AnimateInstance
      */
     override public function play():void
     {
+        // FIXME chaase: clean up this logic and make it simpler to decide whether
+        // and object is appearing or disappearing, then set the starting/ending
+        // values appropriately. Also, reuse the lazy-evaluation code for
+        // animations by supplying NaNs for values to be filled in with
+        // state values from propChanges later
+        
         // Remember the original value of the target object's alpha
         origAlpha = target.alpha;
         var propChanges:PropertyChanges = propertyChanges;
         
         // If nobody assigned a value, make this a "show" effect.
         if (isNaN(alphaFrom) && isNaN(alphaTo))
-        {   
+        {
+            var startAlpha:Number = origAlpha;
+            var endAlpha:Number = origAlpha;
             if (propChanges && propChanges.end["alpha"] !== undefined &&
                 propChanges.end["alpha"] != propChanges.start["alpha"])
             {
-                alphaFrom = origAlpha;
-                alphaTo = propChanges.end["alpha"];
+                endAlpha = propChanges.end["alpha"];
             }
-            else if (propChanges && propChanges.end["visible"] !== undefined &&
+            if (propChanges && propChanges.end["visible"] !== undefined &&
                 propChanges.end["visible"] != propChanges.start["visible"])
             {
-                alphaFrom = propChanges.start["visible"] ? origAlpha : 0;
-                alphaTo = propChanges.end["visible"] ? origAlpha : 0;
-                // Force target to be visible at effect start
-                restoreAlpha = true;
+                alphaFrom = propChanges.start["visible"] ? startAlpha : 0;
+                alphaTo = propChanges.end["visible"] ? endAlpha : 0;
+                // Force target to be visible at effect 
+                restoreAlpha = !propChanges.end["visible"];
             }
             else if (propChanges && propChanges.end["parent"] !== undefined &&
                 propChanges.end["parent"] != propChanges.start["parent"])
             {
-                alphaFrom = propChanges.start["parent"] ? origAlpha : 0;
-                alphaTo = propChanges.end["parent"] ? origAlpha : 0;
-                restoreAlpha = true;
+                alphaFrom = propChanges.start["parent"] ? startAlpha : 0;
+                alphaTo = propChanges.end["parent"] ? endAlpha : 0;
+                restoreAlpha = !propChanges.end["parent"];
                 if (alphaFrom == 0)
                 {
                     target.alpha = 0;
@@ -146,12 +153,13 @@ public class FadeInstance extends AnimateInstance
             }
             else
             {
-                alphaFrom = 0;
-                alphaTo = origAlpha;
+                alphaFrom = startAlpha;
+                alphaTo = endAlpha;
             }
         }
         else if (isNaN(alphaFrom))
         {
+            // FIXME chaase: why anything but origAlpha here?
             alphaFrom = (alphaTo == 0) ? origAlpha : 0;
         }
         else if (isNaN(alphaTo))
@@ -163,6 +171,7 @@ public class FadeInstance extends AnimateInstance
             }
             else
             {
+                // FIXME chaase: why anything but origAlpha here?
                 alphaTo = (alphaFrom == 0) ? origAlpha : 0; 
             }
         }
