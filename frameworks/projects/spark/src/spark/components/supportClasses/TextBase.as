@@ -646,9 +646,9 @@ public class TextGraphicElement extends GraphicElement
     override protected function measure():void
     {
         // The measure() method of a GraphicElement can get called
-        // when its style chain hasn't been initialized.
-        // In that case, composeTextLines() must not be called.
-        if (!styleChainInitialized)
+        // when its style chain hasn't been initialized
+        // or when no DisplayObject has been assigned to it.
+        if (!styleChainInitialized || !drawnDisplayObject)
             return;
 
         // _widthConstraint trumps even explicitWidth as some layouts may choose
@@ -763,9 +763,9 @@ public class TextGraphicElement extends GraphicElement
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
         // The updateDisplayList() method of a GraphicElement can get called
-        // when its style chain hasn't been initialized.
-        // In that case, composeTextLines() must not be called.
-        if (!styleChainInitialized)
+        // when its style chain hasn't been initialized
+        // or when no DisplayObject has been assigned to it.
+        if (!styleChainInitialized || !drawnDisplayObject)
             return;
 
         // Figure out if a compose is needed or maybe just clip what is already
