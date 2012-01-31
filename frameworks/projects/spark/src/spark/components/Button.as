@@ -28,6 +28,15 @@ import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
+include "../styles/metadata/BasicContainerFormatTextStyles.as"
+include "../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+
+/**
+ *  @copy mx.components.baseClasses.GroupBase#focusColor
+ */ 
+[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+
 /**
  *  Dispatched when the user presses the FxButton control.
  *  If the <code>autoRepeat</code> property is <code>true</code>,
