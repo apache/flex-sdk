@@ -171,6 +171,7 @@ import spark.components.SkinnableContainer;
  *     <tr><td>Default size</td><td>112 pixels by 112 pixels</td></tr>
  *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
  *     <tr><td>Maximum size</td><td>No limit</td></tr>
+ *     <tr><td>Default skin class</td><td>spark.skins.spark.BorderContainerSkin</td></tr>
  *  </table>
  *
  *  @mxml
