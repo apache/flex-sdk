@@ -85,6 +85,8 @@ public class VGroup extends Group
     //  gap
     //----------------------------------
 
+    [Inspectable(category="General")]
+
     /**
      *  @copy spark.layouts.VerticalLayout#gap
      * 
@@ -112,6 +114,8 @@ public class VGroup extends Group
     //  horizontalAlign
     //----------------------------------
 
+    [Inspectable(category="General", enumeration="left,right,center,justify,contentJustify", defaultValue="left")]
+
     /**
      *  @copy spark.layouts.VerticalLayout#horizontalAlign
      *  
@@ -136,10 +140,119 @@ public class VGroup extends Group
     }
 
     //----------------------------------
+    //  paddingLeft
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @copy spark.layouts.VerticalLayout#paddingLeft
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingLeft():Number
+    {
+        return verticalLayout.paddingLeft;
+    }
+
+    /**
+     *  @private
+     */
+    public function set paddingLeft(value:Number):void
+    {
+        verticalLayout.paddingLeft = value;
+    }    
+    
+    //----------------------------------
+    //  paddingRight
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @copy spark.layouts.VerticalLayout#paddingRight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingRight():Number
+    {
+        return verticalLayout.paddingRight;
+    }
+
+    /**
+     *  @private
+     */
+    public function set paddingRight(value:Number):void
+    {
+        verticalLayout.paddingRight = value;
+    }    
+    
+    //----------------------------------
+    //  paddingTop
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @copy spark.layouts.VerticalLayout#paddingTop
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingTop():Number
+    {
+        return verticalLayout.paddingTop;
+    }
+
+    /**
+     *  @private
+     */
+    public function set paddingTop(value:Number):void
+    {
+        verticalLayout.paddingTop = value;
+    }    
+    
+    //----------------------------------
+    //  paddingBottom
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  @copy spark.layouts.VerticalLayout#paddingBottom
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get paddingBottom():Number
+    {
+        return verticalLayout.paddingBottom;
+    }
+
+    /**
+     *  @private
+     */
+    public function set paddingBottom(value:Number):void
+    {
+        verticalLayout.paddingBottom = value;
+    }    
+    
+    //----------------------------------
     //  rowCount
     //----------------------------------
 
     [Bindable("propertyChange")]
+    [Inspectable(category="General")]
 
     /**
      *  @copy spark.layouts.VerticalLayout#rowCount
@@ -159,6 +272,8 @@ public class VGroup extends Group
     //----------------------------------
     //  requestedRowCount
     //----------------------------------
+
+    [Inspectable(category="General")]
 
     /**
      *  @copy spark.layouts.VerticalLayout#requestedRowCount
@@ -244,6 +359,7 @@ public class VGroup extends Group
     //----------------------------------
 
     [Bindable("indexInViewChanged")]    
+    [Inspectable(category="General")]
  
     /**
      * @copy spark.layouts.VerticalLayout#firstIndexInView
@@ -263,6 +379,7 @@ public class VGroup extends Group
     //----------------------------------
 
     [Bindable("indexInViewChanged")]    
+    [Inspectable(category="General")]
 
     /**
      * @copy spark.layouts.VerticalLayout#lastIndexInview
