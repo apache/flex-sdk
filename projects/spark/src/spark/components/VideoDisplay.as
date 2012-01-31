@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2009 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+///////////////////////////////////////////////////////////////////////////////
+
 package spark.primitives
 {
 import fl.video.MetadataEvent;
@@ -10,12 +21,12 @@ import fl.video.VideoState;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.ProgressEvent;
+import flash.media.Video;
 
 import mx.core.mx_internal;
-import spark.primitives.supportClasses.GraphicElement;
 
-import spark.events.MetadataEvent;
 import spark.events.VideoEvent;
+import spark.primitives.supportClasses.GraphicElement;
 
 //--------------------------------------
 //  Events
@@ -56,18 +67,17 @@ import spark.events.VideoEvent;
  *  The event object has an <code>info</code> property that contains the 
  *  info object received by the <code>NetStream.onMetaData</code> event callback.
  * 
- *  @eventType spark.events.MetadataEvent.METADATA_RECEIVED
+ *  @eventType spark.events.VideoEvent.METADATA_RECEIVED
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="metadataReceived", type="spark.events.MetadataEvent")]
+[Event(name="metadataReceived", type="spark.events.VideoEvent")]
 
 /**
- *  Dispatched every 0.25 seconds, or how often the underlying video
- *  player's <code>playheadUpdateInterval</code> is set to, while the 
+ *  Dispatched every 0.25 seconds while the 
  *  video is playing.  This event is not dispatched when it is paused 
  *  or stopped, unless a seek occurs.
  *
@@ -81,10 +91,9 @@ import spark.events.VideoEvent;
 [Event(name="playheadUpdate", type="spark.events.VideoEvent")]
 
 /**
- *  Indicates progress made in number of bytes downloaded. Dispatched at the frequency 
- *  specified by the underlying video player's <code>progressInterval</code> property, starting 
+ *  Indicates progress made in number of bytes downloaded. Dispatched starting 
  *  when the load begins and ending when all bytes are loaded or there is a network error. 
- *  The default is every 0.25 seconds starting when load is called and ending
+ *  Dispatched every 0.25 seconds starting when load is called and ending
  *  when all bytes are loaded or if there is a network error. Use this event to check 
  *  bytes loaded or number of bytes in the buffer. 
  *
@@ -130,9 +139,9 @@ import spark.events.VideoEvent;
  *  The VideoElement class is chromeless video player that supports
  *  progressive download, multi-bitrate, and streaming video.
  * 
- *  <p><code>VideoDisplay</code> is the skinnable version.</p>
+ *  <p><code>VideoPlayer</code> is the skinnable version.</p>
  *
- *  @see mx.components.VideoDisplay
+ *  @see mx.components.VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -262,7 +271,7 @@ public class VideoElement extends GraphicElement
         if (_autoPlay == value)
             return;
         
-        _isPlaying = value;
+        _playing = value;
         _autoPlay = value;
     }
     
@@ -298,14 +307,14 @@ public class VideoElement extends GraphicElement
     }
         
     //----------------------------------
-    //  isLive
+    //  live
     //----------------------------------
 
     /**
      *  @private
-     *  Storage for isLive property.
+     *  Storage for live property.
      */
-    private var _isLive:Boolean = false;
+    private var _live:Boolean = false;
 
     [Inspectable(category="General", defaultValue="false")]
 
@@ -315,12 +324,12 @@ public class VideoElement extends GraphicElement
      *  or Flash Video Streaming Service (FVSS). The value of this 
      *  property is ignored for an HTTP download.
      * 
-     *  <p>Set the <code>isLive</code> property to <code>false</code> when sending 
+     *  <p>Set the <code>live</code> property to <code>false</code> when sending 
      *  a prerecorded video stream to the video player and to <code>true</code> 
      *  when sending real-time data such as a live broadcast.</p>
      *
      *  @see #source 
-     *  @see VideoPlayer#isLive 
+     *  @see VideoPlayer#live 
      *  @default false
      *  
      *  @langversion 3.0
@@ -328,73 +337,21 @@ public class VideoElement extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get isLive():Boolean
+    public function get live():Boolean
     {
-        return _isLive;
+        return _live;
     }
     
     /**
      *  @private
      */
-    public function set isLive(value:Boolean):void
+    public function set live(value:Boolean):void
     {
-        _isLive = value;
+        _live = value;
         sourceChanged = true;
         invalidateProperties();
     }
     
-    //----------------------------------
-    //  isMuted
-    //----------------------------------
-    
-    [Inspectable(category="General", defaultValue="false")]
-    
-    /**
-     *  Returns true if the video is muted, false 
-     *  if the video is not muted.
-     *
-     *  @see #mute()
-     *  @see #unmute()
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get isMuted():Boolean
-    {
-        return mutedVolume != -1;
-    }
-    
-    //----------------------------------
-    //  isPlaying
-    //----------------------------------
-    
-    [Inspectable(category="General")]
-    
-    private var _isPlaying:Boolean = true; // initialize to same value as autoPlay
-    
-    /**
-     *  Returns true if the video is playing or is attempting to play.
-     *  
-     *  <p>The video may not be currently playing, as it may be seeking 
-     *  or buferring, but the video is attempting to play.</p> 
-     *
-     *  @see #play()
-     *  @see #pause()
-     *  @see #stop()
-     *  @see #autoPlay
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get isPlaying():Boolean
-    {
-        return _isPlaying;
-    }
-        
     //----------------------------------
     //  maintainAspectRatio
     //----------------------------------
@@ -445,6 +402,52 @@ public class VideoElement extends GraphicElement
 
             invalidateSize();
             invalidateDisplayList();
+        }
+    }
+    
+    //----------------------------------
+    //  muted
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  mutedVolume tracks what the volume was before we were 
+     *  muted.  If we aren't muted, mutedVolume = -1.
+     */
+    private var mutedVolume:Number = -1;
+    
+    [Inspectable(category="General", defaultValue="false")]
+    
+    /**
+     *  Set to <code>true</code> to mute the video, <code>false</code> 
+     *  to unmute the video.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get muted():Boolean
+    {
+        return mutedVolume != -1;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set muted(value:Boolean):void
+    {
+        // if trying to unmute and we're muted
+        if (!value && mutedVolume != -1)
+        {
+            mx_internal::videoPlayer.volume = mutedVolume;
+            mutedVolume = -1;
+        }
+        // if trying to mute and we're not muted
+        else if (value && mutedVolume == -1)
+        {
+            mutedVolume = mx_internal::videoPlayer.volume;
+            mx_internal::videoPlayer.volume = 0;
         }
     }
     
@@ -503,6 +506,35 @@ public class VideoElement extends GraphicElement
     public function set playheadTime(value:Number):void
     {
         mx_internal::videoPlayer.playheadTime = value;
+    }
+    
+    //----------------------------------
+    //  playing
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    private var _playing:Boolean = true; // initialize to same value as autoPlay
+    
+    /**
+     *  Returns true if the video is playing or is attempting to play.
+     *  
+     *  <p>The video may not be currently playing, as it may be seeking 
+     *  or buferring, but the video is attempting to play.</p> 
+     *
+     *  @see #play()
+     *  @see #pause()
+     *  @see #stop()
+     *  @see #autoPlay
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get playing():Boolean
+    {
+        return _playing;
     }
     
     //----------------------------------
@@ -573,6 +605,23 @@ public class VideoElement extends GraphicElement
     }
     
     //----------------------------------
+    //  videoObject
+    //----------------------------------
+
+    /**
+     *  The underlying video object
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get videoObject():Video
+    {
+        return mx_internal::videoPlayer as Video;
+    }
+    
+    //----------------------------------
     //  volume
     //----------------------------------
     
@@ -630,7 +679,7 @@ public class VideoElement extends GraphicElement
             else
             {
                 // TODO: should we load the video if autoPlay is false?
-                mx_internal::videoPlayer.load(source as String, NaN, isLive);
+                mx_internal::videoPlayer.load(source as String, NaN, live);
             }
         }
     }
@@ -680,32 +729,6 @@ public class VideoElement extends GraphicElement
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
-     *  mutedVolume tracks what the volume was before we were 
-     *  muted.  If we aren't muted, mutedVolume = -1.
-     */
-    private var mutedVolume:Number = -1;
-    
-    /**
-     *  Mutes the volume of the video.  The volume property will be 
-     *  unaffected by this method, but the volume will be muted.  If the 
-     *  volume is already muted, this method will have no effect.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function mute():void
-    {
-        if (mutedVolume != -1)
-            return;
-        
-        mutedVolume = volume;
-        mx_internal::videoPlayer.volume = 0;
-    }
-    
-    /**
      *  Pauses playback without moving the playhead. 
      *  If playback is already is paused or is stopped, this method has no
      *  effect.  
@@ -727,20 +750,21 @@ public class VideoElement extends GraphicElement
      *  paused, stopped, or while the video is already playing.
      *
      *  @param startTime Time to start playing the clip from.  
-     *  Pass in -1 to start at the beginning or the 
-     *  current spot in the clip if paused.  Default is -1.
-     *  @param duration Duration, in seconds, to play.  Pass in -1 
+     *  Pass in NaN to start at the beginning or the 
+     *  current spot in the clip if paused.  Default is NaN.
+     *  
+     *  @param duration Duration, in seconds, to play.  Pass in NaN 
      *  to automatically detect length from metadata, server
-     *  or xml.  Default is -1.
+     *  or xml.  Default is NaN.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function play(startTime:Number=-1, duration:Number=-1):void
+    public function play(startTime:Number=NaN, duration:Number=NaN):void
     {
-        if (startTime != -1)
+        if (!isNaN(startTime))
             seek(startTime);
         
         var source:String;
@@ -750,7 +774,10 @@ public class VideoElement extends GraphicElement
         else
             source = this.source as String;
         
-        mx_internal::videoPlayer.play(source, duration, isLive);
+        if (isNaN(duration))
+            mx_internal::videoPlayer.play(source, live);
+        else
+            mx_internal::videoPlayer.play(source, live, duration);
     }
    
     /**
@@ -798,25 +825,6 @@ public class VideoElement extends GraphicElement
     {
         mx_internal::videoPlayer.stop();
     }
-
-    /**
-     *  Unmutes the volume of the video.  If the volume was muted, this 
-     *  method will set the volume at its previous level.  If the 
-     *  volume was not muted, this method will have no effect.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    public function unmute():void
-    {
-        if (mutedVolume == -1)
-            return;
-        
-        mx_internal::videoPlayer.volume = mutedVolume;
-        mutedVolume = -1;
-    }
     
     //--------------------------------------------------------------------------
     //
@@ -829,7 +837,8 @@ public class VideoElement extends GraphicElement
      */
     private function videoPlayer_closeHandler(event:fl.video.VideoEvent):void
     {
-        var sparkVideoEvent:spark.events.VideoEvent = new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
+        var sparkVideoEvent:spark.events.VideoEvent = 
+            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
         dispatchEvent(sparkVideoEvent);
     }
     
@@ -838,7 +847,8 @@ public class VideoElement extends GraphicElement
      */
     private function videoPlayer_completeHandler(event:fl.video.VideoEvent):void
     {
-        var sparkVideoEvent:spark.events.VideoEvent = new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
+        var sparkVideoEvent:spark.events.VideoEvent = 
+            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
         dispatchEvent(sparkVideoEvent);
     }
     
@@ -848,8 +858,9 @@ public class VideoElement extends GraphicElement
     private function videoPlayer_metaDataReceivedHandler(event:fl.video.MetadataEvent):void
     {
         invalidateSize();
-        var sparkMetadataEvent:spark.events.MetadataEvent = new spark.events.MetadataEvent(event.type, event.bubbles, event.cancelable, event.info);
-        dispatchEvent(sparkMetadataEvent);
+        var sparkVideoEvent:spark.events.VideoEvent = 
+            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, playheadTime, event.info);
+        dispatchEvent(sparkVideoEvent);
     }
     
     /**
@@ -857,7 +868,8 @@ public class VideoElement extends GraphicElement
      */
     private function videoPlayer_playHeadUpdateHandler(event:fl.video.VideoEvent):void
     {
-        var sparkVideoEvent:spark.events.VideoEvent = new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
+        var sparkVideoEvent:spark.events.VideoEvent = 
+            new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
         dispatchEvent(sparkVideoEvent);
     }
     
@@ -869,13 +881,13 @@ public class VideoElement extends GraphicElement
         switch (event.state)
         {
             case VideoState.PLAYING:
-                _isPlaying = true;
+                _playing = true;
                 break;
             case VideoState.PAUSED:
             case VideoState.STOPPED:
             case VideoState.DISCONNECTED:
             case VideoState.CONNECTION_ERROR:
-                _isPlaying = false;
+                _playing = false;
                 break;
         }
         
