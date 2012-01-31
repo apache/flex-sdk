@@ -13,7 +13,6 @@ package spark.components.supportClasses
 {
 import flash.geom.Point;
 
-import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 import mx.utils.MatrixUtil;
@@ -115,13 +114,35 @@ public class ScrollerLayout extends LayoutBase
 
     /**
      *  @private
+     *  Returns the vertical space required by the horizontal scrollbar.   
+     *  That's the larger of the minViewportInset and the hsb's preferred height.   
+     * 
+     *  Computing this value is complicated by the fact that if the HSB is currently 
+     *  hsbVisible=false, then it's scaleX,Y will be 0, and it's preferred size is 0.  
+     *  For that reason we specify postLayoutTransform=false to getPreferredBoundsHeight() 
+     *  and then multiply by the original scale factor, hsbScaleY.
+     */
+    private function hsbRequiredHeight():Number 
+    {
+        var scroller:Scroller = getScroller();
+        var minViewportInset:Number = scroller.minViewportInset;
+        var hsb:ScrollBar = scroller.horizontalScrollBar;
+        var sy:Number = (hsbVisible) ? 1 : hsbScaleY;
+        return Math.max(minViewportInset, hsb.getPreferredBoundsHeight(hsbVisible) * sy);
+    }
+    
+    /**
+     *  @private
      *  Return true if the specified dimensions provide enough space to layout 
      *  the horizontal scrollbar (hsb) at its minimum size.   The HSB is assumed 
      *  to be non-null and visible.
+     * 
+     *  If includeVSB is false we check to see if the HSB woudl fit if the 
+     *  VSB wasn't visible.
      */
-    private function hsbFits(w:Number, h:Number):Boolean
+    private function hsbFits(w:Number, h:Number, includeVSB:Boolean=true):Boolean
     {
-        if (vsbVisible)
+        if (vsbVisible && includeVSB)
         {
             var vsb:ScrollBar = getScroller().verticalScrollBar;            
             w -= vsb.getPreferredBoundsWidth();
@@ -177,13 +198,35 @@ public class ScrollerLayout extends LayoutBase
 
     /**
      *  @private
+     *  Returns the vertical space required by the horizontal scrollbar.   
+     *  That's the larger of the minViewportInset and the hsb's preferred height.  
+     *  
+     *  Computing this value is complicated by the fact that if the HSB is currently 
+     *  hsbVisible=false, then it's scaleX,Y will be 0, and it's preferred size is 0.  
+     *  For that reason we specify postLayoutTransform=false to getPreferredBoundsWidth() 
+     *  and then multiply by the original scale factor, vsbScaleX.
+     */
+    private function vsbRequiredWidth():Number 
+    {
+        var scroller:Scroller = getScroller();
+        var minViewportInset:Number = scroller.minViewportInset;
+        var vsb:ScrollBar = scroller.verticalScrollBar;
+        var sx:Number = (vsbVisible) ? 1 : vsbScaleX;
+        return Math.max(minViewportInset, vsb.getPreferredBoundsWidth(vsbVisible) * sx);
+    }
+    
+    /**
+     *  @private
      *  Return true if the specified dimensions provide enough space to layout 
      *  the vertical scrollbar (vsb) at its minimum size.   The VSB is assumed 
      *  to be non-null and visible.
+     * 
+     *  If includeHSB is false, we check to see if the VSB would fit if the 
+     *  HSB wasn't visible.
      */
-    private function vsbFits(w:Number, h:Number):Boolean
+    private function vsbFits(w:Number, h:Number, includeHSB:Boolean=true):Boolean
     {
-        if (hsbVisible)
+        if (hsbVisible && includeHSB)
         {
             var hsb:ScrollBar = getScroller().horizontalScrollBar;            
             w -= hsb.getMinBoundsWidth();
@@ -192,7 +235,7 @@ public class ScrollerLayout extends LayoutBase
         var vsb:ScrollBar = getScroller().verticalScrollBar;  
         return (w >= vsb.getPreferredBoundsWidth()) && (h >= vsb.getMinBoundsHeight());
     }
-        
+
     /**
      * @private
      *  Computes the union of the preferred size of the visible 
@@ -244,15 +287,8 @@ public class ScrollerLayout extends LayoutBase
                 break;
         }
         
-        if (showHSB)
-            measuredH += Math.max(minViewportInset, hsb.getPreferredBoundsHeight());
-        else
-            measuredH += minViewportInset;
-
-        if (showVSB)
-            measuredW += Math.max(minViewportInset, vsb.getPreferredBoundsWidth());
-        else
-            measuredW += minViewportInset;
+        measuredH += (showHSB) ? hsbRequiredHeight() : minViewportInset;
+        measuredW += (showVSB) ? vsbRequiredWidth() : minViewportInset;
 
         // The measured size of the viewport is just its preferredBounds, except:
         // don't give up space if doing so would make an auto scrollbar visible.
@@ -341,17 +377,23 @@ public class ScrollerLayout extends LayoutBase
             contentH = contentSize.y;
         }
     
-        // If the viewport's size has been explicitly set (not typical) then use it 
+        // If the viewport's size has been explicitly set (not typical) then use it
+        // The initial values for viewportW,H are only used to decide if auto scrollbars
+        // should be shown. 
+ 
         var viewportUIC:IUIComponent = viewport as IUIComponent;
         var explicitViewportW:Number = viewportUIC ? viewportUIC.explicitWidth : NaN;
         var explicitViewportH:Number = viewportUIC ? viewportUIC.explicitHeight : NaN;
         
+        var viewportW:Number = isNaN(explicitViewportW) ? (w - (minViewportInset * 2)) : explicitViewportW;
+        var viewportH:Number = isNaN(explicitViewportH) ? (h - (minViewportInset * 2)) : explicitViewportH;
+                        
+        // Decide which scrollbars will be visible based on the viewport's content size
+        // and the scroller's scroll policies.
+        
         var oldShowHSB:Boolean = hsbVisible;
         var oldShowVSB:Boolean = vsbVisible;
         
-        // Decide which scrollbars will be visible based on the viewport's content size
-        // and the scroller's scroll policies.
-
         var hAuto:Boolean = false; 
         switch(scroller.getStyle("horizontalScrollPolicy")) 
         {
@@ -363,8 +405,6 @@ public class ScrollerLayout extends LayoutBase
                 if (hsb && viewport)
                 {
                     hAuto = true;
-                    var viewportW:Number = 
-                        isNaN(explicitViewportW) ? (w - (minViewportInset * 2)) : explicitViewportW;
                     hsbVisible = (contentW > viewportW);
                 } 
                 break;
@@ -384,8 +424,6 @@ public class ScrollerLayout extends LayoutBase
                 if (vsb && viewport)
                 { 
                     vAuto = true;
-                    var viewportH:Number = 
-                        isNaN(explicitViewportH) ? (h - (minViewportInset * 2)) : explicitViewportH;
                     vsbVisible = (contentH > viewportH);
                 }                        
                 break;
@@ -394,83 +432,93 @@ public class ScrollerLayout extends LayoutBase
                 vsbVisible = false;
         }
 
-        // Shrink the viewport's width,height for the visible scrollbars
+        // Reset the viewport's width,height to account for the visible scrollbars, unless
+        // the viewport's size was explicitly set, then we just use that. 
         
-        viewportH = h - minViewportInset;
-        if (hsbVisible)
-            viewportH -= Math.max(minViewportInset, hsb.getPreferredBoundsHeight());
-            
-        viewportW = w - minViewportInset;
-        if (vsbVisible)
-            viewportW -= Math.max(minViewportInset, vsb.getPreferredBoundsWidth());
+        if (isNaN(explicitViewportW))
+            viewportW = w - ((vsbVisible) ? (minViewportInset + vsbRequiredWidth()) : (minViewportInset * 2));
+        else 
+            viewportW = explicitViewportW;
         
+        if (isNaN(explicitViewportH))
+            viewportH = h - ((hsbVisible) ? (minViewportInset + hsbRequiredHeight()) : (minViewportInset * 2));
+        else 
+            viewportH = explicitViewportH;
+
         // If the scrollBarPolicy is auto, and we're only showing one scrollbar, 
         // the viewport may have shrunk enough to require showing the other one.
-
-        if (vsbVisible && !hsbVisible && hAuto && (contentW > viewportW))
-        {
-            hsbVisible = true;
-            viewportH -= Math.max(minViewportInset, hsb.getPreferredBoundsHeight());
-        }
-        else if (!vsbVisible && hsbVisible && vAuto && (contentH > viewportH))
-        {
-            vsbVisible = true;
-            viewportW -= Math.max(minViewportInset, vsb.getPreferredBoundsWidth());
-        }
-
-        // Factor in scrollBar-side viewportInsets where there aren't scrollbars
-
-        if (!hsbVisible) 
-            viewportH -= minViewportInset;
-
-        if (!vsbVisible) 
-            viewportW -= minViewportInset;
         
+        var hsbIsDependent:Boolean = false;
+        var vsbIsDependent:Boolean = false;
+    
+        if (vsbVisible && !hsbVisible && hAuto && (contentW > viewportW))
+            hsbVisible = hsbIsDependent = true;
+        else if (!vsbVisible && hsbVisible && vAuto && (contentH > viewportH))
+            vsbVisible = vsbIsDependent = true;
+
         // If the HSB doesn't fit, hide it and give the space back.   Likewise for VSB.
         // If both scrollbars are supposed to be visible but they don't both fit, 
-        // then prefer to show just a VSB over just a HSB.
-    
-        if (hsbVisible && vsbVisible)
-        {
-            var hsbPreferredH:Number = hsb.getPreferredBoundsHeight();  
-            var vsbPreferredW:Number = vsb.getPreferredBoundsWidth();
-
-            if (!hsbFits(w, h))
-                hsbVisible = false;
-
-            if (!vsbFits(w, h))
-            {
-                vsbVisible = false;
-                hsbVisible = true;
-                if (!hsbFits(w, h))
-                    hsbVisible = false;
-            }
-
-            if (!hsbVisible)
-                viewportH += Math.max(minViewportInset, hsbPreferredH);
-            if (!vsbVisible)
-                viewportW += Math.max(minViewportInset, vsbPreferredW);
-        }
-        else if (hsbVisible && !hsbFits(w, h))
-        {
-            viewportH += Math.max(minViewportInset, hsb.getPreferredBoundsHeight());
-            hsbVisible = false;
-        }
-        else if (vsbVisible && !vsbFits(w, h))
-        {
-            viewportW += Math.max(minViewportInset, vsb.getPreferredBoundsWidth());
-            vsbVisible = false;
-        }
+        // then prefer to show the "non-dependent" auto scrollbar if we added the second
+        // "dependent" auto scrollbar because of the space consumed by the first.
         
-        // Special case: viewport's size is explicitly set
+        if (hsbVisible && vsbVisible) 
+        {
+            if (hsbFits(w, h) && vsbFits(w, h))
+            {
+                // Both scrollbars fit, we're done.
+            }
+            else if (!hsbFits(w, h, false) && !vsbFits(w, h, false))
+            {
+                // Neither scrollbar would fit, even if the other scrollbar wasn't visible.
+                hsbVisible = false;
+                vsbVisible = false;
+            }
+            else
+            {
+                // Only one of the scrollbars will fit.  If we're showing a second "dependent"
+                // auto scrollbar because the first scrollbar consumed enough space to
+                // require it, if the first scrollbar doesn't fit, don't show either of them.
 
-        if (!isNaN(explicitViewportW)) 
+                if (hsbIsDependent)
+                {
+                    if (vsbFits(w, h, false))  // VSB will fit if HSB isn't shown   
+                        hsbVisible = false;
+                    else 
+                        vsbVisible = hsbVisible = false;
+  
+                }
+                else if (vsbIsDependent)
+                {
+                    if (hsbFits(w, h, false)) // HSB will fit if VSB isn't shown
+                        vsbVisible = false;
+                    else
+                        hsbVisible = vsbVisible = false; 
+                }
+                else if (vsbFits(w, h, false)) // VSB will fit if HSB isn't shown
+                    hsbVisible = false;
+                else // hsbFits(w, h, false)   // HSB will fit if VSB isn't shown
+                    vsbVisible = false;
+            }
+        }
+        else if (hsbVisible && !hsbFits(w, h))  // just trying to show HSB, but it doesn't fit
+            hsbVisible = false;
+        else if (vsbVisible && !vsbFits(w, h))  // just trying to show VSB, but it doesn't fit
+            vsbVisible = false;
+        
+        // Reset the viewport's width,height to account for the visible scrollbars, unless
+        // the viewport's size was explicitly set, then we just use that.
+        
+        if (isNaN(explicitViewportW))
+            viewportW = w - ((vsbVisible) ? (minViewportInset + vsbRequiredWidth()) : (minViewportInset * 2));
+        else 
             viewportW = explicitViewportW;
 
-        if (!isNaN(explicitViewportH)) 
+        if (isNaN(explicitViewportH))
+            viewportH = h - ((hsbVisible) ? (minViewportInset + hsbRequiredHeight()) : (minViewportInset * 2));
+        else 
             viewportH = explicitViewportH;
         
-        // Layout the viewport scrollbars.
+        // Layout the viewport and scrollbars.
 
         if (viewport)
         {
