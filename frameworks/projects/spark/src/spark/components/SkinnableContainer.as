@@ -182,13 +182,13 @@ public class ItemsComponent extends ContainerBase
     //  content
     //----------------------------------    
     
-    private var _content:*;
+    private var _content:Object;
     
     /**
      *  @copy flex.core.Group#content
      */
     [Bindable]
-    public function get content():*
+    public function get content():Object
     { 
 	    // Make sure deferred content is created, if needed
 		createContentIfNeeded();
@@ -201,7 +201,7 @@ public class ItemsComponent extends ContainerBase
             return _content; 
     }
     
-    public function set content(value:*):void
+    public function set content(value:Object):void
     {
         if (value == _content)
             return;
@@ -374,7 +374,7 @@ public class ItemsComponent extends ContainerBase
                 }
                 
             }
-            else if (_content != undefined)
+            else if (_content != null)
             {
                 contentGroup.content = _content;
             }
