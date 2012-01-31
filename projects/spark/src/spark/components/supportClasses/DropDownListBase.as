@@ -501,7 +501,7 @@ public class DropDownListBase extends List
      *  @private
      *  Called by the initialize() method of UIComponent
      *  to hook in the accessibility code.
-     */
+     */ 
     override protected function initializeAccessibility():void
     {
         if (DropDownListBase.createAccessibilityImplementation != null)
@@ -623,7 +623,7 @@ public class DropDownListBase extends List
      *  Called whenever we need to update the text passed to the labelDisplay skin part
      */
     // TODO (jszeto): Make this protected and make the name more generic (passing data to skin) 
-    mx_internal function updateLabelDisplay():void
+    mx_internal function updateLabelDisplay(displayItem:* = undefined):void
     {
         // DropDownList and ComboBox will override this function
     }
@@ -785,7 +785,7 @@ public class DropDownListBase extends List
                         if (arrowKeysWrapFocus && currentIndex == 0)
                             proposedNewIndex = dataProvider.length - 1;
                         else
-                            proposedNewIndex = currentIndex - 1;
+                        proposedNewIndex = currentIndex - 1;  
                         event.preventDefault();
                         break;
                     }                      
@@ -795,7 +795,7 @@ public class DropDownListBase extends List
                         if (arrowKeysWrapFocus && currentIndex == (dataProvider.length - 1))
                             proposedNewIndex = 0;
                         else
-                            proposedNewIndex = currentIndex + 1;
+                        proposedNewIndex = currentIndex + 1;  
                         event.preventDefault();
                         break;
                     }
