@@ -2724,9 +2724,20 @@ public class Slider extends UIComponent
                 keyInteraction = false;
             }
             else
-            event.triggerEvent = new MouseEvent(MouseEvent.CLICK);
-            if (!isNaN(oldValue) && Math.abs(oldValue - value) > 0.002)
-                dispatchEvent(event);
+            {
+            	event.triggerEvent = new MouseEvent(MouseEvent.CLICK);
+            }
+            
+            if (!isNaN(oldValue))
+            {
+            	if (Math.abs(oldValue - value) > 0.002)
+            		dispatchEvent(event)
+            }
+            // Handle case of changing from NaN to a valid value
+            else if (!isNaN(value))	
+			{	
+            	dispatchEvent(event);
+			}
         }
 
         invalidateDisplayList();
