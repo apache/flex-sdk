@@ -34,14 +34,14 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  TODO (jszeto) 
  - Add caretIndex public getter
  - Add setCaretIndex protected setter
- 	- Should set currentCaretIndex
- 	- Call itemInCaret
+    - Should set currentCaretIndex
+    - Call itemInCaret
 */
     
 /**
  *  Dispatched when the selection is going to change. 
  *  Calling the <code>preventDefault()</code> method
- *  on the event will prevent the selection from changing.
+ *  on the event prevents the selection from changing.
  *
  *  @eventType mx.events.IndexChangedEvent.SELECTION_CHANGING
  *  
@@ -78,7 +78,29 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 /**
  *  The ListBase class is the base class for all components that support
- *  selection.
+ *  selection. 
+ *
+ *  @mxml <p>The <code>&lt;ListBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;ListBase
+ *
+ *    <strong>Properties</strong>
+ *    dataProvider="null"
+ *    labelField="null"
+ *    labelFunction="null"
+ *    requiresSelection="false"
+ *    selectedIndex="-1"
+ *    selectedItem="undefined"
+ *    useVirtualLayout="false"
+ * 
+ *    <strong>Events</strong>
+ *    itemFocusChanged="<i>No default</i>"
+ *    selectionChanged="<i>No default</i>"
+ *    selectionChanging="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -147,7 +169,7 @@ public class ListBase extends SkinnableDataContainer
     private var dataProviderChanged:Boolean;
     
     /**
-     *  @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -162,9 +184,9 @@ public class ListBase extends SkinnableDataContainer
         dataProviderChanged = true;
         doingWholesaleChanges = true;
         
-		// ensure that our listener is added before the dataGroup which adds a listener during
-		// the base class setter if the dataGroup already exists.  If the dataGroup isn't
-		// created yet, then we still be first.
+        // ensure that our listener is added before the dataGroup which adds a listener during
+        // the base class setter if the dataGroup already exists.  If the dataGroup isn't
+        // created yet, then we still be first.
         if (value)
             value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
 
@@ -181,6 +203,7 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  The name of the field in the data provider items to display 
      *  as the label. 
+     *  The <code>labelFunction</code> property overrides this property.
      *
      *  @default null 
      *  
@@ -215,6 +238,8 @@ public class ListBase extends SkinnableDataContainer
     
     /**
      *  A user-supplied function to run on each item to determine its label.  
+     *  The <code>labelFunction</code> property overrides 
+     *  the <code>labelField</code> property.
      *
      *  <p>You can supply a <code>labelFunction</code> that finds the 
      *  appropriate fields and returns a displayable string. The 
@@ -281,7 +306,7 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  The 0-based index of the selected item, or -1 if no item is selected.
      *  Setting the <code>selectedIndex</code> property deselects the currently selected
-     *  item and selects the item at the specified index.
+     *  item and selects the data item at the specified index.
      *
      *  <p>The value is always between -1 and (<code>dataProvider.length</code> - 1). 
      *  If items at a lower index than <code>selectedIndex</code> are 
@@ -396,10 +421,9 @@ public class ListBase extends SkinnableDataContainer
     private var requiresSelectionChanged:Boolean = false;
 
     /**
-     *  Specifies whether an item must always be selected in the dataProvider.
+     *  If <code>true</code>, a data item must always be selected in the control.
      *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
      *  is always set to a value between 0 and (<code>dataProvider.length</code> - 1), 
-     *  or -1 if there are no items.
      *
      *  @default false
      *  
@@ -485,10 +509,11 @@ public class ListBase extends SkinnableDataContainer
     private var _useVirtualLayout:Boolean = false;
     
     /**
-     *  A convenience that delegates to <code>layout.useVirtualLayout</code>.  
-     *  If this list's layout is subsequently replaced and the value of this 
-     *  property is true, then then the new layout's <code>useVirtualLayout</code> property 
-     *  will also be true.
+     *  Sets the value of the <code>useVirtualLayout</code> property
+     *  of the layout associated with this control.  
+     *  If the layout is subsequently replaced and the value of this 
+     *  property is <code>true</code>, then the new layout's 
+     *  <code>useVirtualLayout</code> property is set to <code>true</code>.
      *
      *  @default false
      *  
@@ -663,24 +688,24 @@ public class ListBase extends SkinnableDataContainer
         
         if (labelFieldOrFunctionChanged)
         {
-        	//Cycle through all instantiated renderers
-        	if (dataGroup)
-        	{
-	        	for (var i:int = 0; i < dataGroup.numChildren; i++)
-	        	{
-        			//TODO: Ryan, figure out numChildren/numElement vs. getElement/getChild
-	        		//and which is more performant. 
-	        		var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
-	        		//Push the correct text into the renderer by settings its labelText
-	        		//property 
-	        		if (renderer)
-		        	{
-	        			renderer.labelText = itemToLabel(renderer.data); 
-		        	}
-	        	}
-	        }
+            //Cycle through all instantiated renderers
+            if (dataGroup)
+            {
+                for (var i:int = 0; i < dataGroup.numChildren; i++)
+                {
+                    //TODO: Ryan, figure out numChildren/numElement vs. getElement/getChild
+                    //and which is more performant. 
+                    var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
+                    //Push the correct text into the renderer by settings its labelText
+                    //property 
+                    if (renderer)
+                    {
+                        renderer.labelText = itemToLabel(renderer.data); 
+                    }
+                }
+            }
 
-			labelFieldOrFunctionChanged = false; 
+            labelFieldOrFunctionChanged = false; 
         }
     }
     
@@ -717,13 +742,13 @@ public class ListBase extends SkinnableDataContainer
     
     /**
      *  Given a data item, return the correct text a renderer
-     *  should display while taking labelField and labelFunction 
-     *  into account. 
+     *  should display while taking the <code>labelField</code> 
+     *  and <code>labelFunction</code> properties into account. 
      *
      *  @param item A data item 
      *  
      *  @return String representing the text to display for the 
-     *  passed in item's renderer. 
+     *  data item in the  renderer. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -732,7 +757,7 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function itemToLabel(item:Object):String
     {
-    	return LabelUtil.itemToLabel(item, labelField, labelFunction);
+        return LabelUtil.itemToLabel(item, labelField, labelFunction);
     }
     
     /**
@@ -774,17 +799,18 @@ public class ListBase extends SkinnableDataContainer
     }
     
     /**
-     *  Returns true if the item is selected by calling 
+     *  Returns <code>true</code> if the item is selected by calling 
      *  <code>isItemIndexSelected()</code>.
      * 
      *  <p>If multiple instances of the item are in the list, 
-     *  this will only check to see whether the item at  
+     *  this method only checks to see whether the item at  
      *  <code>dataProvider.getItemIndex()</code> (usually the first 
      *  instance of that item) is selected.</p>
      * 
      *  @param item The item whose selection status is being checked
      *
-     *  @return true if the item is selected, false otherwise.
+     *  @return <code>true</code> if the item is selected, 
+     *  and <code>false</code> otherwise.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -799,11 +825,12 @@ public class ListBase extends SkinnableDataContainer
     }
         
     /**
-     *  Returns true if the item at the index is selected.
+     *  Returns <code>true</code> if the item at the index is selected.
      * 
      *  @param index The index of the item whose selection status is being checked
      *
-     *  @return true if the item at that index is selected, false otherwise.
+     *  @return <code>true</code> if the item at that index is selected, 
+     *  and <code>false</code> otherwise.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -976,6 +1003,7 @@ public class ListBase extends SkinnableDataContainer
     //--------------------------------------------------------------------------
     
     /**
+     *  @private
      *  Called when contents within the dataProvider changes.  
      *
      *  @param event The collection change event
