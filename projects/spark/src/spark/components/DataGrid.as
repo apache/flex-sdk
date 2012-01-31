@@ -903,22 +903,18 @@ public class DataGrid extends SkinnableContainerBase
      *  @private
      *  If the alternatingRowColors style is set AND the alternatingRowColorsBackground
      *  skin part has been added AND the grid skin part has been added, then set
-     *  grid.rowBackground = alternatingRowColorsBackground here.
-     * 
-     *  Return true if grid.rowBackground was set.
+     *  grid.rowBackground = alternatingRowColorsBackground here.   Otherwise just
+     *  set it to the value of the rowBackground skin part (property).
      */
-    private function initializeGridRowBackground():Boolean
+    private function initializeGridRowBackground():void
     {
         if (!grid)
-            return false;
+            return;
         
         if ((getStyle("alternatingRowColors") as Array) && alternatingRowColorsBackground)
-        {
             grid.rowBackground = alternatingRowColorsBackground;
-            return true;
-        }
-        
-        return false;
+        else
+            grid.rowBackground = rowBackground;
     }
     
     //--------------------------------------------------------------------------
@@ -2524,9 +2520,7 @@ public class DataGrid extends SkinnableContainerBase
             
             // IFactory valued skin parts => Grid visual element properties
             
-            if (!initializeGridRowBackground()) // sets grid.rowBackground if alternatingRowColors set
-                grid.rowBackground = rowBackground;
-                
+            initializeGridRowBackground(); // sets grid.rowBackground if alternatingRowColors set
             grid.columnSeparator = columnSeparator;
             grid.rowSeparator = rowSeparator;
             grid.hoverIndicator = hoverIndicator;
@@ -2670,7 +2664,6 @@ public class DataGrid extends SkinnableContainerBase
             grid.hoverIndicator = null;
             grid.caretIndicator = null;
             grid.selectionIndicator = null;
-            grid.rowBackground = null;
             
             // IDataGridElements: grid, columnHeaderGroup
             
