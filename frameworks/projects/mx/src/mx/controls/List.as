@@ -460,6 +460,8 @@ public class List extends ListBase implements IIMESupport
     //  editable
     //----------------------------------
 
+    private var _editable:Boolean = false;
+
     [Inspectable(category="General")]
 
     /**
@@ -475,7 +477,18 @@ public class List extends ListBase implements IIMESupport
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var editable:Boolean = false;
+    public function get editable():Boolean
+    {
+        return _editable;
+    }
+
+    /**
+     *  @private
+     */
+    public function set editable(value:Boolean):void
+    {
+        _editable = value;
+    }
 
     //----------------------------------
     //  itemEditor
