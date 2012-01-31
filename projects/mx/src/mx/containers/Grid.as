@@ -114,7 +114,7 @@ import mx.core.EdgeMetrics;
  *        </tr>
  *        <tr>
  *           <td>Gap between rows and columns</td>
- *           <td>Determined by the horizontalGap and verticalGap properties of the Grid class. The default value for both 
+ *           <td>Determined by the horizontalGap and verticalGap styles of the Grid class. The default value for both 
  *               gaps is 6 pixels.</td>
  *        </tr>
  *        <tr>
