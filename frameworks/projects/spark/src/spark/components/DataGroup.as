@@ -1002,7 +1002,7 @@ public class DataGroup extends GroupBase
             }
         }
         else 
-            indexToRenderer.splice(index, 0, null);
+            indexToRenderer.splice(index, 1);
             
         dispatchEvent(new RendererExistenceEvent(
                       RendererExistenceEvent.RENDERER_REMOVE, false, false, 
