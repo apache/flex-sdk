@@ -191,9 +191,6 @@ public class RichEditableTextContainerManager extends TextContainerManager
     
     /**
      *  @private
-     *  ToDo: there is currently an issue with event handlers.  As soon as
-     *  there is a controller attached all the event handling is done by the
-     *  controller and this no longer gets called.
      */
     override public function focusInHandler(event:FocusEvent):void
     {
