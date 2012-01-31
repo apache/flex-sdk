@@ -1028,6 +1028,7 @@ public class TextGraphicElement extends GraphicElement
      */
     protected function invalidateTextLines(cause:String):void
     {
+        mx_internal::invalidateCompose = true;
     }
     
     /**
