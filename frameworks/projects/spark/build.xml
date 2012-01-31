@@ -11,12 +11,12 @@
 
 -->
 
-<project name="flex4" default="main" basedir=".">
+<project name="spark" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,compile,en_US" description="Clean build of flex4.swc and its English resources"/>
+	<target name="main" depends="clean,compile,en_US" description="Clean build of spark.swc and its English resources"/>
 
 	<target name="clean">
 		<delete failonerror="false">
@@ -25,13 +25,13 @@
 				<include name="manifest.xml"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
-				<include name="flex4.swc"/>
+				<include name="spark.swc"/>
 				<include name="graphics.swc"/>
-				<include name="flex4.swc.incr"/>
+				<include name="spark.swc.incr"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/locale">
-				<include name="*/flex4_rb.swc"/>
-				<include name="*/flex4_rb.swc.incr"/>
+				<include name="*/spark_rb.swc"/>
+				<include name="*/spark_rb.swc.incr"/>
 			</fileset>
 		</delete>
 	</target>
@@ -40,9 +40,9 @@
 		<copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
 	</target>
 	
-	<target name="compile" depends="prepare" description="Compiles flex4.swc">
+	<target name="compile" depends="prepare" description="Compiles spark.swc">
 		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
-		<echo message="Compiling frameworks/libs/flex4.swc"/>
+		<echo message="Compiling frameworks/libs/spark.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -59,7 +59,7 @@
 			into the file bundles.properties in this directory.
 		-->
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/libs/flex4.swc"
+			   output="${FLEX_HOME}/frameworks/libs/spark.swc"
 			   resource-bundle-list="${basedir}/bundles.properties">
 			<jvmarg line="${compc.jvm.args}"/>
 			<namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/manifest.xml"/>
@@ -82,15 +82,15 @@
 		<delete file="${FLEX_HOME}/frameworks/version.properties"/>
 	</target>
 
-	<!-- This is a private target for building flex4_rb.swc for various locales. -->
+	<!-- This is a private target for building spark_rb.swc for various locales. -->
 	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
 	<target name="bundle">
-		<echo message="Compiling frameworks/locale/${locale}/flex4_rb.swc"/>
+		<echo message="Compiling frameworks/locale/${locale}/spark_rb.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
 		<compc fork="true"
-			   output="${FLEX_HOME}/frameworks/locale/${locale}/flex4_rb.swc"
+			   output="${FLEX_HOME}/frameworks/locale/${locale}/spark_rb.swc"
 			   locale="${locale}">
 
             <target-player>10</target-player>
@@ -111,14 +111,14 @@
 		</compc>
 	</target>
 
-	<!-- Targets for compiling flex4_rb.swc for various locales -->
+	<!-- Targets for compiling spark_rb.swc for various locales -->
 	<target name="en_US" description="American English resources">
 		<antcall target="bundle">
 			<param name="locale" value="en_US"/>
 		</antcall>
 	</target>
 
-	<target name="doc" depends="clean-temp-docs" description="updates flex4.swc with asdoc xml">
+	<target name="doc" depends="clean-temp-docs" description="updates spark.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
 		<!-- because targets that run before flexTasks.jar gets built would fail. -->
 		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
@@ -144,8 +144,8 @@
 		    <jvmarg line="${asdoc.jvm.args}"/>
 		</asdoc>
 
-		<!-- updates flex4.swc with asdoc xml -->
-		<zip destfile="${FLEX_HOME}/frameworks/libs/flex4.swc" update="true">
+		<!-- updates spark.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/libs/spark.swc" update="true">
 		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
 			    <include name="*.*"/>
 				<exclude name="ASDoc_Config.xml"/>
