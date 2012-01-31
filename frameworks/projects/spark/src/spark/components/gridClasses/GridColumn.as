@@ -54,7 +54,8 @@ public class GridColumn extends EventDispatcher
     
     private function dispatchChangeEvent(type:String):void
     {
-        dispatchEvent(new Event(type));
+        if (hasEventListener(type))
+            dispatchEvent(new Event(type));
     }
     
     //----------------------------------
@@ -210,7 +211,6 @@ public class GridColumn extends EventDispatcher
             dataTipFieldPath = [value];
         
         dispatchChangeEvent("dataTipFieldChanged");
-        // TBD invalidate grid
     }
     
     //----------------------------------
@@ -262,21 +262,70 @@ public class GridColumn extends EventDispatcher
         dispatchChangeEvent("dataTipFunctionChanged");
     }
     
+    //----------------------------------
+    //  headerText
+    //----------------------------------
     
+    /**
+     *  @private
+     *  Storage for the headerText property.
+     */
+    private var _headerText:String;
+    
+    [Bindable("headerTextChanged")]
+    
+    /**
+     *  Text for the header of this column. By default, the Grid
+     *  control uses the value of the <code>dataField</code> property 
+     *  as the header text.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2
+     *  @productversion Flex 4.5
+     */
+    public function get headerText():String
+    {
+        return (_headerText != null) ? _headerText : dataField;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set headerText(value:String):void
+    {
+        _headerText = value;
+        
+        // ToDo: need to notify the ColumnHeaderBar?
+               
+        dispatchEvent(new Event("headerTextChanged"));
+    }
+   
     //----------------------------------
     //  itemRenderer
     //----------------------------------
 
-    private var _itemRenderer:IFactory;
+    private var _itemRenderer:IFactory = null;
     
     [Bindable("itemRendererChanged")]
     
     /**
-     *  TBD
+     *  A factory for IGridItemRenderers used to render invidual grid cells.  If not specified, 
+     *  the grid's <code>defaultItemRenderer</code> is return.
+     * 
+     *  <p>The default item renderer just displays the value of its <code>label</code> property, 
+     *  which is based on the dataProvider item for the cell's row, and on the column's dataField 
+     *  property.  Custom item renderers that derive more values from the data item and include 
+     *  more complex visuals are easily created by subclassing <code>GridItemRenderer</code>.</p>
+     * 
+     *  @default The value of the grid's defaultItemRenderer, or null.
+     *
+     *  @see #dataField 
+     *  @see GridItemRenderer
      */
     public function get itemRenderer():IFactory
     {
-        return _itemRenderer;
+        return (_itemRenderer) ? _itemRenderer : grid.defaultItemRenderer;
     }
     
     /**
@@ -289,6 +338,49 @@ public class GridColumn extends EventDispatcher
         
         _itemRenderer = value;
         dispatchChangeEvent("itemRendererChanged");
+        // TBD invalidate grid        
+    }
+    
+    //----------------------------------
+    //  itemRendererFunction
+    //----------------------------------
+    
+    private var _itemRendererFunction:Function = null;
+    
+    [Bindable("itemRendererFunctionChanged")]
+    
+    /**
+     *  If specified, the value of this property must be a function 
+     *  that returns an item renderer IFactory based on its dataProvider item 
+     *  parameter.  Specifying an itemRendererFunction makes it possible to 
+     *  employ more than one item renderer in this column.  
+     * 
+     *  <p>Here's an example of an itemRendererFunction:</p>
+     * 
+     *  <pre>
+     *  function myItemRendererFunction(item:Object, column:GridColumn):IFactory
+     *  {
+     *      return (item is Array) ? myArrayItemRenderer : myItemRenderer;
+     *  }
+     *  </pre>
+     *  
+     *  @default null
+     */
+    public function get itemRendererFunction():Function
+    {
+        return _itemRendererFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set itemRendererFunction(value:Function):void
+    {
+        if (_itemRendererFunction == value)
+            return;
+
+        _itemRendererFunction = value;
+        dispatchChangeEvent("itemRendererFunctionChanged");
     }
     
     //----------------------------------
@@ -339,6 +431,7 @@ public class GridColumn extends EventDispatcher
 
         _labelFunction = value;
         dispatchChangeEvent("labelFunctionChanged");
+        // TBD invalidate grid        
     }
     
     //----------------------------------
@@ -352,7 +445,6 @@ public class GridColumn extends EventDispatcher
     /**
      *  The width of this column in pixels. If specified, the grid's layout will ignore its
      *  typicalItem and this column's minWidth and maxWidth.
-     *  TBD(hmuller): explain why this value may not be the column's actual width.
      * 
      *  @default NaN
      */
@@ -575,7 +667,7 @@ public class GridColumn extends EventDispatcher
      *  Common logic for itemToLabel(), dataTipToLabel().   Logically this code is
      *  similar to (not the same as) LabelUtil.itemToLabel().
      */
-    private function itemToString(item:Object, labelPath:Array, labelFunction:Function):String
+    mx_internal function itemToString(item:Object, labelPath:Array, labelFunction:Function):String
     {
         if (!item)
             return ERROR_TEXT;
@@ -640,6 +732,23 @@ public class GridColumn extends EventDispatcher
     {
         return itemToString(item, dataTipFieldPath, dataTipFunction);      
     }
+    
+    /**
+     *  Convert the specified dataProvider item to a column-specific item renderer factory.
+     *  By default this method calls the <code>itemRendererFunction</code> if it's 
+     *  non-null, otherwise it just returns the value of the column's <code>itemRenderer</code> 
+     *  property.
+     *
+     *  @param item The value of <code>grid.dataProvider.getItemAt(rowIndex)</code>
+     * 
+     *  @return A column-specific item renderer factory for the specified dataProvider item.
+     */    
+    public function itemToRenderer(item:Object):IFactory
+    {
+        const itemRendererFunction:Function = itemRendererFunction;
+        return (itemRendererFunction != null) ? itemRendererFunction(item) : itemRenderer;
+    }
+        
     
 }
 }
