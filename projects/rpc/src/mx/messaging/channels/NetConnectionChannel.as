@@ -262,8 +262,15 @@ public class NetConnectionChannel extends PollingChannel
             // If MPI is enabled write a performance summary to log
             if (this.mpiEnabled)
             {
-                var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(msg);
-                _log.debug(mpiutil.prettyPrint());
+                try
+                {
+                    var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(msg);
+                    _log.debug(mpiutil.prettyPrint());
+                }
+                catch (e:Error)
+                {
+                    _log.debug("Could not get message performance information for: " + msg.toString());   
+                }
             }
         }
 
