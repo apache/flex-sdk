@@ -169,10 +169,10 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      */
     public function set allowMultipleSelection(value:Boolean):void
     {
-    	if (value == _allowMultipleSelection)
-    		return 
-    		
-    	_allowMultipleSelection = true;
+        if (value == _allowMultipleSelection)
+            return 
+            
+        _allowMultipleSelection = true;
     }
     
     //----------------------------------
@@ -203,7 +203,7 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  @productversion Flex 4
      */
     override public function get selectedIndex():int
-    {	
+    {   
         if (!allowMultipleSelection)
             return super.selectedIndex;
             
@@ -244,11 +244,6 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      *  TODO: describe
      * 
      *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     /**
      *  Selected indices for this component.
@@ -291,10 +286,6 @@ public class FxList extends FxListBase implements IFocusManagerComponent
      * 
      *  @default null
      *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
     /**
      *  Selected items for this component.
