@@ -77,7 +77,6 @@ use namespace mx_internal;
  * 
  *  @default undefined
  *
- *  @includeExample examples/DataGridExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -559,6 +558,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  Constructor. 
      *  
+     *
+     *  @includeExample examples/DataGridExample.mxml
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
