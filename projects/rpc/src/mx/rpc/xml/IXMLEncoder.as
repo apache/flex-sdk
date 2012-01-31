@@ -65,7 +65,7 @@ public interface IXMLEncoder
      *
      * @default false
      */
-    function get strictNillability():Boolean;
+     function get strictNillability():Boolean;
 
     function set strictNillability(value:Boolean):void;
 }
