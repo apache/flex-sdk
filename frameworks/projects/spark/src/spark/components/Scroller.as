@@ -145,6 +145,29 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
 /**
+ *  A proxy for the scrollbars' liveDragging styles.   
+ * 
+ *  <p>If this style is set to true, then the scrollbars' liveDragging styles are set to true (the default),
+ *  which means that dragging a scrollbar thumb immedidately updates the viewport's scroll position.
+ *  If this style is set to false, then the scrollbars' liveDragging styles are set to false,
+ *  which means that when a scrollbar thumb is dragged the viewport's scroll position is only updated 
+ *  then the mouse button is released.</p>
+ * 
+ *  <p>Setting this style to false can be helpful when updating the viewport's display is so 
+ *  expensive that "liveDragging" performs poorly.</p> 
+ *  
+ *  <p>By default this style is undefined, which means that the scrollbar's liveDragging styles are not modified.</p>
+ * 
+ *  @default undefined
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="liveScrolling", type="Boolean", inherit="no")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
  *   
  *  @default 0xCEDBEF
@@ -1293,6 +1316,20 @@ public class Scroller extends SkinnableComponent
                 uninstallTouchListeners();
             }
         }
+        
+        // If the liveScrolling style was set, set the scrollbars' liveDragging styles
+        
+        if (allStyles || styleProp == "liveScrolling")
+        {
+            const liveScrolling:* = getStyle("liveScrolling");
+            if ((liveScrolling === true) || (liveScrolling === false))
+            {
+                if (verticalScrollBar)
+                    verticalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));
+                if (horizontalScrollBar)
+                    horizontalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));
+            }
+        }
     }
 
     /**
@@ -1324,11 +1361,22 @@ public class Scroller extends SkinnableComponent
     {
         super.partAdded(partName, instance);
         
+        const liveScrolling:* = getStyle("liveScrolling");
+        const liveScrollingSet:Boolean = (liveScrolling === true) || (liveScrolling === false);
+        
         if (instance == verticalScrollBar)
+        {
             verticalScrollBar.viewport = viewport;
+            if (liveScrollingSet)
+                verticalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));
+        }
         
         else if (instance == horizontalScrollBar)
+        {
             horizontalScrollBar.viewport = viewport;
+            if (liveScrollingSet)
+                horizontalScrollBar.setStyle("liveDragging", Boolean(liveScrolling));            
+        }
     }
     
     /**
