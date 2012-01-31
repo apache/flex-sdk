@@ -34,6 +34,7 @@ import mx.utils.BitFlagUtil;
 
 import spark.components.RichEditableText;
 import spark.components.TextSelectionHighlighting;
+import spark.core.IDisplayText;
 import spark.core.IEditableText;
 import spark.events.TextOperationEvent;
 
@@ -271,6 +272,11 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 14;
 
+    /**
+     *  @private
+     */
+    private static const PROMPT_TEXT_PROPERTY_FLAG:uint = 1;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -297,6 +303,42 @@ public class SkinnableTextBase extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  promptDisplay
+    //----------------------------------
+    
+    [SkinPart(required="false")]
+    
+    /**
+     *  The Label or other IDisplayText that may be present
+     *  in any skin assigned to this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var promptDisplay:IDisplayText;
+    
+    /**
+     *  @private
+     *  Properties are proxied to promptDisplay.  However, when 
+     *  promptDisplay is not around, we need to store values set on 
+     *  SkinnableTextBase.  This object stores those values.  If promptDisplay is 
+     *  around, the values are  stored  on the promptDisplay directly.  However, 
+     *  we need to know what values have been set by the developer on 
+     *  TextInput/TextArea (versus set on the promptDisplay or defaults of the 
+     *  promptDisplay) as those are values we want to carry around if the 
+     *  promptDisplay changes (via a new skin). In order to store this info 
+     *  efficiently, promptDisplayProperties becomes a uint to store a series of 
+     *  BitFlags.  These bits represent whether a property has been explicitly 
+     *  set on this SkinnableTextBase.  When the promptDisplay is not around, 
+     *  promptDisplayProperties is a typeless object to store these proxied 
+     *  properties.  When promptDisplay is around, promptDisplayProperties stores 
+     *  booleans as to whether these properties have been explicitly set or not.
+     */
+    private var promptDisplayProperties:Object = {};
+    
     //----------------------------------
     //  textDisplay
     //----------------------------------
@@ -555,6 +597,34 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateProperties();                    
     }
 
+    //----------------------------------
+    //  prompt
+    //----------------------------------
+    
+    /**
+     *  @default null
+     *
+     *  Text to be displayed if/when the actual
+     *  text property is a null or empty string.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get prompt():String
+    {
+        return getPrompt();
+    }
+    
+    /**
+     *  @private
+     */
+    public function set prompt(value:String):void
+    {
+        setPrompt(value);
+    }
+    
 	//----------------------------------
 	//  tabIndex
 	//----------------------------------
@@ -1083,6 +1153,18 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         super.partAdded(partName, instance);
 
+        if (instance == promptDisplay)
+        {
+            var newPromptDisplayProperties:uint = 0;
+            if (promptDisplayProperties.prompt !== undefined)
+            {
+                promptDisplay.text = promptDisplayProperties.prompt;
+                newPromptDisplayProperties = BitFlagUtil.update(
+                    uint(newPromptDisplayProperties), PROMPT_TEXT_PROPERTY_FLAG, true);
+            }
+            promptDisplayProperties = newPromptDisplayProperties;
+        }
+        
         if (instance == textDisplay)
         {
             // Copy proxied values from textDisplayProperties (if set) to 
@@ -1142,6 +1224,19 @@ public class SkinnableTextBase extends SkinnableComponent
             textDisplay.removeEventListener(FlexEvent.VALUE_COMMIT,
                                             textDisplay_valueCommitHandler);
         }
+        
+        if (instance == promptDisplay)
+        {
+            var newPromptDisplayProperties:Object = {};
+            
+            if (BitFlagUtil.isSet(uint(promptDisplayProperties), 
+                PROMPT_TEXT_PROPERTY_FLAG))
+            {
+                newPromptDisplayProperties.prompt = 
+                    textDisplay.text;
+            }
+            promptDisplayProperties = newPromptDisplayProperties;
+        }
     }
     
     /**
@@ -1149,6 +1244,17 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String
     {
+        if (focusManager && focusManager.getFocus() != focusManager.findFocusManagerComponent(this) && 
+            prompt != null && prompt != "")
+        {
+            if (text.length == 0)
+            {
+                if (enabled && skin && skin.hasState("normalWithPrompt"))
+                    return "normalWithPrompt";
+                if (!enabled && skin && skin.hasState("disabledWithPrompt"))
+                    return "disabledWithPrompt";
+            }
+        }
         return enabled ? "normal" : "disabled";
     }
 
@@ -1330,6 +1436,45 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateProperties();                    
     }
 
+    /**
+     *  @see #prompt
+     *
+     *  @private
+     */
+    mx_internal function getPrompt():String
+    {
+        if (promptDisplay)
+        {
+            if (BitFlagUtil.isSet(uint(promptDisplayProperties), 
+                PROMPT_TEXT_PROPERTY_FLAG))
+                return promptDisplay.text;
+            return null;
+        }
+        
+        // want the default to be null
+        var v:* = promptDisplay ? undefined : promptDisplayProperties.prompt;
+        return (v === undefined) ? null : v;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function setPrompt(value:String):void
+    {
+        if (promptDisplay)
+        {
+            promptDisplay.text = value;
+            promptDisplayProperties = BitFlagUtil.update(
+                uint(promptDisplayProperties), 
+                PROMPT_TEXT_PROPERTY_FLAG, true);
+        }
+        else
+            promptDisplayProperties.prompt = value;
+        
+        // Generate an UPDATE_COMPLETE event.
+        invalidateProperties();                    
+    }
+    
     /**
      *  @private  
      */
@@ -1717,9 +1862,24 @@ public class SkinnableTextBase extends SkinnableComponent
         if (enabled && editable && focusManager)
             focusManager.showFocusIndicator = true;
 
+        invalidateSkinState();
+        
         super.focusInHandler(event);
     }
  
+    /**
+     *  @private
+     */
+    override protected function focusOutHandler(event:FocusEvent):void
+    {
+        if (event.target == this)
+            return;
+        
+        invalidateSkinState();
+        
+        super.focusOutHandler(event);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Event handlers
