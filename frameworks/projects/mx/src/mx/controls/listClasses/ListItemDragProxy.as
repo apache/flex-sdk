@@ -86,6 +86,8 @@ public class ListItemDragProxy extends UIComponent
             var o:IListItemRenderer = ListBase(owner).createItemRenderer(items[i]);
     
             o.styleName = ListBase(owner);
+			addChild(DisplayObject(o));
+			
             
             if (o is IDropInListItemRenderer)
             {
@@ -97,9 +99,9 @@ public class ListItemDragProxy extends UIComponent
                                                       null;
             }
 
-            o.data = items[i];
-            
-            addChild(DisplayObject(o));
+			o.data = items[i];
+			o.visible = true;
+			
 
             var contentHolder:ListBaseContentHolder = src.parent as ListBaseContentHolder;
             
@@ -109,7 +111,6 @@ public class ListItemDragProxy extends UIComponent
 
             measuredHeight = Math.max(measuredHeight, o.y + o.height);
             measuredWidth = Math.max(measuredWidth, o.x + o.width);
-            o.visible = true;
         }
 
         invalidateDisplayList();
