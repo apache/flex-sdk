@@ -271,6 +271,8 @@ public class TextInput extends SkinnableTextBase
     //----------------------------------
     //  widthInChars
     //----------------------------------
+    
+    [Inspectable(minValue="0.0")]    
 
     /**
      *  The default width of the control, measured in em units.
