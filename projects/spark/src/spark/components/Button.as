@@ -29,30 +29,6 @@ import mx.core.IButton;
  */
 [Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
-/**
- *  Color of text shadows.
- * 
- *  @default #FFFFFF
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="textShadowColor", type="uint", format="Color", inherit="yes", theme="mobile")]
-
-/**
- *  Alpha of text shadows.
- * 
- *  @default 0.55
- * 
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="textShadowAlpha", type="Number",inherit="yes", minValue="0.0", maxValue="1.0", theme="mobile")]
-
 [Exclude(name="textAlign", kind="style")]
 
 //--------------------------------------
