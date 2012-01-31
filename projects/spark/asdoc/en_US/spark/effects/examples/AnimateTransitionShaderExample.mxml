@@ -35,7 +35,7 @@
             <s:VGroup id="detailsBox"
 	        	width="50%"
 	        	left="0">
-                <s:SimpleText
+                <s:Label
 		        	width="99%"
 		        	color="blue"
 		        	text="AnimateShaderTransition animates a shader between two images. Click the 'Animate Shader' button to see the effect."/>
