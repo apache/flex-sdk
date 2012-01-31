@@ -64,6 +64,33 @@ public class GridColumn extends EventDispatcher
             _defaultItemEditorFactory = new ClassFactory(DefaultGridItemEditor);
         return _defaultItemEditorFactory;
     }
+    
+    /**
+     *  @private
+     *  A default compare function for sorting if the dataField is a complex path.
+     */
+    private static function dataFieldPathSortCompare(obj1:Object, obj2:Object, column:GridColumn):int
+    {
+        if (!obj1 && !obj2)
+            return 0;
+        
+        if (!obj1)
+            return 1;
+        
+        if (!obj2)
+            return -1;
+        
+        var obj1String:String = column.itemToLabel(obj1);
+        var obj2String:String = column.itemToLabel(obj2);
+        
+        if ( obj1String < obj2String )
+            return -1;
+        
+        if ( obj1String > obj2String )
+            return 1;
+        
+        return 0;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -201,7 +228,6 @@ public class GridColumn extends EventDispatcher
         else if (value.indexOf( "." ) != -1) 
         {
             dataFieldPath = value.split(".");
-            // TBD(hmuller): deal with the sortCompareFunction, as in DataGridColumn set dataField
         }
         else
         {
@@ -1068,25 +1094,37 @@ public class GridColumn extends EventDispatcher
     public function get sortField():SortField
     {
         const column:GridColumn = this;
-        const sortField:SortField = new SortField(column.dataField);
+        const sortField:SortField = new SortField(dataField);
+        var cF:Function = null;
         
         if (_sortCompareFunction != null)
         {
-            sortField.compareFunction =
-                function (a:Object, b:Object):int
-                { 
-                    return _sortCompareFunction(a, b, column);
-                };
+            cF = function (a:Object, b:Object):int
+            { 
+                return _sortCompareFunction(a, b, column);
+            };       
         }
-        else if (column.dataField == null && _labelFunction != null)
+        else
         {
-            sortField.compareFunction =
-                function (a:Object, b:Object):int
+            if (dataFieldPath.length > 1)
+            {
+                // use custom compare function for a complex dataField if one isn't provided.
+                cF = function (a:Object, b:Object):int
+                { 
+                    return dataFieldPathSortCompare(a, b, column);
+                };
+            }
+            else if (dataField == null && _labelFunction != null)
+            {
+                // use basic string compare on the labelFunction results
+                cF = function (a:Object, b:Object):int
                 { 
                     return ObjectUtil.stringCompare(_labelFunction(a, column), _labelFunction(b, column));
                 };
+            }
         }
         
+        sortField.compareFunction = cF;
         sortField.descending = column.sortDescending;
         return sortField;
     }
