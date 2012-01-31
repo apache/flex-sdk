@@ -423,14 +423,6 @@ public class FxAnimateInstance extends EffectInstance
             }
             if (interpolator)
                 mp.interpolator = interpolator;
-            // Fix the first and last values if necessary and possible
-            var kf:KeyFrame = keyframes[keyframes.length - 1];
-            if (!isValidValue(kf.value) &&
-                propertyChanges &&
-                propertyChanges.end[mp.property] !== undefined)
-            {
-                kf.value = propertyChanges.end[mp.property];
-            }
             // adjust effect duration to be the max of all MotionPath keyframe times
             // TODO (chaase): Currently we do not adjust *down* for smaller duration
             // MotionPaths. This is because we do not distinguish between
@@ -541,8 +533,8 @@ public class FxAnimateInstance extends EffectInstance
                     keyframes[0].value = getCurrentValue(motionPath.property);
                 }
             }
-            // set any other invalid values to the value in the preceding
-            // keyframe
+            // set any other invalid values based on information in surrounding
+            // keyframes
             prevValue = keyframes[0].value;
             for (j = 1; j < keyframes.length; ++j)
             {
@@ -552,7 +544,28 @@ public class FxAnimateInstance extends EffectInstance
                     if (isValidValue(kf.valueBy))
                         kf.value = motionPath.interpolator.increment(prevValue, kf.valueBy);
                     else
-                        kf.value = prevValue;
+                    {
+                        // if next keyframe has value and valueBy, use them
+                        if (j <= (keyframes.length - 2) &&
+                            isValidValue(keyframes[j+1].value) &&
+                            isValidValue(keyframes[j+1].valueBy))
+                        {
+                            kf.value = motionPath.interpolator.decrement(
+                                keyframes[j+1].value, keyframes[j+1].valueBy);
+                        }
+                        else if (j == (keyframes.length - 1) &&
+                            propertyChanges &&
+                            propertyChanges.end[motionPath.property] !== undefined)
+                        {
+                            // special case for final keyframe - use state value if it exists
+                            kf.value = propertyChanges.end[motionPath.property];
+                        }
+                        else
+                        {
+                            // otherwise, just use previous keyframe value
+                            kf.value = prevValue;
+                        }
+                    }
                 }
                 prevValue = kf.value;
             }
