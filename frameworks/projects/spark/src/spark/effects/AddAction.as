@@ -53,6 +53,11 @@ import mx.effects.effectClasses.PropertyChanges;
  *  @see mx.states.AddChild
  *
  *  @includeExample ../states/examples/TransitionExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class AddAction extends Effect
 {
@@ -73,30 +78,55 @@ public class AddAction extends Effect
 	 * Constant used to specify the position to add the item.
 	 * 
 	 * @see #position
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */ 
     public static const BEFORE:String = "before"; 
     /**
      * Constant used to specify the position to add the item.
      * 
      * @see #position
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public static const AFTER:String = "after"; 
     /**
      * Constant used to specify the position to add the item.
      * 
      * @see #position
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public static const FIRST_CHILD:String = "firstChild"; 
     /**
      * Constant used to specify the position to add the item.
      * 
      * @see #position
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public static const LAST_CHILD:String = "lastChild"; 
     /**
      * Constant used to specify the position to add the item.
      * 
      * @see #position
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public static const INDEX:String = "index";
 
@@ -110,6 +140,11 @@ public class AddAction extends Effect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function AddAction(target:Object = null)
 	{
@@ -140,6 +175,11 @@ public class AddAction extends Effect
 	 *  A value of -1 means add the child as the last child of the parent.
 	 *
 	 *  @default -1
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var index:int = -1;
 		
@@ -153,6 +193,11 @@ public class AddAction extends Effect
 	 *  The location where the child component is added.
 	 *  By default, Flex determines this value from the <code>AddChild</code>
 	 *  property definition in the view state definition.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var relativeTo:DisplayObjectContainer;
 		
@@ -177,6 +222,11 @@ public class AddAction extends Effect
      *  @see #FIRST_CHILD
      *  @see #LAST_CHILD
      *  @see #INDEX
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var position:String = INDEX;
 	
