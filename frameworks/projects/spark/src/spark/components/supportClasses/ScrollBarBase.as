@@ -42,6 +42,19 @@ import spark.effects.easing.Sine;
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  If true, the thumb's size along the scrollbar's axis will be
+ *  its preferred size.
+ *  
+ *  @default false
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="fixedThumbSize", type="Boolean", inherit="yes")]
+
+/**
  *  Number of milliseconds after the first page event
  *  until subsequent page events occur.
  * 
@@ -66,6 +79,22 @@ import spark.effects.easing.Sine;
  *  @productversion Flex 4
  */
 [Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
+
+/**
+ * This style determines whether the scrollbar will animate
+ * smoothly when paging and stepping. When false, page and step
+ * operations will jump directly to the paged/stepped locations. 
+ * When true, the scrollbar, and any content it is scrolling, will
+ * animate to that location.
+ *  
+ *  @default true
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="smoothScrolling", type="Boolean", inherit="yes")]
 
 /**
  *  The ScrollBar class helps to position
@@ -257,92 +286,6 @@ public class ScrollBar extends TrackBase
     //
     //--------------------------------------------------------------------------
     
-    //---------------------------------
-    // smoothScrolling
-    //--------------------------------- 
-    /**
-     * This property determines the default value <code>smoothScrolling</code>
-     * for all ScrollBars.
-     * 
-     * @default true
-     * @langversion 3.0
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @productversion Flex 4
-     * @see #smoothScrolling
-     */
-    public static var smoothScrollingDefault:Boolean = true;
-    
-    //---------------------------------
-    // smoothScrolling
-    //--------------------------------- 
-    
-    /**
-     * @private
-     * Backing storage for the smoothScrolling property
-     */
-    private var _smoothScrolling:Boolean = smoothScrollingDefault;
-    
-    /**
-     * This property determines whether the scrollbar will animate
-     * smoothly when paging and stepping. When false, page and step
-     * operations will jump directly to the paged/stepped locations. 
-     * When true, the scrollbar, and any content it is scrolling, will
-     * animate to that location.
-     *
-     * @default true
-     *
-     * @langversion 3.0
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @productversion Flex 4      
-     */
-    public function get smoothScrolling():Boolean
-    {
-        return _smoothScrolling;
-    }
-    
-    public function set smoothScrolling(value:Boolean):void
-    {
-        _smoothScrolling = value;
-    }
-    
-    //---------------------------------
-    // fixedThumbSize
-    //--------------------------------- 
-    
-    private var _fixedThumbSize:Boolean = false;
-    
-    /**
-     *  If true, the thumb's size along the scrollbar's axis will be
-     *  its preferred size.
-     *    
-     *  @default false
-     *  @see #calculateThumbSize
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get fixedThumbSize():Boolean
-    {
-        return _fixedThumbSize;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set fixedThumbSize(value:Boolean):void
-    {
-        if (value == _fixedThumbSize)
-            return;
-            
-        _fixedThumbSize = value;
-        invalidateSize();
-        invalidateDisplayList();
-    }
-
     //---------------------------------
     // pageSize
     //--------------------------------- 
@@ -578,7 +521,7 @@ public class ScrollBar extends TrackBase
             val = Math.min(value + pageSize, maximum);
         else
             val = Math.max(value - pageSize, minimum);
-        if (smoothScrolling) {
+        if (getStyle("smoothScrolling")) {
             startAnimation(getStyle("repeatInterval"), val, Linear.getInstance());            
             animatingSinglePage = true;
         }
@@ -745,7 +688,7 @@ public class ScrollBar extends TrackBase
                 dispatchEvent(new Event("change"));
             }
 
-            if (smoothScrolling)
+            if (getStyle("smoothScrolling"))
             {
                 systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
                     button_buttonUpHandler, true /*useCapture*/);
@@ -843,7 +786,7 @@ public class ScrollBar extends TrackBase
             newScrollPosition -= thumbSize/2;
             newScrollValue = positionToValue(newScrollPosition);
             var adjustedValue:Number = nearestValidValue(newScrollValue, valueInterval);
-            if (smoothScrolling && 
+            if (getStyle("smoothScrolling") && 
                 slideDuration != 0 && 
                 (maximum - minimum) != 0)
             {
@@ -1025,7 +968,7 @@ public class ScrollBar extends TrackBase
             return;
         }
 
-        if (smoothScrolling)
+        if (getStyle("smoothScrolling"))
         {
             // This gets called after an initial repeateDelay on a paging
             // operation, but after that we're just running the animation. This
@@ -1103,7 +1046,7 @@ public class ScrollBar extends TrackBase
         if (trackScrollTimer)
             trackScrollTimer.reset();
             
-        if (smoothScrolling && !animatingSinglePage)
+        if (getStyle("smoothScrolling") && !animatingSinglePage)
         {
             if (animator.isPlaying)
             {
