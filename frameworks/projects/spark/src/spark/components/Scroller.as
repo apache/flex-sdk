@@ -210,7 +210,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Scroller
+ *  &lt;s:Scroller
  *   <strong>Properties</strong>
  *    minViewportInset="0"
  *    viewport="null"
