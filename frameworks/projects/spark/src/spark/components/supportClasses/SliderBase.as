@@ -11,8 +11,6 @@
 
 package spark.components.supportClasses
 {
-import __AS3__.vec.Vector;
-
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
@@ -28,11 +26,13 @@ import mx.events.FlexEvent;
 import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
 
+import spark.effects.animation.Animation;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
-import spark.effects.animation.Animation;
 import spark.effects.easing.Sine;
 import spark.events.TrackBaseEvent;
+
+use namespace mx_internal;
 
 include "../../styles/metadata/BasicInheritingTextStyles.as"
 
@@ -350,7 +350,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         // otherwise, draw it on the whole component
         if (thumb)
         {
-            thumb.mx_internal::drawFocusAnyway = true;
+            thumb.drawFocusAnyway = true;
             thumb.drawFocus(isFocused);
         }
         else
@@ -509,6 +509,14 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         }
         
         super.system_mouseUpHandler(event);
+    }
+    
+    /**
+     *  @private
+     */
+    override mx_internal function updateErrorSkin():void
+    {
+        // Don't draw the error skin
     }
 
     //---------------------------------
