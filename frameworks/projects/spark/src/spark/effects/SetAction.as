@@ -45,7 +45,7 @@ import mx.effects.IEffectInstance;
  *  /&gt;
  *  </pre>
  *  
- *  @see mx.effects.effectClasses.SetActionInstance
+ *  @see spark.effects.supportClasses.SetActionInstance
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
