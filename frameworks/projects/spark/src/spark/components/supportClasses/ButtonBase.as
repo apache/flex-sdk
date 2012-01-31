@@ -78,7 +78,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 // TODO (jszeto) set to mobile theme only
 /**
- *  The class to use for the button's icon. The labelPlacement style
+ *  The class to use for the button's icon. The iconPlacement style
  *  controls the position of the label relative to the icon.
  *
  *  @default null
@@ -88,29 +88,29 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="iconClass", type="Class", inherit="no", theme="spark")]
+[Style(name="icon", type="Class", inherit="no", theme="spark")]
 
 // TODO (jszeto) set to mobile theme only
 /**
- *  Orientation of the label in relation to a specified icon.
+ *  Orientation of the icon in relation to the label.
  *  Valid MXML values are <code>right</code>, <code>left</code>,
  *  <code>bottom</code>, and <code>top</code>.
  *
  *  <p>In ActionScript, you can use the following constants
  *  to set this property:
- *  <code>ButtonLabelPlacement.RIGHT</code>,
- *  <code>ButtonLabelPlacement.LEFT</code>,
- *  <code>ButtonLabelPlacement.BOTTOM</code>, and
- *  <code>ButtonLabelPlacement.TOP</code>.</p>
+ *  <code>IconPlacement.RIGHT</code>,
+ *  <code>IconPlacement.LEFT</code>,
+ *  <code>IconPlacement.BOTTOM</code>, and
+ *  <code>IconPlacement.TOP</code>.</p>
  *
- *  @default ButtonLabelPlacement.RIGHT
+ *  @default IconPlacement.LEFT
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="labelPlacement", type="String", enumeration="top,bottom,right,left", inherit="yes", theme="spark")]
+[Style(name="iconPlacement", type="String", enumeration="top,bottom,right,left", inherit="no", theme="spark")]
 
 /**
  *  Number of milliseconds to wait after the first <code>buttonDown</code>
