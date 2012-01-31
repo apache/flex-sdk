@@ -354,6 +354,17 @@ public class AMFChannel extends NetConnectionChannel
             // If the level is error we couldn't communicate with the server.
             if (info.level == "error")
             {
+                // Suppress processing of "Client.Data.Underflow" status events which are dispatched for 
+                // any outstanding AMF messages in HTTP responses that are not fully received because
+                // the underlying connection has closed mid-response. 
+                if (info.code == "Client.Data.UnderFlow")
+                {
+                    if (Log.isDebug())
+                        _log.debug("'{0}' channel received a 'Client.Data.Underflow' status event.");
+                        
+                    return; // Skip further processing.
+                }
+                
                 if (connected)
                 {
                     if (info.code.indexOf("Call.Failed") != -1)
