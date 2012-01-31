@@ -240,6 +240,8 @@ public class FxAnimateInstance extends EffectInstance
             animation.end();
             animation = null;
         }
+
+        super.end();
     }
         
     //--------------------------------------------------------------------------
@@ -261,23 +263,10 @@ public class FxAnimateInstance extends EffectInstance
         {
             UIComponent(target).effectStarted(this);
         }
-        if (startDelay > 0)
-        {
-            // We only need a simple Timer for this, but running an
-            // Animation will synchronize this delayed effect with other
-            // effects in the system
-            var anim:Animation = new Animation(0, 1, startDelay);
-            anim.addEventListener(AnimationEvent.ANIMATION_END, delayedPlay);
-            anim.play();
-        }
-        else
-        {
-        play();
-    }
-    }
     
-    private function delayedPlay(event:AnimationEvent):void
-    {
+        if (autoRemoveTarget)
+            addDisappearingTarget();
+
         play();
     }
     
@@ -303,12 +292,6 @@ public class FxAnimateInstance extends EffectInstance
             
         isStyleMap = new Array(propertyValuesList.length);
         
-        if (affectsConstraints || adjustConstraints)
-            cacheConstraints(affectsConstraints);
-        
-        if (disableLayout)
-            setupParentLayout(false);
-            
         // These two temporary arrays will hold the values passed into the
         // Animation to be interpolated between during the animation. The order
         // of the values in these arrays must match the order of the property
@@ -347,8 +330,8 @@ public class FxAnimateInstance extends EffectInstance
             }
 
             // Set any NaN from/to values to the current values in the target
-            fromValue = isNaN(propValues[0]) ? getCurrentValue(property) : 
-                propValues[0];
+            if (!isNaN(propValues[0]))
+                fromValue = propValues[0];
             if (!isNaN(propValues[1]))
             {
                 toValue = propValues[1];
@@ -358,8 +341,6 @@ public class FxAnimateInstance extends EffectInstance
                 if (propertyChanges && 
                     propertyChanges.end[property] !== undefined)
                     toValue = propertyChanges.end[property];
-                else
-                    toValue = getCurrentValue(property);
             }
             if (propertyValuesList.length > 1)
             {
@@ -392,12 +373,13 @@ public class FxAnimateInstance extends EffectInstance
         if (_seekTime > 0)
             animation.seek(_seekTime);
         if (reverseAnimation)
-            animation.reverse();
+            animation.playReversed = true;
         animation.interpolator = interpolator;
         animation.repeatCount = repeatCount;
         animation.repeatDelay = repeatDelay;
         animation.repeatBehavior = repeatBehavior;
         animation.easer = easer;
+        animation.startDelay = startDelay;
                     
         animation.play();
           
@@ -433,18 +415,94 @@ public class FxAnimateInstance extends EffectInstance
     }
     
     /**
+     * Walk the propertyValuesList looking for null values. A null indicates
+     * that the value should be replaced by the current value or one that
+     * is calculated from the other value and a supplied delta value.
+     * 
+     * @return Boolean whether this call changed any values in the list
+     */
+    private function finalizeValues():Boolean
+    {
+        var changedValues:Boolean = false;
+        for (var i:int = 0; i < propertyValuesList.length; ++i)
+        {
+            var holder:PropertyValuesHolder = 
+                PropertyValuesHolder(propertyValuesList[i]);
+            // Note that we use strict equality tests for null, as a simple
+            // '0' value for a Number or int would look the same as a null
+            // in a simple !value test.
+            if ((holder.values[0] === null) || (holder.values[1] === null))
+            {
+                if (holder.values[0] === null)
+                {
+                    if ((holder.values[1] !== null) && !isNaN(holder.delta))
+                        holder.values[0] = holder.values[1] - holder.delta;
+                    else
+                        holder.values[0] = getCurrentValue(holder.property);
+                }
+                if (holder.values[1] === null)
+                {
+                    if ((holder.values[0] !== null) && !isNaN(holder.delta))
+                        holder.values[1] = holder.values[0] + holder.delta;
+                    else
+                        holder.values[1] = getCurrentValue(holder.property);
+                }
+                changedValues = true;
+            }
+        }
+        return changedValues;
+        
+    }
+
+    /**
      * Handles start events from the animation.
      * If you override this method, ensure that you call the super method.
      */
     protected function startHandler(event:AnimationEvent):void
     {
+        // Wait until the underlying Animation actually starts (after
+        // any startDelay) to cache constraints and disable layout. This
+        // avoids problems with doing this too early and affecting other
+        // effects that are running before this one.
+        if (affectsConstraints || adjustConstraints)
+            cacheConstraints(affectsConstraints);
+        if (disableLayout)
+            setupParentLayout(false);
+            
+        var anim:Animation = Animation(event.target);
+        if (finalizeValues())
+        {
+            var holder:PropertyValuesHolder;
+            // Some of the values were updated; must now update
+            // the respective values in the Animation
+            if (propertyValuesList.length == 1)
+            {
+                holder = PropertyValuesHolder(propertyValuesList[0]);
+                if (anim.startValue === null)
+                    anim.startValue = holder.values[0];
+                if (anim.endValue === null)
+                    anim.endValue = holder.values[1];
+            }
+            else
+            {
+                var startValues:Array = anim.startValue as Array;
+                var endValues:Array = anim.endValue as Array;
+                for (var i:int = 0; i < propertyValuesList.length; ++i)
+                {
+                    holder = PropertyValuesHolder(propertyValuesList[i]);
+                    if (startValues[i] === null)
+                        startValues[i] = holder.values[0];
+                    if (endValues[i] === null)
+                        endValues[i] = holder.values[1];
+                }
+            }
+        }
+        
         // TODO (chaase): Consider putting AnimateInstance (and subclass's) 
         // play() functionality (the setup and playing of the Animation object)
         // into startEffect(), calling play() from here, and not overriding
         // play() at all.
         
-        if (autoRemoveTarget)
-            addDisappearingTarget();
         dispatchEvent(event);
     }
     
@@ -473,6 +531,16 @@ public class FxAnimateInstance extends EffectInstance
     }
 
     /**
+     *  @copy mx.effects.IEffectInstance#finishEffect()
+     */
+    override public function finishEffect():void
+    {
+        if (autoRemoveTarget)
+            removeDisappearingTarget();
+        super.finishEffect();
+    }
+
+    /**
      * Handles the end event from the animation. The value here is an Array of
      * values, one for each 'property' in our propertyValuesList.
      * If you override this method, ensure that you call the super method.
@@ -482,8 +550,6 @@ public class FxAnimateInstance extends EffectInstance
         dispatchEvent(event);
         if (affectsConstraints || adjustConstraints)
             reenableConstraints();
-        if (autoRemoveTarget)
-            removeDisappearingTarget();
         if (disableLayout)
             setupParentLayout(true);
         finishEffect();
