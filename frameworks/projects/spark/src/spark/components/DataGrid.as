@@ -2071,6 +2071,7 @@ public class DataGrid extends SkinnableContainerBase
         g.drawRect(0, 0, 1, 1);
         g.endFill();
         $addChild(focusOwner);
+        focusOwner.tabEnabled = true;
         focusOwner.$visible = true;
     }
     
@@ -2163,6 +2164,13 @@ public class DataGrid extends SkinnableContainerBase
     
     /**
      *  @private
+     *  Used to prevent keyboard events that have been redispatched to the Scroller from being
+     *  redispatched a second time when the bubble back up.
+     */
+    private var scrollerEvent:KeyboardEvent = null;
+    
+    /**
+     *  @private
      *  Build in basic keyboard navigation support in Grid. The focus is on
      *  the DataGrid which means the Scroller doesn't see the Keyboard events
      *  unless the event is dispatched to it.
@@ -2171,6 +2179,14 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (!grid || event.isDefaultPrevented())
             return;
+        
+        // We've seen this event already and dispatched it to the Scroller
+        if (event == scrollerEvent)
+        {
+            scrollerEvent = null;
+            event.preventDefault();
+            return;
+        }
 
         // Ctrl-A only comes thru on Mac.  On Windows it is a SELECT_ALL
         // event.
@@ -2190,8 +2206,12 @@ public class DataGrid extends SkinnableContainerBase
                 (grid.caretColumnIndex < 0 || 
                     grid.caretColumnIndex >= getColumnsLength())))
         {
-            if (scroller)
-                scroller.dispatchEvent(event);
+            // We're not going to handle this event, so give the scroller a chance.
+            if (scroller && (scrollerEvent != event))
+            {
+                scrollerEvent = event.clone() as KeyboardEvent;
+                scroller.dispatchEvent(scrollerEvent);
+            }
             return;
         }
         
@@ -2537,7 +2557,6 @@ public class DataGrid extends SkinnableContainerBase
             columnHeaderGroup.removeEventListener(GridEvent.SEPARATOR_MOUSE_DRAG, separator_mouseDragHandler);
             columnHeaderGroup.removeEventListener(GridEvent.SEPARATOR_MOUSE_UP, separator_mouseUpHandler);             
         }
-        
     }
     
     //----------------------------------
