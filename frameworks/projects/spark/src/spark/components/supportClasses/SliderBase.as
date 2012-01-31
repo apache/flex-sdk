@@ -406,7 +406,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         var newValue:Number = pointToValue(p.x - clickOffset.x, p.y - clickOffset.y);
         newValue = nearestValidValue(newValue, snapInterval);
         
-        if (newValue != value)
+        if (newValue != pendingValue)
         {
             dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_DRAG));
             if (getStyle("liveDragging") === true)
