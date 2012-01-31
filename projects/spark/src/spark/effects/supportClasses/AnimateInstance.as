@@ -402,7 +402,7 @@ public class FxAnimateInstance extends EffectInstance
      * propertyValuesList array. This is called by the update and end 
      * functions, which are called by the Animation during the animation.
      */
-    private function setVals(value:Object):void
+    protected function applyValues(value:Object):void
     {
         var holder:PropertyValuesHolder;
         
@@ -439,7 +439,7 @@ public class FxAnimateInstance extends EffectInstance
      */
     protected function updateHandler(event:AnimationEvent):void
     {
-        setVals(event.value);
+        applyValues(event.value);
         dispatchEvent(event);
     }
     
