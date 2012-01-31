@@ -303,8 +303,8 @@ public class ScrollControlBase extends UIComponent
      */
     public function get borderMetrics():EdgeMetrics
     {
-        return (border && border is IBorder) ?
-                IBorder(border).borderMetrics : EdgeMetrics.EMPTY;
+        return (border && border is IRectangularBorder) ?
+                IRectangularBorder(border).borderMetrics : EdgeMetrics.EMPTY;
     }
 
     //----------------------------------
