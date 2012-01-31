@@ -635,8 +635,7 @@ public class RichEditableText extends UIComponent
         _clipAndEnableScrolling = value;
         clipAndEnableScrollingChanged = true;
         
-        // Value could impact whether we are actually autoSizing.
-        invalidateSize();
+        invalidateProperties();
         invalidateDisplayList();
     }
         
@@ -733,6 +732,7 @@ public class RichEditableText extends UIComponent
         horizontalScrollPositionChanged = true;
 
         invalidateProperties();
+        invalidateDisplayList();
     }
     
     //----------------------------------
@@ -780,6 +780,7 @@ public class RichEditableText extends UIComponent
         verticalScrollPositionChanged = true;
 
         invalidateProperties();
+        invalidateDisplayList();
     }
         
     //--------------------------------------------------------------------------
@@ -1544,6 +1545,7 @@ public class RichEditableText extends UIComponent
         _widthInChars = value;
         widthInCharsChanged = true;
         
+        invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
     }
@@ -1750,6 +1752,16 @@ public class RichEditableText extends UIComponent
             
             verticalScrollPositionChanged = false;            
         }
+
+        // Events (for example, change event) can be dispatched as a result 
+        // of calling updateDisplayList(). These may trigger calls
+        // back to our setters (for example, bindings).  All of this is done
+        // in the middle of the validate display list loop of the 
+        // LayoutManager. Even though we called invalidateDisplayList() in 
+        // the setter, in this case, the invalidateDisplayListFlag is 
+        // reset before we've updated the display with the new value(s).  
+        // We need to invalidate the display again here.
+        invalidateDisplayList();        
     }
 
     /**
@@ -2366,8 +2378,8 @@ public class RichEditableText extends UIComponent
 
         var effectiveWidthInChars:int;
             	
-        // If both height and width are NaN but there is a scroller, can't
-        // autoSize so use 15 chars.  Otherwise if only width is NaN, use 1.                
+        // If both height and width are NaN use 15 chars.  Otherwise if only 
+        // width is NaN, use 1.                
     	if (isNaN(_widthInChars))
     	   effectiveWidthInChars = isNaN(_heightInLines) ? 15 : 1;
     	else
@@ -2394,8 +2406,8 @@ public class RichEditableText extends UIComponent
         
         var effectiveHeightInLines:int;
         
-        // If both height and width are NaN but there is a scroller, can't
-        // autoSize so use 10 lines.  Otherwise if only height is NaN, use 1.
+        // If both height and width are NaN use 10 lines.  Otherwise if 
+        // only height is NaN, use 1.
         if (isNaN(_heightInLines))
             effectiveHeightInLines = isNaN(_widthInChars) ? 10 : 1;   
         else
