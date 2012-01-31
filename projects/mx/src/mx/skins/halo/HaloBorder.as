@@ -204,6 +204,8 @@ public class HaloBorder extends RectangularBorder
      */
     override public function styleChanged(styleProp:String):void
     {
+        super.styleChanged(styleProp);
+        
         if (styleProp == null ||
             styleProp == "styleName" ||
             styleProp == "borderStyle" ||
@@ -212,8 +214,6 @@ public class HaloBorder extends RectangularBorder
         {
             _borderMetrics = null;
         }
-        
-        invalidateDisplayList();
     }
 
     /**
