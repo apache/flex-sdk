@@ -33,9 +33,14 @@ import mx.events.TextOperationEvent;
 [IconFile("FxTextArea.png")]
 
 /**
- *  The built-in set of states for the FxTextArea component.
+ *  Normal State
  */
-[SkinStates("normal", "disabled")]
+[SkinState("normal")]
+
+/**
+ *  Disabled State
+ */
+[SkinState("disabled")]
 
 /**
  *  Documentation is not currently available.
