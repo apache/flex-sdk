@@ -2210,6 +2210,17 @@ class TouchScrollHelper
         // allow 0% faster if they used everything
         const RATIO_TO_USE:Number = 1.0;
         
+		// if off screen for some reason, let's end scrolling:
+		if (!scroller.stage)
+		{
+			// don't do anything
+			scrollEndEvent = new TouchInteractionEvent(TouchInteractionEvent.TOUCH_INTERACTION_END, true);
+			scrollEndEvent.relatedObject = scroller;
+			scrollEndEvent.reason = TouchInteractionReason.SCROLL;
+			dispatchBubblingEventOnMouseDownedDisplayObject(scrollEndEvent);
+			return;
+		}
+		
         // for the max size, we couldn't decide between using screen width/height or 
         // scroller width/height, so we're using a weighted average for it
         var widthToUseForRatio:Number = (2*scroller.width + scroller.stage.stageWidth)/3;
