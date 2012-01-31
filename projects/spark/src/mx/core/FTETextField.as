@@ -7,2273 +7,3178 @@
 //  NOTICE: Adobe permits you to use, modify, and distribute this file
 //  in accordance with the terms of the license agreement accompanying it.
 //
-//////////////////////////////////////////////////////////////////////////////////
-//
-//ADOBE SYSTEMS INCORPORATED
-//Copyright 2009 Adobe Systems Incorporated
-//All Rights Reserved.
-//
-//in accordance with the terms of the license agreement accompanying it.
-//
+////////////////////////////////////////////////////////////////////////////////
+
 package flashx.textLayout.controls
 {
-
+	
 import flash.display.DisplayObject;
 import flash.display.Graphics;
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.events.MouseEvent;
+import flash.events.TextEvent;
 import flash.geom.Rectangle;
-import flash.text.AntiAliasType;
-import flash.text.GridFitType;
 import flash.text.StyleSheet;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
+import flash.text.engine.ElementFormat;
+import flash.text.engine.FontDescription;
+import flash.text.engine.FontLookup;
+import flash.text.engine.FontMetrics;
 import flash.text.engine.FontPosture;
 import flash.text.engine.FontWeight;
 import flash.text.engine.Kerning;
+import flash.text.engine.LineJustification;
+import flash.text.engine.SpaceJustifier;
+import flash.text.engine.TextBlock;
+import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 
+import flashx.textLayout.compose.ITextLineCreator;
+import flashx.textLayout.compose.TextLineRecycler;
+import flashx.textLayout.container.TextContainerManager;
+import flashx.textLayout.conversion.ConversionType;
+import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextConverter;
-import flashx.textLayout.debug.assert;
-import flashx.textLayout.compose.ITextLineCreator;
-import flashx.textLayout.factory.StringTextLineFactory;
+import flashx.textLayout.edit.EditingMode;
+import flashx.textLayout.elements.Configuration;
+import flashx.textLayout.elements.LinkElement;
+import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.events.FlowElementMouseEvent;
+import flashx.textLayout.factory.TextFlowTextLineFactory;
+import flashx.textLayout.formats.ITextLayoutFormat;
+import flashx.textLayout.formats.LeadingModel;
 import flashx.textLayout.formats.LineBreak;
 import flashx.textLayout.formats.TextDecoration;
-import flashx.textLayout.formats.TextLayoutFormatValueHolder;
+import flashx.textLayout.formats.TextLayoutFormat;
+import flashx.textLayout.tlf_internal;
+
+use namespace tlf_internal;
 
 /**
  *  TLFTextField is a Sprite which displays text by using the new
  *  Text Layout Framework to implement the old TextField API.
- * @playerversion Flash 10
- * @playerversion AIR 1.5
- * @langversion 3.0
+ *
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @langversion 3.0
  */
 public class TLFTextField extends Sprite
 {
-    // Current slot count: 32
-    // (1 for every type except 2 for Number)
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
+	// Current slot count: 21
+	// (1 for every type except 2 for Number)
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Class initialization
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private static function initClass():void
+	{
+		var format:TextLayoutFormat;
+		var config:Configuration;
+		
+		// Create an importer for plain text.
+		plainTextImporter =
+			TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
+			
+		// Create an exporter for plain text.
+		plainTextExporter =
+			TextConverter.getExporter(TextConverter.PLAIN_TEXT_FORMAT);
+		
+		// Create an importer for HTML_FORMAT that collapses whitespace.
+		// Note: We have to make a copy of the textFlowInitialFormat,
+		// which has various formats set to "inherit",
+		// and then modify it and set it back.
+		config = new Configuration();
+		format = new TextLayoutFormat(config.textFlowInitialFormat);
+		format.whiteSpaceCollapse = "collapse";
+		config.textFlowInitialFormat = format;
+		collapsingHTMLImporter =
+			TextConverter.getImporter(TextConverter.HTML_FORMAT, config);
+		collapsingHTMLImporter.throwOnError = false;
+		
+		// Create an importer for HTML_FORMAT that preserves whitespace.
+		// Note: We have to make a copy of the textFlowInitialFormat,
+		// which has various formats set to "inherit",
+		// and then modify it and set it back.
+		config = new Configuration();
+		format = new TextLayoutFormat(config.textFlowInitialFormat);
+		format.whiteSpaceCollapse = "preserve";
+		config.textFlowInitialFormat = format;
+		preservingHTMLImporter =
+			TextConverter.getImporter(TextConverter.HTML_FORMAT, config);
+		preservingHTMLImporter.throwOnError = true;
+		
+		// Create an exporter for HTML_FORMAT.
+		htmlExporter =
+			TextConverter.getExporter(TextConverter.HTML_FORMAT);
+		
+		if ("recreateTextLine" in staticTextBlock)
+			recreateTextLine = staticTextBlock["recreateTextLine"];
+	}
+	
+	initClass();
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Class constants
+	//
+	//--------------------------------------------------------------------------
+		
+	/**
+	 *  @private
+	 *  TextField has fixed 2-pixel padding.
+	 */
+	public static const PADDING_LEFT:Number = 2;
+	public static const PADDING_TOP:Number = 2;
+	public static const PADDING_RIGHT:Number = 2;
+	public static const PADDING_BOTTOM:Number = 2;
+	
+	/**
+	 *  @private
+	 *  This regular expression is used to replace LF with CR
+	 *  when the text property is set.
+	 */
+	private static const ALL_LINEFEEDS:RegExp = /\n/g;
+	
 	/**
 	 *  @private
 	 *  Masks for bits inside the 'flags' var
 	 *  which store the state of Boolean TextField properties.
 	 */
-	private static const FLAG_ALWAYS_SHOW_SELECTION:uint = 1 << 0;
-	private static const FLAG_BACKGROUND:uint = 1 << 1;
-	private static const FLAG_BORDER:uint = 1 << 2;
-	private static const FLAG_CONDENSE_WHITE:uint = 1 << 3;
-	private static const FLAG_DISPLAY_AS_PASSWORD:uint = 1 << 4;
-	private static const FLAG_EMBED_FONTS:uint = 1 << 5;
-	private static const FLAG_MOUSE_WHEEL_ENABLED:uint = 1 << 6;
-	private static const FLAG_MULTILINE:uint = 1 << 7;
-	private static const FLAG_SELECTABLE:uint = 1 << 8;
-	private static const FLAG_WORD_WRAP:uint = 1 << 9;
-	private static const FLAG_USE_RICH_TEXT_CLIPBOARD:uint = 1 << 10;
+	private static const FLAG_BACKGROUND:uint = 1 << 0;
+	private static const FLAG_BORDER:uint = 1 << 1;
+	private static const FLAG_CONDENSE_WHITE:uint = 1 << 2;
+	private static const FLAG_EMBED_FONTS:uint = 1 << 3;
+	private static const FLAG_MULTILINE:uint = 1 << 4;
+	private static const FLAG_SELECTABLE:uint = 1 << 5;
+	private static const FLAG_WORD_WRAP:uint = 1 << 6;
 	
 	/**
 	 *  @private
 	 *  Masks for bits inside the 'flags' var
 	 *  which control what work validateNow() needs to do.
 	 */
-	private static const FLAG_GRAPHICS_INVALID:uint = 1 << 11;
-	private static const FLAG_TEXT_LINES_INVALID:uint = 1 << 12;
-	private static const FLAG_SCROLL_POSITION_INVALID:uint = 1 << 13;
-	private static const FLAG_SELECTION_INVALID:uint = 1 << 14;
-	private static const FLAG_DEFAULT_TEXT_FORMAT_CHANGED:uint = 1 << 15;
-	private static const FLAG_HTML_TEXT_CHANGED:uint = 1 << 16;
-	private static const FLAG_TEXT_CHANGED:uint = 1 << 17;
-	private static const FLAG_WORD_WRAP_CHANGED:uint = 1 << 18;
+	private static const FLAG_TEXT_CHANGED:uint = 1 << 7;
+	private static const FLAG_HTML_TEXT_CHANGED:uint = 1 << 8;
+	private static const FLAG_TEXT_LINES_INVALID:uint = 1 << 9;
+	private static const FLAG_GRAPHICS_INVALID:uint = 1 << 10;
 	
 	/**
-	 * @private
-	 * Masks for bits inside the 'flags' var
-	 * tracking misc boolean variables.
+	 *  @private
+	 *  Masks for bits inside the 'flags' var
+	 *  tracking misc boolean variables.
 	 */
-	private static const FLAG_SCROLL_RECT_IS_SET:uint = 1 << 19;
-	private static const FLAG_VALIDATE_IN_PROGRESS:uint = 1 << 20;
-	
+	private static const FLAG_VALIDATE_IN_PROGRESS:uint = 1 << 11;
+	private static const FLAG_USE_TCM:uint = 1 << 12;
+	private static const FLAG_HAS_SCROLL_RECT:uint = 1 << 13;
+		
 	/**
 	 *  @private
 	 */
 	private static const ALL_INVALIDATION_FLAGS:uint =
-		FLAG_GRAPHICS_INVALID |
-		FLAG_TEXT_LINES_INVALID |
-		FLAG_SCROLL_POSITION_INVALID |
-		FLAG_SELECTION_INVALID |
-		FLAG_DEFAULT_TEXT_FORMAT_CHANGED |
-		FLAG_HTML_TEXT_CHANGED |
 		FLAG_TEXT_CHANGED |
-		FLAG_WORD_WRAP_CHANGED;
+		FLAG_HTML_TEXT_CHANGED |
+		FLAG_TEXT_LINES_INVALID |
+		FLAG_GRAPHICS_INVALID;
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Class variables
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private static var plainTextImporter:ITextImporter;
+	
+	/**
+	 *  @private
+	 */
+	private static var plainTextExporter:ITextExporter;
+	
+	/**
+	 *  @private
+	 */
+	private static var collapsingHTMLImporter:ITextImporter;
+	
+	/**
+	 *  @private
+	 */
+	private static var preservingHTMLImporter:ITextImporter;
+	
+	/**
+	 *  @private
+	 */
+	private static var htmlExporter:ITextExporter =
+		TextConverter.getExporter(TextConverter.HTML_FORMAT);
+	
+	/**
+	 *  @private
+	 */
+	private static var factory:TextFlowTextLineFactory =
+		new TextFlowTextLineFactory();
+	
+	// We can re-use single instances of a few FTE classes over and over,
+	// since they just serve as a factory for the TextLines that we care about.
+	
+	/**
+	 *  @private
+	 */
+	private static var staticTextBlock:TextBlock = new TextBlock();
+	
+	/**
+	 *  @private
+	 */
+	private static var staticTextElement:TextElement = new TextElement();
+	
+	/**
+	 *  @private
+	 */
+	private static var staticSpaceJustifier:SpaceJustifier =
+		new SpaceJustifier();
+	
+	/**
+	 *  @private
+	 *  A reference to the recreateTextLine() method in staticTextBlock,
+	 *  if it exists. This method was added in player 10.1.
+	 *  It allows better performance by making it possible to reuse
+	 *  existing TextLines instead of having to create new ones.
+	 */
+	private static var recreateTextLine:Function;
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Class methods
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private static function rint(x:Number):Number
+	{
+		var i:Number = Math.round(x);
+		if (i - 0.5 == x && i & 1)
+			--i;
+		return i;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private static function createDefaultTextFormat():TextFormat
+	{
+		var textFormat:TextFormat = new TextFormat(
+			"Times New Roman",		// font // TODO: platform-dependent?
+			12,						// size
+			0x000000,				// color
+			false,					// bold
+			false,					// italic
+			false,					// underline				
+			"",						// url
+			"",						// target
+			TextFormatAlign.LEFT,	// align
+			0,						// leftMargin
+			0,						// rightMargin
+			0,						// indent
+			0);						// leading
+
+		textFormat.blockIndent = 0;
+		textFormat.bullet = false;
+		textFormat.kerning = false;
+		textFormat.letterSpacing = 0;
+		textFormat.tabStops = [];
+			// TODO: Flash apparently detects when an empty array
+			// is assigned to tabStops and assigns null instead.
 		
-    //--------------------------------------------------------------------------
-    //
-    //  Class variables
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private static var textImporter:ITextImporter =
-    	TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
-    	
-    /**
-     *  @private
-     */
-    private static var htmlTextImporter:ITextImporter =
-    	TextConverter.getImporter(TextConverter.TEXT_LAYOUT_FORMAT);
-    	// TLF needs TEXT_FIELD_HTML_FORMAT
-    	
-    private static var factory:StringTextLineFactory = new StringTextLineFactory();
-    	    
-    //--------------------------------------------------------------------------
-    //
-    //  Constructor
-    //
-    //--------------------------------------------------------------------------
-    
+		return textFormat;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private static function cloneTextFormat(
+								textFormat:TextFormat):TextFormat
+	{
+		var newTextFormat:TextFormat = new TextFormat(
+			textFormat.font, textFormat.size, textFormat.color,
+			textFormat.bold, textFormat.italic, textFormat.underline,
+			textFormat.url, textFormat.target, textFormat.align,
+			textFormat.leftMargin, textFormat.rightMargin, textFormat.indent,
+			textFormat.leading);
+		
+		newTextFormat.blockIndent = textFormat.blockIndent;
+		newTextFormat.bullet = textFormat.bullet;
+		newTextFormat.kerning = textFormat.kerning;
+		newTextFormat.letterSpacing = textFormat.letterSpacing;
+		newTextFormat.tabStops = textFormat.tabStops;
+		
+		return newTextFormat;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private static function applyTextFormat(src:TextFormat, dst:TextFormat):void
+	{
+		if (src.align != null)
+			dst.align = src.align;
+		
+		if (src.blockIndent != null)
+			dst.blockIndent = src.blockIndent;
+			
+		if (src.bold != null)
+			dst.bold = src.bold;
+			
+		if (src.bullet != null)
+			dst.bullet = src.bullet;
+			
+		if (src.color != null)
+			dst.color = src.color;
+			
+		if (src.font != null)
+			dst.font = src.font;
+			
+		if (src.indent != null)
+			dst.indent = src.indent;
+			
+		if (src.italic != null)
+			dst.italic = src.italic;
+			
+		if (src.kerning != null)
+			dst.kerning != src.kerning;
+			
+		if (src.leading != null)
+			dst.leading = src.leading;
+			
+		if (src.leftMargin != null)
+			dst.leftMargin = src.leftMargin;
+			
+		if (src.letterSpacing != null)
+			dst.letterSpacing = src.letterSpacing;
+			
+		if (src.rightMargin != null)
+			dst.rightMargin = src.rightMargin;
+			
+		if (src.size != null)
+			dst.size = src.size;
+			
+		if (src.tabStops != null)
+			dst.tabStops = src.tabStops;
+			
+		if (src.target != null)
+			dst.target = src.target;
+			
+		if (src.underline != null)
+			dst.underline = src.underline;
+			
+		if (src.url != null)
+			dst.url = src.url;
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Constructor
+	//
+	//--------------------------------------------------------------------------
+	
 	/**
 	 *  Constructor.
-	 * @playerversion Flash 10
-	 * @playerversion AIR 1.5
-	 * @langversion 3.0
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
 	 */
 	public function TLFTextField()
 	{
 		super();
+		
+		_defaultTextFormat = createDefaultTextFormat();
+		
 		addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 	}
 	
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-    
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+	
 	/**
 	 *  @private
 	 *  Apps are likely to create thousands of instances of TLFTextField,
 	 *  so in order to minimize memory usage we store flags as 1 bit
 	 *  inside a uint instead of making each one a 4-byte Boolean var.
-	 *  
-	 *  Note: FLAGAULT_TEXT_FORMAT_CHANGED and FLAG_WORD_WRAP_CHANGED
-	 *  are initialized to true so that the host formats are set properly
-	 *  on first validation.
-     */
- 	private var flags:uint = FLAG_MOUSE_WHEEL_ENABLED |
-							 FLAG_SELECTABLE |
-							 FLAG_DEFAULT_TEXT_FORMAT_CHANGED |
-							 FLAG_WORD_WRAP_CHANGED;
-	    
-    /**
-     *  @private
-     */
-    private var hostContainerFormat:TextLayoutFormatValueHolder = new TextLayoutFormatValueHolder();
-    private var hostParagraphFormat:TextLayoutFormatValueHolder = new TextLayoutFormatValueHolder();
-    private var hostCharacterFormat:TextLayoutFormatValueHolder = new TextLayoutFormatValueHolder();
-    
-    /**
-    * @private
-    */
-    private var _textLineCreator:ITextLineCreator;
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden properties: DisplayObject
-    //
-    //--------------------------------------------------------------------------
-    
-    
-    //----------------------------------
-    //  height
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-	private var _height:Number = 100;
-
-    /**
-     *  @private
-     */
-    override public function get height():Number
-    {
-    	// If we're autosizing, _height may be invalid.
-    	// For example, the 'text' may have been set
-    	// but the TextLines for that text haven't
-    	// been created yet.
-    	if (autoSize != TextFieldAutoSize.NONE)
-    		validateNow();
-    	
-    	return _height;
-    }
-    
-    /**
-     *  @private
-     */
-    override public function set height(value:Number):void
-    {
-    	// TODO: What does TextField do if height is set to
-    	// NaN, or Infinity, a negative value, or a very large value?
-    	
-    	if (value == _height)
-    		return;
-    		
-    	_height = value;
-    	
-   		// The border and background need to be redrawn,
-    	// and the TextLines may need to be recreated.
-    	// TODO: Figure out when the TextLines really are invalid.
-    	setFlag(FLAG_GRAPHICS_INVALID | FLAG_TEXT_LINES_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// maxScrollV
-    	// scrollV/bottomScrollV?
-    }
-    
-    //----------------------------------
-    //  width
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-	private var _width:Number = 100;
-
-    /**
-     *  @private
-     */
-    override public function get width():Number
-    {
-    	// If we're autosizing, _width may be invalid.
-    	// For example, the 'text' may have been set
-    	// but the TextLines for that text haven't
-    	// been created yet.
-	   	if (autoSize != TextFieldAutoSize.NONE)
-    		validateNow();
-    	
-    	return _width;
-    }
-    
-    /**
-     *  @private
-     */
-    override public function set width(value:Number):void
-    {
-    	// TODO: What does TextField do if height is set to
-    	// NaN, or Infinity, a negative value, or a very large value?
-    	
-    	if (value == _width)
-    		return;
-    		
-    	_width = value;
-    	
-   		// The border and background need to be redrawn,
-    	// and the TextLines may need to be recreated.
-    	// TODO: Figure out when the TextLines really are invalid.
-    	setFlag(FLAG_GRAPHICS_INVALID |	FLAG_TEXT_LINES_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// height
-    	// textWidth/textHeight
-    	// numLines
-    	// maxScrollH/maxScrollV
-    	// scrollH/scrollV/bottomScrollV?
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: TextField
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  alwaysShowSelection
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#alwaysShowSelection
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get alwaysShowSelection():Boolean
-    {
-    	return testFlag(FLAG_ALWAYS_SHOW_SELECTION);
-    }
-    public function set alwaysShowSelection(value:Boolean):void
-    {
-    	if (value == alwaysShowSelection)
-    		return;
-    	
-    	setFlagToValue(FLAG_ALWAYS_SHOW_SELECTION,value);
-    	
-    	// The selection may need to be redrawn.
-    	setFlag(FLAG_SELECTION_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// selectionBeginIndex/selectionEndIndex/caretIndex?
-    }
-
-    //----------------------------------
-    //  antiAliasType
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _antiAliasType:String = AntiAliasType.NORMAL;
-    
-    /**
-     *  @copy flash.text.TextField#antiAliasType
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get antiAliasType():String
-    {
-     	return _antiAliasType;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set antiAliasType(value:String):void
-    {
-    	// TextField apparently treats invalid values as "normal".
-    	if (value != AntiAliasType.NORMAL &&
-    	    value != AntiAliasType.ADVANCED)
-    	{
-    		value = AntiAliasType.NORMAL;
-    	}
-    	
-    	_antiAliasType = value;
-    	
-		// Setting this property does not affect
-		// the appearance of TLFTextField.
-		// Setting it to "advanced" means that TextField
-		// should use its Saffron renderer
-		// but FTE doesn't have a Saffron renderer.
-		
-		// Side effects:
-		// none
-    }
-
-    //----------------------------------
-    //  autoSize
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _autoSize:String = TextFieldAutoSize.NONE;
-    
-    /**
-     *  @copy flash.text.TextField#autoSize
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get autoSize():String
-    {
-    	return _autoSize;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set autoSize(value:String):void
-    {
-    	// TextField throws when invalid values are set.
-    	if (value != TextFieldAutoSize.NONE &&
-    		value != TextFieldAutoSize.LEFT &&
-    		value != TextFieldAutoSize.CENTER &&
-    		value != TextFieldAutoSize.RIGHT)
-    	{
-    		throw new ArgumentError("Parameter autoSize must be one of the accepted values.");
-    	}
-    	
-    	if (value == autoSize)
-    		return;
-    		
-    	_autoSize = value;
-    	
-    	if ( _autoSize != TextFieldAutoSize.NONE )
-    		_maxScrollH = 0;
-    	
-    	// The border and background may need to be redrawn,
-    	// and the TextLines may need to be recreated.
-    	setFlag(FLAG_GRAPHICS_INVALID |	FLAG_TEXT_LINES_INVALID);
-    	
-     	invalidate();
-     	
-     	// Side effects:
-    	// x
-    	// width/height
-    	// textWidth/textHeight
-    	// numLines
-    	// maxScrollH/maxScrollV
-    	// scrollH/scrollV/bottomScrollV
-    }
-
-    //----------------------------------
-    //  background
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#background
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get background():Boolean
-    {
-    	return testFlag(FLAG_BACKGROUND);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set background(value:Boolean):void
-    {
-    	if (value == background)
-    		return;
-    	setFlagToValue(FLAG_BACKGROUND,value);
-    	
-    	// The border and background need to be redrawn.
-    	setFlag(FLAG_GRAPHICS_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  backgroundColor
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _backgroundColor:uint = 0xFFFFFF;
-    
-    /**
-     *  @copy flash.text.TextField#backgroundColor
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get backgroundColor():uint
-    {
-    	return _backgroundColor;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set backgroundColor(value:uint):void
-    {
-    	if (value == _backgroundColor)
-    		return;
-    		   			
-    	_backgroundColor = value;
-    	
-    	// The border and background need to be redrawn.
-    	setFlag(FLAG_GRAPHICS_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  border
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#border
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get border():Boolean
-    {
-    	return testFlag(FLAG_BORDER);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set border(value:Boolean):void
-    {
-    	if (value == border)
-    		return;
-    	
-	    setFlagToValue(FLAG_BORDER,value);
-    	
-    	// The border and background need to be redrawn.
-    	setFlag(FLAG_GRAPHICS_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  borderColor
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _borderColor:uint = 0x000000;
-    
-    /**
-     *  @copy flash.text.TextField#borderColor
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get borderColor():uint
-    {
-    	return _borderColor;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set borderColor(value:uint):void
-    {
-    	if (value == _borderColor)
-    		return;
-    		
-     	_borderColor = value;
-
-    	// The border and background need to be redrawn.
-    	setFlag(FLAG_GRAPHICS_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  bottomScrollV
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _bottomScrollV:int = 1;
-    
-    /**
-     *  @copy flash.text.TextField#bottomScrollV
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get bottomScrollV():int
-    {
-     	validateNow();
-    	
-    	// TODO: Compute this properly.
-    	return _bottomScrollV;
-    }
-
-    //----------------------------------
-    //  caretIndex
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#caretIndex
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get caretIndex():int
-    {
-    	// TODO: Implement this.
-    	return 0;
-    }
-    	
-    //----------------------------------
-    //  condenseWhite
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#condenseWhite
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get condenseWhite():Boolean
-    {
-    	return testFlag(FLAG_CONDENSE_WHITE);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set condenseWhite(value:Boolean):void
-    {
-    	setFlagToValue(FLAG_CONDENSE_WHITE, value);
-    	
-    	// Note: There is nothing else to do immediately;
-    	// the new value doesn't have any effect
-    	// until 'htmlText' is set later.
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  defaultTextFormat
-    //----------------------------------
-    static private function createDefaultTextFormat( ): TextFormat
-    {
-      	// TODO: is font value platform-dependent???
-	  	var ret:TextFormat = new TextFormat("Times New Roman", 12, 0x000000, false, false, false, "", "", TextFormatAlign.LEFT, 0, 0, 0, 0);
-		ret.blockIndent = 0;
-		ret.bullet = false;
-		ret.kerning = false;
-		ret.leading = 0;
-		ret.letterSpacing = 0;
-		ret.tabStops = new Array(); // does not work. Flash apparently detects when an empty array is assigned to tabStops and assigns null instead.
-		return ret;
-    }
-  
-    static private function createTextFormatCopy( obj:TextFormat ): TextFormat
-    {
-    	var ret:TextFormat = new TextFormat(obj.font,obj.size,obj.color,obj.bold,obj.italic,obj.underline,obj.url,obj.target,obj.align,obj.leftMargin,obj.rightMargin,obj.indent);
-		ret.blockIndent = obj.blockIndent;
-		ret.bullet = obj.bullet;
-		ret.kerning = obj.kerning;
-		ret.leading = obj.leading;
-		ret.letterSpacing = obj.letterSpacing;
-		ret.tabStops = obj.tabStops;
-		return ret;
-    } 
-    
-    /**
-     *  @private
-     */
-    private var _defaultTextFormat:TextFormat = createDefaultTextFormat( );
-
-    /**
-     *  @copy flash.text.TextField#defaultTextFormat
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get defaultTextFormat():TextFormat
-    {
-    	return _defaultTextFormat;    	
-    }
-
-    /**
-     *  @private
-     */
-    public function set defaultTextFormat(value:TextFormat):void
-    {
-    	// TextField throws if a null value is set.
-    	if (!value)
-    		throw new TypeError("Parameter format must be non-null.");
-    	
-    	if (value == _defaultTextFormat)
-    		return;
-    		
-    	_defaultTextFormat = createTextFormatCopy( value );
-    	
-    	setFlag(FLAG_DEFAULT_TEXT_FORMAT_CHANGED);
- 
-    	invalidate();
-    	
-    	// Note: Setting this does NOT cause already-rendered text
-    	// to change its format.
-    	// If establishes the formatting for text set or added later.
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  displayAsPassword
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#displayAsPassword
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get displayAsPassword():Boolean
-    {
-     	return testFlag(FLAG_DISPLAY_AS_PASSWORD);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set displayAsPassword(value:Boolean):void
-    {
-     	if (value == displayAsPassword)
-    		return;
-    		
-    	setFlagToValue(FLAG_DISPLAY_AS_PASSWORD, value);
-    	
-    	// The border and background may need to be redrawn
-    	// (because the size may have changed)
-    	// and the TextLines need to be recreated.
-		setFlag(FLAG_GRAPHICS_INVALID | FLAG_TEXT_LINES_INVALID);
-
-    	invalidate();
-    	
-    	// Side effects:
-    	// x
-    	// width/height
-    	// textWidth/textHeight
-    	// numLines
-    	// maxScrollH/maxScrollV
-    	// scrollH/scrollV/bottomScrollV?
-    }
-
-    //----------------------------------
-    //  embedFonts
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#embedFonts
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get embedFonts():Boolean
-    {
-    	return testFlag(FLAG_EMBED_FONTS);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set embedFonts(value:Boolean):void
-    {
-    	if (value == embedFonts)
-    		return;
-    		
-    	setFlagToValue(FLAG_EMBED_FONTS, value);
-    	
-   		// The border and background may need to be redrawn
-    	// (because the size may have changed)
-    	// and the TextLines need to be recreated.
-		setFlag(FLAG_GRAPHICS_INVALID |	FLAG_TEXT_LINES_INVALID);
-
-    	invalidate();
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  gridFitType
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _gridFitType:String = GridFitType.PIXEL;
-    
-    /**
-     *  @copy flash.text.TextField#gridFitType
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get gridFitType():String
-    {
-    	return _gridFitType;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set gridFitType(value:String):void
-    {
-    	// TextField apparently treats invalid values as "none".
-    	if (value != GridFitType.NONE &&
-    	    value != GridFitType.PIXEL &&
-    	    value != GridFitType.SUBPIXEL)
-    	{
-    		value = GridFitType.NONE;
-    	}
-    	    	
-    	_gridFitType = value;
-    	
- 		// Setting this property does not affect
-		// the appearance of TLFTextField.
-		// It is a setting for TextField's Saffron renderer
-		// (i.e., it applies when antiAliasType == "advanced").
-		// and isn't relevant to FTE's CFF renderer.
-		
-		// Side effects
-		// none
-    }
-
-    //----------------------------------
-    //  htmlText
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _htmlText:String = null;
-    
-    /**
-     *  @copy flash.text.TextField#htmlText
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get htmlText():String
-    {
-    	if (_htmlText == null)
-    	{
-			var htmlPreText:String;
-			if ( _text.length && _text.charCodeAt( _text.length - 1 ) == 13 )
-				htmlPreText = _text.substr(0, _text.length - 1); // trim at most 1 trailing CR
-			else
-				htmlPreText = _text;
-			var lines:Array =  htmlPreText.split( /\r/ );
-			
-			// TODO: is font value platform-dependent???
-			var htmlFont:String = _defaultTextFormat.font ? _defaultTextFormat.font : "Times New Roman";
-			var htmlSize:String = _defaultTextFormat.size ? String(_defaultTextFormat.size) : "12";
-			var htmlColor:String = intToHexColor(_defaultTextFormat.color ? _defaultTextFormat.color : 0);
-			var htmlLetterSpacing:String = _defaultTextFormat.letterSpacing ? String(_defaultTextFormat.letterSpacing) : "0";
-			var htmlKerning:String = _defaultTextFormat.kerning ? "1" : "0";
-			_htmlText = "";
-			for each (var line:String in lines)
-			{
-				_htmlText += "<P ALIGN=\"LEFT\"><FONT FACE=\"" + htmlFont; 
-				_htmlText += "\" SIZE=\"" + htmlSize;
-				_htmlText += "\" COLOR=\"#" + htmlColor;
-				_htmlText += "\" LETTERSPACING=\"" + htmlLetterSpacing;
-				_htmlText += "\" KERNING=\"" + htmlKerning;
-				_htmlText += "\">" + line + "</FONT></P>";
-			}
-    	}
-     	return _htmlText;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set htmlText(value:String):void
-    {
-    	// TextField throws if a null value is set.
-    	if (value == null)
-    	{
-    		throw new TypeError("Parameter text must be non-null.");
-    		// Note: It seems like this should say
-    		// "Parameter htmlText must be non-null",
-    		// but that's not what TextField does.
-    	}
-    	
-    	if (value == htmlText)
-    		return;
-    		
-    	_htmlText = value;
-    	
-    	setFlag(FLAG_HTML_TEXT_CHANGED |
-				FLAG_GRAPHICS_INVALID |
-				FLAG_TEXT_LINES_INVALID);
+	 */
+	private var flags:uint = 0;
 	
-	   	invalidate();
-	   	
-	   	// NOTE: With hmtlText, what you set is NOT what you get.
-	   	// You can set incomplete (or no) markup
-	   	// and get back complete markup.
-	   	
-	   	// Side effects:
-	   	// text
-	   	// length
-	   	// x
-	   	// width/height
-	   	// textWidth/textHeight
-	   	// numLines
-	   	// maxScrollH/maxScrollV
-	   	// scrollH/scrollV/bottomScrollV?
-	   	// selectionBeginIndex/selectionEndIndex/caretIndex
-    }
-
-    //----------------------------------
-    //  length
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#length
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get length():int
-    {
-    	return text.length;
-    }
-
-    //----------------------------------
-    //  maxChars
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _maxChars:int = 0;
-    
-    /**
-     *  @copy flash.text.TextField#maxChars
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get maxChars():int
-    {
-     	return _maxChars;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set maxChars(value:int):void
-    {
-    	// TextField apparently allows maxChars to be set
- 		// to negative integers.
- 		
-     	_maxChars = value;
-    	
-    	// Note: There is nothing to do immediately;
-    	// the new value doesn't have any effect
-    	// until the user types or pastes text.
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  maxScrollH
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _maxScrollH:int = 0;
-    
-    /**
-     *  @copy flash.text.TextField#maxScrollH
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get maxScrollH():int
-    {
-    	if ( _autoSize == TextFieldAutoSize.NONE )
-    		validateNow();
-    	
-    	return _maxScrollH;
-    }
-
-    //----------------------------------
-    //  maxScrollV
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _maxScrollV:int = 1;
-    
-    /**
-     *  @copy flash.text.TextField#maxScrollV
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get maxScrollV():int
-    {
-    	validateNow();
-    	
-    	return _maxScrollV;
-    }
-
-    //----------------------------------
-    //  mouseWheelEnabled
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#mouseWheelEnabled
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get mouseWheelEnabled():Boolean
-    {
-     	return testFlag(FLAG_MOUSE_WHEEL_ENABLED);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set mouseWheelEnabled(value:Boolean):void
-    {
-    	setFlagToValue(FLAG_MOUSE_WHEEL_ENABLED, value);
-    	
-    	// Note: There is nothing to do immediately;
-    	// the new value doesn't have any effect
-    	// until the user turns the mousewheel.
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  multiline
-    //----------------------------------
-    
-     /**
-     *  @copy flash.text.TextField#multiline
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get multiline():Boolean
-    {
-     	return testFlag(FLAG_MULTILINE);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set multiline(value:Boolean):void
-    {
-    	setFlagToValue(FLAG_MULTILINE, value);
-    	
-    	// Note: There is nothing to do immediately;
-    	// the new value doesn't have any effect
-    	// until the user types or pastes text.
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  numLines
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _numLines:int = 0;
-    
-    /**
-     *  @copy flash.text.TextField#numLines
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get numLines():int
-    {
-    	validateNow();
-    	
-    	return _numLines == 0 ? 1 : _numLines;
-    }
-
-    //----------------------------------
-    //  restrict
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _restrict:String = null;
-    
-    /**
-     *  @copy flash.text.TextField#restrict
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get restrict():String
-    {
-     	return _restrict;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set restrict(value:String):void
-    {
-    	_restrict = value;
-    	
-    	// Note: There is nothing to do immediately;
-    	// the new value doesn't have any effect
-    	// until the user types or pastes text.
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  scrollH
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _scrollH:int = 0;
-    
-    /**
-     *  @copy flash.text.TextField#scrollH
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get scrollH():int
-    {
-    	validateNow();
-    	
-    	return _scrollH;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set scrollH(value:int):void
-    {
-    	// What does TextField do if you set negative value,
-    	// or a positive value greater than maxScrollH?
-    	
-    	if (value == _scrollH)
-    		return;
-    		
-    	_scrollH = (value >= 1) ? ((value <= _maxScrollH) ? value : _maxScrollH ) : 1 ;
-   	
-    	setFlag(FLAG_SCROLL_POSITION_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  scrollV
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _scrollV:int = 1;
-    
-    /**
-     *  @copy flash.text.TextField#scrollV
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get scrollV():int
-    {
-    	validateNow();
-    	
-    	return _scrollV;    	
-    }
-    
-    /**
-     *  @private
-     */
-    public function set scrollV(value:int):void
-    {
-   		// What does TextField do if you set negative value,
-    	// or a positive value greater than maxScrollV?
-    	
-    	if (value == _scrollV)
-    		return;
-    	
-    	_scrollV = (value >= 1) ? ((value <= _maxScrollV) ? value : _maxScrollV ) : 1 ;
-
-    	setFlag(FLAG_SCROLL_POSITION_INVALID);
-     	
-     	invalidate();
-     	
-     	// Side effects:
-     	// none
-    }
-
-    //----------------------------------
-    //  selectable
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#selectable
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get selectable():Boolean
-    {
-    	return testFlag(FLAG_SELECTABLE);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set selectable(value:Boolean):void
-    {
-    	if (value == selectable)
-    		return;
-    		
-    	setFlagToValue(FLAG_SELECTABLE, value);
-    	
-    	setFlag(FLAG_SELECTION_INVALID);
-    	
-    	invalidate();
-    	
-    	// Side effects:
-    	// selectionBeginIndex/selectionEndIndex/caretIndex?
-    }
-
-    //----------------------------------
-    //  selectionBeginIndex
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#selectionBeginIndex
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get selectionBeginIndex():int
-    {
-    	validateNow();
-    	
-    	// TODO: Compute this properly.
-    	return 0;
-     }
-
-    //----------------------------------
-    //  selectionEndIndex
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#selectionEndIndex
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get selectionEndIndex():int
-    {
-    	validateNow();
-    	
-    	// TODO: Compute this properly.
-    	return 0;
-    }
-
-    //----------------------------------
-    //  sharpness
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _sharpness:Number = 0;
-    
-    /**
-     *  @copy flash.text.TextField#sharpness
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get sharpness():Number
-    {
-    	return _sharpness;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set sharpness(value:Number):void
-    {
-    	// TextField apparently allows NaN as a value
-    	// but clamps non-NaN values to [-400, 400],
-    	const LIMIT:Number = 400;
-    	if (value < -LIMIT)
-    		value = -LIMIT;
-    	else if (value > LIMIT)
-    		value = LIMIT;
-    		
-    	_sharpness = value;
- 		
- 		// Setting this property does not affect
-		// the appearance of TLFTextField.
-		// It is a setting for TextField's Saffron renderer
-		// (i.e., it applies when antiAliasType == "advanced").
-		// and isn't relevant to FTE's CFF renderer.
+	/**
+	 *  @private
+	 *  When we render the text using FTE,
+	 *  this object represents the formatting for FTE.
+	 *  Every time the defaultTextFormat is set,
+	 *  this object is released because it is invalid.
+	 *  It is regenerated just in time to render the text.
+	 */
+	private var elementFormat:ElementFormat;
+	
+	/**
+	 *  @private
+	 *  When we render the htmlText using TLF,
+	 *  this object represents the formatting for TLF.
+	 *  Every time the defaultTextFormat is set,
+	 *  this object is released because it is invalid.
+	 *  It is regenerated just in time to render the htmlText.
+	 */
+	private var hostFormat:ITextLayoutFormat;
+	
+	/**
+	 *  @private
+	 *  When we render the htmlText using TLF,
+	 *  this object represents the rich text to be displayed.
+	 *  It is created by using TLF's HTML importer to import the htmlText.
+	 */
+	private var textFlow:TextFlow;
+	
+	/**
+	 *  @private
+	 *  When we render the htmlText using TLF,
+	 *  this object composes the textFlow
+	 *  (with the hostFormat applied to it)
+	 *  to create TextLines in this Sprite.
+	 */
+	private var textContainerManager:TextContainerManager;
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden properties: DisplayObject
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//  height
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _height:Number = 100;
+	
+	/**
+	 *  @private
+	 */
+	override public function get height():Number
+	{
+		// If we're autosizing, _height may be invalid.
+		// For example, the 'text' may have been set
+		// but the TextLines for that text haven't
+		// been created yet.
+		if (autoSize != TextFieldAutoSize.NONE)
+			validateNow();
 		
-		// Side effects:
-		// none
-    }
-
-    //----------------------------------
-    //  styleSheet
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _styleSheet:StyleSheet = null;
-    
-    /**
-     *  @copy flash.text.TextField#styleSheet
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get styleSheet():StyleSheet
-    {
-    	return _styleSheet;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set styleSheet(value:StyleSheet):void
-    {
-    	// TextField allows a null value to be set;
-    	// in fact, this is the default.
-    	
-    	if (value == _styleSheet)
-    		return;
-    		
-    	_styleSheet = value;
-    	
-    	setFlag(FLAG_GRAPHICS_INVALID |	FLAG_TEXT_LINES_INVALID);
-
-    	invalidate();
-    	
-    	// Side effects:
-    	// x
-    	// width/height
-    	// textWidth/textHeight
-    	// numLines
-    	// maxScrollH/maxScrollV
-    	// scrollH/scrollV/bottomScrollV?
-    }
-
-    /**
-     *  @private
-     */
-    static private function intToHexColor( color:Object ):String
-    {
-    	if ( color == null )
-    		return "000000";
-    	var colorInt:int = int(color);
-    	var s:String = new String();
-    	var hexCode:Array = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"];
-    	for (var i:int = 0; i < 6; ++i)
-    	{
-    		var c:int = colorInt & 15;
-    		s = hexCode[c] + s; 
-    		colorInt >>= 4;
-    	} 
-    	return s;
-    } 
-    
-
-    //----------------------------------
-    //  text
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _text:String = "";
-    
-    /**
-     *  @copy flash.text.TextField#text
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get text():String
-    {
-    	return _text;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set text(value:String):void
-    {
-    	// TextField throws if a null value is set.
-    	if (value == null)
-    		throw new TypeError("Parameter text must be non-null.");
-    		
-    	var noNewlineText:String = value.replace( /\n/g, "\r" );
-    	
-    	if (noNewlineText == _text)
-    		return;
-    	
-    	// Does TLF treat \r and \n the same as TextField?
-    	
-    	_text = noNewlineText;
-    	
-    	// signals that htmlText needs to be regenerated
-    	_htmlText = null;
-
-
+		return _height;
+	}
+	
+	/**
+	 *  @private
+	 */
+	override public function set height(value:Number):void
+	{
+		// TextField ignores NaN and negative values.
+		if (isNaN(value) || value < 0)
+			return;
+				
+		if (value == _height)
+			return;
 		
-    	setFlag(FLAG_TEXT_CHANGED |
-    			FLAG_GRAPHICS_INVALID |
-    			FLAG_TEXT_LINES_INVALID);
-
-    	invalidate();
-   	
-    	// Side effects:
-    	// htmlText
-    	// length
-    	// x
-    	// width/height
-    	// textWidth/textHeight
-    	// numLines
-    	// maxScrollH/maxScrollV
-    	// scrollH/scrollV/bottomScrollV?
-    	// selectionBeginIndex/selectionEndIndex/caretIndex?
-    }
-
-    //----------------------------------
-    //  textColor
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _textColor:uint = 0x000000;
-    
-    /**
-     *  @copy flash.text.TextField#textColor
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get textColor():uint
-    {
-    	return _textColor;
-    }
-    
-    /**
-     *  @private
-     *  Setting the textColor changes defaultTextFormat.color 
-     *  and redraws the text in the new color.
-     */
-    public function set textColor(value:uint):void
-    {
-    	if (value == _textColor)
-    		return;
-    		
-    	_textColor = value;
-    	_defaultTextFormat.color = value; // have verified that changing textColor on TextField alters the defaultTextFormat's color property
-    	
-    	setFlag(FLAG_TEXT_LINES_INVALID);
-
-    	invalidate();
-    	
-    	// Side effects:
-    	// none
-    }
-
-    //----------------------------------
-    //  textHeight
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _textHeight:Number = 0;
-    
-    /**
-     *  @copy flash.text.TextField#textHeight
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get textHeight():Number
-    {
-    	validateNow();
-    	
-    	return _textHeight;
-    }
-
-    //----------------------------------
-    //  textWidth
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _textWidth:Number = 0;
-    
-    /**
-     *  @copy flash.text.TextField#textWidth
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get textWidth():Number
-    {
-    	validateNow();
-    	
-    	return _textWidth;
-    }
-
-    //----------------------------------
-    //  thickness
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _thickness:Number = 0;
-    
-    /**
-     *  @copy flash.text.TextField#thickness
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get thickness():Number
-    {
-    	return _thickness;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set thickness(value:Number):void
-    {
-    	// TextField apparently allows NaN as a value
-    	// but clamps non-NaN values to [-400, 400],
-    	const LIMIT:Number = 200;
-    	if (value < -LIMIT)
-    		value = -LIMIT;
-    	else if (value > LIMIT)
-    		value = LIMIT;
-    		
-    	_thickness = value;
- 		
- 		// Setting this property does not affect
-		// the appearance of TLFTextField.
-		// It is a setting for TextField's Saffron renderer
-		// (i.e., it applies when antiAliasType == "advanced").
-		// and isn't relevant to FTE's CFF renderer.
+		_height = value;
 		
-		// Side effects:
-		// none
-    }
-
-    //----------------------------------
-    //  type
-    //----------------------------------
-    
-    private var _type:String = TextFieldType.DYNAMIC;
-    
-    /**
-     *  @copy flash.text.TextField#type
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get type():String
-    {
-     	return _type;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set type(value:String):void
-    {
-   		// TextField throws when invalid values are set.
-    	if (value != TextFieldType.DYNAMIC &&
-    		value != TextFieldType.INPUT)
-    	{
-    		throw new ArgumentError("Parameter type must be one of the accepted values.");
-    	}
-    	
-    	if (value == _type)
-    		return;
-    		
-    	_type = value;
-    	
-    	// set some flags
-    	
-     	invalidate();
-     	
-     	// Side effects:
-     	// selectable?
-     	// selectionBeginIndex/selectionEndIndex/caretIndex?
-    }
-
-    //----------------------------------
-    //  useRichTextClipboard
-    //----------------------------------
-
-    /**
-     *  @private
-     */
-    public function get useRichTextClipboard():Boolean
-    {
-     	return testFlag(FLAG_USE_RICH_TEXT_CLIPBOARD);
-    }
-    /**
-     *  @copy flash.text.TextField#useRichTextClipboard
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function set useRichTextClipboard(value:Boolean):void
-    {
-    	setFlagToValue(FLAG_USE_RICH_TEXT_CLIPBOARD, value);
-     		
-    	// Note: There is nothing to do immediately;
-    	// the new value doesn't have any effect
-    	// until the user pastes.
-    	
-    	// Side effects:
-    	// none
-    }
-    
-    //----------------------------------
-    //  wordWrap
-    //----------------------------------
-    
-    /**
-     *  @copy flash.text.TextField#wordWrap
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get wordWrap():Boolean
-    {
-    	return testFlag(FLAG_WORD_WRAP);
-    }
-    
-    /**
-     *  @private
-     */
-    public function set wordWrap(value:Boolean):void
-    {
-    	if (value == wordWrap)
-    		return;
-    		
-    	setFlagToValue(FLAG_WORD_WRAP, value);
-    	
-    	setFlag(FLAG_WORD_WRAP_CHANGED |
-				FLAG_TEXT_LINES_INVALID);
-
-    	invalidate();
-   	
-    	// Side effects:
-    	// x?
-    	// width/height?
-    	// textWidth/textHeight
-    	// numLines
-    	// maxScrollH/maxScrollV
-    	// scrollH/scrollV/bottomScrollV?
-    }
-
-    /**
-	 * Gets and sets the ITextLineCreator instance to be used for creating TextLines.  Override this if you need lines to be created in a different
-	 * SWF context than the one containing the TLF code.  The framework will supply a default implementation of ITextLineCreator if none is supplied by the caller.
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function get textLineCreator():ITextLineCreator
-    {
-    	return _textLineCreator;
-    }
-    public function set textLineCreator(value:ITextLineCreator):void
-    {
-    	_textLineCreator = value;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods: TextField
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @copy flash.text.TextField#appendText()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function appendText(newText:String):void
-    {
-    	text = text + newText;
-    }
-
-    /**
-     *  @copy flash.text.TextField#getCharBoundaries()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getCharBoundaries(charIndex:int):Rectangle
-    {
-    	throw new Error("Not implemented: getCharBoundaries()");
-    }
-
-    /**
-     *  @copy flash.text.TextField#getCharIndexAtPoint()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getCharIndexAtPoint(x:Number, y:Number):int
-    {
-    	throw new Error("Not implemented: getCharIndexAtPoint()");
-    }
-
-    /**
-     *  @copy flash.text.TextField#getFirstCharInParagraph()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getFirstCharInParagraph(charIndex:int):int
-    {
-    	throw new Error("Not implemented: getFirstCharInParagraph()");
-    }
-
-    /**
-     *  @copy flash.text.TextField#getLineIndexAtPoint()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getLineIndexAtPoint(x:Number, y:Number):int
-    {
-    	throw new Error("Not implemented: getLineIndexAtPoint()");
-    }
-
-    /**
-     *  @copy flash.text.TextField#getLineIndexOfChar()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getLineIndexOfChar(charIndex:int):int
-    {
-    	throw new Error("Not implemented: getLineIndexOfChar()");
-    }
-
-    /**
-     *  @copy flash.text.TextField#getLineLength()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getLineLength(lineIndex:int):int
-    {
-    	throw new Error("Not implemented: getLineLength()")
-    }
-
-    /**
-     *  @copy flash.text.TextField#getLineMetrics()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getLineMetrics(lineIndex:int):TextLineMetrics
-    {
-    	validateNow();
-    	
-    	if ( lineIndex < 0 || lineIndex >= numChildren )
-    		throw new RangeError( "The supplied index is out of bounds" ); // matching TextField behavior
-
-    	var textLine:TextLine = TextLine( getChildAt( lineIndex ) );
-    	var height:Number;
-    	if (lineIndex == this.numChildren - 1)
-    	 	height = Number(_defaultTextFormat.size) + 2; /// how to correctly determine "height" here?
-    	else
-    	{
-	    	var nextTextLine:TextLine = TextLine( getChildAt( lineIndex + 1 ) );
-    		height = nextTextLine.y - textLine.y;
-    	}
-    	return new TextLineMetrics( textLine.x, textLine.width, height, textLine.ascent, textLine.descent, height - textLine.ascent - textLine.descent );
-    }
-
-    /**
-     *  @copy flash.text.TextField#getLineOffset()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getLineOffset(lineIndex:int):int
-    {
-    	throw new Error("Not implemented: getLineOffset()")
-    }
-
-    /**
-     *  @copy flash.text.TextField#getLineText()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getLineText(lineIndex:int):String
-    {
-    	throw new Error("Not implemented: getLineText()")
-    }
-
-    /**
-     *  @copy flash.text.TextField#getParagraphLength()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getParagraphLength(charIndex:int):int
-    {
-    	throw new Error("Not implemented: getParagraphLength()")
-    }
-
-    /**
-     *  @copy flash.text.TextField#getTextFormat()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getTextFormat(beginIndex:int = -1, endIndex:int = -1):TextFormat
-    {
-    	return _defaultTextFormat;
-    }
-
-    /**
-     *  @copy flash.text.TextField#replaceSelectedText()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function replaceSelectedText(value:String):void
-    {
-    	throw new Error("Not implemented: replaceSelectedText()")
-    }
-
-    /**
-     *  @copy flash.text.TextField#replaceText()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function replaceText(beginIndex:int, endIndex:int,
-    							newText:String):void
-    {
-    	if ( beginIndex <= endIndex )
-    		text = text.substring( 0, beginIndex ) + newText + text.substring( endIndex );
-    }
-
-    /**
-     *  @copy flash.text.TextField#setSelection()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function setSelection(beginIndex:int, endIndex:int):void
-    {
-    	throw new Error("Not implemented: setSelection()")
-    }
-
-    /**
-     *  @copy flash.text.TextField#setTextFormat()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function setTextFormat(format:TextFormat,
-                           		  beginIndex:int = -1,
-                           		  endIndex:int = -1):void
-    {
-    	// XXXXXX XXXXXX XXXXX TODO!!!!!!!!!!!!!!!!! XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    	//throw new Error("Not implemented: setTextFormat()");
-    	// XXXXXX XXXXXX XXXXX TODO!!!!!!!!!!!!!!!!! XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    }
-
-    /**
-     *  @copy flash.text.TextField#getImageReference()
-     * @playerversion Flash 10
-     * @playerversion AIR 1.5
-     * @langversion 3.0
-     */
-    public function getImageReference(id:String):DisplayObject
-    {
-    	throw new Error("Not implemented: getImageReference()");
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private function testFlag(mask:uint):Boolean
-    { return (flags & mask) != 0; }
-
-    /**
-     *  @private
-     */
-    private function setFlag(mask:uint):void
-    { flags |= mask; }
-    
-    private function clearFlag(mask:uint):void
-    { flags &= ~mask; }
-    
-    private function setFlagToValue(mask:uint,value:Boolean):void
-    {
-    	if (value)
-    		flags |= mask;
-    	else
-    		flags &=~ mask;
-    }
-    
-    /**
-     *  @private
-     *  This method will cause a 'render' event later,
-     *  in response to which validateNow() will get called.
-     */
-    private function invalidate():void
-    {
-		CONFIG::debug { assert( !testFlag(FLAG_VALIDATE_IN_PROGRESS), "invalidating during validateNow()"); }
-
-    	if (stage)
-    		stage.invalidate();
-    }
-    
-    static private function rint(x:Number):Number
-    {
-    	var i:Number = Math.round(x);
-    	if ( i - 0.5 == x && i & 1 )
-    		--i;
-    	return i;
-    }
-    
-    /**
-     *  @private
-     *  This method is the workhorse of TLFTextField.
-     *  It puts it into a state where all properties are consistent
-     *  with each other and where it is rendering what the properties
-     *  specify.
-     */
-    private function validateNow():void
-    {
-    	if ( !testFlag( ALL_INVALIDATION_FLAGS ) || testFlag( FLAG_VALIDATE_IN_PROGRESS) )
-    		return;
-    	setFlag(FLAG_VALIDATE_IN_PROGRESS);
-    	
-    	// Determine the TLF formats based on the TextField's defaultTextFormat.
-    	if (testFlag(FLAG_DEFAULT_TEXT_FORMAT_CHANGED))
-    	{
-			textFormatToTLFFormats();
-								   
-			hostContainerFormat.lineBreak = LineBreak.EXPLICIT;
-			hostContainerFormat.paddingLeft = 2;
-			hostContainerFormat.paddingTop = 4;
-			hostContainerFormat.paddingRight = 2;
-			hostContainerFormat.paddingBottom = 2;
-   		}
-    	
-    	if (testFlag(FLAG_WORD_WRAP_CHANGED))
-    	{
-    		hostContainerFormat.lineBreak =
-    			wordWrap ? LineBreak.TO_FIT : LineBreak.EXPLICIT;
-    	}
-    	
-    	// Compose TextLines.
-    	if (testFlag(FLAG_TEXT_LINES_INVALID))
-    		composeTextLines();
-     	
-    	// Draw the border and background last,
-    	// once the width and height are known.
-    	if (testFlag(FLAG_GRAPHICS_INVALID))
-    	{
-			var g:Graphics = graphics;
-    		g.clear();
-    		// First draw the background, then draw the border.
-    		// This is because TextField actually does something strange --- it expands itselft 1 pixel right and down when drawing a border
-    		// and fill without the stroke with the required stroking path does not match the "background sans border" behavior of TextField.
-    		if (background)
-    		{
-    			// Width/Height rounding differences between TextField and TLFTextField...
-    			// For width or height of the form E.5 where E is a positive even integer, Flash 10 on Windows seems to 
-    			// "round to even", i.e., round the dimension down to E rather than up to E+1. However we currently just 
-    			// round consistently up to E+1 using Math.round() here since for now are willing to live with this difference.
-    			var w:Number = rint(_width);
-    			var h:Number = rint(_height);
-
-    			g.beginFill(backgroundColor);
-	    		g.drawRect(0, 0, w, h);
-    			g.endFill();
-    		}
-    		
-    		if (border)
-    		{
-    			g.lineStyle(1, borderColor);
-	    		g.drawRect(0.5, 0.5, _width, _height); // TextField actually expands by a pixel down and to the right when it has a border!
-    		}
-    	}
-
-    	clearFlag(ALL_INVALIDATION_FLAGS|FLAG_VALIDATE_IN_PROGRESS);
-    }
-    
-    /**
-     *  @private
-     */
-    private function textFormatToTLFFormats():void
-    {
-    	hostParagraphFormat.textAlign = _defaultTextFormat.align ? _defaultTextFormat.align : TextFormatAlign.LEFT;;
-    	hostParagraphFormat.textAlignLast = hostParagraphFormat.textAlign;
-    	//_defaultTextFormat.blockIndent
-    	hostCharacterFormat.fontWeight = _defaultTextFormat.bold ?
-    								 FontWeight.BOLD :
-    								 FontWeight.NORMAL;
-    	//_defaultTextFormat.bullet
-    	hostCharacterFormat.color = _defaultTextFormat.color ? _defaultTextFormat.color : 0;
-    	// TODO: is font value platform-dependent???
-    	hostCharacterFormat.fontFamily = _defaultTextFormat.font ? _defaultTextFormat.font : "Times New Roman";
-    	//_defaultTextFormat.indent;
-    	hostCharacterFormat.fontStyle = _defaultTextFormat.italic ?
-    								FontPosture.ITALIC :
-    								FontPosture.NORMAL;
-    	hostCharacterFormat.kerning = _defaultTextFormat.kerning ?
-    							  Kerning.ON :
-    							  Kerning.OFF;
-    	hostCharacterFormat.fontLookup = testFlag(FLAG_EMBED_FONTS) ?
-    								flash.text.engine.FontLookup.EMBEDDED_CFF :
-    								flash.text.engine.FontLookup.DEVICE;
-    	//_defaultTextFormat.leading
-    	hostParagraphFormat.paragraphStartIndent = _defaultTextFormat.leftMargin ? _defaultTextFormat.leftMargin : 0;
-    	hostCharacterFormat.trackingRight = _defaultTextFormat.letterSpacing? _defaultTextFormat.letterSpacing : 0;
-    	hostParagraphFormat.paragraphEndIndent = _defaultTextFormat.rightMargin ? _defaultTextFormat.rightMargin : 0;
-    	hostCharacterFormat.fontSize = _defaultTextFormat.size ? _defaultTextFormat.size : 12;
-    	hostParagraphFormat.tabStops = _defaultTextFormat.tabStops;
-    	//_defaultTextFormat.target
-    	hostCharacterFormat.textDecoration = _defaultTextFormat.underline ?
-    									 TextDecoration.UNDERLINE :
-    									 TextDecoration.NONE;
-    	//textFormat.url
-    }
-    
-    /**
-     *  @private
-     */
-    private function composeTextLines():void
-    {
-    	removeTextLines();
-    	
-    	var r:Rectangle;
-    	if (_autoSize == TextFieldAutoSize.NONE)
-    		r = new Rectangle(0, 0, Math.round(_width), Math.round(_height));
-    	else if (wordWrap)
-    		r = new Rectangle(0, 0, Math.round(_width), NaN);
-    	else
-    		r = new Rectangle(0, 0, NaN, NaN);
-    	
-    	_bottomScrollV = 0;
-    	
-    	factory.text = _text;
-    	factory.compositionBounds = r;
-    	factory.spanFormat = hostCharacterFormat;
-    	factory.paragraphFormat = hostParagraphFormat;
-    	factory.textFlowFormat = hostContainerFormat;
-    	factory.textLineCreator = _textLineCreator;
-    	factory.createTextLines(textLineFactoryCallback);
-    		
-    	if (_bottomScrollV == 0)
-    	{
-    		_bottomScrollV = 1;
-			_maxScrollV = 1;
-    	}
-    	else 	
-    		_maxScrollV = 1 + (_numLines - _bottomScrollV);
-    		
-		// NOTE: It is understood that  the Flash TextField clipping of text clips to a margin rect INSET from the TextField's boundary
-		// and that we currently (intentionally) do not match this behavior as a speed/memory optimization. 
-
-		// Compute bounds of text content		
-		var textBounds:Rectangle = new Rectangle(0,0,0,0);
-		if ( numChildren )
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+				
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  width
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _width:Number = 100;
+	
+	/**
+	 *  @private
+	 */
+	override public function get width():Number
+	{
+		// If we're autosizing, _width may be invalid.
+		// For example, the 'text' may have been set
+		// but the TextLines for that text haven't
+		// been created yet.
+		if (autoSize != TextFieldAutoSize.NONE)
+			validateNow();
+		
+		return _width;
+	}
+	
+	/**
+	 *  @private
+	 */
+	override public function set width(value:Number):void
+	{
+		// TextField ignores NaN and negative values.
+		if (isNaN(value) || value < 0)
+			return;
+		
+		if (value == _width)
+			return;
+		
+		_width = value;
+		
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+				
+		invalidate();
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Properties: TextField
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//  alwaysShowSelection
+	//----------------------------------
+	
+	/**
+	 *  This property is not implemented in TLFTextField
+	 *  because TLFTextField does not support selection.
+	 *  Accessing it will throw a runtime error.
+	 * 
+	 *  @see flash.text.TextField#alwaysShowSelection
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get alwaysShowSelection():Boolean
+	{
+		throw new Error(notImplemented("alwaysShowSelection"));
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set alwaysShowSelection(value:Boolean):void
+	{
+		throw new Error(notImplemented("alwaysShowSelection"));
+	}
+	
+	//----------------------------------
+	//  antiAliasType
+	//----------------------------------
+	
+	/**
+	 *  This property has no effect in TLFTextField.
+	 *  because FTE uses a newer font renderer than TextField.
+	 *  Getting it will always return <code>null</code>
+	 *  and setting it will do nothing.
+	 *  
+	 *  @see flash.text.TextField#antiAliasType
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get antiAliasType():String
+	{
+		return null;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set antiAliasType(value:String):void
+	{
+	}
+	
+	//----------------------------------
+	//  autoSize
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _autoSize:String = TextFieldAutoSize.NONE;
+	
+	/**
+	 *  @copy flash.text.TextField#autoSize
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get autoSize():String
+	{
+		return _autoSize;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set autoSize(value:String):void
+	{
+		// TextField throws this RTE when invalid values are set.
+		if (value != TextFieldAutoSize.NONE &&
+			value != TextFieldAutoSize.LEFT &&
+			value != TextFieldAutoSize.CENTER &&
+			value != TextFieldAutoSize.RIGHT)
 		{
-			var textLine : TextLine = TextLine(getChildAt(0));
-			textBounds.x = textLine.x;
-			textBounds.y = 0; // textLine.y - textLine.textHeight; Not quite right?
-			textBounds.width = textLine.textWidth;
-			textBounds.height = textLine.textHeight;
-			for (var i:int = 1; i < numChildren; ++i)
-			{
-				textLine = TextLine(getChildAt(i));
-				var r2:Rectangle = new Rectangle( textLine.x, textLine.y - textLine.textHeight, textLine.textWidth, textLine.textHeight );
-				textBounds = textBounds.union( r2 );
-			}
-			if ( !textBounds.isEmpty() )
-				textBounds = textBounds.union( new Rectangle(textBounds.x, 0, textBounds.y, textBounds.bottom) );
+			throw new ArgumentError("Parameter autoSize must be one of the accepted values.");
 		}
-
-    	_textWidth = textBounds.width;
-    	_textHeight = textBounds.height + textBounds.y;
-    	
-    	if ( _autoSize == TextFieldAutoSize.NONE )
-    	{
-	    	_maxScrollH = _textWidth + hostContainerFormat.paddingLeft + hostContainerFormat.paddingRight - width;
-	    	if ( _maxScrollH < 0 )
-	    		_maxScrollH = 0;
-	    }
-	    else 
-    	{
-    		_maxScrollH = 0;
-    		var origX:Number = x;
-    		var origWidth:Number = _width; 
-    		var origHeight:Number = _height; 
-    		_height = Math.ceil(_textHeight) + 4; // + 4 for standard margin size (possibly revisit this in the future)
-    		if ( !wordWrap )
-    		{
-	    		_width = Math.ceil(_textWidth) + 3; // + 3 for standard margin size (possibly revisit this in the future) 
-	    		
-	    		// adjust x for CENTER and RIGHT cases
-	    		if ( _autoSize == TextFieldAutoSize.RIGHT )
-	    			x += origWidth - _width;
-	    		else if ( _autoSize == TextFieldAutoSize.CENTER )
-	    			x += (origWidth - _width) / 2;
-	    	}
-    		if ( _height != origHeight || _width != origWidth || x != origX )
-				setFlag( FLAG_GRAPHICS_INVALID );
-    	}
-
 		
-    	//trace( "textBounds = ("+textBounds.x + "," + textBounds.y + "," + textBounds.right + "," + textBounds.bottom + ")"); 
-    	//trace( "     r = ("+r.x + "," + r.y + "," + r.right + "," + r.bottom + ")"); 
-    	if (textBounds.left < r.left ||
-    	    textBounds.top < r.top ||
-    	    textBounds.right > r.right ||
-    	    textBounds.bottom > r.bottom)
-    	{
-    		if (border)
-    		{
-    			// trying to match TextField behavior of border
-    			r.width += 1;
-    			r.height += 1;
-    		}
-    		//trace( "clipping to w = " + r.width + ", h = " + r.height );
-            scrollRect = r;
-    		setFlag(FLAG_SCROLL_RECT_IS_SET );
-    	}
-    	else 
-    	{
-    		//trace( "not clipping" );
-			if ( testFlag(FLAG_SCROLL_RECT_IS_SET) )
-			{
-	    		scrollRect = null;
-	    		clearFlag(FLAG_SCROLL_RECT_IS_SET);
-	  		}
-    	}
-    }
-    
-    /**
-     *  @private
-     */
-    private function removeTextLines():void
-    {
-    	while (numChildren > 0)
-    	{
-    		removeChildAt(0);
-    	}
-    	
-    	_numLines = 0;
-    	_textWidth = 0;
-    	_textHeight = 0;
-    }
-    
-    /**
-     *  @private
-     */
-    private function textLineFactoryCallback(displayObject:DisplayObject):void
-    {
-    	if (displayObject is TextLine)
-    	{
-    		var textLine:TextLine = TextLine(displayObject);
-	    	addChild(displayObject);
-    		if ( textLine.y <= _height || _autoSize != TextFieldAutoSize.NONE )
-		    	++_bottomScrollV;
-    		else
-    			displayObject.visible = false; // hide it
-   			_numLines++;
-    	}
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Event handlers
-    //
-    //--------------------------------------------------------------------------
+		if (value == autoSize)
+			return;
+		
+		_autoSize = value;
+		
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  background
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#background
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get background():Boolean
+	{
+		return testFlag(FLAG_BACKGROUND);
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set background(value:Boolean):void
+	{
+		if (value == background)
+			return;
 
-    /**
-     *  @private
-     */
-    private function addedToStageHandler(event:Event):void
-    {
-    	// having renderHandler attached only while on the stage gives a performance improvement.
-     	removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-	   	addEventListener(Event.RENDER, renderHandler);
-    	addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
-    	validateNow();
-    }
-    
-    /**
-     *  @private
-     */
-    private function removedFromStageHandler(event:Event):void
-    {
-    	removeEventListener(Event.RENDER, renderHandler);
-    	removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+		setFlagToValue(FLAG_BACKGROUND, value);
+		
+		// The border and background need to be redrawn.
+		setFlag(FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  backgroundColor
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _backgroundColor:uint = 0xFFFFFF;
+	
+	/**
+	 *  @copy flash.text.TextField#backgroundColor
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get backgroundColor():uint
+	{
+		return _backgroundColor;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set backgroundColor(value:uint):void
+	{
+		if (value == _backgroundColor)
+			return;
+		
+		_backgroundColor = value;
+		
+		// The border and background need to be redrawn.
+		setFlag(FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  border
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#border
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get border():Boolean
+	{
+		return testFlag(FLAG_BORDER);
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set border(value:Boolean):void
+	{
+		if (value == border)
+			return;
+		
+		setFlagToValue(FLAG_BORDER,value);
+		
+		// The border and background need to be redrawn.
+		setFlag(FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  borderColor
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _borderColor:uint = 0x000000;
+	
+	/**
+	 *  @copy flash.text.TextField#borderColor
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get borderColor():uint
+	{
+		return _borderColor;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set borderColor(value:uint):void
+	{
+		if (value == _borderColor)
+			return;
+		
+		_borderColor = value;
+		
+		// The border and background need to be redrawn.
+		setFlag(FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  bottomScrollV
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support scrolling.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @see flash.text.TextField#bottomScrollV
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get bottomScrollV():int
+	{
+		throw new Error(notImplemented("bottomScrollV"));
+	}
+	
+	//----------------------------------
+	//  caretIndex
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support editing.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @copy flash.text.TextField#caretIndex
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get caretIndex():int
+	{
+		throw new Error(notImplemented("caretIndex"));
+	}
+	
+	//----------------------------------
+	//  condenseWhite
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#condenseWhite
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get condenseWhite():Boolean
+	{
+		return testFlag(FLAG_CONDENSE_WHITE);
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set condenseWhite(value:Boolean):void
+	{
+		setFlagToValue(FLAG_CONDENSE_WHITE, value);
+		
+		// Note: There is nothing else to do immediately;
+		// the new value doesn't have any effect
+		// until 'htmlText' is set later.
+	}
+	
+	//----------------------------------
+	//  defaultTextFormat
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the defaultTextFormat property.
+	 *  This variable is initialized in the constructor
+	 *  to a TextFormat instance filled with default values.
+	 *  The setter applies non-null incoming formats
+	 *  to the object stored here.
+	 *  The getter returns a copy of the object stored here.
+	 *  Note that No field of this TextFormat will ever be null.
+	 */
+	tlf_internal var _defaultTextFormat:TextFormat;
+	
+	/**
+	 *  @copy flash.text.TextField#defaultTextFormat
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get defaultTextFormat():TextFormat
+	{
+		// TextField returns a new TextFormat instance each time
+		// you access defaultTextFormat; the proof is that
+		//   textField.defaultTextFormat != textField.defaultTextFormat
+		// is true.
+		return cloneTextFormat(_defaultTextFormat);    	
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set defaultTextFormat(value:TextFormat):void
+	{
+		// TextField throws this RTE if a null value is set.
+		if (!value)
+			throw new TypeError("Parameter format must be non-null.");
+		
+		// Apply non-null formats in the incoming TextFormat
+		// to the defaultTextFormat.
+		applyTextFormat(value, _defaultTextFormat);
+		
+		// These FTE and TLF formatting objects are now invalid
+		// and must be recreated when needed.
+		elementFormat = null;
+		hostFormat = null;
+		
+		// Note: Setting this does NOT cause already-rendered text
+		// to change its format.
+		// If establishes the formatting for text set or added later.
+	}
+	
+	//----------------------------------
+	//  displayAsPassword
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support editing.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @copy flash.text.TextField#displayAsPassword
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get displayAsPassword():Boolean
+	{
+		throw new Error(notImplemented("displayAsPassword"));
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set displayAsPassword(value:Boolean):void
+	{
+		throw new Error(notImplemented("displayAsPassword"));
+	}
+	
+	//----------------------------------
+	//  embedFonts
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#embedFonts
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get embedFonts():Boolean
+	{
+		return testFlag(FLAG_EMBED_FONTS);
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set embedFonts(value:Boolean):void
+	{
+		if (value == embedFonts)
+			return;
+		
+		setFlagToValue(FLAG_EMBED_FONTS, value);
+		
+		// These FTE and TLF formatting objects are now invalid
+		// and must be recreated when needed.
+		elementFormat = null;
+		hostFormat = null;
+
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+				
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  gridFitType
+	//----------------------------------
+	
+	/**
+	 *  This property has no effect in TLFTextField.
+	 *  because FTE uses a newer font renderer than TextField.
+	 *  Getting it will always return <code>null</code>
+	 *  and setting it will do nothing.
+	 *  
+	 *  @see flash.text.TextField#gridFitType
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get gridFitType():String
+	{
+		return null;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set gridFitType(value:String):void
+	{
+	}
+	
+	//----------------------------------
+	//  htmlText
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _htmlText:String = null;
+	
+	/**
+	 *  @copy flash.text.TextField#htmlText
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get htmlText():String
+	{
+		// TODO: Explain this.
+		if (_htmlText == null)
+		{
+			if (_text == "")
+			{
+				_htmlText = "";
+			}
+			else
+			{
+				if (!textFlow)
+					textFlow = plainTextImporter.importToFlow(_text);
+				_htmlText = String(htmlExporter.export(
+					textFlow, ConversionType.STRING_TYPE));
+			}
+		}	
+		
+		return _htmlText;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set htmlText(value:String):void
+	{
+		// TextField throws this RTE if a null value is set.
+		// It seems like this should say
+		//   "Parameter htmlText must be non-null",
+		// but that's not what TextField does.
+		if (value == null)
+		{
+			throw new TypeError("Parameter text must be non-null.");
+		}
+		
+		// TODO: Explain why we don't do this.		
+		//    	if (value == htmlText)
+		//    		return;
+		
+		_htmlText = value;
+		
+		// _text is now invalid and will get regenerated on demand.
+		_text = null;
+		
+		clearFlag(FLAG_TEXT_CHANGED);
+		
+		setFlag(FLAG_HTML_TEXT_CHANGED |
+				FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+		
+		// NOTE: With hmtlText, what you set is NOT what you get.
+		// You can set incomplete (or no) markup
+		// and get back complete markup.
+	}
+	
+	//----------------------------------
+	//  length
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#length
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get length():int
+	{
+		return text.length;
+	}
+	
+	//----------------------------------
+	//  maxChars
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support editing.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @see flash.text.TextField#maxChars
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get maxChars():int
+	{
+		throw new Error(notImplemented("maxChars"));
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set maxChars(value:int):void
+	{
+		throw new Error(notImplemented("maxChars"));
+	}
+	
+	//----------------------------------
+	//  maxScrollH
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support scrolling.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @see flash.text.TextField#maxScrollH
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get maxScrollH():int
+	{
+		throw new Error(notImplemented("maxScrollH"));
+	}
+	
+	//----------------------------------
+	//  maxScrollV
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support scrolling.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @see flash.text.TextField#maxScrollV
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get maxScrollV():int
+	{
+		throw new Error(notImplemented("maxScrollV"));
+	}
+	
+	//----------------------------------
+	//  mouseWheelEnabled
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support scrolling.
+	 *  Getting it will always return <code>false</code>
+	 *  and setting it will do nothing.
+	 *
+	 *  @see flash.text.TextField#mouseWheelEnabled
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get mouseWheelEnabled():Boolean
+	{
+		return false;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set mouseWheelEnabled(value:Boolean):void
+	{
+	}
+	
+	//----------------------------------
+	//  multiline
+	//----------------------------------
+	
+	/**
+	 *  This property has no effect in TLFTextField
+	 *  because TLFTextField does not support editing.
+	 *  However, you can get and set it.
+	 *
+	 *  @see flash.text.TextField#multiline
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get multiline():Boolean
+	{
+		return testFlag(FLAG_MULTILINE);
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set multiline(value:Boolean):void
+	{
+		setFlagToValue(FLAG_MULTILINE, value);
+	}
+	
+	//----------------------------------
+	//  numLines
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#numLines
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get numLines():int
+	{
+		validateNow();
+		
+		// All the of the children of this Sprite are TextLines,
+		// so the number of lines is the number of children.
+		// TextContainerManager can create Shapes as well,
+		// but only when using TLF's backgroundColor and backgroundAlpha
+		// formatting on spans, which TLFTextField doesn't use.
+		return numChildren;
+	}
+	
+	//----------------------------------
+	//  restrict
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support scrolling.
+	 *  Accessing it will throw a runtime error.
+	 *  
+	 *  @see flash.text.TextField#restrict
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get restrict():String
+	{
+		throw new Error(notImplemented("restrict"));
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set restrict(value:String):void
+	{
+		throw new Error(notImplemented("restrict"));
+	}
+	
+	//----------------------------------
+	//  scrollH
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support scrolling.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @see flash.text.TextField#scrollH
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get scrollH():int
+	{
+		throw new Error(notImplemented("scrollH"));
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set scrollH(value:int):void
+	{
+		throw new Error(notImplemented("scrollH"));
+	}
+	
+	//----------------------------------
+	//  scrollV
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support scrolling.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @copy flash.text.TextField#scrollV
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get scrollV():int
+	{
+		throw new Error(notImplemented("scrollV"));
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set scrollV(value:int):void
+	{
+		throw new Error(notImplemented("scrollV"));
+	}
+	
+	//----------------------------------
+	//  selectable
+	//----------------------------------
+	
+	/**
+	 *  This property has no effect in TLFTextField
+	 *  because TLFTextField does not support selection.
+	 *  However, you can get and set it.
+	 *
+	 *  @see flash.text.TextField#selectable
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get selectable():Boolean
+	{
+		return testFlag(FLAG_SELECTABLE);
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set selectable(value:Boolean):void
+	{
+		setFlagToValue(FLAG_SELECTABLE, value);
+	}
+	
+	//----------------------------------
+	//  selectionBeginIndex
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support selection.
+	 *  Accessing it will throw a runtime error.
+	 *
+	 *  @see flash.text.TextField#selectionBeginIndex
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get selectionBeginIndex():int
+	{
+		throw new Error(notImplemented("selectionBeginIndex"));
+	}
+	
+	//----------------------------------
+	//  selectionEndIndex
+	//----------------------------------
+	
+	/**
+	 *  This property has not been implemented in TLFTextField
+	 *  because TLFTextField does not support selection.
+	 *  Accessing it will throw a runtime error.
+	 * 
+	 *  @see flash.text.TextField#selectionEndIndex
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get selectionEndIndex():int
+	{
+		throw new Error(notImplemented("selectionEndIndex"));
+	}
+	
+	//----------------------------------
+	//  sharpness
+	//----------------------------------
+	
+	/**
+	 *  This property has no effect in TLFTextField.
+	 *  because FTE uses a newer font renderer than TextField.
+	 *  Getting it will always return <code>NaN</code>
+	 *  and setting it will do nothing.
+	 *  
+	 *  @see flash.text.TextField#sharpness
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get sharpness():Number
+	{
+		return NaN;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set sharpness(value:Number):void
+	{
+	}
+	
+	//----------------------------------
+	//  styleSheet
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _styleSheet:StyleSheet = null;
+	
+	/**
+	 *  @copy flash.text.TextField#styleSheet
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get styleSheet():StyleSheet
+	{
+		return _styleSheet;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set styleSheet(value:StyleSheet):void
+	{
+		// TextField allows a null value to be set;
+		// in fact, this is the default.
+		
+		// TODO: Explain why we don't do this.
+		//if (value == _styleSheet)
+		//	return;
+		
+		_styleSheet = value;
+		
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+				
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  text
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _text:String = "";
+	
+	/**
+	 *  @copy flash.text.TextField#text
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get text():String
+	{
+		// Explain this.
+		if (_text == null)
+		{
+			if (!textFlow)
+				textFlow = htmlImporter.importToFlow(_htmlText);
+
+			_text = String(plainTextExporter.export(
+				textFlow, ConversionType.STRING_TYPE));
+		}
+			
+		return _text;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set text(value:String):void
+	{
+		// TextField throws this RTE if a null value is set.
+		if (value == null)
+			throw new TypeError("Parameter text must be non-null.");
+		
+		// TextField turns all LF characters into CR characters,
+		// including treating the Windows line-ending-sequence
+		// CR+LF as two CRs.
+		_text = value.replace(ALL_LINEFEEDS, "\r");
+		
+		// _htmlText is now invalid and will get regenerated on demand
+		_htmlText = null;
+		
+		clearFlag(FLAG_HTML_TEXT_CHANGED);
+		
+		setFlag(FLAG_TEXT_CHANGED |
+				FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  textColor
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#textColor
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get textColor():uint
+	{
+		// textColor is not an independent format in TextField;
+		// getting textColor simply returns the color
+		// in the defaultTextFormat.
+		return uint(_defaultTextFormat.color);
+	}
+	
+	/**
+	 *  @private
+	 *  Setting the textColor changes the color in the defaultTextFormat
+	 *  and redraws the text in the new color.
+	 */
+	public function set textColor(value:uint):void
+	{
+		// TODO: Should this be commented out?
+		//if (value == _textColor)
+		//	return;
+		
+		_defaultTextFormat.color = value;
+		
+		setFlag(FLAG_TEXT_LINES_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  textHeight
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _textHeight:Number = 0;
+	
+	/**
+	 *  @copy flash.text.TextField#textHeight
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get textHeight():Number
+	{
+		validateNow();
+		
+		return _textHeight;
+	}
+	
+	//----------------------------------
+	//  textWidth
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private var _textWidth:Number = 0;
+	
+	/**
+	 *  @copy flash.text.TextField#textWidth
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get textWidth():Number
+	{
+		validateNow();
+		
+		return _textWidth;
+	}
+	
+	//----------------------------------
+	//  thickness
+	//----------------------------------
+	
+	/**
+	 *  This property has no effect in TLFTextField.
+	 *  because FTE uses a newer font renderer than TextField.
+	 *  Getting it will always return <code>NaN</code>
+	 *  and setting it will do nothing.
+	 *  
+	 *  @see flash.text.TextField#thickness
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get thickness():Number
+	{
+		return NaN;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set thickness(value:Number):void
+	{
+	}
+	
+	//----------------------------------
+	//  type
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#type
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get type():String
+	{
+		return TextFieldType.DYNAMIC;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set type(value:String):void
+	{
+		// TextField throws this RTE when invalid values are set.
+		if (value != TextFieldType.DYNAMIC &&
+			value != TextFieldType.INPUT)
+		{
+			throw new ArgumentError("Parameter type must be one of the accepted values.");
+		}
+		
+		if (value == TextFieldType.INPUT)
+			throw new Error("TODO");
+	}
+	
+	//----------------------------------
+	//  useRichTextClipboard
+	//----------------------------------
+	
+	/**
+	 *  This property is not implemented in TLFTextField
+	 *  because TLFTextField does not support selection
+	 *  or clipboard operations.
+	 *  Accessing it will throw a runtime error.
+	 *  
+	 *  @copy flash.text.TextField#useRichTextClipboard
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get useRichTextClipboard():Boolean
+	{
+		throw new Error(notImplemented("useRichTextClipboard"));
+	}
+
+	/**
+	 *  @private
+	 */
+	public function set useRichTextClipboard(value:Boolean):void
+	{
+		throw new Error(notImplemented("useRichTextClipboard"));
+	}
+	
+	//----------------------------------
+	//  wordWrap
+	//----------------------------------
+	
+	/**
+	 *  @copy flash.text.TextField#wordWrap
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get wordWrap():Boolean
+	{
+		return testFlag(FLAG_WORD_WRAP);
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set wordWrap(value:Boolean):void
+	{
+		if (value == wordWrap)
+			return;
+		
+		setFlagToValue(FLAG_WORD_WRAP, value);
+		
+		// These FTE and TLF formatting objects are now invalid
+		// and must be recreated when needed.
+		elementFormat = null;
+		hostFormat = null;
+		
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Properties
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//  direction
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the direction property.
+	 */
+	private var _direction:String = "ltr";
+	
+	/**
+	 *  The directionality of the text displayed by TLFTextField.
+	 * 
+	 *  <p>The allowed values are <code>"ltr"</code> for left-to-right text,
+	 *  as in Latin-style scripts,
+	 *  and <code>"rtl"</code> for right-to-left text,
+	 *  as in Arabic and Hebrew.</p>
+	 * 
+	 *  <p>Note: This property does not exist in the classic
+	 *  flash.text.TextField API.</p>
+	 *
+	 *  @default "ltr"
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get direction():String
+	{
+		return _direction;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set direction(value:String):void
+	{
+		if (value != "ltr" && value != "rtl")
+			throw new ArgumentError("Parameter direction must be one of the accepted values.");
+		
+		if (value == _direction)
+			return;
+		
+		_direction = value;
+		
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
+	//  textLineCreator
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the textLineCreator property.
+	 */
+	private var _textLineCreator:ITextLineCreator;
+	
+	/**
+	 *  The ITextLineCreator instance that TLFTextField
+	 *  uses for creating TextLines.
+	 * 
+	 *  <p>Set this if you need lines to be created in a different
+	 *  SWF context than the one containing the TLF code.</p>
+	 * 
+	 *  <p>Note: This property does not exist in the classic
+	 *  flash.text.TextField API.</p>
+	 * 
+	 *  @default null
+	 *
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get textLineCreator():ITextLineCreator
+	{
+		return _textLineCreator;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set textLineCreator(value:ITextLineCreator):void
+	{
+		// TLFTextField allows a null value to be set;
+		// in fact, this is the default.
+				
+		_textLineCreator = value;
+		
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Properties: Private helpers
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//  htmlImporter
+	//----------------------------------
+		
+	/**
+	 *  @private
+	 */
+	private function get htmlImporter():ITextImporter
+	{
+		return condenseWhite ? collapsingHTMLImporter : preservingHTMLImporter;
+	}	
+		
+	//--------------------------------------------------------------------------
+	//
+	//  Methods: TextField
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#appendText()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function appendText(newText:String):void
+	{
+		throw new Error(notImplemented("appendText()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getCharBoundaries()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getCharBoundaries(charIndex:int):Rectangle
+	{
+		throw new Error(notImplemented("getCharBoundaries()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getCharIndexAtPoint()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getCharIndexAtPoint(x:Number, y:Number):int
+	{
+		throw new Error(notImplemented("getCharIndexAtPoint()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getFirstCharInParagraph()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getFirstCharInParagraph(charIndex:int):int
+	{
+		throw new Error(notImplemented("getFirstCharInParagraph()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getLineIndexAtPoint()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getLineIndexAtPoint(x:Number, y:Number):int
+	{
+		throw new Error(notImplemented("getLineIndexAtPoint()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getLineIndexOfChar()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getLineIndexOfChar(charIndex:int):int
+	{
+		throw new Error(notImplemented("getLineIndexOfChar()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getLineLength()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getLineLength(lineIndex:int):int
+	{
+		throw new Error(notImplemented("getLineLength()"));
+	}
+	
+	/**
+	 *  @copy flash.text.TextField#getLineMetrics()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getLineMetrics(lineIndex:int):TextLineMetrics
+	{
+		validateNow();
+		
+		// TextField throws this RTE when invalid values are set.
+		if (lineIndex < 0 || lineIndex >= numChildren)
+			throw new RangeError("The supplied index is out of bounds");
+		
+		// The nth line is the nth child.
+		var textLine:TextLine = TextLine(getChildAt(lineIndex));
+		
+		var x:Number = textLine.x; // indent, blockIndent, leftMargin
+		var width:Number = textLine.textWidth;
+		var ascent:Number = Math.round(textLine.ascent + textLine.descent)
+		var descent:Number = Math.round(textLine.descent);
+		var leading:Number = Number(_defaultTextFormat.leading);
+		var height:Number = ascent + descent + leading;
+		
+		return new TextLineMetrics(x, width, height, ascent, descent, leading);
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getLineOffset()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getLineOffset(lineIndex:int):int
+	{
+		throw new Error(notImplemented("getLineOffset()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getLineText()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getLineText(lineIndex:int):String
+	{
+		throw new Error(notImplemented("getLineText()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#getParagraphLength()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getParagraphLength(charIndex:int):int
+	{
+		throw new Error(notImplemented("getParagraphLength()"));
+	}
+	
+	/**
+	 *  This method has been implemented in TLFTextField
+	 *  to simply return a copy of the <code>defaultTextFormat<code>,
+	 *  because TLFTextField does not support formatting a range.
+	 * 
+	 *  @see flash.text.TextField#getTextFormat()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getTextFormat(beginIndex:int = -1,
+								  endIndex:int = -1):TextFormat
+	{
+		// TextField returns a new TextFormat instance each time
+		// you call getTextFormat(); the proof is that
+		//   textField.getTextFormat() != textField.getTextFormat()
+		// is true.
+		return cloneTextFormat(_defaultTextFormat);
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 *
+ 	 *  @see flash.text.TextField#replaceSelectedText()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function replaceSelectedText(value:String):void
+	{
+		throw new Error(notImplemented("replaceSelectedText()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#replaceText()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function replaceText(beginIndex:int, endIndex:int,
+								newText:String):void
+	{
+		throw new Error(notImplemented("replaceText()"));
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because TLFTextField does not support selection.
+	 *  It will throw a runtime error if called.
+	 * 
+	 *  @see flash.text.TextField#setSelection()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function setSelection(beginIndex:int, endIndex:int):void
+	{
+		throw new Error(notImplemented("setSelection()"));
+	}
+	
+	/**
+	 *  This method has no effect on a TLFTextField,
+	 *  because TLFTextField does not support formatting a range.
+	 *
+	 *  @see flash.text.TextField#setTextFormat()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function setTextFormat(format:TextFormat,
+								  beginIndex:int = -1,
+								  endIndex:int = -1):void
+	{
+	}
+	
+	/**
+	 *  This method has not been implemented in TLFTextField
+	 *  because very few components use it in TextField.
+	 *  It will throw a runtime error if called.
+	 *
+	 *  @see flash.text.TextField#getImageReference()
+	 * 
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function getImageReference(id:String):DisplayObject
+	{
+		throw new Error(notImplemented("getImageReference()"));
+	}
+	
+	//--------------------------------------------------------------------------
+	//
+	//  Methods
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private function notImplemented(name:String):String
+	{
+		return "'" + name + "' is not implemented TLFTextField.";
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function testFlag(mask:uint):Boolean
+	{
+		return (flags & mask) != 0;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function setFlag(mask:uint):void
+	{
+		flags |= mask;
+	}
+	
+	private function clearFlag(mask:uint):void
+	{
+		flags &= ~mask;
+	}
+	
+	private function setFlagToValue(mask:uint, value:Boolean):void
+	{
+		if (value)
+			flags |= mask;
+		else
+			flags &= ~mask;
+	}
+	
+	/**
+	 *  @private
+	 *  This method will cause a 'render' event later,
+	 *  in response to which validateNow() will get called.
+	 */
+	private function invalidate():void
+	{
+		//TODO
+		//CONFIG::debug { assert(!testFlag(FLAG_VALIDATE_IN_PROGRESS), "invalidating during validateNow()"); }
+		
+		if (stage)
+			stage.invalidate();
+	}
+	
+	/**
+	 *  @private
+	 *  This method is the workhorse of TLFTextField.
+	 *  It puts it into a state where all properties are consistent
+	 *  with each other and where it is rendering what the properties
+	 *  specify.
+	 */
+	private function validateNow():void
+	{
+		if (!testFlag(ALL_INVALIDATION_FLAGS) ||
+			testFlag(FLAG_VALIDATE_IN_PROGRESS))
+		{
+			return;
+		}
+		
+		setFlag(FLAG_VALIDATE_IN_PROGRESS);
+
+		if (testFlag(FLAG_TEXT_LINES_INVALID))
+		{
+			// Determine whether we will use FTE directly
+			// or TLF's TextContainerManager.
+			// TODO: What about tabStops?
+			var useTCM:Boolean = testFlag(FLAG_HTML_TEXT_CHANGED) ||
+								 _defaultTextFormat.target != "" ||
+								 _defaultTextFormat.url != "";
+			setFlagToValue(FLAG_USE_TCM, useTCM);
+			
+			// Remove the previous TextLines
+			// (and recycle them, if supported by the player).
+			removeTextLines();
+						
+			// Determine the composition width and height.
+			var compositionWidth:Number = NaN; 
+			var compositionHeight:Number = NaN; 
+			if (_autoSize == TextFieldAutoSize.NONE)
+			{
+				compositionWidth = _width;
+				compositionHeight = _height;
+			}
+			else if (wordWrap)
+			{
+				compositionWidth = _width;
+			}
+			
+			if (!useTCM)
+			{
+				if (!elementFormat)
+					createElementFormat();	
+				
+				composeText(compositionWidth, compositionHeight);							
+			}
+			else
+			{
+				if (!hostFormat)
+					createHostFormat();
+				
+				composeHTMLText(compositionWidth, compositionHeight);							
+			}
+		}
+		
+		var origX:Number = x;
+		var origWidth:Number = _width; 
+		var origHeight:Number = _height; 
+				
+		if (_autoSize != TextFieldAutoSize.NONE)
+		{
+			_height = _textHeight + PADDING_TOP + PADDING_BOTTOM;
+			if (!wordWrap)
+			{
+				_width = _textWidth + PADDING_LEFT + PADDING_RIGHT;
+				
+				// adjust x for CENTER and RIGHT cases
+				if (_autoSize == TextFieldAutoSize.RIGHT)
+					x += origWidth - _width;
+				else if (_autoSize == TextFieldAutoSize.CENTER)
+					x += (origWidth - _width) / 2;
+			}
+			if (_height != origHeight || _width != origWidth || x != origX)
+				setFlag(FLAG_GRAPHICS_INVALID);
+		}
+		
+		if (_textWidth > origWidth || _textHeight > origHeight)
+		{
+			// need to clip
+			//trace("clip");
+			/*
+			if (border)
+			{
+				// trying to match TextField behavior of border
+				r.width += 1;
+				r.height += 1;
+			}
+			*/
+			var r:Rectangle = scrollRect;
+			if (!r)
+				r = new Rectangle();
+			r.left = 0;
+			r.top = 0;
+			r.right = _width;
+			r.bottom = _height;
+			scrollRect = r;
+			setFlag(FLAG_HAS_SCROLL_RECT);
+		}
+		else 
+		{
+			// don't need to clip
+			//trace("don't clip");
+			if (testFlag(FLAG_HAS_SCROLL_RECT))
+			{
+				scrollRect = null;
+				clearFlag(FLAG_HAS_SCROLL_RECT);
+			}
+		}
+		
+		// Draw the border and background last,
+		// once the width and height are known.
+		if (testFlag(FLAG_GRAPHICS_INVALID))
+		{
+			var g:Graphics = graphics;
+			g.clear();
+			// First draw the background, then draw the border.
+			// This is because TextField actually does something strange --- it expands itselft 1 pixel right and down when drawing a border
+			// and fill without the stroke with the required stroking path does not match the "background sans border" behavior of TextField.
+			if (background)
+			{
+				// Width/Height rounding differences between TextField and TLFTextField...
+				// For width or height of the form E.5 where E is a positive even integer, Flash 10 on Windows seems to 
+				// "round to even", i.e., round the dimension down to E rather than up to E+1. However we currently just 
+				// round consistently up to E+1 using Math.round() here since for now are willing to live with this difference.
+				var w:Number = rint(_width);
+				var h:Number = rint(_height);
+				
+				g.beginFill(backgroundColor);
+				g.drawRect(0, 0, w, h);
+				g.endFill();
+			}
+			
+			if (border)
+			{
+				g.lineStyle(1, borderColor);
+				g.drawRect(0.5, 0.5, _width, _height); // TextField actually expands by a pixel down and to the right when it has a border!
+			}
+		}
+		
+		clearFlag(ALL_INVALIDATION_FLAGS | FLAG_VALIDATE_IN_PROGRESS);
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function createElementFormat():void
+	{
+		var fontDescription:FontDescription = new FontDescription();
+		
+		fontDescription.fontLookup = embedFonts ?
+									 FontLookup.EMBEDDED_CFF :
+									 FontLookup.DEVICE;
+		
+		fontDescription.fontName = _defaultTextFormat.font;
+		
+		fontDescription.fontPosture = _defaultTextFormat.italic ?
+									  FontPosture.ITALIC :
+									  FontPosture.NORMAL;
+		
+		fontDescription.fontWeight = _defaultTextFormat.bold ?
+									 FontWeight.BOLD :
+									 FontWeight.NORMAL;
+		
+		elementFormat = new ElementFormat();
+				
+		elementFormat.color = uint(_defaultTextFormat.color);
+				
+		elementFormat.fontDescription = fontDescription;
+		
+		elementFormat.fontSize = Number(_defaultTextFormat.size);
+		
+		elementFormat.kerning = _defaultTextFormat.kerning ?
+								Kerning.AUTO :
+								Kerning.OFF;
+				
+		elementFormat.trackingRight = Number(_defaultTextFormat.letterSpacing);
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function createHostFormat():void
+	{
+		hostFormat = new TLFTextFieldHostFormat(this);
+		return;
+		
+		//TODO
+		
+		hostFormat = new TextLayoutFormat();
+
+		hostFormat.color = _defaultTextFormat.color;
+		
+		hostFormat.fontFamily = _defaultTextFormat.font;
+		
+		hostFormat.fontLookup = embedFonts ?
+								FontLookup.EMBEDDED_CFF :
+								FontLookup.DEVICE;
+
+		hostFormat.fontSize = _defaultTextFormat.size;
+
+		hostFormat.fontStyle = _defaultTextFormat.italic ?
+							   FontPosture.ITALIC :
+							   FontPosture.NORMAL;
+		
+		hostFormat.fontWeight = _defaultTextFormat.bold ?
+								FontWeight.BOLD :
+								FontWeight.NORMAL;
+
+		hostFormat.kerning = _defaultTextFormat.kerning ?
+							 Kerning.AUTO :
+							 Kerning.OFF;
+		
+		hostFormat.leadingModel = LeadingModel.ASCENT_DESCENT_UP;
+		
+		hostFormat.lineBreak = wordWrap ?
+							   LineBreak.TO_FIT :
+							   LineBreak.EXPLICIT;
+		
+		hostFormat.lineHeight = 2 + _defaultTextFormat.leading; // TODO
+	
+		hostFormat.paddingBottom = PADDING_BOTTOM;
+		
+		hostFormat.paddingLeft = PADDING_LEFT;
+	
+		hostFormat.paddingRight = PADDING_RIGHT;
+		
+		hostFormat.paddingTop = PADDING_TOP;
+
+		hostFormat.paragraphEndIndent = _defaultTextFormat.rightMargin;
+
+		hostFormat.paragraphStartIndent = _defaultTextFormat.leftMargin;
+
+		hostFormat.tabStops = _defaultTextFormat.tabStops; // TODO
+
+		hostFormat.textAlign = _defaultTextFormat.align;
+		
+		hostFormat.textAlignLast = _defaultTextFormat.align;
+		
+		hostFormat.textDecoration = _defaultTextFormat.underline ?
+									TextDecoration.UNDERLINE :
+									TextDecoration.NONE;
+		
+		hostFormat.textIndent = _defaultTextFormat.indent;
+		
+		hostFormat.trackingRight = _defaultTextFormat.letterSpacing;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function removeTextLines():void
+	{
+		var n:int = numChildren;
+		for (var i:int = 0; i < n; i++)
+		{
+			// Repeatedly removing the 0th child is supposed
+			// to be the fastest way to remove all children.
+			var textLine:TextLine = TextLine(removeChildAt(0));
+			
+			// TLF provides a TextLine cache,
+			// for use with recreateTextLine().
+			TextLineRecycler.addLineForReuse(textLine);
+		}
+		
+		_textWidth = 0;
+		_textHeight = 0;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function composeText(compositionWidth:Number,
+								 compositionHeight:Number):void
+	{
+		var innerWidth:Number =
+			compositionWidth - PADDING_LEFT - PADDING_RIGHT;
+		var innerHeight:Number =
+			compositionHeight - PADDING_TOP - PADDING_BOTTOM;
+			
+		// TODO
+		var emBox:Rectangle = elementFormat.getFontMetrics().emBox;
+		var ascent:int = Math.round(emBox.height);
+		var descent:int = Math.round(emBox.bottom);
+		
+		// Break the text into paragraphs at CR characters.
+		// (Each LF character has already been turned into a CR.)
+		// We could use split(), but that would create a temporary Array.
+		var paragraphY:int = 0;
+		var n:int = text.length;
+		var i:int = 0;
+		do
+		{
+			var j:int = text.indexOf("\r", i);
+			if (j == -1)
+				j = n;
+			var paragraphText:String = i == 0 && j == n ?
+									   text :
+									   text.substring(i, j);
+			
+			// Use an FTE TextBlock to compose TextLines
+			// for one paragraph of the text, keeping track
+			// of how far down we've composed.
+			paragraphY = createTextLines(innerWidth, innerHeight,
+										 paragraphText, paragraphY,
+										 ascent, descent);
+										 
+			// TextField puts the same leading between paragraphs
+			// as between lines in a paragraph.
+			paragraphY += _defaultTextFormat.leading;
+			
+			i = j + 1;
+		}
+		while (j != n);
+		
+		// At this point, all TextLines have been composed
+		// and have the correct spacing, but are all left-aligned
+		// starting at (0, 0).
+		// This method will adjust their x and y so that they
+		// are correctly aligned and inset by the left and top padding.
+		alignTextLines(innerWidth);
+		
+		// TODO
+		_textWidth = Math.round(_textWidth);
+		_textHeight = Math.round(
+			numChildren * (ascent + descent) +
+			(numChildren - 1) * Number(_defaultTextFormat.leading));
+	}
+
+	/**
+	 *  @private
+	 *  Stuffs the specified paragraph text and formatting info into a TextBlock
+	 *  and uses it to create as many TextLines as fit into the bounds.
+	 *  Returns true if all the text was composed into textLines.
+	 */
+	private function createTextLines(innerWidth:Number,
+									 innerHeight:Number,
+									 paragraphText:String,
+									 paragraphY:int,
+									 ascent:int, descent:int):int
+	{
+		// Set the TextBlock's content.
+		// Note: If there is no text, we do what TLF does and compose
+		// a paragraph terminator character, so that a TextLine
+		// gets created and we can measure it.
+		// It will have a width of 0 but a height equal
+		// to the font's ascent plus descent.
+		staticTextElement.text = paragraphText.length > 0 ?
+								 paragraphText :
+								 "\u2029";
+		staticTextElement.elementFormat = elementFormat;
+		staticTextBlock.content = staticTextElement;
+		
+		// And its bidiLevel.
+		staticTextBlock.bidiLevel = direction == "ltr" ? 0 : 1;
+		
+		// And its justifier.
+		staticSpaceJustifier.lineJustification =
+			_defaultTextFormat.align == "justify" ?
+			LineJustification.ALL_BUT_LAST :
+			LineJustification.UNJUSTIFIED;;
+		//TODO staticSpaceJustifier.letterSpacing
+		staticTextBlock.textJustifier = staticSpaceJustifier;
+		
+		// Then create and add TextLines using this TextBlock.
+		paragraphY = createTextLinesFromTextBlock(
+						innerWidth, innerHeight,
+						staticTextBlock, paragraphY,
+						ascent, descent);
+		
+		// Cleans up and sets the validity of the lines associated 
+		// with the TextBlock to TextLineValidity.INVALID.
+		var firstLine:TextLine = staticTextBlock.firstLine;
+		var lastLine:TextLine = staticTextBlock.lastLine;
+		if (firstLine)
+			staticTextBlock.releaseLines(firstLine, lastLine);
+			
+		return paragraphY;     
+	}
+	
+	/**
+	 *  @private
+	 *  Compose into textLines.  bounds on input is size of composition
+	 *  area and on output is the size of the composed content.
+	 *  The caller must call releaseLinesFromTextBlock() to release the
+	 *  textLines from the TextBlock.
+	 * 
+	 *  Returns true if all the text was composed into textLines.
+	 */
+	private function createTextLinesFromTextBlock(innerWidth:Number,
+												  innerHeight:Number,
+												  textBlock:TextBlock,
+												  paragraphY:int,
+												  ascent:int,
+												  descent:int):int
+	{
+		if (innerWidth < 0 || innerHeight < 0)
+			return paragraphY;
+		
+		var maxLineWidth:Number =
+			wordWrap ? innerWidth : TextLine.MAX_LINE_WIDTH;
+		
+		var n:int = 0;
+		var nextTextLine:TextLine;
+		var nextY:int = paragraphY;
+		var textLine:TextLine;
+		
+		// Generate TextLines, stopping when we run out of text
+		// or reach the bottom of the requested bounds.
+		// In this loop the lines are positioned within the rectangle
+		// (0, 0, innerWidth, innerHeight), with left alignment.
+		while (true)
+		{
+			var recycleLine:TextLine = TextLineRecycler.getLineForReuse();
+			if (recycleLine)
+			{
+				if (textLineCreator)
+				{
+					nextTextLine = textLineCreator.recreateTextLine(
+						textBlock, recycleLine, textLine, maxLineWidth);		
+				}        
+				else
+				{
+					nextTextLine = recreateTextLine(
+						recycleLine, textLine, maxLineWidth);
+				}  
+			}
+			else
+			{
+				if (textLineCreator)
+				{
+					nextTextLine = textLineCreator.createTextLine(
+						textBlock, textLine, maxLineWidth);
+				}
+				else
+				{
+					nextTextLine = textBlock.createTextLine(
+						textLine, maxLineWidth);
+				}
+			}
+			
+			if (!nextTextLine)
+				break;
+			
+			// Determine the natural baseline position for this line.
+			// Note: The y coordinate of a TextLine is the location
+			// of its baseline, not of its "top".
+			if (n == 0)
+				nextY += ascent;
+			else
+				nextY += descent + _defaultTextFormat.leading + ascent;
+			
+			// If the next line is completely outside the rectangle,
+			// we're done.
+//			if (nextY - nextTextLine.ascent > innerHeight)
+//				break;
+			
+			// We'll keep this line.
+			textLine = nextTextLine;
+			n++;
+			
+			// Assign its location based on left/top alignment.
+			// Its x position is 0 by default.
+			textLine.y = nextY;
+			//trace(textLine.y);
+			
+			if (_defaultTextFormat.underline)
+			{
+				// FTE doesn't render underlines,
+				// but it can tell us where to draw them.
+				// You can't draw in a TextLine but it can have children,
+				// so we create a child Shape to draw them in.
+				
+				var fontMetrics:FontMetrics = elementFormat.getFontMetrics();
+				
+				var shape:Shape = new Shape();
+				var g:Graphics = shape.graphics;
+				g.lineStyle(fontMetrics.underlineThickness, 
+					elementFormat.color, elementFormat.alpha);
+				g.moveTo(0, fontMetrics.underlineOffset);
+				g.lineTo(textLine.textWidth, fontMetrics.underlineOffset);
+				
+				textLine.addChild(shape);
+			}
+			
+			addChild(textLine);
+
+			_textWidth = Math.max(_textWidth, textLine.textWidth);
+		}
+		
+		return nextY + descent;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function alignTextLines(innerWidth:Number):void
+	{
+		var align:String = _defaultTextFormat.align;
+		var leftAligned:Boolean = 
+			align == "start" && direction == "ltr" ||
+			align == "end" && direction == "rtl" ||
+			align == "left" ||
+			align == "justify";
+		var centerAligned:Boolean = align == "center";
+		var rightAligned:Boolean =
+			align == "start" && direction == "rtl" ||
+			align == "end" && direction == "ltr" ||
+			align == "right"; 
+		
+		// Calculate loop constants for horizontal alignment.
+		var leftOffset:Number = PADDING_LEFT;
+		var centerOffset:Number = leftOffset + innerWidth / 2;
+		var rightOffset:Number = leftOffset + innerWidth;
+		
+		// Reposition each line if necessary.
+		// based on the horizontal alignment,
+		// and adjusting for the padding.
+		var n:int = numChildren;
+		for (var i:int = 0; i < n; i++)
+		{
+			var textLine:TextLine = TextLine(getChildAt(i));
+			
+			if (leftAligned)
+				textLine.x = leftOffset;
+			else if (centerAligned)
+				textLine.x = centerOffset - textLine.textWidth / 2;
+			else if (rightAligned)
+				textLine.x = rightOffset - textLine.textWidth;
+				
+			textLine.y += PADDING_TOP; 
+		}
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function composeHTMLText(compositionWidth:Number,
+									 compositionHeight:Number):void
+	{
+		textFlow = htmlImporter.importToFlow(_htmlText);
+		
+		textFlow.addEventListener(MouseEvent.CLICK, linkClickHandler);
+					
+		if (!textContainerManager)
+			textContainerManager = new TLFTextFieldTextContainerManager(this);
+			
+		textContainerManager.compositionWidth = compositionWidth;
+		textContainerManager.compositionHeight = compositionHeight;
+		
+		textContainerManager.editingMode = EditingMode.READ_WRITE;
+		
+		textContainerManager.hostFormat = hostFormat;
+		
+		textContainerManager.textLineCreator = textLineCreator;
+		
+		textContainerManager.setTextFlow(textFlow)
+		
+		textContainerManager.updateContainer();
+		
+		var bounds:Rectangle = textContainerManager.getContentBounds();
+		_textWidth = Math.ceil(bounds.width);
+		_textHeight = Math.ceil(bounds.height);
+	}
+
+	//--------------------------------------------------------------------------
+	//
+	//  Event handlers
+	//
+	//--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 */
+	private function addedToStageHandler(event:Event):void
+	{
+		// Having renderHandler() attached only while on the stage
+		// gives a performance improvement.
+		removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+		addEventListener(Event.RENDER, renderHandler);
+		addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+		validateNow();
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function removedFromStageHandler(event:Event):void
+	{
+		removeEventListener(Event.RENDER, renderHandler);
+		removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 		addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-    }
-    
-    /**
-     *  @private
-     */
-    private function renderHandler(event:Event):void
-    {
-    	validateNow();
-    }
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function renderHandler(event:Event):void
+	{
+		validateNow();
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function linkClickHandler(event:FlowElementMouseEvent):void
+	{
+		// Need to remove the event: portion of the href if it has one.
+		// Only dispatch the event if it has the event portion.
+		var href:String = LinkElement(event.flowElement).href;
+		var i:int = href.search("event:");
+		if (i < 0)
+			return;
+		var textEvent:TextEvent = new TextEvent(TextEvent.LINK);
+		textEvent.text = href.substring(i + 6, href.length - i + 5);
+		dispatchEvent(textEvent);
+	}
+}
+	
 }
 
+import flash.display.Sprite;
+import flash.text.engine.FontLookup;
+import flash.text.engine.FontPosture;
+import flash.text.engine.FontWeight;
+import flash.text.engine.Kerning;
+
+import flashx.textLayout.container.TextContainerManager;
+import flashx.textLayout.controls.TLFTextField;
+import flashx.textLayout.elements.IConfiguration;
+import flashx.textLayout.formats.ITextLayoutFormat;
+import flashx.textLayout.formats.LeadingModel;
+import flashx.textLayout.formats.LineBreak;
+import flashx.textLayout.formats.TextDecoration;
+import flashx.textLayout.tlf_internal;
+
+use namespace tlf_internal;
+
+/**
+ *  @private
+ */
+class TLFTextFieldTextContainerManager extends TextContainerManager
+{
+	/**
+	 *  @private
+	 */
+	public function TLFTextFieldTextContainerManager(container:Sprite, configuration:IConfiguration = null)
+	{
+		super(container, configuration);
+	}
+	
+	/**
+	 *  @private
+	 */
+	override public function drawBackgroundAndSetScrollRect(scrollX:Number, scrollY:Number):Boolean
+	{
+		return true;
+	}
+}
+
+/**
+ *  @private
+ */
+class TLFTextFieldHostFormat implements ITextLayoutFormat
+{
+	public function TLFTextFieldHostFormat(textField:TLFTextField)
+	{
+		super();
+		
+		this.textField = textField;
+	}
+	
+	private var textField:TLFTextField;
+	
+	public function get alignmentBaseline():*
+	{
+		return undefined;
+	}
+	
+	public function get backgroundAlpha():*
+	{
+		return undefined;
+	}
+	
+	public function get backgroundColor():*
+	{
+		return undefined;
+	}
+	
+	public function get baselineShift():*
+	{
+		return undefined;
+	}
+	
+	public function get blockProgression():*
+	{
+		return undefined;
+	}
+	
+	public function get breakOpportunity():*
+	{
+		return undefined;
+	}
+	
+	public function get cffHinting():*
+	{
+		return undefined;
+	}
+	
+	public function get color():*
+	{
+		textField._defaultTextFormat.color;
+	}
+	
+	public function get columnCount():*
+	{
+		return undefined;
+	}
+	
+	public function get columnGap():*
+	{
+		return undefined;
+	}
+	
+	public function get columnWidth():*
+	{
+		return undefined;
+	}
+	
+	public function get digitCase():*
+	{
+		return undefined;
+	}
+	
+	public function get digitWidth():*
+	{
+		return undefined;
+	}
+	
+	public function get direction():*
+	{
+		return textField.direction;
+	}
+	
+	public function get dominantBaseline():*
+	{
+		return undefined;
+	}
+	
+	public function get firstBaselineOffset():*
+	{
+		return undefined;
+	}
+	
+	public function get fontFamily():*
+	{
+		return textField._defaultTextFormat.font;
+	}
+	
+	public function get fontLookup():*
+	{
+		return textField.embedFonts ?
+			   FontLookup.EMBEDDED_CFF :
+			   FontLookup.DEVICE;
+	}
+	
+	public function get fontSize():*
+	{
+		return textField._defaultTextFormat.size;
+	}
+	
+	public function get fontStyle():*
+	{
+		return textField._defaultTextFormat.italic ?
+			   FontPosture.ITALIC :
+			   FontPosture.NORMAL;
+	}
+	
+	public function get fontWeight():*
+	{
+		return textField._defaultTextFormat.bold ?
+			   FontWeight.BOLD :
+			   FontWeight.NORMAL;
+	}
+	
+	public function get justificationRule():*
+	{
+		return undefined;
+	}
+	
+	public function get justificationStyle():*
+	{
+		return undefined;
+	}
+	
+	public function get kerning():*
+	{
+		return textField._defaultTextFormat.kerning ?
+			   Kerning.AUTO :
+			   Kerning.OFF;
+	}
+	
+	public function get leadingModel():*
+	{
+		return LeadingModel.ASCENT_DESCENT_UP;
+	}
+	
+	public function get ligatureLevel():*
+	{
+		return undefined;
+	}
+	
+	public function get lineBreak():*
+	{
+		return textField.wordWrap ?
+			   LineBreak.TO_FIT :
+			   LineBreak.EXPLICIT;
+	}
+	
+	public function get lineHeight():*
+	{
+		return textField._defaultTextFormat.leading + 2; // TODO
+	}
+	
+	public function get lineThrough():*
+	{
+		return undefined;
+	}
+	
+	public function get locale():*
+	{
+		return undefined;
+	}
+	
+	public function get paddingBottom():*
+	{
+		return TLFTextField.PADDING_BOTTOM;
+	}
+	
+	public function get paddingLeft():*
+	{
+		return TLFTextField.PADDING_LEFT;
+	}
+	
+	public function get paddingRight():*
+	{
+		return TLFTextField.PADDING_RIGHT;
+	}
+	
+	public function get paddingTop():*
+	{
+		return TLFTextField.PADDING_TOP;
+	}
+	
+	public function get paragraphEndIndent():*
+	{
+		return textField._defaultTextFormat.rightMargin;
+	}
+	
+	public function get paragraphSpaceAfter():*
+	{
+		return undefined;
+	}
+	
+	public function get paragraphSpaceBefore():*
+	{
+		return undefined;
+	}
+	
+	public function get paragraphStartIndent():*
+	{
+		return textField._defaultTextFormat.leftMargin;
+	}
+	
+	public function get renderingMode():*
+	{
+		return undefined;
+	}
+	
+	public function get tabStops():*
+	{
+		return textField._defaultTextFormat.tabStops; // TODO
+	}
+	
+	public function get textAlign():*
+	{
+		return textField._defaultTextFormat.align;
+	}
+	
+	public function get textAlignLast():*
+	{
+		return textField._defaultTextFormat.align;
+	}
+	
+	public function get textAlpha():*
+	{
+		return undefined;
+	}
+	
+	public function get textDecoration():*
+	{
+		return textField._defaultTextFormat.underline ?
+			   TextDecoration.UNDERLINE :
+			   TextDecoration.NONE;
+	}
+	
+	public function get textIndent():*
+	{
+		return textField._defaultTextFormat.indent;
+	}
+	
+	public function get textJustify():*
+	{
+		return undefined;
+	}
+	
+	public function get textRotation():*
+	{
+		return undefined;
+	}
+	
+	public function get trackingLeft():*
+	{
+		return undefined;
+	}
+	
+	public function get trackingRight():*
+	{
+		return textField._defaultTextFormat.letterSpacing;
+	}
+	
+	public function get typographicCase():*
+	{
+		return undefined;
+	}
+	
+	public function get verticalAlign():*
+	{
+		return undefined;
+	}
+	
+	public function get whiteSpaceCollapse():*
+	{
+		return undefined;
+	}
 }
