@@ -478,6 +478,32 @@ public class Application extends LayoutContainer
      *  @productversion Flex 3
      */
     public var preloader:Object;
+    
+    //----------------------------------
+    //  preloaderBaseColor
+    //----------------------------------
+    
+    [Inspectable(defaultValue="0xCCCCCC", format="Color")]
+    
+    /**
+     *    Specifies the base color used by the default preloader component. This property
+     *    has the same effect as the <code>baseColor</code> style used by the Spark skins.
+     *    Typically this property should be set to the same value as the <code>baseColor</code>
+     *    style used by the application.
+     *    
+     *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    
+    /* This property is not directly read by the download progress bar (preloader)
+     * component. It is here so that it gets picked up by the compiler and included 
+     * in the info() structure for the generated system manager. The download progress bar
+     * grabs the value directly from the info() structure. */
+    public var preloaderBaseColor:uint;
 
     //----------------------------------
     //  scriptRecursionLimit
