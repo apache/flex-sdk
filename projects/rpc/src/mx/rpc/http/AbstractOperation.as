@@ -72,7 +72,12 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
     //---------------------------------
 
     /**
-     * Creates a new Operation. 
+     *  Creates a new Operation. 
+     * 
+     *  @param service The object defining the type of service, such as 
+     *  HTTPMultiService, WebService, or RemoteObject.
+     *
+     *  @param name The name of the service.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -372,7 +377,13 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
      */
     public var serializationFilter:SerializationFilter;
 
-    /** Hook for subclasses to override the serialization filter to use for a given operation */
+    /** 
+     *  Returns the serialization filter.
+     *  Subclasses can override this method to control 
+     *  the retrieval of the HTTP request headers. 
+     *
+     *  @return The serialization filter.
+     */
     protected function getSerializationFilter():SerializationFilter
     {
         return serializationFilter;
@@ -879,7 +890,16 @@ function xmlEncoder (myObj)
     }
 
     /**
-     * Hook for subclasses to override the retrieval of the HTTP request headers.
+     *  Returns the HTTP request headers.
+     *  Subclasses can override this method to control 
+     *  the retrieval of the HTTP request headers. 
+     *
+     *  @return The HTTP request headers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
