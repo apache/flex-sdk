@@ -38,14 +38,10 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../../styles/metadata/BasicContainerFormatTextStyles.as"
-include "../../styles/metadata/AdvancedContainerFormatTextStyles.as"
-include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
-include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
-include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
-include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
-include "../../styles/metadata/SelectionFormatTextStyles.as"
-include "../../styles/metadata/SparkColorStyles.as"
+/**
+ *  @copy mx.components.baseClasses.GroupBase#baseColor
+ */
+[Style(name="baseColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Name of the skin class to use for this component. The skin must be a class that extends
