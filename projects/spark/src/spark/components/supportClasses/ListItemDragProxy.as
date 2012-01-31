@@ -120,8 +120,8 @@ public class ListItemDragProxy extends Group
                 }
             }
             
-            var clone:IVisualElement = cloneItemRenderer(IItemRenderer(element), list);
-            // FIXME (egeorgie): update the clone's state to "dragging" 
+            var clone:IItemRenderer = cloneItemRenderer(IItemRenderer(element), list);
+            clone.dragging = true; 
 
             // Add the clone as a child
             clone.x -= offsetX;
