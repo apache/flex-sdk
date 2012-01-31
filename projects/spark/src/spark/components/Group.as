@@ -1799,6 +1799,19 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         throw(new Error(resourceManager.getString("components", "swapChildrenAtError")));
     }
     
+    /**
+     *  @private
+     *  Override to ensure we set redrawRequested when appropriate.
+     */
+    override public function set mouseEnabledWhereTransparent(value:Boolean):void
+    {
+        if (value == mouseEnabledWhereTransparent)
+            return;
+        
+        super.mouseEnabledWhereTransparent = value;
+        redrawRequested = true;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  ISharedDisplayObject
