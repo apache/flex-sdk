@@ -108,6 +108,7 @@ public class FxListBase extends FxDataContainer
         doingWholesaleChanges = true;
         
         super.dataProvider = value;
+        invalidateProperties();
         
         if (dataProvider)
             dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
@@ -364,6 +365,8 @@ public class FxListBase extends FxDataContainer
             // or should we preserve selectedIndex
             if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
                itemSelected(selectedIndex, true);
+            else if (requiresSelection)
+               _proposedSelectedIndex = 0;
             else
                selectedIndex = -1;
         }
@@ -489,7 +492,10 @@ public class FxListBase extends FxDataContainer
             _proposedSelectedIndex = maxIndex;
         if (requiresSelection && _proposedSelectedIndex == NO_SELECTION && 
             dataProvider && dataProvider.length > 0)
+        {
+            _proposedSelectedIndex = NO_PROPOSED_SELECTION;
             return false;
+        }
         
         // Step 2: dispatch the "selectionChanging" event. If preventDefault() is called
         // on this event, the selection change will be cancelled.
