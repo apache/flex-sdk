@@ -21,6 +21,8 @@ import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 
 import org.osmf.display.MediaPlayerSprite;
 import org.osmf.display.ScaleMode;
@@ -42,6 +44,7 @@ import org.osmf.net.dynamicstreaming.DynamicStreamingItem;
 import org.osmf.net.dynamicstreaming.DynamicStreamingNetLoader;
 import org.osmf.net.dynamicstreaming.DynamicStreamingResource;
 import org.osmf.utils.FMSURL;
+import org.osmf.utils.OSMFStrings;
 import org.osmf.utils.URL;
 import org.osmf.video.VideoElement;
 
@@ -109,6 +112,8 @@ use namespace mx_internal;
 
 [DefaultProperty("source")]
 
+[ResourceBundle("osmf")]
+
 [IconFile("VideoDisplay.png")]
 
 /**
@@ -127,6 +132,30 @@ use namespace mx_internal;
 public class VideoDisplay extends UIComponent
 {
     include "../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Set as the OSMF.resourceBundleFunction and used to look up
+     *  strings so the OSMF RTEs are localized in Flex.
+     */
+	private static function getResourceString(resourceName:String,
+											  args:Array = null):String
+	{
+		var resourceManager:IResourceManager = ResourceManager.getInstance();
+		return resourceManager.getString("osmf", resourceName, args);
+	}
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  Constructor.
@@ -147,6 +176,13 @@ public class VideoDisplay extends UIComponent
         // start or stop the video
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
         addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+        
+        // Set the TLF hook used for localizing runtime error messages.
+        // TLF itself has English-only messages,
+        // but higher layers like Flex can provide localized versions.
+        OSMFStrings.resourceStringFunction = getResourceString;
+        
+        trace(getResourceString('drmAuthenticationFailed'));
     }
     
     //--------------------------------------------------------------------------
