@@ -80,7 +80,7 @@ public class SwatchSkin extends UIComponent
     {
 		super.updateDisplayList(w, h);
 
-		mx_internal::updateSkin(mx_internal::color);
+		updateSkin(color);
     }
 
     //--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ public class SwatchSkin extends UIComponent
         if (name == "swatchGrid")
         {
             graphics.clear();
-            drawGrid(dp, mx_internal::colorField);
+            drawGrid(dp, colorField);
         }
     }
     
@@ -216,7 +216,7 @@ public class SwatchSkin extends UIComponent
             
 			var c:Number = typeof(dp.getItemAt(n)) != "object" ?
 						   Number(dp.getItemAt(n)) :
-						   Number((dp.getItemAt(n))[mx_internal::colorField]);
+						   Number((dp.getItemAt(n))[colorField]);
 
             // Draw rectangle...
             drawSwatch(swatchX, swatchY, swatchWidth, swatchHeight, c);
