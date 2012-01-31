@@ -1185,20 +1185,18 @@ public class Group extends GroupBase implements IVisualElementContainer,
         }
         
         if (advanceStyleClientChildren != null)
-		{
-			var nAdvanceStyleClientChildern:int = 
-                                           advanceStyleClientChildren.length;
-			for (var j:int = 0; j < nAdvanceStyleClientChildern; j++)
-			{
-				var iAdvanceStyleClientChild:IAdvancedStyleClient = 
-                                               advanceStyleClientChildren[j];
-				
-				if (iAdvanceStyleClientChild)
-				{
-					iAdvanceStyleClientChild.styleChanged(styleProp);
-				}
-			}
-		}
+        {
+            for (var styleClient:Object in advanceStyleClientChildren)
+            {
+                var iAdvanceStyleClientChild:IAdvancedStyleClient = styleClient 
+                    as IAdvancedStyleClient;
+                
+                if (iAdvanceStyleClientChild)
+                {
+                    iAdvanceStyleClientChild.styleChanged(styleProp);
+                }
+            }
+        }
     }
     
     /**
@@ -1240,13 +1238,16 @@ public class Group extends GroupBase implements IVisualElementContainer,
         // Call this method on each non-visual StyleClient
         if (advanceStyleClientChildren != null)
         {
-            var nAdvanceStyleChildern:int = advanceStyleClientChildren.length;
-            for (var j:int = 0; j < nAdvanceStyleChildern; j++)
+            for (var styleClient:Object in advanceStyleClientChildren)
             {
-                if (advanceStyleClientChildren[j].inheritingStyles !=
+                var iAdvanceStyleClientChild:IAdvancedStyleClient = styleClient
+                    as IAdvancedStyleClient;
+                
+                if (iAdvanceStyleClientChild && 
+                    iAdvanceStyleClientChild.inheritingStyles !=
                     StyleProtoChain.STYLE_UNINITIALIZED)
                 {
-                    advanceStyleClientChildren[j].regenerateStyleCache(recursive);
+                    iAdvanceStyleClientChild.regenerateStyleCache(recursive);
                 }
             }
         }
