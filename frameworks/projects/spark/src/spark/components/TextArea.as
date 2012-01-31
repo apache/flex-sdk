@@ -342,40 +342,6 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  Documentation is not currently available.
 	 */
-    public function setSelection(anchorIndex:int = 0,
-                                 activeIndex:int = int.MAX_VALUE):void
-    {
-        if (!textView)
-            return;
-
-        textView.setSelection(anchorIndex, activeIndex);
-    }
-
-	/**
-	 *  Documentation is not currently available.
-	 */
-    public function insertText(text:String):void
-    {
-        if (!textView)
-            return;
-
-        textView.insertText(text);
-    }
-
-	/**
-	 *  Documentation is not currently available.
-	 */
-    public function appendText(text:String):void
-    {
-        if (!textView)
-            return;
-
-        textView.appendText(text);
-    }
-
-	/**
-	 *  Documentation is not currently available.
-	 */
     public function export():XML
     {
         if (!textView)
