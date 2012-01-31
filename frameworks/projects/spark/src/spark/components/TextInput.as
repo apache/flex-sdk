@@ -22,6 +22,15 @@ import flex.events.TextOperationEvent;
 import text.formats.LineBreak;
 
 //--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the user pressed the Enter key.
+ */
+[Event(name="enter", type="mx.events.FlexEvent")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
