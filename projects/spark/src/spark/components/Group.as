@@ -90,7 +90,10 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
 {   
     public function Group():void
     {
+        super();
         tabChildren = true;
+        _layout = new BasicLayout();
+        ILayout(_layout).target = this;        
     }
     
     private var skinRegistry:Dictionary;
@@ -103,8 +106,6 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     public var itemRenderer:IFactory;   
     public var itemRendererFunction:Function; // signature: itemRendererFunction(item:*):IFactory
     public var alwaysUseItemRenderer:Boolean = false; // if true, always use the itemRenderer
-    private var _layoutClass:Class;
-    private var _layout:ILayout;
     private var _content:*;
     private var _contentType:int;
     private var contentCollection:ICollectionView;
@@ -145,38 +146,6 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     public function get content():*
     {
         return _content;
-    }
-    
-    public function get layout():Object
-    {
-        return _layout;
-    }
-
-    // TBD: HACK for the sake of getDefinitionByName
-    private static const forceLoad0:Class = flex.layout.BasicLayout;
-    private static const forceLoad1:Class = flex.layout.HorizontalLayout;
-    private static const forceLoad2:Class = flex.layout.VerticalLayout;
-    
-    public function set layout(value:Object):void
-    {
-        if (value is ILayout) {
-            _layout = ILayout(value);
-            _layoutClass = null;
-    }
-        else if (value is String) {
-            _layout = null;
-            _layoutClass = flash.utils.getDefinitionByName(String(value)) as Class;
-    }
-        else if (value is Class) {
-            _layout = null;
-            _layoutClass = Class(value);
-        }
-        else {
-            _layout = null;
-            _layoutClass = null;
-        }
-        layoutChanged = true;
-        invalidateProperties();     
     }
 
     private var _resizeMode:uint = ResizeMode._NORMAL_UINT;
@@ -434,12 +403,6 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     {
         super.commitProperties();
         
-        if (layoutChanged)
-        {
-            layoutChanged = false;
-            initializeLayoutObject();
-        }
-        
         if (contentChanged)
         {
             contentChanged = false;
@@ -658,17 +621,33 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         throw(new Error("swapChildrenAt is not available in Group. Use swapItemsAt instead."));
     }
     
-    protected function invalidateSizeAndLayout():void
+    
+    //----------------------------------
+    //  layout
+    //----------------------------------    
+    
+    private var _layout:ILayout;  // initialized in the ctor
+    
+    public function get layout():ILayout
     {
+        return _layout;
+    }
+    
+    /**
+     * @private
+     */
+    public function set layout(value:ILayout):void
+    {
+        if (_layout == value)
+            return;
+        
+        _layout = value;  
+        if (_layout)
+            ILayout(_layout).target = this;
         invalidateSize();
         invalidateDisplayList();
-        
-        if (parent && parent is UIComponent)
-        {
-            UIComponent(parent).invalidateSize();
-            UIComponent(parent).invalidateDisplayList();
-        }
     }
+    
     
     //----------------------------------
     //  horizontalScrollPosition
@@ -1347,24 +1326,6 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         
         return null;
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Layout
-    //
-    //--------------------------------------------------------------------------
-    
-    protected function initializeLayoutObject():void
-    {
-        if (_layout == null) {
-            _layout = (_layoutClass) ? new _layoutClass() : new BasicLayout();
-        }
-        ILayout(_layout).target = this;
-        
-        invalidateSize();
-        invalidateDisplayList();
-    }   
-
     
     //--------------------------------------------------------------------------
     //
