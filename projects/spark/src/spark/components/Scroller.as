@@ -13,13 +13,17 @@
 package flex.component
 {
 import flash.events.Event;
+import flash.events.KeyboardEvent;
+import flash.ui.Keyboard;
 	
 import flex.core.SkinnableComponent;
 import flex.core.Group;
 import flex.intf.IViewport;
+import flex.layout.LayoutBase;
 
 import mx.events.PropertyChangeEvent;
 import mx.core.ScrollPolicy;
+import mx.managers.IFocusManagerComponent;
 
 	
 [DefaultProperty("viewport")]
@@ -49,7 +53,7 @@ import mx.core.ScrollPolicy;
  *  </p>
  */
 
-public class Scroller extends SkinnableComponent
+public class Scroller extends SkinnableComponent implements IFocusManagerComponent
 {
     include "../core/Version.as";
     
@@ -284,6 +288,14 @@ public class Scroller extends SkinnableComponent
     		case "contentHeight": 
     		    viewportContentHeightChanged(event);
     		    break;
+    		    
+            case "horizontalScrollPosition":
+                viewportHorizontalScrollPositionChanged(event);
+                break;
+
+    		case "verticalScrollPosition":
+    		    viewportVerticalScrollPositionChanged(event);
+    		    break;
     	}
     }
     
@@ -303,6 +315,26 @@ public class Scroller extends SkinnableComponent
     {
         invalidateSkin();
     }
+    
+    /**
+     *  Called when the viewport's horizontalScrollPosition changes; sets the 
+     *  horizontal scrollbar's value.
+     */
+    protected function viewportHorizontalScrollPositionChanged(event:PropertyChangeEvent):void
+    {
+       if (horizontalScrollBar)
+           horizontalScrollBar.value = viewport.horizontalScrollPosition;
+    }  
+    
+    /**
+     *  Called when the viewport's verticalScrollPosition changes; sets the 
+     *  vertical scrollbar's value.
+     */
+    protected function viewportVerticalScrollPositionChanged(event:PropertyChangeEvent):void
+    {
+       if (verticalScrollBar)
+           verticalScrollBar.value = viewport.verticalScrollPosition;
+    }   
     
     //--------------------------------------------------------------------------
     //
@@ -361,6 +393,58 @@ public class Scroller extends SkinnableComponent
         if (instance == horizontalScrollBar)
         {
             horizontalScrollBar.removeEventListener("valueCommit", hsb_valueCommitHandler);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function keyDownHandler(event:KeyboardEvent):void
+    {
+    	if (!viewport)
+    	    return;
+    	    
+        // TBD: is special handling for textfields needed here, as in mx.core.Container?
+    
+        // TBD: IViewport should expose horiztonal,verticalScrollPositionDelta methods
+        var vp:LayoutBase = LayoutBase(Group(viewport).layout);
+         
+        if (verticalScrollBar && verticalScrollBar.visible)
+        {
+        	var vspDelta:Number = NaN;
+            switch (event.keyCode)
+            {
+                case Keyboard.DOWN:
+                case Keyboard.UP:
+                case Keyboard.PAGE_UP:
+                case Keyboard.PAGE_DOWN:
+                case Keyboard.HOME:
+                case Keyboard.END:
+                    vspDelta = vp.verticalScrollPositionDelta(event.keyCode);
+                    break;
+            }
+            if (!isNaN(vspDelta))
+            {
+            	viewport.verticalScrollPosition += vspDelta;
+            	event.stopPropagation();
+            }
+        }
+
+        if (horizontalScrollBar && horizontalScrollBar.visible)
+        {
+        	var hspDelta:Number = NaN;
+            switch (event.keyCode)
+            {
+                case Keyboard.LEFT:
+                case Keyboard.RIGHT:
+                    hspDelta = vp.horizontalScrollPositionDelta(event.keyCode);
+                    break;
+            }
+            if (!isNaN(hspDelta))
+            {
+                viewport.horizontalScrollPosition += hspDelta;
+                event.stopPropagation();
+            }
         }
     }
     	
