@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Spark DynamicStreamingVideoSource control -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:mx="library://ns.adobe.com/flex/halo">
+
+    <s:Panel title="Spark DynamicStreamingVideoSource Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+            
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+        
+            <s:Label text="The DynamicStreamingVideoSource object contains multiple stream items. Flash Player automatically play the stream with the highest bit rate."
+                color="blue"
+                width="75%"/>
+    
+            <s:VideoPlayer id="myPlayer"
+                width="75%" height="75%"
+                autoPlay="false">
+                <s:source>
+                    <s:DynamicStreamingVideoSource id="mySVS"
+                        host="rtmp://fmsexamples.adobe.com/vod/">
+                        <s:DynamicStreamingVideoItem id="dreamgirl150"
+                            streamName="MP4:_PS_dreamgirl_150.f4v"
+                            bitrate="150" />
+                        <s:DynamicStreamingVideoItem id="dreamgirl500"
+                            streamName="MP4:_PS_dreamgirl_500.f4v"
+                            bitrate="500" />
+                        <s:DynamicStreamingVideoItem id="dreamgirl1000"
+                            streamName="MP4:_PS_dreamgirl_1000.f4v"
+                            bitrate="1000" />
+                    </s:DynamicStreamingVideoSource>
+                </s:source>
+            </s:VideoPlayer>
+        </s:VGroup>
+    </s:Panel>
+</s:Application>
