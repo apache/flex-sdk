@@ -16,6 +16,7 @@ package spark.components
     import flash.geom.Point;
     import flash.geom.Rectangle;
     
+    import mx.collections.ArrayList;
     import mx.collections.IList;
     import mx.core.IFactory;
     import mx.core.IVisualElement;
@@ -646,6 +647,7 @@ package spark.components
         //----------------------------------    
         
         private var _columns:IList = null; // list of GridColumns
+        private var generatedColumns:Boolean = false;
         
         [Bindable("columnsChanged")]
         
@@ -659,6 +661,12 @@ package spark.components
          */
         public function get columns():IList
         {
+            if (_columns == null)
+            {
+                setColumns(generateColumns());
+                generatedColumns = true;
+            }
+            
             return _columns;
         }
         
@@ -670,9 +678,15 @@ package spark.components
             if (_columns == value)
                 return;
             
+            generatedColumns = false;
+            setColumns(value);
+        }
+        
+        private function setColumns(value:IList):void
+        {
             // Remove the old column listener, and set each column's grid=null, columnIndex=-1.
             
-            const oldColumns:IList = columns;
+            const oldColumns:IList = _columns;
             if (oldColumns)
             {
                 oldColumns.removeEventListener(CollectionEvent.COLLECTION_CHANGE, columns_collectionChangeHandler);
@@ -691,7 +705,7 @@ package spark.components
             // addEventListener parameter) is safe, since the listener's lifetime is the 
             // same as this object.        
             
-            const newColumns:IList = columns;
+            const newColumns:IList = _columns;
             if (newColumns)
             {
                 newColumns.addEventListener(CollectionEvent.COLLECTION_CHANGE, columns_collectionChangeHandler, false, 0, true);            
@@ -724,6 +738,31 @@ package spark.components
             const columns:IList = columns;
             return (columns) ? columns.length : 0;
         }
+        
+        /**
+         *  @private
+         */
+        private function generateColumns():IList
+        {
+            var item:Object = typicalItem;
+            if (!item && dataProvider && (dataProvider.length > 0))
+                item = dataProvider[0];
+            
+            var itemColumns:IList = null;
+            if (item)
+            {
+                itemColumns = new ArrayList();
+                for (var property:String in item)
+                {
+                    var column:GridColumn = new GridColumn();
+                    column.dataField = property;
+                    itemColumns.addItem(column);
+                } 
+            }
+            
+            return itemColumns;
+        }
+       
         
         //----------------------------------
         //  dataProvider
