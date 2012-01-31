@@ -30,6 +30,9 @@ use namespace mx_internal;
 
 [ExcludeClass]
 
+/**
+ *  TBD
+ */
 public class GridColumnHeaderGroupLayout extends LayoutBase
 {
     /**
@@ -265,9 +268,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
                 
             // initialize the renderer
             
-            renderer.column = column;
-            renderer.label = column.headerText;
-            renderer.visible = true; 
+            initializeItemRenderer(renderer, columnIndex, column, true);
             if (renderer.parent != columnHeaderGroup)
                 columnHeaderGroup.addElement(renderer);
             
@@ -350,12 +351,25 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
     {
         const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         const grid:Grid = grid;
+        const columns:IList = columns;
         
-        if (!columnHeaderGroup || !grid)
+        if (!columnHeaderGroup || !grid || !columns)
             return -1; 
         
         const paddingLeft:Number = columnHeaderGroup.getStyle("paddingLeft");
-        return grid.getColumnIndexAt(x + paddingLeft, 0);
+        const paddedX:Number = x + paddingLeft;
+        var columnIndex:int = grid.getColumnIndexAt(paddedX, 0);
+        
+        // Special case for the stretched renderer above the vertical scrollbar
+        if (columnIndex < 0)
+        {
+            const contentWidth:Number = columnHeaderGroup.contentWidth;
+            const totalWidth:Number = horizontalScrollPosition + columnHeaderGroup.width - columnHeaderGroup.getStyle("paddingRight");
+            if (paddedX >= contentWidth && paddedX < totalWidth)
+                columnIndex = grid.getPreviousVisibleColumnIndex(columns.length)
+        }
+        
+        return columnIndex;
     }
     
     /**
@@ -531,8 +545,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
 
         // initialize the renderer
         
-        renderer.column = column;
-        renderer.label = column.headerText;
+        initializeItemRenderer(renderer, columnIndex, column, renderer.visible);
         
         // layout the renderer
 
@@ -564,6 +577,23 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
     //  Internal methods, properties
     //
     //---------------------------------------------------------------    
+    
+    /**
+     *  @private
+     */
+    private function initializeItemRenderer(renderer:IGridItemRenderer,
+                                            columnIndex:int,
+                                            column:GridColumn,
+                                            visible:Boolean=true):void
+    {
+        renderer.visible = visible;
+        renderer.column = column;
+        renderer.label = column.headerText;
+        
+        const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
+        renderer.hovered = columnIndex == columnHeaderGroup.hoverColumnIndex;
+        renderer.down = columnIndex == columnHeaderGroup.downColumnIndex;
+    }
     
     /**
      *  @private
@@ -625,11 +655,25 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         element.visible = false;
     }
     
+    //----------------------------------
+    //  columnHeaderGroup
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
     private function get columnHeaderGroup():GridColumnHeaderGroup
     {
         return target as GridColumnHeaderGroup;
     }
     
+    //----------------------------------
+    //  grid
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
     private function get grid():Grid
     {
         const chg:GridColumnHeaderGroup = columnHeaderGroup;
@@ -638,6 +682,10 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         
         return null;
     }
+    
+    //----------------------------------
+    //  columns
+    //----------------------------------
     
     private var _columns:IList;
     
@@ -831,7 +879,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
             _overlayGroup.layout = new LayoutBase(); // no layout
             target.overlay.addDisplayObject(overlayGroup);            
         }
-            
+        
         return _overlayGroup;
     }
 }
