@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects.interpolation
+package mx.effects.interpolation
 {
 /**
  * The Interpolator interface is used by classes that calculate
