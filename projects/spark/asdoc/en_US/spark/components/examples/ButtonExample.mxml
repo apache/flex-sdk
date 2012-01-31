@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Button control -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo">
+    <fx:Script>
+        <![CDATA[
+
+            import flash.events.Event;
+
+            // Event handler function to print a message
+            // describing the selected FxButton control.
+            private function printMessage(event:Event):void  {
+              message.text += event.target.label + " pressed" + "\n";
+            }
+
+        ]]>
+    </fx:Script>
+
+    <mx:Panel title="Spark Button Control Example"
+        height="75%" width="75%" horizontalCenter="0"
+        verticalCenter="0" paddingTop="10" paddingBottom="10" paddingLeft="10"
+        paddingRight="10">
+            <s:VGroup width="100%">
+                <s:Button label="Default Button" click="printMessage(event);"/>
+                <s:Button label="autoRepeat Button" buttonDown="printMessage(event);"
+                    autoRepeat="true"/>
+                <s:Button label="Disabled Button" enabled="false"
+                    click="printMessage(event);"/>
+            </s:VGroup>
+            <s:TextArea x="80" y="0" id="message" height="100%" width="100%"
+                color="#0000FF"/>
+    </mx:Panel>
+</s:Application>
