@@ -28,6 +28,11 @@ use namespace mx_internal;
  *  An AsyncRequest allows multiple requests to be made on a remote destination
  *  and will call back to the responder specified within the request when
  *  the remote request is completed.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AsyncRequest extends mx.messaging.Producer
 {
@@ -39,6 +44,11 @@ public class AsyncRequest extends mx.messaging.Producer
 
 	/**
 	 *  Constructs a new asynchronous request.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function AsyncRequest()
 	{
@@ -111,6 +121,11 @@ public class AsyncRequest extends mx.messaging.Producer
     *
     * @return Returns <code>true</code> if there are any pending requests for the 
     * passed in message; otherwise, returns <code>false</code>.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
 	override public function hasPendingRequestForMessage(msg:IMessage):Boolean
 	{
@@ -126,6 +141,11 @@ public class AsyncRequest extends mx.messaging.Producer
          * @param msg The message to be sent asynchronously.
          *
          * @param responder The responder to be called later.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function invoke(msg:IMessage, responder:IResponder):void
 	{
@@ -142,6 +162,11 @@ public class AsyncRequest extends mx.messaging.Producer
 	/**
 	 *  manages a list of all pending requests.  each request must implement
 	 *  IResponder
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _pendingRequests:Object = {};
 }
