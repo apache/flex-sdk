@@ -135,12 +135,11 @@ public class HScrollBar extends ScrollBar
      */
     override protected function positionThumb(thumbPos:Number):void
     {
-        if (thumb)
-        {
-            var trackPos:Number = track ? track.x : 0;   
-            thumb.setLayoutBoundsPosition(Math.round(trackPos + thumbPos),
-                                          thumb.getLayoutBoundsY());
-        }
+        if (!thumb)
+            return;
+      
+        var trackPos:Number = track ? track.x : 0;   
+        thumb.setLayoutBoundsPosition(Math.round(trackPos + thumbPos), thumb.getLayoutBoundsY());
     }
     
     /**
@@ -148,17 +147,28 @@ public class HScrollBar extends ScrollBar
      */
     override protected function calculateThumbSize():Number
     {
+        if (!thumb)
+            return super.calculateThumbSize();
+            
         var size:Number = (fixedThumbSize) ? thumb.getPreferredBoundsWidth() : super.calculateThumbSize();
         return Math.max(thumb.minWidth, size);
     }
 
     /**
      *  @private
+     *  Note: we're comparing the "calculated", not fixed, size of the thumb with the trackSize
+     *  to decide if the thumb should be visible.  We want to know if the thumb needs to be visible,
+     *  and the comparison would fail if we always compared the track size and the fixed thumb size.
+     *  See calculateThumbSize().
      */
     override protected function sizeThumb(thumbSize:Number):void
     {
-        thumb.width = thumbSize;
-        thumb.visible = thumbSize < trackSize;
+        if (!thumb)
+            return;
+        
+        thumb.setLayoutBoundsSize(thumbSize, NaN);
+        var calculatedThumbSize:Number = (fixedThumbSize) ? super.calculateThumbSize() : thumbSize;
+        thumb.visible = calculatedThumbSize < trackSize;
     }
     
     /**
