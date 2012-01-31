@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
 import flash.display.Graphics;
@@ -47,9 +47,9 @@ import flashx.tcal.operations.ApplyFormatOperation;
 import flashx.tcal.operations.FlowOperation;
 import flashx.tcal.operations.SplitParagraphOperation;
 
-import flex.events.TextOperationEvent;
-import flex.intf.IViewport;
-import flex.utils.TextUtil;
+import mx.events.TextOperationEvent;
+import mx.core.IViewport;
+import mx.utils.TextUtil;
 
 import mx.core.UIComponent;
 import mx.events.FlexEvent;
@@ -70,12 +70,12 @@ import mx.events.FlexEvent;
  *  You can alter the operation, or cancel the event
  *  to prevent the operation from being processed.
  */
-[Event(name="changing", type="flex.events.TextOperationEvent")]
+[Event(name="changing", type="mx.events.TextOperationEvent")]
 
 /**
  *  Dispatched after a user editing operation is complete.
  */
-[Event(name="change", type="flex.events.TextOperationEvent")]
+[Event(name="change", type="mx.events.TextOperationEvent")]
 
 /**
  *  Dispatched when the user pressed the Enter key.
@@ -346,7 +346,7 @@ public class TextView extends UIComponent implements IViewport
     //----------------------------------
 
     /**
-     * @copy flex.layout.LayoutBase#horizontalScrollPositionDelta
+     * @copy mx.layout.LayoutBase#horizontalScrollPositionDelta
      */
     public function horizontalScrollPositionDelta(unit:uint):Number
     {
@@ -384,7 +384,7 @@ public class TextView extends UIComponent implements IViewport
     }
     
     /**
-     * @copy flex.layout.LayoutBase#horizontalScrollPositionDelta
+     * @copy mx.layout.LayoutBase#horizontalScrollPositionDelta
      */
     public function verticalScrollPositionDelta(unit:uint):Number
     {
@@ -428,7 +428,7 @@ public class TextView extends UIComponent implements IViewport
     private var _clipContent:Boolean = true;
     
     /**
-     * @copy flex.layout.LayoutBase#clipContent
+     * @copy mx.layout.LayoutBase#clipContent
      */
     public function get clipContent():Boolean 
     {
