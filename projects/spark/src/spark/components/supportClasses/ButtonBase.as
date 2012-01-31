@@ -109,27 +109,6 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 [Style(name="iconPlacement", type="String", enumeration="top,bottom,right,left", inherit="no", theme="spark, mobile")]
 
 /**
- *  When there is a touchDelay, and the touch interaction is complete (user mouseUp) before 
- *  the touchDelay is over, then the component goes in to the down state for a period 
- *  of time to ensure the user gets visual feedback on this operation.  This period of 
- *  time after mouseUp that the component is in the down state is the 
- *  minimumDownStateTime.
- * 
- *  <p>This property exists for quick taps that occur on a component and ensures
- *  that the user receives reasonable feedback for their button click operation.</p>
- *  
- *  <p>If the mobile theme is applied, the default value for this style is 100 ms for 
- *  typical buttons.  For toggle buttons, the default value for this style is 0 ms.</p>
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 2.5
- *  @productversion Flex 4.5
- */
-[Style(name="minimumDownStateTime", type="Number", format="Time", inherit="no", minValue="0.0")]
-
-
-/**
  *  Number of milliseconds to wait after the first <code>buttonDown</code>
  *  event before repeating <code>buttonDown</code> events at each 
  *  <code>repeatInterval</code>.
@@ -414,6 +393,23 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  the button was actually selected.
      */
     private var mouseUpDeselectTimer:Timer;
+	
+	/**
+	 *  @private
+	 *  When there is a touchDelay and the touch interaction is complete (user mouseUp) before 
+	 *  the touchDelay is over, usually the component goes in to the down state for a period 
+	 *  of time to ensure the user gets visual feedback on this operation. 
+	 *  This behavior is for quick taps that occur on a component and ensures
+	 *  that the user receives reasonable feedback for their button click operation.
+	 *  
+	 *  <p>This property can disable that behavior.  If set to <code>false</code>,
+	 *  which is the default, then on a quick tap, the Button will go in to the down state 
+	 *  for touchDelay milli-seconds.  If set to <code>true</code>, 
+	 *  on a quick tap, the Button does not go in to the down state at all.  This 
+	 *  is useful in toggle buttons, where there's no need to go in to the down state 
+	 *  to give the user feedback--going in to the selected state is good enough.</p>
+	 */
+	mx_internal var disableMinimumDownStateTime:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -1067,7 +1063,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     private function startSelectButtonAfterDelayTimer():void
     {
-        var touchDelay:int = getStyle("touchDelay");
+        var touchDelay:Number = getStyle("touchDelay");
         
         if (touchDelay > 0)
         {
@@ -1100,7 +1096,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     private function startDeselectButtonAfterDelayTimer():void
     {
-        var minimumDownStateTime:int = getStyle("minimumDownStateTime");
+        var minimumDownStateTime:Number = (disableMinimumDownStateTime ? 0 : getStyle("touchDelay"));
         
         if (minimumDownStateTime > 0)
         {
