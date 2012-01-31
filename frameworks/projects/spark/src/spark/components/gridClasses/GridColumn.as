@@ -325,7 +325,7 @@ public class GridColumn extends EventDispatcher
      */
     public function get itemRenderer():IFactory
     {
-        return (_itemRenderer) ? _itemRenderer : grid.defaultItemRenderer;
+        return (_itemRenderer) ? _itemRenderer : grid.itemRenderer;
     }
     
     /**
