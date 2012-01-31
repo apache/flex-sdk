@@ -90,6 +90,34 @@ public class Group extends GroupBase implements IVisualElementContainer
     private static const ITEM_ORDERED_LAYERING:uint = 0;
     private static const SPARSE_LAYERING:uint = 1;
     
+    /**
+     *  @private
+     */
+    override public function set scrollRect(value:Rectangle):void
+    {
+        // Work-around for Flash Player bug: if GraphicElements share
+        // the Group's Display Object and cacheAsBitmap is true, the
+        // scrollRect won't function correctly. 
+        var previous:Boolean = canShareDisplayObject;
+        super.scrollRect = value;
+        if (numGraphicElements > 0 && previous != canShareDisplayObject)
+            invalidateDisplayObjectOrdering();            
+    }
+
+    /**
+     *  @private
+     */
+    override public function set cacheAsBitmap(value:Boolean):void
+    {
+        // Work-around for Flash Player bug: if GraphicElements share
+        // the Group's Display Object and cacheAsBitmap is true, the
+        // scrollRect won't function correctly. 
+        var previous:Boolean = canShareDisplayObject;
+        super.cacheAsBitmap = value;
+        if (numGraphicElements > 0 && previous != canShareDisplayObject)
+            invalidateDisplayObjectOrdering();            
+    }
+
     //----------------------------------
     //  alpha
     //----------------------------------
@@ -800,12 +828,20 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     private function get canShareDisplayObject():Boolean
     {
+        // Work-around for Flash Player bug: if GraphicElements share
+        // the Group's Display Object and cacheAsBitmap is true, the
+        // scrollRect won't function correctly.
+        if (cacheAsBitmap && scrollRect)
+            return false;
+ 
         // we can't share ourselves if we're in blendMode != normal, or we have 
         // to deal with any layering.  The reason is because we handle layer = 0 first
         // in our implementation, and we don't want those to use our display object to 
         // draw into because there could be something further down the line that has 
         // layer < 0
-        return blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
+        // Make sure we use _blendMode here, since _blendMode can be "normal", but
+        // blendMode still report as "layer".
+        return _blendMode == "normal" && (layeringMode == ITEM_ORDERED_LAYERING);
     }
     
     /**
