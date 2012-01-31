@@ -272,8 +272,8 @@ public class FxAnimateInstance extends EffectInstance
         }
         else
         {
-            play();
-        }
+        play();
+    }
     }
     
     private function delayedPlay(event:AnimationEvent):void
@@ -595,31 +595,13 @@ public class FxAnimateInstance extends EffectInstance
                 var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(target);
                 var location:Point = layoutItem.actualPosition;
                 var size:Point = layoutItem.actualSize;
-                if (constraintsHolder["left"] !== undefined)
-                    constraintsHolder["left"] = Math.round(location.x);
-                if (constraintsHolder["top"] !== undefined)
-                    constraintsHolder["top"] = Math.round(location.y);
-                if (constraintsHolder["right"] !== undefined)
+                var parentW:int = 0;
+                var parentH:int = 0;
+                
+                // For 'bottom' or 'verticalCenter' we need the parent height
+                if (constraintsHolder["bottom"] !== undefined ||
+                    constraintsHolder["verticalCenter"] !== undefined)
                 {
-                    var parentW:int = 0;
-                    if ("parent" in target && target.parent)
-                    {
-                        parentW = target.parent.width;
-                    }
-                    else if ("elementHost" in target && target.elementHost)
-                    {
-                        parentW = target.elementHost.width;
-                    }
-                    if (parentW > 0)
-                    {
-                        // Only bother adjusting 'right' if our target is
-                        // parented to an object with a positive width
-                        constraintsHolder["right"] = parentW - location.x - size.x;
-                    }
-                }
-                if (constraintsHolder["bottom"] !== undefined)
-                {
-                    var parentH:int = 0;
                     if ("parent" in target && target.parent)
                     {
                         parentH = target.parent.height;
@@ -628,13 +610,56 @@ public class FxAnimateInstance extends EffectInstance
                     {
                         parentH = target.elementHost.height;
                     }
-                    if (parentH > 0)
+                }
+                
+                // For 'right' or 'horizontalCenter' we need the parent width
+                if (constraintsHolder["right"] !== undefined ||
+                    constraintsHolder["horizontalCenter"] !== undefined)
+                {
+                    if ("parent" in target && target.parent)
                     {
-                        // Only bother adjusting 'bottom' if our target is
-                        // parented to an object with a positive height
-                        constraintsHolder["bottom"] = parentH - location.y - size.y;
+                        parentW = target.parent.width;
+                    }
+                    else if ("elementHost" in target && target.elementHost)
+                    {
+                        parentW = target.elementHost.width;
                     }
                 }
+
+                if (constraintsHolder["left"] !== undefined)
+                    constraintsHolder["left"] = Math.round(location.x);
+                if (constraintsHolder["top"] !== undefined)
+                    constraintsHolder["top"] = Math.round(location.y);
+
+                // Only bother adjusting 'right' if our target is
+                // parented to an object with a positive width
+                if (parentW > 0 && constraintsHolder["right"] !== undefined)
+                    constraintsHolder["right"] = parentW - location.x - size.x;
+
+                // Only bother adjusting 'bottom' if our target is
+                // parented to an object with a positive height
+                if (parentH > 0 && constraintsHolder["bottom"] !== undefined)
+                    constraintsHolder["bottom"] = parentH - location.y - size.y;
+
+                // Only bother adjusting 'horizontalCenter' if our target is
+                // parented to an object with a positive width
+                if (parentW > 0 && constraintsHolder["horizontalCenter"] !== undefined)
+                {
+                    // Layout uses horizontalCenter to calculate position this way
+                    // location.x = parentW / 2 - size.x / 2 + horizontalCenter
+                    constraintsHolder["horizontalCenter"] = location.x + size.x / 2 - parentW / 2;
+                }
+
+                // Only bother adjusting 'verticalCenter' if our target is
+                // parented to an object with a positive height
+                if (parentH > 0 && constraintsHolder["verticalCenter"] !== undefined)
+                {
+                    // Layout uses verticalCenter to calculate position this way
+                    // location.y = parentH / 2 - size.y / 2 + verticalCenter
+                    constraintsHolder["verticalCenter"] = location.y + size.y / 2 - parentH / 2;
+                }
+
+                // TODO EGeorgie: add support for 'baseline' constraint, when the new layouts support it.
             }
             reenableConstraint("left");
             reenableConstraint("right");
