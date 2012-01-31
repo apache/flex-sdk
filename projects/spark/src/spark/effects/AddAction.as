@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects
+package spark.effects
 {
 
 import flash.display.DisplayObjectContainer;
@@ -17,7 +17,9 @@ import flash.display.DisplayObjectContainer;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
-import mx.effects.effectClasses.AddActionInstance;
+import spark.effects.supportClasses.AddActionInstance;
+import mx.effects.IEffectInstance;
+import mx.effects.Effect;
 import mx.effects.effectClasses.PropertyChanges;
 
 //--------------------------------------
