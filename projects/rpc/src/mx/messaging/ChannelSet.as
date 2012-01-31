@@ -700,7 +700,7 @@ public class ChannelSet extends EventDispatcher
      *  <p>
      *  If the currently connected underlying Channel issues poll requests to
      *  the remote host, heartbeats are suppressed because the periodic poll
-     *  requests effectively take their place.
+     *  requests effectively take their place.</p>
      */
     public function get heartbeatInterval():int
     {
