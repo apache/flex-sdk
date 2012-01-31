@@ -143,7 +143,7 @@ public class CheckBoxIcon extends Border
 		var checkColor:uint = getStyle("iconColor");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("fillColors");
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		var highlightAlphas:Array = getStyle("highlightAlphas");		
 		var themeColor:uint = getStyle("themeColor");
 				
