@@ -58,7 +58,20 @@ import spark.events.TextOperationEvent;
 [SkinState("disabled")]
 
 /**
- *  Documentation is not currently available.
+ *  The TextArea component is a text field that lets users enter
+ *  and edit multiple lines of rich text. TextArea supports horizontal
+ *  and vertical scrolling.
+ *
+ *  <p>The text content in TextArea can contain multiple paragraphs, 
+ *  spans, inline graphics, multiple columns, and so on. Formatting 
+ *  is preserved as the user edits. TextArea does not include any UI
+ *  for changing the formatting of text; text can be changed programmatically
+ *  only.</p>
+ *
+ *  @see spark.primitives.RichText
+ *  @see spark.primitives.RichEditableText
+ *  @see spark.primitives.SimpleText
+ *  @see TextInput TextInput class
  *
  *  @includeExample examples/TextAreaExample.mxml
  *  
