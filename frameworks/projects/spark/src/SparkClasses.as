@@ -28,8 +28,7 @@ import mx.controls.advancedDataGridClasses.MXAdvancedDataGridItemRenderer; MXAdv
 import mx.controls.dataGridClasses.FTEDataGridItemRenderer; FTEDataGridItemRenderer;
 import mx.controls.MXFTETextInput; MXFTETextInput;
 import mx.core.UIFTETextField; UIFTETextField;
-import spark.core.contentLoader.ContentCache; ContentCache;
-import spark.core.contentLoader.LoaderInvalidationEvent; LoaderInvalidationEvent;
+import spark.core.ContentCache; ContentCache;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.components.supportClasses.ListItemDragProxy; ListItemDragProxy;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
