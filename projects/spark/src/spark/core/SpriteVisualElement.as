@@ -619,6 +619,64 @@ public class SpriteVisualElement extends FlexSprite implements IVisualElement
     }
     
     /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function getBoundsXAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        var m:Matrix;
+        if (!postTransform)
+            m = computeMatrix();
+        if (!m)
+            return x;
+
+        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 this.width,
+                                                 this.height,
+                                                 this.width, this.height,
+                                                 this.width, this.height);
+        if (!newSize)
+            newSize = new Point(this.width, this.height);
+            
+        var topLeft:Point = new Point(0, 0);
+        MatrixUtil.transformBounds(newSize, m, topLeft);
+        return topLeft.x;
+    }
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function getBoundsYAtSize(width:Number, height:Number, postTransform:Boolean = true):Number
+    {
+        var m:Matrix;
+        if (!postTransform)
+            m = computeMatrix();
+        if (!m)
+            return y;
+
+        var newSize:Point = MatrixUtil.fitBounds(width, height, m,
+                                                 this.width,
+                                                 this.height,
+                                                 this.width, this.height,
+                                                 this.width, this.height);
+        if (!newSize)
+            newSize = new Point(this.width, this.height);
+            
+        var topLeft:Point = new Point(0, 0);
+        MatrixUtil.transformBounds(newSize, m, topLeft);
+        return topLeft.y;
+    }
+    
+    /**
      *  Helper method to invalidate parent size and display list if
      *  this object affects its layout (includeInLayout is true).
      */
