@@ -1,0 +1,39 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+<languageVersion : 1.0;>
+
+kernel FxCrossfade
+<   namespace : "flex";
+    vendor : "Adobe Systems";
+    version : 1;
+    description : "Crossfade between two images, for use with Flex effects"; >
+{
+   parameter float progress;
+
+   // First parameter is unused in FxAnimateShaderTransition effect
+   input image4 src0;
+   input image4 from;
+   input image4 to;
+   output pixel4 dst;
+   
+   void evaluatePixel()
+   {
+        // Acquire the pixel values from both images at the current location
+        float2 coord = outCoord();
+        float4 color0 = sampleNearest(src0, coord);
+        float4 fromPixel = sampleNearest(from, coord);
+        float4 toPixel = sampleNearest(to, coord);
+        float prog = progress;
+        
+        // Output equals mixture of two pixels, according to progress value
+        dst = mix(fromPixel, toPixel, progress);
+   }
+}
