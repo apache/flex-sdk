@@ -200,11 +200,6 @@ public class ResultEvent extends AbstractEvent
 
     /*
      * Have the token apply the result.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     override mx_internal function callTokenResponders():void
     {
