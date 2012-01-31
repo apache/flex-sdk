@@ -18,6 +18,11 @@ import mx.effects.IEffectInstance;
 /**
  * 
  *  @includeExample examples/FxFadeEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxFade extends FxAnimate
 {
@@ -48,6 +53,11 @@ public class FxFade extends FxAnimate
      *  <code>alpha</code> property.
      *  If the effect causes the target component to appear,
      *  the default value is 0.0.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var alphaFrom:Number;
     
@@ -66,6 +76,11 @@ public class FxFade extends FxAnimate
      *  If the effect causes the target component to appear,
      *  the default value is the current value of the target's
      *  <code>alpha</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var alphaTo:Number;
 
