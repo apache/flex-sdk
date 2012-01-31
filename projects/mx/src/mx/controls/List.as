@@ -1329,7 +1329,7 @@ public class List extends ListBase implements IIMESupport
                 if (!listItems[rowNum])
                     listItems[rowNum] = [];
 
-                // TODO more code around renderer recycling should be shared with TileBase /
+                // FIXME (aharui): more code around renderer recycling should be shared with TileBase /
                 // moved to ListBase if possible
                 if (valid)
                 {
