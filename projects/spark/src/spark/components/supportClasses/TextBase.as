@@ -965,7 +965,7 @@ public class TextGraphicElement extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function isPseudoSelectorMatch(pseudoState:String):Boolean
+    public function matchesCSSState(cssState:String):Boolean
     {
         return false;
     }
@@ -979,23 +979,9 @@ public class TextGraphicElement extends GraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function isTypeSelectorMatch(type:String):Boolean
+    public function matchesCSSType(cssType:String):Boolean
     {
-        return StyleProtoChain.isTypeSelectorMatch(this, type);
-    }
-
-    /**
-     *  This method is required by the IAdvancedStyleClient interface,
-     *  but doesn't do anything for TextGraphicElements as they do not have
-     *  state specific behavior.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function applyStateStyles(oldState:String, newState:String, recursive:Boolean):void
-    {
+        return StyleProtoChain.matchesCSSType(this, cssType);
     }
 
     //--------------------------------------------------------------------------
