@@ -16,6 +16,11 @@ package mx.effects.interpolation
  * The default behavior of this class will simply return a linear
  * interpolation for both easing phases; developers should create a subclass
  * of EaseInOut to get more interestion behavior.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class EaseInOut implements IEaser
 {
@@ -24,6 +29,11 @@ public class EaseInOut implements IEaser
      * <code>easeInFraction</code>, will create an easing instance
      * that spends the entire animation easing in. This is equivalent
      * to simply using the <code>easeInFraction = 1</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const IN:Number = 1;
 
@@ -32,6 +42,11 @@ public class EaseInOut implements IEaser
      * <code>easeInFraction</code>, will create an easing instance
      * that spends the entire animation easing out. This is equivalent
      * to simply using the <code>easeInFraction = 0</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const OUT:Number = 0;
 
@@ -41,6 +56,11 @@ public class EaseInOut implements IEaser
      * that eases in for the first half and eases out for the
      * remainder. This is equivalent
      * to simply using the <code>easeInFraction = .5</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const IN_OUT:Number = .5;
 
@@ -50,6 +70,11 @@ public class EaseInOut implements IEaser
      * 
      * @param easeInFraction Optional parameter that sets the value of
      * the <code>easeInFraction</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function EaseInOut(easeInFraction:Number = EaseInOut.IN_OUT)
     {
@@ -58,6 +83,11 @@ public class EaseInOut implements IEaser
 
     /**
      * Storage for the _easeInFraction property
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var _easeInFraction:Number = .5;
     
@@ -74,6 +104,11 @@ public class EaseInOut implements IEaser
      * @see IN_OUT
      * 
      * @default .5
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get easeInFraction():Number
     {
@@ -96,6 +131,11 @@ public class EaseInOut implements IEaser
      * 
      * @param fraction The elapsed fraction of the animation
      * @return The eased fraction of the animation
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function ease(fraction:Number):Number
     {
@@ -119,6 +159,11 @@ public class EaseInOut implements IEaser
      * of the animation.
      * @return A value that represents the eased value for this
      * part of the animation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function easeIn(fraction:Number):Number
     {
@@ -136,6 +181,11 @@ public class EaseInOut implements IEaser
      * of the animation.
      * @return A value that represents the eased value for this
      * part of the animation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function easeOut(fraction:Number):Number
     {
