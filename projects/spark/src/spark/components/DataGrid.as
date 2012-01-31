@@ -1078,7 +1078,6 @@ public class DataGrid extends SkinnableContainerBase
     }
     
     // TBD(hmuller): baselinePosition override
-    // TBD(hmuller): methods to enable scrolling
     
     //----------------------------------
     //  columns (delegates to grid.columns)
@@ -1209,8 +1208,8 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (setGridProperty("dataTipField", value))
             dispatchChangeEvent("dataTipFieldChanged");
-    }        
-        
+    } 
+    
     //----------------------------------
     //  dataTipFunction (delegates to grid.dataTipFunction)
     //----------------------------------    
