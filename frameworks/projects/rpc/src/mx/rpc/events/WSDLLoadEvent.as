@@ -15,8 +15,6 @@ package mx.rpc.events
 import flash.events.Event;
 import mx.rpc.wsdl.WSDL;
 
-[ExcludeClass]
-
 /**
  * The WSDLLoadEvent class represents the event object for the event dispatched 
  * when a WSDL XML document has loaded successfully.
