@@ -379,9 +379,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */    
     private function changeUseVirtualLayout():void
     {
-        cleanUpDataProvider();
-        invalidateProperties();
+        removeDataProviderListener();
+        removeAllItemRenderers();
         useVirtualLayoutChanged = true;
+        invalidateProperties();
     }
     
     private function layout_useVirtualLayoutChangedHandler(event:Event):void
@@ -428,7 +429,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         _itemRenderer = value;
         
-        cleanUpDataProvider();
+        removeDataProviderListener();
+        removeAllItemRenderers();
         invalidateProperties();
         
         itemRendererChanged = true;
@@ -474,7 +476,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         _itemRendererFunction = value;
         
-        cleanUpDataProvider();
+        removeDataProviderListener();
+        removeAllItemRenderers();
         invalidateProperties();
         
         itemRendererChanged = true;
@@ -563,14 +566,17 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (_dataProvider == value)
             return;
         
-        cleanUpDataProvider();
-        
-        _dataProvider = value;
+        removeDataProviderListener();
+        _dataProvider = value;  // listener will be added by commitProperties()
         dataProviderChanged = true;
         invalidateProperties();
         dispatchEvent(new Event("dataProviderChanged"));        
     }
     
+    /**
+     *  @private
+     *  Used below for sorting the virtualRendererIndices Vector.
+     */
     private static function sortDecreasing(x:int, y:int):Number
     {
         return y - x;
@@ -578,109 +584,71 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
-     *  Cleans up all the old item renderers.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    protected function cleanUpDataProvider():void
+     *  Apply itemRemoved() to the renderer and dataProvider item at index.
+     */
+    private function removeRendererAt(index:int):void
     {
-        if (_dataProvider)
-            _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
+        // TODO (rfrishbe): we can't key off of the oldDataProvider for 
+        // the item because it might not be there anymore (for instance, 
+        // in a dataProvider reset where the new data is loaded into 
+        // the dataProvider--the dataProvider doesn't actually change, 
+        // but we still need to clean up).
+        // Because of this, we are assuming the item is either:
+        //   1.  The data property if the item implements IDataRenderer 
+        //       and there is an itemRenderer or itemRendererFunction
+        //   2.  The item itself
         
-        var index:int;
-        var vLayout:Boolean = layout && layout.useVirtualLayout;
+        // Probably could fix above by also storing indexToData[], but that doesn't 
+        // seem worth it.  Sending in the wrong item here doesn't result in a big error...
+        // just the event with have the wrong item associated with it
         
-        // if there's an old dataProvider, and we've created the item renderer for 
-        // that dataProvider, then we need to clear out all those item renderers
-        if (indexToRenderer.length > 0)
-        {
-            var renderer:IVisualElement = indexToRenderer[index] as IVisualElement;
-            var item:Object;
-            
-            if (!vLayout)
-            {
-                for (index = indexToRenderer.length - 1; index >= 0; index--)
-                {
-                    // TODO (rfrishbe): we can't key off of the oldDataProvider for 
-                    // the item because it might not be there anymore (for instance, 
-                    // in a dataProvider reset where the new data is loaded into 
-                    // the dataProvider--the dataProvider doesn't actually change, 
-                    // but we still need to clean up).
-                    // Because of this, we are assuming the item is either:
-                    //   1.  The data property if the item implements IDataRenderer 
-                    //       and there is an itemRenderer or itemRendererFunction
-                    //   2.  The item itself
-                    
-                    // Probably could fix above by also storing indexToData[], but that doesn't 
-                    // seem worth it.  Sending in the wrong item here doesn't result in a big error...
-                    // just the event with have the wrong item associated with it
-                    renderer = indexToRenderer[index] as IVisualElement;
-                    if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
-                        item = IDataRenderer(renderer).data;
-                    else
-                        item = renderer;
-                    itemRemoved(item, index);
-                }
-                indexToRenderer = [];
-            }
-            else
-            {
-                for each (index in virtualRendererIndices.concat().sort(sortDecreasing))
-                {
-                    // TODO (rfrishbe): same as above
-                    
-                    renderer = indexToRenderer[index] as IVisualElement;
-                    if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
-                        item = IDataRenderer(renderer).data;
-                    else
-                        item = renderer;
-                    itemRemoved(item, index);  // removes index from virtualRendererIndices
-                }
-                
-                indexToRenderer = [];
-                virtualRendererIndices.length = 0;
-                oldVirtualRendererIndices.length = 0;
-                
-                for (var i:int = freeRenderers.length - 1; i >= 0; i--)
-                {
-                    var myItemRenderer:IVisualElement = freeRenderers.pop() as IVisualElement;
-                    super.removeChild(myItemRenderer as DisplayObject);
-                }
-            }
-        }
+        const renderer:IVisualElement = indexToRenderer[index] as IVisualElement;
+        var item:Object;
+        
+        if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
+            item = IDataRenderer(renderer).data;
+        else
+            item = renderer;
+        itemRemoved(item, index);
     }
     
     /**
      *  @private
-     *  Adds the elements of the data provider to the DataGroup.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  Remove all of the item renderers, clear the indexToRenderer table, clear
+     *  any cached virtual layout data, and clear the typical layout element.  Note that
+     *  this method does not depend on the dataProvider itself, see removeRendererAt().
      */ 
-    private function initializeDataProvider():void
+    private function removeAllItemRenderers():void
     {
-        if (_dataProvider)
+        if (indexToRenderer.length == 0)
+            return;
+
+        if (virtualRendererIndices && (virtualRendererIndices.length > 0))
         {
-            _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);
+            for each (var index:int in virtualRendererIndices.concat().sort(sortDecreasing))
+                removeRendererAt(index);
             
-            // Create all item renderers eagerly
-            if (!(layout && layout.useVirtualLayout))
+            virtualRendererIndices.length = 0;
+            oldVirtualRendererIndices.length = 0;
+            
+            for (var i:int = freeRenderers.length - 1; i >= 0; i--)
             {
-                const dataProviderLength:int = _dataProvider.length;
-                for (var index:int = 0; index < _dataProvider.length; index++)
-                    itemAdded(_dataProvider.getItemAt(index), index);
+                var myItemRenderer:IVisualElement = freeRenderers.pop() as IVisualElement;
+                super.removeChild(myItemRenderer as DisplayObject);
             }
-            else
-            {
-                // The display list will be created lazily, at updateDisplayList() time
-                invalidateSize();
-                invalidateDisplayList();
-            }
+        }   
+        else 
+        {
+            for (index = indexToRenderer.length - 1; index >= 0; index--)
+                removeRendererAt(index);
+        }
+
+        indexToRenderer = [];  // should be redundant
+        
+        if (layout)
+        {
+            layout.clearVirtualLayoutCache();
+            layout.typicalLayoutElement = null;
         }
     }
     
@@ -767,29 +735,84 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         return myItemRenderer;
     }
     
+    /** 
+     *  @private
+     *  If layout.useVirtualLayout=false, then ensure that there's one item 
+     *  renderer for every dataProvider item.   This method is only intended to be
+     *  called by commitProperties().
+     * 
+     *  Reuse as many of the IItemRenderer renderers in indexToRenders as possible.
+     *  Note that if itemRendererFunction was specified, we can reuse any of them. 
+     */
+    private function createItemRenderers():void
+    {
+        if (!dataProvider)
+        {
+            removeAllItemRenderers();
+            return;
+        }
+        
+        if (layout && layout.useVirtualLayout)
+        {
+            // The item renderers will be created lazily, at updateDisplayList() time
+            //removeAllItemRenderers();
+            invalidateSize();
+            invalidateDisplayList();
+            return;
+        }
+        
+        // Can't reuse renderers if ...
+        if ((itemRenderer == null) || (itemRendererFunction != null))  
+            removeAllItemRenderers();   // indexToRenderer.length = 0
+
+        const dataProviderLength:int = dataProvider.length; 
+
+        // Remove the renderers we're not going to need
+        for(var index:int = indexToRenderer.length - 1; index >= dataProviderLength; index--)
+            removeRendererAt(index);
+        
+        // Reset the existing renderers
+        for(index = 0; index < indexToRenderer.length; index++)
+        {
+            var item:Object = dataProvider.getItemAt(index);
+            var renderer:IVisualElement = indexToRenderer[index] as IVisualElement;
+            if (renderer)
+            {
+                setUpItemRenderer(renderer, index, item);
+            }
+            else // can't reuse this renderer
+            {
+                removeRendererAt(index); 
+                itemAdded(item, index);
+            }
+        }
+        
+        // Create new renderers
+        for (index = indexToRenderer.length; index < dataProviderLength; index++)
+            itemAdded(dataProvider.getItemAt(index), index);        
+    }
+    
     /**
      *  @private
      */
     override protected function commitProperties():void
     { 
-        if (dataProviderChanged || itemRendererChanged || useVirtualLayoutChanged)
+        // If the itemRenderer, itemRendererFunction, or useVirtualLayout properties changed,
+        // then recreate the item renderers from scratch.  If just the dataProvider changed,
+        // and layout.useVirtualLayout=false, then reuse as many item renderers as possible,
+        // remove the extra ones, or create more as needed.
+        
+        if (itemRendererChanged || useVirtualLayoutChanged || dataProviderChanged)
         {
             itemRendererChanged = false;
             useVirtualLayoutChanged = false;
             
-            if (layout)
-                layout.clearVirtualLayoutCache();
-            
-            // If an explicit value for typicalItem was never set, then clear
-            // the layout's typicalLayoutElement, which will force it to be
-            // recomputed by the next measured/updateDisplayList() call.
-            if (!explicitTypicalItem)
-                setTypicalLayoutElement(null);
-            
-            initializeDataProvider();
-            
-            // Don't reset the scroll positions until the new ItemRenderers are created
-            // with initializeDataProvider, see bug https://bugs.adobe.com/jira/browse/SDK-23175
+            // item renderers and the dataProvider listener have already been removed
+            createItemRenderers();
+            addDataProviderListener();
+
+            // Don't reset the scroll positions until the new ItemRenderers have been
+            // created, see bug https://bugs.adobe.com/jira/browse/SDK-23175
             if (dataProviderChanged)
             {
                 dataProviderChanged = false;
@@ -799,8 +822,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             maskChanged = true;
         }
         
-        // Need to initializeDataProvider before calling super.commitProperties
-        // initializeDataProvider removes all of the display list children.
+        // Need to create item renderers before calling super.commitProperties()
         // GroupBase's commitProperties reattaches the mask
         super.commitProperties();
         
@@ -918,8 +940,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             return insertIndex;                   
         }
         
-        super.setChildIndex(renderer as DisplayObject, insertIndex++);        
-        return insertIndex;
+        super.setChildIndex(renderer as DisplayObject, insertIndex);        
+        return insertIndex + 1;
     }
     
     /**
@@ -1098,7 +1120,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             delete indexToRenderer[vrIndex];
             
             // Free or remove the IR.
-            var item:Object = dataProvider.getItemAt(vrIndex);
+            var item:Object = (dataProvider.length > vrIndex) ? dataProvider.getItemAt(vrIndex) : null;
             if ((item != elt) && (elt is IDataRenderer))
             {
                 // IDataRenderer(elt).data = null;  see https://bugs.adobe.com/jira/browse/SDK-20962
@@ -1263,7 +1285,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             var createdIR:Boolean = false;
             var recycledIR:Boolean = false;
             
-            if (!elt)
+            // If the IR for index already exists, it may not be associated with the 
+            // right item if the dataProvider has changed
+            if (elt)
+                setUpItemRenderer(elt, index, dataProvider.getItemAt(index));
+            else
             {
                 var item:Object = dataProvider.getItemAt(index);
                 var recyclingOK:Boolean = (itemRendererFunction == null) && (itemRenderer != null);
@@ -1408,7 +1434,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         {
             // Increment all of the indices in virtualRendererIndices that are >= index.
             
-            if (layout && layout.useVirtualLayout && virtualRendererIndices)
+            if (virtualRendererIndices)
             {
                 const virtualRendererIndicesLength:int = virtualRendererIndices.length;
                 for (var i:int = 0; i < virtualRendererIndicesLength; i++)
@@ -1418,7 +1444,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                         virtualRendererIndices[i] = vrIndex + 1;
                 }
                 
-                indexToRenderer.splice(index, 0, null); // shift items >= index to the right                   
+                indexToRenderer.splice(index, 0, null); // shift items >= index to the right
+                // virtual ItemRenderer itself will be added lazily, by updateDisplayList()
             }
             
             invalidateSize();
@@ -1461,7 +1488,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         // Decrement all of the indices in virtualRendererIndices that are > index
         // Remove the one (at vrItemIndex) that equals index.
         
-        if (layout && layout.useVirtualLayout && virtualRendererIndices)
+        if (virtualRendererIndices && (virtualRendererIndices.length > 0))
         {
             var vrItemIndex:int = -1;  // location of index in virtualRendererIndices 
             const virtualRendererIndicesLength:int = virtualRendererIndices.length;
@@ -1506,10 +1533,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     { 
         const childParent:Object = child.parent;
         const overlayCount:int = _overlay ? _overlay.numDisplayObjects : 0;
+        const childIndex:int = (index != -1) ? index : super.numChildren - overlayCount;
         
         if (childParent == this)
         {
-            super.setChildIndex(child, index != -1 ? index : super.numChildren - 1 - overlayCount);
+            super.setChildIndex(child, childIndex - 1);
             return;
         }
         
@@ -1520,9 +1548,27 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             (child is IVisualElement && (child as IVisualElement).depth != 0))
             invalidateLayering();
 
-        super.addChildAt(child, index != -1 ? index : super.numChildren - overlayCount);
+        super.addChildAt(child, childIndex);
     }
     
+    /**
+     *  @private
+     */
+    private function addDataProviderListener():void
+    {
+        if (_dataProvider)
+            _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);
+    }
+
+    /**
+     *  @private
+     */
+    private function removeDataProviderListener():void
+    {
+        if (_dataProvider)
+            _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
+    }
+
     /**
      *  @private
      *  Called when contents within the dataProvider changes.  We will catch certain 
@@ -1574,7 +1620,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             case CollectionEventKind.REFRESH:
             {
                 // from a filter or sort...let's just reset everything
-                cleanUpDataProvider();
+                removeDataProviderListener();
                 dataProviderChanged = true;
                 invalidateProperties();
                 break;
@@ -1583,7 +1629,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             case CollectionEventKind.RESET:
             {
                 // reset everything
-                cleanUpDataProvider();
+                removeDataProviderListener();                
                 dataProviderChanged = true;
                 invalidateProperties();
                 break;
