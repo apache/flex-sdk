@@ -99,7 +99,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="repeatDelay", type="Number", format="Time", inherit="no")]
+[Style(name="repeatDelay", type="Number", format="Time", inherit="no", minValue="0.0")]
 
 /**
  *  Number of milliseconds between page events
@@ -112,7 +112,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="repeatInterval", type="Number", format="Time", inherit="no")]
+[Style(name="repeatInterval", type="Number", format="Time", inherit="no", minValueExclusive="0.0")]
 
 /**
  * This style determines whether the scrollbar will animate
@@ -387,6 +387,8 @@ public class ScrollBar extends TrackBase
     private var _pageSize:Number = 20;
 
     private var pageSizeChanged:Boolean = false;
+
+    [Inspectable(minValue="0.0")]
 
     /**
      *  The change in the value of the <code>value</code> property 
