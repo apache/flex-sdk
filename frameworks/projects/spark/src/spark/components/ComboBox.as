@@ -119,6 +119,11 @@ use namespace mx_internal;
  *  enters characters into the prompt area. As the user enters characters, 
  *  the drop-down area of the control opens. 
  *  It then and scrolls to and highlights the closest match in the item list.</p>
+ *
+ *  <p><b>Note: </b>The Spark list-based controls (the Spark ListBase class and its subclasses
+ *  such as ButtonBar, ComboBox, DropDownList, List, and TabBar) do not support the BasicLayout class
+ *  as the value of the <code>layout</code> property. 
+ *  Do not use BasicLayout with the Spark list-based controls.</p>
  * 
  *  <p>The ComboBox control has the following default characteristics:</p>
  *     <table class="innertable">
@@ -141,7 +146,7 @@ use namespace mx_internal;
  *        <tr>
  *           <td>Default skin class</td>
  *           <td>spark.skins.spark.ComboBoxSkin
-                <p>spark.skins.spark.ComboBoxTextInputSkin</p></td>
+ *               <p>spark.skins.spark.ComboBoxTextInputSkin</p></td>
  *        </tr>
  *     </table>
  *
