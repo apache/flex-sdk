@@ -463,16 +463,20 @@ public class AnimateTransformInstance extends AnimateInstance
             // autoProps holds the properties that we want to automatically
             // create animations for. Only do this for properties that
             // are directly related to this effect instance (affectedProperties)
-            // and which change between states (propertyChanges values)
+            // and which change between states (propertyChanges values).
+            // Skip width/height because these are only used to calculate
+            // autoCenterTransform; we don't want to animate those values as
+            // a side effect of a transform effect.
             for (s in propertyChanges.end)
                 if (affectedProperties[s] !== undefined &&
                     propertyChanges.end[s] !== undefined &&
                     propertyChanges.start[s] !== undefined)
                 {
-                    if (s == "postLayoutTranslationX" ||
-                        s == "postLayoutTranslationY" ||
-                        s == "postLayoutTranslationZ" ||
-                        propertyChanges.start[s] != propertyChanges.end[s])
+                    if (s != "width" && s!= "height" &&
+                        (s == "postLayoutTranslationX" ||
+                         s == "postLayoutTranslationY" ||
+                         s == "postLayoutTranslationZ" ||
+                         propertyChanges.start[s] != propertyChanges.end[s]))
                     {
                         autoProps[s] = s;
                     }
