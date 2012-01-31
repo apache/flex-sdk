@@ -310,35 +310,37 @@ public class AnimateTransformInstance extends AnimateInstance
      */
     public function addMotionPath(newMotionPath:MotionPath, newEffectStartTime:Number = 0):void
     {
+        var added:Boolean = false;
         if (motionPaths)
         {
             var i:int;
             var j:int;
-            var prop:MotionPath;
+            var mp:MotionPath;
             var n:int = motionPaths.length;
             if (newEffectStartTime < instanceStartTime)
             {
                 var deltaStartTime:Number = instanceStartTime - newEffectStartTime;
                 for (i = 0; i < n; i++)
                 {
-                    prop = MotionPath(motionPaths[i]);
-                    for (j = 0; j < prop.keyframes.length; j++)
-                        prop.keyframes[j].time += deltaStartTime;
+                    mp = MotionPath(motionPaths[i]);
+                    for (j = 0; j < mp.keyframes.length; j++)
+                        mp.keyframes[j].time += deltaStartTime;
                 }
                 instanceStartTime = newEffectStartTime;
             }
             for (i = 0; i < n; i++)
             {
-                prop = MotionPath(motionPaths[i]);
-                if (prop.property == newMotionPath.property)
+                mp = MotionPath(motionPaths[i]);
+                if (mp.property == newMotionPath.property)
                 {
                     // add mp's keyframes here
                     for (j = 0; j < newMotionPath.keyframes.length; j++)
                     {
-                        insertKeyframe(prop.keyframes, newMotionPath.keyframes[j], 
+                        insertKeyframe(mp.keyframes, newMotionPath.keyframes[j], 
                             (newEffectStartTime - instanceStartTime));
                     }
-                    return;
+                    added = true;
+                    break;
                 }
             }
         }
@@ -349,14 +351,27 @@ public class AnimateTransformInstance extends AnimateInstance
             // it below
             instanceStartTime = newEffectStartTime;
         }
-        // MotionPath on mp.property does not exist yet; add it
-        if (newEffectStartTime > instanceStartTime)
+        if (!added)
         {
-            for (j = 0; j < newMotionPath.keyframes.length; j++)
-                newMotionPath.keyframes[j].time += 
-                    (newEffectStartTime - instanceStartTime);
+            // MotionPath on mp.property does not exist yet; add it
+            if (newEffectStartTime > instanceStartTime)
+            {
+                for (j = 0; j < newMotionPath.keyframes.length; j++)
+                    newMotionPath.keyframes[j].time += 
+                        (newEffectStartTime - instanceStartTime);
+            }
+            motionPaths.push(newMotionPath);
         }
-        motionPaths.push(newMotionPath);
+        // Now adjust the duration if new final time of any keyframe sequence
+        // is greater than our current duration
+        n = motionPaths.length;
+        for (i = 0; i < n; i++)
+        {
+            mp = MotionPath(motionPaths[i]);
+            var kf:Keyframe = mp.keyframes[mp.keyframes.length-1];
+            if (!isNaN(kf.time))
+                duration = Math.max(duration, kf.time);
+        }
     }
     
    /**
