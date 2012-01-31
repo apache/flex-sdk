@@ -75,7 +75,7 @@ use namespace mx_internal;
  *  
  *  @includeExample examples/VBoxExample.mxml
  *
- *  @see mx.components.Container
+ *  @see mx.core.Container
  *  @see mx.containers.Box
  *  @see mx.containers.HBox
  *  
