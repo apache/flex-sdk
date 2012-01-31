@@ -36,7 +36,6 @@ import text.edit.ISelectionManager;
 import text.edit.OperationEvent;
 import text.edit.ParagraphStyleChangeOperation;
 import text.edit.SelectionChangedEvent;
-import text.edit.SelectionColor;
 import text.edit.SelectionState;
 import text.edit.SplitParOperation;
 import text.edit.StyleChangeOperation;
