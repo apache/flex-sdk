@@ -22,9 +22,11 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 import flash.utils.getTimer;
+
 import mx.controls.listClasses.IListItemRenderer;
 import mx.core.EdgeMetrics;
 import mx.core.IFlexDisplayObject;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IRectangularBorder;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
@@ -32,10 +34,10 @@ import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.effects.Tween;
 import mx.events.DropdownEvent;
+import mx.events.FlexMouseEvent;
 import mx.events.InterManagerRequest;
 import mx.events.ListEvent;
 import mx.events.MenuEvent;
-import mx.events.FlexMouseEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
@@ -865,9 +867,10 @@ public class PopUpButton extends Button
         if (getPopUp() == null)
             return;
         
-        var popUpGap:Number = getStyle("popUpGap");
-        var point:Point = new Point(layoutDirection == "rtl" ? _popUp.width : 0, unscaledHeight + popUpGap);
-        point = localToGlobal(point);
+        if (_popUp is ILayoutDirectionElement)
+        {
+            ILayoutDirectionElement(_popUp).layoutDirection = layoutDirection;
+        }
         
         //Show or hide the popup
         var initY:Number;
@@ -878,7 +881,7 @@ public class PopUpButton extends Button
         var screen:Rectangle = sm.getVisibleApplicationRect();
 
         if (show)
-        {          
+        {
             if (_popUp.parent == null)
             {
                 PopUpManager.addPopUp(_popUp, this, false);
@@ -886,8 +889,15 @@ public class PopUpButton extends Button
             }
             else
                 PopUpManager.bringToFront(_popUp);
-
-            if (point.y + _popUp.height > screen.bottom && 
+        }
+            
+        var popUpGap:Number = getStyle("popUpGap");
+        var point:Point = new Point(layoutDirection == "rtl" ? _popUp.getExplicitOrMeasuredWidth() : 0, unscaledHeight + popUpGap);
+        point = localToGlobal(point);
+        
+        if (show)
+        {          
+           if (point.y + _popUp.height > screen.bottom && 
                 point.y > (screen.top + height + _popUp.height))
             { 
                 // PopUp will go below the bottom of the stage
