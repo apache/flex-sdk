@@ -136,10 +136,9 @@ use namespace mx_internal;
  *
  *  <p>The scale of an Spinner component is the set of 
  *  allowed values for the <code>value</code> property. 
- *  The allowed values are the integer multiples of 
- *  the <code>snapInterval</code> property between 
- *  the <code>maximum</code> and <code>minimum</code> values, 
- *  including the <code>maximum</code> and <code>minimum</code> values. 
+ *  The allowed values are the sum of the minimum with
+ *  integer multiples of the <code>snapInterval</code> property
+ *  which are less than or equal to the <code>maximum</code>value.
  *  For example:</p>
  *  
  *  <ul>
@@ -148,7 +147,7 @@ use namespace mx_internal;
  *    <li><code>snapInterval</code> = 3</li>
  *  </ul>
  *  
- *  Therefore the scale is {-1,0,3,6,9,10}.
+ *  Therefore the scale is {-1,2,5,8,10}.
  *
  *  <p>The Spinner control has the following default characteristics:</p>
  *     <table class="innertable">
@@ -503,16 +502,16 @@ public class Spinner extends Range implements IFocusManagerComponent
     /**
      *  @private
      *  If the component is in focus,
-	 *  then it should respond to mouseWheel events.
-	 *  We listen to these events on systemManager in the capture phase
-	 *  because this behavior should have the highest priority. 
+     *  then it should respond to mouseWheel events.
+     *  We listen to these events on systemManager in the capture phase
+     *  because this behavior should have the highest priority. 
      */ 
     override protected function focusInHandler(event:FocusEvent):void
     {
         super.focusInHandler(event);
 
         systemManager.getSandboxRoot().addEventListener(
-			MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
+            MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
     }
     
     /**
@@ -523,14 +522,14 @@ public class Spinner extends Range implements IFocusManagerComponent
         super.focusOutHandler(event);
 
         systemManager.getSandboxRoot().removeEventListener(
-			MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
+            MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, true);
     }
     
     /**
      *  Handles the <code>mouseWheel</code> event
-	 *  when the component is in focus.
-	 *  The spinner is moved by the amount of the mouse event delta
-	 *  multiplied by the <code>stepSize</code>.  
+     *  when the component is in focus.
+     *  The spinner is moved by the amount of the mouse event delta
+     *  multiplied by the <code>stepSize</code>.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
