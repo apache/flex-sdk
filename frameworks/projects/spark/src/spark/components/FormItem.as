@@ -39,7 +39,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4.5
  */
-[Style(name="requiredIndicatorSource", type="Class", inherit="no")]
+[Style(name="requiredIndicatorSource", type="Object", inherit="no")]
 
 /**
  *  Specifies the image source to use for the required indicator. 
@@ -51,7 +51,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4.5
  */
-[Style(name="errorIndicatorSource", type="Class", inherit="no")]
+[Style(name="errorIndicatorSource", type="Object", inherit="no")]
 
 
 /**
@@ -349,8 +349,7 @@ public class FormItem extends SkinnableContainer
         }
         else if (instance == contentGroup)
         {
-            contentGroup.addEventListener(FlexEvent.VALID, contentGroup_validHandler, true);
-            contentGroup.addEventListener(FlexEvent.INVALID, contentGroup_invalidHandler, true);
+            contentGroup.addEventListener("errorStringChanged", contentGroup_errorStringdHandler, true);
         }
     }
     
@@ -362,6 +361,8 @@ public class FormItem extends SkinnableContainer
         // by a different skin's helpContentGroup
         if (instance == helpContentGroup)
             helpContentGroup.removeAllElements();
+        if (instance == contentGroup)
+            contentGroup.removeEventListener("errorStringChanged", contentGroup_errorStringdHandler, true);
     }
     
     //--------------------------------------------------------------------------
@@ -444,25 +445,13 @@ public class FormItem extends SkinnableContainer
     //  Event Handlers 
     //
     //--------------------------------------------------------------------------
-   
     /**
      *  @private
      */
-    private function contentGroup_validHandler(event:FlexEvent):void
+    private function contentGroup_errorStringdHandler(event:Event):void
     {
-        // update error string
         updateErrorString();
     }
-    
-    /**
-     *  @private
-     */
-    private function contentGroup_invalidHandler(event:FlexEvent):void
-    {
-        // update error string
-        updateErrorString();
-    }
-    
 
     
 }
