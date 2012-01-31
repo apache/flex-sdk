@@ -84,7 +84,7 @@ public class AddItemAction extends Effect
     public function AddItemAction(target:Object = null)
     {
         super(target);
-
+        duration = 0;
         instanceClass = AddItemActionInstance;
     }
     
