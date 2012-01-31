@@ -12,7 +12,6 @@ import mx.events.FlexEvent;
 import mx.events.ItemExistenceChangedEvent;
 import mx.graphics.Graphic;
 import mx.graphics.IGraphicElement;
-import mx.graphics.IGraphicElementHost;
 import mx.graphics.MaskType;
 import mx.utils.MatrixUtil;
 import mx.graphics.graphicsClasses.GraphicElement;
