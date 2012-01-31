@@ -245,6 +245,9 @@ public class GroupBase extends UIComponent implements IViewport
             _layout.clipContent = value;
         else
             _layoutProperties.clipContent = value;
+
+        // Clip content affects measured minimum size
+        invalidateSize();
     }    
     
     //----------------------------------
@@ -636,6 +639,14 @@ public class GroupBase extends UIComponent implements IViewport
         
             layoutInvalidateSizeFlag = false;
             _layout.measure();
+            
+            // Special case: If the group clips content, or resizeMode is "scale"
+            // then measured minimum size is zero
+            if (clipContent || resizeMode == ResizeMode.SCALE)
+            {
+                measuredMinWidth = 0;
+                measuredMinHeight = 0;
+            }
         }
     }
 
