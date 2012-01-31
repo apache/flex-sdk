@@ -1398,7 +1398,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
         //    at the end of the stack.
         // In both cases, we need to decrement selectedIndex.
         if (index < currentSelectedIndex ||
-            currentSelectedIndex == (numChildren - 1))
+            currentSelectedIndex == numChildren)
         {
             // If the selectedIndex was already 0, it should go to -1.
             // -1 is a special value; in order to avoid runtime errors
