@@ -21,6 +21,8 @@ package spark.components
  *  @see spark.components.RichEditableText
  *  @see spark.components.TextArea
  *  @see spark.components.TextInput
+ *
+ *  @includeExample TraceSelectionRanges
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
