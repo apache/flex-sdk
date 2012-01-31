@@ -86,6 +86,7 @@ public class Scale3D extends AnimateTransform3D
         super(target);
         applyLocalProjection = true;
         applyChangesPostLayout = true;
+        transformEffectSubclass = true;
     }
 
     //--------------------------------------------------------------------------
