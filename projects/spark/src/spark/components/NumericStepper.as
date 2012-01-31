@@ -216,6 +216,22 @@ public class NumericStepper extends Spinner
     //--------------------------------------------------------------------------
 
     //----------------------------------
+    //  editable
+    //----------------------------------
+
+    /**
+     *  @private
+     *  for IIMESupport 
+     */
+    public function get editable():Boolean
+    {
+        if (textDisplay && textDisplay.textDisplay)
+            return textDisplay.textDisplay.editable;
+        // most numeric steppers will be editable
+        return true;
+    }
+
+    //----------------------------------
     //  maxChars
     //----------------------------------
 
