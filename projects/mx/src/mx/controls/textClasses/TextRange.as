@@ -101,11 +101,11 @@ public class TextRange
 
 		try
 		{
-			textField = _owner["textArea"].mx_internal::getTextField();
+			textField = _owner["textArea"].getTextField();
 		}
 		catch(e:Error)
 		{
-			textField = this["_owner"].mx_internal::getTextField();
+			textField = this["_owner"].getTextField();
 		}
 
 		_modifiesSelection = modifiesSelection;
