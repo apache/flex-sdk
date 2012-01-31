@@ -14,8 +14,6 @@ package mx.rpc.events
 
 import flash.events.Event;
 
-[ExcludeClass]
-
 /**
  * The XMLLoadEvent class is a base class for events that are dispatched when an RPC service
  * successfully loaded an XML document.
