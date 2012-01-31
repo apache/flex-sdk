@@ -53,10 +53,10 @@ public class SerializationFilter
      * in the Operation's argumentNames array and the values are the values of the parameters.
      * When using the default implementation, you must set argumentNames to have the same number
      * of elements as the parameters array.
-     * <p>
-     * Note that this method is not used if you invoke the HTTP operation using the sendBody
+     * 
+     * <p>Note that this method is not used if you invoke the HTTP operation using the sendBody
      * method which just takes a single object.  In that case, this step is skipped and only
-     * the serializeBody method is called.
+     * the serializeBody method is called.</p>
      */
     public function serializeParameters(operation:AbstractOperation, params:Array):Object
     {
