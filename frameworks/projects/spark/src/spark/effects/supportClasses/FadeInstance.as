@@ -139,7 +139,7 @@ public class FadeInstance extends AnimateInstance
                 if (alphaFrom == 0)
                 {
                     target.alpha = 0;
-                    // TODO: is Group or is UIComponent?
+                    // FIXME (chaase): is Group or is UIComponent?
                     if (target.parent is Group)
                         target.parent.validateNow();
                 }
@@ -180,7 +180,7 @@ public class FadeInstance extends AnimateInstance
         }
         // And logic to make the object invisible at the end if we're
         // fading it out
-        // TODO (chaase): simplify logic of which variables we are 
+        // FIXME (chaase): simplify logic of which variables we are 
         // side-effecting and what we should reset at the end
         if ("visible" in target && target.visible && 
             alphaFrom != 0 && alphaTo == 0 &&
