@@ -116,10 +116,6 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     //
     //--------------------------------------------------------------------------
     
-    //----------------------------------
-    //  hovered
-    //----------------------------------
-
     /**
      *  @private
      *  Flag that is set when the mouse is hovered over the item renderer.
@@ -134,9 +130,25 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Properties
+    //  Public Properties 
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  labelElement
+    //----------------------------------
+    
+    /**
+     * Optional item renderer label component. 
+     * This component is used to determine the renderer's 
+     * parent component baselinePosition. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var labelElement:TextGraphicElement;
     
     //----------------------------------
     //  allowDeselection
@@ -201,37 +213,32 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     //----------------------------------
     //  selected
     //----------------------------------
-
+    /**
+     *  @private
+     *  storage for the selected property 
+     */    
     private var _selected:Boolean = false;
     
+    /**
+     *  @inheritDoc 
+     */    
     public function get selected():Boolean
     {
         return _selected;
     }
     
+    /**
+     *  @private
+     */    
     public function set selected(value:Boolean):void
     {
         if (value != _selected)
         {
             _selected = value;
-            currentState = getCurrentSkinState();
+            currentState = getCurrentRendererState();
         }
     }
        
-    //----------------------------------
-    //  labelElement
-    //----------------------------------
-    
-    /**
-     * Optional item renderer label component. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var labelElement:TextGraphicElement;
-    
     //----------------------------------
     //  labelText
     //----------------------------------
@@ -287,10 +294,49 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Event handling
+    //  Methods
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     *  Return the skin state. This can be overridden by subclasses to add more states.
+     *  NOTE: Undocumented for now since MXMLComponent class has not been fleshed out.
+     */
+    protected function getCurrentRendererState():String
+    {
+        if (selected)
+            return "selected";
+        
+        if (hovered)
+            return "hovered";
+            
+        return "normal";
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */ 
+    override protected function commitProperties():void
+    {
+    	super.commitProperties();
+    	
+        if (rendererStateIsDirty)
+        {
+            currentState = getCurrentRendererState();
+            rendererStateIsDirty = false;
+        }
+    }
+    
+    /**
+     *  @private
+     */ 
     override public function styleChanged(styleName:String):void
     {
         var allStyles:Boolean = styleName == null || styleName == "styleName";
@@ -320,49 +366,19 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Methods
+    //  Event handling
     //
     //--------------------------------------------------------------------------
     
     /**
      *  @private
-     */ 
-    override protected function commitProperties():void
-    {
-    	super.commitProperties();
-    	
-        if (rendererStateIsDirty)
-        {
-            currentState = getCurrentSkinState();
-            rendererStateIsDirty = false;
-        }
-    }
-    
-    /**
-     *  @private
      *  Attach the mouse events.
      */
-    protected function addHandlers():void
+    private function addHandlers():void
     {
-        addEventListener(MouseEvent.ROLL_OVER, rollOverHandler);
-        addEventListener(MouseEvent.ROLL_OUT, rollOutHandler);
-        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
-    }
-    
-    /**
-     *  @private
-     *  Return the skin state. This can be overridden by subclasses to add more states.
-     *  NOTE: Undocumented for now since MXMLComponent class has not been fleshed out.
-     */
-    protected function getCurrentSkinState():String
-    {
-        if (selected)
-            return "selected";
-        
-        if (hovered)
-            return "hovered";
-            
-        return "normal";
+        addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
+        addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
+        addEventListener(MouseEvent.MOUSE_DOWN, itemRenderer_mouseDownHandler);
     }
     
     /**
@@ -375,30 +391,30 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     }
     
     /**
-     *  @private
+     * 
      *  Mouse rollOver event handler.
      */
-    private function rollOverHandler(event:MouseEvent):void
+    protected function itemRenderer_rollOverHandler(event:MouseEvent):void
     {
         hovered = true;
-        currentState = getCurrentSkinState();
+        currentState = getCurrentRendererState();
     }
     
     /**
-     *  @private
+     *  
      *  Mouse rollOut event handler.
      */
-    private function rollOutHandler(event:MouseEvent):void
+    protected function itemRenderer_rollOutHandler(event:MouseEvent):void
     {
         hovered = false;
-        currentState = getCurrentSkinState();
+        currentState = getCurrentRendererState();
     }
     
     /**
-     *  @private
+     *  
      *  Mouse down event handler.
      */
-    private function mouseDownHandler(event:MouseEvent):void
+    protected function itemRenderer_mouseDownHandler(event:MouseEvent):void
     {
         dispatchEvent(new MouseEvent("click"));
     }
