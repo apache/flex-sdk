@@ -129,8 +129,12 @@ public class FxToggleButton extends FxButton
      */ 
     protected function clickHandler(event:MouseEvent):void
     {
-        if (!isEnabled)
-            return;
+        // TODO EGeorgie: Currently we handle MouseEvent.CLICK in the base class
+        // where we call stopImmediatePropagation to prevent custom event listeners
+        // from being called when the button is disabled.
+        // Should we be using a second evnet handler and continue relying on that
+        // behavior in the subclasses, or should we have a single event hander
+        // in the base and override a method here instead? 
         selected = !selected;
         dispatchEvent(new Event(Event.CHANGE));
         event.updateAfterEvent();
