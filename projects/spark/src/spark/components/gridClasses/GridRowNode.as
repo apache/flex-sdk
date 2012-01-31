@@ -98,10 +98,12 @@ public final class GridRowNode
      */
     private function updateMaxHeight():Boolean
     {
-        // FIXME (klin): use max heap? might not be worth the overhead.
         var max:Number = 0;
         for each (var cellHeight:Number in cellHeights)
-            max = Math.max(max, cellHeight);
+        {
+            if (cellHeight > max)
+                max = cellHeight;
+        }
         
         const changed:Boolean = maxCellHeight != max;
         maxCellHeight = max;
@@ -143,6 +145,21 @@ public final class GridRowNode
         
         cellHeights[index] = value;
         
+        // If new height is equal to maxCellHeight, it doesn't change
+        // so just return.
+        if (value == maxCellHeight)
+            return false;
+        
+        // If new height is greater than maxCellHeight, the new height 
+        // is the new maxCellHeight.
+        if (value > maxCellHeight)
+        {
+            maxCellHeight = value;
+            return true;
+        }
+        
+        // If new height is less than maxCellHeight, we need to check if
+        // the maxCellHeight has changed.
         return updateMaxHeight();
     }
     
@@ -170,7 +187,7 @@ public final class GridRowNode
      */
     public function moveColumns(fromCol:int, toCol:int, count:int):void
     {
-        GridDimensions.insertValuesToVector(cellHeights, toCol, cellHeights.splice(fromCol, count));
+        GridDimensions.insertElementsToVector(cellHeights, toCol, cellHeights.splice(fromCol, count));
     }
     
     /**
