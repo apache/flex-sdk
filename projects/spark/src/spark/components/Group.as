@@ -17,7 +17,6 @@ import flex.graphics.IGraphicElementHost;
 import flex.graphics.MaskType;
 import flex.graphics.TransformUtil;
 import flex.graphics.graphicsClasses.GraphicElement;
-import flex.intf.ILayout;
 import flex.intf.ILayoutItem;
 import flex.intf.IViewport;
 import flex.layout.BasicLayout;
