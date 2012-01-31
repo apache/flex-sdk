@@ -225,7 +225,7 @@ public class StreamingHTTPChannel extends HTTPChannel
             streamingConnectionHandler.addEventListener(SecurityErrorEvent.SECURITY_ERROR, streamSecurityErrorHandler);
             streamingConnectionHandler.addEventListener(StatusEvent.STATUS, streamStatusHandler);
         }
-        streamingConnectionHandler.openStreamingConnection();
+        streamingConnectionHandler.openStreamingConnection(appendToURL);
     }
 
     //--------------------------------------------------------------------------
