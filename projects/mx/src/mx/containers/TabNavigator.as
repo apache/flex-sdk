@@ -379,6 +379,7 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
         // Container.init() has set tabEnabled false, so we
         // have to set it back to true.
         tabEnabled = true;
+        hasFocusableChildren = true;
 
         historyManagementEnabled = true;
     }
