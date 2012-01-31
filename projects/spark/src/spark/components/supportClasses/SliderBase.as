@@ -465,6 +465,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
         // array is returned. Consider reversed HSliders or VSliders.
         var prevValue:Number = this.value;
         var newValue:Number;
+        var stopPropagation:Boolean = false;
         
         switch (event.keyCode)
         {
@@ -474,6 +475,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
                 newValue = nearestValidValue(value - stepSize, valueInterval);
                 positionThumb(valueToPosition(newValue));
                 setValue(newValue);
+                stopPropagation = true;
                 break;
             }
 
@@ -483,24 +485,30 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
                 newValue = nearestValidValue(value + stepSize, valueInterval);
                 positionThumb(valueToPosition(newValue));
                 setValue(newValue);
+                stopPropagation = true;
                 break;
             }
             
             case Keyboard.HOME:
             {
                 value = minimum;
+                stopPropagation = true;
                 break;
             }
 
             case Keyboard.END:
             {
                 value = maximum;
+                stopPropagation = true;
                 break;
             }
         }
 
         if (value != prevValue)
             dispatchEvent(new Event("change"));
+            
+        if (stopPropagation)
+        	event.stopPropagation();
     }
 
     //---------------------------------
