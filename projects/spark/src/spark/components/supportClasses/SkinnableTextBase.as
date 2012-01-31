@@ -145,6 +145,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  <code>selectionActivePosition</code> properties have changed
  *  for any reason.
  *
+ *  <p><b>For the Mobile theme, this is not dispatched.</b></p>
+ * 
  *  @eventType mx.events.FlexEvent.SELECTION_CHANGE
  *  
  *  @langversion 3.0
@@ -159,6 +161,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  You can alter the operation, or cancel the event
  *  to prevent the operation from being processed.
  *
+ *  <p><b>For the Mobile theme, this is not dispatched.</b></p>
+ * 
  *  @eventType spark.events.TextOperationEvent.CHANGING
  *  
  *  @langversion 3.0
@@ -184,6 +188,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  Dispatched when a keystroke is about to be input to
  *  the component.
  *
+ *  <p><b>For the Mobile theme, this is not dispatched.</b></p>
+ * 
  *  @eventType flash.events.TextEvent.TEXT_INPUT
  *  
  *  @langversion 3.0
@@ -244,13 +250,53 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  By default, IEditableText is RichEditableText for the Spark theme and StyleableStageText
  *  for the Mobile theme. StyleableTextField is also available for the Mobile theme.
  *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:SkinnableTextBase&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:SkinnableTextBase
+ *    autoCapitalize="none"  <b>[Mobile theme only]</b>
+ *    autoCorrect="true"  <b>[Mobile theme only]</b>
+ *    displayAsPassword="false"
+ *    editable="true"
+ *    imeMode="null"  <b>[Spark theme only]</b>
+ *    maxChars="0"
+ *    prompt="null"  <b>[Spark theme only]</b>
+ *    restrict="null"
+ *    returnLabelKey="default"  <b>[Mobile theme only]</b>
+ *    selectable="true"
+ *    selectionHighlighting="whenFocused"  <b>[Spark theme only]</b>
+ *    softKeyBoardType="default"  <b>[Mobile theme only]</b>
+ *    text=""
+ *    typicalText="null"  <b>[Spark theme only]</b>
+ *  
+ *    <strong>Styles</strong>
+ *    borderAlpha="1.0"
+ *    borderColor="0x696969"
+ *    borderVisible="true"
+ *    contentBackgroundAlpha="1.0" 
+ *    contentBackgroundColor="0xFFFFFF"
+ *    focusAlpha="0.55"
+ *    focusColor="0x70B2EE"
+ *    showPromptWhenFocused="true"
+ * 
+ *    <strong>Events</strong>
+ *    change="<i>No default</i>"
+ *    changing="<i>No default</i>"  <b>[Spark theme only]</b>
+ *    selectionChange="<i>No default</i>"  <b>[Spark theme only]</b>
+ *    textInput="<i>No default</i>"  <b>[Spark theme only]</b>
+ *  /&gt;
+ *  </pre>
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
 public class SkinnableTextBase extends SkinnableComponent 
-    implements IFocusManagerComponent, IIMESupport
+    implements IFocusManagerComponent, IIMESupport, ISoftKeyboardHintClient
 {
     include "../../core/Version.as";
     
@@ -853,7 +899,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="false")]
 
     /**
-     *  @copy flash.text.TextField#displayAsPassword
+     *  @inheritDoc
      * 
      *  @default false
      * 
@@ -907,6 +953,8 @@ public class SkinnableTextBase extends SkinnableComponent
      *
      *  <p><b>For the Mobile theme, see
      *  spark.components.supportClasses.StyleableStageText.editable</b></p>
+     * 
+     *  @default true
      * 
      *  @see spark.components.RichEditableText#editable
      *  @see spark.components.supportClasses.StyleableStageText#editable
@@ -1031,7 +1079,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="0")]    
 
     /**
-     *  @copy flash.text.TextField#maxChars
+     *  @inheritDoc
      * 
      *  @default 0
      * 
@@ -1077,7 +1125,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="null")]
 
     /**
-     *  @copy flash.text.TextField#restrict
+     *  @inheritDoc
      * 
      *  @default null
      *  
@@ -1395,6 +1443,8 @@ public class SkinnableTextBase extends SkinnableComponent
      * 
      *  @default "none"
      * 
+     *  @see flash.text.AutoCapitalize
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -1508,6 +1558,8 @@ public class SkinnableTextBase extends SkinnableComponent
      * 
      *  @default "default"
      *  
+     *  @see flash.text.ReturnKeyLabel
+     * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.5.2
@@ -1574,6 +1626,8 @@ public class SkinnableTextBase extends SkinnableComponent
      *  <p><b>For the Spark theme, this is not supported.</b></p>
      * 
      *  @default "default" 
+     * 
+     *  @see flash.text.SoftKeyboardType
      * 
      *  @langversion 3.0
      *  @playerversion AIR 3.0
@@ -1834,8 +1888,11 @@ public class SkinnableTextBase extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.components.RichEditableText#insertText()
-     *  
+     *  @inheritDoc
+     *   
+     *  @see spark.components.RichEditableText#insertText()
+     *  @see spark.components.supportClasses.StyleableStageText#insertText()
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1853,8 +1910,11 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  @copy spark.components.RichEditableText#appendText()
+     *  @inheritDoc
      *  
+     *  @see spark.components.RichEditableText#appendText()
+     *  @see spark.components.supportClasses.StyleableStageText#appendText()
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1872,8 +1932,11 @@ public class SkinnableTextBase extends SkinnableComponent
     }
     
     /**
-     *  @copy spark.components.RichEditableText#selectRange()
+     *  @inheritDoc
      *  
+     *  @see spark.components.RichEditableText#selectRange()
+     *  @see spark.components.supportClasses.StyleableStageText#selectRange()
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1891,8 +1954,11 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     /**
-     *  @copy spark.components.RichEditableText#selectAll()
-     *  
+     *  @inheritDoc
+     * 
+     *  @see spark.components.RichEditableText#selectAll()
+     *  @see spark.components.supportClasses.StyleableStageText#selectAll()
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
