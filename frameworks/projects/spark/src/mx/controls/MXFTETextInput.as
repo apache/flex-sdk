@@ -42,11 +42,11 @@ use namespace mx_internal;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Event(name="dataChange", type="mx.events.")]
+[Event(name="dataChange", type="mx.events.FlexEvent")]
 
 
 /**
- *  TLFTextInput is a UIComponent which is used to support TLF text
+ *  MXFTETextInput is a UIComponent which is used to support TLF text
  *  in Halo controls and data grid renderers.  It can be used in place
  *  of a Halo TextInput control.
  * 
@@ -55,7 +55,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-public class TLFTextInput extends TextInput implements ITextInput
+public class MXFTETextInput extends TextInput implements ITextInput
 {
     include "../../spark/core/Version.as";
 
@@ -68,7 +68,7 @@ public class TLFTextInput extends TextInput implements ITextInput
     /**
      *  Constructor.
      */
-    public function TLFTextInput()
+    public function MXFTETextInput()
     {
         super();
     }
