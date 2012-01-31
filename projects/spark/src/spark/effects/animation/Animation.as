@@ -272,7 +272,7 @@ public final class Animation
      */
     public function get playheadTime():Number
     {
-        return _playheadTime;
+        return _playheadTime + startDelay;
     }
     public function set playheadTime(value:Number):void
     {
