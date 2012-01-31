@@ -48,10 +48,10 @@ include "../styles/metadata/AdvancedInheritingTextStyles.as"
 //--------------------------------------
 
 /**
- * Because this component does not define a skin for the mobile theme, Adobe
- * recommends that you not use it in a mobile application. Alternatively, you
- * can define your own mobile skin for the component. For more information,
- * see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html">Spark Skinning</a>.
+ *  Because this component does not define a skin for the mobile theme, Adobe
+ *  recommends that you not use it in a mobile application. Alternatively, you
+ *  can define your own mobile skin for the component. For more information,
+ *  see <a href="http://help.adobe.com/en_US/Flex/4.0/UsingSDK/WS53116913-F952-4b21-831F-9DE85B647C8A.html">Spark Skinning</a>.
  */
 [DiscouragedForProfile("mobileDevice")]
 
@@ -69,7 +69,7 @@ include "../styles/metadata/AdvancedInheritingTextStyles.as"
  *  attributes of its superclass and adds no new tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:FormHeading
+ *  &lt;s:FormHeading
  *    <strong>Properties</strong>
  *    label=""
  *  
@@ -110,7 +110,7 @@ include "../styles/metadata/AdvancedInheritingTextStyles.as"
  *    typographicCase="default"
  *    verticalAlign="top"
  * 
- *    <strong>Common Styles</strong>
+ *    <strong>Mobile Styles</strong>
  *    leading="2"
  *    letterSpacing="0"
  *  /&gt;
@@ -149,7 +149,7 @@ public class FormHeading extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
-     *   A reference to the visual element that displays this FormItem's label.
+     *  A reference to the visual element that displays this FormItem's label.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
