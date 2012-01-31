@@ -74,9 +74,9 @@ public class CallResponder extends EventDispatcher implements IResponder
 
     [Bindable]
     /**
-     * Each CallResponder monitors dispatches result and fault events received
-     * from a single token.  This property value specifies that token.  You typically
-     * set this to the 
+     *  Each CallResponder dispatches result and fault events received
+     *  from a single token.  This property value specifies that token.  You typically
+     *  set this property to the AsyncToken object returned by the service.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
