@@ -25,6 +25,9 @@ import mx.core.ContainerCreationPolicy;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
 import mx.managers.IFocusManagerContainer;
+import mx.core.IVisualContainer;
+import mx.core.IVisualItem;
+import mx.core.IUIComponent;
 
 [IconFile("FxContainer.png")]
 
@@ -61,7 +64,7 @@ import mx.managers.IFocusManagerContainer;
  *  @see FxDataContainer
  */
 public class FxContainer extends FxContainerBase 
-       implements IDeferredContentOwner
+       implements IDeferredContentOwner, IVisualContainer
 {
     include "../core/Version.as";
 
@@ -505,12 +508,28 @@ public class FxContainer extends FxContainerBase
     
     private function contentGroup_itemAddedHandler(event:ItemExistenceChangedEvent):void
     {
+        // TODO (rfrishbe): need to check for IUIComponent 
+        // as well if checking for IVisualItem?
+        if (event.relatedObject is IVisualItem ||
+            event.relatedObject is IUIComponent)
+        {
+            event.relatedObject.owner = this;
+        }
+        
         // Re-dispatch the event
         dispatchEvent(event);
     }
     
     private function contentGroup_itemRemovedHandler(event:ItemExistenceChangedEvent):void
     {
+        // TODO (rfrishbe): need to check for IUIComponent 
+        // as well if checking for IVisualItem?
+        if (event.relatedObject is IVisualItem ||
+            event.relatedObject is IUIComponent)
+        {
+            event.relatedObject.owner = null;
+        }
+        
         // Re-dispatch the event
         dispatchEvent(event);
     }
