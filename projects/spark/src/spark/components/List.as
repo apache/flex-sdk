@@ -51,7 +51,12 @@ import flash.geom.Point;
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [IconFile("FxList.png")]
+[DefaultTriggerEvent("selectionChanged")]
 
 /**
  *  The FxList control displays a vertical list of items.
