@@ -26,7 +26,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no")]
+[Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
 
 /**
  *  Specifies the colors used to tint the background fill of the component.
@@ -49,4 +49,4 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
+[Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="halo")]
