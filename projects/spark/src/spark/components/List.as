@@ -12,10 +12,9 @@
 package spark.components
 { 
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.events.FocusEvent;
-import flash.events.Event;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
@@ -23,7 +22,7 @@ import mx.core.DragSource;
 import mx.core.EventPriority;
 import mx.core.IFlexDisplayObject;
 import mx.core.IVisualElement;
-import mx.core.mx_internal; 
+import mx.core.mx_internal;
 import mx.events.DragEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.DragManager;
@@ -33,8 +32,6 @@ import spark.components.supportClasses.ListBase;
 import spark.core.NavigationUnit;
 import spark.events.IndexChangeEvent;
 import spark.events.RendererExistenceEvent;
-import spark.layouts.HorizontalLayout;
-import spark.layouts.VerticalLayout;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
@@ -1015,7 +1012,7 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  Handles <code>DragEvent.DRAG_COMPLETE</code> events.  This method
-     *  removes the item from the data provider.
+     *  removes the items from the data provider.
      *
      *  @param event The DragEvent object.
      *  
@@ -1083,40 +1080,40 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function addDragData(dragSource:DragSource):void
+    public function addDragData(dragSource:DragSource):void
     {
-        dragSource.addHandler(copySelectedItemsForDragDrop, "sourceOrderedItems");
+        dragSource.addHandler(copySelectedItemsForDragDrop, "orderedItems");
         
         // Calculate the index of the focus item within the vector
         // of ordered items returned for the "sourceOrderedItems" format.
-        var focusIndex:int = 0;
+        var caretIndex:int = 0;
         var draggedIndices:Vector.<int> = selectedIndices;
         var count:int = draggedIndices.length;
         for (var i:int = 0; i < count; i++)
         {
             if (mouseDownIndex > draggedIndices[i])
-                focusIndex++;
+                caretIndex++;
         }
-        dragSource.addData(focusIndex, "sourceOrderedItemsFocus");
+        dragSource.addData(caretIndex, "orderedItemsCaretIndex");
     }
-    
+
     /**
      *  @private.
      */
-    private function copySelectedItemsForDragDrop():Array
+    private function copySelectedItemsForDragDrop():Vector.<Object>
     {
-        var result:Array = [];
-        var draggedIndices:Vector.<int> = selectedIndices;
-        // Copy the vector so that we don't modify the original as 
-        // selectedIndices returns a reference.
-        draggedIndices = draggedIndices.slice(0, draggedIndices.length);
-        if (draggedIndices)
-        {
-            draggedIndices.sort(compareValues);
-            var count:int = draggedIndices.length;
-            for (var i:int = 0; i < count; i++)
-                result.push(dataProvider.getItemAt(draggedIndices[i]));  
-        }
+        // Copy the vector so that we don't modify the original
+        // since selectedIndices returns a reference.
+        var draggedIndices:Vector.<int> = selectedIndices.slice(0, selectedIndices.length);
+        var result:Vector.<Object> = new Vector.<Object>(draggedIndices.length);
+
+        // Sort in the order of the data source
+        draggedIndices.sort(compareValues);
+        
+        // Copy the items
+        var count:int = draggedIndices.length;
+        for (var i:int = 0; i < count; i++)
+            result[i] = dataProvider.getItemAt(draggedIndices[i]);  
         return result;
     }
     
