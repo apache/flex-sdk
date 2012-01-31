@@ -688,6 +688,18 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  The TLF edit manager will batch all inserted text until the next
+     *  enter frame event.  This includes text inserted via the GUI as well
+     *  as api calls to EditManager.insertText().  Set this to false if you
+     *  want every keystroke to be inserted into the text immediately which will
+     *  result in a TextOperationEvent.CHANGE event for each character.  One
+     *  place this is needed is for the type-ahead feature of the editable combo
+     *  box.
+     */
+    mx_internal var batchTextInput:Boolean = true;
+    
+    /**
+     *  @private
      *  True if we've seen a MOUSE_DOWN event and haven't seen the 
      *  corresponding MOUSE_UP event.
      */
