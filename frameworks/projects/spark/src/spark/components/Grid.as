@@ -524,38 +524,6 @@ package spark.components
         }
         
         //----------------------------------
-        //  fixedRowHeight
-        //----------------------------------
-        
-        [Bindable("fixedRowHeightChanged")]        
-        
-        /**
-         *  If fixedRowHeight is set, calling getRowBounds() will return
-         *  its value as the height for every row. Individual cell heights are not
-         *  affected, but calling getCellBounds will return bounds
-         *  respecting fixedRowHeight. The fixedRowHeight is always
-         *  bounded by the minRowHeight and maxRowHeight.
-         * 
-         *  @default NaN
-         */
-        public function get fixedRowHeight():Number
-        {
-            return gridDimensions.fixedRowHeight;
-        }
-        
-        /**
-         *  @private
-         */
-        public function set fixedRowHeight(value:Number):void
-        {
-            if (value == fixedRowHeight)
-                return;
-            
-            gridDimensions.fixedRowHeight = value;
-            dispatchChangeEvent("fixedRowHeightChanged");            
-        }        
-        
-        //----------------------------------
         //  hoverIndicator
         //----------------------------------
         
@@ -1253,6 +1221,52 @@ package spark.components
         }
         
         //----------------------------------
+        //  rowHeight
+        //----------------------------------
+        
+        [Inspectable(category="General", minValue="0.0")]        
+        
+        [Bindable("rowBackgroundChanged")]
+        
+        private var _rowHeight:Number = NaN;      
+        
+        /**
+         *  If <code>variableRowHeight</code> is <code>false</code>, then 
+         *  this property specifies the actual height of each row, in pixels.
+         * 
+         *  <p>If <code>variableRowHeight</code> is <code>true</code>, 
+         *  the default, then this property has no effect.</p>
+         * 
+         *  <p>If <code>variableRowHeight</code> is <code>false</code>, 
+         *  the default value of this property is the maximum preferred height
+         *  of the per-column renderers created for the typicalItem.
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4.5
+         */
+        public function get rowHeight():Number
+        {
+            return (variableRowHeight) ? gridDimensions.defaultRowHeight : gridDimensions.fixedRowHeight;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set rowHeight(value:Number):void
+        {
+            if (_rowHeight == value)
+                return;
+            
+            _rowHeight = value;
+            if (!variableRowHeight)
+                gridDimensions.fixedRowHeight = value;
+            dispatchChangeEvent("rowHeightChanged");            
+        }
+        
+        
+        //----------------------------------
         //  rowSeparator
         //----------------------------------
         
@@ -1412,6 +1426,42 @@ package spark.components
             invalidateSize();
             invalidateDisplayList();
         }
+        
+        //----------------------------------
+        //  variableRowHeight
+        //----------------------------------
+        
+        [Bindable("variableRowHeightChanged")]        
+        
+        /**
+         *  If true, each row's height is the maximum of preferred heights of the cells displayed so far.
+         * 
+         *  <p>If <code>false</code>, the height of each row is just the value of <code>rowHeight</code>.
+         * 
+         *  @default true
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4.5
+         */
+        public function get variableRowHeight():Boolean
+        {
+            return isNaN(gridDimensions.fixedRowHeight);
+        }
+        
+        /**
+         *  @private
+         */        
+        public function set variableRowHeight(value:Boolean):void
+        {
+            if (value == variableRowHeight)
+                return;
+            
+            gridDimensions.fixedRowHeight = rowHeight;
+            dispatchChangeEvent("variableRowHeightChanged");            
+        }
+        
         
         //--------------------------------------------------------------------------
         //
