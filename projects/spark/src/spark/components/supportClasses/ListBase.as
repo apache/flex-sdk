@@ -631,7 +631,7 @@ public class ListBase extends SkinnableDataContainer
      */
     override protected function commitProperties():void
     {
-    	var e:IndexChangedEvent; 
+        var e:IndexChangedEvent; 
         var changedSelection:Boolean = false;
         
         super.commitProperties();
@@ -693,21 +693,21 @@ public class ListBase extends SkinnableDataContainer
         
         if (caretIndexAdjusted)
         {
-        	caretIndexAdjusted = false;
-        	if (!changedSelection)
-        	{
-        		// Put the new caretIndex renderer into the
-        		// caret state and dispatch an "caretChange" 
-        		// event to update any bindings. Additionally, update 
-        		// the backing variable. 
-        		itemShowingCaret(selectedIndex, true); 
-        		_caretIndex = selectedIndex; 
-        		
-        		e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
-        		e.oldIndex = caretIndex; 
-        		e.newIndex = caretIndex;
-        		dispatchEvent(e);  
-        	}
+            caretIndexAdjusted = false;
+            if (!changedSelection)
+            {
+                // Put the new caretIndex renderer into the
+                // caret state and dispatch an "caretChange" 
+                // event to update any bindings. Additionally, update 
+                // the backing variable. 
+                itemShowingCaret(selectedIndex, true); 
+                _caretIndex = selectedIndex; 
+                
+                e = new IndexChangedEvent(IndexChangedEvent.CARET_CHANGE); 
+                e.oldIndex = caretIndex; 
+                e.newIndex = caretIndex;
+                dispatchEvent(e);  
+            }
         }
         
         if (labelFieldOrFunctionChanged)
@@ -1001,6 +1001,9 @@ public class ListBase extends SkinnableDataContainer
      *  the <code>selectedIndex</code> is adjusted.</p>
      *
      *  @param newIndex The new index.
+     *   
+     *  @param add <code>true</code> if an item was added to the component, 
+     *  and <code>false</code> if an item was removed.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
