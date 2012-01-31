@@ -41,7 +41,6 @@ import mx.skins.spark.FxScrollBarDownButtonSkin; FxScrollBarDownButtonSkin;
 import mx.skins.spark.FxScrollBarLeftButtonSkin; FxScrollBarLeftButtonSkin;
 import mx.skins.spark.FxScrollBarRightButtonSkin; FxScrollBarRightButtonSkin;
 import mx.skins.spark.FxScrollerSkin; FxScrollerSkin;
-import mx.skins.spark.FxSelectorSkin; FxSelectorSkin;
 import mx.skins.spark.FxSpinnerDecrButtonSkin; FxSpinnerDecrButtonSkin;
 import mx.skins.spark.FxSpinnerIncrButtonSkin; FxSpinnerIncrButtonSkin;
 import mx.skins.spark.FxSpinnerSkin; FxSpinnerSkin;
