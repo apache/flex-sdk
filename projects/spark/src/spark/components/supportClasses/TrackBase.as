@@ -21,9 +21,9 @@ import flash.geom.Point;
 import mx.events.FlexEvent;
 import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
+import mx.events.TouchScrollEvent;
 
 import spark.components.Button;
-import spark.events.TouchScrollEvent;
 import spark.events.TrackBaseEvent;
 
 /**
