@@ -119,6 +119,17 @@ public class FxAnimateFilterInstance extends FxAnimateInstance
     {
         return bitmapFilter[property];
     }
+    
+    /**
+     * Override FXAnimate's setupStyleMapEntry to avoid the need to 
+     * validate our properties against the 'target' (since we actually
+     * set properties on our associated filter instance).
+     *  
+     * @private
+     */
+    override protected function setupStyleMapEntry(property:String):void
+    {
+    }
 }
 
 }
