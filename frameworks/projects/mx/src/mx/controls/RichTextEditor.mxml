@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
+
 <!--
-  Copyright (C) 2003-2007 Adobe Systems Incorporated
-  restrictions on such code as contained in the End User License Agreement
-  All Rights Reserved. The following is Source Code and is subject to all
-  restrictions on such code as contained in the End User License Agreement
-  accompanying this product. 
+
+	ADOBE SYSTEMS INCORPORATED
+	Copyright 2005-2007 Adobe Systems Incorporated
+	All Rights Reserved.
+
+	NOTICE: Adobe permits you to use, modify, and distribute this file
+	in accordance with the terms of the license agreement accompanying it.
+
 -->
+
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns="*" minWidth="220" minHeight="200" width="325" height="300">
 
 	<mx:Metadata>
