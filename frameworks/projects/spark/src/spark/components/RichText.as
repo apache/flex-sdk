@@ -897,6 +897,12 @@ public class RichText extends TextGraphicElement
     private function addTextLine(textLine:DisplayObject):void
     {
         textLines.push(textLine);
+        
+        // Remember the original position of each TextLine.
+		// When TextLines are children of a shared DisplayObject,
+		// these original positions must be offset by drawX and drawY.
+		textLinesX.push(textLine.x);
+		textLinesY.push(textLine.y);
     }
   
     //--------------------------------------------------------------------------
