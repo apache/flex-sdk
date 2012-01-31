@@ -191,11 +191,6 @@ public class FxApplication extends FxContainer
         // documentDescriptor property for the application object.
         // We get the id and the creationPolicy, which we want to
         // set very early, from that descriptor.
-        
-        // because we don't have namespace-specific styles yet
-        // just set the default here
-        // TODO (rfrishbe): remove this...
-        setStyle("backgroundColor", "white");
     }
 
     //--------------------------------------------------------------------------
