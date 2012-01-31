@@ -102,7 +102,16 @@ public class InteractionStateDetector extends EventDispatcher
      *  the renderer was actually selected.
      */
     private var mouseUpDeselectTimer:Timer;
-    
+	
+	/**
+	 *  @private
+	 *  When faking a mouseDown after a mouse up has occurred, if we get a rollOut
+	 *  event, we don't want to immediately set hovered = false so we can maintain 
+	 *  the down state until the mouseUpDeselectTimer is finished.  So we keep track
+	 *  that a rollOut event occurred and honor it later.
+	 */
+	private var rollOutWhileFakingDownState:Boolean = false;
+	
     /**
      *  @private
      *  Whether the component using this InteractionStateDetector should 
@@ -404,21 +413,24 @@ public class InteractionStateDetector extends EventDispatcher
                 // if the user rolls over while holding the mouse button
                 if (mouseEvent.buttonDown && !mouseCaptured)
                     return;
-                
-                // if rolling back over it, turn off transitions
-                if (mouseCaptured)
-                    playTransitions = false;
+				
                 hovered = true;
-                playTransitions = true;
+				rollOutWhileFakingDownState = false;
                 break;
             }
                 
             case MouseEvent.ROLL_OUT:
             {
-                // when rolled out, turn off transitions
-                playTransitions = false;
-                hovered = false;
-                playTransitions = true;
+				if (mouseUpDeselectTimer && mouseUpDeselectTimer.running)
+				{
+					// We're trying to flash the down state for longer, 
+					// so let's not leave the hovered state just yet
+					rollOutWhileFakingDownState = true;
+				}
+				else
+				{
+					hovered = false;
+				}
                 break;
             }
                 
@@ -458,27 +470,26 @@ public class InteractionStateDetector extends EventDispatcher
                 // If someone mouses up on us, then they must be hovered over 
                 // us now.
                 hovered = true;
-                
-                if (mouseCaptured)
+				
+				if (mouseDownSelectTimer && mouseDownSelectTimer.running)
+				{
+					// We never even flashed the down state for this click operation.
+					// There are two possibilities for being here:
+					//    1) mouseCaptured wasn't set to true (meaning this is the first click)
+					//    2) mouseCaptured was true (meaning a click operation hadn't finished 
+					//       and we find ourselves in here again--perhaps it was a doublet tap).
+					// In either case, let's make sure that down state shows up for a little bit
+					// before going back to the up state.
+					
+					// stop the original timer, put it in mouse down state, then start a new 
+					// timer to undo the mouse down state
+					stopSelectRendererAfterDelayTimer();
+					mouseCaptured = true;
+					startDeselectRendererAfterDelayTimer();
+				}
+				else if (mouseCaptured)
                 {
                     mouseCaptured = false;
-                }
-                
-                if (mouseDownSelectTimer && mouseDownSelectTimer.running)
-                {
-                    // We never even flashed the down state for this click operation.
-                    // There are two possibilities for being here:
-                    //    1) mouseCaptured wasn't set to true (meaning this is the first click)
-                    //    2) mouseCaptured was true (meaning a click operation hadn't finished 
-                    //       and we find ourselves in here again--perhaps it was a doublet tap).
-                    // In either case, let's make sure that down state shows up for a little bit
-                    // before going back to the up state.
-                    
-                    // stop the original timer, put it in mouse down state, then start a new 
-                    // timer to undo the mouse down state
-                    stopSelectRendererAfterDelayTimer();
-                    mouseCaptured = true;
-                    startDeselectRendererAfterDelayTimer();
                 }
                 
                 break;
@@ -503,7 +514,10 @@ public class InteractionStateDetector extends EventDispatcher
             return;
         }
         
-        mouseCaptured = false;
+		// If faking down state, let's not interrupt it because of a mouseUp somewhere 
+		// else on the screen
+		if (!(mouseUpDeselectTimer && mouseUpDeselectTimer.running))
+			mouseCaptured = false;
         
         // If the mouseDownSelectTimer is still running, 
         // we don't want to ever go in to the down state in this case, so stop it
@@ -544,6 +558,13 @@ public class InteractionStateDetector extends EventDispatcher
     private function mouseUpDeselectTimer_timerCompleteHandler(event:TimerEvent = null):void
     {
         mouseCaptured = false;
+		
+		// if we got a rollout, we should honor it now
+		if (rollOutWhileFakingDownState)
+		{
+			rollOutWhileFakingDownState = false;
+			hovered = false;
+		}
     }
     
     /**
