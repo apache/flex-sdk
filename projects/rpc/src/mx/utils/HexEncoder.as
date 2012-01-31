@@ -147,7 +147,7 @@ public class HexEncoder
      * 
      * @private
      */
-    private static const MAX_BUFFER_SIZE:uint = 65535;
+    public static const MAX_BUFFER_SIZE:uint = 32767;
 
     /*
         '0', '1', '2', '3', '4', '5', '6', '7',
