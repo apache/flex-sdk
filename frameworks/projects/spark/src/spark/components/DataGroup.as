@@ -1339,36 +1339,26 @@ public class DataGroup extends GroupBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    private function addItemRendererToDisplayList(child:DisplayObject, index:int = -1):DisplayObject
+    private function addItemRendererToDisplayList(child:DisplayObject, index:int):void
     { 
         // If this child is already an element of the display list, ensure
         // that it's at the specified index
-        if (child.parent && child.parent == this)
+        var childParent:Object = child.parent;
+        if (childParent == this)
         {
-            var insertIndex:int;
-            if (index == -1)
-                insertIndex = super.numChildren - 1;
-            else if (index == 0)
-                insertIndex = 0;
-            else
-                insertIndex = index;
-                
-            // Quietly ignore invalid indices since they're typically caused
-            // by duplicate data items and Halo quietly ignored those
-            if ((insertIndex >= 0) && (insertIndex < super.numChildren)) 
-                super.setChildIndex(child, insertIndex);
-            return child;
+            super.setChildIndex(child, index);
+            return;
         }
-        else if (child.parent && child.parent is DataGroup)
+        else if (childParent is DataGroup)
         {
-            DataGroup(child.parent)._removeChild(child);
+            DataGroup(childParent)._removeChild(child);
         }
 
         if ((_layeringFlags & LAYERING_ENABLED) || 
             (child is IVisualElement && (child as IVisualElement).depth != 0))
             invalidateLayering();
             
-        return super.addChildAt(child, index != -1 ? index : super.numChildren);
+        super.addChildAt(child, index);
     }
     
     /**
