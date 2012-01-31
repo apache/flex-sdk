@@ -1124,7 +1124,10 @@ public class Grid extends Group implements IDataGridElement
     //----------------------------------
     
     /**
-     *  @copy spark.components.gridClasses.GridSelection#preserveSelection
+     *  If <code>true</code>, the selection is preserved when the data provider 
+     *  refreshes its collection. 
+     *  Because this refresh requires each item in the selection to be saved, 
+     *  this action is not desirable if the selection is large.
      *
      *  @default true
      * 
@@ -2058,7 +2061,14 @@ public class Grid extends Group implements IDataGridElement
     [Bindable("valueCommit")]
     
     /**
-     *  @copy spark.components.gridClasses.GridSelection#selectionLength
+     *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_ROW</code> 
+     *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
+     *  returns the number of selected rows. 
+     *  If <code>selectionMode</code> is <code>GridSelectionMode.SINGLE_CELLS</code> 
+     *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, 
+     *  returns the number of selected cells.
+     * 
+     *  @default 0
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2283,7 +2293,34 @@ public class Grid extends Group implements IDataGridElement
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.components.gridClasses.GridSelection#selectAll()
+     *  If <code>selectionMode</code> is 
+     *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, selects all rows and
+     *  removes the caret or if <code>selectionMode</code> is 
+     *  <code>GridSelectionMode.MULTIPLE_CELLS</code> selects all cells  
+     *  and removes the caret.  For all other selection modes, this method 
+     *  has no effect.
+     *
+     *  <p>If items are added to the <code>dataProvider</code> or 
+     *  <code>columns</code> are added after this method is called, the
+     *  new rows or cells in the new column will be selected.</p>
+     * 
+     *  <p>This implicit "selectAll" mode ends when any of the following occur:
+     *  <ul>
+     *    <li>selection is cleared using <code>clearSelection</code></li>
+     *    <li>selection reset using one of <code>setSelectedCell</code>, 
+     *    <code>setSelectedCells</code>, <code>setSelectedIndex</code>, 
+     *    <code>selectIndices</code></li>
+     *    <li><code>dataProvider</code> is refreshed and <code>preserveSelection</code> is false</li>
+     *    <li><code>dataProvider</code> is reset</li>
+     *    <li><code>columns</code> is refreshed, 
+     *    <code>preserveSelection</code> is <code>false</code> and 
+     *    <code>selectionMode</code> is 
+     *    <code>GridSelectionMode.MULTIPLE_CELLS</code></li>
+     *    <li><code>columns</code> is reset and <code>selectionMode</code> is 
+     *    <code>GridSelectionMode.MULTIPLE_CELLS</code></li> 
+     *  </ul></p>
+     * 
+     *  @return <code>true</code> if the selection changed.
      *    
      *  @see spark.components.Grid#clearSelection
      *  @see spark.components.Grid#selectIndices
@@ -2972,9 +3009,9 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  Return the data provider indices and padding indices of the 
-	 *  currently visible rows.  
-	 *  Indices which are greater than or equal to the 
-	 *  <code>dataProvider</code> length represent padding rows.
+     *  currently visible rows.  
+     *  Indices which are greater than or equal to the 
+     *  <code>dataProvider</code> length represent padding rows.
      *  Note that the item renderers for the first and last rows 
      *  may only be partially visible. 
      *  The returned vector's contents are in the order they're displayed.
@@ -3202,6 +3239,10 @@ public class Grid extends Group implements IDataGridElement
      *  @param x The x coordinate of the pixel at the origin of the region, relative to the grid.
      * 
      *  @param x The x coordinate of the pixel at the origin of the region, relative to the grid. 
+     * 
+     *  @param w The width of the region, in pixels. 
+     * 
+     *  @param h The height of the region, in pixels. 
      *  
      *  @return A vector of objects like <code>Vector.&lt;Object&gt;([{rowIndex:0, columnIndex:0}, ...])</code>. 
      *  
@@ -3610,22 +3651,22 @@ public class Grid extends Group implements IDataGridElement
     public function invalidateCell(rowIndex:int, columnIndex:int):void
     {
         if (!dataProvider)
-			return;
-		
-		const dataProviderLength:int = dataProvider.length;
-		if (rowIndex >= dataProvider.length)
-			return;
-		
-		if (!isCellVisible(rowIndex, columnIndex))
-			return;
+            return;
+        
+        const dataProviderLength:int = dataProvider.length;
+        if (rowIndex >= dataProvider.length)
+            return;
+        
+        if (!isCellVisible(rowIndex, columnIndex))
+            return;
 
         if (invalidateDisplayListFlag || invalidateSizeFlag)
             return;        
-		
-		if ((rowIndex >= 0) && (columnIndex >= 0))
-		{
+        
+        if ((rowIndex >= 0) && (columnIndex >= 0))
+        {
             gridLayout.invalidateCell(rowIndex, columnIndex);
-		}
+        }
         else if (rowIndex >= 0)  // invalidate a row
         {
             const visibleColumnIndices:Vector.<int> = getVisibleColumnIndices();
@@ -3638,22 +3679,22 @@ public class Grid extends Group implements IDataGridElement
                     break;                
             }
         }
-		else if (columnIndex >= 0)  // invalidate a column
-		{
-			const visibleRowIndices:Vector.<int> = getVisibleRowIndices();
-			for each (var visibleRowIndex:int in visibleRowIndices)
-			{
-				// If there are any padding rows, skip them.
-				if (visibleRowIndex >= dataProviderLength)
-					break;
+        else if (columnIndex >= 0)  // invalidate a column
+        {
+            const visibleRowIndices:Vector.<int> = getVisibleRowIndices();
+            for each (var visibleRowIndex:int in visibleRowIndices)
+            {
+                // If there are any padding rows, skip them.
+                if (visibleRowIndex >= dataProviderLength)
+                    break;
                 
                 gridLayout.invalidateCell(visibleRowIndex, columnIndex);
 
                 // If invalidating the cell caused the entire grid to be invalid, punt 
                 if (invalidateDisplayListFlag || invalidateSizeFlag)
                     break;
-			}
-		}
+            }
+        }
     }
     
     /**
