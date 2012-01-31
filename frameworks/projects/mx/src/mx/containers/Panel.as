@@ -18,6 +18,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import flash.text.TextLineMetrics;
+import flash.utils.getQualifiedClassName;
 import mx.automation.IAutomationObject;
 import mx.containers.utilityClasses.BoxLayout;
 import mx.containers.utilityClasses.CanvasLayout;
@@ -1354,12 +1355,24 @@ public class Panel extends Container
     {
         super.layoutChrome(unscaledWidth, unscaledHeight);
         
+        // Special case for the default borderSkin to inset the chrome content
+        // by the borderThickness when borderStyle is "solid", "inset" or "outset". 
+        // We use getQualifiedClassName to avoid bringing in a dependency on 
+        // mx.skins.halo.PanelSkin. 
+        var em:EdgeMetrics = EdgeMetrics.EMPTY;
+        var bt:Number = getStyle("borderThickness"); 
+        if (getQualifiedClassName(border) == "mx.skins.halo::PanelSkin" &&
+        	getStyle("borderStyle") != "default" && bt) 
+        {
+        	em = new EdgeMetrics(bt, bt, bt, bt);
+        }
+        
         // Remove the borderThickness from the border metrics,
         // since the header and control bar overlap any solid border.
         var bm:EdgeMetrics =
         	FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
         	borderMetrics :
-        	EdgeMetrics.EMPTY;
+        	em;      
         
         var x:Number = bm.left;
         var y:Number = bm.top;
