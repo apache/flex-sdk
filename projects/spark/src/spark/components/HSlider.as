@@ -9,30 +9,30 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
-import mx.components.baseClasses.FxSlider;
+import spark.components.supportClasses.Slider;
 import mx.core.ILayoutElement;
-import mx.layout.LayoutElementFactory;
+import spark.layout.supportClasses.LayoutElementFactory;
 
-[IconFile("FxHSlider.png")]
+[IconFile("HSlider.png")]
 
 /**
- *  The FxHSlider class defines a horizontal slider component.
+ *  The HSlider class defines a horizontal slider component.
  *
- *  @includeExample examples/FxHSliderExample.mxml
+ *  @includeExample examples/HSliderExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxHSlider extends FxSlider
+public class HSlider extends Slider
 {
     include "../core/Version.as";
 
@@ -50,7 +50,7 @@ public class FxHSlider extends FxSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxHSlider()
+    public function HSlider()
     {
         super();
     }
@@ -123,7 +123,7 @@ public class FxHSlider extends FxSlider
     }
     
     /**
-     *  Return the position of the thumb button on a FxHSlider component.
+     *  Return the position of the thumb button on a HSlider component.
      *  The position of the thumb on an HSlider is equal to the
      *  given localX parameter.
      * 
