@@ -1251,7 +1251,7 @@ public class GridLayout extends LayoutBase
     {
         const r:Rectangle = visibleItemRenderersBounds;
         const width:Number = r.width;  
-        const height:Number = 1; // TBD: should be max(1, colGap)
+        const height:Number = separator.getPreferredBoundsHeight();
         const x:Number = r.x;
         const rowCount:int = gridDimensions.rowCount;
         const bounds:Rectangle = (rowIndex < rowCount) 
@@ -1261,21 +1261,21 @@ public class GridLayout extends LayoutBase
         if (!bounds)
             return;
      
-        const y:Number = bounds.bottom;
+        const y:Number = bounds.bottom; // TBD: should center on gap here.
         layoutGridElement(separator, x, y, width, height);
     }
     
     private function layoutColumnSeparator(separator:IVisualElement, columnIndex:int):void
     {
         const r:Rectangle = visibleItemRenderersBounds;
-        const width:Number = 1;  // TBD: should be max(1, rowGap)
+        const width:Number = separator.getPreferredBoundsWidth();
         const height:Number = Math.max(r.height, visibleGridBounds.height); 
         const bounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
         
         if (!bounds)
             return;
 
-        const x:Number = bounds.right;
+        const x:Number = bounds.right; // TBD: should center on gap here.
         const y:Number = r.y;
         layoutGridElement(separator, x, y, width, height);
     }
@@ -1283,13 +1283,14 @@ public class GridLayout extends LayoutBase
     private function layoutHeaderSeparator(separator:IVisualElement, columnIndex:int):void
     {
         var columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
-        const width:Number = 1;  // TBD: should be max(1, rowGap)
+        const width:Number = separator.getPreferredBoundsWidth();
         const height:Number = columnHeaderBar.height; 
         const columnBounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
         
         if (!columnBounds)
             return;
 
+        // TBD: should center on gap here.
         const x:Number = columnBounds.right;
         const y:Number = columnBounds.top;
         layoutGridElement(separator, x, y, width, height);
