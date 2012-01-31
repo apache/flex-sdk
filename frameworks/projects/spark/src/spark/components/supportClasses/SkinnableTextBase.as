@@ -38,6 +38,11 @@ import flashx.textLayout.formats.LineBreak;
  *  due to a user interaction.
  *
  *  @eventType mx.events.FlexEvent.SELECTION_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="selectionChange", type="mx.events.FlexEvent")]
 
@@ -47,6 +52,11 @@ import flashx.textLayout.formats.LineBreak;
  *  to prevent the operation from being processed.
  *
  *  @eventType mx.events.TextOperationEvent.CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="changing", type="mx.events.TextOperationEvent")]
 
@@ -54,6 +64,11 @@ import flashx.textLayout.formats.LineBreak;
  *  Dispatched after a user editing operation is complete.
  *
  *  @eventType mx.events.TextOperationEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="change", type="mx.events.TextOperationEvent")]
 
@@ -63,17 +78,32 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxTextBase extends FxComponent implements IFocusManagerComponent
 {
@@ -87,6 +117,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function FxTextBase()
     {
@@ -181,6 +216,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get displayAsPassword():Boolean
     {
@@ -219,6 +259,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  Specifies whether the user is allowed to edit the text in this control.
      *
      *  @default true;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get editable():Boolean
     {
@@ -266,6 +311,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  @default null
      * 
      *  @see flash.system.IMEConversionMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
      public function get imeMode():String
     {
@@ -309,6 +359,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  a user can enter an unlimited amount of text. 
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maxChars():int 
     {
@@ -347,6 +402,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  Documentation is not currently available.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get restrict():String 
     {
@@ -386,6 +446,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  Making the text selectable lets you copy text from the control.
      *
      *  @default true;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectable():Boolean
     {
@@ -425,6 +490,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  or the end of the selection. 
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectionActivePosition():int
     {
@@ -450,6 +520,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  or the end of the selection.
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectionAnchorPosition():int
     {
@@ -475,6 +550,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  Documentation is not currently available.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectionVisibility():String 
     {
@@ -517,6 +597,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
        
     /**
      *  The text String displayed by this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get text():String
     {
@@ -548,6 +633,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     /**
      *  The TextView that must be present
      *  in any skin assigned to this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var textView:TextView;
     
@@ -733,6 +823,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setSelection(anchorIndex:int = 0,
                                  activeIndex:int = int.MAX_VALUE):void
@@ -745,6 +840,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function insertText(text:String):void
     {
@@ -760,6 +860,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function appendText(text:String):void
     {
@@ -827,6 +932,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     /**
      *  Called when the TextView dispatches a 'change' event
      *  after an editing operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function textView_changeHandler(event:TextOperationEvent):void
     {        
