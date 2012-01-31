@@ -49,7 +49,7 @@ package spark.core
          *  
          *  @langversion 3.0
          *  @playerversion AIR 3.0
-         *  @productversion Flex 4.5.2
+         *  @productversion Flex 4.6
          */
         function set autoCapitalize(value:String):void;
         function get autoCapitalize():String;
@@ -64,7 +64,7 @@ package spark.core
          *  
          *  @langversion 3.0
          *  @playerversion AIR 3.0
-         *  @productversion Flex 4.5.2
+         *  @productversion Flex 4.6
          */
         function get autoCorrect():Boolean;
         function set autoCorrect(value:Boolean):void;
@@ -96,7 +96,7 @@ package spark.core
          *  
          *  @langversion 3.0
          *  @playerversion AIR 3.0
-         *  @productversion Flex 4.5.2
+         *  @productversion Flex 4.6
          */
         function get returnKeyLabel():String;
         function set returnKeyLabel(value:String):void;
@@ -131,7 +131,7 @@ package spark.core
          *  
          *  @langversion 3.0
          *  @playerversion AIR 3.0
-         *  @productversion Flex 4.5.2
+         *  @productversion Flex 4.6
          */
         function get softKeyboardType():String;
         function set softKeyboardType(value:String):void;
