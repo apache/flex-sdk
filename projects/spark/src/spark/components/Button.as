@@ -28,9 +28,7 @@ import mx.graphics.baseClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
-include "../styles/metadata/BasicContainerFormatTextStyles.as"
-include "../styles/metadata/BasicParagraphFormatTextStyles.as"
-include "../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
