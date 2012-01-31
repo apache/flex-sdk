@@ -70,9 +70,14 @@ public class FxVScrollBar extends FxScrollBar
         super.viewport = newViewport;
         if (newViewport)
         {
-            maximum = newViewport.contentHeight - newViewport.height;
+            var vsp:Number = newViewport.verticalScrollPosition;
+            // Special case: if contentHeight is 0, assume that it hasn't been 
+            // updated yet.  Making the maximum==vsp here avoids trouble later
+            // when FxRange constrains value
+            var cHeight:Number = newViewport.contentHeight;
+            maximum = (cHeight == 0) ? vsp : cHeight - newViewport.height;
             pageSize = newViewport.height;
-            value = newViewport.verticalScrollPosition;
+            value = vsp;
         }
     }    
     
@@ -260,7 +265,12 @@ public class FxVScrollBar extends FxScrollBar
     {
         if (viewport)
         {
-            maximum = viewport.contentHeight - viewport.height;
+            var vsp:Number = viewport.verticalScrollPosition;
+            // Special case: if contentHeight is 0, assume that it hasn't been 
+            // updated yet.  Making the maximum==vsp here avoids trouble later
+            // when FxRange constrains value
+            var cHeight:Number = viewport.contentHeight;
+            maximum = (cHeight == 0) ? vsp : cHeight - viewport.height;
             pageSize = viewport.height;
         } 
     }
