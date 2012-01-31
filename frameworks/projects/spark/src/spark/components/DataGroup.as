@@ -891,8 +891,7 @@ public class DataGroup extends GroupBase
             var item:Object = dataProvider.getItemAt(index);
             if ((item != elt) && (elt is IDataRenderer))
             {
-                IDataRenderer(elt).data = null;  // reduce probability of leaks
-                elt.visible = false;
+                // IDataRenderer(elt).data = null;  see https://bugs.adobe.com/jira/browse/SDK-20962
                 elt.includeInLayout = false;
                 
                 // Reset back to (0,0), otherwise when the element is reused
@@ -910,6 +909,19 @@ public class DataGroup extends GroupBase
         }
     }
     
+    /**
+     *  @private
+     *  This function exists for applications that need to control their footprint by
+     *  allowing currently unused IRs to be garbage collected.   It is not used by the SDK.
+     */
+    mx_internal function clearFreeRenderers():void
+    {
+        var n:int = freeRenderers.length;
+        for (var i:int = 0; i < n; i++)
+            freeRenderers[i] = null;
+        freeRenderers.length = 0;
+    }
+         
     /**
      *  @private
      *  During virtual layout getLayoutElementAt() eagerly validates lazily
