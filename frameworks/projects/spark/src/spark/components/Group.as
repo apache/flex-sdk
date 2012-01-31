@@ -1,39 +1,21 @@
 package flex.core {
+import flash.display.BlendMode;
 import flash.display.DisplayObject;
-import flash.display.Sprite;
 import flash.events.Event;
-import flash.geom.ColorTransform;
-import flash.geom.Matrix;
-import flash.geom.Rectangle;
-import flash.geom.Transform;
 import flash.utils.Dictionary;
 
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
-import flex.geom.Transform;
-import flex.graphics.Graphic;
 import flex.graphics.IGraphicElement;
-import flex.graphics.IGraphicElementHost;
-import flex.graphics.MaskType;
-import flex.graphics.TransformUtil;
 import flex.graphics.graphicsClasses.GraphicElement;
 import flex.intf.ILayoutItem;
-import flex.intf.IViewport;
-import flex.layout.BasicLayout;
 import flex.layout.LayoutItemFactory;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
 import mx.collections.ListCollectionView;
-import mx.controls.Label;
-import mx.core.IDataRenderer;
-import mx.core.IDeferredInstance;
-import mx.core.IFactory;
-import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
-import mx.events.PropertyChangeEvent;
-import mx.events.PropertyChangeEventKind;
 import mx.styles.IStyleClient;
 
 use namespace mx_internal;
@@ -91,6 +73,85 @@ public class Group extends GroupBase
     private static const CONTENT_TYPE_UNKNOWN:int = 0;
     private static const CONTENT_TYPE_ARRAY:int = 1;
     private static const CONTENT_TYPE_ILIST:int = 2;
+    
+    //----------------------------------
+    //  alpha
+    //----------------------------------
+
+    [Inspectable(defaultValue="1.0", category="General", verbose="1")]
+
+    /**
+     *  @private
+     */
+    override public function set alpha(value:Number):void
+    {
+    	//The default blendMode in FXG is 'layer'. There are only
+    	//certain cases where this results in a rendering difference,
+    	//one being when the alpha of the Group is > 0 and < 1. In that
+    	//case we set the blendMode to layer to avoid the performance
+    	//overhead that comes with a non-normal blendMode. 
+    	
+    	if (value > 0 && value < 1 && !blendModeExplicitlySet)
+    	{
+    		_blendMode = BlendMode.LAYER;
+    		blendModeChanged = true;
+    	}
+    	else if ((value == 1 || value == 0) && !blendModeExplicitlySet)
+    	{
+    		_blendMode = BlendMode.NORMAL;
+    		blendModeChanged = true;
+    	}
+    		
+    	super.alpha = value;
+    	
+		if (blendModeChanged) 
+    		needsDisplayObjectAssignment = true;
+    	invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  blendMode
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the blendMode property.
+     */
+    private var _blendMode:String = BlendMode.NORMAL;
+    private var blendModeChanged:Boolean;
+    private var blendModeExplicitlySet:Boolean;
+
+	[Bindable("propertyChange")]
+    [Inspectable(category="General", enumeration="add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay", defaultValue="normal")]
+
+    /**
+     *  Documentation is not currently available. 
+     */
+    override public function set blendMode(value:String):void
+    {
+    	if (blendModeExplicitlySet && value == _blendMode)
+    		return;
+    		
+    	var oldValue:String = _blendMode;
+    	_blendMode = value;
+        dispatchPropertyChangeEvent("blendMode", oldValue, value);
+    		
+    	blendModeExplicitlySet = true;
+    	
+		blendModeChanged = true;
+		needsDisplayObjectAssignment = true;
+    	invalidateProperties();
+    }
+    
+    /**
+     *  Documentation is not currently available. 
+     */
+    override public function get blendMode():String
+    {
+    	if (blendModeExplicitlySet)
+        	return _blendMode;
+		else return BlendMode.LAYER;
+    }
     
     public function set content(value:*):void
     {
@@ -188,6 +249,13 @@ public class Group extends GroupBase
             initializeChildrenArray();
             
             // maskChanged = true; TODO (rfrishbe): need this maskChanged?
+        }
+        
+        if (blendModeChanged)
+        {
+            blendModeChanged = true;
+            super.blendMode = _blendMode;
+            needsDisplayObjectAssignment = true;
         }
         
         if (needsDisplayObjectAssignment)
@@ -569,6 +637,7 @@ public class Group extends GroupBase
     private function assignDisplayObjects(startIndex:int = 0):void
     {
         var currentAssignableDO:DisplayObject = canShareDisplayObject ? this : null;
+        //trace("currADO: " + currentAssignableDO);
         var lastDisplayObject:DisplayObject = this;
         
         // Iterate through all of the items
