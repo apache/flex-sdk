@@ -20,6 +20,7 @@ import flash.geom.Point;
 import mx.containers.dividedBoxClasses.BoxDivider;
 import mx.core.EdgeMetrics;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
@@ -328,9 +329,6 @@ public class DividedBox extends Box
 	{
 		super();
 
-        styleManager.registerSizeInvalidatingStyle("dividerAffordance");
-        styleManager.registerSizeInvalidatingStyle("dividerThickness");
-
         addEventListener(ChildExistenceChangedEvent.CHILD_ADD, childAddHandler);
 		addEventListener(ChildExistenceChangedEvent.CHILD_REMOVE, 
 						 childRemoveHandler);
@@ -430,6 +428,23 @@ public class DividedBox extends Box
 	 */
 	private var numLayoutChildren:int = 0;
 
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set moduleFactory(moduleFactory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = moduleFactory;
+        
+        styleManager.registerSizeInvalidatingStyle("dividerAffordance");
+        styleManager.registerSizeInvalidatingStyle("dividerThickness");
+    }
+    
 	//--------------------------------------------------------------------------
 	//
 	//  Properties
