@@ -128,8 +128,8 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *
  *  @see spark.components.SkinnableDataContainer
  *  @see spark.components.Group
- *  @see spark.skins.default.DefaultItemRenderer
- *  @see spark.skins.default.DefaultComplexItemRenderer
+ *  @see spark.skins.spark.DefaultItemRenderer
+ *  @see spark.skins.spark.DefaultComplexItemRenderer
  *  @includeExample examples/DataGroupExample.mxml
  *  
  *  @langversion 3.0
