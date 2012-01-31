@@ -458,12 +458,9 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         if (event.eventPhase == EventPhase.BUBBLING_PHASE)
             return;
 
-        if (!enabled)
+        if (!enabled || !dataProvider || event.isDefaultPrevented())
             return;
-
-        if (!dataProvider)
-            return;
-
+        
         super.keyDownHandler(event);
 
         var oldCaretIndex:Number = caretIndex; 
@@ -490,7 +487,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                     dispatchEvent(e);    
                 }
 
-                event.stopPropagation();
+                event.preventDefault();
                 break;
             }
             case Keyboard.DOWN:
@@ -512,7 +509,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                     dispatchEvent(e);    
                 }
 
-                event.stopPropagation();
+                event.preventDefault();
                 break;
             }            
             case Keyboard.SPACE:
