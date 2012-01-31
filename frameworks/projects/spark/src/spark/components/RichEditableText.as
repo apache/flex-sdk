@@ -255,17 +255,8 @@ public class RichEditableText extends UIComponent
         staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
         staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
             
-        // Create a single Configuration used by all TextContainerManager 
-        // instances.  It tells the TextContainerManager that we don't want it 
-        // to handle the ENTER key, because we need the ENTER key to behave 
-        // differently based on the 'multiline' property.
-        staticTextContainerManagerConfiguration =
-            Configuration(TextContainerManager.defaultConfiguration).clone();
-        staticTextContainerManagerConfiguration.manageEnterKey = false;
-        
         staticPlainTextImporter =
-            TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT,
-            staticTextContainerManagerConfiguration);
+            TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
         
         // Throw import errors rather than return a null textFlow.
         // Alternatively, the error strings are in the Vector, importer.errors.
@@ -290,12 +281,6 @@ public class RichEditableText extends UIComponent
      *  @private
      */
     private static var classInitialized:Boolean = false;
-    
-    /**
-     *  @private
-     *  Used for telling TextContainerManager not to process the Enter key.
-     */
-    private static var staticTextContainerManagerConfiguration:Configuration;
     
     /**
      *  @private
@@ -1846,6 +1831,14 @@ public class RichEditableText extends UIComponent
     {
         super.measure();
                  
+        // ScrollerLayout.measure() has heuristics for figuring out whether to
+        // use the actual content size or the preferred size when there are
+        // automatic scroll bars.  Force it to use the preferredSizes until
+        // the content sizes have been updated to accurate values.  This
+        // comes into play when remeasuring to reduce either the width/height.
+        _contentWidth = 0;
+        _contentHeight = 0;
+               
         // percentWidth and/or percentHeight will come back in as constraints
         // on the remeasure if we're autoSizing.
                           
@@ -2252,8 +2245,8 @@ public class RichEditableText extends UIComponent
      */
     mx_internal function createTextContainerManager():TextContainerManager
     {
-        return new RichEditableTextContainerManager(
-            this, staticTextContainerManagerConfiguration);
+        // Use the default configuration.
+        return new RichEditableTextContainerManager(this, null);
     }
 
     /**
@@ -3119,7 +3112,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  RichEditableTextContainerManager overrides focusInHandler and calls
-     *  this before executing it's own focusInHandler.
+     *  this before executing its own focusInHandler.
      * 
      *  NOTE: In some cases TCM calls the focusInHandler twice during one
      *  focusIn event.  Ensure that this code works correctly if it is
@@ -3170,7 +3163,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  RichEditableTextContainerManager overrides focusOutHandler and calls
-     *  this before executing it's own focusOutHandler.
+     *  this before executing its own focusOutHandler.
      */
     mx_internal function focusOutHandler(event:FocusEvent):void
     {
@@ -3189,7 +3182,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      *  RichEditableTextContainerManager overrides keyDownHandler and calls
-     *  this before executing it's own keyDownHandler.
+     *  this before executing its own keyDownHandler.
      */ 
     mx_internal function keyDownHandler(event:KeyboardEvent):void
     {
@@ -3198,17 +3191,10 @@ public class RichEditableText extends UIComponent
         
         if (event.keyCode == Keyboard.ENTER)
         {
-            if (multiline)
+            // Do not let TLF handle the ENTER key if only one line.
+            if (!multiline)
             {
-                // This is the same code that is in the EditManager for handling
-                // the enter key.
-                getEditManager().splitParagraph();
-                releaseEditManager();
                 event.preventDefault();
-                //event.stopImmediatePropagation();
-            }
-            else
-            {
                 dispatchEvent(new FlexEvent(FlexEvent.ENTER));
             }
          }
