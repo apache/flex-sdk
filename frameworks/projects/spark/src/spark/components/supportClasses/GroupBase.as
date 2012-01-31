@@ -81,6 +81,27 @@ public class GroupBase extends UIComponent implements IViewport
         
     //--------------------------------------------------------------------------
     //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        // TODO
+        // The baselinePosition calculation in UIComponent
+        // works only for TextField-based components.
+        return 0;
+    }
+
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
