@@ -407,7 +407,7 @@ public class RichText extends TextBase
 	 *  @private
 	 *  Source of text: one of "text", "textFlow" or "content".* 
 	 */
-    private var source:String = "text";
+    private var source:String = "";
 	
 	/**
      *  @private
