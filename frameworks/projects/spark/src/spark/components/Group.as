@@ -112,10 +112,10 @@ use namespace mx_internal;
  *  the Group container cannot be skinned. 
  *  If you want to apply a skin, use the SkinnableContainer instead.</p>
  * 
- *  <p>Note: scale grid may not function correctly when there 
+ *  <p><b>Note:</b> The scale grid might not function correctly when there 
  *  are DisplayObject children inside of the Group, such as a component 
- *  or another Group.  If the children are GraphicElements and 
- *  they all share the Group's DisplayObject, then scale grid will work 
+ *  or another Group.  If the children are GraphicElement objects, and 
+ *  they all share the Group's DisplayObject, then the scale grid works 
  *  properly.</p> 
  * 
  *  <p>Setting any of the following properties on a GraphicElement child
