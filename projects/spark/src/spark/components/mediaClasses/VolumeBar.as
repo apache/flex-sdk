@@ -17,6 +17,7 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.geom.Point;
 import flash.ui.Keyboard;
 import flash.ui.Mouse;
 
@@ -273,7 +274,7 @@ public class VolumeBar extends VSlider
      */
     private var _muted:Boolean = false;
     
-    [Bindable("mutedChanged")]
+    [Bindable("mutedChange")]
     
     /**
      *  <code>true</code> if the volume of the video is muted; 
@@ -299,10 +300,14 @@ public class VolumeBar extends VSlider
         
         _muted = value;
         
+        // invalidateDisplayList() because we take in to account value and muted when 
+        // determining where to draw the thumb on the track.
+        invalidateDisplayList();
+        
         if (muteButton)
             muteButton.muted = value;
         
-        dispatchEvent(new Event("mutedChanged"));
+        dispatchEvent(new FlexEvent(FlexEvent.MUTED_CHANGE));
     }
         
     //----------------------------------
@@ -331,6 +336,37 @@ public class VolumeBar extends VSlider
     
     /**
      *  @private
+     *  Overridden to handle the muted case where the value's not actually changed, 
+     *  but we want it to show up as 0.
+     */
+    override protected function updateSkinDisplayList():void
+    {
+        if (!thumb || !track)
+            return;
+    
+        var thumbRange:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
+        var range:Number = maximum - minimum;
+        
+        // calculate new thumb position.
+        var thumbPosTrackY:Number;
+        
+        // if muted, it's 0.  otherwise, calculate it normally
+        // TODO (rfrishbe): should probably use setValue(0) and listen for CHANGE on the VideoPlayer 
+        // instead of VALUE_COMMIT.
+        if (!muted)
+            thumbPosTrackY = (range > 0) ? thumbRange - (((pendingValue - minimum) / range) * thumbRange) : 0;
+        else
+            thumbPosTrackY = thumbRange;
+        
+        // convert to parent's coordinates.
+        var thumbPos:Point = track.localToGlobal(new Point(0, thumbPosTrackY));
+        var thumbPosParentY:Number = thumb.parent.globalToLocal(thumbPos).y;
+        
+        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(thumbPosParentY));
+    }
+    
+    /**
+     *  @private
      */
      override public function styleChanged(styleProp:String):void
      {
@@ -356,6 +392,10 @@ public class VolumeBar extends VSlider
     override protected function setValue(value:Number):void
     {
         super.setValue(value);
+        
+        // when the value is set, this volume bar unmutes the 
+        // video player automatically
+        muted = false;
         
         if (muteButton)
             muteButton.volume = value;
@@ -428,7 +468,6 @@ public class VolumeBar extends VSlider
     private function muteButton_mutedChangeHandler(event:FlexEvent):void
     {
         muted = muteButton.muted;
-        dispatchEvent(event);
     }
     
     /**
