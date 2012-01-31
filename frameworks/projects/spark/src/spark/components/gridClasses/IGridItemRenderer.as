@@ -44,7 +44,7 @@ import mx.core.IVisualElement;
 public interface IGridItemRenderer extends IDataRenderer, IVisualElement
 {
     /**
-     *  The zero-based index of the row being edited.
+     *  The zero-based index of the row being rendered.
      *  That means that values are 0, 1, 2, ... , n - 1, 
      *  where n is the total number of rows.
      *  
@@ -149,9 +149,8 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set showsCaret(value:Boolean):void;    
     
     /**
-     *  The zero-based index of the column being edited.
-     *  That means that values are 0, 1, 2, ... , n - 1, 
-     *  where n is the total number of columns.
+     *  The GridColumn object representing the column
+     *  associated with this item renderer.
      *
      *  <p>This property is set by the item renderer owner by its
      *  <code>updateDisplayList()</code> method. </p>
