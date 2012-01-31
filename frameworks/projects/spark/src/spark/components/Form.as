@@ -14,29 +14,12 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
-import flash.utils.Dictionary;
 
-import mx.core.IVisualElement;
-import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-
-import spark.events.ElementExistenceEvent;
     
 use namespace mx_internal;
-
-/*
- *  TODO:
- * 
- * 
- * 
- *  ISSUES:
- *  - Support auto-generation of numberLabel values?
- *  - Should we support developer overriding the layout defined value in columnWidths? 
- *  If so, we need a seperate property or function like columnWidthsOverride
- * 
- */ 
 
 //--------------------------------------
 //  Other metadata
