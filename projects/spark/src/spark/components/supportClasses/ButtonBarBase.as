@@ -480,19 +480,23 @@ public class ButtonBarBase extends ListBase
         
         super.keyDownHandler(event);
         
-        switch (event.keyCode)
+        // If rtl layout, need to swap LEFT/UP for RIGHT/DOWN so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event, true);
+                        
+        switch (keyCode)
         {
             case Keyboard.UP:
             case Keyboard.LEFT:
             {
-                adjustCaretIndex(-1);
+                    adjustCaretIndex(-1);
                 event.preventDefault();
                 break;
             }
             case Keyboard.DOWN:
             case Keyboard.RIGHT:
             {
-                adjustCaretIndex(+1);
+                    adjustCaretIndex(+1);
                 event.preventDefault();
                 break;
             }            
