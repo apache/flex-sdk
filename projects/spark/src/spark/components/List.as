@@ -1180,7 +1180,7 @@ public class List extends ListBase implements IFocusManagerComponent
         dragSource.addHandler(copySelectedItemsForDragDrop, "orderedItems");
         
         // Calculate the index of the focus item within the vector
-        // of ordered items returned for the "sourceOrderedItems" format.
+        // of ordered items returned for the "orderedItems" format.
         var caretIndex:int = 0;
         var draggedIndices:Vector.<int> = selectedIndices;
         var count:int = draggedIndices.length;
@@ -1193,7 +1193,7 @@ public class List extends ListBase implements IFocusManagerComponent
     }
 
     /**
-     *  @private.
+     *  @private
      */
     private function copySelectedItemsForDragDrop():Vector.<Object>
     {
