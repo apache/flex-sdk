@@ -300,12 +300,40 @@ public class DataGroup extends GroupBase
     {
         return _dataProvider;
     }
-        
+    
     /**
      *  @private
      */
     public function set dataProvider(value:IList):void
     {
+        if (_dataProvider == value)
+            return;
+
+        // if there's an old dataProvider, and we've created the item renderer for 
+        // that dataProvider, then we need to clear out all those item renderers
+        if (!dataProviderChanged && _dataProvider)
+        {
+            var vLayout:Boolean = layout && layout.useVirtualLayout;
+            var startIndex:int = vLayout ? virtualLayoutStartIndex : 0;
+            var endIndex:int = vLayout ? virtualLayoutEndIndex : dataProvider.length - 1; 
+            for (var index:int = endIndex; index >= startIndex; index--)
+            {
+                mx_internal::itemRemoved(_dataProvider.getItemAt(index), index);
+            }
+            
+            if (vLayout)
+            {
+                virtualLayoutStartIndex = virtualLayoutEndIndex = -1;
+                oldVirtualLayoutStartIndex = oldVirtualLayoutEndIndex = -1;
+                
+                for (var i:int = freeRenderers.length - 1; i >= 0; i--)
+                {
+                    var myItemRenderer:IVisualElement = freeRenderers.pop() as IVisualElement;
+                    super.removeChild(myItemRenderer as DisplayObject);
+                }
+            }
+        }
+        
         if (_dataProvider)
             _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
         
@@ -323,11 +351,6 @@ public class DataGroup extends GroupBase
      */ 
     protected function initializeDataProvider():void
     {
-        // Get rid of existing display object children.
-        // !!!!! This should probably be done through change notification
-        for (var idx:int = numChildren; idx > 0; idx--)
-            super.removeChildAt(0);
-        
         var vLayout:Boolean = layout && layout.useVirtualLayout;
 
         // Create all item renderers eagerly
@@ -526,7 +549,7 @@ public class DataGroup extends GroupBase
         return dataProvider ? dataProvider.length : 0;
     }
 
-    private var itemToRenderer:Dictionary = new Dictionary(true); 
+    private var indexToRenderer:Array = []; 
 
     /**
      *  @private 
@@ -536,6 +559,8 @@ public class DataGroup extends GroupBase
      */     
     private var virtualLayoutStartIndex:int = -1;
     private var virtualLayoutEndIndex:int = -1;
+    private var oldVirtualLayoutStartIndex:int = -1;
+    private var oldVirtualLayoutEndIndex:int = -1;
 
     /**
      *  @private 
@@ -565,31 +590,40 @@ public class DataGroup extends GroupBase
      */
     private function finishVirtualLayout():void
     {
-        var lastValidChildIndex:int = virtualLayoutEndIndex - virtualLayoutStartIndex;
+        // At this point, we have renderers for the current rendering cycle at 
+        // [virtualLayoutStartIndex. virtualLayoutEndIndex], but we may also have old 
+        // ones that need to be removed at [oldVirtualLayoutStartIndex, oldVirtualLayoutEndIndex]
+        if (oldVirtualLayoutStartIndex == -1 || oldVirtualLayoutEndIndex == -1)
+            return;
         
-        // At this point, insertion of new IRs has pushed all of the unneeded IRs
-        // past endIndex-startIndex.  Remove or recycle them without invalidating 
-        // this DataGroup's size or display list.
-        for(var i:int = super.numChildren - 1; i > lastValidChildIndex; i--)
+        // We want to remove item renderers at 
+        // at [oldVirtualLayoutStartIndex, oldVirtualLayoutEndIndex]
+        // but excluding [virtualLayoutStartIndex. virtualLayoutEndIndex].
+        // Most of the time's we'll be removing one contiguous block 
+        // before or after our on-screen item renderers, but sometimes 
+        // we may be removing them before and after (in the case of 
+        // the list changing heights)
+
+        for (var index:int = oldVirtualLayoutStartIndex; index <= oldVirtualLayoutEndIndex; index++)
         {
-            var elt:IVisualElement = IVisualElement(super.getChildAt(i));
-            
-            // Skip IRs that are already on the free list, 
-            if (freeRenderers && (freeRenderers.indexOf(elt) != -1))
+            // if we encounter an IR in our current list of item renderers, 
+            // let's smart-skip to the end.
+            if (index >= virtualLayoutStartIndex && index <= virtualLayoutEndIndex)
+            {
+                index = virtualLayoutEndIndex;
                 continue;
+            }
+            
+            var elt:IVisualElement = indexToRenderer[index] as IVisualElement;
 
             // Remove previously "in view" IRs from the item=>IR table
-            var item:Object = elt;
-            if ((itemToRenderer[item] != elt) && (elt is IDataRenderer))
-            {
-                item = IDataRenderer(elt).data;
-                IDataRenderer(elt).data = null;  // reduce probability of leaks
-            }
-            delete itemToRenderer[item];
-              
+            delete indexToRenderer[index];
+            
+            var item:Object = dataProvider.getItemAt(index);
             // Free or remove the IR.
             if ((item != elt) && (elt is IDataRenderer))
             {
+                IDataRenderer(elt).data = null;  // reduce probability of leaks
                 elt.visible = false;
                 if (elt is UIComponent) 
                     UIComponent(elt).includeInLayout = false;
@@ -597,9 +631,8 @@ public class DataGroup extends GroupBase
             }
             else
             {
-                // TODO (rfrishbe): it's not quite i + startIndex, especially when considering the layer property.
                 dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_REMOVE, 
-                                false, false, elt, i + lastValidChildIndex, item));
+                                false, false, elt, index, item));
                 super.removeChild(DisplayObject(elt));
             }
         }
@@ -637,12 +670,14 @@ public class DataGroup extends GroupBase
         if (layout && layout.useVirtualLayout)
         {
             virtualLayoutUnderway = true;
+            oldVirtualLayoutStartIndex = virtualLayoutStartIndex;
+            oldVirtualLayoutEndIndex = virtualLayoutEndIndex;
             virtualLayoutStartIndex = -1;
             ensureTypicalLayoutElement();
         }
         
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-
+        
         if (virtualLayoutUnderway)
         {
             finishVirtualLayout();
@@ -669,9 +704,8 @@ public class DataGroup extends GroupBase
     {
         if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
             return null;
-            
-        var item:Object = dataProvider.getItemAt(index);
-        var elt:IVisualElement = itemToRenderer[item];
+        
+        var elt:IVisualElement = indexToRenderer[index];
         
         if (virtualLayoutUnderway)
         {
@@ -698,7 +732,7 @@ public class DataGroup extends GroupBase
                 virtualLayoutEndIndex = index;
             }
             else
-            { 
+            {
                 virtualLayoutStartIndex = Math.min(index, virtualLayoutStartIndex); 
                 virtualLayoutEndIndex = Math.max(index, virtualLayoutEndIndex);
             }
@@ -708,7 +742,9 @@ public class DataGroup extends GroupBase
             
             if (!elt)
             {
-                var recyclingOK:Boolean = (itemRendererFunction == null) && (itemRenderer != null); 
+                var item:Object = dataProvider.getItemAt(index);
+                var recyclingOK:Boolean = (itemRendererFunction == null) && (itemRenderer != null);
+                
                 if (recyclingOK && (freeRenderers.length > 0))
                 {
                     elt = freeRenderers.pop();
@@ -725,7 +761,7 @@ public class DataGroup extends GroupBase
                     createdIR = true;
                 }
                 
-                itemToRenderer[item] = elt;  // weak reference
+                indexToRenderer[index] = elt;
             }
 
             addItemRendererToDisplayList(DisplayObject(elt), index - virtualLayoutStartIndex);
@@ -782,8 +818,24 @@ public class DataGroup extends GroupBase
      */
     mx_internal function itemAdded(item:Object, index:int):void
     {
+        if (layout && layout.useVirtualLayout)
+        {
+            if (index < virtualLayoutStartIndex)
+            {
+                invalidateSize();
+                invalidateDisplayList();
+                return;
+            }
+            else if (index > virtualLayoutEndIndex)
+            {
+                invalidateSize();
+                return;
+            }
+            // otherwise, we'll add it to the display list
+        }
+        
         var myItemRenderer:IVisualElement = createRendererForItem(item);
-        itemToRenderer[item] = myItemRenderer;
+        indexToRenderer.splice(index, 0, myItemRenderer);
 
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
         dispatchEvent(new RendererExistenceEvent(
@@ -805,9 +857,25 @@ public class DataGroup extends GroupBase
      *  @param index The index of the item that is being removed.
      */
     mx_internal function itemRemoved(item:Object, index:int):void
-    {       
-        var myItemRenderer:IVisualElement = itemToRenderer[item];
-        delete itemToRenderer[item];
+    {
+        if (layout && layout.useVirtualLayout)
+        {
+            if (index < virtualLayoutStartIndex)
+            {
+                invalidateSize();
+                invalidateDisplayList();
+                return;
+            }
+            else if (index > virtualLayoutEndIndex)
+            {
+                invalidateSize();
+                return;
+            }
+            // otherwise, we'll add it to the display list
+        }
+        
+        var myItemRenderer:IVisualElement = indexToRenderer[index];
+        indexToRenderer.splice(index, 1);
         
         dispatchEvent(new RendererExistenceEvent(
                       RendererExistenceEvent.RENDERER_REMOVE, false, false, 
