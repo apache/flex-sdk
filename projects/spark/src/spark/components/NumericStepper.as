@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 
+import mx.core.IIMESupport;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
@@ -62,7 +63,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class NumericStepper extends Spinner implements IFocusManagerComponent
+public class NumericStepper extends Spinner 
+    implements IFocusManagerComponent, IIMESupport
 {
     include "../core/Version.as";
     
@@ -241,6 +243,56 @@ public class NumericStepper extends Spinner implements IFocusManagerComponent
         invalidateProperties();
     }
 
+    //----------------------------------
+    //  imeMode
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+
+    [Inspectable(defaultValue="")]
+
+    /**
+     *  @private
+     */
+    private var imeModeChanged:Boolean = false;
+
+    /**
+     *  Specifies the IME (Input Method Editor) mode.
+     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
+     *  Flex sets the specified IME mode when the control gets the focus
+     *  and sets it back to previous value when the control loses the focus.
+     *
+     * <p>The flash.system.IMEConversionMode class defines constants for the
+     *  valid values for this property.
+     *  You can also specify <code>null</code> to specify no IME.</p>
+     *
+     *  @see flash.system.IMEConversionMode
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get imeMode():String
+    {
+        return _imeMode;
+    }
+
+    /**
+     *  @private
+     */
+    public function set imeMode(value:String):void
+    {
+        _imeMode = value;
+        imeModeChanged = true;
+        invalidateProperties();
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -354,6 +406,12 @@ public class NumericStepper extends Spinner implements IFocusManagerComponent
         {
             textInput.maxChars = _maxChars;
             maxCharsChanged = false;
+        }
+        
+        if (imeModeChanged)
+        {
+            textInput.imeMode = _imeMode;
+            imeModeChanged = false;
         }
     } 
     
