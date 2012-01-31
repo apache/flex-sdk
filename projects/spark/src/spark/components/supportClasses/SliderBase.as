@@ -22,8 +22,14 @@ import flash.ui.Keyboard;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.UIComponent;
+import mx.events.EffectEvent;
 import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
+
+import spark.effects.SimpleMotionPath;
+import spark.effects.animation.Animation;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Sine;
 
 include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
@@ -102,6 +108,8 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     
 	private var dataFormatter:NumberFormatter;
 
+    private var animator:Animation = null;
+    
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -396,6 +404,11 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     override protected function system_mouseMoveHandler(event:MouseEvent):void
     {
+        // TODO (chaase): I think we can do this without a persistent
+        // currValue property, and therefore just call super.mouseMove to
+        // handle the main functionality, with extra code just for the
+        // dataTipInstance case
+        
         currValue = calculateNewValue(currValue, event);
 
         positionThumb(valueToPosition(currValue));
@@ -430,6 +443,8 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     override protected function system_mouseUpHandler(event:MouseEvent):void
     {
+        // TODO (chaase): get rid of currValue and just calculate the new
+        // value here dynamically
         if (!liveDragging && currValue != value)
         {
             setValue(currValue);
@@ -539,12 +554,54 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         
         if (RtempValue != value)
         {
-            setValue(RtempValue);
-            dispatchEvent(new Event("change"));
+            var slideDuration:Number = getStyle("slideDuration");
+            if (slideDuration != 0)
+            {
+                if (!animator)
+                {
+                    animator = new Animation();
+                    var animTarget:AnimationTarget = new AnimationTarget(animationUpdateHandler);
+                    animTarget.endFunction = animationEndHandler;
+                    animator.animationTarget = animTarget;                    
+                    // TODO (chaase): hard-coding easer for now - how to style it?
+                    animator.easer = new Sine(0);
+                }
+                animator.stop();
+                animator.duration = slideDuration * 
+                    (Math.abs(value - RtempValue) / (maximum - minimum));
+                animator.motionPaths = [
+                    new SimpleMotionPath("value", value, RtempValue)];
+                animator.play();
+            }
+            else
+            {
+                setValue(RtempValue);
+                dispatchEvent(new Event("change"));
+            }
         }
 
         event.updateAfterEvent();
     }
+    
+    /**
+     * @private
+     * Handles events from the Animation that runs the animated slide.
+     * We just call setValue() with the current animated value
+     */
+    private function animationUpdateHandler(animation:Animation):void
+    {
+        setValue(animation.currentValue["value"]);
+    }
+    
+    /**
+     * @private
+     * Handles end event from the Animation that runs the animated slide.
+     * We dispatch the "change" event at this time, after the animation
+     * is done.
+     */
+    private function animationEndHandler(animation:Animation):void
+    {
+        dispatchEvent(new Event("change"));
+    }
 }
-
 }
