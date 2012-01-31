@@ -190,6 +190,16 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="backgroundAttachment", type="String", inherit="no")]
 
 /**
+ *  The alpha of the content background for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+
+/**
  *  Color of the content area of the component.
  *   
  *  @default 0xFFFFFF
@@ -4682,19 +4692,30 @@ public class Container extends UIComponent
 
         // If the borderSkin is a custom class, always assume the border is needed.
         var c:Class = getStyle("borderSkin");
+        var haloBorder:Object = null;
+        var sparkBorder:Object = null;
         
-        // Lookup the HaloBorder class by name to avoid a linkage dependency.
-        // Note: this code assumes HaloBorder is the default border skin. If this is changed
-        // in defaults.css, it must also be changed here.
-        try
+        // Lookup the default border classes by name to avoid a linkage dependency.
+        // Note: this code assumes either HaloBorder or spark BorderSkin is the default border skin. 
+        // If this is changed in defaults.css, it must also be changed here.
+        try 
         {
-            if (c != getDefinitionByName("mx.skins.halo::HaloBorder"))
-                return true;
+            haloBorder = getDefinitionByName("mx.skins.halo::HaloBorder");
         }
         catch(e:Error)
         {
-            return true;
         }
+        
+        try 
+        {
+            sparkBorder = getDefinitionByName("mx.skins.spark::BorderSkin");
+        }
+        catch(e:Error)
+        {
+        }
+        
+        if (!(c == haloBorder || c == sparkBorder))
+            return true;
             
         var v:Object = getStyle("borderStyle");
         if (v)
