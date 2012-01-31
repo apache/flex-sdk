@@ -23,6 +23,7 @@ import mx.layout.LayoutBase;
 import mx.events.PropertyChangeEvent;
 import mx.components.baseClasses.FxComponent;
 import mx.core.ScrollPolicy;
+import mx.core.ScrollUnit;
 import mx.managers.IFocusManagerComponent;
 
     
@@ -111,7 +112,10 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
      *  The viewport component to be scrolled.
      * 
      *  <p>The viewport is added to the FXScroller component's skin 
-     *  which lays out both the viewport and scrollbars.</p>
+     *  which lays out both the viewport and scrollbars.
+     * 
+     *  When the viewport property is set, the viewport's clipContent property is 
+     *  set to true to enable scrolling.</p>
      */
     public function get viewport():IViewport
     {       
@@ -134,6 +138,7 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     {
         if (skin && viewport)
         {
+            viewport.clipContent = true;
             skin.addItemAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
@@ -151,6 +156,7 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             verticalScrollBar.viewport = null;        
         if (skin && viewport)
         {
+            viewport.clipContent = false;
             skin.removeItem(viewport);
             viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
@@ -348,13 +354,23 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             var vspDelta:Number = NaN;
             switch (event.keyCode)
             {
-                case Keyboard.DOWN:
                 case Keyboard.UP:
+                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.UP);
+                     break;
+                case Keyboard.DOWN:
+                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.DOWN);
+                     break;
                 case Keyboard.PAGE_UP:
+                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.PAGE_UP);
+                     break;
                 case Keyboard.PAGE_DOWN:
+                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.PAGE_DOWN);
+                     break;
                 case Keyboard.HOME:
+                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.HOME);
+                     break;
                 case Keyboard.END:
-                     vspDelta = vp.verticalScrollPositionDelta(event.keyCode);
+                     vspDelta = vp.getVerticalScrollPositionDelta(ScrollUnit.END);
                      break;
             }
             if (!isNaN(vspDelta))
@@ -369,11 +385,27 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             switch (event.keyCode)
             {
                 case Keyboard.LEFT:
-                case Keyboard.RIGHT:
-                case Keyboard.HOME:
-                case Keyboard.END:                
-                    hspDelta = vp.horizontalScrollPositionDelta(event.keyCode);
+                    hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.LEFT);
                     break;
+                case Keyboard.RIGHT:
+                    hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.RIGHT);
+                    break;
+                case Keyboard.HOME:
+                    hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.HOME);
+                    break;
+                case Keyboard.END:                
+                    hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.END);
+                    break;
+                // If there's no vertical scrollbar, then map page up/down to
+                // page left,right
+                case Keyboard.PAGE_UP:
+                     if (!verticalScrollBar || !(verticalScrollBar.visible))   
+                         hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.PAGE_LEFT);
+                     break;
+                case Keyboard.PAGE_DOWN:
+                     if (!verticalScrollBar || !(verticalScrollBar.visible))   
+                         hspDelta = vp.getHorizontalScrollPositionDelta(ScrollUnit.PAGE_RIGHT);
+                     break;
             }
             if (!isNaN(hspDelta))
             {
