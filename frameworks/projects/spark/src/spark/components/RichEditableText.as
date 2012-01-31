@@ -1862,7 +1862,7 @@ public class RichEditableText extends UIComponent
     //----------------------------------
     //  text
     //----------------------------------
-
+    
     /**
      *  @private
      */
@@ -1874,6 +1874,7 @@ public class RichEditableText extends UIComponent
     private var textChanged:Boolean = false;
 
     [Bindable("change")]
+    [Inspectable(category="General")]
 
     /**
      *  The text String displayed by this component.
