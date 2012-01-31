@@ -9,15 +9,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
     
 import flash.display.DisplayObject;
-import mx.components.baseClasses.FxComponent;
+import spark.components.supportClasses.SkinnableComponent;
 import mx.core.ContainerGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.managers.IFocusManagerContainer;
-import mx.utils.MouseShieldUtil;
+import spark.utils.MouseShieldUtil;
 
 
 /**
@@ -48,7 +48,7 @@ import mx.utils.MouseShieldUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxContainerBase extends FxComponent implements IFocusManagerContainer
+public class SkinnableContainerBase extends SkinnableComponent implements IFocusManagerContainer
 {
     include "../../core/Version.as";
 
@@ -66,7 +66,7 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxContainerBase()
+    public function SkinnableContainerBase()
     {
         super();
     }
