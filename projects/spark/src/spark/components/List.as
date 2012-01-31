@@ -33,6 +33,7 @@ import mx.core.IUID;
 import mx.core.IVisualElement;
 import mx.core.InteractionMode;
 import mx.core.mx_internal;
+import mx.core.UIComponentGlobals;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.DragEvent;
@@ -551,12 +552,15 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function set dataProvider(value:IList):void
     {
-        // Uconditionally clear the selection, see SDK-21645
+        // Uconditionally clear the selection, see SDK-21645.  Can't wait
+        // to commit the selection because it could be set again before
+        // commitProperties runs and that selection gets lost.
         if (!isEmpty(_proposedSelectedIndices) || !isEmpty(selectedIndices))
         {
             _proposedSelectedIndices.length = 0;
             multipleSelectionChanged = true;
             invalidateProperties();
+            UIComponentGlobals.layoutManager.validateClient(this, true);
         }
         super.dataProvider = value;
     }
