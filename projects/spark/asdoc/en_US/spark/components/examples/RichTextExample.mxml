@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- TextGraphicExample.mxml -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-     <s:Panel title="TextGraphic Example"
-        height="75%" width="75%" layout="horizontal"
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
-          <Canvas top="0" bottom="0" left="0" right="0">
-               <s:Graphic>
-                    <TextGraphic x="0" y="0" width="75" fontFamily="Times" fontSize="15" textRotation="rotate90">
-                         <content>Hello World!</content>
-                    </TextGraphic>
-               </s:Graphic>
-               <s:Group x="100" y="0">
-                    <TextGraphic width="100" textAlign="justify" paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5">
-                            <content>Hello World! This is a justified paragraph of text in a TextGraphic. It has a border around it drawn by a Rect inside a Group.</content>
-                    </TextGraphic>
-                    <s:Rect width="100%" height="100%">
-                         <s:stroke>
-                              <s:SolidColorStroke color="red"/>
-                         </s:stroke>
-                    </s:Rect>               
-               </s:Group>
-               <s:Graphic>
-                    <TextGraphic x="225" y="0" width="120" height="120" columnCount="2" columnGap="10">
-                         <content><span fontWeight="bold">Hello World!</span> This is a paragraph of text in 2 columns. It is about 20 words long, which should be enough to cause a few line breaks.</content>
-                    </TextGraphic>
-               </s:Graphic>
-          </Canvas>
-     </s:Panel>
+
+    <s:Panel title="RichText Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+        <s:Group left="10" right="10" top="10" bottom="10">
+            <s:RichText x="0" y="0" width="75" fontFamily="Times" fontSize="15" textRotation="rotate90">
+                <s:content>Hello World!</s:content>
+            </s:RichText>
+
+            <s:Group x="100" y="0">
+                <s:RichText width="100" textAlign="justify" paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5">
+                    <s:content>Hello World! This is a justified paragraph of text in a RichText control. It has a border around it drawn by a Rect inside a Group.</s:content>
+                </s:RichText>
+                <s:Rect width="100%" height="100%">
+                    <s:stroke>
+                        <s:SolidColorStroke color="red"/>
+                    </s:stroke>
+                </s:Rect>
+            </s:Group>
+
+            <s:Group x="225" y="0">
+                <s:RichText width="140" height="120" columnCount="2" columnGap="10">
+                    <s:content><s:span fontWeight="bold">Hello World!</s:span> This is a paragraph of text in 2 columns. It is about 20 words long, which should be enough to cause a few line breaks.</s:content>
+                </s:RichText>
+                <s:Rect width="100%" height="100%">
+                    <s:stroke>
+                        <s:SolidColorStroke color="red"/>
+                    </s:stroke>
+                </s:Rect>
+            </s:Group>
+        </s:Group>
+    </s:Panel>
+
 </s:Application>
