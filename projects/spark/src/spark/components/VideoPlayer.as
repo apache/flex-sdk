@@ -698,6 +698,21 @@ public class VideoPlayer extends SkinnableComponent
      */
     private var videoDisplayProperties:Object = {};
     
+    /**
+     *  @private
+     *  The value of the pauseWhenHidden property before exiting 
+     *  fullScreen.  We need to store it away here so we can 
+     *  restore it at commitProperties() time because of an AIR 
+     *  Mac bug.
+     */
+    private var exitingFullScreenPauseWhenHidden:Boolean;
+    
+    /**
+     *  @private
+     *  Whether the pauseWhenHidden property needs to be updated.
+     */
+    private var needsToUpdatePauseWhenHidden:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -1060,7 +1075,11 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function get pauseWhenHidden():Boolean
     {
-        if (videoDisplay)
+        if (needsToUpdatePauseWhenHidden)
+        {
+            return exitingFullScreenPauseWhenHidden;
+        }
+        else if (videoDisplay)
         {
             return videoDisplay.pauseWhenHidden;
         }
@@ -1076,7 +1095,11 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function set pauseWhenHidden(value:Boolean):void
     {
-        if (videoDisplay)
+        if (needsToUpdatePauseWhenHidden)
+        {
+            exitingFullScreenPauseWhenHidden = value;
+        }
+        else if (videoDisplay)
         {
             videoDisplay.pauseWhenHidden = value;
             videoDisplayProperties = BitFlagUtil.update(videoDisplayProperties as uint, 
@@ -1723,6 +1746,23 @@ public class VideoPlayer extends SkinnableComponent
         }
     }
     
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        // if coming from full screen mode, we reset the 
+        // pauseWhenHidden property here because of an AIR bug
+        // that requires us to defer it.
+        if (needsToUpdatePauseWhenHidden)
+        {
+            needsToUpdatePauseWhenHidden = false;
+            pauseWhenHidden = exitingFullScreenPauseWhenHidden;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
@@ -2131,7 +2171,7 @@ public class VideoPlayer extends SkinnableComponent
         // keep track of pauseWhenHidden b/c we will set it to false temporarily 
         // so that the video does not pause when we reparent it to the top
         // level application
-        var oldPauseWhenHidden:Boolean = pauseWhenHidden;
+        exitingFullScreenPauseWhenHidden = pauseWhenHidden;
         pauseWhenHidden = false;
         
         // set the fullScreen variable back to false and remove this event listener
@@ -2182,7 +2222,17 @@ public class VideoPlayer extends SkinnableComponent
             beforeFullScreenInfo.parent.addChildAt(this, beforeFullScreenInfo.childIndex);
         
         includeInLayout = beforeFullScreenInfo.includeInLayout;
-        pauseWhenHidden = oldPauseWhenHidden;
+        
+        // want to update pauseWhenHidden, but can't do it here
+        // b/c the AIR window thinks it's invisible at this point
+        // if we're on a Mac (a bug), so let's just defer this check
+        // to commitProperties().
+        if (exitingFullScreenPauseWhenHidden)
+        {
+            // if we need to set it back to true
+            needsToUpdatePauseWhenHidden = true;
+            invalidateProperties();
+        }
         
         beforeFullScreenInfo = null;
         
