@@ -160,7 +160,7 @@ public class ResultEvent extends AbstractEvent
      */
     override public function toString():String
     {
-        return formatToString("ResultEvent", "messageId", "type", "bubbles", "cancelable", "eventPhase", "httpStatus");
+        return formatToString("ResultEvent", "messageId", "type", "bubbles", "cancelable", "eventPhase");
     }
 
     /*
