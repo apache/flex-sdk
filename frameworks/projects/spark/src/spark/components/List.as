@@ -564,7 +564,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!layout)
             return;
 
-        var spDelta:Point = layout.getScrollPositionDelta(index);
+        var spDelta:Point = layout.getScrollPositionDeltaToElement(index);
         if (spDelta)
         { 
             horizontalScrollPosition += spDelta.x;
