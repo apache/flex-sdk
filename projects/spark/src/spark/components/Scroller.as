@@ -138,11 +138,18 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
             skin.addItemAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
- 	
+ 	    if (verticalScrollBar)
+            verticalScrollBar.viewport = viewport;
+        if (horizontalScrollBar)
+            horizontalScrollBar.viewport = viewport;
     }
     
     private function uninstallViewport():void
     {
+        if (horizontalScrollBar)
+            horizontalScrollBar.viewport = null;
+        if (verticalScrollBar)
+            verticalScrollBar.viewport = null;        
     	if (skin && viewport)
     	{
     		skin.removeItem(viewport);
@@ -369,11 +376,13 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
         
         if (instance == verticalScrollBar)
         {
+            verticalScrollBar.viewport = viewport;            
         	verticalScrollBar.addEventListener("valueCommit", vsb_valueCommitHandler);
         }
         
         if (instance == horizontalScrollBar)
         {
+            horizontalScrollBar.viewport = viewport;            
             horizontalScrollBar.addEventListener("valueCommit", hsb_valueCommitHandler);
         }
     }
@@ -387,11 +396,13 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
         
         if (instance == verticalScrollBar)
         {
+            verticalScrollBar.viewport = null;
             verticalScrollBar.removeEventListener("valueCommit", vsb_valueCommitHandler);
         }
         
         if (instance == horizontalScrollBar)
         {
+            horizontalScrollBar.viewport = null;
             horizontalScrollBar.removeEventListener("valueCommit", hsb_valueCommitHandler);
         }
     }
