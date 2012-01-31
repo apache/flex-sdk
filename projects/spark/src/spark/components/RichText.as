@@ -364,7 +364,20 @@ public class TextGraphic extends TextGraphicElement
         if (!mx_internal::styleChainInitialized)
             return;
 
-        compose(unscaledWidth, unscaledHeight);
+        var overset:Boolean = compose(unscaledWidth, unscaledHeight);
+        
+        // Use scrollRect to clip overset lines.
+        // But don't set scrollRect to null if it is already null,
+        // because this causes Player 10.0 to allocate memory.
+        if (overset)
+        {
+            displayObject.scrollRect =
+                new Rectangle(0, 0, unscaledWidth, unscaledHeight);
+        }
+        else if (displayObject.scrollRect)
+        {
+            displayObject.scrollRect = null;
+        }
     }
 
     /**
@@ -566,8 +579,7 @@ public class TextGraphic extends TextGraphicElement
     /**
      *  @private
      */
-    private function compose(width:Number = NaN,
-                             height:Number = NaN):void
+    private function compose(width:Number = NaN, height:Number = NaN):Boolean
     {
         textFlow = createTextFlow();
         _content = textFlow;
@@ -584,7 +596,7 @@ public class TextGraphic extends TextGraphicElement
         
         textFlowComposer.addTextLines(DisplayObjectContainer(displayObject));
 
-        displayObject.scrollRect = textFlowComposer.isOverset ? bounds : null;
+        return textFlowComposer.isOverset;
     }
 }
 
