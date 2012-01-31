@@ -43,6 +43,11 @@ List
 	skinZZ: ClassReference("flex.skin.ListSkin");
 }
 
+NumericStepper
+{
+    skinZZ: ClassReference("flex.skin.NumericStepperSkin");
+}
+
 Panel
 {
 	skinZZ: ClassReference("flex.skin.PanelSkin");
