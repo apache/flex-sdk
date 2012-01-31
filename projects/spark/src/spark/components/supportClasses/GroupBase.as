@@ -1064,21 +1064,27 @@ public class GroupBase extends UIComponent implements IViewport
             
             if (_mask && _maskType == MaskType.LUMINOSITY && _mask.filters.length > 0)
             {
-                // Grab the shader filter and clear out the mask 
-                shaderFilter = _mask.filters[0];
+                // Grab the shader filter 
+                var shaderFilterIndex:int; 
+                var len:int = _mask.filters.length; 
+                for (shaderFilterIndex = 0; shaderFilterIndex < len; shaderFilterIndex++)
+                {
+                    if (_mask.filters[shaderFilterIndex] is ShaderFilter && 
+                        ShaderFilter(_mask.filters[shaderFilterIndex]).shader is LuminosityMaskShader)
+                    {
+                        shaderFilter = _mask.filters[shaderFilterIndex];
+                        break; 
+                    }
+                }
                 
                 if (shaderFilter && (shaderFilter.shader is LuminosityMaskShader))
                 {
-                    // Clear out the mask's filters because we could potentially
-                    // have a rendering change by setting the mode dynamically 
-                    // while the filters have been set. 
-                    _mask.filters = [];
-                    
                     // Reset the mode property  
                     LuminosityMaskShader(shaderFilter.shader).mode = calculateLuminositySettings();
                     
                     // Re-apply the filter to the mask 
-                    _mask.filters = [shaderFilter];
+                    _mask.filters[shaderFilterIndex] = shaderFilter; 
+                    _mask.filters = _mask.filters; 
                 }
             }
         }
