@@ -657,16 +657,23 @@ public class TextBase extends UIComponent
         clip(clipText, unscaledWidth, unscaledHeight);
  
      	// If backgroundColor is defined, fill the bounds of the component
-    	// with backgroundColor drawn with alpha level backgroundAlpha.
+    	// with backgroundColor drawn with alpha level backgroundAlpha, 
+        // otherwise, render a fully transparent background.
+        
     	var backgroundColor:* = getStyle("backgroundColor");
-    	if (backgroundColor !== undefined)
-    	{
-            var g:Graphics = graphics;
-            g.lineStyle();
-            g.beginFill(uint(backgroundColor), getStyle("backgroundAlpha"));
-            g.drawRect(0, 0, unscaledWidth, unscaledHeight);
-            g.endFill();
-	    }
+        var backgroundAlpha:Number = getStyle("backgroundAlpha");
+        
+    	if (backgroundColor === undefined)
+        {
+            backgroundColor = 0;
+            backgroundAlpha = 0;
+        }
+        
+        var g:Graphics = graphics;
+        g.clear();
+        g.beginFill(uint(backgroundColor), backgroundAlpha);
+        g.drawRect(0, 0, unscaledWidth, unscaledHeight);
+        g.endFill();
     }
 
     //--------------------------------------------------------------------------
