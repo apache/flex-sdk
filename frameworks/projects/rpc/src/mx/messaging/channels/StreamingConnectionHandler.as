@@ -182,7 +182,7 @@ public class StreamingConnectionHandler extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  Creates an new StreamingConnectionHandler instance.
+     *  Constructor.
      *
 	 *  @param channel The Channel that uses this class.
 	 *  @param log Reference to the logger for the associated Channel.
