@@ -368,7 +368,8 @@ public class SkinnablePopUpContainer extends SkinnableContainer
      *  <code>FlexEvent.OPEN</code> event.
      *
      *  @param owner The owner of the container. 
-     *  The popup appears over this container.
+     *  The popup appears over this component. The owner must not be descendant
+     *  of this container.
      *
      *  @param modal Whether the container should be modal.
      *  A modal container takes all keyboard and mouse input until it is closed.
@@ -404,11 +405,6 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             updatePopUpPosition();
         }
         
-        // FIXME (jasonsj): SDK-31429
-        // Abort if PopUpManager was not able to add the pop-up
-//        if (!this.isPopUp)
-//            return;
-
         // Change state *after* we pop up, as the skin needs to go be in the initial "closed"
         // state while being created above in order for transitions to detect state change and play. 
         _isOpen = true;
