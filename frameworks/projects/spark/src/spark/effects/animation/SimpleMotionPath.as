@@ -11,7 +11,7 @@
 
 package spark.effects
 {
-import spark.effects.interpolation.NumberArrayInterpolator;
+import spark.effects.interpolation.ArrayInterpolator;
     
     
 /**
@@ -27,7 +27,7 @@ import spark.effects.interpolation.NumberArrayInterpolator;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class AnimationProperty extends MotionPath
+public class SimpleMotionPath extends MotionPath
 {
  
     //--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ public class AnimationProperty extends MotionPath
     //--------------------------------------------------------------------------
 
     /**
-     * Constructs an AnimationProperty object. The from/to/by values are used
+     * Constructs a SimpleMotionPath object. The from/to/by values are used
      * to construct a simple one-keyframe MotionPath where the from value
      * is defined in the MotionPath object itself and the single keyframe.
      * 
@@ -48,7 +48,7 @@ public class AnimationProperty extends MotionPath
      * @param valueBy An optional parameter that specifies the delta with
      * which to calculate either the from or to values.
      */    
-    public function AnimationProperty(property:String = null, 
+    public function SimpleMotionPath(property:String = null, 
         valueFrom:Object = null, valueTo:Object = null, 
         duration:Number = NaN, valueBy:Object = null)
     {
@@ -56,9 +56,21 @@ public class AnimationProperty extends MotionPath
         this.property = property;
         keyframes = [new KeyFrame(0, valueFrom), new KeyFrame(duration, valueTo, valueBy)];
         if (valueFrom is Array && valueTo is Array)
-            interpolator = NumberArrayInterpolator.getInstance();
+        {
+            if (!numberArrayInterpolator)
+                numberArrayInterpolator = new ArrayInterpolator();
+            interpolator = numberArrayInterpolator;
+        }
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    private static var numberArrayInterpolator:ArrayInterpolator = null;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
