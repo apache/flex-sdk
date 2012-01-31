@@ -1029,7 +1029,7 @@ package mx.core
             
             return _htmlHelper.getHtmlText(_text);
         }
-        
+            
         /**
          *  @private
          */
@@ -1058,7 +1058,7 @@ package mx.core
             if (!_htmlHelper)
                 _htmlHelper = new HTMLHelper(this);
             
-            _htmlHelper._htmlText = value;
+            _htmlHelper.htmlText = value;
             _htmlHelper.explicitHTMLText = value;
             
             // _text is now invalid and will get regenerated on demand.
@@ -1436,7 +1436,7 @@ package mx.core
         public function get styleSheet():StyleSheet
         {
             // Note: TextField does NOT return a copy of the StyleSheet.
-            return _htmlHelper ? _htmlHelper._styleSheet : null;
+            return _htmlHelper ? _htmlHelper.styleSheet : null;
         }
         
         /**
@@ -1453,7 +1453,7 @@ package mx.core
             if (!_htmlHelper)
                 _htmlHelper = new HTMLHelper(this);
             
-            _htmlHelper.styleSheet = value;
+            _htmlHelper.setStyleSheet(value);
             
             // The TextLines may need to be recreated
             // and the border and background may need to be redrawn.
@@ -1493,7 +1493,7 @@ package mx.core
             
             return _text;
         }
-        
+            
         /**
          *  @private
          */
@@ -2436,7 +2436,7 @@ package mx.core
                 
                 if (testFlag(FLAG_HTML_TEXT_SET))
                 {
-                    if (!_htmlHelper.hostFormat)
+                   if (!_htmlHelper.hostFormat)
                         createHostFormat();
                     
                     _htmlHelper.composeHTMLText(compositionWidth, compositionHeight);                           
@@ -3371,9 +3371,21 @@ class FTETextFieldStyleResolver implements IFormatResolver
     }
 }
 
+
+import flashx.textLayout.tlf_internal;
+
+use namespace tlf_internal;
+
 /** @private Used when needing an HTML view of things. */
-class HTMLHelper
+internal class HTMLHelper
 {
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  @private
      */
@@ -3398,67 +3410,29 @@ class HTMLHelper
      *  @private
      */
     private static var htmlExporter:ITextExporter;
+        
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    public function HTMLHelper(textField:FTETextField)
+    {
+        this.textField = textField;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
     
     /**
      *  @private
      */
-    private static function initClass():void
-    {
-        var format:TextLayoutFormat;
-        var config:Configuration;
+    private var textField:FTETextField;
         
-        // Create an importer for plain text.
-        plainTextImporter =
-            TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
-        
-        // Create an exporter for plain text.
-        plainTextExporter =
-            TextConverter.getExporter(TextConverter.PLAIN_TEXT_FORMAT);
-        
-        // Create an importer for TEXT_FIELD_HTML_FORMAT that collapses whitespace.
-        // Note: We have to make a copy of the textFlowInitialFormat,
-        // which has various formats set to "inherit",
-        // and then modify it and set it back.
-        config = new Configuration();
-        format = new TextLayoutFormat(config.textFlowInitialFormat);
-        format.whiteSpaceCollapse = "collapse";
-        config.textFlowInitialFormat = format;
-        collapsingHTMLImporter =
-            TextConverter.getImporter(TextConverter.TEXT_FIELD_HTML_FORMAT, config);
-        collapsingHTMLImporter.throwOnError = false;
-        
-        // Create an importer for TEXT_FIELD_HTML_FORMAT that preserves whitespace.
-        // Note: We have to make a copy of the textFlowInitialFormat,
-        // which has various formats set to "inherit",
-        // and then modify it and set it back.
-        config = new Configuration();
-        format = new TextLayoutFormat(config.textFlowInitialFormat);
-        format.whiteSpaceCollapse = "preserve";
-        config.textFlowInitialFormat = format;
-        preservingHTMLImporter =
-            TextConverter.getImporter(TextConverter.TEXT_FIELD_HTML_FORMAT, config);
-        preservingHTMLImporter.throwOnError = false;
-        
-        // Create an exporter for TEXT_FIELD_HTML_FORMAT.
-        htmlExporter =
-            TextConverter.getExporter(TextConverter.TEXT_FIELD_HTML_FORMAT);
-    }
-    
-    initClass();
-    
-    /**
-     *  @private
-     */
-    private static var factory:TextFlowTextLineFactory =
-        new TextFlowTextLineFactory();
-    
-    private var _field:FTETextField;
-    
-    public function HTMLHelper(field:FTETextField)
-    {
-        this._field = field;
-    }
-    
     /**
      *  @private
      *  If htmlText is set, composeHtmlText is called each time the text lines
@@ -3468,7 +3442,7 @@ class HTMLHelper
      *  the html from the textFlow, we need the orginal htmlText for the cases 
      *  where we need to regenerate the html text lines.
      */
-    public var explicitHTMLText:String = null;
+    mx_internal var explicitHTMLText:String = null;
     
     /**
      *  @private
@@ -3478,7 +3452,7 @@ class HTMLHelper
      *  this object is released because it is invalid.
      *  It is regenerated just in time to render the htmlText.
      */
-    public var hostFormat:ITextLayoutFormat;
+    mx_internal var hostFormat:ITextLayoutFormat;
     
     /**
      *  @private
@@ -3486,7 +3460,7 @@ class HTMLHelper
      *  this object represents the rich text to be displayed.
      *  It is created by using TLF's HTML importer to import the htmlText.
      */
-    public var textFlow:TextFlow;
+    private var textFlow:TextFlow;
     
     /**
      *  @private
@@ -3495,17 +3469,17 @@ class HTMLHelper
      *  (with the hostFormat applied to it)
      *  to create TextLines in this Sprite.
      */
-    public var textContainerManager:TextContainerManager;
+    private var textContainerManager:TextContainerManager;
     
     /**
      *  @private
      */
-    public var _htmlText:String = null;
+    mx_internal var htmlText:String = null;
     
     /**
      *  @private
      */
-    public var _styleSheet:StyleSheet = null;
+    mx_internal var styleSheet:StyleSheet = null;
     
     //----------------------------------
     //  htmlImporter
@@ -3516,14 +3490,52 @@ class HTMLHelper
      */
     private function get htmlImporter():ITextImporter
     {
-        // Note that which importer we return depends on the value
+        var format:TextLayoutFormat;
+        var config:Configuration;
+        
+       // Note that which importer we return depends on the value
         // of condenseWhite was at the time that htmlText was set,
         // not on the current value of condenseWhite,
         // since it could change between htmlText being set
         // and the TextLines being composed.
-        return _field.testFlag(FTETextField.FLAG_EFFECTIVE_CONDENSE_WHITE) ?
-            collapsingHTMLImporter :
-            preservingHTMLImporter;
+        if (textField.testFlag(FTETextField.FLAG_EFFECTIVE_CONDENSE_WHITE))
+        {
+            if (!collapsingHTMLImporter)
+            {
+                 // Create an importer for TEXT_FIELD_HTML_FORMAT that collapses whitespace.
+                // Note: We have to make a copy of the textFlowInitialFormat,
+                // which has various formats set to "inherit",
+                // and then modify it and set it back.
+                config = new Configuration();
+                format = new TextLayoutFormat(config.textFlowInitialFormat);
+                format.whiteSpaceCollapse = "collapse";
+                config.textFlowInitialFormat = format;
+                collapsingHTMLImporter =
+                    TextConverter.getImporter(TextConverter.TEXT_FIELD_HTML_FORMAT, config);
+                collapsingHTMLImporter.throwOnError = false;               
+            }
+
+            return collapsingHTMLImporter;    
+        }
+        else
+        {
+            if (!preservingHTMLImporter)
+            {
+                // Create an importer for TEXT_FIELD_HTML_FORMAT that preserves whitespace.
+                // Note: We have to make a copy of the textFlowInitialFormat,
+                // which has various formats set to "inherit",
+                // and then modify it and set it back.
+                config = new Configuration();
+                format = new TextLayoutFormat(config.textFlowInitialFormat);
+                format.whiteSpaceCollapse = "preserve";
+                config.textFlowInitialFormat = format;
+                preservingHTMLImporter =
+                    TextConverter.getImporter(TextConverter.TEXT_FIELD_HTML_FORMAT, config);
+                preservingHTMLImporter.throwOnError = false;                
+            }
+
+            return preservingHTMLImporter;
+        }
     }   
     
     /**
@@ -3532,13 +3544,13 @@ class HTMLHelper
     public function composeHTMLText(compositionWidth:Number,
                                     compositionHeight:Number):void
     {
-        var textFlow:TextFlow = textFlow = htmlImporter.importToFlow(explicitHTMLText);
+        textFlow = htmlImporter.importToFlow(explicitHTMLText);
         
         // Unless there is a styleSheet, _htmlText is now invalid
         // and needs to be regenerated on demand,
         // because with htmlText what-you-set-is-not-what-you-get.
-        if (!_styleSheet)
-            _htmlText = null;
+        if (!styleSheet)
+            htmlText = null;
         
         if (!textFlow)
             return;
@@ -3547,10 +3559,25 @@ class HTMLHelper
         
         textFlow.addEventListener(
             StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,
-            _field.inlineGraphicStatusChangeHandler);
+            textField.inlineGraphicStatusChangeHandler);
         
         if (!textContainerManager)
-            textContainerManager = new FTETextFieldTextContainerManager(_field);
+            textContainerManager = new FTETextFieldTextContainerManager(textField);
+        
+        // FixMe: remove when TLF gives us access to these methods.
+        //
+        // This is a HACK to get this code executed:
+        //     clearContainerChildren(true);  <== true means recycle
+        //     clearComposedLines();
+        // If text is composed and there are textLines on the display list
+        // we need to recycle them so container.numChildren is 0 and
+        // _composedLines.length = 0.  Otherwise, when the lines that are
+        // composed here are added to the display list only the lines at
+        // indexes >= container.numChildren will be added.
+        //
+        // Note: this must preceed the call to setTextFlow to get the
+        // behavior we desire.        
+        textContainerManager.convertToTextFlowWithComposer();
         
         textContainerManager.compositionWidth = compositionWidth;
         textContainerManager.compositionHeight = compositionHeight;
@@ -3559,16 +3586,16 @@ class HTMLHelper
         
         textContainerManager.hostFormat = hostFormat;
         
-        textContainerManager.swfContext = _field.fontContext as ISWFContext;
+        textContainerManager.swfContext = textField.fontContext as ISWFContext;
         
-        textContainerManager.setTextFlow(textFlow)
+        textContainerManager.setTextFlow(textFlow);
         
         // Add a formatResolver if there is a style sheet.  Force a flow
         // composer to be created, if there isn't one, so the format resolver
         // will be used.
-        if (_styleSheet && !textFlow.formatResolver)
+        if (styleSheet && !textFlow.formatResolver)
         {
-            textFlow.formatResolver = new FTETextFieldStyleResolver(_styleSheet);
+            textFlow.formatResolver = new FTETextFieldStyleResolver(styleSheet);
             textContainerManager.beginInteraction();
             textContainerManager.endInteraction();
         }
@@ -3577,11 +3604,11 @@ class HTMLHelper
         
         var bounds:Rectangle = textContainerManager.getContentBounds();
         
-        _field._textWidth = Math.round(bounds.width);
-        _field._textHeight = Math.round(bounds.height);
+        textField._textWidth = Math.round(bounds.width);
+        textField._textHeight = Math.round(bounds.height);
         
         // TLF takes care of clipping so none should be needed here.
-        _field.clipWidth = _field._textWidth;
+        textField.clipWidth = textField._textWidth;
     }
     
     /**
@@ -3596,7 +3623,7 @@ class HTMLHelper
         {
             var textEvent:TextEvent = new TextEvent(TextEvent.LINK);
             textEvent.text = href.substring(6);
-            _field.dispatchEvent(textEvent);
+            textField.dispatchEvent(textEvent);
         }
     }
     
@@ -3605,36 +3632,42 @@ class HTMLHelper
      */
     public function getHtmlText(fieldText:String):String
     {       
-        if (_htmlText == null)
+        if (htmlText == null)
         {
             // We can optimize the default case
             // that there is no text or hmtlText.
             if (fieldText == "")
             {
-                _htmlText = "";
+                htmlText = "";
             }
             else
             {
                 // Import the plain text into a TextFlow,
                 // and then export the TextFlow into HTML.
                 if (!textFlow)
+                {
+                    if (!plainTextImporter)
+                        plainTextImporter = TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
                     textFlow = plainTextImporter.importToFlow(fieldText);
-                _htmlText = String(htmlExporter.export(
-                    textFlow, ConversionType.STRING_TYPE));
+                }
+                
+                if (!htmlExporter)
+                    htmlExporter = TextConverter.getExporter(TextConverter.TEXT_FIELD_HTML_FORMAT);
+
+                htmlText = String(htmlExporter.export(textFlow, ConversionType.STRING_TYPE));
             }
         }   
         
-        return _htmlText;
+        return htmlText;
     }
     
     /**
      *  @private
      */
-    public function set styleSheet(value:StyleSheet):void
+    public function setStyleSheet(value:StyleSheet):void
     {   
-        _styleSheet = value;
+        styleSheet = value;
         
-        var textFlow:TextFlow = textFlow;
         if (textFlow && textFlow.formatResolver)
             textFlow.formatResolver = null;
     }
@@ -3649,10 +3682,12 @@ class HTMLHelper
         // If we don't already have a TextFlow,
         // create one by importing the htmlText.
         if (!textFlow)
-            textFlow = htmlImporter.importToFlow(_htmlText);
+            textFlow = htmlImporter.importToFlow(htmlText);
         
+        if (!plainTextExporter)
+             plainTextExporter = TextConverter.getExporter(TextConverter.PLAIN_TEXT_FORMAT);
+               
         // Export plain text from the TextFlow.
-        return String(plainTextExporter.export(
-            textFlow, ConversionType.STRING_TYPE));
+        return String(plainTextExporter.export(textFlow, ConversionType.STRING_TYPE));
     }
 }
