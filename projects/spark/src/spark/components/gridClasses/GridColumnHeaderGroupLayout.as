@@ -32,7 +32,15 @@ use namespace mx_internal;
 [ExcludeClass]
 
 /**
- *  TBD
+ *  @private
+ *  Virtual horizontal layout for GridColumnHeaderGroup.  This is not a general 
+ *  purpose layout class, it's only intended for GridColumnHeaderGroup, a DataGrid 
+ *  skin part.
+ * 
+ *  This layout's measuredWidth is essentially zero because the DataGrid's grid
+ *  dictates the overall measured width.  The columnHeaderGroup only contributes
+ *  to the DataGrid's measured height. 
+ *  
  */
 public class GridColumnHeaderGroupLayout extends LayoutBase
 {
