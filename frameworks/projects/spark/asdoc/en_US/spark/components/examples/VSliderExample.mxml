@@ -25,7 +25,7 @@
                 creationComplete="fxImage.x=vSlider.value" />
         </s:Group>
 
-        <s:SimpleText width="100%" text="Drag the slider to move the image" left="10" bottom="10"/>
+        <s:Label width="100%" text="Drag the slider to move the image" left="10" bottom="10"/>
 
 	</s:Panel>
 </s:Application>
