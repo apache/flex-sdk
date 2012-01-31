@@ -67,7 +67,10 @@ public class FlexClient extends EventDispatcher
 	/**
 	 *  Returns the sole instance of this singleton class,
 	 *  creating it if it does not already exist.
-     */
+         *
+         *  @return Returns the sole instance of this singleton class,
+	 *  creating it if it does not already exist.
+	 */
 	public static function getInstance():FlexClient
 	{
 		if (_instance == null)
