@@ -934,7 +934,7 @@ public class GroupBase extends UIComponent implements IViewport
      * 
      *  @default true
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
