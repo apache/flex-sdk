@@ -3010,8 +3010,10 @@ public class Grid extends Group
                 gridSelection.removeAll();
                 gridSelection.requireSelection = savedRequireSelection;
             }
-            
-           clearGridLayoutCache(columnsChanged);            
+
+           // make sure we have the right number of columns.
+           gridDimensions.columnCount = _columns ? _columns.length : 0;
+           clearGridLayoutCache(columnsChanged);
             
             if (!caretChanged)
                 initializeCaretPosition();
@@ -3669,8 +3671,10 @@ public class Grid extends Group
                 break;
             }                                
         }
-        
-        gridDimensions.columnCount = _columns.length;
+
+        gridDimensions.columnsCollectionChanged(event);
+        if (dataProvider)
+            gridDimensions.rowCount = dataProvider.length;
         
         if (gridLayout)
             gridLayout.columnsCollectionChanged(event);
@@ -3712,7 +3716,6 @@ public class Grid extends Group
             
             // clearing the gridDimensions resets rowCount
             gridDimensions.rowCount = _dataProvider ? _dataProvider.length : 0;
-            gridDimensions.columnCount = _columns ? _columns.length : 0;
         }
         
         // Reset content size so scroller's viewport can be resized.  There
