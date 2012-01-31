@@ -11,12 +11,12 @@
         TabBar ToggleButton:overAndSelected,
         TabBar ToggleButton:downAndSelected,
         TabBar ToggleButton:disabledAndSelected {
-            baseColor: #9999CC;
+            chromeColor: #9999CC;
             color: #F00E34;
         }
 
         TabBar {
-            baseColor: #9999CC;
+            chromeColor: #9999CC;
             color: #410FF5;
             cornerRadius:8;
         }
