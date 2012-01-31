@@ -846,7 +846,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             graphics.clear();
         
         // Render a transparent background fill as necessary to support the mouseOpaque flag.
-        if (_mouseOpaque && mouseEventReferenceCount != 0)
+        if ( _mouseOpaque && mouseEventReferenceCount != 0 
+             && !isNaN(unscaledHeight) && !isNaN(unscaledWidth))
         {
             graphics.beginFill(0xFFFFFF, 0);
             graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
