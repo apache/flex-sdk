@@ -35,6 +35,7 @@ import mx.core.ClassFactory;
 import mx.core.EdgeMetrics;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
+import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
@@ -1802,7 +1803,7 @@ public class ComboBox extends ComboBase
             // If the combobox's layout is mirrored then the the dropdown's 
             // will be too.  That also means that (stage coordinate) point.x is 
             // currently the right edge of the dropdown.  Fix that:
-            if (layoutDirection == "rtl")
+            if (layoutDirection == LayoutDirection.RTL)
                 point.x -= _dropdown.width;
 
             var sel:int = _dropdown.selectedIndex;
