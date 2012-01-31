@@ -200,8 +200,6 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     public function SkinnableDataContainer()
     {
         super();
-        
-        tabChildren = true;
     }
     
     //--------------------------------------------------------------------------
