@@ -198,6 +198,7 @@ use namespace mx_internal;
  *  
  *    <strong>Events</strong>
  *    bytesLoadedChange="<i>No default</i>"
+ *    complete="<i>No default</i>"
  *    currentTimeChange="<i>No default</i>"
  *    durationChange="<i>No default</i>"
  *    mediaPlayerStateChange="<i>No default</i>"
