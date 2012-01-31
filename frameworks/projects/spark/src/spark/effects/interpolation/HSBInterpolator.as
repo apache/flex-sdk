@@ -65,9 +65,9 @@ public class HSBInterpolator implements IInterpolator
     {
         super();
         if (startRGB != StyleManager.NOT_A_COLOR)
-            startHSB = HSBColor.RGBtoHSB(startRGB);
+            startHSB = HSBColor.convertRGBtoHSB(startRGB);
         if (endRGB != StyleManager.NOT_A_COLOR)
-            endHSB = HSBColor.RGBtoHSB(endRGB);
+            endHSB = HSBColor.convertRGBtoHSB(endRGB);
     }
    
     /**
@@ -90,20 +90,6 @@ public class HSBInterpolator implements IInterpolator
         if (!theInstance)
             theInstance = new HSBInterpolator();
         return theInstance;
-    }
-    
-    /**
-     *  The <code>uint</code> type, which is the type of
-     *  object interpolated by the HSBInterpolator class,
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get interpolatedType():Class
-    {
-        return uint;
     }
 
     /**
@@ -133,9 +119,9 @@ public class HSBInterpolator implements IInterpolator
         // If we have not converted start/end values at construction time, 
         // do so now
         if (!start)
-            start = HSBColor.RGBtoHSB(uint(startValue));
+            start = HSBColor.convertRGBtoHSB(uint(startValue));
         if (!end)
-            end = HSBColor.RGBtoHSB(uint(endValue));
+            end = HSBColor.convertRGBtoHSB(uint(endValue));
         var startH:Number = start.hue;
         var endH:Number = end.hue;
         var deltaH:Number;
@@ -166,7 +152,7 @@ public class HSBInterpolator implements IInterpolator
             hue = startH;
         else
             hue = startH + deltaH * fraction;
-        var rgb:uint = HSBColor.HSBtoRGB(hue, saturation, brightness);
+        var rgb:uint = HSBColor.convertHSBtoRGB(hue, saturation, brightness);
         return rgb;
     }
 
@@ -178,8 +164,8 @@ public class HSBInterpolator implements IInterpolator
     private function combine(baseValue:uint, deltaValue:uint,
         increment:Boolean):Object
     {
-        var start:HSBColor = HSBColor.RGBtoHSB(baseValue);
-        var delta:HSBColor = HSBColor.RGBtoHSB(deltaValue);
+        var start:HSBColor = HSBColor.convertRGBtoHSB(baseValue);
+        var delta:HSBColor = HSBColor.convertRGBtoHSB(deltaValue);
         var newH:Number, newS:Number, newB:Number;
         if (increment)
         {
@@ -193,7 +179,7 @@ public class HSBInterpolator implements IInterpolator
             newS = Math.max(start.saturation - delta.saturation, 0);
             newB = Math.max(start.brightness - delta.brightness, 0);
         }
-        return HSBColor.HSBtoRGB(newH, newS, newB);
+        return HSBColor.convertHSBtoRGB(newH, newS, newB);
     }
 
     /**
