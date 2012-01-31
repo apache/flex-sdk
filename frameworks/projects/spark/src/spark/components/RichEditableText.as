@@ -504,6 +504,11 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
+    mx_internal var ignoreSelectionChangeEvent:Boolean = false;
+
+    /**
+     *  @private
+     */
     mx_internal var passwordChar:String = "*";
 
     /**
@@ -1783,34 +1788,6 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  We override the setLayoutBoundsSize to determine whether to perform
-     *  text reflow. This is a convenient place, as the layout passes NaN
-     *  for a dimension not constrained to the parent.
-     */
-    override public function setLayoutBoundsSize(
-                                width:Number, height:Number,
-                                postLayoutTransform:Boolean = true):void
-    {
-        //trace("setLayoutBoundsSize", width, height, "autoSize", autoSize);
-        
-        // If both values are constrained don't need to remeasure.
-        if (!isNaN(width) && !isNaN(height))
-            autoSize = false;
-        
-        if (autoSize)
-        {
-            // Only autoSize cares about the real measured width.  This may
-            // update measuredWidth and measuredHeight with new values which
-            // will be used by the layout manager when the object's actual
-            // size is set.
-            remeasureConstrainedText(width, height, postLayoutTransform);
-        }
-        
-        super.setLayoutBoundsSize(width, height, postLayoutTransform);
-    }
-
-    /**
-     *  @private
      */
     override protected function skipMeasure():Boolean
     {
@@ -1939,15 +1916,11 @@ public class RichEditableText extends UIComponent
                 }
             }
             
-            // Make sure we weren't previously scrolled.
+            // Make sure we weren't previously scrolled. 
             if (autoSize)
              {
-                ignoreDamageEvent = true;
-                
                 _textContainerManager.horizontalScrollPosition = 0;
-                _textContainerManager.verticalScrollPosition = 0;
-                
-                ignoreDamageEvent = false;
+                _textContainerManager.verticalScrollPosition = 0;                
              }               
              
              invalidateDisplayList();     
@@ -1962,24 +1935,25 @@ public class RichEditableText extends UIComponent
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void 
     {
-        // If we need to remeasure don't bother updating the display.
-        if (invalidateSizeFlag)
-            return;
-            
         //trace("updateDisplayList", unscaledWidth, unscaledHeight, "autoSize", autoSize);
+        
+        // Check if the auto-size text is constrained in some way and needs
+        // to be remeasured.  If one of the dimension changes, the text may
+        // compose differently and have a different size which the layout 
+        // manager needs to know.
+        if (autoSize && remeasureText(unscaledWidth, unscaledHeight))
+            return;
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
         // If we're autoSizing we're telling the layout manager one set of
         // values and TLF another set of values so there is room for the text
         // to grow.
-        ignoreDamageEvent = true;
-
-        _textContainerManager.compositionWidth = unscaledWidth;
-        _textContainerManager.compositionHeight = autoSize ? NaN : 
-                                                  unscaledHeight;
-
-        ignoreDamageEvent = false;
+        if  (!autoSize)
+        {
+            _textContainerManager.compositionWidth = unscaledWidth;
+            _textContainerManager.compositionHeight = unscaledHeight;
+        }
         
         if (debug)
             trace("updateContainer()");
@@ -2443,75 +2417,68 @@ public class RichEditableText extends UIComponent
             
     /**
      *  @private
-     * 
-     *  This assumes one of width or height is constrained, but not both.
-     *  If both are constrained there is no need to remeasure the text.
+     *  If auto-sizing text, it may need to be remeasured if it is constrained
+     *  by the layout manager.  Changing one dimension may change the size of
+     *  the measured text and the layout manager needs to know this.
      */
-    private function remeasureConstrainedText(
-                                width:Number, height:Number,
-                                postLayoutTransform:Boolean = true):void
-    {        
-        // If we have a transform we don't support reflow.
-        // We could add support for scale, but not skew or rotation.
-        if (postLayoutTransform && nonDeltaLayoutMatrix() != null)
+    private function remeasureText(width:Number, height:Number):Boolean
+    {   
+        // Neither dimensions changed.
+        if (width == measuredWidth && height == measuredHeight)
+            return false;
+             
+        if (width != measuredWidth)
         {
-            autoSize = false;
-            return;
-        }
-        
-        if (!isNaN(width))
-        {
-            // Did we already constrain the width?
-            if (widthConstraint == width) 
-                return;
-        
-            // Note that we compare with measuredWidth,
-            // as for example the RichEditableText can be
-            // constrained by the layout with "left" and "right", but the
-            // container width itself may not be constrained and it would depend
-            // on the element's measuredWidth.
-            if (width == measuredWidth || width == 0)                 
-                return;
-                               
-            // No reflow for explicit lineBreak
-            if (hostFormat.lineBreak == "explicit")
-                return;
-
             // Do we have a constrained width and an explicit height?
             // If so, the sizes are set so no need to remeasure now.
             if (!isNaN(explicitHeight) || !isNaN(_heightInLines))
             {
                 autoSize = false;
-                return;
+                return false;
             }
                         
+            // Did we already constrain the width or is there no width?
+            if (widthConstraint == width || width == 0) 
+                return false;
+                                       
+            // No reflow for explicit lineBreak
+            if (hostFormat.lineBreak == "explicit")
+                return false;
+
             widthConstraint = width;
         } 
-        else
-        {
-            // Did we already constrain the height?
-            if (height == heightConstraint)
-                return;
-        
-            if (height == measuredHeight || height == 0)
-                return;
-
+        else // height != measuredHeight
+        {        
             // Do we have a constrained height and an explicit width?
             // If so, the sizes are set so no need to remeasure now.
             if (!isNaN(explicitWidth) || !isNaN(_widthInChars))
             {
                 autoSize = false;
-                return;
+                return false;
             }
+
+            // Did we already constrain the height or is there no height?
+            if (height == heightConstraint || height == 0)
+                return false;
 
             heightConstraint = height;
         }                       
-
+        
         // Force the remeasure now.  We don't want to do it in two passes
         // because there is flicker as the display objects are updated with the 
         // sizes and positions from layout pass1 and then from layout pass 2.
         invalidateSize();
-        validateSize();
+
+        // Changing the text size can change the 
+        // size of other components, for example, if text is in a panel.  
+        // If we do not intervene, the rest of the updates will occur, then any 
+        // invalidated components will be remeasured and the display updated 
+        // again, which can cause flicker if the sizes change.
+        //if (parentDocument is UIComponent)
+        //    (UIComponent(parentDocument)).validateNow();
+        // return false;
+            
+        return true;            
     }
 
     /**
@@ -2890,6 +2857,7 @@ public class RichEditableText extends UIComponent
             oldAnchorPosition = _selectionAnchorPosition;
             oldActivePosition = _selectionActivePosition;
             
+            ignoreSelectionChangeEvent = true;            
             selectionManager.selectRange(anchorPosition, activePosition);        
         }                       
                                
@@ -2905,6 +2873,7 @@ public class RichEditableText extends UIComponent
         if (anchorPosition != -1 && activePosition != -1)
         {
             selectionManager.selectRange(oldAnchorPosition, oldActivePosition);
+            ignoreSelectionChangeEvent = false;            
         }        
         
         // Extract the requested formats to return.
@@ -3315,14 +3284,9 @@ public class RichEditableText extends UIComponent
         
         // We don't need to call invalidateProperties()
         // because the hostFormat and the _textFlow are still valid.
-
+        
         invalidateSize();        
         invalidateDisplayList();
-        
-        // This is necessary to get any constraints there are reapplied by
-        // the layout manager.  This matters if we are auto-sizing text.        
-        if (!isMeasureFixed())
-            invalidateParentSizeAndDisplayList();
     }
 
     /**
@@ -3366,6 +3330,9 @@ public class RichEditableText extends UIComponent
     private function textContainerManager_selectionChangeHandler(
                         event:SelectionEvent):void
     {
+        if (ignoreSelectionChangeEvent)
+            return;
+            
         var oldAnchor:int = _selectionAnchorPosition;
         var oldActive:int = _selectionActivePosition;
         
