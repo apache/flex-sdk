@@ -13,7 +13,13 @@ package mx.effects
 import mx.effects.effectClasses.FxResizeInstance;
 
 import mx.effects.IEffectInstance;
-    
+
+/**
+*
+*  @includeExample examples/FxResizeEffectExample.mxml    
+*
+*/
+
 public class FxResize extends FxAnimate
 {
     include "../core/Version.as";
