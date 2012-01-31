@@ -76,9 +76,9 @@ package spark.components
     import mx.resources.ResourceManager;
     import mx.utils.StringUtil;
     
-    import spark.core.IEditableText;
     import spark.components.supportClasses.RichEditableTextContainerManager;
     import spark.core.CSSTextLayoutFormat;
+    import spark.core.IEditableText;
     import spark.core.IViewport;
     import spark.core.NavigationUnit;
     import spark.events.TextOperationEvent;
@@ -1574,6 +1574,30 @@ package spark.components
         public function set imeMode(value:String):void
         {
             _imeMode = value;
+        }
+        
+        //----------------------------------
+        //  lineBreak
+        //----------------------------------
+        
+        /**
+         *  @private
+         * 
+         *  This property is only defined to implement the IEditableText
+         *  interface. The lineBreak style should be used instead of this
+         *  property.
+         */
+        public function get lineBreak():String
+        {
+            return getStyle("lineBreak");
+        }
+        
+        /**
+         *  @private
+         */
+        public function set lineBreak(value:String):void
+        {
+            setStyle("lineBreak", value);
         }
         
         //----------------------------------
