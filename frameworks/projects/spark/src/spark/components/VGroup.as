@@ -26,6 +26,11 @@ import mx.layout.VerticalLayout;
  *  The layout property should not be set or configured directly.
  * 
  *  @see mx.layout.VerticalLayout
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class VGroup extends Group
 {
@@ -39,6 +44,11 @@ public class VGroup extends Group
      * 
      *  @see mx.layout.VerticalLayout
      *  @see mx.components.HGroup
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */  
 	public function VGroup():void
 	{
@@ -63,6 +73,11 @@ public class VGroup extends Group
 
     /**
      * @copy mx.layout.VerticalLayout#gap
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get gap():int
     {
@@ -83,6 +98,11 @@ public class VGroup extends Group
 
     /**
      * @copy mx.layout.VerticalLayout#horizontalAlign
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalAlign():String
     {
@@ -105,6 +125,11 @@ public class VGroup extends Group
 
     /**
      * @copy mx.layout.VerticalLayout#rowCount
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rowCount():int
     {
@@ -117,6 +142,11 @@ public class VGroup extends Group
 
     /**
      * @copy mx.layout.VerticalLayout#requestedRowCount
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get requestedRowCount():int
     {
@@ -139,6 +169,11 @@ public class VGroup extends Group
 
     /**
      * @copy mx.layout.VerticalLayout#rowHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get rowHeight():Number
     {
@@ -161,6 +196,11 @@ public class VGroup extends Group
 
     /**
      * @copy mx.layout.VerticalLayout#variableRowHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get variableRowHeight():Boolean
     {
@@ -183,6 +223,11 @@ public class VGroup extends Group
  
     /**
      * @copy mx.layout.VerticalLayout#firstIndexInView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get firstIndexInView():int
     {
@@ -197,6 +242,11 @@ public class VGroup extends Group
 
     /**
      * @copy mx.layout.VerticalLayout#lastIndexInview
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get lastIndexInView():int
     {
