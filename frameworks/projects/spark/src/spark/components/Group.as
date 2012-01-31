@@ -111,9 +111,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function Group(layout:LayoutBase = null):void
+    public function Group():void
     {
-        super(layout);    
+        super();    
     }
 
 	//--------------------------------------------------------------------------
