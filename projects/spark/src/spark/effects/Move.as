@@ -18,27 +18,57 @@ import mx.effects.IEffectInstance;
 import spark.effects.supportClasses.AnimateTransformInstance;
 
 /**
- * This class is a utility wrapper around the AnimateTransform effect, exposing the
- * properties that make sense for someone wishing to merely move a target object
- * in the x and y directions. An important difference between this TransformMove
- * effect and the previous Move effect is that the x and y property specifications
- * for TransformMove specify not absolute values of the x/y point on the target
- * object, but rather the change in x/y that should occur to the center around
- * which the overall transform is occuring. So if, for example, the 
- * <code>autoCenterTransform</code> property is set, then the from/to/by values
- * in this effect will define how much to move the center of the target, not the 
- * (x,y) of the target.
+ *  The AnimateTransformMove effect move the target object
+ *  in the x and y directions. An important difference between the AnimateTransformMove
+ *  effect and the Move effect is that the x and y property specifications
+ *  for AnimateTransformMove specify not absolute values of the x and y coordinates on the target,
+ *  but rather the change in x and y that should occur to the transform center around
+ *  which the overall transform occurs. 
+ *  If, for example, the 
+ *  <code>autoCenterTransform</code> property is set, then the from/to/by values
+ *  in this effect will define how much to move the center of the target, not the 
+ *  (x,y) coordinates of the target.
  * 
- * <p>Like all AnimateTransform-based effects, this effect will only work on subclasses
- * of UIComponent and GraphicElement, as these effects depend on specific
- * transform functions in those classes. Also, all of these effects run one single
- * effect instance on any given target at a time, which means that they will
- * share the transform center set by any of the contributing effects.</p>
+ *  <p>Like all transform-based effects, this effect only work on subclasses
+ *  of UIComponent and GraphicElement.</p>
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:AnimateTransformMove&gt;</code> tag
+ *  inherits all of the tag attributes of its of its superclass,
+ *  and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;mx:AnimateTransformMove
+ *    id="ID"
+ *    xFrom="val" 
+ *    yFrom="val"
+ *    xTo="val"
+ *    yTo="val"
+ *    xBy="val"
+ *    yBy="val"
+ *   /&gt;
+ *  </pre>
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */   
 public class AnimateTransformMove extends AnimateTransform
 {
     include "../core/Version.as";
 
+    /**
+     *  Constructor. 
+     *
+     *  @param target The Object to animate with this effect.  
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function AnimateTransformMove(target:Object=null)
     {
         super(target);
@@ -58,8 +88,13 @@ public class AnimateTransformMove extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Number of pixels by which to modify the y of the component.
-     *  Values may be negative.
+     *  Number of pixels by which to modify the y position of the target.
+     *  Values can be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var yBy:Number;
     
@@ -70,10 +105,15 @@ public class AnimateTransformMove extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Initial y, in pixels.
-     *  If omitted, Flex uses either the value in the start state,
-     *  if the effect is playing in a state transition, or the current
-     *  value in the target.
+     *  Initial y position of the target, in pixels.
+     *  If omitted, Flex uses either the value in the start view state,
+     *  if the effect is playing in a transition, or the current
+     *  value of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var yFrom:Number;
 
@@ -84,10 +124,15 @@ public class AnimateTransformMove extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Final y, in pixels.
-     *  If omitted, Flex uses either the value in the end state,
-     *  if the effect is playing in a state transition, or the current
-     *  value in the target.
+     *  Final y position of the target, in pixels.
+     *  If omitted, Flex uses either the value in the end view state,
+     *  if the effect is playing in a transition, or the current
+     *  value of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var yTo:Number;
             
@@ -98,8 +143,13 @@ public class AnimateTransformMove extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Number of pixels by which to modify the x of the component.
+     *  Number of pixels by which to modify the x position of the target.
      *  Values may be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var xBy:Number;
 
@@ -110,10 +160,15 @@ public class AnimateTransformMove extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Initial x, in pixels.
-     *  If omitted, Flex uses either the value in the starting state,
-     *  if the effect is playing in a state transition, or the current
-     *  value in the target.
+     *  Initial x position of the target, in pixels.
+     *  If omitted, Flex uses either the value in the starting view state,
+     *  if the effect is playing in a transition, or the current
+     *  value of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var xFrom:Number;
     
@@ -127,7 +182,12 @@ public class AnimateTransformMove extends AnimateTransform
      *  Final x, in pixels.
      *  If omitted, Flex uses either the value in the starting state,
      *  if the effect is playing in a state transition, or the current
-     *  value in the target.
+     *  value of the target.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var xTo:Number;
 
