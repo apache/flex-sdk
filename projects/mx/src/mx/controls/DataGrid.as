@@ -846,6 +846,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
     /**
      *  @private
      */
+    private var lastItemFocused:DisplayObject;
+
+    /**
+     *  @private
+     */
     private var displayWidth:Number;
 
     /**
@@ -2114,9 +2119,18 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 if (!c.visible)
                     continue;
 
-                item = c.getMeasuringRenderer(true, c);
+                item = c.cachedHeaderRenderer;
+                if (!item)
+                {
+                    item = createColumnItemRenderer(c, true, c);
+                    item.styleName = c;
+                    c.cachedHeaderRenderer = item;
+                }
                 if (DisplayObject(item).parent == null)
+                {
                     listContent.addChild(DisplayObject(item));
+                    item.visible = false;
+                }
                 rowData = DataGridListData(makeListData(c, uid, 0, c.colNum, c));
                 rowMap[item.name] = rowData;
                 if (item is IDropInListItemRenderer)
@@ -3062,6 +3076,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 && newSize > cw)
             {
                 lastColumn.setWidth(newSize);
+                maxHorizontalScrollPosition =
+                    displayableColumns.length - visibleColumns.length;
+            }
+            else if (visibleColumns.length == 1 && 
+                    lastColumn == displayableColumns[displayableColumns.length - 1])
+            {
                 maxHorizontalScrollPosition =
                     displayableColumns.length - visibleColumns.length;
             }
@@ -4095,10 +4115,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         var len:uint = (listItems && listItems[0]) ? listItems[0].length : visibleColumns.length;
         var lastColIndex:int = horizontalScrollPosition + len - 1 + lockedColumnCount;
-        var partialCol:int = (listItems[0][len - 1].x + listItems[0][len - 1].width > listContent.width) ? 1 : 0;
 
         if (colIndex > lockedColumnCount)
         {
+            var partialCol:int = (listItems[0][len - 1].x + listItems[0][len - 1].width > listContent.width) ? 1 : 0;
             if (colIndex < horizontalScrollPosition + lockedColumnCount)
                 horizontalScrollPosition = colIndex - lockedColumnCount;
             else
@@ -4545,6 +4565,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
             var ceEvent:CollectionEvent = CollectionEvent(event)
             if (ceEvent.kind == CollectionEventKind.RESET)
             {
+                if (itemEditorInstance)
+                    endEdit(DataGridEventReason.CANCELLED);
+                setEditedItemPosition(null); // nothing left to edit
                 if (generatedColumns)
                     generateCols();
                 else
@@ -4751,8 +4774,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
         super.mouseUpHandler(event);
 
-        if (r && r != itemEditorInstance && lastItemDown == r)
+        if (r && r != itemEditorInstance && 
+                    (lastItemDown == r || itemRendererContains(lastItemDown, lastItemFocused)))
         {
+            lastItemFocused = null;
             pos = itemRendererToIndices(r);
 
             if (pos && pos.y >= 0 && editable && !dontEdit)
@@ -4818,44 +4843,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 // trace("<<DGFocusIn ");
                 return;
             }
-            // find renderer for target
-            var target:DisplayObject = DisplayObject(event.target);
-            while (target && target != this)
-            {
-                if (target is IListItemRenderer && target.parent.parent == this && target.parent is ListBaseContentHolder)
-                {
-                    if (target.visible)
-                        break;
-                }
-
-                if (target is IUIComponent)
-                    target = IUIComponent(target).owner;
-                else 
-                    target = target.parent;
-            }
-            if (target)
-            {
-                var pos:Point = itemRendererToIndices(IListItemRenderer(target));
-                if (pos && pos.y >= 0 && editable && displayableColumns[pos.x].editable && !dontEdit)
-                {
-                    if (itemEditorInstance)
-                    {
-                        if (editedItemPosition.rowIndex == pos.y)
-                        {
-                            if (!endEdit(DataGridEventReason.NEW_COLUMN))
-                                return;
-                        }
-                        else if (!endEdit(DataGridEventReason.NEW_ROW))
-                            return;
-
-                    }
-                    beginningEdit(displayableColumns[pos.x].colNum, pos.y, IListItemRenderer(target));
-                }
-            }
+            lastItemFocused = DisplayObject(event.target);
             // trace("subcomponent got focus ignoring");
             // trace("<<DGFocusIn ");
             return;
         }
+        lastItemFocused = null;
 
         super.focusInHandler(event);
 
