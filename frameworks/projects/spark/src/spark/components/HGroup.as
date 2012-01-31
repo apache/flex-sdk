@@ -349,6 +349,35 @@ public class HGroup extends Group
     }
     
     //----------------------------------
+    //  horizontalAlign
+    //----------------------------------
+    
+    [Inspectable(category="General", enumeration="left,right,center", defaultValue="left")]
+    
+    /**
+     *  @copy spark.layouts.HorizontalLayout#horizontalAlign
+     *  
+     *  @default "left"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get horizontalAlign():String
+    {
+        return horizontalLayout.horizontalAlign;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set horizontalAlign(value:String):void
+    {
+        horizontalLayout.horizontalAlign = value;
+    }
+    
+    //----------------------------------
     //  verticalAlign
     //----------------------------------
 
