@@ -1231,7 +1231,7 @@ public class PopUpButton extends Button
     {
         //we don't want to close the popUp if we're just hiding 
         //a submenu
-        if (event.menu != Menu(_popUp).mx_internal::getRootMenu())
+        if (event.menu != Menu(_popUp).getRootMenu())
         {
             return;
         }
