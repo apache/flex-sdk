@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.text.TextLineMetrics;
 import flash.utils.getQualifiedClassName;
@@ -44,7 +45,9 @@ import mx.core.UITextFormat;
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
 import mx.events.CloseEvent;
+import mx.events.MarshalMouseEvent;
 import mx.managers.ISystemManager;
+import mx.managers.ISystemManager2;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProxy;
@@ -1768,15 +1771,18 @@ public class Panel extends Container
     {
         regX = event.stageX - x;
         regY = event.stageY - y;
-        
+
         systemManager.addEventListener(
             MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler, true);
 
         systemManager.addEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
 
-        systemManager.stage.addEventListener(
-            Event.MOUSE_LEAVE, stage_mouseLeaveHandler);
+        systemManager.addEventListener(
+            MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
+
+		// let folks know we've started to drag.
+        dispatchEvent(new Event("startDragging", true));
     }
 
     /**
@@ -1791,11 +1797,12 @@ public class Panel extends Container
         systemManager.removeEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
 
-        systemManager.stage.removeEventListener(
-            Event.MOUSE_LEAVE, stage_mouseLeaveHandler);
+        systemManager.removeEventListener(
+            MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
 
         regX = NaN;
         regY = NaN;
+        dispatchEvent(new Event("stopDragging", true));
     }
 
     /**
@@ -1878,6 +1885,11 @@ public class Panel extends Container
         // changes a lot -- but this listener only exists during a drag.
         event.stopImmediatePropagation();
         
+    	if (isNaN(regX) || isNaN(regY))
+    	{
+    		// trace("all the mouse moves were not turned off");
+    		return;
+    	}
         move(event.stageX - regX, event.stageY - regY);
     }
 
