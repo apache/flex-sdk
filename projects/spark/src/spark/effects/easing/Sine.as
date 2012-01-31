@@ -11,60 +11,41 @@
 package flex.effects.easing
 {
 /**
- * Provides easing functionality using a Sine wave, where the
- * instance is created with a <code>power</code> paramter describing the 
- * behavior of the expression.
+ * Provides easing functionality using a Sine function and a
+ * parameter that specifies how much time to spend easing in
+ * and out.
  */
-public class Sine implements IEaser
-{
+public class Sine extends EaseInOut
+{    
     /**
-     * Storage for the easeIn property
+     * Constructs a Sine instance with an optional 
+     * <code>easeInFraction</code> parameter.
      */
-    private var _easeIn:Number;
-    /**
-     * The percentage of an animation that should be spent accelerating.
-     * This factor sets an implicit
-     * "easeOut" parameter, equal to (1 - easeIn), so that any time not
-     * spent easing in is spent easing out. For example, to have an easing
-     * equation that spends half the time easing in and half easing out,
-     * set easeIn equal to .5.
-     * 
-     * @default .5
-     */
-    public function get easeIn():Number
+    public function Sine(easeInFraction:Number = .5)
     {
-        return _easeIn;
-    }
-    public function set easeIn(value:Number):void
-    {
-        _easeIn = value;
-    }
-    
-    /**
-     * Constructs a Sine instance with an optional <code>easeIn</code>
-     * parameter.
-     */
-    public function Sine(easeIn:Number = .5)
-    {
-        this.easeIn = easeIn;
+        super(easeInFraction);
     }
 
     /**
-     * Performs an easing on the elapsed fraction of an animation
-     * using a sine curve calculation.
+     * @inheritDoc
      * 
-     * @param fraction The elapsed fraction of the animation
-     * @return The eased fraction of the animation
+     * The easeIn calculation for Sine is equal to 
+     * <code>1 - cos(fraction*PI/2)</code>.
      */
-    public function ease(fraction:Number):Number
+    override protected function easeIn(fraction:Number):Number
     {
-        var easeOut:Number = 1 - easeIn;
-        
-        if (fraction <= easeIn)
-            return (1 - Math.cos((fraction/easeIn) * Math.PI/2)) * easeIn;
-        else
-            return easeIn + Math.sin(((fraction - easeIn)/easeOut) * Math.PI/2) * easeOut;
+        return 1 - Math.cos(fraction * Math.PI/2);
     }
     
+    /**
+     * @inheritDoc
+     * 
+     * The easeOut calculation for Sine is equal to 
+     * <code>sin(fraction*PI/2)</code>.
+     */
+    override protected function easeOut(fraction:Number):Number
+    {
+        return Math.sin(fraction * Math.PI/2);
+    }    
 }
 }
