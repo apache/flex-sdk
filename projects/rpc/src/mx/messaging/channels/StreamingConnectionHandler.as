@@ -163,47 +163,6 @@ public class StreamingConnectionHandler extends EventDispatcher
     private static const LF_BYTE:int = 10;
     private static const NULL_BYTE:int = 0;
 
-    // Map of ASCII bytes to hex digits.
-    private static const HEX_DIGITS:Object = {"48":  "0",
-                                              "49":  "1",
-                                              "50":  "2",
-                                              "51":  "3",
-                                              "52":  "4",
-                                              "53":  "5",
-                                              "54":  "6",
-                                              "55":  "7",
-                                              "56":  "8",
-                                              "57":  "9",
-                                              "65":  "a",
-                                              "97":  "a",
-                                              "66":  "b",
-                                              "98":  "b",
-                                              "67":  "c",
-                                              "99":  "c",
-                                              "68":  "d",
-                                              "100": "d",
-                                              "69":  "e",
-                                              "101": "e",
-                                              "70":  "f",
-                                              "102": "f"};
-    // Map of hex digits to decimal values.
-    private static const HEX_VALUES:Object = {"0": 0,
-                                              "1": 1,
-                                              "2": 2,
-                                              "3": 3,
-                                              "4": 4,
-                                              "5": 5,
-                                              "6": 6,
-                                              "7": 7,
-                                              "8": 8,
-                                              "9": 9,
-                                              "a": 10,
-                                              "b": 11,
-                                              "c": 12,
-                                              "d": 13,
-                                              "e": 14,
-                                              "f": 15};
-
     // Parse states; streamProgressHandler() uses these states to parse incoming HTTP response chunks.
     private static const INIT_STATE:int = 0;
     private static const CR_STATE:int = 1;
@@ -236,8 +195,8 @@ public class StreamingConnectionHandler extends EventDispatcher
     public function StreamingConnectionHandler(channel:Channel, log:ILogger)
     {
         super();
-    	this.channel = channel;
-    	this._log = log;
+        this.channel = channel;
+        this._log = log;
     }
 
     //--------------------------------------------------------------------------
@@ -246,16 +205,16 @@ public class StreamingConnectionHandler extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-  	/**
-  	 * The Channel that uses this class.
+    /**
+     * The Channel that uses this class.
   	 *  
   	 *  @langversion 3.0
   	 *  @playerversion Flash 9
   	 *  @playerversion AIR 1.1
   	 *  @productversion BlazeDS 4
   	 *  @productversion LCDS 3 
-  	 */
-  	 protected var channel:Channel;
+     */
+     protected var channel:Channel;
 
     /**
      *  Byte buffer used to store the current chunk from the remote endpoint.
@@ -428,7 +387,7 @@ public class StreamingConnectionHandler extends EventDispatcher
         dataBytesToRead = -1;
         dataOffset = 0;
         
-    	// First, close the existing connection.
+        // First, close the existing connection.
         if (streamingConnection != null)
         {
             if (streamingConnection.connected)
@@ -438,16 +397,16 @@ public class StreamingConnectionHandler extends EventDispatcher
                     streamingConnection.close();
                 }
                 catch(ignore:Error)
-				{
-				}
+                {
+                }
             }
         }
 
-		// Then, let the server know that streaming connection can be cleaned up.
-		if (streamId != null)
-		{
-    		if (streamingConnectionCloser == null)
-    		{
+        // Then, let the server know that streaming connection can be cleaned up.
+        if (streamId != null)
+        {
+            if (streamingConnectionCloser == null)
+            {
                 var process:Function = function(event:Event):void
                 {
                     if (streamingConnectionCloser.connected)
@@ -468,30 +427,30 @@ public class StreamingConnectionHandler extends EventDispatcher
                     // Ignore.
                 }
 
-    			streamingConnectionCloser = new URLStream();
-    			streamingConnectionCloser.addEventListener(Event.COMPLETE, process);
+                streamingConnectionCloser = new URLStream();
+                streamingConnectionCloser.addEventListener(Event.COMPLETE, process);
                 streamingConnectionCloser.addEventListener(IOErrorEvent.IO_ERROR, process);
-    			// Ignore the following events.
+                // Ignore the following events.
                 streamingConnectionCloser.addEventListener(HTTPStatusEvent.HTTP_STATUS, ignore);
                 streamingConnectionCloser.addEventListener(SecurityErrorEvent.SECURITY_ERROR, ignore);
-    		}
+            }
 
-    		// Request the streaming connection close, only if not already requested to close.
-    		if (!streamingConnectionCloser.connected)
-    		{
-    			var request:URLRequest = new URLRequest();
-    			var url:String = channel.endpoint;
+            // Request the streaming connection close, only if not already requested to close.
+            if (!streamingConnectionCloser.connected)
+            {
+                var request:URLRequest = new URLRequest();
+                var url:String = channel.endpoint;
                 if (_appendToURL != null)
                     url += _appendToURL;
-    			request.url = url + "?" + COMMAND_PARAM_NAME + "=" + CLOSE_COMMAND + "&"
-    			              + STREAM_ID_PARAM_NAME + "=" + streamId + "&" + VERSION_PARAM_NAME + "=" + VERSION_1;
-    			request.method = URLRequestMethod.POST;
-    			var postParams:URLVariables = new URLVariables();
-    			postParams[AbstractMessage.FLEX_CLIENT_ID_HEADER] = FlexClient.getInstance().id
-    			request.data = postParams;
+                request.url = url + "?" + COMMAND_PARAM_NAME + "=" + CLOSE_COMMAND + "&"
+                              + STREAM_ID_PARAM_NAME + "=" + streamId + "&" + VERSION_PARAM_NAME + "=" + VERSION_1;
+                request.method = URLRequestMethod.POST;
+                var postParams:URLVariables = new URLVariables();
+                postParams[AbstractMessage.FLEX_CLIENT_ID_HEADER] = FlexClient.getInstance().id
+                request.data = postParams;
 
-    			streamingConnectionCloser.load(request);
-    		}
+                streamingConnectionCloser.load(request);
+            }
         }
     }
 
@@ -501,21 +460,21 @@ public class StreamingConnectionHandler extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Used by the streamProgressHandler to read a message. Default implementation
-	 *  returns null and subclasses must override this method.
-	 *
-	 *  @return Returns the message that was read.
+    /**
+     *  Used by the streamProgressHandler to read a message. Default implementation
+     *  returns null and subclasses must override this method.
+     *
+     *  @return Returns the message that was read.
 	 *  
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
 	 *  @productversion BlazeDS 4
 	 *  @productversion LCDS 3 
-	 */
+     */
     protected function readMessage():IMessage
     {
-    	return null;
+        return null;
     }
 
     //--------------------------------------------------------------------------
@@ -525,35 +484,6 @@ public class StreamingConnectionHandler extends EventDispatcher
     //--------------------------------------------------------------------------
 
     /**
-     *  Helper method to process the chunk size value in hex read from the beginning of a chunk
-     *  into a decimal value that can be used to determine when all data for the chunk has been read.
-     *
-     *  @param value The hex value as a String.
-     *  @return The hex value converted as a decimal int.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
-     */
-    private function convertHexToDecimal(value:String):int
-    {
-        var result:int = 0;
-        var powerOfSixteen:int = 0;
-        for (var i:int = value.length - 1; i >= 0; i--)
-        {
-            if (powerOfSixteen == 0)
-                powerOfSixteen = 1;
-            else
-                powerOfSixteen *= 16;
-
-            var digit:int = HEX_VALUES[value.charAt(i)];
-            result += digit * powerOfSixteen;
-        }
-        return result;
-    }
-
     /**
      *  Handles a complete event that indicates that the streaming connection
      *  has been closed by the server by re-dispatching the event for the channel.
@@ -568,7 +498,7 @@ public class StreamingConnectionHandler extends EventDispatcher
      */
     private function streamCompleteHandler(event:Event):void
     {
-    	dispatchEvent(event);
+        dispatchEvent(event);
     }
 
     /**
@@ -585,7 +515,7 @@ public class StreamingConnectionHandler extends EventDispatcher
      */
     private function streamHttpStatusHandler(event:HTTPStatusEvent):void
     {
-		dispatchEvent(event);
+        dispatchEvent(event);
     }
 
     /**
@@ -602,7 +532,7 @@ public class StreamingConnectionHandler extends EventDispatcher
      */
     private function streamIoErrorHandler(event:IOErrorEvent):void
     {
-		dispatchEvent(event);
+        dispatchEvent(event);
     }
 
     /**
@@ -718,12 +648,12 @@ public class StreamingConnectionHandler extends EventDispatcher
                     // CR indicates that we've finished reading the size.
                     if (value == CR_BYTE)
                     {
-                        dataBytesToRead = convertHexToDecimal(hexChunkSize);
+                        dataBytesToRead = parseInt(hexChunkSize, 16);
                         state = LF_STATE;
                     }
                     else // Hex digit.
                     {
-                        hexChunkSize += HEX_DIGITS[value];
+                        hexChunkSize += String.fromCharCode(value);
                     }
 
                     if (chunkBuffer.bytesAvailable == 0)
@@ -783,7 +713,7 @@ public class StreamingConnectionHandler extends EventDispatcher
                             }
                             else  // Regular message; dispatch it.
                             {
-							    channel.dispatchEvent(MessageEvent.createEvent(MessageEvent.MESSAGE, message));
+                                channel.dispatchEvent(MessageEvent.createEvent(MessageEvent.MESSAGE, message));
                             }
                             // We've just finsihed the one point in the parse loop where we step outside of local control.
                             // The connection may now be closed, so check for this case here.
@@ -791,7 +721,7 @@ public class StreamingConnectionHandler extends EventDispatcher
                                 return;
                             
                         }
-						state = RESET_BUFFER_STATE;
+                        state = RESET_BUFFER_STATE;
                     }
                     else // Wait for the rest of the chunk to arrive.
                     {
@@ -842,7 +772,7 @@ public class StreamingConnectionHandler extends EventDispatcher
      */
     private function streamSecurityErrorHandler(event:SecurityErrorEvent):void
     {
-		dispatchEvent(event);
+        dispatchEvent(event);
     }
 }
 
