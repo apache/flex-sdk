@@ -12,9 +12,6 @@
 package spark.components.gridClasses
 {
     
-import mx.core.IInvalidating;
-import mx.core.IVisualElement;
-import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 
 import spark.components.Grid;
@@ -30,11 +27,26 @@ use namespace mx_internal;
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 2.4
+ *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
 public class GridLayer extends Group
 {
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
     public function GridLayer()
     {
         super();
