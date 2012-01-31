@@ -351,6 +351,8 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
+		super.partAdded(partName, instance);
+
         // FIXME (hmuller): autoRepeat as a property on Spinner?        
         if (instance == incrementButton)
         {
@@ -373,6 +375,8 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
+		super.partRemoved(partName, instance);
+
         if (instance == incrementButton)
         {
             incrementButton.removeEventListener(FlexEvent.BUTTON_DOWN, 
