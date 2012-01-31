@@ -58,7 +58,6 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IIMESupport;
 import mx.core.IInvalidating;
 import mx.core.IPropertyChangeNotifier;
-import mx.core.IRawChildrenContainer;
 import mx.core.IRectangularBorder;
 import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
