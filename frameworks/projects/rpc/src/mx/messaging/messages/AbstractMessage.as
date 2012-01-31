@@ -36,6 +36,12 @@ use namespace mx_internal;
  *  delivered and processed by the remote destination.
  *  The <code>body</code> is an object and is the payload for a message.
  *  </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class AbstractMessage implements IMessage
 {
@@ -50,18 +56,36 @@ public class AbstractMessage implements IMessage
      *  batch potentially targeted to different Consumer instances. 
      *  Each message will contain this header identifying the Consumer instance that 
      *  will receive the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const DESTINATION_CLIENT_ID_HEADER:String = "DSDstClientId";
 
     /**
      *  Messages are tagged with the endpoint id for the Channel they are sent over.
      *  Channels set this value automatically when they send a message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	public static const ENDPOINT_HEADER:String = "DSEndpoint";
 
 	/**
 	 *  This header is used to transport the global FlexClient Id value in outbound 
 	 *  messages once it has been assigned by the server.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public static const FLEX_CLIENT_ID_HEADER:String = "DSId";
 
@@ -69,12 +93,24 @@ public class AbstractMessage implements IMessage
      *  Messages sent by a MessageAgent can have a priority header with a 0-9
      *  numerical value (0 being lowest) and the server can choose to use this
      *  numerical value to prioritize messages to clients. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const PRIORITY_HEADER:String = "DSPriority";
 
 	/**
      *  Messages that need to set remote credentials for a destination
      *  carry the Base64 encoded credentials in this header.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public static const REMOTE_CREDENTIALS_HEADER:String = "DSRemoteCredentials";
 
@@ -82,6 +118,12 @@ public class AbstractMessage implements IMessage
      *  Messages that need to set remote credentials for a destination
      *  may also need to report the character-set encoding that was used to
      *  create the credentials String using this header.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public static const REMOTE_CREDENTIALS_CHARSET_HEADER:String = "DSRemoteCredentialsCharset";
 		
@@ -91,6 +133,12 @@ public class AbstractMessage implements IMessage
 	 *  channels and the value controls how long the corresponding MessageResponder 
 	 *  will wait for an acknowledgement, result or fault response for the message
 	 *  before timing out the request.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public static const REQUEST_TIMEOUT_HEADER:String = "DSRequestTimeout";	
 
@@ -98,6 +146,12 @@ public class AbstractMessage implements IMessage
      *  A status code can provide context about the nature of a response
      *  message. For example, messages received from an HTTP based channel may
      *  need to report the HTTP response status code (if available).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const STATUS_CODE_HEADER:String = "DSStatusCode";
 
@@ -129,6 +183,12 @@ public class AbstractMessage implements IMessage
     /**
      *  Constructs an instance of an AbstractMessage with an empty body and header.
      *  This message type should not be instantiated or used directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function AbstractMessage()
     {
@@ -153,6 +213,12 @@ public class AbstractMessage implements IMessage
     /**
      *  The body of a message contains the specific data that needs to be 
      *  delivered to the remote destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get body():Object
     {
@@ -183,6 +249,12 @@ public class AbstractMessage implements IMessage
 
     /**
      *  The clientId indicates which MessageAgent sent the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get clientId():String
     {
@@ -209,6 +281,12 @@ public class AbstractMessage implements IMessage
     
     /**
      *  The message destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     public function get destination():String
     {
@@ -239,6 +317,12 @@ public class AbstractMessage implements IMessage
      *  specific message instance.
      *  Core header names begin with a 'DS' prefix. Custom header names should start 
      *  with a unique prefix to avoid name collisions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get headers():Object
     {
@@ -272,6 +356,12 @@ public class AbstractMessage implements IMessage
 
     /**
      *  The unique id for the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get messageId():String
     {
@@ -307,6 +397,12 @@ public class AbstractMessage implements IMessage
      *  message expiration.
      *
      *  @see #timeToLive
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get timestamp():Number
     {
@@ -340,6 +436,12 @@ public class AbstractMessage implements IMessage
      *  and the <code>timeToLive</code> value is 5000, then this message will
      *  expire at 04/05/05 1:30:50 PST.
      *  Once a message expires it will not be delivered to any other clients.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get timeToLive():Number
     {
@@ -441,6 +543,12 @@ public class AbstractMessage implements IMessage
      *  Returns a string representation of the message.
      *
      *  @return String representation of the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function toString():String
     {
