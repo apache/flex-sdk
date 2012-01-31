@@ -191,6 +191,12 @@ public class Group extends GroupBase
             // maskChanged = true; TODO (rfrishbe): need this maskChanged?
         }
         
+        if (needsDisplayObjectAssignment)
+        {
+            needsDisplayObjectAssignment = false;
+            assignDisplayObjects();
+        }
+        
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
         // Validate element properties
@@ -200,12 +206,6 @@ public class Group extends GroupBase
             var element:GraphicElement = getItemAt(i) as GraphicElement;
             if (element)
                 element.validateProperties();
-        }
-        
-        if (needsDisplayObjectAssignment)
-        {
-            needsDisplayObjectAssignment = false;
-            assignDisplayObjects();
         }
     }
     
