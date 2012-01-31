@@ -27,6 +27,8 @@ import mx.core.IVisualElement;
  *  Use the Scroller component to add scrolbars to the component.</p>
  *
  *  @see spark.components.Scroller
+ *
+ *  @includeExample examples/IViewportExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
