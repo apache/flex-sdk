@@ -207,10 +207,7 @@ public class AbstractProducer extends MessageAgent
     {
         if (_priority != value)
         {
-            if (value < 0)
-                value = 0;
-            else if (value > 9)
-                value = 9;
+            value = value < 0? 0 : value > 9? 9 : value;
 
             var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "priority", _priority, value);
             _priority = value;
