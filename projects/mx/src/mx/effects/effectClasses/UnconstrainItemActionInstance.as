@@ -23,6 +23,11 @@ import mx.controls.listClasses.ListBase;
  *  effect; you do not create one yourself.
  *
  *  @see mx.effects.UnconstrainItemAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class UnconstrainItemActionInstance extends ActionEffectInstance
 {
@@ -38,6 +43,11 @@ public class UnconstrainItemActionInstance extends ActionEffectInstance
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function UnconstrainItemActionInstance(target:Object)
     {
