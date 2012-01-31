@@ -55,21 +55,21 @@ use namespace mx_internal;
 
 
 /**
- *  The RadioButton control lets the user make a single choice
+ *  The RadioButton component allows the user make a single choice
  *  within a set of mutually exclusive choices.
- *  A RadioButton group is composed of two or more RadioButton controls
+ *  A RadioButtonGroup is composed of two or more RadioButton components
  *  with the same <code>groupName</code> property.
  *  While grouping RadioButton instances in a RadioButtonGroup is optional,
- *  a group lets you do things like set a single event handler on a group of buttons,
- *  rather than on each individual button.
+ *  a group lets you do things like set a single event handler on a group of 
+ *  RadioButtons, rather than on each individual RadioButton.
  *
- *  <p>The RadioButton group can refer to a group created by the
+ *  <p>The RadioButton group can refer to the a group created by the
  *  <code>&lt;s:RadioButtonGroup&gt;</code> tag.
  *  The user selects only one member of the group at a time.
  *  Selecting an unselected group member deselects the currently selected
- *  RadioButton control within that group.</p>
+ *  RadioButton component within that group.</p>
  *
- *  <p>The RadioButton control has the following default characteristics:</p>
+ *  <p>The RadioButton component has the following default characteristics:</p>
  *     <table class="innertable">
  *        <tr>
  *           <th>Characteristic</th>
@@ -77,7 +77,7 @@ use namespace mx_internal;
  *        </tr>
  *        <tr>
  *           <td>Default size</td>
- *           <td>Wide enough to display the text label of the control</td>
+ *           <td>Wide enough to display the text label of the component</td>
  *        </tr>
  *        <tr>
  *           <td>Minimum size</td>
@@ -101,14 +101,12 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:RadioButton
  *    <strong>Properties</strong>
- *    group=""
- *    groupName="RadioButtonGroup_<i>n</i>"
- *    selected=""
+ *    group=the automatically created default RadioButtonGroup
+ *    groupName="radioGroup"
  *    value="null"
  *  /&gt;
  *  </pre>
  *
- *  @see spark.components.RadioButtonGroup
  *  @see spark.components.RadioButtonGroup
  *  @see spark.skins.spark.RadioButtonSkin
  *  @includeExample examples/RadioButtonExample.mxml
@@ -175,6 +173,31 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  enabled
+    //----------------------------------
+
+    /**
+     *  The RadioButton component is enabled if the 
+     *  RadioButtonGroup is enabled and the RadioButton itself is enabled.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get enabled():Boolean
+    {
+        // Is the radio button itself enabled?
+        if (!super.enabled)
+            return false;
+            
+        // The button is enabled so it's enabled if it's not in a group
+        // or the group is enabled.
+        return !radioButtonGroup || 
+               radioButtonGroup.enabled;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -192,15 +215,13 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     private var _group:RadioButtonGroup;
 
     /**
-     *  The RadioButtonGroup object to which this RadioButton belongs.
-     *  When creating radio buttons to put in a RadioButtonGroup, it is 
-     *  advisable to use either the <code>group</code> property 
+     *  The RadioButtonGroup component to which this RadioButton belongs.
+     *  When creating RadioButtons to put in a RadioButtonGroup, you
+     *  should use either the <code>group</code> property 
      *  or the <code>groupName</code> property for all of 
-     *  the buttons.  The <code>groupName</code> property will be set 
-     *  to the generated name of the 
-     *  RadioButtonGroup object.
+     *  the buttons.
      *  
-     *  @default the default RadioButtonGroup
+     *  @default the automatically created default RadioButtonGroup
      *  @see #groupName
      * 
      *  @langversion 3.0
@@ -300,18 +321,19 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     [Inspectable(category="General", defaultValue="radioGroup")]
 
     /**
-     *  Specifies the name of the group to which this RadioButton control belongs, or 
-     *  specifies the value of the <code>id</code> property of a RadioButtonGroup control
-     *  if this RadioButton is part of a group defined by a RadioButtonGroup control.
-     *  All radio buttons with the same <code>groupName</code> property will be in the same tab group,
-     *  even if they belong to different radio button groups. When creating
+     *  Specifies the name of the group to which this RadioButton component belongs, or 
+     *  specifies the value of the <code>id</code> property of a RadioButtonGroup component
+     *  if this RadioButton is part of a group defined by a RadioButtonGroup component.
+     *  All radio buttons with the same <code>groupName</code> property will be in the same tab group.
+     * 
+     *  <p>When creating
      *  radio buttons to put in a RadioButtonGroup, it is advisable to
      *  use either the <code>group</code> property 
-     *  or the <code>groupName</code> property for all of the buttons.
+     *  or the <code>groupName</code> property for all of the buttons.</p>
      *
-     *  @default <code>"RadioButtonGroup_<i>n</i>"</code>, where <i>n</i> is an integer greater
-     *  than or equal to 0
+     *  @default "radioGroup"
      *  @see #group
+     *  @see mx.manager.IFocusManagerGroup#groupName
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -353,12 +375,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     //----------------------------------
     
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override public function set selected(value:Boolean):void
     {
@@ -380,7 +397,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
 
     /**
      *  Optional user-defined value
-     *  that is associated with a RadioButton control.
+     *  that is associated with a RadioButton component.
      * 
      *  @default null
      *  
@@ -446,7 +463,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
      */
     private function get autoGroupIndex():String
     {
-        return "_fx_" + groupName;
+        return "_spark_" + groupName;
     }
 
     /**
@@ -587,24 +604,6 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
             g.setSelection(this);
     }
 
-   /**
-     *  @private
-     *  The radio button group and the radio button each have enabled properties.
-     *  The radio button component is enabled if the group is enabled and the button
-     *  itself is enabled.
-     */
-    override public function get enabled():Boolean
-    {
-        // Is the radio button itself enabled?
-        if (!super.enabled)
-            return false;
-            
-        // The button is enabled so it's enabled if it's not in a group
-        // or the group is enabled.
-        return !radioButtonGroup || 
-               radioButtonGroup.enabled;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden functions: UIComponent
