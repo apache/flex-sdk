@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
 <!-- Simple example to demonstrate the Type and Class selectors -->
-<FxApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:custom="*">
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:mx="library://ns.adobe.com/flex/halo" >
+
      <fx:Style>
-        FxList.greenTheme {
+
+        List.greenTheme {
             selectionColor: #99FF99;
         }
 
-        FxPanel.greenTheme {
+        Panel.greenTheme {
             contentBackgroundColor: #FFFFFF;
         }
 
@@ -17,16 +20,16 @@
         }
     </fx:Style>
 
-    <FxPanel title="Advanced CSS: Pseudo Selector Example" height="75%" width="75%"
+    <s:Panel title="Advanced CSS: Pseudo Selector Example" height="75%" width="75%"
     	styleName="greenTheme">
-        <Text width="300" text="This FxPanel has a styleName, but, the FxList and FxPanel have some different styles defined in a Type+Class selector."
+        <mx:Text width="300" text="This Spark Panel has a styleName, but, the Spark List and Spark Panel have some different styles defined in a Type+Class selector."
         	x="10" y="10" />
-        <FxNumericStepper x="10" y="75" styleName="greenTheme"/>
-        <FxTextInput text="value" x="65" y="75" styleName="greenTheme"/>
-        <FxList id="carList" x="10" y="110" selectedIndex="2" styleName="greenTheme">
-        	<dataProvider>
-        		  <ArrayCollection source="[Fit, Mini, M3, Prius, Blazer, Flex]" />
-        	</dataProvider>
-        </FxList>
-    </FxPanel>
-</FxApplication>
+        <s:TextInput text="value" x="65" y="75" styleName="greenTheme"/>
+        <s:NumericStepper x="10" y="75" styleName="greenTheme"/>
+        <s:List id="carList" x="10" y="110" selectedIndex="2" styleName="greenTheme">
+        	<s:dataProvider>
+        		  <mx:ArrayCollection source="[Fit, Mini, M3, Prius, Blazer, Flex]" />
+        	</s:dataProvider>
+        </s:List>
+    </s:Panel>
+</s:Application>
