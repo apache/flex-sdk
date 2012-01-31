@@ -1859,9 +1859,8 @@ public class VideoPlayer2 extends SkinnableComponent
                 y: this.y,
                 width: this.getPreferredBoundsWidth(false),
                 height: this.getPreferredBoundsHeight(false),
-                // FIXME (rfrishbe):
-//                smoothing: videoDisplay.videoPlayer.smoothing,
-//                deblocking: videoDisplay.videoPlayer.deblocking, 
+                smoothing: videoDisplay.videoObject.smoothing,
+                deblocking: videoDisplay.videoObject.deblocking, 
                 includeInLayout: this.includeInLayout};
             includeInLayout = false;
             pauseWhenHidden = false;
@@ -1894,8 +1893,8 @@ public class VideoPlayer2 extends SkinnableComponent
             invalidateDisplayList();
             
             // this is for video performance reasons
-//            videoDisplay.videoPlayer.smoothing = false;
-//            videoDisplay.videoPlayer.deblocking = 0;
+            videoDisplay.videoObject.smoothing = false;
+            videoDisplay.videoObject.deblocking = 0;
             
             this.validateNow();
             
@@ -2002,8 +2001,8 @@ public class VideoPlayer2 extends SkinnableComponent
         this.y = beforeFullScreenInfo.y;
         this.setLayoutBoundsSize(beforeFullScreenInfo.width, beforeFullScreenInfo.height);
         
-//        videoDisplay.videoPlayer.smoothing = beforeFullScreenInfo.smoothing;
-//        videoDisplay.videoPlayer.deblocking = beforeFullScreenInfo.deblocking;
+        videoDisplay.videoObject.smoothing = beforeFullScreenInfo.smoothing;
+        videoDisplay.videoObject.deblocking = beforeFullScreenInfo.deblocking;
         
         // remove from top level application:
         if (parent is IVisualElementContainer)
