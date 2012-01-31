@@ -560,9 +560,14 @@ public class Animation extends EventDispatcher
         }
         
         // Check to see whether it's time to start any delayed animations
-        for (i = 0; i < delayedStartAnims.length; ++i)
+        while (delayedStartAnims.length > 0)
         {
-            var anim:Animation = Animation(delayedStartAnims[i]);
+            // This loop will either start() an animation, which removes it
+            // from delayedStartAnims, or it will break out. In either case,
+            // we only check against the first item in the list each time
+            // through because any previous iteration will have removed the
+            // item that was at index 0
+            var anim:Animation = Animation(delayedStartAnims[0]);
             var animStartTime:Number = delayedStartTimes[anim];
             // Keep starting animations unless our sorted lists return
             // animations that start past the current time
