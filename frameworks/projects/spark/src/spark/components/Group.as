@@ -73,7 +73,7 @@ import mx.managers.ILayoutManagerClient;
 /**
  *  The Group class.
  */
-public class Group extends UIComponent implements IDataRenderer, IGraphicElementHost // TODO!! , IDisplayObjectElement
+public class Group extends UIComponent implements IGraphicElementHost // TODO!! , IDisplayObjectElement
 {
     public function Group():void
     {
@@ -131,18 +131,6 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
     public function get content():*
     {
         return _content;
-    }
-    
-    private var _data:Object;
-    [Bindable]
-    public function get data():Object
-    {
-        return _data;
-    }
-    
-    public function set data(value:Object):void
-    {
-        _data = value;
     }
     
     public function get layout():Class
