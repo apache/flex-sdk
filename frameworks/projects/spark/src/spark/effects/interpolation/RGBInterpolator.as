@@ -43,6 +43,8 @@ public class RGBInterpolator implements IInterpolator
     /**
      *  Returns the singleton of this class. Since all RGBInterpolators
      *  have the same behavior, there is no need for more than one instance.
+     *
+     *  @return The singleton of this class.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
