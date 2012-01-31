@@ -57,6 +57,11 @@ use namespace mx_internal;
  *
  *  @see flash.text.TextField
  *  @see mx.core.UITextFormat
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class UITLFTextField extends TLFTextField
 							implements IAutomationObject, IIMESupport,
@@ -160,6 +165,16 @@ public class UITLFTextField extends TLFTextField
         The width and height of the TextField are 4 pixels greater than
         the textWidth and textHeight.
     
+    *  
+    
+    *  @langversion 3.0
+    
+    *  @playerversion Flash 10
+    
+    *  @playerversion AIR 1.5
+    
+    *  @productversion Flex 4
+    
     */
 
     //--------------------------------------------------------------------------
@@ -247,6 +262,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function UITLFTextField()
     {
@@ -414,6 +434,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  The parent container or component for this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function get parent():DisplayObjectContainer
     {
@@ -466,6 +491,11 @@ public class UITLFTextField extends TLFTextField
     /**
      *  The delegate object which is handling the automation related functionality.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get automationDelegate():Object
     {
@@ -492,6 +522,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get automationName():String
     {
@@ -513,6 +548,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get automationValue():Array
     {
@@ -528,6 +568,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  The y-coordinate of the baseline of the first line of text.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get baselinePosition():Number
     {
@@ -571,6 +616,11 @@ public class UITLFTextField extends TLFTextField
      *  <code>getQualifiedClassName()</code> method in the flash.utils package.
      *  It will return a string such as
      *  <code>"mx.controls.dataGridClasses::DataGridItemRenderer"</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get className():String
     {
@@ -591,6 +641,11 @@ public class UITLFTextField extends TLFTextField
      *  A reference to the document object associated with this UITextField object. 
      *  A document object is an Object at the top of the hierarchy of a Flex application, 
      *  MXML component, or AS component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get document():Object
     {
@@ -624,6 +679,11 @@ public class UITLFTextField extends TLFTextField
      *  
      *  @default true
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get enabled():Boolean
     {
@@ -653,6 +713,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#explicitHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitHeight():Number
     {
@@ -681,6 +746,11 @@ public class UITLFTextField extends TLFTextField
      *  @see mx.core.UIComponent#explicitMaxHeight
      *  
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitMaxHeight():Number
     {
@@ -701,6 +771,11 @@ public class UITLFTextField extends TLFTextField
      *  @see mx.core.UIComponent#explicitMaxWidth
      *  
      *  @default NaN
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitMaxWidth():Number
     {
@@ -713,6 +788,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#explicitMinHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitMinHeight():Number
     {
@@ -725,6 +805,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#explicitMinWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitMinWidth():Number
     {
@@ -743,6 +828,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#explicitWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get explicitWidth():Number
     {
@@ -763,6 +853,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get focusPane():Sprite
     {
@@ -792,6 +887,11 @@ public class UITLFTextField extends TLFTextField
      *  around the text of the component.
      *  
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get ignorePadding():Boolean
     {
@@ -831,6 +931,11 @@ public class UITLFTextField extends TLFTextField
      *  @see flash.system.IMEConversionMode
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get imeMode():String
     {
@@ -857,6 +962,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#includeInLayout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get includeInLayout():Boolean
     {
@@ -898,6 +1008,11 @@ public class UITLFTextField extends TLFTextField
      *  prototype-linked chain.
      *  This object is set up by the <code>initProtoChain()</code> method.
      *  You typically never need to access this property directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get inheritingStyles():Object
     {
@@ -925,6 +1040,11 @@ public class UITLFTextField extends TLFTextField
     /**
      *  A flag that determines if an object has been through all three phases
      *  of layout validation (provided that any were required)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get initialized():Boolean
     {
@@ -956,6 +1076,11 @@ public class UITLFTextField extends TLFTextField
     //----------------------------------
     /**
      *  @copy mx.core.UIComponent#isPopUp
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get isPopUp():Boolean
     {
@@ -975,6 +1100,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#maxHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maxHeight():Number
     {
@@ -987,6 +1117,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#maxWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maxWidth():Number
     {
@@ -999,6 +1134,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#measuredHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get measuredHeight():Number
     {
@@ -1016,6 +1156,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#measuredMinHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get measuredMinHeight():Number
     {
@@ -1035,6 +1180,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#measuredMinWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get measuredMinWidth():Number
     {
@@ -1054,6 +1204,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#measuredWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get measuredWidth():Number
     {
@@ -1071,6 +1226,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#minHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get minHeight():Number
     {
@@ -1083,6 +1243,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#minWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get minWidth():Number
     {
@@ -1104,6 +1269,11 @@ public class UITLFTextField extends TLFTextField
     /**
      *  The moduleFactory that is used to create TextFields in the correct SWF context. This is necessary so that
      *  embedded fonts will work.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get moduleFactory():IFlexModuleFactory
     {
@@ -1130,6 +1300,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#nestLevel
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get nestLevel():int
     {
@@ -1173,6 +1348,11 @@ public class UITLFTextField extends TLFTextField
      *  prototype-linked chain.
      *  This object is set up by the <code>initProtoChain()</code> method.
      *  You typically never need to access this property directly.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get nonInheritingStyles():Object
     {
@@ -1193,6 +1373,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#percentHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get percentHeight():Number
     {
@@ -1212,6 +1397,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#percentWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get percentWidth():Number
     {
@@ -1237,6 +1427,11 @@ public class UITLFTextField extends TLFTextField
     /**
      *  Set to <code>true</code> after the <code>createChildren()</code>
      *  method creates any internal component children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get processedDescriptors():Boolean
     {
@@ -1263,6 +1458,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#styleName
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get styleName():Object /* String, CSSStyleDeclaration, or UIComponent */
     {
@@ -1296,6 +1496,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#systemManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get systemManager():ISystemManager
     {
@@ -1329,6 +1534,11 @@ public class UITLFTextField extends TLFTextField
      *  even when the text is empty.
      *  In this case, it returns what the textHeight would be
      *  if the text weren't empty.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get nonZeroTextHeight():Number
     {
@@ -1355,6 +1565,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#toolTip
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get toolTip():String
     {
@@ -1378,6 +1593,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#tweeningProperties
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get tweeningProperties():Array
     {
@@ -1404,6 +1624,11 @@ public class UITLFTextField extends TLFTextField
     /**
      *  A flag that determines if an object has been through all three phases
      *  of layout validation (provided that any were required)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get updateCompletePendingFlag():Boolean
     {
@@ -1455,6 +1680,11 @@ public class UITLFTextField extends TLFTextField
         
         dispatchEvent(new Event("textInsert"));
     }
+*  
+*  @langversion 3.0
+*  @playerversion Flash 10
+*  @playerversion AIR 1.5
+*  @productversion Flex 4
 */
 
     /**
@@ -1479,6 +1709,11 @@ public class UITLFTextField extends TLFTextField
      *
      *  <p>This method is required by the IUIComponent interface,
      *  but it actually does nothing for a UITextField.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function initialize():void
     {
@@ -1486,6 +1721,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#getExplicitOrMeasuredWidth()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getExplicitOrMeasuredWidth():Number
     {
@@ -1494,6 +1734,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#getExplicitOrMeasuredHeight()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getExplicitOrMeasuredHeight():Number
     {
@@ -1507,6 +1752,11 @@ public class UITLFTextField extends TLFTextField
      *  and <code>false</code> to make it invisible.
      *
      *  @param noEvent <code>true</code> to suppress generating an event when you change visibility.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setVisible(visible:Boolean, noEvent:Boolean = false):void
     {
@@ -1515,6 +1765,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#setFocus()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setFocus():void
     {
@@ -1534,6 +1789,11 @@ public class UITLFTextField extends TLFTextField
      *
      *  @see mx.core.UITextFormat
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getUITextFormat():UITextFormat
     {
@@ -1554,6 +1814,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#move()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function move(x:Number, y:Number):void
     {
@@ -1567,6 +1832,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#setActualSize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setActualSize(w:Number, h:Number):void
     {
@@ -1580,6 +1850,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#getStyle()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getStyle(styleProp:String):*
     {
@@ -1604,6 +1879,11 @@ public class UITLFTextField extends TLFTextField
      *  @param styleProp Name of the style property.
      *
      *  @param newValue New value for the style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setStyle(styleProp:String, value:*):void
     {
@@ -1615,6 +1895,11 @@ public class UITLFTextField extends TLFTextField
      *  You typically never need to call this method.
      *
      *  @param p The parent of this UITextField object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function parentChanged(p:DisplayObjectContainer):void
     {
@@ -1639,6 +1924,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#styleChanged()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function styleChanged(styleProp:String):void
     {
@@ -1654,6 +1944,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#validateNow()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function validateNow():void
     {
@@ -1730,6 +2025,11 @@ public class UITLFTextField extends TLFTextField
      *  @return A TextFormat object. 
      *
      *  @see flash.text.TextFormat
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getTextStyles():TextFormat
     {
@@ -1767,6 +2067,11 @@ public class UITLFTextField extends TLFTextField
      *  Sets the font color of the text.
      *
      *  @param color The new font color.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setColor(color:uint):void
     {
@@ -1779,6 +2084,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#invalidateSize()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function invalidateSize():void
     {
@@ -1787,6 +2097,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#invalidateDisplayList()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function invalidateDisplayList():void
     {
@@ -1795,6 +2110,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @copy mx.core.UIComponent#invalidateProperties()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function invalidateProperties():void
     {
@@ -1809,6 +2129,11 @@ public class UITLFTextField extends TLFTextField
      *  such as <code>"..."</code> will be used.
      *
      *  @return <code>true</code> if the text needed truncation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function truncateToFit(truncationIndicator:String = null):Boolean
     {
@@ -1910,6 +2235,11 @@ public class UITLFTextField extends TLFTextField
      *  @return <code>true</code> if the child is parented or owned by this UITextField object.
      * 
      *  @see #owner
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function owns(child:DisplayObject):Boolean
     {
@@ -1938,6 +2268,11 @@ public class UITLFTextField extends TLFTextField
      *  to the component that popped it up.</p>
      * 
      *  <p>The default value is the value of the <code>parent</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get owner():DisplayObjectContainer
     {
@@ -1984,6 +2319,11 @@ public class UITLFTextField extends TLFTextField
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function replayAutomatableEvent(event:Event):Boolean
     {
