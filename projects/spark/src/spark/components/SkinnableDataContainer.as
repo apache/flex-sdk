@@ -681,7 +681,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      *  Updates the renderer for use/re-use. When a renderer is first 
      *  created, or when it is recycled because of virtualization, this 
      *  SkinnableDataContainer gets the chance to come in and set the 
-     *  renderer's <code>labelText</code> property as well as the 
+     *  renderer's <code>label</code> property as well as the 
      *  <code>owner</code> property. This is how, from a renderer, one 
      *  can access the parent component "owning" the renderer. In cases 
      *  like Lists and SkinnableDataContainers, the owner property points
@@ -701,7 +701,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         renderer.owner = this;
         
         if (renderer is IItemRenderer)
-            IItemRenderer(renderer).labelText = itemToLabel(IItemRenderer(renderer).data);  
+            IItemRenderer(renderer).label = itemToLabel(IItemRenderer(renderer).data);  
     }
 
     //--------------------------------------------------------------------------
