@@ -27,8 +27,8 @@ import flashx.textLayout.formats.ContainerFormat;
 import flashx.textLayout.formats.ParagraphFormat;
 
 import mx.core.mx_internal;
-import mx.graphics.graphicsClasses.TextFlowComposer;
-import mx.graphics.graphicsClasses.TextGraphicElement;
+import mx.graphics.baseClasses.TextFlowComposer;
+import mx.graphics.baseClasses.TextGraphicElement;
 import mx.utils.TextUtil;
 
 //--------------------------------------
