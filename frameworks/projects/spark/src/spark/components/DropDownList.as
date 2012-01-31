@@ -120,6 +120,9 @@ use namespace mx_internal;
 //--------------------------------------
 
 [Exclude(name="allowMultipleSelection", kind="property")]
+[Exclude(name="dragEnabled", kind="property")]
+[Exclude(name="dragMoveEnabled", kind="property")]
+[Exclude(name="dropEnabled", kind="property")]
 [Exclude(name="selectedIndices", kind="property")]
 [Exclude(name="selectedItems", kind="property")]
 
@@ -399,6 +402,42 @@ public class DropDownList extends List
         super.dataProvider = value;
         labelChanged = true;
         invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  dragEnabled
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Excluded property
+     */
+    override public function set dragEnabled(value:Boolean):void
+    {
+    }
+
+    //----------------------------------
+    //  dragMoveEnabled
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Excluded property
+     */
+    override public function set dragMoveEnabled(value:Boolean):void
+    {
+    }
+    
+    //----------------------------------
+    //  dropEnabled
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Excluded property
+     */
+    override public function set dropEnabled(value:Boolean):void
+    {
     }
     
     //----------------------------------
