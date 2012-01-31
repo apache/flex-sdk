@@ -650,9 +650,9 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  The ResizeMode for this container.  If the resize mode
+     *  The ResizeMode for this container. If the resize mode
      *  is set to <code>ResizeMode.NORMAL</code>, resizing is done by laying 
-     *  out the children with our new width and height.  If the 
+     *  out the children with the new width and height. If the 
      *  resize mode is set to <code>ResizeMode.SCALE</code>, all of the children 
      *  keep their unscaled width and height and the children 
      *  are scaled to change size.
@@ -1296,17 +1296,17 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  Layouts that honor the useVirtualLayout flag will use this method
+     *  Layouts that honor the <code>useVirtualLayout</code> flag will use this method
      *  to get layout elements that are "in view", i.e. that are within 
      *  the Group's scrollRect.
      * 
-     *  The returned layout element will have been validated.
+     *  <p>The returned layout element will have been validated.</p>
      * 
-     *  This method will lazily create or "recycle" and validate layout
-     *  elements as needed.
+     *  <p>This method will lazily create or "recycle" and validate layout
+     *  elements as needed.</p>
      * 
-     *  This method is not intended to be called directly, layouts that
-     *  support virutalization will call it.
+     *  <p>This method is not intended to be called directly, layouts that
+     *  support virutalization will call it.</p>
      * 
      *  @param index The index of the element to retrieve.
      *  @return The validated element at the specified index.
