@@ -296,8 +296,10 @@ public class GridColumn extends EventDispatcher
     {
         _headerText = value;
         
-        // ToDo: need to notify the ColumnHeaderBar?
-               
+        // Todo: invalidate just the ColumnHeaderBar not the entire grid?
+        if (grid)
+            grid.invalidateDisplayList();
+
         dispatchEvent(new Event("headerTextChanged"));
     }
    
