@@ -257,6 +257,12 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  <p>The default skin provides a chromeless image skin with a generic progress 
  *  bar based preloader and broken image icon to reflect invalid content.</p>
  *
+ *  <p>To use this component in a list-based component, such as a List or DataGrid, 
+ *  create an item renderer.
+ *  For information about creating an item renderer, see 
+ *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
+ *  Custom Spark item renderers</a>. </p>
+ *
  *  <p>The Image control has the following default characteristics:</p>
  *     <table class="innertable">
  *        <tr>
