@@ -13,21 +13,21 @@ package spark.components.supportClasses
 {
 import flash.events.Event;
 
+import mx.collections.IList;
+import mx.core.IVisualElement;
+import mx.core.UIComponent;
+import mx.core.mx_internal;
+import mx.events.CollectionEvent;
+import mx.events.CollectionEventKind;
+import mx.events.FlexEvent;
+
+import spark.components.IItemRenderer;
+import spark.components.IItemRendererOwner;
 import spark.components.SkinnableDataContainer;
-import spark.components.IItemRendererOwner; 
-import spark.components.IItemRenderer; 
 import spark.events.IndexChangeEvent;
 import spark.events.RendererExistenceEvent;
 import spark.layouts.supportClasses.LayoutBase;
-import spark.utils.LabelUtil; 
-
-import mx.collections.IList;
-import mx.core.IVisualElement;
-import mx.core.mx_internal;
-import mx.core.UIComponent; 
-import mx.events.FlexEvent; 
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
+import spark.utils.LabelUtil;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
@@ -125,7 +125,7 @@ public class ListBase extends SkinnableDataContainer
      *  @private
      *  Static constant representing no proposed selection.
      */
-    private static const NO_PROPOSED_SELECTION:int = -2;
+    mx_internal static const NO_PROPOSED_SELECTION:int = -2;
     
     /**
      *  @private
@@ -151,6 +151,9 @@ public class ListBase extends SkinnableDataContainer
     {
         super();
     }
+    
+    mx_internal var allowCustomSelectedItem:Boolean = true;
+    mx_internal static var CUSTOM_SELECTED_ITEM:int = -3;
     
     //--------------------------------------------------------------------------
     //
@@ -400,7 +403,8 @@ public class ListBase extends SkinnableDataContainer
     //  selectedItem
     //----------------------------------
     
-    private var _pendingSelectedItem:*;
+    mx_internal var _pendingSelectedItem:*;
+    private var _selectedItem:*;
     
     [Bindable("change")]
     /**
@@ -433,10 +437,13 @@ public class ListBase extends SkinnableDataContainer
         if (_pendingSelectedItem !== undefined)
             return _pendingSelectedItem;
             
+        if (selectedIndex == CUSTOM_SELECTED_ITEM)
+            return _selectedItem;
+        
         if (selectedIndex == NO_SELECTION || dataProvider == null)
            return undefined;
            
-        return dataProvider.getItemAt(selectedIndex);
+        return dataProvider.length > selectedIndex ? dataProvider.getItemAt(selectedIndex) : undefined;
     }
     
     /**
@@ -670,6 +677,13 @@ public class ListBase extends SkinnableDataContainer
         {
             if (dataProvider)
                 _proposedSelectedIndex = dataProvider.getItemIndex(_pendingSelectedItem);
+            
+            if (allowCustomSelectedItem && _proposedSelectedIndex == -1)
+            {
+				_proposedSelectedIndex = CUSTOM_SELECTED_ITEM;
+                _selectedItem = _pendingSelectedItem;
+            }
+              
             _pendingSelectedItem = undefined;
         }
         
@@ -906,7 +920,8 @@ public class ListBase extends SkinnableDataContainer
         
         _caretIndex = value;
         
-        itemShowingCaret(caretIndex, true);
+		if (caretIndex != CUSTOM_SELECTED_ITEM)
+        	itemShowingCaret(caretIndex, true);
     }
     
     /**
@@ -927,15 +942,18 @@ public class ListBase extends SkinnableDataContainer
         var oldSelectedIndex:int = _selectedIndex;
         var oldCaretIndex:int = _caretIndex;
         
-        if (_proposedSelectedIndex < NO_SELECTION)
-            _proposedSelectedIndex = NO_SELECTION;
-        if (_proposedSelectedIndex > maxIndex)
-            _proposedSelectedIndex = maxIndex;
-        if (requireSelection && _proposedSelectedIndex == NO_SELECTION && 
-            dataProvider && dataProvider.length > 0)
+        if (_proposedSelectedIndex != CUSTOM_SELECTED_ITEM)
         {
-            _proposedSelectedIndex = NO_PROPOSED_SELECTION;
-            return false;
+            if (_proposedSelectedIndex < NO_SELECTION)
+                _proposedSelectedIndex = NO_SELECTION;
+            if (_proposedSelectedIndex > maxIndex)
+                _proposedSelectedIndex = maxIndex;
+            if (requireSelection && _proposedSelectedIndex == NO_SELECTION && 
+                dataProvider && dataProvider.length > 0)
+            {
+                _proposedSelectedIndex = NO_PROPOSED_SELECTION;
+                return false;
+            }
         }
         
         // Step 2: dispatch the "changing" event. If preventDefault() is called
@@ -953,7 +971,7 @@ public class ListBase extends SkinnableDataContainer
         // Step 3: commit the selection change and caret change 
         if (_selectedIndex != NO_SELECTION)
             itemSelected(_selectedIndex, false);
-        if (_proposedSelectedIndex != NO_SELECTION)
+        if (_proposedSelectedIndex != NO_SELECTION && _proposedSelectedIndex != CUSTOM_SELECTED_ITEM)
             itemSelected(_proposedSelectedIndex, true);
         _selectedIndex = _proposedSelectedIndex;
         setCurrentCaretIndex(_proposedSelectedIndex); 
