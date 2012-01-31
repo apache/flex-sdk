@@ -40,7 +40,7 @@ import mx.managers.IFocusManagerComponent;
 //--------------------------------------
 
 /**
- *  Dispatched when a navigation item is selected.
+ *  Dispatched when a button is selected.
  *
  *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
  *  
@@ -52,7 +52,20 @@ import mx.managers.IFocusManagerComponent;
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
 /**
- *  The ButtonBar control displays a set of Buttons. 
+ *  The ButtonBar control defines a horizontal group of 
+ *  logically related buttons with a common look and navigation.
+ *
+ *  <p>The typical use for a button bar is for grouping
+ *  a set of related buttons together, which gives them a common look
+ *  and navigation, and handling the logic for the <code>itemClick</code> event
+ *  in a single place. </p>
+ *
+ *  <p>The ButtonBar control creates Button controls based on the value of 
+ *  its <code>dataProvider</code> property. 
+ *  Use methods such as <code>addItem()</code> and <code>removeItem()</code> 
+ *  to manipulate the <code>dataProvider</code> property to add and remove data items. 
+ *  The ButtonBar control automatically adds or removes the necessary children based on 
+ *  changes to the <code>dataProvider</code> property.</p>
  *
  *  @mxml <p>The <code>&lt;ButtonBar&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
@@ -61,14 +74,17 @@ import mx.managers.IFocusManagerComponent;
  *  &lt;ButtonBar
  *
  *    <strong>Properties</strong>
- *    arrowKeysWrapFocus="true|false"
+ *    arrowKeysWrapFocus="false"
+ * 
  *    <strong>Events</strong>
  *    itemClick="<i>No default</i>"
  *  /&gt;
  *  </pre>
  *
- *  @includeExample examples/ButtonBarExample.mxml
+ *  @see spark.components.ButtonBarButton
  *  @see spark.skins.default.ButtonBarSkin
+ *
+ *  @includeExample examples/ButtonBarExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -141,9 +157,10 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     //---------------------------------- 
     
     /**
-     * If true, using arrow keys to navigate within
-     * the ButtonBar will wrap around when it hits
-     * either end.
+     *  If <code>true</code>, using arrow keys to navigate within
+     *  the ButtonBar wraps when it hits either end.
+     *
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
