@@ -27,7 +27,6 @@ import flash.ui.ContextMenuItem;
 import flash.utils.setInterval;
 
 import mx.core.FlexGlobals;
-import mx.core.FlexVersion;
 import mx.core.IInvalidating;
 import mx.core.InteractionMode;
 import mx.core.Singleton;
@@ -1070,25 +1069,9 @@ public class Application extends SkinnableContainer
     //--------------------------------------------------------------------------
 
     /**
-     *  @private 
-     *  Applications set estimated sizes for their children
-     */  
-    override public function setActualSize(w:Number, h:Number):void
-    {
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-        {
-            setEstimatedSize(w, h, false);
-            invalidateEstimatedSizesOfChildren();
-            validateEstimatedSizesOfChildren();
-        }
-        
-        super.setActualSize(w, h);
-    }
-    
-    /**
      *  @private
      */
-    override protected function invalidateParentSizeAndDisplayList(estimatedSizesChanged:Boolean = false):void
+    override protected function invalidateParentSizeAndDisplayList():void
     {
         if (!includeInLayout)
             return;
@@ -1102,7 +1085,7 @@ public class Application extends SkinnableContainer
             return;
         }
 
-        super.invalidateParentSizeAndDisplayList(estimatedSizesChanged);
+        super.invalidateParentSizeAndDisplayList();
     }
 
     /**
@@ -1133,7 +1116,7 @@ public class Application extends SkinnableContainer
         // no matter what.
         // This is strictly for the debugger to be able to halt.
         // Note: isDebugger is true only with a Debugger Player.
-        if (sm.isTopLevelRoot() && Capabilities.isDebugger == true)
+        if (sm.isTopLevel() && Capabilities.isDebugger == true)
             setInterval(debugTickler, 1500);
     }
 
@@ -1530,7 +1513,6 @@ public class Application extends SkinnableContainer
         {
             invalidateProperties();
             invalidateSize();
-            invalidateEstimatedSizesOfChildren();
         }
 
         setActualSize(w, h);
