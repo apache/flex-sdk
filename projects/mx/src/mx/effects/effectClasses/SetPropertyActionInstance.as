@@ -21,6 +21,11 @@ import mx.core.mx_internal;
  *  effect; you do not create one yourself.
  *
  *  @see mx.effects.SetPropertyAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class SetPropertyActionInstance extends ActionEffectInstance
 {
@@ -36,6 +41,11 @@ public class SetPropertyActionInstance extends ActionEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SetPropertyActionInstance(target:Object)
 	{
@@ -54,6 +64,11 @@ public class SetPropertyActionInstance extends ActionEffectInstance
 
 	/** 
 	 *  The name of the property being changed. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var name:String;
 	
@@ -63,11 +78,21 @@ public class SetPropertyActionInstance extends ActionEffectInstance
 
 	/** 
 	 *  Storage for the value property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _value:*;
 	
 	/** 
 	 *  The new value for the property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get value():*
 	{
