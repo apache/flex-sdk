@@ -227,7 +227,7 @@ public class ComboBox extends DropDownListBase
     //  Properties
     //
     //--------------------------------------------------------------------------
-        
+    
     //--------------------------------------------------------------------------
     //  itemMatchingFunction
     //--------------------------------------------------------------------------
@@ -260,7 +260,7 @@ public class ComboBox extends DropDownListBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public var itemMatchingFunction:Function = null;
+    public var itemMatchingFunction:Function = null;     
     
     //--------------------------------------------------------------------------
     //  labelToItemFunction
@@ -402,6 +402,15 @@ public class ComboBox extends DropDownListBase
     //  Overridden Properties
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private 
+     */
+    override public function set selectedIndex(value:int):void
+    {
+        super.selectedIndex = value;
+        actualProposedSelectedIndex = value;
+    }
     
     /**
      *  @private 
@@ -628,17 +637,25 @@ public class ComboBox extends DropDownListBase
     override mx_internal function changeHighlightedSelection(newIndex:int, scrollToTop:Boolean = false):void
     {
         super.changeHighlightedSelection(newIndex, scrollToTop);
-                
-        var item:Object = dataProvider ? dataProvider.getItemAt(newIndex) : undefined;
-        if (item)
+        
+        if (newIndex > 0)
         {
-            var itemString:String = itemToLabel(item);
-            textInput.selectAll();
-            textInput.insertText(itemString);
-            textInput.selectAll();
-         
-            userTypedIntoText = false;
+            var item:Object = dataProvider ? dataProvider.getItemAt(newIndex) : undefined;
+            if (item)
+            {
+                var itemString:String = itemToLabel(item);
+                textInput.selectAll();
+                textInput.insertText(itemString);
+                textInput.selectAll();
+             
+                userTypedIntoText = false;
+            }
         }
+    }
+    
+    override protected function findKey(eventCode:int):Boolean
+    {
+        return false;
     }
     
     // If the TextInput is in focus, listen for keyDown events in the capture phase so that 
@@ -679,6 +696,7 @@ public class ComboBox extends DropDownListBase
         {
             // Restore the previous selectedItem
             textInput.text = itemToLabel(selectedItem);
+            changeHighlightedSelection(selectedIndex);
         }
     }
     
