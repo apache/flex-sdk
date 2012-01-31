@@ -159,3 +159,70 @@ mx|ToolTip
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
+
+mx|AdvancedDataGrid
+{
+	defaultDataGridItemEditor: ClassReference("mx.controls.MXFTETextInput");
+	defaultDataGridItemRenderer: ClassReference("mx.controls.advancedDataGridClasses.FTEAdvancedDataGridItemRenderer");
+}
+
+mx|AdvancedDataGridGroupItemRenderer
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|AdvancedDataGridHeaderRenderer
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|AdvancedDataGridSortItemRenderer
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|AxisRenderer
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|BarSeries
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|ChartLabel
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|ColumnSeries
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|DataTip
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+s|FTEAdvancedDataGridItemRenderer
+{
+	paddingLeft: 5 /* to match AdvancedDataGridItemRenderer in the MX defaults.css */
+}
+
+mx|LegendItem
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|OLAPDataGridGroupRenderer
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|PieSeries
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
