@@ -235,6 +235,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *    borderVisible="true"
  *    contentBackgroundColor="0xFFFFFF"
  *    dragIndicator="ListItemDragProxy"
+ *    dropIndicatorSkin="ListDropIndicator"
  *    rollOverColor="0xCEDBEF"
  *    selectionColor="0xA8C6EE"
  *    symbolColor="0x000000"
@@ -408,7 +409,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Use the <code>hasFocusableChildren</code> property with Flex applications.
      *  Do not use the <code>tabChildren</code> property.</p>
      *
-     *  <p>This is usually <code>false</code> because most components
+     *  <p>This property is usually <code>false</code> because most components
      *  either receive focus themselves or delegate focus to a single
      *  internal sub-component and appear as if the component has
      *  received focus. You may choose to set this to true on a  List 
@@ -1617,7 +1618,7 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
-     *  Releases the dropIndicator instance that is currently set in the layout.
+     *  Releases the <code>dropIndicator</code> instance that is currently set in the layout.
      *
      *  @return Returns the dropIndicator that was removed. 
      * 
@@ -1979,9 +1980,9 @@ public class List extends ListBase implements IFocusManagerComponent
      *  into view. 
      * 
      *  If the data item at the specified index is not completely 
-     *  visible, the List will scroll until it is brought into 
+     *  visible, the List scrolls until it is brought into 
      *  view. If the data item is already in view, no additional
-     *  scrolling will occur. 
+     *  scrolling occurs. 
      * 
      *  @param index The index of the data item.
      *  
@@ -2159,9 +2160,9 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  Tries to find the next item in the data provider that
      *  starts with the character in the <code>eventCode</code> parameter.
-     *  You can override this to do fancier typeahead lookups. The search
-     *  starts at the <code>selectedIndex</code> location; if it reaches
-     *  the end of the data provider it starts over from the beginning.
+     *  You can override this method to perform custom typeahead lookups. 
+     *  The search starts at the <code>selectedIndex</code> location.
+     *  If it reaches the end of the data provider, it starts over from the beginning.
      *
      *  @param eventCode The key that was pressed on the keyboard.
      *  @return <code>true</code> if a match was found.
@@ -2183,8 +2184,8 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  Finds an item in the list based on a String,
      *  and moves the selection to it. The search
-     *  starts at the <code>selectedIndex</code> location; if it reaches
-     *  the end of the data provider it starts over from the beginning.
+     *  starts at the <code>selectedIndex</code> location.
+     *  If it reaches the end of the data provider, it starts over from the beginning.
      *
      *  @param str The String to match.
      * 
