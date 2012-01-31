@@ -237,6 +237,19 @@ public class TextGraphicElement extends GraphicElement
     //--------------------------------------------------------------------------
 
     //----------------------------------
+    //  styleChainInitialized
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    mx_internal function get styleChainInitialized():Boolean
+    {
+        return _inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED &&
+               _nonInheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
+    }
+
+    //----------------------------------
     //  text
     //----------------------------------
 
