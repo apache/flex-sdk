@@ -86,8 +86,6 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *
- *  @default 0xFFFFFF
- *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
