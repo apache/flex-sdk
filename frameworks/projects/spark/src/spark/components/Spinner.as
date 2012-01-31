@@ -426,7 +426,7 @@ public class Spinner extends Range implements IFocusManagerComponent
         if (value != prevValue)
             dispatchEvent(new Event("change"));
 
-        // Gumbo redispatches scrolling keyboard events with cancelable=true
+        // Flex 4 redispatches scrolling keyboard events with cancelable=true
         // so typically we will preventDefault (read "cancel") here, rather
         // than stopping dispatching.
         if (stopPropagation)
