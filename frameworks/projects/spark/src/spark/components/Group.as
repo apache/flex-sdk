@@ -23,10 +23,9 @@ import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.InvalidatingSprite;
 import mx.core.mx_internal;
-import mx.events.ItemExistenceChangedEvent;
+import mx.events.ElementExistenceEvent;
 import mx.graphics.IGraphicElement;
-import mx.graphics.baseClasses
-.TextGraphicElement;
+import mx.graphics.baseClasses.TextGraphicElement;
 import mx.layout.LayoutElementFactory;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
@@ -39,20 +38,20 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched when an item is added to the content holder.
- *  event.relatedObject is the visual item that was added.
+ *  Dispatched when a visual element is added to the content holder.
+ *  <code>event.element</code> is the visual element that was added.
  *
- *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_ADD
+ *  @eventType mx.events.ElementExistenceEvent.ELEMENT_ADD
  */
-[Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
+[Event(name="elementAdd", type="mx.events.ElementExistenceEvent")]
 
 /**
- *  Dispatched when an item is removed from the content holder.
- *  event.relatedObject is the visual item that was removed.
+ *  Dispatched when a visual element is removed to the content holder.
+ *  <code>event.element</code> is the visual element that's being removed.
  *
- *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
+ *  @eventType mx.events.ElementExistenceEvent.ELEMENT_REMOVE
  */
-[Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
+[Event(name="elementRemove", type="mx.events.ElementExistenceEvent")]
 
 //--------------------------------------
 //  Excluded APIs
@@ -219,14 +218,13 @@ public class Group extends GroupBase implements IVisualElementContainer
     
     private var mxmlContentChanged:Boolean = false;
     private var _mxmlContent:Array;
-    private var _oldMxmlContent:Array;
     
     [ArrayElementType("mx.core.IVisualElement")]
+    
     /**
-     *  Content for this Group.  Do not modify this array directly.
+     *  Visual content children for this Group.
      *
-     *  <p>The content can be an Array or a single item.
-     *  The content items should only be IVisualItems.  An 
+     *  <p>The content items should only be IVisualItems.  An 
      *  mxmlContent Array shouldn't be shared between multiple
      *  Groups as visual elements can only live in one Group at 
      *  a time.</p>
@@ -238,39 +236,50 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     public function get mxmlContent():Array
     {
-        return _mxmlContent;
+        if (_mxmlContent)
+            return _mxmlContent.concat();
+        else
+            return null;
     }
-    
+     
     /**
      *  @private
      */
     public function set mxmlContent(value:Array):void
     {
-        if (!mxmlContentChanged)
-            _oldMxmlContent = _mxmlContent;
-        _mxmlContent = value;
-        mxmlContentChanged = true;
-        invalidateProperties();
+        if (createChildrenCalled)
+        {
+            setMxmlContent(value);
+        }
+        else
+        {
+            mxmlContentChanged = true;
+            _mxmlContent = value;
+            // we will validate this in createChildren();
+        }
     }
+    
 
     /**
      *  Adds the elements in <code>mxmlContent</code> to the Group.
      *  Flex calls this method automatically; you do not call it directly.
      */ 
-    protected function validateMxmlContent():void
+    private function setMxmlContent(value:Array):void
     {
-        mxmlContentChanged = false;
         var i:int;
         
-        if (_oldMxmlContent != null)
+        // if there's old content and it's different than what 
+        // we're trying to set it to, then let's remove all the old 
+        // elements first.
+        if (_mxmlContent != null && _mxmlContent != value)
         {
-            for (i = _oldMxmlContent.length - 1; i >= 0; i--)
+            for (i = _mxmlContent.length - 1; i >= 0; i--)
             {
-                elementRemoved(_oldMxmlContent[i], i);
+                elementRemoved(_mxmlContent[i], i);
             }
         }
         
-        _oldMxmlContent = null;
+        _mxmlContent = value;
         
         if (_mxmlContent != null)
         {
@@ -284,13 +293,35 @@ public class Group extends GroupBase implements IVisualElementContainer
     
     /**
      *  @private
+     *  Whether createChildren() has been called or not.
+     *  We use this in the setter for mxmlContent to know 
+     *  whether to validate the value immediately, or just 
+     *  wait to let createChildren() do it.
+     */
+    private var createChildrenCalled:Boolean = false;
+    
+    /**
+     *  @private
+     */ 
+    override protected function createChildren():void
+    {
+        super.createChildren();
+        
+        createChildrenCalled = true;
+        
+        if (mxmlContentChanged)
+        {
+            mxmlContentChanged = false;
+            setMxmlContent(_mxmlContent);
+        }
+    }
+    
+    /**
+     *  @private
      */ 
     override protected function commitProperties():void
     {
         super.commitProperties();
-        
-        if (mxmlContentChanged)
-            validateMxmlContent(); 
         
         if (blendModeChanged)
         {
@@ -474,9 +505,9 @@ public class Group extends GroupBase implements IVisualElementContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
+     *  @private
      */
-    public function get numElements():int
+    override public function get numElements():int
     {
         if (_mxmlContent == null)
             return 0;
@@ -485,9 +516,9 @@ public class Group extends GroupBase implements IVisualElementContainer
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */ 
-    public function getElementAt(index:int):IVisualElement
+    override public function getElementAt(index:int):IVisualElement
     {
         // check for RangeError:
         checkForRangeError(index);
@@ -597,9 +628,9 @@ public class Group extends GroupBase implements IVisualElementContainer
     }
     
     /**
-     *  @inheritDoc
+     *  @private
      */ 
-    public function getElementIndex(element:IVisualElement):int
+    override public function getElementIndex(element:IVisualElement):int
     {
         var index:int = _mxmlContent ? _mxmlContent.indexOf(element) : -1;
         
@@ -658,36 +689,6 @@ public class Group extends GroupBase implements IVisualElementContainer
     
     //--------------------------------------------------------------------------
     //
-    //  Layout item iteration
-    //
-    //  Iterators used by Layout objects. For visual items, the layout item
-    //  is the item itself. For data items, the layout item is the item renderer
-    //  instance that is associated with the item.
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function get numLayoutElements():int
-    {
-        return numElements;
-    }
-    
-    /**
-     *  @inheritDoc
-     * 
-     *  @throws RangeError If the index position does not exist in the child list.
-     */ 
-    override public function getLayoutElementAt(index:int):ILayoutElement
-    {
-        var element:IVisualElement = getElementAt(index);
-
-        return LayoutElementFactory.getLayoutElementFor(element);
-    }
-
-    
-    //--------------------------------------------------------------------------
-    //
     //  Content management (internal)
     //
     //--------------------------------------------------------------------------
@@ -742,8 +743,8 @@ public class Group extends GroupBase implements IVisualElementContainer
             }
         }
         
-        dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_ADD, false, false, element, index));
+        dispatchEvent(new ElementExistenceEvent(
+                      ElementExistenceEvent.ELEMENT_ADD, false, false, element, index));
         
         invalidateSize();
         invalidateDisplayList();
@@ -759,8 +760,8 @@ public class Group extends GroupBase implements IVisualElementContainer
     {
         var childDO:DisplayObject = element as DisplayObject;
         
-        dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_REMOVE, false, false, element, index));
+        dispatchEvent(new ElementExistenceEvent(
+                      ElementExistenceEvent.ELEMENT_REMOVE, false, false, element, index));
         
         if (element && (element is IGraphicElement))
         {
