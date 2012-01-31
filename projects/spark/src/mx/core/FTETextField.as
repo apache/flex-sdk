@@ -25,7 +25,6 @@ import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
@@ -673,7 +672,8 @@ public class FTETextField extends Sprite
 			value != TextFieldAutoSize.CENTER &&
 			value != TextFieldAutoSize.RIGHT)
 		{
-			throw new ArgumentError("Parameter autoSize must be one of the accepted values.");
+			var message:String = getErrorMessage("badParameter", "autoSize");
+			throw new ArgumentError(message);
 		}
 		
 		if (value == autoSize)
@@ -934,7 +934,10 @@ public class FTETextField extends Sprite
 	{
 		// TextField throws this RTE if a null value is set.
 		if (!value)
-			throw new TypeError("Parameter format must be non-null.");
+		{
+			var message:String = getErrorMessage("nullParameter", "format");
+			throw new TypeError(message);
+		}
 		
 		// Apply non-null formats in the incoming TextFormat
 		// to the defaultTextFormat.
@@ -1099,7 +1102,8 @@ public class FTETextField extends Sprite
 		// but that's not what TextField does.
 		if (value == null)
 		{
-			throw new TypeError("Parameter text must be non-null.");
+			var message:String = getErrorMessage("nullParameter", "text");
+			throw new TypeError(message);
 		}
 		
 		// Note: We don't return early if value == _htmlText
@@ -1566,7 +1570,10 @@ public class FTETextField extends Sprite
 	{
 		// TextField throws this RTE if a null value is set.
 		if (value == null)
-			throw new TypeError("Parameter text must be non-null.");
+		{
+			var message:String = getErrorMessage("nullParameter", "text");
+			throw new TypeError(message);
+		}
 		
 		// Note: We don't return early if value == _text
 		// because the defaultTextFormat may have changed
@@ -1720,15 +1727,21 @@ public class FTETextField extends Sprite
 	 */
 	public function set type(value:String):void
 	{
+		var message:String;
+		
 		// TextField throws this RTE when invalid values are set.
 		if (value != TextFieldType.DYNAMIC &&
 			value != TextFieldType.INPUT)
 		{
-			throw new ArgumentError("Parameter type must be one of the accepted values.");
+			message = getErrorMessage("badParameter", "type");
+			throw new ArgumentError(message);
 		}
 		
 		if (value == TextFieldType.INPUT)
-			throw new Error("FTETextField does not support setting type to \"input\".");
+		{
+			message = getErrorMessage("unsupportedTypeInFTETextField");
+			throw new Error(message);
+		}
 	}
 	
 	//----------------------------------
@@ -1843,7 +1856,10 @@ public class FTETextField extends Sprite
 	public function set direction(value:String):void
 	{
 		if (value != "ltr" && value != "rtl")
-			throw new ArgumentError("Parameter direction must be one of the accepted values.");
+		{
+			var message:String = getErrorMessage("badParameter", "direction");
+			throw new ArgumentError(message);
+		}
 		
 		if (value == _direction)
 			return;
@@ -2115,7 +2131,10 @@ public class FTETextField extends Sprite
 		
 		// TextField throws this RTE when invalid values are set.
 		if (lineIndex < 0 || lineIndex >= numChildren)
-			throw new RangeError("The supplied index is out of bounds");
+		{
+			var message:String = getErrorMessage("badIndex");
+			throw new RangeError(message);
+		}
 		
 		// The nth line is the nth child.
 		var textLine:TextLine = TextLine(getChildAt(lineIndex));
@@ -2295,15 +2314,6 @@ public class FTETextField extends Sprite
 	/**
 	 *  @private
 	 */
-	private function notImplemented(name:String):String
-	{
-		// FIXME (gosmith) Make this an other RTE messages localizable.
-		return "'" + name + "' is not implemented in FTETextField.";
-	}
-	
-	/**
-	 *  @private
-	 */
 	private function testFlag(mask:uint):Boolean
 	{
 		return (flags & mask) != 0;
@@ -2317,11 +2327,17 @@ public class FTETextField extends Sprite
 		flags |= mask;
 	}
 	
+	/**
+	 *  @private
+	 */
 	private function clearFlag(mask:uint):void
 	{
 		flags &= ~mask;
 	}
 	
+	/**
+	 *  @private
+	 */
 	private function setFlagToValue(mask:uint, value:Boolean):void
 	{
 		if (value)
@@ -2836,6 +2852,67 @@ public class FTETextField extends Sprite
 		_textHeight = Math.round(bounds.height);
 	}
 
+	/**
+	 *  @private
+	 *  Provides RTE messages.
+	 *  FTETextField is deliberately kept independent
+	 *  of the rest of the Flex framework.
+	 *  Therefore it doesn't have access to localized resource strings
+	 *  in the ResourceManager and simply has hard-coded English Strings.
+	 *  However, framework subclasses such as UIFTETextField override
+	 *  this method to provide localized messages from ResourceManager.
+	 */
+	mx_internal function getErrorMessage(key:String, param:String = null):String
+	{
+		var message:String = "";
+		
+		switch (key)
+		{
+			case "badParameter":
+			{
+				// This message matches the one in Flash Player.
+				message = "Parameter " + param + " must be one of the accepted values.";
+				break;
+			}
+				
+			case "nullParameter":
+			{
+				// This message matches the one in Flash Player.
+				message = "Parameter " + param + " must be non-null.";
+				break;
+			}
+				
+			case "badIndex":
+			{
+				// This message matches the one in Flash Player.
+				message = "The supplied index is out of bounds.";
+				break;
+			}
+				
+			case "notImplementedInFTETextField":
+			{
+				message = "'" + param + "' is not implemented in FTETextField.";
+				break;
+			}
+				
+			case "unsupportedTypeInFTETextField":
+			{
+				message = "FTETextField does not support setting type to \"input\".";
+				break;
+			}
+		}
+		
+		return message;
+	}
+	
+	/**
+	 *  @private
+	 */
+	private function notImplemented(name:String):String
+	{
+		return getErrorMessage("notImplementedInFTETextField", name);
+	}
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Event handlers
