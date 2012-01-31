@@ -828,10 +828,15 @@ public class SkinnableComponent extends UIComponent
     {
         if (offstageHandler == null)
             offstageHandler = onstageHandler;
-        // For on-stage events
-        systemManager.addEventListener(eventType, onstageHandler, true /*capture*/);
-        // For off-stage events
-        systemManager.stage.addEventListener(eventType, offstageHandler);
+        
+        // TODO (jszeto) Make marshall plan compliant    
+        if (systemManager)
+        {    
+        	// For on-stage events
+        	systemManager.addEventListener(eventType, onstageHandler, true /*capture*/);
+        	// For off-stage events
+        	systemManager.stage.addEventListener(eventType, offstageHandler);
+        }
     }
     
     /**
@@ -856,10 +861,15 @@ public class SkinnableComponent extends UIComponent
     {
         if (offstageHandler == null)
             offstageHandler = onstageHandler;
-        // For on-stage events
-        systemManager.removeEventListener(eventType, onstageHandler, true /*capture*/);
-        // For off-stage events
-        systemManager.stage.removeEventListener(eventType, offstageHandler);
+
+        // TODO (jszeto) Make marshall plan compliant
+        if (systemManager)
+        {
+        	// For on-stage events
+        	systemManager.removeEventListener(eventType, onstageHandler, true /*capture*/);
+        	// For off-stage events
+        	systemManager.stage.removeEventListener(eventType, offstageHandler);
+        }
     }
 
     /**
@@ -913,10 +923,18 @@ public class SkinnableComponent extends UIComponent
             var skinPartID:String = event.property as String;
             if(skinParts[skinPartID] != null)
             {
-                this[skinPartID] = event.newValue;
-                
-                if (!(this[skinPartID] is IFactory))
-                    partAdded(skinPartID, this[skinPartID]);
+            	if (event.newValue == null)
+            	{
+            		if (!(this[skinPartID] is IFactory))
+						partRemoved(skinPartID, this[skinPartID]);
+            		this[skinPartID] = event.newValue;
+            	}
+            	else
+            	{
+                	this[skinPartID] = event.newValue;                
+                	if (!(this[skinPartID] is IFactory))
+	                    partAdded(skinPartID, this[skinPartID]);
+	            }
             }
         }
     }
