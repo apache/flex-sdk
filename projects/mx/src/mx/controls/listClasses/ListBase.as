@@ -4594,6 +4594,8 @@ public class ListBase extends ScrollControlBase
      */
     protected function UIDToItemRenderer(uid:String):IListItemRenderer
     {
+		if (!listContent) return null;
+
         return visibleData[uid];
     }
 
@@ -6359,6 +6361,7 @@ public class ListBase extends ScrollControlBase
                             anchorIndex = index;
                             anchorBookmark = collectionIterator.bookmark;
                         }
+						items.splice(i, 1);
                         break;
                     }
                     
@@ -6374,7 +6377,7 @@ public class ListBase extends ScrollControlBase
                 catch(e2:ItemPendingError)
                 {
                     e2.addResponder(new ItemResponder(selectionDataPendingResultHandler, selectionDataPendingFailureHandler,
-                                                            new ListBaseSelectionDataPending(false, index, items, CursorBookmark.CURRENT, 1)));
+                                                            new ListBaseSelectionDataPending(false, index, items, CursorBookmark.FIRST, index)));
                     return;
                 }
             }
@@ -7505,13 +7508,13 @@ public class ListBase extends ScrollControlBase
     /**
      *  @private
      */
-    private function selectionDataPendingResultHandler(
+    mx_internal function selectionDataPendingResultHandler(
                                     data:Object,
                                     info:ListBaseSelectionDataPending):void
     {
         // trace("selectionDataPendingResultHandler", this);
         if (info.bookmark)
-            iterator.seek(info.bookmark, info.offset);
+            collectionIterator.seek(info.bookmark, info.offset);
         setSelectionDataLoop(info.items, info.index, info.useFind);
     }
 
@@ -8497,8 +8500,16 @@ public class ListBase extends ScrollControlBase
             anchorIndex += length;
             
             placeHolder = iterator.bookmark;
-            iterator.seek(CursorBookmark.FIRST, anchorIndex);
-            anchorBookmark = iterator.bookmark;
+			try
+			{
+				iterator.seek(CursorBookmark.FIRST, anchorIndex);
+				anchorBookmark = iterator.bookmark;
+			}
+			catch (e:ItemPendingError)
+			{
+				e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+								{ property: "anchorBookmark", value: anchorIndex } ));
+			}
             iterator.seek(placeHolder);
         }
             
@@ -8507,8 +8518,16 @@ public class ListBase extends ScrollControlBase
             caretIndex += length;
             
             placeHolder = iterator.bookmark;
-            iterator.seek(CursorBookmark.FIRST, caretIndex);
-            caretBookmark = iterator.bookmark;
+			try
+			{
+				iterator.seek(CursorBookmark.FIRST, caretIndex);
+				caretBookmark = iterator.bookmark;
+			}
+			catch (e:ItemPendingError)
+			{
+				e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+								{ property: "caretBookmark", value: caretIndex } ));
+			}
             iterator.seek(placeHolder);
         }
         
@@ -8562,8 +8581,16 @@ public class ListBase extends ScrollControlBase
             anchorIndex -= length;
             
             placeHolder = iterator.bookmark;
-            iterator.seek(CursorBookmark.FIRST, anchorIndex);
-            anchorBookmark = iterator.bookmark;
+			try
+			{
+				iterator.seek(CursorBookmark.FIRST, anchorIndex);
+				anchorBookmark = iterator.bookmark;
+			}
+			catch (e:ItemPendingError)
+			{
+				e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+								{ property: "anchorBookmark", value: anchorIndex } ));
+			}
             iterator.seek(placeHolder);
         }
             
@@ -8572,12 +8599,51 @@ public class ListBase extends ScrollControlBase
             caretIndex -= length;
             
             placeHolder = iterator.bookmark;
-            iterator.seek(CursorBookmark.FIRST, caretIndex);
-            caretBookmark = iterator.bookmark;
+			try
+			{
+				iterator.seek(CursorBookmark.FIRST, caretIndex);
+				caretBookmark = iterator.bookmark;
+			}
+			catch (e:ItemPendingError)
+			{
+				e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+								{ property: "caretBookmark", value: caretIndex } ));
+			}
             iterator.seek(placeHolder);
         }
         
         return requiresValueCommit;
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function setBookmarkPendingFailureHandler(data:Object,
+                                                 info:Object):void
+    {
+    }
+
+    /**
+     *  @private
+     */
+    mx_internal function setBookmarkPendingResultHandler(data:Object,
+                                                info:Object):void
+    {
+        var placeHolder:CursorBookmark;
+
+        placeHolder = iterator.bookmark;
+        try 
+        {
+            iterator.seek(CursorBookmark.FIRST, info.value);
+			this[info.property] = iterator.bookmark;
+        }
+        catch(e:ItemPendingError)
+        {
+			e.addResponder(new ItemResponder(setBookmarkPendingResultHandler, setBookmarkPendingFailureHandler,
+						info ));
+        }
+        iterator.seek(placeHolder);
+
     }
 
     /**
