@@ -3392,43 +3392,10 @@ public class Grid extends Group
     }    
     
     /**
-     *  @private  
-     *  Return itemRenderer["excludedEventTargets"] contains event.target.id,
-     *  where itemRenderer is the item renderer ancestor of event.target.
-     */ 
-    private function isEventTargetExcluded(event:Event):Boolean
-    {
-        const eventTarget:UIComponent = event.target as UIComponent;
-        const eventTargetID:String = (eventTarget) ? eventTarget.id : null;
-        if (!eventTargetID)
-            return false;
-        
-        // Find the eventTarget's ancestor whose parent is the Grid.  That's the
-        // item renderer.  If it has an excludedEventTargets array that contains
-        // event.target.id, then this event is to be excluded.
-        
-        for (var elt:IVisualElement = eventTarget; elt && (elt != this); elt = elt.parent as IVisualElement)
-            if (elt.parent == this)  // then elt is an item renderer
-            {
-                if ("excludedGridEventTargets" in Object(elt))
-                {
-                    const excludedTargets:Array = Object(elt)["excludedGridEventTargets"] as Array;
-                    return excludedTargets.indexOf(eventTargetID) != -1;
-                }
-                return false;
-            }
-        
-        return false;
-    }
-    
-    /**
      *  @private
      */
     private function dispatchGridEvent(mouseEvent:MouseEvent, type:String, gridXY:Point, rowIndex:int, columnIndex:int):void
     {
-        if (isEventTargetExcluded(mouseEvent))
-            return;
-        
         const column:GridColumn = columnIndex >= 0 ? getGridColumn(columnIndex) : null;
         const item:Object = rowIndex >= 0 ? getDataProviderItem(rowIndex) : null;
         const itemRenderer:IVisualElement = getVisibleItemRenderer(rowIndex, columnIndex);
