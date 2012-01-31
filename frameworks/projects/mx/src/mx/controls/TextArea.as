@@ -314,9 +314,6 @@ public class TextArea extends ScrollControlBase
     {
         super();
 
-        // InteractiveObject variables.
-        tabChildren = true;
-
         // ScrollControlBase variables.
         _horizontalScrollPolicy = ScrollPolicy.AUTO;
         _verticalScrollPolicy = ScrollPolicy.AUTO;
@@ -344,12 +341,6 @@ public class TextArea extends ScrollControlBase
      *  @private
      */    
     private var selectionChanged:Boolean = false;
-
-    /**
-     *  @private
-     *  Previous imeMode.
-     */
-    private var prevMode:String = IMEConversionMode.UNKNOWN;
 
     /**
      *  @private
@@ -2424,8 +2415,6 @@ public class TextArea extends ScrollControlBase
 
         if (_imeMode != null && _editable)
         {
-            IME.enabled = true;
-            prevMode = IME.conversionMode;
             // When IME.conversionMode is unknown it cannot be
             // set to anything other than unknown(English)      
             try
@@ -2462,17 +2451,6 @@ public class TextArea extends ScrollControlBase
             fm.defaultButtonEnabled = true;
 
         super.focusOutHandler(event);
-
-        if (_imeMode != null && _editable)
-        {
-            // When IME.conversionMode is unknown it cannot be
-            // set to anything other than unknown(English)
-            // and when known it cannot be set to unknown           
-            if (IME.conversionMode != IMEConversionMode.UNKNOWN 
-                && prevMode != IMEConversionMode.UNKNOWN)
-                IME.conversionMode = prevMode;
-            IME.enabled = false;
-        }
 
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
