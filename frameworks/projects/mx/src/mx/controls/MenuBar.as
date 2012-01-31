@@ -49,6 +49,7 @@ import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
+import mx.collections.IViewCursor;
 
 use namespace mx_internal;
 
@@ -1037,7 +1038,8 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
     override protected function commitProperties():void
     {
         var i:int;
-        
+		var cursor:IViewCursor;
+		        
         if (showRootChanged)
         {
             if (!_hasRoot)
@@ -1077,19 +1079,26 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
                                                   collectionChangeHandler,
                                                   false,
                                                   EventPriority.DEFAULT_HANDLER, true);
-                                          
-                var collectionLength:int = tmpCollection.length;
-                for (i = 0; i < collectionLength; i++)
-                {
-                    try
-                    {
-                        insertMenuBarItem(i, tmpCollection[i]);
-                    }
-                    catch(e:ItemPendingError)
-                    {
-                        //we probably dont need to actively recover from here
-                    }
-                }
+                                        
+				if (tmpCollection.length > 0)
+				{
+                    cursor = tmpCollection.createCursor();
+				    i= 0;
+				    while (!cursor.afterLast)
+				    {
+					    try
+					    {
+					        insertMenuBarItem(i, cursor.current);
+					    }
+					    catch(e:ItemPendingError)
+					    {
+					      //we probably dont need to actively recover from here
+					    }
+					      	
+					    cursor.moveNext();
+					    i++;
+				    } 
+				}
             }
         }
         
@@ -1105,17 +1114,25 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
                 if (!tmpCollection)
                     tmpCollection = _rootModel;
                 
-                for (i = 0; i < tmpCollection.length; i++)
-                {
-                    try
-                    {
-                        insertMenuBarItem(i, tmpCollection[i]);
-                    }
-                    catch(e:ItemPendingError)
-                    {
-                        //we probably dont need to actively recover from here
-                    }
-                }
+				if (tmpCollection.length > 0)
+				{
+				    cursor = tmpCollection.createCursor();
+				    i= 0;
+				    while (!cursor.afterLast)
+				    {
+				      try
+				      {
+				          insertMenuBarItem(i, cursor.current);
+				      }
+				      catch(e:ItemPendingError)
+				      {
+				          //we probably dont need to actively recover from here
+				      }
+				      	
+				      cursor.moveNext();
+				      i++;
+				    } 
+				}
             }
         }
         
