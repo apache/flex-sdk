@@ -279,7 +279,33 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             IInvalidating(obj).validateNow();
         setTypicalLayoutElement(renderer);
         super.removeChild(obj);
-    }    
+    } 
+    
+    /**
+     *  @private 
+     *  Create and validate a new item renderer (IR) for dataProvider[index].  
+     * 
+     *  This method creates a new IR which is not a child of this DataGroup.  It does not 
+     *  return the existing IR at the specified index and it does not cache the IRs it 
+     *  creates.   This method is intended to be used by clients which need to measure 
+     *  virtual IRs that may not be visible/allocated.
+     */
+    mx_internal function createItemRendererFor(index:int):IVisualElement
+    {
+        if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
+            return null;
+        
+        const item:Object = dataProvider.getItemAt(index);
+        const renderer:IVisualElement = createRendererForItem(item);
+        
+        super.addChild(DisplayObject(renderer)); 
+        setUpItemRenderer(renderer, index, item);
+        if (renderer is IInvalidating)
+            IInvalidating(renderer).validateNow();
+        super.removeChild(DisplayObject(renderer));
+        
+        return renderer;
+    }
     
     /**
      *  @private
