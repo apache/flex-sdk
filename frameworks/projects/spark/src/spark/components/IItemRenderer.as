@@ -9,10 +9,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
-import mx.components.IItemRendererOwner; 
+import spark.components.IItemRendererOwner; 
 import mx.core.IDataRenderer;
 import mx.core.IVisualElement; 
 
