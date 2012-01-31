@@ -2335,6 +2335,8 @@ public class DateField extends ComboBase
                 //downArrowButton.enabled = false;
                 openPos = 0;
 
+            xVal = Math.max(screen.left, xVal);
+            
             point.x = xVal;
             point.y = yVal;
             point = dd.parent.globalToLocal(point);
