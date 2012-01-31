@@ -26,7 +26,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="iconColor", type="uint", format="Color", inherit="yes")]
+[Style(name="iconColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  The color for the icon in a disabled skin. 
@@ -44,4 +44,4 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="disabledIconColor", type="uint", format="Color", inherit="yes")]
+[Style(name="disabledIconColor", type="uint", format="Color", inherit="yes", theme="halo")]
