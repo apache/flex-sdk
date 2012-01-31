@@ -269,6 +269,16 @@ public class RichEditableText extends UIComponent
      */
     mx_internal static var debug:Boolean = false;
     
+    /**
+     *  @private
+     *  Used for debugging.
+     *  Set this to an RGB uint to draw an opaque background
+     *  so that you can see the bounds of the component.
+     *  If it is null, the background is black pixels at 0 alpha,
+     *  to be transparent but catch mouse events.
+     */
+    mx_internal static var backgroundColor:Object = null; // 0xDDDDDD;
+
     //--------------------------------------------------------------------------
     //
     //  Class properties
