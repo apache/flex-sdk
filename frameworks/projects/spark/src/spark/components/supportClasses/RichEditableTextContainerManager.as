@@ -21,12 +21,15 @@ import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 
+import flashx.textLayout.container.ContainerController;
 import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.edit.EditingMode;
 import flashx.textLayout.edit.IEditManager;
 import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.SelectionFormat;
 import flashx.textLayout.elements.IConfiguration;
+import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.tlf_internal;
 import flashx.undo.IUndoManager;
 import flashx.undo.UndoManager;
 
@@ -38,6 +41,7 @@ import spark.components.RichEditableText;
 import spark.components.TextSelectionHighlighting;
 
 use namespace mx_internal;
+use namespace tlf_internal;
 
 [ExcludeClass]
 
@@ -243,6 +247,56 @@ public class RichEditableTextContainerManager extends TextContainerManager
         return new RichEditableTextEditManager(textDisplay, undoManager);
     }
 
+    /**
+     *  @private
+     */
+    override public function setText(text:String):void
+    {
+        super.setText(text);
+        
+        // If we have focus, need to make sure we can still input text.
+        initForInputIfHaveFocus();
+    }
+
+    /**
+     *  @private
+     */
+    override public function setTextFlow(textFlow:TextFlow):void
+    {
+        super.setTextFlow(textFlow);
+        
+        // If we have focus, need to make sure we can still input text.
+        initForInputIfHaveFocus();
+    }
+
+    /**
+     *  @private
+     */
+    private function initForInputIfHaveFocus():void
+    {
+        // If we have focus, need to make sure there is a composer in place,
+        // the new controller knows it has focus, and there is an insertion
+        // point so input works without a mouse over or mouse click.  Normally 
+        // this is done in our focusIn handler by making sure there is a 
+        // selection.  Test this by clicking an arrow in the NumericStepper 
+        // and then entering a number without clicking on the input field first. 
+        if (editingMode != EditingMode.READ_ONLY &&
+            textDisplay.getFocus() == textDisplay)
+        {
+            // this will ensure a text flow with a comopser
+            var im:ISelectionManager = beginInteraction();
+            
+            var controller:ContainerController = 
+                getTextFlow().flowComposer.getControllerAt(0);
+            
+            controller.requiredFocusInHandler(null);
+            
+            im.selectRange(0, 0);
+            
+            endInteraction();
+        }
+    }
+    
     /**
      *  @private
      */
