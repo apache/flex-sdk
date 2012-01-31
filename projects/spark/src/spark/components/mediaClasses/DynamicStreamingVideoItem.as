@@ -17,7 +17,7 @@ package spark.components.mediaClasses
  *  The StreamItem class represents a stream on the server plus a 
  *  bitRate for that stream.
  *
- *  @see spark.controls.VideoPlayer 
+ *  @see spark.components.VideoPlayer 
  *  @see spark.primitives.VideoElement
  *  
  *  @langversion 3.0
