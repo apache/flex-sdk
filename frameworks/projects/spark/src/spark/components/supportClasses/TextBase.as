@@ -448,6 +448,8 @@ public class TextBase extends UIComponent
     //  text
     //----------------------------------
 
+    [Inspectable(category="General")]
+    
     /**
      *  @private
      */
