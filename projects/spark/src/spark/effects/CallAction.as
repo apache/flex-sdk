@@ -9,13 +9,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects
+package mx.effects
 {
 import flash.events.IEventDispatcher;
 
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
-import flex.effects.effectClasses.CallFunctionActionInstance;
+import mx.effects.effectClasses.CallActionInstance;
 
 //--------------------------------------
 //  Excluded APIs
@@ -30,9 +30,9 @@ import flex.effects.effectClasses.CallFunctionActionInstance;
  * effect sequences where some function call can be choreographed
  * with other effects.
  *  
- * @see flex.effects.effectClasses.CallFunctionActionInstance
+ * @see mx.effects.effectClasses.CallFunctionActionInstance
  */
-public class CallFunctionAction extends Effect
+public class CallAction extends Effect
 {
     include "../core/Version.as";
 
@@ -47,11 +47,11 @@ public class CallFunctionAction extends Effect
      *
      *  @param target The Object to animate with this effect.
      */
-    public function CallFunctionAction(target:Object = null)
+    public function CallAction(target:Object = null)
     {
         super(target);
 
-        instanceClass = CallFunctionActionInstance;
+        instanceClass = CallActionInstance;
     }
 
     //--------------------------------------------------------------------------
@@ -92,7 +92,7 @@ public class CallFunctionAction extends Effect
     {
         super.initInstance(instance);
         
-        var callInstance:CallFunctionActionInstance = CallFunctionActionInstance(instance);
+        var callInstance:CallActionInstance = CallActionInstance(instance);
 
         callInstance.functionName = functionName;
         callInstance.parameters = parameters;
