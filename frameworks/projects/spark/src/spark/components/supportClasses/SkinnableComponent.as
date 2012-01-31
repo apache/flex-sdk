@@ -865,7 +865,7 @@ public class SkinnableComponent extends UIComponent
     //  Utility methods for subclasses
     //---------------------------------
     
-    // TODO (chaase): These could actually be static functions in a utility
+    // FIXME (chaase): These could actually be static functions in a utility
     // class instead of protected methods in a component superclass. But since
     // they assume access to the systemManager property of the component, this
     // seems like the right place for now. If we're trying to save on footprint
@@ -895,7 +895,7 @@ public class SkinnableComponent extends UIComponent
         if (offstageHandler == null)
             offstageHandler = onstageHandler;
         
-        // TODO (jszeto) Make marshall plan compliant    
+        // FIXME (jszeto): Make marshall plan compliant    
         if (systemManager)
         {    
         	// For on-stage events
@@ -928,7 +928,7 @@ public class SkinnableComponent extends UIComponent
         if (offstageHandler == null)
             offstageHandler = onstageHandler;
 
-        // TODO (jszeto) Make marshall plan compliant
+        // FIXME (jszeto): Make marshall plan compliant
         if (systemManager)
         {
         	// For on-stage events
