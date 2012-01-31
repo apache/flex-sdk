@@ -23,7 +23,6 @@ import mx.collections.IList;
 import mx.components.baseClasses.FxListBase;
 import mx.core.EventPriority;
 import mx.core.IFactory;
-import mx.core.ISelectableRenderer;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
@@ -43,7 +42,7 @@ import mx.managers.IFocusManagerComponent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxButtonBar extends FxListBase implements IFocusManagerComponent
+public class FxButtonBar extends FxListBase implements IFocusManagerComponent 
 {
     include "../core/Version.as";
 
@@ -150,12 +149,16 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden Methods
+    //  Overridden Properties
     //
     //--------------------------------------------------------------------------
 
 	private var requiresSelectionChanging:Boolean;
-
+	
+	//----------------------------------
+    //  requiresSelection
+    //---------------------------------- 
+	
     /**
      *  @private
      */
@@ -165,6 +168,13 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 		requiresSelectionChanging = true;
 	}
 
+	//----------------------------------
+    //  dataProvider
+    //----------------------------------
+     
+    /**
+     *  @private
+     */    
     override public function set dataProvider(value:IList):void
     {
         if (dataProvider)
@@ -211,8 +221,8 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 			var n:int = dataProvider.length;
 			for (var i:int = 0; i < n; i++)
 			{
-				var renderer:ISelectableRenderer = 
-					dataGroup.getElementAt(i) as ISelectableRenderer;
+				var renderer:IItemRenderer = 
+					dataGroup.getElementAt(i) as IItemRenderer;
 				if (renderer)
 					renderer.allowDeselection = !requiresSelection;
 			}
@@ -236,8 +246,8 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     {
         super.itemSelected(index, selected);
         
-        var renderer:ISelectableRenderer = 
-			dataGroup.getElementAt(index) as ISelectableRenderer;
+        var renderer:IItemRenderer = 
+			dataGroup.getElementAt(index) as IItemRenderer;
         
         if (renderer)
         {
@@ -289,12 +299,6 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 
     //--------------------------------------------------------------------------
     //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-    
-    //--------------------------------------------------------------------------
-    //
     //  Private Methods
     //
     //--------------------------------------------------------------------------
@@ -333,10 +337,10 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
             renderer.addEventListener("click", item_clickHandler);
 			if (renderer is IFocusManagerComponent)
 				IFocusManagerComponent(renderer).focusEnabled = false;
-			if (renderer is ISelectableRenderer)
-			{
-				ISelectableRenderer(renderer).allowDeselection = !requiresSelection;
-			}
+			if (renderer is IVisualElement)
+				IVisualElement(renderer).owner = this; 
+			if (renderer is IItemRenderer)
+				IItemRenderer(renderer).allowDeselection = !requiresSelection;
 		}
             
         if (isItemIndexSelected(index))
@@ -398,8 +402,8 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
      */
     private function buttonBar_keyDownHandler(event:KeyboardEvent):void
     {
-		var currentRenderer:ISelectableRenderer;
-		var renderer:ISelectableRenderer;
+		var currentRenderer:IItemRenderer;
+		var renderer:IItemRenderer;
 		
 		if (event.eventPhase == EventPhase.BUBBLING_PHASE)
 			return;
@@ -412,14 +416,14 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
             case Keyboard.UP:
             case Keyboard.LEFT:
             {
-				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
+				currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
 				if (focusedIndex > 0)
 				{
 					if (currentRenderer)
 						currentRenderer.showFocusIndicator = false;
 					--focusedIndex;
 					adjustLayering(focusedIndex);
-					renderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
+					renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
 					if (renderer)
 						renderer.showFocusIndicator = true;
 				}
@@ -430,14 +434,14 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.RIGHT:
             {
-				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
+				currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
 				if (focusedIndex < dataProvider.length - 1)
 				{
 					if (currentRenderer)
 						currentRenderer.showFocusIndicator = false;
 					++focusedIndex;
 					adjustLayering(focusedIndex);
-					renderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
+					renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
 					if (renderer)
 						renderer.showFocusIndicator = true;
 				}
@@ -447,7 +451,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
             }            
             case Keyboard.SPACE:
             {
-				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
+				currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
 				if (!currentRenderer || (currentRenderer.selected && requiresSelection))
 					return;
 				currentRenderer.dispatchEvent(event);
@@ -461,8 +465,8 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
      */
     private function buttonBar_keyUpHandler(event:KeyboardEvent):void
     {
-		var currentRenderer:ISelectableRenderer;
-		var renderer:ISelectableRenderer;
+		var currentRenderer:IItemRenderer;
+		var renderer:IItemRenderer;
 
 		if (event.eventPhase == EventPhase.BUBBLING_PHASE)
 			return;
@@ -474,7 +478,7 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
         {
             case Keyboard.SPACE:
             {
-				currentRenderer = dataGroup.getElementAt(focusedIndex) as ISelectableRenderer;
+				currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
 				if (!currentRenderer || (currentRenderer.selected && requiresSelection))
 					return;
 				currentRenderer.dispatchEvent(event);
@@ -491,8 +495,8 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 		var n:int = dataProvider.length;
         if (n > 0 && index < n)
         {
-			var renderer:ISelectableRenderer = 
-				dataGroup.getElementAt(index) as ISelectableRenderer;
+			var renderer:IItemRenderer = 
+				dataGroup.getElementAt(index) as IItemRenderer;
 			if (renderer)
 				renderer.showFocusIndicator = focused;
         }
