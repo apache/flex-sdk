@@ -288,7 +288,7 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  use group for all of the buttons or groupName for all of the buttons.
      *  In addition, all radio buttons in the group must have the same parent.  
      *
-     *  @default "radioButton"
+     *  @default "radioGroup"
      *  @see #group
      * 
      *  @throws ArgumentError If the radio button has a different parent than
@@ -329,6 +329,24 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
         invalidateDisplayList();
 
         dispatchEvent(new Event("groupNameChanged"));
+    }
+
+    //----------------------------------
+    //  selected
+    //----------------------------------
+    
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function set selected(value:Boolean):void
+    {
+        super.selected = value;
+        invalidateDisplayList();
     }
 
     //----------------------------------
@@ -583,7 +601,7 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
         // If this button is in a rb group and it's selected, but it's not the 
         // current selection, deselect the old rb and select this rb.
         if (_group && selected && _group.selection != this)
-            group.mx_internal::setSelection(this, false);        
+            _group.mx_internal::setSelection(this, false);        
     }
     
     //--------------------------------------------------------------------------
