@@ -14,6 +14,7 @@ package mx.skins.halo
 
 import flash.display.Graphics;
 import mx.collections.IList;
+import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -111,11 +112,15 @@ public class SwatchSkin extends UIComponent
         {
             case "colorPickerSwatch":
             {
-                var w:Number = UIComponent(parent).width /
-							   Math.abs(UIComponent(parent).scaleX);
-                var h:Number = UIComponent(parent).height /
-							   Math.abs(UIComponent(parent).scaleY);
+                var w:Number = UIComponent(parent).width
+                var h:Number = UIComponent(parent).height;
                 
+                if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+                {
+                    w /= Math.abs(UIComponent(parent).scaleX);
+                    h /= Math.abs(UIComponent(parent).scaleY);
+                }
+
 				g.clear();
                 drawSwatch(0, 0, w, h, c);
                 break;
