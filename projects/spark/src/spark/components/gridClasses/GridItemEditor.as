@@ -13,9 +13,12 @@ package spark.components.gridClasses
 {
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.geom.Point;
 import flash.utils.describeType;
 
 
+import mx.collections.ICollectionView;
+import mx.collections.ISort;
 import mx.core.IIMESupport;
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
@@ -27,7 +30,6 @@ import mx.validators.IValidatorListener;
 import spark.components.gridClasses.GridColumn;
 import spark.components.DataGrid;
 import spark.components.Group;
-import flash.geom.Point;
 
 use namespace mx_internal;
 
@@ -494,9 +496,25 @@ public class GridItemEditor extends Group implements IGridItemEditor
      
         if (property && data[property] !== newData)
         {
+            // If the data is sorted, turn off the sort for the edited data.
+            var sort:ISort = null;
+            if (dataGrid.dataProvider is ICollectionView)
+            {
+                var dataProvider:ICollectionView = ICollectionView(dataGrid.dataProvider);
+                if (dataProvider.sort)
+                {
+                    sort = dataProvider.sort;
+                    dataProvider.sort = null;
+                }
+            }
+            
+            var oldData:Object = data[property];
             data[property] = newData;
-            dataGrid.dataProvider.itemUpdated(data, property, data[property], newData);
-            dataGrid.validateNow();
+            dataGrid.dataProvider.itemUpdated(data, property, oldData, newData);
+            
+            // Restore the sort. The data will not be sorted due to this change.
+            if (sort)
+                ICollectionView(dataGrid.dataProvider).sort = sort;
         }
 
         return true;
