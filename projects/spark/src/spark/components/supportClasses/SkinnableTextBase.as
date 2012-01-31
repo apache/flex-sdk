@@ -12,25 +12,30 @@
 package spark.components.supportClasses
 {
 
-import flash.accessibility.Accessibility;    
-import flash.accessibility.AccessibilityProperties;    
+import flash.accessibility.Accessibility;
+import flash.accessibility.AccessibilityProperties;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.events.MouseEvent;
 import flash.system.Capabilities;
 
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.SelectionEvent;
 
 import mx.core.IIMESupport;
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.SandboxMouseEvent;
+import mx.events.TouchScrollEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
-import spark.components.TextSelectionHighlighting;
-import spark.events.TextOperationEvent;
 import spark.components.RichEditableText;
+import spark.components.TextSelectionHighlighting;
+import spark.core.IEditableText;
+import spark.events.TextOperationEvent;
 
 use namespace mx_internal;
 
@@ -265,6 +270,7 @@ public class SkinnableTextBase extends SkinnableComponent
     public function SkinnableTextBase()
     {
         super();
+        addHandlers();
     }
 
     //--------------------------------------------------------------------------
@@ -288,7 +294,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var textDisplay:RichEditableText;
+    public var textDisplay:IEditableText;
 
     /**
      *  @private
@@ -468,7 +474,7 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(textDisplay);
+        return getBaselinePositionForPart(textDisplay as IVisualElement);
     }
     
     //----------------------------------
@@ -538,8 +544,10 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     override public function get maxWidth():Number
     {
-        if (textDisplay)
-            return textDisplay.maxWidth;
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+
+        if (richEditableText)
+            return richEditableText.maxWidth;
             
         // want the default to be default max width for UIComponent
         var v:* = textDisplayProperties.maxWidth;
@@ -553,7 +561,10 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         if (textDisplay)
         {
-            textDisplay.maxWidth = value;
+            var richEditableText:RichEditableText = textDisplay as RichEditableText;
+            
+            if (richEditableText)
+                richEditableText.maxWidth = value;
             textDisplayProperties = BitFlagUtil.update(
                 uint(textDisplayProperties), MAX_WIDTH_PROPERTY_FLAG, true);
         }
@@ -718,8 +729,10 @@ public class SkinnableTextBase extends SkinnableComponent
      */
      public function get imeMode():String
     {
-        if (textDisplay)        
-            return textDisplay.imeMode;
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+                
+        if (richEditableText)        
+            return richEditableText.imeMode;
             
         // want the default to be null
         var v:* = textDisplayProperties.imeMode;
@@ -731,9 +744,11 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     public function set imeMode(value:String):void
     {
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+
         if (textDisplay)
         {
-            textDisplay.imeMode = value;
+            richEditableText.imeMode = value;
             textDisplayProperties = BitFlagUtil.update(
                 uint(textDisplayProperties), IME_MODE_PROPERTY_FLAG, true);
         }
@@ -936,8 +951,10 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     public function get selectionHighlighting():String 
     {
-        if (textDisplay)
-            return textDisplay.selectionHighlighting;
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+        
+        if (richEditableText)
+            return richEditableText.selectionHighlighting;
             
         // want the default to be "when focused"
         var v:* = textDisplayProperties.selectionHighlighting;
@@ -951,7 +968,10 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         if (textDisplay)
         {
-            textDisplay.selectionHighlighting = value;
+            var richEditableText:RichEditableText = textDisplay as RichEditableText;
+            
+            if (richEditableText)
+                richEditableText.selectionHighlighting = value;
             textDisplayProperties = BitFlagUtil.update(
                                     uint(textDisplayProperties), 
                                     SELECTION_HIGHLIGHTING_FLAG, true);
@@ -1149,6 +1169,14 @@ public class SkinnableTextBase extends SkinnableComponent
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
+     */
+    private function addHandlers():void
+    {
+        addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, touchScrollStartingHandler);
+    }
+    
+    /**
      *  @copy spark.components.RichEditableText#insertText()
      *  
      *  @langversion 3.0
@@ -1231,9 +1259,14 @@ public class SkinnableTextBase extends SkinnableComponent
     {        
         if (textDisplay)
         {
-            textDisplay.content = value;
-            textDisplayProperties = BitFlagUtil.update(
-                uint(textDisplayProperties), CONTENT_PROPERTY_FLAG, true);
+            var richEditableText:RichEditableText = textDisplay as RichEditableText;
+            
+            if (richEditableText)
+            {
+                richEditableText.content = value;
+                textDisplayProperties = BitFlagUtil.update(
+                    uint(textDisplayProperties), CONTENT_PROPERTY_FLAG, true);
+            }
         }
         else
         {
@@ -1289,8 +1322,10 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     mx_internal function getTextFlow():TextFlow 
     {
-        if (textDisplay)
-            return textDisplay.textFlow;
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+        
+        if (richEditableText)
+            return richEditableText.textFlow;
             
         // If there is no textDisplay, it isn't possible to set one of
         // text, textFlow or content and then get it in another form.
@@ -1307,7 +1342,10 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         if (textDisplay)
         {
-            textDisplay.textFlow = value;
+            var richEditableText:RichEditableText = textDisplay as RichEditableText;
+            
+            if (richEditableText)
+                richEditableText.textFlow = value;
             textDisplayProperties = BitFlagUtil.update(
                                     uint(textDisplayProperties), 
                                     TEXT_FLOW_PROPERTY_FLAG, true);
@@ -1374,10 +1412,11 @@ public class SkinnableTextBase extends SkinnableComponent
     private function textDisplayAdded():void
     {        
         var newTextDisplayProperties:uint = 0;
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
         
-        if (textDisplayProperties.content !== undefined)
+        if (textDisplayProperties.content !== undefined && richEditableText)
         {
-            textDisplay.content = textDisplayProperties.content;
+            richEditableText.content = textDisplayProperties.content;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), CONTENT_PROPERTY_FLAG, true);
         }
@@ -1406,9 +1445,9 @@ public class SkinnableTextBase extends SkinnableComponent
                 HEIGHT_IN_LINES_PROPERTY_FLAG, true);
         }
 
-        if (textDisplayProperties.imeMode !== undefined)
+        if (textDisplayProperties.imeMode !== undefined && richEditableText)
         {
-            textDisplay.imeMode = textDisplayProperties.imeMode;
+            richEditableText.imeMode = textDisplayProperties.imeMode;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), IME_MODE_PROPERTY_FLAG, true);
         }
@@ -1420,16 +1459,16 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), MAX_CHARS_PROPERTY_FLAG, true);
         }
 
-        if (textDisplayProperties.maxHeight !== undefined)
+        if (textDisplayProperties.maxHeight !== undefined && richEditableText)
         {
-            textDisplay.maxHeight = textDisplayProperties.maxHeight;
+            richEditableText.maxHeight = textDisplayProperties.maxHeight;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), MAX_HEIGHT_PROPERTY_FLAG, true);
         }
         
-        if (textDisplayProperties.maxWidth !== undefined)
+        if (textDisplayProperties.maxWidth !== undefined && richEditableText)
         {
-            textDisplay.maxWidth = textDisplayProperties.maxWidth;
+            richEditableText.maxWidth = textDisplayProperties.maxWidth;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), MAX_WIDTH_PROPERTY_FLAG, true);
         }
@@ -1448,9 +1487,9 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), SELECTABLE_PROPERTY_FLAG, true);
         }
 
-        if (textDisplayProperties.selectionHighlighting !== undefined)
+        if (textDisplayProperties.selectionHighlighting !== undefined && richEditableText)
         {
-            textDisplay.selectionHighlighting = 
+            richEditableText.selectionHighlighting = 
                 textDisplayProperties.selectionHighlighting;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), 
@@ -1464,9 +1503,9 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), TEXT_PROPERTY_FLAG, true);
         }
 
-        if (textDisplayProperties.textFlow !== undefined)
+        if (textDisplayProperties.textFlow !== undefined && richEditableText)
         {
-            textDisplay.textFlow = textDisplayProperties.textFlow;
+            richEditableText.textFlow = textDisplayProperties.textFlow;
             newTextDisplayProperties = BitFlagUtil.update(
                 uint(newTextDisplayProperties), TEXT_FLOW_PROPERTY_FLAG, true);
         }
@@ -1491,6 +1530,7 @@ public class SkinnableTextBase extends SkinnableComponent
     private function textDisplayRemoved():void
     {        
         var newTextDisplayProperties:Object = {};
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
         
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
                               DISPLAY_AS_PASSWORD_PROPERTY_FLAG))
@@ -1512,9 +1552,9 @@ public class SkinnableTextBase extends SkinnableComponent
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-                              IME_MODE_PROPERTY_FLAG))
+                              IME_MODE_PROPERTY_FLAG) && richEditableText)
         {
-            newTextDisplayProperties.imeMode = textDisplay.imeMode;
+            newTextDisplayProperties.imeMode = richEditableText.imeMode;
         }
         
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
@@ -1524,15 +1564,15 @@ public class SkinnableTextBase extends SkinnableComponent
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-            MAX_HEIGHT_PROPERTY_FLAG))
+            MAX_HEIGHT_PROPERTY_FLAG) && richEditableText)
         {
-            newTextDisplayProperties.maxHeight = textDisplay.maxHeight;
+            newTextDisplayProperties.maxHeight = richEditableText.maxHeight;
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-                              MAX_WIDTH_PROPERTY_FLAG))
+                              MAX_WIDTH_PROPERTY_FLAG) && richEditableText)
         {
-            newTextDisplayProperties.maxWidth = textDisplay.maxWidth;
+            newTextDisplayProperties.maxWidth = richEditableText.maxWidth;
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
@@ -1548,10 +1588,10 @@ public class SkinnableTextBase extends SkinnableComponent
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-                              SELECTION_HIGHLIGHTING_FLAG))
+                              SELECTION_HIGHLIGHTING_FLAG) && richEditableText)
         {
             newTextDisplayProperties.selectionHighlighting = 
-                textDisplay.selectionHighlighting;
+                richEditableText.selectionHighlighting;
         }
             
         // Text is special.            
@@ -1563,9 +1603,9 @@ public class SkinnableTextBase extends SkinnableComponent
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
                 TEXT_FLOW_PROPERTY_FLAG) || 
             BitFlagUtil.isSet(uint(textDisplayProperties), 
-                CONTENT_PROPERTY_FLAG))
+                CONTENT_PROPERTY_FLAG) && richEditableText)
         {
-            newTextDisplayProperties.textFlow = textDisplay.textFlow;
+            newTextDisplayProperties.textFlow = richEditableText.textFlow;
         }
 
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
@@ -1632,7 +1672,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    private function textDisplay_changeHandler(event:TextOperationEvent):void
+    private function textDisplay_changeHandler(event:Event):void
     {        
         //trace(id, "textDisplay_changeHandler", textDisplay.text);
         
@@ -1685,6 +1725,17 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
+    }
+    
+    /**
+     *  @private
+     */
+    private function touchScrollStartingHandler(event:TouchScrollEvent):void
+    {
+        // This implementation prevents the scroll from happening, which means
+        // the gesture will be interpreted by the text (ie selection).
+        if (selectable || editable)
+            event.preventDefault();
     }
 }
 
