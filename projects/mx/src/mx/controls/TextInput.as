@@ -402,7 +402,7 @@ public class TextInput extends UIComponent
     
             return (border && border is IRectangularBorder ?
                     IRectangularBorder(border).borderMetrics.top :
-         			0)  + measureText(t).ascent;
+                    0)  + measureText(t).ascent;
         }
         
         if (!validateBaselinePosition())
@@ -1732,7 +1732,7 @@ public class TextInput extends UIComponent
     {
         super.measure();
 
-  		var bm:EdgeMetrics = border && border is IRectangularBorder ?
+        var bm:EdgeMetrics = border && border is IRectangularBorder ?
                              IRectangularBorder(border).borderMetrics :
                              EdgeMetrics.EMPTY;
 
@@ -1992,6 +1992,9 @@ public class TextInput extends UIComponent
      * 
      *  @param lineIndex The zero-based index of the line for which to get the metrics. 
      *
+     *  @return The object that contains information about the text position
+     *  and measurements for the specified line of text in the control.
+     * 
      *  @see flash.text.TextField
      *  @see flash.text.TextLineMetrics
      */
