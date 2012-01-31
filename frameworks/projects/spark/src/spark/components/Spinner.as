@@ -29,6 +29,11 @@ import mx.managers.IFocusManagerComponent;
 [Event(name="change", type="flash.events.Event")]
 
 /**
+ *  Skin states for this component.
+ */
+[SkinStates("normal", "disabled")]
+
+/**
  *  A Spinner is used to select a value from an
  *  ordered set. It uses two buttons that increase or
  *  decrease the current value based on the current
@@ -108,6 +113,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     {
         super.enabled = value;
         enableSkinParts(value);
+        invalidateSkinState();
     }
 
     //--------------------------------------------------------------------------
@@ -149,6 +155,14 @@ public class Spinner extends Range implements IFocusManagerComponent
     // Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
+     */
+	override protected function getUpdatedSkinState():String
+	{
+		return enabled ? "normal" : "disabled";
+	}
 
     /**
      *  @private
