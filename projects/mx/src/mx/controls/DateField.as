@@ -346,7 +346,6 @@ include "../styles/metadata/TextStyles.as"
  *  
  *   <strong>Styles</strong>
  *    borderColor="0xAAB3B3"
- *    borderThickness="1"
  *    color="0x0xB333C"
  *    dateChooserStyleName="dateFieldPopup"
  *    disabledColor="0xAAB3B3"
