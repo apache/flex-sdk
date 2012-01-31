@@ -97,8 +97,6 @@ public class DropDownController extends EventDispatcher
             
         _openButton = value;
         
-        _openButton.disableMinimumDownStateTime = true;
-        
         addOpenTriggers();
         
     }
@@ -298,6 +296,8 @@ public class DropDownController extends EventDispatcher
      */ 
     private function addOpenTriggers():void
     {
+        // TODO (jszeto): Change this to be mouseDown. Figure out how to not 
+        // trigger systemManager_mouseDown.
         if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
