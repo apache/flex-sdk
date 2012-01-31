@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!-- Simple example to demonstrate the id selectors -->
-<FxApplication xmlns="http://ns.adobe.com/mxml/2009">
-     <Style>
+<FxApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+     <fx:Style>
 
         #submitButton {
            baseColor: #CC6666;
         }
 
-    </Style>
+    </fx:Style>
 
     <FxPanel title="Advanced CSS: ID Selector Example" height="75%" width="75%" >
         <Label text="Only the FxButton below with the id 'submitButton' will have custom baseColor."
