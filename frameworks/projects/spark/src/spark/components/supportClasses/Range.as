@@ -168,6 +168,8 @@ public class Range extends SkinnableComponent
     private var _stepSize:Number = 1;
     
     private var stepSizeChanged:Boolean = false;
+    
+    [Inspectable(minValue="0.0")]
 
     /**
      *  The amount that the <code>value</code> property 
@@ -260,6 +262,8 @@ public class Range extends SkinnableComponent
 
     private var snapIntervalChanged:Boolean = false;
     private var _explicitSnapInterval:Boolean = false;
+    
+    [Inspectable(minValue="0.0")]    
 
     /**
      *  If nonzero, valid values are the sum of the minimum with integer multiples
