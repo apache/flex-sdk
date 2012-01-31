@@ -167,7 +167,7 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         const paddingTop:Number = columnHeaderGroup.getStyle("paddingTop");
         const paddingBottom:Number = columnHeaderGroup.getStyle("paddingBottom");
         
-        var measuredWidth:Number = Math.ceil(grid.getPreferredBoundsWidth() + paddingLeft + paddingRight);
+        var measuredWidth:Number = Math.ceil(paddingLeft + paddingRight);
         var measuredHeight:Number = Math.ceil(maxRendererHeight + paddingTop + paddingBottom);
         
         columnHeaderGroup.measuredWidth = Math.max(measuredWidth, columnHeaderGroup.minWidth);
