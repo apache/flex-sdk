@@ -50,6 +50,11 @@ use namespace mx_internal;
  *
  *  @see mx.effects.effectClasses.UnconstrainItemActionInstance
  *  @see mx.effects.DefaultTileListEffect
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class UnconstrainItemAction extends Effect
 {
@@ -65,6 +70,11 @@ public class UnconstrainItemAction extends Effect
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function UnconstrainItemAction(target:Object = null)
     {
