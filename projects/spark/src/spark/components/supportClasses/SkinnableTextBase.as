@@ -329,9 +329,15 @@ public class TextBase extends SkinnableComponent
     public function set autoSize(value:Boolean):void
     {
         if (textView)
+        {
             textView.autoSize = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), AUTO_SIZE_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.autoLayout = value;
+        }
             
         invalidateProperties();            
     }
@@ -364,9 +370,16 @@ public class TextBase extends SkinnableComponent
     public function set displayAsPassword(value:Boolean):void
     {
         if (textView)
+        {
             textView.displayAsPassword = value;
+            textViewProperties = BitFlagUtil.update(
+                                    uint(textViewProperties), 
+                                    DISPLAY_AS_PASSWORD_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.displayAsPassword = value;
+        }
 
         invalidateProperties();                    
     }
@@ -401,9 +414,15 @@ public class TextBase extends SkinnableComponent
     public function set editable(value:Boolean):void
     {
         if (textView)
+        {
             textView.editable = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), EDITABLE_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.editable = value;
+        }
 
         invalidateProperties();            
     }
@@ -447,9 +466,15 @@ public class TextBase extends SkinnableComponent
     public function set imeMode(value:String):void
     {
         if (textView)
+        {
             textView.imeMode = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), IME_MODE_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.imeMode = value;
+        }
 
         invalidateProperties();            
     }
@@ -489,9 +514,15 @@ public class TextBase extends SkinnableComponent
     public function set maxChars(value:int):void
     {
         if (textView)
+        {
             textView.maxChars = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), MAX_CHARS_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.maxChars = value;
+        }
 
         invalidateProperties();            
     }
@@ -519,9 +550,15 @@ public class TextBase extends SkinnableComponent
     override public function set maxWidth(value:Number):void
     {
         if (textView)
+        {
             textView.maxWidth = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), MAX_WIDTH_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.maxWidth = value;
+        }
 
         invalidateProperties();            
     }
@@ -556,9 +593,15 @@ public class TextBase extends SkinnableComponent
     public function set restrict(value:String):void
     {
         if (textView)
+        {
             textView.restrict = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), RESTRICT_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.restrict = value;
+        }
 
         invalidateProperties();            
     }
@@ -594,10 +637,16 @@ public class TextBase extends SkinnableComponent
     public function set selectable(value:Boolean):void
     {
         if (textView)
+        {
             textView.selectable = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), SELECTABLE_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.selectable = value;
-
+        }
+        
         invalidateProperties();            
     }
 
@@ -691,9 +740,16 @@ public class TextBase extends SkinnableComponent
     public function set selectionVisibility(value:String):void
     {
         if (textView)
+        {
             textView.selectionVisibility = value;
+            textViewProperties = BitFlagUtil.update(
+                                    uint(textViewProperties), 
+                                    SELECTION_VISIBILITY_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.selectionVisibility = value;
+        }
 
         invalidateProperties();            
     }
@@ -743,8 +799,12 @@ public class TextBase extends SkinnableComponent
         // If the textView is telling us about the change we don't want
         // to proxy the text to it.
         if (proxyText)
+        {
             textView.text = value;
-            
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), TEXT_PROPERTY_FLAG, true);
+        }
+           
         // Always keep this current, even if using the textView.    
         _text = value;
         
@@ -786,9 +846,15 @@ public class TextBase extends SkinnableComponent
     public function set widthInChars(value:Number):void
     {
         if (textView)
+        {
             textView.widthInChars = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), WIDTH_IN_CHARS_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.widthInChars = value;
+        }
 
         invalidateProperties();            
     }
@@ -979,9 +1045,15 @@ public class TextBase extends SkinnableComponent
     protected function setContent(value:Object):void
     {        
         if (textView)
+        {
             textView.content = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), CONTENT_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.content = value;
+        }
 
         invalidateProperties();            
      }
@@ -1011,9 +1083,15 @@ public class TextBase extends SkinnableComponent
     protected function setHeightInLines(value:Number):void
     {
         if (textView)
+        {
             textView.heightInLines = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), HEIGHT_IN_LINES_PROPERTY_FLAG, true);
+        }
         else
+        {
             textViewProperties.heightInLines = value;
+        }
 
         invalidateProperties();            
     }
