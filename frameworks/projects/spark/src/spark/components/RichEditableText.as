@@ -82,13 +82,12 @@ import mx.resources.ResourceManager;
 import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 
-import spark.components.TextSelectionHighlighting;
+import spark.components.supportClasses.RichEditableTextContainerManager;
+import spark.components.supportClasses.RichEditableTextEditManager;
 import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
 import spark.events.TextOperationEvent;
-import spark.components.supportClasses.RichEditableTextContainerManager;
-import spark.components.supportClasses.RichEditableTextEditManager;
 import spark.utils.TextUtil;
 
 use namespace mx_internal;
@@ -2287,17 +2286,7 @@ public class RichEditableText extends UIComponent
             // Otherwise the StringTextLineFactory will put
             // all of the lines into a single paragraph
             // and FTE performance will degrade on a large paragraph.
-            
-            // If we have focus, then we need to immediately create a 
-            // TextFlow so the interaction manager will be created and 
-            // editing/selection can be done without having to mouse click 
-            // or mouse hover over this field.  Normally this is done in our 
-            // focusIn handler by making sure there is a selection.  Test this
-            // by clicking an arrow in the NumericStepper and then entering
-            // a number without clicking on the input field first.    
-                        
-            if (_text.indexOf("\n") != -1 || _text.indexOf("\r") != -1 ||
-                getFocus() == this)
+            if (_text.indexOf("\n") != -1 || _text.indexOf("\r") != -1)
             {
                 _textFlow = staticPlainTextImporter.importToFlow(_text);
                 _textContainerManager.setTextFlow(_textFlow);
@@ -2323,20 +2312,7 @@ public class RichEditableText extends UIComponent
         if (textChanged || textFlowChanged || contentChanged)
         {
             lastGeneration = _textFlow ? _textFlow.generation : 0;
-            
-            // If the text, textFlow or content changed, there is no selection.
-            // If we already have focus, set the selection to 0,0 so there is
-            // an insertion point.  Since the text was changed programatically
-            // the caller should set the selection to the desired position.
-            if (getFocus() == this && editingMode != EditingMode.READ_ONLY)
-            {
-                var selectionManager:ISelectionManager = getSelectionManager();
-                selectionManager.selectRange(0, 0);        
-                if (!selectionManager.focused)
-                    selectionManager.focusInHandler(null);
-                releaseSelectionManager();            
-            }
-                
+
             // Handle the case where the initial text, textFlow or content 
             // is displayed as a password.
             if (displayAsPassword)
@@ -2376,7 +2352,7 @@ public class RichEditableText extends UIComponent
             if (editingMode != EditingMode.READ_ONLY)
             {
                 // Must preserve the selection, if there was one.
-                selectionManager = getSelectionManager();
+                var selectionManager:ISelectionManager = getSelectionManager();
                 
                 // The visible selection will be refreshed during the update.
                 selectionManager.selectRange(oldAnchorPosition, oldActivePosition);        
