@@ -67,35 +67,6 @@ public class Skin extends Group
 		super();
 	}
 	
-	//--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
-	
-	private var _fxComponent:Object;
-    [Bindable]
-    /**
-     *  A reference to the component that hosts this skin instance.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    public function get fxComponent():Object
-    {
-        return _fxComponent;
-    }
-    
-    /**
-     *  @private 
-     */    
-    public function set fxComponent(value:Object):void
-    {
-        _fxComponent = value;
-    }
-    
 }
 
 }
