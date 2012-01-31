@@ -2517,9 +2517,9 @@ public class Button extends UIComponent
     mx_internal function buttonReleased():void
     {
         // Remove the handlers that were added in mouseDownHandler().
-        systemManager.removeEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
-        systemManager.removeEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
             MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
         
         if (autoRepeatTimer)
@@ -2741,9 +2741,9 @@ public class Button extends UIComponent
         // We also place a mouseLeave handler on the stage
         // in case the user drags off the stage and releases the mouse.
         // These handlers are removed in buttonReleased().
-        systemManager.addEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
-        systemManager.addEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
             MarshalMouseEvent.MOUSE_UP, stage_mouseLeaveHandler);
 
         buttonPressed();
