@@ -14,6 +14,7 @@ package flex.effects.effectClasses
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
+import flex.core.Group;
 import flex.effects.Animation;
 import flex.effects.PropertyValuesHolder;
 import flex.effects.easing.IEaser;
@@ -62,6 +63,8 @@ public class AnimateInstance extends EffectInstance
 
     private var reverseAnimation:Boolean;
     
+    private var needsRemoval:Boolean;
+    
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -92,6 +95,22 @@ public class AnimateInstance extends EffectInstance
      * when the animation is complete.
      */ 
     protected var affectsConstraints:Boolean;
+
+    /**
+     * This flag indicates whether a subclass would like their target to 
+     * be automatically kept around during a transition and removed when it
+     * finishes. This capability applies specifically to effects like
+     * Fade which act on targets that go away at the end of the
+     * transition and removes the need to supply a RemoveAction or similar
+     * effect to manually keep the item around and remove it when the
+     * transition completes. In order to use this capability, subclasses
+     * should set this variable to true and also expose the "parent"
+     * and "elementHost" properties in their affectedProperties array so 
+     * that the effect instance has enough information about the target
+     * and container to do the job.
+     */
+    protected var autoRemoveTarget:Boolean = false;
+        
     
     private var _easer:IEaser;    
     public function set easer(value:IEaser):void
@@ -397,6 +416,8 @@ public class AnimateInstance extends EffectInstance
      */
     protected function startHandler(event:AnimationEvent):void
     {
+        if (autoRemoveTarget)
+            addDisappearingTarget();
         dispatchEvent(event);
     }
     
@@ -435,8 +456,89 @@ public class AnimateInstance extends EffectInstance
         finishEffect();
         if (affectsConstraints)
             reenableConstraints();
+        if (autoRemoveTarget)
+            removeDisappearingTarget();
     }
-    
+
+    /**
+     * Adds a target which is not in the state we are transitioning
+     * to. This is the partner of removeDisappearingTarget(), which removes
+     * the target when this effect is finished if necessary.
+     * Note that if a RemoveAction effect is playing in a CompositeEffect,
+     * then the adding/removing is already happening and this function
+     * will noop the add.
+     */
+    private function addDisappearingTarget():void
+    {
+        needsRemoval = false;
+        if (propertyChanges)
+        {
+            // Check for non-null parent ensures that we won't double-remove
+            // items, such as if there is a RemoveAction effect working on
+            // the same target
+            if ("parent" in target && !target.parent)
+            {
+                var parentStart:* = propertyChanges.start["parent"];;
+                var parentEnd:* = propertyChanges.end["parent"];;
+                if (parentStart && !parentEnd)
+                {
+                    if (parentStart is Group)
+                        parentStart.addItem(target);
+                    else
+                        parentStart.addChild(target);
+                    needsRemoval = true;
+                }
+            }
+            else if ("elementHost" in target && !target.elementHost)
+            {
+                var hostStart:* = propertyChanges.start["elementHost"];
+                var hostEnd:* = propertyChanges.end["elementHost"];
+                if (hostStart && !hostEnd)
+                {
+                    hostStart.addItem(target);
+                    needsRemoval = true;
+                }
+            }
+        }
+    }
+
+    /**
+     * Removes a target which is not in the state we are transitioning
+     * to. This is the partner of addDisappearingTarget(), which re-adds
+     * the target when this effect is played if necessary.
+     * Note that if a RemoveAction effect is playing in a CompositeEffect,
+     * then the adding/removing is already happening and this function
+     * will noop the removal.
+     */
+    private function removeDisappearingTarget():void
+    {
+        if (needsRemoval && propertyChanges)
+        {
+            // Check for non-null parent ensures that we won't double-remove
+            // items, such as if there is a RemoveAction effect working on
+            // the same target
+            if ("parent" in target && target.parent)
+            {
+                var parentStart:* = propertyChanges.start["parent"];;
+                var parentEnd:* = propertyChanges.end["parent"];;
+                if (parentStart && !parentEnd)
+                {
+                    if (parentStart is Group)
+                        parentStart.removeItem(target);
+                    else
+                        parentStart.removeChild(target);
+                }
+            }
+            else if ("elementHost" in target && target.elementHost)
+            {
+                var hostStart:* = propertyChanges.start["elementHost"];
+                var hostEnd:* = propertyChanges.end["elementHost"];
+                if (hostStart && !hostEnd)
+                    hostStart.removeItem(target);
+            }
+        }
+    }
+
     private var constraintsHolder:Object;
     
     private function reenableConstraint(name:String):void
