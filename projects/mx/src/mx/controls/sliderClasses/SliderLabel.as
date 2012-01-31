@@ -28,6 +28,11 @@ use namespace mx_internal;
  *  @see mx.controls.sliderClasses.Slider
  *  @see mx.controls.sliderClasses.SliderDataTip
  *  @see mx.controls.sliderClasses.SliderThumb
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SliderLabel extends Label
 {
@@ -41,6 +46,11 @@ public class SliderLabel extends Label
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SliderLabel()
 	{
