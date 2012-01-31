@@ -92,7 +92,12 @@ in accordance with the terms of the license agreement accompanying it.
              */ 
             override public function prepare():void
             {
+                super.prepare();
+                
                 comboBox.openDropDown();
+                var cellBounds:Rectangle = column.grid.getCellBounds(rowIndex, columnIndex);
+                bgRect.width = cellBounds.width - int(bgRect.left);
+                bgRect.height = cellBounds.height - int(bgRect.top);
             }
             
             
@@ -118,6 +123,14 @@ in accordance with the terms of the license agreement accompanying it.
             }
         ]]>
     </fx:Script>
+
+    <!--- Background to cover the cell that the combo box does not. -->
+    <s:Rect id="bgRect" top="1" left="1">
+        <s:fill>
+            <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
+            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
 
     <!-- The editor's ComboBox. -->
     <s:ComboBox id="comboBox" dataProvider="{dataProvider}" change="comboBox_changeHandler()" />
