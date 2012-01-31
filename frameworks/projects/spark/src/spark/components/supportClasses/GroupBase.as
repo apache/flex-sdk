@@ -721,12 +721,13 @@ public class GroupBase extends UIComponent implements IViewport
     }
      
     /**
-     *  @private
-     *  Render a transparent background fill as necessary to support the mouseOpaque flag.
+     *  Renders a background for the container, if necessary.  It is used to fill in
+     *  a transparent background fill as necessary to support the mouseOpaque flag.  It 
+     *  is also used in ItemRenderers when handleBackgroundColor is set to true.
      *  We assume for now that we are the first layer to be rendered into the graphics
      *  context.
      */
-    protected function renderFillForMouseOpaque():void
+    protected function renderBackgroundFill():void
     {
         if (!_mouseEnabledWhereTransparent || !_hasMouseListeners)
             return;
@@ -739,7 +740,7 @@ public class GroupBase extends UIComponent implements IViewport
 
         graphics.clear();
         graphics.beginFill(0xFFFFFF, 0);
-
+        
         if (layout && layout.useVirtualLayout)
             graphics.drawRect(horizontalScrollPosition, verticalScrollPosition, w, h);
         else
