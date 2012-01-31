@@ -656,7 +656,16 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         _layeringFlags &= ~LAYERING_DIRTY;
         
         var len:int = numElements;
-        for (var i:int = 0; i < len; i++)
+        var startIndex:int = 0;
+        var endIndex:int = numElements - 1;
+        
+        if (layout && layout.useVirtualLayout && (virtualLayoutStartIndex != -1))
+        {
+            startIndex = virtualLayoutStartIndex;
+            endIndex = virtualLayoutEndIndex;
+        }
+        
+        for (var i:int = startIndex; i <= endIndex; i++)
         {  
             var myItemRenderer:IVisualElement = getElementAt(i);
             var layer:Number = myItemRenderer.layer;
