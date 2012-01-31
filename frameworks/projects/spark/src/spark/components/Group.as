@@ -66,7 +66,6 @@ public class Group extends GroupBase
     
     private var _content:*;
     private var _contentType:int;
-    private var contentCollection:ICollectionView;
     private var layeringMode:uint = ITEM_ORDERED_LAYERING;
     
     private static const ITEM_ORDERED_LAYERING:uint = 0;
@@ -74,7 +73,6 @@ public class Group extends GroupBase
     
     private static const CONTENT_TYPE_UNKNOWN:int = 0;
     private static const CONTENT_TYPE_ARRAY:int = 1;
-    private static const CONTENT_TYPE_ILIST:int = 2;
     
     //----------------------------------
     //  alpha
@@ -157,25 +155,13 @@ public class Group extends GroupBase
     
     public function set content(value:*):void
     {
-        if (contentCollection)
-        {
-            contentCollection.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
-            contentCollection = null;
-        }
-        
         _content = value;
         
         // Need to convert null to undefined here, since subsequent content checks test for undefined
         if (_content === null)
             _content = undefined;
             
-        if (_content is IList)
-        {
-            _contentType = CONTENT_TYPE_ILIST;
-            contentCollection = new ListCollectionView(IList(_content));
-            contentCollection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
-        }
-        else if (_content is Array)
+        if (_content is Array)
             _contentType = CONTENT_TYPE_ARRAY;
         else
             _contentType = CONTENT_TYPE_UNKNOWN;
@@ -325,13 +311,8 @@ public class Group extends GroupBase
         if (_content === undefined)
             return 0;
             
-        switch (_contentType)
-        {
-            case CONTENT_TYPE_ARRAY:
-            case CONTENT_TYPE_ILIST:
-                return _content.length;
-                break;
-        }
+        if (_contentType == CONTENT_TYPE_ARRAY)
+            return _content.length;
         
         return 1;
     }
@@ -341,16 +322,8 @@ public class Group extends GroupBase
         if (_content === undefined)
             return null;
         
-        switch (_contentType)
-        {
-            case CONTENT_TYPE_ARRAY:
-                return _content[index];
-                break;
-            
-            case CONTENT_TYPE_ILIST:
-                return _content.length > index ? _content.getItemAt(index) : null;
-                break;
-        }
+        if (_contentType == CONTENT_TYPE_ARRAY)
+            return _content[index];
         
         return _content;
     }
@@ -376,16 +349,8 @@ public class Group extends GroupBase
             _content = [_content];
         }
         
-        switch (_contentType)
-        {
-            case CONTENT_TYPE_ARRAY:
-                _content.splice(index, 0, item);
-                break;
-            
-            case CONTENT_TYPE_ILIST:
-                _content.addItemAt(item, index);
-                break;
-        }
+        if (_contentType == CONTENT_TYPE_ARRAY)
+            _content.splice(index, 0, item);
         
         itemAdded(item, index);
         
@@ -421,10 +386,6 @@ public class Group extends GroupBase
                     item = removed[0];
                 break;  
             }
-            
-            case CONTENT_TYPE_ILIST:
-                item = _content.removeItemAt(index);
-                break;
                 
             case CONTENT_TYPE_UNKNOWN:
             {
@@ -445,16 +406,8 @@ public class Group extends GroupBase
         if (_content === undefined)
             return -1;
         
-        switch (_contentType)
-        {
-            case CONTENT_TYPE_ARRAY:
-                return _content.indexOf(item);
-                break;
-            
-            case CONTENT_TYPE_ILIST:
-                return _content.getItemIndex(item);
-                break;
-        }
+        if (_contentType == CONTENT_TYPE_ARRAY)
+            return _content.indexOf(item);
         
         return 0;
     }
@@ -594,48 +547,6 @@ public class Group extends GroupBase
         
         invalidateSize();
         invalidateDisplayList();
-    }
-    
-    protected function collectionChangeHandler(event:Event):void
-    {
-        if (event is CollectionEvent)
-        {
-            var ce:CollectionEvent = CollectionEvent(event);
-
-            /* if (ce.kind == CollectionEventKind.ADD)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.REPLACE)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.REMOVE)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.MOVE)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.REFRESH)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.RESET)
-            {
-            }
-            else if (ce.kind == CollectionEventKind.UPDATE)
-            {
-                
-            } */
-            
-            // TODO!! Fow now, always reapply the content. This needs to
-            // be optimized in the future            
-           contentChanged = true;
-           invalidateProperties();
-        }
-            
     }
     
     // Returns true if the Group's display object can be shared with graphic elements
