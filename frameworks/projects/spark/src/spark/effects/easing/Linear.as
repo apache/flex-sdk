@@ -11,26 +11,41 @@
 package spark.effects.easing
 {
 /**
- * Provides easing functionality with three phases during
- * the animation: acceleration, uniform motion, and deceleration.
- * As the animation starts it will accelerate through the period
- * specified by the <code>acceleration</code> parameter, it will
- * then use uniform (linear) motion through the next phase, and
- * will finally decelerate until the end during the period specified
- * by the <code>deceleration</code> parameter.
+ *  The Linear class defines an easing with three phases:
+ *  acceleration, uniform motion, and deceleration.
+ *  As the animation starts it accelerates through the period
+ *  specified by the <code>easeInFraction</code> property, it 
+ *  then uses uniform (linear) motion through the next phase, and
+ *  finally decelerates until the end during the period specified
+ *  by the <code>easeOutFraction</code> property.
  * 
- * <p>The easing values for the three phases will be calculated
- * such that the behavior of constant acceleration, linear motion,
- * and constant deceleration will all occur within the specified 
- * duration of the animation.</p>
- * 
- * <p>Strict linear motion can be achieved by setting both
- * acceleration and deceleration to 0. Note that if acceleration or
- * deceleration are not zero, then the motion during the middle
- * phase will not be at the same speed as that of pure
- * linear motion. The middle phase consists of
- * uniform motion, but the speed of that motion is determined by
- * the size of that phase relative to the overall curve.</p>
+ *  <p>The easing values for the three phases are calculated
+ *  such that the behavior of constant acceleration, linear motion,
+ *  and constant deceleration all occur within the specified 
+ *  duration of the animation.</p>
+ *  
+ *  <p>Strict linear motion can be achieved by setting 
+ *  <code>easeInFraction</code> and <code>easeOutFraction</code> to 0.0. 
+ *  Note that if acceleration or
+ *  deceleration are not 0.0, then the motion during the middle
+ *  phase is not at the same speed as that of pure
+ *  linear motion. The middle phase consists of
+ *  uniform motion, but the speed of that motion is determined by
+ *  the size of that phase relative to the overall animation.</p>
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Linear&gt;</code> tag
+ *  inherits all of the tag attributes of its of its superclass,
+ *  and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;mx:Linear
+ *    id="ID"
+ *    easeInFraction="0" 
+ *    easeOutFraction="0"
+ *   /&gt;
+ *  </pre>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -40,8 +55,13 @@ package spark.effects.easing
 public class Linear implements IEaser
 {
     /**
-     * Constructs a Linear instance with optional acceleration and
-     * deceleration parameters.
+     *  Constructor.
+     *
+     *  @param easeInFraction The fraction of the overall duration 
+     *  in the acceleration phase, between 0.0 and 1.0.
+     *
+     *  @param easeOutFraction The fraction of the overall duration 
+     *  in the deceleration phase, between 0.0 and 1.0.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -57,7 +77,9 @@ public class Linear implements IEaser
     private static var instance:Linear;
     
     /**
-     * Returns the singleton instance of Linear.
+     *  Returns the singleton instance of the Linear class.
+     *
+     *  @return The singleton instance of the Linear class.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -83,13 +105,14 @@ public class Linear implements IEaser
     private var _easeInFraction:Number = 0;
     
     /**
-     * The percentage an animation will spend accelerating.
-     * easeOutFraction and easeInFraction must satisfy the
-     * equation <code>easeOutFraction + easeInFraction &lt;= 1</code>
-     * where any remaining time in the middle will be spent in 
-     * linear interpolation.
+     *  The fraction an animation spent accelerating,
+     *  between 0.0 and 1.0.
+     *  The values of the <code>easeOutFraction</code> property 
+     *  and <code>easeInFraction</code> property must satisfy the
+     *  equation <code>easeOutFraction + easeInFraction &lt;= 1</code>
+     *  where any remaining time is spent in the linear motion phase.
      * 
-     * @default 0
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -116,13 +139,14 @@ public class Linear implements IEaser
     private var _easeOutFraction:Number = 0;
     
     /**
-     * The percentage an animation will spend decelerating.
-     * easeOutFraction and easeInFraction must satisfy the
-     * equation <code>easeOutFraction + easeInFraction &lt;= 1</code>
-     * where any remaining time in the middle will be spent in 
-     * linear interpolation.
+     *  The percentage an animation will spend decelerating, 
+     *  between 0.0 and 1.0.
+     *  The values of the <code>easeOutFraction</code> property 
+     *  and <code>easeInFraction</code> property must satisfy the
+     *  equation <code>easeOutFraction + easeInFraction &lt;= 1</code>
+     *  where any remaining time is spent in the linear motion phase.
      * 
-     * @default 0
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -140,21 +164,23 @@ public class Linear implements IEaser
 
 
     /**
-     * @inheritDoc
+     *  Calculates the eased fraction value based on the
+     *  <code>easeInFraction</code> and <code>easeOutFraction</code> 
+     *  properties. 
+     *  If <code>fraction</code>
+     *  is less than <code>easeInFraction</code>, it calculates a value
+     *  based on accelerating up to the linear moiton phase. 
+     *  If <code>fraction</code>
+     *  is greater than <code>easeInFraction</code> and less than 
+     *  <code>(1-easeOutFraction)</code>, it calculates a value based
+     *  on the linear motion phase between the easing in and easing out phases.
+     *  Otherwise, it calculates a value based on constant deceleration
+     *  between the linear motion phase and 0.0.
      * 
-     * Calculates the eased fraction value based on the
-     * <code>easeInFraction</code> and <code>easeOutFraction</code> 
-     * factors. If <code>fraction</code>
-     * is less than <code>easeInFraction</code>, it calculates a value
-     * based on accelerating up to the linear phase. If <code>fraction</code>
-     * is greater than <code>easeInFraction</code> and less than 
-     * <code>(1-easeOutFraction)</code>, it calculates a value based
-     * on linear motion between the easing-in and easing-out phases.
-     * Otherwise, it calculates a value based on constant deceleration
-     * between the linear motion phase and zero.
+     *  @param fraction The elapsed fraction of the animation, 
+     *  between 0.0 and 1.0..
      * 
-     * @param fraction The elapsed fraction of the animation
-     * @return The eased fraction of the animation
+     *  @return The eased fraction of the animation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
