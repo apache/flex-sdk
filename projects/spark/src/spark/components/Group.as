@@ -1545,6 +1545,7 @@ public class Group extends GroupBase implements IVisualElementContainer,
                 element.dispatchEvent(new FlexEvent(FlexEvent.ADD));
         }
         
+        invalidateEstimatedSizesOfChildren();
         invalidateSize();
         invalidateDisplayList();
     }
