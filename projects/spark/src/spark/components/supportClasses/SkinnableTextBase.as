@@ -120,6 +120,123 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     //--------------------------------------------------------------------------
 
     //----------------------------------
+    //  displayAsPassword
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _displayAsPassword:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var displayAsPasswordChanged:Boolean = false;
+    
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get displayAsPassword():Boolean
+    {
+        return _displayAsPassword;
+    }
+
+    /**
+     *  @private
+     */
+    public function set displayAsPassword(value:Boolean):void
+    {
+        if (value == _displayAsPassword)
+            return;
+
+        _displayAsPassword = value;
+        displayAsPasswordChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  maxChars
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _maxChars:int = 0;
+
+    /**
+     *  @private
+     */
+    private var maxCharsChanged:Boolean = false;
+
+    /**
+     *  The maximum number of characters that the TextView can contain,
+     *  as entered by a user.
+     *  A script can insert more text than maxChars allows;
+     *  the maxChars property indicates only how much text a user can enter.
+     *  If the value of this property is 0,
+     *  a user can enter an unlimited amount of text. 
+     * 
+     *  @default 0
+     */
+    public function get maxChars():int 
+    {
+        return _maxChars;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set maxChars(value:int):void
+    {
+        if (value == _maxChars)
+            return;
+        
+        _maxChars = value;
+        maxCharsChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  restrict
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _restrict:String = null;
+
+    /**
+     *  @private
+     */
+    private var restrictChanged:Boolean = false;
+
+    /**
+     *  Documentation is not currently available.
+     * 
+     *  @default null
+     */
+    public function get restrict():String 
+    {
+        return _restrict;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set restrict(value:String):void
+    {
+        if (value == _restrict)
+            return;
+        
+        _restrict = value;
+        restrictChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
     //  selectionActivePosition
     //----------------------------------
 
@@ -214,7 +331,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     //  textView
     //----------------------------------
 
-    [SkinPart]
+    [SkinPart(required="true")]
 
     /**
      *  The TextView that must be present
@@ -236,6 +353,24 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     {
         super.commitProperties();
 
+		if (displayAsPasswordChanged)
+        {
+            textView.displayAsPassword = _displayAsPassword;
+            displayAsPasswordChanged = false;
+        }
+
+        if (maxCharsChanged)
+        {
+            textView.maxChars = _maxChars;
+            maxCharsChanged = false;
+        }
+
+        if (restrictChanged)
+        {
+            textView.restrict = _restrict;
+            restrictChanged = false;
+        }
+        
         if (mx_internal::textChanged)
         {
             textView.text = mx_internal::_text;
