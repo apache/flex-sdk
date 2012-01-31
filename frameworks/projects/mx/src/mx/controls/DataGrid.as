@@ -4849,6 +4849,17 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 var pos:Point = itemRendererToIndices(IListItemRenderer(target));
                 if (pos && pos.y >= 0 && editable && displayableColumns[pos.x].editable && !dontEdit)
                 {
+                    if (itemEditorInstance)
+                    {
+                        if (editedItemPosition.rowIndex == pos.y)
+                        {
+                            if (!endEdit(DataGridEventReason.NEW_COLUMN))
+                                return;
+                        }
+                        else if (!endEdit(DataGridEventReason.NEW_ROW))
+                            return;
+
+                    }
                     beginningEdit(displayableColumns[pos.x].colNum, pos.y, IListItemRenderer(target));
                 }
             }
