@@ -107,6 +107,11 @@ RadioButton
 	skinClass: ClassReference("spark.skins.spark.RadioButtonSkin");
 }
 
+RichEditableText
+{
+    layoutDirection: "ltr";
+}
+
 Scroller
 {
     skinClass: ClassReference("spark.skins.spark.ScrollerSkin");
@@ -174,6 +179,11 @@ TitleWindow
 ToggleButton
 {
 	skinClass: ClassReference("spark.skins.spark.ToggleButtonSkin");
+}
+
+VideoDisplay
+{
+    layoutDirection: "ltr";
 }
 
 VideoPlayer
