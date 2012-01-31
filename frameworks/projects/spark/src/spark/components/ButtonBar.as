@@ -51,6 +51,9 @@ import mx.managers.IFocusManagerComponent;
  */
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
+
+[Alternative(replacement="mx.controls.ButtonBar", since="4.0")]
+
 /**
  *  The ButtonBar control defines a horizontal group of 
  *  logically related buttons with a common look and navigation.
