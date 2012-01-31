@@ -35,20 +35,7 @@ import mx.core.IVisualElement;
 public interface IItemRenderer extends IDataRenderer, IVisualElement
 {
     /**
-     *  Contains <code>true</code> if the item renderer allows user interaction 
-     *  to change its selected state to 
-     *  <code>selected</code> = <code>false</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    function get allowDeselection():Boolean;
-    function set allowDeselection(value:Boolean):void;
-
-    /**
-     *  Contains <code>true</code> if the item renderer 
+     *  Is <code>true</code> if the item renderer 
      *  can show itself as selected.
      *  
      *  @langversion 3.0
@@ -61,8 +48,8 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
     function set selected(value:Boolean):void;
 
     /**
-     *  Contains <code>true</code> if the item renderer 
-     *  can show itself as focused even if it doesn't have focus.
+     *  Is <code>true</code> if the item renderer 
+     *  can show itself as focused. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -70,8 +57,8 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
      *  @productversion Flex 4
      *  
      */
-    function get caret():Boolean;
-    function set caret(value:Boolean):void;
+    function get showsCaret():Boolean;
+    function set showsCaret(value:Boolean):void;
     
     /**
      *  The String to display in the item renderer. 
@@ -92,8 +79,8 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
      *  @productversion Flex 4
      *  
      */
-    function get labelText():String;
-    function set labelText(value:String):void;
+    function get label():String;
+    function set label(value:String):void;
     
 
 }
