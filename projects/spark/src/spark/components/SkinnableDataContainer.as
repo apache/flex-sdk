@@ -29,6 +29,11 @@ import mx.utils.BitFlagUtil;
  * <code>event.renderer</code> is the renderer that was added.
  *
  *  @eventType mx.events.RendererExistenceEvent.RENDERER_ADD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="rendererAdd", type="mx.events.RendererExistenceEvent")]
 
@@ -37,6 +42,11 @@ import mx.utils.BitFlagUtil;
  * <code>event.renderer</code> is the renderer that was removed.
  *
  *  @eventType mx.events.RendererExistenceEvent.ITEM_REMOVE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="rendererRemove", type="mx.events.RendererExistenceEvent")]
 
@@ -44,6 +54,11 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
@@ -56,6 +71,11 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  data content.
  *
  *  @see FxContainer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxDataContainer extends FxContainerBase implements IViewport
 {
@@ -120,6 +140,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxDataContainer()
     {
@@ -139,6 +164,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     /**
      *  A required skin part that defines the DataGroup where the data 
      *  items get pushed into, rendered, and laid out.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var dataGroup:DataGroup;
     
@@ -181,6 +211,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
 
     /**
      *  @copy mx.components.baseClasses.GroupBase#autoLayout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get autoLayout():Boolean
     {
@@ -215,6 +250,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get clipAndEnableScrolling():Boolean 
     {
@@ -247,6 +287,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentWidth():Number 
     {
@@ -262,6 +307,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentHeight():Number 
     {
@@ -274,6 +324,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     
     /**
      *  @copy mx.components.DataGroup#dataProvider
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     [Bindable]
     public function get dataProvider():IList
@@ -303,6 +358,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalScrollPosition():Number 
     {
@@ -332,6 +392,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     
     /**
      *  @copy mx.components.DataGroup#itemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get itemRenderer():IFactory
     {
@@ -361,6 +426,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     
     /**
      *  @copy mx.components.DataGroup#itemRendererFunction
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get itemRendererFunction():Function
     {
@@ -392,6 +462,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     
     /**
      *  @copy mx.components.baseClasses.GroupBase#layout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */     
     public function get layout():LayoutBase
     {
@@ -421,6 +496,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
 
     /**
      *  @copy mx.components.DataGroup#typicalItem
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get typicalItem():Object
     {
@@ -452,6 +532,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalScrollPosition():Number 
     {
@@ -487,6 +572,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -496,6 +586,11 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
