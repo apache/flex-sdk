@@ -14,99 +14,59 @@ package spark.effects
 import mx.core.mx_internal;
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
+import mx.events.EffectEvent;
 
 import spark.effects.animation.Animation;
+import spark.effects.animation.RepeatBehavior;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Sine;
 import spark.effects.interpolation.IInterpolator;
 import spark.effects.supportClasses.AnimateInstance;
-import spark.events.AnimationEvent;
 
 use namespace mx_internal;
 
-[DefaultProperty("animationProperties")]
-
-/**
- * Dispatched when the effect starts, which corresponds to a 
- * call to the <code>AnimateInstance.startHandler()</code> method.
- * Flex also dispatches the first <code>animationUpdate</code> event 
- * for the effect at the same time.
- *
- * <p>The <code>Effect.effectStart</code> event is dispatched 
- * before the <code>animationStart</code> event.</p>
- *
- * @eventType spark.events.AnimationEvent.ANIMATION_START
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="animationStart", type="spark.events.AnimationEvent")]
+[DefaultProperty("motionPaths")]
 
 /**
  * Dispatched every time the effect updates the target.
- * This event corresponds to a call to 
- * the <code>AnimateInstance.updateHandler()</code> method.
  *
- * @eventType spark.events.AnimationEvent.ANIMATION_UPDATE
+ * @eventType spark.events.EffectEvent.EFFECT_UPDATE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationUpdate", type="spark.events.AnimationEvent")]
+[Event(name="effectUpdate", type="mx.events.EffectEvent")]
 
 /**
  * Dispatched when the effect begins a new repetition, for
  * any effect that is repeated more than once.
- * This event corresponds to a call to 
- * the <code>AnimateInstance.repeatHandler()</code> method.
- * Flex also dispatches an <code>animationUpdate</code> event 
+ * Flex also dispatches an <code>effectUpdate</code> event 
  * for the effect at the same time.
  *
- * @eventType spark.events.AnimationEvent.ANIMATION_REPEAT
+ * @eventType spark.events.EffectEvent.EFFECT_REPEAT
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationRepeat", type="spark.events.AnimationEvent")]
+[Event(name="effectRepeat", type="mx.events.EffectEvent")]
 
-/**
- * Dispatched when the effect ends.
- * This event corresponds to a call to 
- * the <code>AnimateInstance.endHandler()</code> method.
- * Flex also dispatches an <code>animationUpdate</code> event 
- * for the effect at the same time.
- *
- * <p>This event occurs just before an <code>effectEnd</code> event.
- * A repeating effect dispatches this event only after the 
- * final repetition.</p>
- *
- * @eventType spark.events.AnimationEvent.ANIMATION_END
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="animationEnd", type="spark.events.AnimationEvent")]
 
 /**
  * This effect animates an arbitrary set of properties between values, as specified
- * in the <code>animationProperties</code> array. Example usage is as follows:
+ * in the <code>motionPaths</code> array. Example usage is as follows:
  * 
  * @example Using the Animate effect to move a button from (100, 100)
  * to (200, 150):
  * <listing version="3.0">
  * var button:Button = new Button();
  * var anim:Animate = new Animate(button);
- * anim.animationProperties = [
- *     new AnimationProperty("x", 100, 200),
- *     new AnimationProperty("y", 100, 150)];
+ * anim.motionPaths = [
+ *     new SimpleMotionPath("x", 100, 200),
+ *     new SimpleMotionPath("y", 100, 150)];
  * anim.play();
  * </listing>
  *  
@@ -147,7 +107,7 @@ public class Animate extends Effect
     //--------------------------------------------------------------------------
     
     // Cached version of the affected properties. By default, we simply return
-    // the list of properties specified in the animationProperties array.
+    // the list of properties specified in the motionPaths array.
     // Subclasses should override getAffectedProperties() if they wish to 
     // specify a different set.
     private var affectedProperties:Array = null;
@@ -157,15 +117,28 @@ public class Animate extends Effect
     // a custom easer.
     private static var defaultEaser:IEaser = new Sine(.5); 
 
+    // Used to optimize event dispatching: only send out updated events if
+    // there is someone listening
+    private var numUpdateListeners:int = 0;
+    
+
     //--------------------------------------------------------------------------
     //
     // Properties
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  motionPaths
+    //----------------------------------
+    /**
+     * @private
+     * Storage for the motionPaths property. 
+     */
+    private var _motionPaths:Array;
     [Inspectable(category="General", arrayType="spark.effects.MotionPath")]
     /**
-     * An array of AnimationProperty objects, each of which holds the
+     * An array of MotionPath objects, each of which holds the
      * name of the property being animated and the values that the property
      * will take on during the animation. This array takes precedence over
      * any helper properties that may be declared in subclasses of Animate.
@@ -177,24 +150,60 @@ public class Animate extends Effect
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var animationProperties:Array;
+    public function get motionPaths():Array
+    {
+        return _motionPaths;
+    }
+    /**
+     * @private
+     */
+    public function set motionPaths(value:Array):void
+    {
+        _motionPaths = value;
+    }
     
+    //----------------------------------
+    //  easer
+    //----------------------------------
+    /**
+     * @private
+     * Storage for the easer property. 
+     */
+    private var _easer:IEaser = defaultEaser;
     /**
      * The easing behavior for this effect. This IEaser
      * object will be used to convert the elapsed fraction of 
      * the animation into an eased fraction, which will then be used to
      * calculate the value at that eased elapsed fraction.
      * 
-     * @default mx.effects.fxEasing.Sine(.5)
-     * @see mx.effects.fxEasing.Sine
+     * @default spark.effects.easing.Sine(.5)
+     * @see spark.effects.easing.Sine
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var easer:IEaser = defaultEaser;
+    public function get easer():IEaser
+    {
+        return _easer;
+    }
+    /**
+     * @private
+     */
+    public function set easer(value:IEaser):void
+    {
+        _easer = value;
+    }
     
+    //----------------------------------
+    //  interpolator
+    //----------------------------------
+    /**
+     * @private
+     * Storage for the interpolator property. 
+     */
+    private var _interpolator:IInterpolator = null;
     /**
      * The interpolator used by this effect to calculate values between
      * the start and end values. By default, interpolation is handled
@@ -210,51 +219,60 @@ public class Animate extends Effect
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var interpolator:IInterpolator = null;
+    public function get interpolator():IInterpolator
+    {
+        return _interpolator;
+    }
+    /**
+     * @private
+     */
+    public function set interpolator(value:IInterpolator):void
+    {
+        _interpolator = value;
+    }
 
+    //----------------------------------
+    //  repeatBehavior
+    //----------------------------------
+    /**
+     * @private
+     * Storage for the repeatBehavior property. 
+     */
+    private var _repeatBehavior:String = RepeatBehavior.LOOP;
     /**
      * The behavior of a repeating effect (an effect
      * with <code>repeatCount</code> equal to either 0 or >1). This
-     * value should be either <code>Animation.LOOP</code>, where the animation
-     * will repeat in the same order each time, or <code>Animation.REVERSE</code>,
+     * value should be either <code>RepeatBehavior.LOOP</code>, where the animation
+     * will repeat in the same order each time, or <code>RepeatBehavior.REVERSE</code>,
      * where the animation will reverse direction each iteration.
      * 
-     * @default Animation.LOOP
-     * @see spark.effects.animation.Animation#repeatBehavior
+     * @default RepeatBehavior.LOOP
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var repeatBehavior:String = Animation.LOOP;
-    
+    public function get repeatBehavior():String
+    {
+        return _repeatBehavior;
+    }
     /**
-     * This flag indicates whether the layout constraints (left, right, top,
-     * and bottom) should be adjusted when the effect ends, based on where
-     * the target has been positioned by the effect. This behavior can
-     * be useful for effects that change the position or size of a component
-     * during the course of running the effect, and when the desired result
-     * is that the target object stays in the resulting position without
-     * adjusting to the original constraints. For example, a Rotate effect
-     * run on a target with left/top constraints might otherwise be moved
-     * to the original constraint position, which has a different effect
-     * than rotating around a specified rotation center. 
-     * 
-     * <p>The default value
-     * is <code>false</code>, which means that the original constraints will
-     * be obeyed. To adjust the constraints based on the effect result,
-     * set this property to <code>true</code>.</p>
-     * 
-     * @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     * @private
      */
-    public var adjustConstraints:Boolean = false;
+    public function set repeatBehavior(value:String):void
+    {
+        _repeatBehavior = value;
+    }
     
+    //----------------------------------
+    //  disableConstraints
+    //----------------------------------
+    /**
+     * @private
+     * Storage for the disableConstraints property. 
+     */
+    private var _disableConstraints:Boolean = false;
     /**
      * This property indicates whether the effect should disable constraints on its
      * targets while the effect is running. If set to true, the effect
@@ -268,8 +286,26 @@ public class Animate extends Effect
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var disableConstraints:Boolean = false;
-
+    public function get disableConstraints():Boolean
+    {
+        return _disableConstraints;
+    }
+    /**
+     * @private
+     */
+    public function set disableConstraints(value:Boolean):void
+    {
+        _disableConstraints = value;
+    }
+    
+    //----------------------------------
+    //  disableLayout
+    //----------------------------------
+    /**
+     * @private
+     * Storage for the disableLayout property. 
+     */
+    private var _disableLayout:Boolean = false;
     /**
      * This property indicates whether the effect should disable layout on its
      * targets' parents while the effect is running. If set to true, the effect
@@ -284,8 +320,18 @@ public class Animate extends Effect
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var disableLayout:Boolean = false;
-
+    public function get disableLayout():Boolean
+    {
+        return _disableLayout;
+    }
+    /**
+     * @private
+     */
+    public function set disableLayout(value:Boolean):void
+    {
+        _disableLayout = value;
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -294,7 +340,7 @@ public class Animate extends Effect
 
     /**
      * By default, the affected properties are the same as those specified
-     * in the <code>animationProperties</code> array. If subclasses affect
+     * in the <code>motionPaths</code> array. If subclasses affect
      * or track a different set of properties, they should override this
      * method.
      *  
@@ -307,12 +353,12 @@ public class Animate extends Effect
     {
         if (!affectedProperties)
         {
-            if (animationProperties)
+            if (motionPaths)
             {
-                affectedProperties = new Array(animationProperties.length);
-                for (var i:int = 0; i < animationProperties.length; ++i)
+                affectedProperties = new Array(motionPaths.length);
+                for (var i:int = 0; i < motionPaths.length; ++i)
                 {
-                    var effectHolder:MotionPath = MotionPath(animationProperties[i]);
+                    var effectHolder:MotionPath = MotionPath(motionPaths[i]);
                     affectedProperties[i] = effectHolder.property;
                 }
             }
@@ -333,10 +379,11 @@ public class Animate extends Effect
         
         var animateInstance:AnimateInstance = AnimateInstance(instance);
 
-        animateInstance.addEventListener(AnimationEvent.ANIMATION_START, animationEventHandler);
-        animateInstance.addEventListener(AnimationEvent.ANIMATION_UPDATE, animationEventHandler);
-        animateInstance.addEventListener(AnimationEvent.ANIMATION_REPEAT, animationEventHandler);
-        animateInstance.addEventListener(AnimationEvent.ANIMATION_END, animationEventHandler);
+        animateInstance.addEventListener(EffectEvent.EFFECT_REPEAT, animationEventHandler);
+        // Optimization: don't bother listening for update events if we don't have
+        // any listeners for that event
+        if (numUpdateListeners > 0)
+            animateInstance.addEventListener(EffectEvent.EFFECT_UPDATE, animationEventHandler);
 
         if (easer)
             animateInstance.easer = easer;
@@ -351,11 +398,11 @@ public class Animate extends Effect
         animateInstance.disableLayout = disableLayout;
         animateInstance.disableConstraints = disableConstraints;
         
-        if (animationProperties)
+        if (motionPaths)
         {
-            animateInstance.animationProperties = [];
-            for (var i:int = 0; i < animationProperties.length; ++i)
-                animateInstance.animationProperties[i] = animationProperties[i].clone();
+            animateInstance.motionPaths = [];
+            for (var i:int = 0; i < motionPaths.length; ++i)
+                animateInstance.motionPaths[i] = motionPaths[i].clone();
         }
     }
 
@@ -380,17 +427,43 @@ public class Animate extends Effect
     }
 
     /**
-     * Called when the Animate dispatches an AnimationEvent.
-     * If you override this method, ensure that you call the super method.
+     * @private
+     * Track number of listeners to update event for optimization purposes
+     */
+    override public function addEventListener(type:String, listener:Function, 
+        useCapture:Boolean=false, priority:int=0, 
+        useWeakReference:Boolean=false):void
+    {
+        super.addEventListener(type, listener, useCapture, priority, 
+            useWeakReference);
+        if (type == EffectEvent.EFFECT_UPDATE)
+            ++numUpdateListeners;
+    }
+    
+    /**
+     * @private
+     * Track number of listeners to update event for optimization purposes
+     */
+    override public function removeEventListener(type:String, listener:Function, 
+        useCapture:Boolean=false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+        if (type == EffectEvent.EFFECT_UPDATE)
+            --numUpdateListeners;
+    }
+    
+    /**
+     * @private
+     * Called when the AnimateInstance object dispatches an EffectEvent.
      *
-     * @param event An event object of type AnimationEvent.
+     * @param event An event object of type EffectEvent.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function animationEventHandler(event:AnimationEvent):void
+    private function animationEventHandler(event:EffectEvent):void
     {
         dispatchEvent(event);
     }
