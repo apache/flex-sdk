@@ -24,6 +24,11 @@ import flash.events.Event;
  *  @see mx.controls.VSlider
  *  @see mx.controls.sliderClasses.Slider
  *  @see mx.events.SliderEventClickTarget
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SliderEvent extends Event
 {
@@ -65,6 +70,11 @@ public class SliderEvent extends Event
      *  </table>
      *
      *  @eventType change
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CHANGE:String = "change";
 
@@ -98,6 +108,11 @@ public class SliderEvent extends Event
      *  </table>
      *
      *  @eventType thumbDrag
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const THUMB_DRAG:String = "thumbDrag";
 
@@ -131,6 +146,11 @@ public class SliderEvent extends Event
      *  </table>
      *
      *  @eventType thumbPress
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const THUMB_PRESS:String = "thumbPress";
 
@@ -164,6 +184,11 @@ public class SliderEvent extends Event
      *  </table>
      *
      *  @eventType thumbRelease
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const THUMB_RELEASE:String = "thumbRelease";
 
@@ -197,6 +222,11 @@ public class SliderEvent extends Event
      *
      *  @param keyCode If the event was triggered by a key press, 
      *  the keycode for the key.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SliderEvent(type:String, bubbles:Boolean = false,
                                 cancelable:Boolean = false,
@@ -230,6 +260,11 @@ public class SliderEvent extends Event
      *  or <code>SliderEventClickTarget.TRACK</code>.
      *
      *  @see mx.events.SliderEventClickTarget
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var clickTarget:String;
     
@@ -239,6 +274,11 @@ public class SliderEvent extends Event
 
     /**
      *  If the event was triggered by a key press, the keycode for the key.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var keyCode:int;
 
@@ -250,6 +290,11 @@ public class SliderEvent extends Event
      *  The zero-based index of the thumb whose position has changed.
      *  If there is only a single thumb, the value is 0.
      *  If there are two thumbs, the value is 0 or 1.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var thumbIndex:int;
     
@@ -261,6 +306,11 @@ public class SliderEvent extends Event
      *  Indicates the type of input action. 
      *  The value is either <code>InteractionInputType.MOUSE</code> 
      *  or <code>InteractionInputType.KEYBOARD</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var triggerEvent:Event;
 
@@ -270,6 +320,11 @@ public class SliderEvent extends Event
 
     /**
      *  The new value of the slider.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var value:Number;
     
