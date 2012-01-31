@@ -14,6 +14,11 @@ package mx.components
 
 /**
  *  Documentation is not currently available.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public final class TextSelectionVisibility
 {
@@ -27,16 +32,31 @@ public final class TextSelectionVisibility
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const ALWAYS:String = "always";
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const WHEN_ACTIVE:String = "whenActive";
 
     /**
      *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static const WHEN_FOCUSED:String = "whenFocused";
 
