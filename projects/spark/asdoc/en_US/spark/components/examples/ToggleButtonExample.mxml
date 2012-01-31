@@ -6,7 +6,7 @@
         <![CDATA[
             // Event handler function to print a message
             // describing the Spark ToggleButton selected state.
-            // Toggle the fontWeight of the SimpleText between bold and normal
+            // Toggle the fontWeight of the Label between bold and normal
             private function printMessage(evt:Event):void  {
                 if (evt.target.selected){
                     message.text += "fontWeight: bold" + "\n";
@@ -26,7 +26,7 @@
             horizontalCenter="0" verticalCenter="0">
         <s:VGroup left="10" right="10" top="10" bottom="10">
             <s:ToggleButton id="togBtn" label="Normal" click="printMessage(event);" />
-            <s:SimpleText id="lbl" text="Label" />
+            <s:Label id="lbl" text="Label" />
             <s:TextArea id="message" height="100%" width="100%" color="#0000FF" />
         </s:VGroup>
     </s:Panel>
