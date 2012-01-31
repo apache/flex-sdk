@@ -13,7 +13,6 @@ package mx.components.baseClasses
 {
 
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.geom.Point;
 import flash.system.ApplicationDomain;
@@ -31,6 +30,8 @@ import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.managers.ISystemManager;
 import mx.modules.ModuleManager;
+
+use namespace mx_internal;  // for mx_internal function mirrorTree
 
 //--------------------------------------
 //  Styles
@@ -330,6 +331,13 @@ public class FxComponent extends UIComponent
                 super.removeChild(mx_internal::focusObj);
             mx_internal::focusObj = null;
         }
+    }
+    
+    override mx_internal function mirrorTree(ancestorDir:String):void
+    {
+        ancestorDir = mx_internal::mirrorElement(this, ancestorDir);
+        if (skin)
+            skin.mx_internal::mirrorTree(ancestorDir);
     }
     
     //--------------------------------------------------------------------------
