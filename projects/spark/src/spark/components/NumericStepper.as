@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
 import flash.display.DisplayObject;
@@ -29,9 +29,9 @@ import mx.managers.IFocusManagerComponent;
  *  the user presses enter, focuses out of the
  *  NumericStepper, or steps the NumericStepper.
  * 
- *  @see flex.component.Spinner
+ *  @see mx.components.Spinner
  */
-public class NumericStepper extends Spinner implements IFocusManagerComponent
+public class FxNumericStepper extends FxSpinner implements IFocusManagerComponent
 {
     include "../core/Version.as";
     
@@ -44,7 +44,7 @@ public class NumericStepper extends Spinner implements IFocusManagerComponent
     /**
      *  Constructor
      */  
-    public function NumericStepper()
+    public function FxNumericStepper()
     {
         super();
     }
@@ -64,7 +64,7 @@ public class NumericStepper extends Spinner implements IFocusManagerComponent
      *  when the user presses enter, focuses out of
      *  the NumericStepper, or steps the NumericStepper.
      */
-    public var textInput:TextInput;
+    public var textInput:FxTextInput;
 
     //--------------------------------------------------------------------------
     //
