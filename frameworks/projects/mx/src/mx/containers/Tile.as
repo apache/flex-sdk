@@ -444,8 +444,9 @@ public class Tile extends Container
                 if (!isNaN(unscaledExplicitWidth))
                 {
                     // If we have an explicit height set,
-                    // see how many children can fit in the given height
-                    majorAxis = Math.floor(unscaledExplicitWidth /
+                    // see how many children can fit in the given height:
+                    // majorAxis * (cellWidth + horizontalGap) - horizontalGap == unscaledExplicitWidth
+                    majorAxis = Math.floor((unscaledExplicitWidth + horizontalGap) /
                                            (cellWidth + horizontalGap));
                 }
             }
@@ -455,8 +456,9 @@ public class Tile extends Container
                 if (!isNaN(unscaledExplicitHeight))
                 {
                     // If we have an explicit height set,
-                    // see how many children can fit in the given height
-                    majorAxis = Math.floor(unscaledExplicitHeight /
+                    // see how many children can fit in the given height:
+                    // majorAxis * (cellHeight + verticalGap) - verticalGap == unscaledExplicitHeight
+                    majorAxis = Math.floor((unscaledExplicitHeight + verticalGap) /
                                            (cellHeight + verticalGap));
                 }
             }
