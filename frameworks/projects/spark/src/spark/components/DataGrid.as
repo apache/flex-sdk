@@ -11,6 +11,7 @@
 
 package spark.components
 {
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.geom.Point;
@@ -841,14 +842,31 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @private
-     *  Build in basic keyboard navigation support in Grid. 
+     *  Build in basic keyboard navigation support in Grid. The focus is on
+     *  the DataGrid which means the Scroller doesn't see the Keyboard events
+     *  unless the event is dispatched to it.
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {   
-        super.keyDownHandler(event);
-        
         if (!grid || event.isDefaultPrevented())
             return;
+        
+        // Row selection requires valid row caret, cell selection
+        // requires both a valid row and a valid column caret.
+
+        if (selectionMode == GridSelectionMode.NONE || 
+            grid.caretRowIndex < 0 || 
+            grid.caretRowIndex >= getDataProviderLength() ||
+            (isCellSelectionMode() && 
+            (grid.caretColumnIndex < 0 || 
+            grid.caretColumnIndex >= getColumnsLength())))
+        {
+            if (scroller)
+                scroller.dispatchEvent(event);
+            return;
+        }
+        
+        var op:String;
         
         // Was the space bar hit? 
         if (event.keyCode == Keyboard.SPACE)
@@ -876,10 +894,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 {
                     if (isRowSelectionMode())
                     {
+                        op = selectionMode == GridSelectionMode.SINGLE_ROW ?
+                            GridSelectionEventKind.SET_ROW :
+                            GridSelectionEventKind.ADD_ROW;
+                        
                         // Add the row and leave the caret position unchanged.
                         if (!commitInteractiveSelection(
-                            GridSelectionEventKind.ADD_ROW, 
-                            grid.caretRowIndex, grid.caretColumnIndex))
+                            op, grid.caretRowIndex, grid.caretColumnIndex))
                         {
                             return;
                         }
@@ -887,10 +908,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                     }
                     else if (isCellSelectionMode() && grid.caretColumnIndex != -1)
                     {
+                            op = selectionMode == GridSelectionMode.SINGLE_CELL ?
+                            GridSelectionEventKind.SET_CELL :
+                            GridSelectionEventKind.ADD_CELL;
+
                         // Add the cell and leave the caret position unchanged.
                         if (!commitInteractiveSelection(
-                            GridSelectionEventKind.ADD_CELL, 
-                            grid.caretRowIndex, grid.caretColumnIndex))
+                            op, grid.caretRowIndex, grid.caretColumnIndex))
                         {
                             return;
                         }
@@ -2121,7 +2145,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @private
      *  Returns the new caret position based on the current caret position and 
      *  the navigationUnit as a Point, where x is the columnIndex and y is the 
-     *  rowIndex.  Assues there is a valid caretPosition to start.
+     *  rowIndex.  Assures there is a valid caretPosition.
      */
     private function setCaretToNavigationDestination(navigationUnit:uint):CellPosition
     {
@@ -2133,6 +2157,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         const rowCount:int = getDataProviderLength();
         const columnCount:int = getColumnsLength();
         var visibleRows:Vector.<int>;
+        var caretRowBounds:Rectangle;
         
         switch (navigationUnit)
         {
@@ -2140,7 +2165,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             {
                 if (isCellSelectionMode())
                 {
-                    if (!inRows && grid.caretColumnIndex > 0)
+                    if (grid.caretColumnIndex > 0)
                         caretColumnIndex--;
                 }
                 break;
@@ -2150,7 +2175,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             {
                 if (isCellSelectionMode())
                 {
-                    if (!inRows && grid.caretColumnIndex + 1 < columnCount)
+                    if (grid.caretColumnIndex + 1 < columnCount)
                         caretColumnIndex++;
                 }
                 break;
@@ -2195,11 +2220,15 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 {
                     caretRowIndex = firstVisibleRowIndex;
                 }
-                else if (firstVisibleRowIndex > 0)
-                {                  
-                    // Scroll, making sure this row is still visible.
-                    grid.verticalScrollPosition = 
-                        firstVisibleRowBounds.bottom - grid.scrollRect.height;
+                else
+                {     
+                    // If the caret is above the visible rows or the
+                    // first visible row, scroll so that caret row is the last 
+                    // visible row.
+                    caretRowBounds = grid.getRowBounds(caretRowIndex);
+                    const delta:Number = 
+                        grid.scrollRect.bottom - caretRowBounds.bottom;
+                    grid.verticalScrollPosition -= delta;
                     validateNow();
                     
                     // Visible rows have been updated so figure out which one
@@ -2248,8 +2277,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 }
                 else
                 {                        
-                    // Scroll, making sure this row is still visible.
-                    grid.verticalScrollPosition = lastVisibleRowBounds.y;
+                    // Caret is last visible row or it is after the visible rows.
+                    // Scroll, so the caret row is the first visible row.
+                    caretRowBounds = grid.getRowBounds(caretRowIndex);
+                    grid.verticalScrollPosition = caretRowBounds.y;
                     validateNow();
                     
                     // Visible rows have been updated so figure out which one
@@ -2341,12 +2372,14 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         // Cancel so another component doesn't handle this event.
         event.preventDefault(); 
         
+        var selectionChanged:Boolean = false;
+        
         if (event.shiftKey)
         {
             // The shift key-nav key combination extends the selection and 
             // updates the caret.
-            if (!extendSelection(newPosition.rowIndex, newPosition.columnIndex))
-                return false;
+            selectionChanged = 
+                extendSelection(newPosition.rowIndex, newPosition.columnIndex);
         }
         else if (event.ctrlKey)
         {
@@ -2359,7 +2392,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             // Select the current row/cell.
             setSelectionAnchorCaret(newPosition.rowIndex, newPosition.columnIndex);
         }
-        
+       
         // Ensure this position is visible.
         ensureCellIsVisible(newPosition.rowIndex, newPosition.columnIndex);            
         
