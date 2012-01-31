@@ -183,6 +183,14 @@ public class TextGraphic extends TextGraphicElement
 
     /**
      *  @private
+     *  If content is explicitly set, it will take precedence over text, if it 
+     *  is set as well.  Once content is set, it can be set to null and then text 
+     *  can be set.
+     */
+    private var contentSet:Boolean = false;
+
+    /**
+     *  @private
      *  This flag is set to true if the 'text' needs to be extracted
      *  from the 'content'.
      */
@@ -227,10 +235,13 @@ public class TextGraphic extends TextGraphicElement
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
-        _content = null;
-        contentChanged = false;
-        
-        super.text = value;
+        if (!contentSet)
+        {
+            _content = null;
+            contentChanged = false;
+            
+            super.text = value;
+        }
     }
     
     //----------------------------------
@@ -318,9 +329,13 @@ public class TextGraphic extends TextGraphicElement
             // getting 'text' will extract the text from the TextFlow.
             mx_internal::_text = null;
             textChanged = false;
-
+            
             _content = value;
-
+            
+            // True, if content is non-null.  Once content is set, if then set 
+            // to null, text can be set.
+            contentSet = _content;
+            
             invalidateTextLines("content");
             invalidateSize();
             invalidateDisplayList();
