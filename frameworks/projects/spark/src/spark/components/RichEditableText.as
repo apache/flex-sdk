@@ -4093,6 +4093,10 @@ package spark.components
             if (!hasConstraints && multiline)
                 return;
             
+            // Make sure the clipboard has something to paste.
+            if (op.textScrap == null || op.textScrap.textFlow == null)
+                return;
+            
             // If copied/cut from displayAsPassword field the pastedText
             // is '*' characters but this is correct.
             var pastedText:String = staticPlainTextExporter.export(
