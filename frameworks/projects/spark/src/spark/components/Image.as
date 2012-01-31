@@ -432,40 +432,40 @@ public class Image extends SkinnableComponent
             imageDisplayProperties.fillMode = value;
     }
 
-	//----------------------------------
-	//  horizontalAlign
-	//----------------------------------
-	
-	[Inspectable(category="General", enumeration="left,right,center", defaultValue="center")]
-	
-	/**
-	 *  @copy mx.primitives.BitmapImage#horizontalAlign
-	 * 
-	 *  @default <code>HorizontalAlign.CENTER</code>
-	 */
-	public function get horizontalAlign():String
-	{
-		if (imageDisplay)
-			return imageDisplay.horizontalAlign;
-		else
-			return imageDisplayProperties.horizontalAlign;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set horizontalAlign(value:String):void
-	{
-		if (imageDisplay)
-		{
-			imageDisplay.horizontalAlign = value;
-			imageDisplayProperties = BitFlagUtil.update(imageDisplayProperties as uint, 
-				HORIZONTAL_ALIGN_PROPERTY_FLAG, value != null);
-		}
-		else
-			imageDisplayProperties.horizontalAlign = value;
-	}
-	
+    //----------------------------------
+    //  horizontalAlign
+    //----------------------------------
+    
+    [Inspectable(category="General", enumeration="left,right,center", defaultValue="center")]
+    
+    /**
+     *  @copy mx.primitives.BitmapImage#horizontalAlign
+     * 
+     *  @default <code>HorizontalAlign.CENTER</code>
+     */
+    public function get horizontalAlign():String
+    {
+        if (imageDisplay)
+            return imageDisplay.horizontalAlign;
+        else
+            return imageDisplayProperties.horizontalAlign;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set horizontalAlign(value:String):void
+    {
+        if (imageDisplay)
+        {
+            imageDisplay.horizontalAlign = value;
+            imageDisplayProperties = BitFlagUtil.update(imageDisplayProperties as uint, 
+                HORIZONTAL_ALIGN_PROPERTY_FLAG, value != null);
+        }
+        else
+            imageDisplayProperties.horizontalAlign = value;
+    }
+    
     //----------------------------------
     //  preliminaryHeight
     //----------------------------------
@@ -573,8 +573,8 @@ public class Image extends SkinnableComponent
      */
     public function set source(value:Object):void
     {
-		if (source != value)
-        	_invalid = false;
+        if (source != value)
+            _invalid = false;
         
         if (imageDisplay)
         {
@@ -584,8 +584,8 @@ public class Image extends SkinnableComponent
         }
         else
             imageDisplayProperties.source = value;
-		
-		invalidateSkinState();
+        
+        invalidateSkinState();
     }
     
     /**
@@ -664,6 +664,8 @@ public class Image extends SkinnableComponent
     //----------------------------------
     //  verticalAlign
     //----------------------------------
+    
+    [Inspectable(category="General", enumeration="top,bottom,middle", defaultValue="middle")]
     
     /**
      *  @copy mx.primitives.BitmapImage#verticalAlign
@@ -788,12 +790,12 @@ public class Image extends SkinnableComponent
             
             imageDisplayProperties = newImageDisplayProperties;
         }
-		else if (instance == progressIndicator)
-		{
-			if (_loading && progressIndicator)
-			    progressIndicator.value = 
-					Math.ceil((imageDisplay.bytesLoaded / imageDisplay.bytesTotal) * 100.0);
-		}
+        else if (instance == progressIndicator)
+        {
+            if (_loading && progressIndicator)
+                progressIndicator.value = 
+                    Math.ceil((imageDisplay.bytesLoaded / imageDisplay.bytesTotal) * 100.0);
+        }
     }
     
     /**
@@ -852,16 +854,16 @@ public class Image extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String
     {
-		if (_invalid)
+        if (_invalid)
             return "invalid";
-		else if (!enabled)
-			return "disabled";
+        else if (!enabled)
+            return "disabled";
         else if (_loading && _enablePreload)
             return "loading";
         else if (imageDisplay && imageDisplay.source)
             return "ready";
-		else
-			return "uninitialized";
+        else
+            return "uninitialized";
     }
     
     //--------------------------------------------------------------------------
