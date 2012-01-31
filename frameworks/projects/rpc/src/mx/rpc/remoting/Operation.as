@@ -285,11 +285,6 @@ public class Operation extends AbstractOperation
 
     /*
      * Kill the busy cursor, find the matching call object and pass it back
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      */
     override mx_internal function preHandle(event:MessageEvent):AsyncToken
     {
