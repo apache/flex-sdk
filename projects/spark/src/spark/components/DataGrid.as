@@ -21,6 +21,7 @@ import flash.ui.Keyboard;
 
 import mx.collections.IList;
 import mx.core.IFactory;
+import mx.core.IIMESupport;
 import mx.core.IToolTip;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
@@ -31,9 +32,9 @@ import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManagerComponent;
 
+import spark.components.gridClasses.DataGridEditor;
 import spark.components.supportClasses.CellPosition;
 import spark.components.supportClasses.CellRegion;
-import spark.components.supportClasses.DataGridEditor;
 import spark.components.supportClasses.GridColumn;
 import spark.components.supportClasses.GridDimensions;
 import spark.components.supportClasses.GridLayout;
@@ -284,7 +285,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 /**
  *  TBD(hmuller)
  */  
-public class DataGrid extends SkinnableContainerBase implements IFocusManagerComponent, IGridItemRendererOwner
+public class DataGrid extends SkinnableContainerBase implements IFocusManagerComponent, 
+                              IGridItemRendererOwner, IIMESupport
 {
     include "../core/Version.as";
 
@@ -849,22 +851,20 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @private
-     *  Storage for the draggableColumns property.
+     *  Storage for the editable property.
      */
     private var _editable:Boolean = false;
     
     [Inspectable(category="General")]
     
     /**
-     *  A flag that indicates whether or not the user can edit
-     *  items in the data provider.
-     *  If <code>true</code>, the item renderers in the control are editable.
-     *  The user can click on an item renderer to open an editor.
-     *
-     *  <p>You can turn off editing for individual columns of the
-     *  DataGrid control using the <code>DataGridColumn.editable</code> property,
-     *  or by handling the <code>startItemEditorSession</code> event</p>
-     *
+     * The default value for the GridColumn editable property, which
+     * indicates if a corresponding cell's dataProvider item can be edited.
+     * If true, clicking on a selected cell opens an item editor, see
+     * <code>startItemEditorSession</code>.  Developers can enable/disable
+     * editing on a per cell (rather than per column) basis by handling 
+     * the <code>startItemEditorSession</code> event.
+     * 
      *  @default false
      *  
      *  @langversion 3.0
@@ -886,6 +886,52 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
+    //  editorColumnIndex
+    //----------------------------------
+    
+    /**
+     *  The zero-based column index of the cell that is being edited. The 
+     *  value is -1 if no cell is being edited.
+     * 
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public function get editorColumnIndex():int
+    {
+        if (editor)
+            return editor.editorColumnIndex;
+        
+        return -1;
+    }
+    
+    //----------------------------------
+    //  editorRowIndex
+    //----------------------------------
+    
+    /**
+     *  The zero-based row index of the cell that is being edited. The 
+     *  value is -1 if no cell is being edited.
+     * 
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public function get editorRowIndex():int
+    {
+        if (editor)
+            return editor.editorRowIndex;
+        
+        return -1;
+    }
+    
+    //----------------------------------
     //  gridDimensions (private, read-only)
     //----------------------------------
     
@@ -899,6 +945,27 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!_gridDimensions)
             _gridDimensions = new GridDimensions();  // TBD(hmuller):delegate to protected createGridDimensions()
         return _gridDimensions;
+    }
+    
+    //----------------------------------
+    //  enableIME
+    //----------------------------------
+    
+    /**
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus.
+     *
+     *  If the editor is up, it will set enableIME
+     *  accordingly.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public function get enableIME():Boolean
+    {
+        return false;
     }
     
     //----------------------------------
@@ -920,6 +987,50 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
+    //  imeMode
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+    
+    [Inspectable(environment="none")]
+    
+    /**
+     *  The default value for the GridColumn imeMode property, which specifies
+     *  specifies the IME (input method editor) mode.
+     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
+     *  Flex sets the specified IME mode when the control gets the focus,
+     *  and sets it back to the previous value when the control loses the focus.
+     *
+     * <p>The flash.system.IMEConversionMode class defines constants for the
+     *  valid values for this property.
+     *  You can also specify <code>null</code> to specify no IME.</p>
+     *
+     *  @see flash.system.IMEConversionMode
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public function get imeMode():String
+    {
+        return _imeMode;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set imeMode(value:String):void
+    {
+        _imeMode = value;
+    }
+    
+    //----------------------------------
     //  itemEditor
     //----------------------------------
     
@@ -928,12 +1039,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     private var _itemEditor:IFactory = null;
     
     /**
-     *  A factory for IGridItemEditors used to edit individual grid cells.  
-     *  This property can provide a default value for grid columns that do
-     *  not specify an item editor.
-     * 
-     *  If not specified the <code>itemEditor</code> property on the grid 
-     *  column being edited will be used.  
+     *  The default value for the GridColumn itemEditor property, which specifies
+     *  the IGridItemEditor class used to create item editor instances.
      * 
      *  @default null.
      *
@@ -1588,10 +1695,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.gridSelection = gridSelection;
             grid.gridOwner = this;
 
-            // TODO (dloverin): only create the editor if one of the grid or one of the columns is editable.
-            editor = createEditor();
-            editor.initialize();
-            
             // Grid cover Properties
             
             const modifiedGridProperties:Object = gridProperties;  // explicitly set properties
@@ -1628,6 +1731,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             for each (var deferredGridOperation:Function in deferredGridOperations)
                 deferredGridOperation(grid);
             deferredGridOperations.length = 0;
+            
+            // Data grid editor
+            editor = createEditor();
+            editor.initialize();
         }
         
         if (instance == alternatingRowColorsBackground)
@@ -1718,6 +1825,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             grid.hoverIndicator = null;
             grid.caretIndicator = null;
             grid.selectionIndicator = null;
+            
+            // Data grid editor
+            if (editor)
+                editor.uninitialize();
         }
         
         if (grid)
