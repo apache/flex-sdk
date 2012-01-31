@@ -1318,11 +1318,11 @@ public class NumericStepper extends UIComponent
 
         nextButton.x = unscaledWidth - w;
         nextButton.y = 0;
-        nextButton.setActualSize(w, h2);
+        nextButton.setActualSize(w, h);
         
         prevButton.x = unscaledWidth - w;
-        prevButton.y = unscaledHeight - h;
-        prevButton.setActualSize(w, h);
+        prevButton.y = h;
+        prevButton.setActualSize(w, h2);
 
         inputField.setActualSize(unscaledWidth - w, unscaledHeight);
     }
