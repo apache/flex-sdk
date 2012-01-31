@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application height="450" width="600"
     xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:s="library://ns.adobe.com/flex/spark"
-><s:layout> <s:VerticalLayout/> </s:layout>
+><s:layout> <s:VerticalLayout paddingLeft="50"/> </s:layout>
     <fx:Script>
         <![CDATA[
             import mx.geom.TransformOffsets;
@@ -16,7 +16,7 @@
             var myFill:SolidColor = new SolidColor();
             myFill.color = color;
             myEllipse.fill = myFill;
-            myEllipse.offsets=new TransformOffsets();
+            myEllipse.postLayoutTransformOffsets=new TransformOffsets();
             fc.addElementAt(myEllipse, i);
         }
 
@@ -47,16 +47,16 @@
  </mx:VBox>
   <mx:VBox>
   <mx:Label text="Offsets Matrix" />
-        <mx:HSlider width="200" value="0" minimum="-160" maximum="160" liveDragging="true" id="sz1" change=" ( fc.getElementAt(2) as GraphicElement).offsets.x=sz1.value"/>
-        <mx:HSlider width="200" value="0" minimum="-160" maximum="160" liveDragging="true" id="sz2" change=" ( fc.getElementAt(2) as GraphicElement).offsets.y=sz2.value"/>
-        <mx:HSlider width="200" value="0" minimum="-160" maximum="160" liveDragging="true" id="sz3" change=" ( fc.getElementAt(2) as GraphicElement).offsets.z=sz3.value"/>
-        <mx:HSlider width="200" value="0" minimum="-360" maximum="360" liveDragging="true" id="sz4" change=" ( fc.getElementAt(2) as GraphicElement).offsets.rotationX=sz4.value"/>
-        <mx:HSlider width="200" value="0" minimum="-360" maximum="360" liveDragging="true" id="sz5" change=" ( fc.getElementAt(2) as GraphicElement).offsets.rotationY=sz5.value"/>
-        <mx:HSlider width="200" value="0" minimum="-360" maximum="360" liveDragging="true" id="sz6" change=" ( fc.getElementAt(2) as GraphicElement).offsets.rotationZ=sz6.value"/>
-        <mx:HSlider width="200" value="1" minimum="1" maximum="20" liveDragging="true" id="sz7" change=" ( fc.getElementAt(2) as GraphicElement).offsets.scaleX=sz7.value"/>
-        <mx:HSlider width="200" value="1" minimum="1" maximum="20" liveDragging="true" id="sz8" change=" ( fc.getElementAt(2) as GraphicElement).offsets.scaleY=sz8.value"/>
-        <mx:HSlider width="200" value="1" minimum="1" maximum="20" liveDragging="true" id="sz9" change=" ( fc.getElementAt(2) as GraphicElement).offsets.scaleZ=sz9.value"/>
- <s:Button label="Layer++" click=" ( fc.getElementAt(2) as GraphicElement).layer++" />
+        <mx:HSlider width="200" value="0" minimum="-160" maximum="160" liveDragging="true" id="sz1" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.x=sz1.value"/>
+        <mx:HSlider width="200" value="0" minimum="-160" maximum="160" liveDragging="true" id="sz2" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.y=sz2.value"/>
+        <mx:HSlider width="200" value="0" minimum="-160" maximum="160" liveDragging="true" id="sz3" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.z=sz3.value"/>
+        <mx:HSlider width="200" value="0" minimum="-360" maximum="360" liveDragging="true" id="sz4" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.rotationX=sz4.value"/>
+        <mx:HSlider width="200" value="0" minimum="-360" maximum="360" liveDragging="true" id="sz5" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.rotationY=sz5.value"/>
+        <mx:HSlider width="200" value="0" minimum="-360" maximum="360" liveDragging="true" id="sz6" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.rotationZ=sz6.value"/>
+        <mx:HSlider width="200" value="1" minimum="1" maximum="20" liveDragging="true" id="sz7" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.scaleX=sz7.value"/>
+        <mx:HSlider width="200" value="1" minimum="1" maximum="20" liveDragging="true" id="sz8" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.scaleY=sz8.value"/>
+        <mx:HSlider width="200" value="1" minimum="1" maximum="20" liveDragging="true" id="sz9" change=" ( fc.getElementAt(2) as GraphicElement).postLayoutTransformOffsets.scaleZ=sz9.value"/>
+ <s:Button label="Layer++" click=" ( fc.getElementAt(2) as GraphicElement).depth++" />
   </mx:VBox>
   <mx:VBox>
   <mx:Label text="Matrix 3D" />
@@ -72,7 +72,7 @@
 
   </mx:VBox>
  </mx:HBox>
-<s:Scroller height="120" width="100">
+<s:Scroller height="180" width="200">
     <s:SkinnableContainer id="fc" creationComplete="addData()" />
 </s:Scroller>
 </s:Application>
