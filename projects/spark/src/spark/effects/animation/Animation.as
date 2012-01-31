@@ -126,8 +126,9 @@ public final class Animation
         this.duration = duration;
         if (property != null && (startValue !== null || endValue !== null))
         {
-            motionPaths = new <MotionPath>[
-                new SimpleMotionPath(property, startValue, endValue, duration)];
+            motionPaths = new <MotionPath>[new MotionPath(property)];
+            motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, startValue), 
+                new Keyframe(duration, endValue)];
         }
     }
     
@@ -546,9 +547,11 @@ public final class Animation
         _easer = value;
     }
     
-    // TODO: rethink reversal
     /**
      *  If <code>true</code>, play the animation in reverse.
+     *  If the animation is currently playing in the opposite
+     *  direction to the specified value of <code>playReversed</code>,
+     *  the animation will change direction dynamically.
      *
      *  @default false
      *
@@ -566,7 +569,15 @@ public final class Animation
      */
     public function set playReversed(value:Boolean):void
     {
-        _invertValues = value;
+        if (_isPlaying)
+        {
+            if (_invertValues != value)
+            {
+                _invertValues = value;
+                seek(duration - _cycleTime, true);
+            }
+        }
+        _doReverse = value;
     }
 
     //--------------------------------------------------------------------------
@@ -962,6 +973,9 @@ public final class Animation
         for (i = 0; i < motionPaths.length; ++i)
             motionPaths[i].scaleKeyframes(duration);
         
+        if (_doReverse)
+            _invertValues = true;
+
         if (startDelay > 0)
             addToDelayedAnimations(startDelay);
         else
@@ -969,6 +983,8 @@ public final class Animation
     }
     
     /**
+     *  @private
+     *  
      *  Advances the animation to the specified position. 
      *
      *  @param playheadTime The position, in milliseconds, between 0
@@ -983,7 +999,7 @@ public final class Animation
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function seek(playheadTime:Number, includeStartDelay:Boolean = false):void
+    private function seek(playheadTime:Number, includeStartDelay:Boolean = false):void
     {
         // Set value between 0 and duration
         //playheadTime = Math.min(Math.max(playheadTime, 0), duration);
@@ -1073,7 +1089,12 @@ public final class Animation
                 motionPaths[i].interpolator = interpolator;
     }
  
+    // TODO (chaase): should eventually remove this function, since it
+    // overlaps with playReverse property. Just leaving it mx_internal
+    // for now to avoid perturbing the code too much
     /**
+     *  @private
+     * 
      *  Plays the effect in reverse,if the effect is currently playing,
      *  starting from the current position of the effect.
      *  
@@ -1082,7 +1103,7 @@ public final class Animation
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function reverse():void
+    mx_internal function reverse():void
     {
         if (_isPlaying)
         {
@@ -1133,7 +1154,6 @@ public final class Animation
         {
             Animation.removeAnimationAt(id);
             id = -1;
-            _doReverse = false
             _invertValues = false;
             _isPlaying = false;
         }
