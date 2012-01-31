@@ -158,6 +158,7 @@ include "../styles/metadata/TextStyles.as"
 [Exclude(name="focusPane", kind="property")]
 [Exclude(name="mouseFocusEnabled", kind="property")]
 [Exclude(name="tabEnabled", kind="property")]
+[Exclude(name="baseColor", kind="style")]
 [Exclude(name="focusBlendMode", kind="style")]
 [Exclude(name="focusSkin", kind="style")]
 [Exclude(name="focusThickness", kind="style")]
