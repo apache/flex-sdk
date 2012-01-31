@@ -20,6 +20,7 @@ import flash.events.TimerEvent;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
@@ -29,6 +30,7 @@ import mx.utils.StringUtil;
 
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.TextBase;
+import spark.core.IDisplayText;
 
 use namespace mx_internal;
 
@@ -395,7 +397,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var labelDisplay:TextBase;
+    public var labelDisplay:IDisplayText;
 
     //--------------------------------------------------------------------------
     //
@@ -412,7 +414,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(labelDisplay);
+        return getBaselinePositionForPart(labelDisplay as IVisualElement);
     }
 
     //----------------------------------
