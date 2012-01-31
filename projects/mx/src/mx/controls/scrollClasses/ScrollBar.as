@@ -622,6 +622,7 @@ public class ScrollBar extends UIComponent
     public function set maxScrollPosition(value:Number):void
     {
         _maxScrollPosition = value;
+        invalidateDisplayList();
     }
 
     //----------------------------------
@@ -667,6 +668,7 @@ public class ScrollBar extends UIComponent
     public function set minScrollPosition(value:Number):void
     {
         _minScrollPosition = value;
+        invalidateDisplayList();
     }
 
     //----------------------------------
@@ -1098,7 +1100,7 @@ public class ScrollBar extends UIComponent
      *  @param minScrollPosition Number which represents the bottom of the 
      *  scrolling range.
      *
-     *  @param maxScrollPosition Number which represetns the top of the 
+     *  @param maxScrollPosition Number which represents the top of the 
      *  scrolling range.
      *
      *  @param pageScrollSize Number which represents the increment to move when 
