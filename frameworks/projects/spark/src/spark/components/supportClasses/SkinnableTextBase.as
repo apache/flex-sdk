@@ -141,47 +141,52 @@ public class TextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private static const HEIGHT_IN_LINES_PROPERTY_FLAG:uint = 1 << 4;
+    private static const ENABLED_PROPERTY_FLAG:uint = 1 << 4;
     
     /**
      *  @private
      */
-    private static const IME_MODE_PROPERTY_FLAG:uint = 1 << 5;
+    private static const HEIGHT_IN_LINES_PROPERTY_FLAG:uint = 1 << 5;
     
     /**
      *  @private
      */
-    private static const MAX_CHARS_PROPERTY_FLAG:uint = 1 << 6;
+    private static const IME_MODE_PROPERTY_FLAG:uint = 1 << 6;
+    
+    /**
+     *  @private
+     */
+    private static const MAX_CHARS_PROPERTY_FLAG:uint = 1 << 7;
        
     /**
      *  @private
      */
-    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 7;
+    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 8;
     
     /**
      *  @private
      */
-    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 8;
+    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 9;
 
     /**
      *  @private
      */
-    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 9;
+    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 10;
 
     /**
      *  @private
      */
-    private static const SELECTION_VISIBILITY_PROPERTY_FLAG:uint = 1 << 10;
+    private static const SELECTION_VISIBILITY_PROPERTY_FLAG:uint = 1 << 11;
 
     /**
      *  @private
      */
-    private static const TEXT_PROPERTY_FLAG:uint = 1 << 11;
+    private static const TEXT_PROPERTY_FLAG:uint = 1 << 12;
 
     /**
      *  @private
      */
-    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 12;
+    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 13;
 
     //--------------------------------------------------------------------------
     //
@@ -264,11 +269,33 @@ public class TextBase extends SkinnableComponent
     /**
      *  @private
      */
+    override public function get enabled():Boolean
+    {
+        if (textView)
+            return textView.enabled;
+        
+        return super.enabled;
+    }
+
+    /**
+     *  @private
+     */
     override public function set enabled(value:Boolean):void
     {
         if (value == enabled)
             return;
-        
+
+        // This deviates from the standard setter pattern because enabled
+        // is a property of this component.  We don't have to store enabled in
+        // textViewProperties when the textView doesn't exist.
+                
+        if (textView)
+        {
+            textView.enabled = value;
+            textViewProperties = BitFlagUtil.update(
+                uint(textViewProperties), ENABLED_PROPERTY_FLAG, true);
+        }
+
         super.enabled = value;
         invalidateSkinState();
 
@@ -1167,6 +1194,12 @@ public class TextBase extends SkinnableComponent
                 uint(newTextViewProperties), EDITABLE_PROPERTY_FLAG, true);
        }
 
+        // enabled is special and comes from the super class rather than from
+        // textViewProperties.
+        textView.enabled = super.enabled;
+        newTextViewProperties = BitFlagUtil.update(
+            uint(newTextViewProperties), ENABLED_PROPERTY_FLAG, true);
+
         if (textViewProperties.heightInLines !== undefined)
         {
             textView.heightInLines = textViewProperties.heightInLines;
@@ -1260,6 +1293,17 @@ public class TextBase extends SkinnableComponent
 
         if (BitFlagUtil.isSet(uint(textViewProperties), EDITABLE_PROPERTY_FLAG))
             newTextViewProperties.editable = textView.editable;
+
+        // enabled is special and is stored in the super class rather than in
+        // textViewProperties.  And if it changes, need to update the skin.
+        if (BitFlagUtil.isSet(uint(textViewProperties), ENABLED_PROPERTY_FLAG))
+        {
+            if (super.enabled != textView.enabled)
+            {
+                super.enabled = textView.enabled;
+                invalidateSkinState();
+            }
+        }
 
         if (BitFlagUtil.isSet(uint(textViewProperties), 
             HEIGHT_IN_LINES_PROPERTY_FLAG))
