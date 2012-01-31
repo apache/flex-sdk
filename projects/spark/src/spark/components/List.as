@@ -1767,9 +1767,6 @@ public class List extends ListBase implements IFocusManagerComponent
         if (event.isDefaultPrevented())
             return;
         
-        // we are about to handle it
-        event.preventDefault();
-        
         // Handle the fixup of selection
         var newIndex:int
         if (event.currentTarget is IItemRenderer)
