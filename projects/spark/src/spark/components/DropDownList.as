@@ -180,6 +180,8 @@ public class DropDownList extends List
     //--------------------------------------------------------------------------
 	
     private var labelChanged:Boolean = false;
+    // TODO (jszeto) Should this be protected?
+    private var proposedSelectedIndex:Number = -1;
 	
 	//--------------------------------------------------------------------------
     //
@@ -560,6 +562,7 @@ public class DropDownList extends List
     override protected function item_clickHandler(event:MouseEvent):void
 	{
 		super.item_clickHandler(event);
+		proposedSelectedIndex = selectedIndex;
 		closeDropDown(true);
 	}
             
@@ -569,11 +572,28 @@ public class DropDownList extends List
 	override protected function keyDownHandler(event:KeyboardEvent) : void
 	{
 		if(!enabled)
-            return;
+            return; 
         
-        // TODO (jszeto) Fix arrow key navigation. layout object is null.
         if (!dropDownController.processKeyDown(event))
-        	super.keyDownHandler(event);
+        {
+			if (dropDownController.isOpen)
+			{	
+	        	var navigationUnit:uint = mapEventToNavigationUnit(event);
+	        	var proposedNewIndex:int = layout.getDestinationIndex(navigationUnit, proposedSelectedIndex)
+	        	
+	        	if (proposedNewIndex != -1)
+	        	{
+	        		itemSelected(proposedSelectedIndex, false);
+	        		proposedSelectedIndex = proposedNewIndex;
+	        		itemSelected(proposedSelectedIndex, true);
+	        		ensureItemIsVisible(proposedSelectedIndex);
+	        	}
+	   		}
+	   		else
+	   		{
+	   			super.keyDownHandler(event);
+	   		}
+        }
 
 	}
 	
@@ -606,6 +626,7 @@ public class DropDownList extends List
     protected function dropDownController_openHandler(event:DropDownEvent):void
     {
     	addEventListener(FlexEvent.UPDATE_COMPLETE, open_updateCompleteHandler);
+    	proposedSelectedIndex = selectedIndex;
     	invalidateSkinState();	
     }
     
@@ -634,8 +655,10 @@ public class DropDownList extends List
     	addEventListener(FlexEvent.UPDATE_COMPLETE, close_updateCompleteHandler);
     	invalidateSkinState();
     	
-    	// TODO!! Add logic to handle commitData
-    	// if (event.isDefaultPrevented())
+    	if (!event.isDefaultPrevented())
+    	{
+    		selectedIndex = proposedSelectedIndex;	
+    	}
     }
 
 	/**
