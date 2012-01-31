@@ -1283,7 +1283,7 @@ public class ListBase extends ScrollControlBase
     mx_internal var bSelectOnRelease:Boolean;
     
     private var mouseDownItem:IListItemRenderer;
-	private var mouseDownIndex:int; // For drag and drop
+    private var mouseDownIndex:int; // For drag and drop
 
     mx_internal var bSelectionChanged:Boolean = false;
     mx_internal var bSelectedIndexChanged:Boolean = false;
@@ -2249,7 +2249,7 @@ public class ListBase extends ScrollControlBase
         collectionIterator = collection.createCursor(); //IViewCursor(collection);
         // trace("ListBase added change listener");
         collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
-		
+        
         clearSelectionData();
 
         var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
@@ -5689,7 +5689,7 @@ public class ListBase extends ScrollControlBase
      *  @param data The data to be presented by the item renderer.
      *
      *  @return if <code>data</code> is null, the default item renderer, 
-     *  otherwis it returns the custom item renderer.
+     *  otherwise it returns the custom item renderer.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -8377,44 +8377,44 @@ public class ListBase extends ScrollControlBase
      */
     protected function addDragData(dragSource:Object):void // actually a DragSource
     {
-		// The Hallo drag drop data format
-		dragSource.addHandler(copySelectedItems, "items");
-		
-		// The Spark drag drop data format
-		dragSource.addHandler(copySelectedItemsForDragDrop, "itemsByIndex");
+        // The Hallo drag drop data format
+        dragSource.addHandler(copySelectedItems, "items");
+        
+        // The Spark drag drop data format
+        dragSource.addHandler(copySelectedItemsForDragDrop, "itemsByIndex");
 
-		// Calculate the index of the focus item within the vector
-		// of ordered items returned for the "itemsByIndex" format.
-		var caretIndex:int = 0;
-		var draggedIndices:Array = selectedIndices;
-		var count:int = draggedIndices.length;
-		for (var i:int = 0; i < count; i++)
-		{
-			if (mouseDownIndex > draggedIndices[i])
-				caretIndex++;
-		}
-		dragSource.addData(caretIndex, "caretIndex");
+        // Calculate the index of the focus item within the vector
+        // of ordered items returned for the "itemsByIndex" format.
+        var caretIndex:int = 0;
+        var draggedIndices:Array = selectedIndices;
+        var count:int = draggedIndices.length;
+        for (var i:int = 0; i < count; i++)
+        {
+            if (mouseDownIndex > draggedIndices[i])
+                caretIndex++;
+        }
+        dragSource.addData(caretIndex, "caretIndex");
     }
-	
-	/**
-	 *  @private
-	 */
-	private function copySelectedItemsForDragDrop():Vector.<Object>
-	{
-		// Copy the vector so that we don't modify the original
-		// since selectedIndices returns a reference.
-		var draggedIndices:Array = selectedIndices.slice(0, selectedIndices.length);
-		var result:Vector.<Object> = new Vector.<Object>(draggedIndices.length);
-		
-		// Sort in the order of the data source
-		draggedIndices.sort();
-		
-		// Copy the items
-		var count:int = draggedIndices.length;
-		for (var i:int = 0; i < count; i++)
-			result[i] = dataProvider.getItemAt(draggedIndices[i]);  
-		return result;
-	}
+    
+    /**
+     *  @private
+     */
+    private function copySelectedItemsForDragDrop():Vector.<Object>
+    {
+        // Copy the vector so that we don't modify the original
+        // since selectedIndices returns a reference.
+        var draggedIndices:Array = selectedIndices.slice(0, selectedIndices.length);
+        var result:Vector.<Object> = new Vector.<Object>(draggedIndices.length);
+        
+        // Sort in the order of the data source
+        draggedIndices.sort();
+        
+        // Copy the items
+        var count:int = draggedIndices.length;
+        for (var i:int = 0; i < count; i++)
+            result[i] = dataProvider.getItemAt(draggedIndices[i]);  
+        return result;
+    }
 
     /**
      *  Returns the index where the dropped items should be added 
@@ -10143,9 +10143,9 @@ public class ListBase extends ScrollControlBase
         {
             dragScrollingInterval = setInterval(dragScroll, 15);
         }
-		
-		if (dragEnabled)
-			mouseDownIndex = itemRendererToIndex(item);
+        
+        if (dragEnabled)
+            mouseDownIndex = itemRendererToIndex(item);
 
         // If dragEnabled is true, clicks on selected contents should cause
         // a selection change on mouse up instead of mouse down. Otherwise,
@@ -10175,7 +10175,7 @@ public class ListBase extends ScrollControlBase
     private function mouseLeaveHandler(event:Event):void
     {
         mouseDownPoint = null;
-		mouseDownIndex = -1;
+        mouseDownIndex = -1;
 
         mouseIsUp();
 
@@ -10215,7 +10215,7 @@ public class ListBase extends ScrollControlBase
     protected function mouseUpHandler(event:MouseEvent):void
     {
         mouseDownPoint = null;
-		mouseDownIndex = -1;
+        mouseDownIndex = -1;
         //trace("mouseUp");
         var item:IListItemRenderer = mouseEventToItemRenderer(event);
         var pt:Point = itemRendererToIndices(item);
