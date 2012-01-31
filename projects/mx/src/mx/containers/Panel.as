@@ -710,7 +710,6 @@ public class Panel extends Container
     /**
      *  The set of styles to pass from the Panel to the close button.
      *  @see mx.styles.StyleProxy
-     *  @review
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
