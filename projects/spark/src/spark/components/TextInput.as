@@ -277,33 +277,6 @@ public class TextInput extends SkinnableTextBase
     //
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  typicalText
-	//----------------------------------
-	
-	/**
-	 *  @default null
-	 *
-	 *  @see spark.components.RichEditableText#typicalText
-	 *
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10.2
-	 *  @playerversion AIR 2.0
-	 *  @productversion Flex 4.5
-	 */
-	public function get typicalText():String
-	{
-		return getTypicalText();
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set typicalText(value:String):void
-	{
-		setTypicalText(value);
-	}
-	
     //----------------------------------
     //  widthInChars
     //----------------------------------
