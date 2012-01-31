@@ -26,6 +26,11 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels between the label area and the heading text.
  *
  *  @default 14
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="indicatorGap", type="Number", format="Length", inherit="yes")]
 
@@ -34,6 +39,11 @@ include "../styles/metadata/TextStyles.as"
  *  The default value is the length of the longest label in the form.
  *  For FormHeading, the <code>labelWidth</code>
  *  is space to the left of the heading text.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="labelWidth", type="Number", format="Length", inherit="yes")]
 
@@ -41,6 +51,11 @@ include "../styles/metadata/TextStyles.as"
  *  Number of pixels above the heading text.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -91,6 +106,11 @@ include "../styles/metadata/TextStyles.as"
  *  @see mx.containers.FormItem
  * 
  *  @includeExample examples/FormExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class FormHeading extends UIComponent
 {
@@ -104,6 +124,11 @@ public class FormHeading extends UIComponent
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function FormHeading()
 	{
@@ -142,6 +167,11 @@ public class FormHeading extends UIComponent
 
 	/**
 	 *  Form heading text.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get label():String
 	{
