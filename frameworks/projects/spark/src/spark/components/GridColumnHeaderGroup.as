@@ -13,17 +13,17 @@ package spark.components
 { 
 import flash.events.Event;
 import flash.events.MouseEvent;
-import flash.geom.Rectangle;
+import flash.geom.Point;
 
 import mx.collections.IList;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
+import mx.managers.CursorManager;
 import mx.managers.IFocusManagerComponent;
 
+import spark.components.supportClasses.ColumnHeaderBarLayout;
 import spark.components.supportClasses.DefaultColumnHeaderRenderer;
 import spark.components.supportClasses.GridColumn;
 import spark.events.RendererExistenceEvent;
@@ -59,7 +59,8 @@ use namespace mx_internal;
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusManagerComponent 
+public class ColumnHeaderBar extends SkinnableDataContainer 
+    implements IFocusManagerComponent 
 {
     include "../core/Version.as";
 
@@ -80,8 +81,23 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
     public function ColumnHeaderBar()
     {
         super();
-        
+                
+        layout = new ColumnHeaderBarLayout();
+        layout.useVirtualLayout = true;
+        layout.clipAndEnableScrolling = true;
+
         itemRendererFunction = defaultColumnHeaderBarItemRendererFunction;
+        
+        addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
+        addEventListener(MouseEvent.MOUSE_OVER, mouseOverHandler);
+        addEventListener(MouseEvent.MOUSE_OUT, mouseOutHandler);
+
+/*
+        MouseEventUtil.addDownDragUpListeners(this, 
+                                        mouseDownDragUpHandler, 
+                                        mouseDownDragUpHandler, 
+                                        mouseDownDragUpHandler);
+*/
     }
 
     //--------------------------------------------------------------------------
@@ -90,6 +106,16 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    public var overlayGroup:Group;
+    
+    /**
+     *  @private
+     */
+    private var resizeCursorID:int = CursorManager.NO_CURSOR;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -135,7 +161,7 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
 
         dispatchChangeEvent("firstItemRendererChanged");
     }
-            
+                
     //----------------------------------
     //  headerSeparator
     //----------------------------------
@@ -168,7 +194,10 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
             return;
         
         _headerSeparator = value;
-        dispatchChangeEvent("columnSeparatorChanged");
+        
+        invalidateDisplayList();
+        
+        dispatchChangeEvent("headerSeparatorChanged");
     }    
     
     //----------------------------------
@@ -348,14 +377,14 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
      */
     override public function set dataProvider(value:IList):void
     {
-        if (dataProvider)
-            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
+        //if (dataProvider)
+        //    dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
                 
         // ensure that our listener is added before the dataGroup which adds a listener during
         // the base class setter if the dataGroup already exists.  If the dataGroup isn't
         // created yet, then we still be first.
-        if (value)
-            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
+        //if (value)
+        //    value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
         
         super.dataProvider = value;
     }
@@ -420,6 +449,10 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
         
         if (instance == dataGroup)
         { 
+            overlayGroup = new Group();
+            overlayGroup.layout = null;
+            dataGroup.overlay.addDisplayObject(overlayGroup);        
+                                    
             dataGroup.horizontalScrollPosition = _horizontalScrollPosition;
             dataGroup.addEventListener(RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
             dataGroup.addEventListener(RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
@@ -436,6 +469,8 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
             dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
             dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
             horizontalScrollPosition = 0;
+            
+            overlayGroup = null;
         }
 
         super.partRemoved(partName, instance);
@@ -482,8 +517,8 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
      */
     override protected function measure():void
     {
-        super.measure();        
-        //trace("ColumnHeaderBar.measure", measuredWidth, measuredHeight, "min", measuredMinWidth, measuredMinHeight);        
+        super.measure();
+        //trace("CHB.measure", measuredWidth, measuredHeight, "min", measuredMinWidth, measuredMinHeight);        
     }
     
     /**
@@ -492,8 +527,21 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
     {
-        //trace("CoulmnHeaderBar.updateDisplayList", this.nestLevel, unscaledWidth, unscaledHeight, dataGroup);        
+        //trace("CHB.udl", unscaledWidth, unscaledHeight);        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+    }
+        
+    /**
+     *  @private
+     */
+    override public function updateRenderer(renderer:IVisualElement, itemIndex:int, data:Object):void
+    {
+        // If the CHB has a height set on it, force all the headers to be
+        // that height.
+        if (!isNaN(explicitHeight))
+            renderer.height = explicitHeight;
+        
+        super.updateRenderer(renderer, itemIndex, data);
     }
     
     /**
@@ -523,19 +571,11 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.components.DataGroup#getElementAt 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
-    public function getElementAt(index:int):IVisualElement
+    private function get dataGrid():DataGrid
     {
-        if (!dataGroup)
-            return null;
-        
-        return dataGroup.getElementAt(index);
+        return owner as DataGrid;
     }
 
     //--------------------------------------------------------------------------
@@ -598,7 +638,9 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
         if (event.currentTarget is IItemRenderer)
             newIndex = IItemRenderer(event.currentTarget).itemIndex;
         else
-            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);        
+            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);   
+        
+        trace("item_clickHandler", newIndex);
     }
 
     /**
@@ -612,6 +654,7 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
+    /*
     protected function dataProvider_collectionChangeHandler(event:Event):void
     {
         // ToDo: what should be done if columns change?
@@ -639,6 +682,7 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
             }
         }       
     }
+    */
     
     /**
      *  @private
@@ -665,7 +709,124 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
         if (renderer)
             renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
     }
-}
+    
+    /**
+     *  This method is called when a MOUSE_DOWN event occurs within the 
+     *  ColumnHeaderBar and for all subsequent MOUSE_MOVE events until the 
+     *  button is released (even if the mouse leaves the chb).  The last event 
+     *  in such a "down drag up" gesture is always a MOUSE_UP.  By default this 
+     *  method dispatches GRID_MOUSE_DOWN, GRID_MOUSE_DRAG, or a 
+     *  GRID_MOUSE_UP event in response to the the corresponding
+     *  mouse event.  The GridEvent's rowIndex, columnIndex, column, item, and itemRenderer 
+     *  properties correspond to the grid cell under the mouse.  
+     * 
+     *  @param event A MOUSE_DOWN, MOUSE_MOVE, or MOUSE_UP MouseEvent from a 
+     *  down/move/up gesture initiated within the ColumnHeaderBar.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */    
+    protected function mouseDownDragUpHandler(event:MouseEvent):void
+    {
+        const eventStageXY:Point = new Point(event.stageX, event.stageY);
+        const eventColumnHeaderBarXY:Point = globalToLocal(eventStageXY);
+        
+        //const gridDimensions:GridDimensions = GridLayout(layout).gridDimensions;
+        //const eventRowIndex:int = gridDimensions.getRowIndexAt(eventColumnHeaderBarXY.x, eventColumnHeaderBarXY.y);
+        //const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventColumnHeaderBarXY.x, eventColumnHeaderBarXY.y);
+        
+        trace("event type", event.type, "chb", eventColumnHeaderBarXY, "stage", eventStageXY);
+        
+        var gridEventType:String;
+        switch(event.type)
+        {
+            case MouseEvent.MOUSE_MOVE: 
+            {
+                //gridEventType = GridEvent.GRID_MOUSE_DRAG; 
+                break;
+            }
+            case MouseEvent.MOUSE_UP:   
+            {
+                //gridEventType = GridEvent.GRID_MOUSE_UP; 
+                break;
+            }
+            case MouseEvent.MOUSE_DOWN:
+            {
+                //gridEventType = GridEvent.GRID_MOUSE_DOWN;
+                //mouseDownRowIndex = eventRowIndex;
+                //mouseDownColumnIndex = eventColumnIndex;
+                break;
+            }
+        }
+        
+        //dispatchGridEvent(event, gridEventType, eventColumnHeaderBarXY, eventRowIndex, eventColumnIndex);        
+    }
 
-}
+    /**
+     *  @private
+     */
+    private function mouseDownHandler(event:MouseEvent):void
+    {
+        // ToDo: should there be dataGrid.resizableColumns so you don't have
+        // to set every column to false.
+        if (!enabled /*|| !dataGrid.resizableColumns*/)
+            return;
+        
+        trace("mouseDown", event.target);
+        
+        // ToDo: figure out which column or separator
+        //if (!column.resizable)
+        //   return;
+    }
 
+    /**
+     *  @private
+     */
+    private function mouseOverHandler(event:MouseEvent):void
+    {
+        // ToDo: should there be dataGrid.resizableColumns so you don't have
+        // to set every column to false.
+        if (!enabled /*|| !dataGrid.resizableColumns*/)
+            return;
+                               
+        trace("mouseOver", event.target);
+        
+        // ToDo: figure out which column or separator
+        //if (!column.resizable)
+        //   return;
+                
+        // This goes in columnResizeMouseOutHandler
+       // ToDo: should this be a property rather than a style?
+        
+        // Hide the mouse, attach and show the cursor
+        /*
+        var stretchCursorClass:Class = getStyle("stretchCursor");
+        resizeCursorID = cursorManager.setCursor(
+                            stretchCursorClass, 
+                            CursorManagerPriority.HIGH, 0, 0);
+        */
+    }
+    
+    /**
+     *  @private
+     */
+    private function mouseOutHandler(event:MouseEvent):void
+    {
+        if (!enabled /*|| !dataGrid.resizableColumns*/)
+            return;
+        
+        trace("mouseOut", event.target);
+        
+        // ToDo: figure out which column or separator
+        
+        // ToDo: is this check really right - should the cursor be restored?
+        //if (!column.resizable)
+        //    return;
+        
+        // This goes in columnResizeMouseOutHandler
+        //cursorManager.removeCursor(resizeCursorID);
+    }     
+}
+}
