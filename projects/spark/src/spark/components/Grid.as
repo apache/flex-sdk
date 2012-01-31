@@ -647,6 +647,7 @@ package spark.components
         //----------------------------------    
         
         private var _columns:IList = null; // list of GridColumns
+        private var columnsChanged:Boolean = false;
         private var generatedColumns:Boolean = false;
         
         [Bindable("columnsChanged")]
@@ -717,15 +718,10 @@ package spark.components
                 }
             }
             
+            columnsChanged = true;
+            invalidateProperties();
             invalidateSize();
             invalidateDisplayList();
-            
-            //TBD: clear selection and dimnsions
-            gridDimensions.clear();
-            if (_columns)
-                gridDimensions.columnCount = _columns.length;
-            if (_dataProvider) // clearing the gridDimensions resets rowCount
-                gridDimensions.rowCount = _dataProvider.length;
             
             dispatchChangeEvent("columnsChanged");        
         }
@@ -2308,12 +2304,12 @@ package spark.components
                 caretChanged = false;
             }
             
-            // If the dp changes, reset the selection and the grid dimensions.
-            // This has to be done here rather than in the dp setter because the
-            // gridSelection and gridDimensions might not be set yet, depending
-            // on the order they are initialized when the grid skin part is 
-            // added to the data grid.
-            if (dataProviderChanged)
+            // If the dataProvider or columns change, reset the selection and 
+            // the grid dimensions.  This has to be done here rather than in the 
+            // setters because the gridSelection and gridDimensions might not 
+            // be set yet, depending on the order they are initialized when the 
+            // grid skin part is added to the data grid.
+            if (dataProviderChanged || columnsChanged)
             {
                 // Remove the current selection and, if requireSelection, make
                 // sure the selection is reset to row 0 or cell 0,0.
@@ -2328,11 +2324,15 @@ package spark.components
                 if (gridDimensions)
                 {
                     gridDimensions.clear();
+                    // clearing the gridDimensions resets rowCount
                     if (_dataProvider)
                         gridDimensions.rowCount = _dataProvider.length;
+                    if (_columns)
+                        gridDimensions.columnCount = _columns.length;
                 }
                 
                 dataProviderChanged = false;
+                columnsChanged = false;
             }
         }
         
