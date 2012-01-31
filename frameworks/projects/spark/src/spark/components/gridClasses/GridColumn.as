@@ -486,7 +486,14 @@ public class GridColumn extends EventDispatcher
         _width = value;
         
         invalidateGrid();
-
+        
+        // Reset content size so scroller's viewport can be resized.  There
+        // is loop-prevention logic in the scroller which may not allow the
+        // width/height to be reduced if there are automatic scrollbars.
+        // See ScrollerLayout/measure().
+        if (grid)
+            grid.setContentSize(0, 0);
+        
         dispatchChangeEvent("widthChanged");
     }
     
@@ -522,6 +529,13 @@ public class GridColumn extends EventDispatcher
         _minWidth = value;
         
         invalidateGrid();
+
+        // Reset content size so scroller's viewport can be resized.  There
+        // is loop-prevention logic in the scroller which may not allow the
+        // width/height to be reduced if there are automatic scrollbars.
+        // See ScrollerLayout/measure().
+        if (grid)
+            grid.setContentSize(0, 0);
         
         dispatchChangeEvent("minWidthChanged");
     }    
@@ -558,6 +572,13 @@ public class GridColumn extends EventDispatcher
         _maxWidth = value;
         
         invalidateGrid();
+
+        // Reset content size so scroller's viewport can be resized.  There
+        // is loop-prevention logic in the scroller which may not allow the
+        // width/height to be reduced if there are automatic scrollbars.
+        // See ScrollerLayout/measure().
+        if (grid)
+            grid.setContentSize(0, 0);
         
         dispatchChangeEvent("maxWidthChanged");
     }
