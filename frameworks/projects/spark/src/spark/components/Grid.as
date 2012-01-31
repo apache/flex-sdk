@@ -3773,6 +3773,54 @@ public class Grid extends Group
     }
     
     /**
+     *  Returns the index of the next GridColumn.visible==true column
+     *  after index.
+     *  Returns -1 if there are no more visible columns.
+     *  To find the first GridColumn.visible==true column index, use
+     *  getNextVisibleColumnIndex(-1).
+     */
+    mx_internal function getNextVisibleColumnIndex(index:int):int
+    {
+        if (index < -1)
+            return -1;
+        
+        const columns:IList = this.columns;
+        const columnsLength:int = (columns) ? columns.length : 0;
+                
+        for (var i:int = index + 1; i < columnsLength; i++)
+        {
+            var column:GridColumn = columns.getItemAt(i) as GridColumn;
+            if (column && column.visible)
+                return i;
+        }
+        
+        return -1;
+    }
+    
+    /**
+     *  Returns the index of the previous GridColumn.visible==true column
+     *  before index.
+     *  Returns -1 if there are no more visible columns.
+     *  To find the last GridColumn.visible==true column index, use
+     *  getPreviousVisibleColumnIndex(columns.length).
+     */
+    mx_internal function getPreviousVisibleColumnIndex(index:int):int
+    {
+        const columns:IList = this.columns;
+        if (!columns || index > columns.length)
+            return -1;
+        
+        for (var i:int = index - 1; i >= 0; i--)
+        {
+            var column:GridColumn = columns.getItemAt(i) as GridColumn;
+            if (column && column.visible)
+                return i;
+        }
+        
+        return -1;
+    }
+    
+    /**
      *  @private
      */
     private function initializeAnchorPosition():void
