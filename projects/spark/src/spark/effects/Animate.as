@@ -11,8 +11,8 @@
 package mx.effects
 {
 
-import mx.effects.fxEasing.IEaser;
-import mx.effects.fxEasing.Sine;
+import mx.effects.interpolation.IEaser;
+import mx.effects.interpolation.Sine;
 import mx.effects.effectClasses.FxAnimateInstance;
 import mx.events.AnimationEvent;
 
@@ -165,6 +165,38 @@ public class FxAnimate extends Effect
      */
     public var repeatBehavior:String = Animation.LOOP;
     
+    /**
+     * This flag indicates whether the layout constraints (left, right, top,
+     * and bottom) should be adjusted when the effect ends, based on where
+     * the target has been positioned by the effect. This behavior can
+     * be useful for effects that change the position or size of a component
+     * during the course of running the effect, and when the desired result
+     * is that the target object stays in the resulting position without
+     * adjusting to the original constraints. For example, a Rotate effect
+     * run on a target with left/top constraints might otherwise be moved
+     * to the original constraint position, which has a different effect
+     * than rotating around a specified rotation center. 
+     * 
+     * <p>The default value
+     * is <code>false</code>, which means that the original constraints will
+     * be obeyed. To adjust the constraints based on the effect result,
+     * set this property to <code>true</code>.</p>
+     * 
+     * @default false
+     */
+    public var adjustConstraints:Boolean = false;
+
+    /**
+     * This property indicates whether the effect should disable layout on its
+     * targets' parents while the effect is running. If set to true, the effect
+     * will set the parent containers' <code>autoLayout</code> property to 
+     * false for the duration of the effect. Note that other events may
+     * occur in those containers that force layout to happen anyway.
+     * 
+     * @default false
+     */
+    public var disableLayout:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -219,6 +251,8 @@ public class FxAnimate extends Effect
             animateInstance.repeatCount = repeatCount;
             
         animateInstance.repeatBehavior = repeatBehavior;
+        animateInstance.adjustConstraints = adjustConstraints;
+        animateInstance.disableLayout = disableLayout;
         
         // Deep-copy the propertyValuesList into the instance
         if (propertyValuesList != null)
