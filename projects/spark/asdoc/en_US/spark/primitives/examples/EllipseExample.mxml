@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- EllipseExample.mxml -->
-<Application xmlns="http://ns.adobe.com/mxml/2009">
-     <Panel title="Ellipse Graphic Example"
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+     <s:Panel title="Ellipse Graphic Example"
         height="75%" width="75%" layout="horizontal"
         paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
           <Canvas top="0" bottom="0" left="0" right="0">
-               <Graphic x="0" y="0">
-                        <Ellipse height="100" width="250">
-                              <stroke>
-                                   <Stroke color="0x000000" weight="2"/>
-                              </stroke>
-                            <fill>
-                               <RadialGradient>
+               <s:Graphic x="0" y="0">
+                        <s:Ellipse height="100" width="250">
+                              <s:stroke>
+                                   <s:Stroke color="0x000000" weight="2"/>
+                              </s:stroke>
+                            <s:fill>
+                               <s:RadialGradient>
                                   <entries>
-                                         <GradientEntry color="0x0056FF" ratio="0" alpha=".5"/>
-                                         <GradientEntry color="0x00CC99" ratio=".33" alpha=".5"/>
-                                         <GradientEntry color="0xECEC21" ratio=".66" alpha=".5"/>
+                                         <s:GradientEntry color="0x0056FF" ratio="0" alpha=".5"/>
+                                         <s:GradientEntry color="0x00CC99" ratio=".33" alpha=".5"/>
+                                         <s:GradientEntry color="0xECEC21" ratio=".66" alpha=".5"/>
                                   </entries>
-                             </RadialGradient>
-                            </fill>
-                        </Ellipse>
-                </Graphic>
+                             </s:RadialGradient>
+                            </s:fill>
+                        </s:Ellipse>
+                </s:Graphic>
           </Canvas>
-     </Panel>
-</Application>
+     </s:Panel>
+</s:Application>
