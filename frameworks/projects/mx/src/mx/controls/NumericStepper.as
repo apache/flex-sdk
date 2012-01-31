@@ -1213,7 +1213,7 @@ public class NumericStepper extends UIComponent
 
     /**
      *  @private
-     *  Increase/decrease the step value.
+     *  Increase/decrease the current value.
      */
     private function buttonPress(button:Button, trigger:Event = null):void
     {
