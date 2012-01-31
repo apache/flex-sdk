@@ -267,6 +267,9 @@ public class ButtonBarHorizontalLayout extends LayoutBase
             
             // No need to round, width should be an integer number
             x += gap + layoutElement.getLayoutBoundsWidth(); 
+            
+            // Reset childWidthRounded
+            childWidthRounded = NaN;
         }
     }
 }
