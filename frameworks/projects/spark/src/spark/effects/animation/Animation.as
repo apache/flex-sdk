@@ -74,17 +74,13 @@ public class Animation extends EventDispatcher
      * @param endValue The final value that the animation ends on
      * @param duration The length of time, in milliseconds, that the animation
      * will run
-     * @param IAnimationTarget IAnimationTarget object that will be sent all start,
-     * repeat, update, and end messages.
      */
     public function Animation(startValue:Object=null, endValue:Object=null, 
-                                  duration:Number=-1, target:IAnimationTarget=null)
+                                  duration:Number=-1)
     {
         this.duration = duration;
         this.startValue = startValue;
         this.endValue = endValue;
-        if (target)
-            animationTargets[0] = target;
         if (!isNaN(duration) && duration != -1)
             this.duration = duration;
         if (startValue is Array)
@@ -123,8 +119,6 @@ public class Animation extends EventDispatcher
     // Track number of times repeated for use by repeatCount logic
     private var numRepeats:Number;
 
-    // List of objects that will be called with all animation events
-    private var animationTargets:Array = new Array();
     private var easingFunction:Function;
     private var defaultEaser:IEaser = new Sine(.5); 
     
@@ -532,10 +526,6 @@ public class Animation extends EventDispatcher
                     // start the next cycle
                     _elapsedTime = duration;
                     var repeatValue:Object = getCurrentValue(_elapsedTime);
-                    for each (var animationTarget:IAnimationTarget in animationTargets)
-                    {
-                        animationTarget.animationUpdate(this, repeatValue);
-                    }           
                     sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, repeatValue);
                     removeAnimation(this);
                     var delayTimer:Timer = new Timer(repeatDelay, 1);
@@ -555,10 +545,6 @@ public class Animation extends EventDispatcher
             }
             else
             {
-                for each (var target:IAnimationTarget in animationTargets)
-                {
-                    target.animationUpdate(this, currentValue);
-                }
                 sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, currentValue);
                 if (repeated)
                     sendAnimationEvent(AnimationEvent.ANIMATION_REPEAT, currentValue);
@@ -617,11 +603,6 @@ public class Animation extends EventDispatcher
             sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
             sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
             
-            for each (var animationTarget:IAnimationTarget in animationTargets)
-            {
-                animationTarget.animationEnd(this, value);
-            }           
-    
             // If animation has been added, id >= 0
             // but if duration = 0, this might not be the case.
             if (id >= 0)
@@ -667,15 +648,6 @@ public class Animation extends EventDispatcher
         startTime = clockTime - playheadTime;
         
         _doSeek = true;
-    }
-
-    /**
-     * Add another listener for all animation events
-     */
-    public function addAnimationTarget(value:IAnimationTarget):void
-    {
-        if (value != null)
-            animationTargets.push(value);
     }
 
     /**
@@ -825,10 +797,6 @@ public class Animation extends EventDispatcher
         if (repeatBehavior == REVERSE)
             _invertValues = !_invertValues;
         var repeatValue:Object = getCurrentValue(0);
-        for each (var animationTarget:IAnimationTarget in animationTargets)
-        {
-            animationTarget.animationRepeat(this, repeatValue);
-        }
         // TODO (chaase): Make sure we're not already sending out an UPDATE
         // event with this value
         sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, repeatValue);
@@ -855,11 +823,6 @@ public class Animation extends EventDispatcher
         else
         {
             var value:Object = getCurrentValue(0);
-            for each (var animationTarget:IAnimationTarget in animationTargets)
-            {
-                animationTarget.animationStart(this, value);
-                animationTarget.animationUpdate(this, value);
-            }
             // TODO (chaase): Make sure we're not already sending out an
             // UPDATE event with this start value
             sendAnimationEvent(AnimationEvent.ANIMATION_START, value);
