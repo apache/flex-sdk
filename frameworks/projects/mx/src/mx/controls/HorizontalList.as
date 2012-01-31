@@ -78,6 +78,11 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @includeExample examples/HorizontalListExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HorizontalList extends TileBase
 {
@@ -91,6 +96,11 @@ public class HorizontalList extends TileBase
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function HorizontalList()
 	{
