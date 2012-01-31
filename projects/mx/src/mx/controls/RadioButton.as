@@ -20,6 +20,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.core.FlexVersion;
+import mx.core.IToggleButton;
 import mx.events.ItemClickEvent;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerGroup;
@@ -119,7 +120,7 @@ include "../styles/metadata/IconColorStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class RadioButton extends Button implements IFocusManagerGroup
+public class RadioButton extends Button implements IFocusManagerGroup, IToggleButton
 {
     include "../core/Version.as";
 
