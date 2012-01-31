@@ -119,7 +119,8 @@ public class DataRenderer extends Group implements IDataRenderer
     {
         _data = value;
 
-        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+        if (hasEventListener(FlexEvent.DATA_CHANGE))
+            dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
     }
 }
 }
