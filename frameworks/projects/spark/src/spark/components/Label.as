@@ -566,7 +566,31 @@ public class SimpleText extends TextGraphicElement
     {
         var kerning:Object = getStyle("kerning");
         
-        if (kerning === true)
+		// In Halo components based on TextField,
+		// kerning is supposed to be true or false.
+		// The default in TextField and Flex 3 is false
+		// because kerning doesn't work for device fonts
+		// and is slow for embedded fonts.
+		// In Spark components based on TLF and FTE,
+		// kerning is "auto", "on", or, "off".
+		// The default in TLF and FTE is "auto"
+		// (which means kern non-Asian characters)
+		// because kerning works even on device fonts
+		// and has miminal performance impact.
+        // Since a CSS selector or parent container
+		// can affect both Halo and Spark components,
+		// we need to map true to "on" and false to "off"
+		// here and in SimpleText.
+		// For Halo components, UITextField and UITLFTextField
+		// do the opposite mapping
+		// of "auto" and "on" to true and "off" to false.
+		// We also support a value of "default"
+		// (which we set in the global selector)
+		// to mean "auto" for Spark and false for Halo
+		// to get the recommended behavior in both sets of components.
+        if (kerning === "default")
+			kerning = Kerning.AUTO;
+		else if (kerning === true)
             kerning = Kerning.ON;
         else if (kerning === false)
             kerning = Kerning.OFF;
