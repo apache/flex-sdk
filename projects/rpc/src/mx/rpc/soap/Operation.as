@@ -120,7 +120,7 @@ public class Operation extends AbstractOperation
      *  @private
      */
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
     //
@@ -815,11 +815,6 @@ public class Operation extends AbstractOperation
             var errMsg:String = "Cannot invoke method " + name + " as WSDL did not load successfully";
             dispatchRpcEvent(createFaultEvent("Client.InvalidWSDL", errMsg));
         }
-        *  
-        *  @langversion 3.0
-        *  @playerversion Flash 9
-        *  @playerversion AIR 1.1
-        *  @productversion Flex 3
         */
 
         return pc.token;
@@ -1048,9 +1043,9 @@ public class Operation extends AbstractOperation
                     {
                         if (!hasEventListener(HeaderEvent.HEADER) && !service.hasEventListener(HeaderEvent.HEADER))
                         {
-    						var msg:String = resourceManager.getString(
-    							"rpc", "noListenerForHeader",
-    							[ headerQName ]);
+                            var msg:String = resourceManager.getString(
+                                "rpc", "noListenerForHeader",
+                                [ headerQName ]);
                             var fault:Fault = new Fault("Client.MustUnderstand", msg);
                             var faultEvent:FaultEvent = FaultEvent.createEvent(fault, token, message);
                             dispatchRpcEvent(faultEvent);
