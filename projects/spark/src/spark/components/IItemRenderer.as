@@ -21,8 +21,8 @@ import mx.core.IVisualElement;
  *  that a class must implement to create an item renderer that can 
  *  communicate with a host component.
  *  The host component, such as the List or ButtonBar controls, 
- *  must implement the IItemRendererOwner interface, 
- *  . 
+ *  must implement the IItemRendererOwner interface. 
+ *   
  *  
  *  @see spark.components.IItemRendererOwner
  *
@@ -35,7 +35,7 @@ import mx.core.IVisualElement;
 public interface IItemRenderer extends IDataRenderer, IVisualElement
 {
     /**
-     *  Is <code>true</code> if the item renderer 
+     *  Contains <code>true</code> if the item renderer 
      *  can show itself as selected.
      *  
      *  @langversion 3.0
@@ -48,7 +48,7 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
     function set selected(value:Boolean):void;
 
     /**
-     *  Is <code>true</code> if the item renderer 
+     *  Contains <code>true</code> if the item renderer 
      *  can show itself as focused. 
      *  
      *  @langversion 3.0
