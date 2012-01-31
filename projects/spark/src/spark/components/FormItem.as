@@ -17,8 +17,6 @@ package spark.components
     import mx.core.IVisualElement;
     import mx.core.UIComponent;
     import mx.events.FlexEvent;
-    import mx.resources.IResourceManager;
-    import mx.resources.ResourceManager;
     
     import spark.components.supportClasses.TextBase;
     import spark.events.ElementExistenceEvent;
@@ -26,13 +24,9 @@ package spark.components
     /**
      *  TODO
      *  - Remove canvasLayout skin part once FormItemLayout is ready
-     * 
-     * 
-     * 
-     *  ISSUES:
-     *  - Consider turning helpText into a helpContentGroup to allow arbitrary content
-     *  
-     * 
+     *  - Remove measuredColumnWidths and layoutColumnWidths once 
+     *    FormItemLayout and FormLayout are ready
+     *  - Remove implements IFormItem
      */ 
 
     
@@ -60,7 +54,7 @@ package spark.components
         //--------------------------------------------------------------------------
         
         /**
-         *  Displays this FormItem's label.
+         *   A reference to the visual element that displays this FormItem's label.
          */
         [Bindable] // compatability with Halo FormItem itemLabel property
         [SkinPart(required="false")]
@@ -72,7 +66,9 @@ package spark.components
         [SkinPart(required="false")]
         public var sequenceLabelDisplay:TextBase;
         
-        
+        /**
+         *  A reference to the Group that contains the FormItem's helpContentGroup.
+         */
         [SkinPart(required="false")]
         public var helpContentGroup:Group;
         
@@ -96,30 +92,15 @@ package spark.components
          *  Each vector item contains the error string from a content element. 
          *  If none of the content elements are invalid, then the vector will 
          *  be empty. 
-         */ 
-        
+         */     
         [Bindable(event="elementErrorStringsChanged")]
         public var elementErrorStrings:Vector.<String> = new Vector.<String>;
-        
-        //----------------------------------
-        //  resourceManager
-        //----------------------------------
-        
-        /**
-         *  @private
-         *  Used for accessing localized Error messages.
-         */
-        private static function get resourceManager():IResourceManager
-        {
-            return ResourceManager.getInstance();
-        }
  
         //----------------------------------
         //  measuredColumnWidths
         //----------------------------------
         
         private var _measuredColumnWidths:Vector.<Number>;
-        //private var measuredColumnWidthsChanged:Boolean = false;
         
         /**
          *  Used by layout to get the measured column widths
@@ -170,53 +151,33 @@ package spark.components
         }
         
         
-        private var _helpContentFactory:IDeferredInstance; 
-        private var helpContentFactoryChanged:Boolean = false;
+        //----------------------------------
+        //  helpContent
+        //----------------------------------
+        private var _helpContent:IDeferredInstance; 
+        private var helpContentChanged:Boolean = false;
         
+        [Bindable("labelChanged")]
+        [Inspectable(category="General", defaultValue="")]
+        
+        /**
+         *  A factory object that creates the mxmlContent for the
+         *  <code>helpContentGroup</code> skin part. 
+         * 
+         *  @default undefined
+         */
         public function set helpContent(value:IDeferredInstance):void
         {
-            _helpContentFactory = value;
-            helpContentFactoryChanged = true;
+            _helpContent = value;
+            helpContentChanged = true;
             invalidateProperties();
         }
         
         public function get helpContent():IDeferredInstance
         {
-            return _helpContentFactory;
+            return _helpContent;
         }
         
-        //----------------------------------
-        //  helpText
-        //----------------------------------
-        
-        private var _helpText:String = "";
-        private var helpTextChanged:Boolean = false;
-        
-        [Bindable("helpTextChanged")]
-        [Inspectable(category="General", defaultValue="")]
-        
-        /**
-         *  Text that provides a description of the form item or instructions for filling it out.   
-         * 
-         *  @default ""
-         */
-        public function get helpText():String
-        {
-            return _helpText;
-        }
-        
-        /**
-         *  @private
-         */
-        public function set helpText(value:String):void
-        {
-            if (_helpText == value)
-                return;
-            
-            _helpText = value;
-            helpTextChanged = true;
-            invalidateProperties();
-        }
         
         //----------------------------------
         //  label
@@ -328,9 +289,13 @@ package spark.components
             _required = value;
             invalidateSkinState();
         }
-       
+              
         
-        
+        //--------------------------------------------------------------------------
+        //
+        //  Overridden Properties
+        //
+        //--------------------------------------------------------------------------
         
         //----------------------------------
         //  baselinePosition
@@ -388,14 +353,24 @@ package spark.components
          */
         override protected function getCurrentSkinState():String
         {
-            if (elementErrorStrings.length > 0)
-                return "error";
-            if(required && (enabled == false))
-                return "requiredAndDisabled";
             if (required)
-                return "required";
-            
-            return "normal";
+            {
+                if (!enabled)
+                    return "requiredAndDisabled";
+                else if (elementErrorStrings.length > 0)
+                    return "requiredAndError";
+                else
+                    return "required";
+            }
+            else
+            {
+                if (!enabled)
+                    return "disabled";
+                else if (elementErrorStrings.length > 0)
+                    return "error";
+                else
+                    return "normal";       
+            }
         }
         
         /**
@@ -416,26 +391,7 @@ package spark.components
             else if (instance == helpContentGroup)
                 createHelpContent();
         }
-        
-        /**
-         *  @private
-         */
-        override public function styleChanged(styleProp:String):void
-        {
-            super.styleChanged(styleProp);
-            
-            var allStyles:Boolean = (styleProp == null) || (styleProp == "styleName"); 
-            if (allStyles || (layoutStyles.indexOf(styleProp) != -1))
-            {
-                invalidateSize();
-                invalidateDisplayList();
-            }
-        }
-        
-        private static const layoutStyles:Array = 
-            ["indicatorGap", "labelWidth", "paddingBottom", "paddingTop", "paddingLeft", "paddingRight"];
-        
-        
+                
         // TODO Remove once we switch from Canvas to FormItemLayout
         private function applyConstraintColumns(columns:Vector.<Number>):void
         {
@@ -459,44 +415,71 @@ package spark.components
             }
         }
         
-        public function elementAddHandler(event:ElementExistenceEvent):void
+        //--------------------------------------------------------------------------
+        //
+        //  Event Handlers 
+        //
+        //--------------------------------------------------------------------------
+        
+        /**
+         *  @private
+         */
+        private function elementAddHandler(event:ElementExistenceEvent):void
         {
+            if (event.isDefaultPrevented())
+                return;
+            
             var uicElt:UIComponent = event.element as UIComponent;
             
             if (uicElt)
             {
                 uicElt.addEventListener(FlexEvent.VALID, element_validHandler);
                 uicElt.addEventListener(FlexEvent.INVALID, element_invalidHandler);
-                uicElt.showErrorSkin = true;
-                uicElt.showErrorTip = false;
+               /* uicElt.showErrorSkin = false;
+                uicElt.showErrorTip = false;*/
             }
         }
         
-        public function elementRemoveHandler(event:ElementExistenceEvent):void
+        /**
+         *  @private
+         */
+        private function elementRemoveHandler(event:ElementExistenceEvent):void
         {
+            if (event.isDefaultPrevented())
+                return;
+            
             var uicElt:UIComponent = event.element as UIComponent;
             
             if (uicElt)
             {
                 uicElt.removeEventListener(FlexEvent.VALID, element_validHandler);
                 uicElt.removeEventListener(FlexEvent.INVALID, element_invalidHandler);
-                uicElt.showErrorSkin = true;
-                uicElt.showErrorTip = true;
+                /*uicElt.showErrorSkin = true;
+                uicElt.showErrorTip = true;*/
             }
         }
         
-        protected function element_validHandler(event:FlexEvent):void
+        /**
+         *  @private
+         */
+        private function element_validHandler(event:FlexEvent):void
         {
             // update error string
             updateErrorString();
         }
         
-        protected function element_invalidHandler(event:FlexEvent):void
+        /**
+         *  @private
+         */
+        private function element_invalidHandler(event:FlexEvent):void
         {
             // update error string
             updateErrorString();
         }
         
+        /**
+         *  @private
+         */
         private function updateErrorString():void
         {
             var uicElt:UIComponent;
@@ -521,7 +504,10 @@ package spark.components
             dispatchEvent(new Event("elementErrorStringsChanged"));
         }
         
-        private function applyErrorText():void
+        /**
+         *  @private
+         */
+        protected function applyErrorText():void
         {
             if (!errorTextDisplay)
                 return;
@@ -538,34 +524,22 @@ package spark.components
             
         }
         
+        /**
+         *  @private
+         */
         private function createHelpContent():void
         {
-            if (_helpContentFactory && helpContentGroup && helpContentFactoryChanged)
+            if (_helpContent && helpContentGroup && helpContentChanged)
             {
-                helpContentFactoryChanged = false;
+                helpContentChanged = false;
                 
-                var content:Object = _helpContentFactory.getInstance();
+                var content:Object = _helpContent.getInstance();
                 
                 if (!(content is Array))
-                {
                     content = [content];
-                }
                 
                 helpContentGroup.mxmlContent = content as Array; 
-
             }
-            /*if (!mxmlContentCreated)
-            {
-                mxmlContentCreated = true;
-                
-                if (_mxmlContentFactory)
-                {
-                    var deferredContent:Object = _mxmlContentFactory.getInstance();
-                    mxmlContent = deferredContent as Array;
-                    _deferredContentCreated = true;
-                    dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
-                }
-            }*/
         }
         
     }
