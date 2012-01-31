@@ -649,6 +649,12 @@ public class Operation extends AbstractOperation
      */
     override public function send(...args:Array):AsyncToken
     {
+        if (service != null)
+            service.initialize();
+
+        if (operationManager != null)
+            return operationManager(args);
+
         var argsToPass:Object = null;
         if (args && args.length > 0)
         {
