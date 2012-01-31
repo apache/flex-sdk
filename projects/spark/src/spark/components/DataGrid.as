@@ -4299,7 +4299,7 @@ public class DataGrid extends SkinnableContainerBase
         // allow the column's width to grow to the extent that the adjacent 
         // (next) column can shrink. 
         
-        if (isNaN(estimatedWidth) && (layoutDirection == LayoutDirection.RTL))
+        if (isNaN(explicitWidth) && (layoutDirection == LayoutDirection.RTL))
         {
             const nextColumnIndex:int = grid.getNextVisibleColumnIndex(resizeColumn.columnIndex);
             nextColumn = getColumnAt(nextColumnIndex);
