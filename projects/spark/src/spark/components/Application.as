@@ -17,6 +17,7 @@ import flash.display.InteractiveObject;
 import flash.display.Stage;
 import flash.events.ContextMenuEvent;
 import flash.events.Event;
+import flash.events.EventDispatcher;
 import flash.events.SoftKeyboardEvent;
 import flash.events.UncaughtErrorEvent;
 import flash.external.ExternalInterface;
@@ -1428,9 +1429,17 @@ public class Application extends SkinnableContainer
             addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
                 softKeyboardDeactivateHandler, true, 
                 EventPriority.DEFAULT, true);
+            
+            // Listen for the deactivate event so we can close the softKeyboard
+            var nativeApp:Object = FlexGlobals.topLevelApplication.
+                systemManager.getDefinitionByName("flash.desktop.NativeApplication");
+            
+            if (nativeApp && nativeApp["nativeApplication"])
+                EventDispatcher(nativeApp["nativeApplication"]).
+                    addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler);
         }
     }
-
+    
     /**
      *  @private
      */
@@ -1803,6 +1812,21 @@ public class Application extends SkinnableContainer
                 
                 validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
             }
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function nativeApplication_deactivateHandler(event:Event):void
+    {
+        // Close the softKeyboard if we deactivate the application. This works
+        // around an iOS bug where the SoftKeyboard.DEACTIVATE event isn't
+        // dispatched when the application is deactivated. 
+        if (isSoftKeyboardActive)
+        {
+            stage.focus = null;
+            softKeyboardDeactivateHandler(null);
         }
     }
     
