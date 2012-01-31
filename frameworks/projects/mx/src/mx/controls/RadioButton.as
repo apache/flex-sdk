@@ -24,6 +24,8 @@ import mx.core.IToggleButton;
 import mx.events.ItemClickEvent;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerGroup;
+import mx.core.UITextField;
+import flash.text.TextLineMetrics;
 
 use namespace mx_internal;
 
@@ -498,7 +500,18 @@ public class RadioButton extends Button implements IFocusManagerGroup, IToggleBu
     {
         super.measure();
 
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+        if (!label &&
+            FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            // Adjust the height to account for text height, even when there
+            // is no label. super.measure() handles non-null label case, so we just
+            // handle null label case here
+            var lineMetrics:TextLineMetrics  = measureText(label);
+            var textH:Number = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
+            textH += getStyle("paddingTop") + getStyle("paddingBottom");
+            measuredMinHeight = measuredHeight = Math.max(textH, measuredMinHeight);
+        }
+        else if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
         {
 	        var textHeight:Number = measureText(label).height;
 	        var iconHeight:Number = currentIcon ? currentIcon.height : 0;
