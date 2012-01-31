@@ -79,6 +79,7 @@ import mx.managers.CursorManager;
 import mx.managers.CursorManagerPriority;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
+import mx.managers.ISystemManager2;
 import mx.skins.halo.ListDropIndicator;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.StyleManager;
@@ -3886,9 +3887,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
         // listen for keyStrokes on the itemEditorInstance (which lets the grid supervise for ESC/ENTER)
         DisplayObject(itemEditorInstance).addEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
         // we disappear on any mouse down outside the editor
-        stage.addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
+        systemManager.addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
         // we disappear if stage is resized
-        stage.addEventListener(Event.RESIZE, editorStageResizeHandler, true, 0, true);
+        systemManager.addEventListener(Event.RESIZE, editorStageResizeHandler, true, 0, true);
     }
 
     /**
@@ -4751,9 +4752,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     private function itemEditorItemEditBeginHandler(event:DataGridEvent):void
     {
-        // weak reference for deactivation
-        if (stage)
-            stage.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
+		if (root)
+	        systemManager.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
 
         // if not prevented and if data is not null (might be from dataservices)
         if (!event.isDefaultPrevented() && actualContentHolder.listItems[actualRowIndex][actualColIndex].data != null)
