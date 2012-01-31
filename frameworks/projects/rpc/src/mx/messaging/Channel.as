@@ -46,7 +46,7 @@ use namespace mx_internal;
  *
  *  @eventType mx.messaging.events.ChannelEvent.CONNECT
  */
-[Event(name="channelConnect", type="mx.messaging.events.ChannelEvent")]
+[Event(name="connect", type="mx.messaging.events.ChannelEvent")]
 
 /**
  *  Dispatched after the channel has disconnected from its endpoint.
@@ -59,7 +59,7 @@ use namespace mx_internal;
  *  @productversion BlazeDS 4
  *  @productversion LCDS 3 
  */
-[Event(name="channelDisconnect", type="mx.messaging.events.ChannelEvent")]
+[Event(name="disconnect", type="mx.messaging.events.ChannelEvent")]
 
 /**
  *  Dispatched after the channel has faulted.
@@ -72,7 +72,7 @@ use namespace mx_internal;
  *  @productversion BlazeDS 4
  *  @productversion LCDS 3  
  */
-[Event(name="channelFault", type="mx.messaging.events.ChannelFaultEvent")]
+[Event(name="fault", type="mx.messaging.events.ChannelFaultEvent")]
 
 /**
  *  Dispatched when a channel receives a message from its endpoint.
