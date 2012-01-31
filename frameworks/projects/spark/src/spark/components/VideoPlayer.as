@@ -781,7 +781,7 @@ public class VideoPlayer extends SkinnableComponent
     //----------------------------------
     
     [Bindable("playheadUpdate")]
-    [Bindable("autoRewound")]
+    [Bindable("playheadTimeChanged")]
     [Inspectable(Category="General", defaultValue="0")]
     
     /**
@@ -877,6 +877,7 @@ public class VideoPlayer extends SkinnableComponent
     
     [Bindable("complete")]
     [Bindable("metadataReceived")]
+    [Bindable("totalTimeChanged")]
     [Inspectable(Category="General", defaultValue="0")]
     
     /**
@@ -1026,9 +1027,10 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.addEventListener(spark.events.VideoEvent.READY, dispatchEvent);
             videoElement.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
             videoElement.addEventListener("playingChanged", videoElement_playingChangedHandler);
+            videoElement.addEventListener("playheadTimeChanged", videoElement_playHeadChangedHandler);
+            videoElement.addEventListener("totalTimeChanged", videoElement_totalTimeChangedHandler);
             
             // just strictly for binding purposes
-            videoElement.addEventListener("autoRewound", videoElement_autoRewoundHandler);
             videoElement.addEventListener("sourceChanged", dispatchEvent);
             videoElement.addEventListener("volumeChanged", videoElement_volumeChangedHandler);
             
@@ -1216,9 +1218,10 @@ public class VideoPlayer extends SkinnableComponent
             videoElement.removeEventListener(spark.events.VideoEvent.READY, dispatchEvent);
             videoElement.removeEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
             videoElement.removeEventListener("playingChanged", videoElement_playingChangedHandler);
+            videoElement.removeEventListener("playheadTimeChanged", videoElement_playHeadChangedHandler);
+            videoElement.removeEventListener("totalTimeChanged", videoElement_totalTimeChangedHandler);
             
             // just strictly for binding purposes
-            videoElement.removeEventListener("autoRewound", videoElement_autoRewoundHandler);
             videoElement.removeEventListener("sourceChanged", dispatchEvent);
             videoElement.removeEventListener("volumeChanged", videoElement_volumeChangedHandler);
         }
@@ -1341,8 +1344,8 @@ public class VideoPlayer extends SkinnableComponent
         if (!scrubBarMouseCaptured && !scrubBarChanging)
         {
             scrubBar.minimum = 0;
-            scrubBar.maximum = videoElement.totalTime;
-            scrubBar.value = videoElement.playheadTime;
+            scrubBar.maximum = isNaN(videoElement.totalTime) ? 0 : videoElement.totalTime;
+            scrubBar.value = isNaN(videoElement.playheadTime) ? 0 : videoElement.playheadTime;
         }
         
         if (scrubBar is VideoPlayerScrubBar)
@@ -1367,6 +1370,9 @@ public class VideoPlayer extends SkinnableComponent
      */
     protected function formatTimeValue(value:Number):String
     {
+        if (isNaN(value))
+            value = 0;
+        
         // default format: hours:minutes:seconds
         var hours:uint = Math.floor(value/3600) % 24;
         var minutes:uint = Math.floor(value/60) % 60;
@@ -1432,14 +1438,28 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private function videoElement_autoRewoundHandler(event:Event):void
+    private function videoElement_playHeadChangedHandler(event:Event):void
     {
         updateScrubBar();
         
         if (playheadTimeLabel)
             updatePlayheadTime();
         
-        // for binding purposes:
+        // for binding purposes
+        dispatchEvent(event);
+    }
+    
+    /**
+     *  @private
+     */
+    private function videoElement_totalTimeChangedHandler(event:Event):void
+    {
+        updateScrubBar();
+        
+        if (totalTimeLabel)
+            updateTotalTime();
+        
+        // for binding purposes
         dispatchEvent(event);
     }
     
