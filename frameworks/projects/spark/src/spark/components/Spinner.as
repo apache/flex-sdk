@@ -18,10 +18,13 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
 import spark.components.supportClasses.Range;
+
+use namespace mx_internal;
 
 /**
  *  Dispatched when the value of the Spinner control changes
@@ -98,6 +101,7 @@ import spark.components.supportClasses.Range;
 
 [IconFile("Spinner.png")]
 
+[AccessibilityClass(implementation="spark.accessibility.SpinnerAccImpl")]
 /**
  *  A Spinner component selects a value from an
  *  ordered set. It uses two buttons that increase or
@@ -186,6 +190,18 @@ import spark.components.supportClasses.Range;
 public class Spinner extends Range implements IFocusManagerComponent
 {
     include "../core/Version.as";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by SpinnerAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -280,6 +296,22 @@ public class Spinner extends Range implements IFocusManagerComponent
     {
         _allowValueWrap = value;
     }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+
+     /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (Spinner.createAccessibilityImplementation != null)
+            Spinner.createAccessibilityImplementation(this);
+    }
+
     
     //--------------------------------------------------------------------------
     //
