@@ -173,13 +173,13 @@ SkinnableContainer
 
 SkinnableTextBase:normalWithPrompt 
 {
-    color: #CCCCCC;
+    color: #BABABA;
     fontStyle: italic;
 }
 
 SkinnableTextBase:disabledWithPrompt 
 {
-    color: #CCCCCC;
+    color: #BABABA;
     fontStyle: italic;
 }
 
