@@ -2387,12 +2387,13 @@ public class DataGrid extends SkinnableContainerBase
         if (selectionMode == GridSelectionMode.MULTIPLE_CELLS || 
             selectionMode == GridSelectionMode.MULTIPLE_ROWS)
         {
-            commitInteractiveSelection(
+            if (commitInteractiveSelection(
                 GridSelectionEventKind.SELECT_ALL,
-                0, 0, dataProvider.length, columns.length);
-            
-            grid.anchorRowIndex = 0;
-            grid.anchorColumnIndex = 0;
+                0, 0, dataProvider.length, columns.length))
+            {
+                grid.anchorRowIndex = 0;
+                grid.anchorColumnIndex = 0;
+            }
         }
     }
     
@@ -3317,10 +3318,10 @@ public class DataGrid extends SkinnableContainerBase
      *  the 0-based row indices of the rows in the selection.  The default is 
      *  null to indicate this parameter is not being used.
      * 
-     *  @return <code>true</code> if the selection was committed, or <code>false</code> 
-     *  if the selection was canceled or could not be committed due to an error, such as
-     *  index out of range or the <code>selectionEventKind</code> is not compatible 
-     *  with the <code>selectionMode</code>.
+     *  @return <code>true</code> if the selection was committed or did not change, or 
+     *  <code>false</code> if the selection was canceled or could not be committed due to 
+     *  an error, such as index out of range or the <code>selectionEventKind</code> is not 
+     *  compatible with the <code>selectionMode</code>.
      * 
      *  @see spark.events.GridSelectionEvent#SELECTION_CHANGE
      *  @see spark.events.GridSelectionEvent#SELECTION_CHANGING
@@ -3351,7 +3352,7 @@ public class DataGrid extends SkinnableContainerBase
         // Step 1: determine if the selection will change if the operation.
         // is committed.  
         if (!doesChangeCurrentSelection(selectionEventKind, selectionChange))
-            return false;
+            return true;
         
         // Step 2: dispatch the "changing" event. If preventDefault() is called
         // on this event, the selection change will be cancelled.        
@@ -3934,13 +3935,14 @@ public class DataGrid extends SkinnableContainerBase
                 kind = GridSelectionEventKind.SET_CELL;
         }
         
-        var changed:Boolean = 
+        var success:Boolean = 
             commitInteractiveSelection(kind, rowIndex, columnIndex);
         
-        // Update the caret even if the selection did not change.
-        commitCaretPosition(rowIndex, columnIndex);
+        // Update the caret if the selection was not cancelled.
+        if (success)
+            commitCaretPosition(rowIndex, columnIndex);
         
-        return changed;
+        return success;
     }
     
     /**
@@ -3956,11 +3958,11 @@ public class DataGrid extends SkinnableContainerBase
                     
         const startRowIndex:int = Math.min(grid.anchorRowIndex, caretRowIndex);
         const endRowIndex:int = Math.max(grid.anchorRowIndex, caretRowIndex);
-        var changed:Boolean;
+        var success:Boolean;
         
         if (selectionMode == GridSelectionMode.MULTIPLE_ROWS)
         {
-            changed = commitInteractiveSelection(
+            success = commitInteractiveSelection(
                 GridSelectionEventKind.SET_ROWS,
                 startRowIndex, -1,
                 endRowIndex - startRowIndex + 1, 0);
@@ -3968,7 +3970,7 @@ public class DataGrid extends SkinnableContainerBase
         else if (selectionMode == GridSelectionMode.SINGLE_ROW)
         {
             // Can't extend the selection so move it to the caret position.
-            changed = commitInteractiveSelection(
+            success = commitInteractiveSelection(
                 GridSelectionEventKind.SET_ROW, caretRowIndex, -1, 1, 0);                
         }
         else if (selectionMode == GridSelectionMode.MULTIPLE_CELLS)
@@ -3980,7 +3982,7 @@ public class DataGrid extends SkinnableContainerBase
                 Math.max(grid.anchorColumnIndex, caretColumnIndex); 
             const columnCount:int = endColumnIndex - startColumnIndex + 1;
             
-            changed = commitInteractiveSelection(
+            success = commitInteractiveSelection(
                 GridSelectionEventKind.SET_CELL_REGION, 
                 startRowIndex, startColumnIndex,
                 rowCount, columnCount);
@@ -3988,15 +3990,16 @@ public class DataGrid extends SkinnableContainerBase
         else if (selectionMode == GridSelectionMode.SINGLE_CELL)
         {
             // Can't extend the selection so move it to the caret position.
-            changed = commitInteractiveSelection(
+            success = commitInteractiveSelection(
                 GridSelectionEventKind.SET_CELL, 
                 caretRowIndex, caretColumnIndex, 1, 1);                
         }
         
         // Update the caret.
-        commitCaretPosition(caretRowIndex, caretColumnIndex);
+        if (success)
+            commitCaretPosition(caretRowIndex, caretColumnIndex);
         
-        return changed;
+        return success;
     }
     
     /**
@@ -4007,29 +4010,31 @@ public class DataGrid extends SkinnableContainerBase
     {
         // click sets the selection and updates the caret and anchor 
         // positions.
-        var changed:Boolean;
+        var success:Boolean;
         if (isRowSelectionMode())
         {
             // Select the row.
-            changed = commitInteractiveSelection(
+            success = commitInteractiveSelection(
                 GridSelectionEventKind.SET_ROW, 
                 rowIndex, columnIndex);
         }
         else if (isCellSelectionMode())
         {
             // Select the cell.
-            changed = commitInteractiveSelection(
+            success = commitInteractiveSelection(
                 GridSelectionEventKind.SET_CELL, 
                 rowIndex, columnIndex);
         }
         
-        // Update the caret and anchor positions even if the selection did not
-        // change.
-        commitCaretPosition(rowIndex, columnIndex);
-        grid.anchorRowIndex = rowIndex;
-        grid.anchorColumnIndex = columnIndex; 
-        
-        return changed;
+        // Update the caret and anchor positions unless cancelled.
+        if (success)
+        {
+            commitCaretPosition(rowIndex, columnIndex);
+            grid.anchorRowIndex = rowIndex;
+            grid.anchorColumnIndex = columnIndex; 
+        }    
+
+        return success;
     }
     
     /**
