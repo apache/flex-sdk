@@ -819,17 +819,5 @@ class PollCommandMessageResponder extends MessageResponder
         {
         	pollingChannel.pollFailed(false);
         }
-    }      
-
-    //--------------------------------------------------------------------------
-    //
-    // Static Constants
-    // 
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Code that indicates a poll message faulted because the agent isn't subscribed.
-     */
-    private static const NOT_SUBSCRIBED_CODE:String = "Server.Processing.NotSubscribed";
+    }
 }
