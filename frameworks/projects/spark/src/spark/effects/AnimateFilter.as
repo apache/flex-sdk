@@ -52,6 +52,8 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @see spark.effects.supportClasses.AnimateFilterInstance
+ *
+ *  @includeExample examples/AnimateFilterEffectExample.mxml
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
