@@ -40,6 +40,12 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  Dispatched when the selection is going to change. 
  *  Calling the <code>preventDefault()</code> method
  *  on the event prevents the selection from changing.
+ *  
+ *  <p>This event is dispatched when the user interacts with the control.
+ *  When you change the value of the <code>selectedIndex</code> 
+ *  or <code>selectedItem</code> properties programmatically, 
+ *  the control does not dispatch the <code>changing</code> event. 
+ *  It dispatches the <code>valueCommit</code> event instead.</p>
  *
  *  @eventType spark.events.IndexChangeEvent.CHANGING
  *  
@@ -52,6 +58,12 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 /**
  *  Dispatched after the selection has changed. 
+ *  This event is dispatched when the user interacts with the control.
+ * 
+ *  <p>When you change the value of the <code>selectedIndex</code> 
+ *  or <code>selectedItem</code> properties programmatically, 
+ *  the control does not dispatch the <code>change</code> event. 
+ *  It dispatches the <code>valueCommit</code> event instead.</p>
  *
  *  @eventType spark.events.IndexChangeEvent.CHANGE
  *  
@@ -564,6 +576,11 @@ public class ListBase extends SkinnableDataContainer
      *     and there is at least one item.</li>
      *  </ul>
      *
+     *  <p>When the user changes the <code>selectedIndex</code> property by interacting with the control,
+     *  the control dispatches the <code>change</code> and <code>changing</code> events. 
+     *  When you change the value of the <code>selectedIndex</code> property programmatically,
+     *  it dispatches the <code>valueCommit</code> event.</p>
+     *
      *  @default -1
      *  
      *  @langversion 3.0
@@ -639,6 +656,11 @@ public class ListBase extends SkinnableDataContainer
      *    <li>The first item if <code>requireSelection</code> = <code>true</code> 
      *      and there is at least one item.</li>
      *  </ul>
+     *
+     *  <p>When the user changes the <code>selectedItem</code> property by interacting with the control,
+     *  the control dispatches the <code>change</code> and <code>changing</code> events. 
+     *  When you change the value of the <code>selectedItem</code> property programmatically,
+     *  it dispatches the <code>valueCommit</code> event.</p>
      *
      *  @default undefined
      *  
