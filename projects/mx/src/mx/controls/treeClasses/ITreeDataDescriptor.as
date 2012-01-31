@@ -19,6 +19,11 @@ import mx.collections.ICollectionView;
  *  to a collection of data that is displayed by a Tree control.
  *
  *  @see mx.collections.ICollectionView
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ITreeDataDescriptor
 {
@@ -35,6 +40,11 @@ public interface ITreeDataDescriptor
      *  @param model The entire collection that this node is a part of.
      *
      *  @return An collection view containing the child nodes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getChildren(node:Object, model:Object = null):ICollectionView;
 
@@ -46,6 +56,11 @@ public interface ITreeDataDescriptor
      *  @param model The entire collection that this node is a part of.
      *  
      *  @return <code>true</code> if the node has at least one child.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function hasChildren(node:Object, model:Object = null):Boolean;
 
@@ -59,6 +74,11 @@ public interface ITreeDataDescriptor
      *  @param model The entire collection that this node is a part of.
      *
      *  @return A Boolean indicating if this node is non-terminating.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function isBranch(node:Object, model:Object = null):Boolean;
 
@@ -70,6 +90,11 @@ public interface ITreeDataDescriptor
      *  @param model The collection that contains the node.
      *
      *  @return The requested data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      function getData(node:Object, model:Object = null):Object;
 
@@ -85,6 +110,11 @@ public interface ITreeDataDescriptor
      *  @param model The entire collection that this node is a part of.
      *  
      *  @return <code>true</code> if successful.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function addChildAt(parent:Object, newChild:Object,
                         index:int, model:Object = null):Boolean;
@@ -101,6 +131,11 @@ public interface ITreeDataDescriptor
      *  @param model The entire collection that this node is a part of.
      *  
      *  @return <code>true</code> if successful.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function removeChildAt(parent:Object, child:Object,
                            index:int, model:Object = null):Boolean;
