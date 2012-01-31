@@ -17,6 +17,7 @@ import __AS3__.vec.Vector;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.events.MouseEvent;
 import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
@@ -651,23 +652,23 @@ public class GroupBase extends UIComponent implements IViewport
         return ResizeMode.NORMAL;
     }
     
-/**
- *  The ResizeMode for this container.  If the resize mode
- *  is set to <code>ResizeMode.NORMAL</code>, resizing is done by laying 
- *  out the children with our new width and height.  If the 
- *  resize mode is set to <code>ResizeMode.SCALE</code>, all of the children 
- *  keep their unscaled width and height and the children 
- *  are scaled to change size.
- * 
- * <p>The default value is <code>ResizeMode.NORMAL</code>, corresponding to "normal".</p>
- * 
- * @see spark.components.ResizeMode
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
+    /**
+     *  The ResizeMode for this container.  If the resize mode
+     *  is set to <code>ResizeMode.NORMAL</code>, resizing is done by laying 
+     *  out the children with our new width and height.  If the 
+     *  resize mode is set to <code>ResizeMode.SCALE</code>, all of the children 
+     *  keep their unscaled width and height and the children 
+     *  are scaled to change size.
+     * 
+     * <p>The default value is <code>ResizeMode.NORMAL</code>, corresponding to "normal".</p>
+     * 
+     * @see spark.components.ResizeMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function get resizeMode():String
     {
         return resizeModeToString(_resizeMode);
@@ -693,7 +694,101 @@ public class GroupBase extends UIComponent implements IViewport
         // Invalidate the display list so that our validateMatrix() gets called.
         invalidateDisplayList();
     }
+
+    //----------------------------------
+    //  mouseOpaque
+    //----------------------------------
     
+    /**
+     *  @private
+     *  Storage for the mouseOpaque property
+     */
+    private var _mouseOpaque:Boolean = true;
+    protected var mouseEventReferenceCount:int;
+
+    [Inspectable(category="General")]
+    
+    /**
+     *  When set to true the mouseOpaque flag ensures that the entire bounds
+     *  of the Group are opaque to all mouse events such as clicks, rollOvers,
+     *  etc.
+     * 
+     *  @default true
+     *  
+     *  @langversion 4.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get mouseOpaque():Boolean
+    {
+        return _mouseOpaque;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set mouseOpaque(value:Boolean):void
+    {
+        if (value == _mouseOpaque)
+            return;
+            
+        _mouseOpaque = value;
+
+        if (_hasMouseListeners)
+            invalidateDisplayList();
+    }
+     
+    /**
+     *  @private
+     *  Render a transparent background fill as necessary to support the mouseOpaque flag.
+     *  We assume for now that we are the first layer to be rendered into the graphics
+     *  context.
+     */
+    protected function renderFillForMouseOpaque():void
+    {
+        if (_mouseOpaque && _hasMouseListeners)
+        {
+            graphics.clear();
+            graphics.beginFill(0xFFFFFF, 0);
+
+            var w:Number = (_resizeMode == _SCALE_UINT) ? measuredWidth : unscaledWidth;
+            var h:Number = (_resizeMode == _SCALE_UINT) ? measuredHeight : unscaledHeight;
+            graphics.drawRect(0, 0, w, h);
+          
+            graphics.endFill();
+        }
+    }
+
+    //----------------------------------
+    //  hasMouseListeners
+    //----------------------------------
+    
+    private var _hasMouseListeners:Boolean = false;
+    
+    /**
+     * @private
+     * 
+     * This is a protected helper property used when selectively rendering
+     * the fill layer for mouseOpaque (we only render when we have active
+     * mouse event listeners).
+     * 
+     */  
+    mx_internal function set hasMouseListeners(value:Boolean):void
+    {
+        if (_mouseOpaque)
+            $invalidateDisplayList();
+	_hasMouseListeners = value;
+    }
+    
+    /**
+     * @private
+     */  
+    mx_internal function get hasMouseListeners():Boolean
+    {
+        return _hasMouseListeners;
+    }
+        
     /**
      *  @private
      */
@@ -1018,7 +1113,94 @@ public class GroupBase extends UIComponent implements IViewport
         setContentWidth(width);
         setContentHeight(height);
     }
-        
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: EventDispatcher
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  We render a transparent background fill by default when we have mouse
+     *  listeners.
+     */
+    override public function addEventListener(type:String, listener:Function,
+        useCapture:Boolean = false, priority:int = 0,
+        useWeakReference:Boolean = false):void
+    {
+        super.addEventListener(type, listener, useCapture, priority, 
+            useWeakReference);
+
+        if (type == MouseEvent.CLICK ||
+            type == MouseEvent.DOUBLE_CLICK ||
+            type == MouseEvent.MOUSE_DOWN ||
+            type == MouseEvent.MOUSE_MOVE ||
+            type == MouseEvent.MOUSE_OVER ||
+            type == MouseEvent.MOUSE_OUT ||
+            type == MouseEvent.ROLL_OUT ||
+            type == MouseEvent.ROLL_OVER ||
+            type == MouseEvent.MOUSE_UP ||
+            type == MouseEvent.MOUSE_WHEEL)
+        {
+            if (mouseEventReferenceCount++ == 0)
+                hasMouseListeners = true;
+        }
+    }
+
+    /**
+     *  @private
+     *  We no longer render our default transparent background fill when we have 
+     *  no mouse listeners.
+     */
+    override public function removeEventListener( type:String, listener:Function,
+        useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+
+        if (type == MouseEvent.CLICK ||
+            type == MouseEvent.DOUBLE_CLICK ||
+            type == MouseEvent.MOUSE_DOWN ||
+            type == MouseEvent.MOUSE_MOVE ||
+            type == MouseEvent.MOUSE_OVER ||
+            type == MouseEvent.MOUSE_OUT ||
+            type == MouseEvent.ROLL_OUT ||
+            type == MouseEvent.ROLL_OVER ||
+            type == MouseEvent.MOUSE_UP ||
+            type == MouseEvent.MOUSE_WHEEL)
+        {
+            if (--mouseEventReferenceCount == 0)
+                hasMouseListeners = false;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Automation requires a version of addEventListener that does not
+     *  affect behavior of the underlying component.
+     */  
+    mx_internal function $addEventListener(
+                            type:String, listener:Function,
+                            useCapture:Boolean = false,
+                            priority:int = 0,
+                            useWeakReference:Boolean = false):void
+    {
+        super.addEventListener(type, listener, useCapture,
+                               priority, useWeakReference);
+    }
+
+    /**
+     *  @private
+     *  Automation requires a version of removeEventListener that does not
+     *  affect behavior of the underlying component.
+     */  
+    mx_internal function $removeEventListener(
+                              type:String, listener:Function,
+                              useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+    }
+           
     //--------------------------------------------------------------------------
     //
     //  Properties: Overriden Focus management
