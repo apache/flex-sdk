@@ -3972,6 +3972,10 @@ public class Container extends UIComponent
             child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
                 
         super.childAdded(child); // calls createChildren()
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
+            if (child is ILayoutElement)
+                validateEstimatedSizesOfChild(ILayoutElement(child));
     }
 
     /**
