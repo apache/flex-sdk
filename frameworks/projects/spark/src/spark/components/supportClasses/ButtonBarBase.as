@@ -571,7 +571,13 @@ public class ButtonBarBase extends ListBase
      */
     private function dataProvider_changeHandler(event:Event):void
     {
-        selectedIndex = ISelectableList(dataProvider).selectedIndex;
+        var newSelectedIndex:int = ISelectableList(dataProvider).selectedIndex;
+        if (selectedIndex != newSelectedIndex)
+        {
+            selectedIndex = newSelectedIndex;
+            commitSelection(false);
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+        }
     }
     
     /**
