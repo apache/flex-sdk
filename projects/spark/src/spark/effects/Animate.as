@@ -262,6 +262,7 @@ public class FxAnimate extends Effect
                 var effectHolder:PropertyValuesHolder = PropertyValuesHolder(propertyValuesList[i]);
                 var holder:PropertyValuesHolder = new PropertyValuesHolder();
                 holder.property = effectHolder.property;
+                holder.delta = effectHolder.delta;
                 if (effectHolder.values)
                 {
                     holder.values = new Array(effectHolder.values.length);
