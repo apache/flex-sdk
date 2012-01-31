@@ -407,12 +407,20 @@ public class TextGraphic extends TextGraphicElement
     /**
      *  @private
      */
-    private function importMarkup(markup:String):TextFlow
+    private function importStringMarkup(markup:String):TextFlow
     {
         markup = '<TextFlow xmlns="http://ns.adobe.com/tcal/2008">' +
                  markup +
                  '</TextFlow>';
         
+        return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
+    }
+    
+    /**
+     *  @private
+     */
+    private function importXMLMarkup(markup:XML):TextFlow
+    {
         return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
     }
 
@@ -438,9 +446,13 @@ public class TextGraphic extends TextGraphicElement
                 textFlow = new TextFlow();
                 textFlow.mxmlChildren = [ _content ];
             }
+	        else if (_content is XML)
+            {
+                textFlow = importXMLMarkup(XML(_content));
+            }
             else if (_content is String)
             {
-                textFlow = importMarkup(String(_content));
+                textFlow = importStringMarkup(String(_content));
             }
             else if (_content == null)
             {
