@@ -1909,6 +1909,7 @@ public class VideoPlayer extends SkinnableComponent
      */
     public function play():void
     {
+        //trace("play");
         videoDisplay.play();
     }
     
@@ -1961,7 +1962,7 @@ public class VideoPlayer extends SkinnableComponent
         
         // if streaming, then we pretend to have everything in view
         // if progressive, then look at the bytesLoaded and bytesTotal
-        if (!videoDisplay.videoPlayer.downloadable)
+        if (!videoDisplay.videoPlayer.canLoad)
             scrubBar.loadedRangeEnd = videoDisplay.duration;
         else if (videoDisplay.bytesTotal == 0)
             scrubBar.loadedRangeEnd = 0;
@@ -2092,6 +2093,8 @@ public class VideoPlayer extends SkinnableComponent
         
         if (playPauseButton)
             playPauseButton.selected = playing;
+        
+        //trace("mediaPlayerStateChangeHandler " + event + " state = " + event.state + " playing = " + playing);
         
         dispatchEvent(event);
     }
