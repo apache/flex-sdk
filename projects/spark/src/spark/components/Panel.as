@@ -12,10 +12,11 @@
 package spark.components
 {
 
+import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.utils.BitFlagUtil;
 
-import spark.components.supportClasses.TextBase;
+import spark.core.IDisplayText;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -269,7 +270,7 @@ public class Panel extends SkinnableContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var titleDisplay:TextBase;
+    public var titleDisplay:IDisplayText;
 
     //--------------------------------------------------------------------------
     //
@@ -286,7 +287,7 @@ public class Panel extends SkinnableContainer
      */
     override public function get baselinePosition():Number
     {
-        return getBaselinePositionForPart(titleDisplay);
+        return getBaselinePositionForPart(titleDisplay as IVisualElement);
     } 
     
     //--------------------------------------------------------------------------
