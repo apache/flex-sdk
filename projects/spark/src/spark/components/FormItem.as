@@ -24,11 +24,11 @@ use namespace mx_internal;
 /**
  *  Specifies the image source to use for the error indicator. 
  *
- *  The default value is "assets/RequiredIndicator.png"
+ *  The default value is "assets/RequiredIndicator.png".
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="requiredIndicatorSource", type="Object", inherit="no")]
@@ -36,23 +36,66 @@ use namespace mx_internal;
 /**
  *  Specifies the image source to use for the required indicator. 
  *
- *  The default value is "assets/ErrorIndicator.png"
+ *  The default value is "assets/ErrorIndicator.png".
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
 [Style(name="errorIndicatorSource", type="Object", inherit="no")]
 
 /**
- *  SkinnableContainer with content and multiple properties. The FormItem's children 
- *  are the content and are placed in the contentGroup skin part. The FormItem 
- *  container defines a number of skin parts, including labelDisplay, 
- *  sequenceLabelDisplay, and helpContentGroup. The content of these skin parts are 
- *  specified in order by the label, sequenceLabel and helpContent properties.
+ *  The FormItem container defines the following in a Spark From:
+ *
+ *  <ul>
+ *    <li>A single label.</li>
+ *    <li>A sequence label.</li>
+ *    <li>One or more child controls or containers.</li>
+ *    <li>Help content that provides a description of the form item 
+ *      or instructions for filling it in.</li>
+ *    <li>Required indicator to indicate if a form item has to be filled</li>
+ *  </ul>
+ *
+ *  Children can be controls or other containers.
+ *  A single Form container can hold multiple FormItem containers.
+ *  By default, all the FormItem elements are arranged in a horizontal 
+ *  layout with the label placed on the left and the Help content on the right.
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:FormItem&gt;</code> tag inherits all the tag 
+ *  attributes of its superclass and adds no new tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:FormItem
+ *    <strong>Properties</strong>
+ *    helpContent="null"
+ *    label=""
+ *    required="false"
+ *    sequenceLabel=""
+ *  
+ *    <strong>Common Styles</strong>
+ *    errorIndicatorSource="assets/ErrorIndicator.png"
+ *    requiredIndicatorSource="assets/RequiredIndicator.png"
+ * 
+ *    <strong>Mobile Styles</strong>
+ *    leading="2"
+ *    letterSpacing="0"
+ *  /&gt;
+ *  </pre>
+ * 
+ *  @see spark.components.Form
+ *  @see spark.components.FormHeading
+ *  @see spark.layouts.FormLayout
+ *  @see spark.skins.spark.FormItemSkin
  *
  *  @includeExample examples/FormItemExample.mxml
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5 
  */
 public class FormItem extends SkinnableContainer
 {
@@ -66,6 +109,11 @@ public class FormItem extends SkinnableContainer
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function FormItem()
     {
@@ -118,9 +166,14 @@ public class FormItem extends SkinnableContainer
     mx_internal var _elementErrorStrings:Vector.<String> = new Vector.<String>;
     
     /**
-     *  Each vector item contains the error string from a content element. 
-     *  If none of the content elements are invalid, then the vector will 
-     *  be empty. 
+     *  Each Vector item contains the error string from a content element. 
+     *  If none of the content elements are invalid, then the vector 
+     *  is empty. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */     
     [Bindable(event="elementErrorStringsChanged")]
     
@@ -145,6 +198,11 @@ public class FormItem extends SkinnableContainer
      *  area of the FormItem.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get helpContent():Array
     {
@@ -174,10 +232,16 @@ public class FormItem extends SkinnableContainer
     [Inspectable(category="General", defaultValue="")]
     
     /**
-     *  Text that names the form content. For example, a FormItem to 
-     *  select a state might have a form label of "State"  
+     *  The label text displayed in the Form.
+     *  For example, a FormItem to 
+     *  select a state might have a form label of "State".
      * 
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get label():String
     {
@@ -210,19 +274,19 @@ public class FormItem extends SkinnableContainer
     
     /**
      *  If <code>true</code>, puts the FormItem skin into the
-     *  <code>required</code> state. By default, this displays 
+     *  <code>required</code> state. By default, this state displays 
      *  an indicator that the FormItem children require user input.
-     *  If <code>false</code>, indicator is not displayed.
+     *  If <code>false</code>, the indicator is not displayed.
      *
      *  <p>This property controls skin's state only.
-     *  You must attach a validator to the children
+     *  You must assign a validator to the child 
      *  if you require input validation.</p>
      *
      *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get required():Boolean
@@ -252,10 +316,14 @@ public class FormItem extends SkinnableContainer
     [Inspectable(category="General", defaultValue="")]
     
     /**
-     *  The number of the form item if the form creates a 
-     *  numbered list out of the form items  
+     *  The number of the form item in the form. 
      * 
      *  @default ""
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get sequenceLabel():String
     {
@@ -366,6 +434,9 @@ public class FormItem extends SkinnableContainer
         }
     }
     
+    /**
+     *  @private
+     */
     override protected function partRemoved(partName:String, instance:Object) : void
     {
         super.partRemoved(partName, instance);
@@ -412,12 +483,12 @@ public class FormItem extends SkinnableContainer
     }
     
     /**
-     *  Converts elementErrorStrings into a string and assigns
-     *  that string to the errorTextDisplay skinPart. 
+     *  Converts <code>elementErrorStrings</code> into a String, and assigns
+     *  that String to the <code>errorTextDisplay</code> skin part for display. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     protected function updateErrorTextDisplay():void
