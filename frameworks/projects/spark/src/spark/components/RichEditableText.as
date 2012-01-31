@@ -549,6 +549,31 @@ package spark.components
         //  Class methods
         //
         //--------------------------------------------------------------------------
+        /**
+         *  @private
+         */
+        public static function getNumberOrPercentOf(value:Object,
+                                                    n:Number):Number
+        {
+            // If 'value' is a Number like 10.5, return it.
+            if (value is Number)
+                return Number(value);
+            
+            // If 'value' is a percentage String like "10.5%",
+            // return that percentage of 'n'.
+            if (value is String)
+            {
+                var len:int = String(value).length;
+                if (len >= 1 && value.charAt(len - 1) == "%")
+                {
+                    var percent:Number = Number(value.substring(0, len - 1));
+                    return percent / 100 * n;
+                }
+            }
+            
+            // Otherwise, return NaN.
+            return NaN;
+        }        
         
         /**
          *  @private
@@ -560,7 +585,7 @@ package spark.components
                 strToInsert +
                 str.substring(end, str.length);
         }
-        
+
         //--------------------------------------------------------------------------
         //
         //  Constructor
@@ -3877,7 +3902,7 @@ package spark.components
             {
                 var value:Object = getStyle("lineHeight");     
                 var lineHeight:Number =
-                    TextUtil.getNumberOrPercentOf(value, getStyle("fontSize"));
+                    RichEditableText.getNumberOrPercentOf(value, getStyle("fontSize"));
                 
                 // Default is 120%
                 if (isNaN(lineHeight))
@@ -3987,7 +4012,8 @@ package spark.components
             
             // If copied/cut from displayAsPassword field the pastedText
             // is '*' characters but this is correct.
-            var pastedText:String = TextUtil.extractText(op.textScrap.textFlow);
+            var pastedText:String = staticPlainTextExporter.export(
+                op.textScrap.textFlow, ConversionType.STRING_TYPE) as String;
             
             // If there are no constraints and no newlines there is nothing
             // more to do.
