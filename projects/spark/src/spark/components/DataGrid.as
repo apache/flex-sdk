@@ -23,6 +23,7 @@ import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IToolTip;
 import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
@@ -30,6 +31,7 @@ import mx.managers.IFocusManagerComponent;
 
 import spark.components.supportClasses.CellPosition;
 import spark.components.supportClasses.CellRegion;
+import spark.components.supportClasses.DataGridEditor;
 import spark.components.supportClasses.GridDimensions;
 import spark.components.supportClasses.GridLayout;
 import spark.components.supportClasses.GridSelection;
@@ -396,6 +398,19 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     public var columnSeparator:IFactory;
     
     //----------------------------------
+    //  editorLayer
+    //----------------------------------
+    
+    [SkinPart(required="false", type="mx.core.IVisualElementContainer")]
+    
+    /**
+     *  @private
+     *  
+     *  Where item editors are added to the data grid.
+     */
+    public var itemEditorLayer:IVisualElementContainer;
+    
+    //----------------------------------
     //  grid
     //----------------------------------
     
@@ -635,6 +650,30 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     //--------------------------------------------------------------------------
     //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /** 
+     *  @private
+     * 
+     *  Key used to start editting a cell.
+     */ 
+    mx_internal var editKey:uint = Keyboard.F2;
+    
+    /** 
+     *  @private
+     * 
+     *  Provides all the logic to start and end item
+     *  editor sessions.
+     * 
+     *  After creating an instance of the editor call
+     *  the initialize() function.
+     */ 
+    mx_internal var editor:DataGridEditor;
+    
+    //--------------------------------------------------------------------------
+    //
     //  Properties 
     //
     //--------------------------------------------------------------------------
@@ -795,6 +834,48 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }        
 
     //----------------------------------
+    //  editable
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the draggableColumns property.
+     */
+    private var _editable:Boolean = false;
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  A flag that indicates whether or not the user can edit
+     *  items in the data provider.
+     *  If <code>true</code>, the item renderers in the control are editable.
+     *  The user can click on an item renderer to open an editor.
+     *
+     *  <p>You can turn off editing for individual columns of the
+     *  DataGrid control using the <code>DataGridColumn.editable</code> property,
+     *  or by handling the <code>startItemEditorSession</code> event</p>
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 4.5
+     */
+    public function get editable():Boolean
+    {
+        return _editable;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set editable(value:Boolean):void
+    {
+        _editable = value;
+    }
+    
+    //----------------------------------
     //  gridDimensions (private, read-only)
     //----------------------------------
     
@@ -826,6 +907,81 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!_gridSelection)
             _gridSelection = new GridSelection();  // TBD(hmuller):delegate to protected createGridSelection()
         return _gridSelection;
+    }
+    
+    //----------------------------------
+    //  itemEditor
+    //----------------------------------
+    
+    [Bindable("itemEditorChanged")]
+    
+    private var _itemEditor:IFactory = null;
+    
+    /**
+     *  A factory for IGridItemEditors used to edit individual grid cells.  
+     *  This property can provide a default value for grid columns that do
+     *  not specify an item editor.
+     * 
+     *  If not specified the <code>itemEditor</code> property on the grid 
+     *  column being edited will be used.  
+     * 
+     *  @default null.
+     *
+     *  @see #dataField 
+     *  @see GridItemRenderer
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5 
+     */
+    public function get itemEditor():IFactory
+    {
+        return _itemEditor;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set itemEditor(value:IFactory):void
+    {
+        if (_itemEditor == value)
+            return;
+        
+        _itemEditor = value;
+        
+        dispatchChangeEvent("itemEditorChanged");
+    }    
+        
+    /**
+     *  A reference to the currently active instance of the item editor, 
+     *  if it exists.
+     *
+     *  <p>To access the item editor instance and the new item value when an 
+     *  item is being edited, you use the <code>itemEditorInstance</code> 
+     *  property. The <code>itemEditorInstance</code> property
+     *  is not valid until after the event listener for
+     *  the <code>itemEditBegin</code> event executes. Therefore, you typically
+     *  only access the <code>itemEditorInstance</code> property from within 
+     *  the event listener for the <code>itemEditEnd</code> event.</p>
+     *
+     *  <p>The <code>DataGridColumn.itemEditor</code> property defines the
+     *  class of the item editor
+     *  and, therefore, the data type of the item editor instance.</p>
+     *
+     *  <p>You do not set this property in MXML.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get itemEditorInstance():IGridItemEditor
+    {
+        if (editor)
+            return editor.itemEditorInstance;
+        
+        return null; 
     }
     
     //----------------------------------
@@ -1130,13 +1286,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         dispatchChangeEvent("selectionModeChanged");
     }
     
-    private function isRowSelectionMode():Boolean
+    mx_internal function isRowSelectionMode():Boolean
     {
         const mode:String = selectionMode;
         return mode == GridSelectionMode.SINGLE_ROW || mode == GridSelectionMode.MULTIPLE_ROWS;
     }
     
-    private function isCellSelectionMode():Boolean
+    mx_internal function isCellSelectionMode():Boolean
     {
         const mode:String = selectionMode;        
         return mode == GridSelectionMode.SINGLE_CELL || mode == GridSelectionMode.MULTIPLE_CELLS;
@@ -1421,6 +1577,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             gridSelection.grid = grid;
             grid.gridSelection = gridSelection;
             grid.gridOwner = this;
+
+            // TODO (dloverin): only create the editor if one of the grid or one of the columns is editable.
+            editor = createEditor();
+            editor.initialize();
             
             // Grid cover Properties
             
@@ -2489,6 +2649,69 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 rowIndex, columnIndex, rowCount, columnCount) &&
                 gridSelection.selectionLength == rowCount * columnCount;
         }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Item Editor Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Starts an editor session on a selected cell in the data grid.
+     * 
+     *  A <code>startItemEditorSession</code> event is dispatch before
+     *  an item editor is created. This allows a listener a change to 
+     *  dynamically set an item editor for a specified cell. 
+     * 
+     *  The event can be cancelled which will prevent the editor session
+     *  from being created.
+     * 
+     *  @param rowIndex The zero-based row index of the cell to edit.
+     *  @param columnIndex The zero-based column index of the cell to edit.  
+     * 
+     *  @return true if the editor session was started. Returns false if
+     *  the editor session was cancelled.
+     */ 
+    public function startItemEditorSession(rowIndex:int, columnIndex:int):Boolean
+    {
+        if (editor)
+            return editor.startItemEditorSession(rowIndex, columnIndex);
+        
+        return false;
+    }
+    
+    /**
+     *  Starts an editor session on a selected cell in the data grid.
+     * 
+     *  A <code>startItemEditorSession</code> event is dispatch before
+     *  an item editor is created. This allows a listener a change to 
+     *  dynamically set an item editor for a specified cell. 
+     * 
+     *  The event can be cancelled which will prevent the editor session
+     *  from being created.
+     * 
+     *  @param rowIndex The zero-based row index of the cell to edit.
+     *  @param columnIndex The zero-based column index of the cell to edit.
+     * 
+     *  @return true if the editor session was saved, false if the save was
+     *  cancelled.  
+     */ 
+    public function endItemEditorSession(cancel:Boolean = false):Boolean
+    {
+        if (editor)
+            return editor.endItemEditorSession(cancel);
+        
+        return false;
+    }
+    
+    /**
+     *  Create the data grid editor. Overriding this function will
+     *  allow the complete replacement of the data grid editor.
+     */ 
+    mx_internal function createEditor():DataGridEditor
+    {
+        return new DataGridEditor(this);    
     }
     
     //--------------------------------------------------------------------------
