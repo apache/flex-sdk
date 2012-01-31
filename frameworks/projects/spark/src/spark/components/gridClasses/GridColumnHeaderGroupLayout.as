@@ -269,7 +269,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
 
             if (isLastColumn)
                 rendererWidth = horizontalScrollPosition + unscaledWidth - rendererX - paddingRight;
-
+            
             renderer.setLayoutBoundsSize(rendererWidth, rendererHeight);
             renderer.setLayoutBoundsPosition(rendererX, rendererY);
             
