@@ -65,8 +65,61 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  the end points of the slider track. 
  *  The current value of the slider is determined by the relative location of 
  *  the thumb between the end points of the slider, 
- *  corresponding to the slider's minimum and maximum values. 
+ *  corresponding to the slider's minimum and maximum values.
+ *
+ *  The Slider class is a base class for HSlider and VSlider.
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;Slider&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;Slider
+ *    <strong>Properties</strong>
+ *    dataTipFormatFunction="20"
+ *    dataTipPrecision="2"
+ *    showDataTip="true"
+ *
+ *    <strong>Styles</strong>
+ *    alignmentBaseline="USE_DOMINANT_BASELINE"
+ *    baselineShift="0.0"
+ *    breakOpportunity="AUTO"
+ *    cffHinting="HORIZONTAL_STEM"
+ *    color="0"
+ *    digitCase="DEFAULT"
+ *    digitWidth="DEFAULT"
+ *    direction="LTR"
+ *    dominantBaseline="AUTO"
+ *    focusColor
+ *    fontFamily="Times New Roman"
+ *    fontLookup="DEVICE"
+ *    fontSize="12"
+ *    fontStyle="NORMAL"
+ *    fontWeight="NORMAL"
+ *    justificationRule="AUTO"
+ *    justificationStyle="AUTO"
+ *    kerning="AUTO"
+ *    ligatureLevel="COMMON"
+ *    lineHeight="120%"
+ *    lineThrough="false"
+ *    liveDragging="false"
+ *    local="en"
+ *    renderingMode="CFF"
+ *    textAlign="START"
+ *    textAlignLast="START"
+ *    textAlpha="1"
+ *    textDecoration="NONE"
+ *    textJustify="INTER_WORD"
+ *    trackingLeft="0"
+ *    trackingRight="0"
+ *    typographicCase="DEFAULT"
+ *  /&gt;
+ *  </pre> 
  *  
+ *  @see spark.components.HSlider
+ *  @see spark.components.VSlider
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
@@ -185,7 +238,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     /**
 	 *  Number of decimal places to use for the data tip text.
 	 *  A value of 0 means to round all values to an integer.
-	 *  This value is ignored if dataTipFormatFunction is defined.
+	 *  This value is ignored if <code>dataTipFormatFunction</code> is defined.
 	 * 
 	 *  @default 2
 	 *  
@@ -201,7 +254,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //---------------------------------
     
     /**
-     *  If set to <code>true</code>, show a data tip during user interaction
+     *  If set to <code>true</code>, shows a data tip during user interaction
      *  containing the current value of the slider. In addition, the skinPart
      *  <code>dataTipFactory</code> must be defined in the skin in order to 
      *  display a data tip. 
@@ -224,14 +277,14 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     private var _pendingValue:Number = 0;
     
     /**
-     *  The value the slider would have, if the mouse button was released.
+     *  The value the slider will have when the mouse button is released.
      * 
-     *  <p>If the liveDragging style is false, then the slider's value is only set
-     *  when the mouse button is released, it's not updated while the slider thumb is
+     *  <p>If the <code>liveDragging</code> style is false, then the slider's value is only set
+     *  when the mouse button is released. The value is not updated while the slider thumb is
      *  being dragged.</p>
      * 
-     *  <p>This property is kept up to date when the slider thumb moves, even if 
-     *  liveDragging is false.</p>
+     *  <p>This property is updated when the slider thumb moves, even if 
+     *  <code>liveDragging</code> is false.</p>
      *  
      *  @default 0
      *  @return The value implied by the thumb position. 
@@ -336,8 +389,8 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      *  Used to position the data tip when it is visible. Subclasses must implement
      *  this function. 
      *  
-     *  @param dataTipInstance The dataTip instance to update and position
-     *  @param initialPosition The initial position of the dataTip in the skin
+     *  @param dataTipInstance The <code>dataTip</code> instance to update and position
+     *  @param initialPosition The initial position of the <code>dataTip</code> in the skin
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
