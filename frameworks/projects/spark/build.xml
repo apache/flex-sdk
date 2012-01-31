@@ -28,10 +28,12 @@
 				<include name="spark.swc"/>
 				<include name="graphics.swc"/>
 				<include name="spark.swc.incr"/>
+				<include name="flex4.swc"/>
 			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/locale">
 				<include name="*/spark_rb.swc"/>
 				<include name="*/spark_rb.swc.incr"/>
+				<include name="*/flex4_rb.swc"/>
 			</fileset>
 		</delete>
 	</target>
