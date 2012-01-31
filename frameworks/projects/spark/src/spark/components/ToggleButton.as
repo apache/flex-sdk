@@ -32,9 +32,24 @@ import mx.utils.BitFlagUtil;
 [Event(name="change", type="flash.events.Event")]
 
 /**
- *  The built-in set of states for the ToggleButton component.
+ *  Up State of the Button when it's selected
  */
-[SkinStates("up", "over", "down", "disabled", "upAndSelected", "overAndSelected", "downAndSelected", "disabledAndSelected")]
+[SkinState("upAndSelected")]
+
+/**
+ *  Over State of the Button when it's selected
+ */
+[SkinState("overAndSelected")]
+
+/**
+ *  Down State of the Button when it's selected
+ */
+[SkinState("downAndSelected")]
+
+/**
+ *  Disabled State of the Button when it's selected
+ */
+[SkinState("disabledAndSelected")]
 
 // TODO EGeorgie: figure out whether we need this?
 [DefaultBindingProperty(source="selected", destination="label")]
