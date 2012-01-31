@@ -152,7 +152,7 @@ public class ListBase extends SkinnableDataContainer
         super();
     }
     
-    mx_internal var allowCustomSelectedItem:Boolean = true;
+    mx_internal var allowCustomSelectedItem:Boolean = false;
     mx_internal static var CUSTOM_SELECTED_ITEM:int = -3;
     
     //--------------------------------------------------------------------------
@@ -437,7 +437,7 @@ public class ListBase extends SkinnableDataContainer
         if (_pendingSelectedItem !== undefined)
             return _pendingSelectedItem;
             
-        if (selectedIndex == CUSTOM_SELECTED_ITEM)
+        if (allowCustomSelectedItem && selectedIndex == CUSTOM_SELECTED_ITEM)
             return _selectedItem;
         
         if (selectedIndex == NO_SELECTION || dataProvider == null)
@@ -942,7 +942,7 @@ public class ListBase extends SkinnableDataContainer
         var oldSelectedIndex:int = _selectedIndex;
         var oldCaretIndex:int = _caretIndex;
         
-        if (_proposedSelectedIndex != CUSTOM_SELECTED_ITEM)
+        if (!allowCustomSelectedItem || _proposedSelectedIndex != CUSTOM_SELECTED_ITEM)
         {
             if (_proposedSelectedIndex < NO_SELECTION)
                 _proposedSelectedIndex = NO_SELECTION;
