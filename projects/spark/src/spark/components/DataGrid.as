@@ -21,8 +21,9 @@ import flash.ui.Keyboard;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
+import mx.collections.ISort;
+import mx.collections.ISortField;
 import mx.collections.Sort;
-import mx.collections.SortField;
 import mx.core.EventPriority;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
@@ -3435,7 +3436,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!dataProvider)
             return false;
         
-        var sort:Sort = dataProvider.sort;
+        var sort:ISort = dataProvider.sort;
         if (sort)
             sort.compareFunction = null;
         else
@@ -3478,7 +3479,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 return null;
             
             const isComplexDataField:Boolean = (dataField && (dataField.indexOf(".") != -1));
-            var sortField:SortField = null;
+            var sortField:ISortField = null;
             var sortDescending:Boolean = col.sortDescending;
             
             // Check if we just sorted this column.
@@ -3518,12 +3519,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @param fields The array of SortFields to search through.
      *  @param isComplexDataField true if the dataField is a path.
      */
-    private static function findSortField(dataField:String, fields:Array, isComplexDataField:Boolean):SortField
+    private static function findSortField(dataField:String, fields:Array, isComplexDataField:Boolean):ISortField
     {
         if (dataField == null)
             return null;
             
-        for each (var field:SortField in fields)
+        for each (var field:ISortField in fields)
         {
             var name:String = field.name;
             if (isComplexDataField && (field is GridSortField))
