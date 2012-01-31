@@ -193,7 +193,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!_allowMultipleSelection)
         {
             if (!requiresSelection)
-                _proposedSelectedIndices = [NO_SELECTION];
+                _proposedSelectedIndices = [];
             else 
                 _proposedSelectedIndices = [0];
             commitMultipleSelection(); 
@@ -218,7 +218,7 @@ public class List extends ListBase implements IFocusManagerComponent
         //properties stay in sync. 
         if (!_selectedIndices && _selectedIndex >= 0)
         {
-            _selectedIndices = [_selectedIndex]; 
+            selectedIndices = [_selectedIndex]; 
             return _selectedIndex; 
         }
             
@@ -303,7 +303,7 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         if (!allowMultipleSelection)
             return null;
-            
+        
         return _selectedIndices;
     }
     
@@ -471,6 +471,22 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
+     *  Returns the index of the first selected item. In single 
+     *  selection, this is just selectedIndex. In multiple 
+     *  selection, this is the index of the first selected item.  
+     */
+    private function getFirstSelectedIndex():Number
+    {
+        if (!allowMultipleSelection)
+            return selectedIndex;
+        else if (selectedIndices && selectedIndices.length > 0)
+            return selectedIndices[0]; 
+        else 
+            return -1; 
+    }
+    
+    /**
+     *  @private
      *  Returns true if a is null or an empty array.
      */
     private function isEmpty(a:Array):Boolean
@@ -599,8 +615,9 @@ public class List extends ListBase implements IFocusManagerComponent
                     {
                         //we need to respect requiresSelection 
                         if (!requiresSelection)
-                            return [NO_SELECTION];
-                        else return [selectedIndices[0]]; 
+                            return [];
+                        else 
+                            return [selectedIndices[0]]; 
                     }
                     else
                     {
@@ -701,31 +718,24 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_clickHandler(event:MouseEvent):void
     {
+    	// TODO (jszeto) Clear the caret 
         var newIndex:Number; 
-        if (selectUponNavigation)
+        if (!allowMultipleSelection)
         {
-            if (!allowMultipleSelection)
-            {
-                //Single selection case 
-                newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
-                
-                //Check to see if we're deselecting the currently selected item 
-                if (event.ctrlKey && selectedIndex == newIndex)
-                    selectedIndex = NO_SELECTION;  
-                //Otherwise, select the new item 
-                else 
-                    selectedIndex = newIndex; 
-            }
+            //Single selection case 
+            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
+            
+            //Check to see if we're deselecting the currently selected item 
+            if (event.ctrlKey && selectedIndex == newIndex)
+                selectedIndex = NO_SELECTION;  
+            //Otherwise, select the new item 
             else 
-            {
-                //Multiple selection is handled by the helper method below 
-                selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
-            }
+                selectedIndex = newIndex; 
         }
-        else
+        else 
         {
-            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
-            handleCaretChange(newIndex, true); 
+            //Multiple selection is handled by the helper method below 
+            selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
         }
     }
     
@@ -809,16 +819,22 @@ public class List extends ListBase implements IFocusManagerComponent
             return;
 
         var currentIndex:Number; 
+        
         if (allowMultipleSelection && selectedIndices && selectedIndices.length > 0)
             currentIndex = selectedIndices[selectedIndices.length - 1]; 
         else
             currentIndex = selectedIndex;
             
-        //Delegate to the layout to tell us what the next item is we should select or focus into.
-	    // TODO (jszeto) At some point we should refactor this so we don't depend on layout
-	    // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
+        // Delegate to the layout to tell us what the next item is we should select or focus into.
+        // TODO (jszeto) At some point we should refactor this so we don't depend on layout
+        // for keyboard handling. If layout doesn't exist, then use some other keyboard handler
         var proposedNewIndex:int = (selectUponNavigation) ? layout.getDestinationIndex(navigationUnit, currentIndex)
             : layout.getDestinationIndex(navigationUnit, currentCaretIndex);   
+
+        // TODO (jszeto) proposedNewIndex depends on CTRL key
+        // move CTRL key logic into single selection
+        // add SPACE logic - add to selection for multi-select or change selection for single-select
+		
 
         // Note that the KeyboardEvent is canceled even if the current selected or in focus index
         // doesn't change because we don't want another component to start handling these
@@ -827,47 +843,41 @@ public class List extends ListBase implements IFocusManagerComponent
             return;
         event.preventDefault(); 
         
-        if (selectUponNavigation)
+        // Contiguous multi-selection action - create the new selection
+        // interval. 
+        if (allowMultipleSelection && event.shiftKey && selectedIndices)
         {
-            if (allowMultipleSelection && event.shiftKey && selectedIndices)
+            var startIndex:Number = getFirstSelectedIndex(); 
+            var newInterval:Array = []; 
+            var i:int; 
+            if (startIndex <= proposedNewIndex)
             {
-                var newInterval:Array = []; 
-                var i:int; 
-                //contiguous multi-selection action - create the new selection
-                //interval
-                if (selectedIndex <= proposedNewIndex)
+                for (i = startIndex; i <= proposedNewIndex; i++)
                 {
-                    for (i = selectedIndex; i <= proposedNewIndex; i++)
-                    {
-                        newInterval.push(i); 
-                    }
+                    newInterval.push(i); 
                 }
-                else 
-                {
-                    for (i = selectedIndex; i >= proposedNewIndex; i--)
-                    {
-                        newInterval.push(i); 
-                    }
-                }
-                selectedIndices = newInterval;   
-                ensureItemIsVisible(proposedNewIndex); 
             }
-            else
+            else 
             {
-                //simple new selection 
-                selectedIndex = proposedNewIndex; 
-                ensureItemIsVisible(proposedNewIndex);
+                for (i = startIndex; i >= proposedNewIndex; i--)
+                {
+                    newInterval.push(i); 
+                }
             }
+            selectedIndices = newInterval;   
+            ensureItemIsVisible(proposedNewIndex); 
         }
+        // Entering the caret state with the Ctrl key down 
+        else if (event.ctrlKey)
+        {
+            handleCaretChange(proposedNewIndex, true);
+            ensureItemIsVisible(proposedNewIndex); 
+        }
+        // Its just a new selection action  
         else
         {
-            //Handle the focus change of the items so that the currentCaretIndex property
-            //gets updated and the itemFocusChanged event dispatches. 
-            if(event.ctrlKey)
-            {
-                handleCaretChange(proposedNewIndex, true);
-                ensureItemIsVisible(proposedNewIndex); 
-            }
+            selectedIndex = proposedNewIndex; 
+            ensureItemIsVisible(proposedNewIndex);
         }
     }
   
