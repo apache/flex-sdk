@@ -1319,6 +1319,41 @@ public class Application extends LayoutContainer
         }
     }
 
+    /**
+     *  @private
+     *  
+     *  Container implements addChild in terms of addChildAt. 
+     */
+    override public function addChildAt(child:DisplayObject,
+                                        index:int):DisplayObject
+    {
+        super.addChildAt(child, index);
+        if (child == controlBar && 
+            "dock" in child && child["dock"] &&
+            "resetDock" in controlBar)
+        {
+            controlBar["resetDock"](true);
+        }
+        
+        return child;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  Container implements removeChildAt in terms of removeChild.
+     */
+    override public function removeChild(child:DisplayObject):DisplayObject
+    {
+        if (child == controlBar && 
+            "dock" in child && child["dock"])
+        {
+            dockControlBar(IUIComponent(child), false);
+        }
+        
+        return super.removeChild(child);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
