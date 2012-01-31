@@ -49,7 +49,6 @@ import mx.core.EdgeMetrics;
 import mx.core.EventPriority;
 import mx.core.FlexShape;
 import mx.core.FlexSprite;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
@@ -1463,9 +1462,6 @@ public class ListBase extends ScrollControlBase
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return super.baselinePosition;
-            
         if (!validateBaselinePosition())
             return NaN;
         
