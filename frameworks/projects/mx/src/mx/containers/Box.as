@@ -62,10 +62,13 @@ include "../styles/metadata/GapStyles.as";
 [IconFile("Box.png")]
 
 /**
- *  A Box container lays out its children in a single vertical column
+ *  A Halo Box container lays out its children in a single vertical column
  *  or a single horizontal row.
  *  The <code>direction</code> property determines whether to use
  *  vertical (default) or horizontal layout.
+ * 
+ *  <p><b>Note:</b> Adobe recommends that, when possible, you use the Spark containers 
+ *  with HorizontalLayout or VerticalLayout instead of the Halo Box container.</p>
  *
  *  <p>The Box class is the base class for the VBox and HBox classes.
  *  You use the <code>&lt;mx:Box&gt;</code>, <code>&lt;mx:VBox&gt;</code>,
@@ -122,6 +125,7 @@ include "../styles/metadata/GapStyles.as";
  *
  *  @includeExample examples/SimpleBoxExample.mxml
  *
+ *  @see mx.components.Container
  *  @see mx.containers.HBox
  *  @see mx.containers.VBox
  */
