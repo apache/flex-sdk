@@ -342,6 +342,7 @@ include "../styles/metadata/IconColorStyles.as"
 [Exclude(name="iconField", kind="property")]
 [Exclude(name="iconFunction", kind="property")]
 [Exclude(name="labelField", kind="property")]
+[Exclude(name="offscreenExtraRowsOrColumns", kind="property")]
 [Exclude(name="showDataTips", kind="property")]
 [Exclude(name="cornerRadius", kind="style")]
 
@@ -1984,8 +1985,6 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (rowCount > 1 && displayingPartialRow()) 
             rowCount--;
 
-        rowCount -= (offscreenExtraRowsTop + offscreenExtraRowsBottom);
-
         // offset, when added to rowCount, is the index of the dataProvider
         // item for that row.  IOW, row 10 in listItems is showing dataProvider
         // item 10 + verticalScrollPosition - lockedRowCount;
@@ -2011,6 +2010,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
             if (adjustVerticalScrollPositionDownward(Math.max(rowCount, 1)))
                 return;
         }
+
+        rowCount -= (offscreenExtraRowsTop + offscreenExtraRowsBottom);
 
         var collectionHasRows:Boolean = collection && collection.length > 0;
 
@@ -2074,7 +2075,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         var paddingBottom:Number = getStyle("paddingBottom");
 
         h = rowInfo[rowCount - 1].y + rowInfo[rowCount - 1].height;
-        h = listContent.heightExcludingOffsets - h;
+        h = listContent.heightExcludingOffsets - listContent.topOffset - h;
 
         // back up one
         var numRows:int = 0;
