@@ -84,7 +84,7 @@ public class DataGridEditor
     //--------------------------------------------------------------------------
     /**
      *  @private
-     *  Timer used to cancel edits it a double click occurs.
+     *  Timer used to cancel edits if a double click occurs.
      */
     private var doubleClickTimer:Timer;
     
@@ -100,21 +100,6 @@ public class DataGridEditor
      */
     private var gotFlexEnterEvent:Boolean;
     
-    /**
-     *  @private
-     *  The state of the grid selection at the last selection snapshot. Used in 
-     *  row selection mode.
-     */
-    private var previouslySelectedIndices:Vector.<int>;
-    
-    /**
-     *  @private
-     *  The state of the grid selection at the last selection snapshot. Used in
-     *  cell selection mode.
-     * 
-     */
-    private var previouslySelectedCells:Vector.<CellPosition>;
-   
     /**
      *  @private
      */
@@ -144,6 +129,16 @@ public class DataGridEditor
     
     /**
      *  @private
+     *  Determines if the hasFocusableChildren flags are restored when
+     *  an editor is destroyed. This is set to false when we know we will
+     *  be starting up another editor immeditiately. By not restoring
+     *  the tab children flag we will be saving FocusManager from removing
+     *  and then adding all the focusable children of the data grid.
+     */
+    private var restoreFocusableChildren:Boolean = true;
+
+    /**
+     *  @private
      *  Used to restore the value of DataGrid's hasFocusableChildren.
      */
     private var saveDataGridHasFocusableChildren:Boolean;
@@ -154,14 +149,6 @@ public class DataGridEditor
      */
     private var saveScrollerHasFocusableChildren:Boolean;
 
-    /**
-     *  @private
-     *  true if a new editor is planned to be started
-     *  after the current editor is closed. This hint can keep us from doing
-     *  work when closing the editor that would just need to be redone shortly.
-     */
-    private var willStartNewEditor:Boolean;
-    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -254,18 +241,6 @@ public class DataGridEditor
         commitEditedItemPosition(coord);
     }
 
-    /**
-     *  @private
-     *  true if we want to block editing on mouseUp
-     */
-    private var dontEdit:Boolean = false;
-    
-    /**
-     *  @private
-     *  true if we want to block editing on mouseUp
-     */
-    private var losingFocus:Boolean = false;
-    
     /**
      *  @private
      *  true if we're in the endEdit call.  Used to handle
@@ -387,11 +362,10 @@ public class DataGridEditor
         
         dataGrid.addEventListener(KeyboardEvent.KEY_DOWN, dataGrid_keyboardDownHandler);
         
-        // make sure we get first shot at mouse events before selection is changed. We use 
+        // Make sure we get first shot at mouse events before selection is changed. We use 
         // this is test if you are clicking on a selected row or not.
-        grid.addEventListener(MouseEvent.MOUSE_DOWN, grid_mouseDownHandler, false, 1000);
-        grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_gridMouseDownHandler);
-        grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_gridMouseUpHandler);
+        grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_gridMouseDownHandler, false, 1000);
+        grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_gridMouseUpHandler, false, 1000);
         grid.addEventListener(GridEvent.GRID_DOUBLE_CLICK, grid_gridDoubleClickHandler);
     }
     
@@ -405,7 +379,6 @@ public class DataGridEditor
         // remove listeners to disable cell editing   
         
         grid.removeEventListener(KeyboardEvent.KEY_DOWN, dataGrid_keyboardDownHandler);
-        grid.removeEventListener(MouseEvent.MOUSE_DOWN, grid_mouseDownHandler);
         grid.removeEventListener(GridEvent.GRID_MOUSE_DOWN, grid_gridMouseDownHandler);
         grid.removeEventListener(GridEvent.GRID_MOUSE_UP, grid_gridMouseUpHandler);
         grid.removeEventListener(GridEvent.GRID_DOUBLE_CLICK, grid_gridDoubleClickHandler);
@@ -455,7 +428,7 @@ public class DataGridEditor
                 grid.focusManager.defaultButtonEnabled = true;
             
             // setfocus back to us so something on stage has focus
-            deferFocus();
+            dataGrid.setFocus();
             
             // defer focus can cause focusOutHandler to destroy the editor
             // and make itemEditorInstance null
@@ -464,11 +437,13 @@ public class DataGridEditor
             else
                 grid.invalidateDisplayList();   // force the editorIndicator to be redrawn
             
-            dataGrid.hasFocusableChildren = saveDataGridHasFocusableChildren;
-            //dataGrid.grid.hasFocusableChildren = saveGridHasFocusableChildren;
+            if (restoreFocusableChildren)
+            {
+                dataGrid.hasFocusableChildren = saveDataGridHasFocusableChildren;
 
-            if (dataGrid.scroller)
-                dataGrid.scroller.hasFocusableChildren = saveScrollerHasFocusableChildren;
+                if (dataGrid.scroller)
+                    dataGrid.scroller.hasFocusableChildren = saveScrollerHasFocusableChildren;
+            }
             
             itemEditorInstance = null;
             _editedItemRenderer = null;
@@ -501,7 +476,7 @@ public class DataGridEditor
             return;
         
         var col:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn;
-        var item:IVisualElement = grid.getItemRendererAt(rowIndex, columnIndex);
+        var item:IGridItemRenderer = grid.getItemRendererAt(rowIndex, columnIndex);
         var cellBounds:Rectangle = grid.getCellBounds(rowIndex,columnIndex);
         
         // convert the row origin from the grid to the editor layer.
@@ -512,14 +487,18 @@ public class DataGridEditor
         
         // Need to turn on focusable children flag so focus manager will
         // allow focus into the data grid's children.
-        saveDataGridHasFocusableChildren = dataGrid.hasFocusableChildren; 
+        if (restoreFocusableChildren)
+            saveDataGridHasFocusableChildren = dataGrid.hasFocusableChildren; 
         dataGrid.hasFocusableChildren = true;
         
         if (dataGrid.scroller)
         {
-            saveScrollerHasFocusableChildren = dataGrid.scroller.hasFocusableChildren; 
+            if (restoreFocusableChildren)
+                saveScrollerHasFocusableChildren = dataGrid.scroller.hasFocusableChildren; 
             dataGrid.scroller.hasFocusableChildren = true;
         }
+        
+        restoreFocusableChildren = true;
         
         if (!col.rendererIsEditable)
         {
@@ -551,7 +530,7 @@ public class DataGridEditor
             itemEditorInstance.hasFocusableChildren = true;
             if (itemEditorInstance is ISimpleStyleClient)
                 ISimpleStyleClient(itemEditorInstance).styleName = item;
-            itemEditorInstance.data = IGridItemRenderer(item).data;
+            itemEditorInstance.data = item.data;
             
             grid.addElement(itemEditorInstance);
             
@@ -663,7 +642,7 @@ public class DataGridEditor
      * 
      *  Start editing a cell for a specified row and column index.
      *  
-     *  Dispatches a <code>GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION
+     *  Dispatches a <code>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING
      *  </code> event. 
      * 
      *  @param rowIndex The zero-based row index of the cell to edit.
@@ -673,19 +652,39 @@ public class DataGridEditor
     public function startItemEditorSession(rowIndex:int, columnIndex:int):Boolean
     {
         
+        // validate row and column index
+        if (!isValidCellPosition(rowIndex, columnIndex))
+            return false;
+            
         dataGrid.addEventListener(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING,
-                                  dataGrid_startItemEditorSessionHandler,
+                                  dataGrid_gridItemEditorSessionStartingHandler,
                                   false, EventPriority.DEFAULT_HANDLER);
         
-        var dataGridEvent:GridItemEditorEvent =
-            new GridItemEditorEvent(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING, false, true);
+        var column:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn;
+        
+        if (!column)
+            return false;
         
         // The START_GRID_ITEM_EDITOR_SESSION event is cancelable
+        var dataGridEvent:GridItemEditorEvent = new GridItemEditorEvent(
+                                                        GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING, 
+                                                        false, true); 
         dataGridEvent.rowIndex = Math.min(rowIndex, grid.dataProvider.length - 1);
         dataGridEvent.columnIndex = Math.min(columnIndex, grid.columns.length - 1);
-        dataGridEvent.column = grid.columns.getItemAt(columnIndex) as GridColumn;
-        
-        var editorStarted:Boolean = dataGrid.dispatchEvent(dataGridEvent);         
+        dataGridEvent.column = column;
+
+        // Don't send a life cycle event if the cell contains an item renderer.
+        var editorStarted:Boolean = false;
+        if (column.rendererIsEditable == true)
+        {
+            dataGrid_gridItemEditorSessionStartingHandler(dataGridEvent);   // start editor session without the option to cancel
+            editorStarted = true;
+        }
+        else 
+        {
+            editorStarted = dataGrid.dispatchEvent(dataGridEvent);         
+        }
+            
         if (editorStarted) 
         {
             lastEditedItemPosition = { columnIndex: columnIndex, rowIndex: rowIndex };
@@ -694,8 +693,9 @@ public class DataGridEditor
             dataGrid.grid.caretColumnIndex = columnIndex;
         }
         
+        restoreFocusableChildren = true;
         dataGrid.removeEventListener(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING,
-                                     dataGrid_startItemEditorSessionHandler);
+                                     dataGrid_gridItemEditorSessionStartingHandler);
         
         return editorStarted;
     }
@@ -787,7 +787,7 @@ public class DataGridEditor
         
         // this happens if the renderer is removed asynchronously ususally with FDS
         if (!itemEditorInstance)
-            return true;
+            return false;
         
         inEndEdit = true;
         
@@ -850,11 +850,6 @@ public class DataGridEditor
         if (!coord)
             return;
         
-        if (dontEdit)
-        {
-            return;
-        }
-        
         var rowIndex:int = coord.rowIndex;
         var columnIndex:int = coord.columnIndex;
         
@@ -887,27 +882,21 @@ public class DataGridEditor
         lastEditedItemPosition = _editedItemPosition;
         
         // Notify event that a new editor is starting.
-        var dataGridEvent:GridItemEditorEvent =
-            new GridItemEditorEvent(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START);
+        // Don't dispatch life cycle events for item renderers.
+        var dataGridEvent:GridItemEditorEvent = null;
         
-        dataGridEvent.columnIndex = editedItemPosition.columnIndex;
-        dataGridEvent.column = column;
-        dataGridEvent.rowIndex = editedItemPosition.rowIndex;
-        dataGrid.dispatchEvent(dataGridEvent);
+        if (column.rendererIsEditable == false)
+            dataGridEvent = new GridItemEditorEvent(GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START);
+        
+        if (dataGridEvent)
+        {
+            dataGridEvent.columnIndex = editedItemPosition.columnIndex;
+            dataGridEvent.column = column;
+            dataGridEvent.rowIndex = editedItemPosition.rowIndex;
+            dataGrid.dispatchEvent(dataGridEvent);
+        }
     }
 
-    /**
-     *  @private
-     *  Sets focus back to the grid so default handler will move it to the 
-     *  next component.
-     */ 
-    private function deferFocus():void
-    {
-        losingFocus = true;
-        dataGrid.setFocus();
-        losingFocus = false;
-    }
-    
     /**
      *  @private
      *  Save the editor session. The developer can still cancel out so the 
@@ -954,8 +943,10 @@ public class DataGridEditor
      *  @param backward - if true move backward column by column and then row by row.
      *  If false, then move forward column by column, row by row.
      * 
+     *  @return true if an editor was opened, false otherwise.
+     * 
      */
-    private function openEditorInNextEditableCell(rowIndex:int, columnIndex:int, backward:Boolean):void
+    private function openEditorInNextEditableCell(rowIndex:int, columnIndex:int, backward:Boolean):Boolean
     {
         var nextCell:Point = new Point(rowIndex, columnIndex);
         var openedEditor:Boolean = false;
@@ -968,6 +959,7 @@ public class DataGridEditor
                 openedEditor = startItemEditorSession(nextCell.x, nextCell.y);                
         } while (nextCell && !openedEditor);
         
+        return openedEditor;
     }
     
     /**
@@ -1036,21 +1028,31 @@ public class DataGridEditor
     private function wasCellPreviouslySelected(rowIndex:int, columnIndex:int):Boolean
     {
         if (dataGrid.isRowSelectionMode())
-            return (dataGrid.isCellSelectionMode() || previouslySelectedIndices.indexOf(rowIndex) >= 0);
-        else
-        {
-            // loop thru the previously selected cells to compare
-            for each (var cp:CellPosition in previouslySelectedCells)
-            {
-                if (cp.rowIndex == rowIndex &&
-                    cp.columnIndex == columnIndex)
-                    return true;
-            }
-        }
+            return dataGrid.selectionContainsIndex(rowIndex);
+        else if (dataGrid.isCellSelectionMode())
+            return dataGrid.selectionContainsCell(rowIndex, columnIndex);
         
         return false;
     }
 
+    /**
+     *  @private
+     *
+     *  Determine if a cell position is valid.
+     * 
+     *  @return true if valid, false otherwise.  
+     */
+    private function isValidCellPosition(rowIndex:int, cellIndex:int):Boolean
+    {
+        if (rowIndex >= 0 && rowIndex < dataGrid.dataProvider.length &&
+            cellIndex >= 0 && cellIndex < dataGrid.columns.length)
+        { 
+            return true;
+        }
+        
+        return false;
+    }
+    
     /**
      *  @private
      *  
@@ -1103,7 +1105,7 @@ public class DataGridEditor
      */
     private function dataGrid_keyboardDownHandler(event:KeyboardEvent):void
     {
-        if (!dataGrid.editable)
+        if (!dataGrid.editable || dataGrid.selectionMode == GridSelectionMode.NONE)
             return;
         
         if (event.isDefaultPrevented())
@@ -1138,36 +1140,6 @@ public class DataGridEditor
     /**
      *  @private
      * 
-     *  Get a selection snapshot on mouse down before the grid's selection is 
-     *  changed. This is how we can telll if we have clicked on a selected cell
-     *  or not.
-     */
-    private function grid_mouseDownHandler(event:MouseEvent):void
-    {
-        if (!dataGrid.editable)
-            return;
-
-        lastEvent = event;
-        
-        if (dataGrid.isRowSelectionMode())
-        {
-            previouslySelectedIndices = dataGrid.selectedIndices.slice(0, dataGrid.selectedIndices.length);
-            previouslySelectedCells = null;
-        }
-        else
-        {
-            previouslySelectedIndices = null;
-            previouslySelectedCells = dataGrid.selectedCells.slice(0, dataGrid.selectedCells.length);
-//            for each (var cell:CellPosition in dataGrid.selectedCells)
-//            {
-//                trace("cell position = (" + cell.rowIndex + "," + cell.columnIndex + ")");    
-//            }
-        }
-    }
-    
-    /**
-     *  @private
-     * 
      */
     private function grid_gridMouseDownHandler(event:GridEvent):void
     {
@@ -1186,7 +1158,7 @@ public class DataGridEditor
         //trace("grid_gridMouseDownHandler: (rowIndex, columnIndex) = (" + rowIndex + "," + columnIndex + ")");
         
         // item editor handling
-        var r:IGridItemRenderer = event.itemRenderer as IGridItemRenderer;
+        var r:IGridItemRenderer = event.itemRenderer;
         
         lastItemDown = null;
         
@@ -1202,7 +1174,12 @@ public class DataGridEditor
             return;
         }
         
-        if (r && wasCellPreviouslySelected(rowIndex, columnIndex))
+        // Don't open and editor if the click was not on a previously selected 
+        // cell, unless that cell is an item renderer. We don't want to stop 
+        // the item renderer from getting focus so start an edit session.
+        const column:GridColumn = dataGrid.columns.getItemAt(columnIndex) as GridColumn;
+        if (r && 
+            (column.rendererIsEditable || wasCellPreviouslySelected(rowIndex, columnIndex)))
         {
             //trace("cell was previously selected: (" + rowIndex + "," + columnIndex + ")");  
             lastItemDown = r;
@@ -1244,7 +1221,7 @@ public class DataGridEditor
             if (lastItemDown != r)
                 r = lastItemDown;
             
-            if (columnIndex >= 0 && dataGrid.editable && !dontEdit)
+            if (columnIndex >= 0 && dataGrid.editable)
             {
                 if (grid.columns.getItemAt(columnIndex).editable)
                 {
@@ -1293,7 +1270,7 @@ public class DataGridEditor
         }
         else if (lastItemDown && lastItemDown != editedItemRenderer)
         {
-            if (columnIndex >= 0 && dataGrid.editable && !dontEdit)
+            if (columnIndex >= 0 && dataGrid.editable)
             {
                 if (grid.columns.getItemAt(columnIndex).editable)
                 {
@@ -1384,8 +1361,9 @@ public class DataGridEditor
      *  @private
      * 
      *  Default handler for the startItemEditorSession event.
+     * 
      */
-    private function dataGrid_startItemEditorSessionHandler(event:GridItemEditorEvent):void
+    private function dataGrid_gridItemEditorSessionStartingHandler(event:GridItemEditorEvent):void
     {
         // trace("itemEditorItemEditBeginningHandler");
         if (!event.isDefaultPrevented())
@@ -1393,10 +1371,9 @@ public class DataGridEditor
         else if (!itemEditorInstance)
         {
             _editedItemPosition = null;
+            
             // return focus to the grid w/o selecting an item
-            dataGrid.editable = false;
             dataGrid.setFocus();
-            dataGrid.editable = true;
         }
     }
     
@@ -1410,7 +1387,7 @@ public class DataGridEditor
         if (itemEditorInstance || editedItemRenderer)
         {
             dataGrid.endItemEditorSession();
-            deferFocus();
+            dataGrid.setFocus();
         }
     }
     
@@ -1468,7 +1445,7 @@ public class DataGridEditor
                 return;
             }
         }
-        
+     
         gotFlexEnterEvent = false;
         
         // ESC just kills the editor, no new data
@@ -1484,6 +1461,12 @@ public class DataGridEditor
         {
             if (!_editedItemPosition)
                 return;
+            
+            // If the ctrl or ctrl and shift keys are down then set a flag to 
+            // avoid changing the focusable children flag becaue 
+            // need to be redone when starting up the editor again.
+            if (event.ctrlKey || (event.ctrlKey && event.shiftKey))
+                restoreFocusableChildren = false;
             
             // Enter closes the editor.
             // The 229 keyCode is for IME compatability. When entering an IME expression,
@@ -1506,7 +1489,12 @@ public class DataGridEditor
                     
                     // If we have a valid next row, then start another editor.
                     if (lastRow >= 0 && lastRow < dataGrid.dataProvider.length)
-                        openEditorInNextEditableCell(lastRow, lastColumn - 1, false);
+                    {
+                        if (!openEditorInNextEditableCell(lastRow, lastColumn - 1, false))
+                        {
+                            restoreFocusableChildren = true;
+                        }
+                    }                        
                 }                    
             }
         }
@@ -1536,11 +1524,16 @@ public class DataGridEditor
                         (editedItemRenderer && !DisplayObjectContainer(editedItemRenderer).contains(DisplayObject(nextObject))))))
             {
                 event.preventDefault();
+                
+                restoreFocusableChildren = false;
                 dataGrid.endItemEditorSession();
                 
-                openEditorInNextEditableCell(lastEditedItemPosition.rowIndex,
-                    lastEditedItemPosition.columnIndex,
-                    event.shiftKey);
+                if (!openEditorInNextEditableCell(lastEditedItemPosition.rowIndex,
+                                                  lastEditedItemPosition.columnIndex,
+                                                  event.shiftKey))
+                {
+                    restoreFocusableChildren = true;                    
+                }
             }
         }
     }
@@ -1572,9 +1565,10 @@ public class DataGridEditor
         }
         
         dataGrid.endItemEditorSession();
+        
         // set focus back to the grid so grid logic will deal if focus doesn't
         // end up somewhere else
-        deferFocus();
+        dataGrid.setFocus();
     }
 
     private function editorOwnsClick(event:Event):Boolean
