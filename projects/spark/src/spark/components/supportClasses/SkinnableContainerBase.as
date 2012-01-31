@@ -19,9 +19,14 @@ import mx.utils.MouseShieldUtil;
 
 
 /**
- *  Skin states for this component.
+ *  Normal State
  */
-[SkinStates("normal", "disabled")]
+[SkinState("normal")]
+
+/**
+ *  Disabled State
+ */
+[SkinState("disabled")]
 
 /**
  *  Base class for skinnable container components.
