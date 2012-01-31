@@ -51,7 +51,7 @@ public class CellRegion
      *  @productversion Flex 4.5
      */
     public function CellRegion(rowIndex:int = -1, columnIndex:int = -1,
-                               rowCount:uint = 0, columnCount:uint = 0)
+                               rowCount:int = 0, columnCount:int = 0)
     {
         super();
         
@@ -72,12 +72,12 @@ public class CellRegion
     //  columnCount
     //----------------------------------
     
-    private var _columnCount:uint;
+    private var _columnCount:int;
     
     /**
      *  @private
      */
-    public function get columnCount():uint
+    public function get columnCount():int
     {
         return _columnCount;
     }
@@ -92,7 +92,7 @@ public class CellRegion
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function set columnCount(value:uint):void
+    public function set columnCount(value:int):void
     {
         _columnCount = value;
     }
@@ -131,12 +131,12 @@ public class CellRegion
     //  rowCount
     //----------------------------------
     
-    private var _rowCount:uint;
+    private var _rowCount:int;
     
     /**
      *  @private
      */
-    public function get rowCount():uint
+    public function get rowCount():int
     {
         return _rowCount;
     }
@@ -151,7 +151,7 @@ public class CellRegion
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function set rowCount(value:uint):void
+    public function set rowCount(value:int):void
     {
         _rowCount = value;
     }
