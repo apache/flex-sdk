@@ -22,6 +22,7 @@ import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.events.PropertyChangeEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -36,6 +37,9 @@ import org.osmf.events.MediaPlayerStateChangeEvent;
 import org.osmf.events.PlayingChangeEvent;
 import org.osmf.events.SeekEvent;
 import org.osmf.events.TimeEvent;
+import org.osmf.gateways.RegionGateway;
+import org.osmf.layout.LayoutUtils;
+import org.osmf.layout.RegistrationPoint;
 import org.osmf.media.IMediaResource;
 import org.osmf.media.MediaPlayer;
 import org.osmf.media.MediaPlayerState;
@@ -67,6 +71,9 @@ use namespace mx_internal;
  *  directly from a server, typically by issuing an HTTP request.
  *  It is not displatched when playing a video from a special media server, 
  *  such as Flash Media Server.
+ * 
+ *  <p>This event may not be dispatched when the source is set to null or a playback
+ *  error occurs.</p>
  *
  *  @eventType org.osmf.events.LoadEvent.BYTES_LOADED_CHANGE
  *  
@@ -91,6 +98,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the <code>currentTime</code> property of the MediaPlayer has changed.
+ * 
+ *  <p>This event may not be dispatched when the source is set to null or a playback
+ *  error occurs.</p>
  *
  *  @eventType org.osmf.events.TimeEvent.CURRENT_TIME_CHANGE
  *
@@ -103,6 +113,9 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the <code>duration</code> property of the media has changed.
+ * 
+ *  <p>This event may not be dispatched when the source is set to null or a playback
+ *  error occurs.</p>
  * 
  *  @eventType org.osmf.events.TimeEvent.DURATION_CHANGE
  * 
@@ -270,10 +283,10 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
-     *  This is the underlying VideoPlayer object. At some point in the 
-     *  future, we may change to a new implementation.
+     *  This is the underlying gateway object used to display
+     *  the underlying videoPlayer.
      */
-    mx_internal var videoSprite:MediaPlayerSprite;
+    mx_internal var videoGateway:RegionGateway;
     
     /**
      *  @private
@@ -772,6 +785,11 @@ public class VideoDisplay extends UIComponent
     //  scaleMode
     //----------------------------------
     
+    /**
+     *  @private
+     */
+    private var _scaleMode:String = ScaleMode.LETTERBOX;
+    
     [Inspectable(Category="General", enumeration="none,stretch,letterbox,zoom", defaultValue="letterbox")]
     
     /**
@@ -793,7 +811,7 @@ public class VideoDisplay extends UIComponent
      */
     public function get scaleMode():String
     {
-        return videoSprite.scaleMode.toString().toLowerCase();
+        return _scaleMode;
     }
     
     /**
@@ -804,21 +822,28 @@ public class VideoDisplay extends UIComponent
         if (scaleMode == value)
             return;
         
-        switch(value.toLowerCase())
+        switch(value)
         {
-            case "none":
-                videoSprite.scaleMode = ScaleMode.NONE;
+            case ScaleMode.NONE:
+                _scaleMode = ScaleMode.NONE;
                 break;
-            case "stretch":
-                videoSprite.scaleMode = ScaleMode.STRETCH;
+            case ScaleMode.STRETCH:
+                _scaleMode = ScaleMode.STRETCH;
                 break;
-            case "letterbox":
-                videoSprite.scaleMode = ScaleMode.LETTERBOX;
+            case ScaleMode.LETTERBOX:
+                _scaleMode = ScaleMode.LETTERBOX;
                 break;
-            case "zoom":
-                videoSprite.scaleMode = ScaleMode.ZOOM;
+            case ScaleMode.ZOOM:
+                _scaleMode = ScaleMode.ZOOM;
+                break;
+            default:
+                _scaleMode = ScaleMode.LETTERBOX;
                 break;
         }
+        
+        // set scaleMode on the videoElement object
+        if (videoPlayer.element)
+            LayoutUtils.setLayoutAttributes(videoPlayer.element.metadata, scaleMode, RegistrationPoint.CENTER);
         
         invalidateSize();
         invalidateDisplayList();
@@ -1166,8 +1191,9 @@ public class VideoDisplay extends UIComponent
             return;
         }
         
-        videoSprite.width = Math.floor(unscaledWidth);
-        videoSprite.height = Math.floor(unscaledHeight);
+        // set the gateway's dimensions
+        LayoutUtils.setAbsoluteLayout(videoGateway.metadata, 
+            Math.floor(unscaledWidth), Math.floor(unscaledHeight));
     }
     
     //--------------------------------------------------------------------------
@@ -1328,7 +1354,8 @@ public class VideoDisplay extends UIComponent
     {
         // create new video player
         videoPlayer = new MediaPlayer();
-        videoSprite = new MediaPlayerSprite(videoPlayer);
+        videoGateway = new RegionGateway();
+        videoGateway.clipChildren = true;
         
         // internal events
         videoPlayer.addEventListener(DimensionEvent.DIMENSION_CHANGE, videoPlayer_dimensionChangeHandler);
@@ -1342,7 +1369,7 @@ public class VideoDisplay extends UIComponent
         videoPlayer.addEventListener(TimeEvent.DURATION_CHANGE, dispatchEvent);
         videoPlayer.addEventListener(TimeEvent.COMPLETE, dispatchEvent);
         
-        addChild(videoSprite);
+        addChild(videoGateway);
     }
     
     /**
@@ -1351,6 +1378,10 @@ public class VideoDisplay extends UIComponent
      */
     private function setUpSource():void
     {
+        // if was playing a previous video, let's remove it now
+        if (videoPlayer.element)
+            videoGateway.removeElement(videoPlayer.element);
+        
         var videoElement:org.osmf.video.VideoElement;
         
         // check for 4 cases: streaming video, progressive download, 
@@ -1435,14 +1466,29 @@ public class VideoDisplay extends UIComponent
         if (!autoPlay && autoDisplayFirstFrame)
             load();
         
+        // set videoPlayer's element to the newly constructed VideoElement
+        // set the newly constructed videoElement's gateway to be the videoGateway
         videoPlayer.element = videoElement;
         
-        // if our source is null, let's invalidateSize() here.
-        // if it's a bad source, we'll get a playbackError and invalidate
-        // the size down there.  If it's a good source, we'll get a 
-        // dimensionChange event and invalidate the size in there.
-        if (source == null)
+        if (videoElement)
+        {
+            videoElement.gateway = videoGateway;
+            
+            // set the video's width within the gateway to be 100%, 100%
+            LayoutUtils.setRelativeLayout(videoElement.metadata, 100, 100);
+            
+            // set the element scale (and distribute surplus space such that the
+            // element stays center)
+            LayoutUtils.setLayoutAttributes(videoElement.metadata, scaleMode, RegistrationPoint.CENTER);
+        }
+        else
+        {
+            // if our source is null, let's invalidateSize() here.
+            // if it's a bad source, we'll get a playbackError and invalidate
+            // the size down there.  If it's a good source, we'll get a 
+            // dimensionChange event and invalidate the size in there.
             invalidateSize();
+        }
     }
     
     /**
@@ -1621,8 +1667,16 @@ public class VideoDisplay extends UIComponent
         var current:IVisualElement = this;
         while (current)
         {
+            // add visibility listeners to the parent
             current.addEventListener(FlexEvent.HIDE, visibilityChangedHandler, false, 0, true);
             current.addEventListener(FlexEvent.SHOW, visibilityChangedHandler, false, 0, true);
+            
+            // add listeners to the design layer too
+            if (current.designLayer)
+            {
+                current.designLayer.addEventListener("layerPropertyChange", 
+                    designLayer_layerPropertyChangeHandler, false, 0, true);
+            }
             
             current = current.parent as IVisualElement;
         }
@@ -1657,6 +1711,12 @@ public class VideoDisplay extends UIComponent
             current.removeEventListener(FlexEvent.HIDE, visibilityChangedHandler, false);
             current.removeEventListener(FlexEvent.SHOW, visibilityChangedHandler, false);
             
+            if (current.designLayer)
+            {
+                current.designLayer.removeEventListener("layerPropertyChange", 
+                    designLayer_layerPropertyChangeHandler, false);
+            }
+            
             current = current.parent as IVisualElement;
         }
     }
@@ -1690,6 +1750,20 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
+     *  Event call back whenever the visibility of our designLayer or one of our parent's
+     *  designLayers change.
+     */
+    private function designLayer_layerPropertyChangeHandler(event:PropertyChangeEvent):void
+    {
+        if (event.property == "effectiveVisibility")
+        {
+            effectiveVisibilityChanged = true;
+            invalidateProperties();
+        }
+    }
+    
+    /**
+     *  @private
      *  Event call back whenever the enablement of us or one of our ancestors 
      *  changes
      */
@@ -1712,7 +1786,8 @@ public class VideoDisplay extends UIComponent
         
         while (current)
         {
-            if (!current.visible)
+            if (!current.visible || 
+                (current.designLayer && !current.designLayer.effectiveVisibility))
             {
                 effectiveVisibility = false;
                 if (!effectiveEnabled)
