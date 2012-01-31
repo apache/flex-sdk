@@ -476,8 +476,9 @@ public class PopUpAnchor extends UIComponent
             {
                 popUpWidth = UIComponent(popUp).explicitWidth;
                 popUpHeight = UIComponent(popUp).explicitHeight;
+                UIComponent(popUp).validateNow();
             }   
-           
+            
             applyPopUpTransform(width, height);
         }
         else if (DisplayObject(popUp).parent != null && displayPopUp == false)
@@ -655,7 +656,7 @@ public class PopUpAnchor extends UIComponent
      */ 
     private function removedFromStageHandler(event:Event):void
     {
-        if (DisplayObject(popUp).parent != null)
+        if (popUp != null && DisplayObject(popUp).parent != null)
             removeAndResetPopUp();
         
         addedToStage = false;
