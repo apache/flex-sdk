@@ -39,6 +39,8 @@ use namespace mx_internal;
 
 /**
  *  The radius of the corners for this component.
+ *
+ *  @default 4
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -49,6 +51,8 @@ use namespace mx_internal;
 
 /**
  *  Controls the visibility of the drop shadow for this component.
+ *
+ *  @default true
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -154,7 +158,9 @@ use namespace mx_internal;
  *
  *  <pre>
  *  &lt;s:DropDownListBase 
- *    <strong>Properties</strong>
+ *    <strong>Styles</strong>
+ *    cornerRadius="4"
+ *    dropShadowVisible="true"
  * 
  *    <strong>Events</strong>
  *    closed="<i>No default</i>"
@@ -670,6 +676,9 @@ public class DropDownListBase extends List
         }
     }
           
+    /**
+     *  @private
+     */ 
     override protected function findKey(eventCode:int):Boolean
     {
         if (!dataProvider || dataProvider.length == 0)
