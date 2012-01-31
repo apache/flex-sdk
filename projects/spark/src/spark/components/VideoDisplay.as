@@ -1561,7 +1561,7 @@ public class VideoDisplay extends UIComponent
         videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandler);
         videoPlayer.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, dispatchEvent);
         videoPlayer.addEventListener(LoadEvent.BYTES_LOADED_CHANGE, dispatchEvent);
-        videoPlayer.addEventListener(TimeEvent.DURATION_CHANGE, dispatchEvent);
+        videoPlayer.addEventListener(TimeEvent.DURATION_CHANGE, videoPlayer_durationChangeHandler);
         videoPlayer.addEventListener(TimeEvent.COMPLETE, dispatchEvent);
         
         addChild(videoContainer);
@@ -1869,8 +1869,8 @@ public class VideoDisplay extends UIComponent
                 if (videoPlayer.displayObject)
                     videoPlayer.displayObject.visible = true;
                 
-                // don't need to do anything to play except change state info and reset 
-                // properties above
+                videoPlayer.removeEventListener(TimeEvent.CURRENT_TIME_CHANGE, videoPlayer_currentTimeChangeHandler);
+                videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.CAN_SEEK_CHANGE, videoPlayer_canSeekChangeHandler);
             }
             else
             {
@@ -2167,6 +2167,7 @@ public class VideoDisplay extends UIComponent
     private function videoPlayer_mediaPlayerStateChangeHandlerForLoading(event:MediaPlayerStateChangeEvent):void
     {
         // only come in here when we want to load the video without playing it.
+        //trace("videoPlayer_mediaPlayerStateChangeHandlerForLoading: mediaPlayerState = " + event.state);
         
         // wait until we are ready so that we can set mute, play, pause, and seek
         if (event.state == MediaPlayerState.READY)
@@ -2183,6 +2184,8 @@ public class VideoDisplay extends UIComponent
             // otherwise, we'll just cause play().
             if (inLoadingState1)
             {
+                //trace("videoPlayer_mediaPlayerStateChangeHandlerForLoading: inLoadingState1");
+
                 beforeLoadMuted = videoPlayer.muted;
                 videoPlayer.muted = true;
                 
@@ -2194,6 +2197,7 @@ public class VideoDisplay extends UIComponent
             
             // call play(), here, then wait to call pause() and seek(0) in the 
             // mediaSizeChangeHandler
+            //trace("videoPlayer_mediaPlayerStateChangeHandlerForLoading: call videoPlayer.play()");
             videoPlayer.play();
         }
     }
@@ -2203,13 +2207,17 @@ public class VideoDisplay extends UIComponent
      */
     private function videoPlayer_mediaSizeChangeHandler(event:DisplayObjectEvent):void
     {
+        //trace("videoPlayer_mediaSizeChangeHandler");
         invalidateSize();
         
         // if we're loading up the video, then let's finish the load in here
         if (inLoadingState2)
         {
+            //trace("videoPlayer_mediaSizeChangeHandler: inLoadingState2");
+
             if (videoPlayer.canSeek && videoPlayer.canSeekTo(0))
             {
+                //trace("videoPlayer_mediaSizeChangeHandler: canSeek to first frame");
                 inLoadingState3 = true;
                 
                 // Don't call pause and seek inside this handler because OSMF is 
@@ -2217,6 +2225,15 @@ public class VideoDisplay extends UIComponent
                 // HTTPNetStream.onMainTimer as a result of dispatching this 
                 // event (see SDK-27028).
                 callLater(pauseAndSeekCallBack);
+            }
+            else if (duration < 0)
+            {
+                // Work around for negative durations - FM-1009
+                // We want to seek to the first frame but we can't because the
+                // duration of the video is reported as negative. As a work around,
+                // listen for the first time change event and then pause the video.
+                //trace("videoPlayer_mediaSizeChangeHandler: negative duration - wait for first current time change event");
+                videoPlayer.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, videoPlayer_currentTimeChangeHandler);
             }
             else
             {
@@ -2283,6 +2300,64 @@ public class VideoDisplay extends UIComponent
             videoPlayer.muted = beforeLoadMuted;
             if (videoPlayer.displayObject)
                 videoPlayer.displayObject.visible = true;
+        }
+    }
+    
+    
+    /**
+     *  @private
+     *
+     *  Work around for negative durations - see FM-1009.
+     *  See want to seek to the first frame but can't because
+     *  the vidoe has a negative duration. So we listen to the
+     *  current time. When we get a time change so we must be at
+     *  least the first frames so pause the video now and clean 
+     *  up the load state variables.
+     */ 
+    private function videoPlayer_currentTimeChangeHandler(event:TimeEvent):void
+    {
+        //trace("videoPlayer_currentTimeChangeHandler: time = " + event.time);
+        
+        videoPlayer.removeEventListener(TimeEvent.CURRENT_TIME_CHANGE, videoPlayer_currentTimeChangeHandler);
+        videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.CAN_SEEK_CHANGE, videoPlayer_canSeekChangeHandler);
+
+        videoPlayer.pause();
+        videoPlayer.muted = beforeLoadMuted;
+        
+        if (videoPlayer.displayObject)
+            videoPlayer.displayObject.visible = true;
+
+        inLoadingState1 = false;
+        inLoadingState2 = false;
+        inLoadingState3 = false;
+    
+    }
+
+    /**
+     *  @private
+     * 
+     *  Work around for negative durations - see FM-1009.
+     * 
+     *  If we get a duration event that is negative while in 
+     *  inLoadingState2 is true, then listen for the first time
+     *  change event so we can pauase the video.
+     */ 
+    private function videoPlayer_durationChangeHandler(event:TimeEvent):void
+    {
+        //trace("videoPlayer_durationChangeHandler: time = " + event.time);
+        dispatchEvent(event);
+        
+        if (inLoadingState2)
+        {
+            if (event.time < 0)
+            {
+                // Work around for negative durations - FM-1009
+                // We want to seek to the first frame but we can't because the
+                // duration of the video is reported as negative. As a work around,
+                // listen for the first time change event and then pause the video.
+                //trace("videoPlayer_durationChangeHandler: negative duration - wait for first current time change event");
+                videoPlayer.addEventListener(TimeEvent.CURRENT_TIME_CHANGE, videoPlayer_currentTimeChangeHandler);
+            }
         }
     }
 }
