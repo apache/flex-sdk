@@ -408,7 +408,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         if (focusedIndex >= 0  && !inKeyUpHandler)
         {
             currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-            currentRenderer.showFocusIndicator = false;
+            currentRenderer.caret = false;
         }
 
         if (index == selectedIndex)
@@ -478,12 +478,12 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                 if (focusedIndex > 0 || arrowKeysWrapFocus)
                 {
                     if (currentRenderer)
-                        currentRenderer.showFocusIndicator = false;
+                        currentRenderer.caret = false;
                     focusedIndex = (focusedIndex - 1 + length) % length;
                     adjustLayering(focusedIndex);
                     renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
                     if (renderer)
-                        renderer.showFocusIndicator = true;
+                        renderer.caret = true;
                 }
 
                 event.stopPropagation();
@@ -496,12 +496,12 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                 if (focusedIndex < dataProvider.length - 1 || arrowKeysWrapFocus)
                 {
                     if (currentRenderer)
-                        currentRenderer.showFocusIndicator = false;
+                        currentRenderer.caret = false;
                     focusedIndex = (focusedIndex + 1) % length;
                     adjustLayering(focusedIndex);
                     renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
                     if (renderer)
-                        renderer.showFocusIndicator = true;
+                        renderer.caret = true;
                 }
 
                 event.stopPropagation();
@@ -560,7 +560,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             var renderer:IItemRenderer = 
                 dataGroup.getElementAt(index) as IItemRenderer;
             if (renderer)
-                renderer.showFocusIndicator = focused;
+                renderer.caret = focused;
         }
     }
 }
