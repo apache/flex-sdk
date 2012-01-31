@@ -25,6 +25,7 @@ import flash.system.Capabilities;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.SelectionEvent;
 
+import mx.core.FlexGlobals;
 import mx.core.IIMESupport;
 import mx.core.IVisualElement;
 import mx.core.InteractionMode;
@@ -35,6 +36,7 @@ import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
 
+import spark.components.Application;
 import spark.components.RichEditableText;
 import spark.components.TextSelectionHighlighting;
 import spark.core.IDisplayText;
@@ -1510,10 +1512,19 @@ public class SkinnableTextBase extends SkinnableComponent
             {
                 delaySetFocus = true;
                 
-                // Cancel the softKeyboard ACTIVATING event
-                addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+                // Cancelling an ACTIVATING event will close the softKeyboard if it is 
+                // currently active on iOS only. Add a check to only cancel the event
+                // if the softKeyboard is not active. Otherwise, the softKeyboard will
+                // close if you press on the skin of a text component.
+                var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
+                var cancelEvent:Boolean = !(topLevelApp && topLevelApp.isSoftKeyboardActive);
+                if (cancelEvent)
+                    addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+                
                 textDisplay.setFocus();
-                removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+                
+                if (cancelEvent)
+                    removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
             }
             else
             {
