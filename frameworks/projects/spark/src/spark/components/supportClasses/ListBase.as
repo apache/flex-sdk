@@ -16,6 +16,7 @@ import flash.events.Event;
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
 
+import mx.collections.IList;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -68,10 +69,7 @@ public class Selector extends DataComponent
 	 */
 	public function Selector()
     {
-    	addEventListener(FlexEvent.DATA_PROVIDER_CHANGING, dataProviderChangingHandler);
-    	addEventListener(FlexEvent.DATA_PROVIDER_CHANGED, dataProviderChangedHandler);
-    	if (dataProvider)
-    	    dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+    	super();
     }
     
     //--------------------------------------------------------------------------
@@ -84,6 +82,26 @@ public class Selector extends DataComponent
 	 *  @private
 	 */
 	private var doingWholesaleChanges:Boolean = false;
+	
+	//----------------------------------
+    //  dataProvider
+    //----------------------------------
+    
+    private var dataProviderChanged:Boolean;
+    
+    override public function set dataProvider(value:IList):void
+    {
+        if (dataProvider)
+            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+    
+        dataProviderChanged = true;
+        doingWholesaleChanges = true;
+        
+        super.dataProvider = value;
+        
+        if (dataProvider)
+            dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+    }
 	
 	//----------------------------------
 	//  selectedIndex
@@ -233,6 +251,19 @@ public class Selector extends DataComponent
     	var changedSelection:Boolean = false;
     	
         super.commitProperties();
+        
+        if (dataProviderChanged)
+        {
+            dataProviderChanged = false;
+            doingWholesaleChanges = false;
+    	
+    	    // TODO: should resetting the dataProvider clear out all of its state?
+    	    // or should we preserve selectedIndex
+        	if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
+        	   itemSelected(dataProvider.getItemAt(selectedIndex), true);
+        	else
+        	   selectedIndex = -1;
+        }
             
         if (requiresSelectionChanged)
         {
@@ -409,33 +440,6 @@ public class Selector extends DataComponent
             // the selected index backing variable.
             adjustSelectedIndex(selectedIndex - 1);
         }
-    }
-    
-    /**
-     *  @private
-     */
-    private function dataProviderChangingHandler(event:FlexEvent):void
-    {
-        if (dataProvider)
-            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
-        
-    	doingWholesaleChanges = true;
-    }
-    
-    /**
-     *  @private
-     */
-    private function dataProviderChangedHandler(event:FlexEvent):void
-    {
-    	doingWholesaleChanges = false;
-    	
-    	if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
-    	   itemSelected(dataProvider.getItemAt(selectedIndex), true);
-    	else
-    	   selectedIndex = -1;
-    	   
-    	if (dataProvider)
-    	    dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
     }
     
     protected function collectionChangeHandler(event:Event):void
