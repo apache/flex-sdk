@@ -87,6 +87,7 @@ use namespace mx_internal;
 
 [Exclude(name="emphasized", kind="property")]
 
+[Exclude(name="baseColor", kind="style")]
 [Exclude(name="borderColor", kind="style")]
 [Exclude(name="fillAlphas", kind="style")]
 [Exclude(name="fillColors", kind="style")]
