@@ -15,5 +15,10 @@
  *  Pass the same color for both values for "flat" looking control.
  *  The default value is <code>undefined</code>, which means the colors
  *  are derived from <code>themeColor</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectedFillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
