@@ -16,7 +16,7 @@ import flash.utils.Dictionary;
 
 import mx.core.mx_internal;
 import mx.effects.Effect;
-import mx.effects.FxAnimate;
+import spark.effects.Animate;
 import mx.effects.IEffectInstance;
 import mx.events.EffectEvent;
 import mx.styles.IStyleClient;
@@ -88,7 +88,7 @@ use namespace mx_internal;
  * defined and implemented <code>transformAround()</code> and 
  * <code>transformPointToParent()</code> functions.
  */  
-public class AnimateTransform extends FxAnimate
+public class AnimateTransform extends Animate
 {
     include "../../mx/core/Version.as";
 
