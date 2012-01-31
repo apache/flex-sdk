@@ -50,6 +50,7 @@ CheckBox
 
 ComboBox
 {
+    dropShadowVisible: true;
     paddingBottom: 3;
     paddingLeft: 3;
     paddingRight: 3;
