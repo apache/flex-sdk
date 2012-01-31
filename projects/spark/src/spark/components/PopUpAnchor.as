@@ -13,24 +13,23 @@ package spark.components
 {
 	
 import flash.display.DisplayObject;
+import flash.display.Graphics;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 
+import mx.core.IFactory;
+import mx.core.IFlexDisplayObject;
 import mx.core.ITransientDeferredInstance;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.managers.PopUpManager;
-import flash.display.Graphics;
-
-import mx.core.IFlexDisplayObject;
-import mx.core.IFactory;
-
-import flash.geom.Rectangle;
 import mx.utils.MatrixUtil;
 
-use namespace mx_internal;
+import spark.core.RelativePosition;
 
+use namespace mx_internal;
 
 [DefaultProperty("popUp")]
 
@@ -243,13 +242,16 @@ public class PopUpAnchor extends UIComponent
     //  popUpPosition
     //----------------------------------
 	
-	private var _popUpPosition:String = "exact";
+	private var _popUpPosition:String = RelativePosition.EXACT;
 	
 	/**
 	 *  Position of the popUp when it is opened. 
 	 *  Possible values are "left", "right", "above", "below", "center", and "exact"
 	 * 
-	 *  @default "exact" 
+	 *   
+	 *  @default RelativePosition.EXACT
+	 * 
+	 *  @see spark.core.RelativePosition
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
@@ -336,21 +338,21 @@ public class PopUpAnchor extends UIComponent
 		{
 			switch(popUpPosition)
 			{
-				case "below" :
+				case RelativePosition.BELOW :
 					if (popUpBounds.bottom > screen.bottom)
-						adjustedPosition = "above"; 
+						adjustedPosition = RelativePosition.ABOVE; 
 					break;
-				case "above" :
+				case RelativePosition.ABOVE :
 					if (popUpBounds.top < screen.top)
-						adjustedPosition = "below"; 
+						adjustedPosition = RelativePosition.BELOW; 
 					break;
-				case "left" :
+				case RelativePosition.LEFT :
 					if (popUpBounds.left < screen.left)
-						adjustedPosition = "right"; 
+						adjustedPosition = RelativePosition.RIGHT; 
 					break;
-				case "right" :
+				case RelativePosition.RIGHT :
 					if (popUpBounds.right > screen.right)
-						adjustedPosition = "left"; 
+						adjustedPosition = RelativePosition.LEFT; 
 					break;
 			}
 		}
@@ -369,19 +371,19 @@ public class PopUpAnchor extends UIComponent
 				// then revert to the original position. 
 				switch(adjustedPosition)
 				{
-					case "below" :
+					case RelativePosition.BELOW :
 						if (popUpBounds.bottom > screen.bottom)
 							adjustedPosition = null; 
 						break;
-					case "above" :
+					case RelativePosition.ABOVE :
 						if (popUpBounds.top < screen.top)
 							adjustedPosition = null; 
 						break;
-					case "left" :
+					case RelativePosition.LEFT :
 						if (popUpBounds.left < screen.left)
 							adjustedPosition = null; 
 						break;
-					case "right" :
+					case RelativePosition.RIGHT :
 						if (popUpBounds.right > screen.right)
 							adjustedPosition = null;  
 						break;
@@ -471,27 +473,27 @@ public class PopUpAnchor extends UIComponent
 	{
 		switch(placement)
 		{
-			case "below":
+			case RelativePosition.BELOW:
 				registrationPoint.x = 0;
 				registrationPoint.y = unscaledHeight;
 				break;
-			case "above":
+			case RelativePosition.ABOVE:
 				registrationPoint.x = 0;
 				registrationPoint.y = -popUpHeight;
 				break;
-			case "left":
+			case RelativePosition.LEFT:
 				registrationPoint.x = -popUpWidth;
 				registrationPoint.y = 0;
 				break;
-			case "right":
+			case RelativePosition.RIGHT:
 				registrationPoint.x = unscaledWidth;
 				registrationPoint.y = 0;
 				break;			
-			case "center":
+			case RelativePosition.CENTER:
 				registrationPoint.x = (unscaledWidth - popUpWidth) / 2;
 				registrationPoint.y = (unscaledHeight - popUpHeight) / 2;
 				break;			
-			case "exact":
+			case RelativePosition.EXACT:
 				// already 0,0
 				break;
 		}
@@ -521,13 +523,12 @@ public class PopUpAnchor extends UIComponent
 		
 		var m:Matrix = $transform.concatenatedMatrix;
 		
-		var popUpWidth:Number = autoSizePopUpWidth ? unscaledWidth : popUp.getPreferredBoundsWidth(false);
-		var popUpHeight:Number = autoSizePopUpHeight ? unscaledHeight : popUp.getPreferredBoundsHeight(false);
-		
 		// Set the dimensions explicitly because UIComponents always set themselves to their
 		// measured / explicit dimensions if they are parented by the SystemManager. 
-		popUp.width = popUpWidth;
-		popUp.height = popUpHeight;
+		if (autoSizePopUpWidth)
+			popUp.width = unscaledWidth;
+		if (autoSizePopUpHeight)
+			popUp.height = unscaledHeight;
 		
 		var popUpPoint:Point = positionPopUp();
 				
