@@ -48,6 +48,11 @@ public class HierarchicalCollectionView extends EventDispatcher
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function HierarchicalCollectionView(
 							model:ICollectionView,
@@ -145,6 +150,11 @@ public class HierarchicalCollectionView extends EventDispatcher
 
     /**
      *  Not Supported in Tree.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get filterFunction():Function
     {
@@ -153,6 +163,11 @@ public class HierarchicalCollectionView extends EventDispatcher
 
     /**
      *  Not Supported in Tree.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set filterFunction(value:Function):void
     {
@@ -166,6 +181,11 @@ public class HierarchicalCollectionView extends EventDispatcher
     /**
      *  The length of the currently parsed collection.  This
      *  length only includes nodes that we know about.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
 	public function get length():int
 	{
@@ -202,6 +222,11 @@ public class HierarchicalCollectionView extends EventDispatcher
 	/**
 	 *  Returns the parent of a node.  Top level node's parent is null
 	 *  If we don't know the parent we return undefined.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function getParentItem(node:Object):*
     {
@@ -311,6 +336,11 @@ public class HierarchicalCollectionView extends EventDispatcher
 	 *  Returns a new instance of a view iterator over the items in this view
 	 *
      *  @see mx.utils.IViewCursor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function createCursor():IViewCursor
 	{
@@ -320,6 +350,11 @@ public class HierarchicalCollectionView extends EventDispatcher
 
     /**
      *  Checks the collection for item using standard equality test.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function contains(item:Object):Boolean
 	{
@@ -758,6 +793,11 @@ public class HierarchicalCollectionView extends EventDispatcher
      * in some way.  The initial implementation stab is very lenient,
      * any changeType will cause an update no matter how much further down
      * in a hierarchy.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function xmlNotification(currentTarget:Object, 
                                         type:String, 
@@ -841,6 +881,11 @@ public class HierarchicalCollectionView extends EventDispatcher
 	                newValue = value;
 	                break;
 	            }
+				*  
+				*  @langversion 3.0
+				*  @playerversion Flash 9
+				*  @playerversion AIR 1.1
+				*  @productversion Flex 3
 				*/
 
 	            case "nodeRemoved":
@@ -920,6 +965,11 @@ public class HierarchicalCollectionView extends EventDispatcher
     /** 
      *  This is called by addItemAt and when the source is initially
      *  assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function startTrackUpdates(item:Object):void
     {
@@ -929,6 +979,11 @@ public class HierarchicalCollectionView extends EventDispatcher
     /** 
      *  This is called by removeItemAt, removeAll, and before a new
      *  source is assigned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function stopTrackUpdates(item:Object):void
     {
