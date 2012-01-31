@@ -137,14 +137,14 @@ public class AnimateTransformMove extends AnimateTransform
     //
     //--------------------------------------------------------------------------
 
-    // TODO: Can we remove this override? It exists only to create animationProperties,
+    // TODO: Can we remove this override? It exists only to create motionPaths,
     // which we should be able to do somewhere else
     /**
      * @private
      */
     override public function createInstance(target:Object = null):IEffectInstance
     {
-        animationProperties = [];
+        motionPaths = [];
         return super.createInstance(target);
     }
 
