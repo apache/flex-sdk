@@ -1095,10 +1095,10 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 
         // Set the font context in non-UIComponent children.
         // UIComponent children use moduleFactory.
-        if (child is IFontContextComponent && !child is UIComponent &&
-            IFontContextComponent(child).fontContext == null)
+        if (element is IFontContextComponent && !(element is UIComponent) &&
+            IFontContextComponent(element).fontContext == null)
         {
-            IFontContextComponent(child).fontContext = moduleFactory;
+            IFontContextComponent(element).fontContext = moduleFactory;
         }
 
         if (element is IGraphicElement) 
