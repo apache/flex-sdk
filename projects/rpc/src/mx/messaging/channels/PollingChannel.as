@@ -617,6 +617,7 @@ public class PollingChannel extends Channel
 import flash.utils.Timer;
 
 import mx.core.mx_internal;
+import mx.events.PropertyChangeEvent;
 import mx.logging.Log;
 import mx.logging.ILogger;
 import mx.messaging.MessageAgent;
@@ -660,6 +661,10 @@ class PollCommandMessageResponder extends MessageResponder
     {
         super(agent, msg, channel);
         _log = log;
+        
+        // Track channel connected state.
+        // If the channel disconnects while this poll is outstanding, suppress result/fault handling.
+        channel.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, channelPropertyChangeHandler);
     }
 
 	//--------------------------------------------------------------------------
@@ -679,6 +684,11 @@ class PollCommandMessageResponder extends MessageResponder
      */
     private var resourceManager:IResourceManager =
 									ResourceManager.getInstance();
+									
+	/**
+	 *  @private
+	 */								
+    private var suppressHandlers:Boolean;									
 
     //--------------------------------------------------------------------------
     //
@@ -697,6 +707,17 @@ class PollCommandMessageResponder extends MessageResponder
     override protected function resultHandler(msg:IMessage):void
     {      
         PollingChannel(channel).pollOutstanding = false;
+        
+        if (suppressHandlers)
+        {
+            if (Log.isDebug())
+            {
+                _log.debug("'{0}' channel ignoring response for poll request preceeding most recent disconnect.\n", channel.id);   
+            }
+            
+            doPoll(); // If the channel has reconnected we may need to start up the polling loop again.
+            return;
+        }
                 
         if ((msg is CommandMessage))
         {    
@@ -745,41 +766,14 @@ class PollCommandMessageResponder extends MessageResponder
         	return;
        	}
        	
-       	// Only set up the next poll if the channel is still connected.
-       	// Subscription invalidation commands pushed by the server can cause the channel to disconnect
-       	// and it shouldn't issue another poll request in this case.
-       	// Also, if the channel is piggybacking but not polling on an interval we don't want to
-       	// schedule the next poll.
-       	var pollingChannel:PollingChannel = PollingChannel(channel);
-       	if (pollingChannel.connected && pollingChannel._shouldPoll)
+       	if (msg.headers[CommandMessage.POLL_WAIT_HEADER] != null)
        	{
-           	var adaptivePollWait:int = 0;
-           	if (msg.headers[CommandMessage.POLL_WAIT_HEADER] != null)
-                adaptivePollWait = msg.headers[CommandMessage.POLL_WAIT_HEADER];
-           	
-           	// An adaptive polling value of 0 indicates that the channel should use its default
-           	// polling interval.           	
-           	if (adaptivePollWait == 0)
-           	{
-               	if (pollingChannel.internalPollingInterval == 0)
-                {
-                    // No need for a Timer at all if we're polling immediately.
-                    pollingChannel.poll();
-               	}
-               	else if (!pollingChannel.timerRunning)      	
-               	{
-               	    // Poll at the base rate for this Channel; no adaptive poll wait is defined.
-               	    pollingChannel._timer.delay = pollingChannel._pollingInterval;
-                   	pollingChannel._timer.start();
-                }
-            }
-            else
-            {
-                // Use adaptive poll wait.
-                pollingChannel._timer.delay = adaptivePollWait;
-                pollingChannel._timer.start();
-            }
-        }
+       	    doPoll(msg.headers[CommandMessage.POLL_WAIT_HEADER]); 
+       	}
+       	else
+       	{
+       	    doPoll();
+       	}
     }
 
     /**
@@ -790,6 +784,16 @@ class PollCommandMessageResponder extends MessageResponder
      */ 
     override protected function statusHandler(msg:IMessage):void
     {        
+        if (suppressHandlers)
+        {
+            if (Log.isDebug())
+            {
+                _log.debug("'{0}' channel ignoring response for poll request preceeding most recent disconnect.\n", channel.id);   
+            }
+            
+            return;
+        }            
+        
         var pollingChannel:PollingChannel = PollingChannel(channel);
         pollingChannel.stopPolling(); // Shut down all polling.
         var errMsg:ErrorMessage = msg as ErrorMessage;
@@ -807,6 +811,62 @@ class PollCommandMessageResponder extends MessageResponder
         else
         {
         	pollingChannel.pollFailed(false);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Watch for 'connected' property change and in the event of a disconnect,
+     *  suppress poll result/fault handling.
+     * 
+     *  @param event A PropertyChangeEvent dispatched by the underlying channel.
+     */
+    private function channelPropertyChangeHandler(event:PropertyChangeEvent):void
+    {
+        if (event.property == "connected" && !event.newValue)
+        {
+            suppressHandlers = true;
+        }
+    }
+    
+    /**
+     *  @private
+     *  Helper method to run or schedule the next poll for the underlying channel.
+     * 
+     *  @param adaptivePollWait The optional wait time before the next poll should be issued.
+     */
+    private function doPoll(adaptivePollWait:int=0):void
+    {
+        var pollingChannel:PollingChannel = PollingChannel(channel);
+        // Only set up the next poll if the channel is still connected.
+        // Subscription invalidation commands pushed by the server can cause the channel to disconnect
+        // and it shouldn't issue another poll request in this case.
+        // Also, if the channel is piggybacking but not polling on an interval we don't want to
+        // schedule the next poll.
+        if (pollingChannel.connected && pollingChannel._shouldPoll)
+        {
+            // An adaptive polling value of 0 indicates that the channel should use its default
+            // polling interval.            
+            if (adaptivePollWait == 0)
+            {
+                if (pollingChannel.internalPollingInterval == 0)
+                {
+                    // No need for a Timer at all if we're polling immediately.
+                    pollingChannel.poll();
+                }
+                else if (!pollingChannel.timerRunning)         
+                {
+                    // Poll at the base rate for this Channel; no adaptive poll wait is defined.
+                    pollingChannel._timer.delay = pollingChannel._pollingInterval;
+                    pollingChannel._timer.start();
+                }
+            }
+            else
+            {
+                // Use adaptive poll wait.
+                pollingChannel._timer.delay = adaptivePollWait;
+                pollingChannel._timer.start();
+            }
         }
     }
 }
