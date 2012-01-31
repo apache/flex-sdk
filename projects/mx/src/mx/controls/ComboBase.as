@@ -819,7 +819,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
         //2 code paths: one for before collection, one after
         if (!collection || collection.length == 0)
         {
-            _selectedItem = value;
+           _selectedItem = data;
             selectedItemChanged = true;
             invalidateDisplayList();
             return;
@@ -1334,18 +1334,18 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             }
         }
         
+        if (selectedItemChanged)
+        {
+            selectedItem = selectedItem;
+            selectedItemChanged = false;
+            selectedIndexChanged = false;
+        }
 
         if (selectedIndexChanged)
         {
             selectedIndex = selectedIndex;
             selectedIndexChanged = false;
-        }
-
-        if (selectedItemChanged)
-        {
-            selectedItem = selectedItem;
-            selectedItemChanged = false;
-        }
+        }   
     }
 
     /**
