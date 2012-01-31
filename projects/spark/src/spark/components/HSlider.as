@@ -14,6 +14,7 @@ package mx.components
 
 import flash.display.DisplayObject;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 
 import mx.components.baseClasses.FxSlider;
 import mx.core.ILayoutElement;
@@ -170,12 +171,23 @@ public class FxHSlider extends FxSlider
     	{
 			var relX:Number = thumb.x - (tipAsDisplayObject.width - thumbSize) / 2;
 	        var o:Point = new Point(relX, dataTipOriginalPosition.y);
-	        var r:Point = localToGlobal(o);        
+	        var r:Point = localToGlobal(o);     
+			
+			// Get the screen bounds
+			var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
+			// Get the tips bounds. We only care about the dimensions.
+			var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
+			
+			// Make sure the tip doesn't exceed the bounds of the screen
+			r.x = Math.floor( Math.max(screenBounds.left, 
+							  	Math.min(screenBounds.right - tipBounds.width, r.x)));
+			r.y = Math.floor( Math.max(screenBounds.top, 
+								Math.min(screenBounds.bottom - tipBounds.height, r.y)));
+			
 			r = tipAsDisplayObject.parent.globalToLocal(r);
 			
-			// TODO (jszeto) Change to use ILayoutElement.setLayoutBoundsPosition?
-        	tipAsDisplayObject.x = Math.floor(r.x < 0 ? 0 : r.x);
-        	tipAsDisplayObject.y = Math.floor(r.y < 0 ? 0 : r.y);
+        	tipAsDisplayObject.x = r.x;
+        	tipAsDisplayObject.y = r.y;
     	}
     }
 }
