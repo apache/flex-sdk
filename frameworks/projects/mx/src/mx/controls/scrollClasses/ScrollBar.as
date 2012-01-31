@@ -21,7 +21,6 @@ import flash.geom.Point;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 import mx.controls.Button;
-import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -1202,16 +1201,9 @@ public class ScrollBar extends UIComponent
         downArrow.validateSize();
         scrollTrack.validateSize();
         
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-        {
-            _minWidth = scrollThumb ? scrollThumb.getExplicitOrMeasuredWidth() : 0;
-            _minWidth = Math.max(scrollTrack.getExplicitOrMeasuredWidth(), upArrow.getExplicitOrMeasuredWidth(),
-                                 downArrow.getExplicitOrMeasuredWidth(), _minWidth); 
-        }
-        else
-        {
-            _minWidth = upArrow.getExplicitOrMeasuredWidth();
-        }
+        _minWidth = scrollThumb ? scrollThumb.getExplicitOrMeasuredWidth() : 0;
+        _minWidth = Math.max(scrollTrack.getExplicitOrMeasuredWidth(), upArrow.getExplicitOrMeasuredWidth(),
+                             downArrow.getExplicitOrMeasuredWidth(), _minWidth);
         _minHeight = upArrow.getExplicitOrMeasuredHeight() +
                      downArrow.getExplicitOrMeasuredHeight();
     }
@@ -1243,29 +1235,17 @@ public class ScrollBar extends UIComponent
        
         upArrow.setActualSize(upArrow.getExplicitOrMeasuredWidth(),
                               upArrow.getExplicitOrMeasuredHeight());
-        
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-            upArrow.move((virtualWidth - upArrow.width) / 2, 0);
-        else
-            upArrow.move(0,0);
+        upArrow.move((virtualWidth - upArrow.width) / 2, 0);
 
         scrollTrack.setActualSize(scrollTrack.getExplicitOrMeasuredWidth(), virtualHeight);
 
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-            scrollTrack.x = (virtualWidth - scrollTrack.width) / 2;
+        scrollTrack.x = (virtualWidth - scrollTrack.width) / 2;
         scrollTrack.y = 0;        
      
         downArrow.setActualSize(downArrow.getExplicitOrMeasuredWidth(),
                                 downArrow.getExplicitOrMeasuredHeight());
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-        {
-            downArrow.move((virtualWidth - downArrow.width) / 2,
-                            virtualHeight - downArrow.getExplicitOrMeasuredHeight());
-        }
-        else
-        {
-            downArrow.move(0, virtualHeight - downArrow.getExplicitOrMeasuredHeight());
-        }
+        downArrow.move((virtualWidth - downArrow.width) / 2,
+                        virtualHeight - downArrow.getExplicitOrMeasuredHeight());
 
 
         setScrollProperties(pageSize, minScrollPosition,
