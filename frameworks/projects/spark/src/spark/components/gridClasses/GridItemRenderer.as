@@ -44,6 +44,12 @@ use namespace mx_internal;
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="transitions", kind="property")]
+
 /**
  *  The GridItemRenderer class defines the base class for custom item renderers
  *  for the Spark grid controls, such as DataGrid and Grid.   
@@ -54,6 +60,9 @@ use namespace mx_internal;
  *  <p>Item renderers are associated with each column of a grid.
  *  Set the item renderer for a column by using 
  *  the <code>GridColumn.itemRenderer property</code>.</p> 
+ * 
+ *  <p>Transitions in DataGrid item renderers aren't supported. The GridItemRenderer class 
+ *  has disabled its <code>transitions</code> property so setting it will have no effect.</p>
  *
  *  @see spark.components.DataGrid
  *  @see spark.components.Grid
@@ -110,7 +119,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      *  A flag determining if this renderer should play any 
      *  associated transitions when a state change occurs. 
      */
-    mx_internal var playTransitions:Boolean = false; 
+    mx_internal const playTransitions:Boolean = false; 
     
     //--------------------------------------------------------------------------
     //
