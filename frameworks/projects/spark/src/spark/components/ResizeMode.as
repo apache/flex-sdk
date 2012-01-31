@@ -26,21 +26,13 @@ package mx.components
 public final class ResizeMode
 {
     /**
-     *  @private
-     */
-    public static const _NORMAL_UINT:uint = 0;
-    /**
      *  Resize by changing <code>width</code> and <code>height</code>.
      *
      *  <p>The component always sizes itself, and then lays out 
      *  its children at the actual size specified by the layout or the user.</p>
      */
-    public static const NORMAL:String = "Normal";
+    public static const NORMAL:String = "normal";
 
-    /**
-     *  @private
-     */
-    public static const _SCALE_UINT:uint = 1;
     /**
      *  Resize by setting the <code>scaleX</code> 
      *  and <code>scaleY</code> properties.
@@ -49,37 +41,7 @@ public final class ResizeMode
      *  Its children at its measured size. 
      *  The scale is adjusted to match the specified size by the layout or the user.</p>
      */
-    public static const SCALE:String = "Scale";
-
-    /**
-     *  Converts from the <code>String</code> to the <code>uint</code>
-     *  representation of the enumeration value.
-     *
-     *  @param value The String representation of the enumeration.
-     *
-     *  @return The uint value corresponding to the String.
-     */
-    public static function toUINT(value:String):uint
-    {
-        if (value == SCALE)
-            return _SCALE_UINT;
-        return _NORMAL_UINT;
-    }
-
-    /**
-     *  Converts from the <code>uint</code> to the <code>String</code>
-     *  representation of the enumeration values.
-     *
-     *  @param value The uint value of the enumeration. 
-     *
-     *  @return The String corresponding to the uint value.
-     */
-    public static function toString(value:uint):String
-    {
-        if (value == _SCALE_UINT)
-            return SCALE;
-        return NORMAL;
-    }
+    public static const SCALE:String = "scale";
 }
 
 }
