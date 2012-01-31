@@ -1263,9 +1263,8 @@ public class VideoDisplay extends UIComponent
      *  <p>The control is also in a responsive state when the
      *  <code>state</code> property is: 
      *  <code>VideoEvent.CONNECTION_ERROR</code>, 
-     *  <code>VideoEvent.EXEC_QUEUED_CMD</code>, 
-     *  <code>VideoEvent.RESIZING</code>, or 
-     *  <code>VideoEvent.SEEKING</code>. </p>
+     *  <code>VideoEvent.EXEC_QUEUED_CMD</code>, or
+     *  <code>VideoEvent.RESIZING</code>.</p>
      *  
      *  <p>If the control is unresponsive, calls to the 
      *  <code>play()</code>, <code>load()</code>, <code>stop()</code>,
@@ -2089,7 +2088,7 @@ public class VideoDisplay extends UIComponent
         // The NetConnection needs to be close on a connection error because at
         // this point it can no longer connect to new urls.
         if (event.state == VideoEvent.CONNECTION_ERROR)
-        	this.close();
+            this.close();
 
         dispatchEvent(event.clone());
     }
