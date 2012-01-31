@@ -22,6 +22,8 @@ import mx.controls.alertClasses.AlertForm;
 import mx.core.EdgeMetrics;
 import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModule;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CloseEvent;
@@ -594,13 +596,18 @@ public class Alert extends Panel
             alert.addEventListener(CloseEvent.CLOSE, closeHandler);
 
 		// Setting a module factory allows the correct embedded font to be found.
-        if (parent is UIComponent)
-        	alert.moduleFactory = UIComponent(parent).moduleFactory;
+        if (parent is IFlexModule)
+        	alert.moduleFactory = IFlexModule(parent).moduleFactory;
         else
         {
-            alert.moduleFactory = FlexGlobals.topLevelApplication.moduleFactory;
-            // also set document is parent isn't a UIComponent
-            alert.document = FlexGlobals.topLevelApplication.document;
+            if (parent is IFlexModuleFactory)
+                alert.moduleFactory = IFlexModuleFactory(parent);
+            else                
+                alert.moduleFactory = FlexGlobals.topLevelApplication.moduleFactory;
+            
+            // also set document if parent isn't a UIComponent
+            if (!parent is UIComponent)
+                alert.document = FlexGlobals.topLevelApplication.document;
         }
 
         alert.addEventListener(FlexEvent.CREATION_COMPLETE, static_creationCompleteHandler);
