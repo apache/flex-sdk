@@ -28,7 +28,6 @@ import mx.messaging.MessageResponder;
 import mx.messaging.events.ChannelEvent;
 import mx.messaging.events.ChannelFaultEvent;
 import mx.messaging.events.MessageEvent;
-import mx.messaging.messages.AbstractMessage;
 import mx.messaging.messages.AcknowledgeMessage;
 import mx.messaging.messages.AsyncMessage;
 import mx.messaging.messages.CommandMessage;
@@ -50,21 +49,21 @@ public class NetConnectionChannel extends PollingChannel
     //--------------------------------------------------------------------------
     //
     // Constructor
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
-     *  Creates a new NetConnectionChannel instance. 
+     *  Creates a new NetConnectionChannel instance.
      *  <p>
      *  The underlying NetConnection's <code>objectEncoding</code>
-     *  is set to <code>ObjectEncoding.AMF3</code> by default. It can be 
+     *  is set to <code>ObjectEncoding.AMF3</code> by default. It can be
      *  changed manually by accessing the channel's <code>netConnection</code>
-     *  property. The global <code>NetConnection.defaultObjectEncoding</code> 
+     *  property. The global <code>NetConnection.defaultObjectEncoding</code>
      *  setting is not honored by this channel.
      *  </p>
      *
      *  @param id The id of this Channel.
-     * 
+     *
      *  @param uri The uri for this Channel.
      */
     public function NetConnectionChannel(id:String = null, uri:String = null)
@@ -78,8 +77,19 @@ public class NetConnectionChannel extends PollingChannel
 
     //--------------------------------------------------------------------------
     //
+    // Variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    mx_internal var _appendToURL:String;
+
+    //--------------------------------------------------------------------------
+    //
     // Properties
-    // 
+    //
     //--------------------------------------------------------------------------
 
     //----------------------------------
@@ -90,7 +100,7 @@ public class NetConnectionChannel extends PollingChannel
      *  @private
      */
     protected var _nc:NetConnection;
-    
+
     /**
      *  Provides access to the associated NetConnection for this Channel.
      */
@@ -98,7 +108,7 @@ public class NetConnectionChannel extends PollingChannel
     {
         return _nc;
     }
-    
+
     //----------------------------------
     //  useSmallmessages
     //----------------------------------
@@ -115,7 +125,7 @@ public class NetConnectionChannel extends PollingChannel
     //--------------------------------------------------------------------------
     //
     // Overridden Protected Methods
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -132,7 +142,7 @@ public class NetConnectionChannel extends PollingChannel
      */
     override protected function getPollSyncMessageResponder(agent:MessageAgent, msg:CommandMessage):MessageResponder
     {
-        return new PollSyncMessageResponder(agent, msg, this);        
+        return new PollSyncMessageResponder(agent, msg, this);
     }
 
     /**
@@ -150,7 +160,7 @@ public class NetConnectionChannel extends PollingChannel
     {
         super.internalDisconnect(rejected);
         shutdownNetConnection();
-        disconnectSuccess(rejected); // make sure to notify everyone that we have disconnected.   
+        disconnectSuccess(rejected); // make sure to notify everyone that we have disconnected.
     }
 
     /**
@@ -159,7 +169,11 @@ public class NetConnectionChannel extends PollingChannel
     override protected function internalConnect():void
     {
         super.internalConnect();
-        
+        var url:String = endpoint;
+        if (_appendToURL != null)
+            url += _appendToURL;
+
+
         // If the NetConnection has a non-null uri the Player will close() it automatically
         // as part of its connect() processing below. Pre-emptively close the connection while suppressing
         // NetStatus event handling to avoid spurious events.
@@ -168,25 +182,25 @@ public class NetConnectionChannel extends PollingChannel
             _nc.removeEventListener(NetStatusEvent.NET_STATUS, statusHandler);
             _nc.close();
         }
-        
-        _nc.addEventListener(NetStatusEvent.NET_STATUS, statusHandler);        
+
+        _nc.addEventListener(NetStatusEvent.NET_STATUS, statusHandler);
         _nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
         _nc.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
         _nc.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
 
-        try 
+        try
         {
-            _nc.connect(endpoint);
+            _nc.connect(url);
         }
-        catch(e:Error) 
+        catch(e:Error)
         {
             // In some cases, this error does not have the URL in it (if it is a malformed
-            // URL for example) and in others it does (sandbox violation).  Usually this is 
-            // a URL problem, so add it all of the time even though this means we'll see it 
+            // URL for example) and in others it does (sandbox violation).  Usually this is
+            // a URL problem, so add it all of the time even though this means we'll see it
             // twice for the sandbox violation.
-            e.message += "  url: '" + endpoint + "'";
+            e.message += "  url: '" + url + "'";
             throw e;
-        }                
+        }
     }
 
     /**
@@ -195,7 +209,7 @@ public class NetConnectionChannel extends PollingChannel
     override protected function internalSend(msgResp:MessageResponder):void
     {
         // Set the global FlexClient Id.
-        setFlexClientIdOnMessage(msgResp.message);        
+        setFlexClientIdOnMessage(msgResp.message);
 
         // If MPI is enabled initialize MPI object and stamp it with client send time
         if (mpiEnabled)
@@ -203,7 +217,7 @@ public class NetConnectionChannel extends PollingChannel
             var mpii:MessagePerformanceInfo = new MessagePerformanceInfo();
             if (recordMessageTimes)
                 mpii.sendTime = new Date().getTime();
-            msgResp.message.headers[MessagePerformanceUtils.MPI_HEADER_IN] = mpii;          
+            msgResp.message.headers[MessagePerformanceUtils.MPI_HEADER_IN] = mpii;
         }
 
         var message:IMessage = msgResp.message;
@@ -218,12 +232,12 @@ public class NetConnectionChannel extends PollingChannel
         }
 
         _nc.call(null, msgResp, message);
-    }    
+    }
 
     //--------------------------------------------------------------------------
     //
     // Methods
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -239,18 +253,22 @@ public class NetConnectionChannel extends PollingChannel
      */
     public function AppendToGatewayUrl(value:String):void
     {
-        if (value != null && endpoint != null)
+        if (value != null && value != "" && value != _appendToURL)
         {
-            netConnection.connect(endpoint + value);
+            if (Log.isDebug())
+                _log.debug("'{0}' channel will disconnect and reconnect with with its session identifier '{1}' appended to its endpoint url \n", id, value);
+            _appendToURL = value;
+            shutdownNetConnection();
+            internalConnect();
         }
     }
 
     /**
-     *  @private     
+     *  @private
      *  Called by the player when the server pushes a message.
      *  Dispatches a MessageEvent to any MessageAgents that are listening.
      *  Any ...rest args passed via RTMP are ignored.
-     * 
+     *
      *  @param msg The message pushed from the server.
      */
     public function receive(msg:IMessage, ...rest:Array):void
@@ -258,7 +276,7 @@ public class NetConnectionChannel extends PollingChannel
         if (Log.isDebug())
         {
             _log.debug("'{0}' channel got message\n{1}\n", id, msg.toString());
-            
+
             // If MPI is enabled write a performance summary to log
             if (this.mpiEnabled)
             {
@@ -280,9 +298,9 @@ public class NetConnectionChannel extends PollingChannel
     //--------------------------------------------------------------------------
     //
     // Protected Methods
-    // 
+    //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  @private
      *  Utility method to close a NetConnection; includes retry to deal with instances
@@ -291,7 +309,7 @@ public class NetConnectionChannel extends PollingChannel
     protected function closeNetConnection(nc:NetConnection):void
     {
         var closeHelper:CloseHelper = new CloseHelper(_nc);
-        closeHelper.close(); 
+        closeHelper.close();
     }
     */
 
@@ -300,13 +318,13 @@ public class NetConnectionChannel extends PollingChannel
      *  Shuts down the underlying NetConnection for the channel.
      */
     protected function shutdownNetConnection():void
-    {        
+    {
         _nc.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
         _nc.removeEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
         _nc.removeEventListener(NetStatusEvent.NET_STATUS, statusHandler);
         _nc.removeEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
         _nc.close();
-    }    
+    }
 
     /**
      *  @private
@@ -352,7 +370,7 @@ public class NetConnectionChannel extends PollingChannel
     //--------------------------------------------------------------------------
     //
     // Private Methods
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -365,12 +383,12 @@ public class NetConnectionChannel extends PollingChannel
         var faultEvent:ChannelFaultEvent = ChannelFaultEvent.createEvent
             (this, false, code, "error", event.text + " url: '" + endpoint + "'");
         faultEvent.rootCause = event;
-        
+
         if (_connecting)
             connectFailed(faultEvent);
         else
             dispatchEvent(faultEvent);
-    } 
+    }
 
 }
 
@@ -379,7 +397,7 @@ public class NetConnectionChannel extends PollingChannel
 //------------------------------------------------------------------------------
 //
 // Private Classes
-// 
+//
 //------------------------------------------------------------------------------
 
 import flash.utils.Timer;
@@ -420,7 +438,7 @@ class NetConnectionMessageResponder extends MessageResponder
     //--------------------------------------------------------------------------
     //
     // Constructor
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -429,12 +447,12 @@ class NetConnectionMessageResponder extends MessageResponder
      *
      *  @param agent MessageAgent that this responder should call back when a
      *            message is received.
-     * 
+     *
      *  @param msg The outbound message.
-     * 
+     *
      *  @param channel The channel this responder is using.
      */
-    public function NetConnectionMessageResponder(agent:MessageAgent, 
+    public function NetConnectionMessageResponder(agent:MessageAgent,
                                     msg:IMessage, channel:NetConnectionChannel)
     {
         super(agent, msg, channel);
@@ -445,7 +463,7 @@ class NetConnectionMessageResponder extends MessageResponder
     //--------------------------------------------------------------------------
     //
     // Variables
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -457,7 +475,7 @@ class NetConnectionMessageResponder extends MessageResponder
     //--------------------------------------------------------------------------
     //
     // Overridden Methods
-    // 
+    //
     //--------------------------------------------------------------------------
 
     /**
@@ -491,7 +509,7 @@ class NetConnectionMessageResponder extends MessageResponder
         }
         else
         {
-            var errorMsg:ErrorMessage;            
+            var errorMsg:ErrorMessage;
             errorMsg = new ErrorMessage();
             errorMsg.faultCode = "Server.Acknowledge.Failed";
             errorMsg.faultString = resourceManager.getString(
@@ -515,8 +533,8 @@ class NetConnectionMessageResponder extends MessageResponder
     override protected function statusHandler(msg:IMessage):void
     {
         disconnect();
-        
-        // even a fault is still an acknowledgement of a message sent so pass it on...        
+
+        // even a fault is still an acknowledgement of a message sent so pass it on...
         if (msg is AsyncMessage)
         {
             if (AsyncMessage(msg).correlationId == message.messageId)
@@ -544,7 +562,7 @@ class NetConnectionMessageResponder extends MessageResponder
                 errorMsg.faultDetail = resourceManager.getString(
                     "messaging", "noErrorForMessage.details",
                     [ message.messageId, AsyncMessage(msg).correlationId ]);
-                errorMsg.correlationId = message.messageId;             
+                errorMsg.correlationId = message.messageId;
                 agent.fault(errorMsg, message);
             }
         }
@@ -561,13 +579,13 @@ class NetConnectionMessageResponder extends MessageResponder
             agent.fault(errorMsg, message);
         }
     }
-    
+
     //--------------------------------------------------------------------------
     //
     // Overridden Protected Methods
-    // 
-    //--------------------------------------------------------------------------    
-    
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  @private
      *  Handle a request timeout by removing ourselves as a listener on the
@@ -577,23 +595,23 @@ class NetConnectionMessageResponder extends MessageResponder
     {
         disconnect();
         statusHandler(createRequestTimeoutErrorMessage());
-    }    
+    }
 
     //--------------------------------------------------------------------------
     //
     // Protected Methods
-    // 
-    //--------------------------------------------------------------------------    
-    
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  @private
      *  Handles a disconnect of the underlying Channel before a response is
-     *  returned to the responder. 
+     *  returned to the responder.
      *  The sent message is faulted and flagged with the ErrorMessage.MESSAGE_DELIVERY_IN_DOUBT
      *  code.
-     * 
+     *
      *  @param event The DISCONNECT event.
-     */ 
+     */
     protected function channelDisconnectHandler(event:ChannelEvent):void
     {
         disconnect();
@@ -606,14 +624,14 @@ class NetConnectionMessageResponder extends MessageResponder
         errorMsg.faultCode = ErrorMessage.MESSAGE_DELIVERY_IN_DOUBT;
         agent.fault(errorMsg, message);
     }
-    
+
     /**
      *  @private
-     *  Handles a fault of the underlying Channel before a response is 
-     *  returned to the responder. 
+     *  Handles a fault of the underlying Channel before a response is
+     *  returned to the responder.
      *  The sent message is faulted and flagged with the ErrorMessage.MESSAGE_DELIVERY_IN_DOUBT
      *  code.
-     * 
+     *
      *  @param event The ChannelFaultEvent.
      */
     protected function channelFaultHandler(event:ChannelFaultEvent):void
@@ -628,14 +646,14 @@ class NetConnectionMessageResponder extends MessageResponder
             errorMsg.faultCode = ErrorMessage.MESSAGE_DELIVERY_IN_DOUBT;
         }
         agent.fault(errorMsg, message);
-    }      
+    }
 
     //--------------------------------------------------------------------------
     //
     // Private Methods
-    // 
-    //--------------------------------------------------------------------------    
-    
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  @private
      *  Disconnects the responder from the underlying Channel.
@@ -644,7 +662,7 @@ class NetConnectionMessageResponder extends MessageResponder
     {
         channel.removeEventListener(ChannelEvent.DISCONNECT, channelDisconnectHandler);
         channel.removeEventListener(ChannelFaultEvent.FAULT, channelFaultHandler);
-    }  
+    }
 }
 
 /**
@@ -655,24 +673,24 @@ class NetConnectionMessageResponder extends MessageResponder
  *  unsubscribe command message.
  *  If a successfull subscribe/unsubscribe is made this responder will inform the
  *  channel which will trigger it to start/stop polling if necessary.
- *  
+ *
  */
 class PollSyncMessageResponder extends NetConnectionMessageResponder
 {
     //--------------------------------------------------------------------------
     //
     // Constructor
-    // 
-    //--------------------------------------------------------------------------    
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @private
      *  Constructs a PollSyncMessageResponder.
-     *  
+     *
      *  @param agent The agent to manage polling for.
-     * 
+     *
      *  @param msg The subscribe or unsubscribe message for the agent.
-     * 
+     *
      *  @param channel The underlying Channel for the responder.
      */
     public function PollSyncMessageResponder(agent:MessageAgent, msg:IMessage,
@@ -684,8 +702,8 @@ class PollSyncMessageResponder extends NetConnectionMessageResponder
     //--------------------------------------------------------------------------
     //
     // Overridden Protected Methods
-    // 
-    //--------------------------------------------------------------------------    
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @private
@@ -695,7 +713,7 @@ class PollSyncMessageResponder extends NetConnectionMessageResponder
      *  @param msg The response to a subscribe or unsubscribe request.
      */
     override protected function resultHandler(msg:IMessage):void
-    {      
+    {
         super.resultHandler(msg);
         if ((msg is AsyncMessage) && (AsyncMessage(msg).correlationId == message.messageId))
         {
@@ -713,28 +731,28 @@ class PollSyncMessageResponder extends NetConnectionMessageResponder
             }
         }
     }
-    
+
     //--------------------------------------------------------------------------
     //
     // Protected Methods
-    // 
-    //--------------------------------------------------------------------------    
-    
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  @private
      *  Handles a disconnect of the underlying Channel before a response is
      *  returned to the responder and supresses resend attempts.
-     * 
+     *
      *  @param event The Channel disconnect event.
-     */ 
+     */
     override protected function channelDisconnectHandler(event:ChannelEvent):void {}
-    
+
     /**
      *  @private
-     *  Handles a fault of the underlying Channel before a response is 
+     *  Handles a fault of the underlying Channel before a response is
      *  returned to the responder and supresses resend attempts.
-     * 
+     *
      *  @param event The Channel fault event.
      */
-    override protected function channelFaultHandler(event:ChannelFaultEvent):void {}        
+    override protected function channelFaultHandler(event:ChannelFaultEvent):void {}
 }
