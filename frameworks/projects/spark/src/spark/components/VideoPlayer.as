@@ -233,7 +233,7 @@ import spark.events.VideoEvent;
 
 [DefaultProperty("source")]
 
-//[IconFile("VideoDisplay.png")]
+[IconFile("FxVideoDisplay.png")]
 
 /**
  *  The FxVideoDisplay class is skinnable video player that supports
