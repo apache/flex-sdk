@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components.baseClasses
 {
 
 import flash.events.Event;
@@ -23,9 +23,9 @@ import mx.managers.IFocusManagerComponent;
 /**
  *  Slider
  */
-public class Slider extends TrackBase implements IFocusManagerComponent
+public class FxSlider extends FxTrackBase implements IFocusManagerComponent
 {
-    include "../core/Version.as";
+    include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
     //
@@ -36,7 +36,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     /**
      *  Constructor. 
      */
-    public function Slider():void
+    public function FxSlider():void
     {
         super();
     }
