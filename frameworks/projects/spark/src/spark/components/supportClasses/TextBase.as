@@ -23,14 +23,14 @@ import flash.utils.getQualifiedClassName;
 
 import flex.graphics.IDisplayObjectElement;
 
-import text.model.TextAlign;
-import text.model.VerticalAlign;
-
 import mx.core.mx_internal;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
+
+import text.formats.TextAlign;
+import text.formats.VerticalAlign;
 
 /**
  *  Documentation is not currently available.
