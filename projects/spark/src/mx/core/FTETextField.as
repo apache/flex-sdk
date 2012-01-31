@@ -63,14 +63,14 @@ import flashx.textLayout.formats.TextLayoutFormat;
 use namespace mx_internal;
 
 /**
- *  TLFTextField is a Sprite which displays text by using the new
+ *  FTETextField is a Sprite which displays text by using the new
  *  Text Layout Framework to implement the old TextField API.
  *
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @langversion 3.0
  */
-public class TLFTextField extends Sprite
+public class FTETextField extends Sprite
 {
 	// Current slot count: 21
 	// (1 for every type except 2 for Number)
@@ -380,12 +380,12 @@ public class TLFTextField extends Sprite
 	 *  @playerversion AIR 1.5
 	 *  @langversion 3.0
 	 */
-	public function TLFTextField()
+	public function FTETextField()
 	{
 		super();
 		
 		// The mouse should not be aware of the TextLines.
-		// Otherwise, TLFTextField will dispatch mouseOver and mouseOut
+		// Otherwise, FTETextField will dispatch mouseOver and mouseOut
 		// events over each line, thich TextField doesn't do.
 		mouseChildren = false;
 		
@@ -407,7 +407,7 @@ public class TLFTextField extends Sprite
 	
 	/**
 	 *  @private
-	 *  Apps are likely to create thousands of instances of TLFTextField,
+	 *  Apps are likely to create thousands of instances of FTETextField,
 	 *  so in order to minimize memory usage we store flags as 1 bit
 	 *  inside a uint instead of making each one a 4-byte Boolean var.
 	 */
@@ -590,8 +590,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property is not implemented in TLFTextField
-	 *  because TLFTextField does not support selection.
+	 *  This property is not implemented in FTETextField
+	 *  because FTETextField does not support selection.
 	 *  Accessing it will throw a runtime error.
 	 * 
 	 *  @see flash.text.TextField#alwaysShowSelection
@@ -618,7 +618,7 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has no effect in TLFTextField.
+	 *  This property has no effect in FTETextField.
 	 *  because FTE uses a newer font renderer than TextField.
 	 *  Getting it will always return <code>null</code>
 	 *  and setting it will do nothing.
@@ -832,8 +832,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support scrolling.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support scrolling.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @see flash.text.TextField#bottomScrollV
@@ -852,8 +852,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support editing.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support editing.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @copy flash.text.TextField#caretIndex
@@ -955,8 +955,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support editing.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support editing.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @copy flash.text.TextField#displayAsPassword
@@ -1022,7 +1022,7 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has no effect in TLFTextField.
+	 *  This property has no effect in FTETextField.
 	 *  because FTE uses a newer font renderer than TextField.
 	 *  Getting it will always return <code>null</code>
 	 *  and setting it will do nothing.
@@ -1151,8 +1151,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support editing.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support editing.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @see flash.text.TextField#maxChars
@@ -1179,8 +1179,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support scrolling.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support scrolling.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @see flash.text.TextField#maxScrollH
@@ -1199,8 +1199,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support scrolling.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support scrolling.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @see flash.text.TextField#maxScrollV
@@ -1219,8 +1219,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support scrolling.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support scrolling.
 	 *  Getting it will always return <code>false</code>
 	 *  and setting it will do nothing.
 	 *
@@ -1247,8 +1247,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has no effect in TLFTextField
-	 *  because TLFTextField does not support editing.
+	 *  This property has no effect in FTETextField
+	 *  because FTETextField does not support editing.
 	 *  However, you can get and set it.
 	 *
 	 *  @see flash.text.TextField#multiline
@@ -1289,7 +1289,7 @@ public class TLFTextField extends Sprite
 		// so the number of lines is the number of children.
 		// TextContainerManager can create Shapes as well,
 		// but only when using TLF's backgroundColor and backgroundAlpha
-		// formatting on spans, which TLFTextField doesn't use.
+		// formatting on spans, which FTETextField doesn't use.
 		return numChildren;
 	}
 	
@@ -1298,8 +1298,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support scrolling.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support scrolling.
 	 *  Accessing it will throw a runtime error.
 	 *  
 	 *  @see flash.text.TextField#restrict
@@ -1326,8 +1326,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support scrolling.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support scrolling.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @see flash.text.TextField#scrollH
@@ -1354,8 +1354,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support scrolling.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support scrolling.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @copy flash.text.TextField#scrollV
@@ -1382,8 +1382,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  Setting this property has no effect in TLFTextField
-	 *  because TLFTextField does not support selection.
+	 *  Setting this property has no effect in FTETextField
+	 *  because FTETextField does not support selection.
 	 *  If you get it, it will always be <code>false</code>.
 	 *
 	 *  @see flash.text.TextField#selectable
@@ -1409,8 +1409,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support selection.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support selection.
 	 *  Accessing it will throw a runtime error.
 	 *
 	 *  @see flash.text.TextField#selectionBeginIndex
@@ -1429,8 +1429,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has not been implemented in TLFTextField
-	 *  because TLFTextField does not support selection.
+	 *  This property has not been implemented in FTETextField
+	 *  because FTETextField does not support selection.
 	 *  Accessing it will throw a runtime error.
 	 * 
 	 *  @see flash.text.TextField#selectionEndIndex
@@ -1449,7 +1449,7 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has no effect in TLFTextField.
+	 *  This property has no effect in FTETextField.
 	 *  because FTE uses a newer font renderer than TextField.
 	 *  Getting it will always return <code>NaN</code>
 	 *  and setting it will do nothing.
@@ -1676,7 +1676,7 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property has no effect in TLFTextField.
+	 *  This property has no effect in FTETextField.
 	 *  because FTE uses a newer font renderer than TextField.
 	 *  Getting it will always return <code>NaN</code>
 	 *  and setting it will do nothing.
@@ -1728,7 +1728,7 @@ public class TLFTextField extends Sprite
 		}
 		
 		if (value == TextFieldType.INPUT)
-			throw new Error("TLFTextField does not support setting type to \"input\".");
+			throw new Error("FTETextField does not support setting type to \"input\".");
 	}
 	
 	//----------------------------------
@@ -1736,8 +1736,8 @@ public class TLFTextField extends Sprite
 	//----------------------------------
 	
 	/**
-	 *  This property is not implemented in TLFTextField
-	 *  because TLFTextField does not support selection
+	 *  This property is not implemented in FTETextField
+	 *  because FTETextField does not support selection
 	 *  or clipboard operations.
 	 *  Accessing it will throw a runtime error.
 	 *  
@@ -1816,7 +1816,7 @@ public class TLFTextField extends Sprite
 	private var _direction:String = "ltr";
 	
 	/**
-	 *  The directionality of the text displayed by TLFTextField.
+	 *  The directionality of the text displayed by FTETextField.
 	 * 
 	 *  <p>The allowed values are <code>"ltr"</code> for left-to-right text,
 	 *  as in Latin-style scripts,
@@ -1874,7 +1874,7 @@ public class TLFTextField extends Sprite
 	private var _locale:String = "en";
 	
 	/**
-	 *  The locale of the text displayed by TLFTextField.
+	 *  The locale of the text displayed by FTETextField.
 	 * 
 	 *  <p>FTE and TLF use this locale to map Unicode characters
 	 *  to font glyphs and to find fallback fonts.</p>
@@ -1918,7 +1918,7 @@ public class TLFTextField extends Sprite
 	private var _textLineCreator:ITextLineCreator;
 	
 	/**
-	 *  The ITextLineCreator instance that TLFTextField
+	 *  The ITextLineCreator instance that FTETextField
 	 *  uses for creating TextLines.
 	 * 
 	 *  <p>Set this if you need lines to be created in a different
@@ -1943,7 +1943,7 @@ public class TLFTextField extends Sprite
 	 */
 	public function set textLineCreator(value:ITextLineCreator):void
 	{
-		// TLFTextField allows a null value to be set;
+		// FTETextField allows a null value to be set;
 		// in fact, this is the default.
 
 		if (value == _textLineCreator)
@@ -1991,7 +1991,7 @@ public class TLFTextField extends Sprite
 	//--------------------------------------------------------------------------
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2007,7 +2007,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2023,7 +2023,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2039,7 +2039,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2055,7 +2055,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2071,7 +2071,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2087,7 +2087,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2131,7 +2131,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2147,7 +2147,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2163,7 +2163,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2179,9 +2179,9 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has been implemented in TLFTextField
+	 *  This method has been implemented in FTETextField
 	 *  to simply return a copy of the <code>defaultTextFormat</code>,
-	 *  because TLFTextField does not support formatting a range.
+	 *  because FTETextField does not support formatting a range.
 	 * 
 	 *  @see flash.text.TextField#getTextFormat()
 	 * 
@@ -2200,7 +2200,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 *
@@ -2216,7 +2216,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 * 
@@ -2233,8 +2233,8 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
-	 *  because TLFTextField does not support selection.
+	 *  This method has not been implemented in FTETextField
+	 *  because FTETextField does not support selection.
 	 *  It will throw a runtime error if called.
 	 * 
 	 *  @see flash.text.TextField#setSelection()
@@ -2249,9 +2249,9 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has no effect on a TLFTextField if beginIndex
+	 *  This method has no effect on a FTETextField if beginIndex
      *  or endIndex != -1
-	 *  because TLFTextField does not support formatting a range.
+	 *  because FTETextField does not support formatting a range.
 	 *
 	 *  @see flash.text.TextField#setTextFormat()
 	 * 
@@ -2271,7 +2271,7 @@ public class TLFTextField extends Sprite
 	}
 	
 	/**
-	 *  This method has not been implemented in TLFTextField
+	 *  This method has not been implemented in FTETextField
 	 *  because very few components use it in TextField.
 	 *  It will throw a runtime error if called.
 	 *
@@ -2298,7 +2298,7 @@ public class TLFTextField extends Sprite
 	private function notImplemented(name:String):String
 	{
 		// FIXME (gosmith) Make this an other RTE messages localizable.
-		return "'" + name + "' is not implemented TLFTextField.";
+		return "'" + name + "' is not implemented FTETextField.";
 	}
 	
 	/**
@@ -2345,7 +2345,7 @@ public class TLFTextField extends Sprite
 	
 	/**
 	 *  @private
-	 *  This method is the workhorse of TLFTextField.
+	 *  This method is the workhorse of FTETextField.
 	 *  It puts it into a state where all properties are consistent
 	 *  with each other and where it is rendering what the properties
 	 *  specify.
@@ -2447,7 +2447,7 @@ public class TLFTextField extends Sprite
 			// This is because TextField actually does something strange --- it expands itselft 1 pixel right and down when drawing a border
 			// and fill without the stroke with the required stroking path does not match the "background sans border" behavior of TextField.
 		
-			// Width/Height rounding differences between TextField and TLFTextField...
+			// Width/Height rounding differences between TextField and FTETextField...
 			// For width or height of the form E.5 where E is a positive even integer, Flash 10 on Windows seems to 
 			// "round to even", i.e., round the dimension down to E rather than up to E+1. However we currently just 
 			// round consistently up to E+1 using Math.round() here since for now are willing to live with this difference.
@@ -2513,7 +2513,7 @@ public class TLFTextField extends Sprite
 	 */
 	private function createHostFormat():void
 	{
-		hostFormat = new TLFTextFieldHostFormat(this);
+		hostFormat = new FTETextFieldHostFormat(this);
 	}
 	
 	/**
@@ -2806,7 +2806,7 @@ public class TLFTextField extends Sprite
 			inlineGraphicStatusChangeHandler);
 					
 		if (!textContainerManager)
-			textContainerManager = new TLFTextFieldTextContainerManager(this);
+			textContainerManager = new FTETextFieldTextContainerManager(this);
 			
 		textContainerManager.compositionWidth = compositionWidth;
 		textContainerManager.compositionHeight = compositionHeight;
@@ -2912,7 +2912,7 @@ import flashx.textLayout.formats.LineBreak;
 import flashx.textLayout.formats.TextDecoration;
 import flashx.textLayout.formats.TextLayoutFormatValueHolder;
 
-import mx.core.TLFTextField;
+import mx.core.FTETextField;
 import mx.core.mx_internal;
 
 use namespace mx_internal;
@@ -2920,12 +2920,12 @@ use namespace mx_internal;
 /**
  *  @private
  */
-class TLFTextFieldTextContainerManager extends TextContainerManager
+class FTETextFieldTextContainerManager extends TextContainerManager
 {
 	/**
 	 *  @private
 	 */
-	public function TLFTextFieldTextContainerManager(container:Sprite, configuration:IConfiguration = null)
+	public function FTETextFieldTextContainerManager(container:Sprite, configuration:IConfiguration = null)
 	{
 		super(container, configuration);
 	}
@@ -2942,16 +2942,16 @@ class TLFTextFieldTextContainerManager extends TextContainerManager
 /**
  *  @private
  */
-class TLFTextFieldHostFormat implements ITextLayoutFormat
+class FTETextFieldHostFormat implements ITextLayoutFormat
 {
-	public function TLFTextFieldHostFormat(textField:TLFTextField)
+	public function FTETextFieldHostFormat(textField:FTETextField)
 	{
 		super();
 		
 		this.textField = textField;
 	}
 	
-	private var textField:TLFTextField;
+	private var textField:FTETextField;
 	
 	public function get alignmentBaseline():*
 	{
@@ -3115,22 +3115,22 @@ class TLFTextFieldHostFormat implements ITextLayoutFormat
 	
 	public function get paddingBottom():*
 	{
-		return TLFTextField.PADDING_BOTTOM;
+		return FTETextField.PADDING_BOTTOM;
 	}
 	
 	public function get paddingLeft():*
 	{
-		return TLFTextField.PADDING_LEFT;
+		return FTETextField.PADDING_LEFT;
 	}
 	
 	public function get paddingRight():*
 	{
-		return TLFTextField.PADDING_RIGHT;
+		return FTETextField.PADDING_RIGHT;
 	}
 	
 	public function get paddingTop():*
 	{
-		return TLFTextField.PADDING_TOP;
+		return FTETextField.PADDING_TOP;
 	}
 	
 	public function get paragraphEndIndent():*
@@ -3246,7 +3246,7 @@ class FTETextFieldStyleResolver implements IFormatResolver
     private static const textFieldToTLFStyleMap:Object =
 	{
         // FIXME (gosmith): when mapping leading to lineHeight does this need
-        // the same adjustment as TLFTextFieldHostFormat.lineHeight?
+        // the same adjustment as FTETextFieldHostFormat.lineHeight?
         "leading": "lineHeight",    
         "letterSpacing": "trackingRight",
         "marginLeft": "paragraphStartIndent",
