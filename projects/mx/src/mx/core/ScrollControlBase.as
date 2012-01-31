@@ -1449,7 +1449,7 @@ public class ScrollControlBase extends UIComponent
     {
         // If this Container has a vertical scrollbar,
         // then handle the event and prevent further bubbling.
-        if (verticalScrollBar && verticalScrollBar.visible)
+        if (verticalScrollBar && verticalScrollBar.visible && !event.isDefaultPrevented())
         {
             event.stopPropagation();
 
