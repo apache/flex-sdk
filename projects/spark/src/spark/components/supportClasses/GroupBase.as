@@ -1334,7 +1334,7 @@ public class GroupBase extends UIComponent implements IViewport
            
     //--------------------------------------------------------------------------
     //
-    //  Properties: Overriden Focus management
+    //  Properties: Overridden Focus management
     //
     //--------------------------------------------------------------------------
 
