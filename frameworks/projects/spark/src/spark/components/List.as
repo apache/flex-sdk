@@ -540,9 +540,7 @@ public class List extends ListBase implements IFocusManagerComponent
                     //Quick check to see if selectedIndices had only one selected item
                     //and that item was de-selected
                     if (selectedIndices.length == 1 && (selectedIndices[0] == index))
-                    {
                         return [NO_SELECTION];  
-                    }
                     else
                     {
                         // Go through and see if the index passed in was in the 
@@ -614,11 +612,8 @@ public class List extends ListBase implements IFocusManagerComponent
         if (renderer)
         {
         	renderer.addEventListener("click", item_clickHandler);
-        	updateRendererInformation(IVisualElement(renderer));
+        	updateRenderer(IVisualElement(renderer));
         }
-            
-        if (isItemIndexSelected(index))
-            itemSelected(index, true);
     }
     
     /**
@@ -702,9 +697,7 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             var currentIndex:Number; 
             if (allowMultipleSelection && selectedIndices && selectedIndices.length > 0)
-            {
                 currentIndex = selectedIndices[selectedIndices.length - 1]; 
-            }
             else currentIndex = selectedIndex;  
             
 	        //Delegate to the layout to tell us what the next item is we should select.
