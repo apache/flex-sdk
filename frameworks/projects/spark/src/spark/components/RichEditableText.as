@@ -75,6 +75,7 @@ import mx.core.IFontContextComponent;
 import mx.core.IIMESupport;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.ISystemManager;
@@ -85,7 +86,6 @@ import spark.components.supportClasses.RichEditableTextContainerManager;
 import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.ScrollUnit;
-import spark.core.TextBaseClassWithStylesAndFocus;
 import spark.events.TextOperationEvent;
 import spark.primitives.Rect;
 import spark.utils.TextUtil;
@@ -187,7 +187,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class RichEditableText extends TextBaseClassWithStylesAndFocus
+public class RichEditableText extends UIComponent
 	implements IViewport, IFontContextComponent, IIMESupport
 {
     include "../core/Version.as";
@@ -2790,7 +2790,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     /**
      *  @private
      */
-    protected function focusOutHandler(event:FocusEvent):void
+    override protected function focusOutHandler(event:FocusEvent):void
     {
         // By default, we clear the undo history when a TextView loses focus.
         if (mx_internal::clearUndoOnFocusOut && mx_internal::undoManager)
@@ -2814,7 +2814,7 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
     /**
      *  @private
      */ 
-    protected function keyDownHandler(event:KeyboardEvent):void
+    override protected function keyDownHandler(event:KeyboardEvent):void
     {
         if (editingMode != EditingMode.READ_WRITE)
         	return;
