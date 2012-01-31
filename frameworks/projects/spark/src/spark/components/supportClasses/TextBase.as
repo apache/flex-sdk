@@ -13,31 +13,19 @@ package spark.components.supportClasses
 {
 
 import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Shape;
-import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.text.engine.FontLookup;
 import flash.text.engine.TextLine;
 
-import flashx.textLayout.compose.TextLineRecycler;
-
-import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
-import mx.core.IFontContextComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.managers.ISystemManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
-import mx.styles.CSSStyleDeclaration;
-import mx.styles.IAdvancedStyleClient;
-import mx.styles.StyleManager;
-import mx.styles.StyleProtoChain;
-import mx.utils.NameUtil;
 
 import spark.core.IDisplayText;
 import spark.utils.TextUtil;
@@ -934,12 +922,7 @@ public class TextBase extends UIComponent implements IDisplayText
         var n:int = textLinesVector.length;
         for (var i:int = 0; i < n; i++)
         {
-            var textLine:DisplayObject = textLinesVector[i];
-            
-            // This method does the Flash Player version check so we don't
-            // have to.
-            if (textLine is TextLine)
-            	TextLineRecycler.addLineForReuse(TextLine(textLine));
+            TextUtil.recycleTextLine(textLinesVector[i] as TextLine);            
         }
         
         textLinesVector.length = 0;
