@@ -472,6 +472,24 @@ public class SkinnableTextBase extends SkinnableComponent
     }
     
     //----------------------------------
+    //  enabled
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        if (textDisplay)
+            textDisplay.enabled = value;
+        
+        if (value == super.enabled)
+            return;
+        
+        super.enabled = value;
+    }
+
+    //----------------------------------
     //  maxHeight
     //----------------------------------
     
