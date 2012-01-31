@@ -99,6 +99,11 @@ use namespace mx_internal;
  *  @see mx.containers.Panel
  *
  *  @includeExample examples/SimpleControlBarExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ControlBar extends Box
 {
@@ -112,6 +117,11 @@ public class ControlBar extends Box
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ControlBar()
     {
