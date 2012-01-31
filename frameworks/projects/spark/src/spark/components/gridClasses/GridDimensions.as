@@ -42,6 +42,10 @@ public class GridDimensions
 
     private var rowList:GridRowList = new GridRowList();
     private var _columnWidths:Vector.<Number>;
+
+    //cache for cumulative y values.
+    private var startY:Number = 0;
+    private var recentNode:GridRowNode = null;
     
     //--------------------------------------------------------------------------
     //
@@ -408,7 +412,8 @@ public class GridDimensions
         if (node)
         {
             node.cellHeights[col] = height;
-            node.updateMaxHeight();
+            if (node.updateMaxHeight())
+                recentNode = null;
         }
     }
     
@@ -482,7 +487,6 @@ public class GridDimensions
             // index is now equal to node's index but row index is > node's index so we add node.
             y += node.maxCellHeight;
             index++;
-            
             node = node.next;
         }
         
@@ -498,7 +502,7 @@ public class GridDimensions
     {
         // TBD: provide optional return value (Rectangle) parameter    
         if ((row < 0) || (row >= rowCount))
-            return null;  // TBD: return empty Rectangle instead
+            return new Rectangle();  // TBD: return empty Rectangle instead
         
         const firstCellR:Rectangle = getCellBounds(row, 0);
         const lastCellR:Rectangle = getCellBounds(row, columnCount - 1);
@@ -514,7 +518,7 @@ public class GridDimensions
     {
         // TBD: provide optional return value (Rectangle) parameter
         if ((col < 0) || (col >= columnCount))
-            return null;  // TBD: return empty Rectangle instead
+            return new Rectangle();  // TBD: return empty Rectangle instead
 
         const firstCellR:Rectangle = getCellBounds(0, col);
         const lastCellR:Rectangle = getCellBounds(rowCount - 1, col);
@@ -527,52 +531,197 @@ public class GridDimensions
      *  Returns the index of the row at the specified coordinates. If
      *  the coordinates lie in a gap area, the index returned is the
      *  previous row.
+     * 
+     *  @return The index of the row at the coordinates provided. If the
+     *  coordinates are out of bounds, return -1.
      */
     public function getRowIndexAt(x:Number, y:Number):int
     {
+        if (y < 0)
+            return -1;
+        
         if (!isNaN(fixedRowHeight))
             return y / (fixedRowHeight + rowGap);
         
         if (rowList.length == 0)
             return y / (defaultRowHeight + rowGap);
         
-        var node:GridRowNode = rowList.first;
-        var index:int = 0;
-        var cur:Number = y;
-        var n:int;
+        if (y == 0)
+        {
+            recentNode = null;
+            return 0;
+        }
+        
+        // initialize first node.
+        if (!recentNode)
+        {
+            recentNode = rowList.first;
+            startY = recentNode.rowIndex * (defaultRowHeight + rowGap);
+        }
+        
+        var index:int;
+        
+        // if we are already at the right row, then use the index.
+        if (isYInRow(y, startY, recentNode))
+            index = recentNode.rowIndex;
+        else if (y < startY)
+            index = getPrevRowIndexAt(y, recentNode, startY);
+        else
+            index = getNextRowIndexAt(y, recentNode, startY);
+        
+        return index;
+    }
+    
+    /**
+     *  Checks if a certain y value lies in a row's bounds.
+     */
+    private function isYInRow(y:Number, startY:Number, node:GridRowNode):Boolean
+    {
+        var end:Number = startY + node.maxCellHeight;
+        
+        // don't add gap for last row.
+        if (node.rowIndex != rowCount - 1)
+            end += rowGap;
+        
+        // if y is between cumY and cumY + rowHeight - 1 then y is in the row.
+        if (y >= startY && y < end)
+            return true;
+        
+        return false;
+    }
+    
+    /**
+     *  Returns the index of the row that contains the specified y value.
+     *  The row will be before startNode.
+     *  
+     *  @param y the target y value
+     *  @param startNode the node to search from
+     *  @param startY the cumulative y value from the first row to startNode
+     * 
+     *  @return the index of the row that contains the y value.
+     */
+    private function getPrevRowIndexAt(y:Number, startNode:GridRowNode, startY:Number):int
+    {
+        var node:GridRowNode = startNode;
+        var prevNode:GridRowNode = null;
+        var index:int = node.rowIndex;
+        var currentY:Number = startY;
+        var prevY:Number;
+        var targetY:Number = y;
         
         while (node)
         {
-            // add not included rows.
-            if (node.rowIndex > index)
+            // check the current node.
+            if (isYInRow(targetY, currentY, node))
+                break;
+            
+            // calculate previous y.
+            prevNode = node.prev;
+            if (!prevNode)
             {
-                n = node.rowIndex - index;
-                for (var i:int = 0; i < n; i++)
-                {
-                    cur -= defaultRowHeight + rowGap;
-                    if (cur < 0)
-                        return index;
-                    index++;
-                }
+                prevY = 0;
+            }
+            else
+            {
+                prevY = currentY;
+                
+                var indDiff:int = node.rowIndex - prevNode.rowIndex;
+                
+                // subtract default row heights if difference is greater than one.
+                if (indDiff > 1)
+                    prevY -= (indDiff - 1) * (defaultRowHeight + rowGap);
             }
             
-            cur -= node.maxCellHeight + rowGap;
-            if (cur < 0)
-                return index;
-            index++;
+            // check if target Y is in range.
+            if (targetY < currentY && targetY >= prevY)
+            {
+                index = index - Math.ceil(Number(currentY - targetY)/(defaultRowHeight + rowGap));
+                break;
+            }
+
+            // subtract previous node's height and its gap.
+            currentY = prevY - prevNode.maxCellHeight - rowGap;
+            node = node.prev;
+            index = node.rowIndex;
+        }
+        
+        this.recentNode = node;
+        this.startY = currentY;
+        
+        return index;
+    }
+    
+    /**
+     *  Returns the index of the row that contains the specified y value.
+     *  The row will be after startNode.
+     *  
+     *  @param y the target y value
+     *  @param startNode the node to search from
+     *  @param startY the cumulative y value from the first row to startNode
+     * 
+     *  @return the index of the row that contains the y value.
+     */
+    private function getNextRowIndexAt(y:Number, startNode:GridRowNode, startY:Number):int
+    {
+        var node:GridRowNode = startNode;
+        var nextNode:GridRowNode = null;
+        var index:int = node.rowIndex;
+        var currentY:Number = startY;
+        var nextY:Number;
+        var targetY:Number = y;
+
+        while (node)
+        {
+            // check the current node.
+            if (isYInRow(targetY, currentY, node))
+                break;
+            
+            // calculate next y.
+            nextNode = node.next;
+            
+            nextY = currentY;
+            
+            var indDiff:int;
+            
+            if (!nextNode)
+            {
+                indDiff = rowCount - 1 - node.rowIndex;
+                // the y at the end doesn't have a rowGap, but includes the final pixel.
+                nextY += indDiff * (defaultRowHeight + rowGap) - rowGap + 1;
+            }
+            else
+            {
+                indDiff = nextNode.rowIndex - node.rowIndex;
+                nextY += (indDiff - 1) * (defaultRowHeight + rowGap);
+            }
+            
+            // check if target Y is within default row heights range.
+            if (targetY >= currentY && targetY < nextY)
+            {
+                index = index - Math.ceil(Number(currentY - targetY)/(defaultRowHeight + rowGap));
+                break;
+            }
+            
+            // if no next node and we didn't find the target, then the row doesn't exist.
+            if (!nextNode)
+            {
+                index = -1;
+                break;
+            }
+            
+            // add next node's height and its gap if necessary.
+            currentY = nextY + nextNode.maxCellHeight;
+            if (nextNode.rowIndex != rowCount - 1)
+                currentY += rowGap;
             
             node = node.next;
+            index = node.rowIndex;
         }
         
-        n = this.rowCount;
-        for (; index < n; index++)
-        {
-            cur -= defaultRowHeight + rowGap;
-            if (cur < 0)
-                return index;
-        }
+        this.recentNode = node;
+        this.startY = currentY;
         
-        return -1;
+        return index;
     }
     
     /**
@@ -730,6 +879,8 @@ public class GridDimensions
     {
         rowCount = 0;
         rowList.removeAll();
+        this.recentNode = null;
+        this.startY = 0;
     }
 
     /**
