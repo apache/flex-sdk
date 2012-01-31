@@ -16,7 +16,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,compile,doc" description="Clean build of flex4.swc"/>
+	<target name="main" depends="clean,compile" description="Clean build of flex4.swc"/>
 
 	<target name="clean">
 		<delete failonerror="false">
