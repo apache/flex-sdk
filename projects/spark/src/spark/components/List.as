@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
 //  Copyright 2008 Adobe Systems Incorporated
@@ -172,6 +172,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [IconFile("List.png")]
 [DefaultTriggerEvent("change")]
 
+[AccessibilityClass(implementation="spark.accessibility.ListBaseAccImpl")]
 /**
  *  The List control displays a vertical list of items.
  *  Its functionality is very similar to that of the SELECT
@@ -217,6 +218,18 @@ public class List extends ListBase implements IFocusManagerComponent
 {
     include "../core/Version.as";
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by ListBaseAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -677,6 +690,15 @@ public class List extends ListBase implements IFocusManagerComponent
     //  Overridden Methods
     //
     //--------------------------------------------------------------------------
+    
+     /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (List.createAccessibilityImplementation != null)
+            List.createAccessibilityImplementation(this);
+    }
     
      /**
      *  @private
