@@ -201,6 +201,43 @@ public class DropDownController extends EventDispatcher
     {
         return _isOpen;
     }
+    
+    //----------------------------------
+    //  closeOnResize
+    //----------------------------------
+    
+    private var _closeOnResize:Boolean = true;
+    
+    /**
+     *  When true, resizing the system manager will close the the drop down.
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.5.2
+     */
+    public function get closeOnResize():Boolean
+    {
+        return _closeOnResize;
+    }
+    
+    /**
+     *  @private 
+     */
+    public function set closeOnResize(value:Boolean):void
+    {
+        if (_closeOnResize == value)
+            return;
+        
+        // remove existing resize listener if present
+        if (isOpen)
+            removeCloseOnResizeTrigger();
+        
+        _closeOnResize = value;
+        
+        addCloseOnResizeTrigger();
+    }
         
     //----------------------------------
     //  rolloverOpenDelay
@@ -299,7 +336,6 @@ public class DropDownController extends EventDispatcher
             {
                 systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
                 systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
-                systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
                 systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, systemManager_mouseUpHandler_noRollOverOpenDelay);
             }
             else
@@ -307,12 +343,19 @@ public class DropDownController extends EventDispatcher
                 systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, systemManager_mouseMoveHandler);
                 systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
                 // MOUSEUP triggers may be added in systemManager_mouseMoveHandler
-                systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
             }
+            
+            addCloseOnResizeTrigger();
             
 			if (openButton && openButton.systemManager)
             	openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
+    }
+    
+    private function addCloseOnResizeTrigger():void
+    {
+        if (closeOnResize)
+            systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
     }
     
     /**
@@ -329,7 +372,6 @@ public class DropDownController extends EventDispatcher
             {
                 systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
                 systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
-                systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler, false);
                 systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, systemManager_mouseUpHandler_noRollOverOpenDelay);
             }
             else
@@ -338,13 +380,20 @@ public class DropDownController extends EventDispatcher
                 systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, systemManager_mouseMoveHandler);
                 systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, systemManager_mouseUpHandler);
                 systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
-                systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler);
             }
             
-			if (openButton && openButton.systemManager)
+            removeCloseOnResizeTrigger();
+            
+            if (openButton && openButton.systemManager)
             	openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
     } 
+    
+    private function removeCloseOnResizeTrigger():void
+    {
+        if (closeOnResize)
+            systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler);
+    }
     
     /**
      *  @private
