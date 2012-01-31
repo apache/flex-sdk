@@ -21,6 +21,7 @@ import flash.geom.Matrix;
 import flash.geom.Matrix3D;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
+import flash.geom.Rectangle;
 import flash.geom.Vector3D;
 
 import mx.core.AdvancedLayoutFeatures;
@@ -67,8 +68,9 @@ public class SpriteVisualElement extends FlexSprite
     public function SpriteVisualElement()
     {
         super();
-		naturalWidth = super.width;
-		naturalHeight = super.height;
+        var bounds:Rectangle = getBounds(this);
+		naturalWidth = Math.max( 0, bounds.right);
+		naturalHeight = Math.max( 0, bounds.bottom);
 		_width = naturalWidth;
 		_height = naturalHeight;
     }
@@ -1449,6 +1451,11 @@ public class SpriteVisualElement extends FlexSprite
 		return super.transform;
 	}
     
+    public function get coreyWidth():Number
+    {
+        return super.x;
+    }    
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -1528,7 +1535,7 @@ public class SpriteVisualElement extends FlexSprite
         invalidateTransform();
     }
 
-    private function get preferredWidth():Number
+    public function get preferredWidth():Number
     {
         if (!isNaN(_explicitWidth))
             return _explicitWidth;
@@ -1537,7 +1544,7 @@ public class SpriteVisualElement extends FlexSprite
         return naturalWidth;
     }
 
-    private function get preferredHeight():Number
+    public function get preferredHeight():Number
     {
         if (!isNaN(_explicitHeight))
             return _explicitHeight;
