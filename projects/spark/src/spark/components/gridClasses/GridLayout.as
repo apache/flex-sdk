@@ -564,6 +564,23 @@ public class GridLayout extends LayoutBase
 	//  Updating the GridDimensions' typicalCell sizes and columnWidths
 	//
 	//-------------------------------------------------------------------------- 
+    
+    /**
+     *  @private
+     *  Return width clamped to the column's minWidth and maxWidth properties.
+     */
+    private static function clampColumnWidth(width:Number, column:GridColumn):Number
+    {
+       const minColumnWidth:Number = column.minWidth;
+       const maxColumnWidth:Number = column.maxWidth;
+       
+       if (!isNaN(minColumnWidth))
+           width = Math.max(width, minColumnWidth);
+       if (!isNaN(maxColumnWidth))
+           width = Math.min(width, maxColumnWidth);
+       
+       return width;
+    }
 	
     /**
 	 *  @private
@@ -654,7 +671,7 @@ public class GridLayout extends LayoutBase
                 var renderer:IGridItemRenderer = createTypicalItemRenderer(columnIndex);
                 if (isNaN(cellWidth))
                 {
-                    cellWidth = renderer.getPreferredBoundsWidth();
+                    cellWidth = clampColumnWidth(renderer.getPreferredBoundsWidth(), column);
                     gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
                 }
                 if (isNaN(cellHeight))
@@ -715,7 +732,7 @@ public class GridLayout extends LayoutBase
                 var renderer:IGridItemRenderer = createTypicalItemRenderer(columnIndex);
                 if (isNaN(cellWidth))
                 {
-                    cellWidth = renderer.getPreferredBoundsWidth();
+                    cellWidth = clampColumnWidth(renderer.getPreferredBoundsWidth(), column);
                     gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
                 }
                 if (isNaN(cellHeight))
@@ -769,15 +786,7 @@ public class GridLayout extends LayoutBase
             if (isNaN(gridColumn.width)) // if this column's width wasn't explicitly specified
             {
                 flexibleColumnCount += 1;
-                
-                // Clamp columnWidth to the gridColumn's min,maxWidth
-                
-                var minColumnWidth:Number = gridColumn.minWidth;
-                var maxColumnWidth:Number = gridColumn.maxWidth;
-                if (!isNaN(minColumnWidth))
-                    columnWidth = Math.max(columnWidth, minColumnWidth);
-                if (!isNaN(maxColumnWidth))
-                    columnWidth = Math.min(columnWidth, maxColumnWidth);
+                columnWidth = clampColumnWidth(columnWidth, gridColumn);
             }
             else
                 columnWidth = gridColumn.width;
@@ -808,14 +817,7 @@ public class GridLayout extends LayoutBase
             {
                 var oldColumnWidth:Number = gridDimensions.getColumnWidth(columnIndex);
                 columnWidth = oldColumnWidth + Math.min(availableWidth, columnWidthDelta);
-                
-                minColumnWidth = gridColumn.minWidth;
-                maxColumnWidth = gridColumn.maxWidth;
-                if (!isNaN(minColumnWidth))
-                    columnWidth = Math.max(columnWidth, minColumnWidth);
-                if (!isNaN(maxColumnWidth))
-                    columnWidth = Math.min(columnWidth, maxColumnWidth);
-                
+                columnWidth = clampColumnWidth(columnWidth, gridColumn);
                 gridDimensions.setColumnWidth(columnIndex, columnWidth);  // store the column width
                 availableWidth -= (columnWidth - oldColumnWidth);
             }
