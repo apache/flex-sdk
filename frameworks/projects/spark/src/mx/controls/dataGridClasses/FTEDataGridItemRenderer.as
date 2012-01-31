@@ -79,7 +79,7 @@ public class TLFDataGridItemRenderer extends UITLFTextField
                                   IDropInListItemRenderer, ILayoutManagerClient,
                                   IListItemRenderer, IStyleClient
 {
-    include "../../core/Version.as";
+    include "../../../spark/core/Version.as";
 
     //--------------------------------------------------------------------------
     //
