@@ -973,10 +973,14 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     {
         if (event.keyCode != Keyboard.SPACE)
             return;
-        keyboardPressed = false;
         
-        if (enabled)
+        if (enabled && keyboardPressed)
+        {
+            // Mimic mouse click on the button.
+            buttonReleased();
+            keyboardPressed = false;
             dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+        }
         event.updateAfterEvent();
     }
 
