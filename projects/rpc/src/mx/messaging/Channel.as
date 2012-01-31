@@ -1342,12 +1342,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
         if (proto.length == 0)
             uriCopy = URLUtil.getFullURL(LoaderConfig.url, uriCopy);
 
-        if (!URLUtil.hasUnresolvableTokens())
+        if (URLUtil.hasTokens(uriCopy) && !URLUtil.hasUnresolvableTokens())
         {
-            _isEndpointCalculated = false;    
+            _isEndpointCalculated = false;
             return;
         }
-        
+
         uriCopy = URLUtil.replaceTokens(uriCopy);
         
         // Now, check for a final protocol after relative URLs and tokens
