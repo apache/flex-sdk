@@ -14,17 +14,18 @@ package spark.core
 import flash.ui.Keyboard;
 
 /**
- *  Enumerated type for the IViewport <code>getVerticalScrollPositionDelta()</code>,
- *  <code>getHorizontalScrollPositionDelta()</code> and
- *  <code>getNavigationDestinationIndex()</code> methods.
+ *  The NavigationUnit class defines the possible values for the 
+ *  <code>getVerticalScrollPositionDelta()</code> and 
+ *  <code>getHorizontalScrollPositionDelta()</code> 
+ *  methods of the IViewport class.
  * 
- *  All of these constants have the same values as their flash.ui.Keyboard
+ *  <p>All of these constants have the same values as their flash.ui.Keyboard
  *  counterparts, except PAGE_LEFT and PAGE_RIGHT, for which no keyboard
- *  key equivalents exist.
+ *  key equivalents exist.</p>
  * 
+ *  @see flash.ui.Keyboard
  *  @see IViewport#getVerticalScrollPositionDelta
  *  @see IViewport#getHorizontalScrollPositionDelta
- *  @see LayoutBase#getNavigationDestinationIndex
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
