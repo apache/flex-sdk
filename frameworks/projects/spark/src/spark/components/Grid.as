@@ -881,6 +881,10 @@ package spark.components
             
             invalidateSize();
             invalidateDisplayList();
+            gridLayout.clearVirtualLayoutCache();
+            if (gridLayout.gridDimensions)
+                gridLayout.gridDimensions.clearTypicalCellWidthsAndHeights();
+            
             dispatchChangeEvent("itemRendererChanged");
         }    
         
