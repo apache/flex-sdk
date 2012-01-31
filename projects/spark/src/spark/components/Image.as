@@ -809,6 +809,13 @@ public class Image extends SkinnableComponent
             }
             
             imageDisplayProperties = newImageDisplayProperties;
+            
+            // This mx_internal method is invoked now so that we initiate loading of our
+            // source property prior to commitProperties. If we were to just wait
+            // until commitProperties, the order that commitProperties is invoked
+            // on multiple MXML Image instances does not match child order and as
+            // such can be astonishing, especially when a queued loader is active.
+            imageDisplay.validateSource();
         }
         else if (instance == progressIndicator)
         {
