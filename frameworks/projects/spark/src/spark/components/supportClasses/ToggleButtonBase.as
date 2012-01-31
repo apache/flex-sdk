@@ -168,29 +168,24 @@ public class ToggleButtonBase extends ButtonBase
     /**
      *  @private
      */ 
-    protected override function getCurrentSkinState():String
+    override protected function getCurrentSkinState():String
     {
         if (!selected)
             return super.getCurrentSkinState();
         else
             return super.getCurrentSkinState() + "AndSelected";
     }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Event handling
-    //
-    //--------------------------------------------------------------------------
-
+    
     /**
      *  @private
      */ 
-    override protected function clickHandler(event:MouseEvent):void
+    override protected function buttonReleased():void
     {
-        super.clickHandler(event);
+        super.buttonReleased();
+        
         selected = !selected;
+        
         dispatchEvent(new Event(Event.CHANGE));
-        event.updateAfterEvent();
     }
 }
 
