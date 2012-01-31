@@ -96,7 +96,7 @@ public class Range extends SkinnableComponent
      * 
      *  <p>Changes to the value property are constrained
      *  by <code>commitProperties()</code> to be less than or equal to
-     *  maximum with the nearestValidValue() method.</p> 
+     *  maximum with the <code>nearestValidValue()</code> method.</p> 
      *
      *  @default 100
      *  @see #nearestValidValue
@@ -135,7 +135,7 @@ public class Range extends SkinnableComponent
      * 
      *  <p>Changes to the value property are constrained
      *  by <code>commitProperties()</code> to be greater than or equal to
-     *  minimum with the nearestValidValue() method.</p> 
+     *  minimum with the <code>nearestValidValue()</code> method.</p> 
      *
      *  @default 0
      *  @see #nearestValidValue
@@ -272,9 +272,9 @@ public class Range extends SkinnableComponent
      *  <p>If the value of this property is zero, then valid values are only constrained
      *  to be between minimum and maximum inclusive.</p>
      * 
-     *  <p>This property also constrains valid values for the stepSize property when set.
-     *  If this property is not explicitly set and stepSize is set, then snapInterval
-     *  will default to stepSize.</p>
+     *  <p>This property also constrains valid values for the <code>stepSize</code> property when set.
+     *  If this property is not explicitly set and <code>stepSize</code> is set, 
+     *  then <code>snapInterval</code> defaults to <code>stepSize</code>.</p>
      *  
      *  @default 1
      *  @see #nearestValidValue
