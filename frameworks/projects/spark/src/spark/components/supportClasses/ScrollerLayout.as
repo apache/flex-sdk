@@ -35,6 +35,14 @@ public class ScrollerLayout extends LayoutBase
 
     /**
      *  @private
+     *  SDT - Scrollbar Display Threshold.  If the content size exceeds the
+     *  viewport's size by SDT, then we show a scrollbar.  For example, if the 
+     *  contentWidth >= viewport width + SDT, show the vertical scrollbar.
+     */
+    private static const SDT = 1.0;
+
+    /**
+     *  @private
      *  Used by updateDisplayList() to prevent looping.
      */
     private var invalidationCount:int = 0;
@@ -294,7 +302,9 @@ public class ScrollerLayout extends LayoutBase
         // don't give up space if doing so would make an auto scrollbar visible.
         // In other words, if an auto scrollbar isn't already showing, and using
         // the preferred size would force it to show, and the current size would not,
-        // then use its current size as the measured size.
+        // then use its current size as the measured size.  Note that a scrollbar
+        // is only shown if the content size is greater than the viewport size 
+        // by at least SDT.
 
         var viewport:IViewport = scroller.viewport;
         if (viewport)
@@ -304,8 +314,8 @@ public class ScrollerLayout extends LayoutBase
             var viewportPreferredW:Number =  viewport.getPreferredBoundsWidth();
             var viewportContentW:Number = contentSize.x;
             var viewportW:Number = viewport.getLayoutBoundsWidth();  // "current" size
-            var currentSizeNoHSB:Boolean = !isNaN(viewportW) && (viewportW >= viewportContentW);
-            if (hAuto && !showHSB && (viewportPreferredW < viewportContentW) && currentSizeNoHSB)
+            var currentSizeNoHSB:Boolean = !isNaN(viewportW) && ((viewportW + SDT) > viewportContentW);
+            if (hAuto && !showHSB && ((viewportPreferredW + SDT) <= viewportContentW) && currentSizeNoHSB)
                 measuredW += viewportW;
             else
                 measuredW += Math.max(viewportPreferredW, (showHSB) ? hsb.getMinBoundsWidth() : 0);
@@ -313,8 +323,8 @@ public class ScrollerLayout extends LayoutBase
             var viewportPreferredH:Number = viewport.getPreferredBoundsHeight();
             var viewportContentH:Number = contentSize.y;
             var viewportH:Number = viewport.getLayoutBoundsHeight();  // "current" size
-            var currentSizeNoVSB:Boolean = !isNaN(viewportH) && (viewportH >= viewportContentH);
-            if (vAuto && !showVSB && (viewportPreferredH < viewportContentH) && currentSizeNoVSB)
+            var currentSizeNoVSB:Boolean = !isNaN(viewportH) && ((viewportH + SDT) > viewportContentH);
+            if (vAuto && !showVSB && ((viewportPreferredH + SDT) <= viewportContentH) && currentSizeNoVSB)
                 measuredH += viewportH;
             else
                 measuredH += Math.max(viewportPreferredH, (showVSB) ? vsb.getMinBoundsHeight() : 0);
@@ -389,7 +399,8 @@ public class ScrollerLayout extends LayoutBase
         var viewportH:Number = isNaN(explicitViewportH) ? (h - (minViewportInset * 2)) : explicitViewportH;
                         
         // Decide which scrollbars will be visible based on the viewport's content size
-        // and the scroller's scroll policies.
+        // and the scroller's scroll policies.  A scrollbar is shown if the content size 
+        // greater than the viewport's size by at least SDT.
         
         var oldShowHSB:Boolean = hsbVisible;
         var oldShowVSB:Boolean = vsbVisible;
@@ -405,7 +416,7 @@ public class ScrollerLayout extends LayoutBase
                 if (hsb && viewport)
                 {
                     hAuto = true;
-                    hsbVisible = (contentW > viewportW);
+                    hsbVisible = (contentW >= (viewportW + SDT));
                 } 
                 break;
 
@@ -424,7 +435,7 @@ public class ScrollerLayout extends LayoutBase
                 if (vsb && viewport)
                 { 
                     vAuto = true;
-                    vsbVisible = (contentH > viewportH);
+                    vsbVisible = (contentH >= (viewportH + SDT));
                 }                        
                 break;
 
@@ -450,10 +461,10 @@ public class ScrollerLayout extends LayoutBase
         
         var hsbIsDependent:Boolean = false;
         var vsbIsDependent:Boolean = false;
-    
-        if (vsbVisible && !hsbVisible && hAuto && (contentW > viewportW))
+        
+        if (vsbVisible && !hsbVisible && hAuto && (contentW >= (viewportW + SDT)))
             hsbVisible = hsbIsDependent = true;
-        else if (!vsbVisible && hsbVisible && vAuto && (contentH > viewportH))
+        else if (!vsbVisible && hsbVisible && vAuto && (contentH >= (viewportH + SDT)))
             vsbVisible = vsbIsDependent = true;
 
         // If the HSB doesn't fit, hide it and give the space back.   Likewise for VSB.
