@@ -35,6 +35,7 @@ import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.components.baseClasses.GroupBase;
 import mx.controls.Label;
 import mx.core.IFactory;
+import mx.core.IVisualContainer;
 import mx.core.IVisualItem;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -79,7 +80,7 @@ use namespace mx_internal;
  *  @includeExample examples/GroupExample.mxml
  *
  */
-public class Group extends GroupBase 
+public class Group extends GroupBase implements IVisualContainer
 {
     /**
      *  Constructor.
@@ -347,7 +348,6 @@ public class Group extends GroupBase
     
     /**
      *  The number of items in this group.
-     *
      */
     public function get numItems():int
     {
@@ -728,7 +728,7 @@ public class Group extends GroupBase
 
         if (item is GraphicElement) 
         {
-            item.elementHost = this;
+            item.parent = this;
         
             // If a styleable GraphicElement is being added,
             // build its protochain for use by getStyle().
@@ -768,7 +768,7 @@ public class Group extends GroupBase
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item));        
         if (item && (item is GraphicElement))
         {
-            item.elementHost = null;
+            item.parent = null;
             item.sharedDisplayObject = null;
             childDO = GraphicElement(item).displayObject;
         }
@@ -971,8 +971,9 @@ public class Group extends GroupBase
     { 
         var host:DisplayObject;
         
-        if (item is GraphicElement)
-            host = DisplayObject(GraphicElement(item).elementHost); 
+        // TODO (rfrishbe): need to check for DisplayObject?
+        if (item is IVisualItem)
+            host = IVisualItem(item).parent; 
         else if (item is DisplayObject)
             host = DisplayObject(item).parent;
         
