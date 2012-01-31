@@ -25,7 +25,7 @@ FxCheckBox
 
 FxDataComponent
 {
-	skinZZ: ClassReference("mx.skins.spark.FxDataComponentSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxDataContainerSkin");
 }
 
 FxHScrollBar
@@ -38,9 +38,9 @@ FxHSlider
     skinZZ: ClassReference("mx.skins.spark.FxHSliderSkin");
 }
 
-FxItemsComponent
+FxContainer
 {
-	skinZZ: ClassReference("mx.skins.spark.FxItemsComponentSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxContainerSkin");
 }
 
 FxList
