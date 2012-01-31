@@ -50,6 +50,7 @@ import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
+import mx.events.InterManagerRequest;
 import mx.events.ListEvent;
 import mx.events.SandboxMouseEvent;
 import mx.events.MenuEvent;
@@ -1426,15 +1427,32 @@ public class Menu extends List implements IFocusManagerContainer
             y = Number(yShow);
 
         // Adjust for menus that extend out of bounds
+        var sm:ISystemManager = systemManager.topLevelSystemManager;
+        var sbRoot:DisplayObject = sm.getSandboxRoot();
         if (this != getRootMenu())
         {
             // do x
-            var shift:Number = x + width - screen.width;
+            var screen:Rectangle;
+            var pt:Point = new Point(x, y);
+            pt = DisplayObject(this.document).localToGlobal(pt);
+    
+            if (sm != sbRoot)
+            {
+                var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
+                                        false, false,
+                                        "getVisibleApplicationRect"); 
+                sbRoot.dispatchEvent(request);
+                screen = Rectangle(request.value);
+            }
+            else
+                screen = sm.getVisibleApplicationRect();
+                
+            var shift:Number = pt.x + width - screen.right;
             if (shift > 0)
                 x = Math.max(x - shift, 0);
                 
             // now do y
-            shift = y + height - screen.height;
+            shift = pt.y + height - screen.bottom;
             if (shift > 0)
                 y = Math.max(y - shift, 0);
         }
@@ -1474,7 +1492,6 @@ public class Menu extends List implements IFocusManagerContainer
         supposedToLoseFocus = true;
         
         // If the user clicks outside the menu, then hide the menu
-        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
         sbRoot.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownOutsideHandler, false, 0, true);
         addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, mouseDownOutsideHandler, false, 0, true);
     }
