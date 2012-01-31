@@ -16,6 +16,23 @@ import spark.effects.supportClasses.FadeInstance;
 import mx.effects.IEffectInstance;
 
 /**
+ *  The Fade effect animates the <code>alpha</code> property of a component. 
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Fade&gt;</code> tag
+ *  inherits the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;mx:Fade 
+ *    id="ID"
+ *    alphaFrom="val"
+ *    alphaTo="val"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.effects.supportClasses.FadeInstance
  * 
  *  @includeExample examples/FadeEffectExample.mxml
  *  
@@ -26,6 +43,16 @@ import mx.effects.IEffectInstance;
  */
 public class Fade extends Animate
 {
+   /**
+    *  Constructor. 
+    *
+    *  @param target The Object to animate with this effect.  
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
+    */
     public function Fade(target:Object=null)
     {
         super(target);
@@ -45,7 +72,7 @@ public class Fade extends Animate
     [Inspectable(category="General", defaultValue="undefined")]
     
     /** 
-     *  Initial transparency level between 0.0 and 1.0, 
+     *  Initial value of the <code>alpha</code> property, between 0.0 and 1.0, 
      *  where 0.0 means transparent and 1.0 means fully opaque. 
      * 
      *  <p>If the effect causes the target component to disappear,
@@ -68,7 +95,7 @@ public class Fade extends Animate
     [Inspectable(category="General", defaultValue="NaN")]
     
     /** 
-     *  Final transparency level,
+     *  Final value of the <code>alpha</code> property, between 0.0 and 1.0,
      *  where 0.0 means transparent and 1.0 means fully opaque.
      *
      *  <p>If the effect causes the target component to disappear,
@@ -111,6 +138,9 @@ public class Fade extends Animate
         return ["alpha", "visible", "parent"];
     }
 
+    /**
+     *  @private
+     */
     override protected function applyValueToTarget(target:Object,
                                                    property:String, 
                                                    value:*,
