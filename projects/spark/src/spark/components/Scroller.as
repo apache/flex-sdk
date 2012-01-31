@@ -66,6 +66,39 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  Indicates under what conditions the horizontal scrollbar is displayed.
+ * 
+ *  <ul>
+ *  <li>
+ *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
+ *  </li> 
+ *  <li>
+ *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
+ *  The viewport can still be scrolled programmatically, by setting its
+ *  horizontalScrollPosition property.
+ *  </li>
+ *  <li>
+ *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
+ *  the viewport's contentWidth is larger than its width.
+ *  </li>
+ *  </ul>
+ * 
+ *  <p>
+ *  The scroll policy affects the measured size of the Scroller component.
+ *  </p>
+ * 
+ *  @default ScrollPolicy.AUTO
+ *
+ *  @see mx.core.ScrollPolicy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
+
+/**
  * @copy spark.components.supportClasses.GroupBase#style:rollOverColor
  *  
  *  @langversion 3.0
@@ -84,6 +117,40 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  Indicates under what conditions the vertical scrollbar is displayed.
+ * 
+ *  <ul>
+ *  <li>
+ *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
+ *  </li> 
+ *  <li>
+ *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
+ *  The viewport can still be scrolled programmatically, by setting its
+ *  verticalScrollPosition property.
+ *  </li>
+ *  <li>
+ *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
+ *  the viewport's contentHeight is larger than its height.
+ *  </li>
+ *  </ul>
+ * 
+ *  <p>
+ *  The scroll policy affects the measured size of the Scroller component.
+ *  </p>
+ * 
+ *  @default ScrollPolicy.AUTO
+ *
+ *  @see mx.core.ScrollPolicy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+     */ 
+[Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
+
 
 //--------------------------------------
 //  Other metadata
@@ -285,120 +352,6 @@ public class Scroller extends SkinnableComponent
         }
     }
     
-    //----------------------------------
-    //  verticalScrollPolicy
-    //----------------------------------
-
-    private var _verticalScrollPolicy:String = ScrollPolicy.AUTO;
-
-    [Bindable]
-    [Inspectable(enumeration="off,on,auto", defaultValue="auto")]
-            
-    /**
-     *  Indicates under what conditions the vertical scrollbar is displayed.
-     * 
-     *  <ul>
-     *  <li>
-     *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
-     *  </li> 
-     *  <li>
-     *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
-     *  The viewport can still be scrolled programmatically, by setting its
-     *  verticalScrollPosition property.
-     *  </li>
-     *  <li>
-     *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
-     *  the viewport's contentHeight is larger than its height.
-     *  </li>
-     *  </ul>
-     * 
-     *  <p>
-     *  The scroll policy affects the measured size of the Scroller component.
-     *  </p>
-     * 
-     *  @default ScrollPolicy.AUTO
-     *
-     *  @see mx.core.ScrollPolicy
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function get verticalScrollPolicy():String
-    {
-        return _verticalScrollPolicy;
-    }
-
-    /**
-     *  @private
-     */
-    public function set verticalScrollPolicy(value:String):void
-    {
-        if (value == _verticalScrollPolicy)
-            return;
-
-        _verticalScrollPolicy = value;
-        invalidateSkin();
-    }
-    
-
-    //----------------------------------
-    //  horizontalScrollPolicy
-    //----------------------------------
-
-    private var _horizontalScrollPolicy:String = ScrollPolicy.AUTO;
-    
-    [Bindable]
-    [Inspectable(enumeration="off,on,auto", defaultValue="auto")]
-
-    /**
-     *  Indicates under what conditions the horizontal scrollbar is displayed.
-     * 
-     *  <ul>
-     *  <li>
-     *  <code>ScrollPolicy.ON</code> ("on") - the scrollbar is always displayed.
-     *  </li> 
-     *  <li>
-     *  <code>ScrollPolicy.OFF</code> ("off") - the scrollbar is never displayed.
-     *  The viewport can still be scrolled programmatically, by setting its
-     *  horizontalScrollPosition property.
-     *  </li>
-     *  <li>
-     *  <code>ScrollPolicy.AUTO</code> ("auto") - the scrollbar is displayed when 
-     *  the viewport's contentWidth is larger than its width.
-     *  </li>
-     *  </ul>
-     * 
-     *  <p>
-     *  The scroll policy affects the measured size of the Scroller component.
-     *  </p>
-     * 
-     *  @default ScrollPolicy.AUTO
-     *
-     *  @see mx.core.ScrollPolicy
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function get horizontalScrollPolicy():String
-    {
-        return _horizontalScrollPolicy;
-    }
-
-    /**
-     *  @private
-     */
-    public function set horizontalScrollPolicy(value:String):void
-    {
-        if (value == _horizontalScrollPolicy)
-            return;
-
-        _horizontalScrollPolicy = value;
-        invalidateSkin();
-    }
     
     //----------------------------------
     //  minViewportInset
@@ -665,6 +618,20 @@ public class Scroller extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+        super.styleChanged(styleProp);
+        if (allStyles || styleProp == "horizontalScrollPolicy" || 
+            styleProp == "verticalScrollPolicy")
+        {
+            invalidateSkin();
+        }
+    }
+
     /**
      *  @private
      */
