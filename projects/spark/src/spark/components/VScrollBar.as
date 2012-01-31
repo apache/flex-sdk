@@ -29,6 +29,11 @@ import mx.layout.LayoutElementFactory;
  *  <p>Although you can use the FxVScrollBar control as a stand-alone control,
  *  you usually combine it as part of another group of components to
  *  provide scrolling functionality.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxVScrollBar extends FxScrollBar
 {
@@ -42,6 +47,11 @@ public class FxVScrollBar extends FxScrollBar
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function FxVScrollBar()
     {
@@ -56,6 +66,11 @@ public class FxVScrollBar extends FxScrollBar
 
     /**
      *  The size of the track, which equals the height of the track.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function get trackSize():Number
     {
@@ -93,6 +108,11 @@ public class FxVScrollBar extends FxScrollBar
      * 
      *  @param value The new value of the <code>value</code> property. 
      *  @see viewport
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function setValue(value:Number):void
     {
@@ -107,6 +127,11 @@ public class FxVScrollBar extends FxScrollBar
      * 
      *  @param thumbPos A number representing the new position of the thumb
      *  button in the control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function positionThumb(thumbPos:Number):void
     {
@@ -145,6 +170,11 @@ public class FxVScrollBar extends FxScrollBar
      *  @param localY The Y position relative to the scrollbar control.
      *
      *  @return The position of the thumb button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function pointToPosition(localX:Number, 
                                                 localY:Number):Number
@@ -189,6 +219,11 @@ public class FxVScrollBar extends FxScrollBar
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#verticalScrollPosition
      *  @see mx.core.IViewport#getVerticalScrollPositionDelta()     
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 10
+    *  @playerversion AIR 1.5
+    *  @productversion Flex 4
     */
     override public function page(increase:Boolean = true):void
     {
@@ -222,6 +257,11 @@ public class FxVScrollBar extends FxScrollBar
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#verticalScrollPosition
      *  @see mx.core.IViewport#getVerticalScrollPositionDelta()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function step(increase:Boolean = true):void
     {
@@ -251,6 +291,11 @@ public class FxVScrollBar extends FxScrollBar
      *  verticalScrollPosition.
      * 
      *  @see IViewport#verticalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
     {
@@ -261,6 +306,11 @@ public class FxVScrollBar extends FxScrollBar
     /**
      *  Set this scrollbar's maximum to the viewport's contentHeight 
      *  less the viewport height and its pageSize to the viewport's height. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function viewportResizeHandler(event:ResizeEvent):void
     {
@@ -282,6 +332,11 @@ public class FxVScrollBar extends FxScrollBar
      *
      *  @see IViewport#contentWidth
      *  @see IViewport#width 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
     {
