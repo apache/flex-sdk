@@ -340,6 +340,9 @@ public class SkinnableTextBase extends SkinnableComponent
     public function SkinnableTextBase()
     {
         super();
+        
+        // cache iOS property
+        isIOS = (Capabilities.version.indexOf("IOS") == 0);
     }
     
     //--------------------------------------------------------------------------
@@ -370,6 +373,12 @@ public class SkinnableTextBase extends SkinnableComponent
      *  The target from the current mouseDown event
      */
     private var mouseDownTarget:InteractiveObject;
+    
+    /**
+     *  @private
+     *  Variable that determines whether this application is running on iOS.
+     */
+    private var isIOS:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -2192,8 +2201,7 @@ public class SkinnableTextBase extends SkinnableComponent
     {
         // if in iOS and keyboard is up and scrolling is occurring, drop the keyboard
         var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
-        var _isIOS:Boolean = (Capabilities.version.indexOf("IOS") == 0);
-        if (_isIOS && topLevelApp && topLevelApp.isSoftKeyboardActive && editable)
+        if (isIOS && topLevelApp && topLevelApp.isSoftKeyboardActive && editable)
         {
             // set focus
             stage.focus = null;
