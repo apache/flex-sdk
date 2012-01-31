@@ -24,18 +24,6 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  Dispatched prior to the group's content being changed. This is only
- *  dispatched when all content of the group is changing.
- */
-[Event(name="contentChanging", type="flex.events.FlexEvent")]
-
-/**
- *  Dispatched after the group's content has changed. This is only
- *  dispatched when all content of the group has changed.
- */
-[Event(name="contentChanged", type="flex.events.FlexEvent")]
-
-/**
  *  Dispatched when an item is added to the content holder.
  *  event.relatedObject is the visual item that was added.
  */
@@ -189,8 +177,6 @@ public class Group extends GroupBase
 
     protected function initializeChildrenArray():void
     {   
-        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CHANGING));  
-          
         // Get rid of existing display object children.
         // !!!!! This should probably be done through change notification
         // TODO!! This should be removing the last child b/c we want to 
@@ -235,8 +221,6 @@ public class Group extends GroupBase
                 }
             }
         } */
-        
-        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CHANGED)); 
     }
     
     override protected function commitProperties():void
@@ -629,7 +613,7 @@ public class Group extends GroupBase
     // inside the group
     private function get canShareDisplayObject():Boolean
     {
-    	return blendMode == "normal";
+    	return _blendMode == "normal";
     }
     
     // This function assumes that the only displayObjects are either items in the content array
