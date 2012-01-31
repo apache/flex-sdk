@@ -274,11 +274,14 @@ include "../styles/metadata/ModalTransparencyStyles.as";
 [IconFile("Panel.png")]
 
 /**
- *  A Panel container consists of a title bar, a caption, a border,
+ *  A Halo Panel container consists of a title bar, a caption, a border,
  *  and a  content area for its children.
  *  Typically, you use Panel containers to wrap top-level application modules.
  *  For example, you could include a shopping cart in a Panel container.
- *  
+ * 
+ *  <p><b>Note:</b> Adobe recommends that, when possible, you use the 
+ *  Spark Panel container instead of the Halo Panel container.</p>
+ *
  *  <p>The Panel container has the following default sizing characteristics:</p>
  *     <table class="innertable">
  *        <tr>
@@ -352,6 +355,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  
  *  @includeExample examples/SimplePanelExample.mxml
  *
+ *  @see mx.components.Panel
  *  @see mx.containers.ControlBar
  *  @see mx.containers.VBox
  */
@@ -1398,7 +1402,7 @@ public class Panel extends Container
             g.endFill();
             
             // Also draw an invisible unfilled rect whose height
-			// is the height of the entire Panel, not just the headerHeight.
+            // is the height of the entire Panel, not just the headerHeight.
             // This is for accessibility; the titlebar of the Panel
             // has an AccessibilityImplementation (see PanelAccImpl)
             // which makes it act like a grouping (ROLE_SYSTEM_GROUPING)
@@ -1906,13 +1910,13 @@ public class Panel extends Container
         // changes a lot -- but this listener only exists during a drag.
         event.stopImmediatePropagation();
         
-    	if (isNaN(regX) || isNaN(regY))
-    	{
-    		// trace("all the mouse moves were not turned off");
-    		return;
-    	}
-    	
-    	// trace("systemManager_mouseMoveHandler " + event);
+        if (isNaN(regX) || isNaN(regY))
+        {
+            // trace("all the mouse moves were not turned off");
+            return;
+        }
+        
+        // trace("systemManager_mouseMoveHandler " + event);
         move(event.stageX - regX, event.stageY - regY);
     }
 
