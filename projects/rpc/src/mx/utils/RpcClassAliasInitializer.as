@@ -45,14 +45,8 @@ import mx.messaging.messages.MessagePerformanceInfo;
 import mx.messaging.messages.RemotingMessage;
 import mx.messaging.messages.SOAPMessage;
 
-[Mixin]
 public class RpcClassAliasInitializer
 {
-    public static function init(systemManager:ISystemManager):void
-    {
-        registerClassAliases();
-    }
-
     /**
      * In the event that an application does not use the Flex UI classes which processes
      * the [RemoteClass(alias="")] bootstrap code, this function will register all the
@@ -85,7 +79,7 @@ public class RpcClassAliasInitializer
         registerClassAlias("flex.messaging.messages.ObjectProxy", RemotingMessage);
         registerClassAlias("flex.messaging.messages.SOAPMessage", SOAPMessage);
 
-        // management classes - these are used in the flexadmin UI program,
+        // management classes - these are used in the flexadmin GUI program,
         // so will get registered in the usual way, don't do them here
         //registerClassAlias("flex.management.jmx.MBeanAttributeInfo", MBeanAttributeInfo);
         //registerClassAlias("flex.management.jmx.MBeanConstructorInfo", MBeanConstructorInfo);
