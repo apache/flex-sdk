@@ -3554,8 +3554,6 @@ class FTETextFieldStyleResolver implements IFormatResolver
      */
     private static const textFieldToTLFStyleMap:Object =
 	{
-        // FIXME (gosmith): when mapping leading to lineHeight does this need
-        // the same adjustment as FTETextFieldHostFormat.lineHeight?
         "leading": "lineHeight",    
         "letterSpacing": "trackingRight",
         "marginLeft": "paragraphStartIndent",
