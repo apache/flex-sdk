@@ -24,6 +24,7 @@ import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 
 import flex.events.TextOperationEvent;
+import flex.intf.IViewport;
 import flex.utils.TextUtil;
 
 import mx.core.UIComponent;
@@ -92,7 +93,7 @@ import text.operations.SplitParagraphOperation;
 /**
  *  The TextView class ...
  */
-public class TextView extends UIComponent
+public class TextView extends UIComponent implements IViewport
 {
     include "../core/Version.as";
         
@@ -1220,6 +1221,8 @@ public class TextView extends UIComponent
      */
     private var horizontalScrollPositionChanged:Boolean = false;
  
+    [Bindable("scrollPositionChanged")]
+    
     /**
      *  Documentation is not currently available.
      */
@@ -1414,6 +1417,8 @@ public class TextView extends UIComponent
      */
     private var verticalScrollPositionChanged:Boolean = false;
  
+    [Bindable("scrollPositionChanged")]
+    
     /**
      *  Documentation is not currently available.
      */
@@ -1785,17 +1790,19 @@ public class TextView extends UIComponent
             CompositionCompletionEvent.COMPOSITION_COMPLETE,
             textFlow_compositionCompleteHandler);
         
+        textFlow.addEventListener(Event.SCROLL, textFlow_scrollHandler);
+
         textFlow.addEventListener(
             SelectionEvent.SELECTION_CHANGE,
-            editManager_selectionChangeHandler);
+            textFlow_selectionChangeHandler);
 
         textFlow.addEventListener(
             FlowOperationEvent.FLOW_OPERATION_BEGIN,
-            editManager_flowOperationBeginHandler);
+            textFlow_flowOperationBeginHandler);
 
         textFlow.addEventListener(
             FlowOperationEvent.FLOW_OPERATION_END,
-            editManager_flowOperationEndHandler);
+            textFlow_flowOperationEndHandler);
     }
 
     /**
@@ -2001,6 +2008,8 @@ public class TextView extends UIComponent
 
     /**
      *  @private
+     *  Called when the TextFlow dispatches a 'compositionComplete' event
+     *  when it has recomposed the text into TextLines.
      */
     private function textFlow_compositionCompleteHandler(
                                     event:CompositionCompletionEvent):void
@@ -2022,12 +2031,34 @@ public class TextView extends UIComponent
     
     /**
      *  @private
-     *  Called when the EditManager dispatches a 'selectionChange' event.
+     *  Called when the TextFlow dispatches a 'scroll' event
+     *  as it autoscrolls.
      */
-    private function editManager_selectionChangeHandler(
+    private function textFlow_scrollHandler(event:Event):void
+    {
+        var newHorizontalScrollPosition:Number =
+            textFlow.controller.horizontalScrollPosition;
+        var newVerticalScrollPosition:Number =
+            textFlow.controller.verticalScrollPosition;
+
+        if (newHorizontalScrollPosition != _horizontalScrollPosition ||
+            newVerticalScrollPosition != _verticalScrollPosition)
+        {
+            _horizontalScrollPosition = newHorizontalScrollPosition;
+            _verticalScrollPosition = newVerticalScrollPosition;
+
+            dispatchEvent(new Event("scrollPositionChanged"))
+        }
+    }
+
+    /**
+     *  @private
+     *  Called when the TextFlow dispatches a 'selectionChange' event.
+     */
+    private function textFlow_selectionChangeHandler(
                         event:SelectionEvent):void
     {
-        _selectionAnchorPosition = textFlow.interactionManager.anchorPosition; // event.target isn't useful
+        _selectionAnchorPosition = textFlow.interactionManager.anchorPosition;
         _selectionActivePosition = textFlow.interactionManager.activePosition;
         
         dispatchEvent(new Event("selectionChange"));
@@ -2035,10 +2066,10 @@ public class TextView extends UIComponent
     
     /**
      *  @private
-     *  Called when the EditManager dispatches an 'operationEnd' event
+     *  Called when the TextFlow dispatches an 'operationEnd' event
      *  before an editing operation.
      */
-    private function editManager_flowOperationBeginHandler(
+    private function textFlow_flowOperationBeginHandler(
                         event:FlowOperationEvent):void
     {
         //trace("operationBegin");
@@ -2073,10 +2104,10 @@ public class TextView extends UIComponent
     
     /**
      *  @private
-     *  Called when the EditManager dispatches an 'operationEnd' event
+     *  Called when the TextFlow dispatches an 'operationEnd' event
      *  after an editing operation.
      */
-    private function editManager_flowOperationEndHandler(
+    private function textFlow_flowOperationEndHandler(
                         event:FlowOperationEvent):void
     {
         //trace("operationEnd");
