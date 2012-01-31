@@ -147,6 +147,37 @@ public class SkinnableComponent extends UIComponent
     //
     //--------------------------------------------------------------------------
     
+    private var _skinDestructionPolicy:String = "never";
+    private var skinDestructionPolicyChanged:Boolean = false;
+    
+    /**
+     *  @private
+     * 
+     *  If set to "auto", then the component will call detachSkin when it has been
+     *  removed from the Stage. If it is then added back to the Stage, the component
+     *  will call attachSkin. Set this to "auto" if you want to reduce the memory 
+     *  usage of this component while it is not attached to the Stage. 
+     * 
+     *  Possible values are "auto" and "never".    
+     * 
+     *  @default "never"
+     */ 
+    mx_internal function get skinDestructionPolicy():String
+    {
+        return _skinDestructionPolicy;
+    }
+    
+    mx_internal function set skinDestructionPolicy(value:String):void
+    {
+        if (value == _skinDestructionPolicy)
+            return;
+     
+        _skinDestructionPolicy = value;
+        
+        skinDestructionPolicyChanged = true;
+        invalidateProperties();
+    }
+    
     /**
      * @private 
      * 
@@ -433,6 +464,22 @@ public class SkinnableComponent extends UIComponent
         {
             updateErrorSkin();
             errorStringChanged = false;
+        }
+        
+        if (skinDestructionPolicyChanged)
+        {
+            if (skinDestructionPolicy == "auto")
+            {
+                addEventListener(Event.ADDED_TO_STAGE, adddedToStageHandler);
+                addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+            }
+            else
+            {
+                removeEventListener(Event.ADDED_TO_STAGE, adddedToStageHandler);
+                removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+            }
+            
+            skinDestructionPolicyChanged = false;
         }
     }
 
@@ -1042,6 +1089,25 @@ public class SkinnableComponent extends UIComponent
                 }
             }
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function adddedToStageHandler(event:Event):void
+    {
+        if (skin == null)
+        {
+            attachSkin();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function removedFromStageHandler(event:Event):void
+    {
+        detachSkin();
     }
     
     //--------------------------------------------------------------------------
