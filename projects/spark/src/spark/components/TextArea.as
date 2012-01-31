@@ -25,6 +25,11 @@ import mx.events.TextOperationEvent;
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
@@ -34,11 +39,21 @@ import mx.events.TextOperationEvent;
 
 /**
  *  Normal State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("normal")]
 
 /**
  *  Disabled State
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("disabled")]
 
@@ -46,6 +61,11 @@ import mx.events.TextOperationEvent;
  *  Documentation is not currently available.
  *
  *  @includeExample examples/FxTextAreaExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxTextArea extends FxTextBase
 {
@@ -59,6 +79,11 @@ public class FxTextArea extends FxTextBase
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
 	public function FxTextArea()
 	{
@@ -146,6 +171,11 @@ public class FxTextArea extends FxTextBase
 	
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get content():Object
 	{
@@ -190,6 +220,11 @@ public class FxTextArea extends FxTextBase
 	
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get heightInLines():Number
 	{
@@ -226,6 +261,11 @@ public class FxTextArea extends FxTextBase
 	
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get horizontalScrollPolicy():String
 	{
@@ -254,6 +294,11 @@ public class FxTextArea extends FxTextBase
 
     /**
      *  The optional FxScroller used to scroll the TextView.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var scroller:FxScroller;
 
@@ -273,6 +318,11 @@ public class FxTextArea extends FxTextBase
 	
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get verticalScrollPolicy():String
 	{
@@ -315,6 +365,11 @@ public class FxTextArea extends FxTextBase
 	 *  to let the user enter 5 digits.
 	 *
 	 *  @default
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function get widthInChars():Number
 	{
@@ -421,6 +476,11 @@ public class FxTextArea extends FxTextBase
 
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public function export():XML
     {
@@ -432,6 +492,11 @@ public class FxTextArea extends FxTextBase
 
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public function getSelectionFormat(names:Array = null):Object
     {
@@ -443,6 +508,11 @@ public class FxTextArea extends FxTextBase
 
 	/**
 	 *  Documentation is not currently available.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public function setSelectionFormat(attributes:Object):void
     {
