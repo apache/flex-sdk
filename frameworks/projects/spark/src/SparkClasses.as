@@ -27,6 +27,8 @@ import flex.skin.ApplicationSkin; ApplicationSkin;
 import flex.graphics.Parser; Parser;
 import flex.skin.ButtonSkin; ButtonSkin;
 import flex.skin.CheckBoxSkin; CheckBoxSkin;
+import flex.skin.ComplexPanelSkin; ComplexPanelSkin;
+import flex.skin.DataComponentSkin; DataComponentSkin;
 import flex.skin.HScrollBarSkin; HScrollBarSkin;
 import flex.skin.HScrollBarThumbSkin; HScrollBarThumbSkin;
 import flex.skin.HSliderSkin; HSliderSkin;
