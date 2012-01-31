@@ -40,12 +40,12 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IUIComponent;
 import mx.core.IUITextField;
-import mx.core.mx_internal;
 import mx.core.SpriteAsset;
 import mx.core.UIComponentGlobals;
-import mx.core.UITextField;
+import mx.core.mx_internal;
 import mx.events.DragEvent;
 import mx.events.ListEvent;
 import mx.events.ScrollEvent;
@@ -1740,6 +1740,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                     selectionLayer.setChildIndex(DisplayObject(columnHighlightIndicator),
                                              selectionLayer.numChildren - 1);
             }
+            
+            // Let the columnHighlightIndicator inherit the layoutDirection
+            if (columnHighlightIndicator is ILayoutDirectionElement)
+                ILayoutDirectionElement(columnHighlightIndicator).layoutDirection = null;
+            
             super.drawHighlightIndicator(columnHighlightIndicator, x, y, columnContents.width, height, color, itemRenderer);
         }
     }
@@ -1785,6 +1790,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                     selectionLayer.setChildIndex(DisplayObject(columnCaretIndicator),
                                              selectionLayer.numChildren - 1);
             }
+            
+            // Let the columnCaretIndicator inherit the layoutDirection
+            if (columnCaretIndicator is ILayoutDirectionElement)
+                ILayoutDirectionElement(columnCaretIndicator).layoutDirection = null;
+            
             super.drawCaretIndicator(columnCaretIndicator, x, y, columnContents.width, height, color, itemRenderer);
         }
     }
@@ -1828,6 +1838,11 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                 indicator.parent.addEventListener(Event.REMOVED, selectionRemovedListener);
                 indicatorDictionary[indicator] = columnIndicator;
             }
+            
+            // Let the columnIndicator inherit the layoutDirection
+            if (columnIndicator is ILayoutDirectionElement)
+                ILayoutDirectionElement(columnIndicator).layoutDirection = null;
+            
             super.drawSelectionIndicator(columnIndicator, x, y, columnContents.width, height, color, itemRenderer);
         }
     }
