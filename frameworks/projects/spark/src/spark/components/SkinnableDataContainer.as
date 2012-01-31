@@ -634,10 +634,10 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
+    public function getHorizontalScrollPositionDelta(navigationUnit:uint):Number
     {
         return (dataGroup) ? 
-            dataGroup.getHorizontalScrollPositionDelta(scrollUnit) : 0;     
+            dataGroup.getHorizontalScrollPositionDelta(navigationUnit) : 0;     
     }
     
     /**
@@ -648,10 +648,10 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
+    public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
     {
         return (dataGroup) ? 
-            dataGroup.getVerticalScrollPositionDelta(scrollUnit) : 0;     
+            dataGroup.getVerticalScrollPositionDelta(navigationUnit) : 0;     
     }
     
     //--------------------------------------------------------------------------
