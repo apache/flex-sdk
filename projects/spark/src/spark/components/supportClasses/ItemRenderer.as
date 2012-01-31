@@ -17,13 +17,9 @@ import flash.geom.Point;
 
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.styles.StyleManager;
 
-import spark.components.DataGroup;
-import spark.components.Group;
+import spark.components.DataRenderer;
 import spark.components.IItemRenderer;
-import spark.components.DataRenderer; 
-import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal; 
 
@@ -233,10 +229,41 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         }
     }
        
-    //----------------------------------
+	//----------------------------------
+	//  dragging
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the dragging property. 
+	 */
+	private var _dragging:Boolean = false;
+
+	/**
+	 *  @inheritDoc  
+	 */
+	public function get dragging():Boolean
+	{
+		return _dragging;
+	}
+
+	/**
+	 *  @private  
+	 */
+	public function set dragging(value:Boolean):void
+	{
+		if (value != _dragging)
+		{
+			_dragging = value;
+			setCurrentState(getCurrentRendererState(), playTransitions);
+		}
+	}
+
+	//----------------------------------
     //  label
     //----------------------------------
-    [Bindable("textChanged")]
+
+	[Bindable("textChanged")]
     
     /**
      *  @private 
@@ -316,8 +343,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */
     protected function getCurrentRendererState():String
     {
+		if (dragging && hasState("dragging"))
+			return "dragging";
+
         if (selected && showsCaret && hasState("selectedAndShowsCaret"))
-           return "selectedAndShowsCaret";
+			return "selectedAndShowsCaret";
             
         if (hovered && showsCaret && hasState("hoveredAndShowsCaret"))
             return "hoveredAndShowsCaret";
@@ -334,9 +364,9 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
         if (hasState("normal"))    
             return "normal";
         
-        //If none of the above states are defined in the item renderer,
-        //we return the empty string. This means the user-defined renderer
-        //will display but essentially be non-interactive visually. 
+        // If none of the above states are defined in the item renderer,
+        // we return the empty string. This means the user-defined renderer
+        // will display but essentially be non-interactive visually. 
         return null;
     }
     
