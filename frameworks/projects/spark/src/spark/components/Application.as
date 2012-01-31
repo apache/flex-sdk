@@ -78,9 +78,9 @@ use namespace mx_internal;
  *  application and the background color for the HTML embed tag.
  *   
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
