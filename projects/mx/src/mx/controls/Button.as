@@ -2241,7 +2241,6 @@ public class Button extends UIComponent
         {
             lineMetrics = measureText("Wj");
             textHeight = lineMetrics.height + UITextField.TEXT_HEIGHT_PADDING;
-            // TODO (jszeto) Do we need to set textWidth?
         }
 
         var n:Number = offset ? buttonOffset : 0;
