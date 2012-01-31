@@ -759,7 +759,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         if (renderer)
         {
-            renderer.addEventListener("click", item_clickHandler);
+            renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
             updateRenderer(IVisualElement(renderer));
         }
     }
@@ -775,7 +775,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         if (renderer)
         {
-            renderer.removeEventListener("click", item_clickHandler);
+            renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
         }
     }
     
