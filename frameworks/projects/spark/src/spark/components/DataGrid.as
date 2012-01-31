@@ -460,10 +460,35 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [IconFile("DataGrid.png")]
 
 /**
- *  The DataGrid class
+ *  The DataGrid displays a row of column headings above a scrollable grid. 
+ *  The gird is arranged as a collection of individual cells arranged 
+ *  in rows and columns. 
+ *  The DataGrid control is designed to support smooth scrolling through 
+ *  large numbers of rows and columns.
+ *
+ *  <p>The Spark DataGrid control is implemented as a skinnable wrapper 
+ *  around the Spark Grid control. 
+ *  The Grid control defines the columns of the data grid, and much of 
+ *  the functionality of the DataGrid control itself.</p>
+ *
+ *  <p>The DataGrid skin is responsible for laying out the grid, column header, and scroller. 
+ *  The skin also configures the graphic elements used to render visual elements 
+ *  used as indicators, separators, and backgrounds. 
+ *  The DataGrid skin also defines a default item renderer, 
+ *  used to display the contents of each cell.</p>
+ *
+ *  @mxml <p>The <code>&lt;s:DataGrid&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:DataGrid 
+ *    <strong>Properties</strong>
+ *  /&gt;
+ *  </pre>
  *
  *  @see Grid
  *  @see spark.components.gridClasses.GridColumn
+ *  @see spark.skins.spark.DataGridSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -551,7 +576,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="mx.core.IFactory")]
     
     /**
-     *  The IVisualElement class used to render the alternatingRowColors style
+     *  The IVisualElement class used to render the <code>alternatingRowColors</code> style.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var alternatingRowColorsBackground:IFactory;
     
@@ -564,6 +594,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  The IVisualElement class used to render the grid's caret indicator.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var caretIndicator:IFactory;
     
@@ -575,7 +610,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="spark.components.GridColumnHeaderGroup")]
     
     /**
-     *  A reference to the GridColumnHeaderGroup that displays the column headers.
+     *  A reference to the GridColumnHeaderGroup object that displays the column headers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var columnHeaderGroup:GridColumnHeaderGroup;    
     
@@ -588,6 +628,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  The IVisualElement class used to render the vertical separator between columns. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var columnSeparator:IFactory;
     
@@ -600,9 +645,15 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  The IVisualElement class used to render a background behind
-     *  item renderers that are being edited. Item renderers may only be edited
+     *  item renderers that are being edited. 
+     *  Item renderers may only be edited
      *  when the data grid and the column are both editable and the
-     *  column sets <code>rendererIsEditable</code> to true.
+     *  column sets <code>rendererIsEditable</code> to <code>true</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var editorIndicator:IFactory;
     
@@ -614,7 +665,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="spark.components.Grid")]
     
     /**
-     *  A reference to the Grid that displays the dataProvider.
+     *  A reference to the Grid control that displays row and columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var grid:spark.components.Grid;    
 
@@ -627,6 +683,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  The IVisualElement class used to provide hover feedback.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var hoverIndicator:IFactory;
     
@@ -639,6 +700,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  The IVisualElement class used to render the background of each row.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var rowBackground:IFactory;        
     
@@ -651,6 +717,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  The IVisualElement class used to render the horizontal separator between header rows. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var rowSeparator:IFactory;
     
@@ -662,7 +733,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [SkinPart(required="false", type="spark.components.Scroller")]
     
     /**
-     *  A reference to the Scroller that scrolls the grid.
+     *  A reference to the Scroller control in the skin class 
+     *  that adds scroll bars to the DataGrid control.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var scroller:Scroller;    
     
@@ -675,6 +752,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  The IVisualElement class used to render selected rows or cells.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public var selectionIndicator:IFactory;
     
@@ -922,6 +1004,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @copy spark.components.Grid#columns
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get columns():IList
     {
@@ -977,7 +1064,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @copy spark.components.Grid#dataProvider
      * 
-     *  @default nulll
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get dataProvider():IList
     {
@@ -1011,6 +1103,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @copy spark.components.Grid#dataTipField
      *
+     *  @default null
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -1038,6 +1132,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#dataTipFunction
+     *
+     *  @default null
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1071,12 +1167,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [Inspectable(category="General")]
     
     /**
-     * The default value for the GridColumn editable property, which
-     * indicates if a corresponding cell's dataProvider item can be edited.
-     * If true, clicking on a selected cell opens an item editor, see
-     * <code>startItemEditorSession</code>.  Developers can enable/disable
-     * editing on a per cell (rather than per column) basis by handling 
-     * the <code>startItemEditorSession</code> event.
+     *  The default value for the GridColumn <code>editable</code> property, which
+     *  indicates if a corresponding cell's data provider item can be edited.
+     *  If <code>true</code>, clicking on a selected cell opens an item editor.  
+     *  You can enable or disable editing per cell (rather than per column) 
+     *  by handling the <code>startItemEditorSession</code> event.
+     *  In the event handler, add the necessary logic to determine 
+     *  if the cell should be editable. 
      * 
      *  @default false
      *  
@@ -1103,8 +1200,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //----------------------------------
     
     /**
-     *  The zero-based column index of the cell that is being edited. The 
-     *  value is -1 if no cell is being edited.
+     *  The zero-based column index of the cell that is being edited.  
+     *  The value is -1 if no cell is being edited.
      * 
      *  @default -1
      *  
@@ -1126,8 +1223,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //----------------------------------
     
     /**
-     *  The zero-based row index of the cell that is being edited. The 
-     *  value is -1 if no cell is being edited.
+     *  The zero-based row index of the cell that is being edited.  
+     *  The value is -1 if no cell is being edited.
      * 
      *  @default -1
      *  
@@ -1152,7 +1249,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  A flag that indicates whether the IME should
      *  be enabled when the component receives focus.
      *
-     *  If the editor is up, it will set enableIME
+     *  If the editor is up, it sets this property 
      *  accordingly.
      *
      *  @langversion 3.0
@@ -1195,11 +1292,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [Inspectable(environment="none")]
     
     /**
-     *  The default value for the GridColumn imeMode property, which specifies
-     *  specifies the IME (input method editor) mode.
+     *  The default value for the GridColumn <code>imeMode</code> property, 
+     *  which specifies the IME (Input Method Editor) mode.
      *  The IME enables users to enter text in Chinese, Japanese, and Korean.
-     *  Flex sets the specified IME mode when the control gets the focus,
-     *  and sets it back to the previous value when the control loses the focus.
+     *  Flex sets the specified IME mode when the control gets focus,
+     *  and sets it back to the previous value when the control loses focus.
      *
      * <p>The flash.system.IMEConversionMode class defines constants for the
      *  valid values for this property.
@@ -1236,13 +1333,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [Bindable("itemEditorChanged")]
     
     /**
-     *  The default value for the GridColumn itemEditor property, which specifies
-     *  the IGridItemEditor class used to create item editor instances.
+     *  The default value for the GridColumn <code>itemEditor</code> property, 
+     *  which specifies the IGridItemEditor class used to create item editor instances.
      * 
      *  @default null.
      *
      *  @see #dataField 
-     *  @see GridItemRenderer
+     *  @see spark.components.gridClasses.IGridItemEditor
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1281,7 +1378,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  class of the item editor and, therefore, the data type of the item
      *  editor instance.</p>
      *
-     *  <p>You do not set this property in MXML.</p>
+     *  <p>Do not set this property in MXML.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1304,6 +1401,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#itemRenderer
+     *
+     *  @default DefaultGridItemRenderer
+     *
+     *  @see spark.skins.spark.DefaultGridItemRenderer
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1330,6 +1431,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#preserveSelection
+     *
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1361,6 +1464,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#requireSelection
+     *
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1392,6 +1497,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#requestedRowCount
+     *
+     *  @default -1
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1417,6 +1524,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#requestedColumnCount
+     *
+     *  @default -1
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1442,6 +1551,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#requestedMaxRowCount
+     *
+     *  @default 10
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1467,6 +1578,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#requestedMinRowCount
+     *
+     *  @default -1
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1492,6 +1605,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#requestedMinColumnCount
+     *
+     *  @default -1
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1519,6 +1634,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#resizableColumns
+     *
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1675,12 +1792,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     [Inspectable(category="General")]
     
     /**
-     *  A flag that indicates whether the user can interactively sort columns.
-     *  If <code>true</code>, the user can sort the dataProvider by the
-     *  dataField of a column by clicking on the column's header.
-     *  If <code>true</code>, individual columns must have their 
-     *  <code>sortable</code> properties set to <code>false</code> to 
-     *  prevent the user from sorting by a particular column.  
+     *  Specifies whether the user can interactively sort columns.
+     *  If <code>true</code>, the user can sort the data provider by the
+     *  data field of a column by clicking on the column's header.
+     *  If <code>true</code>, an individual column can set its
+     *  <code>sortable</code> property to <code>false</code> to 
+     *  prevent the user from sorting by that column.  
      * 
      *  @default true
      *  
@@ -1715,6 +1832,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /**
      *  @copy spark.components.Grid#typicalItem
      *
+     *  @default null
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -1735,7 +1854,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
 
     /**
-     *  @copy spark.components.Grid#invalidateTypicalItem
+     *  @copy spark.components.Grid#invalidateTypicalItem()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1756,6 +1875,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#variableRowHeight
+     * 
+     *  @default false
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2244,6 +2365,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#selectedCell
+     *
+     *  @default null
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2324,6 +2447,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#selectedIndex
+     *
+     *  @default -1
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2364,7 +2489,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#selectedIndices
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -2402,6 +2527,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  @copy spark.components.Grid#selectedItem
+     *
+     *  @default null
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2577,7 +2704,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //----------------------------------    
     
     /**
-     *  @copy spark.components.Grid#selectionContainsIndex
+     *  @copy spark.components.Grid#selectionContainsIndex()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2593,7 +2720,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#selectionContainsIndices
+     *  @copy spark.components.Grid#selectionContainsIndices()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2609,7 +2736,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#setSelectedIndex
+     *  @copy spark.components.Grid#setSelectedIndex()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2635,7 +2762,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#addSelectedIndex
+     *  @copy spark.components.Grid#addSelectedIndex()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2661,7 +2788,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#removeSelectedIndex
+     *  @copy spark.components.Grid#removeSelectedIndex()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2687,7 +2814,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#setSelectedIndices
+     *  @copy spark.components.Grid#selectIndices()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2717,7 +2844,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //----------------------------------    
     
     /**
-     *  @copy spark.components.Grid#selectionContainsCell
+     *  @copy spark.components.Grid#selectionContainsCell()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2733,7 +2860,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#selectionContainsCellRegion
+     *  @copy spark.components.Grid#selectionContainsCellRegion()
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2756,7 +2883,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#setSelectedCell
+     *  @copy spark.components.Grid#setSelectedCell()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2782,7 +2909,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#addSelectedCell
+     *  @copy spark.components.Grid#addSelectedCell()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2808,7 +2935,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#removeSelectedCell
+     *  @copy spark.components.Grid#removeSelectedCell()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2834,7 +2961,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.Grid#selectCellRegion
+     *  @copy spark.components.Grid#selectCellRegion()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2864,26 +2991,28 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  In response to user input (mouse or keyboard) which changes the 
-     *  selection, this dispatches the "selectionChanging" event, and if the 
-     *  event is not cancelled, commits the selection change and then 
-     *  dispatches the "selectionChange" event.  The caret is not udpated here.  
-     *  To detect if the caret has changed use the "caretChanged" event.
+     *  selection, this method dispatches the <code>selectionChanging</code> event. 
+     *  If the event is not canceled, it then commits the selection change, and then 
+     *  dispatches the <code>selectionChange</code> event.  
+     *  The caret location is not updated.  
+     *  To detect if the caret has changed, use the <code>caretChanged</code> event.
      * 
-     *  @param selectionEventKind The <code>GridSelectionEventKind</code> of
-     *  selection that is being committed.  If not null, this will be used to 
+     *  @param selectionEventKind A constant defined by the GridSelectionEventKind class 
+     *  that specifies the selection that is being committed.  If not null, this is used to 
      *  generate the <code>selectionChanging</code> event.
      * 
      *  @param rowIndex If <code>selectionEventKind</code> is for a row or a
-     *  cell, the 0-based rowIndex of the selection in the 
-     *  <code>dataProvider</code>. If <code>selectionEventKind</code> is 
-     *  for multiple cells, the 0-based rowIndex of the origin of the
+     *  cell, the 0-based <code>rowIndex</code> of the selection in the 
+     *  data provider. 
+     *  If <code>selectionEventKind</code> is 
+     *  for multiple cells, the 0-based <code>rowIndex</code> of the origin of the
      *  cell region. The default is -1 to indicate this
      *  parameter is not being used.
      * 
      *  @param columnIndex If <code>selectionEventKind</code> is for a single row or 
-     *  a single cell, the 0-based columnIndex of the selection in 
-     *  <code>columns</code>. If <code>selectionEventKind</code> is for multiple 
-     *  cells, the 0-based columnIndex of the origin of the
+     *  a single cell, the 0-based <code>columnIndex</code> of the selection. 
+     *  If <code>selectionEventKind</code> is for multiple 
+     *  cells, the 0-based <code>columnIndex</code> of the origin of the
      *  cell region. The default is -1 to indicate this
      *  parameter is not being used.
      * 
@@ -2896,13 +3025,13 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  indicate this parameter is not being used.
      * 
      *  @param indices If <code>selectionEventKind</code> is for multiple rows,
-     *  the 0-based row indicies of the rows in the selection.  The default is 
+     *  the 0-based row indices of the rows in the selection.  The default is 
      *  null to indicate this parameter is not being used.
      * 
-     *  @return True if the selection was committed, or false if the selection
-     *  was cancelled or could not be committed due to an error, such as
+     *  @return <code>true</code> if the selection was committed, or <code>false</code> 
+     *  if the selection was canceled or could not be committed due to an error, such as
      *  index out of range or the <code>selectionEventKind</code> is not compatible 
-     *  s the <code>selectionMode</code>.
+     *  with the <code>selectionMode</code>.
      * 
      *  @see spark.events.GridSelectionEvent#SELECTION_CHANGE
      *  @see spark.events.GridSelectionEvent#SELECTION_CHANGING
@@ -3038,8 +3167,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  Updates the grid's caret position.  If the caret position changes
-     *  a GridCaretEvent.CARET_CHANGE event will be dispatched by grid.
+     *  Updates the grid's caret position.  
+     *  If the caret position changes, the <code>grid</code> skin part dispatches a 
+     *  <code>caretChange</code> event.
      *
      *  @param newCaretRowIndex The 0-based rowIndex of the new caret position.
      * 
@@ -3173,20 +3303,22 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //--------------------------------------------------------------------------
     
     /**
-     *  Starts an editor session on a selected cell in the data grid.
+     *  Starts an editor session on a selected cell in the grid.
      * 
      *  A <code>startItemEditorSession</code> event is dispatched before
      *  an item editor is created. This allows a listener dynamically change 
      *  the item editor for a specified cell. 
      * 
-     *  The event can also be cancelled with preventDefault(), to prevent the 
+     *  The event can also be cancelled by calling the 
+     *  <code>preventDefault()</code> method, to prevent the 
      *  editor session from being created.
      * 
      *  @param rowIndex The zero-based row index of the cell to edit.
+     *
      *  @param columnIndex The zero-based column index of the cell to edit.  
      * 
-     *  @return true if the editor session was started. Returns false if
-     *  the editor session was cancelled.
+     *  @return <code>true</code> if the editor session was started. 
+     *  Returns <code>false</code> if the editor session was cancelled.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3204,14 +3336,15 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /**
      *  Closes the currently active editor and optionally saves the editor's value
-     *  by calling the item editor's save() method.  If the cancel parameter is true,
-     *  then the editor's cancel() method is called instead.
+     *  by calling the item editor's <code>save()</code> method.  
+     *  If the <code>cancel</code> parameter is <code>true</code>,
+     *  then the editor's <code>cancel()</code> method is called instead.
      * 
-     *  @param cancel If false the data in the editor is saved. 
+     *  @param cancel If <code>false</code>, the data in the editor is saved. 
      *  Otherwise the data in the editor is discarded.
      *
-     *  @return true if the editor session was saved, false if the save was
-     *  cancelled.  
+     *  @return <code>true</code> if the editor session was saved, 
+     *  and <code>false</code> if the save was cancelled.  
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3242,18 +3375,18 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //--------------------------------------------------------------------------
     
     /**
-     *  Sort the DataGrid by one or more columns and refresh the display.
+     *  Sort the DataGrid by one or more columns, and refresh the display.
      * 
-     *  <p>If the dataProvider is an ICollectionView, then it's sort property will be
-     *  set to a value based on each column's dataField, sortCompareFunction,
-     *  and sortDescending flag, and then the dataProvider's refresh() method will be called.
-     *  </p>
+     *  <p>If the <code>dataProvider</code> is an ICollectionView, then it's <code>sort</code> property is
+     *  set to a value based on each column's <code>dataField</code>, <code>sortCompareFunction</code>,
+     *  and <code>sortDescending</code> flag.
+     *  Then, the data provider's <code>refresh()</code> method is called. </p>
      *  
-     *  <p>If the dataProvider is not an ICollectionView, then this method has no effect.</p>
+     *  <p>If the <code>dataProvider</code> is not an ICollectionView, then this method has no effect.</p>
      * 
-     *  @param columnIndices The indices of the columns by which to sort the dataProvider.
+     *  @param columnIndices The indices of the columns by which to sort the <code>dataProvider</code>.
      * 
-     *  @return true if the dataProvider can be sorted with the provided column indices.
+     *  @return <code>true</code> if the <code>dataProvider</code> can be sorted with the provided column indices.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3713,7 +3846,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  @copy spark.components.gridClasses.Grid#ensureCellIsVisible
+     *  @copy spark.components.Grid#ensureCellIsVisible()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
