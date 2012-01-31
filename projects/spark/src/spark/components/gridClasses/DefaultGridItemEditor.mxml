@@ -92,9 +92,9 @@ in accordance with the terms of the license agreement accompanying it.
                     var globalCellTopLeft:Point = dataGrid.grid.localToGlobal(cellBounds.topLeft);
 
                     // Bug in text width: the width is allowed to grow larger than maxWidth so
-                    // subtract 3 pixels to stay within the max.
+                    // subtract 2 pixels to stay within the max.
                     textArea.maxWidth = Math.min(gridRect.right - globalCellTopLeft.x - 1, 
-                                                 MAX_WIDTH_INCHES * Capabilities.screenDPI) - 3;
+                                                 MAX_WIDTH_INCHES * Capabilities.screenDPI) - 2;
                 }
                 else
                 {
