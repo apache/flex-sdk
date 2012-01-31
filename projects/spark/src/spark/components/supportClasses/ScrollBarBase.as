@@ -138,10 +138,10 @@ use namespace mx_internal;
 [Exclude(name="focusThickness", kind="style")]
 
 /**
- *  The ScrollBar class helps to position
+ *  The ScrollBarBase class helps to position
  *  the portion of data that is displayed when there is too much data
  *  to fit in a display area. 
- *  The ScrollBar class displays a pair of scrollbars and a viewport. 
+ *  The ScrollBarBase class displays a pair of scrollbars and a viewport. 
  *  A viewport is a UIComponent that implements IViewport, such as Group.
  *  
  *  <p>This control extends the TrackBase class and
@@ -149,7 +149,7 @@ use namespace mx_internal;
  *  controls.</p> 
  * 
  *  <p>A scroll bar consists of a track, a variable-size scroll thumb, and 
- *  two optional arrow buttons. The ScrollBar class uses four parameters 
+ *  two optional arrow buttons. The ScrollBarBase class uses four parameters 
  *  to calculate its display state:</p>
  *
  *  <ul>
@@ -167,11 +167,11 @@ use namespace mx_internal;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;s:ScrollBar&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:ScrollBarBase&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;s:ScrollBar
+ *  &lt;s:ScrollBarBase
  *    <strong>Properties</strong>
  *    pageSize="20"
  *    snapInterval=""
@@ -198,7 +198,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ScrollBar extends TrackBase
+public class ScrollBarBase extends TrackBase
 {
     include "../../core/Version.as";
 
@@ -222,7 +222,7 @@ public class ScrollBar extends TrackBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function ScrollBar():void
+    public function ScrollBarBase():void
     {
         super();
     }
@@ -296,7 +296,7 @@ public class ScrollBar extends TrackBase
     
     /**
      * @private
-     * This variable tracks whether we are currently stepping the ScrollBar
+     * This variable tracks whether we are currently stepping the ScrollBarBase
      */
     private var isStepping:Boolean;
 
@@ -438,7 +438,7 @@ public class ScrollBar extends TrackBase
      *  The viewport controlled by this scrollbar.
      * 
      *  If a viewport is specified, then changes to its actual size, content 
-     *  size, and scroll position cause the corresponding ScrollBar methods to
+     *  size, and scroll position cause the corresponding ScrollBarBase methods to
      *  run:
      *  <ul>
      *  <li><code>viewportResizeHandler()</code></li>
@@ -1038,7 +1038,7 @@ public class ScrollBar extends TrackBase
             easer = new Linear(500/duration);
         else
             easer = easyInLinearEaser;
-        // FIXME (chaase): we're using ScrollBar's repeatInterval for animated
+        // FIXME (chaase): we're using ScrollBarBase's repeatInterval for animated
         // stepping, but Button's repeatInterval for non-animated stepping
         // FIXME (chaase): think about the total duration for the animation.
         // FIXME (chaase): hard-coding easing behavior, how to style it?
