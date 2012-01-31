@@ -27,6 +27,11 @@ use namespace mx_internal;
  *  @see mx.controls.scrollClasses.ScrollBar
  *  @see mx.controls.HScrollBar
  *  @see mx.controls.VScrollBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ScrollThumb extends Button
 {
@@ -40,6 +45,11 @@ public class ScrollThumb extends Button
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ScrollThumb()
 	{
