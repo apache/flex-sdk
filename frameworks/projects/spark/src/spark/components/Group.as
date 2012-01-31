@@ -899,7 +899,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (sharedDisplayObject.redrawRequested)
         {
             graphics.clear();
-            renderBackgroundFill();
+            drawBackground();
             
             // If a scaleGrid is set, make sure the extent of the groups bounds are filled so
             // the player will scale our contents as expected. 
