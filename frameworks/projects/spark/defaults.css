@@ -98,6 +98,11 @@ FxApplication
 	skinClass: ClassReference("mx.skins.spark.FxApplicationSkin");
 }
 
+FxComponent
+{
+    focusSkin: ClassReference("mx.skins.spark.FxFocusSkin");
+}
+
 /* Default text styles for the Gumbo components. Eventually these
    will be moved into the global selector, but to avoid collision
    with the Halo defaults, they are currently defined here.
