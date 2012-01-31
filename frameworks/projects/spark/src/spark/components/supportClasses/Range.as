@@ -166,7 +166,7 @@ public class FxRange extends FxComponent
     //---------------------------------   
      
     private var _value:Number = 0;
-
+    private var _changedValue:Number = 0;
     private var valueChanged:Boolean = false;
     
     [Bindable(event="valueCommit")]
@@ -179,20 +179,29 @@ public class FxRange extends FxComponent
      *  of <code>valueInterval</code>.
      * 
      *  @default 0
+     *  @see #setValue
      */
     public function get value():Number
     {
-        return _value;
+        return (valueChanged) ? _changedValue : _value;
     }
 
+
+    /**
+     *  Implementation note: we temporarily store the new value in
+     *  _changedValue and then update _value, by calling setValue()
+     *  in commitProperties().  Only one "valueCommit" event is
+     *  dispatched, even if this property has effectively changed
+     *  twice per nearestValidValue().
+     *   
+     *  @private
+     */    
     public function set value(newValue:Number):void
     {
         if (newValue == _value)
             return;
-        
-        _value = newValue;
+        _changedValue = newValue;
         valueChanged = true;
-        
         invalidateProperties();
     }
     
@@ -260,14 +269,7 @@ public class FxRange extends FxComponent
 
         if (valueChanged || maxChanged || minChanged || valueIntervalChanged)
         {
-            var newValue:Number = nearestValidValue(_value, valueInterval);
-            
-            if (valueChanged || newValue != _value)
-            {
-                _value = newValue;
-                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-            }
-
+            setValue(nearestValidValue(_changedValue, valueInterval));
             valueChanged = false;
             maxChanged = false;
             minChanged = false;
@@ -353,10 +355,17 @@ public class FxRange extends FxComponent
     }
     
     /**
-     *  Directly sets <code>value</code> without going through the correction
-     *  and invalidation processes. Subclasses may use this method if
-     *  they wish to customize behavior.
+     *  Directly sets the <code>value</code> property and dispatches a "valueCommit"
+     *  event if the property changes.  
      * 
+     *  All updates to the value property cause a call to this method.
+     * 
+     *  Subclasses that ensure compliance with minimum, maximum, and
+     *  valueInterval themselves can call this method to update
+     *  the value property.
+     * 
+     *  @param value The new value of the <code>value</code> property.
+     *  @see #nearestValidValue
      *  @param value The new value of <code>value</code>.
      */
     protected function setValue(value:Number):void
@@ -365,7 +374,6 @@ public class FxRange extends FxComponent
             return;
         
         _value = value;
-        
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
     
