@@ -53,6 +53,11 @@ include "../styles/metadata/TextStyles.as"
  *  If you want to change just the color,
  *  use the <code>rollOverColor</code> instead.
  *  The default value is the DateChooserRollOverIndicator class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverIndicatorSkin", type="Class", inherit="no")]
 
@@ -62,6 +67,11 @@ include "../styles/metadata/TextStyles.as"
  *  If one just needs to change color,
  *  use the <code>selectionColor</code> instead.
  *  The default value is the DateChooserSelectionIndicator class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionIndicatorSkin", type="Class", inherit="no")]
 
@@ -70,6 +80,11 @@ include "../styles/metadata/TextStyles.as"
  *  to some other shape other than rectangular. If you
  *  wnat to change just the color, use the <code>todayColor</code> style property instead.
  *  The default value is the DateChooserTodayIndicator class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="todayIndicatorSkin", type="Class", inherit="no")]
 
@@ -80,6 +95,11 @@ include "../styles/metadata/TextStyles.as"
  *  Specify a "color" style to change the font color.
  *  If omitted, the current day text inherits
  *  the text styles of the control.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="todayStyleName", type="String", inherit="no")]
 
@@ -87,6 +107,11 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the style sheet definition to configure the weekday names of
  *  the control. If omitted, the weekday names inherit the text
  *  styles of the control.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="weekDayStyleName", type="String", inherit="no")]
 
@@ -119,6 +144,11 @@ public class CalendarLayout extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CalendarLayout()
     {
@@ -1000,6 +1030,16 @@ public class CalendarLayout extends UIComponent
         selectedSkin0..selectedSkin6
 
         disabledSkin0..disabledSkin6
+
+    *  
+
+    *  @langversion 3.0
+
+    *  @playerversion Flash 9
+
+    *  @playerversion AIR 1.1
+
+    *  @productversion Flex 3
 
     */
 
@@ -2095,6 +2135,11 @@ public class CalendarLayout extends UIComponent
         /*
              PageUp: Previous Month
              PageDown: Next Month
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 9
+        *  @playerversion AIR 1.1
+        *  @productversion Flex 3
         */
 
         var selChanged:Boolean = false;
@@ -2110,6 +2155,16 @@ public class CalendarLayout extends UIComponent
         4: Down
         5. Home
         6. End
+
+        *  
+
+        *  @langversion 3.0
+
+        *  @playerversion Flash 9
+
+        *  @playerversion AIR 1.1
+
+        *  @productversion Flex 3
 
         */
 
@@ -2435,6 +2490,11 @@ public class CalendarLayout extends UIComponent
 
    	/**
 	 *  We don't use 'is' to prevent dependency issues
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private static var dcis:Object = {};
 
