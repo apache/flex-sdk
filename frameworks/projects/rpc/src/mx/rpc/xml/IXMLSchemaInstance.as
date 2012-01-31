@@ -17,12 +17,12 @@ package mx.rpc.xml
  * instruct an XML Schema based encoder (such as the WebService SOAP client)
  * which concrete type definition to use while encoding instances of the type.
  * 
- * Note that anonymous ActionScript objects can also specify a qualified type
- * by wrapping an object in an instance of <code>mx.utils.ObjectUtil</code> 
+ * <p>Note that anonymous ActionScript objects can also specify a qualified type
+ * by wrapping an object in an instance of mx.utils.ObjectProxy 
  * and setting the <code>object_proxy::type</code> property with the appropriate
- * QName.
+ * QName.</p>
  * 
- * @see mx.utils.ObjectUtil.object_proxy::type
+ * @see mx.utils.ObjectProxy
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
