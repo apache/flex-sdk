@@ -81,6 +81,7 @@ public class Rotate extends AnimateTransform
     {
         super(target);
         instanceClass = AnimateTransformInstance;
+        transformEffectSubclass = true;
     }
     
     //--------------------------------------------------------------------------
