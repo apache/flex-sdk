@@ -436,8 +436,7 @@ public class TrackBase extends Range
     override protected function focusInHandler(event:FocusEvent):void
     {
         super.focusInHandler(event);
-        
-        addSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler);
     }
     
     /**
@@ -446,8 +445,7 @@ public class TrackBase extends Range
     override protected function focusOutHandler(event:FocusEvent):void
     {
         super.focusOutHandler(event);
-        
-        removeSystemHandlers(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler, stage_mouseWheelHandler);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, system_mouseWheelHandler);
     }
     
     /**
@@ -526,22 +524,12 @@ public class TrackBase extends Range
      */ 
     protected function system_mouseWheelHandler(event:MouseEvent):void
     {
-        var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
-        setValue(newValue);
-        event.preventDefault();     
-    }
-    
-    /**
-     *  @private
-     *  Handles the mouseWheel event when the component is in focus. The thumb is 
-     *  moved by the amount of the mouse event delta multiplied by the stepSize.  
-     */ 
-    private function stage_mouseWheelHandler(event:MouseEvent):void
-    {
-        if (event.target != stage)
-            return;
-
-        system_mouseWheelHandler(event);
+        if (!event.isDefaultPrevented())
+        {
+            var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
+            setValue(newValue);
+            event.preventDefault();
+        }
     }
 
     //---------------------------------
@@ -554,23 +542,16 @@ public class TrackBase extends Range
      *  the mouse down point in clickOffset.
      */
     protected function thumb_mouseDownHandler(event:MouseEvent):void
-    {
-        addSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, stage_mouseMoveHandler);
-        addSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, stage_mouseUpHandler);
+    {        
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, 
+            system_mouseMoveHandler, true);
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
+            system_mouseUpHandler, true);
+        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+            system_mouseUpHandler);
+        
         clickOffset = thumb.globalToLocal(new Point(event.stageX, event.stageY));
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_PRESS));
-    }
-    
-    /**
-     *  @private
-     *  Capture mouse-move events on the thumb anywhere on the stage
-     */
-    private function stage_mouseMoveHandler(event:MouseEvent):void
-    {
-        if (event.target != stage)
-            return;
-
-        system_mouseMoveHandler(event);
     }
 
     /**
@@ -596,27 +577,20 @@ public class TrackBase extends Range
     
         event.updateAfterEvent();
     }
-    
-    /**
-     *  @private
-     *  Handle mouse-up events anywhere on the stage.
-     */
-    private function stage_mouseUpHandler(event:MouseEvent):void
-    {
-        if (event.target != stage)
-            return;
-
-        system_mouseUpHandler(event);
-    }
-
+ 
     /**
      *  @private
      *  Handle mouse-up events anywhere on or off the stage.
      */
-    protected function system_mouseUpHandler(event:MouseEvent):void
+    protected function system_mouseUpHandler(event:Event):void
     {
-        removeSystemHandlers(MouseEvent.MOUSE_MOVE, system_mouseMoveHandler, stage_mouseMoveHandler);
-        removeSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, stage_mouseUpHandler);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, 
+            system_mouseMoveHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
+            system_mouseUpHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+            system_mouseUpHandler);
+        
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_RELEASE));
     }
 
@@ -643,7 +617,7 @@ public class TrackBase extends Range
     private function mouseDownHandler(event:MouseEvent):void
     {
         systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, 
-                                                        system_mouseUpSomewhereHandler);
+                                                        system_mouseUpSomewhereHandler, true);
         systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
                                                         system_mouseUpSomewhereHandler);
         
@@ -656,7 +630,7 @@ public class TrackBase extends Range
     private function system_mouseUpSomewhereHandler(event:Event):void
     {
         systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, 
-                                                           system_mouseUpSomewhereHandler);
+                                                           system_mouseUpSomewhereHandler, true);
         systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
                                                            system_mouseUpSomewhereHandler);
         
