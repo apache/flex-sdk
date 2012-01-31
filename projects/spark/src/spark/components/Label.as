@@ -12,6 +12,7 @@
 package spark.primitives
 {
 
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Shape;
@@ -638,7 +639,12 @@ public class SimpleText extends TextGraphicElement
         var textJustify:String = getStyle("textJustify");
 
 		// Set the TextBlock's content.
-        staticTextElement.text = text;
+		// Note: If there is no text, we do what TLF does and compose
+		// a paragraph terminator character, so that a TextLine
+		// gets created and we can measure it.
+		// It will have a width of 0 but a height equal
+		// to the font's ascent plus descent.
+        staticTextElement.text = text.length > 0 ? text : "\u2029";
 		staticTextElement.elementFormat = elementFormat;
 		staticTextBlock.content = staticTextElement;
 
@@ -689,11 +695,11 @@ public class SimpleText extends TextGraphicElement
      *  Returns true if all the text was composed into textLines.
 	 */
 	private function createTextLinesFromTextBlock(textBlock:TextBlock,
-                	                              textLines:Array,
+                	                              textLines:Vector.<DisplayObject>,
                 	                              bounds:Rectangle):Boolean
 	{
-       // Start with 0 text lines.
-	   mx_internal::releaseTextLines(textLines);
+		// Start with 0 text lines.
+		mx_internal::releaseTextLines(textLines);
 	       
 		// Get CSS styles for formats that we have to apply ourselves.
 		var direction:String = getStyle("direction");
@@ -984,7 +990,7 @@ public class SimpleText extends TextGraphicElement
                                          createdAllLines:Boolean,
                                          lineCountLimit:int):Boolean
     {
-        var textLines:Array = mx_internal::textLines;
+        var textLines:Vector.<DisplayObject> = mx_internal::textLines;
 
         // Not all text composed because it didn't fit within bounds.
         if (!createdAllLines)
@@ -1033,7 +1039,8 @@ public class SimpleText extends TextGraphicElement
             // as well as being dependent on the indicator string, they are 
             // dependent on the given width.            
             staticTextElement.text = mx_internal::truncationIndicatorResource;
-            var indicatorLines:Array = [];
+            var indicatorLines:Vector.<DisplayObject> =
+            	new Vector.<DisplayObject>();
             var indicatorBounds:Rectangle = new Rectangle(0, 0, width, NaN);
     
             createTextLinesFromTextBlock(staticTextBlock, 
@@ -1138,7 +1145,7 @@ public class SimpleText extends TextGraphicElement
     private function computeLastAllowedLineIndex(height:Number,
                                                  lineCountLimit:int):int
     {           
-        var textLines:Array = mx_internal::textLines;
+        var textLines:Vector.<DisplayObject> = mx_internal::textLines;
         var truncationLineIndex:int = textLines.length - 1;
         
         if (!isNaN(height))
@@ -1202,7 +1209,7 @@ public class SimpleText extends TextGraphicElement
     private function getNextTruncationPosition(truncationLineIndex:int,
                                                truncateAtCharPosition:int):int
     {
-        var textLines:Array = mx_internal::textLines;
+        var textLines:Vector.<DisplayObject> = mx_internal::textLines;
 
         // 1. Get the position of the last character of the preceding atom
         // truncateAtCharPosition-1, because truncateAtCharPosition is an 
