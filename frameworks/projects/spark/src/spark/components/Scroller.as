@@ -184,6 +184,26 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  to a <code>Group</code> and use the scrollbar <code>viewport</code> property 
  *  to link them together.</p>
  *
+ *  <p>The Scroller control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>0</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>0</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;Scroller&gt;</code> tag inherits all of the tag 
