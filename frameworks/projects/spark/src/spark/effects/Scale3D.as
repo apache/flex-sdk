@@ -322,18 +322,19 @@ public class Scale3D extends AnimateTransform3D
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-        if (!applyChangesPostLayout)
-        {
-            addMotionPath("scaleX", scaleXFrom, scaleXTo, scaleXBy);
-            addMotionPath("scaleY", scaleYFrom, scaleYTo, scaleYBy);
-            addMotionPath("scaleZ", scaleZFrom, scaleZTo, scaleZBy);
-        }
-        else
-        {
-            addMotionPath("postLayoutScaleX", scaleXFrom, scaleXTo, scaleXBy);
-            addMotionPath("postLayoutScaleY", scaleYFrom, scaleYTo, scaleYBy);
-            addMotionPath("postLayoutScaleZ", scaleZFrom, scaleZTo, scaleZBy);
-        }
+        var xProp:String = applyChangesPostLayout ? "postLayoutScaleX" : "scaleX";
+        var yProp:String = applyChangesPostLayout ? "postLayoutScaleY" : "scaleY";
+        var zProp:String = applyChangesPostLayout ? "postLayoutScaleZ" : "scaleZ";
+        
+        if (!(isNaN(scaleXFrom) && isNaN(scaleXTo) && isNaN(scaleXBy)))
+            addMotionPath(xProp, scaleXFrom, scaleXTo, scaleXBy);
+        
+        if (!(isNaN(scaleYFrom) && isNaN(scaleYTo) && isNaN(scaleYBy)))
+            addMotionPath(yProp, scaleYFrom, scaleYTo, scaleYBy);
+        
+        if (!(isNaN(scaleZFrom) && isNaN(scaleZTo) && isNaN(scaleZBy)))
+            addMotionPath(zProp, scaleZFrom, scaleZTo, scaleZBy);
+        
         super.initInstance(instance);
     }    
     
