@@ -53,9 +53,11 @@ public class NumberInterpolator implements IInterpolator
      * 
      * <p><code>return startValue + fraction * (endValue - startValue);</code></p>
      */
-    public function interpolate(fraction:Number, startValue:*, endValue:*):*
+    public function interpolate(fraction:Number, startValue:Object, 
+        endValue:Object):Object
     {
-        if (isNaN(startValue) || isNaN(endValue))
+        if ((startValue is Number && isNaN(Number(startValue))) || 
+            (endValue is Number && isNaN(Number(endValue))))
             throw new Error("Interpolator cannot calculate interpolated " + 
                             "values when either startValue (" + startValue + ") " + 
                             "or endValue (" + endValue + ") is not a number");
@@ -67,5 +69,24 @@ public class NumberInterpolator implements IInterpolator
         return Number(startValue) + (fraction * (Number(endValue) - Number(startValue)));
     }
     
+    /**
+     * @inheritDoc
+     * 
+     * <p><code>return baseValue + incrementValue;</code></p>
+     */
+    public function increment(baseValue:Object, incrementValue:Object):Object
+    {
+        return Number(baseValue) + Number(incrementValue);
+    }
+
+    /**
+     * @inheritDoc
+     * 
+     * <p><code>return baseValue - decrementValue;</code></p>
+     */
+   public function decrement(baseValue:Object, decrementValue:Object):Object
+   {
+        return Number(baseValue) - Number(decrementValue);
+   }
 }
 }
