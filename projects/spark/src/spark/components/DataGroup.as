@@ -1161,8 +1161,16 @@ public class DataGroup extends GroupBase
             
             if (createdIR || recycledIR) 
             {
-                elt.setLayoutBoundsSize(eltWidth, eltHeight);
                 updateRenderer(elt, item);
+                if (!isNaN(eltWidth) || !isNaN(eltHeight))
+                {
+                    // If we're going to set the width or height of this
+                    // layout element, first force it to initialize its
+                    // measuredWidth,Height.    
+                    if (elt is IInvalidating) 
+                        IInvalidating(elt).validateNow();
+                    elt.setLayoutBoundsSize(eltWidth, eltHeight);
+                }
                 if (elt is IInvalidating)
                     IInvalidating(elt).validateNow();
             }
