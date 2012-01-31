@@ -214,6 +214,9 @@ public class Consumer extends AbstractConsumer
     // 
     //--------------------------------------------------------------------------
 
+    /**
+     * @private
+     */
     override protected function internalSend(message:IMessage, waitForClientId:Boolean = true):void
     {
         if (subtopic.length > 0)
