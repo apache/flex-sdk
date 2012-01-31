@@ -107,7 +107,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  A map of item renderes to columns.
      *  Like <code>ListBase.rowMap</code>, this property contains 
      *  a hash map of item renderers and the columns they belong to.
-     *  Item renderers are indexed by their DisplayObject name
+     *  Item renderers are indexed by their DisplayObject name.
      *
      *  @see mx.controls.listClasses.ListBase#rowMap
      */
@@ -120,7 +120,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      *  The recycled renderers are stored here.
      *  The table is a Dictionary where the entries are Arrays indexed
      *  by the actual DataGridColumn (not the column's dataField or other
-     *  properties), and each array is a stack of currently unused renderers
+     *  properties), and each array is a stack of currently unused renderers.
      */
     protected var freeItemRenderersTable:Dictionary;
 
@@ -135,40 +135,43 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     mx_internal var visibleLockedColumns:Array;
 
     /**
-     *  The header sub-component
+     *  The header sub-component.
      */
     protected var header:DataGridHeaderBase;
 
     /**
-     *  The class to use as the DGHeader
+     *  The class to use as the DGHeader.
      */
     mx_internal var headerClass:Class = DataGridHeader;
 
+    /**
+     *  @private
+     */
     protected var headerMask:Shape;
 
     /**
-     *  The header sub-component for locked columns
+     *  The header sub-component for locked columns.
      */
     protected var lockedColumnHeader:DataGridHeaderBase;
 
     private var lockedColumnHeaderMask:Shape;
 
     /**
-     *  The sub-component that contains locked rows
+     *  The sub-component that contains locked rows.
      */
     protected var lockedRowContent:DataGridLockedRowContentHolder;
 
     private var lockedRowMask:Shape;
 
     /**
-     *  The sub-component that contains locked rows for locked columns
+     *  The sub-component that contains locked rows for locked columns.
      */
     protected var lockedColumnAndRowContent:DataGridLockedRowContentHolder;
 
     private var lockedColumnAndRowMask:Shape;
 
     /**
-     *  The sub-component that contains locked columns
+     *  The sub-component that contains locked columns.
      */
     protected var lockedColumnContent:ListBaseContentHolder;
 
@@ -241,14 +244,14 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     {
     }
 
-	// these three keep track of the key selection that caused
+    // these three keep track of the key selection that caused
     // the page fault
     private var bShiftKey:Boolean = false;
     private var bCtrlKey:Boolean = false;
     private var lastKey:uint = 0;
     private var bSelectItem:Boolean = false;
 
-	private var inSelectItem:Boolean = false;
+    private var inSelectItem:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -317,7 +320,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     /**
      *  The height of the header cell of the column, in pixels.
      *  If set explicitly, that height will be used for all of
-     *  the headers.  If not set explicitly, 
+     *  the headers. If not set explicitly, 
      *  the height will based on style settings and the header
      *  renderer.  
      */
@@ -355,7 +358,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     /**
      *  The index of the first column in the control that scrolls.
      *  Columns with indexes that are lower than this value remain fixed
-     *  in view.  Not supported by all list classes.
+     *  in view. Not supported by all list classes.
      * 
      *  @default 0
      */
@@ -485,7 +488,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
         if (headerVisible && header)
         {
             header.visibleColumns = visibleColumns;
-			header.headerItemsChanged = true;
+            header.headerItemsChanged = true;
             header.invalidateSize();
             header.validateNow();
         }
@@ -545,7 +548,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
             }
 
             if (lockedColumnAndRowContent)
-				lockedColumnAndRowContent.visible = (lockedRowCount > 0 && lockedColumnCount > 0);
+                lockedColumnAndRowContent.visible = (lockedRowCount > 0 && lockedColumnCount > 0);
 
             seekPositionSafely(lockedRowCount + verticalScrollPosition);
         }
@@ -570,7 +573,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
         if (headerVisible && lockedColumnHeader)
         {
             lockedColumnHeader.visibleColumns = visibleLockedColumns;
-			lockedColumnHeader.headerItemsChanged = true;
+            lockedColumnHeader.headerItemsChanged = true;
             lockedColumnHeader.invalidateSize();
             lockedColumnHeader.validateNow();
         }
@@ -729,8 +732,8 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
     /** 
      *  Make sure there's a slot in the row arrays for the given row number
-     *  @param contentHolder The set of rows (locked rows, regular rows)
-     *  @param rowNum The row number
+     *  @param contentHolder The set of rows (locked rows, regular rows).
+     *  @param rowNum The row number.
      */
     protected function prepareRowArray(contentHolder:ListBaseContentHolder, rowNum:int):void
     {
@@ -756,15 +759,15 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     }
 
     /** 
-     *  Make the renderers for the given rowNum, dataObject and uid
-     *  @param contentHolder The set of rows (locked rows, regular rows)
-     *  @param rowNum The row number
-     *  @param left The offset from the left side for the first column
-     *  @param right The offset from the right side for the last column
-     *  @param yy The y position of the row
-     *  @param data The data for the row
-     *  @param uid The uid for the data
-     *  @return Height of the row
+     *  Make the renderers for the given rowNum, dataObject and uid.
+     *  @param contentHolder The set of rows (locked rows, regular rows).
+     *  @param rowNum The row number.
+     *  @param left The offset from the left side for the first column.
+     *  @param right The offset from the right side for the last column.
+     *  @param yy The y position of the row.
+     *  @param data The data for the row.
+     *  @param uid The uid for the data.
+     *  @return Height of the row.
      */
     protected function makeRow(contentHolder:ListBaseContentHolder, rowNum:int, left:Number, right:Number, yy:Number, data:Object, uid:String):Number
     {
@@ -1274,8 +1277,8 @@ public class DataGridBase extends ListBase implements IFontContextComponent
      */
     override public function indicesToIndex(rowIndex:int, colIndex:int):int
     {
-		if (inSelectItem)
-			return 0;
+        if (inSelectItem)
+            return 0;
 
         return rowIndex;
     }
@@ -1415,9 +1418,9 @@ public class DataGridBase extends ListBase implements IFontContextComponent
             renderer = factory.newInstance();
             if (renderer)
             {
-		renderer.styleName = c;
-		factoryMap[renderer] = factory;
-	    }
+        renderer.styleName = c;
+        factoryMap[renderer] = factory;
+        }
         }
 
 
@@ -1471,13 +1474,13 @@ public class DataGridBase extends ListBase implements IFontContextComponent
             {
                 lockedRowContent.selectionLayer.removeChildAt(0);
             }
-			if (lockedColumnCount && lockedColumnAndRowContent)
-			{
-				while (lockedColumnAndRowContent.selectionLayer.numChildren > 0)
-				{
-					lockedColumnAndRowContent.selectionLayer.removeChildAt(0);
-				}
-			}
+            if (lockedColumnCount && lockedColumnAndRowContent)
+            {
+                while (lockedColumnAndRowContent.selectionLayer.numChildren > 0)
+                {
+                    lockedColumnAndRowContent.selectionLayer.removeChildAt(0);
+                }
+            }
         }
         if (header)
             header.clearSelectionLayer();
@@ -1814,14 +1817,14 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                 headerMask.x = maskShape.x;
                 headerMask.y = maskShape.y;
 
-				// If we have a vScroll only, we want the scrollbar to be below
-				// the header.
-				if (verticalScrollBar != null && verticalScrollBar.visible &&
-				   (horizontalScrollBar == null || !horizontalScrollBar.visible) && 
-				   headerVisible)
-				{
-	                headerMask.width += verticalScrollBar.getExplicitOrMeasuredWidth();
-				}
+                // If we have a vScroll only, we want the scrollbar to be below
+                // the header.
+                if (verticalScrollBar != null && verticalScrollBar.visible &&
+                   (horizontalScrollBar == null || !horizontalScrollBar.visible) && 
+                   headerVisible)
+                {
+                    headerMask.width += verticalScrollBar.getExplicitOrMeasuredWidth();
+                }
 
                 if (lockedRowContent)
                 {
@@ -1924,14 +1927,14 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                 headerMask.height = maskShape.height;
                 headerMask.x = maskShape.x;
                 headerMask.y = maskShape.y;
-				// If we have a vScroll only, we want the scrollbar to be below
-				// the header.
-				if (verticalScrollBar != null && verticalScrollBar.visible &&
-				   (horizontalScrollBar == null || !horizontalScrollBar.visible) && 
-				   headerVisible)
-				{
-	                headerMask.width += verticalScrollBar.getExplicitOrMeasuredWidth();
-				}
+                // If we have a vScroll only, we want the scrollbar to be below
+                // the header.
+                if (verticalScrollBar != null && verticalScrollBar.visible &&
+                   (horizontalScrollBar == null || !horizontalScrollBar.visible) && 
+                   headerVisible)
+                {
+                    headerMask.width += verticalScrollBar.getExplicitOrMeasuredWidth();
+                }
 
 
                 if (lockedRowContent)
@@ -2323,28 +2326,28 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                     caretIndex--;
                     bSelectItem = true;
                     if (caretIndex >= lockedRowCount)
-                    	bUpdateVerticalScrollPosition = true;
+                        bUpdateVerticalScrollPosition = true;
                 }
                 break;
             }
 
             case Keyboard.DOWN:
             {
-            	if (caretIndex >= lockedRowCount - 1)
-            	{
-            		if (caretIndex < collection.length - 1)
-	                {
-	                    caretIndex++;
-	                    bUpdateVerticalScrollPosition = true;
-	                    bSelectItem = true;
-	                }
-	                else if ((caretIndex == collection.length - 1) && partialRow)
-	                {
-	                    if (verticalScrollPosition < maxVerticalScrollPosition)
-	                        newVerticalScrollPosition = verticalScrollPosition + 1;
-	                }
-            	}
-            	else if (caretIndex < collection.length - 1)
+                if (caretIndex >= lockedRowCount - 1)
+                {
+                    if (caretIndex < collection.length - 1)
+                    {
+                        caretIndex++;
+                        bUpdateVerticalScrollPosition = true;
+                        bSelectItem = true;
+                    }
+                    else if ((caretIndex == collection.length - 1) && partialRow)
+                    {
+                        if (verticalScrollPosition < maxVerticalScrollPosition)
+                            newVerticalScrollPosition = verticalScrollPosition + 1;
+                    }
+                }
+                else if (caretIndex < collection.length - 1)
                 {
                     caretIndex++;
                     bSelectItem = true;
@@ -2354,37 +2357,37 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
             case Keyboard.PAGE_UP:
             {
-            	if (caretIndex > lockedRowCount)
+                if (caretIndex > lockedRowCount)
                 {       
-	                // if the caret is on-screen, but not at the top row
-	                // just move the caret to the top row
-	                if (caretIndex > verticalScrollPosition + lockedRowCount &&
-	                    caretIndex < verticalScrollPosition + lockedRowCount + onscreenRowCount)
-	                {
-	                    caretIndex = verticalScrollPosition + lockedRowCount;
-	                }
-	                else
-	                {
-	                    // paging up is really hard because we don't know how many
-	                    // rows to move because of variable row height.  We would have
-	                    // to double-buffer a previous screen in order to get this exact
-	                    // so we just guess for now based on current rowCount
-	                    caretIndex = Math.max(caretIndex - Math.max(onscreenRowCount - partialRow, 1), lockedRowCount);
-	                    newVerticalScrollPosition = Math.max(caretIndex, lockedRowCount) - lockedRowCount;
-	                }
-	                bSelectItem = true;
+                    // if the caret is on-screen, but not at the top row
+                    // just move the caret to the top row
+                    if (caretIndex > verticalScrollPosition + lockedRowCount &&
+                        caretIndex < verticalScrollPosition + lockedRowCount + onscreenRowCount)
+                    {
+                        caretIndex = verticalScrollPosition + lockedRowCount;
+                    }
+                    else
+                    {
+                        // paging up is really hard because we don't know how many
+                        // rows to move because of variable row height.  We would have
+                        // to double-buffer a previous screen in order to get this exact
+                        // so we just guess for now based on current rowCount
+                        caretIndex = Math.max(caretIndex - Math.max(onscreenRowCount - partialRow, 1), lockedRowCount);
+                        newVerticalScrollPosition = Math.max(caretIndex, lockedRowCount) - lockedRowCount;
+                    }
+                    bSelectItem = true;
                 }
                 else
                 {
-                	caretIndex = 0;
-                	bSelectItem = true;
+                    caretIndex = 0;
+                    bSelectItem = true;
                 }
                 break;
             }
 
             case Keyboard.PAGE_DOWN:
             {
-            	// if the caret is on-screen, but not at the bottom row
+                // if the caret is on-screen, but not at the bottom row
                 // just move the caret to the bottom row (not partial row)
                 if (caretIndex >= verticalScrollPosition + lockedRowCount &&
                     caretIndex < verticalScrollPosition + lockedRowCount + onscreenRowCount - partialRow - 1)
@@ -2416,28 +2419,28 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
             case Keyboard.END:
             {
-            	if (lockedRowCount >= collection.length)
+                if (lockedRowCount >= collection.length)
                 {
                     caretIndex = collection.length - 1;
                     bSelectItem = true;
                 }
                 else
                 {
-                	if (caretIndex < collection.length - 1)
-	                {
-	                    caretIndex = collection.length - 1;
-	                    bSelectItem = true;
-	                    newVerticalScrollPosition = maxVerticalScrollPosition;
-	                }
+                    if (caretIndex < collection.length - 1)
+                    {
+                        caretIndex = collection.length - 1;
+                        bSelectItem = true;
+                        newVerticalScrollPosition = maxVerticalScrollPosition;
+                    }
                 }
                 break;
             }
-  			case Keyboard.SPACE:
-  			{
-  				bUpdateVerticalScrollPosition = true;
-  				bSelectItem = true;
-  				break;
-  			}
+            case Keyboard.SPACE:
+            {
+                bUpdateVerticalScrollPosition = true;
+                bSelectItem = true;
+                break;
+            }
         }
 
         if (bUpdateVerticalScrollPosition)
@@ -2501,18 +2504,18 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
         if (lastKey == Keyboard.PAGE_DOWN)
         {
-        	// set caret to last full row of new screen
-        	// partial rows take what you can get
-        	if (onscreenRowCount - partialRow == 0)
-        	{
-	    		caretIndex = Math.min(verticalScrollPosition + lockedRowCount + onscreenRowCount - partialRow,
-	            	                  collection.length - 1);
-	        }
-	        else
-	        {
-	        	caretIndex = Math.min(verticalScrollPosition + lockedRowCount + onscreenRowCount - partialRow - 1,
-	            	                  collection.length - 1);
-	        }
+            // set caret to last full row of new screen
+            // partial rows take what you can get
+            if (onscreenRowCount - partialRow == 0)
+            {
+                caretIndex = Math.min(verticalScrollPosition + lockedRowCount + onscreenRowCount - partialRow,
+                                      collection.length - 1);
+            }
+            else
+            {
+                caretIndex = Math.min(verticalScrollPosition + lockedRowCount + onscreenRowCount - partialRow - 1,
+                                      collection.length - 1);
+            }
         }
 
         var listItem:IListItemRenderer;
@@ -2534,10 +2537,10 @@ public class DataGridBase extends ListBase implements IFontContextComponent
             }
 
             if (caretIndex < lockedRowCount)
-				listItem = lockedRowContent.listItems[caretIndex][0];
-			else
-				listItem = listItems[caretIndex - lockedRowCount - verticalScrollPosition + offscreenExtraRowsTop][0];
-			
+                listItem = lockedRowContent.listItems[caretIndex][0];
+            else
+                listItem = listItems[caretIndex - lockedRowCount - verticalScrollPosition + offscreenExtraRowsTop][0];
+            
             if (listItem)
             {
                 uid = itemToUID(listItem.data);
@@ -2624,7 +2627,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
 
     /**
      *  @private
-	 *  the inselectItem is a flag that converts relative seeks to absolute
+     *  the inselectItem is a flag that converts relative seeks to absolute
      */
     override protected function selectItem(item:IListItemRenderer,
                                   shiftKey:Boolean, ctrlKey:Boolean,
@@ -2632,24 +2635,24 @@ public class DataGridBase extends ListBase implements IFontContextComponent
     {
         var bookmark:CursorBookmark = iterator.bookmark;
 
-		if (lockedRowCount)
-		{
-			inSelectItem = true;
-			iterator.seek(CursorBookmark.FIRST, 0);
-		}
+        if (lockedRowCount)
+        {
+            inSelectItem = true;
+            iterator.seek(CursorBookmark.FIRST, 0);
+        }
 
-		var retval:Boolean = super.selectItem(item, shiftKey, ctrlKey, transition);
+        var retval:Boolean = super.selectItem(item, shiftKey, ctrlKey, transition);
 
-		if (lockedRowCount)
-		{
-			iterator.seek(bookmark, 0);
-			inSelectItem = false;
-		}
+        if (lockedRowCount)
+        {
+            iterator.seek(bookmark, 0);
+            inSelectItem = false;
+        }
 
-		return retval;
-	}
+        return retval;
+    }
 
-	/**
+    /**
      *  @private
      */
     override public function showDropFeedback(event:DragEvent):void
@@ -2675,150 +2678,150 @@ public class DataGridBase extends ListBase implements IFontContextComponent
         }
 
         var rowNum:Number = calculateDropIndex(event);
-		if (lockedRowCount && rowNum < lockedRowCount)
-		{
-			if (dropIndicator.parent != lockedRowContent)
-				lockedRowContent.addChild(DisplayObject(dropIndicator));
+        if (lockedRowCount && rowNum < lockedRowCount)
+        {
+            if (dropIndicator.parent != lockedRowContent)
+                lockedRowContent.addChild(DisplayObject(dropIndicator));
             dropIndicator.y = lockedRowContent.listItems[rowNum][0].y - 1
 
-		}
-		else
-		{
-			var rowCount:int = listItems.length;
-			var partialRow:int = (rowCount > 0 && rowInfo[rowCount - offscreenExtraRowsBottom - 1].y + 
-                              	rowInfo[rowCount - offscreenExtraRowsBottom - 1].height >
-                              	listContent.heightExcludingOffsets - listContent.topOffset) ? 1 : 0;
+        }
+        else
+        {
+            var rowCount:int = listItems.length;
+            var partialRow:int = (rowCount > 0 && rowInfo[rowCount - offscreenExtraRowsBottom - 1].y + 
+                                rowInfo[rowCount - offscreenExtraRowsBottom - 1].height >
+                                listContent.heightExcludingOffsets - listContent.topOffset) ? 1 : 0;
 
-			rowNum -= verticalScrollPosition + lockedRowCount;
+            rowNum -= verticalScrollPosition + lockedRowCount;
 
-			if (rowNum >= rowCount)
-			{
-				if (partialRow)
-					rowNum = rowCount - 1;
-				else
-					rowNum = rowCount;
-			}
+            if (rowNum >= rowCount)
+            {
+                if (partialRow)
+                    rowNum = rowCount - 1;
+                else
+                    rowNum = rowCount;
+            }
         
-			if (rowNum < 0)
-				rowNum = 0;
+            if (rowNum < 0)
+                rowNum = 0;
 
-			if (dropIndicator.parent != listContent)
-				listContent.addChild(DisplayObject(dropIndicator));
-			dropIndicator.y = calculateDropIndicatorY(rowCount, rowNum + offscreenExtraRowsTop);
-		}
+            if (dropIndicator.parent != listContent)
+                listContent.addChild(DisplayObject(dropIndicator));
+            dropIndicator.y = calculateDropIndicatorY(rowCount, rowNum + offscreenExtraRowsTop);
+        }
     }
 
     /**
      *  @private
-	 *  If there are locked rows but there weren't enough collection items, the iterator
-	 *  is not in the right place and needs fixing.
+     *  If there are locked rows but there weren't enough collection items, the iterator
+     *  is not in the right place and needs fixing.
      */
     override protected function adjustAfterAdd(items:Array, location:int):Boolean
     {
-		var retval:Boolean = super.adjustAfterAdd(items, location);
-		if (lockedRowCount)
-		{
-			if (verticalScrollPosition > 0 && verticalScrollPosition >= location && location <= lockedRowCount)
-			{
-				if (verticalScrollPosition + lockedRowCount >= collection.length)
-				{
-					// don't let adjustment take us beyond end of iterator
-					super.verticalScrollPosition = verticalScrollPosition - items.length;
-				}
-			}
-			if (collection.length - items.length <= lockedRowCount && collection.length >= lockedRowCount 
-				|| location <= lockedRowCount
-				|| location == lockedRowCount + verticalScrollPosition)
-			{
-				try
-				{
-					iterator.seek(CursorBookmark.FIRST, lockedRowCount + verticalScrollPosition);
-					if (!iteratorValid)
-					{
-						iteratorValid = true;
-						lastSeekPending = null;
-					}
-				}
-				catch(e:ItemPendingError)
-				{
-					lastSeekPending = new ListBaseSeekPending(CursorBookmark.FIRST, lockedRowCount + verticalScrollPosition)
-					e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler,
-													lastSeekPending));
-					// trace("IPE in UpdateDisplayList");
-					iteratorValid = false;
-					// don't do anything, we'll repaint when the data arrives
-				}
-			}
-		}
-		return retval;
-	}
+        var retval:Boolean = super.adjustAfterAdd(items, location);
+        if (lockedRowCount)
+        {
+            if (verticalScrollPosition > 0 && verticalScrollPosition >= location && location <= lockedRowCount)
+            {
+                if (verticalScrollPosition + lockedRowCount >= collection.length)
+                {
+                    // don't let adjustment take us beyond end of iterator
+                    super.verticalScrollPosition = verticalScrollPosition - items.length;
+                }
+            }
+            if (collection.length - items.length <= lockedRowCount && collection.length >= lockedRowCount 
+                || location <= lockedRowCount
+                || location == lockedRowCount + verticalScrollPosition)
+            {
+                try
+                {
+                    iterator.seek(CursorBookmark.FIRST, lockedRowCount + verticalScrollPosition);
+                    if (!iteratorValid)
+                    {
+                        iteratorValid = true;
+                        lastSeekPending = null;
+                    }
+                }
+                catch(e:ItemPendingError)
+                {
+                    lastSeekPending = new ListBaseSeekPending(CursorBookmark.FIRST, lockedRowCount + verticalScrollPosition)
+                    e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler,
+                                                    lastSeekPending));
+                    // trace("IPE in UpdateDisplayList");
+                    iteratorValid = false;
+                    // don't do anything, we'll repaint when the data arrives
+                }
+            }
+        }
+        return retval;
+    }
 
     /**
      *  @private
-	 *  If there are locked rows but there weren't enough collection items, the iterator
-	 *  is not in the right place and needs fixing.
+     *  If there are locked rows but there weren't enough collection items, the iterator
+     *  is not in the right place and needs fixing.
      */
     override protected function adjustAfterRemove(items:Array, location:int, requiresValueCommit:Boolean):Boolean
     {
-		var adjustIterator:Boolean = false;
+        var adjustIterator:Boolean = false;
 
         if (lockedRowCount && listItems.length && listItems[0].length)
         {
-			if (location <= lockedRowCount + verticalScrollPosition)
-				adjustIterator = true;
-			else
-			{
-				// special case when we have less than a screen full of stuff
-				var firstUID:String = rowMap[listItems[0][0].name].uid;
+            if (location <= lockedRowCount + verticalScrollPosition)
+                adjustIterator = true;
+            else
+            {
+                // special case when we have less than a screen full of stuff
+                var firstUID:String = rowMap[listItems[0][0].name].uid;
             
-				for (var i:int = 0; i < items.length; i++)
-				{
-					var uid:String = itemToUID(items[i]);
+                for (var i:int = 0; i < items.length; i++)
+                {
+                    var uid:String = itemToUID(items[i]);
                 
-					if (uid == firstUID && verticalScrollPosition == 0)
-					{
-						adjustIterator = true;
-						break;
-					}
-				}
-			}
-		}
+                    if (uid == firstUID && verticalScrollPosition == 0)
+                    {
+                        adjustIterator = true;
+                        break;
+                    }
+                }
+            }
+        }
 
-		var retval:Boolean = super.adjustAfterRemove(items, location, requiresValueCommit);
+        var retval:Boolean = super.adjustAfterRemove(items, location, requiresValueCommit);
 
-		if (lockedRowCount)
-		{
-			if (verticalScrollPosition > 0 && location > lockedRowCount 
-				&& verticalScrollPosition <= lockedRowCount && verticalScrollPosition == maxVerticalScrollPosition )
-			{
-				super.verticalScrollPosition = verticalScrollPosition - items.length;
-				adjustIterator = true;
-			}
-			if (adjustIterator)
-			{
-				try
-				{
-					iterator.seek(CursorBookmark.FIRST, lockedRowCount + verticalScrollPosition);
-					if (!iteratorValid)
-					{
-						iteratorValid = true;
-						lastSeekPending = null;
-					}
-				}
-				catch(e:ItemPendingError)
-				{
-					lastSeekPending = new ListBaseSeekPending(CursorBookmark.FIRST, lockedRowCount + verticalScrollPosition)
-					e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler,
-													lastSeekPending));
-					// trace("IPE in UpdateDisplayList");
-					iteratorValid = false;
-					// don't do anything, we'll repaint when the data arrives
-				}
-			}
-		}
+        if (lockedRowCount)
+        {
+            if (verticalScrollPosition > 0 && location > lockedRowCount 
+                && verticalScrollPosition <= lockedRowCount && verticalScrollPosition == maxVerticalScrollPosition )
+            {
+                super.verticalScrollPosition = verticalScrollPosition - items.length;
+                adjustIterator = true;
+            }
+            if (adjustIterator)
+            {
+                try
+                {
+                    iterator.seek(CursorBookmark.FIRST, lockedRowCount + verticalScrollPosition);
+                    if (!iteratorValid)
+                    {
+                        iteratorValid = true;
+                        lastSeekPending = null;
+                    }
+                }
+                catch(e:ItemPendingError)
+                {
+                    lastSeekPending = new ListBaseSeekPending(CursorBookmark.FIRST, lockedRowCount + verticalScrollPosition)
+                    e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler,
+                                                    lastSeekPending));
+                    // trace("IPE in UpdateDisplayList");
+                    iteratorValid = false;
+                    // don't do anything, we'll repaint when the data arrives
+                }
+            }
+        }
 
-		return retval;
-	}
+        return retval;
+    }
 
 }
 
