@@ -82,7 +82,9 @@ public class MXTreeItemRenderer extends MXItemRenderer
     private var _disclosureGroup:Group;
 
     /**
-     *  The ID of the component that receives focus as the item editor.
+     *  If supplied, the component that will be used as the Tree's
+     *  disclosure control.  Clicking on this control will result
+     *  in TreeEvents and the click event will not be propagated
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
