@@ -1452,8 +1452,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
         return false;
     }
-    
-    
+
     /**
      *  @private
      *  
