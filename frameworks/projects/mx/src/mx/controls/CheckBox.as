@@ -13,6 +13,7 @@ package mx.controls
 {
 
 import mx.core.FlexVersion;
+import mx.core.IToggleButton;
 import mx.core.mx_internal;
 
 use namespace mx_internal;
@@ -106,7 +107,7 @@ include "../styles/metadata/IconColorStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class CheckBox extends Button
+public class CheckBox extends Button implements IToggleButton
 {
     include "../core/Version.as";
 
