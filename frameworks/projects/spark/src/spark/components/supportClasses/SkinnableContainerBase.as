@@ -100,6 +100,11 @@ public class SkinnableContainerBase extends SkinnableComponent implements IFocus
      *  Enter key is the same as clicking this Button control.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get defaultButton():IFlexDisplayObject
     {
