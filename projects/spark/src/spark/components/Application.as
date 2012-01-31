@@ -278,6 +278,19 @@ public class Application extends SkinnableContainer
     
     /**
      *  @private
+     *  Variable that determines whether this application is running on iOS.
+     */
+    private var isIOS:Boolean = false;
+    
+    /**
+     *  @private
+     *  This variable stores the last object that received the SOFT_KEYBOARD_ACTIVATE
+     *  event.
+     */
+    private var softKeyboardTarget:Object = null;
+    
+    /**
+     *  @private
      *  Flag set to true if the application has temporarily set its explicit
      *  width and height to deal with orientation.
      */ 
@@ -1257,6 +1270,9 @@ public class Application extends SkinnableContainer
         if (hasEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR))
             systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
 
+        // Determine if we are running on an iOS device
+        isIOS = Capabilities.version.indexOf("IOS") == 0;
+        
         // To prevent a flicker described in SDK-30133, a flex application listens
         // for orientationChanging events dispatched by iOS AIR applications.
         // In the handler, the stage's width and height are swapped, and a validation
@@ -1710,6 +1726,29 @@ public class Application extends SkinnableContainer
     {        
         if (this === FlexGlobals.topLevelApplication)
         {
+            if (softKeyboardTarget && softKeyboardTarget != event.target)
+                clearSoftKeyboardTarget();
+            
+            softKeyboardTarget = event.target;
+            
+            // If the display object that activates the softkeyboard is removed without
+            // losing focus, the runtime may not dispatch a deactivate event.  So the
+            // framework adds a REMOVE_FROM_STAGE event listener to the target and manually
+            // clears the focus.
+            softKeyboardTarget.addEventListener(Event.REMOVED_FROM_STAGE, 
+                                                softKeyboardTarget_removeFromStageHandler, 
+                                                false, EventPriority.DEFAULT, true);
+            
+            // On iOS, if the softKeyboard target is removed from the stage as a result
+            // of a user input with another focusable component, the application will not
+            // receive a SOFT_KEYBOARD_DEACTIVATE event, only the target will.
+            if (isIOS)
+            {
+                softKeyboardTarget.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                                                    softKeyboardDeactivateHandler, false, 
+                                                    EventPriority.DEFAULT, true);
+            }
+            
             // Get the keyboard size
             var keyboardRect:Rectangle = stage.softKeyboardRect;
      
@@ -1743,8 +1782,11 @@ public class Application extends SkinnableContainer
      */ 
     private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
     {
-        if (this === FlexGlobals.topLevelApplication)
+        if (this === FlexGlobals.topLevelApplication && isSoftKeyboardActive)
         {            
+            if (softKeyboardTarget)
+                clearSoftKeyboardTarget();
+            
             isSoftKeyboardActive = false;
             
             if (softKeyboardBehavior == "none" && resizeForSoftKeyboard)
@@ -1761,6 +1803,43 @@ public class Application extends SkinnableContainer
                 
                 validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
             }
+        }
+    }
+    
+    /**
+     *  @private
+     *  Called when a softKeyboard activation target is removed from the
+     *  stage.  If the target has stage focus, then the focus is set to null.
+     *  This will cause a SOFT_KEYBOARD_DEACTIVATE event to be dispatched.
+     */ 
+    private function softKeyboardTarget_removeFromStageHandler(event:Event):void
+    {
+        if (stage.focus == softKeyboardTarget)
+            stage.focus = null;
+        
+        // clearSoftKeyboardTarget() is called in response to the SOFT_KEYBOARD_DEACTIVATE
+        // event and will clear the removeFromStage listener and softKeyboardDeactivate 
+        // events from the target.
+    }
+    
+    /**
+     *  @private
+     *  This method clears the cached softKeyboard target and removes the
+     *  removeFromStage handler that is added in the softKeyboardActivateHandler
+     *  method.
+     */
+    private function clearSoftKeyboardTarget():void
+    {
+        if (softKeyboardTarget)
+        {
+            if (isIOS)
+            {
+                softKeyboardTarget.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                                                       softKeyboardDeactivateHandler);
+            }
+            
+            softKeyboardTarget.removeEventListener(Event.REMOVED_FROM_STAGE, softKeyboardTarget_removeFromStageHandler);
+            softKeyboardTarget = null;
         }
     }
     
