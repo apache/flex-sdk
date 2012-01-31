@@ -476,7 +476,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  When you sort the data provider's collection programmatically, 
  *  the component does not dispatch the <code>sortChanging</code> event. </p>
  *
- *  @eventType spark.events.GridSelectionEvent.SORT_CHANGING
+ *  @eventType spark.events.GridSortEvent.SORT_CHANGING
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -494,7 +494,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  When you sort the data provider's collection programmatically, 
  *  the component does not dispatch the <code>sortChanging</code> event.</p>
  *
- *  @eventType spark.events.GridSelectionEvent.SELECTION_CHANGE
+ *  @eventType spark.events.GridSortEvent.SORT_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
