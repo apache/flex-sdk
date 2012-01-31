@@ -422,7 +422,7 @@ public class GridLayout extends LayoutBase
         if (!columns || lastVisibleColumnIndex < 0)
         {
             // HACK: Make sure columnHeaderBar fixes itself
-            var dg:DataGrid = grid.gridOwner as DataGrid;
+            var dg:DataGrid = grid.dataGrid;
             if (dg && dg.columnHeaderBar)
                 dg.columnHeaderBar.invalidateDisplayList();
             return;
@@ -482,7 +482,7 @@ public class GridLayout extends LayoutBase
             visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastVisibleColumnIndex);
         
         // HACK
-        dg = grid.gridOwner as DataGrid;
+        dg = grid.dataGrid;
         if (dg && dg.columnHeaderBar)
             dg.columnHeaderBar.invalidateDisplayList();
         
@@ -1066,15 +1066,15 @@ public class GridLayout extends LayoutBase
             
             gridRenderer.data = dataItem;
             
-            if (grid.gridOwner)
-                grid.gridOwner.prepareItemRenderer(gridRenderer, true);
+            if (grid.dataGrid)
+                grid.dataGrid.prepareItemRenderer(gridRenderer, true);
         }
     }
     
     private function uninitializeItemRenderer(renderer:IGridItemRenderer):void
     {
-        if (grid.gridOwner)
-            grid.gridOwner.discardItemRenderer(renderer, true);
+        if (grid.dataGrid)
+            grid.dataGrid.discardItemRenderer(renderer, true);
     }
     
     private function freeItemRenderer(renderer:IGridItemRenderer):void
