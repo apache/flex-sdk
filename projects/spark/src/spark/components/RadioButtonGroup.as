@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.display.DisplayObject;
@@ -32,7 +32,7 @@ import mx.utils.NameUtil;
 //--------------------------------------
 
 /**
- *  Dispatched when the value of the selected FxRadioButton control in
+ *  Dispatched when the value of the selected RadioButton control in
  *  this group changes.
  *
  *  @eventType flash.events.Event.CHANGE
@@ -45,8 +45,8 @@ import mx.utils.NameUtil;
 [Event(name="change", type="flash.events.Event")]
 
 /**
- *  Dispatched when a user selects a FxRadioButton control in the group.
- *  You can also set a handler for individual FxRadioButton controls.
+ *  Dispatched when a user selects a RadioButton control in the group.
+ *  You can also set a handler for individual RadioButton controls.
  *
  *  This event is dispatched only when the 
  *  user interacts with the radio buttons by using the mouse.
@@ -64,22 +64,22 @@ import mx.utils.NameUtil;
 //  Other metadata
 //--------------------------------------
 
-[IconFile("FxRadioButtonGroup.png")]
+[IconFile("RadioButtonGroup.png")]
 
 /**
- *  The FxRadioButtonGroup control defines a group of FxRadioButton controls
+ *  The RadioButtonGroup control defines a group of RadioButton controls
  *  that act as a single mutually exclusive control; therefore,
  *  a user can select only one  control at a time.
  *  The <code>id</code> property is required when you use the
- *  <code>&lt;mx:FxRadioButtonGroup&gt;</code> tag to define the name
+ *  <code>&lt;mx:RadioButtonGroup&gt;</code> tag to define the name
  *  of the group.
  *
- *  <p>Notice that the FxRadioButtonGroup control is a subclass of EventDispatcher,
+ *  <p>Notice that the RadioButtonGroup control is a subclass of EventDispatcher,
  *  not UIComponent, and implements the IMXMLObject interface.
  *  All other Flex visual components are subclasses of UIComponent, which implements
  *  the IUIComponent interface.
- *  The FxRadioButtonGroup control has support built into the Flex compiler
- *  that allows you to use the FxRadioButtonGroup control as a child of a Flex
+ *  The RadioButtonGroup control has support built into the Flex compiler
+ *  that allows you to use the RadioButtonGroup control as a child of a Flex
  *  container, even though it does not implement IUIComponent.
  *  All other container children must implement the IUIComponent interface.</p>
  *
@@ -93,7 +93,7 @@ import mx.utils.NameUtil;
  *  tag attributes of its superclass, and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:FxRadioButtonGroup
+ *  &lt;mx:RadioButtonGroup
  *    <strong>Properties</strong>
  *    enabled="true|false"
  *    id="<i>No default</i>"
@@ -104,14 +104,14 @@ import mx.utils.NameUtil;
  *  /&gt;
  *  </pre>
  *
- *  @see mx.components.FxRadioButton
+ *  @see mx.components.RadioButton
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
+public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
 {
     include "../core/Version.as";
 
@@ -134,7 +134,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxRadioButtonGroup(document:IFlexDisplayObject = null)
+    public function RadioButtonGroup(document:IFlexDisplayObject = null)
     {
         super();
     }
@@ -153,15 +153,15 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  @private
-     *  The document containing a reference to this FxRadioButtonGroup.
+     *  The document containing a reference to this RadioButtonGroup.
      */
     private var document:IFlexDisplayObject;
 
     /**
      *  @private
-     *  An Array of the FxRadioButtons that belong to this group.
+     *  An Array of the RadioButtons that belong to this group.
      */
-    private var radioButtons:Array /* of FxRadioButton */ = [];
+    private var radioButtons:Array /* of RadioButton */ = [];
 
     /**
      *  @private
@@ -185,7 +185,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  Determines whether selection is allowed.  Note that the value returned
      *  only reflects the value that was explicitly set on the 
-     *  <code>FxRadioButtonGroup</code> and does not reflect any values explicitly
+     *  <code>RadioButtonGroup</code> and does not reflect any values explicitly
      *  set on the individual radio buttons. 
      *
      *  @default true
@@ -223,7 +223,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     [Bindable("numRadioButtonsChanged")]
 
     /**
-     *  The number of FxRadioButtons that belong to this FxRadioButtonGroup.
+     *  The number of RadioButtons that belong to this RadioButtonGroup.
      *
      *  @default "0"
      *  
@@ -247,14 +247,14 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  The value of the <code>value</code> property of the selected
-     *  FxRadioButton control in the group, if this has been set
+     *  RadioButton control in the group, if this has been set
      *  to be something other than <code>null</code> (the default value).
      *  Otherwise, <code>selectedValue</code> is the value of the
-     *  <code>label</code> property of the selected FxRadioButton.
-     *  If no FxRadioButton is selected, this property is <code>null</code>.
+     *  <code>label</code> property of the selected RadioButton.
+     *  If no RadioButton is selected, this property is <code>null</code>.
      *
      *  <p>If you set <code>selectedValue</code>, Flex selects the
-     *  FxRadioButton control whose <code>value</code> or
+     *  RadioButton control whose <code>value</code> or
      *  <code>label</code> property matches this value.</p>
      *
      *  @default null
@@ -284,7 +284,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
         var n:int = numRadioButtons;
         for (var i:int = 0; i < n; i++)
         {
-            var radioButton:FxRadioButton = getRadioButtonAt(i);
+            var radioButton:RadioButton = getRadioButtonAt(i);
             if (radioButton.value == value ||
                 radioButton.label == value)
             {
@@ -304,7 +304,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  @private
      *  Reference to the selected radio button.
      */
-    private var _selection:FxRadioButton;
+    private var _selection:RadioButton;
 
     [Bindable("change")]
     [Bindable("valueCommit")]
@@ -312,11 +312,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  Contains a reference to the currently selected
-     *  FxRadioButton control in the group.
+     *  RadioButton control in the group.
      *  You can access the property in ActionScript only;
      *  it is not settable in MXML.
      *  Setting this property to <code>null</code> deselects the currently
-     *  selected FxRadioButton control.  A change event is not dispatched.
+     *  selected RadioButton control.  A change event is not dispatched.
      *
      *  @default null
      *  
@@ -325,7 +325,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get selection():FxRadioButton
+    public function get selection():RadioButton
     {
         return _selection;
     }
@@ -333,7 +333,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  @private
      */
-    public function set selection(value:FxRadioButton):void
+    public function set selection(value:RadioButton):void
     {
         if ( _selection == value)
             return;
@@ -375,9 +375,9 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  Returns the  control at the specified index.
      *
      *  @param index The index of the  control in the
-     *  FxRadioButtonGroup control, where the index of the first control is 0.
+     *  RadioButtonGroup control, where the index of the first control is 0.
      *
-     *  @return The specified FxRadioButton control if index between
+     *  @return The specified RadioButton control if index between
      *  0 and numRadioButtons, otherwise null.
      * 
      *  @see numRadioButtons
@@ -387,7 +387,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getRadioButtonAt(index:int):FxRadioButton
+    public function getRadioButtonAt(index:int):RadioButton
     {
         if (index >= 0 && index < numRadioButtons)
             return radioButtons[index];
@@ -410,9 +410,9 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  @private
      *  Add a radio button to the group.  This can be called by
-     *  FxRadioButton or via the addedHandler when applying a state.
+     *  RadioButton or via the addedHandler when applying a state.
      */
-    mx_internal function addInstance(instance:FxRadioButton):void
+    mx_internal function addInstance(instance:RadioButton):void
     {
         // During a state transition, called when rb is removed from 
         // display list.
@@ -439,16 +439,16 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  @private
      *  Remove a radio button from the group.  This can be called by
-     *  FxRadioButton or via the removedHandler when removing a state.
+     *  RadioButton or via the removedHandler when removing a state.
      */
-    private function removeInstance(instance:FxRadioButton):void
+    private function removeInstance(instance:RadioButton):void
     {
         if (instance)
         {
             var foundInstance:Boolean = false;
             for (var i:int = 0; i < numRadioButtons; i++)
             {
-                var rb:FxRadioButton = getRadioButtonAt(i);
+                var rb:RadioButton = getRadioButtonAt(i);
 
                 if (foundInstance)
                 {
@@ -492,7 +492,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  @private
      */
-    mx_internal function setSelection(value:FxRadioButton, fireChange:Boolean = true):void
+    mx_internal function setSelection(value:RadioButton, fireChange:Boolean = true):void
     {
         if (_selection == value)
             return;
@@ -525,7 +525,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     private function changeSelection(index:int, fireChange:Boolean = true):void
     {
-        var rb:FxRadioButton = getRadioButtonAt(index);
+        var rb:RadioButton = getRadioButtonAt(index);
         if (rb && rb != _selection)
         {
             // Unselect the currently selected radio
@@ -545,13 +545,13 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  @private
-     *  Sandbox root of FxRadioButton "a" in breadthOrderCompare().
+     *  Sandbox root of RadioButton "a" in breadthOrderCompare().
      */
     private var aSbRoot:DisplayObject;
     
     /**
      *  @private
-     *  Sandbox root of FxRadioButton "b" in breadthOrderCompare().
+     *  Sandbox root of RadioButton "b" in breadthOrderCompare().
      */
     private var bSbRoot:DisplayObject;
 
@@ -570,13 +570,13 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
    
         // Only set when a is the radio button.  The sandbox root should be the
         // same for the parents.
-        if (a is FxRadioButton)
-            aSbRoot = FxRadioButton(a).systemManager.getSandboxRoot();
+        if (a is RadioButton)
+            aSbRoot = RadioButton(a).systemManager.getSandboxRoot();
             
         // Only set when b is the radio button.  The sandbox root should be the
         // same for the parents.
-        if (b is FxRadioButton)
-            bSbRoot = FxRadioButton(b).systemManager.getSandboxRoot();
+        if (b is RadioButton)
+            bSbRoot = RadioButton(b).systemManager.getSandboxRoot();
         
         // If reached the sandbox root of either then done.
         if (aParent == aSbRoot || bParent == bSbRoot)
@@ -614,7 +614,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     private function radioButton_addedHandler(event:Event):void
     {
-        var rb:FxRadioButton = event.target as FxRadioButton;
+        var rb:RadioButton = event.target as RadioButton;
         if (rb)
         {
             //trace("radioButton_addedHandler", rb.id);
@@ -628,7 +628,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     private function radioButton_removedHandler(event:Event):void
     {
-        var rb:FxRadioButton = event.target as FxRadioButton;
+        var rb:RadioButton = event.target as RadioButton;
         if (rb)
         {
             //trace("radioButton_removedHandler", rb.id);
