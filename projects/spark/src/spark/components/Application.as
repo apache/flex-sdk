@@ -202,6 +202,11 @@ public class Application extends SkinnableContainer
      *  @private
      */
     private var resizeHandlerAdded:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    private var percentBoundsChanged:Boolean;
 
     /**
      *  @private
@@ -623,9 +628,12 @@ public class Application extends SkinnableContainer
      */
     override public function set percentHeight(value:Number):void
     {
-        super.percentHeight = value;
-
-        invalidateDisplayList();
+        if (value != super.percentHeight)
+        {
+            super.percentHeight = value;
+            percentBoundsChanged = true;
+            invalidateProperties();
+        }
     }
     
     //----------------------------------
@@ -637,9 +645,12 @@ public class Application extends SkinnableContainer
      */
     override public function set percentWidth(value:Number):void
     {
-        super.percentWidth = value;
-
-        invalidateDisplayList();
+        if (value != super.percentWidth)
+        {
+            super.percentWidth = value;
+            percentBoundsChanged = true;
+            invalidateProperties();
+        }
     }
 
     //----------------------------------
@@ -835,6 +846,12 @@ public class Application extends SkinnableContainer
                 systemManager.removeEventListener(Event.RESIZE, resizeHandler);
                 resizeHandlerAdded = false;
             }
+        }
+        
+        if (percentBoundsChanged)
+        {
+            updateBounds();
+            percentBoundsChanged = false;
         }
     }
     
@@ -1055,6 +1072,29 @@ public class Application extends SkinnableContainer
      */
     private function resizeHandler(event:Event):void
     {
+        // If we're already due to update our bounds on the next
+        // commitProperties pass, avoid the redundancy.
+        if (!percentBoundsChanged)
+            updateBounds();
+    }
+    
+    /**
+     *  @private
+     *  Called when the "View Source" item in the application's context menu is
+     *  selected.
+     */
+    protected function menuItemSelectHandler(event:Event):void
+    {
+        navigateToURL(new URLRequest(_viewSourceURL), "_blank");
+    }
+    
+    /**
+     *  @private
+     *  Sets the new width and height after the Stage has resized
+     *  or when percentHeight or percentWidth has changed.
+     */
+    private function updateBounds():void
+    {
         // When user has not specified any width/height,
         // application assumes the size of the stage.
         // If developer has specified width/height,
@@ -1064,7 +1104,7 @@ public class Application extends SkinnableContainer
         // based on the current SystemManager's width/height.
         // If developer has specified min/max values,
         // then application will not resize beyond those values.
-
+        
         var w:Number;
         var h:Number
         
@@ -1080,10 +1120,10 @@ public class Application extends SkinnableContainer
                 super.percentWidth = Math.min(percentWidth, 100);
                 w = percentWidth*DisplayObject(systemManager).width/100;
             }
-
+            
             if (!isNaN(explicitMaxWidth))
                 w = Math.min(w, explicitMaxWidth);
-
+            
             if (!isNaN(explicitMinWidth))
                 w = Math.max(w, explicitMinWidth);
         }
@@ -1107,7 +1147,7 @@ public class Application extends SkinnableContainer
             
             if (!isNaN(explicitMaxHeight))
                 h = Math.min(h, explicitMaxHeight);
-
+            
             if (!isNaN(explicitMinHeight))
                 h = Math.max(h, explicitMinHeight);
         }
@@ -1121,20 +1161,10 @@ public class Application extends SkinnableContainer
             invalidateProperties();
             invalidateSize();
         }
-
+        
         setActualSize(w, h);
-
-        invalidateDisplayList();
-    }
-    
-    /**
-     *  @private
-     *  Called when the "View Source" item in the application's context menu is
-     *  selected.
-     */
-    protected function menuItemSelectHandler(event:Event):void
-    {
-        navigateToURL(new URLRequest(_viewSourceURL), "_blank");
+        
+        invalidateDisplayList();        
     }
 }
 
