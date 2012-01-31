@@ -359,16 +359,17 @@ public class PopUpMenuButton extends PopUpButton
      *  show for each menu item.
      *  The <code>iconFunction</code> property, if set, overrides this property.
      * 
-     *  <p>The renderers will look in the data provider object for a property of 
-     *  the name supplied as the iconField.  If the value of the property is a 
-     *  Class, it will instantiate that class and expect it to be an instance 
+     *  <p>The item renderer looks in the data provider for a property with 
+     *  the name specified to the <code>iconField</code> property.  
+     *  If the value of the property is a 
+     *  Class, it instantiates that class and expect it to be an instance 
      *  of an IFlexDisplayObject. If the value of the property is a String, 
-     *  it will look to see if a Class exists with that name in the application, 
-     *  and if it can't find one, it will also look for a property on the 
+     *  it looks to see if a Class property exists with that name in the application. 
+     *  If it can't find a property on the application, it looks for a property on the 
      *  document with that name and expect that property to map to a Class.</p>
      * 
-     *  If the data provider is an E4X XML object, you must set this property
-     *  explicitly; for example, use &#064;icon to specify the <code>icon</code> attribute.
+     *  <p>If the data provider is an E4X XML object, you must set this property
+     *  explicitly; for example, use &#064;icon to specify the <code>icon</code> attribute.</p>
      *
      *  @default "icon"
      */
@@ -412,13 +413,13 @@ public class PopUpMenuButton extends PopUpButton
      *  If you specify this property, Flex ignores any <code>iconField</code>
      *  property value.
      *
-     *  By default the menu does not try to display icons with the text 
+     *  <p>By default, the menu does not try to display icons with the text 
      *  in the rows.  However, by specifying an icon function, you can specify 
      *  a Class for a graphic that will be created and displayed as an icon 
-     *  in the row. 
+     *  in the row. </p>
      *
      *  <p>The iconFunction takes a single argument which is the item
-     *  in the data provider and returns a Class.</p>
+     *  in the data provider and returns a Class:</p>
      * 
      *  <blockquote>
      *  <code>iconFunction(item:Object):Class</code>
@@ -637,18 +638,18 @@ public class PopUpMenuButton extends PopUpButton
      */
     override protected function commitProperties():void
     {
-    	if (dataProviderChanged && !popUpMenu)
-    	{
-    		// In general we shouldn't create the popUp until
-	        // they are actually popped up. However, in this case
-	        // the initial label, icon and action on the main button's 
-	        // click are to be borrowed from the popped menu. 
-	        // Moreover since PopUpMenuButton doesn't expose selectedIndex
-	        // selectedItem etc., one should be able to access them
-	        // prior to popping up the menu.        
-	        getPopUp();
-    	}
-    	
+        if (dataProviderChanged && !popUpMenu)
+        {
+            // In general we shouldn't create the popUp until
+            // they are actually popped up. However, in this case
+            // the initial label, icon and action on the main button's 
+            // click are to be borrowed from the popped menu. 
+            // Moreover since PopUpMenuButton doesn't expose selectedIndex
+            // selectedItem etc., one should be able to access them
+            // prior to popping up the menu.        
+            getPopUp();
+        }
+        
         if (_showRootChanged)
         {
             _showRootChanged = false;
