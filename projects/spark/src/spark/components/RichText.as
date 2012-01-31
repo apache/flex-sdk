@@ -21,6 +21,9 @@ import flex.graphics.graphicsClasses.TextGraphicElement;
 
 import text.importExport.TextFilter;
 import text.model.FlowElement;
+import text.model.ICharacterAttributes;
+import text.model.IContainerAttributes;
+import text.model.IParagraphAttributes;
 import text.model.Paragraph;
 import text.model.Span;
 import text.model.TextFlow;
@@ -689,33 +692,67 @@ public class TextGraphic extends TextGraphicElement
  		contentChanged = false;
 		textChanged = false;
 
-        textFlow.blockProgression = blockProgression;
-        textFlow.color = color;
-        textFlow.direction = direction;
-		textFlow.fontFamily = fontFamily;
-		textFlow.fontSize = fontSize;
-		textFlow.fontStyle = fontStyle;
-		textFlow.fontWeight = fontWeight;
-		textFlow.kerning = kerning;
-		textFlow.lineHeight = lineHeight;
-		textFlow.lineBreak = lineBreak;
-		textFlow.lineThrough = lineThrough;
-		textFlow.marginBottom = marginBottom;
-		textFlow.marginLeft = marginLeft;
-		textFlow.marginRight = marginRight;
-		textFlow.marginTop = marginTop;
-		textFlow.paddingBottom = paddingBottom;
-		textFlow.paddingLeft = paddingLeft;
-		textFlow.paddingRight = paddingRight;
-		textFlow.paddingTop = paddingTop;
-		textFlow.textAlign = textAlign;
-		textFlow.textAlignLast = textAlignLast;
-		textFlow.textAlpha = textAlpha;
-		textFlow.textDecoration = textDecoration;
-		textFlow.textIndent = textIndent;
-		textFlow.trackingRight = tracking; // what about trackingLeft?
-		textFlow.verticalAlign = verticalAlign;
-		textFlow.whitespaceCollapse = whiteSpaceCollapse; // different case
+        var containerAttributes:IContainerAttributes =
+            textFlow.containerAttributes;
+        var paragraphAttributes:IParagraphAttributes =
+            textFlow.paragraphAttributes;
+        var characterAttributes:ICharacterAttributes =
+            textFlow.characterAttributes;
+        
+        if (!containerAttributes || containerAttributes.blockProgression == null)
+            textFlow.blockProgression = blockProgression;
+        if (!characterAttributes || characterAttributes.color == null)
+            textFlow.color = color;
+        if (!paragraphAttributes || paragraphAttributes.direction == null)
+            textFlow.direction = direction;
+		if (!characterAttributes || characterAttributes.fontFamily == null)
+            textFlow.fontFamily = fontFamily;
+		if (!characterAttributes || characterAttributes.fontSize == null)
+            textFlow.fontSize = fontSize;
+		if (!characterAttributes || characterAttributes.fontStyle == null)
+		    textFlow.fontStyle = fontStyle;
+		if (!characterAttributes || characterAttributes.fontWeight == null)
+		    textFlow.fontWeight = fontWeight;
+		if (!characterAttributes || characterAttributes.kerning == null)
+		    textFlow.kerning = kerning;
+		if (!characterAttributes || characterAttributes.lineHeight == null)
+		    textFlow.lineHeight = lineHeight;
+		if (!containerAttributes || containerAttributes.lineBreak == null)
+		    textFlow.lineBreak = lineBreak;
+		if (!characterAttributes || characterAttributes.lineThrough == null)
+		    textFlow.lineThrough = lineThrough;
+        if (!paragraphAttributes || paragraphAttributes.marginBottom == null)
+		    textFlow.marginBottom = marginBottom;
+        if (!paragraphAttributes || paragraphAttributes.marginLeft == null)
+		    textFlow.marginLeft = marginLeft;
+        if (!paragraphAttributes || paragraphAttributes.marginRight == null)
+		    textFlow.marginRight = marginRight;
+        if (!paragraphAttributes || paragraphAttributes.marginTop == null)
+		    textFlow.marginTop = marginTop;
+        if (!containerAttributes || containerAttributes.paddingBottom == null)
+		    textFlow.paddingBottom = paddingBottom;
+        if (!containerAttributes || containerAttributes.paddingLeft == null)
+		    textFlow.paddingLeft = paddingLeft;
+        if (!containerAttributes || containerAttributes.paddingRight == null)
+		    textFlow.paddingRight = paddingRight;
+        if (!containerAttributes || containerAttributes.paddingTop == null)
+		    textFlow.paddingTop = paddingTop;
+        if (!paragraphAttributes || paragraphAttributes.textAlign == null)
+		    textFlow.textAlign = textAlign;
+        if (!paragraphAttributes || paragraphAttributes.textAlignLast == null)
+		    textFlow.textAlignLast = textAlignLast;
+		if (!characterAttributes || characterAttributes.textAlpha == null)
+		    textFlow.textAlpha = textAlpha;
+		if (!characterAttributes || characterAttributes.textDecoration == null)
+		    textFlow.textDecoration = textDecoration;
+        if (!paragraphAttributes || paragraphAttributes.textIndent == null)
+		    textFlow.textIndent = textIndent;
+		if (!characterAttributes || characterAttributes.trackingRight == null)
+		    textFlow.trackingRight = tracking; // what about trackingLeft?
+        if (!containerAttributes || containerAttributes.verticalAlign == null)
+		    textFlow.verticalAlign = verticalAlign;
+		if (!characterAttributes || characterAttributes.whitespaceCollapse == null)
+		    textFlow.whitespaceCollapse = whiteSpaceCollapse; // different case
 
 		return textFlow;
 	}
