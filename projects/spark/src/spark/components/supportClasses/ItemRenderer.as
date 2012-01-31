@@ -56,15 +56,18 @@ public class ItemRenderer extends MXMLComponent
 	//  selected
 	//----------------------------------
 
-	/**
-	 *  @private
-	 *  Update the currentState when the selected flag is set.
-	 */
-	override public function set selected(value:Boolean):void
+    private var _selected:Boolean = false;
+    
+    public function get selected():Boolean
+    {
+    	return _selected;
+    }
+    
+	public function set selected(value:Boolean):void
 	{
-		if (value != super.selected)
+		if (value != _selected)
 		{
-			super.selected = value;
+			_selected = value;
 			currentState = getUpdatedSkinState();
 		}
 	}
