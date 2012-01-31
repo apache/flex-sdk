@@ -1245,7 +1245,6 @@ package spark.components
          *  within <p>, <span>, etc.
          */
         [RichTextContent]
-        [Inspectable(environment="none")]
                 
         /**
          *  This property is intended for use in MXML at compile time;
