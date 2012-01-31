@@ -182,6 +182,7 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
             op.asyncRequest = asyncRequest;
         }
         _operations = ops;
+        dispatchEvent(new flash.events.Event("operationsChange"));
     }
 
     //----------------------------------
