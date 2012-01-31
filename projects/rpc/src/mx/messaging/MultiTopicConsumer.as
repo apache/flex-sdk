@@ -14,15 +14,13 @@ package mx.messaging
 
 import flash.events.TimerEvent;
 import flash.utils.Timer;
-import mx.core.mx_internal;
+
 import mx.collections.ArrayCollection;
-import mx.events.PropertyChangeEvent;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
-import mx.logging.ILogger;
-import mx.logging.Log;
-import mx.messaging.events.MessageEvent;
+import mx.events.PropertyChangeEvent;
 import mx.messaging.errors.MessagingError;
-import mx.messaging.messages.AsyncMessage;
+import mx.messaging.events.MessageEvent;
 import mx.messaging.messages.CommandMessage;
 import mx.messaging.messages.IMessage;
 
@@ -202,10 +200,14 @@ public class MultiTopicConsumer extends AbstractConsumer
      * @param subtopic The subtopic for the new subscription.
      *
      * @param selector The selector for the new subscription.
+     * 
+     * @param maxFrequency The maximum number of messages per second the Consumer wants
+     * to receive for the subscription. Note that this value overwrites the Consumer
+     * wide maxFrequency. 
      */
-    public function addSubscription(subtopic:String = null, selector:String = null):void
+    public function addSubscription(subtopic:String = null, selector:String = null, maxFrequency:uint = 0):void
     {
-        subscriptions.addItem(new SubscriptionInfo(subtopic, selector));
+        subscriptions.addItem(new SubscriptionInfo(subtopic, selector, maxFrequency));
     }
 
     /**
@@ -367,9 +369,14 @@ public class MultiTopicConsumer extends AbstractConsumer
         for (var i:int = 0; i < subscriptions.length; i++)
         {
             var si:SubscriptionInfo = SubscriptionInfo(subscriptions.getItemAt(i));
-            subs[(si.subtopic == null ? "" : si.subtopic) + 
-                  CommandMessage.SUBTOPIC_SEPARATOR + 
-                  (si.selector == null ? "" : si.selector)] = true;
+            var temp:String = (si.subtopic == null ? "" : si.subtopic) + 
+                                CommandMessage.SUBTOPIC_SEPARATOR + 
+                                (si.selector == null ? "" : si.selector);
+            // Add maxFrequency as another token.
+            if (si.maxFrequency > 0)
+                temp += CommandMessage.SUBTOPIC_SEPARATOR + si.maxFrequency;
+
+            subs[temp] = true;
         }
         return subs;
     }
