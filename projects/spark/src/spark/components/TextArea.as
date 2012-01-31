@@ -17,8 +17,8 @@ import flash.events.Event;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.formats.TextLayoutFormat;
 
-import mx.core.mx_internal;
 import mx.core.ScrollPolicy;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
 import spark.components.supportClasses.SkinnableTextBase;
@@ -647,11 +647,11 @@ public class TextArea extends SkinnableTextBase
                                      anchorPosition:int=-1,
                                      activePosition:int=-1):TextLayoutFormat
     {
-        if (!textDisplay)
+        if (!(textDisplay is RichEditableText))
             return null;
 
-        return textDisplay.getFormatOfRange(requestedFormats, anchorPosition, 
-                                            activePosition);
+        return RichEditableText(textDisplay).getFormatOfRange(
+                    requestedFormats, anchorPosition, activePosition);
     }
 
     /**
@@ -666,10 +666,11 @@ public class TextArea extends SkinnableTextBase
                                      anchorPosition:int=-1, 
                                      activePosition:int=-1):void
     {
-        if (!textDisplay)
+        if (!(textDisplay is RichEditableText))
             return;
 
-        textDisplay.setFormatOfRange(format, anchorPosition, activePosition);
+        RichEditableText(textDisplay).setFormatOfRange(
+                    format, anchorPosition, activePosition);
     }
 
     /**
