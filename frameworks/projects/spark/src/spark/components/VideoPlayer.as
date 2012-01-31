@@ -1528,7 +1528,7 @@ public class VideoPlayer extends SkinnableComponent
      */
     private function videoElement_completeHandler(event:spark.events.VideoEvent):void
     {
-        // TODO: needed??
+        // FIXME (rfrishbe): needed??
         if (totalTimeDisplay)
             updateTotalTime();
         
@@ -1732,7 +1732,7 @@ public class VideoPlayer extends SkinnableComponent
             
             systemManager.stage.fullScreenSourceRect = new Rectangle(0, 0, width, height);
             
-            // TODO (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
+            // FIXME (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
             systemManager.stage.displayState = StageDisplayState.FULL_SCREEN;
             
             // start timer for detecting for mouse movements/clicks to hide the controls
