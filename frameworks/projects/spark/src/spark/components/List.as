@@ -10,7 +10,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package spark.components
-{ 
+{
+
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
@@ -39,6 +40,10 @@ import spark.events.RendererExistenceEvent;
 import spark.layouts.supportClasses.DropLocation;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:alternatingItemColors
@@ -169,10 +174,12 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 //  Other metadata
 //--------------------------------------
 
-[IconFile("List.png")]
+[AccessibilityClass(implementation="spark.accessibility.ListBaseAccImpl")]
+
 [DefaultTriggerEvent("change")]
 
-[AccessibilityClass(implementation="spark.accessibility.ListBaseAccImpl")]
+[IconFile("List.png")]
+
 /**
  *  The List control displays a vertical list of items.
  *  Its functionality is very similar to that of the SELECT
@@ -247,6 +254,7 @@ public class List extends ListBase implements IFocusManagerComponent
     public function List()
     {
         super();
+
         useVirtualLayout = true;
     }
     
@@ -279,7 +287,15 @@ public class List extends ListBase implements IFocusManagerComponent
      *  comitting the selection until mouse up.
      */
     private var pendingSelectionOnMouseUp:Boolean = false;
+
+    /**
+     *  @private
+     */
     private var pendingSelectionShiftKey:Boolean;
+
+    /**
+     *  @private
+     */
     private var pendingSelectionCtrlKey:Boolean;
     
     //--------------------------------------------------------------------------
@@ -287,6 +303,10 @@ public class List extends ListBase implements IFocusManagerComponent
     //  Skin Parts
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  dropIndicator
+    //----------------------------------
 
     [SkinPart(required="false", type="flash.display.DisplayObject")]
 
@@ -320,6 +340,67 @@ public class List extends ListBase implements IFocusManagerComponent
     
     //--------------------------------------------------------------------------
     //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  hasFocusableChildren
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function set hasFocusableChildren(value:Boolean):void
+    {
+        super.hasFocusableChildren = value;
+
+        if (scroller)
+            scroller.hasFocusableChildren = value;
+    }
+    
+    //----------------------------------
+    //  useVirtualLayout
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get useVirtualLayout():Boolean
+    {
+        return super.useVirtualLayout;
+    }
+
+    /**
+     *  Overrides the inherited default property , it is true for this class.
+     * 
+     *  Sets the value of the <code>useVirtualLayout</code> property
+     *  of the layout associated with this control.  
+     *  If the layout is subsequently replaced and the value of this 
+     *  property is <code>true</code>, then the new layout's 
+     *  <code>useVirtualLayout</code> property is set to <code>true</code>.
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function set useVirtualLayout(value:Boolean):void
+    {
+        super.useVirtualLayout = value;
+    }
+        
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -328,7 +409,10 @@ public class List extends ListBase implements IFocusManagerComponent
     //  allowMultipleSelection
     //----------------------------------
     
-    private var _allowMultipleSelection:Boolean = false;
+    /**
+	 *  @private
+	 */
+	private var _allowMultipleSelection:Boolean = false;
     
     /**
      *  If <code>true</code> multiple selections is enabled. 
@@ -526,14 +610,23 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
-     *  Internal storage for the selectedIndices property and invalidation variables.
+     *  Internal storage for the selectedIndices property.
      */
     private var _selectedIndices:Vector.<int>;
-    private var _proposedSelectedIndices:Vector.<int> = new Vector.<int>(); 
-    private var multipleSelectionChanged:Boolean; 
+    
+	/**
+     *  @private
+     */
+	private var _proposedSelectedIndices:Vector.<int> = new Vector.<int>(); 
+    
+	/**
+     *  @private
+     */
+	private var multipleSelectionChanged:Boolean; 
     
     [Bindable("change")]
-    /**
+    
+	/**
      *  A Vector of ints representing the indices of the currently selected  
      *  item or items. 
      *  If multiple selection is disabled by setting 
@@ -575,6 +668,7 @@ public class List extends ListBase implements IFocusManagerComponent
     //----------------------------------
 
     [Bindable("change")]
+
     /**
      *  An Vector of Objects representing the currently selected data items. 
      *  If multiple selection is disabled by setting <code>allowMultipleSelection</code>
@@ -645,49 +739,9 @@ public class List extends ListBase implements IFocusManagerComponent
         invalidateProperties(); 
     }
 
-    //----------------------------------
-    //  useVirtualLayout
-    //----------------------------------
-
-    /**
-     *  @inheritDoc
-     *
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function get useVirtualLayout():Boolean
-    {
-        return super.useVirtualLayout;
-    }
-
-    /**
-     *  Overrides the inherited default property , it is true for this class.
-     * 
-     *  Sets the value of the <code>useVirtualLayout</code> property
-     *  of the layout associated with this control.  
-     *  If the layout is subsequently replaced and the value of this 
-     *  property is <code>true</code>, then the new layout's 
-     *  <code>useVirtualLayout</code> property is set to <code>true</code>.
-     *
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function set useVirtualLayout(value:Boolean):void
-    {
-        super.useVirtualLayout = value;
-    }
-        
     //--------------------------------------------------------------------------
     //
-    //  Overridden Methods
+    //  Overridden methods
     //
     //--------------------------------------------------------------------------
     
@@ -717,11 +771,52 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  @private
      */
-    override public function set hasFocusableChildren(value:Boolean):void
+    override protected function partAdded(partName:String, instance:Object):void
     {
-        super.hasFocusableChildren = value;
-        if (scroller)
-            scroller.hasFocusableChildren = value;
+        super.partAdded(partName, instance);
+        if (instance == dataGroup)
+        {
+            dataGroup.addEventListener(
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
+            dataGroup.addEventListener(
+                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
+        }
+        if (instance == scroller)
+            scroller.hasFocusableChildren = hasFocusableChildren;
+    }
+
+    /**
+     *  @private
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        if (instance == dataGroup)
+        {
+            dataGroup.removeEventListener(
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
+            dataGroup.removeEventListener(
+                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
+        }
+        
+        super.partRemoved(partName, instance);
+    }
+    
+    /**
+     *  @private
+     *  Called when an item has been added to this component.
+     */
+    override protected function itemAdded(index:int):void
+    {
+        adjustSelection(index, true); 
+    }
+    
+    /**
+     *  @private
+     *  Called when an item has been removed from this component.
+     */
+    override protected function itemRemoved(index:int):void
+    {
+        adjustSelection(index, false);        
     }
     
     /**
@@ -902,60 +997,9 @@ public class List extends ListBase implements IFocusManagerComponent
         return index == selectedIndex;
     }
     
-    /**
-     *  @private
-     */
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-        super.partAdded(partName, instance);
-        if (instance == dataGroup)
-        {
-            dataGroup.addEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
-            dataGroup.addEventListener(
-                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
-        }
-        if (instance == scroller)
-            scroller.hasFocusableChildren = hasFocusableChildren;
-    }
-
-    /**
-     *  @private
-     */
-    override protected function partRemoved(partName:String, instance:Object):void
-    {
-        if (instance == dataGroup)
-        {
-            dataGroup.removeEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
-            dataGroup.removeEventListener(
-                RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
-        }
-        
-        super.partRemoved(partName, instance);
-    }
-    
-    /**
-     *  @private
-     *  Called when an item has been added to this component.
-     */
-    override protected function itemAdded(index:int):void
-    {
-        adjustSelection(index, true); 
-    }
-    
-    /**
-     *  @private
-     *  Called when an item has been removed from this component.
-     */
-    override protected function itemRemoved(index:int):void
-    {
-        adjustSelection(index, false);        
-    }
-    
     //--------------------------------------------------------------------------
     //
-    //  Private Methods
+    //  Methods
     //
     //--------------------------------------------------------------------------
     
