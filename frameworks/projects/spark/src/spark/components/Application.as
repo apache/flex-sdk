@@ -110,7 +110,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;Application
+ *  &lt;s:Application
  *    <strong>Properties</strong>
  *    backgroundColor="0xFFFFFF"
  *    colorCorrection="default"
