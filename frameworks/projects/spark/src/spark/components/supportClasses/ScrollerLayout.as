@@ -567,7 +567,7 @@ public class ScrollerLayout extends LayoutBase
             
             // if in overlay mode, let's inset it by a bit
             if (scroller.getStyle("horizontalScrollPolicy") == ScrollPolicy.OVERLAY)
-                hsb.setLayoutBoundsPosition(0, h - hsbH - 5);
+                hsb.setLayoutBoundsPosition(0, h - hsbH - 3);
             else
                 hsb.setLayoutBoundsPosition(0, h - hsbH);
         }
@@ -581,7 +581,7 @@ public class ScrollerLayout extends LayoutBase
             // if in overlay mode, let's inset it by a bit
             // FIXME (rfrishbe): shouldn't hardcode the 5 here
             if (scroller.getStyle("verticalScrollPolicy") == ScrollPolicy.OVERLAY)
-                vsb.setLayoutBoundsPosition(w - vsbW - 5, 0);
+                vsb.setLayoutBoundsPosition(w - vsbW - 3, 0);
             else
                 vsb.setLayoutBoundsPosition(w - vsbW, 0);
         }
