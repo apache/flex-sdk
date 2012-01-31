@@ -44,6 +44,12 @@ use namespace mx_internal;
  *  Dispatched after the channel has connected to its endpoint.
  *
  *  @eventType mx.messaging.events.ChannelEvent.CONNECT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="channelConnect", type="mx.messaging.events.ChannelEvent")]
 
@@ -51,6 +57,12 @@ use namespace mx_internal;
  *  Dispatched after the channel has disconnected from its endpoint.
  *
  *  @eventType mx.messaging.events.ChannelEvent.DISCONNECT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="channelDisconnect", type="mx.messaging.events.ChannelEvent")]
 
@@ -58,6 +70,12 @@ use namespace mx_internal;
  *  Dispatched after the channel has faulted.
  *
  *  @eventType mx.messaging.events.ChannelFaultEvent.FAULT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="channelFault", type="mx.messaging.events.ChannelFaultEvent")]
 
@@ -65,6 +83,12 @@ use namespace mx_internal;
  *  Dispatched when a channel receives a message from its endpoint.
  *
  *  @eventType mx.messaging.events.MessageEvent.MESSAGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="message", type="mx.messaging.events.MessageEvent")]
 
@@ -72,6 +96,12 @@ use namespace mx_internal;
  *  Dispatched when a property of the channel changes.
  *
  *  @eventType mx.events.PropertyChangeEvent.PROPERTY_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="propertyChange", type="mx.events.PropertyChangeEvent")]
 
@@ -98,6 +128,12 @@ use namespace mx_internal;
  *  <p><b>Note:</b> This class is for advanced use only.
  *  Use this class for creating custom channels like the existing RTMPChannel,
  *  AMFChannel, and HTTPChannel.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class Channel extends EventDispatcher implements IMXMLObject
 {
@@ -133,6 +169,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  @param id The id of this channel.
      *
      *  @param uri The endpoint URI for this channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function Channel(id:String = null, uri:String = null)
     {
@@ -273,6 +315,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
 
     /**
      *  Provides access to the ChannelSets connected to the Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get channelSets():Array
     {
@@ -292,6 +340,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  Indicates whether this channel has established a connection to the
      *  remote destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get connected():Boolean
     {
@@ -333,6 +387,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  time to wait for a connection to be established.
      *  It is not reset for each failover URI that the channel may attempt
      *  to connect to.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get connectTimeout():int
     {
@@ -360,6 +420,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  Provides access to the endpoint for this channel.
      *  This value is calculated based on the value of the <code>uri</code>
      *  property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get endpoint():String
     {
@@ -394,6 +460,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      * Channel property determines the level of performance information injection - whether
      * we inject timestamps or not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get recordMessageTimes():Boolean
     {
@@ -412,6 +484,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      * Channel property determines the level of performance information injection - whether
      * we inject message sizes or not.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get recordMessageSizes():Boolean
     {
@@ -431,6 +509,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  Indicates whether this channel is in the process of reconnecting to an
      *  alternate endpoint.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get reconnecting():Boolean
     {
@@ -459,6 +543,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  Provides access to the set of endpoint URIs that this channel can
      *  attempt to failover to if the endpoint is clustered.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get failoverURIs():Array
     {
@@ -488,6 +578,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
 
     /**
      *  Provides access to the id of this channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get id():String
     {
@@ -509,6 +605,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     [Bindable(event="propertyChange")]
     /**
      *  Indicates if this channel is authenticated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get authenticated():Boolean
     {
@@ -544,6 +646,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  a string that represents their supported protocol.
      *  Examples of supported protocol strings are "rtmp", "http" or "https".
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get protocol():String
     {
@@ -580,6 +688,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  never be timed out on the client.
      *  <p>Request timeouts are most useful for RPC style messaging that
      *  requires a response from the remote destination.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get requestTimeout():int
     {
@@ -607,6 +721,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  Indicates whether this channel should be connected to its endpoint.
      *  This flag is used to control when fail over should be attempted and when disconnect
      *  notification is sent to the remote endpoint upon disconnect or fault.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function get shouldBeConnected():Boolean
     {
@@ -625,6 +745,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  Provides access to the URI used to create the whole endpoint URI for this channel.
      *  The URI can be a partial path, in which case the full endpoint URI is computed as necessary.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get uri():String
     {
@@ -710,6 +836,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *    &lt;/properties&gt;
      *  &lt;/channel&gt;
      *  </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function applySettings(settings:XML):void
     {
@@ -741,6 +873,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *
      *  @param props The properties section of the XML fragment of the services-config.xml
      *  file for this channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function applyClientLoadBalancingSettings(props:XML):void
     {
@@ -778,6 +916,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  underlying connection is established.
      *
      *  @param channelSet The ChannelSet to connect to the Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     final public function connect(channelSet:ChannelSet):void
     {
@@ -857,6 +1001,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  has been terminated.</p>
      *
      *  @param channelSet The ChannelSet to disconnect from the Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     final public function disconnect(channelSet:ChannelSet):void
     {
@@ -901,6 +1051,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  Current credentials are cleared.
      *
      *  @param agent The MessageAgent to logout.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function logout(agent:MessageAgent):void
     {
@@ -925,6 +1081,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *
      *  @throws mx.messaging.errors.InvalidDestinationError If neither the MessageAgent nor the
      *                                  message specify a destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function send(agent:MessageAgent, message:IMessage):void
     {
@@ -966,6 +1128,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  have already been set and an authentication is in progress with the remote
      *  detination, or if authenticated and the credentials specified don't match
      *  the currently authenticated credentials.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function setCredentials(credentials:String, agent:MessageAgent=null, charset:String=null):void
     {
@@ -1043,6 +1211,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  a connection is established or the available values are exhausted.
      *
      *  @param event The ChannelFaultEvent for the failed connect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function connectFailed(event:ChannelFaultEvent):void
     {
@@ -1070,6 +1244,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  Processes a successful internal connect and dispatches the
      *  <code>CONNECT</code> event for the Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function connectSuccess():void
     {
@@ -1106,6 +1286,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  call <code>super.connectTimeoutHandler(event)</code>.
      *
      *  @param event The timer event indicating that the connect timeout has been reached.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function connectTimeoutHandler(event:TimerEvent):void
     {
@@ -1131,6 +1317,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  @param rejected True if the disconnect should skip any
      *         failover processing that would otherwise be attempted; false
      *         if failover processing should be allowed to run.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function disconnectSuccess(rejected:Boolean = false):void
     {
@@ -1158,6 +1350,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  <code>FAULT</code> event for the channel.
      *
      *  @param event The ChannelFaultEvent for the failed disconnect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function disconnectFailed(event:ChannelFaultEvent):void
     {
@@ -1180,6 +1378,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  When this is invoked it means that this Channel is waiting to attempt to connect.
      *
      *  @param event The PropertyChangeEvent dispatched by the FlexClient singleton.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function flexClientWaitHandler(event:PropertyChangeEvent):void
     {
@@ -1211,6 +1415,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *
      *  @throws flash.errors.IllegalOperationError If the Channel subclass does not override
      *                                this method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function getMessageResponder(agent:MessageAgent,
                                             message:IMessage):MessageResponder
@@ -1222,6 +1432,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
     /**
      *  Connects the Channel to its endpoint.
      *  Must be overridden.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalConnect():void {}
 
@@ -1231,6 +1447,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *
      *  @param rejected True if the disconnect was due to a connection rejection or timeout
      * 					and reconnection should not be attempted automatically; otherwise false.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalDisconnect(rejected:Boolean = false):void {}
 
@@ -1240,6 +1462,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
      *  Must be overridden.
      *
      *  @param messageResponder The MessageResponder to handle the response.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     protected function internalSend(messageResponder:MessageResponder):void {}
 
@@ -1624,6 +1852,12 @@ class AuthenticationMessageResponder extends MessageResponder
      *  Handles an authentication result.
      *
      *  @param msg The result Message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override protected function resultHandler(msg:IMessage):void
     {
@@ -1652,6 +1886,12 @@ class AuthenticationMessageResponder extends MessageResponder
      *  Handles an authentication failure.
      *
      *  @param msg The failure Message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override protected function statusHandler(msg:IMessage):void
     {
