@@ -31,7 +31,7 @@ package spark.components
     import spark.components.supportClasses.CellPosition;
     import spark.components.supportClasses.GridColumn;
     import spark.components.supportClasses.GridDimensions;
-    import spark.components.supportClasses.GridLayer;    
+    import spark.components.supportClasses.GridLayer;
     import spark.components.supportClasses.GridLayout;
     import spark.components.supportClasses.GridSelection;
     import spark.components.supportClasses.GridSelectionMode;
@@ -2517,7 +2517,24 @@ package spark.components
         //
         //  GridLayout Cover Methods, Properties
         //
-        //--------------------------------------------------------------------------   
+        //-------------------------------------------------------------------------- 
+        
+        /** 
+         *  Update the scroll position so that the virtual Grid element at the specified
+         *  index is visible.   Note that getScrollPositionDeltaToElement() is only 
+         *  approximate when variableRowHeight=true, so calling this method once will
+         *  not necessarily scroll far enough to expose the specified element.
+         */
+        private function scrollToIndex(elementIndex:int, scrollHorizontally:Boolean):void
+        {
+            var spDelta:Point = gridLayout.getScrollPositionDeltaToElement(elementIndex);
+            if (!spDelta)
+                return;  // the specified index is no longer valid, punt
+            
+            if (scrollHorizontally)
+                horizontalScrollPosition += spDelta.x;
+            verticalScrollPosition += spDelta.y;
+        }
         
         /**
          *  If necessary, set the verticalScrollPosition and horizontalScrollPosition 
@@ -2535,21 +2552,30 @@ package spark.components
          */
         public function ensureCellIsVisible(rowIndex:int, columnIndex:int = -1):void
         {
-            // be safe
-            if (rowIndex < 0)
+            if ((rowIndex < 0) || (rowIndex >= dataProvider.length))  // TBD check for invalid column
                 return;
             
             // A cell's index as defined by LayoutBase it's just its position
-            // in the row-major linear ordering of the grid's cells.
+            // in the row-major linear ordering of the grid's cells.  
             
-            const index:int = (rowIndex * dataProvider.length) + ((columnIndex < 0) ? 0 : columnIndex);
-            var spDelta:Point = gridLayout.getScrollPositionDeltaToElement(index);
-            if (spDelta)
+            const elementIndex:int = (rowIndex * dataProvider.length) + ((columnIndex < 0) ? 0 : columnIndex);
+            const scrollHorizontally:Boolean = columnIndex != -1;
+            
+            // Iterate until we've scrolled elementIndex at least partially into view.
+            do
             {
-                if (columnIndex >= 0)
-                    horizontalScrollPosition += spDelta.x;
-                verticalScrollPosition += spDelta.y;
+                scrollToIndex(elementIndex, scrollHorizontally);
+                if (variableRowHeight || scrollHorizontally)
+                    validateNow();
+                else
+                    break;  // fixed row heights, and we're only scrolling vertically
             }
+            while(!isCellVisible(rowIndex, columnIndex))
+            
+            // At this point we've only ensured that the requested cell is at least 
+            // partially visible.  Ensure that it's completely visible.
+          
+            scrollToIndex(elementIndex, scrollHorizontally);
         }        
         
         /**
