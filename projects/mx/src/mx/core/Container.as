@@ -5582,8 +5582,6 @@ public class Container extends UIComponent
     {
         // If a text field currently has focus, it is handling all arrow keys.
         // We shouldn't also scroll this Container.
-        // FIXME (cframpto): replace with universal scrolling scheme that provides same
-        // experience as browser.
         var focusObj:Object = getFocus();
         if ((focusObj is TextField) ||
             (richEditableTextClass && focusObj is richEditableTextClass))
