@@ -1,21 +1,14 @@
-/*************************************************************************
- * 
- * ADOBE CONFIDENTIAL
- * __________________
- * 
- *  [2002] - [2007] Adobe Systems Incorporated 
- *  All Rights Reserved.
- * 
- * NOTICE:  All information contained herein is, and remains
- * the property of Adobe Systems Incorporated and its suppliers,
- * if any.  The intellectual and technical concepts contained
- * herein are proprietary to Adobe Systems Incorporated
- * and its suppliers and may be covered by U.S. and Foreign Patents,
- * patents in process, and are protected by trade secret or copyright law.
- * Dissemination of this information or reproduction of this material
- * is strictly forbidden unless prior written permission is obtained
- * from Adobe Systems Incorporated.
- */
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package mx.messaging.channels
 {
 
@@ -48,6 +41,7 @@ use namespace mx_internal;
 [ResourceBundle("messaging")]
 
 [ExcludeClass]
+
 /**
  *  @private
  *  The DirectHTTPChannel class is used to turn an HTTPRequestMessage object into an
