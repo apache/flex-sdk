@@ -302,7 +302,7 @@ public class ListBase extends SkinnableDataContainer
         // the base class setter if the dataGroup already exists.  If the dataGroup isn't
         // created yet, then we still be first.
         if (value)
-            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
+            value.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);
 
         super.dataProvider = value;
         invalidateProperties();
