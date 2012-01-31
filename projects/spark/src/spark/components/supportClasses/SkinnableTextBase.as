@@ -180,7 +180,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 //--------------------------------------
 
 /**
- *  Normal State
+ *  Normal state.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -190,7 +190,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [SkinState("normal")]
 
 /**
- *  Disabled State
+ *  Disabled state.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -200,7 +200,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [SkinState("disabled")]
 
 /**
- *  Normal State with Prompt
+ *  Normal state with Prompt.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.2
@@ -210,7 +210,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [SkinState("normalWithPrompt")]
 
 /**
- *  Disabled State with Prompt
+ *  Disabled state with Prompt.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.2
@@ -353,7 +353,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  The Label or other IDisplayText that may be present
+     *  The Label or other IDisplayText that might be present
      *  in any skin assigned to this component.
      *  
      *  @langversion 3.0
@@ -646,10 +646,10 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     
     /**
-     *  @default null
-     *
      *  Text to be displayed if/when the actual
      *  text property is a null or empty string.
+     *
+     *  @default null
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.2
@@ -704,6 +704,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
     
     /**
+     *  @copy spark.components.RichEditableText#typicalText
+     *
      *  @default null
      *
      *  @see spark.components.RichEditableText#typicalText
@@ -1333,7 +1335,7 @@ public class SkinnableTextBase extends SkinnableComponent
     private function addHandlers():void
     {
         addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START, touchInteractionStartHandler);
-		addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, touchInteractionEndHandler);
+        addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_END, touchInteractionEndHandler);
     }
     
     /**
@@ -2013,32 +2015,32 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private function touchInteractionStartHandler(event:TouchInteractionEvent):void
     {
-		// During a touch scroll we don't want the keyboard to activate. Add a
-		// "softKeyboardActivating" handler to cancel the event.
+        // During a touch scroll we don't want the keyboard to activate. Add a
+        // "softKeyboardActivating" handler to cancel the event.
         textDisplay.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
-						softKeyboardActivatingHandler);
+                        softKeyboardActivatingHandler);
     }
-	
-	/**
-	 *  @private
-	 */
-	private function touchInteractionEndHandler(event:TouchInteractionEvent):void
-	{
-		// Remove the soft keyboard activate cancelling handler.
-		textDisplay.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
-						softKeyboardActivatingHandler);
-	}
-	
-	/**
-	 *  @private
-	 * 
-	 *  This handler is only added during touch scroll events. It prevents
-	 *  the onscreen keyboard from activating if a scroll occurred.
-	 */
-	private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
-	{
-		event.preventDefault();
-	}
+    
+    /**
+     *  @private
+     */
+    private function touchInteractionEndHandler(event:TouchInteractionEvent):void
+    {
+        // Remove the soft keyboard activate cancelling handler.
+        textDisplay.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 
+                        softKeyboardActivatingHandler);
+    }
+    
+    /**
+     *  @private
+     * 
+     *  This handler is only added during touch scroll events. It prevents
+     *  the onscreen keyboard from activating if a scroll occurred.
+     */
+    private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
+    {
+        event.preventDefault();
+    }
 }
 
 }
