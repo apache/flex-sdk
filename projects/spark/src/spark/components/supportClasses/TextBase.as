@@ -19,6 +19,9 @@ import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.text.engine.FontLookup;
 import flash.text.engine.TextLine;
+import flash.text.engine.TextLineValidity;
+
+import flashx.textLayout.compose.TextLineRecycler;
 
 import mx.core.IFlexModuleFactory;
 import mx.core.UIComponent;
@@ -922,7 +925,20 @@ public class TextBase extends UIComponent implements IDisplayText
         var n:int = textLinesVector.length;
         for (var i:int = 0; i < n; i++)
         {
-            TextUtil.recycleTextLine(textLinesVector[i] as TextLine);            
+            var textLine:TextLine = textLinesVector[i] as TextLine;
+            if (textLine)
+            {
+                // Throws an ArgumentError if validity set to INVALID in
+                // either of these cases.
+                if (textLine.validity != TextLineValidity.INVALID && 
+                    textLine.validity != TextLineValidity.STATIC)
+                {
+                    textLine.validity = TextLineValidity.INVALID;
+                }
+                
+                textLine.userData = null;	// clear any userData
+                TextLineRecycler.addLineForReuse(textLine);
+            }
         }
         
         textLinesVector.length = 0;
