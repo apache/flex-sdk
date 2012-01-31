@@ -70,16 +70,6 @@ use namespace mx_internal;
  */
 public final class Animation
 {
-    /**
-     *  FIXME (chaase):
-     *  - seek? reverse?
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-
     include "../../core/Version.as";
 
     //--------------------------------------------------------------------------
@@ -149,7 +139,7 @@ public final class Animation
     private static var intervalTime:Number = NaN;
 
     // A single Timer object runs all animations in the process
-    private static var activeAnimations:Array = [];
+    private static var activeAnimations:Vector.<Animation> = new Vector.<Animation>;
     private static var timer:Timer = null;
 
     /**
@@ -158,14 +148,9 @@ public final class Animation
      */
     private static var linearEaser:IEaser;
     
-    // FIXME (chaase): more efficient way to store/remove these than in an array?
-    // Dictionary, perhaps (although that may be unordered and less
-    // efficient to access)
     private var id:int = -1;
-    // FIXME (chaase): re-think this variable in seeking
     private var _doSeek:Boolean = false;
     private var _isPlaying:Boolean = false;
-    // FIXME (chaase): rethink how we do reversing
     private var _doReverse:Boolean = false;
     private var _invertValues:Boolean = false;
     // Original start time of animation
@@ -801,9 +786,9 @@ public final class Animation
             }
             else
             {
-                sendUpdateEvent();
                 if (repeated)
                     sendAnimationEvent(EffectEvent.EFFECT_REPEAT);
+                sendUpdateEvent();
             }
         }
         return animationEnded;
@@ -931,11 +916,6 @@ public final class Animation
         // interpolators should be written to just send back the end value
         // instead of trying to calculate it for the end time.
         
-        // FIXME (chaase): Check whether we already send out a final
-        // UPDATE event with the end value; if so, this dup should be
-        // removed
-        // FIXME (chaase): this will snap paused and startDelayed animations
-        // to their end values. Seems correct, but should check this.
         if (!started)
             sendAnimationEvent(EffectEvent.EFFECT_START);
         if (repeatCount > 1 && repeatBehavior == "reverse" && (repeatCount % 2 == 0))
@@ -1054,7 +1034,7 @@ public final class Animation
         //playheadTime = Math.min(Math.max(playheadTime, 0), duration);
         
         // Reset the start time
-        // FIXME (chaase): Redundant for cases that set this again below
+        // TODO (chaase): Redundant for cases that set this again below
         // Should only do this for playing animation, as the stopped animations
         // do it for themselves
         startTime = cycleStartTime = intervalTime - playheadTime;
@@ -1063,12 +1043,11 @@ public final class Animation
         if (!_isPlaying)
         {
             intervalTime = Timeline.currentTime;
-            // FIXME (chaase): comments...
             if (includeStartDelay && startDelay > 0)
             {
                 if (delayedStartTimes[this])
                 {
-                    // FIXME (chaase): refactor removal/addition into utility functions
+                    // TODO (chaase): refactor removal/addition into utility functions
                     // Still sleeping - reduce the delay time by the seek time
                     var animPendingTime:int = delayedStartTimes[this];
                     for (var i:int = 0; i < delayedStartAnims.length; ++i)
@@ -1138,7 +1117,7 @@ public final class Animation
                 motionPaths[i].interpolator = interpolator;
     }
  
-    // FIXME (chaase): should eventually remove this function, since it
+    // TODO (chaase): should eventually remove this function, since it
     // overlaps with playReverse property. Just leaving it mx_internal
     // for now to avoid perturbing the code too much
     /**
@@ -1272,10 +1251,8 @@ public final class Animation
         if (repeatBehavior == RepeatBehavior.REVERSE)
             _invertValues = !_invertValues;
         calculateValue(0);
-        // FIXME (chaase): Make sure we're not already sending out an UPDATE
-        // event with this value
-        sendUpdateEvent();
         sendAnimationEvent(EffectEvent.EFFECT_REPEAT);
+        sendUpdateEvent();
         Animation.addAnimation(this);
     }
     
@@ -1294,7 +1271,7 @@ public final class Animation
         // actualStartTime accounts for overrun in desired startDelay
         var actualStartTime:int = 0;
         
-        // FIXME (chaase): call removal utility instead of this code
+        // TODO (chaase): call removal utility instead of this code
         // Make sure to remove any references on the delayed lists
         for (var i:int = 0; i < delayedStartAnims.length; ++i)
         {
@@ -1324,8 +1301,6 @@ public final class Animation
         }
         else
         {
-            // FIXME (chaase): Make sure we're not already sending out an
-            // UPDATE event with this start value
             sendUpdateEvent();
             Animation.addAnimation(this);
             startTime = cycleStartTime;
