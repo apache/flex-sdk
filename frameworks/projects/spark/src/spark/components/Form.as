@@ -36,19 +36,82 @@ use namespace mx_internal;
 [IconFile("Form.png")]
 
 /**
- *  SkinnableContainer with FormItem children. 
+ *  The Spark Form container lets you control the layout of a form,
+ *  mark form fields as required or optional, handle error messages,
+ *  and bind your form data to the Flex data model to perform
+ *  data checking and validation.
+ *  It also lets you use style sheets to configure the appearance
+ *  of your forms.
+ *
+ *  <p>The following table describes the components you use to create forms in Flex:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Component</th>
+ *           <th>Tag</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Form</td>
+ *           <td><code>&lt;s:Form&gt;</code></td>
+ *           <td>Defines the container for the entire form, including the overall form layout. 
+ *               Use the FormHeading control and FormItem control to define content. 
+ *               You can also insert other types of components in a Form container.</td>
+ *        </tr>
+ *        <tr>
+ *           <td>FormHeading</td>
+ *           <td><code>&lt;s:FormHeading&gt;</code></td>
+ *           <td>Defines a heading within your form. </td>
+ *        </tr>
+ *        <tr>
+ *           <td>FormItem</td>
+ *           <td><code>&lt;s:FormItem&gt;</code></td>
+ *           <td>Contains one or more form children arranged horizontally or vertically. Children can be controls or other containers. 
+ *               A single Form container can hold multiple FormItem containers.</td>
+ *        </tr>
+ *        <tr>
+ *           <td>FormLayout</td>
+ *           <td><code>&lt;s:FormLayout&gt;</code></td>
+ *           <td>Defines the default layout for Spark Form skins.</td>
+ *        </tr>
+ *     </table>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:Form&gt;</code> tag inherits all the tag 
+ *  attributes of its superclass and adds no new tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:Form&gt;
+ *    ...
+ *      <i>child tags</i>
+ *    ...
+ *  &lt;/s:Form&gt;
+ *  </pre>
  * 
  *  @includeExample examples/FormExample.mxml
  *  @includeExample examples/StackedFormSkinExample.mxml
  *
+ *  @see spark.components.FormHeading
+ *  @see spark.components.FormItem
+ *  @see spark.layouts.FormLayout
+ *  @see spark.skins.spark.FormSkin
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
+ *  @playerversion AIR 2.5
  *  @productversion Flex 4.5 
  */
 public class Form extends SkinnableContainer
 {
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function Form()
     {
         super();
@@ -73,18 +136,22 @@ public class Form extends SkinnableContainer
     mx_internal var _invalidElements:Array = new Array();
     
     /**
-     *  A sorted array of descendant elements that are in an INVALID state.
+     *  A sorted Array of descendant elements that are in an invalid state.
      *  The items in the array are Objects with the following properties:
-     *  element:UIComponent - the invalid descendant element
-     *  position:Vector.%lt;int%gt; - a Vector of integers representing the position
-     *  of the element in the display list tree. This is used for sorting the array.  
      * 
-     *  If a descendant is removed from the Form, the dictionary will not get 
-     *  updated. 
+     *  <ul>
+     *    <li>element:UIComponent - the invalid descendant element</li>
+     * 
+     *    <li>position:Vector.&lt;int&gt; - a Vector of integers representing the position
+     *     of the element in the display list tree. 
+     *     This property is used for sorting the Array.</li>  
+     *  </ul>
+     * 
+     *  <p>If a descendant is removed from the Form, the dictionary is not updated.</p> 
      *     
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function get invalidElements():Array
