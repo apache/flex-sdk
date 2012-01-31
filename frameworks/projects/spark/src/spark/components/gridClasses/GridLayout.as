@@ -1157,7 +1157,7 @@ public class GridLayout extends LayoutBase
     private function layoutRowBackground(rowBackground:IVisualElement, rowIndex:int):void
     {
         // TBD: call via IGridElement method
-        Object(rowBackground)["initializeGridElement"](rowIndex, 0);
+        // Object(rowBackground)["initializeGridElement"](rowIndex, 0);
         layoutGridElementR(rowBackground, gridDimensions.getRowBounds(rowIndex));
     }
 
