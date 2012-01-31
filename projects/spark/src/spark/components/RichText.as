@@ -18,6 +18,7 @@ import flash.geom.Rectangle;
 
 import flex.graphics.graphicsClasses.TextFlowComposer;
 import flex.graphics.graphicsClasses.TextGraphicElement;
+import flex.utils.TextUtil;
 
 import text.importExport.TextFilter;
 import text.model.FlowElement;
@@ -64,6 +65,26 @@ public class TextGraphic extends TextGraphicElement
 	 *  @private
 	 */
 	private var textFlow:TextFlow;
+
+    /**
+     *  @private
+     *  This set keeps track of which text attributes were specified
+     *  on the graphic element's TextFlow as opposed to on the
+     *  graphic element itself.
+     *
+     *  For example, if you have
+     *
+     *      <TextGraphic fontSize="10">
+     *          <content>
+     *              <TextFlow fontSize="20">
+     *                  ...
+     *              </TextFlow>
+     *          </content>
+     *      </TextGraphic>
+     *
+     *  then this set would be { fontSize: 20 }.
+     */
+    private var textFlowTextAttributes:Object = {};
 
 	/**
 	 *  @private
@@ -619,112 +640,102 @@ public class TextGraphic extends TextGraphicElement
 	 */
 	private function createTextFlow():TextFlow
 	{
-		if (contentChanged)
-		{
-            if (content is TextFlow)
-            {
-                textFlow = TextFlow(content);
+        var p:String;
+
+		if (contentChanged || textChanged)
+        {
+            if (contentChanged)
+		    {
+                if (content is TextFlow)
+                {
+                    textFlow = TextFlow(content);
+                }
+                else if (content is Array)
+                {
+                    textFlow = createEmptyTextFlow();
+                    textFlow.appendChildren = content as Array;
+                }
+                else if (content is FlowElement)
+                {
+                    textFlow = createEmptyTextFlow();
+                    textFlow.appendChildren = [ content ];
+                }
+			    else if (content is String)
+			    {
+				    textFlow = importMarkup(String(content));
+			    }
+			    else if (content == null)
+			    {
+				    textFlow = createEmptyTextFlow();
+			    }
+                else
+                {
+                    throw new Error("invalid content");
+                }
+		    }
+		    else if (textChanged)
+		    {
+			    if (text != null && text != "")
+			    {
+				    textFlow = TextFilter.importFromString(text, TextFilter.PLAIN_TEXT_FORMAT);
+			    }
+			    else
+			    {
+				    textFlow = createEmptyTextFlow();
+			    }
             }
-            else if (content is Array)
+
+            // Build a textFlowTextAttributes object which keeps track
+            // of which text attributes were specified on the TextFlow
+            // as opposed to on the TextGraphic.
+            // For example, if the 'content' were
+            // <TextFlow fontSize="12">...</TextFlow>
+            // then the textFlowTextAttributes would be { fontSize: 12 }.
+            
+            var containerAttributes:IContainerAttributes =
+                textFlow.containerAttributes;
+            var paragraphAttributes:IParagraphAttributes =
+                textFlow.paragraphAttributes;
+            var characterAttributes:ICharacterAttributes =
+                textFlow.characterAttributes;
+            
+            for each (p in TextUtil.ALL_ATTRIBUTE_NAMES)
             {
-                textFlow = createEmptyTextFlow();
-                textFlow.appendChildren = content as Array;
+                var kind:String = TextUtil.ATTRIBUTE_MAP[p];
+
+                if (kind == TextUtil.CONTAINER &&
+                    containerAttributes != null &&
+                    containerAttributes[p] != null)
+                {
+                    textFlowTextAttributes[p] = containerAttributes[p];
+                }
+                else if (kind == TextUtil.PARAGRAPH &&
+                         paragraphAttributes != null &&
+                         paragraphAttributes[p] != null)
+                {
+                    textFlowTextAttributes[p] = paragraphAttributes[p];
+                }
+                else if (kind == TextUtil.CHARACTER &&
+                         characterAttributes != null &&
+                         characterAttributes[p] != null)
+                {
+                    textFlowTextAttributes[p] = characterAttributes[p];
+                }
             }
-            else if (content is FlowElement)
-            {
-                textFlow = createEmptyTextFlow();
-                textFlow.appendChildren = [ content ];
-            }
-			else if (content is String)
-			{
-				textFlow = importMarkup(String(content));
-			}
-			else if (content == null)
-			{
-				textFlow = createEmptyTextFlow();
-			}
-            else
-            {
-                throw new Error("invalid content");
-            }
-		}
-		else if (textChanged)
-		{
-			if (text != null && text != "")
-			{
-				textFlow = TextFilter.importFromString(text, TextFilter.PLAIN_TEXT_FORMAT);
-			}
-			else
-			{
-				textFlow = createEmptyTextFlow();
-			}
-		}
+        }
 
  		contentChanged = false;
 		textChanged = false;
 
-        var containerAttributes:IContainerAttributes =
-            textFlow.containerAttributes;
-        var paragraphAttributes:IParagraphAttributes =
-            textFlow.paragraphAttributes;
-        var characterAttributes:ICharacterAttributes =
-            textFlow.characterAttributes;
+        // For each attribute whose value wasn't specified by the TextFlow,
+        // apply the value from the TextGraphic.
         
-        if (!containerAttributes || containerAttributes.blockProgression == null)
-            textFlow.blockProgression = blockProgression;
-        if (!characterAttributes || characterAttributes.color == null)
-            textFlow.color = color;
-        if (!paragraphAttributes || paragraphAttributes.direction == null)
-            textFlow.direction = direction;
-		if (!characterAttributes || characterAttributes.fontFamily == null)
-            textFlow.fontFamily = fontFamily;
-		if (!characterAttributes || characterAttributes.fontSize == null)
-            textFlow.fontSize = fontSize;
-		if (!characterAttributes || characterAttributes.fontStyle == null)
-		    textFlow.fontStyle = fontStyle;
-		if (!characterAttributes || characterAttributes.fontWeight == null)
-		    textFlow.fontWeight = fontWeight;
-		if (!characterAttributes || characterAttributes.kerning == null)
-		    textFlow.kerning = kerning;
-		if (!characterAttributes || characterAttributes.lineHeight == null)
-		    textFlow.lineHeight = lineHeight;
-		if (!containerAttributes || containerAttributes.lineBreak == null)
-		    textFlow.lineBreak = lineBreak;
-		if (!characterAttributes || characterAttributes.lineThrough == null)
-		    textFlow.lineThrough = lineThrough;
-        if (!paragraphAttributes || paragraphAttributes.marginBottom == null)
-		    textFlow.marginBottom = marginBottom;
-        if (!paragraphAttributes || paragraphAttributes.marginLeft == null)
-		    textFlow.marginLeft = marginLeft;
-        if (!paragraphAttributes || paragraphAttributes.marginRight == null)
-		    textFlow.marginRight = marginRight;
-        if (!paragraphAttributes || paragraphAttributes.marginTop == null)
-		    textFlow.marginTop = marginTop;
-        if (!containerAttributes || containerAttributes.paddingBottom == null)
-		    textFlow.paddingBottom = paddingBottom;
-        if (!containerAttributes || containerAttributes.paddingLeft == null)
-		    textFlow.paddingLeft = paddingLeft;
-        if (!containerAttributes || containerAttributes.paddingRight == null)
-		    textFlow.paddingRight = paddingRight;
-        if (!containerAttributes || containerAttributes.paddingTop == null)
-		    textFlow.paddingTop = paddingTop;
-        if (!paragraphAttributes || paragraphAttributes.textAlign == null)
-		    textFlow.textAlign = textAlign;
-        if (!paragraphAttributes || paragraphAttributes.textAlignLast == null)
-		    textFlow.textAlignLast = textAlignLast;
-		if (!characterAttributes || characterAttributes.textAlpha == null)
-		    textFlow.textAlpha = textAlpha;
-		if (!characterAttributes || characterAttributes.textDecoration == null)
-		    textFlow.textDecoration = textDecoration;
-        if (!paragraphAttributes || paragraphAttributes.textIndent == null)
-		    textFlow.textIndent = textIndent;
-		if (!characterAttributes || characterAttributes.trackingRight == null)
-		    textFlow.trackingRight = tracking; // what about trackingLeft?
-        if (!containerAttributes || containerAttributes.verticalAlign == null)
-		    textFlow.verticalAlign = verticalAlign;
-		if (!characterAttributes || characterAttributes.whitespaceCollapse == null)
-		    textFlow.whitespaceCollapse = whiteSpaceCollapse; // different case
-
+        for each (p in TextUtil.ALL_ATTRIBUTE_NAMES)
+        {
+            if (!(p in textFlowTextAttributes) && (p in this))
+                textFlow[p] = this[p];
+        }
+        
 		return textFlow;
 	}
 
