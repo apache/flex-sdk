@@ -11,6 +11,7 @@
 
 package spark.components.supportClasses
 {
+import __AS3__.vec.Vector;
 
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -25,8 +26,9 @@ import mx.events.SandboxMouseEvent;
 
 import spark.components.Button;
 import spark.core.IViewport;
-import spark.effects.SimpleMotionPath;
 import spark.effects.animation.Animation;
+import spark.effects.animation.MotionPath;
+import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Linear;
 import spark.effects.easing.Sine;
@@ -241,7 +243,7 @@ public class ScrollBar extends TrackBase
         _animator.animationTarget = animTarget;
         return _animator;
     }
-
+    
     /**
      * @private
      * These variables track whether we are currently involved in a stepping
@@ -258,7 +260,11 @@ public class ScrollBar extends TrackBase
      */ 
     private var animatingSinglePage:Boolean;
     
-    
+    /**
+     * @private
+     * Easers used in animated scrolling operations
+     */
+    private static var linearEaser:IEaser = new Linear();
     private static var easyInLinearEaser:IEaser = new Linear(.1);
     private static var deceleratingSineEaser:IEaser = new Sine(0);
     
@@ -425,7 +431,8 @@ public class ScrollBar extends TrackBase
         animator.stop();
         animator.duration = duration;
         animator.easer = easer;
-        animator.motionPaths = [new SimpleMotionPath("value", value, valueTo)];
+        animator.motionPaths = new <MotionPath>[
+            new SimpleMotionPath("value", value, valueTo)];
         animator.startDelay = startDelay;
         animator.play();
     }
@@ -551,7 +558,7 @@ public class ScrollBar extends TrackBase
         else
             val = Math.max(value - pageSize, minimum);
         if (getStyle("smoothScrolling")) {
-            startAnimation(getStyle("repeatInterval"), val, Linear.getInstance());            
+            startAnimation(getStyle("repeatInterval"), val, linearEaser);            
             animatingSinglePage = true;
         }
         else
@@ -895,7 +902,7 @@ public class ScrollBar extends TrackBase
         // TODO (chaase): hard-coding easing behavior, how to style it?
         startAnimation(
             getStyle("repeatInterval") * (Math.abs(newValue - value) / pageSize),
-            nearestValidValue(newValue, pageSize), Linear.getInstance());
+            nearestValidValue(newValue, pageSize), linearEaser);
     }
 
     /**
