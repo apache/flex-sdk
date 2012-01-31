@@ -105,6 +105,25 @@ public class GridLayout extends LayoutBase
      */
     private const visibleGridBounds:Rectangle = new Rectangle();
     
+    
+    /**
+     *  @private
+     *  The elements available for reuse.  Maps from an IFactory to a list of the elements 
+     *  that have been allocated by that factory and then freed.   The list is represented 
+     *  by a Vector.<IVisualElement>.
+     * 
+     *  Updated by allocateGridElement().
+     */
+    private const freeElementMap:Dictionary = new Dictionary();
+    
+    /**
+     *  @private
+     *  Records the IFactory used to allocate a Element so that free(Element) can find it again.
+     * 
+     *  Updated by createGridElement().
+     */
+    private const elementToFactoryMap:Dictionary = new Dictionary();    
+    
     //--------------------------------------------------------------------------
     //
     //  Class methods and properties
@@ -326,7 +345,7 @@ public class GridLayout extends LayoutBase
         if (enablePerformanceStatistics)
             startTime = getTimer();        
         
-        layoutColumns(horizontalScrollPosition, verticalScrollPosition, NaN /* width */);
+        updateTypicalCellSizes();
         
         var measuredWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedColumnCount);
         var measuredHeight:Number = gridDimensions.getTypicalContentHeight(grid.requestedRowCount);
@@ -553,29 +572,15 @@ public class GridLayout extends LayoutBase
      *  The typicalCellWidth for GridColumns with an explicit width, is just 
      *  the explicit width.  Otherwise an item renderer is created for the column 
      *  and the item renderer's preferred bounds become the typical cell size.   
-     * 
-     *  This method also updates the column width in GridDimensions if the column
-     *  has an explicit width.
 	 */
-	private function updateTypicalCellSizes(width:Number, scrollX:Number, firstVisibleColumnIndex:int):void
+	private function updateVisibleTypicalCellSizes(width:Number, scrollX:Number, firstVisibleColumnIndex:int):void
 	{
 		const gridDimensions:GridDimensions = gridDimensions;
-        
-        // If width isn't specified, then only update requestedColumnCount columns
-        
-        const requestedColumnCount:int = grid.requestedColumnCount;
-        var columnCount:int = gridDimensions.columnCount;
-        if (isNaN(width) && (requestedColumnCount != -1))
-            columnCount = Math.min(columnCount, requestedColumnCount);
-        
-        // Update the GridDimensions typicalCellWidth,Height values as needed.
-        
-		const columnGap:int = gridDimensions.columnGap;
+        const columnCount:int = gridDimensions.columnCount;
 		const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
-
-		for (var columnIndex:int = firstVisibleColumnIndex; 
-                 (isNaN(width) || (width > 0)) && (columnIndex < columnCount); 
-                 columnIndex++)
+		const columnGap:int = gridDimensions.columnGap;
+        
+		for (var columnIndex:int = firstVisibleColumnIndex; (width > 0) && (columnIndex < columnCount); columnIndex++)
 		{
             var cellHeight:Number = gridDimensions.getTypicalCellHeight(columnIndex);
 			var cellWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
@@ -603,17 +608,57 @@ public class GridLayout extends LayoutBase
                 freeGridElement(renderer);
             }
             
-            if (!isNaN(width))
-            {
-    			if (columnIndex == firstVisibleColumnIndex)
-    				width -= startCellX + cellWidth - scrollX;
-    			else
-    				width -= cellWidth + columnGap;
-            }
+            if (columnIndex == firstVisibleColumnIndex)
+                width -= startCellX + cellWidth - scrollX;
+            else
+                width -= cellWidth + columnGap;
 		}
     }
-	
-	/**
+    
+    /**
+     *  @private
+     *  Used by the measure() method to initialize the GridDimensions typical width,height of 
+     *  requestedColumnCount columns, and the typical width of *all* columns with an explicit width.
+     */
+    private function updateTypicalCellSizes():void
+    {
+        const gridDimensions:GridDimensions = gridDimensions;
+        const columnCount:int = gridDimensions.columnCount;
+        const columnGap:int = gridDimensions.columnGap;
+        const requestedColumnCount:int = grid.requestedColumnCount;
+        
+        for (var columnIndex:int = 0; (columnIndex < columnCount); columnIndex++)
+        {
+            var cellHeight:Number = gridDimensions.getTypicalCellHeight(columnIndex);
+            var cellWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
+            
+            var column:GridColumn = getGridColumn(columnIndex);
+            if (!isNaN(column.width))
+            {
+                cellWidth = column.width;
+                gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
+            }
+            
+            var needTypicalRenderer:Boolean = (requestedColumnCount == -1) || (columnIndex < requestedColumnCount);
+            if (needTypicalRenderer && (isNaN(cellWidth) || isNaN(cellHeight)))
+            {
+                var renderer:IGridItemRenderer = createTypicalItemRenderer(columnIndex);
+                if (isNaN(cellWidth))
+                {
+                    cellWidth = renderer.getPreferredBoundsWidth();
+                    gridDimensions.setTypicalCellWidth(columnIndex, cellWidth);
+                }
+                if (isNaN(cellHeight))
+                {
+                    cellHeight = renderer.getPreferredBoundsHeight();
+                    gridDimensions.setTypicalCellHeight(columnIndex, cellHeight);
+                }
+                freeGridElement(renderer);
+            }
+        }
+    }
+
+    /**
 	 *  @private
 	 *  Update the column widths for the columns visible beginning at scrollX, that will fit
 	 *  within the specified width, or for all columns if width is NaN.  The width of 
@@ -631,27 +676,19 @@ public class GridLayout extends LayoutBase
         if (columnCount <= 0)
             return;
         
-        // If width isn't specified (see measure()), then only update requestedColumnCount columns
-        
-        const requestedColumnCount:int = grid.requestedColumnCount;
-        if (isNaN(width) && (requestedColumnCount != -1))
-            columnCount = Math.min(columnCount, requestedColumnCount);
-        
         // Update the GridDimensions typicalCellWidth,Height values as needed.
 
 		const firstVisibleColumnIndex:int = gridDimensions.getColumnIndexAt(scrollX, scrollY);
-        updateTypicalCellSizes(width, scrollX, firstVisibleColumnIndex);
+        updateVisibleTypicalCellSizes(width, scrollX, firstVisibleColumnIndex);
         
         // Set the GridDimensions columnWidth for no more than columnCount columns.
         
         const columnGap:int = gridDimensions.columnGap;
         const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
-        var availableWidth:Number = width;  // can be NaN
+        var availableWidth:Number = width;
         var flexibleColumnCount:uint = 0;
                 
-        for (var columnIndex:int = firstVisibleColumnIndex; 
-                (isNaN(availableWidth) || (availableWidth > 0)) && (columnIndex < columnCount); 
-                 columnIndex++)
+        for (var columnIndex:int = firstVisibleColumnIndex; (availableWidth > 0) && (columnIndex < columnCount); columnIndex++)
         {
             var columnWidth:Number = gridDimensions.getTypicalCellWidth(columnIndex);
             var gridColumn:GridColumn = getGridColumn(columnIndex);
@@ -674,20 +711,16 @@ public class GridLayout extends LayoutBase
             
             gridDimensions.setColumnWidth(columnIndex, columnWidth);  // store the column width
             
-            if (!isNaN(availableWidth))
-            {
-                if (columnIndex == firstVisibleColumnIndex)
-                    availableWidth -= startCellX + columnWidth - scrollX;
-                else
-                    availableWidth -= columnWidth + columnGap;
-            }
+            if (columnIndex == firstVisibleColumnIndex)
+                availableWidth -= startCellX + columnWidth - scrollX;
+            else
+                availableWidth -= columnWidth + columnGap;
         }
         
-        // If a width was specified, we haven't scrolled horizontally, and
-        // there's space left over, widen the columns whose GridColumn width 
-        // isn't set explicitly, to fill the extra space.
+        // If we haven't scrolled horizontally, and there's space left over, widen 
+        // the columns whose GridColumn width isn't set explicitly, to fill the extra space.
         
-        if ((scrollX != 0) || isNaN(width) || (availableWidth < 1.0) || (flexibleColumnCount == 0))
+        if ((scrollX != 0) || (availableWidth < 1.0) || (flexibleColumnCount == 0))
             return;
         
         const columnWidthDelta:Number = Math.ceil(availableWidth / flexibleColumnCount);
@@ -1012,14 +1045,18 @@ public class GridLayout extends LayoutBase
      */
     private function layoutLinearElements (
         factory:IFactory,
-        layer:GridLayer, // container:IVisualElementContainer,
+        layer:GridLayer, 
         oldVisibleElements:Vector.<IVisualElement>,
         oldVisibleIndices:Vector.<int>,
         newVisibleIndices:Vector.<int>,
         layoutFunction:Function,
         lastIndex:int = -1):Vector.<IVisualElement>
     {
-        // If a factory wasn't provided, discard the old visible elements, then return
+
+        // TBD(hmuller): if the factory for any of the oldVisible elements isn't 
+        // the specified factory (e.g. because factory is null) then 
+        // removeGridElement all of them.  Maybe add removeGridElements(factory).
+        // Replace the following:
         
         if (factory == null)
         {
@@ -1303,6 +1340,9 @@ public class GridLayout extends LayoutBase
     {
         const selectionIndicatorFactory:IFactory = grid.selectionIndicator;
         
+        // TBD(hmuller): if selectionIndicatorFactory has -changed- get rid
+        // of the old selection indicators.   See layoutIndicator() for an example
+        
         if (!selectionIndicatorFactory)
         {
             clearSelectionIndicators();
@@ -1318,8 +1358,7 @@ public class GridLayout extends LayoutBase
             if (visibleColumnSelectionIndices.length > 0)
                 clearSelectionIndicators();
 
-            var oldVisibleRowSelectionIndices:Vector.<int> = 
-                visibleRowSelectionIndices;
+            var oldVisibleRowSelectionIndices:Vector.<int> = visibleRowSelectionIndices;
             
             // Load this up with the currently selected rows.
             visibleRowSelectionIndices = new Vector.<int>();
@@ -1425,11 +1464,15 @@ public class GridLayout extends LayoutBase
         rowIndex:int,
         columnIndex:int):IVisualElement
     {
-        if (!indicatorFactory)
+        // If the indicatorFactory has changed for the specified non-null indicator, 
+        // then free the old indicator.
+        
+        if (indicator && (indicatorFactory != elementToFactoryMap[indicator]))
         {
-            freeGridElement(indicator);
+            removeGridElement(indicator);
             indicator = null;
-            return indicator;
+            if (indicatorFactory == null)
+                return null;
         }
         
         if (rowIndex == -1 || grid.selectionMode == GridSelectionMode.NONE)
@@ -1440,7 +1483,7 @@ public class GridLayout extends LayoutBase
         }
         
         if (!indicator && indicatorFactory)
-            indicator = indicatorFactory.newInstance() as IVisualElement;
+            indicator = createGridElement(indicatorFactory);
         
         if (indicator)
         {
@@ -1658,22 +1701,6 @@ public class GridLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------     
     
-    /**
-     *  @private
-     *  The elements available for reuse.
-     * 
-     *  Maps from an IFactory to a list of the elements that have been allocated by that factory
-     *  and then freed.   The list is represented by a Vector.<IVisualElement>.
-     */
-    private const freeElementMap:Dictionary = new Dictionary();
-    
-    /**
-     *  @private
-     *  Records the IFactory used to allocate a Element so that free(Element)
-     *  can find it again.
-     */
-    private const elementToFactoryMap:Dictionary = new Dictionary();
-    
     private function createGridElement(factory:IFactory):IVisualElement
     {
         const element:IVisualElement = factory.newInstance() as IVisualElement;
@@ -1681,6 +1708,11 @@ public class GridLayout extends LayoutBase
         return element;
     }
     
+    /** 
+     *  @private
+     *  Return an element the factory-specific free-list, or create a new element,
+     *  with createGridElement, if a free element isn't available.
+     */
     private function allocateGridElement(factory:IFactory):IVisualElement
     {
         const elements:Vector.<IVisualElement> = freeElementMap[factory] as Vector.<IVisualElement>;
@@ -1699,8 +1731,8 @@ public class GridLayout extends LayoutBase
     /**
      *  @private
      *  Move the specified element to the free list after hiding it.  Return true if the 
-     *  element was added to the free list (freeElements).   Note that we do not actually
-     *  remove the element from its parent.
+     *  element was added to the free list (freeElements).   Note that we do not remove
+     *  the element from its parent.
      */
     private function freeGridElement(element:IVisualElement):Boolean
     {
@@ -1738,7 +1770,34 @@ public class GridLayout extends LayoutBase
         for each (var elt:IVisualElement in elements)
             freeGridElement(elt);
         elements.length = 0;
-    }      
+    }
+    
+    /** 
+     *  @private
+     *  Remove the element from the elementToFactory map and from the per-factory free list and, finally,
+     *  from its container.   On the off chance that someone is monitoring the visible property,
+     *  we set that to false, just for good measure.
+     */
+    private function removeGridElement(element:IVisualElement):void
+    {
+        const factory:IFactory = elementToFactoryMap[element];
+        const freeElements:Vector.<IVisualElement> = (factory) ? freeElementMap[factory] : null;
+        if (freeElements)
+        {
+            const index:int = freeElements.indexOf(element);
+            if (index != -1)
+                freeElements.splice(index, 1);
+            if (freeElements.length == 0)
+                delete freeElementMap[factory];      
+        }
+        
+        delete elementToFactoryMap[element];
+        
+        element.visible = false;
+        const parent:IVisualElementContainer = element.parent as IVisualElementContainer;
+        if (parent)
+            parent.removeElement(element);
+    }
     
     /**
      *  @private
@@ -1788,14 +1847,51 @@ public class GridLayout extends LayoutBase
     private function layoutGridElementR(elt:IVisualElement, bounds:Rectangle):void
     {
         if (bounds)
-        {
-            elt.setLayoutBoundsSize(bounds.width, bounds.height);
-            elt.setLayoutBoundsPosition(bounds.x, bounds.y);
-        }
+            layoutGridElement(elt, bounds.x, bounds.y, bounds.width, bounds.height);
     }
     
+    private static const MAX_ELEMENT_SIZE:Number = 8192;
+    private static const ELEMENT_EDGE_PAD:Number = 512;
+    
+
+    /**
+     *  @private
+     *  Set the visual element's layoutBounds size and position.
+     *  
+     *  Attempting to render graphics whose size is larger than MAX_ELEMENT_SIZE can cause the 
+     *  Flash Player to fail.  We reduce the size of visual elements here and preserve
+     *  the visibility of edges.   For example if the element's left edge is not showing,
+     *  then we ensure that it's no more than ELEMENT_EDGE_PAD to the left of the left edge of
+     *  the scrollRect (that's the horizontalScrollPosition).   The unfortunate assumption here
+     *  is that shrinking the size of a visual element in this way will not affect the appearance
+     *  of the part of the element that overlaps the scrollRect.
+     */
     private function layoutGridElement(elt:IVisualElement, x:Number, y:Number, width:Number, height:Number):void
-    {
+    {   
+        if (width > MAX_ELEMENT_SIZE)
+        {
+            const scrollX:Number = horizontalScrollPosition;
+            const gridWidth:Number = grid.getLayoutBoundsWidth();
+            
+            const newX:Number = Math.max(x, scrollX - ELEMENT_EDGE_PAD);
+            const newRight:Number = Math.min(x + width, scrollX + gridWidth + ELEMENT_EDGE_PAD);
+            
+            x = newX;
+            width = newRight - newX;
+        }
+        
+        if (height > MAX_ELEMENT_SIZE)
+        {
+            const scrollY:Number = verticalScrollPosition;
+            const gridHeight:Number = grid.getLayoutBoundsHeight();
+            
+            const newY:Number = Math.max(y, scrollY - ELEMENT_EDGE_PAD);
+            const newBottom:Number = Math.min(y + height, scrollY + gridHeight + ELEMENT_EDGE_PAD);
+            
+            y = newY;
+            height = newBottom - newY;
+        }
+        
         elt.setLayoutBoundsSize(width, height);
         elt.setLayoutBoundsPosition(x, y);
     }
