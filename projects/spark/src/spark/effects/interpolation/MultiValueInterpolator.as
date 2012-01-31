@@ -10,23 +10,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects.interpolation
 {
-	
+    
 import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;	
+import mx.resources.ResourceManager;    
 
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
 
 [ResourceBundle("sparkEffects")]
-	
+    
 /**
- * ArrayInterpolator interpolates each element of start/end array
- * inputs separately, using another internal interpolator to do
- * the per-element interpolation. By default, the per-element
- * interpolation uses <code>NumberInterpolator</code>, but callers
- * can construct ArrayInterpolator with a different interpolator
- * instead.
+ *  The ArrayInterpolator class interpolates each element of an Array
+ *  of start and end elements separately, using another interpolator to do
+ *  the interpolation for each element. 
+ *  By default, the 
+ *  interpolation for each element uses the NumberInterpolator class, but you 
+ *  can construct an ArrayInterpolator instance with a different interpolator.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -37,10 +37,11 @@ public class ArrayInterpolator implements IInterpolator
 {
     
     /**
-     * Constructor. An optional parameter provides a per-element
-     * interpolator that will be used for every element of the arrays.
-     * If no interpolator is supplied, <code>NumberInterpolator</code>
-     * will be used by default.
+     *  Constructor. 
+     *
+     *  @param elementInterpolator The interpolator for each element
+     *  of the Array.
+     *  If no interpolator is specified, use the NumberInterpolator class.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -63,11 +64,10 @@ public class ArrayInterpolator implements IInterpolator
     // The internal per-element interpolator
     private var _elementInterpolator:IInterpolator = NumberInterpolator.getInstance();
     /**
-     * The internal interpolator that ArrayInterpolator uses for
-     * each element of the input arrays. A value of null will
-     * result in the use of NumberInterpolator.
-     * 
-     * @default NumberInterpolator.getInstance()
+     *  The interpolator for each element of the input Array. 
+     *  A value of null specifies to use the NumberInterpolator class.
+     *  
+     *  @default NumberInterpolator
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -78,6 +78,9 @@ public class ArrayInterpolator implements IInterpolator
     {
         return _elementInterpolator;
     }
+    /**
+     *  @private
+     */
     public function set elementInterpolator(value:IInterpolator):void
     {
         _elementInterpolator = value ? 
@@ -85,8 +88,7 @@ public class ArrayInterpolator implements IInterpolator
     }
 
     /**
-     * Returns the <code>Array</code> type, which is the type of
-     * object interpolated by ArrayInterpolator
+     *  The data type of the elements of the Array.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
