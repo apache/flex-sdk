@@ -493,15 +493,10 @@ public class AnimateTransform extends Animate
             if (targetsToCapture == null || targetsToCapture.length == 0 ||
                 targetsToCapture.indexOf(target) >= 0)
             {
-                // FIXME (chaase): should only capture values for targets of this effect.
-                // currently no easy way to determine this, since if we are
-                // running in a composite effect, that effect will create
-                // propertyChange targets for all effect children.
-                // Might want to change API of captureValues to specify the
-                // targets to iterate through
                 // For now, just make sure that we can transform the current target
-                // then go ahead and capture values for it
-                if (!(target is ILayoutElement))
+                // and that the target exists on the display tree, 
+                // then go ahead and capture its transform values
+                if (!(target is ILayoutElement) || !target.parent)
                     continue;
     
                 valueMap = setStartValues ? propChanges[i].start : propChanges[i].end;
