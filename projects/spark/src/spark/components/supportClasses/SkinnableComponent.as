@@ -767,7 +767,7 @@ public class SkinnableComponent extends UIComponent
                     else
                     {
                         var len:int = numDynamicParts(id);
-                        for (var j:int = 0; j < len; j++)
+                        for (var j:int = len - 1; j >= 0; j--)
                             removeDynamicPartInstance(id, getDynamicPartAt(id, j));
                     }
                 }
