@@ -177,7 +177,7 @@ public class AbstractProducer extends MessageAgent
             dispatchEvent(event);
         }        
     }   
-
+   
     //----------------------------------
     //  priority
     //----------------------------------
