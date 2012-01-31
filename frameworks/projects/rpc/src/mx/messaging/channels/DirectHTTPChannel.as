@@ -205,6 +205,11 @@ public class DirectHTTPChannel extends Channel
         var url:String = httpMsg.url;
         var params:String = null;
 
+        // Propagate our requestTimeout for those platforms
+        // supporting the idleTimeout property on URLRequest.
+        if ("idleTimeout" in result && requestTimeout > 0)
+            result["idleTimeout"] = requestTimeout * 1000;
+        
         result.contentType = httpMsg.contentType;
         
         var contentTypeIsXML:Boolean = 
