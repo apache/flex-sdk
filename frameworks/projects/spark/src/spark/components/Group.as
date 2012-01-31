@@ -769,21 +769,45 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 			switch(_blendMode)
 			{
 				case "color": 
-					super.blendShader = new ColorShader(); 
-				case "colordodge": 
-					super.blendShader = new ColorDodgeShader(); 
-				case "colorburn": 
-					super.blendShader = new ColorBurnShader(); 
-				case "exclusion": 
+				{
+					super.blendShader = new ColorShader();
+					break; 
+				}
+				case "colordodge":
+				{
+					super.blendShader = new ColorDodgeShader();
+					break; 
+				}
+				case "colorburn":
+				{
+					super.blendShader = new ColorBurnShader();
+					break; 
+				}
+				case "exclusion":
+				{
 					super.blendShader = new ExclusionShader();
-				case "hue": 
-					super.blendShader = new HueShader(); 
+					break; 
+				}
+				case "hue":
+				{
+					super.blendShader = new HueShader();
+					break; 
+				}
 				case "luminosity":
-					super.blendShader = new LuminosityShader(); 
+				{
+					super.blendShader = new LuminosityShader();
+					break; 
+				}
 				case "saturation": 
-					super.blendShader = new SaturationShader(); 
+				{
+					super.blendShader = new SaturationShader();
+					break; 
+				}
 				case "softlight":
-					super.blendShader = new SoftLightShader(); 
+				{
+					super.blendShader = new SoftLightShader();
+					break; 
+				}
 			}
 		}
         
