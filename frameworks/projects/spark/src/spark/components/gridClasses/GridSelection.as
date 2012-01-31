@@ -24,6 +24,8 @@ import spark.components.gridClasses.CellPosition;
 
 use namespace mx_internal;
   
+[ExcludeClass]
+
 /**
  *  Use the GridSelection class to track a Grid control's 
  *  <code>selectionMode</code> property and its set of selected rows, columns, or cells.   
