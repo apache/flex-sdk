@@ -13,6 +13,7 @@ package spark.effects.supportClasses
 {
 import flash.events.Event;
 
+import mx.core.mx_internal;
 import mx.effects.effectClasses.PropertyChanges;
 import mx.events.FlexEvent;
 import mx.managers.LayoutManager;
@@ -23,6 +24,8 @@ import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.primitives.supportClasses.GraphicElement;
+
+use namespace mx_internal;
 
 /**
  *  The FadeInstance class implements the instance class
@@ -131,13 +134,15 @@ public class FadeInstance extends AnimateInstance
             {
                 var fadeIn:Boolean = (visibleChange && propertyChanges.end["visible"]) ||
                     (parentChange && propertyChanges.end["parent"]);
+                if (playReversed)
+                    fadeIn = !fadeIn;
                 if (fadeIn)
                 {
                     if (isNaN(alphaFrom))
-                        alphaFrom = 0;
+                        alphaFrom = !(playReversed) ? 0 : toValue;
                     if (alphaFrom == 0)
                         target.alpha = 0;
-                    alphaTo = toValue;
+                    alphaTo = !playReversed ? toValue : 0;
                     if ("visible" in target)
                         target.visible = true;
                 }
@@ -209,13 +214,25 @@ public class FadeInstance extends AnimateInstance
                     {
                         target.percentHeight = propertyChanges.start["percentHeight"];
                     }
-                    alphaTo = 0;
                     restoreAlpha = true;
                     origAlpha = propertyChanges.end["alpha"] !== undefined ?
                         propertyChanges.end["alpha"] :
                         target.alpha;
                     if (visibleChange)
                         makeInvisible = true;
+                    if (!playReversed)
+                    {
+                        alphaTo = 0;
+                    }
+                    else
+                    {
+                        if (isNaN(alphaFrom))
+                        {
+                            target.alpha = 0;
+                            alphaFrom = 0;
+                        }
+                        alphaTo = 1;
+                    }
                 }
             }
         }
@@ -233,6 +250,7 @@ public class FadeInstance extends AnimateInstance
                 target.visible = true;
             }
         }
+            
         motionPaths = new <MotionPath>[new MotionPath("alpha")];
         motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, alphaFrom), 
             new Keyframe(duration, alphaTo)];
