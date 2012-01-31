@@ -667,6 +667,20 @@ public class RichEditableTextContainerManager extends TextContainerManager
             return;
 
         super.activateHandler(event);
+
+        // TLF ties activation and focus together.  If a Flex PopUp is created 
+        // it is possible to get deactivate/activate events without any 
+        // focus events.  If we have focus when we are activated, the selection 
+        // state should be SelectionFormatState.FOCUSED not 
+        // SelectionFormatState.UNFOCUSED since there might not be a follow on
+        // focusIn event.
+        if (editingMode != EditingMode.READ_ONLY &&
+            textDisplay.getFocus() == textDisplay)
+        {
+            var im:SelectionManager = SelectionManager(beginInteraction());
+            im.setFocus();
+            endInteraction();
+       }
     }
 
     /**
