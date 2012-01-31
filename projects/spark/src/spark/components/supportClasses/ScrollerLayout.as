@@ -14,6 +14,7 @@ package spark.components.supportClasses
 {
 
 import mx.core.ILayoutElement;
+import mx.core.IUIComponent;
 import mx.core.ScrollPolicy;
 
 import spark.components.Scroller;
@@ -35,7 +36,6 @@ public class ScrollerLayout extends LayoutBase
     private function getScroller():Scroller
     {
         var g:Skin = target as Skin;
-        
         return (g && ("hostComponent" in g)) ? Object(g).hostComponent as Scroller : null;
     }
     
@@ -147,11 +147,16 @@ public class ScrollerLayout extends LayoutBase
         var scroller:Scroller = getScroller();
         if (!scroller) 
             return;
-            
+
         var viewport:IViewport = scroller.viewport;
         var hsb:ScrollBar = scroller.horizontalScrollBar;
         var vsb:ScrollBar = scroller.verticalScrollBar;
         var minViewportInset:Number = scroller.minViewportInset;
+        
+        // If the viewport's size has been explicitly set (not typical) then use it 
+        var viewportUIC:IUIComponent = viewport as IUIComponent;
+        var explicitViewportW:Number = viewportUIC ? viewportUIC.explicitWidth : NaN;
+        var explicitViewportH:Number = viewportUIC ? viewportUIC.explicitHeight : NaN;
         
         // Decide which scrollbars will be visible based on the viewport's content size
         var showHSB:Boolean = false;
@@ -163,8 +168,12 @@ public class ScrollerLayout extends LayoutBase
             case ScrollPolicy.AUTO: 
                 if (hsb && viewport)
                 {
-                    showHSB = viewport.contentWidth > (w - (minViewportInset * 2));
                     hAuto = true;
+                    var contentWidth:Number = viewport.contentWidth;
+                    if (isNaN(explicitViewportW))
+                        showHSB = contentWidth > (w - (minViewportInset * 2));
+                    else
+                        showHSB = contentWidth > explicitViewportW; 
                 } 
                 break;
         } 
@@ -177,8 +186,12 @@ public class ScrollerLayout extends LayoutBase
             case ScrollPolicy.AUTO: 
                 if (vsb && viewport)
                 { 
-                    showVSB = viewport.contentHeight > (h - (minViewportInset * 2));
                     vAuto = true;
+                    var contentHeight:Number = viewport.contentHeight;
+                    if (isNaN(explicitViewportH))
+                        showVSB = contentHeight > (h - (minViewportInset * 2));
+                    else
+                        showVSB = contentHeight >  explicitViewportH;
                 }                        
                 break;
         }
@@ -219,7 +232,13 @@ public class ScrollerLayout extends LayoutBase
             viewportH -= minViewportInset;
         if (!showVSB)
             viewportW -= minViewportInset;
-
+        
+        // Special case: viewport's size is explicitly set
+        if (!isNaN(explicitViewportW))
+            viewportW = explicitViewportW;
+        if (!isNaN(explicitViewportH))
+            viewportH = explicitViewportH;
+        
         // layout the viewport
         if (viewport)
         {
@@ -241,7 +260,6 @@ public class ScrollerLayout extends LayoutBase
             vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), viewportH));
             vsb.setLayoutBoundsPosition(w - Math.max(minViewportInset, vsbW), minViewportInset);
         }
-        
         target.setContentSize(w, h);
     }
 
