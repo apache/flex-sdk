@@ -15,6 +15,7 @@ package spark.accessibility
 import flash.accessibility.Accessibility;
 import flash.events.Event;
 import mx.accessibility.AccImpl;
+import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -35,27 +36,6 @@ use namespace mx_internal;
 public class TextBaseAccImpl extends AccImpl
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_READONLY:uint = 0x00000040;
-
-    /**
-     *  @private
-     */
-    private static const STATE_SYSTEM_FOCUSABLE:uint = 0x00100000;
-
-    /**
-     *  @private
-     */
-    private static const EVENT_OBJECT_NAMECHANGE:uint = 0x800C;
 
     //--------------------------------------------------------------------------
     //
@@ -117,7 +97,7 @@ public class TextBaseAccImpl extends AccImpl
     {
         super(master);
 
-        role = 0x29; // ROLE_SYSTEM_STATICTEXT
+        role = AccConst.ROLE_SYSTEM_STATICTEXT;
     }
 
     //--------------------------------------------------------------------------
@@ -161,9 +141,9 @@ public class TextBaseAccImpl extends AccImpl
     {
         var accState:uint = getState(childID);
 
-        accState &= ~STATE_SYSTEM_FOCUSABLE;
+        accState &= ~AccConst.STATE_SYSTEM_FOCUSABLE;
         
-        accState |= STATE_SYSTEM_READONLY;
+        accState |= AccConst.STATE_SYSTEM_READONLY;
         
         return accState;
     }
@@ -215,7 +195,7 @@ public class TextBaseAccImpl extends AccImpl
         {
             case "updateComplete":
             {
-                Accessibility.sendEvent(master, 0, EVENT_OBJECT_NAMECHANGE);
+                Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_NAMECHANGE);
                 Accessibility.updateProperties();
                 break;
             }
