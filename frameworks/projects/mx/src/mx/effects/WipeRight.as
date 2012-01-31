@@ -22,7 +22,7 @@ import mx.effects.effectClasses.WipeRightInstance;
 [Alternative(replacement="spark.effects.Wipe", since="4.0")]
 
 /**
- *  The WipeRight class defines a bar wipe right effect.
+ *  The WipeRight class defines a wipe right effect.
  *  The before or after state of the component must be invisible. 
  * 
  *  <p>You often use this effect with the <code>showEffect</code> 
@@ -68,28 +68,28 @@ public class WipeRight extends MaskEffect
 {
     include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param target The Object to animate with this effect.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function WipeRight(target:Object = null)
-	{
-		super(target);
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function WipeRight(target:Object = null)
+    {
+        super(target);
 
-		instanceClass = WipeRightInstance;
-	}
+        instanceClass = WipeRightInstance;
+    }
 }
 
 }
