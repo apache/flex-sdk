@@ -198,6 +198,10 @@ public class MultiTopicConsumer extends AbstractConsumer
      * the subscription applies to messages which do not have a subtopic set in the
      * producer.  If the selector string is null, all messages sent which match the
      * subtopic string are received by this consumer.  
+     *
+     * @param subtopic The subtopic for the new subscription.
+     *
+     * @param selector The selector for the new subscription.
      */
     public function addSubscription(subtopic:String = null, selector:String = null):void
     {
@@ -205,7 +209,12 @@ public class MultiTopicConsumer extends AbstractConsumer
     }
 
     /**
-     * This method removes the subscription specified by the subtopic and selector.
+     * This method removes the subscription specified by the subtopic
+     * and selector.
+     *
+     * @param subtopic The subtopic for the subscription.
+     *
+     * @param selector The selector for the subscription.
      */
     public function removeSubscription(subtopic:String = null, selector:String = null):void
     {
@@ -229,6 +238,11 @@ public class MultiTopicConsumer extends AbstractConsumer
     // 
     //--------------------------------------------------------------------------
 
+    /**
+     * Returns a subscribe message.
+     *
+     * @return The subscribe CommandMessage.
+     */
     override protected function buildSubscribeMessage():CommandMessage
     {
         var msg:CommandMessage = super.buildSubscribeMessage();
@@ -263,6 +277,15 @@ public class MultiTopicConsumer extends AbstractConsumer
         return msg;
     }
 
+    /**
+     * Returns an unsubscribe mesage.
+     *
+     * @param preserveDurable When true, durable JMS subscriptions are
+     * not destroyed, allowing consumers to later resubscribe and
+     * receive missed messages.
+     *
+     * @return The unsubscribe CommandMessage.
+     */
     override protected function buildUnsubscribeMessage(preserveDurable:Boolean):CommandMessage
     {
         var msg:CommandMessage = super.buildUnsubscribeMessage(preserveDurable);
