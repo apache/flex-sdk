@@ -32,6 +32,7 @@ import mx.rpc.events.InvokeEvent;
 import mx.rpc.events.ResultEvent;
 import mx.utils.ObjectProxy;
 import mx.utils.StringUtil;
+import mx.netmon.NetworkMonitor;
 
 use namespace mx_internal;
 
@@ -216,8 +217,29 @@ public class AbstractInvoker extends EventDispatcher
         if (!event.isDefaultPrevented())
         {
             dispatchEvent(event);
+		monitorRpcEvent(event);
         }
     }
+
+    /**
+     * Monitor an rpc event that is being dispatched
+     */
+    mx_internal function monitorRpcEvent(event:AbstractEvent):void
+    {
+        if (NetworkMonitor.isMonitoring())
+        {
+	        if (event is mx.rpc.events.ResultEvent)
+	        {
+	            NetworkMonitor.monitorResult(event.message, mx.rpc.events.ResultEvent(event).result);    
+	        }
+	        else if (event is mx.rpc.events.FaultEvent)
+	        {
+	            //trace(" AbstractInvoker: MonitorFault - message:" + event.message);
+	            NetworkMonitor.monitorFault(event.message, mx.rpc.events.FaultEvent(event).fault);
+	        }
+        }
+    }    
+
 
     /**
      *  Take the MessageAckEvent and take the result, store it, and broadcast out
@@ -313,6 +335,15 @@ public class AbstractInvoker extends EventDispatcher
             fault = new Fault("InvokeFailed", e2.message);
             new AsyncDispatcher(dispatchRpcEvent, [FaultEvent.createEvent(fault, token, message)], 10);
         }
+        finally
+        {
+            if (NetworkMonitor.isMonitoring())
+            {
+            	//trace(" AbstractInvoker: monitorInvoke: message ",message.toString());
+                NetworkMonitor.monitorInvocation(getNetmonId(), message);
+            }
+        }    
+
 
         return token;
     }
