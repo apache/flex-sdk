@@ -91,7 +91,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:downColor
  *   
- *  @default 0xA8C6EE
+ *  @default undefined
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10.1
