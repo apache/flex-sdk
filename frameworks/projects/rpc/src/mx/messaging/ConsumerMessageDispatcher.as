@@ -189,7 +189,7 @@ public class ConsumerMessageDispatcher
             // If this was the last Consumer using this ChannelSet stop listening for message events
             // and blow away the ref-count.
             consumer.channelSet.removeEventListener(MessageEvent.MESSAGE, messageHandler);
-            _channelSetRefCounts[consumer.channelSet] = null;
+            delete _channelSetRefCounts[consumer.channelSet];
             
             // And clean up the duplicate message delivery barrier if necessary.
             if (_consumerDuplicateMessageBarrier[consumer.id] != null)
@@ -221,35 +221,44 @@ public class ConsumerMessageDispatcher
                 Log.getLogger("mx.messaging.Consumer").debug("'{0}' received pushed message for consumer but no longer subscribed: {1}", event.message.clientId, event.message);
             return;
         }
-               
+         
+        // Determine how many of these will actually redispatch the same event from the shared underlying channel.      
         if (event.target.currentChannel.channelSets.length > 1)
-        {
-            // If two (or more) ChannelSets share an underlying Channel instance and the channel receives
-            // a message for a Consumer, it will dispatch a MessageEvent. Both ChannelSets will
-            // be listening for this event and each will redispatch it. At this level
-            // we need to ensure that a message targeted to a single Consumer is only processed once even
-            // though we'll receive more than one MessageEvent (one per ChannelSet instances connected to
-            // the same underlying Channel).
-            // We do this by recording the most recent message Id received over the currently connected Channel
-            // for the target Consumer and blocking repeat processing. When the Consumer moves to an unsubscribed
-            // state its corresponding barrier is cleaned up.
-            // This (miss?)configuration can be accomplished manually in client code but most clients won't
-            // configure things this way in which case we'll skip to the faster code path below.
-            var consumerId:String = consumer.id;
-            if (_consumerDuplicateMessageBarrier[consumerId] == null)
-                _consumerDuplicateMessageBarrier[consumerId] = {};
-                
-            var channelId:String = event.target.currentChannel.id;
-            if (_consumerDuplicateMessageBarrier[consumerId][channelId] != event.messageId)
+        {            
+            var count:int = 0;
+            for each (var cs:ChannelSet in event.target.currentChannel.channelSets)
             {
-                _consumerDuplicateMessageBarrier[consumerId][channelId] = event.messageId;
-                consumer.messageHandler(event);
+                if (_channelSetRefCounts[cs] != null)
+                    ++count;
+            }
+            
+            if (count > 1)
+            {
+                // We need to dispatch this message to the target Consumer only once and filter out
+                // the duplicate events.
+                if (_consumerDuplicateMessageBarrier[consumer.id] == null)
+                {
+                    // Record the number of times we will receive a message event for this message.
+                    _consumerDuplicateMessageBarrier[consumer.id] = [event.messageId, count];
+                    
+                    // Dispatch once - only the first time we see this message for this Consumer.
+                    consumer.messageHandler(event);                               
+                }                   
+                                    
+                // Cleanup.
+                var duplicateDispatchGuard:Array = _consumerDuplicateMessageBarrier[consumer.id];
+                if (duplicateDispatchGuard[0] == event.messageId)
+                {
+                    if (--duplicateDispatchGuard[1] == 0)
+                        delete _consumerDuplicateMessageBarrier[consumer.id];
+                }
+                
+                return; // Exit early.
             }
         }
-        else // Only one ChannelSet so we don't need to worry about this.
-        {
-            consumer.messageHandler(event);
-        }
+        
+        // Only one ChannelSet so we don't need to worry about this.
+        consumer.messageHandler(event);
     }
        
 }
