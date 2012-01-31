@@ -17,11 +17,14 @@ import flash.utils.getTimer;
 
 import mx.collections.IList;
 import mx.core.IFactory;
+import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
+import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
+import mx.core.Singleton;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
@@ -33,8 +36,11 @@ import spark.components.Grid;
 import spark.components.Group;
 import spark.components.IGridItemRenderer;
 import spark.components.IGridRowBackground;
+import spark.components.supportClasses.GridLayer;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.skins.spark.DefaultGridItemRenderer;
+import spark.skins.spark.DefaultGridItemRenderer;
+import spark.skins.spark.UITextFieldGridItemRenderer;
 
 use namespace mx_internal;
 
@@ -52,7 +58,68 @@ public class GridLayout extends LayoutBase
     // out how to migrate data from the old GLC to the new one.
     // Note also: if this was going to be shared, it should arrive as a constructor parameter.
     public var gridDimensions:GridDimensions;
+    
+    /**
+     *  @private
+     *  The following variables define the visible part of the grid, where each item
+     *  renderer typically displays dataProvider[rowIndex][columns[columnIndex]].dataField.
+     *  The index vectors are sorted in increasing order but their items may not be
+     *  sequential. 
+     */
+    private var visibleRowIndices:Vector.<int> = new Vector.<int>(0);
+    private var visibleColumnIndices:Vector.<int> = new Vector.<int>(0); 
+    
+    /**
+     *  @private
+     *  The previous values of the corresponding variables.   Set by layoutItemRenderers()
+     *  and only valid during updateDisplayList().
+     */
+    private var oldVisibleRowIndices:Vector.<int> = new Vector.<int>(0);
+    private var oldVisibleColumnIndices:Vector.<int> = new Vector.<int>(0);
         
+    /** 
+     *  TBD: how do these vectors relate to visibleRow,ColumnIndices
+     */
+    private var visibleRowBackgrounds:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
+    private var visibleRowSeparators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
+    private var visibleColumnSeparators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
+    private var visibleItemRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>(0);
+    
+    /** 
+     *  TBD
+     */
+    private var hoverIndicator:IVisualElement = null;
+    private var caretIndicator:IVisualElement = null;
+    
+    /**
+     *  @private
+     *  The bounding rectangle for all of the visible item renderers.  Note that this
+     *  rectangle may be larger than the scrollRect, since the first/last rows/columns
+     *  of item renderers may only be partially visible.   See scrollPositionChanged().
+     */
+    private const visibleItemRenderersBounds:Rectangle = new Rectangle();
+    
+    /**
+     *  @private
+     *  The viewport's bounding rectangle; often smaller then visibleItemRenderersBounds.
+     *  Initialized by updateDisplayList with the current scrollPosition, and grid.width,Height.
+     */
+    private const visibleGridBounds:Rectangle = new Rectangle();
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.4
+     *  @productversion Flex 4.5
+     */    
     public function GridLayout()
     {
         super();
@@ -77,7 +144,8 @@ public class GridLayout extends LayoutBase
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
-     */    
+     */
+  
     override public function get useVirtualLayout():Boolean
     {
         return true;
@@ -90,13 +158,11 @@ public class GridLayout extends LayoutBase
     {
     }   
     
-    
     //--------------------------------------------------------------------------
     //
     //  Method Overrides
     //
     //-------------------------------------------------------------------------- 
-    
     
     /**
      *  @private
@@ -108,7 +174,6 @@ public class GridLayout extends LayoutBase
         freeGridElements(visibleRowSeparators);
         visibleRowIndices.length = 0;
         
-        freeGridElements(visibleColumnBackgrounds);
         freeGridElements(visibleColumnSeparators);        
         visibleColumnIndices.length = 0;
         
@@ -281,7 +346,7 @@ public class GridLayout extends LayoutBase
         // Layout the columns and item renderers
         
 		layoutColumns(scrollX, scrollY, unscaledWidth);
-        layoutItemRenderers(grid.itemRendererGroup, scrollX, scrollY, unscaledWidth, unscaledHeight);
+        layoutItemRenderers(grid.rendererLayer, scrollX, scrollY, unscaledWidth, unscaledHeight);
         
         // Update the content size.  Make sure that if the content spans partially 
         // over a pixel to the right/bottom, the content size includes the whole pixel.
@@ -305,19 +370,18 @@ public class GridLayout extends LayoutBase
         
         // Layout the row backgrounds
         
-        visibleRowBackgrounds = layoutLinearElements(grid.rowBackground, grid.backgroundGroup, 
+        visibleRowBackgrounds = layoutLinearElements(grid.rowBackground, grid.backgroundLayer, 
             visibleRowBackgrounds, oldVisibleRowIndices, visibleRowIndices, layoutRowBackground);
 
         // Layout the row and column separators. 
         
         const lastRowIndex:int = paddedRowCount - 1;
         const lastColumnIndex:int = gridDimensions.columnCount - 1;
-        const overlayGroup:Group = grid.overlayGroup
 
-        visibleRowSeparators = layoutLinearElements(grid.rowSeparator, overlayGroup, 
+        visibleRowSeparators = layoutLinearElements(grid.rowSeparator, grid.overlayLayer, 
             visibleRowSeparators, oldVisibleRowIndices, visibleRowIndices, layoutRowSeparator, lastRowIndex);
         
-        visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, overlayGroup, 
+        visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, grid.overlayLayer, 
             visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastColumnIndex);
         
         // Tell the ColumnHeaderBar to update its layout.
@@ -326,15 +390,15 @@ public class GridLayout extends LayoutBase
         
         // Layout the hoverIndicator, caretIndicator, and selectionIndicators        
         
-        layoutHoverIndicator(grid.backgroundGroup);
-        layoutSelectionIndicators(grid.selectionGroup);
-        layoutCaretIndicator(grid.overlayGroup);
+        layoutHoverIndicator(grid.backgroundLayer);
+        layoutSelectionIndicators(grid.selectionLayer);
+        layoutCaretIndicator(grid.overlayLayer);
         
         // To avoid flashing, force all of the layers to render now
         
-        grid.backgroundGroup.validateNow();
-        grid.selectionGroup.validateNow();
-        grid.overlayGroup.validateNow();
+        grid.backgroundLayer.root.validateNow();
+        grid.selectionLayer.root.validateNow();
+        grid.overlayLayer.root.validateNow();
 
         // The old visible row,column indices are no longer needed
         
@@ -414,10 +478,6 @@ public class GridLayout extends LayoutBase
         return headerBar.dataGroup.getElementAt(columnIndex);
     }
         
-    // TBD(hmuller): need a change notification scheme for the factory properties
-    // when one changes (which is unlikely to happen very often), need to make sure
-    // that the old ones aren't reused.
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Updating the GridDimensions' typicalCell sizes and columnWidths
@@ -430,7 +490,7 @@ public class GridLayout extends LayoutBase
 	 *  item renderer.   The returned item renderer must be freed, with freeGridElement(),
 	 *  after it's used.
 	 */
-	private function createTypicalItemRenderer(columnIndex:int):IVisualElement
+	private function createTypicalItemRenderer(columnIndex:int):IGridItemRenderer
 	{
 		var typicalItem:Object = grid.typicalItem;
 		if (typicalItem == null)
@@ -438,9 +498,9 @@ public class GridLayout extends LayoutBase
 		
 		const column:GridColumn = getGridColumn(columnIndex);
 		const factory:IFactory = column.itemToRenderer(typicalItem);
-		const renderer:IVisualElement = allocateGridElement(factory) as IVisualElement;
+		const renderer:IGridItemRenderer = allocateGridElement(factory) as IGridItemRenderer;
 		
-		grid.itemRendererGroup.addElement(renderer);
+		grid.rendererLayer.addGridElement(renderer);
 
 		initializeItemRenderer(renderer, 0 /* rowIndex */, columnIndex, grid.typicalItem, false);
         
@@ -458,7 +518,8 @@ public class GridLayout extends LayoutBase
         
         layoutItemRenderer(renderer, 0, 0, columnWidth, NaN);
         		
-		grid.itemRendererGroup.removeElement(renderer);
+		grid.rendererLayer.removeGridElement(renderer);
+            
 		return renderer;
 	}
 	
@@ -510,7 +571,7 @@ public class GridLayout extends LayoutBase
             
             if (isNaN(cellWidth) || isNaN(cellHeight))
             {
-                var renderer:IVisualElement = createTypicalItemRenderer(columnIndex);
+                var renderer:IGridItemRenderer = createTypicalItemRenderer(columnIndex);
                 if (isNaN(cellWidth))
                 {
                     cellWidth = renderer.getPreferredBoundsWidth();
@@ -646,41 +707,8 @@ public class GridLayout extends LayoutBase
     //  Item Renderer Management and Layout
     //
     //--------------------------------------------------------------------------   
-    
-    /**
-     *  @private
-     *  The following variables define the visible part of the grid, where each item
-     *  renderer displays dataProvider[rowIndex][columns[columnIndex].dataField].
-     *  The index vectors are sorted in increasing order but their items may not be
-     *  sequential.  The item renderers are stored in row major order.
-     */
-    private var visibleRowIndices:Vector.<int> = new Vector.<int>(0);
-    private var visibleColumnIndices:Vector.<int> = new Vector.<int>(0);
-    private var visibleItemRenderers:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
-    
-    /**
-     *  @private
-     *  The previous values of the corresponding variables.   Set by layoutItemRenderers()
-     *  and only valid during updateDisplayList().
-     */
-    private var oldVisibleRowIndices:Vector.<int> = new Vector.<int>(0);
-    private var oldVisibleColumnIndices:Vector.<int> = new Vector.<int>(0);
-
-    /**
-     *  @private
-     *  The bounding rectangle for all of the visible item renderers.  Note that this
-     *  rectangle may be larger than the scrollRect, since the first/last rows/columns
-     *  of item renderers may only be partially visible.   See scrollPositionChanged().
-     */
-    private const visibleItemRenderersBounds:Rectangle = new Rectangle();
-    
-    /**
-     *  Initialized by updateDisplayList with the current scrollPosition, and grid.width,Height.
-     */
-    private const visibleGridBounds:Rectangle = new Rectangle();
-    
-    
-    private function layoutItemRenderers(itemRendererGroup:Group, scrollX:Number, scrollY:Number, width:Number, height:Number):void
+        
+    private function layoutItemRenderers(rendererLayer:GridLayer, scrollX:Number, scrollY:Number, width:Number, height:Number):void
     {
         var rowIndex:int;
         var colIndex:int;
@@ -716,7 +744,7 @@ public class GridLayout extends LayoutBase
         // compute newVisibleRowIndices, newVisibleItemRenderers, layout item renderers
         
         const newVisibleRowIndices:Vector.<int> = new Vector.<int>();
-        const newVisibleItemRenderers:Vector.<IVisualElement> = new Vector.<IVisualElement>();
+        const newVisibleItemRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>();
         
         var cellX:Number = startCellX;
         var cellY:Number = startCellY;
@@ -729,17 +757,16 @@ public class GridLayout extends LayoutBase
             var rowHeight:Number = gridDimensions.getRowHeight(rowIndex);
             for each (colIndex in newVisibleColumnIndices)
             {
-                var renderer:IVisualElement = takeVisibleItemRenderer(rowIndex, colIndex);
+                var renderer:IGridItemRenderer = takeVisibleItemRenderer(rowIndex, colIndex);
                 if (!renderer)
                 {       
                     var dataItem:Object = getDataProviderItem(rowIndex);
                     var column:GridColumn = getGridColumn(colIndex);
                     var factory:IFactory = column.itemToRenderer(dataItem);
-                    renderer = allocateGridElement(factory) as IVisualElement;                   
+                    renderer = allocateGridElement(factory) as IGridItemRenderer;                   
                 }
             
-                if (renderer.parent != itemRendererGroup)
-                    itemRendererGroup.addElement(renderer);
+                rendererLayer.addGridElement(renderer);
                 
                 newVisibleItemRenderers.push(renderer);
                 initializeItemRenderer(renderer, rowIndex, colIndex);
@@ -760,12 +787,18 @@ public class GridLayout extends LayoutBase
                 rowHeight = finalRowHeight;
                 for each (colIndex in newVisibleColumnIndices)
                 {
-                    const rowOffset:int = newVisibleRowIndices.indexOf(rowIndex);
-                    const colOffset:int = newVisibleColumnIndices.indexOf(colIndex);                    
-                    const index:int = (rowOffset * visibleColumnsLength) + colOffset;
-
+                    var rowOffset:int = newVisibleRowIndices.indexOf(rowIndex);
+                    var colOffset:int = newVisibleColumnIndices.indexOf(colIndex);                    
+                    var index:int = (rowOffset * visibleColumnsLength) + colOffset;
                     renderer = newVisibleItemRenderers[index];                    
-                    layoutItemRenderer(renderer, renderer.x, renderer.y, renderer.width, rowHeight);
+                    
+                    // We're using layoutBoundsX,Y,Width instead of x,y.width because
+                    // the IUITextField item renderers pad their x,y,width,height properties 
+                    var rendererX:Number = renderer.getLayoutBoundsX();
+                    var rendererY:Number = renderer.getLayoutBoundsY();
+                    var rendererWidth:Number = renderer.getLayoutBoundsWidth();
+
+                    layoutItemRenderer(renderer, rendererX, rendererY, rendererWidth, rowHeight);
                     gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 }
             } 
@@ -781,7 +814,7 @@ public class GridLayout extends LayoutBase
            
         // Free renderers that aren't in use
         
-        for each (var oldRenderer:IVisualElement in visibleItemRenderers)
+        for each (var oldRenderer:IGridItemRenderer in visibleItemRenderers)
             freeItemRenderer(oldRenderer);
         
         // Update visibleItemRenderersBounds
@@ -857,7 +890,7 @@ public class GridLayout extends LayoutBase
             const lastColumnIndex:int = gridDimensions.columnCount - 1;
             
             visibleHeaderSeparators =  layoutLinearElements(factory,
-                columnHeaderBar.overlayGroup, visibleHeaderSeparators,
+                columnHeaderBar.overlayLayer, visibleHeaderSeparators,
                 oldVisibleColumnIndices, visibleColumnIndices, 
                 layoutHeaderSeparator, lastColumnIndex);
         }
@@ -897,13 +930,13 @@ public class GridLayout extends LayoutBase
     /**
      *  @private
      */
-    private function takeVisibleItemRenderer(rowIndex:int, columnIndex:int):IVisualElement
+    private function takeVisibleItemRenderer(rowIndex:int, columnIndex:int):IGridItemRenderer
     {
         const index:int = getVisibleItemRendererIndex(rowIndex, columnIndex);
         if (index == -1 || index >= visibleItemRenderers.length)
             return null;
         
-        const renderer:IVisualElement = visibleItemRenderers[index];
+        const renderer:IGridItemRenderer = visibleItemRenderers[index];
         visibleItemRenderers[index] = null;
         return renderer;
     }
@@ -911,17 +944,16 @@ public class GridLayout extends LayoutBase
     /**
      *  @private
      */
-    private function initializeItemRenderer(renderer:IVisualElement, 
-                                            rowIndex:int, columnIndex:int,
-                                            dataItem:Object=null,
-                                            visible:Boolean=true):void
+    private function initializeItemRenderer(
+        renderer:IGridItemRenderer, 
+        rowIndex:int, columnIndex:int,
+        dataItem:Object=null,
+        visible:Boolean=true):void
     {
         renderer.visible = visible;
         
-        // If this renderer has not specified a styleName then use the DataGrid's styles
-        const rendererStyleClient:ISimpleStyleClient = renderer as ISimpleStyleClient;
-        if (rendererStyleClient && !rendererStyleClient.styleName)
-            rendererStyleClient.styleName = grid.gridOwner;
+        
+        // Initialize the renderer's properties
 
         const gridRenderer:IGridItemRenderer = renderer as IGridItemRenderer;
         const gridColumn:GridColumn = getGridColumn(columnIndex);
@@ -954,13 +986,13 @@ public class GridLayout extends LayoutBase
         }
     }
     
-    private function uninitializeItemRenderer(renderer:IVisualElement):void
+    private function uninitializeItemRenderer(renderer:IGridItemRenderer):void
     {
         if (grid.gridOwner)
             grid.gridOwner.discardItemRenderer(renderer, true);
     }
     
-    private function freeItemRenderer(renderer:IVisualElement):void
+    private function freeItemRenderer(renderer:IGridItemRenderer):void
     {
         if (!renderer)
             return;
@@ -970,9 +1002,9 @@ public class GridLayout extends LayoutBase
             uninitializeItemRenderer(renderer);
     }
     
-    private function freeItemRenderers(renderers:Vector.<IVisualElement>):void
+    private function freeItemRenderers(renderers:Vector.<IGridItemRenderer>):void
     {
-        for each (var renderer:IVisualElement in renderers)
+        for each (var renderer:IGridItemRenderer in renderers)
             freeItemRenderer(renderer);
         renderers.length = 0;
     }
@@ -982,12 +1014,6 @@ public class GridLayout extends LayoutBase
     //  Linear elements: row,column separators, backgrounds 
     //
     //-------------------------------------------------------------------------- 
-    
-    private var visibleRowBackgrounds:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
-    private var visibleColumnBackgrounds:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
-    
-    private var visibleRowSeparators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
-    private var visibleColumnSeparators:Vector.<IVisualElement> = new Vector.<IVisualElement>(0);
     
     /**
      *  @private
@@ -1000,7 +1026,7 @@ public class GridLayout extends LayoutBase
      */
     private function layoutLinearElements (
         factory:IFactory,
-        container:IVisualElementContainer,
+        layer:GridLayer, // container:IVisualElementContainer,
         oldVisibleElements:Vector.<IVisualElement>,
         oldVisibleIndices:Vector.<int>,
         newVisibleIndices:Vector.<int>,
@@ -1012,11 +1038,8 @@ public class GridLayout extends LayoutBase
         if (factory == null)
         {
             for each (var oldElt:IVisualElement in oldVisibleElements)
-            {
-                removeGridElement(oldElt);
-                if (oldElt.parent == container)
-                    container.removeElement(oldElt);
-            }
+                layer.removeGridElement(oldElt);
+
             return new Vector.<IVisualElement>(0);
         }
         
@@ -1049,8 +1072,8 @@ public class GridLayout extends LayoutBase
             
             newVisibleElements[index] = elt;
                 
-            if (elt.parent != container)
-                container.addElement(elt);
+            layer.addGridElement(elt);
+            
             elt.visible = true;
             
             layoutFunction(elt, newEltIndex);
@@ -1061,7 +1084,7 @@ public class GridLayout extends LayoutBase
     
     private function layoutCellElements (
         factory:IFactory,
-        container:IVisualElementContainer,
+        layer:GridLayer,
         oldVisibleElements:Vector.<IVisualElement>,
         oldVisibleRowIndices:Vector.<int>, oldVisibleColumnIndices:Vector.<int>,
         newVisibleRowIndices:Vector.<int>, newVisibleColumnIndices:Vector.<int>,
@@ -1072,19 +1095,15 @@ public class GridLayout extends LayoutBase
         if (factory == null)
         {
             for each (var oldElt:IVisualElement in oldVisibleElements)
-            {
-                removeGridElement(oldElt);
-                if (oldElt.parent == container)
-                    container.removeElement(oldElt);
-            }
+                layer.removeGridElement(oldElt);
+            
             return new Vector.<IVisualElement>(0);
         }
         
         // Create, layout, and return newVisibleElements
         
         const newVisibleElementCount:uint = newVisibleRowIndices.length;
-        const newVisibleElements:Vector.<IVisualElement> = 
-            new Vector.<IVisualElement>(newVisibleElementCount);
+        const newVisibleElements:Vector.<IVisualElement> = new Vector.<IVisualElement>(newVisibleElementCount);
 
         // Free and clear oldVisibleElements that are no long visible.
         
@@ -1109,8 +1128,8 @@ public class GridLayout extends LayoutBase
                 newVisibleElements[index] = elt;
             }
                         
-            if (elt.parent != container)
-                container.addElement(elt);
+            layer.addGridElement(elt);
+            
             elt.visible = true;
             
             layoutFunction(elt, newEltRowIndex, newEltColumnIndex);
@@ -1310,7 +1329,7 @@ public class GridLayout extends LayoutBase
                 mode == GridSelectionMode.MULTIPLE_CELLS;
     }     
     
-    private function layoutSelectionIndicators(container:IVisualElementContainer):void
+    private function layoutSelectionIndicators(layer:GridLayer):void
     {
         const selectionIndicatorFactory:IFactory = grid.selectionIndicator;
         
@@ -1346,7 +1365,7 @@ public class GridLayout extends LayoutBase
             // Display the row selections.
             visibleSelectionIndicators = layoutLinearElements(
                 selectionIndicatorFactory,
-                container,
+                layer,
                 visibleSelectionIndicators, 
                 oldVisibleRowSelectionIndices, 
                 visibleRowSelectionIndices, 
@@ -1387,7 +1406,7 @@ public class GridLayout extends LayoutBase
             // Display the cell selections.
             visibleSelectionIndicators = layoutCellElements(
                 selectionIndicatorFactory,
-                container,
+                layer,
                 visibleSelectionIndicators, 
                 oldVisibleRowSelectionIndices, oldVisibleColumnSelectionIndices,
                 visibleRowSelectionIndices, visibleColumnSelectionIndices,
@@ -1429,11 +1448,8 @@ public class GridLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------
     
-    private var hoverIndicator:IVisualElement = null;
-    private var caretIndicator:IVisualElement = null;
-    
     private function layoutIndicator(
-        container:IVisualElementContainer,
+        layer:GridLayer,
         indicatorFactory:IFactory,
         indicator:IVisualElement, 
         rowIndex:int,
@@ -1458,35 +1474,35 @@ public class GridLayout extends LayoutBase
         
         if (indicator)
         {
-            var bounds:Rectangle = isRowSelectionMode() ? 
+            const bounds:Rectangle = isRowSelectionMode() ? 
                 gridDimensions.getRowBounds(rowIndex) :
                 gridDimensions.getCellBounds(rowIndex, columnIndex);
-                layoutGridElementR(indicator, bounds);
-                container.addElement(indicator);  // add or move to the top
-                indicator.visible = true;
+            
+            layoutGridElementR(indicator, bounds);
+            layer.addGridElement(indicator);
+            indicator.visible = true;
         }
         
         return indicator;
     }
-    
 
     private var mouseXOffset:Number = 0;
     private var mouseYOffset:Number = 0;
        
-    private function layoutHoverIndicator(container:IVisualElementContainer):void
+    private function layoutHoverIndicator(layer:GridLayer):void
     {        
         const rowIndex:int = grid.hoverRowIndex;
         const columnIndex:int = grid.hoverColumnIndex;
         const factory:IFactory = grid.hoverIndicator;
-        hoverIndicator = layoutIndicator(container, factory, hoverIndicator, rowIndex, columnIndex); 
+        hoverIndicator = layoutIndicator(layer, factory, hoverIndicator, rowIndex, columnIndex); 
     }
     
-    private function layoutCaretIndicator(container:IVisualElementContainer):void
+    private function layoutCaretIndicator(layer:GridLayer):void
     {
         const rowIndex:int = grid.caretRowIndex;
         const colIndex:int = grid.caretColumnIndex;
         const factory:IFactory = grid.caretIndicator; 
-        caretIndicator = layoutIndicator(container, factory, caretIndicator, rowIndex, colIndex);        
+        caretIndicator = layoutIndicator(layer, factory, caretIndicator, rowIndex, colIndex);        
     }
     
     //--------------------------------------------------------------------------
@@ -1719,7 +1735,8 @@ public class GridLayout extends LayoutBase
     
     /**
      *  Move the specified element to the free list after hiding it.  Return true if the 
-     *  element was added to the free list (freeElements).
+     *  element was added to the free list (freeElements).   Note that we do not actually
+     *  remove the element from its parent.
      */
     private function freeGridElement(element:IVisualElement):Boolean
     {
@@ -1771,11 +1788,6 @@ public class GridLayout extends LayoutBase
         elements.length = 0;
     }      
     
-    private function removeGridElement(element:IVisualElement):void
-    {
-        // TBD
-    }
-    
     /**
      *  @private
      *  By default, this method uses the same approach as DataGroup/getVirtualElementAt() for elements
@@ -1786,32 +1798,33 @@ public class GridLayout extends LayoutBase
      *  Since doing so is rather expensive, we economize when the renderer is a DefaultGridItemRenderer,
      *  since UITextField reflows synchronously.
      */ 
-    private function layoutItemRenderer(elt:IVisualElement, x:Number, y:Number, width:Number, height:Number):void
+    private function layoutItemRenderer(renderer:IGridItemRenderer, x:Number, y:Number, width:Number, height:Number):void
     {
         var startTime:Number;
         if (enablePerformanceStatistics)
             startTime = getTimer();
         
-        if (elt is DefaultGridItemRenderer)
+        const validatingElt:IInvalidating = renderer as IInvalidating;
+        if (renderer is IUITextField)  // TBD(hmuller) distinguish this special case differently
         {
             if (!isNaN(width) || !isNaN(height)) 
-                elt.setLayoutBoundsSize(width, height);
-            DefaultGridItemRenderer(elt).validateNow();
+                renderer.setLayoutBoundsSize(width, height);
+            if (validatingElt)
+                validatingElt.validateNow();
         }
         else
         {
-            const validatingElt:IInvalidating = elt as IInvalidating;
             if (!isNaN(width) || !isNaN(height))
             {
                 if (validatingElt)
                     validatingElt.validateNow();
-                elt.setLayoutBoundsSize(width, height);
+                renderer.setLayoutBoundsSize(width, height);
             }
-            if (validatingElt)        
-                validatingElt.validateNow();
+            if (validatingElt)
+                validatingElt.validateNow();  
         }
         
-        elt.setLayoutBoundsPosition(x, y);
+        renderer.setLayoutBoundsPosition(x, y);
         
         if (enablePerformanceStatistics)
         {
@@ -2098,9 +2111,9 @@ public class GridLayout extends LayoutBase
             return null;
                 
         const factory:IFactory = column.itemToRenderer(dataItem);
-        const renderer:IVisualElement = factory.newInstance() as IVisualElement;
+        const renderer:IGridItemRenderer = factory.newInstance() as IGridItemRenderer;
         
-        grid.itemRendererGroup.addElement(renderer);
+        grid.rendererLayer.addGridElement(renderer);
         
         initializeItemRenderer(renderer, rowIndex, columnIndex, dataItem, false);
 
@@ -2108,7 +2121,7 @@ public class GridLayout extends LayoutBase
         var bounds:Rectangle = gridDimensions.getCellBounds(rowIndex, columnIndex);
         layoutItemRenderer(renderer, bounds.x, bounds.y, bounds.width, bounds.height);
         
-        grid.itemRendererGroup.removeElement(renderer);
+        grid.rendererLayer.removeGridElement(renderer);
         renderer.visible = false;
         
         return renderer;
