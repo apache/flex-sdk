@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- examples/RectangularDropShadowExample.mxml -->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+     <mx:Panel title="Spark RectangularDropShadow Example"
+        height="75%" width="75%" layout="horizontal"
+        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+
+
+        <s:Group>
+           <s:RectangularDropShadow distance="20" 
+                alpha=".25"
+                blurX="7"
+                blurY="7"
+                height="{myRect.height}" 
+                width="{myRect.width}"/>
+           
+           <s:Rect id="myRect" height="40" width="80">
+                 <s:stroke>
+                      <s:SolidColorStroke color="0x000000" weight="1"/>
+                 </s:stroke>
+           </s:Rect>
+        </s:Group>
+
+     </mx:Panel>
+</s:Application>
