@@ -77,9 +77,20 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  Class or instance to use as the default icon.
- *
+ *  The icon can render from various graphical sources, including the following:  
+ *  <ul>
+ *   <li>A Bitmap or BitmapData instance.</li>
+ *   <li>A class representing a subclass of DisplayObject. The BitmapFill 
+ *       instantiates the class and creates a bitmap rendering of it.</li>
+ *   <li>An instance of a DisplayObject. The BitmapFill copies it into a 
+ *       Bitmap for filling.</li>
+ *   <li>The name of an external image file. </li>
+ *  </ul>
+ * 
  *  @default null 
- *
+ * 
+ *  @see spark.primitives.BitmapImage.source
+ * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5
