@@ -291,7 +291,6 @@ public class Grid extends Group implements IDataGridElement
         addEventListener(MouseEvent.MOUSE_UP, grid_mouseUpHandler);
         addEventListener(MouseEvent.MOUSE_MOVE, grid_mouseMoveHandler);
         addEventListener(MouseEvent.ROLL_OUT, grid_mouseRollOutHandler);
-        addEventListener(MouseEvent.CLICK, grid_clickHandler);
         addEventListener(MouseEvent.DOUBLE_CLICK, grid_doubleClickHandler);        
     }
     
@@ -3808,23 +3807,35 @@ public class Grid extends Group implements IDataGridElement
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
         var gridEventType:String;
+        var dispatchGridClick:Boolean;
         switch(event.type)
         {
             case MouseEvent.MOUSE_MOVE: 
+            {
                 gridEventType = GridEvent.GRID_MOUSE_DRAG; 
                 break;
+            }
             case MouseEvent.MOUSE_UP: 
+            {
                 gridEventType = GridEvent.GRID_MOUSE_UP;
+                dispatchGridClick = (eventRowIndex == mouseDownRowIndex &&
+                                     eventColumnIndex == mouseDownColumnIndex);
                 break;
-            case MouseEvent.MOUSE_DOWN: 
+            }
+            case MouseEvent.MOUSE_DOWN:
+            {
                 gridEventType = GridEvent.GRID_MOUSE_DOWN;
                 mouseDownRowIndex = eventRowIndex;
                 mouseDownColumnIndex = eventColumnIndex;
                 dragInProgress = true;
                 break;
+            }
         }
         
-        dispatchGridEvent(event, gridEventType, eventGridXY, eventRowIndex, eventColumnIndex);        
+        dispatchGridEvent(event, gridEventType, eventGridXY, eventRowIndex, eventColumnIndex);
+        
+        if (dispatchGridClick)
+            dispatchGridEvent(event, GridEvent.GRID_CLICK, eventGridXY, eventRowIndex, eventColumnIndex);
     }
     
     /**
@@ -3875,9 +3886,6 @@ public class Grid extends Group implements IDataGridElement
      */       
     protected function grid_mouseRollOutHandler(event:MouseEvent):void
     {
-        // Handle the case where the mouse up happens outside the data grid.
-        dragInProgress = false
-            
         if ((rollRowIndex != -1) || (rollColumnIndex != -1))
         {
             const eventStageXY:Point = new Point(event.stageX, event.stageY);
@@ -3917,30 +3925,8 @@ public class Grid extends Group implements IDataGridElement
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
         dispatchGridEvent(event, GridEvent.GRID_MOUSE_UP, eventGridXY, eventRowIndex, eventColumnIndex);
-    }
-
-    /**
-     *  @private
-     *  This method is called whenever a CLICK MouseEvent occurs on the grid if both
-     *  the corresponding down and up events occur within the same grid cell.
-     *  By default it dispatches a GRID_CLICK event.
-     * 
-     *  @param event A CLICK MouseEvent from the grid.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */       
-    protected function grid_clickHandler(event:MouseEvent):void 
-    {
-        const eventStageXY:Point = new Point(event.stageX, event.stageY);
-        const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = this.gridDimensions;
-        const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
-        const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
-        if ((eventRowIndex == mouseDownRowIndex) && (eventColumnIndex == mouseDownColumnIndex)) 
+        if (eventRowIndex == mouseDownRowIndex && eventColumnIndex == mouseDownColumnIndex)
             dispatchGridEvent(event, GridEvent.GRID_CLICK, eventGridXY, eventRowIndex, eventColumnIndex);
     }
     
