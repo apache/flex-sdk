@@ -987,8 +987,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         
         const event:GridEvent = new GridEvent(
             type, bubbles, cancelable, 
-            headerGroupXY.x, headerGroupXY.y, -1, columnIndex, column, item, itemRenderer, 
-            relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
+            headerGroupXY.x, headerGroupXY.y, 
+            relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta,
+            -1 /* rowIndex */, columnIndex, column, item, itemRenderer);
         dispatchEvent(event);
     }     
     
