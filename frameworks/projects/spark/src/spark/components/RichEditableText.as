@@ -29,6 +29,7 @@ import flashx.textLayout.compose.StandardFlowComposer;
 import flashx.textLayout.container.DisplayObjectContainerController;
 import flashx.textLayout.container.IContainerController;
 import flashx.textLayout.conversion.ConversionType;
+import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.EditingMode;
@@ -1566,7 +1567,7 @@ public class TextView extends UIComponent implements IViewport
         staticConfiguration.textFlowInitialFormat =
             staticTextLayoutFormat;
 
-        if (markup is String)
+        if (markup is XML || markup is String)
         {
             // We need to wrap the markup in a <TextFlow> tag
             // unless it already has one.
@@ -1577,7 +1578,7 @@ public class TextView extends UIComponent implements IViewport
             // we use the markup in XML form rather than
             // having TLF reconvert it to XML.
             var wrap:Boolean = true;
-            if (markup.indexOf("TextFlow") != -1)
+            if (markup is XML || markup.indexOf("TextFlow") != -1)
             {
                 try
                 {
@@ -1595,14 +1596,39 @@ public class TextView extends UIComponent implements IViewport
 
             if (wrap)
             {
-                markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
-                         markup +
-                         '</TextFlow>';
+                if (markup is String)
+                {
+                    markup = 
+                        '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
+                        markup +
+                        '</TextFlow>';
+                }
+                else
+                {
+                    // It is XML.  Create a root element and add the markup
+                    // as it's child.
+                    var ns:Namespace = 
+                        new Namespace("http://ns.adobe.com/textLayout/2008");
+                                                 
+                    xmlMarkup = <TextFlow />;
+                    xmlMarkup.setNamespace(ns);            
+                    xmlMarkup.setChildren(markup);  
+                                        
+                    // The namespace of the root node is not inherited by
+                    // the children so it needs to be explicitly set on
+                    // every element, at every level.  If this is not done
+                    // the import will fail with an "Unexpected namespace"
+                    // error.
+                    for each (var element:XML in xmlMarkup..*::*)
+                       element.setNamespace(ns);
+
+                    markup = xmlMarkup;
+                }
             }
         }
         
-        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
-                                       staticConfiguration);
+        return importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
+                            staticConfiguration);
     }
     
     /**
@@ -1669,7 +1695,7 @@ public class TextView extends UIComponent implements IViewport
             var t:String = _text;
             if (t != null && t != "")
             {
-                textFlow = TextFilter.importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
+                textFlow = importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
             }
             else
             {
@@ -1699,6 +1725,23 @@ public class TextView extends UIComponent implements IViewport
         return textFlow;
     }
     
+    /**
+     *  @private
+     * 
+     *  This will throw on import error.
+     */
+    private function importToFlow(source:Object, format:String, 
+                                  config:Configuration = null):TextFlow
+    {
+        var importer:ITextImporter = TextFilter.getImporter(format);
+        
+        // Throw import errors rather than return a null textFlow.
+        // Alternatively, the error strings are in the Vector, importer.errors.
+        importer.throwOnError = true;
+        
+        return importer.importToFlow(source);        
+    }
+
      /**
      *  @private
      *  Is this a style associated with the SelectionFormat?
@@ -2057,9 +2100,7 @@ public class TextView extends UIComponent implements IViewport
         {
             names = [];
             for (p in description)
-            {
                 names.push(p);
-            };
             
             needContainerFormat = true;
             needParagraphFormat = true;
