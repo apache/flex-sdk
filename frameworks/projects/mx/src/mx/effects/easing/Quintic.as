@@ -13,6 +13,15 @@ package mx.effects.easing
 {
 
 /**
+ *  The new effects provided as of Flex 4 use classes which implement the 
+ *  IEaser interface instead of the easing functions in classes like Quintic for 
+ *  the earlier Flex 3 effects. To achieve the same functionality of Quintic, 
+ *  create a Power instance with an <code>exponent</code> of 5 and set the 
+ *  <code>easeInFraction</code> appropriately to get the desired result.
+ */
+[Alternative(replacement="spark.effects.easing.Power", since="4.0")]
+
+/**
  *  The Quintic class defines three easing functions to implement 
  *  motion with Flex effect classes. The acceleration of motion for a Quintic easing
  *  equation is greater than for a Quadratic, Cubic, or Quartic easing equation.
