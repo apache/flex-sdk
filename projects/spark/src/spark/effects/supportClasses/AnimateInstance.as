@@ -910,7 +910,6 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         // there must have been no constraints to worry about
         if (constraintsHolder)
         {
-            // FIXME (egeorgie): add support for 'baseline' constraint, when the new layouts support it.
             var left:* = reenableConstraint("left");
             var right:* = reenableConstraint("right");
             var top:* = reenableConstraint("top");
