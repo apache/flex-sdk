@@ -365,8 +365,6 @@ public class Label extends UIComponent
     {
         super();
         
-        // this is so the UITextField we contain can be read by a screen-reader
-        tabChildren = true;
     }
 
     //--------------------------------------------------------------------------
