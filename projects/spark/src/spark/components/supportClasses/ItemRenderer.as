@@ -133,7 +133,7 @@ public class ItemRenderer extends MXMLComponent
     }
     
     //----------------------------------
-    //  labelField
+    //  labelElement
     //----------------------------------
 	
     /**
@@ -145,7 +145,7 @@ public class ItemRenderer extends MXMLComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var labelField:TextGraphicElement;
+    public var labelElement:TextGraphicElement;
 
     //--------------------------------------------------------------------------
     //
@@ -162,13 +162,13 @@ public class ItemRenderer extends MXMLComponent
      */
     override public function get baselinePosition():Number
     {
-        if (!mx_internal::validateBaselinePosition() || !labelField)
+        if (!mx_internal::validateBaselinePosition() || !labelElement)
             return super.baselinePosition;
 
-        var labelPosition:Point = globalToLocal(labelField.parent.localToGlobal(
-            new Point(labelField.x, labelField.y)));
+        var labelPosition:Point = globalToLocal(labelElement.parent.localToGlobal(
+            new Point(labelElement.x, labelElement.y)));
             
-        return labelPosition.y + labelField.baselinePosition;
+        return labelPosition.y + labelElement.baselinePosition;
     }
         
     //--------------------------------------------------------------------------
