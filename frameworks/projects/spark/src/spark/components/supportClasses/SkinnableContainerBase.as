@@ -13,12 +13,10 @@ package spark.components.supportClasses
 {
     
 import flash.display.DisplayObject;
-import spark.components.supportClasses.SkinnableComponent;
+
 import mx.core.ContainerGlobals;
 import mx.core.IFlexDisplayObject;
 import mx.managers.IFocusManagerContainer;
-import spark.utils.MouseShieldUtil;
-
 
 /**
  *  Normal State
@@ -77,6 +75,42 @@ public class SkinnableContainerBase extends SkinnableComponent implements IFocus
     //
     //--------------------------------------------------------------------------
     
+    //----------------------------------
+    //  mouseChildren
+    //----------------------------------
+
+    private var _explicitMouseChildren:Boolean = true;
+
+    /**
+     *  @private
+     */
+    override public function set mouseChildren(value:Boolean):void
+    {
+        if (enabled)
+            super.mouseChildren = value;
+        _explicitMouseChildren = value;
+    }
+
+    //----------------------------------
+    //  mouseEnabled
+    //----------------------------------
+
+    private var _explicitMouseEnabled:Boolean = true;
+
+    /**
+     *  @private
+     */
+    override public function set mouseEnabled(value:Boolean):void
+    {
+        if (enabled)
+            super.mouseEnabled = value;
+        _explicitMouseEnabled = value;
+    }
+
+    //----------------------------------
+    //  enabled
+    //----------------------------------
+
     /**
      *  @private
      */
@@ -84,10 +118,11 @@ public class SkinnableContainerBase extends SkinnableComponent implements IFocus
     {
         super.enabled = value;
         invalidateSkinState();
-        
-        // We update the mouseShield that prevents clicks to propagate to
-        // children in our updateDisplayList.
-        invalidateDisplayList();
+
+        // If enabled, reset the mouseChildren, mouseEnabled to the previously
+        // set explicit value, otherwise disable mouse interaction.
+        super.mouseChildren = value ? _explicitMouseChildren : false;
+        super.mouseEnabled  = value ? _explicitMouseEnabled  : false; 
     }
 
     //----------------------------------
@@ -141,31 +176,5 @@ public class SkinnableContainerBase extends SkinnableComponent implements IFocus
     {
         return enabled ? "normal" : "disabled";
     }
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        mouseShield = MouseShieldUtil.updateMouseShield(this, mouseShield);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-     
-    /**
-     *  @private
-     *  Mouse shield that is put up when this component is disabled.
-     */
-    private var mouseShield:DisplayObject;
 }
 }
