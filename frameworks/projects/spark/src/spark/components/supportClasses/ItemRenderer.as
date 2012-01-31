@@ -363,7 +363,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      */
     override public function get baselinePosition():Number
     {
-        if (!mx_internal::validateBaselinePosition() || !labelElement)
+        if (!validateBaselinePosition() || !labelElement)
             return super.baselinePosition;
 
         var labelPosition:Point = globalToLocal(labelElement.parent.localToGlobal(
