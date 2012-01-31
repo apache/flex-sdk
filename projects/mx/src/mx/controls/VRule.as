@@ -87,6 +87,8 @@ import mx.core.UIComponent;
 
 [IconFile("VRule.png")]
 
+[Alternative(replacement="spark.primitives.Line", since="4.0")]
+
 /**
  *  The VRule control creates a single vertical line.
  *  You typically use this control to create a dividing line
