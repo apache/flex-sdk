@@ -172,7 +172,8 @@ public class HScrollBar extends ScrollBar
         var calculatedThumbSize:Number = (getStyle("fixedThumbSize")) ? 
             super.calculateThumbSize() : 
             thumbSize;
-        thumb.visible = calculatedThumbSize < trackSize;
+        if (getStyle("autoThumbVisibility"))
+            thumb.visible = calculatedThumbSize < trackSize;
     }
     
     /**
