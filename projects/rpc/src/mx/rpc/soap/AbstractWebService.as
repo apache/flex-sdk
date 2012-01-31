@@ -347,6 +347,49 @@ public class AbstractWebService extends AbstractService
         _xmlSpecialCharsFilter = func;
     }
 
+    //----------------------------------
+    //  convertParametersHandler
+    //----------------------------------
+
+   /**
+     * An optional function, primarily intended for framework developers who need to install
+     * a function to get called with the parameters passed to each webservice operation invocation.
+     * The function takes an array of parameters and returns the potentially altered array.
+     *
+     * The function definition should look like:
+     * <code>
+     *   function myParametersFunction(parameters:Array):Array
+     * </code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var convertParametersHandler:Function;
+
+    //----------------------------------
+    //  convertResultHandler
+    //----------------------------------
+
+    /**
+     * An optional function, primarily intended for framework developers who need to install
+     * a hook to process the results of an operation before notifying the result handlers.
+     *
+     * The function definition should look like:
+     * <code>
+     *   function myConvertResultsFunction(result:*, operation:AbstractOperation):*
+     * </code>
+     * 
+     * It is passed the result just after the makeObjectsBindable conversion has been done
+     * but before the result event is created.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public var convertResultHandler:Function;
 
     //-------------------------------------------------------------------------
     //
