@@ -283,7 +283,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
             && dgAccInfo.dataGrid.columns.getItemAt(dgAccInfo.columnIndex).sortable)
             {
                 // TODO: This only allows sorting by one column at a time.
-				var columnIndices:Vector.<int> = Vector.<int>([dgAccInfo.columnIndex]);
+                var columnIndices:Vector.<int> = Vector.<int>([dgAccInfo.columnIndex]);
                 dgAccInfo.dataGrid.sortByColumns(columnIndices);
                 dgAccInfo.dataGrid.columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
             }
@@ -400,7 +400,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
 
         // String representation of row position.
         var rowString:String = "";
-        if ((dgAccInfo.isCellMode && dgAccInfo.columnIndex == 0) || !dgAccInfo.isCellMode)
+        if ((dgAccInfo.isCellMode && dgAccInfo.reachableColumnIndex == 0) || !dgAccInfo.isCellMode)
         {
             resourceManager = ResourceManager.getInstance();
             rowString = resourceManager.getString("components", "rowMofN");
