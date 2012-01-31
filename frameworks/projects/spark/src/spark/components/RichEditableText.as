@@ -13,7 +13,6 @@ package mx.components
 {
 
 import flash.display.BlendMode;
-import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.geom.Rectangle;
@@ -22,19 +21,15 @@ import flash.text.engine.FontDescription;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
-import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.IFlowComposer;
 import flashx.textLayout.compose.StandardFlowComposer;
 import flashx.textLayout.container.DisplayObjectContainerController;
 import flashx.textLayout.container.IContainerController;
-import flashx.textLayout.conversion.ImportExportConfiguration;
-import flashx.textLayout.conversion.ITextImporter;
-import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.conversion.ConversionType;
+import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.EditingMode;
-import flashx.textLayout.edit.IEditManager;
 import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.IUndoManager;
 import flashx.textLayout.edit.SelectionFormat;
@@ -56,7 +51,6 @@ import flashx.textLayout.formats.ICharacterFormat;
 import flashx.textLayout.formats.IContainerFormat;
 import flashx.textLayout.formats.IParagraphFormat;
 import flashx.textLayout.formats.ParagraphFormat;
-import flashx.textLayout.operations.ApplyFormatOperation;
 import flashx.textLayout.operations.CutOperation;
 import flashx.textLayout.operations.DeleteTextOperation;
 import flashx.textLayout.operations.FlowOperation;
@@ -66,9 +60,9 @@ import flashx.textLayout.operations.PasteOperation;
 import flashx.textLayout.operations.SplitParagraphOperation;
 
 import mx.core.IViewport;
-import mx.core.mx_internal;
-import mx.core.UIComponent;
 import mx.core.ScrollUnit;
+import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.TextOperationEvent;
 import mx.utils.StringUtil;
@@ -1021,30 +1015,50 @@ public class TextView extends UIComponent implements IViewport
             return 0;
             
         var maxDelta:Number = contentHeight - scrollR.height - scrollR.y;
-        var minDelta:Number = -scrollR.y; 
+        var minDelta:Number = -scrollR.y;
+        
+        var flowComposer:IFlowComposer = textFlow.flowComposer;
             
         switch (unit)
         {
             case ScrollUnit.UP:
-                return (scrollR.y <= 0) ? 0 : -1;
+            {
+        		return !flowComposer || flowComposer.numControllers == 0 ?
+            		   0 :
+            		   flowComposer.getControllerAt(0).scrollLines(-1);
+            }
                 
             case ScrollUnit.DOWN:
-                return (scrollR.y >= maxDelta) ? 0 : 1;
+            {
+        		return !flowComposer || flowComposer.numControllers == 0 ?
+					   0 :
+					   flowComposer.getControllerAt(0).scrollLines(1);
+            }
                 
             case ScrollUnit.PAGE_UP:
+            {
                 return Math.max(minDelta, -scrollR.height);
+            }
                 
             case ScrollUnit.PAGE_DOWN:
+            {
                 return Math.min(maxDelta, scrollR.height);
+            }
                 
-            case ScrollUnit.HOME: 
+            case ScrollUnit.HOME:
+            {
                 return minDelta;
+            }
                 
-            case ScrollUnit.END: 
+            case ScrollUnit.END:
+           	{
                 return maxDelta;
+            }
                 
             default:
+            {
                 return 0;
+            }
         }       
     }
     
