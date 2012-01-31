@@ -887,18 +887,22 @@ public final class Animation
      */
     public function end():void
     {
-        if (id >= 0 || duration == 0)
-        {
-            // FIXME (chaase): Check whether we already send out a final
-            // UPDATE event with the end value; if so, this dup should be
-            // removed
-            // FIXME (chaase): this will snap paused and startDelayed animations
-            // to their end values. Seems correct, but should check this.
-            calculateValue(duration);
-            
-            sendUpdateEvent();
-            sendAnimationEvent(EffectEvent.EFFECT_END);
-        }
+        // Note that we are potentially sending out this event to effects
+        // whose Animation is not yet running (for example, if we're autoReversing
+        // a transition and then skipping past the first effect). 
+        // This could mean that the end value is not yet initialized, so
+        // interpolators should be written to just send back the end value
+        // instead of trying to calculate it for the end time.
+        
+        // FIXME (chaase): Check whether we already send out a final
+        // UPDATE event with the end value; if so, this dup should be
+        // removed
+        // FIXME (chaase): this will snap paused and startDelayed animations
+        // to their end values. Seems correct, but should check this.
+        calculateValue(duration);
+        
+        sendUpdateEvent();
+        sendAnimationEvent(EffectEvent.EFFECT_END);
 
         // The rest of what we need to do is handled by stopAnimation()
         stopAnimation();
