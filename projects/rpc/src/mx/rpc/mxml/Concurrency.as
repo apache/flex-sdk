@@ -19,7 +19,10 @@ package mx.rpc.mxml
 public final class Concurrency
 {
     /**
-     * Making a request cancels any existing request.
+     * Making a request causes the client to ignore a result or fault for any current outstanding request. 
+     * Only the result or fault for the most recent request will be dispatched on the client. 
+     * This may simplify event handling in the client application, but care should be taken to only use 
+     * this mode when results or faults for requests may be safely ignored.
      */
     public static const LAST:String = "last";
 
@@ -31,7 +34,8 @@ public final class Concurrency
 
 
     /**
-     * Only a single request at a time is allowed on the operation; multiple requests generate a fault.
+     * Making only one request at a time is allowed on the method; additional requests made 
+     * while a request is outstanding are immediately faulted on the client and are not sent to the server.
      */
     public static const SINGLE:String = "single";
 }
