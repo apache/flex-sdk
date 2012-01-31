@@ -30,6 +30,7 @@ import mx.core.IUID;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.DragEvent;
+import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
@@ -745,6 +746,7 @@ public class List extends ListBase implements IFocusManagerComponent
     private var multipleSelectionChanged:Boolean; 
     
     [Bindable("change")]
+    [Bindable("valueCommit")]
     
     /**
      *  A Vector of ints representing the indices of the currently selected  
@@ -775,9 +777,26 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     public function set selectedIndices(value:Vector.<int>):void
     {
-        if (_proposedSelectedIndices == value)
+        setSelectedIndices(value, false);
+    }
+    
+    /**
+     *  @private
+     *  Used internally to specify whether the selectedIndices changed programmatically or due to 
+     *  user interaction. 
+     * 
+     *  @param dispatchChangeEvent if true, the component will dispatch a "change" event if the
+     *  value has changed. Otherwise, it will dispatch a "valueCommit" event. 
+     */
+    mx_internal function setSelectedIndices(value:Vector.<int>, dispatchChangeEvent:Boolean = false):void
+    {
+        // TODO (jszeto) Do a deep compare of the vectors
+        if (_proposedSelectedIndices == value || 
+            (value.length == 1 && value[0] == selectedIndex))
             return; 
         
+        if (dispatchChangeEvent)
+            dispatchChangeAfterSelection = dispatchChangeEvent;
         _proposedSelectedIndices = value;
         multipleSelectionChanged = true;  
         invalidateProperties();
@@ -788,7 +807,8 @@ public class List extends ListBase implements IFocusManagerComponent
     //----------------------------------
 
     [Bindable("change")]
-
+    [Bindable("valueCommit")]
+    
     /**
      *  A Vector of Objects representing the currently selected data items. 
      *  If multiple selection is disabled by setting <code>allowMultipleSelection</code>
@@ -1014,10 +1034,20 @@ public class List extends ListBase implements IFocusManagerComponent
         // the bindings update correctly. 
         if (dispatchChangedEvents && retVal)
         {
-            var e:IndexChangeEvent = new IndexChangeEvent(IndexChangeEvent.CHANGE);
-            e.oldIndex = oldSelectedIndex;
-            e.newIndex = _selectedIndex;
-            dispatchEvent(e);
+            var e:IndexChangeEvent; 
+            
+            if (dispatchChangeAfterSelection)
+            {
+                e = new IndexChangeEvent(IndexChangeEvent.CHANGE);
+                e.oldIndex = oldSelectedIndex;
+                e.newIndex = _selectedIndex;
+                dispatchEvent(e);
+                dispatchChangeAfterSelection = false;
+            }
+            else
+            {
+                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+            }
             
             e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
@@ -1351,7 +1381,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         // Clear the selection, but remember which items were moved
         var movedIndices:Vector.<int> = selectedIndices;
-        selectedIndices = new Vector.<int>();
+        setSelectedIndices(new Vector.<int>(), true);
         validateProperties(); // To commit the selection
         
         // Remove the moved items
@@ -1481,7 +1511,7 @@ public class List extends ListBase implements IFocusManagerComponent
                 pendingSelectionShiftKey = event.shiftKey;
             }
             else
-                selectedIndex = newIndex;
+                setSelectedIndex(newIndex, true);
         }
         else 
         {
@@ -1495,7 +1525,7 @@ public class List extends ListBase implements IFocusManagerComponent
             }
             else
             {
-                selectedIndices = calculateSelectedIndices(newIndex, event.shiftKey, event.ctrlKey);
+                setSelectedIndices(calculateSelectedIndices(newIndex, event.shiftKey, event.ctrlKey), true);
             }
         }
         
@@ -1583,12 +1613,12 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             if (allowMultipleSelection)
             {
-                selectedIndices = calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
+                setSelectedIndices(calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey), true);
             }
             else
             {
                 // Must be deselecting the current selected item.
-                selectedIndex = NO_SELECTION;
+                setSelectedIndex(NO_SELECTION, true);
             }
         }
 
@@ -1907,7 +1937,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // Clear the selection first to avoid extra work while adding and removing items.
         // We will set a new selection further below in the method.
         var indices:Vector.<int> = selectedIndices; 
-        selectedIndices = new Vector.<int>();
+        setSelectedIndices(new Vector.<int>(), false);
         validateProperties(); // To commit the selection
         
         // If we are reordering the list, remove the items now,
@@ -1953,7 +1983,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
 
         // Set the selection
-        selectedIndices = newSelection;
+        setSelectedIndices(newSelection, false);
 
         // Scroll the caret index in view
         if (caretIndex != -1)
@@ -2110,12 +2140,10 @@ public class List extends ListBase implements IFocusManagerComponent
                 _selectedIndex = 0; 
                 itemShowingCaret(0, true); 
                 // If the selection properties have been adjusted to account for items that
-                // have been added or removed, send out a "change" event and 
+                // have been added or removed, send out a "valueCommit" event and 
                 // "caretChange" event so any bindings to them are updated correctly.
-                e = new IndexChangeEvent(IndexChangeEvent.CHANGE);
-                e.oldIndex = -1;
-                e.newIndex = _selectedIndex;
-                dispatchEvent(e);
+                 
+                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
                 
                 e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
                 e.oldIndex = -1; 
@@ -2297,7 +2325,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         if (retVal != -1)
         {
-            selectedIndex = retVal;
+            setSelectedIndex(retVal, true);
             ensureIndexIsVisible(retVal); 
             return true; 
         }
@@ -2347,7 +2375,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // selected. 
         if (event.keyCode == Keyboard.SPACE)
         {
-            selectedIndex = caretIndex; 
+            setSelectedIndex(caretIndex, true); 
             event.preventDefault();
             return; 
         }
@@ -2359,7 +2387,6 @@ public class List extends ListBase implements IFocusManagerComponent
         // matches the keystroke. 
         if (findKey(event.charCode))
         {
-            trace("findkey");
             event.preventDefault();
             return;
         }
@@ -2436,7 +2463,7 @@ public class List extends ListBase implements IFocusManagerComponent
                     newInterval.splice(0, 0, i); 
                 }
             }
-            selectedIndices = newInterval;  
+            setSelectedIndices(newInterval, true);  
             ensureIndexIsVisible(proposedNewIndex); 
         }
         // Entering the caret state with the Ctrl key down 
@@ -2453,7 +2480,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // Its just a new selection action, select the new index.
         else
         {
-            selectedIndex = proposedNewIndex;
+            setSelectedIndex(proposedNewIndex, true);
             ensureIndexIsVisible(proposedNewIndex);
         }
     }
