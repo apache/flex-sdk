@@ -76,6 +76,11 @@ use namespace mx_internal;
  *
  * @includeExample examples/RemoteObjectExample.mxml -noswf
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implements IMXMLSupport, IMXMLObject
 {
@@ -89,6 +94,11 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
      * Create a new RemoteObject.
      * @param destination the destination of the RemoteObject, should match a destination name 
      * in the services-config.xml file.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RemoteObject(destination:String = null)
     {
@@ -173,6 +183,11 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
      * Operation instead.
      * @param name Name of the Operation.
      * @return Operation that executes for this name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getOperation(name:String):AbstractOperation
     {
@@ -194,6 +209,11 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
      *
      * @param document the MXML document on which this RemoteObject lives
      * @param id the id of this RemoteObject within the document
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialized(document:Object, id:String):void
     {
