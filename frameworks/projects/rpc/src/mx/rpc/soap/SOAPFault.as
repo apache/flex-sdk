@@ -18,6 +18,11 @@ import mx.rpc.Fault;
 /**
  * A subclass of mx.rpc.Fault that provides SOAP specific information from
  * a SOAP envelope Fault element.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SOAPFault extends Fault
 {
@@ -33,6 +38,11 @@ public class SOAPFault extends Fault
      * @param element The raw XML of the SOAP fault.
      *
      * @param faultactor Information about who caused the SOAP fault.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SOAPFault(faultCode:QName,
                        faultString:String,
@@ -55,12 +65,22 @@ public class SOAPFault extends Fault
 
     /**
      * The raw XML of this SOAP Fault.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var element:XML;
 
     /**
      * A SOAP Fault may provide information about who caused the fault through
      * a faultactor property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var faultactor:String;
 
@@ -70,6 +90,11 @@ public class SOAPFault extends Fault
      * the fully qualified name of the code.
      * 
      * @see mx.rpc.Fault#faultDetail
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var faultcode:QName;
 
@@ -85,6 +110,11 @@ public class SOAPFault extends Fault
      * to match the case of the detail element in a SOAP Fault.
      * 
      * @see mx.rpc.Fault#faultDetail
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get detail():String
     {
@@ -101,6 +131,11 @@ public class SOAPFault extends Fault
      * to match the case of the faultstring element in a SOAP envelope Fault.
      * 
      * @see mx.rpc.Fault#faultString
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get faultstring():String
     {
@@ -125,6 +160,11 @@ public class SOAPFault extends Fault
      *
      * @return Returns the String "SOAPFault" plus the faultCode, faultString, and
      * faultDetail.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function toString():String
     {
