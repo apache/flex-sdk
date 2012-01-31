@@ -71,6 +71,27 @@ public class Scale3D extends AnimateTransform3D
 {
     include "../core/Version.as";
 
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static var AFFECTED_PROPERTIES:Array =
+        ["scaleX", "scaleY", "scaleZ",
+         "postLayoutScaleX","postLayoutScaleY","postLayoutScaleZ"];
+
+    private static var RELEVANT_STYLES:Array = [];
+
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  Constructor.
      *
@@ -262,6 +283,22 @@ public class Scale3D extends AnimateTransform3D
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        return RELEVANT_STYLES;
+    }   
+
+    /**
+     *  @private
+     */
+    override public function getAffectedProperties():Array /* of String */
+    {
+        return AFFECTED_PROPERTIES;
+    }
 
     /**
      * @private
