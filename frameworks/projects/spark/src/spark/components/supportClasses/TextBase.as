@@ -187,7 +187,8 @@ public class TextBase extends UIComponent
 
     /**
      *  @private
-	 *  The TextLines created to render the text.
+	 *  The TextLines and Shapes created to render the text.
+	 *  (Shapes are used to render the backgroundColor format for RichText.)
      */
     mx_internal var textLines:Vector.<DisplayObject> =
     	new Vector.<DisplayObject>();
