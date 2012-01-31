@@ -503,6 +503,7 @@ include "../styles/metadata/IconColorStyles.as"
 //--------------------------------------
 
 [Exclude(name="columnCount", kind="property")]
+[Exclude(name="columnWidth", kind="property")]
 [Exclude(name="iconField", kind="property")]
 [Exclude(name="iconFunction", kind="property")]
 [Exclude(name="labelField", kind="property")]
@@ -3009,7 +3010,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     lastColumn = visibleLockedColumns[i];
                     ratio = lastColumn.width / totalWidth;
                     //totalWidth -= visibleLockedColumns[i].width;
-                    newSize = displayWidth * ratio;
+                    newSize = Math.floor(displayWidth * ratio);
                     lastColumn.setWidth(newSize);
                     lastColumn.explicitWidth = NaN;
                     // trace("column " + i + " set to " + visibleLockedColumns[i].width);
@@ -3021,7 +3022,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     lastColumn = visibleColumns[i];
                     ratio = lastColumn.width / totalWidth;
                     //totalWidth -= visibleColumns[i].width;
-                    newSize = displayWidth * ratio;
+                    newSize = Math.floor(displayWidth * ratio);
                     lastColumn.setWidth(newSize);
                     lastColumn.explicitWidth = NaN;
                     // trace("column " + i + " set to " + visibleColumns[i].width);
