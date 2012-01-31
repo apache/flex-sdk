@@ -103,7 +103,7 @@ use namespace mx_internal;
 [IconFile("Tile.png")]
 
 /**
- *  A Tile container lays out its children
+ *  A Halo Tile container lays out its children
  *  in a grid of equal-sized cells.
  *  You can specify the size of the cells by using the
  *  <code>tileWidth</code> and <code>tileHeight</code> properties,
@@ -113,6 +113,9 @@ use namespace mx_internal;
  *  determines whether its cells are laid out horizontally or
  *  vertically, beginning from the upper-left corner of the
  *  Tile container.
+ * 
+ *  <p><b>Note:</b> Adobe recommends that, when possible, you use the Spark containers 
+ *  with TileLayout instead of the Halo Tile container.</p>
  *
  *  <p>A Tile container has the following default sizing characteristics:</p>
  *     <table class="innertable">
@@ -180,6 +183,8 @@ use namespace mx_internal;
  *  </pre>
  *
  *  @includeExample examples/TileLayoutExample.mxml
+ *
+ *  @see mx.components.Container
  */
 public class Tile extends Container
 {
