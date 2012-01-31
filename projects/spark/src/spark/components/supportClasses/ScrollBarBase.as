@@ -363,6 +363,8 @@ public class ScrollBar extends TrackBase
         invalidateSkinState();
     }
     
+    [Inspectable(minValue="0.0")]
+    
     /**
      *  @inheritDoc
      *  
