@@ -427,14 +427,6 @@ public class Scroller extends SkinnableComponent
      */
     private static const THROW_EFFECT_TIME:int = 2000;
     
-    /**
-     *  @private
-     *  SDT - Scrollbar Display Threshold.  If the content size exceeds the
-     *  viewport's size by SDT, then we show a scrollbar.  For example, if the 
-     *  contentWidth >= viewport width + SDT, show the horizontal scrollbar.
-     */
-    mx_internal static const SDT:Number = 1.0;
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -568,15 +560,6 @@ public class Scroller extends SkinnableComponent
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    private function invalidateSkin():void
-    {
-        if (skin)
-        {
-            skin.invalidateSize()
-            skin.invalidateDisplayList();
-        }
-    }    
     
     //----------------------------------
     //  horizontalScrollBar
@@ -997,6 +980,37 @@ public class Scroller extends SkinnableComponent
     
     //--------------------------------------------------------------------------
     //
+    //  Private Helper Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Helper method to easily invalidate the skins's size and display list.
+     */
+    private function invalidateSkin():void
+    {
+        if (skin)
+        {
+            skin.invalidateSize()
+            skin.invalidateDisplayList();
+        }
+    }
+    
+    /**
+     *  @private
+     *  Helper method to grab the ScrollerLayout.
+     */
+    mx_internal function get scrollerLayout():ScrollerLayout
+    {
+        if (skin)
+            return Group(skin).layout as ScrollerLayout;
+        
+        return null;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Touch scrolling methods
     //
     //--------------------------------------------------------------------------
@@ -1035,48 +1049,6 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Helper function to determine whether the viewport scrolls horizontally
-     */
-    mx_internal function get canScrollHorizontally():Boolean
-    {
-        if (getStyle("horizontalScrollPolicy") == ScrollPolicy.ON)
-            return true;
-        
-        if (getStyle("horizontalScrollPolicy") == ScrollPolicy.AUTO)
-        {
-            var viewportUIC:IUIComponent = viewport as IUIComponent;
-            var explicitViewportW:Number = viewportUIC ? viewportUIC.explicitWidth : NaN;
-            var viewportW:Number = isNaN(explicitViewportW) ? (viewport.width - (minViewportInset * 2)) : explicitViewportW;
-            
-            return viewport.contentWidth >= (viewportW + SDT);
-        }
-        
-        return false;
-    }
-    
-    /**
-     *  @private
-     *  Helper function to determine whether the viewport scrolls vertically
-     */
-    mx_internal function get canScrollVertically():Boolean
-    {
-        if (getStyle("verticalScrollPolicy") == ScrollPolicy.ON)
-            return true;
-        
-        if (getStyle("verticalScrollPolicy") == ScrollPolicy.AUTO)
-        {
-            var viewportUIC:IUIComponent = viewport as IUIComponent;
-            var explicitViewportH:Number = viewportUIC ? viewportUIC.explicitHeight : NaN;
-            var viewportH:Number = isNaN(explicitViewportH) ? (viewport.height - (minViewportInset * 2)) : explicitViewportH;
-            
-            return viewport.contentHeight >= (viewportH + SDT);
-        }
-        
-        return false;
-    }
-    
-    /**
-     *  @private
      *  Set up the effect to be used for the throw animation
      *  FIXME (rfrishbe): this could use some work
      */
@@ -1106,7 +1078,7 @@ public class Scroller extends SkinnableComponent
         var decelerationRateY:Number = velocityY/THROW_EFFECT_TIME;
         
         // figure out where we're scrolling to
-        if (canScrollHorizontally)
+        if (scrollerLayout && scrollerLayout.canScrollHorizontally)
         {
             var hsp:Number = viewport.horizontalScrollPosition;
             var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
@@ -1118,7 +1090,7 @@ public class Scroller extends SkinnableComponent
             
         }
         
-        if (canScrollVertically)
+        if (scrollerLayout && scrollerLayout.canScrollVertically)
         {
             var vsp:Number = viewport.verticalScrollPosition;
             var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
@@ -1138,7 +1110,7 @@ public class Scroller extends SkinnableComponent
         var timeToReachHSP:Number = 0;
         var timeToReachVSP:Number = 0;
         
-        if (canScrollHorizontally)
+        if (scrollerLayout && scrollerLayout.canScrollHorizontally)
         {
             var horizontalMP:MotionPath = new SimpleMotionPath("horizontalScrollPosition", hsp, finalHSP);
             var hspToUse:Number = Math.min(Math.max(finalHSP,0), maxWidth);
@@ -1158,7 +1130,7 @@ public class Scroller extends SkinnableComponent
             scrollingHorizontally = false;
         }
         
-        if (canScrollVertically)
+        if (scrollerLayout && scrollerLayout.canScrollVertically)
         {
             var verticalMP:SimpleMotionPath = new SimpleMotionPath("verticalScrollPosition");
             var vspToUse:Number = Math.min(Math.max(finalVSP,0), maxHeight);
@@ -1510,10 +1482,10 @@ public class Scroller extends SkinnableComponent
             // Scroller events to determine this rather than doing it here.
             // Also should figure out who's in charge of fading the alpha of the
             // scrollbars...Scroller or ScrollerLayout (or even HScrollbar/VScrollbar)?
-            if (canScrollHorizontally)
+            if (scrollerLayout && scrollerLayout.canScrollHorizontally)
                 horizontalScrollInProgress = true;
             
-            if (canScrollVertically)
+            if (scrollerLayout && scrollerLayout.canScrollVertically)
                 verticalScrollInProgress = true;
             
             // need to invaliadte the ScrollerLayout object so it'll update the
@@ -1593,10 +1565,10 @@ public class Scroller extends SkinnableComponent
         var xMove:int = 0;
         var yMove:int = 0;
         
-        if (canScrollHorizontally)
+        if (scrollerLayout && scrollerLayout.canScrollHorizontally)
             xMove = dragX;
         
-        if (canScrollVertically)
+        if (scrollerLayout && scrollerLayout.canScrollVertically)
             yMove = dragY;
         
         var newHSP:Number = hspBeforeTouchScroll - xMove;
@@ -2015,10 +1987,10 @@ class TouchScrollHelper
             var possibleScrollVertically:Boolean = false;
             
             // figure out if we can even scroll horizontally or vertically
-            if (scroller.canScrollHorizontally)
+            if (scroller.scrollerLayout && scroller.scrollerLayout.canScrollHorizontally)
                 possibleScrollHorizontally = true;
             
-            if (scroller.canScrollVertically)
+            if (scroller.scrollerLayout && scroller.scrollerLayout.canScrollVertically)
                 possibleScrollVertically = true;
             
             // now figure out if we should scroll horizontally or vertically based on our slop
