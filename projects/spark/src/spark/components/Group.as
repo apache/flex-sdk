@@ -778,7 +778,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             
             // If a scaleGrid is set, make sure the extent of the groups bounds are filled so
             // the player will scale our contents as expected. 
-            if (scale9Grid && resizeMode == ResizeMode.SCALE)
+            if (isValidScaleGrid() && resizeMode == ResizeMode.SCALE)
             {
                 graphics.lineStyle();
                 graphics.beginFill(0, 0);
