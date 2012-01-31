@@ -273,15 +273,22 @@ public class SliderBaseAccImpl extends AccImpl
         }
     }
 
-    /**
+	//--------------------------------------------------------------------------
+	//
+	//  Event handlers
+	//
+	//--------------------------------------------------------------------------
+
+	/**
      *  @private
-     *  This is (kind of) a hack to get around the fact that SliderBase is not
-     *  an IFocusManagerComponent. It forces frocus from accessibility when one of
-     *  its thumbs get focus.
+     *  This is (kind of) a hack to get around the fact
+	 *  that SliderBase is not an IFocusManagerComponent.
+	 *  It forces focus from accessibility when one of its thumbs get focus.
      */
     private function focusInHandler(event:Event):void
     {
         Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_FOCUS);
     }
 }
+
 }
