@@ -30,7 +30,7 @@ import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 import flash.text.engine.TextLineValidity;
-import flashx.textLayout.elements.ITextLineCreator;
+import flashx.textLayout.compose.ITextLineCreator;
 
 import mx.core.mx_internal;
 import mx.core.EmbeddedFont;
