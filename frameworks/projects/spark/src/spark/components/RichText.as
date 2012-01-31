@@ -399,7 +399,6 @@ public class RichText extends TextBase
     //----------------------------------
     //  text
     //----------------------------------
-    [Inspectable(category="General")]
 
     // Compiler will strip leading and trailing whitespace from text string.
     [CollapseWhiteSpace]
@@ -519,6 +518,8 @@ public class RichText extends TextBase
      */
     private var contentChanged:Boolean = false;
     
+    [Inspectable(environment="none")]
+
     /**
      *  @private
      *  This metadata tells the MXML compiler to disable some of its default
@@ -670,6 +671,8 @@ public class RichText extends TextBase
      */
     private var maskTypeChanged:Boolean;
     
+    [Inspectable(defaultValue="clip", enumeration="clip,alpha,luminosity")]
+
     /**
      *  <p>The maskType defines how the mask is applied to the component.</p> 
      * 
@@ -774,6 +777,8 @@ public class RichText extends TextBase
      */
     private var luminositySettingsChanged:Boolean;
 
+    [Inspectable(defaultValue="false")]
+
     /**
      *  A property that controls the calculation of the RGB 
      *  color value of a graphic element being masked by 
@@ -818,6 +823,8 @@ public class RichText extends TextBase
      */
     private var _luminosityClip:Boolean = false; 
         
+    [Inspectable(defaultValue="false")]
+
     /**
      *  A property that controls whether the luminosity 
      *  mask clips the masked content. This property can 
