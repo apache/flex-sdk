@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.interpolation
+package spark.effects.easing
 {
 /**
  * IEaser is an interface implemented by classes that provide time-easing
@@ -36,7 +36,7 @@ public interface IEaser
     /**
      * This function takes the fraction elapsed of a current tween
      * (a value from 0 to 1) and returns a new elapsed value. This 
-     * value will be used to calculate FxAnimated property values. By 
+     * value will be used to calculate Animated property values. By 
      * changing the value of the elapsed fraction, we effectively change
      * the animation of the property.
      * 
