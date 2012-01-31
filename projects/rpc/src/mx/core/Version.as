@@ -1,12 +1,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
-//  Copyright (C) 2003-2006 Adobe Macromedia Software LLC and its licensors.
-//  All Rights Reserved. The following is Source Code and is subject to all
-//  restrictions on such code as contained in the End User License Agreement
-//  accompanying this product.
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2003-2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-
 import mx.core.mx_internal;
 
 /**
