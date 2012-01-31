@@ -42,28 +42,28 @@ use namespace mx_internal;
 /**
  *  The close button disabled skin.
  *
- *  @default CloseButtonDisabled
+ *  The default value is the "CloseButtonDisabled" symbol in the Assets.swf file.
  */
 [Style(name="closeButtonDisabledSkin", type="Class", inherit="no")]
 
 /**
  *  The close button down skin.
  *
- *  @default CloseButtonDown
+ *  The default value is the "CloseButtonDown" symbol in the Assets.swf file.
  */
 [Style(name="closeButtonDownSkin", type="Class", inherit="no")]
 
 /**
  *  The close button over skin.
  *
- *  @default CloseButtonOver
+ *  The default value is the "CloseButtonOver" symbol in the Assets.swf file.
  */
 [Style(name="closeButtonOverSkin", type="Class", inherit="no")]
 
 /**
  *  The close button up skin.
  *
- *  @default CloseButtonUp
+ *  The default value is the "CloseButtonUp" symbol in the Assets.swf file.
  */
 [Style(name="closeButtonUpSkin", type="Class", inherit="no")]
 
@@ -135,10 +135,13 @@ use namespace mx_internal;
  *  &lt;mx:TitleWindow
  *   <b>Properties</b>
  *   showCloseButton="false|true"
- *   closeButtonDisabledSkin="CloseButtonDisabled"
- *   closeButtonDownSkin="CloseButtonDown"
- *   closeButtonOverSkin="CloseButtonOver"
- *   closeButtonUpSkin="CloseButtonUp"
+ * 
+ *   <b>Styles</b>
+ *   closeButtonDisabledSkin="<i>'CloseButtonDisabled' symbol in Assets.swf</i>"
+ *   closeButtonDownSkin="<i>'CloseButtonDown' symbol in Assets.swf</i>"
+ *   closeButtonOverSkin="<i>'CloseButtonOver' symbol in Assets.swf</i>"
+ *   closeButtonUpSkin="<i>'CloseButtonUp' symbol in Assets.swf</i>"
+ *  
  *   <strong>Events</strong>
  *   close="<i>No default</i>"
  *   &gt;
