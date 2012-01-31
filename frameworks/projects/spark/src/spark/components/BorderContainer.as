@@ -17,35 +17,6 @@ import mx.graphics.IStroke;
 import spark.components.SkinnableContainer;
 
 /**
- *  Alpha level of the color defined by the <code>backgroundColor</code>
- *  property, or the image file defined by the <code>backgroundImage</code>
- *  style.
- *  Valid values range from 0.0 to 1.0. 
- *  
- *  @default 1.0
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="backgroundAlpha", type="Number", inherit="no")]
-
-/**
- *  Background color of the container.
- *  
- *  The default value is <code>undefined</code>, which means it is not set.
- *  If both this style and the <code>backgroundImage</code> style
- *  are <code>undefined</code>, the component has a transparent background.
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
-
-/**
  *  Background image of a container.  This can be an absolute or relative
  *  URL or class.  You can either have both a <code>backgroundColor</code> and a
  *  <code>backgroundImage</code> set at the same time. The background image is displayed
