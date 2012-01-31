@@ -25,8 +25,6 @@ import mx.core.UIComponent;
 import mx.events.FlexEvent;
 import mx.events.ItemClickEvent;
 
-use namespace mx_internal;
-
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -177,11 +175,8 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
         // For each radio button, if the group is enabled then the button
         // enable property determines if the button is enabled and if the
         // group is disabled all the buttons are disabled.
-        var n:int = numRadioButtons;
-        for (var i:int = 0; i < n; i++)
-        {
-            getRadioButtonAt(i).setEnabled();
-        }
+        for (var i:int = 0; i < numRadioButtons; i++)
+            getRadioButtonAt(i).mx_internal::invalidateRadioButtonState();
 
         dispatchEvent(new Event("enabledChanged"));
     }
@@ -299,7 +294,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     public function set selection(value:FxRadioButton):void
     {
         // Going through the selection setter should never fire a change event.
-        setSelection(value, false);
+        mx_internal::setSelection(value, false);
     }
 
     //--------------------------------------------------------------------------
@@ -341,33 +336,42 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 
     /**
      *  @private
-     *  Add a radio button to the group.
+     *  Add a radio button to the group.  This can be called by
+     *  FxRadioButton or via the addedHandler when applying a state.
      */
     mx_internal function addInstance(instance:FxRadioButton):void
     {
+        // During a state transition, called when rb is removed from 
+        // display list.
         instance.addEventListener(Event.REMOVED, radioButton_removedHandler);
+        
         radioButtons.push(instance);
 
         // Apply group indices in "breadth-first" order.
         radioButtons.sort(breadthOrderCompare);
         for (var i:int = 0; i < radioButtons.length; i++)
-            radioButtons[i].indexNumber = i;
+            radioButtons[i].mx_internal::indexNumber = i;
+        
+        // If this radio button is selected, then it becomes the selection
+        // for the group.
+        if (instance.selected == true)
+            selection = instance;
 
-        if (_selectedValue != null)
-            selectedValue = _selectedValue;
-
+        instance.mx_internal::radioButtonGroup = this;
+        instance.mx_internal::invalidateRadioButtonState();
+        
 		dispatchEvent(new Event("numRadioButtonsChanged"));
     }
 
     /**
      *  @private
-     *  Remove a radio button from the group.
+     *  Remove a radio button from the group.  This can be called by
+     *  FxRadioButton or via the removedHandler when removing a state.
      */
-    mx_internal function removeInstance(instance:FxRadioButton):void
+    private function removeInstance(instance:FxRadioButton):void
     {
         if (instance)
         {
-
             var foundInstance:Boolean = false;
             for (var i:int = 0; i < numRadioButtons; i++)
             {
@@ -376,19 +380,32 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
                 if (foundInstance)
                 {
                     // Decrement the indexNumber for each button after the removed button.
-                    rb.indexNumber--;
+                    rb.mx_internal::indexNumber = rb.mx_internal::indexNumber - 1;
                 }
                 else if (rb == instance)
                 {
-                	rb.group = null;
+                    // During a state transition, called when rb is added back 
+                    // to display list.
+                    instance.addEventListener(Event.ADDED, radioButton_addedHandler);
+        
+                    // Don't set the group to null.  If this is being removed
+                    // because the state changed, the group will be needed
+                    // if the radio button is readded later because of another
+                    // state transition.
+                	//rb.group = null;
 
+                    // If the rb is selected, leave the button itself selected
+                    // but clear the selection for the group.
                     if (instance == _selection)
-                    {
                         _selection = null;
-                    }
+
+                    instance.mx_internal::radioButtonGroup = null;
+                    instance.mx_internal::invalidateRadioButtonState();
+
                     // Remove the radio button from the internal array.
                     radioButtons.splice(i,1);
                     foundInstance = true;
+
                     // redo the same index because we removed the previous item at this index
                     i--;
                 }
@@ -402,7 +419,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
     /**
      *  @private
      */
-    mx_internal function getEnabled():Boolean
+    protected function getEnabled():Boolean
     {
         return _enabled;
     }
@@ -518,13 +535,28 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      /**
      *  @private
      */
+    private function radioButton_addedHandler(event:Event):void
+    {
+        var rb:FxRadioButton = event.target as FxRadioButton;
+        if (rb)
+        {
+            //trace("radioButton_addedHandler", rb.id);
+            rb.removeEventListener(Event.ADDED, radioButton_addedHandler);
+            mx_internal::addInstance(rb);
+        }
+    }
+
+     /**
+     *  @private
+     */
     private function radioButton_removedHandler(event:Event):void
     {
         var rb:FxRadioButton = event.target as FxRadioButton;
         if (rb)
         {
+            //trace("radioButton_removedHandler", rb.id);
         	rb.removeEventListener(Event.REMOVED, radioButton_removedHandler);
-            removeInstance(FxRadioButton(event.target));
+            removeInstance(rb);
         }
     }
 }
