@@ -165,7 +165,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      *  responsibility for displaying something to indicate their cell or row has
      *  the caret.  The Grid itself automatically displays the caretIndicator skin part for the 
      *  caret row or cell.  The item renderer can also change its visual properties 
-     *  to emphasize that it has the caret.</p></p>
+     *  to emphasize that it has the caret.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
