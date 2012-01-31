@@ -15,7 +15,6 @@ package spark.components.supportClasses
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
-import flash.ui.ContextMenu;
 
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.SelectionEvent;
@@ -202,67 +201,62 @@ public class SkinnableTextBase extends SkinnableComponent
     /**
      *  @private
      */
-    private static const CONTEXT_MENU_PROPERTY_FLAG:uint = 1 << 1;
+    private static const DISPLAY_AS_PASSWORD_PROPERTY_FLAG:uint = 1 << 1;
     
     /**
      *  @private
      */
-    private static const DISPLAY_AS_PASSWORD_PROPERTY_FLAG:uint = 1 << 2;
-    
-    /**
-     *  @private
-     */
-    private static const EDITABLE_PROPERTY_FLAG:uint = 1 << 3;
+    private static const EDITABLE_PROPERTY_FLAG:uint = 1 << 2;
         
     /**
      *  @private
      */
-    private static const HEIGHT_IN_LINES_PROPERTY_FLAG:uint = 1 << 4;
+    private static const HEIGHT_IN_LINES_PROPERTY_FLAG:uint = 1 << 3;
     
     /**
      *  @private
      */
-    private static const IME_MODE_PROPERTY_FLAG:uint = 1 << 5;
+    private static const IME_MODE_PROPERTY_FLAG:uint = 1 << 4;
     
     /**
      *  @private
      */
-    private static const MAX_CHARS_PROPERTY_FLAG:uint = 1 << 6;
+    private static const MAX_CHARS_PROPERTY_FLAG:uint = 1 << 5;
        
     /**
      *  @private
      */
-    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 7;
+    private static const MAX_WIDTH_PROPERTY_FLAG:uint = 1 << 6;
     
     /**
      *  @private
      */
-    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 8;
+    private static const RESTRICT_PROPERTY_FLAG:uint = 1 << 7;
 
     /**
      *  @private
      */
-    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 9;
+    private static const SELECTABLE_PROPERTY_FLAG:uint = 1 << 8;
 
     /**
      *  @private
      */
-    private static const SELECTION_HIGHLIGHTING_FLAG:uint = 1 << 10;
+    private static const SELECTION_HIGHLIGHTING_FLAG:uint = 1 << 9;
 
     /**
      *  @private
      */
-    private static const TEXT_PROPERTY_FLAG:uint = 1 << 11;
+    private static const TEXT_PROPERTY_FLAG:uint = 1 << 10;
 
     /**
      *  @private
      */
-    private static const TEXT_FLOW_PROPERTY_FLAG:uint = 1 << 12;
+    private static const TEXT_FLOW_PROPERTY_FLAG:uint = 1 << 11;
 
     /**
      *  @private
      */
-    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 13;
+    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 12;
         
     //--------------------------------------------------------------------------
     //
@@ -386,44 +380,6 @@ public class SkinnableTextBase extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     
-    //----------------------------------
-    //  contextMenu
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-//    override public function get contextMenu():ContextMenu
-//    {
-//        if (textDisplay)
-//            return textDisplay.contextMenu;
-//        
-//        // want the default to be null
-//        var v:* = textDisplayProperties.contextMenu
-//        return (v === undefined) ? null : v;
-//    }
-    
-    /**
-     *  @private
-     */    
-//    override public function set contextMenu(value:ContextMenu):void
-//    {
-//        if (textDisplay)
-//        {
-//            textDisplay.contextMenu = value;
-//            textDisplayProperties = BitFlagUtil.update(
-//                uint(textDisplayProperties), 
-//                CONTEXT_MENU_PROPERTY_FLAG, true);
-//        }
-//        else
-//        {
-//            textDisplayProperties.contextMenu = value;
-//        }
-//        
-//        // Generate an UPDATE_COMPLETE event.
-//        invalidateProperties();                    
-//    }
-
     //----------------------------------
     //  displayAsPassword
     //----------------------------------
@@ -1188,14 +1144,6 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), CONTENT_PROPERTY_FLAG, true);
         }
  
-        if (textDisplayProperties.contextMenu !== undefined)
-        {
-            textDisplay.contextMenu = textDisplayProperties.contextMenu;
-            newTextDisplayProperties = BitFlagUtil.update(
-                uint(newTextDisplayProperties), 
-                CONTEXT_MENU_PROPERTY_FLAG, true);
-        }
-
         if (textDisplayProperties.displayAsPassword !== undefined)
         {
             textDisplay.displayAsPassword = 
@@ -1299,12 +1247,6 @@ public class SkinnableTextBase extends SkinnableComponent
     {        
         var newTextDisplayProperties:Object = {};
         
-        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-            CONTEXT_MENU_PROPERTY_FLAG))
-        {
-            newTextDisplayProperties.contextMenu = textDisplay.contextMenu;
-        }
-
         if (BitFlagUtil.isSet(uint(textDisplayProperties), 
                               DISPLAY_AS_PASSWORD_PROPERTY_FLAG))
         {
