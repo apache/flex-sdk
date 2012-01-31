@@ -285,9 +285,9 @@ public class Rotate3D extends AnimateTransform3D
         }
         else
         {
-            addPostLayoutMotionPath("postLayoutRotationX", angleXFrom, angleXTo);
-            addPostLayoutMotionPath("postLayoutRotationY", angleYFrom, angleYTo);
-            addPostLayoutMotionPath("postLayoutRotationZ", angleZFrom, angleZTo);
+            addMotionPath("postLayoutRotationX", angleXFrom, angleXTo);
+            addMotionPath("postLayoutRotationY", angleYFrom, angleYTo);
+            addMotionPath("postLayoutRotationZ", angleZFrom, angleZTo);
         }
         super.initInstance(instance);
     }    
