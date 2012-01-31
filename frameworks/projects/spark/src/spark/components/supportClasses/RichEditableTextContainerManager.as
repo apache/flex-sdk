@@ -103,6 +103,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var width:Number = textDisplay.width;
         var height:Number = textDisplay.height;
         
+        // (FIXME) cframpto: is this still really needed?
         if (!textDisplay.autoSize && (isNaN(width) || isNaN(height)))
             return false;  // just measuring!
         
@@ -112,8 +113,8 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // a scroll rect but if lineBreak="explicit" the text may need
         // to be clipped.
         if (scrollX == 0 && scrollY == 0 &&
-            contentBounds.width <= width &&
-            contentBounds.height <= height)
+            contentBounds.right <= width &&
+            contentBounds.bottom <= height)
         {
             // skip the scrollRect
             if (hasScrollRect)
@@ -147,6 +148,8 @@ public class RichEditableTextContainerManager extends TextContainerManager
     			alpha = styleableContainer.getStyle("backgroundAlpha");
     		}
     	}
+        // TODO (cframpto):  Adjust for RL text.  See 
+        // ContainerController.attachTransparentBackgroundForHit().
         var g:Graphics = container.graphics;
         g.clear();
         g.lineStyle();
