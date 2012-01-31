@@ -9,23 +9,23 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects.effectClasses
+package mx.effects.effectClasses
 {
 import flash.events.Event;
 
-import flex.core.Group;
-import flex.effects.Animation;
-import flex.effects.PropertyValuesHolder;
-import flex.events.AnimationEvent;
-import flex.graphics.graphicsClasses.GraphicElement;
+import mx.components.Group;
+import mx.effects.Animation;
+import mx.effects.PropertyValuesHolder;
+import mx.events.AnimationEvent;
+import mx.graphics.graphicsClasses.GraphicElement;
 
 import mx.effects.effectClasses.PropertyChanges;
-import mx.events.FlexEvent;
+import mx.events.AnimationEvent;
 import mx.managers.LayoutManager;
     
-public class FadeInstance extends AnimateInstance
+public class FxFadeInstance extends FxAnimateInstance
 {
-    public function FadeInstance(target:Object)
+    public function FxFadeInstance(target:Object)
     {
         super(target);
         
