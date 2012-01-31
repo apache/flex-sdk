@@ -97,20 +97,23 @@ public class RichEditableTextContainerManager extends TextContainerManager
     override public function drawBackgroundAndSetScrollRect(
                                     scrollX:Number, scrollY:Number):Boolean
     {
-        var width:Number = compositionWidth;
-        var height:Number = compositionHeight;
+        // If not auto-sizing these are the same as the compositionWidth/Height.
+        // If auto-sizing, the compositionWidth/Height may be NaN.  If no
+        // constraints this will reflect the actual size of the text.
+        var width:Number = textDisplay.width;
+        var height:Number = textDisplay.height;
         
         if (!textDisplay.autoSize && (isNaN(width) || isNaN(height)))
             return false;  // just measuring!
         
         var contentBounds:Rectangle = getContentBounds();
         
-        // If autoSize, there should never be a scroll rect.         
-        if (textDisplay.autoSize ||
-           (scrollX == 0 &&
-            scrollY == 0 &&
+        // If autoSize, and lineBreak="toFit there should never be 
+        // a scroll rect but if lineBreak="explicit" the text may need
+        // to be clipped.
+        if (scrollX == 0 && scrollY == 0 &&
             contentBounds.width <= width &&
-            contentBounds.height <= height))
+            contentBounds.height <= height)
         {
             // skip the scrollRect
             if (hasScrollRect)
@@ -148,10 +151,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
         g.clear();
         g.lineStyle();
         g.beginFill(color, alpha);
-        if (textDisplay.autoSize)
-            g.drawRect(scrollX, scrollY, contentBounds.width, contentBounds.height);
-        else
-            g.drawRect(scrollX, scrollY, width, height);
+        g.drawRect(scrollX, scrollY, width, height);
         g.endFill();
         
         return hasScrollRect;
