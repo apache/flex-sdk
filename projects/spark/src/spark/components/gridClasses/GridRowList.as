@@ -6,8 +6,13 @@ package spark.components.supportClasses
 import mx.collections.ArrayCollection;
 
 /**
- *  Open LinkedList implementation for representing
- *  row heights in a Grid.
+ *  Open LinkedList implementation for representing row heights in a Grid
+ *  where each GridRowNode represents a row in the Grid.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */
 public class GridRowList
 {
