@@ -56,58 +56,6 @@ public class TextBox extends TextGraphicElement
 	 */
 	private var textBlockComposer:TextBlockComposer = new TextBlockComposer();
 
-	/**
-	 *  @private
-	 *  This flag is set to true by the text, width, and height setters,
-	 *  to indicate that the TextLines must be regenerated.
-	 *  The regeneration occurs when draw() is called or 'bounds' is read.
-	 */
-	private var invalid:Boolean = false;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: GraphicElement
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  bounds
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var _bounds:Rectangle = new Rectangle();
-
-    override public function get bounds():Rectangle
-	{
-		if (invalid)
-		{
-			compose();
-			invalid = false;
-		}
-
-		var w:Number;
-		var h:Number;
-
-		if (!isNaN(explicitWidth) && !isNaN(explicitHeight))
-		{
-			w = explicitWidth;
-			h = explicitHeight;
-		}
-		else
-		{
-			var r:Rectangle = textBlockComposer.actualBounds;
-			w = Math.ceil(r.width);
-			h = Math.ceil(r.height);
-		}
-
-		_bounds.width = w;
-		_bounds.height = h;
-				
-		return _bounds;
-	}
-		
 	//--------------------------------------------------------------------------
 	//
 	//  Overridden methods: GraphicElement
@@ -115,8 +63,19 @@ public class TextBox extends TextGraphicElement
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  @private
+	 *  @inheritDoc
 	 */
+    override protected function measure():void
+    {
+        var width:Number = !isNaN(explicitWidth) ? explicitWidth : Infinity;
+        var height:Number = !isNaN(explicitHeight) ? explicitHeight : Infinity;
+		compose(width, height);
+
+		var r:Rectangle = textBlockComposer.actualBounds;
+		measuredWidth = Math.ceil(r.width);
+		measuredHeight = Math.ceil(r.height);
+	}
+		
 	/**
 	 *  @inheritDoc
 	 */
@@ -130,20 +89,6 @@ public class TextBox extends TextGraphicElement
 		applyDisplayObjectProperties();
 	}
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: TextGraphicElement
-	//
-	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	override protected function invalidateTextLines(cause:String):void
-	{
-		invalid = true;
-	}
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Methods
