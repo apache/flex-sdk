@@ -28,6 +28,7 @@ import flash.utils.ByteArray;
 
 import mx.core.mx_internal;
 import mx.logging.ILogger;
+import mx.logging.Log;
 import mx.messaging.Channel;
 import mx.messaging.FlexClient;
 import mx.messaging.events.MessageEvent;
@@ -693,6 +694,9 @@ public class StreamingConnectionHandler extends EventDispatcher
                         // Prepare for the next chunk.
                         if (message != null)
                         {
+                            if (Log.isDebug())
+                                _log.debug("'{0}' channel got message\n{1}\n", channel.id, message.toString());
+
                             if ((message is AcknowledgeMessage) && (AcknowledgeMessage(message).correlationId == OPEN_COMMAND))
                             {
                                 // Store the server-assigned stream id for use during disconnect.
