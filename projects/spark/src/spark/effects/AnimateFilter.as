@@ -44,17 +44,6 @@ use namespace mx_internal;
 public class FxAnimateFilter extends FxAnimate
 {
     include "../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private static var AFFECTED_PROPERTIES:Array = [ "filters" ];
     
     //--------------------------------------------------------------------------
     //
@@ -94,14 +83,11 @@ public class FxAnimateFilter extends FxAnimate
     //--------------------------------------------------------------------------
 
     /**
-     * By default, the affected properties are the same as those specified
-     * in the <code>propertyValuesList</code> array. If subclasses affect
-     * or track a different set of properties, they should override this
-     * method.
+     * @private
      */ 
     override public function getAffectedProperties():Array /* of String */
     {
-        return AFFECTED_PROPERTIES;
+        return [];
     }
     
     
