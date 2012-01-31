@@ -38,6 +38,11 @@ use namespace mx_internal;
  *  @see mx.controls.sliderClasses.Slider
  *  @see mx.controls.sliderClasses.SliderDataTip
  *  @see mx.controls.sliderClasses.SliderLabel
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class SliderThumb extends Button
 {
@@ -51,6 +56,11 @@ public class SliderThumb extends Button
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function SliderThumb()
 	{
@@ -112,6 +122,11 @@ public class SliderThumb extends Button
 
 	/**
 	 *  Specifies the position of the center of the thumb on the x-axis.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get xPosition():Number
 	{
