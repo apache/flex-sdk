@@ -9,12 +9,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.components
+package spark.components.gridClasses
 {
 import mx.core.IDataRenderer;
 import mx.core.IVisualElement;
-
-import spark.components.supportClasses.GridColumn;
     
 /**
  *  Grid item renderers must implement this interface.  The Grid component 
