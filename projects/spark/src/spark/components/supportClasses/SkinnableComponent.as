@@ -12,24 +12,25 @@
 package mx.components.baseClasses
 {
 
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
+import flash.geom.Point;
 import flash.system.ApplicationDomain;
 import flash.utils.*;
 
+import mx.components.Skin;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.IFlexModuleFactory;
 import mx.core.IInvalidating;
+import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.components.Skin;
 import mx.events.PropertyChangeEvent;
 import mx.managers.ISystemManager;
 import mx.modules.ModuleManager;
-import flash.geom.Point;
-import flash.display.DisplayObject;
-import flash.display.DisplayObjectContainer;
 
 use namespace mx_internal;
 
@@ -739,7 +740,7 @@ public class FxComponent extends UIComponent
     protected function getSkinPartPosition(part:IVisualElement):Point
     {
         return (!part || !part.parent) ? new Point(0, 0) :
-            globalToLocal(part.parent.localToGlobal(new Point(part.x, part.y)));
+            globalToLocal(part.parent.localToGlobal(new Point((part as ILayoutElement).getLayoutBoundsX(), (part as ILayoutElement).getLayoutBoundsY())));
     }
     
     /**
