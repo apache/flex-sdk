@@ -43,6 +43,11 @@ use namespace mx_internal;
  *  and before the <code>dividerRelease</code> event.
  *
  *  @eventType mx.events.DividerEvent.DIVIDER_DRAG
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dividerDrag", type="mx.events.DividerEvent")]
 
@@ -53,6 +58,11 @@ use namespace mx_internal;
  *  before any <code>dividerDrag</code> events are dispatched.
  *
  *  @eventType mx.events.DividerEvent.DIVIDER_PRESS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dividerPress", type="mx.events.DividerEvent")]
 
@@ -70,6 +80,11 @@ use namespace mx_internal;
  *  DividerBox's updateComplete event has been triggered.
  *
  *  @eventType mx.events.DividerEvent.DIVIDER_RELEASE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dividerRelease", type="mx.events.DividerEvent")]
 
@@ -87,6 +102,11 @@ use namespace mx_internal;
  *  A resize cursor appears when the mouse is over this area.
  *
  *  @default 6
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerAffordance", type="Number", format="Length", inherit="no")]
 
@@ -96,6 +116,11 @@ use namespace mx_internal;
  *  and a value of <code>1.0</code> means completely opaque.
  *  
  *  @default 0.75
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerAlpha", type="Number", inherit="no")]
 
@@ -106,6 +131,11 @@ use namespace mx_internal;
  *  only the divider's knob is shown.
  *
  *  @default 0x6F7777
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerColor", type="uint", format="Color", inherit="yes")]
 
@@ -113,6 +143,11 @@ use namespace mx_internal;
  *  The divider skin.
  *
  *  The default value is the "mx.skin.BoxDividerSkin" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerSkin", type="Class", inherit="no")]
 
@@ -124,6 +159,11 @@ use namespace mx_internal;
  *  The visible thickness cannot be set to a value larger than the affordance.
  *  
  *  @default 3
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="dividerThickness", type="Number", format="Length", inherit="no")]
 
@@ -131,6 +171,11 @@ use namespace mx_internal;
  *  The cursor skin for a horizontal DividedBox.
  *
  *  The default value is the "mx.skins.cursor.HBoxDivider" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalDividerCursor", type="Class", inherit="no")]
 
@@ -138,6 +183,11 @@ use namespace mx_internal;
  *  The cursor skin for a vertical DividedBox.
  *
  *  The default value is the "mx.skins.cursor.VBoxDivider" symbol in the Assets.swf file.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalDividerCursor", type="Class", inherit="no")]
 
@@ -237,6 +287,11 @@ use namespace mx_internal;
  *  @see mx.containers.VDividedBox
  *
  *  @includeExample examples/DividedBoxExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DividedBox extends Box
 {
@@ -293,6 +348,11 @@ public class DividedBox extends Box
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DividedBox()
 	{
@@ -439,6 +499,11 @@ public class DividedBox extends Box
 	 *  The class for the divider between the children.
 	 *
 	 *  @default mx.containers.dividedBoxClasses.BoxDivider
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var dividerClass:Class = BoxDivider;
 
@@ -454,6 +519,11 @@ public class DividedBox extends Box
 	 *  If <code>false</code>, they are not resized
 	 *  until the user releases the divider.
 	 *  @default false
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var liveDragging:Boolean = false;
 
@@ -466,6 +536,11 @@ public class DividedBox extends Box
 	 *  The count is always <code>numChildren</code> - 1.
 	 *
 	 *  @return The number of dividers.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get numDividers():int
 	{
@@ -483,6 +558,11 @@ public class DividedBox extends Box
 	 *  If <code>true</code>, the DividedBox automatically resizes to the size
 	 *  of its children.
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function	get	resizeToContent():Boolean
     {
@@ -697,6 +777,11 @@ public class DividedBox extends Box
 	 *  or from the top for a vertical DividedBox.
 	 *
 	 *  @return A BoxDivider object.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function getDividerAt(i:int):BoxDivider
 	{
@@ -715,6 +800,11 @@ public class DividedBox extends Box
      *  a divider up or left. The divider movement is
      *  constrained in the same manner as if a user
  	 *  had moved it.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function moveDivider(i:int, amt:Number):void
 	{
