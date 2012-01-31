@@ -572,6 +572,25 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
+     *  Used to keep track of whether we should capture the next 
+     *  click event that we receive or whether we should let it dispatch 
+     *  normally.  We capture the click event if a scroll happened.  We 
+     *  set this property in mouseDown and touchScrollStart.
+     */
+    private var captureNextClick:Boolean = false;
+    
+    /**
+     *  @private
+     *  Used to keep track of whether we should capture the next 
+     *  mousedown event that we receive or whether we should let it dispatch 
+     *  normally.  We capture the mousedown event if a scroll-throw is 
+     *  currently happening.  We set this property in mouseDown, touchScrollStart, 
+     *  and touchScrollEnd.
+     */
+    private var captureNextMouseDown:Boolean = false;
+    
+    /**
+     *  @private
      *  Animation to fade the scrollbars out when we are done
      *  throwing or dragging
      */
@@ -1027,6 +1046,12 @@ public class Scroller extends SkinnableComponent
         addEventListener(TouchScrollEvent.TOUCH_SCROLL_DRAG, touchScrollDragHandler);
         addEventListener(TouchScrollEvent.TOUCH_SCROLL_END, touchScrollEndHandler);
         addEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW, touchScrollThrowHandler);
+        
+        // capture mouse listeners to help block click and mousedown events.
+        // mousedown is blocked when a scroll is in progress
+        // click is blocked when a scroll is in progress (or just finished)
+        addEventListener(MouseEvent.CLICK, touchScrolling_captureMouseHandler, true);
+        addEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
     }
     
     /**
@@ -1040,6 +1065,9 @@ public class Scroller extends SkinnableComponent
         removeEventListener(TouchScrollEvent.TOUCH_SCROLL_END, touchScrollEndHandler);
         removeEventListener(TouchScrollEvent.TOUCH_SCROLL_DRAG, touchScrollDragHandler);
         removeEventListener(TouchScrollEvent.TOUCH_SCROLL_THROW, touchScrollThrowHandler);
+        
+        removeEventListener(MouseEvent.CLICK, touchScrolling_captureMouseHandler, true);
+        removeEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
     }
     
     /**
@@ -1082,28 +1110,6 @@ public class Scroller extends SkinnableComponent
         }
         
         return false;
-    }
-    
-    /**
-     *  @private
-     *  Add event handlers while the scroll/throw animation is going on to 
-     *  capture the mouse down handlers and deal with it ourselves
-     */
-    private function installSwallowingMouseHandlers():void
-    {
-        // block click events from occuring on me
-        addEventListener(MouseEvent.CLICK, touchScrolling_captureMouseHandler, true);
-        addEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
-    }
-    
-    /**
-     *  @private
-     *  Remove event handlers after scroll/throw animation is done.
-     */
-    private function uninstallSwallowingMouseHandlers():void
-    {
-        removeEventListener(MouseEvent.CLICK, touchScrolling_captureMouseHandler, true);
-        removeEventListener(MouseEvent.MOUSE_DOWN, touchScrolling_captureMouseHandler, true);
     }
     
     /**
@@ -1531,7 +1537,9 @@ public class Scroller extends SkinnableComponent
         else
         {
             // we are scrolling
-            installSwallowingMouseHandlers();
+            captureNextClick = true;
+            captureNextMouseDown = true;
+            
             hspBeforeTouchScroll = viewport.horizontalScrollPosition;
             vspBeforeTouchScroll = viewport.verticalScrollPosition;
             
@@ -1573,6 +1581,9 @@ public class Scroller extends SkinnableComponent
         switch(event.type)
         {
             case MouseEvent.MOUSE_DOWN:
+                if (!captureNextMouseDown)
+                    return;
+                
                 if (throwEffect && throwEffect.isPlaying)
                 {
                     // stop the effect.  we don't want to move it to its final value...we want to stop it in place
@@ -1589,6 +1600,9 @@ public class Scroller extends SkinnableComponent
                 event.stopImmediatePropagation();
                 break;
             case MouseEvent.CLICK:
+                if (!captureNextClick)
+                    return;
+                
                 event.stopImmediatePropagation();
                 break;
         }
@@ -1602,6 +1616,8 @@ public class Scroller extends SkinnableComponent
     {
         // TODO (rfrishbe): if currently scrolling and we have spring/pull effects, 
         // we should stop scrolling and move the VSP/HSP in to range (0, maxVSP).
+        
+        captureNextClick = false;
         
         touchScrollHelper.startScrollWatch(event);
     }
@@ -1673,7 +1689,10 @@ public class Scroller extends SkinnableComponent
      */
     private function touchScrollEndHandler(event:TouchScrollEvent):void
     {
-        uninstallSwallowingMouseHandlers();
+        captureNextMouseDown = false;
+        // don't reset captureNextClick here because touchScrollEnd
+        // may be invoked on mouseUp and mouseClick occurs immediately 
+        // after that, so we want to block this next mouseClick
         
         hideScrollBars();
     }
@@ -1862,6 +1881,18 @@ class TouchScrollHelper
      *  Whether we are currently in a scroll gesture or not.
      */
     private var isScrolling:Boolean;
+    
+    /**
+     *  @private
+     *  Used to keep track of the number of scrollDragEvents we've dispatched 
+     *  we've determined we need to start scrolling.  This is because we want 
+     *  to call updateAfterEvent() so our scroller is super-responsive, but 
+     *  because of the way scrollbars work and when the thumb gets laid out, 
+     *  we don't want to do this the first two times; otherwise, the scrollbar 
+     *  thumb may be in a bad position. However, after the second time, the 
+     *  thumb shoudl be positioned correctly.
+     */
+    private var scrollDraggingCountForUpdateAfterEvent:int = 0;
     
     //--------------------------------------------------------------------------
     //
@@ -2061,7 +2092,11 @@ class TouchScrollHelper
                 scrollGestureAnchorPoint = new Point(event.stageX, event.stageY);
                 isScrolling = true;
                 
+                // see comment located above the variable for why this is needed
+                scrollDraggingCountForUpdateAfterEvent = 0;
+                
                 // velocity calculations come from mouseDownedPoint.  The drag ones com from scrollStartPoint.
+                // This seems fine.
             }
             
             
@@ -2081,7 +2116,14 @@ class TouchScrollHelper
             scrollDragEvent.dragY = dy;
             
             scroller.dispatchEvent(scrollDragEvent);
-            event.updateAfterEvent();
+            
+            // Call updateAfterEvent() to make sure it looks smooth, but don't 
+            // call it on the first or second time because the thumb might not be positioned 
+            // correctly yet.
+            if (scrollDraggingCountForUpdateAfterEvent > 1)
+                event.updateAfterEvent();
+            
+            scrollDraggingCountForUpdateAfterEvent++;
         }
     }
     
