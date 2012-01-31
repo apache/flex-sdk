@@ -186,7 +186,8 @@ public class VideoElement extends GraphicElement
         // videoPlayer, but this seemed more straight forward
         videoPlayerContainer = new Sprite();
         videoPlayerContainer.addChild(flvPlayer);
-               
+        
+        flvPlayer.addEventListener(fl.video.VideoEvent.AUTO_REWOUND, videoPlayer_autoRewoundHandler);
         flvPlayer.addEventListener(fl.video.VideoEvent.CLOSE, videoPlayer_closeHandler);
         flvPlayer.addEventListener(fl.video.VideoEvent.COMPLETE, videoPlayer_completeHandler);
         flvPlayer.addEventListener(fl.video.MetadataEvent.METADATA_RECEIVED, videoPlayer_metaDataReceivedHandler);
@@ -498,6 +499,7 @@ public class VideoElement extends GraphicElement
     //----------------------------------
     
     [Bindable("playheadUpdate")]
+    [Bindable("autoRewound")]
     [Inspectable(Category="General", defaultValue="0")]
 
     /**
@@ -815,21 +817,13 @@ public class VideoElement extends GraphicElement
     /**
      *  Causes the video to play.  Can be called while the video is
      *  paused, stopped, or while the video is already playing.
-     *
-     *  @param startTime Time to start playing the clip from.  
-     *  Pass in NaN to start at the beginning or the 
-     *  current spot in the clip if paused.  Default is NaN.
-     *  
-     *  @param duration Duration, in seconds, to play.  Pass in NaN 
-     *  to automatically detect length from metadata, server
-     *  or xml.  Default is NaN.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function play(startTime:Number=NaN, duration:Number=NaN):void
+    public function play():void
     {
         // check for 2 cases: streaming video or progressive download
         if (source is StreamingVideoSource)
@@ -873,27 +867,14 @@ public class VideoElement extends GraphicElement
             // so the UI is more responsive
             setPlaying(true);
             
-            // TODO: we don't do anything with the duration or startTime in 
-            // the play2() case, as the underlying FLVPlayback VideoPlayer
-            // doesn't handle it right now.
-            
             // if it's null, we just call the play() method
             if (flvSource == null)
             {
-                if (isNaN(duration))
-                    mx_internal::videoPlayer.play(null, NaN, streamingSource.live);
-                else
-                    mx_internal::videoPlayer.play(null, duration, streamingSource.live);
-                
-                if (!isNaN(startTime))
-                    seek(startTime);
+                videoPlayer.play(null, NaN, streamingSource.live);
             }
             else
             {
-                mx_internal::videoPlayer.play2(flvSource);
-                
-                if (!isNaN(startTime))
-                    seek(startTime);
+                videoPlayer.play2(flvSource);
             }
         }
         else if (source is String && String(source).length != 0)
@@ -924,39 +905,7 @@ public class VideoElement extends GraphicElement
             // so the UI is more responsive
             setPlaying(true);
             
-            // TODO (rfrishbe): how we handle startTime is pretty hacky.
-            // Need to figure out if there's a better way or talk to Strobe 
-            // team to see if this is even worth it.  Right now, we're also 
-            // inconsistent with the streaming case.
-            
-            if (sourceString != null && !isNaN(startTime))
-            {
-                // If we need to seek before playing, and we haven't 
-                // seen this video yet, 
-                // we load up the video, call seek(), and then 
-                // call play(null)
-                mx_internal::videoPlayer.load(sourceString);
-                
-                seek(startTime);
-                
-                if (isNaN(duration))
-                    mx_internal::videoPlayer.play(null);
-                else
-                    mx_internal::videoPlayer.play(null, duration, false);
-            }
-            else
-            {
-                // if we've played this video before or we don't 
-                // need to seek (startTime is null), we can handle these 
-                // cases separately
-                if (!isNaN(startTime))
-                    seek(startTime);
-   
-                if (isNaN(duration))
-                    mx_internal::videoPlayer.play(sourceString);
-                else
-                    mx_internal::videoPlayer.play(sourceString, duration, false);
-            }
+            videoPlayer.play(sourceString);
         }
         else
         {
@@ -1017,7 +966,7 @@ public class VideoElement extends GraphicElement
             }
            
             // load the video up
-            mx_internal::videoPlayer.load(sourceString);
+            videoPlayer.load(sourceString);
         }
         else
         {
@@ -1097,6 +1046,15 @@ public class VideoElement extends GraphicElement
     //  Event handlers
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function videoPlayer_autoRewoundHandler(event:fl.video.VideoEvent):void
+    {
+        // just for binding purposes on VideoElement.playheadTime
+        dispatchEvent(new Event("autoRewound"));
+    }
     
     /**
      *  @private
