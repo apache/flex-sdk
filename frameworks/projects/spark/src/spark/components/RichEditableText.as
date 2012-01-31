@@ -1739,13 +1739,34 @@ public class TextView extends UIComponent
     }
 
     /**
+     *  Sets the selection range.
+     */
+    public function setSelection(anchorIndex:int = 0,
+                                 activeIndex:int = int.MAX_VALUE):void
+    {
+        textFlow.selectionManager.setActiveSelection(anchorIndex, activeIndex,
+                                                     true);
+    }
+    
+    /**
+     *  Inserts the specified text as if you had typed it.
+     *  If a range was selected, the new text replaces the selected text;
+     *  if there was an insertion point, the new text is inserted there.
+     *  An insertion point is then set after the new text.
+     */
+    public function insertText(text:String):void
+    {
+        EditManager(textFlow.selectionManager).insertText(text);
+    }
+    
+    /**
      *  Appends the specified text to the end of the TextView,
      *  as if you had clicked at the end and typed it.
      *  When TextView supports vertical scrolling,
      *  it will scroll to ensure that the last line
      *  of the inserted text is visible.
      */
-    public function append(text:String):void
+    public function appendText(text:String):void
     {
         textFlow.selectionManager.setActiveSelection(int.MAX_VALUE, int.MAX_VALUE);
         EditManager(textFlow.selectionManager).insertText(text);
