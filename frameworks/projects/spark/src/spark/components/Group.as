@@ -285,9 +285,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         else
         {
             mxmlContentChanged = true;
-        _mxmlContent = value;
+            _mxmlContent = value;
             // we will validate this in createChildren();
-    }
+        }
     }
     
 
@@ -315,7 +315,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             }
         }
         
-        _mxmlContent = value;
+        _mxmlContent = value.concat();  // defensive copy
         
         if (_mxmlContent != null)
         {
@@ -804,6 +804,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     mx_internal function elementAdded(element:IVisualElement, index:int):void
     {
         var child:DisplayObject;
+        
+        if (layout)
+            layout.elementAdded(index);        
                 
         if (element.layer != 0)
             invalidateLayering();
@@ -853,8 +856,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */
     mx_internal function elementRemoved(element:IVisualElement, index:int):void
     {
-        var childDO:DisplayObject = element as DisplayObject;
-        
+        var childDO:DisplayObject = element as DisplayObject;   
+                
         dispatchEvent(new ElementExistenceEvent(
                       ElementExistenceEvent.ELEMENT_REMOVE, false, false, element, index));
         
@@ -871,6 +874,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         invalidateDisplayObjectOrdering();
         invalidateSize();
         invalidateDisplayList();
+
+        if (layout)
+            layout.elementRemoved(index);     
     }
     
     /**
