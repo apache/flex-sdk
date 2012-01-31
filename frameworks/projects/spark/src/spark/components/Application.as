@@ -170,10 +170,6 @@ public class Application extends SkinnableContainer
         super();
                     
         showInAutomationHierarchy = true;
-        // Flex's auto-generated init() override has set the
-        // documentDescriptor property for the application object.
-        // We get the id and the creationPolicy, which we want to
-        // set very early, from that descriptor.
     }
 
     //--------------------------------------------------------------------------
@@ -680,26 +676,6 @@ public class Application extends SkinnableContainer
         _parameters = sm.loaderInfo.parameters;
 
         initManagers(sm);
-        _descriptor = null;
-
-        if (documentDescriptor)
-        {
-            var properties:Object = documentDescriptor.properties;
-
-            if (properties.width != null)
-            {
-                width = properties.width;
-                delete properties.width;
-            }
-            if (properties.height != null)
-            {
-                height = properties.height;
-                delete properties.height;
-            }
-
-            // Flex auto-generated code has already set up events.
-            documentDescriptor.events = null;
-        }
 
         // Setup the default context menu here. This allows the application
         // developer to override it in the initialize event, if desired.
