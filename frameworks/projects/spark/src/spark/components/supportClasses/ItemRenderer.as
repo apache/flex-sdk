@@ -16,7 +16,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.core.mx_internal;
-import mx.graphics.graphicsClasses.TextGraphicElement;
+import mx.graphics.baseClasses.TextGraphicElement;
 
 /**
  *  The ItemRenderer class is the base class for List item renderers.
