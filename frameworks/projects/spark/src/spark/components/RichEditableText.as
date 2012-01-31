@@ -823,6 +823,8 @@ public class RichEditableText extends UIComponent
     {
         super.explicitWidth = value;
 
+        widthConstraint = NaN;
+                
         // Because of autoSizing, the size and display might be impacted.
         invalidateSize();
         invalidateDisplayList();
@@ -856,6 +858,8 @@ public class RichEditableText extends UIComponent
     override public function set percentWidth(value:Number):void
     {
         super.percentWidth = value;
+
+        widthConstraint = NaN;
 
         // If we were autoSizing and now we are not we need to remeasure.
         invalidateSize();
@@ -2185,6 +2189,8 @@ public class RichEditableText extends UIComponent
         _widthInChars = value;
         widthInCharsChanged = true;
         
+        widthConstraint = NaN;
+        
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
@@ -2615,9 +2621,6 @@ public class RichEditableText extends UIComponent
                                                 _selectionActivePosition);
             scrollAfterUpdate = false;                                                
         }
-                                                
-        widthConstraint = NaN;
-        heightConstraint = NaN;                   
     }
 
     /**
@@ -3419,6 +3422,9 @@ public class RichEditableText extends UIComponent
         // Either constraints are preventing auto-sizing or we need to
         // remeasure which will reset autoSize.
         autoSize = false;
+        
+        widthConstraint = NaN;
+        heightConstraint = NaN;
         
         if (width != measuredWidth)
         {
