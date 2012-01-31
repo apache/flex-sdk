@@ -377,12 +377,27 @@ public class Range extends SkinnableComponent
     { 
         if (interval == 0)
             return Math.max(minimum, Math.min(maximum, value));
-
+        
         var lower:Number = Math.max(minimum, Math.floor(value / interval) * interval);
         var upper:Number = Math.min(maximum, Math.floor((value + interval) / interval) * interval);
-        return ((value - lower) >= ((upper - lower) / 2)) ? upper : lower;
+        var validValue:Number = ((value - lower) >= ((upper - lower) / 2)) ? upper : lower;
+        
+        // If interval isn't an integer, there's a possibility that the 
+        // floating point approximation of validValue will be slightly larger
+        // or smaller than what one would expect.  For example if value=6 and interval=0.1
+        // then validValue=0.6000000000000001.  This confuses code which converts Range
+        // values to/from strings, so we limit the number of significant decimals to the 
+        // number present in interval.
+        if (interval != Math.round(interval)) 
+        { 
+            var parts:Array = (new String(1 + interval)).split("."); 
+            var scale:Number = Math.pow(10, parts[1].length); 
+            validValue = Math.round(validValue * scale) / scale; 
+        } 
+        
+        return validValue;
     }
-    
+        
     /**
      *  Sets the backing store for the <code>value</code> property and 
      *  dispatches a <code>valueCommit</code> event if the property changes.  
