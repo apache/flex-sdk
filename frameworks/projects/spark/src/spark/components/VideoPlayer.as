@@ -36,13 +36,12 @@ import org.osmf.events.MediaPlayerStateChangeEvent;
 import org.osmf.events.TimeEvent;
 import org.osmf.media.MediaPlayerState;
 
-import spark.components.mediaClasses.DynamicStreamingVideoSource;
 import spark.components.mediaClasses.MuteButton;
 import spark.components.mediaClasses.ScrubBar;
 import spark.components.mediaClasses.VolumeBar;
 import spark.components.supportClasses.ButtonBase;
+import spark.core.IDisplayText;
 import spark.components.supportClasses.SkinnableComponent;
-import spark.components.supportClasses.TextBase;
 import spark.components.supportClasses.ToggleButtonBase;
 import spark.events.TrackBaseEvent;
 
@@ -648,7 +647,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var currentTimeDisplay:TextBase;
+    public var currentTimeDisplay:IDisplayText;
     
     [SkinPart(required="false")]
     
@@ -764,7 +763,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var durationDisplay:TextBase;
+    public var durationDisplay:IDisplayText;
     
     [SkinPart(required="false")]
     
