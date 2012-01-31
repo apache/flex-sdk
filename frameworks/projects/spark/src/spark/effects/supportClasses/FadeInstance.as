@@ -153,7 +153,8 @@ public class FadeInstance extends AnimateInstance
         }
         else if (isNaN(alphaTo))
         {
-            if (propChanges && propChanges.end["alpha"] !== undefined)
+            if (propChanges && propChanges.end["alpha"] !== undefined &&
+                propertyChanges.end["alpha"] != propertyChanges.start["alpha"])
             {
                 alphaTo = propChanges.end["alpha"];
             }
@@ -167,7 +168,8 @@ public class FadeInstance extends AnimateInstance
         // to be fading it in
         if ("visible" in target && !target.visible && 
             alphaFrom == 0 && alphaTo != 0 &&
-            propChanges && propChanges.end["visible"] !== undefined)
+            propChanges && propChanges.end["visible"] !== undefined &&
+            propertyChanges.end["visible"] != propertyChanges.start["visible"])
         {
             target.alpha = 0;
             target.visible = true;
@@ -178,7 +180,8 @@ public class FadeInstance extends AnimateInstance
         // side-effecting and what we should reset at the end
         if ("visible" in target && target.visible && 
             alphaFrom != 0 && alphaTo == 0 &&
-            propChanges && propChanges.end["visible"] !== undefined)
+            propChanges && propChanges.end["visible"] !== undefined &&
+            propertyChanges.end["visible"] != propertyChanges.start["visible"])
         {
             makeInvisible = true;
         }
