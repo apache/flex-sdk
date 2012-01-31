@@ -475,9 +475,6 @@ public class NumericStepper extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return inputField ? inputField.baselinePosition : NaN;
-
         if (!validateBaselinePosition())
             return NaN;
 
