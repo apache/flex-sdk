@@ -196,6 +196,17 @@ public class FTETextField extends Sprite
 		FLAG_TEXT_LINES_INVALID |
 		FLAG_GRAPHICS_INVALID;
 	
+	/**
+	 *  @private
+	 *  If htmlText is set, composeHtmlText is called each time the text lines
+	 *  are invalidated.  The setters for many of the properties invalidate
+	 *  the text lines.  So although _htmlText is set to null, if there is no
+	 *  styleSheet, to indicate to the htmlText getter that it needs to import
+	 *  the html from the textFlow, we need the orginal htmlText for the cases 
+	 *  where we need to regenerate the html text lines.
+	 */
+	private var explicitHTMLText:String = null;
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Class variables
@@ -1137,6 +1148,7 @@ public class FTETextField extends Sprite
 					   testFlag(FLAG_CONDENSE_WHITE));
 		
 		_htmlText = value;
+		explicitHTMLText = value;
 		
 		// _text is now invalid and will get regenerated on demand.
 		_text = null;
@@ -1608,6 +1620,7 @@ public class FTETextField extends Sprite
 		
 		// _htmlText is now invalid and will get regenerated on demand
 		_htmlText = null;
+		explicitHTMLText = null;
 		
 		clearFlag(FLAG_HTML_TEXT_SET);
 		
@@ -3032,16 +3045,13 @@ public class FTETextField extends Sprite
 	private function composeHTMLText(compositionWidth:Number,
 									 compositionHeight:Number):void
 	{
-		textFlow = htmlImporter.importToFlow(_htmlText);
+		textFlow = htmlImporter.importToFlow(explicitHTMLText);
 		
 		// Unless there is a styleSheet, _htmlText is now invalid
 		// and needs to be regenerated on demand,
 		// because with htmlText what-you-set-is-not-what-you-get.
 		if (!styleSheet)
-        {
 			_htmlText = null;
-            clearFlag(FLAG_HTML_TEXT_SET);
-        }
 
 		if (!textFlow)
             return;
