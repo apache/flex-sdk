@@ -43,8 +43,8 @@ import spark.components.Grid;
  *  </p>        
  * 
  *  <p>The <code>rowIndex</code> and <code>columnIndex</code> parameters specify the 
- *  the cell the visual element will occupy.  If columnIndex=-1 then the visual element
- *  will occupy a Grid row; similarly if rowIndex=-1 then the visual element will occupy
+ *  the cell the visual element will occupy.  If <code>columnIndex</code> = -1 then the visual element
+ *  occupies a Grid row. If <code>rowIndex</code> = -1 then the visual element occupies
  *  a Grid column.</p>
  * 
  *  <p>There are many more examples like this in DataGridSkin.mxml.  Note that custom 
