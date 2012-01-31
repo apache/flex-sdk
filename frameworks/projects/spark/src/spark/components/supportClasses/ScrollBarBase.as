@@ -52,7 +52,7 @@ import spark.effects.easing.Sine;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="fixedThumbSize", type="Boolean", inherit="yes")]
+[Style(name="fixedThumbSize", type="Boolean", inherit="no")]
 
 /**
  *  Number of milliseconds after the first page event
@@ -94,7 +94,7 @@ import spark.effects.easing.Sine;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="smoothScrolling", type="Boolean", inherit="yes")]
+[Style(name="smoothScrolling", type="Boolean", inherit="no")]
 
 /**
  *  The ScrollBar class helps to position
