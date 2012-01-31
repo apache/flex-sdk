@@ -260,17 +260,17 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @private
      */
     private static const TEXT_FLOW_PROPERTY_FLAG:uint = 1 << 12;
-
-    /**
-     *  @private
-     */
-    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 13;
-        
+    
 	/**
 	 *  @private
 	 */
-	private static const TYPICAL_TEXT_PROPERTY_FLAG:uint = 1 << 14;
+	private static const TYPICAL_TEXT_PROPERTY_FLAG:uint = 1 << 13;
 	
+    /**
+     *  @private
+     */
+    private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 14;
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -514,46 +514,6 @@ public class SkinnableTextBase extends SkinnableComponent
     }
 
     //----------------------------------
-    //  maxHeight
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    /*
-    override public function get maxHeight():Number
-    {
-        if (textDisplay)
-            return textDisplay.maxHeight;
-        
-        // want the default to be default max height for UIComponent
-        var v:* = textDisplayProperties.maxHeight;
-        return (v === undefined) ? super.maxHeight : v;        
-    }
-    */
-    
-    /**
-     *  @private
-     */
-    /*
-    override public function set maxHeight(value:Number):void
-    {
-        if (textDisplay)
-        {
-            textDisplay.maxHeight = value;
-            textDisplayProperties = BitFlagUtil.update(
-                uint(textDisplayProperties), MAX_HEIGHT_PROPERTY_FLAG, true);
-        }
-        else
-        {
-            textDisplayProperties.maxHeight = value;
-        }
-        
-        // Generate an UPDATE_COMPLETE event.
-        invalidateProperties();                    
-    }
-    */
-    //----------------------------------
     //  maxWidth
     //----------------------------------
 
@@ -623,6 +583,33 @@ public class SkinnableTextBase extends SkinnableComponent
         accessibilityPropertiesChanged = true;
         
         invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  typicalText
+    //----------------------------------
+    
+    /**
+     *  @default null
+     *
+     *  @see spark.components.RichEditableText#typicalText
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10.2
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get typicalText():String
+    {
+        return getTypicalText();
+    }
+    
+    /**
+     *  @private
+     */
+    public function set typicalText(value:String):void
+    {
+        setTypicalText(value);
     }
     
     //--------------------------------------------------------------------------
@@ -1400,7 +1387,7 @@ public class SkinnableTextBase extends SkinnableComponent
 		if (richEditableText)
 			return richEditableText.typicalText;
 		
-		// want the default to be NaN
+		// want the default to be null
 		var v:* = textDisplayProperties.typicalText;
 		return (v === undefined) ? null : v;
 	}
