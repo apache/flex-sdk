@@ -17,8 +17,6 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 
 import spark.components.supportClasses.Slider;
-import mx.core.UIComponent;
-import mx.core.ILayoutElement;
 
 //--------------------------------------
 //  Other metadata
@@ -62,114 +60,37 @@ public class VSlider extends Slider
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  The size of the track, which equals the height of the track.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function get trackSize():Number
-    {
-        return track ? track.getLayoutBoundsHeight() : 0;
-    }
-    
-    /**
-     *  The size of the thumb button, which equals the height of the thumb button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function calculateThumbSize():Number
-    {
-        return thumb ? thumb.getLayoutBoundsHeight() : 0;
-    }
-
-    //--------------------------------------------------------------------------
-    //
     // Methods
     //
     //--------------------------------------------------------------------------
 
     /**
-     *  Position the thumb button based on the specified thumb position,
-     *  relative to the current Y location of the track
-     *  in the control.
-     * 
-     *  @param thumbPos A number representing the new position of
-     *  the thumb button in the control.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
+     *  Note that this method is slightly different than the HSlider version because
+     *  the minimum occurs at the bottom of the VSlider, where y is largest.
      */
-    override protected function positionThumb(thumbPos:Number):void
+    override protected function pointToValue(x:Number, y:Number):Number
     {
-        if (thumb)
-        {
-            var trackPos:Number = 0;
-            var trackLen:Number = 0;
-            
-            if (track)
-            {
-                trackLen = track.getLayoutBoundsHeight();
-                trackPos = track.getLayoutBoundsY();
-            }
-            
-            thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), 
-                                          Math.round(trackPos + trackLen - thumbPos
-                                          - thumb.getLayoutBoundsHeight())); 
-        }
-    }
-    
-    /**
-     *  Return the position of the thumb button on a VSlider component.
-     *  This value is equal to the
-     *  track height subtracted by the Y position of the thumb button
-     *  relative to the track, and subtracted by the height of the thumb button.
-     * 
-     *  @param localX The x position relative to the track.
-     * 
-     *  @param localY The y position relative to the track.
-     *
-     *  @return The position of the thumb button.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function pointToPosition(localX:Number, 
-                                                localY:Number):Number
-    {
-        var trackLen:Number = track.getLayoutBoundsHeight();
-        var thumbH:Number = thumb.getLayoutBoundsHeight();
-    
-        return trackLen - localY - thumbH; 
-    }
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override protected function pointClickToPosition(localX:Number,
-                                                     localY:Number):Number
-    {
-        var thumbH:Number = thumb.getLayoutBoundsHeight(); 
+        if (!thumb || !track)
+            return 0;
         
-        return pointToPosition(localX, localY) + (thumbH / 2);
+        var thumbRange:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
+        var range:Number = maximum - minimum;
+        return minimum + ((thumbRange != 0) ? ((thumbRange - y) / thumbRange) * range : 0); 
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function updateSkinDisplayList():void
+    {
+        if (!thumb || !track)
+            return;
+        
+        var thumbRange:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
+        var range:Number = maximum - minimum;
+        var thumbPos:Number = (range > 0) ? thumbRange - (((pendingValue - minimum) / range) * thumbRange) : 0;
+        thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(), Math.round(track.getLayoutBoundsY() + thumbPos));
     }
     
     /**
@@ -179,7 +100,7 @@ public class VSlider extends Slider
     {
     	var tipAsDisplayObject:DisplayObject = dataTipInstance as DisplayObject;
     	
-    	if (tipAsDisplayObject)
+    	if (tipAsDisplayObject && thumb)
     	{
 			var relY:Number = thumb.y + (thumb.height - tipAsDisplayObject.height) / 2;
 	        var o:Point = new Point(dataTipOriginalPosition.x, relY);
