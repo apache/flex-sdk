@@ -18,11 +18,8 @@ import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
 import mx.components.baseClasses.FxListBase;
-import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.events.ItemExistenceChangedEvent;
-import mx.layout.HorizontalLayout;
-import mx.layout.VerticalLayout;
 import mx.managers.IFocusManagerComponent;
 
 [IconFile("FxButtonBar.png")]
@@ -114,30 +111,24 @@ public class FxButtonBar extends FxListBase
     /**
      *  @private
      */
-    override protected function itemSelected(item:Object, selected:Boolean):void
+    override protected function itemSelected(index:int, selected:Boolean):void
     {
-        var item:Object = dataGroup.getItemRenderer(item);
+        super.itemSelected(index, selected);
         
-        if (item)
+        var renderer:Object = dataGroup.getItemRenderer(index);
+        
+        if (renderer)
         {
-            if ("selected" in item)
-                item.selected = selected;
+            if ("selected" in renderer)
+                renderer.selected = selected;
             else
             {
                 // TODO: localize below (and other messages)
-                throw new Error("The item needs to support the \"selected\" property " + 
+                throw new Error("The item renderer needs to support the \"selected\" property " + 
                         "for selection to work.  An easy way to accomplish this is by wrapping " + 
                         "your component in a DefaultComplexItemRenderer");
             }
         }
-    }
-        
-    /**
-     *  Returns true if the item is selected.
-     */
-    public function isItemSelected(item:Object):Boolean
-    {
-        return item == selectedItem;
     }
         
     /**
@@ -209,13 +200,14 @@ public class FxButtonBar extends FxListBase
      */
     private function dataGroup_itemAddHandler(event:ItemExistenceChangedEvent):void
     {
-        var renderer:Object = dataGroup.getItemRenderer(event.relatedObject);
+        var renderer:Object = event.renderer;
+        var index:int = event.index;
         
         if (renderer)
             renderer.addEventListener("click", item_clickHandler);
             
-        if (isItemSelected(event.relatedObject))
-            itemSelected(event.relatedObject, true);
+        if (isItemIndexSelected(index))
+            itemSelected(index, true);
     }
     
     /**
@@ -224,7 +216,7 @@ public class FxButtonBar extends FxListBase
      */
     private function dataGroup_itemRemoveHandler(event:ItemExistenceChangedEvent):void
     {        
-        var renderer:Object = dataGroup.getItemRenderer(event.relatedObject);
+        var renderer:Object = event.renderer;
         
         if (renderer)
             renderer.removeEventListener("click", item_clickHandler);
@@ -236,9 +228,9 @@ public class FxButtonBar extends FxListBase
      */
     private function item_clickHandler(event:MouseEvent):void
     {
-        var item:Object = dataGroup.getRendererItem(DisplayObject(event.currentTarget));
+        var index:int = dataGroup.getRendererItem(event.currentTarget);
 		
-		selectedItem = item;
+		selectedIndex = index;
     }
     
     /**
@@ -249,19 +241,17 @@ public class FxButtonBar extends FxListBase
     private function buttonBar_focusInHandler(event:FocusEvent):void
     {
 		var currentButton:IFocusManagerComponent;
-		var item:Object;
 		var index:int;
 		var renderer:Object;
 
 		currentButton = focusManager.getFocus();
-		item = dataGroup.getRendererItem(DisplayObject(currentButton));
-		index = dataProvider.getItemIndex(item);
+		index = dataGroup.getRendererItem(currentButton);
 
 		var n:int = dataProvider.length;
 		var zz:int = 0;
 		for (var i:int = 0; i < n; i++)
 		{
-			renderer = dataGroup.getItemRenderer(dataProvider.getItemAt(i));
+			renderer = dataGroup.getItemRenderer(i);
 			if (renderer == currentButton)
 				renderer.layer = n - 1;
 			else
@@ -275,7 +265,6 @@ public class FxButtonBar extends FxListBase
     private function buttonBar_keyDownHandler(event:KeyboardEvent):void
     {
 		var currentButton:IFocusManagerComponent;
-		var item:Object;
 		var index:int;
 		var renderer:Object;
 
@@ -286,11 +275,10 @@ public class FxButtonBar extends FxListBase
             {
 				focusManager.showFocusIndicator = true;
 				currentButton = focusManager.getFocus();
-		        item = dataGroup.getRendererItem(DisplayObject(currentButton));
-				index = dataProvider.getItemIndex(item);
+		        index = dataGroup.getRendererItem(currentButton);
 				if (index > 0)
 				{
-					renderer = dataGroup.getItemRenderer(dataProvider.getItemAt(index - 1));
+					renderer = dataGroup.getItemRenderer(index-1);
 					IFocusManagerComponent(renderer).setFocus();
 				}
 
@@ -301,11 +289,10 @@ public class FxButtonBar extends FxListBase
             {
 				focusManager.showFocusIndicator = true;
 				currentButton = focusManager.getFocus();
-		        item = dataGroup.getRendererItem(DisplayObject(currentButton));
-				index = dataProvider.getItemIndex(item);
+		        index = dataGroup.getRendererItem(currentButton);
 				if (index < dataProvider.length - 1)
 				{
-					renderer = dataGroup.getItemRenderer(dataProvider.getItemAt(index + 1));
+					renderer = dataGroup.getItemRenderer(index+1);
 					IFocusManagerComponent(renderer).setFocus();
 				}
 
