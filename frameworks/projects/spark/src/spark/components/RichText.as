@@ -49,7 +49,6 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
  *  Documentation is not currently avilable.
  */
 public class TextGraphic extends TextGraphicElement
-	implements IDisplayObjectElement
 {
 	include "../core/Version.as";
 
