@@ -20,6 +20,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
 import flash.geom.Rectangle;
+import flash.media.Video;
 import flash.utils.Timer;
 
 import mx.core.FlexGlobals;
@@ -31,7 +32,9 @@ import mx.utils.BitFlagUtil;
 import org.osmf.events.LoadEvent;
 import org.osmf.events.MediaPlayerStateChangeEvent;
 import org.osmf.events.TimeEvent;
+import org.osmf.media.MediaPlayerState;
 
+import spark.components.mediaClasses.DynamicStreamingVideoSource;
 import spark.components.mediaClasses.MuteButton;
 import spark.components.mediaClasses.ScrubBar;
 import spark.components.mediaClasses.VolumeBar;
@@ -452,17 +455,22 @@ public class VideoPlayer2 extends SkinnableComponent
     /**
      *  @private
      */
-    private static const VOLUME_PROPERTY_FLAG:uint = 1 << 6;
+    private static const SEEK_TO_FIRST_FRAME_PROPERTY_FLAG:uint = 1 << 6;
     
     /**
      *  @private
      */
-    private static const PAUSE_WHEN_HIDDEN_PROPERTY_FLAG:uint = 1 << 7;
+    private static const VOLUME_PROPERTY_FLAG:uint = 1 << 7;
     
     /**
      *  @private
      */
-    private static const THUMBNAIL_SOURCE_PROPERTY_FLAG:uint = 1 << 8;
+    private static const PAUSE_WHEN_HIDDEN_PROPERTY_FLAG:uint = 1 << 8;
+    
+    /**
+     *  @private
+     */
+    private static const THUMBNAIL_SOURCE_PROPERTY_FLAG:uint = 1 << 9;
     
     //--------------------------------------------------------------------------
     //
@@ -769,7 +777,7 @@ public class VideoPlayer2 extends SkinnableComponent
     //----------------------------------
     
     [Inspectable(Category="General", defaultValue="0")]
-    [Bindable("bytesDownloadedChange")]
+    [Bindable("bytesLoadedChange")]
     
     /**
      *  @copy spark.components.VideoDisplay#bytesLoaded
@@ -819,7 +827,7 @@ public class VideoPlayer2 extends SkinnableComponent
     //----------------------------------
     
     [Inspectable(Category="General", defaultValue="0")]
-    [Bindable("playheadChange")]
+    [Bindable("currentTimeChange")]
     
     /**
      *  @copy spark.components.VideoDisplay#currentTime
@@ -883,6 +891,33 @@ public class VideoPlayer2 extends SkinnableComponent
         {
             videoDisplayProperties.loop = value;
         }
+    }
+    
+    //----------------------------------
+    //  mediaPlayerState
+    //----------------------------------
+    
+    [Inspectable(category="General", defaultValue="uninitialized")]
+    [Bindable("mediaPlayerStateChange")]
+    
+    /**
+     *  @copy spark.components.VideoDisplay#mediaPlayerState
+     *  
+     *  @default uninitialized
+     * 
+     *  @see org.osmf.media.MediaPlayerState
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get mediaPlayerState():String
+    {
+        if (videoDisplay)
+            return videoDisplay.mediaPlayerState;
+        else
+            return MediaPlayerState.UNINITIALIZED;
     }
     
     //----------------------------------
@@ -1053,6 +1088,52 @@ public class VideoPlayer2 extends SkinnableComponent
     }
     
     //----------------------------------
+    //  seekToFirstFrame
+    //----------------------------------
+        
+    [Inspectable(category="General", defaultValue="true")]
+    
+    /**
+     *  @copy spark.components.VideoDisplay#seekToFirstFrame
+     * 
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get seekToFirstFrame():Boolean
+    {
+        if (videoDisplay)
+        {
+            return videoDisplay.seekToFirstFrame;
+        }
+        else
+        {
+            var v:* = videoDisplayProperties.seekToFirstFrame;
+            return (v === undefined) ? true : v;
+        }
+    }
+    
+    /**
+     * @private
+     */
+    public function set seekToFirstFrame(value:Boolean):void
+    {
+        if (videoDisplay)
+        {
+            videoDisplay.seekToFirstFrame = value;
+            videoDisplayProperties = BitFlagUtil.update(videoDisplayProperties as uint, 
+                SEEK_TO_FIRST_FRAME_PROPERTY_FLAG, true);
+        }
+        else
+        {
+            videoDisplayProperties.seekToFirstFrame = value;
+        }
+    }
+    
+    //----------------------------------
     //  source
     //----------------------------------
     
@@ -1167,6 +1248,30 @@ public class VideoPlayer2 extends SkinnableComponent
             return videoDisplay.duration;
         else
             return 0;
+    }
+    
+    //----------------------------------
+    //  videoObject
+    //----------------------------------
+    
+    [Inspectable(category="General", defaultValue="null")]
+    
+    /**
+     *  @copy spark.components.VideoDisplay#videoObject
+     * 
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get videoObject():Video
+    {
+        if (videoDisplay)
+            return videoDisplay.videoObject;
+        else
+            return null;
     }
     
     //----------------------------------
@@ -1316,6 +1421,13 @@ public class VideoPlayer2 extends SkinnableComponent
                 videoDisplay.pauseWhenHidden = videoDisplayProperties.pauseWhenHidden;
                 newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
                     PAUSE_WHEN_HIDDEN_PROPERTY_FLAG, true);
+            }
+            
+            if (videoDisplayProperties.seekToFirstFrame !== undefined)
+            {
+                videoDisplay.seekToFirstFrame = videoDisplayProperties.seekToFirstFrame;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                    SEEK_TO_FIRST_FRAME_PROPERTY_FLAG, true);
             }
             
             if (videoDisplayProperties.thumbnailSource !== undefined)
@@ -1501,6 +1613,9 @@ public class VideoPlayer2 extends SkinnableComponent
             if (BitFlagUtil.isSet(videoDisplayProperties as uint, PAUSE_WHEN_HIDDEN_PROPERTY_FLAG))
                 newVideoProperties.pauseWhenHidden = videoDisplay.pauseWhenHidden;
             
+            if (BitFlagUtil.isSet(videoDisplayProperties as uint, SEEK_TO_FIRST_FRAME_PROPERTY_FLAG))
+                newVideoProperties.seekToFirstFrame = videoDisplay.seekToFirstFrame;
+            
             if (BitFlagUtil.isSet(videoDisplayProperties as uint, THUMBNAIL_SOURCE_PROPERTY_FLAG))
                 newVideoProperties.thumbnailSource = videoDisplay.thumbnailSource;
             
@@ -1647,7 +1762,11 @@ public class VideoPlayer2 extends SkinnableComponent
         
         scrubBar.bufferedStart = 0;
         
-        if (videoDisplay.bytesTotal == 0)
+        // if streaming, then we pretend to have everything in view
+        // if progressive, then look at the bytesLoaded and bytesTotal
+        if (!videoDisplay.videoPlayer.downloadable)
+            scrubBar.bufferedEnd = videoDisplay.duration;
+        else if (videoDisplay.bytesTotal == 0)
             scrubBar.bufferedEnd = 0;
         else
             scrubBar.bufferedEnd = (videoDisplay.bytesLoaded/videoDisplay.bytesTotal)*videoDisplay.duration;
@@ -2057,6 +2176,11 @@ public class VideoPlayer2 extends SkinnableComponent
             pause();
         else
             play();
+        
+        // need to synch up to what we've actually got because sometimes 
+        // the play() didn't actually play() because there's no source 
+        // or we're in an error state
+        playPauseButton.selected = playing;
     }
     
     /**
