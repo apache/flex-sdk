@@ -24,12 +24,24 @@ use namespace mx_internal;
  *  Listeners must be added via FlexClient.getInstance().addEventListener(...).
  * 
  *  @eventType mx.events.PropertyChangeEvent.PROPERTY_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="propertyChange", type="mx.events.PropertyChangeEvent")]    
     
 /**
  *  Singleton class that stores the global Id for this Player instance that is 
  *  server assigned when the client makes its initial connection to the server.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class FlexClient extends EventDispatcher
 {
@@ -70,6 +82,12 @@ public class FlexClient extends EventDispatcher
          *
          *  @return Returns the sole instance of this singleton class,
 	 *  creating it if it does not already exist.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public static function getInstance():FlexClient
 	{
@@ -117,6 +135,12 @@ public class FlexClient extends EventDispatcher
      *  This value is server assigned and is set as part of the Channel connect process.
      *  Once set, it will not change for the duration of the Player instance's lifespan.
      *  If no Channel has connected to a server this value is null.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get id():String
     {
