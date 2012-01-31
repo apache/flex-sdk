@@ -19,6 +19,8 @@ import mx.effects.easing.Elastic;
  *  The effect target decelerates toward the end value, and continues past the end value. 
  *  It then oscillates around the end value in smaller and smaller increments, 
  *  before reaching the end value. 
+ *
+ *  @includeExample examples/BounceElasticEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
