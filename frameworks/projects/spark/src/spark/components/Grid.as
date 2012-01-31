@@ -1769,15 +1769,25 @@ package spark.components
          *  and removes the caret.  For all other selection modes, this method 
          *  has no effect.
          *
-         *  <p>To clear the selection use <code>clearSelection</code>.</p>
-         * 
          *  <p>If items are added to the <code>dataProvider</code> or 
          *  <code>columns</code> are added after this method is called, the
-         *  new rows or cells in the new column will be selected.  This implicit
-         *  mode ends when the selection is cleared using 
-         *  <code>clearSelection</code> or reset using one of
-         *  <code>setSelectedCell</code>, <code>setSelectedCells</code>,
-         *  <code>setSelectedIndex</code>, <code>selectIndices</code>.</p>
+         *  new rows or cells in the new column will be selected.</p>
+         * 
+         *  <p>This implicit "selectAll" mode ends when any of the following occur:
+         *  <ul>
+         *    <li>selection is cleared using <code>clearSelection</code></li>
+         *    <li>selection reset using one of <code>setSelectedCell</code>, 
+         *    <code>setSelectedCells</code>, <code>setSelectedIndex</code>, 
+         *    <code>selectIndices</code></li>
+         *    <li><code>dataProvider</code> is refreshed and <code>preserveSelection</code> is false</li>
+         *    <li><code>dataProvider</code> is reset</li>
+         *    <li><code>columns</code> is refreshed, 
+         *    <code>preserveSelection</code> is <code>false</code> and 
+         *    <code>selectionMode</code> is 
+         *    <code>GridSelectionMode.MULTIPLE_CELLS</code></li>
+         *    <li><code>columns</code> is reset and code>selectionMode</code> is 
+         *    <code>GridSelectionMode.MULTIPLE_CELLS</code></li> 
+         *  </ul></p>
          * 
          *  @return True if the selection changed.
          *    
@@ -1833,8 +1843,8 @@ package spark.components
             // Remove caret and reset the anchor.
             caretRowIndex = -1;
             caretColumnIndex = -1;
-            anchorRowIndex = -1;
-            anchorColumnIndex = -1;
+            anchorRowIndex = 0;
+            anchorColumnIndex = 0;
             
             return selectionChanged;
         }
