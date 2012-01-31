@@ -11,7 +11,7 @@
 
 package spark.effects.supportClasses
 {
-import spark.effects.AnimationProperty;
+import spark.effects.SimpleMotionPath;
 import spark.effects.interpolation.RGBInterpolator;
 import mx.styles.StyleManager;
 
@@ -95,8 +95,8 @@ public class AnimateColorInstance extends AnimateInstance
             }
         }
         
-        animationProperties = 
-            [ new AnimationProperty(colorPropertyName, colorFrom, colorTo, duration) ];
+        motionPaths = 
+            [ new SimpleMotionPath(colorPropertyName, colorFrom, colorTo, duration) ];
             
         if (!interpolator)
             interpolator = RGBInterpolator.getInstance();
