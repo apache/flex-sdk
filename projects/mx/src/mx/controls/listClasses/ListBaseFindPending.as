@@ -34,6 +34,11 @@ public class ListBaseFindPending
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ListBaseFindPending(searchString:String,
 										startingBookmark:CursorBookmark,
@@ -63,6 +68,11 @@ public class ListBaseFindPending
 
 	/**
 	 *  The bookmark we have to seek to when the data arrives
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var bookmark:CursorBookmark;
 
@@ -72,6 +82,11 @@ public class ListBaseFindPending
 
 	/**
 	 *  The currentIndex we are looking at when we hit the page fault
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var currentIndex:int;
 
@@ -81,6 +96,11 @@ public class ListBaseFindPending
 
 	/**
 	 *  The offset from the bookmark we have to seek to when the data arrives
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var offset:int;
 
@@ -90,6 +110,11 @@ public class ListBaseFindPending
 
 	/**
 	 *  The string we were searching for when the hit the page fault
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var searchString:String;
 
@@ -99,6 +124,11 @@ public class ListBaseFindPending
 
 	/**
 	 *  The bookmark where we were when we started
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var startingBookmark:CursorBookmark;
 
@@ -108,6 +138,11 @@ public class ListBaseFindPending
 
 	/**
 	 *  The index we should stop at
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var stopIndex:int;
 }
