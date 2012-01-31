@@ -3700,7 +3700,7 @@ public class Grid extends Group
             {
                 // column may have changed visiblity                
                 const itemsLength:int = event.items.length;
-                var itemsLeft:int = count;
+                var itemsLeft:int = itemsLength;
                 var pcEvent:PropertyChangeEvent;
                 
                 for (i = 0; i < itemsLength; i++)
