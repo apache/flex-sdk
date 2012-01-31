@@ -1139,7 +1139,8 @@ public class ColorPicker extends ComboBase
     /**
      *  Hides the drop-down SwatchPanel object.
      *
-     *  @helpid 4926
+     *  @param trigger The event to dispatch when the 
+     *  drop-down list closes.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
