@@ -327,7 +327,7 @@ public class TextInput extends UIComponent
      *  @private
      *  Previous imeMode.
      */
-    private var prevMode:String = null;
+    private var prevMode:String = IMEConversionMode.UNKNOWN;
 
     /**
      *  @private
