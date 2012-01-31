@@ -592,8 +592,10 @@ public class NavBar extends Box
     {
         _labelFunction = value;
 
-    //    itemsSizeChanged = true;
-        invalidateDisplayList();
+        // If we have a data provider, update here to
+        // reflect new label function.
+        if (_dataProvider)
+            dataProvider = _dataProvider;
 
         dispatchEvent(new Event("labelFunctionChanged"));
     }
