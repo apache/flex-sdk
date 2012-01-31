@@ -17,8 +17,8 @@ import flash.xml.XMLNode;
 import mx.utils.ObjectUtil;
 
 /**
- * The SimpleXMLEncoder class take ActionScript Objects and encodes them to XML.  Use default 
- * serialization.
+ * The SimpleXMLEncoder class takes ActionScript Objects and encodes them to XML
+ * using default serialization.
  */
 public class SimpleXMLEncoder
 {
@@ -27,7 +27,9 @@ public class SimpleXMLEncoder
 	//  Class Methods
 	//
 	//--------------------------------------------------------------------------
-
+    /**
+     * @private
+     */
     static internal function encodeDate(rawDate:Date, dateType:String):String
     {
         var s:String = new String();
@@ -104,12 +106,14 @@ public class SimpleXMLEncoder
 	//--------------------------------------------------------------------------
 
     /**
-     * parentNode - optional, an XMLNode under which to 
-     *              put the encoded value.  If this is present, we
-     *              will be able to use namespace prefixes already
-     *              defined above the encoded object - if not, 
-     *              a well-formed XML document
-     *              including all NS declarations necessary is returned.
+     * Encodes an ActionScript object to XML using default serialization.
+     * 
+     * @param obj The ActionScript object to encode.
+     * 
+     * @param qname The qualified name of the child node.
+     * 
+     * @param parentNode An XMLNode under which to put the encoded
+     * value.
      */
     public function encodeValue(obj:Object, qname:QName, parentNode:XMLNode):XMLNode
     {
