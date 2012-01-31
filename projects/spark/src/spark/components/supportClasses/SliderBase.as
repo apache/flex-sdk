@@ -476,7 +476,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         if (event.isDefaultPrevented())
             return;
         
-        // TODO: Provide a way to easily override the keyboard
+        // FIXME (hmuller): Provide a way to easily override the keyboard
         // behavior. This means having a callback in the subclasses
         // that tell the superclass all the positions in an array
         // but defaulting to the normal stepping behavior when no
@@ -573,7 +573,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                     var animTarget:AnimationTarget = new AnimationTarget(animationUpdateHandler);
                     animTarget.endFunction = animationEndHandler;
                     animator.animationTarget = animTarget;                    
-                    // TODO (chaase): hard-coding easer for now - how to style it?
+                    // FIXME (chaase): hard-coding easer for now - how to style it?
                     animator.easer = new Sine(0);
                 }
                 animator.stop();
