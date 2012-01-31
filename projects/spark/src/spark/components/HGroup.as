@@ -30,7 +30,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;HGroup
+ *  &lt;s:HGroup
  *    <strong>Properties</strong>
  *    columnWidth="no default"
  *    gap="6"
