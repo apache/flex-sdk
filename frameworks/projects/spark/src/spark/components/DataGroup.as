@@ -13,25 +13,21 @@ package spark.components
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
-import flash.utils.Dictionary;
 
-import mx.collections.IList;  
+import mx.collections.IList;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
-import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 
-import spark.components.IItemRendererOwner; 
 import spark.components.supportClasses.GroupBase;
 import spark.events.RendererExistenceEvent;
 import spark.layout.supportClasses.LayoutBase;
-import spark.layout.supportClasses.LayoutElementFactory;
 
 use namespace mx_internal;  // for mx_internal property contentChangeDelta
 
@@ -176,12 +172,11 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         invalidateProperties();
     }
     
-    private function setTypicalLayoutElement(obj:DisplayObject):void
+    private function setTypicalLayoutElement(element:ILayoutElement):void
     {
-        var elt:ILayoutElement = (obj) ? LayoutElementFactory.getLayoutElementFor(obj) : null;
-        typicalLayoutElement = elt;
+        typicalLayoutElement = element;
         if (layout)
-            layout.typicalLayoutElement = elt;
+            layout.typicalLayoutElement = element;
     }
 
     private function initializeTypicalItem():void
@@ -204,7 +199,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         updateRendererInformation(renderer, _typicalItem);
         if (obj is IInvalidating)
             IInvalidating(obj).validateNow();
-        setTypicalLayoutElement(obj);
+        setTypicalLayoutElement(renderer);
         super.removeChild(obj);
     }    
     
