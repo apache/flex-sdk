@@ -207,7 +207,7 @@ public class MotionPath
         for (var i:int; i < n; ++i)
         {
             var kf:Keyframe = keyframes[i];
-            // TODO (chaase): Must be some way to allow callers
+            // FIXME (chaase): Must be some way to allow callers
             // to supply timeFraction, but currently we clobber it
             // with this operation. But if we choose to clobber it
             // only if it's not set already, then it only works the
