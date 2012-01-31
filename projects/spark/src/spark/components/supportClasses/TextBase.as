@@ -15,8 +15,6 @@ package flex.graphics.graphicsClasses
 import flash.display.Graphics;
 import flash.display.Sprite;
 
-import flex.graphics.IDisplayObjectElement;
-
 import mx.core.mx_internal;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
@@ -28,7 +26,7 @@ import mx.utils.ObjectUtil;
  *  Documentation is not currently available.
  */
 public class TextGraphicElement extends GraphicElement
-	implements IDisplayObjectElement, IStyleClient
+	implements IStyleClient
 {
 	include "../../core/Version.as";
 
