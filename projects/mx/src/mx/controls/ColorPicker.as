@@ -1252,7 +1252,7 @@ public class ColorPicker extends ComboBase
 
             // Position: top or bottom
             var sm:ISystemManager = systemManager.topLevelSystemManager;
-            var screen:Rectangle = sm.getVisibleApplicationRect();
+            var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
 
             if (point.y + height + dropdownGap + dropdownSwatch.height > screen.bottom && 
                 point.y > (screen.top + dropdownGap + dropdownSwatch.height)) // Up
