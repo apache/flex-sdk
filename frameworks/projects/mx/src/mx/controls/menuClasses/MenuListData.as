@@ -23,6 +23,11 @@ import mx.core.IUIComponent;
  *  IDropInListItemRenderer interface, which defines the <code>listData</code> property.
  *
  *  @see mx.controls.listClasses.IDropInListItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class MenuListData extends ListData
 {
@@ -54,6 +59,11 @@ public class MenuListData extends ListData
 	 *  @param columnIndex The index of the column in the currently visible columns of the 
      *  control.
 	 *
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function MenuListData(text:String, icon:Class, labelField:String,
 								 uid:String, owner:IUIComponent, rowIndex:int = 0,
@@ -74,6 +84,11 @@ public class MenuListData extends ListData
 
 	/**
 	 *  The max icon width for all MenuItemListRenderers
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var maxMeasuredIconWidth:Number;
 	
@@ -83,6 +98,11 @@ public class MenuListData extends ListData
 
 	/**
 	 *  The max type icon width for all MenuItemListRenderers
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var maxMeasuredTypeIconWidth:Number;
 	
@@ -92,6 +112,11 @@ public class MenuListData extends ListData
 
 	/**
 	 *  The max branch icon width for all MenuItemListRenderers
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var maxMeasuredBranchIconWidth:Number;
 	
@@ -102,6 +127,11 @@ public class MenuListData extends ListData
 	/**
 	 *  Whether the left icons should layout in two separate columns
 	 *  (one for icons and one for type icons, like check and radio)
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var useTwoColumns:Boolean;
 
