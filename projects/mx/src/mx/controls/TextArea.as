@@ -1081,13 +1081,13 @@ public class TextArea extends ScrollControlBase
      *  <p>where the <code>myTextArea_initialize</code> method is in a script CDATA section:</p>
      *  
      *  <pre>
-     *  &lt;mx:Script&gt;
+     *  &lt;fx:Script&gt;
      *  &lt;![CDATA[
      *  private function myTextArea_initialize():void {
      *      myTextArea.htmlText = "This is an example of &lt;b&gt;bold&lt;/b&gt; markup";
      *  }
      *  ]]&gt;
-     *  &lt;/mx:Script&gt;
+     *  &lt;/fx:Script&gt;
      *  
      *  </pre>
      *  
