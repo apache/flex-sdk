@@ -1919,10 +1919,12 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             fontStyle = owner.getStyle("fontStyle");
         var bold:Boolean = fontWeight == "bold";
         var italic:Boolean = fontStyle == "italic";
+                
         embeddedFontContext = (noEmbeddedFonts || !embeddedFontRegistry) ? 
 			null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                fontName, bold, italic, this, owner.moduleFactory);    
+                fontName, bold, italic, this, owner.moduleFactory, 
+                owner.systemManager);    
 
         if (embeddedFontContext != oldEmbeddedFontContext)
         {
@@ -1980,12 +1982,13 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             bold = fontWeight == "bold";
             italic = fontStyle == "italic";
         }
-
+        
         embeddedFontContext = (noEmbeddedFonts || !embeddedFontRegistry) ? 
 			null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
-                fontName, bold, italic, this, owner.moduleFactory);    
-
+                fontName, bold, italic, this, owner.moduleFactory,
+                owner.systemManager);    
+        
         if (embeddedFontContext != oldHeaderEmbeddedFontContext)
         {
             oldHeaderEmbeddedFontContext = embeddedFontContext;
