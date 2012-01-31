@@ -592,7 +592,7 @@ public class DropDownList extends List
             
             if (dropDownController.isOpen)
             {   
-                proposedNewIndex = layout.getNavigationDestinationIndex(proposedSelectedIndex, navigationUnit);
+                proposedNewIndex = layout.getNavigationDestinationIndex(proposedSelectedIndex, navigationUnit, arrowKeysWrapFocus);
                 
                 if (proposedNewIndex != -1)
                 {
