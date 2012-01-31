@@ -327,7 +327,15 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
 
         if (result != null)
         {
-            throw new Error("Invalid decimal value '" + value + "'.");
+            if (validating)
+            {
+                throw new Error("Invalid decimal value '" + value + "'.");
+            }
+            else
+            {
+                // As a last resort, we just go with the original input
+                result = whitespaceCollapse(value);
+            }
         }
         else
         {
@@ -739,14 +747,6 @@ public class SchemaMarshaller //implements IXMLTypeMarshaller
         }
 
         var integer:Number = Math.floor(number);
-
-        result = specialNumber(integer);
-        if (result != null)
-        {
-            // Throw an error for NaN, Inf and -Inf even if validating is false.
-            throw new Error(result + " is not an allowed value for " + type.localName);
-        }
-        
         if (integer >= min)
         {
             if (integer > max)
