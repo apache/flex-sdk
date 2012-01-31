@@ -258,8 +258,6 @@ public class GridLayout extends LayoutBase
      */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        // TBD (hmuller): Short-circuit if there aren't any rows or columns.
-        
         if (!grid)
             return;
         
@@ -279,25 +277,44 @@ public class GridLayout extends LayoutBase
         const scrollX:Number = horizontalScrollPosition;
         const scrollY:Number = verticalScrollPosition;
         
-        // TBD(hmuller): use this state variable rather than passing scrollX,.. around.  And get rid of 
-        // scrollX,Y vars above
         visibleGridBounds.x = scrollX;
         visibleGridBounds.y = scrollY;
         visibleGridBounds.width = unscaledWidth;
         visibleGridBounds.height = unscaledHeight;
         
+        // Layout the columns and item renderers
+        
 		layoutColumns(scrollX, scrollY, unscaledWidth);
-
         layoutItemRenderers(grid.itemRendererGroup, scrollX, scrollY, unscaledWidth, unscaledHeight);
+        
+        // Update the content size.  Make sure that if the content spans partially 
+        // over a pixel to the right/bottom, the content size includes the whole pixel.
+        
+        const contentWidth:Number = Math.ceil(gridDimensions.getContentWidth());
+        const contentHeight:Number = Math.ceil(gridDimensions.getContentHeight());
+        grid.setContentSize(contentWidth, contentHeight); 
+        
+        // If the grid's contentHeight is smaller than than the available height 
+        // (unscaledHeight) then pad the visible rows
+        
+        var paddedRowCount:int = gridDimensions.rowCount;
+        if ((scrollY == 0) && (contentHeight < unscaledHeight))
+        {
+            const unusedHeight:Number = unscaledHeight - gridDimensions.getContentHeight();
+            paddedRowCount += Math.ceil(unusedHeight / gridDimensions.defaultRowHeight);
+        }
+        
+        for (var rowIndex:int = gridDimensions.rowCount; rowIndex < paddedRowCount; rowIndex++)
+            visibleRowIndices.push(rowIndex);
         
         // Layout the row backgrounds
         
         visibleRowBackgrounds = layoutLinearElements(grid.rowBackground, grid.backgroundGroup, 
             visibleRowBackgrounds, oldVisibleRowIndices, visibleRowIndices, layoutRowBackground);
 
-        // Layout the row and column separators
+        // Layout the row and column separators. 
         
-        const lastRowIndex:int = gridDimensions.rowCount - 1;
+        const lastRowIndex:int = paddedRowCount - 1;
         const lastColumnIndex:int = gridDimensions.columnCount - 1;
         const overlayGroup:Group = grid.overlayGroup
 
@@ -321,14 +338,7 @@ public class GridLayout extends LayoutBase
         
         oldVisibleRowIndices.length = 0;
         oldVisibleColumnIndices.length = 0;
-        
-        // Update the content size.  Make sure that if the content spans partially 
-        // over a pixel to the right/bottom, the content size includes the whole pixel.
-        
-        const contentWidth:Number = Math.ceil(gridDimensions.getContentWidth());
-        const contentHeight:Number = Math.ceil(gridDimensions.getContentHeight());
-        grid.setContentSize(contentWidth, contentHeight);
-        
+                
         if (enablePerformanceStatistics)
         {
             var endTime:Number = getTimer();
@@ -750,7 +760,6 @@ public class GridLayout extends LayoutBase
                         rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 }
             } 
-            
                                                
             cellX = startCellR.x;
             cellY += rowHeight + rowGap;
@@ -1006,7 +1015,7 @@ public class GridLayout extends LayoutBase
         
         for (var index:int = 0; index < newVisibleElementCount; index++) 
         {
-            var newEltIndex:int = newVisibleIndices[index];
+            var newEltIndex:int = (index < newVisibleIndices.length) ? newVisibleIndices[index] : index;
             if (newEltIndex == lastIndex)
                 break;
             
@@ -1121,7 +1130,7 @@ public class GridLayout extends LayoutBase
         for (var i:int = 0; i < elements.length; i++)
         {
             const offset:int = newIndices.indexOf(oldIndices[i]);
-            if ((oldIndices[i] == lastIndex) || (newIndices.indexOf(oldIndices[i]) == -1))
+            if ((oldIndices[i] == lastIndex) || (offset == -1))
             {
                 const elt:IVisualElement = elements[i];
                 if (elt)
@@ -1195,14 +1204,18 @@ public class GridLayout extends LayoutBase
     
     private function layoutRowBackground(rowBackground:IVisualElement, rowIndex:int):void
     {
-        // TBD: call via IGridElement method
-        // Object(rowBackground)["initializeGridElement"](rowIndex, 0);
-        layoutGridElementR(rowBackground, gridDimensions.getRowBounds(rowIndex));
-    }
-
-    private function layoutColumnBackground(rowBackground:IVisualElement, columnIndex:int):void
-    {
-        // TBD
+        const rowCount:int = gridDimensions.rowCount;
+        const bounds:Rectangle = (rowIndex < rowCount) 
+            ? gridDimensions.getRowBounds(rowIndex)
+            : gridDimensions.getPadRowBounds(rowIndex);
+        
+        if (!bounds)
+            return;
+        
+        if  ((rowIndex < rowCount) && (bounds.width == 0)) // implies no columns
+            bounds.width = visibleGridBounds.width;
+        
+        layoutGridElementR(rowBackground, bounds);
     }
 
     private function layoutRowSeparator(separator:IVisualElement, rowIndex:int):void
@@ -1211,9 +1224,14 @@ public class GridLayout extends LayoutBase
         const width:Number = r.width;  
         const height:Number = 1; // TBD: should be max(1, colGap)
         const x:Number = r.x;
-        const bounds:Rectangle = gridDimensions.getRowBounds(rowIndex);
+        const rowCount:int = gridDimensions.rowCount;
+        const bounds:Rectangle = (rowIndex < rowCount) 
+            ? gridDimensions.getRowBounds(rowIndex)
+            : gridDimensions.getPadRowBounds(rowIndex);
+        
         if (!bounds)
             return;
+     
         const y:Number = bounds.bottom;
         layoutGridElement(separator, x, y, width, height);
     }
@@ -1224,8 +1242,10 @@ public class GridLayout extends LayoutBase
         const width:Number = 1;  // TBD: should be max(1, rowGap)
         const height:Number = Math.max(r.height, visibleGridBounds.height); 
         const bounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
+        
         if (!bounds)
             return;
+
         const x:Number = bounds.right;
         const y:Number = r.y;
         layoutGridElement(separator, x, y, width, height);
@@ -1237,8 +1257,10 @@ public class GridLayout extends LayoutBase
         const width:Number = 1;  // TBD: should be max(1, rowGap)
         const height:Number = columnHeaderBar.height; 
         const columnBounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
+        
         if (!columnBounds)
             return;
+
         const x:Number = columnBounds.right;
         const y:Number = columnBounds.top;
         layoutGridElement(separator, x, y, width, height);
