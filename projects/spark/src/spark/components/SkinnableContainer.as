@@ -60,7 +60,7 @@ import mx.managers.IFocusManagerContainer;
 
 /**
  * The ItemsComponent class is the base class for all skinnable components that have 
- * content. This class is not typically instantiated in MXML. It is primarily
+ * visual content. This class is not typically instantiated in MXML. It is primarily
  * used as a base class, or as a SkinPart.
  */
 public class ItemsComponent extends SkinnableComponent 
@@ -255,62 +255,6 @@ public class ItemsComponent extends SkinnableComponent
         
     }
          
-    //----------------------------------
-    //  itemRenderer
-    //----------------------------------
-    
-    private var _itemRenderer:IFactory;
-    
-    /**
-     *  @copy flex.core.Group#itemRenderer
-     */
-    public function get itemRenderer():IFactory
-    {
-        if (contentGroup)
-            return contentGroup.itemRenderer;
-        
-        return _itemRenderer;
-    }
-    
-    public function set itemRenderer(value:IFactory):void
-    {
-        if (value == _itemRenderer)
-            return;
-            
-        _itemRenderer = value;
-        
-        if (contentGroup)
-            contentGroup.itemRenderer = _itemRenderer;
-    }
-    
-    //----------------------------------
-    //  itemRendererFunction
-    //----------------------------------
-    
-    private var _itemRendererFunction:Function;
-    
-    /**
-     *  @copy flex.core.Group#itemRendererFunction
-     */
-    public function get itemRendererFunction():Function
-    {
-        if (contentGroup)
-            return contentGroup.itemRendererFunction;
-        
-        return _itemRendererFunction;
-    }
-    
-    public function set itemRendererFunction(value:Function):void
-    {
-        if (value == _itemRendererFunction)
-            return;
-        
-        _itemRendererFunction = value;
-        
-        if (contentGroup)
-            contentGroup.itemRendererFunction = _itemRendererFunction;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Methods proxied to contentGroup
@@ -452,11 +396,6 @@ public class ItemsComponent extends SkinnableComponent
             }
             if (_layout != null)
                 contentGroup.layout = _layout;
-            if (_itemRenderer != null || _itemRendererFunction != null)
-            {
-                contentGroup.itemRenderer = _itemRenderer;
-                contentGroup.itemRendererFunction = _itemRendererFunction;
-            }
             
             contentGroup.addEventListener(
                 ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
