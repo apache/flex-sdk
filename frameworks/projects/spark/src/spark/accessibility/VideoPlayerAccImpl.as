@@ -36,14 +36,214 @@ import spark.components.supportClasses.ButtonBase;
 import spark.events.SkinPartEvent;
 import spark.events.VideoEvent;
 
-
 use namespace mx_internal;
 
 [ResourceBundle("components")]
 
 /**
- *  VideoPlayerAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the VideoPlayer class.
+ *  VideoPlayerAccImpl is the accessibility implementation class
+ *  for spark.components.VideoPlayer.
+ *
+ *  <p>When a Spark VideoPlayer is created, 
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the VideoPlayer.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>The VideoPlayer has six MSAA children:
+ *  <ol>
+ *    <li>Play/Pause control</li>
+ *    <li>Scrub control</li>
+ *    <li>Play time indicator</li>
+ *    <li>Mute control</li>
+ *    <li>Volume control</li>
+ *    <li>Full Screen control</li>
+ *  </ol></p>
+ *
+ *  <p>The controls will always appear in the same order for accessibility
+ *  regardless of the order of controls in the skin.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a VideoPlayer is ROLE_SYSTEM_PANE.</p>
+ *
+ *  <p>The Role of each child control is:
+ *  <ol>
+ *    <li>Play/Pause control: ROLE_SYSTEM_BUTTON</li>
+ *    <li>Scrub control: ROLE_SYSTEM_SLIDER</li>
+ *    <li>Play time indicator: ROLE_SYSTEM_STATICTEXT</li>
+ *    <li>Mute control: ROLE_SYSTEM_BUTTON</li>
+ *    <li>Volume control: ROLE_SYSTEM_SLIDER</li>
+ *    <li>Full Screen control: ROLE_SYSTEM_BUTTON</li>
+ *  </ol></p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a VideoPlayer is, by default,
+ *  specified by a locale-dependent resource.
+ *  For the en_US locale, the name is "VideoPlayer".
+ *  When wrapped in a FormItem element,
+ *  this name is combined with the FormItem's label.
+ *  To override this behavior,
+ *  set the VideoPlayer's's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>The Name of each child control is similarly specified by a resource.
+ *  The en_US names are:
+ *  <ol>
+ *    <li>Play/Pause control: "Play" or "Pause"</li>
+ *    <li>Scrub control: "Scrub Bar"</li>
+ *    <li>Play time indicator: the displayed text</li>
+ *    <li>Mute control: "Muted" or "Not muted"</li>
+ *    <li>Volume control: "Volume Bar"</li>
+ *    <li>Full Screen control: "Full Screen"</li>
+ *  </ol></p>
+ *
+ *  <p>To override the names of these child controls, reskin the VideoPlayer
+ *  and set the <code>accessibilityName</code> of the controls.</p>
+ *
+ *  <p>Note that the Play/Pause control and the Mute control
+ *  have MSAA Names which change as you interact with them.
+ *  To specify them, set <code>accessibilityName</code>
+ *  to a comma-separated list of MSAA Names,
+ *  such as "Play,Pause" or "Not Muted,Muted".</p>
+ *
+ *  <p>When the Name of the VideoPlayer or one of its child controls changes,
+ *  a VideoPlayer dispatches the MSAA event EVENT_OBJECT_NAMECHANGE
+ *  with the proper childID for the control or 0 for itself.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a VideoPlayer is, by default, the empty string,
+ *  but you can set the VideoPlayer's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p>The Description of each child control is the empty string.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a VideoPlayer is STATE_SYSTEM_NORMAL.</p>
+ *
+ *  <p>The State of each child control is:
+ *  <ol>
+ *    <li>Play/Pause control:
+ *      <ul>
+ *        <li>STATE_SYSTEM_UNAVAILABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSED</li>
+ *      </ul></li>
+ *    <li>Scrub control:
+ *      <ul>
+ *        <li>STATE_SYSTEM_UNAVAILABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSED</li>
+ *      </ul></li>
+ *    <li>Play time indicator:
+ *      <ul>
+ *        <li>STATE_SYSTEM_UNAVAILABLE</li>
+ *        <li>STATE_SYSTEM_READONLY</li>
+ *      </ul></li>
+ *    <li>Mute control:
+ *      <ul>
+ *        <li>STATE_SYSTEM_UNAVAILABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSED</li>
+ *      </ul></li>
+ *    <li>Volume control:
+ *      <ul>
+ *        <li>STATE_SYSTEM_UNAVAILABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSED</li>
+ *      </ul></li>
+ *    <li>Full Screen control:
+ *      <ul>
+ *        <li>STATE_SYSTEM_UNAVAILABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSABLE</li>
+ *        <li>STATE_SYSTEM_FOCUSED</li>
+ *      </ul></li>
+ *   </ol></p>
+ *
+ *   <p>When the State of the VideoPlayer or one of its child controls changes,
+ *  a VideoPlayer dispatches the MSAA event EVENT_OBJECT_STATECHANGE
+ *  with the proper childID for the control or 0 for itself.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>A VideoPlayer does not have an MSAA Value.</p>
+ *
+ *  <p>THe Value of each child control is:
+ *  <ol>
+ *    <li>Play/Pause control: no Value</li>
+ *    <li>Scrub control: Value of slider as an amount of time</li>
+ *    <li>Play time indicator: no Value</li>
+ *    <li>Mute control: no Value</li>
+ *    <li>Volume control: Value of slider</li>
+ *    <li>Full Screen control: no Value</li>
+ *  </ol></p>
+ *
+ *  <p>When the Value of a child control changes,
+ *  a VideoPlayer dispatches the MSAA event EVENT_OBJECT_VALUECHANGE
+ *  with the proper childID for the control.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a VideoPlayer, or one of its child controls,
+ *  is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A VideoPlayer does not have an MSAA DefaultAction.</p>
+ *
+ *  <p>The DefaultAction of each child control is:
+ *  <ol>
+ *    <li>Play/Pause control: "Press"</li>
+ *    <li>Scrub control: none</li>
+ *    <li>Play time indicator: none</li>
+ *    <li>Mute control: "Press"</li>
+ *    <li>Volume control: none</li>
+ *    <li>Full Screen control: "Press"</li>
+ *  </ol></p>
+ *
+ *  <p>Performing the default action of one of the child controls
+ *  will have the following effect:
+ *  <ol>
+ *    <li>Play/Pause control: toggle between Play and Pause</li>
+ *    <li>Scrub control: none</li>
+ *    <li>Play time indicator: none</li>
+ *    <li>Mute control: toggle between Mute and Not Muted</li>
+ *    <li>Volume control: none</li>
+ *    <li>Full Screen control: toogle Full Screen on and off</li>
+ *  </ol></p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A VideoPlayer accepts focus.
+ *  When it does so, it dispatches the MSAA event EVENT_OBJECT_FOCUS event.</p>
+ *
+ *  <p>Some of its child controls also accept focus:
+ *  <ol>
+ *    <li>Play/Pause control: accepts focus</li>
+ *    <li>Scrub control: accepts focus</li>
+ *    <li>Play time indicator: does not accept focus</li>
+ *    <li>Mute control: transfers focus to Volume Bar</li>
+ *    <li>Volume control: accepts focus</li>
+ *    <li>Full Screen control: accepts focus</li>
+ *  </ol></p>
+ *
+ *  <p>When reporting focus, the VideoPlayer reports itself
+ *  if it is focused and none of its child controls is focused.
+ *  Otherwise, the focus may be reported as being on
+ *  the Play/Pause control, the Scrub control,
+ *  the Volume control, or the Full Screen control.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A VideoPlayer does not support selection in the MSAA sense.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
