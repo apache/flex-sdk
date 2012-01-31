@@ -51,33 +51,33 @@ import flashx.textLayout.formats.LineBreak;
  *  You can alter the operation, or cancel the event
  *  to prevent the operation from being processed.
  *
- *  @eventType mx.events.TextOperationEvent.CHANGING
+ *  @eventType spark.events.TextOperationEvent.CHANGING
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="changing", type="mx.events.TextOperationEvent")]
+[Event(name="changing", type="spark.events.TextOperationEvent")]
 
 /**
  *  Dispatched after a user editing operation is complete.
  *
- *  @eventType mx.events.TextOperationEvent.CHANGE
+ *  @eventType spark.events.TextOperationEvent.CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="change", type="mx.events.TextOperationEvent")]
+[Event(name="change", type="spark.events.TextOperationEvent")]
 
 include "../../styles/metadata/AdvancedTextLayoutFormatStyles.as"
 include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -87,7 +87,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
