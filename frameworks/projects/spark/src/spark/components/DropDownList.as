@@ -454,9 +454,9 @@ public class DropDownList extends List
     /**
      *  @private
      */ 
-    override protected function commitSelection(dispatchSelectionChanged:Boolean = true):Boolean
+    override protected function commitSelection(dispatchChangedEvents:Boolean = true):Boolean
     {
-        var retVal:Boolean = super.commitSelection(dispatchSelectionChanged);
+        var retVal:Boolean = super.commitSelection(dispatchChangedEvents);
         updateLabelElement();
         return retVal; 
     }
