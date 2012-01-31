@@ -11,7 +11,7 @@
 
 -->
 
-<project name="graphics" default="main" basedir=".">
+<project name="flex4" default="main" basedir=".">
 	<property name="FLEX_HOME" location="${basedir}/../../.."/>
 
 	<property file="${FLEX_HOME}/build.properties"/>
