@@ -77,6 +77,14 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
  *          &lt;s:Label text="Account Info"/&gt; 
  *          &lt;/s:NavigatorContent&gt; 
  *      &lt;/mx:ViewStack&gt; </pre>
+ *
+ *  <p>The TabBar container has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>Large enough to display the tabs</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
+ *  </table>
  *  
  *  @mxml <p>The <code>&lt;s:TabBar&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
