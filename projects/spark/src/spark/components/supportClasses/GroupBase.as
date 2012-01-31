@@ -587,10 +587,10 @@ public class GroupBase extends UIComponent implements IViewport
      */
     override protected function measure():void
     {
-        super.measure();
-        
         if (_layout && layoutInvalidateSizeFlag)
         {
+            super.measure();
+        
             layoutInvalidateSizeFlag = false;
             _layout.measure();
         }
