@@ -41,6 +41,26 @@ import spark.components.supportClasses.Slider;
  *  between the minimum and maximum value. The slider can contain a data tip
  *  to show its current value.</p>
  *
+ *  <p>The HSlider control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>100 pixels wide by 11 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>100 pixels wide and 100 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;HSlider&gt;</code> tag inherits all of the tag 
