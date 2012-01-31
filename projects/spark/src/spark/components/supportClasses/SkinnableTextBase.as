@@ -944,6 +944,8 @@ public class SkinnableTextBase extends SkinnableComponent
     //  selectionHighlighting
     //----------------------------------
 
+    [Inspectable(category="General", enumeration="always,whenActive,whenFocused", defaultValue="whenFocused")]
+    
     /**
      *  @copy spark.components.RichEditableText#selectionHighlighting
      *  
