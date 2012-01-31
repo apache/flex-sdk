@@ -16,6 +16,8 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import mx.core.mx_internal;
 
+use namespace mx_internal;
+
 /**
  *  The AddChildActionInstance class implements the instance class
  *  for the AddChildAction effect.
@@ -129,7 +131,7 @@ public class AddChildActionInstance extends ActionEffectInstance
 			}
 		}
 		
-		if (!mx_internal::playReversed)
+		if (!playReversed)
 		{
 			// Set the style property
 			if (target && targetDisplayObject.parent == null && relativeTo)
