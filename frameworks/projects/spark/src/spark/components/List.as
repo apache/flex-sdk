@@ -61,7 +61,6 @@ public class FxList extends FxListBase
     public function FxList()
     {
         super();
-        itemRenderer = new ClassFactory(FxDefaultItemRenderer);
         
         //Add a keyDown event listener so we can adjust
         //selection accordingly.  
