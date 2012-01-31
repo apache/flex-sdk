@@ -101,7 +101,7 @@ public class VGroup extends Group
     //  gap
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="6")]
 
     /**
      *  @copy spark.layouts.VerticalLayout#gap
@@ -188,7 +188,7 @@ public class VGroup extends Group
     //  paddingLeft
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
 
     /**
      *  @copy spark.layouts.VerticalLayout#paddingLeft
@@ -217,7 +217,7 @@ public class VGroup extends Group
     //  paddingRight
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
 
     /**
      *  @copy spark.layouts.VerticalLayout#paddingRight
@@ -246,7 +246,7 @@ public class VGroup extends Group
     //  paddingTop
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
 
     /**
      *  @copy spark.layouts.VerticalLayout#paddingTop
@@ -275,7 +275,7 @@ public class VGroup extends Group
     //  paddingBottom
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
 
     /**
      *  @copy spark.layouts.VerticalLayout#paddingBottom
@@ -440,7 +440,7 @@ public class VGroup extends Group
     //  variableRowHeight
     //----------------------------------
 
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="true")]
 
     /**
      *  @copy spark.layouts.VerticalLayout#variableRowHeight
