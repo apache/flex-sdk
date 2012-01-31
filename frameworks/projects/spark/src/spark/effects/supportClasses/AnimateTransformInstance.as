@@ -52,6 +52,14 @@ public class AnimateTransformInstance extends AnimateInstance
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
+     */
+    private static var TRANSFORM_PROPERTIES:Array =
+        ["translationX", "translationY", "translationZ", 
+         "rotationX", "rotationY", "rotationZ", 
+         "scaleX", "scaleY", "scaleZ"];
+
+    /**
      * Flag to indicate that this single instance of the transform-related
      * effects has already started and should not be started again. If there
      * are several transform effects running in the same effect tree, as children
@@ -82,10 +90,12 @@ public class AnimateTransformInstance extends AnimateInstance
     /**
      * Utility map used in applyValues()
      */
-    private var currentValues:Object = {rotationX:NaN, rotationY:NaN, rotation:NaN,
+    private var currentValues:Object = {rotationX:NaN, rotationY:NaN, rotationZ:NaN,
                                         scaleX:NaN, scaleY:NaN, scaleZ:NaN,
+                                        translationX:NaN, translationY:NaN, translationZ:NaN,
                                         _rotationX:NaN, _rotationY:NaN, _rotationZ:NaN,
-                                        _scaleX:NaN, _scaleY:NaN, _scaleZ:NaN };
+                                        _scaleX:NaN, _scaleY:NaN, _scaleZ:NaN,
+                                        _translationX:NaN, _translationY:NaN, _translationZ:NaN};
     
     /**
      * Utility structures used in applyValues()
@@ -263,12 +273,11 @@ public class AnimateTransformInstance extends AnimateInstance
     override public function play():void
     {
         var autoProps:Object = new Object();
-        var transformProps:Array = effect.getAffectedProperties();
         
         if (propertyChanges)
         {
             for (var s:String in propertyChanges.end)
-                if (transformProps.indexOf(s) >= 0)
+                if (TRANSFORM_PROPERTIES.indexOf(s) >= 0)
                     autoProps[s] = s;
         } 
         if (animationProperties)
@@ -307,6 +316,18 @@ public class AnimateTransformInstance extends AnimateInstance
                 animationProperties = [];
             animationProperties.push(mp);
         } 
+        if (propertyChanges && !disableConstraints)
+        {
+            setupConstraintAnimation("left");
+            setupConstraintAnimation("right");
+            setupConstraintAnimation("top");
+            setupConstraintAnimation("bottom");
+            setupConstraintAnimation("percentWidth");
+            setupConstraintAnimation("percentHeight");
+            setupConstraintAnimation("horizontalCenter");
+            setupConstraintAnimation("verticalCenter");
+            // TODO (chaase): also deal with baseline when it works in BasicLayout
+        }
         super.play();
     }
 
@@ -366,8 +387,12 @@ public class AnimateTransformInstance extends AnimateInstance
         // simultaneously to perform our composite transform operation
         for (var i:int = 0; i < animationProperties.length; ++i)
         {
-            var holder:MotionPath = MotionPath(animationProperties[i]);
-            currentValues[holder.property] = anim.currentValue[i];
+            // Collect all transform-related values in currentValues, but
+            // pass any other values, like constraints, to setValue()
+            if (currentValues[animationProperties[i].property] !== undefined)
+                currentValues[animationProperties[i].property] = anim.currentValue[i];
+            else
+                setValue(animationProperties[i].property, anim.currentValue[i]);
         }
         if (!isNaN(currentValues.scaleX) ||
             !isNaN(currentValues.scaleY) || 
