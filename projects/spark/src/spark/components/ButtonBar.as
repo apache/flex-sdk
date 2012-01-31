@@ -441,8 +441,11 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     private function item_clickHandler(event:MouseEvent):void
     {
-        var newIndex:int = dataGroup.getElementIndex(
-                            event.currentTarget as IVisualElement);
+        var newIndex:int
+        if (event.currentTarget is IItemRenderer)
+            newIndex = IItemRenderer(event.currentTarget).index;
+        else
+            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
 
         var currentRenderer:IItemRenderer;
         if (caretIndex >= 0 && !inKeyUpHandler) // don't remove caret when keybd nav
