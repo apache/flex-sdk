@@ -4729,6 +4729,10 @@ public class Container extends UIComponent
             }
         }
 
+        v = getStyle("contentBackgroundColor");
+        if (c == sparkBorder && v !== null)
+            return true;
+        
         v = getStyle("backgroundColor");
         if (v !== null && v !== "")
             return true;
