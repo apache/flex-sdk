@@ -692,6 +692,9 @@ public class FxDataContainer extends FxContainerBase implements IViewport
         }
     }
     
+    /**
+     * @private
+     */
     override protected function partRemoved(partName:String, instance:Object):void
     {
         if (instance == dataGroup)
