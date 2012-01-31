@@ -154,6 +154,7 @@ public class Image extends SWFLoader
         // images are generally not interactive
         tabChildren = false;
         tabEnabled = true;
+        tabFocusEnabled = true;
         
         showInAutomationHierarchy = true;       
     }
