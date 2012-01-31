@@ -112,6 +112,24 @@ import mx.events.ModuleEvent;
  */
 [Event(name="unload", type="mx.events.ModuleEvent")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+/*   NOTE: This class does not use the "containers" resource bundle. This 
+ *   metadata is here to add the "containers" resource bundle to an 
+ *   application loading a module. We do this because we know a Module will
+ *   pull in the "containers" resource bundle and if the Module uses a resource
+ *   bundle that is not already in use it will cause the module to be leaked.
+ *
+ *   This is only an issue for Spark applications because they do not link in
+ *   the CanvasLayout class, which has the "containers" resource bundle. Halo
+ *   applications always use the CanvasLayout class. This can be removed
+ *   after the module leak caused by the ResourceManager has been fixed.
+ *   
+ */
+[ResourceBundle("containers")]
+
 /**
  *  ModuleLoader is a component that behaves much like a SWFLoader except
  *  that it follows a contract with the loaded content. This contract dictates that the child
