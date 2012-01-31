@@ -693,27 +693,15 @@ public class PopUpButton extends Button
         var stateName:String;
         
         if (!enabled)
-        {
             tempSkinName = "disabledSkin";
-            stateName = "disabled";
-        }
         else if (phase == "arrowOver")
-        {
             tempSkinName = "popUpOverSkin";
-            stateName = "popUpOver";
-        }
         else if (phase == "arrowDown")
-        {
             tempSkinName = "popUpDownSkin";   
-            stateName = "popUpDown";             
-        }
         else 
-        {
             tempSkinName = phase + "Skin";
-            stateName = phase;
-        }
         
-        viewSkinForPhase(tempSkinName, stateName);
+        viewSkinForPhase(tempSkinName, getCurrentButtonState());
     }
 
     /**
@@ -762,6 +750,28 @@ public class PopUpButton extends Button
         viewIconForPhase(iconName);
     }
 
+    /**
+     *  @private
+     *  Computes the current button state based on whether this button is 
+     *  enabled or disabled, whether it is selected or unselected, and how it 
+     *  is currently interacting with the mouse (i.e. the up/over/down state).
+     */
+    override mx_internal function getCurrentButtonState():String
+    {
+        _currentButtonState = "";
+        
+        if (!enabled)
+            _currentButtonState = "disabled";
+        else if (phase == "arrowOver")
+            _currentButtonState = "popUpOver";
+        else if (phase == "arrowDown")
+            _currentButtonState = "popUpDown";             
+        else 
+            _currentButtonState = phase;
+        
+        return _currentButtonState;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
