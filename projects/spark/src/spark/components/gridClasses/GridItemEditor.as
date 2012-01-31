@@ -138,6 +138,30 @@ public class GridItemEditor extends Group implements IGridItemEditor
     }
     
     //----------------------------------
+    //  editorUsesEnterKey
+    //----------------------------------
+    
+    private var _editorUsesEnterKey:Boolean = false;
+
+    [Inspectable(category="General", defaultValue="false")]
+    
+    /**
+     *  @inheritdoc
+     */
+    public function get editorUsesEnterKey():Boolean
+    {
+        return _editorUsesEnterKey;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set editorUsesEnterKey(value:Boolean):void
+    {
+        _editorUsesEnterKey = value;
+    }
+    
+    //----------------------------------
     //  enableIME
     //----------------------------------
     
@@ -326,6 +350,20 @@ public class GridItemEditor extends Group implements IGridItemEditor
             }
         }
         
+        if (typeInfo == "")
+        {
+            if (data[property] is String)
+                typeInfo = "String";
+            else if (data[property] is uint)
+                typeInfo = "uint";
+            else if (data[property] is int)
+                typeInfo = "int";
+            else if (data[property] is Number)
+                typeInfo = "Number";
+            else if (data[property] is Boolean)
+                typeInfo = "Boolean";
+        }
+        
         if (typeInfo == "String")
         {
             if (!(newData is String))
@@ -343,8 +381,13 @@ public class GridItemEditor extends Group implements IGridItemEditor
         }
         else if (typeInfo == "Number")
         {
-            if (!(newData is int))
+            if (!(newData is Number))
                 newData = Number(newData);
+        }
+        else if (typeInfo == "Boolean")
+        {
+            if (!(newData is Boolean))
+                newData = Boolean(newData);
         }
      
         if (property && data[property] != newData)
