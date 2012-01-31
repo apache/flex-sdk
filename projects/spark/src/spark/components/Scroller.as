@@ -12,32 +12,26 @@
 
 package spark.components
 {
-import flash.display.InteractiveObject;
 import flash.events.Event;
-import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
-import flash.system.ApplicationDomain;
 import flash.system.Capabilities;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 
 import mx.core.IInvalidating;
-import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.InteractionMode;
 import mx.core.LayoutDirection;
-import mx.core.ScrollPolicy;
 import mx.core.mx_internal;
-import mx.effects.easing.Exponential;
 import mx.events.EffectEvent;
+import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
 
-import spark.components.Group;
 import spark.components.supportClasses.ScrollerLayout;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.core.IViewport;
@@ -48,12 +42,49 @@ import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Power;
+import spark.utils.MouseEventUtil;
 
 use namespace mx_internal;
 
 include "../styles/metadata/BasicInheritingTextStyles.as"
 include "../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
+
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the scroll position is going to change due to a 
+ *  <code>mouseWheel</code> event.
+ *  
+ *  <p>If there is a visible verticalScrollBar, then by default
+ *  the viewport is scrolled vertically by <code>event.delta</code> "steps".
+ *  The height of the step is determined by the viewport's 
+ *  <code>getVerticalScrollPositionDelta</code> method using 
+ *  either <code>UP</code> or <code>DOWN</code>, depending on the scroll 
+ *  direction.<p>
+ *
+ *  <p>Otherwise, if there is a visible horizontalScrollBar, then by default
+ *  the viewport is scrolled horizontally by <code>event.delta</code> "steps".
+ *  The width of the step is determined by the viewport's 
+ *  <code>getHorizontalScrollPositionDelta</code> method using 
+ *  either <code>LEFT</code> or <code>RIGHT</code>, depending on the scroll 
+ *  direction.<p>
+ *
+ *  <p>Calling the <code>preventDefault()</code> method
+ *  on the event prevents the scroll position from changing.
+ *  Otherwise if you modify the <code>delta</code> property of the event,
+ *  that value will be used as the number of "steps".</p>
+ *
+ *  @eventType mx.events.FlexMouseEvent.MOUSE_WHEEL_CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="mouseWheelChanging", type="mx.events.FlexMouseEvent")]
 
 //--------------------------------------
 //  Styles
@@ -1500,10 +1531,22 @@ public class Scroller extends SkinnableComponent
         if (event.isDefaultPrevented() || !vp || !vp.visible)
             return;
             
+        // Dispatch the "mouseWheelChanging" event. If preventDefault() is called
+        // on this event, the event will be cancelled.  Otherwise if  the delta
+        // is modified the new value will be used.
+        var changingEvent:FlexMouseEvent = MouseEventUtil.createMouseWheelChangingEvent(event);
+        if (!dispatchEvent(changingEvent))
+        {
+            event.preventDefault();
+            return;
+        }
+        
+        const delta:int = changingEvent.delta;
+        
         var nSteps:uint = Math.abs(event.delta);
         var navigationUnit:uint;
 
-        // Scroll event.delta "steps".  If the VSB is up, scroll vertically,
+        // Scroll delta "steps".  If the VSB is up, scroll vertically,
         // if -only- the HSB is up then scroll horizontally.
          
         // TODO: The problem is that viewport.validateNow() doesn’t necessarily 
@@ -1516,7 +1559,7 @@ public class Scroller extends SkinnableComponent
         
         if (verticalScrollBar && verticalScrollBar.visible)
         {
-            navigationUnit = (event.delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
+            navigationUnit = (delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
             for (var vStep:int = 0; vStep < nSteps; vStep++)
             {
                 var vspDelta:Number = vp.getVerticalScrollPositionDelta(navigationUnit);
@@ -1531,7 +1574,7 @@ public class Scroller extends SkinnableComponent
         }
         else if (horizontalScrollBar && horizontalScrollBar.visible)
         {
-            navigationUnit = (event.delta < 0) ? NavigationUnit.RIGHT : NavigationUnit.LEFT;
+            navigationUnit = (delta < 0) ? NavigationUnit.RIGHT : NavigationUnit.LEFT;
             for (var hStep:int = 0; hStep < nSteps; hStep++)
             {
                 var hspDelta:Number = vp.getHorizontalScrollPositionDelta(navigationUnit);
@@ -1778,7 +1821,6 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.events.TouchEvent;
 import flash.geom.Point;
-import flash.utils.getTimer;
 
 import mx.core.mx_internal;
 import mx.events.SandboxMouseEvent;
