@@ -146,7 +146,7 @@ public class DynamicStreamingVideoSource extends Object
     [Inspectable(category="General", enumeration="any,live,recorded", defaultValue="any")]
     
     /**
-     *  The type of stream we are trying to connect to.
+     *  The type of stream we are trying to connect to: any, live, or recorded.
      * 
      *  <p>If the streamType is <code>any</code>, then we will attempt to 
      *  connect to a live stream first.  If no live stream is found, we will 
@@ -154,6 +154,8 @@ public class DynamicStreamingVideoSource extends Object
      *  then a live stream will be created.</p>
      * 
      *  @default any
+     * 
+     *  @see org.osmf.net.StreamType
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
