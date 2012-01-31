@@ -1683,8 +1683,7 @@ public class VideoPlayer extends SkinnableComponent
                 volumeBar.muted = muted;
             }
             
-            // FIXME (rfrishbe): revisit this after kevin fixes it
-            volumeBar.addEventListener(FlexEvent.VALUE_COMMIT, volumeBar_valueCommitHandler);
+            volumeBar.addEventListener(Event.CHANGE, volumeBar_changeHandler);
             volumeBar.addEventListener(FlexEvent.MUTED_CHANGE, volumeBar_mutedChangeHandler);
         }
         else if (instance == scrubBar)
@@ -1840,7 +1839,7 @@ public class VideoPlayer extends SkinnableComponent
         }
         else if (instance == volumeBar)
         {
-            volumeBar.removeEventListener(FlexEvent.VALUE_COMMIT, volumeBar_valueCommitHandler);
+            volumeBar.removeEventListener(Event.CHANGE, volumeBar_changeHandler);
             volumeBar.removeEventListener(FlexEvent.MUTED_CHANGE, volumeBar_mutedChangeHandler);
         }
         else if (instance == scrubBar)
@@ -2229,7 +2228,7 @@ public class VideoPlayer extends SkinnableComponent
             
             systemManager.stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenEventHandler);
             
-            // FIXME (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
+            // TODO (rfrishbe): Should we make this FULL_SCREEN_INTERACTIVE if in AIR?
             systemManager.stage.displayState = StageDisplayState.FULL_SCREEN;
             
             pauseWhenHidden = oldPauseWhenHidden;
@@ -2432,7 +2431,7 @@ public class VideoPlayer extends SkinnableComponent
     /**
      *  @private
      */
-    private function volumeBar_valueCommitHandler(event:Event):void
+    private function volumeBar_changeHandler(event:Event):void
     {
         if (volume != volumeBar.value)
             volume = volumeBar.value;
