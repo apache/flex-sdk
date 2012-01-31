@@ -172,11 +172,10 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 
         _enabled = value;
 
-        // For each radio button, if the group is enabled then the button
-        // enable property determines if the button is enabled and if the
-        // group is disabled all the buttons are disabled.
+        // The group state changed.  Invalidate all the radio buttons.  The
+        // radio button skin most likely will change.
         for (var i:int = 0; i < numRadioButtons; i++)
-            getRadioButtonAt(i).mx_internal::invalidateRadioButtonState();
+            getRadioButtonAt(i).mx_internal::invalidateRadioButtonState(true);
 
         dispatchEvent(new Event("enabledChanged"));
     }
