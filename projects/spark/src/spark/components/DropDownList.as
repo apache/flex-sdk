@@ -33,7 +33,6 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.ui.Keyboard;
 
 import mx.collections.IList;
 import mx.core.mx_internal;
@@ -42,11 +41,8 @@ import mx.events.FlexEvent;
 
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
-import spark.components.supportClasses.ListBase;
 import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
-import spark.layouts.VerticalLayout;
-import spark.layouts.supportClasses.LayoutBase;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
 
@@ -222,7 +218,8 @@ public class DropDownList extends List
     //--------------------------------------------------------------------------
     
     private var labelChanged:Boolean = false;
-    mx_internal var proposedSelectedIndex:Number = -1;
+    // Stores the user selected index until the dropDown closes
+    mx_internal var userProposedSelectedIndex:Number = -1;
     mx_internal static var PAGE_SIZE:int = 5;
     
     //--------------------------------------------------------------------------
@@ -533,7 +530,6 @@ public class DropDownList extends List
         {
             if (dropDownController)
                 dropDownController.openButton = openButton;
-            openButton.enabled = enabled;
         }
         
         if (instance == labelDisplay)
@@ -569,7 +565,7 @@ public class DropDownList extends List
     override protected function item_clickHandler(event:MouseEvent):void
     {
         super.item_clickHandler(event);
-        proposedSelectedIndex = selectedIndex;
+        userProposedSelectedIndex = selectedIndex;
         closeDropDown(true);
     }
             
@@ -591,14 +587,16 @@ public class DropDownList extends List
             
             if (dropDownController.isOpen)
             {   
-                proposedNewIndex = layout.getNavigationDestinationIndex(proposedSelectedIndex, navigationUnit, arrowKeysWrapFocus);
+                proposedNewIndex = layout.getNavigationDestinationIndex(userProposedSelectedIndex, navigationUnit, arrowKeysWrapFocus);
                 
                 if (proposedNewIndex != -1)
                 {
-                    itemSelected(proposedSelectedIndex, false);
-                    proposedSelectedIndex = proposedNewIndex;
-                    itemSelected(proposedSelectedIndex, true);
-                    ensureIndexIsVisible(proposedSelectedIndex);
+                    // Store the selection in userProposedSelectedIndex because we 
+                    // don't want to update selectedIndex until the dropdown closes
+                    itemSelected(userProposedSelectedIndex, false);
+                    userProposedSelectedIndex = proposedNewIndex;
+                    itemSelected(userProposedSelectedIndex, true);
+                    ensureIndexIsVisible(userProposedSelectedIndex);
                 }
             }
             else if (dataProvider)
@@ -653,6 +651,15 @@ public class DropDownList extends List
         super.focusOutHandler(event);
     }
     
+    /**
+     *  @private
+     *  In updateRenderer, we want to select the proposedSelectedIndex
+     */
+    override mx_internal function isItemIndexSelected(index:int):Boolean
+    {
+        return userProposedSelectedIndex == index;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handling
@@ -673,7 +680,7 @@ public class DropDownList extends List
     mx_internal function dropDownController_openHandler(event:DropDownEvent):void
     {
         addEventListener(FlexEvent.UPDATE_COMPLETE, open_updateCompleteHandler);
-        proposedSelectedIndex = selectedIndex;
+        userProposedSelectedIndex = selectedIndex;
         invalidateSkinState();  
     }
     
@@ -705,7 +712,7 @@ public class DropDownList extends List
         
         if (!event.isDefaultPrevented())
         {
-            selectedIndex = proposedSelectedIndex;  
+            selectedIndex = userProposedSelectedIndex;  
         }
     }
 
