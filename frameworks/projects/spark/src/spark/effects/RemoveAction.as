@@ -40,7 +40,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
 
  *  <pre>
- *  &lt;mx:RemoveAction
+ *  &lt;s:RemoveAction
  *    <b>Properties</b>
  *    id="ID"
  *  /&gt;
