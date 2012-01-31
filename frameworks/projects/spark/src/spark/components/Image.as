@@ -311,6 +311,40 @@ use namespace mx_internal;
  *        </tr>
  *     </table>
  *
+ *  @mxml <p>The <code>&lt;s:Image&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:Image 
+ *    <strong>Properties</strong>
+ *    clearOnLoad="true"
+ *    contentLoader="null"
+ *    contentLoaderGrouping="null"
+ *    fillMode="scale"
+ *    horizontalAlign="center"
+ *    preliminaryHeight="NaN"
+ *    preliminaryWidth="NaN"
+ *    scaleMode="letterbox"
+ *    smooth="false"
+ *    source="null
+ *    verticalAlign="middle"
+ * 
+ *    <strong>Styles</strong>
+ *    backgroundAlpha="NaN"
+ *    backgroundColor="NaN"
+ *    enableLoadingState="false"
+ *    smoothingQuality="default"
+ * 
+ *    <strong>Events</strong>
+ *    complete="<i>No default</i>"
+ *    httpStatus="<i>No default</i>"
+ *    ioError="<i>No default</i>"
+ *    progress="<i>No default</i>"
+ *    ready="<i>No default</i>"
+ *    securityError="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ *
  *  @see spark.skins.spark.ImageSkin
  *  @see mx.controls.SWFLoader
  *  
