@@ -309,7 +309,7 @@ public class AbstractProducer extends MessageAgent
             return;
         
         super.acknowledge(ackMsg, msg);
-        if (msg is CommandMessage && CommandMessage(msg).operation == CommandMessage.CLIENT_PING_OPERATION)
+        if (msg is CommandMessage && CommandMessage(msg).operation == CommandMessage.TRIGGER_CONNECT_OPERATION)
             stopReconnectTimer();
     }
     
@@ -384,8 +384,9 @@ public class AbstractProducer extends MessageAgent
      *  When a connection is established the <code>connected</code> property will
      *  change to <code>true</code> and this property is bindable and generates
      *  <code>PropertyChangeEvent</code>s.
-     *  The underlying CLIENT_PING_OPERATION CommandMessage that is sent will result
-     *  in an acknowledge or fault event depending upon its success.
+     *  The internal TRIGGER_CONNECT_OPERATION CommandMessage that is sent will result
+     *  in an acknowledge or fault event depending upon whether the underlying channel
+     *  establishes its connection.
      * 
      *  @throws mx.messaging.errors.InvalidDestinationError  If no destination is set.
      * 
@@ -500,7 +501,7 @@ public class AbstractProducer extends MessageAgent
         if (_disconnectBarrier && !ignoreDisconnectBarrier)
             return;
         
-        if (msg is CommandMessage && CommandMessage(msg).operation == CommandMessage.CLIENT_PING_OPERATION)
+        if (msg is CommandMessage && CommandMessage(msg).operation == CommandMessage.TRIGGER_CONNECT_OPERATION)
         {
             if (_reconnectTimer == null)
             {                
