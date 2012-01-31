@@ -1047,10 +1047,6 @@ package spark.components
             // TBD: size resize graphic and put in initial position
          }
 
-        // FIXME: does this go in the skin somehow?   
-        [Embed(source="Assets.swf",symbol="cursorStretch")]
-        private var stretchCursorClass:Class
-        
         /**
          *  @private
          */
@@ -1067,6 +1063,7 @@ package spark.components
                 return;
             
             // Hide the mouse, attach and show the cursor
+            var stretchCursorClass:Class = getStyle("stretchCursor");
             resizeCursorID = cursorManager.setCursor(
                                     stretchCursorClass, 
                                     CursorManagerPriority.HIGH, 0, 0);
