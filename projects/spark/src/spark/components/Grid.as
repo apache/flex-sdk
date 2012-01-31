@@ -30,6 +30,7 @@ import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.utils.ObjectUtil;
 
+import spark.components.gridClasses.IDataGridElement;
 import spark.components.supportClasses.CellPosition;
 import spark.components.supportClasses.GridColumn;
 import spark.components.supportClasses.GridDimensions;
@@ -198,7 +199,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class Grid extends Group
+public class Grid extends Group implements IDataGridElement
 {
     include "../core/Version.as";
     
@@ -1061,28 +1062,39 @@ public class Grid extends Group
     }
     
     //----------------------------------
-    //  owner
+    //  dataGrid
     //----------------------------------
     
-    private var _gridOwner:IGridItemRendererOwner;
+    [Bindable("dataGridChanged")]
+    
+    private var _dataGrid:DataGrid = null;
     
     /**
-     *  @private
-     *  TODO (jszeto) Should we just use owner instead of creating a new property?
+     *  The DataGrid for which this Grid is the grid skin part.
+     * 
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
      */
-    public function get gridOwner():IGridItemRendererOwner
+    public function get dataGrid():DataGrid
     {
-        return _gridOwner;
+        return _dataGrid;
     }
     
     /**
      *  @private
      */
-    public function set gridOwner(value:IGridItemRendererOwner):void
+    public function set dataGrid(value:DataGrid):void
     {
-        _gridOwner = value;
+        if (_dataGrid == value)
+            return;
+        
+        _dataGrid = value;
+        dispatchChangeEvent("dataGridChanged");
     }
-    
     
     //----------------------------------
     //  preserveSelection (delegates to gridSelection.preserveSelection)
