@@ -814,7 +814,13 @@ public class VideoDisplay extends UIComponent
     //----------------------------------
     
     /**
-     *  The underlying flash player flash.media.Video object
+     *  The underlying flash player <code>flash.media.Video</code> object.
+     * 
+     *  <p>If the source is <code>null</code>, then there may be no 
+     *  underlying <code>flash.media.Video object</code> yet.  In that 
+     *  case, <code>videoObject</code> returns <code>null</code>.
+     * 
+     *  @default null
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
