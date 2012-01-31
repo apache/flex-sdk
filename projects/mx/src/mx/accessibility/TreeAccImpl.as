@@ -390,22 +390,17 @@ public class TreeAccImpl extends AccImpl
 		if (childID == 0)
 			return "";
 
-		var name:String = "";
-		
 		var tree:Tree = Tree(master);
-
-		// Assuming childID is always ItemID + 1
-		// because getChildIDArray is not always invoked.
-		var index:int = childID - 1;
 		
 		var item:Object = getItemAt(childID - 1);
+
+		var name:String = "";
+		
 		if (!item)
 			return name;
 		
 		if (tree.itemToLabel(item))
 			name = tree.itemToLabel(item);
-
-		name += getMOfN(item);
 
 		return name;
 	}
@@ -416,65 +411,14 @@ public class TreeAccImpl extends AccImpl
 	//
 	//--------------------------------------------------------------------------
 
+	/**
+	 *  @private
+	 */
 	private function getItemAt(index:int):Object
 	{
 		var iterator:IViewCursor = Tree(master).collectionIterator;
 		iterator.seek(CursorBookmark.FIRST, index);
 		return iterator.current;
-	}
-
-	/**
-	 *  @private
-	 *  Local method to return m of n String.
-	 *
-	 *  @param item Object
-	 *
-	 *  @return string.
-	 */
-	private function getMOfN(item:Object):String
-	{
-		var tree:Tree = Tree(master);
-		var i:int = 0;
-		var n:int = 0;
-
-		var view:HierarchicalCollectionView = HierarchicalCollectionView(tree.wrappedCollection);
-		
-		var parent:Object = view.getParentItem(item);
-		if (parent)
-		{
-			var childNodes:ICollectionView =
-				tree.dataDescriptor.getChildren(parent, tree.collectionIterator.view);
-			 
-			if (childNodes)
-			{
-				n = childNodes.length;
-				for (i = 0; i < n; i++)
-				{
-					if (item == childNodes[i])
-						break;
-				}
-			}
-		}
-		else
-		{
-			var cursor:IViewCursor = ICollectionView(tree.collectionIterator.view).createCursor();
-			while (!cursor.afterLast)
-			{
-				if (item == cursor.current)
-					i = n;
-				n++;
-				cursor.moveNext();
-			}
-		}
-		
-		if (i == n)
-			i = 0;
-
-		// Make it 1-based.
-		if (n > 0)
-			i++;
-
-		return ", " + i + " of " + n;
 	}
 
 	//--------------------------------------------------------------------------
