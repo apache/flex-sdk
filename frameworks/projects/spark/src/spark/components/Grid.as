@@ -11,6 +11,7 @@
 
 package spark.components
 {
+    import flash.display.InteractiveObject;
     import flash.events.Event;
     import flash.events.MouseEvent;
     import flash.geom.Point;
@@ -2450,7 +2451,7 @@ package spark.components
          *  @private
          *  During virtual layout updateDisplayList() eagerly validates lazily
          *  created (or recycled) IRs.   We don't want changes to those IRs to
-         *  invalidate the size of the Grid.
+         *  invalidate the size of the grid.
          */
         override public function invalidateSize():void
         {
@@ -2458,6 +2459,18 @@ package spark.components
                 super.invalidateSize();
         }
         
+        /**
+         *  @private
+         *  During virtual layout updateDisplayList() eagerly validates lazily
+         *  created (or recycled) IRs.  Calls to invalidateDisplayList() eventually
+         *  short-circuit but doing so early saves a few percent.
+         */
+        override public function invalidateDisplayList():void
+        {
+            if (!inUpdateDisplayList)
+                super.invalidateDisplayList();
+        }
+
         /**
          *  @private
          */
@@ -2770,6 +2783,7 @@ package spark.components
             const itemRenderer:IVisualElement = getVisibleItemRenderer(rowIndex, columnIndex);
             const bubbles:Boolean = mouseEvent.bubbles;
             const cancelable:Boolean = mouseEvent.cancelable;
+            const relatedObject:InteractiveObject = mouseEvent.relatedObject;
             const ctrlKey:Boolean = mouseEvent.ctrlKey;
             const altKey:Boolean = mouseEvent.altKey;
             const shiftKey:Boolean = mouseEvent.shiftKey;
@@ -2779,7 +2793,7 @@ package spark.components
             const event:GridEvent = new GridEvent(
                 type, bubbles, cancelable, 
                 gridXY.x, gridXY.y, rowIndex, columnIndex, column, item, itemRenderer, 
-                ctrlKey, altKey, shiftKey, buttonDown, delta);
+                relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
             dispatchEvent(event);
         }
                 
