@@ -99,11 +99,11 @@ public class TileBase extends ListBase
     
     private var bSelectItem:Boolean = false;
 
-	private var lastColumnCount:int = 0;
-	private var lastRowCount:int = 0;
+    private var lastColumnCount:int = 0;
+    private var lastRowCount:int = 0;
 
     /**
-     *  cache of measuring objects by factory
+     *  Cache of measuring objects by factory.
      */
     protected var measuringObjects:Dictionary;
 
@@ -819,10 +819,10 @@ public class TileBase extends ListBase
                     removeIndicators(rowMap[r.name].uid);
                     addToFreeItemRenderers(r);
                     delete rowMap[r.name];
-					if (scrollUp)
-						listItems[i][j] = null;
-					else
-						listItems[rowCount - i - 1][j] = null;
+                    if (scrollUp)
+                        listItems[i][j] = null;
+                    else
+                        listItems[rowCount - i - 1][j] = null;
                 }
             }
         }
@@ -1021,10 +1021,10 @@ public class TileBase extends ListBase
                     removeIndicators(rowMap[r.name].uid);
                     addToFreeItemRenderers(r);
                     delete rowMap[r.name];
-					if (scrollUp)
-						listItems[j][i] = null
-					else
-						listItems[j][columnCount - i - 1] = null;
+                    if (scrollUp)
+                        listItems[j][i] = null
+                    else
+                        listItems[j][columnCount - i - 1] = null;
                 }
             }
         }
@@ -1110,8 +1110,8 @@ public class TileBase extends ListBase
                         rowMap[r.name].columnIndex += modDeltaPos;
                         moveIndicatorsHorizontally(uid,moveBlockDistance);
                     }
-					else
-						listItems[j][i + modDeltaPos] = null;
+                    else
+                        listItems[j][i + modDeltaPos] = null;
                 }
             }
             for (i = 0; i < modDeltaPos; i++)
@@ -1924,7 +1924,11 @@ public class TileBase extends ListBase
     }
 
     /**
-     *  Get the appropriate renderer, using the default renderer if none specified
+     *  Get the appropriate renderer, using the default renderer if none is specified.
+     *  
+     *  @param data The renderer's data structure.
+     *  
+     *  @return The item renderer.
      */
     override public function createItemRenderer(data:Object):IListItemRenderer
     {
@@ -2571,11 +2575,11 @@ public class TileBase extends ListBase
                     try
                     {
                         iterator.seek(CursorBookmark.FIRST, startIndex);
-						if (!iteratorValid)
-						{
-							iteratorValid = true;
-							lastSeekPending = null;
-						}
+                        if (!iteratorValid)
+                        {
+                            iteratorValid = true;
+                            lastSeekPending = null;
+                        }
                     }
                     catch(e:ItemPendingError)
                     {
@@ -2611,11 +2615,11 @@ public class TileBase extends ListBase
                     try
                     {
                         iterator.seek(CursorBookmark.FIRST, startIndex);
-						if (!iteratorValid)
-						{
-							iteratorValid = true;
-							lastSeekPending = null;
-						}
+                        if (!iteratorValid)
+                        {
+                            iteratorValid = true;
+                            lastSeekPending = null;
+                        }
                     }
                     catch(e:ItemPendingError)
                     {
@@ -2652,7 +2656,7 @@ public class TileBase extends ListBase
 
         var firstIndex:int = scrollPositionToIndex(horizontalScrollPosition, verticalScrollPosition);
         var numItemsVisible:int = ((listItems.length - offscreenExtraRowsTop - offscreenExtraRowsBottom) * 
-									(listItems[0].length - offscreenExtraColumnsLeft - offscreenExtraColumnsRight));
+                                    (listItems[0].length - offscreenExtraColumnsLeft - offscreenExtraColumnsRight));
         if (index >= firstIndex + numItemsVisible || index < firstIndex)
         {
             newVPos = Math.min(indexToRow(index), maxVerticalScrollPosition);
@@ -2673,66 +2677,70 @@ public class TileBase extends ListBase
     }
 
     /**
-     *  Called from updateDisplayList() to adjust the size and position of
+     *  Called from the <code>updateDisplayList()</code> method to adjust the size and position of
      *  listContent.
+     *  
+     *  @param unscaledWidth The width of the listContent before any external scaling is applied.
+     *  
+     *  @param unscaledHeight The height of the listContent before any external scaling is applied.
      */
     override protected function adjustListContent(unscaledWidth:Number = -1,
                                        unscaledHeight:Number = -1):void
-	{
-		super.adjustListContent(unscaledWidth, unscaledHeight);
+    {
+        super.adjustListContent(unscaledWidth, unscaledHeight);
 
-		if (!collection)
-			return;
+        if (!collection)
+            return;
 
-		var partial:Boolean;
-		var index:int;
-		var numRows:int;
-		var numCols:int;
-		var numItems:int = collection.length;
+        var partial:Boolean;
+        var index:int;
+        var numRows:int;
+        var numCols:int;
+        var numItems:int = collection.length;
 
-		if (direction == TileBaseDirection.VERTICAL)
-		{
-			numRows = maxRows > 0 ? maxRows : Math.max(Math.floor(listContent.heightExcludingOffsets / rowHeight), 1);
-			numCols = Math.max(Math.ceil(listContent.widthExcludingOffsets / columnWidth), 1);
-			if (numRows != lastRowCount)
-			{
-				partial = (listContent.widthExcludingOffsets / columnWidth) != Math.ceil(listContent.widthExcludingOffsets / columnWidth);
-				var maxHSP:int = Math.max(Math.ceil(numItems / numRows) - numCols, 0);
-				if (partial)
-					maxHSP++;
-				if (horizontalScrollPosition > maxHSP)
-					$horizontalScrollPosition = maxHSP;
-				setRowCount(numRows);
-				setColumnCount(numCols);
-				index = scrollPositionToIndex(Math.max(0, horizontalScrollPosition - offscreenExtraColumnsLeft), 
-											verticalScrollPosition);
+        if (direction == TileBaseDirection.VERTICAL)
+        {
+            numRows = maxRows > 0 ? maxRows : Math.max(Math.floor(listContent.heightExcludingOffsets / rowHeight), 1);
+            numCols = Math.max(Math.ceil(listContent.widthExcludingOffsets / columnWidth), 1);
+            if (numRows != lastRowCount)
+            {
+                partial = (listContent.widthExcludingOffsets / columnWidth) != Math.ceil(listContent.widthExcludingOffsets / columnWidth);
+                var maxHSP:int = Math.max(Math.ceil(numItems / numRows) - numCols, 0);
+                if (partial)
+                    maxHSP++;
+                if (horizontalScrollPosition > maxHSP)
+                    $horizontalScrollPosition = maxHSP;
+                setRowCount(numRows);
+                setColumnCount(numCols);
+                index = scrollPositionToIndex(Math.max(0, horizontalScrollPosition - offscreenExtraColumnsLeft), 
+                                            verticalScrollPosition);
                         
                 seekPositionSafely(index);
-			}
-			lastRowCount = numRows;
-		}
-		else // horizontal
-		{
-			numCols = maxColumns > 0 ? maxColumns : Math.max(Math.floor((listContent.widthExcludingOffsets)/ columnWidth), 1);
-			numRows = Math.max(Math.ceil(listContent.heightExcludingOffsets / rowHeight), 1);
-			if (numCols != lastColumnCount)
-			{
-				partial = (listContent.heightExcludingOffsets / rowHeight) != Math.ceil(listContent.heightExcludingOffsets / rowHeight);
+            }
+            lastRowCount = numRows;
+        }
+        else // horizontal
+        {
+            numCols = maxColumns > 0 ? maxColumns : Math.max(Math.floor((listContent.widthExcludingOffsets)/ columnWidth), 1);
+            numRows = Math.max(Math.ceil(listContent.heightExcludingOffsets / rowHeight), 1);
+            if (numCols != lastColumnCount)
+            {
+                partial = (listContent.heightExcludingOffsets / rowHeight) != Math.ceil(listContent.heightExcludingOffsets / rowHeight);
 
-				var maxVSP:int = Math.max(Math.ceil(numItems / numCols) - numRows, 0);
-				if (partial)
-					maxVSP++;
-				if (verticalScrollPosition > maxVSP)
-					$verticalScrollPosition = maxVSP;
-				setRowCount(numRows);
-				setColumnCount(numCols);
+                var maxVSP:int = Math.max(Math.ceil(numItems / numCols) - numRows, 0);
+                if (partial)
+                    maxVSP++;
+                if (verticalScrollPosition > maxVSP)
+                    $verticalScrollPosition = maxVSP;
+                setRowCount(numRows);
+                setColumnCount(numCols);
                 index = scrollPositionToIndex(horizontalScrollPosition, Math.max(0,verticalScrollPosition-offscreenExtraRowsTop));
                 seekPositionSafely(index);
-			}
-			lastColumnCount = numCols;
-		}
+            }
+            lastColumnCount = numCols;
+        }
 
-	}
+    }
 
 }
 
