@@ -3287,7 +3287,7 @@ public class DataGrid extends SkinnableContainerBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function createGridSelection():GridSelection
+    mx_internal function createGridSelection():GridSelection
     {
         return new GridSelection();    
     }
