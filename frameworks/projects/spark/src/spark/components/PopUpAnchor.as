@@ -403,7 +403,7 @@ public class PopUpAnchor extends UIComponent
         }
         
         // Get the new registration point based on the adjusted position
-        if(adjustedPosition != null)
+        if (adjustedPosition != null)
         {
             var adjustedRegPoint:Point = new Point();
             var adjustedBounds:Rectangle = new Rectangle(); 
@@ -483,10 +483,10 @@ public class PopUpAnchor extends UIComponent
             _popUp.styleName = this
         }*/
         
-        if(popUp == null)
+        if (popUp == null)
             return;
                         
-        if(DisplayObject(popUp).parent == null && displayPopUp)
+        if (DisplayObject(popUp).parent == null && displayPopUp)
         {
             PopUpManager.addPopUp(popUp,this,false);
             popUpIsDisplayed = true;
