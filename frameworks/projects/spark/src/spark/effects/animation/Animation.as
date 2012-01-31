@@ -35,26 +35,26 @@ import mx.resources.ResourceManager;
  * <code>animationUpdate</code> event is dispatched at the 
  * same time.
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_START
+ * @eventType spark.events.AnimationEvent.ANIMATION_START
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationStart", type="mx.events.AnimationEvent")]
+[Event(name="animationStart", type="spark.events.AnimationEvent")]
 
 /**
  * Dispatched every time the animation updates the target.
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_UPDATE
+ * @eventType spark.events.AnimationEvent.ANIMATION_UPDATE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationUpdate", type="mx.events.AnimationEvent")]
+[Event(name="animationUpdate", type="spark.events.AnimationEvent")]
 
 /**
  * Dispatched when the animation begins a new repetition, for
@@ -62,28 +62,28 @@ import mx.resources.ResourceManager;
  * An <code>animationUpdate</code> event is also dispatched 
  * at the same time.
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_REPEAT
+ * @eventType spark.events.AnimationEvent.ANIMATION_REPEAT
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationRepeat", type="mx.events.AnimationEvent")]
+[Event(name="animationRepeat", type="spark.events.AnimationEvent")]
 
 /**
  * Dispatched when the effect ends. An <code>animationUpdate</code> event 
  * is also dispatched at the same time. A repeating animation dispatches 
  * this event only after the final repetition.
  *
- * @eventType mx.events.AnimationEvent.ANIMATION_END
+ * @eventType spark.events.AnimationEvent.ANIMATION_END
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="animationEnd", type="mx.events.AnimationEvent")]
+[Event(name="animationEnd", type="spark.events.AnimationEvent")]
 
 [DefaultProperty("animationProperties")]
 
