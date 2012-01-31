@@ -218,32 +218,38 @@ public class VideoPlayerAccImpl extends AccImpl
         {
             case VIDEOPLAYER_PLAYPAUSEBUTTON:
             {
-                return videoPlayer.playPauseButton;
+                return videoPlayer.playPauseButton ? 
+                       videoPlayer.playPauseButton : null;
             }
 				
             case VIDEOPLAYER_SCRUBBAR: 
             {
-                return videoPlayer.scrubBar;
+                return videoPlayer.scrubBar ?
+                       videoPlayer.scrubBar : null;
             }
 				
             case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
-                return videoPlayer.currentTimeDisplay;
+                return videoPlayer.currentTimeDisplay ?
+                       videoPlayer.currentTimeDisplay : null;
             }
 				
             case VIDEOPLAYER_MUTEBUTTON:
             {
-                return videoPlayer.volumeBar;
+                return videoPlayer.volumeBar ?
+                       videoPlayer.volumeBar : null;
             }
 				
             case VIDEOPLAYER_VOLUMEBAR:
             {
-                return videoPlayer.volumeBar.dropDown;
+                return (videoPlayer.volumeBar && videoPlayer.volumeBar.dropDown) ?
+                       videoPlayer.volumeBar.dropDown : null;
             }
 				
             case VIDEOPLAYER_FULLSCREENBUTTON:
             {
-                return videoPlayer.fullScreenButton;
+                return videoPlayer.fullScreenButton ?
+                       videoPlayer.fullScreenButton : null;
             }
         } 
 	}
@@ -350,25 +356,28 @@ public class VideoPlayerAccImpl extends AccImpl
             return accState;
         }
 
-        if (childID == VIDEOPLAYER_VOLUMEBAR && 
-        	!videoPlayer.volumeBar.isDropDownOpen)
+        if ((!videoPlayer.volumeBar) || (childID == VIDEOPLAYER_VOLUMEBAR && 
+        	!videoPlayer.volumeBar.isDropDownOpen))
         {
             accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
             return accState;
         }
 
-        if ((childID == VIDEOPLAYER_PLAYPAUSEBUTTON && 
-        	 !videoPlayer.playPauseButton.enabled) ||
-           (childID == VIDEOPLAYER_SCRUBBAR && 
-        	!videoPlayer.scrubBar.enabled) ||
+        if (((!videoPlayer.playPauseButton) || 
+           (childID == VIDEOPLAYER_PLAYPAUSEBUTTON && 
+           !videoPlayer.playPauseButton.enabled)) ||
+           ((!videoPlayer.scrubBar) || (childID == VIDEOPLAYER_SCRUBBAR && 
+           !videoPlayer.scrubBar.enabled)) ||
+           ((!videoPlayer.currentTimeDisplay) || 
            (childID == VIDEOPLAYER_CURRENTTIMEDISPLAY && 
-        	!videoPlayer.currentTimeDisplay.enabled) ||
-           (childID == VIDEOPLAYER_MUTEBUTTON && 
-        	!videoPlayer.volumeBar.enabled) ||
-           (childID == VIDEOPLAYER_VOLUMEBAR && 
-        	!videoPlayer.volumeBar.enabled) ||
+           !videoPlayer.currentTimeDisplay.enabled)) ||
+           ((!videoPlayer.volumeBar) || (childID == VIDEOPLAYER_MUTEBUTTON && 
+           !videoPlayer.volumeBar.enabled)) ||
+           ((!videoPlayer.volumeBar) || (childID == VIDEOPLAYER_VOLUMEBAR && 
+           !videoPlayer.volumeBar.enabled)) ||
+           ((!videoPlayer.fullScreenButton) ||
            (childID == VIDEOPLAYER_FULLSCREENBUTTON &&
-        	!videoPlayer.fullScreenButton.enabled))
+           !videoPlayer.fullScreenButton.enabled)))
         {
            accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
            return accState;
@@ -451,13 +460,15 @@ public class VideoPlayerAccImpl extends AccImpl
 	                
 		if (master.enabled)
 		{
-			if (childID == VIDEOPLAYER_PLAYPAUSEBUTTON)
+            if (childID == VIDEOPLAYER_PLAYPAUSEBUTTON && 
+                videoPlayer.playPauseButton)
 			{
 				clickEvent = new MouseEvent(MouseEvent.CLICK);
-				videoPlayer.playPauseButton.dispatchEvent(clickEvent);
+                videoPlayer.playPauseButton.dispatchEvent(clickEvent);
 			}
 			
-			else if (childID == VIDEOPLAYER_MUTEBUTTON)
+            else if (childID == VIDEOPLAYER_MUTEBUTTON && 
+                     videoPlayer.volumeBar)
             {
 				videoPlayer.volumeBar.muted = !videoPlayer.volumeBar.muted;
 				
@@ -466,7 +477,8 @@ public class VideoPlayerAccImpl extends AccImpl
 				videoPlayer.volumeBar.dispatchEvent(mutedChangeEvent);
 			}
 			
-			else if (childID == VIDEOPLAYER_FULLSCREENBUTTON)
+            else if (childID == VIDEOPLAYER_FULLSCREENBUTTON && 
+                     videoPlayer.fullScreenButton)
 			{
 				clickEvent = new MouseEvent(MouseEvent.CLICK);
 				videoPlayer.fullScreenButton.dispatchEvent(clickEvent);
@@ -488,10 +500,11 @@ public class VideoPlayerAccImpl extends AccImpl
 		
 		var accValue:String = "";
 		
-		if (childID == VIDEOPLAYER_SCRUBBAR) 
+        if (childID == VIDEOPLAYER_SCRUBBAR && 
+            videoPlayer.currentTimeDisplay) 
   	   	    accValue = videoPlayer.currentTimeDisplay.text; 
 		
-		else if (childID == VIDEOPLAYER_VOLUMEBAR) 
+        else if (childID == VIDEOPLAYER_VOLUMEBAR && videoPlayer.volumeBar) 
             accValue = String(Math.floor(videoPlayer.volumeBar.value * 100));
 		
 		return accValue;
@@ -513,31 +526,36 @@ public class VideoPlayerAccImpl extends AccImpl
             {
 	            case VIDEOPLAYER_PLAYPAUSEBUTTON: 
                 {
-			        videoPlayer.playPauseButton.setFocus();
+                    if (videoPlayer.playPauseButton) 
+    			        videoPlayer.playPauseButton.setFocus();
 			 	    break;
 			    }
 					
 			    case VIDEOPLAYER_SCRUBBAR:
                 {
-			     	videoPlayer.scrubBar.setFocus();
+                    if (videoPlayer.scrubBar)
+    			     	videoPlayer.scrubBar.setFocus();
 			     	break;
 			    }
 					
 			    case VIDEOPLAYER_MUTEBUTTON:
                 {
-			     	 videoPlayer.volumeBar.setFocus();
+                     if (videoPlayer.volumeBar)
+			     	     videoPlayer.volumeBar.setFocus();
 			     	 break;
 			    }
 					
 			    case VIDEOPLAYER_VOLUMEBAR:
                 {
-			    	 videoPlayer.volumeBar.setFocus();
+                     if (videoPlayer.volumeBar)
+    			    	 videoPlayer.volumeBar.setFocus();
 			    	 break;
 			    }
 					
 			    case VIDEOPLAYER_FULLSCREENBUTTON:
                 {
-			    	 videoPlayer.fullScreenButton.setFocus();
+                     if (videoPlayer.fullScreenButton)
+    			    	 videoPlayer.fullScreenButton.setFocus();
 			         break;
 			    }
 		    } 
@@ -587,6 +605,9 @@ public class VideoPlayerAccImpl extends AccImpl
 				
 		    case VIDEOPLAYER_PLAYPAUSEBUTTON:
             {
+                if (!videoPlayer.playPauseButton)
+                    break;
+                    
                 label = videoPlayer.playPauseButton.accessibilityProperties ?
 						videoPlayer.playPauseButton.accessibilityName :
 						"";
@@ -612,6 +633,9 @@ public class VideoPlayerAccImpl extends AccImpl
 		    }
 		    case VIDEOPLAYER_SCRUBBAR:
             {
+                if (!videoPlayer.scrubBar)
+                    break;
+                    
                 label = videoPlayer.scrubBar.accessibilityName ?
 						videoPlayer.scrubBar.accessibilityName : 
                 		resourceManager.getString(
@@ -621,6 +645,9 @@ public class VideoPlayerAccImpl extends AccImpl
 				
 		    case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
+                if (!videoPlayer.currentTimeDisplay)
+                    break;
+                    
 		        label = videoPlayer.currentTimeDisplay.text + "/" +
                 		videoPlayer.durationDisplay.text;
 		        break;
@@ -628,6 +655,11 @@ public class VideoPlayerAccImpl extends AccImpl
 				
             case VIDEOPLAYER_MUTEBUTTON:
             {
+                if (!videoPlayer.volumeBar)
+                    break;
+                if (!videoPlayer.volumeBar.muteButton)
+                    break;
+                    
                 label =
 					videoPlayer.volumeBar.muteButton.accessibilityProperties ?
 					videoPlayer.volumeBar.muteButton.accessibilityName :
@@ -655,6 +687,9 @@ public class VideoPlayerAccImpl extends AccImpl
 				
             case VIDEOPLAYER_VOLUMEBAR:
             {
+                if (!videoPlayer.volumeBar)
+                    break;
+                    
                 label = videoPlayer.volumeBar.accessibilityName ?
 						videoPlayer.volumeBar.accessibilityName : 
                 		resourceManager.getString(
@@ -664,6 +699,8 @@ public class VideoPlayerAccImpl extends AccImpl
 				
             case VIDEOPLAYER_FULLSCREENBUTTON:
             {
+                if (!videoPlayer.fullScreenButton)
+                    break;
                 label = videoPlayer.fullScreenButton.accessibilityName ?
 						videoPlayer.fullScreenButton.accessibilityName : 
                 		resourceManager.getString(
