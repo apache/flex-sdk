@@ -415,7 +415,7 @@ package spark.components
          *  <code>GridSelectionMode.MULTIPLE_CELLS</code> then the caretIndicator
          *  occupies the specified cell.
          * 
-         *  <p>Setting careColumnIndex to -1 means that the column index is undefined and 
+         *  <p>Setting caretColumnIndex to -1 means that the column index is undefined and 
          *  a cell caret will not be shown.</p>
          * 
          *  @default -1
@@ -435,14 +435,8 @@ package spark.components
          */
         public function set caretColumnIndex(value:int):void
         {
-            // TBD(hmuller): this short-circuit doens't seem right.  Don't update the _caretColumnIndex
-            // if selectionMode == ROW,ROWS?  What if the selectionMode has changed at commitProperties time?
-            if (caretColumnIndex == value || 
-                selectionMode == GridSelectionMode.SINGLE_ROW || 
-                selectionMode == GridSelectionMode.MULTIPLE_ROWS)
-            {
+            if (caretColumnIndex == value)
                 return;
-            }
             
             _oldCaretColumnIndex = _caretColumnIndex;
             _caretColumnIndex = value;
@@ -1517,7 +1511,6 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.selectAll();
             if (selectionChanged)
             {
-                caretRowIndex = caretColumnIndex = -1;
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -1526,7 +1519,7 @@ package spark.components
             caretRowIndex = -1;
             caretColumnIndex = -1;
             
-            return selectionChanged;
+           return selectionChanged;
         }
         
         /**
@@ -1655,9 +1648,10 @@ package spark.components
         }
         
         /**
-         *  Sets the selection to this row, if <code>selectionMode</code>
+         *  If <code>selectionMode</code>
          *  is <code>GridSelectionMode.SINGLE_ROW</code> or 
-         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>.
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, sets the selection and 
+         *  the caret position to this row.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1668,6 +1662,8 @@ package spark.components
          *  @return True if no errors, or false if <code>index</code> is invalid or
          *  the <code>selectionMode</code> is invalid. 
          *    
+         *  @see spark.components.Grid#caretColumnIndex
+         *  @see spark.components.Grid#caretRowIndex
          *  @see spark.components.Grid#dataProvider
          * 
          *  @langversion 3.0
@@ -1680,6 +1676,9 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.setRow(index);
             if (selectionChanged)
             {
+                caretRowIndex = index;
+                caretColumnIndex = -1;
+                
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -1688,8 +1687,9 @@ package spark.components
         }
         
         /**
-         *  Adds this row to the selection, if <code>selectionMode</code>
-         *  is <code>GridSelectionMode.MULTIPLE_ROWS</code>.
+         *  If <code>selectionMode</code>
+         *  is <code>GridSelectionMode.MULTIPLE_ROWS</code>, adds this row to
+         *  the selection and sets the caret position to this row.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1700,6 +1700,8 @@ package spark.components
          *  @return True if no errors, or false if <code>index</code> is invalid or
          *  the <code>selectionMode</code> is invalid. 
          *    
+         *  @see spark.components.Grid#caretColumnIndex
+         *  @see spark.components.Grid#caretRowIndex
          *  @see spark.components.Grid#dataProvider
          * 
          *  @langversion 3.0
@@ -1712,6 +1714,9 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.addRow(index);
             if (selectionChanged)
             {
+                caretRowIndex = index;
+                caretColumnIndex = -1;                
+
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -1720,9 +1725,10 @@ package spark.components
         }
         
         /**
-         *  Removes this row from the selection, if <code>selectionMode</code>
+         *  If <code>selectionMode</code>
          *  is <code>GridSelectionMode.SINGLE_ROW</code> or 
-         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>.
+         *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, removes this row
+         *  from the selection and sets the caret position to this row.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1733,6 +1739,8 @@ package spark.components
          *  @return True if no errors, or false if <code>index</code> is invalid or
          *  the <code>selectionMode</code> is invalid. 
          *       
+         *  @see spark.components.Grid#caretColumnIndex
+         *  @see spark.components.Grid#caretRowIndex
          *  @see spark.components.Grid#dataProvider
          * 
          *  @langversion 3.0
@@ -1745,6 +1753,9 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.removeRow(index);
             if (selectionChanged)
             {
+                caretRowIndex = index;
+                caretColumnIndex = -1;
+                
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -1753,8 +1764,9 @@ package spark.components
         }
         
         /**
-         *  Sets the selection to the specified rows if 
-         *  <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>.
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>,
+         *  sets the selection to the specfied rows and the caret position to
+         *  the last row in <code>indices</code>.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>Each element in the Vector is an index in <code>dataProvider</code> 
@@ -1777,6 +1789,9 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.setRows(indices);
             if (selectionChanged)
             {
+                caretRowIndex = indices[indices.length - 1];
+                caretColumnIndex = -1;
+                
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -1944,9 +1959,10 @@ package spark.components
         }
         
         /**
-         *  Sets the selection to this cell, if <code>selectionMode</code>
+         *  If <code>selectionMode</code>
          *  is <code>GridSelectionMode.SINGLE_CELL</code> or 
-         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>.
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, sets the selection
+         *  and the caret position to this cell.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -1962,6 +1978,8 @@ package spark.components
          *  or <code>columnIndex</code> is invalid or the <code>selectionMode</code> 
          *  is invalid.     
          *  
+         *  @see spark.components.Grid#caretColumnIndex
+         *  @see spark.components.Grid#caretRowIndex
          *  @see spark.components.Grid#columns
          *  @see spark.components.Grid#dataProvider
          * 
@@ -1975,6 +1993,9 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.setCell(rowIndex, columnIndex);
             if (selectionChanged)
             {
+                caretRowIndex = rowIndex;
+                caretColumnIndex = columnIndex;
+                
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -1983,9 +2004,10 @@ package spark.components
         }
         
         /**
-         *  Adds the cell to the selection, if <code>selectionMode</code>
+         *  If <code>selectionMode</code>
          *  is <code>GridSelectionMode.SINGLE_CELL</code> or
-         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>.
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, adds the cell to
+         *  the selection and sets the caret position to the cell.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -2001,6 +2023,8 @@ package spark.components
          *  or <code>columnIndex</code> is invalid or the <code>selectionMode</code> 
          *  is invalid.     
          *  
+         *  @see spark.components.Grid#caretColumnIndex
+         *  @see spark.components.Grid#caretRowIndex
          *  @see spark.components.Grid#columns
          *  @see spark.components.Grid#dataProvider
          * 
@@ -2014,6 +2038,9 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.addCell(rowIndex, columnIndex);
             if (selectionChanged)
             {
+                caretRowIndex = rowIndex;
+                caretColumnIndex = columnIndex;
+                
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -2022,9 +2049,10 @@ package spark.components
         }
         
         /**
-         *  Removes the cell from the selection, if <code>selectionMode</code>
+         *  If <code>selectionMode</code>
          *  is <code>GridSelectionMode.SINGLE_CELL</code> or
-         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>.
+         *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, removes the cell
+         *  from the selection and sets the caret position to the cell.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -2040,6 +2068,8 @@ package spark.components
          *  or <code>columnIndex</code> is invalid or the <code>selectionMode</code> 
          *  is invalid.     
          *  
+         *  @see spark.components.Grid#caretColumnIndex
+         *  @see spark.components.Grid#caretRowIndex
          *  @see spark.components.Grid#columns
          *  @see spark.components.Grid#dataProvider
          * 
@@ -2053,6 +2083,9 @@ package spark.components
             const selectionChanged:Boolean = gridSelection.removeCell(rowIndex, columnIndex);
             if (selectionChanged)
             {
+                caretRowIndex = rowIndex;
+                caretColumnIndex = columnIndex;
+                
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -2060,9 +2093,10 @@ package spark.components
             return selectionChanged;
         }
         
-        /**
-         *  Sets the selection to all the cells in the cell region if 
-         *  <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_CELLS</code>.
+        /** 
+         *  If <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_CELLS</code>,
+         *  sets the selection to all the cells in the cell region and the
+         *  caret position to the last cell in the cell region.
          *  For all other selection modes, this method has no effect.
          * 
          *  <p>The <code>rowIndex</code> is the index in <code>dataProvider</code> 
@@ -2088,6 +2122,8 @@ package spark.components
          *  @return True if no errors, or false if the cell region is invalid or 
          *  the <code>selectionMode</code> is invalid.     
          *  
+         *  @see spark.components.Grid#caretColumnIndex
+         *  @see spark.components.Grid#caretRowIndex
          *  @see spark.components.Grid#columns
          *  @see spark.components.Grid#dataProvider
          * 
@@ -2104,6 +2140,9 @@ package spark.components
                 rowCount, columnCount);
             if (selectionChanged)
             {
+                caretRowIndex = rowIndex + rowCount;
+                caretColumnIndex = columnIndex + columnCount;
+                    
                 invalidateDisplayList()
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
             }
@@ -2307,12 +2346,6 @@ package spark.components
          */
         override protected function commitProperties():void
         {
-            if (caretChanged)
-            {
-                dispatchCaretChangeEvent();
-                caretChanged = false;
-            }
-            
             // If the dataProvider or columns change, reset the selection and 
             // the grid dimensions.  This has to be done here rather than in the 
             // setters because the gridSelection and gridDimensions might not 
@@ -2341,12 +2374,24 @@ package spark.components
                         gridDimensions.columnCount = _columns.length;
                 }
                 
-                caretRowIndex = -1;
-                caretColumnIndex = -1;
+                // Don't wipe out a pending caret change.
+                if (!caretChanged)
+                {
+                    caretRowIndex = -1;
+                    caretColumnIndex = -1;
+                }
                 
                 dataProviderChanged = false;
                 columnsChanged = false;
             }
+            
+            // Only want one event if both caretRowIndex and caretColumnIndex
+            // changed.
+            if (caretChanged)
+            {
+                dispatchCaretChangeEvent();
+                caretChanged = false;
+            }            
         }
         
         /**
