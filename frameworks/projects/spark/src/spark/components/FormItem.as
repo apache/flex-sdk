@@ -13,9 +13,15 @@ package spark.components
         
     import mx.containers.Canvas;
     import mx.containers.utilityClasses.ConstraintColumn;
+    import mx.core.IDeferredInstance;
     import mx.core.IVisualElement;
+    import mx.core.UIComponent;
+    import mx.events.FlexEvent;
     import mx.resources.IResourceManager;
     import mx.resources.ResourceManager;
+    
+    import spark.components.supportClasses.TextBase;
+    import spark.events.ElementExistenceEvent;
         
     /**
      *  TODO
@@ -31,7 +37,11 @@ package spark.components
 
     
     /**
-     *  FormItem represents an item in a Form. It typically has a label, an optional indicator and a set of input components.
+     *  SkinnableContainer with content and multiple properties. The FormItem's children 
+     *  are the content and are placed in the contentGroup skin part. The FormItem 
+     *  container defines a number of skin parts, including labelDisplay, 
+     *  sequenceLabelDisplay, and helpContentGroup. The content of these skin parts are 
+     *  specified in order by the label, sequenceLabel and helpContent properties.     
      */
     public class FormItem extends SkinnableContainer implements IFormItem
     {
@@ -39,6 +49,8 @@ package spark.components
         public function FormItem()
         {
             super();
+            addEventListener(spark.events.ElementExistenceEvent.ELEMENT_ADD, elementAddHandler);
+            addEventListener(spark.events.ElementExistenceEvent.ELEMENT_REMOVE, elementRemoveHandler);
         }
         
         //--------------------------------------------------------------------------
@@ -52,28 +64,23 @@ package spark.components
          */
         [Bindable] // compatability with Halo FormItem itemLabel property
         [SkinPart(required="false")]
-        public var labelElement:Label;
-        
+        public var labelDisplay:TextBase;
+                
         /**
-         *  A reference to the visual element that indicates that this FormItem's value is required.
-         * 
-         *  <p>Typically the skin only includes the required indicator in the layout for states
-         *  "required" and "disabledAndRequired".</p>
+         *  A reference to the visual element that displays the FormItem's sequenceLabel.
          */
         [SkinPart(required="false")]
-        public var indicatorElement:IVisualElement;
+        public var sequenceLabelDisplay:TextBase;
+        
+        
+        [SkinPart(required="false")]
+        public var helpContentGroup:Group;
         
         /**
-         *  A reference to the visual element that displays the FormItem's numberLabel.
+         *  A reference to the visual element that display the FormItem's error strings.
          */
         [SkinPart(required="false")]
-        public var numberLabelElement:Label;
-        
-        /**
-         *  A reference to the visual element that display the FormItem's helpText.
-         */
-        [SkinPart(required="false")]
-        public var helpTextElement:RichText;
+        public var errorTextDisplay:TextBase;
         
         // TODO Remove once we have a proper FormItemLayout
         [SkinPart(required="false")]
@@ -84,6 +91,15 @@ package spark.components
         //  Properties 
         //
         //--------------------------------------------------------------------------
+        
+        /**
+         *  Each vector item contains the error string from a content element. 
+         *  If none of the content elements are invalid, then the vector will 
+         *  be empty. 
+         */ 
+        
+        [Bindable(event="elementErrorStringsChanged")]
+        public var elementErrorStrings:Vector.<String> = new Vector.<String>;
         
         //----------------------------------
         //  resourceManager
@@ -111,8 +127,6 @@ package spark.components
         public function set measuredColumnWidths(value:Vector.<Number>):void
         {
             _measuredColumnWidths = value;
-            /*measuredColumnWidthsChanged = true;
-            invalidateProperties();*/
         }
         
         public function get measuredColumnWidths():Vector.<Number>
@@ -129,7 +143,6 @@ package spark.components
             } 
             
             return measuredCols;
-            //return _measuredColumnWidths;
         }
         
         
@@ -156,6 +169,21 @@ package spark.components
             return _layoutColumnWidths;
         }
         
+        
+        private var _helpContentFactory:IDeferredInstance; 
+        private var helpContentFactoryChanged:Boolean = false;
+        
+        public function set helpContent(value:IDeferredInstance):void
+        {
+            _helpContentFactory = value;
+            helpContentFactoryChanged = true;
+            invalidateProperties();
+        }
+        
+        public function get helpContent():IDeferredInstance
+        {
+            return _helpContentFactory;
+        }
         
         //----------------------------------
         //  helpText
@@ -225,13 +253,13 @@ package spark.components
         }
         
         //----------------------------------
-        //  numberLabel
+        //  sequenceLabel
         //----------------------------------
         
-        private var _numberLabel:String = "";
-        private var numberLabelChanged:Boolean = false;
+        private var _sequenceLabel:String = "";
+        private var sequenceLabelChanged:Boolean = false;
         
-        [Bindable("numberLabelChanged")]
+        [Bindable("sequenceLabelChanged")]
         [Inspectable(category="General", defaultValue="")]
         
         /**
@@ -240,21 +268,21 @@ package spark.components
          * 
          *  @default ""
          */
-        public function get numberLabel():String
+        public function get sequenceLabel():String
         {
-            return _numberLabel;
+            return _sequenceLabel;
         }
         
         /**
          *  @private
          */
-        public function set numberLabel(value:String):void
+        public function set sequenceLabel(value:String):void
         {
-            if (_numberLabel == value)
+            if (_sequenceLabel == value)
                 return;
             
-            _numberLabel = value;
-            numberLabelChanged = true;
+            _sequenceLabel = value;
+            sequenceLabelChanged = true;
             invalidateProperties();
         }
         
@@ -313,7 +341,7 @@ package spark.components
          */
         override public function get baselinePosition():Number
         {
-            return getBaselinePositionForPart(labelElement);
+            return getBaselinePositionForPart(labelDisplay);
         }     
         
         //--------------------------------------------------------------------------
@@ -332,25 +360,17 @@ package spark.components
             if (labelChanged)
             {
                 labelChanged = false;
-                if (labelElement)
-                    labelElement.text = label;
+                if (labelDisplay)
+                    labelDisplay.text = label;
                 dispatchEvent(new Event("labelChanged"));
             }
             
-            if (numberLabelChanged)
+            if (sequenceLabelChanged)
             {
-                numberLabelChanged = false;
-                if (numberLabelElement)
-                    numberLabelElement.text = numberLabel;
-                dispatchEvent(new Event("numberLabelChanged"));
-            }
-            
-            if (helpTextChanged)
-            {
-                helpTextChanged = false;
-                if (helpTextElement)
-                    helpTextElement.text = helpText;
-                dispatchEvent(new Event("helpTextChanged"));
+                sequenceLabelChanged = false;
+                if (sequenceLabelDisplay)
+                    sequenceLabelDisplay.text = sequenceLabel;
+                dispatchEvent(new Event("sequenceLabelChanged"));
             }
             
             if (layoutColumnWidthsChanged)
@@ -359,6 +379,8 @@ package spark.components
                 if (canvasLayout)
                     applyConstraintColumns(_layoutColumnWidths);
             }
+            
+            createHelpContent();
         }    
         
         /**
@@ -366,10 +388,13 @@ package spark.components
          */
         override protected function getCurrentSkinState():String
         {
+            if (elementErrorStrings.length > 0)
+                return "error";
             if(required && (enabled == false))
                 return "requiredAndDisabled";
             if (required)
                 return "required";
+            
             return "normal";
         }
         
@@ -380,14 +405,16 @@ package spark.components
         {
             super.partAdded(partName, instance);
             
-            if (instance == labelElement)
-                labelElement.text = label;
-            else if (instance == numberLabelElement)
-                numberLabelElement.text = numberLabel;
-            else if (instance == helpTextElement)
-                helpTextElement.text = helpText;
+            if (instance == labelDisplay)
+                labelDisplay.text = label;
+            else if (instance == sequenceLabelDisplay)
+                sequenceLabelDisplay.text = sequenceLabel;
             else if (instance == canvasLayout)
                 applyConstraintColumns(_layoutColumnWidths);
+            else if (instance == errorTextDisplay)
+                applyErrorText();
+            else if (instance == helpContentGroup)
+                createHelpContent();
         }
         
         /**
@@ -432,6 +459,114 @@ package spark.components
             }
         }
         
+        public function elementAddHandler(event:ElementExistenceEvent):void
+        {
+            var uicElt:UIComponent = event.element as UIComponent;
+            
+            if (uicElt)
+            {
+                uicElt.addEventListener(FlexEvent.VALID, element_validHandler);
+                uicElt.addEventListener(FlexEvent.INVALID, element_invalidHandler);
+                uicElt.showErrorSkin = true;
+                uicElt.showErrorTip = false;
+            }
+        }
+        
+        public function elementRemoveHandler(event:ElementExistenceEvent):void
+        {
+            var uicElt:UIComponent = event.element as UIComponent;
+            
+            if (uicElt)
+            {
+                uicElt.removeEventListener(FlexEvent.VALID, element_validHandler);
+                uicElt.removeEventListener(FlexEvent.INVALID, element_invalidHandler);
+                uicElt.showErrorSkin = true;
+                uicElt.showErrorTip = true;
+            }
+        }
+        
+        protected function element_validHandler(event:FlexEvent):void
+        {
+            // update error string
+            updateErrorString();
+        }
+        
+        protected function element_invalidHandler(event:FlexEvent):void
+        {
+            // update error string
+            updateErrorString();
+        }
+        
+        private function updateErrorString():void
+        {
+            var uicElt:UIComponent;
+            elementErrorStrings = new Vector.<String>;
+            
+            for (var i:int = 0; i < numElements; i++)
+            {
+                uicElt = getElementAt(i) as UIComponent;
+                
+                if (uicElt)
+                {
+                    if (uicElt.errorString != "")
+                    {
+                        elementErrorStrings.push(uicElt.errorString);
+                    }
+                }
+            }
+            
+            invalidateSkinState();
+            
+            applyErrorText();
+            dispatchEvent(new Event("elementErrorStringsChanged"));
+        }
+        
+        private function applyErrorText():void
+        {
+            if (!errorTextDisplay)
+                return;
+            
+            var msg:String = "";
+            for (var i:int=0; i < elementErrorStrings.length; i++)
+            {
+                if (msg != "")
+                    msg += "\n";
+                msg += elementErrorStrings[i];
+            }
+            
+            errorTextDisplay.text = msg;
+            
+        }
+        
+        private function createHelpContent():void
+        {
+            if (_helpContentFactory && helpContentGroup && helpContentFactoryChanged)
+            {
+                helpContentFactoryChanged = false;
+                
+                var content:Object = _helpContentFactory.getInstance();
+                
+                if (!(content is Array))
+                {
+                    content = [content];
+                }
+                
+                helpContentGroup.mxmlContent = content as Array; 
+
+            }
+            /*if (!mxmlContentCreated)
+            {
+                mxmlContentCreated = true;
+                
+                if (_mxmlContentFactory)
+                {
+                    var deferredContent:Object = _mxmlContentFactory.getInstance();
+                    mxmlContent = deferredContent as Array;
+                    _deferredContentCreated = true;
+                    dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
+                }
+            }*/
+        }
         
     }
 }
