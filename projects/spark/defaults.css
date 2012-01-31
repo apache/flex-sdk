@@ -273,3 +273,8 @@ VSlider
 {
     skinClass: ClassReference("spark.skins.spark.VSliderSkin");
 }
+
+global
+{
+    softKeyboardEffectDuration: 150;
+}
