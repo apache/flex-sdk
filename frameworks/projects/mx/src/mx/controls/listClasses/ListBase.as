@@ -4613,20 +4613,14 @@ public class ListBase extends ScrollControlBase
     private function makeAdditionalRows(rowIndex:int):void
     {
         var cursorPos:CursorBookmark;
-
-        // Our most recent listItem may not have actually been realized,
-        // this may occur if we detected it would be obscured at the time.
-        // If this is the case we will continue where we left off.
-        var lastItemValid:Boolean = listItems[rowIndex].length;
-       
+        
         // do layout for additional rows
         if (iterator)
         {
             cursorPos = iterator.bookmark;
             try
             {
-                if (lastItemValid)
-                    iterator.seek(CursorBookmark.CURRENT, listItems.length);
+                iterator.seek(CursorBookmark.CURRENT, listItems.length);
             }
             catch(e:ItemPendingError)
             {
@@ -4639,13 +4633,9 @@ public class ListBase extends ScrollControlBase
                 // don't do anything, we'll repaint when the data arrives
             }
         }
-        
-        var prevIndex:int = lastItemValid ? rowIndex : rowIndex - 1;
-        var curY:Number = prevIndex >= 0 ? rowInfo[rowIndex].y + rowInfo[rowIndex].height : 0;
-        var firstRow:int = lastItemValid ? rowIndex + 1 : rowIndex;
-
+        var curY:Number = rowInfo[rowIndex].y + rowInfo[rowIndex].height;
         // fill it in
-        makeRowsAndColumns(0, curY, listContent.width, listContent.height, 0, firstRow);
+        makeRowsAndColumns(0, curY, listContent.width, listContent.height, 0, rowIndex + 1);
         // restore iterator to original position
         seekPositionIgnoreError(iterator,cursorPos);
     }
