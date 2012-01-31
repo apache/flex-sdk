@@ -2142,7 +2142,10 @@ public class UIFTETextField extends FTETextField
         if (!isNaN(explicitHeight) && super.height != explicitHeight)
             super.height = explicitHeight;
         
-        // Update transform.matrix to compensate for layout mirroring
+        // If ancestor is mirroring, need to flip this so it is not
+        // mirroring, by updating transform.matrix to compenstate for layout
+        // mirroring.  layoutDirection should not be set directly on
+        // UIFTETextField.
         if (styleChangedFlag)
         {
             const oldMirror:Boolean = mirror;
@@ -2249,10 +2252,10 @@ public class UIFTETextField extends FTETextField
         var textAlign:String = getStyle("textAlign");
         // Map new Spark values that might be set in a selector
 		// affecting both Halo and Spark components.
-        if (textAlign == "start") 
-            textAlign = TextFormatAlign.LEFT;
+        if (textAlign == "start")
+            textAlign = direction == "ltr" ? TextFormatAlign.LEFT : TextFormatAlign.RIGHT;
         else if (textAlign == "end")
-            textAlign = TextFormatAlign.RIGHT;
+            textAlign = direction == "ltr" ? TextFormatAlign.RIGHT : TextFormatAlign.LEFT;
         textFormat.align = textAlign; 
         textFormat.bold = getStyle("fontWeight") == "bold";
         if (enabled)
