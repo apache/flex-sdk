@@ -55,20 +55,6 @@ public class RGBInterpolator implements IInterpolator
             theInstance = new RGBInterpolator();
         return theInstance;
     }
-    
-    /**
-     *  Returns the <code>uint</code> type, which is the type of
-     *  object interpolated by RGBInterpolator
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get interpolatedType():Class
-    {
-        return uint;
-    }
 
     /**
      *  Interpolation for the RGBInterpolator class takes the form of parametric
