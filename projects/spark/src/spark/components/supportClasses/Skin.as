@@ -206,6 +206,14 @@ public class Skin extends Group
         
         return needRedraw;
     }
+    
+    /**
+     *  @private 
+     */ 
+    override protected function initializeAccessibility():void
+    {
+        // Do nothing. Skins shouldn't support accessibility
+    }
 
     /**
      *  @private
