@@ -322,9 +322,9 @@ public class Scale3D extends AnimateTransform3D
         }
         else
         {
-            addPostLayoutMotionPath("postLayoutScaleX", scaleXFrom, scaleXTo, scaleXBy);
-            addPostLayoutMotionPath("postLayoutScaleY", scaleYFrom, scaleYTo, scaleYBy);
-            addPostLayoutMotionPath("postLayoutScaleZ", scaleZFrom, scaleZTo, scaleZBy);
+            addMotionPath("postLayoutScaleX", scaleXFrom, scaleXTo, scaleXBy);
+            addMotionPath("postLayoutScaleY", scaleYFrom, scaleYTo, scaleYBy);
+            addMotionPath("postLayoutScaleZ", scaleZFrom, scaleZTo, scaleZBy);
         }
         super.initInstance(instance);
     }    
