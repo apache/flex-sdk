@@ -55,9 +55,9 @@ use namespace mx_internal;
  * send(param1, param2) method, the body is typically formed by combining the argumentNames
  * property of the operation with the parameters sent.  An Object is created which uses the
  * argumentNames[i] as the key and the corresponding parameter as the value.
- * <p>
- * The exact way in which the HTTP operation arguments is put into the HTTP body is determined
- * by the serializationFilter used.
+ * 
+ * <p>The exact way in which the HTTP operation arguments is put into the HTTP body is determined
+ * by the serializationFilter used.</p>
  */
 public class AbstractOperation extends mx.rpc.AbstractOperation
 {
@@ -563,8 +563,8 @@ function xmlEncoder (myObj)
         if (Concurrency.SINGLE == concurrency && activeCalls.hasActiveCalls())
         {
             token = new AsyncToken(null);
-			var m:String = resourceManager.getString(
-				"rpc", "pendingCallExists");
+            var m:String = resourceManager.getString(
+                "rpc", "pendingCallExists");
             fault = new Fault("ConcurrencyError", m);
             faultEvent = FaultEvent.createEvent(fault, token);
             new AsyncDispatcher(dispatchRpcEvent, [faultEvent], 10);
@@ -949,7 +949,7 @@ function xmlEncoder (myObj)
     
     private var _concurrency:String;
     
-	private var _showBusyCursor:Boolean;
+    private var _showBusyCursor:Boolean;
 
 }
 
