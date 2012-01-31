@@ -11,10 +11,9 @@
 
 package mx.components
 {
-import flash.ui.Keyboard;
-import mx.components.baseClasses.FxTextBase;
 import mx.components.baseClasses.FxScrollBar;
 import mx.core.ScrollUnit;
+import mx.core.IViewport;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
 import mx.events.PropertyChangeEvent;
@@ -65,6 +64,17 @@ public class FxHScrollBar extends FxScrollBar
         else
            return 0;
     }
+    
+    override public function set viewport(newViewport:IViewport):void
+    {
+        super.viewport = newViewport;
+        if (newViewport)
+        {
+            maximum = newViewport.contentWidth - newViewport.width;
+            pageSize = newViewport.width;
+            value = newViewport.horizontalScrollPosition;
+        }
+    }      
     
     //--------------------------------------------------------------------------
     //
