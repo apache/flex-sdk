@@ -13,14 +13,10 @@ package mx.components
 {
 	
 import flash.events.Event;
-import flash.events.FocusEvent;
-import flashx.tcal.formats.LineBreak;
 
-import mx.events.TextOperationEvent;
-import mx.core.ScrollPolicy;
-import mx.components.TextView;
 import mx.components.baseClasses.FxScrollBar;
 import mx.components.baseClasses.FxTextBase;
+import mx.core.ScrollPolicy;
 
 //--------------------------------------
 //  Other metadata
@@ -39,6 +35,10 @@ import mx.components.baseClasses.FxTextBase;
 public class FxTextArea extends FxTextBase
 {
     include "../core/Version.as";
+
+    // Force a dependency on FxHScrollBar and FxVScrollBar to work around bug SDK-17222
+    private static var hScrollDep:FxHScrollBar;
+    private static var vScrollDep:FxVScrollBar;
 
     //--------------------------------------------------------------------------
     //
