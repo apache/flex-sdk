@@ -484,6 +484,7 @@ public class Container extends UIComponent
         super();
 
         tabEnabled = false;
+        tabFocusEnabled = false;
         
         showInAutomationHierarchy = false;
 
@@ -1899,7 +1900,7 @@ public class Container extends UIComponent
      * 
      *  <p><b>Note:</b>If you call the <code>addChild</code> or 
      *  <code>addChildAt</code> method of the <code>rawChildren</code> object,
-     *  set <code>tabEnabled = false</code> on the component that you have added.
+     *  set <code>tabFocusEnabled = false</code> on the component that you have added.
      *  Doing so prevents users from tabbing to the visual-only component
      *  that you have added.</p>
      *  
