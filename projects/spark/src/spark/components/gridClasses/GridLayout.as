@@ -96,6 +96,17 @@ public class GridLayout extends LayoutBase
         if (!grid)
             return;
         
+        // If the hoverIndicator is visible then we're going to have to fixup it's location
+        // at updateDisplayList() time.
+        
+        if ((grid.hoverRowIndex != -1) || (grid.hoverColumnIndex != -1))
+        {
+            const oldScrollR:Rectangle = grid.scrollRect;
+            const dx:Number = grid.horizontalScrollPosition - oldScrollR.x;
+            const dy:Number = grid.verticalScrollPosition - oldScrollR.y;
+            invalidateHoverLocation(dx, dy);
+        }
+        
         super.scrollPositionChanged();
         
         // Only invalidate if we're clipping and scrollR extends outside validBounds
@@ -1248,12 +1259,44 @@ public class GridLayout extends LayoutBase
         return indicator;
     }
     
+
+    private var hoverLocationIsValid:Boolean = true;
+    private var mouseXOffset:Number = 0;
+    private var mouseYOffset:Number = 0;
+    
+    /**
+     *  @private
+     *  In theory it would be enough to just set a flag here and then fixup the 
+     *  grid's hoverRow,ColumnIndex properties at updateDisplayList() time, based
+     *  on the current mouse position (grid.mouseX,Y).  Unfortunately, the mouseX,Y
+     *  DisplayObject properties aren't updated per the scrollRect until after 
+     *  the new layout has appeared on screen.  To account for that we accumulate
+     *  the deltas for grid.scrollRect.x,y here.   
+     */
+    private function invalidateHoverLocation(dx:Number, dy:Number):void
+    {
+        hoverLocationIsValid = false;
+        mouseXOffset += dx;
+        mouseYOffset += dy;
+    }
+    
     private function layoutHoverIndicator(container:IVisualElementContainer):void
     {
+        if (!hoverLocationIsValid)
+        {
+            const mouseX:Number = grid.mouseX + mouseXOffset;
+            const mouseY:Number = grid.mouseY + mouseYOffset;
+            grid.hoverRowIndex = gridDimensions.getRowIndexAt(mouseX, mouseY);
+            grid.hoverColumnIndex = gridDimensions.getColumnIndexAt(mouseX, mouseY);
+            hoverLocationIsValid = true;
+            mouseXOffset = 0;
+            mouseYOffset = 0;
+        }
+        
         const rowIndex:int = grid.hoverRowIndex;
-        const colIndex:int = grid.hoverColumnIndex;
+        const columnIndex:int = grid.hoverColumnIndex;
         const factory:IFactory = grid.hoverIndicator;
-        hoverIndicator = layoutIndicator(container, factory, hoverIndicator, rowIndex, colIndex); 
+        hoverIndicator = layoutIndicator(container, factory, hoverIndicator, rowIndex, columnIndex); 
     }
     
     private function layoutCaretIndicator(container:IVisualElementContainer):void
@@ -1277,14 +1320,20 @@ public class GridLayout extends LayoutBase
     {
         switch (event.kind)
         {
-            case CollectionEventKind.ADD:    return dataProviderCollectionAdd(event);
-            case CollectionEventKind.REMOVE: return dataProviderCollectionRemove(event);
+            case CollectionEventKind.ADD:    
+                return dataProviderCollectionAdd(event);
                 
-            case CollectionEventKind.REPLACE:
+            case CollectionEventKind.REMOVE: 
+                return dataProviderCollectionRemove(event);
+                
             case CollectionEventKind.MOVE:
+                // TBD(hmuller)
+                break;
+            
             case CollectionEventKind.REFRESH:
             case CollectionEventKind.RESET:
             case CollectionEventKind.UPDATE:
+            case CollectionEventKind.REPLACE:
                 break;
         }
         
