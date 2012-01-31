@@ -136,9 +136,8 @@ public class SerializationFilter
             throw new ArgumentError("HTTPMultiService operation called with " + (argNames == null ? 0 : argNames.length) + " argumentNames and " + params.length + " number of parameters.  When argumentNames is specified, it must match the number of arguments passed to the invocation");
 
         var obj:Object = new Object();
-        var argumentNames:Array = operation.argumentNames;
-        for (var i:int = 0; i < argumentNames.length; i++)
-            obj[argumentNames[i]] = params[i];
+        for (var i:int = 0; i < argNames.length; i++)
+            obj[argNames[i]] = params[i];
 
         return obj;
     }
