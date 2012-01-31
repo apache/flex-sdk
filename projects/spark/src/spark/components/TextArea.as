@@ -120,8 +120,7 @@ public class TextArea extends TextBase
         // Setting 'text' temporarily causes 'content' to become null.
         // Later, after the 'text' has been committed into the TextFlow,
         // getting 'content' will return the TextFlow.
-        content = null;
-
+        setContent(null);
         super.text = value;
     }
 
@@ -160,7 +159,7 @@ public class TextArea extends TextBase
 		if (value == getContent())
 			return;
 
-        text = null;
+        super.text = null;
         setContent(value);
 		
 		dispatchEvent(new Event("contentChanged"));
