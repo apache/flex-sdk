@@ -74,6 +74,7 @@
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
+                <include name="osmf.swc"/>
                 <include name="textLayout.swc"/>
 			</external-library-path>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
