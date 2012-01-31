@@ -29,16 +29,42 @@ use namespace mx_internal;
  * by the propertyValuesList. 
  * 
  * Example usage is as follows:
- * 
- * @example Using the AnimateFilter effect to animate a hypothetical FishEye
- * shader's radius from 0 to 50.
- * 
+ * @example FxAnimateFilter example:
  * <listing version="3.0">
- * var button:Button = new Button();
- * var shader:ShaderFilter = new ShaderFilter(new FishEyeLens());
- * var anim:AnimateFilter = new AnimateFilter(button, shader);
- * anim.propertyValuesList = [new PropertyValuesHolder("radius", [0,50])];
- * anim.play();
+ * &lt;?xml version="1.0" encoding="utf-8"?&gt;
+ * &lt;FxApplication xmlns="http://ns.adobe.com/mxml/2009" &gt;
+ * 
+ * &lt;Script&gt;
+ * &lt;![CDATA[
+ * 
+ * import mx.effects.*;
+ * import mx.filters.DropShadowFilter;
+ * 
+ * // Use FxAnimateFilter to animate the color, distance, and angle
+ * // of a DropShadowFilter.
+ * 
+ * private function doDropShadowFilterSample():void{
+ *     var df:DropShadowFilter = new DropShadowFilter();
+ *     var anim:FxAnimateFilter = new FxAnimateFilter(btn1, df);
+ *     
+ *     anim.propertyValuesList = [
+ *         new PropertyValuesHolder("color", [0,0x0000FF]),
+ *         new PropertyValuesHolder("distance", [0,10]),		
+ *         new PropertyValuesHolder("angle", [270,360])
+ *     ];
+ * 
+ *     anim.repeatCount = 0;
+ *     anim.duration = 500;
+ *     anim.repeatBehavior = Animation.REVERSE;
+ *     anim.play();
+ * }
+ * 
+ * ]]&gt;
+ * &lt;/Script&gt;
+ * 
+ * &lt;Button id="btn1" x="50" y="50" label="Animate a DropShadowFilter" click="doDropShadowFilterSample()" /&gt;
+ * 
+ * &lt;/FxApplication&gt;
  * </listing>
  */
 public class FxAnimateFilter extends FxAnimate
