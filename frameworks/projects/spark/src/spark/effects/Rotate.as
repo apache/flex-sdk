@@ -161,7 +161,7 @@ public class Rotate extends AnimateTransform
     //
     //--------------------------------------------------------------------------
 
-    // TODO: Can we remove this override? It exists only to create motionPaths,
+    // FIXME (chaase): Can we remove this override? It exists only to create motionPaths,
     // which we should be able to do somewhere else
     /**
      * @private
