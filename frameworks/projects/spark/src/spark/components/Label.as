@@ -544,9 +544,9 @@ public class Label extends TextBase
 			// the y coordinate of the baseline, which is
 			// mathematically appropriate, but unintuitive.
         	
-        s = getStyle("breakOpportunity");
-        if (s != null)
-        	elementFormat.breakOpportunity = s;
+        // Note: Label doesn't support a breakOpportunity style,
+		// so we leave elementFormat.breakOpportunity with its
+		// default value of "auto".
         	
         elementFormat.color = getStyle("color");
         
