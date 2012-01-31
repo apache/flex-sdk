@@ -67,7 +67,7 @@ public class TitleBackground extends ProgrammaticSkin
 		var highlightAlphas:Array = getStyle("highlightAlphas");
 		var headerColors:Array = getStyle("headerColors");
 		var showChrome:Boolean = headerColors != null;
-        StyleManager.getColorNames(headerColors);
+        styleManager.getColorNames(headerColors);
 		
 		var colorDark:Number = ColorUtil.adjustBrightness2(
 			headerColors ? headerColors[1] : 0xFFFFFF, -20);
