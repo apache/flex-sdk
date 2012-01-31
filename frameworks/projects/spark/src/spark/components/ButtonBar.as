@@ -55,7 +55,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  The ButtonBar control automatically adds or removes the necessary children based on 
  *  changes to the <code>dataProvider</code> property.</p>
  *
- *  @mxml <p>The <code>&lt;ButtonBar&gt;</code> tag inherits all of the tag 
+ *  @mxml <p>The <code>&lt;s:ButtonBar&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
