@@ -68,10 +68,60 @@ public class NumericStepper extends Spinner implements IFocusManagerComponent
 
     //--------------------------------------------------------------------------
     //
+    // Properties
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private var valueChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    override public function set value(newValue:Number):void
+    {
+    	if (newValue == value)
+    	   return;
+    	   
+    	super.value = newValue;
+    	
+    	valueChanged = true;
+    	invalidateProperties();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     // Methods
     //
     //--------------------------------------------------------------------------
 
+    /**
+     *  @private
+     */
+    override protected function setValue(value:Number):void
+    {
+    	super.setValue(value);
+    	
+    	valueChanged = true;
+    	invalidateProperties();
+    }
+
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+    	super.commitProperties();
+    	
+    	if (valueChanged)
+    	{
+    		valueChanged = false;
+    		textInput.text = value.toString();
+    	}
+    }
+    
 	/**
 	 *  @private
 	 */
@@ -83,6 +133,7 @@ public class NumericStepper extends Spinner implements IFocusManagerComponent
 	    {
 	        textInput.addEventListener(FlexEvent.ENTER,
 	                                   textInput_enterHandler);
+	        textInput.text = value.toString();
 	    }
 	}
     
