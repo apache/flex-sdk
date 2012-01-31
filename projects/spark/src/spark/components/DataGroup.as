@@ -4,8 +4,7 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.utils.Dictionary;
 
-import mx.collections.IList;
-import spark.components.supportClasses.GroupBase;
+import mx.collections.IList;  
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IInvalidating;
@@ -15,6 +14,9 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+
+import spark.components.IItemRendererOwner; 
+import spark.components.supportClasses.GroupBase;
 import spark.events.RendererExistenceEvent;
 import spark.layout.supportClasses.LayoutBase;
 import spark.layout.supportClasses.LayoutElementFactory;
@@ -83,7 +85,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class DataGroup extends GroupBase 
+public class DataGroup extends GroupBase implements IItemRendererOwner 
 {
     /**
      *  Constructor.
@@ -253,7 +255,6 @@ public class DataGroup extends GroupBase
      */    
     private function changeUseVirtualLayout():void
     {
-        trace("DataGroup::changeUseVirtualLayout()");
         cleanUpDataProvider();
         invalidateProperties();
         useVirtualLayoutChanged = true;
@@ -503,6 +504,27 @@ public class DataGroup extends GroupBase
         }
     }
     
+    /**
+     *  Given a data item, return the correct text representation 
+     *  a renderer should display. 
+     *
+     *  @param item A data item 
+     *  
+     *  @return String representing the text to display for the 
+     *  passed in item's renderer. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function itemToLabel(item:Object):String
+    {
+    	if (item)
+            return item.toString();
+        return " ";
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Item -> Renderer mapping
@@ -554,9 +576,15 @@ public class DataGroup extends GroupBase
         if (!myItemRenderer && item is IVisualElement && item is DisplayObject)
             myItemRenderer = IVisualElement(item);
 
+        // Set the owner property     
+        myItemRenderer.owner = this;
+
         // Set the renderer's data to the item, but only if the item and renderer are different
         if ((myItemRenderer is IDataRenderer) && (myItemRenderer != item))
             IDataRenderer(myItemRenderer).data = item;   
+        
+        if (myItemRenderer is IItemRenderer)
+        	IItemRenderer(myItemRenderer).labelText = itemToLabel(item);
                     
         // Couldn't find item renderer.  Throw an RTE.
         if (!myItemRenderer && failRTE)
@@ -898,6 +926,8 @@ public class DataGroup extends GroupBase
                     elt.includeInLayout = true;
                     if (elt is IDataRenderer)
                         IDataRenderer(elt).data = item;
+                    if (elt is IItemRenderer)
+                        IItemRenderer(elt).labelText = itemToLabel(item);
                     recycledIR = true;
                 }
                 else 
