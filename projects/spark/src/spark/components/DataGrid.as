@@ -1909,7 +1909,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */
     private function selectAllFromKeyboard():void
     {
-        // Caret is not required for selectAll operation.
+        // If there is a caret, leave it in its current position.
         if (selectionMode == GridSelectionMode.MULTIPLE_CELLS || 
             selectionMode == GridSelectionMode.MULTIPLE_ROWS)
         {
@@ -1919,7 +1919,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             grid.anchorRowIndex = 0;
             grid.anchorColumnIndex = 0;
-            commitCaretPosition(-1, -1);
         }
     }
     
