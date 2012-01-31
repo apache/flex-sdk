@@ -285,7 +285,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the background and border
  *  when the button is not selected and the mouse is not over the control.
  *  
- *  @default "mx.skins.halo.ButtonSkin"
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -298,7 +300,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the background and border
  *  when the button is not selected and the mouse is over the control.
  *  
- *  @default "mx.skins.halo.ButtonSkin" 
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -311,7 +315,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the background and border
  *  when the button is not selected and the mouse button is down.
  *  
- *  @default "mx.skins.halo.ButtonSkin"
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -324,7 +330,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the background and border
  *  when the button is not selected and is disabled.
  * 
- *  @default "mx.skins.halo.ButtonSkin"
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -352,7 +360,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the background and border
  *  when a toggle button is selected and the mouse is not over the control.
  * 
- *  @default "mx.skins.halo.ButtonSkin" 
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -365,7 +375,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the background and border
  *  when a toggle button is selected and the mouse is over the control.
  *  
- *  @default "mx.skins.halo.ButtonSkin"
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -378,7 +390,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the background and border
  *  when a toggle button is selected and the mouse button is down.
  *  
- *  @default "mx.skins.halo.ButtonSkin"
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -391,7 +405,9 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the background and border
  *  when a toggle button is selected and disabled.
  * 
- *  @default "mx.skins.halo.ButtonSkin"
+ *  <p>The default skin class is based on the theme. For example, with the Halo theme,
+ *  the default skin class is <code>mx.skins.halo.ButtonSkin</code>. For the Spark theme, the default skin
+ *  class is <code>mx.skins.spark.ButtonSkin</code>.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -755,18 +771,18 @@ public class Button extends UIComponent
     mx_internal var currentSkin:IFlexDisplayObject;
 
     /**
-	 *  The icons array contains references to all icons
-	 *  that have been created. Since each icon is a child
-	 *  Sprite of this button, we need this array to keep
-	 *  track of which children are icons. Each icon has a 
-	 *  name property indicating which icon it is; for example,
-	 *  the instance of the class specified by the falseUpIcon
+     *  The icons array contains references to all icons
+     *  that have been created. Since each icon is a child
+     *  Sprite of this button, we need this array to keep
+     *  track of which children are icons. Each icon has a 
+     *  name property indicating which icon it is; for example,
+     *  the instance of the class specified by the falseUpIcon
      *  style has the name "falseUpIcon" and can be found using
      *  getChildByName(). Note that there is no falseUpIcon property
      *  of Button containing a reference to this icon instance.
      *  New icons are created and added to this array in viewIcon().
-	 * 
-	 *  @langversion 3.0
+     * 
+     *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
@@ -1982,7 +1998,7 @@ public class Button extends UIComponent
         {
             IStateClient(currentSkin).currentState = stateName;
             if (currentSkin is IInvalidating)
-            	IInvalidating(currentSkin).validateNow();
+                IInvalidating(currentSkin).validateNow();
         }
 
         // Show the new skin.
@@ -2159,7 +2175,7 @@ public class Button extends UIComponent
         {            
             IStateClient(currentIcon).currentState = getCurrentButtonState();
             if (currentIcon is IInvalidating)
-            	IInvalidating(currentIcon).validateNow();
+                IInvalidating(currentIcon).validateNow();
         }
 
         // Show the new icon.
@@ -2247,8 +2263,8 @@ public class Button extends UIComponent
 
         var textAlign:String = getStyle("textAlign");
         // Map new Spark values that might be set in a selector
-		// affecting both Halo and Spark components.
-		if (textAlign == "start") 
+        // affecting both Halo and Spark components.
+        if (textAlign == "start") 
             textAlign = TextFormatAlign.LEFT;
         else if (textAlign == "end")
             textAlign = TextFormatAlign.RIGHT;
@@ -2379,7 +2395,7 @@ public class Button extends UIComponent
         }
         
         if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-        	labelY += getStyle("labelVerticalOffset");
+            labelY += getStyle("labelVerticalOffset");
 
         textField.x = Math.round(labelX + buffX);
         textField.y = Math.round(labelY + buffY);
