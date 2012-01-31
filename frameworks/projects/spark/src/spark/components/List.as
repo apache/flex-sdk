@@ -1086,14 +1086,14 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  The scroll snapping mode currently in effect for this Scroller
      *
-     *  <p>Changing this property to anything other than "off" may
+     *  <p>Changing this property to anything other than "none" may
      *  result in an immediate change in scroll position to ensure
      *  an element is correctly "snapped" into position.  This change
      *  in scroll position is not animated</p>
      *
      *  @see spark.components.ScrollSnappingMode
      *
-     *  @default "off"
+     *  @default "none"
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
