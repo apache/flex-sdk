@@ -21,6 +21,7 @@ import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
 import spark.effects.animation.Animation;
+import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.primitives.supportClasses.GraphicElement;
@@ -237,8 +238,9 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
             shader.data.from.input = bitmapFrom;
             shader.data.to.input = bitmapTo;
             
-            motionPaths = new <MotionPath>[
-                new SimpleMotionPath("progress", 0, 1, duration)];
+            motionPaths = new <MotionPath>[new MotionPath("progress")];
+            motionPaths[0].keyframes = new <Keyframe>[new Keyframe(0, 0), 
+                new Keyframe(duration, 1)];
 
             // auto-set width/height if exposed in shader
             if ("width" in shader.data)
