@@ -41,7 +41,7 @@ use namespace mx_internal;
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  @copy spark.components.Scroller#style.horizontalScrollPolicy
+ *  @copy spark.components.Scroller#style:horizontalScrollPolicy
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -51,7 +51,7 @@ use namespace mx_internal;
 [Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
 /**
- *  @copy spark.components.Scroller#style.verticalScrollPolicy
+ *  @copy spark.components.Scroller#style:verticalScrollPolicy
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -129,7 +129,7 @@ use namespace mx_internal;
  *        differently than the MX version.
  *        To learn how to use the
  *        <code>embedAsCFF</code> attribute when you embed a font,
- *    see the topic "Using embedded fonts" in <i>Using Flex</i>.</li>
+ *    see the font documentation.</li>
  *  </ul></p>
  *
  *  <p>The Spark TextArea control uses the TLF object-oriented model of rich text,
@@ -138,8 +138,7 @@ use namespace mx_internal;
  *  objects. You can programmatically access and manipulate these objects.
  *  The central object in TLF for representing rich text is a
  *  TextFlow. Specify rich text for a TextArea control
- *  by setting its <a href="TextArea.html#textFlow">textFlow</a>
- *  property to a TextFlow instance.</p>
+ *  by setting its <code>textFlow</code> property to a TextFlow instance.</p>
  * 
  *  <p>If you don't need to display text that has multiple formats,
  *  set the TextArea <code>text</code> property to a plain text string.
@@ -148,14 +147,12 @@ use namespace mx_internal;
  *  for example, you can set one and get the other.</p>
  *
  *  <p>At compile time, you can put TLF markup tags inside
- *  the TextArea tag, as in the following example:
+ *  the TextArea tag, as the following example shows:
  *  <pre>
  *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"&gt;World!&lt;/s:span&gt;&lt;/s:TextArea&gt;
  *  </pre>
  *  In this example, the MXML compiler sets the TextArea <code>content</code>
- *  property, causing a <a href="../../flashx/textLayout/elements/TextFlow.html">TextFlow</a> object
- *  to be created from the <a href="../../flashx/textLayout/elements/FlowElement.html">FlowElements</a>
- *  that you specify.</p>
+ *  property, causing a TextFlow object to be created from the FlowElements that you specify.</p>
  *
  *  <p>The default text formatting is determined by CSS styles
  *  such as <a href="supportClasses/SkinnableTextBase.html#style:fontFamily">fontFamily</a>
@@ -178,10 +175,10 @@ use namespace mx_internal;
  *  <p>By default, the text wraps at the right edge of the control.
  *  A vertical scrollbar automatically appears when there is more
  *  text than fits in the TextArea.
- *  If you set the <code>lineBreak</code> style to <code>"explicit"</code>,
+ *  If you set the <code>lineBreak</code> style to <code>explicit</code>,
  *  new lines start only at explicit line breaks. This has the same effect as
- *  if you use CR (<code>"\r"</code>), LF (<code>"\n"</code>),
- *  or CR+LF (<code>"\r\n"</code>) in <code>text</code>,
+ *  if you use CR (<code>\r</code>), LF (<code>\n</code>),
+ *  or CR+LF (<code>\r\n</code>) in <code>text</code>,
  *  or if you use <code>&lt;p&gt;</code> and <code>&lt;br/&gt;</code>
  *  in TLF markup.
  *  In those cases, a horizontal scrollbar automatically appears
@@ -206,17 +203,16 @@ use namespace mx_internal;
  *  and the Scroller as <code>scroller</code>.</p>
  *
  *  <p>The Spark TextArea
- *  can display left-to-right (LTR), text such as French,
+ *  can display left-to-right (LTR) text, such as French,
  *  right-to-left (RTL) text, such as Arabic, and bidirectional text,
  *  such as a French phrase inside of an Arabic one.
  *  If the predominant text direction is right-to-left,
- *  set the <code>direction</code> style to <code>"rtl"</code>.
- *  The <code>textAlign</code> style defaults to <code>"start"</code>,
+ *  set the <code>direction</code> style to <code>rtl</code>.
+ *  The <code>textAlign</code> style defaults to <code>start</code>,
  *  which makes the text left-aligned when <code>direction</code>
- *  is <code>"ltr"</code> and right-aligned when <code>direction</code>
- *  is <code>"rtl"</code>.
- *  To get the opposite alignment,
- *  set <code>textAlign</code> to <code>"end"</code>.</p>
+ *  is <code>ltr</code> and right-aligned when <code>direction</code>
+ *  is <code>rtl</code>. To get the opposite alignment,
+ *  set <code>textAlign</code> to <code>end</code>.</p>
  *
  *  <p>The Spark TextArea also supports
  *  unlimited undo/redo within one editing session.
@@ -255,14 +251,14 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:TextArea
  *    <strong>Properties</strong>
- *    heightInLines=""
- *    textFlow="24"
- *    widthInChars=""
+ *    heightInLines="<i>Calculated default</i>"
+ *    textFlow="<i>TextFlow</i>"
+ *    widthInChars="<i>Calculated default</i>"
  *  
  *    <strong>Styles</strong>
- *    horizontalScrollPolicy="<i>No default</i>"
+ *    horizontalScrollPolicy="auto"
  *    symbolColor=""
- *    verticalScrollPolicy="<i>No default</i>"
+ *    verticalScrollPolicy="auto"
  *  /&gt;
  *  </pre>
  *
@@ -439,12 +435,12 @@ public class TextArea extends SkinnableTextBase
      *  for rich text content in the Text Layout Framework.
      *
      *  <p>The <code>content</code> property is the default property
-     *  for TextArea, so that you can write MXML such as
+     *  for TextArea, so that you can write MXML, as the following example shows:
      *  <pre>
      *  &lt;s:TextArea&gt;Hello &lt;s:span fontWeight="bold"&gt;World&lt;/s:span&gt;&lt;/s:TextArea&gt;
      *  </pre>
-     *  and have the String and SpanElement that you specify
-     *  as the content be used to create a TextFlow.</p>
+     *  In this example, the String and SpanElement that you specify
+     *  as the content are used to create a TextFlow.</p>
      *
      *  <p>This property is typed as Object because you can set it to
      *  to a String, a FlowElement, or an Array of Strings and FlowElements.
@@ -456,8 +452,6 @@ public class TextArea extends SkinnableTextBase
      *  <p>No matter how you specify the content, the content is converted
      *  to a TextFlow object. When you get the value of this property, you get
      *  the resulting TextFlow object.</p>
-     * 
-     *  <p></p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
