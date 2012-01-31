@@ -168,6 +168,7 @@ public class ToggleButtonBase extends ButtonBase
     private var _selected:Boolean;
 
     [Bindable]
+    [Inspectable(category="General", defaultValue="false")]
     
     /**
      *  Contains <code>true</code> if the button is in the down state, 
