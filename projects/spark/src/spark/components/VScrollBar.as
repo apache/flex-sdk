@@ -148,7 +148,8 @@ public class VScrollBar extends ScrollBar
      */
     override protected function calculateThumbSize():Number
     {
-        return Math.max(thumb.minHeight, super.calculateThumbSize());
+        var size:Number = (fixedThumbSize) ? thumb.getPreferredBoundsHeight() : super.calculateThumbSize();
+        return Math.max(thumb.minHeight, size);
     }
 
     /**
