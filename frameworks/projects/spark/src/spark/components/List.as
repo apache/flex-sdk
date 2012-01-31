@@ -37,6 +37,7 @@ import mx.events.CollectionEventKind;
 import mx.events.DragEvent;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
+import mx.events.TouchScrollEvent;
 import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.ObjectUtil;
@@ -46,7 +47,6 @@ import spark.components.supportClasses.ListBase;
 import spark.core.NavigationUnit;
 import spark.events.IndexChangeEvent;
 import spark.events.RendererExistenceEvent;
-import spark.events.TouchScrollEvent;
 import spark.layouts.supportClasses.DropLocation;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
