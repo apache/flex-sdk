@@ -71,7 +71,7 @@ import mx.resources.ResourceManager;
  * these bitmap-based effects, they should be played alone on
  * their target objects.</p>
  * 
- * @see mx.graphics.GraphicElement
+ * @see spark.primitives.GraphicElement
  * @see flash.display.DisplayObject
  *  
  *  @langversion 3.0
