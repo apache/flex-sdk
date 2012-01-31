@@ -1902,11 +1902,9 @@ public class ListBase extends ScrollControlBase
      *  and localization.
      *
      *  <p>The dataTipFunction takes a single argument which is the item
-     *  in the data provider and returns a String:</p>
+     *  in the data provider and returns a String, as the following example shows:</p>
      * 
-     *  <blockquote>
-     *  <code>myDataTipFunction(item:Object):String</code>
-     *  </blockquote>
+     *  <pre>myDataTipFunction(item:Object):String</pre>
      * 
      *  @default null
      */
@@ -2258,11 +2256,9 @@ public class ListBase extends ScrollControlBase
      *  in the row.  This property is ignored by DataGrid.
      *
      *  <p>The iconFunction takes a single argument which is the item
-     *  in the data provider and returns a Class.</p>
+     *  in the data provider and returns a Class, as the following example shows:</p>
      * 
-     *  <blockquote>
-     *  <code>iconFunction(item:Object):Class</code>
-     *  </blockquote>
+     *  <pre>iconFunction(item:Object):Class</pre>
      * 
      *  @default null
      */
@@ -4550,30 +4546,27 @@ public class ListBase extends ScrollControlBase
      *  in a data provider must either have a unique ID (UID)
      *  or one will be generated and associated with it.  This
      *  means that you cannot have an object or scalar value
-     *  appear twice in a data provider. For example, the following
+     *  appear twice in a data provider. 
+     *
+     *  <p>For example, the following
      *  data provider is not supported because the value "foo"
-     *  appears twice and the UID for a string is the string itself:
+     *  appears twice and the UID for a string is the string itself:</p>
      *
-     *  <blockquote>
-     *  <code>var sampleDP:Array = ["foo", "bar", "foo"]</code>
-     *  </blockquote>
+     *  <pre>var sampleDP:Array = ["foo", "bar", "foo"]</pre>
      *
-     *  Simple dynamic objects can appear twice if they are two
+     *  <p>Simple dynamic objects can appear twice if they are two
      *  separate instances. The following is supported because
      *  each of the instances will be given a different UID because
-     *  they are different objects:
+     *  they are different objects:</p>
      *
-     *  <blockquote>
-     *  <code>var sampleDP:Array = [{label: "foo"}, {label: "foo"}]</code>
-     *  </blockquote>
+     *  <pre>var sampleDP:Array = [{label: "foo"}, {label: "foo"}]</pre>
      *
-     *  Note that the following is not supported because the same instance
-     *  appears twice.
+     *  <p>Note that the following is not supported because the same instance
+     *  appears twice.</p>
      *
-     *  <blockquote>
-     *  <code>var foo:Object = {label: "foo"};
-     *  sampleDP:Array = [foo, foo];</code>
-     *  </blockquote>
+     *  <pre>
+     *  var foo:Object = {label: "foo"};
+     *  sampleDP:Array = [foo, foo];</pre>
      *
      *  @param data The data provider item.
      *
@@ -4904,8 +4897,8 @@ public class ListBase extends ScrollControlBase
         var contentHolder:ListBaseContentHolder = DisplayObject(item).parent as ListBaseContentHolder;
         
         if (!contentHolder)
-        	return;
-        	
+            return;
+            
         var rowInfo:Array = contentHolder.rowInfo;
         var selectionLayer:Sprite = contentHolder.selectionLayer;
 
