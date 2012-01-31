@@ -113,7 +113,9 @@ use namespace mx_internal;
 
 /**
  *  Duration, in milliseconds, of the animation from one child to another.
- *  The default value is 250.
+ * 
+ *  The default value for the Halo theme is 250.
+ *  The default value for the Spark theme is 0.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -158,7 +160,9 @@ use namespace mx_internal;
 
 /**
  *  Color of header text when rolled over.
- *  The default value is 0x2B333C.
+ * 
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -169,7 +173,9 @@ use namespace mx_internal;
 
 /**
  *  Color of selected text.
- *  The default value is 0x2B333C.
+ *  
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
