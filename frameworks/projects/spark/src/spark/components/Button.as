@@ -20,12 +20,11 @@ import flash.events.TimerEvent;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 
-import mx.utils.Flags32;
 import mx.components.baseClasses.FxComponent;
-import mx.graphics.graphicsClasses.TextGraphicElement;
-
 import mx.events.FlexEvent;
+import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
+import mx.utils.BitFlagUtil;
 
 /**
  *  Dispatched when the user presses the FxButton control.
@@ -190,7 +189,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */ 
     protected function get hoveredOver():Boolean
     {
-        return flags.isSet(hoveredOverFlag);
+        return BitFlagUtil.isSet(flags, hoveredOverFlag);
     }
     
     /**
@@ -198,9 +197,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */ 
     protected function set hoveredOver(value:Boolean):void
     {
-        if (!flags.update(hoveredOverFlag, value))
+        if (BitFlagUtil.isSet(flags, hoveredOverFlag) == value)
             return;
-
+         
+        flags = BitFlagUtil.update(flags, hoveredOverFlag, value);
+        
         invalidateButtonState();
     }
 
@@ -211,7 +212,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */    
     protected function get mouseCaptured():Boolean
     {
-        return flags.isSet(mouseCapturedFlag);
+        return BitFlagUtil.isSet(flags, mouseCapturedFlag);
     }
     
     /**
@@ -219,9 +220,11 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */
     protected function set mouseCaptured(value:Boolean):void
     {
-        if (!flags.update(mouseCapturedFlag, value))
+        if (BitFlagUtil.isSet(flags, mouseCapturedFlag) == value)
             return;
-
+         
+        flags = BitFlagUtil.update(flags, mouseCapturedFlag, value);
+        
         invalidateButtonState();
 
         // System mouse handlers are not needed when the button is not mouse captured
@@ -247,7 +250,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */ 
     protected function get keyboardPressed():Boolean
     {
-        return flags.isSet(keyboardPressedFlag);
+        return BitFlagUtil.isSet(flags, keyboardPressedFlag);
     }
     
     /**
@@ -255,8 +258,10 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */
     protected function set keyboardPressed(value:Boolean):void
     {
-        if (!flags.update(keyboardPressedFlag, value))
+        if (BitFlagUtil.isSet(flags, keyboardPressedFlag) == value)
             return;
+         
+        flags = BitFlagUtil.update(flags, keyboardPressedFlag, value);
         
         invalidateButtonState();
     }
@@ -273,7 +278,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */
     public function get stickyHighlighting():Boolean
     {
-        return flags.isSet(stickyHighlightingFlag);
+        return BitFlagUtil.isSet(flags, stickyHighlightingFlag);
     }
 
     /**
@@ -281,8 +286,10 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */
     public function set stickyHighlighting(value:Boolean):void
     {
-        if (!flags.update(stickyHighlightingFlag, value))
+        if (BitFlagUtil.isSet(flags, stickyHighlightingFlag) == value)
             return;
+         
+        flags = BitFlagUtil.update(flags, stickyHighlightingFlag, value);
         
         invalidateButtonState();
     }
@@ -321,9 +328,9 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     protected static const lastFlag:uint                = 1 << 6;
 
     /**
-     *  An instance of the Flags32 class used to manipulate Boolean properties.
+     *  A uint to store bitflags (booleans compressed down into one integer).
      */
-    protected var flags:Flags32 = new Flags32();
+    protected var flags:uint = 0;
 
     //--------------------------------------------------------------------------
     //
@@ -362,8 +369,9 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
             var isCurrentlyDown:Boolean = isDown();
 
             // Only if down state has changed, do we need to do something
-            if (flags.update(downEventFiredFlag, isCurrentlyDown))
+            if (BitFlagUtil.isSet(flags, downEventFiredFlag) != isCurrentlyDown)
             {
+                flags = BitFlagUtil.update(flags, downEventFiredFlag, isCurrentlyDown);
                 if (isCurrentlyDown)
                     dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
             
@@ -607,7 +615,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */
     public function get autoRepeat():Boolean
     {
-        return flags.isSet(autoRepeatFlag);
+        return BitFlagUtil.isSet(flags, autoRepeatFlag);
     }
     
     /**
@@ -615,8 +623,10 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
      */
     public function set autoRepeat(value:Boolean):void
     {
-        if (!flags.update(autoRepeatFlag, value))
+        if (BitFlagUtil.isSet(flags, autoRepeatFlag) == value)
             return;
+         
+        flags = BitFlagUtil.update(flags, autoRepeatFlag, value);
 
         checkAutoRepeatTimerConditions( isDown() );
     }
@@ -692,12 +702,12 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
     {
         super.toolTip = value;
 
-        flags.update(explicitToolTip, value != null);
+        flags = BitFlagUtil.update(flags, explicitToolTip, value != null);
         
         // If explicit tooltip is cleared, we need to make sure our
         // updateDisplayList is called, so that we add automatic tooltip
         // in case the label is truncated.
-        if (!flags.isSet(explicitToolTip))
+        if (!BitFlagUtil.isSet(flags, explicitToolTip))
             invalidateDisplayList();
     }
 
@@ -710,7 +720,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
         // Bail out if we don't have a label or the tooltip is not explicitly set.
-        if (!labelField || flags.isSet(explicitToolTip))
+        if (!labelField || BitFlagUtil.isSet(flags, explicitToolTip))
             return;
 
         // Check if the label text is truncated
