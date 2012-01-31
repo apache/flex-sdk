@@ -711,7 +711,7 @@ public class ComboBox extends ComboBase
     /**
      *  @private
      */
-    private var bRemoveDropdown:Boolean = false;
+    private var bRemoveDropdown:Boolean = true;
 
     /**
      *  @private
@@ -1449,9 +1449,9 @@ public class ComboBox extends ComboBase
         {
             destroyDropdown();
         }
-        else if (!_showingDropdown && inTween)
+        else if (_showingDropdown)
         {
-            bRemoveDropdown = true;
+            bRemoveDropdown = false;
         }
 
         var ddw:Number = preferredDropdownWidth;
@@ -1879,7 +1879,6 @@ public class ComboBox extends ComboBase
             tween.endTween();
         
         displayDropdown(false, null, false);
-
     }
 
     //--------------------------------------------------------------------------
@@ -2267,9 +2266,10 @@ public class ComboBox extends ComboBase
 
             PopUpManager.removePopUp(_dropdown);
             _dropdown = null;
-            bRemoveDropdown = false;
         }
-
+        
+        bRemoveDropdown = true;
+        
         UIComponent.resumeBackgroundProcessing();
         var cbdEvent:DropdownEvent =
             new DropdownEvent(_showingDropdown ? DropdownEvent.OPEN : DropdownEvent.CLOSE);
