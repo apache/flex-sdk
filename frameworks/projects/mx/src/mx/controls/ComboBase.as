@@ -166,6 +166,20 @@ use namespace mx_internal;
 
 /**
  *  Name of the class to use as the skin for the background and border
+ *  when the <code>editable</code>
+ *  property is <code>true</code>. This skin is only used by the ComboBox class.
+ *  For the ComboBase class, there is no default value.
+ *  For the ComboBox class, the default value is the ComboBoxArrowSkin class.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="editableSkin", type="Class", inherit="no")]
+
+/**
+ *  Name of the class to use as the skin for the background and border
  *  when the mouse is not over the control, and the <code>editable</code>
  *  property is <code>true</code>. This skin is only used by the ComboBox class.
  *  For the ComboBase class, there is no default value.
