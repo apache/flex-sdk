@@ -1533,7 +1533,7 @@ public class AnimateTransform extends Animate
                                     targets:Array):void
     {
         applyValues(propChanges, targets, true);                
-        super.mx_internal::applyStartValues(propChanges, targets);
+        super.applyStartValues(propChanges, targets);
     }
 
     /**
@@ -1551,7 +1551,7 @@ public class AnimateTransform extends Animate
         if (applyTransitionEndProperties)
         {
             applyValues(propChanges, targets, false);
-            super.mx_internal::applyEndValues(propChanges, targets);
+            super.applyEndValues(propChanges, targets);
         }
         if (targets != null)
             for (var i:int = 0; i < targets.length; ++i)
@@ -1883,7 +1883,7 @@ public class AnimateTransform extends Animate
     private function getGlobalStartTime():Number
     {
         var globalStartTime:Number = 0;
-        var parent:Effect = mx_internal::parentCompositeEffect;
+        var parent:Effect = parentCompositeEffect;
         while (parent)
         {
             globalStartTime += parent.startDelay;
@@ -1903,7 +1903,7 @@ public class AnimateTransform extends Animate
                             (child.repeatDelay + (child.repeatCount - 1));
                 }
             }
-            parent = parent.mx_internal::parentCompositeEffect;
+            parent = parent.parentCompositeEffect;
         }        
         return globalStartTime;
     }
