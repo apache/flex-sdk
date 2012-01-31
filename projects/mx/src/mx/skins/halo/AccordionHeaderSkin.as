@@ -14,7 +14,6 @@ package mx.skins.halo
 
 import flash.display.GradientType;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.skins.Border;
 import mx.styles.StyleManager;
 import mx.utils.ColorUtil;
@@ -96,30 +95,6 @@ public class AccordionHeaderSkin extends Border
 	public function AccordionHeaderSkin()
 	{
 		super();
-	}
-
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties
-	//
-	//--------------------------------------------------------------------------
-
-	//----------------------------------
-	//  borderMetrics
-	//----------------------------------
-
-	/**
-	 *  @private
-	 *  Storage for the borderMetrics property.
-	 */
-	private var _borderMetrics:EdgeMetrics = new EdgeMetrics(1, 1, 1, 1);
-
-	/**
-	 *  @private
-	 */
-	override public function get borderMetrics():EdgeMetrics
-	{
-		return FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ? _borderMetrics : super.borderMetrics;
 	}
 	
 	//--------------------------------------------------------------------------
