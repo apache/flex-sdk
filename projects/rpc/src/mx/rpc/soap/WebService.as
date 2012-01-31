@@ -64,7 +64,12 @@ public dynamic class WebService extends AbstractWebService
      * Creates a new WebService.  The destination, if specified, should match
      * an entry in services-config.xml.  If unspecified, the WebService uses
      * the DefaultHTTP destination. The <code>rootURL</code> is required if you
-     * intend to use a relative URL find the WSDL document for this WebService.
+     * intend to use a relative URL to find the WSDL document for this WebService.
+     *
+     * @param destination The destination of the WebService, should match a destination 
+     * name in the services-config.xml file.
+     *
+     * @param rootURL The root URL of the WebService.
      */
     public function WebService(destination:String = null, rootURL:String = null)
     {
@@ -120,8 +125,11 @@ public dynamic class WebService extends AbstractWebService
     //-------------------------------------------------------------------------
 
     /**
-     * Returns a Boolean value that indicates whether the WebService ready to
+     * Returns a Boolean value that indicates whether the WebService is ready to
      * load a WSDL (does it have a valid destination or wsdl specified).
+     *
+     * @return Returns <code>true</code> if the WebService is ready to load a WSDL;
+     * otherwise, returns <code>false</code>.
      */
     public function canLoadWSDL():Boolean
     {
@@ -222,6 +230,8 @@ public dynamic class WebService extends AbstractWebService
      * Represents an instance of WebService as a String, describing
      * important properties such as the destination id and the set of
      * channels assigned.
+     *
+     * @return Returns a String representation of the WebService.
      */
     public function toString():String
     {
@@ -321,6 +331,11 @@ public dynamic class WebService extends AbstractWebService
         return httpService;
     }
 
+   /**
+    * Initializes a new Operation.
+    *
+    * @param operation The Operation to initialize.
+    */
     protected function initializeOperation(operation:Operation):void
     {
         if (_wsdl != null)
