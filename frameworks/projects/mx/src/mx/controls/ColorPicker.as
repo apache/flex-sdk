@@ -151,7 +151,9 @@ include "../styles/metadata/TextStyles.as"
 
 /**
  *  Length of a close transition, in milliseconds.
- *  The default value is 250.
+ * 
+ *  The default value for the Halo theme is 250.
+ *  The default value for the Spark theme is 50.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -207,7 +209,9 @@ include "../styles/metadata/TextStyles.as"
 
 /**
  *  Length of an open transition, in milliseconds.
- *  The default value is 250.
+ *
+ *  The default value for the Halo theme is 250.
+ *  The default value for the Spark theme is 0.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
