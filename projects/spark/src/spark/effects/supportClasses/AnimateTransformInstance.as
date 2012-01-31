@@ -22,9 +22,9 @@ import mx.core.mx_internal;
 import mx.effects.Effect;
 
 import spark.effects.Animate;
-import spark.effects.KeyFrame;
-import spark.effects.MotionPath;
 import spark.effects.animation.Animation;
+import spark.effects.animation.Keyframe;
+import spark.effects.animation.MotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Linear;
 
@@ -251,7 +251,8 @@ public class AnimateTransformInstance extends AnimateInstance
      * time, so the new keyframe must be inserted in the proper place according to its
      * time value and the startDelay time passed in
      */
-    private function insertKeyframe(keyframes:Array, newKF:KeyFrame, startDelay:Number = 0):void
+    private function insertKeyframe(keyframes:Vector.<Keyframe>, 
+        newKF:Keyframe, startDelay:Number = 0):void
     {
         newKF.time += startDelay;
         for (var i:int = 0; i < keyframes.length; i++)
@@ -333,7 +334,7 @@ public class AnimateTransformInstance extends AnimateInstance
         }
         else
         {
-            motionPaths = [];
+            motionPaths = new Vector.<MotionPath>();
             // TODO (chaase): too early to reset instanceStartTime - might use
             // it below
             instanceStartTime = newEffectStartTime;
@@ -460,7 +461,7 @@ public class AnimateTransformInstance extends AnimateInstance
                 {
                     for (j = 0; j < animProp.keyframes.length; ++j)
                     {
-                        var kf:KeyFrame = animProp.keyframes[j];
+                        var kf:Keyframe = animProp.keyframes[j];
                         if (animProp.property == "translationX")
                             kf.value += transformCenter.x;
                         else
@@ -472,16 +473,17 @@ public class AnimateTransformInstance extends AnimateInstance
         for (s in autoProps)
         {
             var mp:MotionPath = new MotionPath(s);
-            mp.keyframes = [new KeyFrame(0, null), new KeyFrame(duration, null)];
+            mp.keyframes = new <Keyframe>[new Keyframe(0, null), 
+                new Keyframe(duration, null)];
             mp.scaleKeyframes(duration);
             if (!motionPaths)
-                motionPaths = [];
+                motionPaths = new Vector.<MotionPath>();
             motionPaths.push(mp);
         }
         // TODO (chaase): We probably need to advertise percentWidth/Height
         // in the affected properties/styles arrays; we don't pick these up
         // in the transition propertyChanges automatically otherwise 
-        if (propertyChanges && !disableConstraints)
+        if (propertyChanges && !disableLayout)
         {
             setupConstraintAnimation("left");
             setupConstraintAnimation("right");
