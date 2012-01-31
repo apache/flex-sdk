@@ -12,13 +12,18 @@
 // AdobePatentID="B976"
 
 package spark.components.supportClasses
-
-
 {	
     
+import flash.display.DisplayObject;
+
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 
 import spark.components.Group;
+import spark.core.DisplayObjectSharingMode;
+import spark.core.IGraphicElement;
+
+use namespace mx_internal;
 
 /**
  *  The Skin class defines the base class for all skins used by skinnable components. 
@@ -71,6 +76,137 @@ public class Skin extends Group
 	{
 		super();
 	}
+
+    /**
+     *  List of id's of items that should be included when rendering the focus ring.
+     *  Only items of type DisplayObject or GraphicElement should be excluded. Items
+     *  of other types will be ignored.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get focusSkinExclusions():Array 
+    {
+        return null;
+    }
+    
+    private static var exclusionAlphaValues:Array;
+
+    /**
+     *  Called before a bitmap capture is made for this skin. The default implementation
+     *  excludes items in the focusSkinExclusions array.
+     */
+    public function beginHighlightBitmapCapture():Boolean
+    {
+		var exclusions:Array = focusSkinExclusions;
+        if (!exclusions)
+        {
+            if (this["hostComponent"] is SkinnableComponent)
+                exclusions = SkinnableComponent(this["hostComponent"]).suggestedFocusSkinExclusions;
+        }
+		var exclusionCount:Number = (exclusions == null) ? 0 : exclusions.length;
+        
+		/* we'll store off the previous alpha of the exclusions so we
+		can restore them when we're done
+		*/
+		exclusionAlphaValues = [];
+		var needRedraw:Boolean = false;
+        
+		for (var i:int = 0; i < exclusionCount; i++)		
+		{
+            // skip if the part isn't there
+            if (!(exclusions[i] in this))
+                continue;
+
+			var ex:Object = this[exclusions[i]];
+			/* we're going to go under the covers here to try and modify alpha with the least
+			amount of disruption to the component.  For UIComponents, we go to Sprite's alpha property;
+			*/
+			if (ex is UIComponent)
+			{
+                exclusionAlphaValues[i] = (ex as UIComponent).$alpha; 
+				(ex as UIComponent).$alpha = 0;
+			} 
+			else if (ex is DisplayObject)
+			{
+                exclusionAlphaValues[i] = (ex as DisplayObject).alpha; 
+				(ex as DisplayObject).alpha = 0;
+			}
+			else if (ex is IGraphicElement) 
+			{
+				/* if we're lucky, the IGE has its own DisplayObject, and we can just trip its alpha.
+				If not, we're going to have to set it to 0, and force a redraw of the whole component */
+				var ge:IGraphicElement = ex as IGraphicElement;
+				if (ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+				{
+                    exclusionAlphaValues[i] = ge.displayObject.alpha;
+					ge.displayObject.alpha = 0;
+				}
+				else
+				{
+                    exclusionAlphaValues[i] = ge.alpha;
+					ge.alpha = 0;
+					needRedraw = true;
+				}
+			}
+        }	
+        
+		/* if we excluded an IGE without its own DO, we need to update the component before grabbing the bitmap */
+		return needRedraw;
+    }
+    
+    /**
+     *  Called after a bitmap capture is made for this skin. The default implementation 
+     *  restores the items in the focusSkinExclusions array.
+     */
+    public function endHighlightBitmapCapture():Boolean
+    {
+        var exclusions:Array = focusSkinExclusions;
+        if (!exclusions)
+        {
+            if (this["hostComponent"] is SkinnableComponent)
+                exclusions = SkinnableComponent(this["hostComponent"]).suggestedFocusSkinExclusions;
+        }
+        var exclusionCount:Number = (exclusions == null) ? 0 : exclusions.length;
+        var needRedraw:Boolean = false;
+        
+        for (var i:int=0; i < exclusionCount; i++)		
+		{
+            // skip if the part isn't there
+            if (!(exclusions[i] in this))
+                continue;
+
+            var ex:Object = this[exclusions[i]];
+			if (ex is UIComponent)
+			{
+				(ex as UIComponent).$alpha = exclusionAlphaValues[i];
+			} 
+			else if (ex is DisplayObject)
+			{
+				(ex as DisplayObject).alpha = exclusionAlphaValues[i];
+			}
+			else if (ex is IGraphicElement) 
+			{
+				var ge:IGraphicElement = ex as IGraphicElement;
+				if (ge.displayObjectSharingMode == DisplayObjectSharingMode.OWNS_UNSHARED_OBJECT)
+				{
+					ge.displayObject.alpha = exclusionAlphaValues[i];
+				}
+				else
+				{
+					ge.alpha = exclusionAlphaValues[i];			
+                    needRedraw = true;
+				}
+			}
+		}
+        
+        exclusionAlphaValues = null;
+        
+        return needRedraw;
+    }
+
 }
 
 }
