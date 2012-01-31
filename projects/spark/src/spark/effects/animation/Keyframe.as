@@ -53,6 +53,8 @@ use namespace mx_internal;
  *  </pre>
  * 
  *  @see MotionPath
+ *
+ *  @includeExample examples/KeyFrameEffectExample.mxml
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
