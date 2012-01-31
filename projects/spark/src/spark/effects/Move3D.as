@@ -35,7 +35,7 @@ import spark.effects.effectClasses.AnimateTransformInstance;
  */   
 public class AnimateTransformMove3D extends AnimateTransformMove
 {
-    include "../../spark.core.Version.as";
+    include "../core/Version.as";
     
     public function AnimateTransformMove3D(target:Object=null)
     {
