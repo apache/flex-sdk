@@ -588,8 +588,8 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     private function breadthOrderCompare(a:DisplayObject, b:DisplayObject):Number
     {
-        var aParent:DisplayObject = a.parent;
-        var bParent:DisplayObject = b.parent;
+        var aParent:DisplayObject = (a is UIComponent) ? UIComponent(a).$parent : a.parent;
+        var bParent:DisplayObject = (b is UIComponent) ? UIComponent(b).$parent : b.parent;
 
         if (!aParent || !bParent)
             return 0;
@@ -597,13 +597,9 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         var aNestLevel:int = (a is UIComponent) ? UIComponent(a).nestLevel : -1;
         var bNestLevel:int = (b is UIComponent) ? UIComponent(b).nestLevel : -1;
 
-        var aIndex:int = aParent is IRawChildrenContainer ?
-            IRawChildrenContainer(aParent).rawChildren.getChildIndex(a) :
-            DisplayObjectContainer(aParent).getChildIndex(a);
+        var aIndex:int = DisplayObjectContainer(aParent).getChildIndex(a);
 
-        var bIndex:int = bParent is IRawChildrenContainer ?
-            IRawChildrenContainer(bParent).rawChildren.getChildIndex(b) :
-            DisplayObjectContainer(bParent).getChildIndex(b);
+        var bIndex:int = DisplayObjectContainer(bParent).getChildIndex(b);
 
         if (aNestLevel > bNestLevel || (a.parent == b.parent && aIndex > bIndex))
             return 1;
