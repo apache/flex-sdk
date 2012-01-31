@@ -23,6 +23,11 @@ import mx.skins.ProgrammaticSkin;
  *  The skin for the background of the column headers in a DataGrid control.
  *
  *  @see mx.controls.DataGrid
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridHeaderBackgroundSkin extends ProgrammaticSkin
 {
@@ -36,6 +41,11 @@ public class DataGridHeaderBackgroundSkin extends ProgrammaticSkin
 	
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function DataGridHeaderBackgroundSkin()
 	{
