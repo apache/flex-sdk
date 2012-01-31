@@ -50,6 +50,11 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  The backgrounds of the list items alternate among the colors in the array. 
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
@@ -59,6 +64,11 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  The main color for a component. 
  *   
  *  @default 0xCCCCCC
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="baseColor", type="uint", format="Color", inherit="yes")]
 
@@ -68,6 +78,11 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  Color of the fill of an itemRenderer
  *   
  *  @default 0xFFFFFF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
@@ -77,6 +92,11 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  Color of focus ring when the component is in focus
  *   
  *  @default 0x70B2EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
@@ -86,6 +106,11 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  Color of the highlights when the mouse is over the component
  *   
  *  @default 0xCEDBEF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -96,6 +121,11 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  the arrow of a FxScrollButton
  *   
  *  @default 0x000000
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
@@ -108,6 +138,11 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *
  *  @see mx.layout.LayoutBase
  *  @see mx.components.ResizeMode
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class GroupBase extends UIComponent implements IViewport
 {
@@ -119,6 +154,11 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      * Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function GroupBase()
     {
@@ -176,6 +216,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  @default mx.layout.BasicLayout
      *
      *  @see LayoutBase
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get layout():LayoutBase
     {
@@ -230,6 +275,11 @@ public class GroupBase extends UIComponent implements IViewport
 
     /**
      *  @copy mx.core.IViewport#horizontalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get horizontalScrollPosition():Number 
     {
@@ -257,6 +307,11 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  @copy mx.core.IViewport#verticalScrollPosition
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalScrollPosition():Number 
     {
@@ -282,6 +337,11 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  @copy mx.core.IViewport#clipAndEnableScrolling
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get clipAndEnableScrolling():Boolean 
     {
@@ -350,6 +410,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  when children are added to or removed from the container.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get autoLayout():Boolean
     {
@@ -389,6 +454,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  @param value The String representation of the enumeration.
      *
      *  @return The uint value corresponding to the String.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private static function resizeModeToUINT(value:String):uint
     {
@@ -404,6 +474,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  @param value The uint value of the enumeration. 
      *
      *  @return The String corresponding to the uint value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private static function resizeModeToString(value:uint):String
     {
@@ -423,6 +498,11 @@ public class GroupBase extends UIComponent implements IViewport
  * @default ResizeMode.NORMAL
  * 
  * @see mx.components.ResizeMode
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
     public function get resizeMode():String
     {
@@ -502,6 +582,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  reading this property returns the current scaling factor.</p>
      *
      *  @copy mx.core.UIComponent#scaleX
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     override public function get scaleX():Number
     {
@@ -532,6 +617,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  reading this property returns the current scaling factor.</p>
      *
      *  @copy mx.core.UIComponent#scaleY
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     override public function get scaleY():Number
     {
@@ -557,6 +647,11 @@ public class GroupBase extends UIComponent implements IViewport
     [PercentProxy("percentWidth")]
     /**
      *  The width of the container, in pixels. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     override public function get width():Number
     {
@@ -571,6 +666,11 @@ public class GroupBase extends UIComponent implements IViewport
     [PercentProxy("percentHeight")]
     /**
      *  The height of the container, in pixels. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     override public function get height():Number
     {
@@ -726,6 +826,11 @@ public class GroupBase extends UIComponent implements IViewport
 
     /**
      *  @copy mx.core.IViewport#horizontalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getHorizontalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -734,6 +839,11 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  @copy mx.core.IViewport#verticalScrollPositionDelta
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getVerticalScrollPositionDelta(scrollUnit:uint):Number
     {
@@ -757,6 +867,11 @@ public class GroupBase extends UIComponent implements IViewport
 
     /**
      *  @copy mx.core.IViewport#contentWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentWidth():Number 
     {
@@ -786,6 +901,11 @@ public class GroupBase extends UIComponent implements IViewport
 
     /**
      *  @copy mx.core.IViewport#contentWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get contentHeight():Number 
     {
@@ -814,6 +934,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  @param w The new value of <code>contentWidth</code>.
      * 
      *  @param h The new value of <code>contentHeight</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setContentSize(w:Number, h:Number):void
     {
@@ -893,6 +1018,11 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  @copy mx.core.IVisualElementContainer#numElements
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get numElements():int
     {
@@ -901,6 +1031,11 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  @copy mx.core.IVisualElementContainer#getElementAt
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getElementAt(index:int):IVisualElement
     {
@@ -909,6 +1044,11 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  @copy mx.core.IVisualElementContainer#getElementIndex
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getElementIndex(element:IVisualElement):int
     {
@@ -927,6 +1067,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  not already on a display list nor in the elements array.  
      *
      *  @see flash.display.DisplayObject#mask
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     override public function get mask():DisplayObject
     {
@@ -962,6 +1107,11 @@ public class GroupBase extends UIComponent implements IViewport
      *  Possible values are <code>MaskType.CLIP</code> and <code>MaskType.ALPHA</code>. 
      *
      *  @see  mx.graphics.MaskType
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maskType():String
     {
