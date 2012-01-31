@@ -983,6 +983,11 @@ public class TextGraphicElement extends GraphicElement
         StyleProtoChain.styleChanged(this, styleProp);
 
         invalidateTextLines();
+
+        if (styleProp && (styleProp != "styleName"))
+            dispatchEvent(new Event(styleProp + "Changed"));
+        else
+            dispatchEvent(new Event("allStylesChanged"));
     }
 
     //--------------------------------------------------------------------------
@@ -991,6 +996,7 @@ public class TextGraphicElement extends GraphicElement
     //
     //--------------------------------------------------------------------------
 
+    [Bindable(style="true")]
     /**
      *  @inheritDoc
      *  
