@@ -86,7 +86,7 @@ public class ScrollerLayout extends LayoutBase
      */
     private function get hsbVisible():Boolean
     {
-        var hsb:ScrollBar = getScroller().horizontalScrollBar;
+        var hsb:ScrollBarBase = getScroller().horizontalScrollBar;
         return hsb && hsb.visible;
     }
 
@@ -98,7 +98,7 @@ public class ScrollerLayout extends LayoutBase
      */
     private function set hsbVisible(value:Boolean):void
     {
-        var hsb:ScrollBar = getScroller().horizontalScrollBar;
+        var hsb:ScrollBarBase = getScroller().horizontalScrollBar;
         if (!hsb)
             return;
 
@@ -134,7 +134,7 @@ public class ScrollerLayout extends LayoutBase
     {
         var scroller:Scroller = getScroller();
         var minViewportInset:Number = scroller.minViewportInset;
-        var hsb:ScrollBar = scroller.horizontalScrollBar;
+        var hsb:ScrollBarBase = scroller.horizontalScrollBar;
         var sy:Number = (hsbVisible) ? 1 : hsbScaleY;
         return Math.max(minViewportInset, hsb.getPreferredBoundsHeight(hsbVisible) * sy);
     }
@@ -152,11 +152,11 @@ public class ScrollerLayout extends LayoutBase
     {
         if (vsbVisible && includeVSB)
         {
-            var vsb:ScrollBar = getScroller().verticalScrollBar;            
+            var vsb:ScrollBarBase = getScroller().verticalScrollBar;            
             w -= vsb.getPreferredBoundsWidth();
             h -= vsb.getMinBoundsHeight();
         }
-        var hsb:ScrollBar = getScroller().horizontalScrollBar;        
+        var hsb:ScrollBarBase = getScroller().horizontalScrollBar;        
         return (w >= hsb.getMinBoundsWidth()) && (h >= hsb.getPreferredBoundsHeight());
     }
     
@@ -172,7 +172,7 @@ public class ScrollerLayout extends LayoutBase
      */
     private function get vsbVisible():Boolean
     {
-        var vsb:ScrollBar = getScroller().verticalScrollBar;
+        var vsb:ScrollBarBase = getScroller().verticalScrollBar;
         return vsb && vsb.visible;
     }
     
@@ -182,7 +182,7 @@ public class ScrollerLayout extends LayoutBase
      */
     private function set vsbVisible(value:Boolean):void
     {
-        var vsb:ScrollBar = getScroller().verticalScrollBar;
+        var vsb:ScrollBarBase = getScroller().verticalScrollBar;
         if (!vsb)
             return;
         
@@ -218,7 +218,7 @@ public class ScrollerLayout extends LayoutBase
     {
         var scroller:Scroller = getScroller();
         var minViewportInset:Number = scroller.minViewportInset;
-        var vsb:ScrollBar = scroller.verticalScrollBar;
+        var vsb:ScrollBarBase = scroller.verticalScrollBar;
         var sx:Number = (vsbVisible) ? 1 : vsbScaleX;
         return Math.max(minViewportInset, vsb.getPreferredBoundsWidth(vsbVisible) * sx);
     }
@@ -236,11 +236,11 @@ public class ScrollerLayout extends LayoutBase
     {
         if (hsbVisible && includeHSB)
         {
-            var hsb:ScrollBar = getScroller().horizontalScrollBar;            
+            var hsb:ScrollBarBase = getScroller().horizontalScrollBar;            
             w -= hsb.getMinBoundsWidth();
             h -= hsb.getPreferredBoundsHeight();
         }
-        var vsb:ScrollBar = getScroller().verticalScrollBar;  
+        var vsb:ScrollBarBase = getScroller().verticalScrollBar;  
         return (w >= vsb.getPreferredBoundsWidth()) && (h >= vsb.getMinBoundsHeight());
     }
 
@@ -267,7 +267,7 @@ public class ScrollerLayout extends LayoutBase
         var measuredW:Number = minViewportInset;
         var measuredH:Number = minViewportInset;
         
-        const hsb:ScrollBar = scroller.horizontalScrollBar;
+        const hsb:ScrollBarBase = scroller.horizontalScrollBar;
         var showHSB:Boolean = false;
         var hAuto:Boolean = false;
         if (measuredSizeIncludesScrollBars)
@@ -282,7 +282,7 @@ public class ScrollerLayout extends LayoutBase
                     break;
             } 
 
-        const vsb:ScrollBar = scroller.verticalScrollBar;
+        const vsb:ScrollBarBase = scroller.verticalScrollBar;
         var showVSB:Boolean = false;
         var vAuto:Boolean = false;
         if (measuredSizeIncludesScrollBars)
@@ -384,8 +384,8 @@ public class ScrollerLayout extends LayoutBase
             return;
 
         var viewport:IViewport = scroller.viewport;
-        var hsb:ScrollBar = scroller.horizontalScrollBar;
-        var vsb:ScrollBar = scroller.verticalScrollBar;
+        var hsb:ScrollBarBase = scroller.horizontalScrollBar;
+        var vsb:ScrollBarBase = scroller.verticalScrollBar;
         var minViewportInset:Number = scroller.minViewportInset;
         
         var contentW:Number = 0;
