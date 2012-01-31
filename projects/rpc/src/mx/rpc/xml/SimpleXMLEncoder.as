@@ -125,7 +125,6 @@ public class SimpleXMLEncoder
      *  @param parentNode An XMLNode under which to put the encoded
      *  value.
      *
-     *  @return The XMLNode object. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
