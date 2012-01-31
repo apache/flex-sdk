@@ -376,15 +376,18 @@ public class VolumeBar extends VSlider
     
      /**
      *  Closes the dropDown. 
+     * 
+     *  @param commit Flag indicating if the component should commit the selected
+     *  data from the dropDown. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function closeDropDown():void
+    public function closeDropDown(commit:Boolean):void
     {
-        dropDownController.closeDropDown(true);
+        dropDownController.closeDropDown(commit);
     }
        
     //--------------------------------------------------------------------------
@@ -508,7 +511,8 @@ public class VolumeBar extends VSlider
     {
         invalidateSkinState();
         
-        // the volume changed immediately, so no need to handle the case when 
+        // In this implementation, the volume is always changed immediately, 
+        // so no need to handle the case when 
         // commit==false and event.preventDefault() is called on this DropDownEvent
         
         dispatchEvent(event);
