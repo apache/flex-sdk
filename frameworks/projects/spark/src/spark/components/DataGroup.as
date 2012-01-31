@@ -25,27 +25,27 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  Dispatched when a renderer is added to the content holder.
  * <code>event.renderer</code> is the renderer that was added.
  *
- *  @eventType mx.events.RendererExistenceEvent.RENDERER_ADD
+ *  @eventType spark.events.RendererExistenceEvent.RENDERER_ADD
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="rendererAdd", type="mx.events.RendererExistenceEvent")]
+[Event(name="rendererAdd", type="spark.events.RendererExistenceEvent")]
 
 /**
  *  Dispatched when a renderer is removed from the content holder.
  * <code>event.renderer</code> is the renderer that was removed.
  *
- *  @eventType mx.events.RendererExistenceEvent.ITEM_REMOVE
+ *  @eventType spark.events.RendererExistenceEvent.ITEM_REMOVE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="rendererRemove", type="mx.events.RendererExistenceEvent")]
+[Event(name="rendererRemove", type="spark.events.RendererExistenceEvent")]
 
 //--------------------------------------
 //  Excluded APIs
@@ -73,7 +73,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  The DataGroup class is the base container class for data elements.
  *  The DataGroup class converts data elements to visual elements for display.
  *
- *  @see mx.components.Group
+ *  @see spark.components.Group
  *  @includeExample examples/DataGroupExample.mxml
  *
  *  
