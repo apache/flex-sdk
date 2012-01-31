@@ -14,15 +14,19 @@ package spark.primitives
 
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
+import flash.text.TextFormat;
+import flash.text.engine.FontLookup;
 import flash.text.engine.TextLine;
 
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
+import flashx.textLayout.elements.ITextLineCreator;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.elements.TextLineCreator;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.factory.TextLineFactory;
 import flashx.textLayout.factory.TruncationOptions;
@@ -32,7 +36,15 @@ import flashx.textLayout.formats.TextLayoutFormat;
 import flashx.textLayout.formats.VerticalAlign;
 import flashx.textLayout.tlf_internal;
 
+import mx.core.EmbeddedFont;
+import mx.core.EmbeddedFontRegistry;
+import mx.core.IEmbeddedFontRegistry;
+import mx.core.IFlexModuleFactory;
+import mx.core.IFontContextComponent;
+import mx.core.IUIComponent;
+import mx.core.Singleton;
 import mx.core.mx_internal;
+import mx.managers.ISystemManager;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.TextUtil;
 
@@ -84,7 +96,7 @@ include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class RichText extends TextGraphicElement
+public class RichText extends TextGraphicElement implements IFontContextComponent
 {
     include "../core/Version.as";
 
@@ -108,6 +120,36 @@ public class RichText extends TextGraphicElement
     private static var staticConfiguration:Configuration =
         new Configuration();
     
+    //----------------------------------
+    //  embeddedFontRegistry
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the _embeddedFontRegistry property.
+     *  Note: This gets initialized on first access,
+     *  not when this class is initialized, in order to ensure
+     *  that the Singleton registry has already been initialized.
+     */
+    private static var _embeddedFontRegistry:IEmbeddedFontRegistry;
+
+    /**
+     *  @private
+     *  A reference to the embedded font registry.
+     *  Single registry in the system.
+     *  Used to look up the moduleFactory of a font.
+     */
+    private static function get embeddedFontRegistry():IEmbeddedFontRegistry
+    {
+        if (!_embeddedFontRegistry)
+        {
+            _embeddedFontRegistry = IEmbeddedFontRegistry(
+                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+        }
+
+        return _embeddedFontRegistry;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -128,12 +170,26 @@ public class RichText extends TextGraphicElement
         _content = textFlow = createEmptyTextFlow();
     }
     
-    //--------------------------------------------------------------------------
+     
+   //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
     
+    /**
+     * @private
+     * 
+     * Cache last value of embedded font.
+     */
+    private var cachedEmbeddedFont:EmbeddedFont = null;
+
+    /**
+     *  @private
+     * Holds the last recorded value of the module factory used to create the font.
+     */
+    private var embeddedFontContext:IFlexModuleFactory = null;
+
     /**
      *  @private
      */
@@ -182,6 +238,34 @@ public class RichText extends TextGraphicElement
      */
     private var textInvalid:Boolean = false;
         
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  fontContext
+    //----------------------------------
+    
+    private var _fontContext:IFlexModuleFactory;
+
+    /**
+     *  @private
+     */
+    public function get fontContext():IFlexModuleFactory
+    {
+        return _fontContext;
+    }
+
+    /**
+     *  @private
+     */
+    public function set fontContext(value:IFlexModuleFactory):void
+    {
+        _fontContext = value;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -394,15 +478,58 @@ public class RichText extends TextGraphicElement
      */
     private function setHostTextLayoutFormat(styleProp:String):void
     {
-        if (styleProp in hostTextLayoutFormat)
-		{
-			var value:* = getStyle(styleProp);
-        
-			if (styleProp == "tabStops" && value === undefined)
-				value = [];
+        var checkForEmbed:Boolean = false;
 
-			hostTextLayoutFormat[styleProp] = value;
-		}
+        if (styleProp in hostTextLayoutFormat)
+        {
+            var value:* = getStyle(styleProp);
+
+            if (styleProp == "tabStops" && value === undefined)
+                value = [];
+
+            if (styleProp == "fontLookup" && value == "auto")
+                checkForEmbed = true;
+            else
+                hostTextLayoutFormat[styleProp] = value;
+        }      
+        if (checkForEmbed)
+        {
+            var embeddedFont:EmbeddedFont = getEmbeddedFont(
+                hostTextLayoutFormat.fontFamily, 
+                hostTextLayoutFormat.fontWeight == "bold", 
+                hostTextLayoutFormat.fontStyle == "italic");
+            
+            embeddedFontContext = 
+                embeddedFontRegistry.getAssociatedModuleFactory(
+                    embeddedFont, fontContext);
+
+            // if we found the font, then it is embedded. 
+            // Some fonts are not listed in info(), so are not in the above registry.
+            // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
+            if (embeddedFontContext != null) 
+            {
+                hostTextLayoutFormat.fontLookup = FontLookup.EMBEDDED_CFF;
+            }
+            else
+            {
+                var sm:ISystemManager = creatingSystemManager();
+                var textFormat:TextFormat = new TextFormat();
+                textFormat.font = hostTextLayoutFormat.fontFamily;
+                textFormat.bold = hostTextLayoutFormat.fontWeight == "bold";
+                textFormat.italic = hostTextLayoutFormat.fontStyle == "italic";
+                if (sm != null && sm.isFontFaceEmbedded(textFormat))
+                {
+                    hostTextLayoutFormat.fontLookup = FontLookup.EMBEDDED_CFF;
+                }
+            }
+        }
+        else
+        {
+            if (hostTextLayoutFormat.fontLookup == FontLookup.EMBEDDED_CFF)
+                embeddedFontContext = fontContext;
+            else
+                embeddedFontContext = null;
+        }
     }
 
     /**
@@ -504,7 +631,7 @@ public class RichText extends TextGraphicElement
         staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
         staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-        textFlow.hostTextLayoutFormat = staticTextLayoutFormat;
+        textFlow.hostFormat = staticTextLayoutFormat;
 
         textFlow.mxmlChildren = children;
 
@@ -570,7 +697,7 @@ public class RichText extends TextGraphicElement
             hostTextLayoutFormatInvalid = false;
         }
 
-        textFlow.hostTextLayoutFormat = new TextLayoutFormat(hostTextLayoutFormat);
+        textFlow.hostFormat = new TextLayoutFormat(hostTextLayoutFormat);
 
         return textFlow;
     }
@@ -664,6 +791,13 @@ public class RichText extends TextGraphicElement
 				TextGraphicElement.mx_internal::truncationIndicatorResource;
 		}
 
+        if (textFlow && textFlow.flowComposer)
+        {
+            if (embeddedFontContext)
+                textFlow.flowComposer.textLineCreator = ITextLineCreator(embeddedFontContext);
+            else
+                textFlow.flowComposer.textLineCreator = new TextLineCreator();
+        }
         TextLineFactory.createTextLinesFromTextFlow(
 			addTextLine, textFlow, mx_internal::bounds, truncationOptions);
     }
@@ -706,6 +840,35 @@ public class RichText extends TextGraphicElement
         
         invalidateDisplayList();  
     }    
+
+    private function creatingSystemManager():ISystemManager
+    {
+        return ((fontContext != null) && (fontContext is ISystemManager))
+                ? ISystemManager(fontContext)
+                : IUIComponent(parent).systemManager;
+    }
+    
+    /**
+     * @private
+     * 
+     * Get the embedded font for a set of font attributes.
+     */ 
+    private function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
+    {
+        // Check if we can reuse a cached value.
+        if (cachedEmbeddedFont)
+        {
+            if (cachedEmbeddedFont.fontName == fontName &&
+                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
+            {
+                return cachedEmbeddedFont;
+            }   
+        }
+        
+        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);      
+        
+        return cachedEmbeddedFont;
+    }
 }
 
 }
