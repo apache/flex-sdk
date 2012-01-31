@@ -18,6 +18,7 @@ import mx.events.ItemExistenceChangedEvent;
 
 import mx.collections.IList;
 import mx.components.FxDataContainer;
+import mx.core.IVisualElement;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -278,7 +279,67 @@ public class FxListBase extends FxDataContainer
             invalidateProperties();
         }
     }
-    
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     *  The baseline position of a ListBase is calculated for the first item renderer.
+     *  If there are no items, one is temporarily added to do the calculation.
+     */
+    override public function get baselinePosition():Number
+    {
+        if (!mx_internal::validateBaselinePosition())
+            return NaN;
+        
+        // Fabricate temporary data provider if necessary.
+        var isNull:Boolean = dataProvider == null;
+        var isEmpty:Boolean = dataProvider != null && dataProvider.length == 0;
+         
+        if (isNull || isEmpty)
+        {
+            var originalProvider:IList = isEmpty ? dataProvider : null;
+            dataProvider = new mx.collections.ArrayList([ new Object() ]);
+            validateNow();
+        }
+        
+        if (!dataGroup || dataGroup.numLayoutElements == 0)
+            return super.baselinePosition;
+        
+        // Obtain reference to newly generated item element which will be used
+        // to compute the baseline.
+        var listItem:Object = dataGroup.getItemRenderer(0);
+        if (!listItem)
+            return super.baselinePosition;
+        
+        // Compute baseline position of item relative to our list component.
+        if ("baselinePosition" in listItem)
+            var result:Number = getSkinPartPosition(IVisualElement(listItem)).y + listItem.baselinePosition;
+        else    
+            super.baselinePosition;
+
+        // Restore the previous state of our list.
+        if (isNull || isEmpty)
+        {
+            if (isNull)
+                dataProvider = null;
+            else if (isEmpty)
+                dataProvider = originalProvider;
+                
+            validateNow();
+        }
+        
+        return result;
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Overridden Methods
