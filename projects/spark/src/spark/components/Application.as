@@ -14,7 +14,6 @@ package spark.components
 
 import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
-import flash.display.Stage;
 import flash.events.ContextMenuEvent;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -27,6 +26,7 @@ import flash.net.navigateToURL;
 import flash.system.Capabilities;
 import flash.ui.ContextMenu;
 import flash.ui.ContextMenuItem;
+import flash.utils.Dictionary;
 import flash.utils.setInterval;
 
 import mx.core.EventPriority;
@@ -295,14 +295,37 @@ public class Application extends SkinnableContainer
      *  Flag set to true if the application has temporarily set its explicit
      *  width and height to deal with orientation.
      */ 
-    private var restoreApplicationWidthAndHeight:Boolean = false;
+    private var explicitSizingForOrientation:Boolean = false;
     
     /**
      *  @private
-     *  Caches the application's width and height values for the portrait
-     *  and landscape orientations.
+     *  Caches the application's width and height values for better resizing
+     *  of the screen during orientation changes. Keys are composed of the width and
+     *  height values in a string of the form "w:h", e.g. "1004:768" and represent
+     *  the screen dimensions before the orientation change. Values are
+     *  objects containing width and height properties that represent the screen dimensions
+     *  after the orientation change.
      */
-    private var cachedSizes:Object;
+    private var cachedDimensions:Dictionary;
+    
+    /**
+     *  @private
+     *  Previous width of the application prior to an orientation change 
+     */    
+    private var previousWidth:Number;
+    
+    /**
+     *  @private
+     *  Previous height of the application prior to an orientation change 
+     */    
+    private var previousHeight:Number;
+    
+    /**
+     *  @private
+     *  Flag to determine if the keyboard is active during an orientation change,
+     *  to minimize renders during the orientation change.
+     */
+    private var keyboardActiveInOrientationChange:Boolean = false;
     
     /**
      *  @private
@@ -360,6 +383,18 @@ public class Application extends SkinnableContainer
      */
     private var viewSourceCMI:ContextMenuItem;
 
+    /**
+     * @private 
+     * Return the density scaling factor for the application 
+     */    
+    private function get scaleFactor():Number
+    {
+        if (systemManager)
+            return (systemManager as SystemManager).densityScale;
+
+        return 1;
+    }
+    
     //----------------------------------
     //  colorCorrection
     //----------------------------------
@@ -1323,69 +1358,56 @@ public class Application extends SkinnableContainer
         // orientation on their own.
         if (isNaN(explicitWidth) && isNaN(explicitHeight))
         { 
-            if (!cachedSizes)
-                cachedSizes = {};
+            if (!cachedDimensions)
+                cachedDimensions = new Dictionary();
             
-            // Cache the current percentWidth and height values.  These will
-            // be lost when width and height are set, and restored later.            
-            cachedSizes.oldPercentWidth = percentWidth;
-            cachedSizes.oldPercentHeight = percentHeight;
+            // remember the current dimensions
+            previousWidth = width;
+            previousHeight = height;
+            
+            var key:String = width + ":" + height;
+            
+            // On some platforms (e.g. iOS and Playbook) if the soft keyboard is up
+            // it deactivates before orientation change and reactivates after it; 
+            // the value of isSoftKeyboardActive thus changes during orientation change.
+            // We are remembering the initial value of isSoftKeyboardActivate in this
+            // situation for use in avoiding excessive resizing during the orientation change.
+            keyboardActiveInOrientationChange = isSoftKeyboardActive;
 
-            // If the application is currently in landscape orientation
-            if (sm.stage.stageWidth > sm.stage.stageHeight)
+            // if we're rotating 180 degrees don't do any screen resizing
+            var beforeOrientation:String = event["beforeOrientation"];
+            var afterOrientation:String = event["afterOrientation"];
+            
+            if ((beforeOrientation == "default" && afterOrientation == "upsideDown") ||
+                (beforeOrientation == "upsideDown" && afterOrientation == "default") ||
+                (beforeOrientation == "rotatedLeft" && afterOrientation == "rotatedRight") ||
+                (beforeOrientation == "rotatedRight" && afterOrientation == "rotatedLeft"))
+                return;
+
+            var newWidth:Number;
+            var newHeight:Number;
+
+            // if we have a cached value, use it
+            if (cachedDimensions[key])
             {
-                if (!cachedSizes.landscapeWidth)
-                {
-                    cachedSizes.landscapeWidth = width;
-                    cachedSizes.landscapeHeight = height;
-                }
-                
-                // If the size for portrait has been saved, use it.  Otherwise
-                // just swap width and height
-                if (cachedSizes.portraitWidth)
-                {
-                    width = cachedSizes.portraitWidth;
-                    height = cachedSizes.portraitHeight;
-                }
-                else
-                    swapApplicationDimensions();
+                newWidth = cachedDimensions[key].width;
+                newHeight = cachedDimensions[key].height;
             }
-            else
+            else // no cached value; just swap the numbers for now
             {
-                if (!cachedSizes.portraitWidth)
-                {
-                    cachedSizes.portraitWidth = width;
-                    cachedSizes.portraitHeight = height;
-                }
-                
-                // If the size for landscape has been saved, use it.  Otherwise
-                // just swap width and height
-                if (cachedSizes.landscapeWidth)
-                {
-                    width = cachedSizes.landscapeWidth;
-                    height = cachedSizes.landscapeHeight;
-                }
-                else
-                    swapApplicationDimensions();
+                // use stageHeight as the new width if you can get it
+                newWidth = stage ? stage.stageHeight / scaleFactor : height;
+                newHeight = width;
             }
             
-            // Indicate that the width and heigth have changed because of orientation 
-            restoreApplicationWidthAndHeight = true;
+            setActualSize(newWidth, newHeight);
+            
+            // Indicate that the width and height have changed because of orientation 
+            explicitSizingForOrientation = true;
             
             // Force a validation
             validateNow();
         }
-    }
-    
-    /**
-     *  @private
-     *  Swaps the applications width and height
-     */ 
-    private function swapApplicationDimensions():void
-    {
-        var tmp:Number = width;
-        width = height;
-        height = tmp;
     }
     
     /**
@@ -1397,20 +1419,58 @@ public class Application extends SkinnableContainer
      */
     private function stage_orientationChange(event:Event):void
     {
-        if (restoreApplicationWidthAndHeight)
+        if (explicitSizingForOrientation)
         {
-            percentWidth = cachedSizes.oldPercentWidth;
-            percentHeight = cachedSizes.oldPercentHeight;
+            // update cache if keyboard was not previously active
+            if (!keyboardActiveInOrientationChange)
+            {
+                updateScreenSizeCache(stage.stageWidth / scaleFactor, stage.stageHeight / scaleFactor);
+            }
             
-            // Reset the explicitWidth and explictHeight property so that the application
-            // resizes on the next frame to deal with situations where the landscape and
-            // portrait application dimensions aren't symetrical
-            explicitWidth = NaN;
-            explicitHeight = NaN;
-            
-            restoreApplicationWidthAndHeight = false;
+            explicitSizingForOrientation = false;
         }
     }
+
+    /**
+     *  @private 
+     *  Update the screen size cache with the new values. The previous values are
+     *  pulled from the values currently set in the cache.
+     *  Note that if the old and new width/height values are unchanged no values are
+     *  cached under the assumption that this was a 180 degree rotation.
+     * 
+     */
+    private function updateScreenSizeCache(newWidth:Number, newHeight:Number):void
+    {
+        // same dimensions, probably 180 degree rotation; don't cache
+        if (previousWidth == newWidth && previousHeight == newHeight)
+            return;
+        
+        var key:String = previousWidth + ":" + previousHeight;
+        
+        if (cachedDimensions[key])
+        {
+            // update the cached values if they are different
+            cachedDimensions[key].width = newWidth;
+            cachedDimensions[key].height = newHeight;
+        }
+        else
+        {
+            var orientationChangeKey:String = previousWidth + ":" + previousHeight;
+            var reverseOrientationChangeKey:String = newWidth + ":" + newHeight;
+            
+            // cache values both ways, i.e. old -> new and new -> old
+            cachedDimensions[orientationChangeKey] = {
+                width:newWidth,
+                height:newHeight
+            };
+            cachedDimensions[reverseOrientationChangeKey] = {
+                width:previousWidth,
+                height:previousHeight
+            };
+        }
+    }
+    
+    
     
     /**
      *  @private
@@ -1439,7 +1499,7 @@ public class Application extends SkinnableContainer
                     addEventListener(Event.DEACTIVATE, nativeApplication_deactivateHandler);
         }
     }
-    
+
     /**
      *  @private
      */
@@ -1766,19 +1826,20 @@ public class Application extends SkinnableContainer
             
             if (softKeyboardBehavior == "none" && resizeForSoftKeyboard)
             {
-                var sm:SystemManager = systemManager as SystemManager;
-                var scaleFactor:Number = 1;
-                
-                // Account for any density scaling
-                if (sm)
-                    scaleFactor = sm.densityScale;
-                
                 var appHeight:Number = (stage.stageHeight - keyboardRect.height) / scaleFactor;
+                var appWidth:Number = stage.stageWidth / scaleFactor;
                 
-                if (appHeight != height)
+                if (appHeight != height || appWidth != width)
                 {
-                    setActualSize(width, appHeight);
+                    setActualSize(appWidth, appHeight);
                     validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
+                }
+                
+                // update the screen size cache
+                if (keyboardActiveInOrientationChange)
+                {
+                    keyboardActiveInOrientationChange = false;
+                    updateScreenSizeCache(appWidth, appHeight);
                 }
             }
         }
@@ -1798,15 +1859,8 @@ public class Application extends SkinnableContainer
             
             isSoftKeyboardActive = false;
             
-            if (softKeyboardBehavior == "none" && resizeForSoftKeyboard)
+            if (softKeyboardBehavior == "none" && resizeForSoftKeyboard && !keyboardActiveInOrientationChange)
             {
-                var sm:SystemManager = systemManager as SystemManager;
-                var scaleFactor:Number = 1;
-                
-                // Account for any density scaling
-                if (sm)
-                    scaleFactor = sm.densityScale;
-                
                 // Restore the original values
                 setActualSize(stage.stageWidth / scaleFactor, stage.stageHeight / scaleFactor);
                 
@@ -1921,6 +1975,10 @@ public class Application extends SkinnableContainer
      */
     private function resizeHandler(event:Event):void
     {
+        // don't run while keyboard is up and orientation is changing
+        if (keyboardActiveInOrientationChange)
+            return;
+        
         // If we're already due to update our bounds on the next
         // commitProperties pass, avoid the redundancy.
         if (!percentBoundsChanged)
@@ -1960,7 +2018,11 @@ public class Application extends SkinnableContainer
         // based on the current SystemManager's width/height.
         // If developer has specified min/max values,
         // then application will not resize beyond those values.
-
+        
+        // ignore updateBounds while orientation is changing
+        if (keyboardActiveInOrientationChange)
+            return;
+        
         var w:Number;
         var h:Number
 
