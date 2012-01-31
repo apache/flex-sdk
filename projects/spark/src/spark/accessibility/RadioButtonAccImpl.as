@@ -102,9 +102,9 @@ use namespace mx_internal;
  *  <p>A RadioButton does not support selection in the MSAA sense.</p>
  *
  *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class RadioButtonAccImpl extends CheckBoxAccImpl
 {
