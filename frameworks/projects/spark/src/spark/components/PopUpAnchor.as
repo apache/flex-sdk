@@ -20,6 +20,7 @@ import flash.geom.Point;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.managers.PopUpManager;
+import flash.display.Graphics;
 
 use namespace mx_internal;
 
@@ -44,13 +45,14 @@ public class PopUp extends UIComponent
 {
 	public function PopUp()
 	{
-		addEventListener(Event.ADDED_TO_STAGE,addedToStageHandler);
-		addEventListener(Event.REMOVED_FROM_STAGE,removedFromStageHandler);
+		/*addEventListener(Event.ADDED_TO_STAGE,addedToStageHandler);
+		addEventListener(Event.REMOVED_FROM_STAGE,removedFromStageHandler);*/
 	}
 	
 	private var _alpha:Number = 1;
 	private var alphaChanged:Boolean = false; 
 	
+	// TODO (jszeto) Remove since we won't support proxying all props
 	override public function set alpha(value:Number):void
 	{
 		// TODO!!! move this into commitProperties
@@ -139,9 +141,12 @@ public class PopUp extends UIComponent
 				dispatchEvent(new Event("alphaChanged"));
 			}
 		}
+		/*
+		// Force validation of content Properties
+		content.validateProperties();*/
 	}
 	
-	private function addedToStageHandler(e:Event):void
+	/*private function addedToStageHandler(e:Event):void
 	{
 		_open = true;
 		updateContentState();
@@ -151,16 +156,18 @@ public class PopUp extends UIComponent
 	{
 		_open = false;
 		updateContentState();
-	}
+	}*/
 	
+	// TODO (jszeto) Rename to not use 'state'
 	private function updateContentState():void
 	{
 		if(_content == null)
 			return;
 		if(_content.parent == null && _open)
 		{	
-			//applyContentTransform(width, height);			
+						
 			PopUpManager.addPopUp(_content,this,false);
+			applyContentTransform(width, height);
 		}
 		else if (_content.parent != null && _open == false)
 		{
@@ -199,7 +206,7 @@ public class PopUp extends UIComponent
 		// Size the content to its measured size
 		/*_content.width = _content.getExplicitOrMeasuredWidth();
 		_content.height = _content.getExplicitOrMeasuredHeight();*/
-		
+				
 		applyContentTransform(unscaledWidth, unscaledHeight);			
 	}
 	
@@ -256,8 +263,10 @@ public class PopUp extends UIComponent
 		m.tx = globalTL.x;
 		m.ty = globalTL.y;
 		 
+		/*_content.width = contentWidth;
+		_content.height = contentHeight;*/
+		_content.setActualSize(contentWidth, contentHeight);
 		_content.width = contentWidth;
-		_content.height = contentHeight;
 		_content.setLayoutMatrix(m,false);
 	
 	}
