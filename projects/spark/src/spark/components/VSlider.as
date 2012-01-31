@@ -121,12 +121,12 @@ public class VSlider extends SliderBase
     {
         if (!thumb || !track)
             return 0;
-            
-        var thumbRange:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
+
         var range:Number = maximum - minimum;
+        var thumbRange:Number = track.getLayoutBoundsHeight() - thumb.getLayoutBoundsHeight();
         return minimum + ((thumbRange != 0) ? ((thumbRange - y) / thumbRange) * range : 0); 
-            }
-            
+     }
+
     /**
      *  @private
      */
