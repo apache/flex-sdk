@@ -156,6 +156,26 @@ public class HGroup extends Group
     }
     
     //----------------------------------
+    //  verticalAlign
+    //----------------------------------
+
+    /**
+     * @copy mx.layout.HorizontalLayout#verticalAlign
+     */
+    public function get verticalAlign():String
+    {
+        return horizontalLayout.verticalAlign;
+    }
+
+    /**
+     *  @private
+     */
+    public function set verticalAlign(value:String):void
+    {
+        horizontalLayout.verticalAlign = value;
+    }
+    
+    //----------------------------------
     //  firstIndexInView
     //----------------------------------
  
