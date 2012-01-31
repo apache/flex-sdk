@@ -47,7 +47,7 @@ use namespace mx_internal;
 /**
  *  Name of the error skin class to use for this component. 
  *  
- *  @default spark.skins.default.ErrorSkin
+ *  @default spark.skins.spark.ErrorSkin
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
