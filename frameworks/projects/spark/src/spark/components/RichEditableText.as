@@ -26,11 +26,13 @@ import flashx.textLayout.compose.IFlowComposer;
 import flashx.textLayout.compose.StandardFlowComposer;
 import flashx.textLayout.container.DisplayObjectContainerController;
 import flashx.textLayout.container.IContainerController;
+import flashx.textLayout.conversion.ImportExportConfiguration;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.ISelectionManager;
+import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
@@ -126,6 +128,32 @@ public class TextView extends UIComponent implements IViewport
         
     //--------------------------------------------------------------------------
     //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Used for determining whitespace processing during import.
+     */
+    private static var staticCharacterFormat:CharacterFormat =
+        new CharacterFormat();
+    
+    /**
+     *  @private
+     *  Used for determining whitespace processing during import.
+     */
+    private static var staticConfiguration:Configuration =
+        new Configuration();
+    
+    /**
+     *  @private
+     *  Used for determining whitespace processing during import.
+     */
+    private static var staticImportExportConfiguration:ImportExportConfiguration;
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -135,6 +163,17 @@ public class TextView extends UIComponent implements IViewport
      */
     public function TextView()
     {
+        // Initialize staticImportExportConfiguration at instance-creation
+        // time rather than at static initialization time, to avoid
+        // any class-initialization-order problems.
+        if (!staticImportExportConfiguration)
+        {
+            staticImportExportConfiguration =
+                ImportExportConfiguration.defaultConfiguration;
+            
+            ImportExportConfiguration.restoreDefaults();
+        }
+
         super();
 
         _content = textFlow = createEmptyTextFlow();
@@ -712,9 +751,9 @@ public class TextView extends UIComponent implements IViewport
         super.commitProperties();
 
         var flowComposer:IFlowComposer = textFlow.flowComposer;
-        if (!flowComposer)
+        if (!flowComposer || flowComposer.numControllers == 0)
             return;
-
+        
         var containerController:IContainerController =
             flowComposer.getControllerAt(0);
 
@@ -785,8 +824,11 @@ public class TextView extends UIComponent implements IViewport
         if (textChanged || contentChanged || stylesChanged)
         {
             // Eliminate detritus from the previous TextFlow.
-            if (textFlow && textFlow.flowComposer)
+            if (textFlow && textFlow.flowComposer &&
+                textFlow.flowComposer.numControllers)
+            {
                 textFlow.flowComposer.removeControllerAt(0);
+            }
             
             // If the text was changed, clear the selection.
             if (textChanged || contentChanged)
@@ -935,21 +977,44 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    private function importStringMarkup(markup:String):TextFlow
+    private function createTextFlowFromMarkup(markup:Object):TextFlow
     {
-        markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
-                 markup +
-                 '</TextFlow>';
+        // The whiteSpaceCollapse format determines how whitespace
+        // is processed when markup is imported.
+		staticCharacterFormat.whiteSpaceCollapse =
+            getStyle("whiteSpaceCollapse");
+		staticConfiguration.textFlowInitialCharacterFormat =
+            staticCharacterFormat;
+		staticImportExportConfiguration.textFlowConfiguration =
+            staticConfiguration; 
+
+        if (markup is String)
+        {
+            markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
+                     markup +
+                     '</TextFlow>';
+        }
         
-        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
+        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
+                                       staticImportExportConfiguration);
     }
-	
-	/**
+    
+    /**
      *  @private
      */
-    private function importXMLMarkup(markup:XML):TextFlow
+    private function createTextFlowFromChildren(children:Array):TextFlow
     {
-        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
+        var textFlow:TextFlow = new TextFlow();
+
+        // The whiteSpaceCollapse format determines how whitespace
+        // is processed when the children are set.
+        staticCharacterFormat.whiteSpaceCollapse =
+            getStyle("whiteSpaceCollapse");
+        textFlow.hostCharacterFormat = staticCharacterFormat;
+
+        textFlow.mxmlChildren = children;
+
+        return textFlow;
     }
 
     /**
@@ -966,21 +1031,15 @@ public class TextView extends UIComponent implements IViewport
             }
             else if (_content is Array)
             {
-                textFlow = new TextFlow();
-                textFlow.mxmlChildren = _content as Array;
+                textFlow = createTextFlowFromChildren(_content as Array);
             }
             else if (_content is FlowElement)
             {
-                textFlow = new TextFlow();
-                textFlow.mxmlChildren = [ _content ];
+                textFlow = createTextFlowFromChildren([ _content ]);
             }
-            else if (_content is XML)
+	        else if (_content is String || _content is XML)
             {
-                textFlow = importXMLMarkup(XML(_content));
-            }
-            else if (_content is String)
-            {
-                textFlow = importStringMarkup(String(_content));
+                textFlow = createTextFlowFromMarkup(_content);
             }
             else if (_content == null)
             {
