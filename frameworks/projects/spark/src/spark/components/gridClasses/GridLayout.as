@@ -239,9 +239,9 @@ public class GridLayout extends LayoutBase
         layoutColumns(horizontalScrollPosition, verticalScrollPosition, NaN /* width */);        
         
         var measuredWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedColumnCount);
-        var measuredHeight:Number = gridDimensions.getContentHeight(grid.requestedRowCount);
+        var measuredHeight:Number = gridDimensions.getTypicalContentHeight(grid.requestedRowCount);
 		var measuredMinWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedMinColumnCount);
-		var measuredMinHeight:Number = gridDimensions.getContentHeight(grid.requestedMinRowCount);
+		var measuredMinHeight:Number = gridDimensions.getTypicalContentHeight(grid.requestedMinRowCount);
 		
         // Use Math.ceil() to make sure that if the content partially occupies
         // the last pixel, we'll count it as if the whole pixel is occupied.
@@ -483,8 +483,8 @@ public class GridLayout extends LayoutBase
 		const columnGap:int = gridDimensions.columnGap;
 		const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
         const isFixedRowHeight:Boolean = !grid.variableRowHeight;
-        
-        
+        var maxTypicalCellHeight:Number = 0;
+
 		for (var columnIndex:int = firstVisibleColumnIndex; 
                  (isNaN(width) || (width > 0)) && (columnIndex < columnCount); 
                  columnIndex++)
@@ -496,7 +496,7 @@ public class GridLayout extends LayoutBase
             if (!isNaN(column.width))
                 cellWidth = column.width;
             
-            if (isNaN(cellWidth) || (!isFixedRowHeight && isNaN(cellHeight)))
+            if (isNaN(cellWidth) || isNaN(cellHeight))
             {
                 var renderer:IVisualElement = createTypicalItemRenderer(columnIndex);
                 if (isNaN(cellWidth))
@@ -509,7 +509,7 @@ public class GridLayout extends LayoutBase
                     cellHeight = renderer.getPreferredBoundsHeight();
                     gridDimensions.setTypicalCellHeight(columnIndex, cellHeight);
                 }
-                freeGridElement(renderer);     
+                freeGridElement(renderer);
             }
             
             if (!isNaN(width))
@@ -519,8 +519,13 @@ public class GridLayout extends LayoutBase
     			else
     				width -= cellWidth + columnGap;
             }
+            
+            maxTypicalCellHeight = Math.max(maxTypicalCellHeight, cellHeight);
 		}
-	}	
+        
+        if (isFixedRowHeight && isNaN(grid.rowHeight))
+            gridDimensions.fixedRowHeight = maxTypicalCellHeight;
+    }
 	
 	/**
 	 *  @private
