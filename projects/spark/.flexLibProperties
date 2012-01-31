@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties includeAllClasses="false" version="3">
+  <includeClasses>
+    <classEntry path="SparkClasses"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests>
+    <namespaceManifestEntry manifest="../manifest.xml" namespace="library://ns.adobe.com/flex/spark"/>
+  </namespaceManifests>
+</flexLibProperties>
