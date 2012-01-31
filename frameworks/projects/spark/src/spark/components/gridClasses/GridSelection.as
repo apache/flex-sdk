@@ -425,7 +425,7 @@ public class GridSelection
      *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, selects all the cells in
      *  columns with <code>visible</code> set to <code>true</code>.
      * 
-     *  @return True if the selection changed.
+     *  @return <code>true</code> if the selection changed.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
