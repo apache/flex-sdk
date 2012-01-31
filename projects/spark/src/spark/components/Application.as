@@ -1306,10 +1306,6 @@ public class Application extends SkinnableContainer
         // orientation on their own.
         if (isNaN(explicitWidth) && isNaN(explicitHeight))
         { 
-            // Cancel the current orientation change operation so that the
-            // validations below can occur before the animation starts.
-            event.preventDefault();
-            
             if (!cachedSizes)
                 cachedSizes = {};
             
@@ -1361,9 +1357,6 @@ public class Application extends SkinnableContainer
             
             // Force a validation
             validateNow();
-            
-            // Execute the initial orientation change
-            systemManager.stage["setOrientation"](event["afterOrientation"]);
         }
     }
     
