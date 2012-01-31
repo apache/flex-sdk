@@ -11,6 +11,7 @@
 
 package spark.components.supportClasses
 {
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.utils.Dictionary;
 
@@ -209,6 +210,40 @@ public class GridLayout extends LayoutBase
         // TBD(hmuller):DTRT when the target changes
     }    
 
+    /**
+     *  @private 
+     *  For the offset properties, a value of NaN means don't offset from that edge. A value
+     *  of 0 means to put the element flush against that edge.
+     * 
+     *  @param topOffset Number of pixels to position the element below the top edge.
+     *  @param bottomOffset Number of pixels to position the element above the bottom edge.
+     *  @param leftOffset Number of pixels to position the element to the right of the left edge.
+     *  @param rightOffset Number of pixels to position the element to the left of the right edge.
+     */ 
+    override mx_internal function getScrollPositionDeltaToElementHelper(
+                                                               index:int, topOffset:Number = NaN, 
+                                                               bottomOffset:Number = NaN, 
+                                                               leftOffset:Number = NaN,
+                                                               rightOffset:Number = NaN):Point
+    {
+        var rowIndex:int = index / gridDimensions.rowCount;
+        var colIndex:int;
+        
+        var elementR:Rectangle;
+        if (isRowSelectionMode())
+        {
+            elementR = gridDimensions.getRowBounds(rowIndex);
+        }
+        else if (isCellSelectionMode())
+        {
+            colIndex = index % gridDimensions.rowCount
+            elementR = gridDimensions.getCellBounds(rowIndex, colIndex);
+        }
+        
+        return getScrollPositionDeltaToElementHelperHelper(
+                    elementR, topOffset, bottomOffset, leftOffset, rightOffset);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  DataGrid Access
@@ -491,9 +526,6 @@ public class GridLayout extends LayoutBase
         {
             newVisibleRowIndices.push(rowIndex);
             
-            // The offset for the columns in this row.
-            const irOffsetForRow:int = newVisibleItemRenderers.length;
-            
             // Returns the default height, if the row/cell height not previously
             // set.
             var rowHeight:Number = gridDimensions.getRowHeight(rowIndex);
@@ -525,10 +557,15 @@ public class GridLayout extends LayoutBase
             const finalRowHeight:Number = gridDimensions.getRowHeight(rowIndex);
             if (rowHeight != finalRowHeight)
             {
+                const visibleColumnsLength:int = newVisibleColumnIndices.length;
                 rowHeight = finalRowHeight;
                 for each (colIndex in newVisibleColumnIndices)
                 {
-                    renderer = newVisibleItemRenderers[irOffsetForRow + colIndex];                    
+                    const rowOffset:int = newVisibleRowIndices.indexOf(rowIndex);
+                    const colOffset:int = newVisibleColumnIndices.indexOf(colIndex);                    
+                    const index:int = (rowOffset * visibleColumnsLength) + colOffset;
+
+                    renderer = newVisibleItemRenderers[index];                    
                     layoutGridElement(renderer, renderer.x, renderer.y, 
                                       renderer.width, rowHeight);
                     gridDimensions.setCellHeight(
