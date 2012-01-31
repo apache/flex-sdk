@@ -77,7 +77,7 @@ public class RemoveItemAction extends Effect
     public function RemoveItemAction(target:Object = null)
     {
         super(target);
-
+        duration = 0;
         instanceClass = RemoveItemActionInstance;
     }
     
