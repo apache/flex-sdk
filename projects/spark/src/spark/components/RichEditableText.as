@@ -1773,9 +1773,11 @@ public class RichEditableText extends UIComponent
         }
         else
         {
-            measuredWidth = Math.round(calculateWidthInChars());
-            
-            measuredHeight = Math.round(calculateHeightInLines());
+            // Go large.  For performance reasons, want to avoid a scrollRect 
+            // whenever possible in drawBackgroundAndSetScrollRect().  This is
+            // particularly true for 1 line TextInput components.
+            measuredWidth = Math.ceil(calculateWidthInChars());
+            measuredHeight = Math.ceil(calculateHeightInLines());
         }    
                
         //trace("measure", measuredWidth, measuredHeight);
