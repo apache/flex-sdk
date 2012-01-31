@@ -34,6 +34,7 @@ import mx.messaging.events.MessageEvent;
 import mx.messaging.messages.AbstractMessage;
 import mx.messaging.messages.CommandMessage;
 import mx.messaging.messages.IMessage;
+import mx.messaging.messages.AcknowledgeMessage;
     
 use namespace mx_internal;    
 
@@ -85,6 +86,11 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  remote endpoint. 
      */
     private static const CLOSE_COMMAND:String = "close";
+    
+    /**
+     *  Parameter name for the stream id; passed with commands for an existing streaming connection.
+     */
+    private static const STREAM_ID_PARAM_NAME:String = "streamId";
         
     /**
      *  Parameter name for the version param passed in the request for a new streaming connection.
@@ -208,6 +214,12 @@ public class StreamingConnectionHandler extends EventDispatcher
      *  Reference to the logger for the associated Channel.
      */
     protected var _log:ILogger;
+    
+    /**
+     *  @private
+     *  The server-assigned id for the streaming connection.
+     */
+    protected var streamId:String;
         
     /**
      *  Storage for the hex-format chunk size value from the byte stream.
@@ -289,49 +301,53 @@ public class StreamingConnectionHandler extends EventDispatcher
             }            
         }
 
-		// Then, let the server know that streaming connection can be cleaned up.                         
-		if (streamingConnectionCloser == null)
-		{
-            var process:Function = function(event:Event):void
-            {		    
-                if (streamingConnectionCloser.connected) 
-                {
-                    try
+		// Then, let the server know that streaming connection can be cleaned up.   
+		if (streamId != null)
+		{                      
+    		if (streamingConnectionCloser == null)
+    		{
+                var process:Function = function(event:Event):void
+                {		    
+                    if (streamingConnectionCloser.connected) 
                     {
-                        streamingConnectionCloser.close();
-                    }
-                    catch (ignore:Error)
-                    {    
-                    }
-                }                 
-            }
-            
-            var ignore:Function = function(event:Event):void
-            {
-                // Simply ignore the received event.
-            }
-            
-			streamingConnectionCloser = new URLStream();                
-			streamingConnectionCloser.addEventListener(Event.COMPLETE, process);
-            streamingConnectionCloser.addEventListener(IOErrorEvent.IO_ERROR, process);			
-			// Handle these events with the complete handler, mainly to prevent
-			// them from being dispatched to the player.
-            streamingConnectionCloser.addEventListener(HTTPStatusEvent.HTTP_STATUS, ignore);
-            streamingConnectionCloser.addEventListener(SecurityErrorEvent.SECURITY_ERROR, ignore);									        			
-		} 
-		
-		// Request the streaming connection to close, only if not already requested to close.
-		if (!streamingConnectionCloser.connected)       	
-		{
-			var request:URLRequest = new URLRequest();      
-			request.url = channel.endpoint + "?" + COMMAND_PARAM_NAME + "=" + CLOSE_COMMAND + "&" + VERSION_PARAM_NAME + "=" + VERSION_1;            
-			request.method = URLRequestMethod.POST; 
-			var postParams:URLVariables = new URLVariables();
-			postParams[AbstractMessage.FLEX_CLIENT_ID_HEADER] = FlexClient.getInstance().id          
-			request.data = postParams; 		    
-			
-			streamingConnectionCloser.load(request);					
-		}
+                        try
+                        {
+                            streamId = null;
+                            streamingConnectionCloser.close();
+                        }
+                        catch (ignore:Error)
+                        {    
+                        }
+                    }                 
+                }
+                
+                var ignore:Function = function(event:Event):void
+                {
+                    // Ignore.
+                }
+                
+    			streamingConnectionCloser = new URLStream();                
+    			streamingConnectionCloser.addEventListener(Event.COMPLETE, process);
+                streamingConnectionCloser.addEventListener(IOErrorEvent.IO_ERROR, process);			
+    			// Ignore the following events.
+                streamingConnectionCloser.addEventListener(HTTPStatusEvent.HTTP_STATUS, ignore);
+                streamingConnectionCloser.addEventListener(SecurityErrorEvent.SECURITY_ERROR, ignore);									        			
+    		} 
+    		
+    		// Request the streaming connection close, only if not already requested to close.
+    		if (!streamingConnectionCloser.connected)       	
+    		{
+    			var request:URLRequest = new URLRequest();      
+    			request.url = channel.endpoint + "?" + COMMAND_PARAM_NAME + "=" + CLOSE_COMMAND + "&" 
+    			              + STREAM_ID_PARAM_NAME + "=" + streamId + "&" + VERSION_PARAM_NAME + "=" + VERSION_1;            
+    			request.method = URLRequestMethod.POST; 
+    			var postParams:URLVariables = new URLVariables();
+    			postParams[AbstractMessage.FLEX_CLIENT_ID_HEADER] = FlexClient.getInstance().id          
+    			request.data = postParams; 		    
+    			
+    			streamingConnectionCloser.load(request);					
+    		}
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -413,14 +429,15 @@ public class StreamingConnectionHandler extends EventDispatcher
     }
                     
     /**
-     *  Handles open events dispatched by the streaming connection by re-dispatching
-     *  the event for the channel. 
+     *  The open event is dispatched when the streaming connection has been established
+     *  to the server, but it may still fail or be rejected so ignore this event and do
+     *  not advance the channel to a connected state yet. 
      * 
      *  @param event The OPEN Event.
      */
     private function streamOpenHandler(event:Event):void
     {
-       dispatchEvent(event); 
+       // Ignore. 
     }
                 
     /**
@@ -557,11 +574,19 @@ public class StreamingConnectionHandler extends EventDispatcher
                         // Prepare for the next chunk.                                        
                         if (message != null)
                         {
-                            // Watch for stream disconnect commands from the server.
-                            // When one is received, do not dispatch it, and instead notify the channel to
-                            // shut down and not attempt to reconnect.
-                            if ((message is CommandMessage) && (CommandMessage(message).operation == CommandMessage.DISCONNECT_OPERATION))
+                            if ((message is AcknowledgeMessage) && (AcknowledgeMessage(message).correlationId == OPEN_COMMAND))
                             {
+                                // Store the server-assigned stream id for use during disconnect.
+                                streamId = String(message.body);
+                                // Move the channel to a connected state.
+                                var openEvent:Event = new Event(Event.OPEN);
+                                dispatchEvent(openEvent);
+                            }
+                            else if ((message is CommandMessage) && (CommandMessage(message).operation == CommandMessage.DISCONNECT_OPERATION))
+                            {
+                                // Watch for stream disconnect commands from the server.
+                                // When one is received, do not dispatch it, and instead notify the channel to
+                                // shut down and not attempt to reconnect.
                                 var statusEvent:StatusEvent = new StatusEvent(StatusEvent.STATUS, false, false, DISCONNECT_CODE, "status");
                                 dispatchEvent(statusEvent);
                             }
