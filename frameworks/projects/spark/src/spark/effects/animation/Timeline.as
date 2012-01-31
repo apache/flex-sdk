@@ -28,7 +28,7 @@ import flash.utils.getTimer;
  */
 internal class Timeline
 {
-    // FIXME (chaase): This class is internal for now, but it may eventually
+    // TODO (chaase): This class is internal for now, but it may eventually
     // make sense to make it public and accessible outside of just the
     // Animation class. For example, effects may want to access the global
     // animation time. Also, we  may want to have child timelines, or expose
