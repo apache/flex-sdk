@@ -37,6 +37,7 @@ import spark.skins.default.DefaultComplexItemRenderer; DefaultComplexItemRendere
 import spark.skins.default.DefaultItemRenderer; DefaultItemRenderer;
 import spark.skins.default.DropDownListButtonSkin; DropDownListButtonSkin;
 import spark.skins.default.DropDownListSkin; DropDownListSkin;
+import spark.skins.default.ErrorSkin; ErrorSkin;
 import spark.skins.default.FocusSkin; FocusSkin;
 import spark.skins.default.HScrollBarSkin; HScrollBarSkin;
 import spark.skins.default.HScrollBarThumbSkin; HScrollBarThumbSkin;
