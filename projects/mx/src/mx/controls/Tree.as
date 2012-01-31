@@ -575,11 +575,6 @@ public class Tree extends List implements IIMESupport
 
     /**
      *  @private
-     */
-    private var _itemEditor:IFactory = new ClassFactory(TextInput);
-
-    /**
-     *  @private
      *  Used to block giving focus to editor on focusIn
      */
     private var dontEdit:Boolean = false;
