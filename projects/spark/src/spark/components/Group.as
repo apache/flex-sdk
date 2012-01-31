@@ -30,8 +30,8 @@ import mx.controls.Label;
 import mx.core.IDataRenderer;
 import mx.core.IDeferredInstance;
 import mx.core.IFactory;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
@@ -97,6 +97,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     private var contentChanged:Boolean = false;
     private var layoutChanged:Boolean = true;
     private var transformChanged:Boolean = false;
+    private var needsDisplayObjectAssignment:Boolean = false;
     
     // item renderer
     public var itemRenderer:IFactory;   
@@ -329,6 +330,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         }
         
         assignDisplayObjects();
+        needsDisplayObjectAssignment = false;
         
         /* if (maskElements)
         {
@@ -510,6 +512,12 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             }
         }
 
+		if (needsDisplayObjectAssignment)
+		{
+			needsDisplayObjectAssignment = false;
+			assignDisplayObjects();
+		}
+		
         if (scrollPositionChanged) {
             scrollPositionChanged = false;
             var r:Rectangle = scrollRect;
@@ -939,7 +947,8 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         
         itemAdded(item, index);
         
-        assignDisplayObjects();
+        needsDisplayObjectAssignment = true;
+        invalidateProperties();
         
         return item;
     }
@@ -983,7 +992,8 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             }    
         }
             
-        assignDisplayObjects();
+        needsDisplayObjectAssignment = true;
+        invalidateProperties();
         
         return item;
     }
@@ -1098,41 +1108,10 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
                 IStyleClient(item).regenerateStyleCache(true);
         }   
         else
-        {           
-            var childIndex:int = -1;
-            
-            if (index == 0)
-            {
-                childIndex = 0; 
-            }
-            else if (index != numItems - 1)
-            {
-                for (var i:int = index - 1; i >= 0; i--)
-                {
-                    var prevItem:* = getItemAt(i);
-                    
-                    if (!(prevItem is GraphicElement))
-                    	prevItem = getItemSkin(prevItem);
-                    	
-                    if (prevItem is DisplayObject)
-                        childIndex = super.getChildIndex(DisplayObject(prevItem)) ;
-                    else if (prevItem is GraphicElement)
-                    {
-                        var prevElement:GraphicElement = prevItem as GraphicElement;
-                        if (prevElement.displayObject)
-                            childIndex = super.getChildIndex(prevElement.displayObject);
-                    }
-                    
-                    if (childIndex != -1)
-                    {
-                        childIndex++;
-                        break;
-                    }
-                    
-                }
-            }
-            
-            child = addItemToDisplayList(createVisualForItem(item), item, childIndex);
+        {     
+        	// This always adds the child to the end of the display list. Any 
+        	// ordering discrepancies will be fixed up in assignDisplayObjects().
+            child = addItemToDisplayList(createVisualForItem(item), item);
         }
         
         dispatchEvent(new ItemExistenceChangedEvent(
@@ -1237,12 +1216,20 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         for (var i:int = startIndex; i < len; i++)
         {  
             var item:* = getItemAt(i);
+            var insertIndex:int;
             
             if (!(item is GraphicElement)) 
                 item = getItemSkin(item);
             
+        	if (lastDisplayObject == this)
+        		insertIndex = 0;
+        	else
+        		insertIndex = super.getChildIndex(lastDisplayObject) + 1;
+        		
             if (item is DisplayObject)
             {
+            	super.setChildIndex(item as DisplayObject, insertIndex);
+            	
                 lastDisplayObject = item as DisplayObject;
                 // Null this out so that we are forced to create one for the next item
                 currentAssignableDO = null; 
@@ -1253,13 +1240,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
                 
                 if (currentAssignableDO == null || element.needsDisplayObject)
                 {
-                    var insertIndex:int;
                     var newChild:DisplayObject = element.displayObject;
-                    
-                    if (lastDisplayObject == this)
-                        insertIndex = 0;
-                    else
-                        insertIndex = super.getChildIndex(lastDisplayObject) + 1;               
                     
                     if (newChild == null)
                     {
@@ -1315,7 +1296,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             {
                 var insertIndex:int;
                 if (index == -1)
-                    insertIndex = super.numChildren;
+                    insertIndex = super.numChildren - 1;
                 else if (index == 0)
                     insertIndex = 0;
                 else
