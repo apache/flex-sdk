@@ -25,6 +25,7 @@ internal class SparkClasses
  */
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
+import spark.skins.spark.BorderSkin; BorderSkin;
 import spark.skins.spark.ButtonSkin; ButtonSkin;
 import spark.skins.spark.DefaultButtonSkin; DefaultButtonSkin;
 import spark.skins.spark.ButtonBarSkin; ButtonBarSkin;
