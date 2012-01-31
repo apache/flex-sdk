@@ -785,6 +785,9 @@ public class SkinnableTextBase extends SkinnableComponent
 
             textDisplay.addEventListener(FlexEvent.ENTER,
                                          textDisplay_enterHandler);
+
+            textDisplay.addEventListener(FlexEvent.VALUE_COMMIT,
+                                         textDisplay_valueCommitHandler);
         }
     }
 
@@ -815,6 +818,9 @@ public class SkinnableTextBase extends SkinnableComponent
 
             textDisplay.removeEventListener(FlexEvent.ENTER,
                                             textDisplay_enterHandler);
+
+            textDisplay.removeEventListener(FlexEvent.VALUE_COMMIT,
+                                            textDisplay_valueCommitHandler);
         }
     }
     
@@ -1312,19 +1318,7 @@ public class SkinnableTextBase extends SkinnableComponent
 
         super.focusInHandler(event);
     }
-    
-    /**
-     *  @private
-     */
-    override protected function focusOutHandler(event:FocusEvent):void
-    {        
-        super.focusOutHandler(event);
-
-        // Trigger validation when leaving the field to test for required
-        // fields and invalid values.
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-    }
-    
+ 
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1360,9 +1354,6 @@ public class SkinnableTextBase extends SkinnableComponent
         
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
-        
-        // The default event to trigger a validator.
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
 
     /**
@@ -1389,6 +1380,21 @@ public class SkinnableTextBase extends SkinnableComponent
      *  in response to the Enter key.
      */
     private function textDisplay_enterHandler(event:Event):void
+    {
+        // Redispatch the event that came from the RichEditableText.
+        dispatchEvent(event);
+    }
+
+    /**
+     *  @private
+     *  Called when the RichEditableText dispatches an 'valueCommit' event
+     *  when values are changed programmatically or by user interaction.
+     *  Before the textDisplay part is loaded, any properties set are held
+     *  in textDisplayProperties.  We don't want to dispatch 'valueCommit' when 
+     *  there isn't a textDisplay since since the event will be dispatched by 
+     *  RET when the textDisplay part is added.
+     */
+    private function textDisplay_valueCommitHandler(event:Event):void
     {
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
