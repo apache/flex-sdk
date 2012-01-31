@@ -164,7 +164,7 @@ public class MXFTETextInput extends TextInput implements ITextInput
     //----------------------------------
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -184,7 +184,7 @@ public class MXFTETextInput extends TextInput implements ITextInput
     //----------------------------------
     
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function get horizontalScrollPosition():Number
     {
@@ -249,7 +249,7 @@ public class MXFTETextInput extends TextInput implements ITextInput
     private var _parentDrawsFocus:Boolean = false;
 
     /**
-     *  Documentation is not currently available.
+     *  @inheritDoc
      */
     public function get parentDrawsFocus():Boolean
     {
