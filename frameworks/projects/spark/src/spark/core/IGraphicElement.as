@@ -61,16 +61,6 @@ public interface IGraphicElement
 	function get blendMode():String;
 	function set blendMode(value:String):void;
 		
- 	//----------------------------------
-	//  bounds
-	//----------------------------------
-	
-    /**
-     *  Returns the pre-transform measured or explicit bounds,
-     *  excluding stroke, as drawn at position (0,0). This is read-only property.   
-     */
-    function get bounds():Rectangle;
-	
 	//----------------------------------
 	//  filters
 	//----------------------------------
