@@ -18,7 +18,7 @@ import flash.ui.Keyboard;
     
 import mx.components.Group;
 import mx.core.IViewport;
-import mx.core.IVisualContainer;
+import mx.core.IVisualElementContainer;
 import mx.layout.LayoutBase;
 
 import mx.events.PropertyChangeEvent;
@@ -49,7 +49,7 @@ import mx.managers.IFocusManagerComponent;
  */
 
 public class FxScroller extends FxComponent 
-       implements IFocusManagerComponent, IVisualContainer
+       implements IFocusManagerComponent, IVisualElementContainer
 {
     include "../core/Version.as";
     
@@ -145,7 +145,7 @@ public class FxScroller extends FxComponent
         if (skin && viewport)
         {
             viewport.clipContent = true;
-            skin.addItemAt(viewport, 0);
+            skin.addElementAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
         if (verticalScrollBar)
@@ -163,7 +163,7 @@ public class FxScroller extends FxComponent
         if (skin && viewport)
         {
             viewport.clipContent = false;
-            skin.removeItem(viewport);
+            skin.removeElement(viewport);
             viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
     }
@@ -294,14 +294,16 @@ public class FxScroller extends FxComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Methods: IVisualContainer
+    //  Methods: IVisualElementContainer
     //
     //--------------------------------------------------------------------------
 
     /**
      *  Returns 1 if there is a viewport, 0 otherwise.
+     * 
+     *  @return The number of visual elements in this visual container
      */
-    public function get numItems():int
+    public function get numElements():int
     {
         return viewport ? 1 : 0;
     }
@@ -310,13 +312,13 @@ public class FxScroller extends FxComponent
      *  Returns the viewport if there is a viewport and the 
      *  index passed in is 0.  Otherwise, it throws a RangeError.
      *
-     *  @param index The index of the item to retrieve.
+     *  @param index The index of the element to retrieve.
      *
-     *  @return The item at the specified index.
+     *  @return The element at the specified index.
      * 
      *  @throws RangeError If the index position does not exist in the child list.
      */ 
-    public function getItemAt(index:int):Object
+    public function getElementAt(index:int):Object
     {
         if (viewport && index == 0)
             return viewport;
@@ -325,21 +327,135 @@ public class FxScroller extends FxComponent
     }
     
     /**
-     *  Returns the 0 if the item passed in is the viewport.  
+     *  Returns the 0 if the element passed in is the viewport.  
      *  Otherwise, it throws an ArgumentError.
      *
-     *  @param item The item to identify.
+     *  @param element The element to identify.
      *
-     *  @return The index position of the item to identify.
+     *  @return The index position of the element to identify.
      * 
-     *  @throws ArgumentError If the item is not a child of this object.
+     *  @throws ArgumentError If the element is not a child of this object.
      */ 
-    public function getItemIndex(item:Object):int
+    public function getElementIndex(element:Object):int
     {
-        if (item != null && item == viewport)
+        if (element != null && element == viewport)
             return 0;
         else
-            throw ArgumentError(item + " is not found in this FxScroller");
+            throw ArgumentError(element + " is not found in this FxScroller");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  has one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.</p>
+     */
+    public function addElement(element:Object):Object
+    {
+        throw new ArgumentError("This operation is not supported");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  has one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.</p>
+     */
+    public function addElementAt(element:Object, index:int):Object
+    {
+        throw new ArgumentError("This operation is not supported");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  has one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.</p>
+     */
+    public function removeElement(element:Object):Object
+    {
+        throw new ArgumentError("This operation is not supported");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  has one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.</p>
+     */
+    public function removeElementAt(index:int):Object
+    {
+        throw new ArgumentError("This operation is not supported");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  has one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.</p>
+     */
+    public function setElementIndex(element:Object, index:int):void
+    {
+        throw new ArgumentError("This operation is not supported");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  has one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.</p>
+     */
+    public function swapElements(element1 :Object, element2 :Object):void
+    {
+        throw new ArgumentError("This operation is not supported");
+    }
+    
+    /**
+     *  @inheritDoc
+     * 
+     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  has one child.  Use the <code>viewport</code> property to manipulate 
+     *  it.</p>
+     */
+    public function swapElementsAt(index1:int, index2:int):void
+    {
+        throw new ArgumentError("This operation is not supported");
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Deprecated Methods...
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Deprecated Method
+     */
+    public function get numItems():int
+    {
+        return numElements;
+    }
+    
+    /**
+     *  Deprecated Method
+     */ 
+    public function getItemAt(index:int):Object
+    {
+        return getElementAt(index);
+    }
+    
+    /**
+     *  Deprecated Method.
+     */ 
+    public function getItemIndex(element:Object):int
+    {
+        return getElementIndex(element);
     }
     
     //--------------------------------------------------------------------------
