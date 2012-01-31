@@ -11,10 +11,6 @@
 package spark.effects
 {
 import flash.display.BitmapData;
-import flash.display.IBitmapDrawable;
-import flash.display.Sprite;
-import flash.geom.Matrix;
-import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 import mx.core.IUIComponent;
@@ -271,11 +267,18 @@ public class AnimateTransitionShader extends Animate
         if (!target.visible || !target.parent)
             return null;
 
-        if (target is GraphicElement)
-            return GraphicElement(target).captureBitmapData(true, 0, false);
-        else if (!(target is IUIComponent))
+        if (!(target is GraphicElement || target is IUIComponent))
             throw new Error(resourceManager.getString("sparkEffects", "cannotOperateOn"));
-        return BitmapUtil.getSnapshot(IUIComponent(target));
+        var bmData:BitmapData;
+        var tempFilters:Array = target.filters;
+        target.filters = [];
+        if (target is GraphicElement)
+            bmData = GraphicElement(target).captureBitmapData(true, 0, false);
+        else
+            bmData = BitmapUtil.getSnapshot(IUIComponent(target));
+        target.filters = tempFilters;
+        
+        return bmData;
     }
     
     /**
