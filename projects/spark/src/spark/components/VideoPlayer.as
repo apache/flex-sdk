@@ -2184,7 +2184,7 @@ public class VideoPlayer extends SkinnableComponent
                 x: this.x,
                 y: this.y,
                 explicitWidth: this.explicitWidth,
-                explicitWidth: this.explicitWidth};
+                explicitHeight: this.explicitHeight};
             
             pauseWhenHidden = false;
             
