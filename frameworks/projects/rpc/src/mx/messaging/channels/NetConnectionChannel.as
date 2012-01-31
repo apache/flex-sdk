@@ -171,7 +171,31 @@ public class NetConnectionChannel extends PollingChannel
         super.internalConnect();
         var url:String = endpoint;
         if (_appendToURL != null)
-            url += _appendToURL;
+        {
+            // WSRP support - append any extra stuff on the wsrp-url, not the actual url.
+
+            // Do we have a wsrp-url?
+            var i:int = url.indexOf("wsrp-url=");
+            if (i != -1)
+            {
+                // Extract the wsrp-url in to a string which will get the
+                // extra info appended to it
+                var temp:String = url.substr(i + 9, url.length);
+                var j:int = temp.indexOf("&");
+                if (j != -1)
+                {
+                    temp = temp.substr(0, j);
+                }
+
+                // Replace the wsrp-url with a version that has the extra stuff
+                url = url.replace(temp, temp + _appendToURL);
+            }
+            else
+            {
+                // If we didn't find a wsrp-url, just append the info
+                url += _appendToURL;
+            }
+        }
 
         // If the NetConnection has a non-null uri the Player will close() it automatically
         // as part of its connect() processing below. Pre-emptively close the connection while suppressing
