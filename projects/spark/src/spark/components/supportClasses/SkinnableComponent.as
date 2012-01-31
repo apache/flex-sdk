@@ -273,6 +273,22 @@ public class SkinnableComponent extends UIComponent
         {
             skinObject.owner = this;
             skinObject.data = this;
+            
+            // As a convenience if someone has declared hostComponent
+            // we assign a reference to ourselves.  If the hostComponent
+            // property exists as a direct result of utilizing [HostComponent]
+            // metadata it will be strongly typed. We need to do more work
+            // here and only assign if the type exactly matches our component
+            // type.
+            if ("hostComponent" in skinObject)
+            {
+                try 
+                {
+                    Object(skinObject).hostComponent = this;
+                }
+                catch (err:Error) {}
+            }
+           	
             addChild(skinObject);
         }
         else
