@@ -235,6 +235,90 @@ public class GridSelection
     }
 
     //----------------------------------
+    //  selectionLength
+    //----------------------------------
+        
+    /**
+     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> or
+     *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the number of
+     *  selected rows and if the selectionMode is either 
+     *  <code>GridSelectionMode.SINGLE_CELL</code> or
+     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns the number of
+     *  selected cells.  If selectionMode is <code>GridSelectionMode.NONE</code>
+     *  returns 0.
+     * 
+     *  @return Number of selected rows or cells depending on selectionMode.
+     *
+     *  @default 0
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function get selectionLength():int
+    {
+        if (isRowSelectionMode())
+        {           
+            if (!selectAllFlag)
+                return selectedRows.length;   
+            
+            const rowCount:int = getGridDataProviderLength();
+            
+            // selectAll and nothing on the delete list
+            if (selectedRows.length == 0)
+                return rowCount;
+            
+            // all rows minus the ones that were removed from the selection
+            return rowCount - selectedRows.length;
+        }        
+        else if (isCellSelectionMode())
+        { 
+            var left:int;
+            var right:int;
+            var top:int;
+            var bottom:int;
+            
+            if (selectAllFlag)
+            {
+                // Iterate over all rows and columns.
+                left = 0;
+                top = 0;
+                right = getGridColumnsLength();
+                bottom = getGridDataProviderLength();
+                
+                // selectAll and nothing on the delete list.
+                if (cellRegions.length == 0)
+                    return right * bottom;                    
+            }
+            else
+            {
+                // Iterate over the selected cells region.
+                const bounds:Rectangle = getCellRegionsBounds();
+                left = bounds.left;
+                right = bounds.right;
+                top = bounds.top;
+                bottom = bounds.bottom;
+            }
+            
+            var selectedCount:int = 0;
+            
+            for (var rowIndex:int = top; rowIndex < bottom; rowIndex++)
+            {
+                for (var columnIndex:int = left; columnIndex < right; columnIndex++)
+                {
+                    if (containsCell(rowIndex, columnIndex))
+                        selectedCount++;
+                }
+            }
+            
+            return selectedCount;
+        }
+               
+        return 0;
+    }
+    
+    //----------------------------------
     //  selectionMode
     //----------------------------------
     
@@ -253,7 +337,7 @@ public class GridSelection
      *
      *  @default GridSelectionMode.SINGLE_ROW
      * 
-     *  @see spark.components.supportClasses.SelectionMode
+     *  @see spark.components.supportClasses.GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -285,7 +369,7 @@ public class GridSelection
                 break;
         }
     }
-
+    
     /**
      *  If the selectionMode is either <code>GridSelectionMode.SINGLE_CELL</code> or
      *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, returns a list of all the
@@ -304,13 +388,15 @@ public class GridSelection
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function allCells():Vector.<Object>
+    public function allCells():Vector.<CellPosition>
     {
-        var cells:Vector.<Object> = new Vector.<Object>;
+        var cells:Vector.<CellPosition> = new Vector.<CellPosition>;
         
         if (!isCellSelectionMode())
             return cells;
 
+        // Note: if this is changed, change the similiar code in selectionLength.
+        
         var left:int;
         var right:int;
         var top:int;
@@ -339,11 +425,7 @@ public class GridSelection
             for (var columnIndex:int = left; columnIndex < right; columnIndex++)
             {
                 if (containsCell(rowIndex, columnIndex))
-                {
-                    const cell:Object = { "rowIndex": rowIndex, 
-                                          "columnIndex": columnIndex };
-                    cells.push(cell);
-                }
+                    cells.push(new CellPosition(rowIndex, columnIndex));
             }
         }
         
@@ -368,6 +450,8 @@ public class GridSelection
         if (!isRowSelectionMode())
             return new Vector.<int>(0, true);
         
+        // Note: if this is changed, change the similiar code in selectionLength.
+
         var rows:Vector.<int>;
         
         if (selectAllFlag)
@@ -470,35 +554,6 @@ public class GridSelection
     }
     
     /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> 
-     *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, determines if the row 
-     *  is the only item in the current selection.
-     *
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
-     * 
-     *  @return true if the row is the only item in the selection
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function containsOnlyRow(rowIndex:int):Boolean
-    {
-        if (!validateIndex(rowIndex))
-            return false;
-        
-        if (containsRow(rowIndex))
-        {
-            const rows:Vector.<int> = allRows();
-            return rows.length == 1;
-        }
-        
-        return false;
-    }
-    
-    /**
      *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_ROWS</code>, 
      *  determines if the rows are in the current selection.
      * 
@@ -530,40 +585,6 @@ public class GridSelection
         }
         
         return false;
-    }
-    
-    /**
-     *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> 
-     *  or <code>GridSelectionMode.MULTIPLE_ROWS</code>, determines if the rows 
-     *  are the only items in the current selection.
-     * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
-     * 
-     *  @return true if the rows are the only items in the selection.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function containsOnlyRows(rowsIndices:Vector.<int>):Boolean
-    {
-        if (!validateIndices(rowsIndices))
-            return false;
-                
-        const selectedRows:Vector.<int> = allRows();
-        
-        for each (var rowIndex:int in rowsIndices)
-        {
-            const offset:int = selectedRows.indexOf(rowIndex);
-            if (offset == -1)
-                return false;
-            else
-                selectedRows.splice(offset, 1);
-        }
-        
-        return selectedRows.length == 0;
     }
     
     /**
@@ -659,7 +680,7 @@ public class GridSelection
         if (!validateIndex(rowIndex) )
             return false;
         
-        if (requireSelection && containsOnlyRow(rowIndex))
+        if (requireSelection && containsRow(rowIndex) && selectionLength == 1)
             return false;
                             
         if (selectAllFlag)
@@ -740,33 +761,6 @@ public class GridSelection
     }
         
     /**
-     *  If the selectionMode is either 
-     *  <code>GridSelectionMode.SINGLE_CELLS</code> or 
-     *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, determines if the cell 
-     *  is in the only item in the current selection.
-     * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
-     * 
-     *  @param columnsIndex The 0-based column index relative to the Grid's 
-     *  columns.
-     * 
-     *  @return true if the cell is in the only item in the selection.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function containsOnlyCell(rowIndex:int, columnIndex:int):Boolean
-    {
-        if (containsCell(rowIndex, columnIndex))
-            return allCells().length == 1;
-        
-        return false;
-    }
-    
-    /**
      *  If the selectionMode is
      *  <code>GridSelectionMode.MULTIPLE_CELLS</code>, determines if all the 
      *  cells in the cell region are in the current selection.
@@ -808,38 +802,7 @@ public class GridSelection
         
         return true;
     }
-    
-    /**
-     *  If the selectionMode is <code>GridSelectionMode.MULTIPLE_CELLS</code>, 
-     *  determines if all the cells in the cell region are the only items in the 
-     *  current selection.
-     * 
-     *  @param rowIndex The 0-based row index relative to the Grid's 
-     *  dataProvider.
-     * 
-     *  @param columnsIndex The 0-based column index relative to the Grid's 
-     *  columns.
-     * 
-     *  @param rowCount In number of cells, the height of the cell region.
-     * 
-     *  @param columnsCount In number of cells, the width of the cell region.
-     * 
-     *  @return true if the cells are the only items in the selection.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    public function containsOnlyCellRegion(rowIndex:int, columnIndex:int,
-                                           rowCount:int, columnCount:int):Boolean
-    {
-        if (containsCellRegion(rowIndex, columnIndex, rowCount, columnCount))
-            return allCells().length == rowCount * columnCount;
         
-        return false;
-    }
-    
     /**
      *  If the selectionMode is either <code>GridSelectionMode.SINGLE_CELLS</code> 
      *  or <code>GridSelectionMode.MULTIPLE_CELLS</code>, replaces the current 
@@ -931,7 +894,7 @@ public class GridSelection
         if (!validateCell(rowIndex, columnIndex))
             return false;
 
-        if (requireSelection && containsOnlyCell(rowIndex, columnIndex))
+        if (requireSelection && containsCell(rowIndex, columnIndex) && selectionLength == 1)
             return false;
         
         if (selectAllFlag)
@@ -1039,7 +1002,7 @@ public class GridSelection
      */    
     private function hasRowSelection():Boolean
     {
-        return allRows().length > 0;
+        return isRowSelectionMode() && selectionLength > 0;
     }
     
     /**
@@ -1050,7 +1013,7 @@ public class GridSelection
      */    
     private function hasCellSelection():Boolean
     {   
-        return allCells().length > 0;
+        return isCellSelectionMode() && selectionLength > 0;
     }
     
     /**
@@ -1068,7 +1031,10 @@ public class GridSelection
             return false;
         
         if (getGridDataProviderLength() == 0 || getGridColumnsLength() == 0)
+        {
+            grid.caretRowIndex = grid.caretColumnIndex = -1;
             return false;
+        }
         
         // If there isn't a selection, set one, using the grid method rather
         // than the internal one, so that the caretPosition will be updated too.
@@ -1077,7 +1043,7 @@ public class GridSelection
             if (!hasRowSelection())
                 selectionChanged = grid.setSelectedIndex(0);
         }
-        else if (isCellSelectionMode())
+            else if (isCellSelectionMode())
         {
             if (!hasCellSelection())
                 selectionChanged = grid.setSelectedCell(0, 0);
@@ -1095,8 +1061,7 @@ public class GridSelection
      */    
     private function removeSelection():Boolean
     {
-        const hasSelection:Boolean = 
-            selectAllFlag || hasRowSelection() || hasCellSelection();
+        const hasSelection:Boolean = selectionLength > 0;
         
         selectedRows.length = 0;
         cellRegions.length = 0;
@@ -1485,7 +1450,7 @@ public class GridSelection
             elementChanged = adjustRowsAfterAdd(insertIndex, insertLength);
         else if (hasCellSelection())
             elementChanged = adjustCellsAfterAdd(insertIndex, insertLength);
-
+        
         // If a selection is required and these are the first items to be
         // added make sure there is a selection now.
         ensureRequiredSelection();
@@ -1777,11 +1742,11 @@ public class GridSelection
                 const rowIndex:int = firstRemoveIndex <= dataProviderLength - 1 ? 
                                      firstRemoveIndex : dataProviderLength - 1;
                 if (isRowSelectionMode() && !hasRowSelection())
-                    setRow(rowIndex);
+                        setRow(rowIndex);
                 else if (isCellSelectionMode() && !hasCellSelection())
-                    setCell(rowIndex, 0);
+                        setCell(rowIndex, 0);
+                }
             }
-        }            
 
         return elementChanged;
     }
@@ -2140,14 +2105,11 @@ public class GridSelection
         if (elementChanged && requireSelection)
         {        
             var dataProviderLength:int = getGridDataProviderLength();
-            if (dataProviderLength > 0)
+            if (dataProviderLength > 0 && selectionLength == 0)
             {
-                if (!hasCellSelection())
-                {
-                    rowIndex = firstRemoveIndex <= dataProviderLength - 1 ? 
-                               firstRemoveIndex : dataProviderLength - 1;
-                    setCell(rowIndex, 0);
-                }
+                rowIndex = firstRemoveIndex <= dataProviderLength - 1 ? 
+                           firstRemoveIndex : dataProviderLength - 1;
+                setCell(rowIndex, 0);
             }
         }            
 
