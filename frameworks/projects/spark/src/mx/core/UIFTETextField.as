@@ -2150,7 +2150,7 @@ public class UIFTETextField extends FTETextField
         if (styleChangedFlag)
         {
             const oldMirror:Boolean = mirror;
-            mirror = getStyle("layoutDirection") == "rtl";
+            mirror = getStyle("layoutDirection") == LayoutDirection.RTL;
             if (mirror || oldMirror)
                 validateTransformMatrix();
         }
