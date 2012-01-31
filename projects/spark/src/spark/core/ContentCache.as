@@ -352,6 +352,21 @@ public class ContentCache extends EventDispatcher implements IContentLoader
             var urlRequest:URLRequest = source is URLRequest ? 
                 source as URLRequest : new URLRequest(source as String);
             
+            // Cache our new LoaderInfo if applicable.
+            if (!cacheEntry && enableCaching) 
+            {
+                addCacheEntry(key, loader.contentLoaderInfo);
+                
+                // Mark entry as complete, we'll mark complete later 
+                // once fully loaded.
+                var entry:CacheEntryNode = cachedData[key];
+                if (entry)
+                    entry.complete = false;
+            }
+            
+            // Create ContentRequest instance to return to caller.
+            contentRequest = new ContentRequest(this, loader.contentLoaderInfo);
+            
             if (enableQueueing)
             {
                 // Queue load request.
@@ -364,19 +379,14 @@ public class ContentCache extends EventDispatcher implements IContentLoader
                 loaderContext.checkPolicyFile = true;
                 loader.load(urlRequest, loaderContext);
             }
-            
-            // Create ContentRequest instance to return to caller.
-            contentRequest = new ContentRequest(this, loader.contentLoaderInfo);
-            
-            // Now cache our new loader info if applicable.
-            if (!cacheEntry && enableCaching) 
-                addCacheEntry(key, loader.contentLoaderInfo);
         }
         else
         {
-            // Found a valid cache entry. Return a content request proxy and
-            // promote in our MRU list.
-            contentRequest = new ContentRequest(this, cacheEntry.value as LoaderInfo, true);
+            // Found a valid cache entry. Create a ContentRequest instance.
+            contentRequest = new ContentRequest(this, cacheEntry.value as LoaderInfo, 
+                true, cacheEntry.complete);
+            
+            // Promote in our MRU list.
             var node:LinkedListNode = cacheEntries.remove(cacheEntry);
             cacheEntries.unshift(node);
         }
@@ -655,12 +665,20 @@ public class ContentCache extends EventDispatcher implements IContentLoader
     {
         var loaderInfo:LoaderInfo = e.target as LoaderInfo;
        
-        if (e.type == Event.COMPLETE && loaderInfo && !loaderInfo.childAllowsParent)
+        if (e.type == Event.COMPLETE && loaderInfo)
         {
-            // Detected that our loader cannot be shared or cached. Mark 
-            // as such and notify and possibly active content requests.
-            addCacheEntry(loaderInfo.url, UNTRUSTED);
-            dispatchEvent(new LoaderInvalidationEvent(LoaderInvalidationEvent.INVALIDATE_LOADER, loaderInfo));
+            // Mark cache entry as complete.
+            var entry:CacheEntryNode = cachedData[loaderInfo.url];
+            if (entry)
+                entry.complete = true;
+            
+            if (!loaderInfo.childAllowsParent)
+            {
+                // Detected that our loader cannot be shared or cached. Mark 
+                // as such and notify and possibly active content requests.
+                addCacheEntry(loaderInfo.url, UNTRUSTED);
+                dispatchEvent(new LoaderInvalidationEvent(LoaderInvalidationEvent.INVALIDATE_LOADER, loaderInfo));
+            }
         }
         else if (e.type == IOErrorEvent.IO_ERROR || e.type == SecurityErrorEvent.SECURITY_ERROR)
         {
@@ -711,6 +729,16 @@ class CacheEntryNode extends LinkedListNode
      *  @private
      */
     public var source:Object;
+    
+    //----------------------------------
+    //  complete
+    //----------------------------------
+    
+    /**
+     *  For loaded content denotes that entry is finished loading.
+     *  @private
+     */
+    public var complete:Boolean = true;
 }
 
 /**
