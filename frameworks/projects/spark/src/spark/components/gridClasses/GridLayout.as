@@ -945,11 +945,13 @@ public class GridLayout extends LayoutBase
             {
                 gridRenderer.selected = grid.selectionContainsIndex(rowIndex);
                 gridRenderer.showsCaret = grid.caretRowIndex == rowIndex;
+                gridRenderer.hovered = grid.hoverRowIndex == rowIndex;
             }
             else if (isCellSelectionMode())
             {
                 gridRenderer.selected = grid.selectionContainsCell(rowIndex, columnIndex);
                 gridRenderer.showsCaret = (grid.caretRowIndex == rowIndex) && (grid.caretColumnIndex == columnIndex);
+                gridRenderer.hovered = (grid.hoverRowIndex == rowIndex) && (grid.hoverColumnIndex == columnIndex);
             }
             
             gridRenderer.data = dataItem;
