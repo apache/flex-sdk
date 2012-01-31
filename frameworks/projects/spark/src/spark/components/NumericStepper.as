@@ -124,6 +124,43 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
         
         invalidateProperties();
     }
+    
+    //--------------------------------- 
+    // displayFormatFunction
+    //---------------------------------
+
+    private var _displayFormatFunction:Function;
+    private var displayFormatFunctionChanged:Boolean;
+    
+     /**
+     *  Callback function that formats the value displayed
+     *  in the textInput field.
+     *  The function takes a single Number as an argument
+     *  and returns a formatted String.
+     *
+     *  <p>The function has the following signature:</p>
+     *  <pre>
+     *  funcName(value:Number):String
+     *  </pre>
+     
+     *  @default undefined   
+     */
+    public function get displayFormatFunction():Function
+    {
+        return _displayFormatFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set displayFormatFunction(value:Function):void
+    {
+        _displayFormatFunction = value;
+        
+        displayFormatFunctionChanged = true;
+        
+        invalidateProperties();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -209,11 +246,18 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     {	
         super.commitProperties();
 		
-		if (maxChanged || stepSizeChanged)
+		if (maxChanged || stepSizeChanged || displayFormatFunctionChanged)
     	{
     		textInput.widthInChars = calculateWidestValue();
     		maxChanged = false;
     		stepSizeChanged = false;
+    		
+    		if (displayFormatFunctionChanged)
+    		{
+                applyDisplayFormatFunction();
+               
+                displayFormatFunctionChanged = false;
+    		}
     	}
 			
         if (maxCharsChanged)
@@ -221,7 +265,7 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
             textInput.maxChars = _maxChars;
             maxCharsChanged = false;
         }
-    }
+    } 
     
     /**
      *  @private
@@ -229,7 +273,8 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     override protected function setValue(newValue:Number):void
     {
         super.setValue(newValue);
-        textInput.text = value.toString();        
+        
+        applyDisplayFormatFunction();
     }
     
     /**
@@ -287,7 +332,10 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     override public function setFocus():void
     {
         if (stage)
+        {
             stage.focus = textInput.textView;
+            textInput.textView.setSelection();
+        }
     }
     
     /**
@@ -339,9 +387,6 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
                 dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
         }
         
-        // Select all the text.
-        textInput.setSelection();
-        
         if (dispatchChange)
         {
             if (value != prevValue)
@@ -368,7 +413,23 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
                               minimum :
                               maximum;
     	widestNumber += stepSize;
-    	return widestNumber.toString().length;
+    	
+    	if (displayFormatFunction != null)
+    	    return displayFormatFunction(widestNumber).length;
+    	else 
+    	   return widestNumber.toString().length;
+    }
+    
+    /**
+     *  @private
+     *  Helper method that applies the displayFormatFunction  
+     */
+    private function applyDisplayFormatFunction():void
+    {
+        if (displayFormatFunction != null)
+            textInput.text = displayFormatFunction(value);
+        else
+            textInput.text = value.toString();
     }
     
     //--------------------------------------------------------------------------
