@@ -14,7 +14,6 @@ package mx.effects.effectClasses
 
 import flash.events.Event;
 import flash.filters.GlowFilter;
-import mx.core.Application;
 import mx.core.mx_internal;
 import mx.styles.StyleManager;
 
@@ -193,24 +192,6 @@ public class GlowInstance extends TweenEffectInstance
 		// Dispatch an effectStart event from the target.
 		super.play();
 
-		// If nobody assigned a value, give some defaults
-		if (isNaN(alphaFrom))
-			alphaFrom = 1.0;
-		if (isNaN(alphaTo))
-			alphaTo = 0;
-		if (isNaN(blurXFrom))
-			blurXFrom = 5;
-		if (isNaN(blurXTo))
-			blurXTo = 0;
-		if (isNaN(blurYFrom))
-			blurYFrom = 5;
-		if (isNaN(blurYTo))
-			blurYTo = 0;
-		if (color == StyleManager.NOT_A_COLOR)
-			color = Application.application.getStyle("themeColor");
-		if (isNaN(strength))
-			strength = 2;
-			
 		tween = createTween(
 			this, [ color, alphaFrom, blurXFrom, blurYFrom ],
 			[ color, alphaTo, blurXTo, blurYTo ], duration);
