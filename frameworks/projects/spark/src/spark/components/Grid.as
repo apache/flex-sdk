@@ -238,11 +238,6 @@ package spark.components
             return layout as GridLayout;
         }
         
-        private function get gridDimensions():GridDimensions
-        {
-            return gridLayout.gridDimensions;
-        }
-        
         //--------------------------------------------------------------------------
         //
         //  Properties
@@ -442,6 +437,8 @@ package spark.components
             if (caretColumnIndex == value)
                 return;
             
+            // ToDo: why isn't there any validation being done on value?
+            
             _caretColumnIndex = value;
             
             caretChanged = true;
@@ -497,6 +494,8 @@ package spark.components
             if (_caretRowIndex == value)
                 return;
             
+            // ToDo: why isn't there any validation being done on value?
+
             _caretRowIndex = value;
             
             caretChanged = true;
@@ -1620,7 +1619,7 @@ package spark.components
         //----------------------------------
         
         [Bindable("selectionModeChanged")]
-        [Inspectable(category="General", enumeration="none,row,multipleRows,cell,multipleCells", defaultValue="row")]
+        [Inspectable(category="General", enumeration="none,singleRow,multipleRows,singleCell,multipleCells", defaultValue="singleRow")]
         
         /**
          *  The selection mode of the control.  Possible values are:
@@ -2964,12 +2963,8 @@ package spark.components
             if (caretRowIndex != -1)
                 updateCaretForDataProviderChange(event);
             
-			// The following conditional block is written as a nested if due to ASC-4110
-            if (gridDimensions)
-			{
-				if(hoverRowIndex != -1)
-					updateHoverForDataProviderChange(event);	
-			}
+            if (gridDimensions && hoverRowIndex != -1)
+		        updateHoverForDataProviderChange(event);	
 
             invalidateSize();
             invalidateDisplayList();
