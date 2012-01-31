@@ -609,11 +609,10 @@ public class ColumnHeaderBarLayout extends LayoutBase
     private function get grid():Grid
     {
         const chb:ColumnHeaderBar = columnHeaderBar;
-        if (!chb)
-            return null;
+        if (chb.dataGrid)
+            return chb.dataGrid.grid;
         
-        const dg:DataGrid = chb.owner as DataGrid;
-        return (dg) ? dg.grid : null;
+        return null;
     }       
 }
 }
