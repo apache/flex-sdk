@@ -283,6 +283,10 @@ public dynamic class RemoteObject extends AbstractService
             {
                 chan = new AMFChannel(null, endpoint);
             }
+            
+            // Propagate requestTimeout.
+            chan.requestTimeout = requestTimeout;
+            
             channelSet = new ChannelSet();
             channelSet.addChannel(chan);
         }
