@@ -13,10 +13,19 @@ package spark.effects
 {
 import flash.geom.Vector3D;
 
+import mx.core.mx_internal;
 import mx.effects.IEffectInstance;
 
 import spark.effects.animation.MotionPath;
 import spark.effects.supportClasses.AnimateTransformInstance;
+
+use namespace mx_internal;
+
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="motionPaths", kind="property")]
 
 /**
  *  The Move effect move the target object
@@ -82,25 +91,6 @@ public class Move extends AnimateTransform
     //
     //--------------------------------------------------------------------------
 
-    //----------------------------------
-    //  affectLayout
-    //----------------------------------
-    [Inspectable(category="General")]
-    /** 
-     *  Specifies whether the parent container of the effect target 
-     *  updates its layout based on changes to the effect target
-     *  while the effect plays.
-     *
-     *  @default true
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var affectLayout:Boolean = true;
-
-    
     //----------------------------------
     //  yBy
     //----------------------------------
@@ -233,7 +223,7 @@ public class Move extends AnimateTransform
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
-       if(affectLayout)
+        if (!applyChangesPostLayout)
         {
             addMotionPath("translationX", xFrom, xTo, xBy);
             addMotionPath("translationY", yFrom, yTo, yBy);
