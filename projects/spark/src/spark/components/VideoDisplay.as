@@ -225,14 +225,14 @@ public class VideoDisplay extends UIComponent
     /**
      *  @private
      *  Keeps track of the muted property while loading up a 
-     *  video because of seekToFirstFrame.
+     *  video because of autoDisplayFirstFrame.
      */
     private var beforeLoadMuted:Boolean;
     
     /**
      *  @private
      *  Keeps track whether we are loading up the
-     *  video because of seekToFirstFrame.
+     *  video because of autoDisplayFirstFrame.
      */
     private var inLoadingState:Boolean;
     
@@ -241,6 +241,50 @@ public class VideoDisplay extends UIComponent
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  autoDisplayFirstFrame
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _autoDisplayFirstFrame:Boolean = true;
+        
+    [Inspectable(category="General", defaultValue="true")]
+    
+    /**
+     *  If <code>autoPlay = false</code>, then 
+     *  <code>autoDisplayFirstFrame</code> controls whether the video 
+     *  is loaded up at all when the source is set.  If <code>autoDisplayFirstFrame</code>
+     *  is set to <code>true</code>, then the first frame of the video is 
+     *  loaded up and the video will be sized correctly.  If 
+     *  <code>autoDisplayFirstFrame</code> is set to <code>false</code>, then no 
+     *  connection to the source is made, the first frame will not be shown, 
+     *  and the video's size will not be determined until someone tries to play
+     *  the video.
+     * 
+     *  <p>If <code>autoPlay = true</code>, then this flag is ignored.</p>
+     *  
+     *  @default true
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get autoDisplayFirstFrame():Boolean
+    {
+        return _autoDisplayFirstFrame;
+    }
+    
+    /**
+     * @private
+     */
+    public function set autoDisplayFirstFrame(value:Boolean):void
+    {
+        _autoDisplayFirstFrame = value;
+    }
     
     //----------------------------------
     //  autoPlay
@@ -660,50 +704,6 @@ public class VideoDisplay extends UIComponent
         
         invalidateSize();
         invalidateDisplayList();
-    }
-    
-    //----------------------------------
-    //  seekToFirstFrame
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _seekToFirstFrame:Boolean = true;
-        
-    [Inspectable(category="General", defaultValue="true")]
-    
-    /**
-     *  If <code>autoPlay = false</code>, then 
-     *  <code>seekToFirstFrame</code> controls whether the video 
-     *  is loaded up at all when the source is set.  If <code>seekToFirstFrame</code>
-     *  is set to <code>true</code>, then the first frame of the video is 
-     *  loaded up and the video will be sized correctly.  If 
-     *  <code>seekToFirstFrame</code> is set to <code>false</code>, then no 
-     *  connection to the source is made, the first frame will not be shown, 
-     *  and the video's size will not be determined until someone tries to play
-     *  the video.
-     * 
-     *  <p>If <code>autoPlay = true</code>, then this flag is ignored.</p>
-     *  
-     *  @default true
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get seekToFirstFrame():Boolean
-    {
-        return _seekToFirstFrame;
-    }
-    
-    /**
-     * @private
-     */
-    public function set seekToFirstFrame(value:Boolean):void
-    {
-        _seekToFirstFrame = value;
     }
     
     //----------------------------------
@@ -1282,7 +1282,7 @@ public class VideoDisplay extends UIComponent
         // if we're not going to autoPlay but we need to seek 
         // to the first frame, then we have to do this on our own 
         // by using our load() method.
-        if (!autoPlay && seekToFirstFrame)
+        if (!autoPlay && autoDisplayFirstFrame)
             load();
         
         
@@ -1292,16 +1292,15 @@ public class VideoDisplay extends UIComponent
     /**
      *  @private
      *  Our own internal load() method to handle the case 
-     *  where autoPlay = false and seekToFirstFrame = true 
+     *  where autoPlay = false and autoDisplayFirstFrame = true 
      *  so that we can load up the video, figure out its size, 
      *  and show the first frame
      */
     private function load():void
     {
-        // wait until we can play(), pause(), and seek() before doing anything.
-        videoPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.PLAYABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
-        videoPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.PAUSABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
-        videoPlayer.addEventListener(MediaPlayerCapabilityChangeEvent.SEEKABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
+        // wait until we can mute, play(), pause(), and seek() before doing anything.
+        // We should be able to do all of these operations on the READY state change event.
+        videoPlayer.addEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -1607,20 +1606,18 @@ public class VideoDisplay extends UIComponent
     
     /**
      *  @private
-     *  Event handler for mediaPlayerCapability changes.  We only use this 
+     *  Event handler for mediaPlayerStateChange event.  We only use this 
      *  when trying to load up the video without playing it.
      */
-    private function videoPlayer_mediaPlayerCapabilityChangeHandler(event:MediaPlayerCapabilityChangeEvent):void
+    private function videoPlayer_mediaPlayerStateChangeHandler(event:MediaPlayerStateChangeEvent):void
     {
         // only come in here when we want to load the video without playing it.
         
-        // wait until we are playable, pausable, and seekable before doing anything:
-        if (videoPlayer.playable && videoPlayer.pausable && videoPlayer.seekable)
+        // wait until we are ready so that we can set mute, play, pause, and seek
+        if (event.state == MediaPlayerState.READY)
         {
-            // now that we are loading up, let's remove the event listeners:
-            videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.PLAYABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
-            videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.PAUSABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
-            videoPlayer.removeEventListener(MediaPlayerCapabilityChangeEvent.SEEKABLE_CHANGE, videoPlayer_mediaPlayerCapabilityChangeHandler);
+            // now that we are loading up, let's remove the event listener:
+            videoPlayer.removeEventListener(MediaPlayerStateChangeEvent.MEDIA_PLAYER_STATE_CHANGE, videoPlayer_mediaPlayerStateChangeHandler);
             
             // if we are already playing() for some reason because someone called play(), then
             // we don't need to do anything.
