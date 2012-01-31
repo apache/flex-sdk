@@ -157,6 +157,12 @@ use namespace mx_internal;
  *  
  *  Therefore the scale is {-1,2,5,8,10}.
  *
+ *  <p>To use this component in a list-based component, such as a List or DataGrid, 
+ *  create an item renderer.
+ *  For information about creating an item renderer, see 
+ *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
+ *  Custom Spark item renderers</a>. </p>
+ *
  *  <p>The Spinner control has the following default characteristics:</p>
  *     <table class="innertable">
  *        <tr>
@@ -351,7 +357,7 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
-		super.partAdded(partName, instance);
+        super.partAdded(partName, instance);
 
         if (instance == incrementButton)
         {
@@ -374,7 +380,7 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-		super.partRemoved(partName, instance);
+        super.partRemoved(partName, instance);
 
         if (instance == incrementButton)
         {
