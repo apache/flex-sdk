@@ -400,16 +400,6 @@ public class Container extends UIComponent
         In this example, _firstChildIndex would be 3 and _numChildren
         would be 4.
 
-    *  
-
-    *  @langversion 3.0
-
-    *  @playerversion Flash 9
-
-    *  @playerversion AIR 1.1
-
-    *  @productversion Flex 3
-
     */
 
     //--------------------------------------------------------------------------
@@ -2396,11 +2386,6 @@ public class Container extends UIComponent
         childAdded(child);
 
         return child;
-        *  
-        *  @langversion 3.0
-        *  @playerversion Flash 9
-        *  @playerversion AIR 1.1
-        *  @productversion Flex 3
         */
     }
 
@@ -2451,14 +2436,14 @@ public class Container extends UIComponent
     {
         var formerParent:DisplayObjectContainer = child.parent;
         if (formerParent && !(formerParent is Loader))
-	{
+    {
             // Adjust index if necessary when former parent happens
             // to be the same container.
             if (formerParent == this)
                 index = (index == numChildren) ? index - 1 : index;
 
             formerParent.removeChild(child);
-	}
+    }
             
         addingChild(child);
 
@@ -2566,16 +2551,6 @@ public class Container extends UIComponent
         /*
 
         Shouldn't implement removeChildAt() in terms of removeChild().
-
-        *  
-
-        *  @langversion 3.0
-
-        *  @playerversion Flash 9
-
-        *  @playerversion AIR 1.1
-
-        *  @productversion Flex 3
 
         */
     }
@@ -3035,7 +3010,7 @@ public class Container extends UIComponent
             if ("addToCreationQueue" in mainApp)
                 mainApp.addToCreationQueue(this, creationIndex, null, this);
             else
-            	// TODO: Clarify error message and add to resource manager
+                // TODO: Clarify error message and add to resource manager
                 throw new Error("addToCreationQueue called but method does not exist within application");
         }
         else if (recursionFlag)
