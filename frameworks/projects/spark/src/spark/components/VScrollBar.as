@@ -16,14 +16,44 @@ import flash.geom.Point;
 
 import mx.core.IInvalidating;
 import mx.core.mx_internal;
+import mx.events.FlexMouseEvent;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
 import spark.components.supportClasses.ScrollBarBase;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
+import spark.utils.MouseEventUtil;
 
 use namespace mx_internal;
+
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when the <code>verticalScrollPosition</code> is going
+ *  to change due to a <code>mouseWheel</code> event.
+ * 
+ *  <p>The default behavior is to scroll vertically by the event 
+ *  <code>delta</code> number of "steps".  
+ *  The viewport's <code>getVerticalScrollPositionDelta</code> method using 
+ *  either <code>UP</code> or <code>DOWN</code>, depending on the scroll 
+ *  direction, determines the height of the step.</p>
+ * 
+ *  <p>Calling the <code>preventDefault()</code> method
+ *  on the event prevents the vertical scroll position from changing.
+ *  Otherwise if you modify the <code>delta</code> property of the event,
+ *  that value will be used as the number of vertical "steps".</p>
+ *
+ *  @eventType mx.events.FlexMouseEvent.MOUSE_WHEEL_CHANGING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Event(name="mouseWheelChanging", type="mx.events.FlexMouseEvent")]
 
 //--------------------------------------
 //  Other metadata
@@ -405,7 +435,7 @@ public class VScrollBar extends ScrollBarBase
             maximum = viewport.contentHeight - viewport.height;
         }
     }
-    
+
     /**
      *  @private
      *  Scroll vertically by event.delta "steps".  This listener is added to both the scrollbar 
@@ -422,12 +452,23 @@ public class VScrollBar extends ScrollBarBase
         if (event.isDefaultPrevented() || !vp || !vp.visible || !visible)
             return;
         
-        var nSteps:uint = Math.abs(event.delta);
+        // Dispatch the "mouseWheelChanging" event. If preventDefault() is called
+        // on this event, the event will be cancelled.  Otherwise if  the delta
+        // is modified the new value will be used.
+        var changingEvent:FlexMouseEvent = MouseEventUtil.createMouseWheelChangingEvent(event);
+        if (!dispatchEvent(changingEvent))
+        {
+            event.preventDefault();
+            return;
+        }
+            
+        const delta:int = changingEvent.delta;
+        
+        var nSteps:uint = Math.abs(delta);
         var navigationUnit:uint;
         
-        // Scroll event.delta "steps".  
-        
-        navigationUnit = (event.delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
+        // Scroll delta "steps".          
+        navigationUnit = (delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
         for (var vStep:int = 0; vStep < nSteps; vStep++)
         {
             var vspDelta:Number = vp.getVerticalScrollPositionDelta(navigationUnit);
