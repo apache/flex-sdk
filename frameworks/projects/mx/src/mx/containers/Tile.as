@@ -139,7 +139,7 @@ use namespace mx_internal;
  *  or use the TileGroup container.
  */
 [Alternative(replacement="spark.components.TileGroup", since="4.0")]
-[Alternative(replacement="spark.components.Border", since="4.0")]
+[Alternative(replacement="spark.components.BorderContainer", since="4.0")]
 
 /**
  *  A Halo Tile container lays out its children
