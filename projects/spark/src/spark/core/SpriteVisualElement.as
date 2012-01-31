@@ -2512,6 +2512,8 @@ public class SpriteVisualElement extends FlexSprite
         }
 
         var fitSize:Point = MatrixUtil.fitBounds(width, height, m,
+            _explicitWidth,
+            _explicitHeight,
             preferredWidth,
             preferredHeight,
             getMinBoundsWidth(false),
