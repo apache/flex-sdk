@@ -21,7 +21,6 @@ import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 
 import spark.components.DataGrid;
-import spark.components.GridContainerBase;
 import spark.components.Grid;
 
 use namespace mx_internal;
