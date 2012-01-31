@@ -778,6 +778,31 @@ public class Scroller extends SkinnableComponent
     private var currentPageScrollPosition:Number;
     
 
+    /**
+     *  @private
+     *  Keeps track of the most recently snapped item, or -1 if none.
+     *  This value is set as a side-effect of calling getSnappedPosition. 
+     */
+    private var lastSnappedElement:int = -1;
+
+    /**
+     *  @private
+     *  Remembers which part of the content is snapped at the
+     *  time an orientation change begins.  For paging without
+     *  item snapping, this value is a page number.  For item
+     *  snapping, the value is an element number. 
+     */
+    private var orientationChangeSnapElement:int = -1;
+    
+    /**
+     *  @private
+     *  Remembers the number of pages right before an orientation
+     *  change occurs.
+     */
+    private var previousOrientationPageCount:int = 0;
+
+    
+
     //--------------------------------------------------------------------------
     //
     //  Variables: SoftKeyboard Support
@@ -1537,8 +1562,13 @@ public class Scroller extends SkinnableComponent
             var snapMotionPath:Vector.<MotionPath> = Vector.<MotionPath>([new SimpleMotionPath(scrollProperty, null, snapScrollPosition)]);
             snapElementAnimation.motionPaths = snapMotionPath;
             snapElementAnimation.play();
-			
-			return snapElementAnimation;
+
+            // If paging is enabled, make sure the destination snap position
+            // also becomes the current page.
+            if (pageScrollingEnabled)
+                currentPageScrollPosition = snapScrollPosition; 			
+
+            return snapElementAnimation;
         }
         else
         {
@@ -1568,8 +1598,35 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private 
      */
+    private function getCurrentPageCount():int
+    {
+        var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
+        var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
+        
+        var pageCount:int = 0;
+        
+        if (canScrollHorizontally && viewportWidth != 0)
+        {
+            pageCount = Math.ceil(viewport.contentWidth / viewportWidth);
+        }
+        else if (canScrollVertically && viewportHeight != 0)
+        {
+            pageCount = Math.ceil(viewport.contentHeight/ viewportHeight);
+        }
+        
+        return pageCount;
+    }
+    
+    /**
+     *  @private 
+     */
     private function checkScrollPosition():void
     {
+        // TODO (eday): This function is a mess.  It needs to be refactored and simplified.
+        // It does too many things and has too many subtle behaviors.  But as I'm 
+        // writing this we're too late in the release (4.6) schedule to make any
+        // changes of that size.  This should be revisited during 5.0 development.
+        
         // If the content size has changed, we may need to recalculate
         // the minimum and maximum scroll positions.
         determineScrollRanges();
@@ -1581,27 +1638,30 @@ public class Scroller extends SkinnableComponent
         var orientationChange:Boolean = aspectRatio != FlexGlobals.topLevelApplication.aspectRatio;
         aspectRatio = FlexGlobals.topLevelApplication.aspectRatio;
         
-        var curVelocity:Point;
-        
         // See whether we possibly need to re-throw because of changed max positions.
         var needRethrow:Boolean = false;
         
-        // We don't rethrow in paging mode, as we don't want to go any further
+        // Here we check to see whether the current throw has maybe not gone far enough
+        // given the new content size. 
+        // We don't rethrow for this reason in paging mode, as we don't want to go any further
         // than to the adjacent page.
         if (!pageScrollingEnabled)
         {
-        if (throwReachedMaximumScrollPosition && (throwFinalVSP < maxVerticalScrollPosition || throwFinalHSP < maxHorizontalScrollPosition))
-            needRethrow = true;                
-        
-        if (throwFinalVSP > maxVerticalScrollPosition || throwFinalHSP > maxHorizontalScrollPosition)
-            needRethrow = true;
+            if (throwReachedMaximumScrollPosition && (throwFinalVSP < maxVerticalScrollPosition || throwFinalHSP < maxHorizontalScrollPosition))
+                needRethrow = true;                
+            
+            if (throwFinalVSP > maxVerticalScrollPosition || throwFinalHSP > maxHorizontalScrollPosition)
+                needRethrow = true;
         }
 
         // See whether we possibly need to re-throw because the final snapped position is
         // no longer snapped.  This can occur when the snapped position was estimated due to virtual
         // layout, and the actual snapped position (i.e. once the relevent elements have been measured)
         // turns out to be different.
-        if (scrollSnappingMode != ScrollSnappingMode.NONE)
+        // We also do this when pageScrolling is enabled to make sure we snap to a valid page position
+        // after an orientation change - since an orientation change necessarily moves all the page
+        // boundaries.
+        if (scrollSnappingMode != ScrollSnappingMode.NONE || pageScrollingEnabled)
         {
             // NOTE: a lighter-weight way of doing this would be to retain the element
             // at the end of the throw and see whether its bounds have changed.
@@ -1655,13 +1715,47 @@ public class Scroller extends SkinnableComponent
             // a valid position.  The most likely reason we get here is that the
             // device orientation changed while the content is stationary (i.e. not
             // in an animated throw)
-            if (viewport.verticalScrollPosition > maxVerticalScrollPosition)
-                viewport.verticalScrollPosition = maxVerticalScrollPosition;
-            viewport.verticalScrollPosition = getSnappedPosition(viewport.verticalScrollPosition, VERTICAL_SCROLL_POSITION);
             
-            if (viewport.horizontalScrollPosition > maxHorizontalScrollPosition)
-                viewport.horizontalScrollPosition = maxHorizontalScrollPosition;
-            viewport.horizontalScrollPosition = getSnappedPosition(viewport.horizontalScrollPosition, HORIZONTAL_SCROLL_POSITION);
+            // If the orientation changed and orientationChangeSnapElement is set to a 
+            // valid value, then we will attempt to snap to the same item/page that
+            // was snapped prior to the orientation change.
+            if (orientationChange && orientationChangeSnapElement != -1)
+            {
+                if (scrollSnappingMode == ScrollSnappingMode.NONE && pageScrollingEnabled)
+                {
+                    // Paging without item snapping.  We want to snap to the same page, as
+                    // long as the number of pages is the same.
+                    // The number of pages being different indicates that the relationship
+                    // between pages and content is unknown, and it makes no sense to try and 
+                    // retain the same page.
+                    if (previousOrientationPageCount == getCurrentPageCount())
+                    {
+                        var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
+                        var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
+                        
+                        if (canScrollHorizontally)
+                        {
+                            viewport.horizontalScrollPosition = orientationChangeSnapElement * viewportWidth; 
+                            currentPageScrollPosition = viewport.horizontalScrollPosition;  
+                        }
+
+                        else if (canScrollVertically)
+                        {
+                            viewport.verticalScrollPosition = orientationChangeSnapElement * viewportHeight; 
+                            currentPageScrollPosition = viewport.verticalScrollPosition;  
+                        }
+                    }
+                }
+                else
+                {
+                    // Snap directly to the item that was snapped before the orientation changed.
+                    // If this results in an invalid scroll position for the new orientation, the
+                    // call to snapContentScrollPosition below will fix this. 
+                    snapElement(orientationChangeSnapElement,false);
+                }
+                orientationChangeSnapElement = -1;
+            }
+            snapContentScrollPosition();
         }
     }
     
@@ -2060,6 +2154,43 @@ public class Scroller extends SkinnableComponent
     {
         super.focusOutHandler(event);
         lastFocusedElement = null;
+    }
+    
+    /**
+     *  @private 
+     */
+    private function orientationChangingHandler(event:Event):void
+    {
+        orientationChangeSnapElement = -1;
+        
+        // The orientation is about to change, so we see which item/page is currently snapped
+        // and remember it so we can snap to it again when the orientation change is complete.
+        if (scrollSnappingMode == ScrollSnappingMode.NONE && pageScrollingEnabled)
+        {
+            // For paging without item snapping, we remember the number of the current page.
+            var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
+            var viewportHeight:Number = isNaN(viewport.height) ? 0 : viewport.height;
+            
+            if (canScrollHorizontally && viewportWidth != 0)
+                orientationChangeSnapElement = currentPageScrollPosition / viewportWidth; 
+            else if (canScrollVertically && viewportHeight != 0)
+                orientationChangeSnapElement = currentPageScrollPosition / viewportHeight;
+
+            // Remember the page count so we'll know whether it changed.
+            previousOrientationPageCount = getCurrentPageCount();
+        }
+        else
+        {
+            // For item snapping, we remember which specific element is currently snapped. 
+            
+            if (canScrollHorizontally)
+                getSnappedPosition(viewport.horizontalScrollPosition, HORIZONTAL_SCROLL_POSITION);
+            else if (canScrollVertically)
+                getSnappedPosition(viewport.verticalScrollPosition, VERTICAL_SCROLL_POSITION);
+            
+            // lastSnappedElement was set as a side-effect of the call to getSnappedPosition above.  
+            orientationChangeSnapElement = lastSnappedElement;
+        }
     }
     
     /**
@@ -2506,7 +2637,7 @@ public class Scroller extends SkinnableComponent
     private function getSnappedPosition(position:Number, propertyName:String):Number
     {
         var layout:LayoutBase = viewportLayout;
-        var nearestElementIndex:int;
+        var nearestElementIndex:int = -1;
         var nearestElementBounds:Rectangle;
         
         var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;
@@ -2518,7 +2649,8 @@ public class Scroller extends SkinnableComponent
             // the position to the beginning of a page.  i.e. a multiple of the 
             // viewport size.
             var offset:Number;
-            if (canScrollHorizontally && propertyName == HORIZONTAL_SCROLL_POSITION && viewportWidth != 0)
+            if (canScrollHorizontally && propertyName == HORIZONTAL_SCROLL_POSITION && 
+                viewportWidth != 0 && viewport.contentWidth != 0)
             {
                 // Get the offset into the current page.  If less than half way, snap
                 // to the beginning of the page.  Otherwise, snap to the beginning
@@ -2532,7 +2664,8 @@ public class Scroller extends SkinnableComponent
                 // Clip the position to the valid min/max range
                 position = Math.min(Math.max(minHorizontalScrollPosition, position), maxHorizontalScrollPosition);
             }
-            else if (canScrollVertically && propertyName == VERTICAL_SCROLL_POSITION && viewportHeight != 0)
+            else if (canScrollVertically && propertyName == VERTICAL_SCROLL_POSITION && 
+                viewportHeight != 0 && viewport.contentHeight != 0)
             {
                 offset = position % viewportHeight;
                 if (offset < viewportHeight / 2)
@@ -2593,6 +2726,7 @@ public class Scroller extends SkinnableComponent
                     break;
             }
         }
+        lastSnappedElement = nearestElementIndex;
         return Math.round(position);
     }
 
@@ -3186,8 +3320,15 @@ public class Scroller extends SkinnableComponent
         // If the snap animation is playing, we need to stop it 	 
         // before watching for a scroll and potentially beginning 	 
         // a new touch interaction.
-        if (snapElementAnimation && snapElementAnimation.isPlaying) 	 
+        if (snapElementAnimation && snapElementAnimation.isPlaying)
+        {
             snapElementAnimation.stop(); 	 
+
+            // If paging is enabled and the user interrupted the snap animation,
+            // we need to set the current page to where the animation was stopped.
+            if (pageScrollingEnabled)
+                determineCurrentPageScrollPosition();            
+        }
                 
         captureNextClick = false;
         
@@ -3509,7 +3650,10 @@ public class Scroller extends SkinnableComponent
     private function addedToStageHandler(event:Event):void
     {
         if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
             systemManager.stage.addEventListener("orientationChange",orientationChangeHandler);
+            systemManager.stage.addEventListener("orientationChanging", orientationChangingHandler);
+        }
     }
     
     /**
@@ -3518,7 +3662,10 @@ public class Scroller extends SkinnableComponent
     private function removedFromStageHandler(event:Event):void
     {
         if (getStyle("interactionMode") == InteractionMode.TOUCH)
+        {
             systemManager.stage.removeEventListener("orientationChange",orientationChangeHandler);
+            systemManager.stage.removeEventListener("orientationChanging", orientationChangingHandler);
+        }
     }
     
     /**
