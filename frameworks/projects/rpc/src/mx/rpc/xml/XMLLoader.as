@@ -63,6 +63,7 @@ public class XMLLoader extends EventDispatcher
                 loader.destination = httpService.destination;
             loader.useProxy = httpService.useProxy;
             loader.rootURL = httpService.rootURL;
+            loader.headers = httpService.headers;
         }
 
         loader.addEventListener(ResultEvent.RESULT, resultHandler);
