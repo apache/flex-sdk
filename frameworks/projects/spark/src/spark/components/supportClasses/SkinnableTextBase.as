@@ -859,7 +859,7 @@ public class TextBase extends SkinnableComponent
             textView.addEventListener(SelectionEvent.SELECTION_CHANGE,
                                       textView_selectionChangeHandler);
 
-            textView.addEventListener(TextOperationEvent.CHANGING,
+            textView.addEventListener(TextOperationEvent.CHANGING, 
                                       textView_changingHandler);
 
             textView.addEventListener(TextOperationEvent.CHANGE,
@@ -888,10 +888,10 @@ public class TextBase extends SkinnableComponent
             textView.removeEventListener(SelectionEvent.SELECTION_CHANGE,
                                          textView_selectionChangeHandler);
 
-            textView.removeEventListener("changing",
+            textView.removeEventListener(TextOperationEvent.CHANGING,
                                          textView_changingHandler);
 
-            textView.removeEventListener("change",
+            textView.removeEventListener(TextOperationEvent.CHANGE,
                                          textView_changeHandler);
 
             textView.removeEventListener(FlexEvent.ENTER,
