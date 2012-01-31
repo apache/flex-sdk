@@ -2439,13 +2439,31 @@ public class SkinnableTextBase extends SkinnableComponent
             return;
         }
 
+        // On mobile, 2 problems interfere with FocusManager's
+        // normal resetting of the focus indicator. First, the
+        // mouse down and focus in events on mobile happen out of
+        // order, so the normal resetting of showFocusIndicator
+        // in the mouse down capture handler doesn't happen until
+        // after the focus event. Second, StageText doesn't send
+        // mouse events at all. So, to make the focus indicator
+        // more robust, we store the flag's old value, set it, let
+        // the superclass draw the focus indicator, then restore
+        // the flag's old value.
+        var oldShowFocusIndicator:Boolean;
+        
         // Only editable text should have a focus ring.
         if (enabled && editable && focusManager)
+        {
+            oldShowFocusIndicator = focusManager.showFocusIndicator;
             focusManager.showFocusIndicator = true;
+        }
 
         invalidateSkinState();
         
         super.focusInHandler(event);
+        
+        if (enabled && editable && focusManager)
+            focusManager.showFocusIndicator = oldShowFocusIndicator;
     }
  
     /**
