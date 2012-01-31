@@ -538,7 +538,7 @@ public class PopUpAnchor extends UIComponent
         
         // the transformation doesn't take the fullScreenRect in to account
         // if we are in fulLScreen mode
-        if (stage.displayState != StageDisplayState.NORMAL && stage.fullScreenSourceRect)
+        if (stage && stage.displayState != StageDisplayState.NORMAL && stage.fullScreenSourceRect)
         {
             popUpPoint.x += stage.fullScreenSourceRect.x;
             popUpPoint.y += stage.fullScreenSourceRect.y;
