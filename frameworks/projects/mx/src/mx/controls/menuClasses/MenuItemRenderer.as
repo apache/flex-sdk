@@ -19,12 +19,10 @@ import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.controls.listClasses.ListData;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
-import mx.core.FlexVersion;
 import mx.core.IUITextField;
 import mx.core.UIComponent;
 import mx.core.UITextField;
@@ -145,9 +143,6 @@ public class MenuItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-			super.baselinePosition;
-			
 		if (!validateBaselinePosition())
 			return NaN;
 
@@ -265,26 +260,6 @@ public class MenuItemRenderer extends UIComponent
 	 */
 	protected function get icon():IFlexDisplayObject
 	{
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-		{
-			if (_data)
-			{
-				var dataDescriptor:IMenuDataDescriptor =
-					Menu(_listData.owner).dataDescriptor;
-				
-				var type:String = dataDescriptor.getType(_data);
-	
-				// Separator
-				if (type.toLowerCase() == "separator")
-					return separatorIcon;
-			}
-			
-			if (typeIcon)
-				return typeIcon;
-			
-			return _icon;
-		}
-		
 		return _icon;
 	}
 
