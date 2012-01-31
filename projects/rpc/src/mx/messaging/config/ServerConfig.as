@@ -23,11 +23,8 @@ import mx.messaging.MessageAgent;
 import mx.messaging.config.LoaderConfig;
 import mx.messaging.errors.InvalidChannelError;
 import mx.messaging.errors.InvalidDestinationError;
-import mx.messaging.errors.MessagingError;
-import mx.messaging.messages.IMessage;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
-import mx.utils.StringUtil;
 import mx.utils.ObjectUtil;
 
 use namespace mx_internal;
@@ -326,11 +323,17 @@ public class ServerConfig
             var dsUris:Array = [];
             var dsChannels:XMLList;
             var channelConfig:XML;
+            var endpoint:XML;
+            var dsUri:String;
             for (var j:uint = 0; j<ids.length; j++)
             {
                 dsChannels = xml.channels.channel.(@id == ids[j]);
                 channelConfig = dsChannels[0];
-                dsUris.push(channelConfig.endpoint[0].attribute(URI_ATTR).toString());
+                endpoint = channelConfig.endpoint;
+                // uri might be undefined when client-load-balancing urls are specified.
+                dsUri = endpoint.length() > 0? endpoint[0].attribute(URI_ATTR).toString() : null;
+                if (dsUri != null)
+                    dsUris.push(dsUri);
             }
 
             return ObjectUtil.compare(csUris, dsUris) == 0;
@@ -448,7 +451,7 @@ public class ServerConfig
             var newChannels:XMLList = newServices.channels;
             if (newChannels.length() > 0)
             {
-                   var oldChannels:XML = xml.channels[0];
+                var oldChannels:XML = xml.channels[0];
                 if (oldChannels == null || oldChannels.length() == 0)
                 {
                     xml.appendChild(newChannels);
@@ -505,7 +508,9 @@ public class ServerConfig
 
         var channelConfig:XML = channels[0];
         var className:String = channelConfig.attribute(CLASS_ATTR).toString();
-        var uri:String = channelConfig.endpoint[0].attribute(URI_ATTR).toString();
+        var endpoint:XMLList = channelConfig.endpoint;
+        /// uri might be undefined when client-load-balancing urls are specified.
+        var uri:String = endpoint.length() > 0? endpoint[0].attribute(URI_ATTR).toString() : null;
         var channel:Channel = null;
         try
         {
@@ -541,9 +546,7 @@ public class ServerConfig
                 if (propertyKey == "")
                 {
                     // Add as a value
-                    var name:Object = configXML.localName();
-                    var parent:XML = configXML.parent();
-                    parent[name] = propertyValue;
+                    configXML.appendChild(propertyValue);
                 }
                 else
                 {
@@ -561,14 +564,14 @@ public class ServerConfig
 
                 for (var i:int = 0; i < propertyValueList.length; i++)
                 {
-                       var propertyXML1:XML = <{propertyKey}></{propertyKey}>
+                    var propertyXML1:XML = <{propertyKey}></{propertyKey}>
                     configXML.appendChild(propertyXML1);
                     convertToXML(propertyValueList[i] as ConfigMap, propertyXML1);
                 }
             }
             else // assuming that it is ConfigMap
             {
-                   var propertyXML2:XML = <{propertyKey}></{propertyKey}>
+                var propertyXML2:XML = <{propertyKey}></{propertyKey}>
                 configXML.appendChild(propertyXML2);
                 convertToXML(propertyValue as ConfigMap, propertyXML2);
             }
