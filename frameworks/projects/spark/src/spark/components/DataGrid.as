@@ -1649,7 +1649,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 
             case GridSelectionEventKind.SET_ROWS:
             {
-                changed = grid.gridSelection.setRows(rowIndex, rowIndex + rowCount - 1);
+                changed = grid.gridSelection.setRows(rowIndex, rowCount);
                 break;
             }
                 
