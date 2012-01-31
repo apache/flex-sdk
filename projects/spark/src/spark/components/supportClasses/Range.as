@@ -398,7 +398,7 @@ public class Range extends SkinnableComponent
      *  limits.</p>
      * 
      *  <p>The valid values for a range are defined by the sum of the <code>minimum</code> property
-     *  with multiples of the <code>interval and also defined to be less than or equal to the
+     *  with multiples of the <code>interval</code> and also defined to be less than or equal to the
      *  <code>maximum</code> property.
      * 
      *  The maximum need not be a multiple of <code>snapInterval</code>.</p>
