@@ -2,39 +2,39 @@
 <!-- Simple example to demonstrate the Spinner control -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx">
 
-	<!-- Panel used as a container for FxSpinner control examples -->
-	<mx:Panel title="Spinner Control Example" height="75%" width="75%" paddingTop="10"
-	    paddingLeft="10" horizontalCenter="0" verticalCenter="0">
+    <!-- Panel used as a container for Spinner control examples -->
+    <mx:Panel title="Spinner Control Example" height="75%" width="75%" paddingTop="10"
+        paddingLeft="10" horizontalCenter="0" verticalCenter="0">
 
-		<s:Group>
-			<s:layout>
-				<s:HorizontalLayout/>
-			</s:layout>
+        <s:Group>
+            <s:layout>
+                <s:HorizontalLayout/>
+            </s:layout>
             
-			<mx:Text text="Use the arrows to change tabs"/>            
-			<s:Spinner id="mySpinner" maximum="3"/>                    
-		</s:Group>            
+            <mx:Text text="Use the arrows to change tabs"/>            
+            <s:Spinner id="mySpinner" maximum="3"/>                    
+        </s:Group>            
 
-		<!-- Two way binding is being used so that changes to the tab navigator remain synced with Spinner value -->
-		<mx:TabNavigator id="myTabNav" width="75%" height="75%" selectedIndex="@{mySpinner.value}" >
+        <!-- Two way binding is being used so that changes to the tab navigator remain synced with Spinner value -->
+        <mx:TabNavigator id="myTabNav" width="75%" height="75%" selectedIndex="@{mySpinner.value}" >
         
-			<mx:HBox label="Tab 1">
-				<mx:Text text="Text on Tab 1" fontSize="14" color="red"/>
-			</mx:HBox>    	
-			<mx:HBox label="Tab 2">
-				<mx:Text text="Text on Tab 2" fontSize="16" color="blue"/>
-			</mx:HBox>    	    
-			<mx:HBox label="Tab 3">
-				<mx:Text text="Text on Tab 3" fontSize="18" color="green"/>
-			</mx:HBox>    	    
-			<mx:HBox label="Tab 4">
-				<mx:Text text="Text on Tab 4" fontSize="20" color="purple"/>
-			</mx:HBox>    	            
-    	    
-		</mx:TabNavigator>  
+            <mx:HBox label="Tab 1">
+                <mx:Text text="Text on Tab 1" fontSize="14" color="red"/>
+            </mx:HBox>      
+            <mx:HBox label="Tab 2">
+                <mx:Text text="Text on Tab 2" fontSize="16" color="blue"/>
+            </mx:HBox>          
+            <mx:HBox label="Tab 3">
+                <mx:Text text="Text on Tab 3" fontSize="18" color="green"/>
+            </mx:HBox>          
+            <mx:HBox label="Tab 4">
+                <mx:Text text="Text on Tab 4" fontSize="20" color="purple"/>
+            </mx:HBox>                  
+            
+        </mx:TabNavigator>  
         
-		<!-- Label that displays the current value of the Spark Spinner -->
-		<mx:Label color="purple" text="Current Tab = {mySpinner.value+1}"/>
+        <!-- Label that displays the current value of the Spark Spinner -->
+        <mx:Label color="purple" text="Current Tab = {mySpinner.value+1}"/>
                                                           
-	</mx:Panel>          
+    </mx:Panel>          
 </s:Application> 
