@@ -561,7 +561,8 @@ public class AnimateTransformInstance extends AnimateInstance
     private function updateTransformCenter():void
     {
         if (!transformCenter)
-            transformCenter = new Vector3D();
+            transformCenter = new Vector3D(target.transformX,
+                target.transformY, target.transformZ);
         if (autoCenterTransform)
         {
             transformCenter.x = target.width / 2;
