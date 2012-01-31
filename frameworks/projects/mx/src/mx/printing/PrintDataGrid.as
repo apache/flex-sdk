@@ -233,6 +233,11 @@ use namespace mx_internal;
  *  @includeExample examples/PrintDataGridExample.mxml
  * 
  *  @see FlexPrintJob
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PrintDataGrid extends DataGrid
 {
@@ -252,6 +257,11 @@ public class PrintDataGrid extends DataGrid
      *  interaction.
      *  The default height is 100% of the container height, or the height 
      *  required to display all the dataProvider rows, whichever is smaller.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PrintDataGrid()
     {
@@ -359,6 +369,11 @@ public class PrintDataGrid extends DataGrid
      *  viewable rows and no partial rows. If <code>sizeToPage</code> property 
      *  is <code>true</code>, the value of this property equals 
      *  the <code>height</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get currentPageHeight():Number
     {
@@ -379,6 +394,11 @@ public class PrintDataGrid extends DataGrid
      *  The height of PrintDataGrid as set by the user.
      *  If the <code>sizeToPage</code> property is <code>false</code>,
      *  the value of this property equals the <code>height</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get originalHeight():Number
     {
@@ -392,6 +412,11 @@ public class PrintDataGrid extends DataGrid
     /**
      *  If <code>true</code>, the PrintDataGrid readjusts its height to display
      *  only completely viewable rows.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var sizeToPage:Boolean = true;
 
@@ -405,6 +430,11 @@ public class PrintDataGrid extends DataGrid
      *
      *  @return A Boolean value of <code>true</code> if a set of rows is 
      *  available else <code>false</false>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get validNextPage():Boolean
     {
@@ -500,6 +530,11 @@ public class PrintDataGrid extends DataGrid
      *  Puts the next set of data rows in view;
      *  that is, it sets the PrintDataGrid <code>verticalScrollPosition</code>
      *  property to equal <code>verticalScrollPosition</code> + (number of scrollable rows).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function nextPage():void
     {
