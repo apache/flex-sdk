@@ -21,6 +21,7 @@ import flash.ui.Keyboard;
 
 import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.edit.EditingMode;
+import flashx.textLayout.edit.IEditManager;
 import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.SelectionFormat;
 import flashx.textLayout.elements.IConfiguration;
@@ -101,14 +102,12 @@ public class RichEditableTextContainerManager extends TextContainerManager
         
         var contentBounds:Rectangle = getContentBounds();
         
-        // If autoSize, use the content values rather than the composition
-        // values. The composition values allow room for growth 
-        // (width=maxWidth, height=NaN).
-        if (textDisplay.autoSize)
-        {
+        // If autoSize, one dimension may be NaN to allow room for growth.
+        // If so, use the content value rather than the composition value. 
+        if (isNaN(width))
             width = contentBounds.width;
+        if (isNaN(height))            
             height = contentBounds.height;
-        }
             
         if (scrollX == 0 &&
             scrollY == 0 &&
@@ -231,6 +230,9 @@ public class RichEditableTextContainerManager extends TextContainerManager
             inactiveSelectionColor, 0.0);
     }   
     
+    /**
+     *  @private
+     */
     override public function setText(text:String):void
     {
         textDisplay.ignoreDamageEvent = true;
@@ -239,7 +241,16 @@ public class RichEditableTextContainerManager extends TextContainerManager
         
         textDisplay.ignoreDamageEvent = false;
     }
-    
+
+    /**
+     *  @private
+     */
+    override protected function createEditManager(
+                        undoManager:flashx.undo.IUndoManager):IEditManager
+    {
+        return new RichEditableTextEditManager(undoManager);
+    }
+
     /**
      *  @private
      */
