@@ -966,10 +966,6 @@ public class RichEditableText extends UIComponent
     	if (debug)
      		trace("editingMode = ", value);
 
-        // FIXME (cframpto): TextContainerManager should do this check.
-        if (_textContainerManager.editingMode == value)
-            return;
-
      	_textContainerManager.editingMode = value;
     }
 
@@ -1384,8 +1380,6 @@ public class RichEditableText extends UIComponent
             // Once we have a TextFlow, we can export its plain text.
             _text = staticPlainTextExporter.export(
                 _textFlow, ConversionType.STRING_TYPE) as String;
-            // Remove the trailing paragraph terminator.
-            _text = _text.substring(0, _text.length - 1);
         }
 
         return _text;
@@ -1687,8 +1681,8 @@ public class RichEditableText extends UIComponent
                 // change the displayed text.
                 _text = text;
                 
-                // FIXME (cframpto): if content, should the paragraph terminators be
-                // left in the string so the displayAsPassword string has the
+                // FIXME (cframpto): if content, should the paragraph terminators 
+                // be left in the string so the displayAsPassword string has the
                 // same form as the original string?  This is only an issue
                 // for TextArea.
                 var textToDisplay:String = StringUtil.repeat(
@@ -3101,9 +3095,6 @@ public class RichEditableText extends UIComponent
         // In this case we always maintain _text with the underlying text and
         // display the appropriate number of passwordChars.  If there are any
         // interactive editing operations _text is updated during the operation.
-        // FIXME (cframpto): what about the case where the textContainerManager textFlow
-        // is modified programatically and the text is different?  This could
-        // only be done with an mx_internal interface. 
         if (displayAsPassword)
             return;
                         
