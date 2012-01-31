@@ -105,6 +105,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the user types, deletes, or pastes text into the control.
+ *  No event is dispatched when the user presses the Delete key, or Backspace key.
  *
  *  <p>Even though the default value of the <code>TextEvent.bubbles</code> property 
  *  is <code>true</code>, this control dispatches the event with 
