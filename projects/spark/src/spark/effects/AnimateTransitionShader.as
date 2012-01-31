@@ -30,6 +30,12 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
+/**
+ *  The AnimateTransitionShader effect uses Pixel Bender, 
+ *  which is not supported for AIR mobile applications.
+ */
+[DiscouragedForProfile("mobileDevice")]
+
 [ResourceBundle("sparkEffects")]
 
 /**
