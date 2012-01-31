@@ -19,6 +19,8 @@ import spark.effects.AnimateFilter;
  * The AnimateFilterInstance class implements the instance class for the
  * AnimateFilter effect. Flex creates an instance of this class when
  * it plays a AnimateFilter effect; you do not create one yourself.
+ *
+ *  @see spark.effects.AnimateFilter
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -34,7 +36,9 @@ public class AnimateFilterInstance extends AnimateInstance
     //--------------------------------------------------------------------------
     
     /**
-     *  Constructor. 
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -57,7 +61,7 @@ public class AnimateFilterInstance extends AnimateInstance
     //----------------------------------
     
     /**
-     * IBitmapFilter instance to apply and animate.
+     *  @copy spark.effects.AnimateFilter#bitmapFilter
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -86,7 +90,7 @@ public class AnimateFilterInstance extends AnimateInstance
     
     
     /**
-     *  @copy mx.effects.IEffectInstance#finishEffect()
+     * @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
