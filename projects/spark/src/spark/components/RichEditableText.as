@@ -309,6 +309,18 @@ public class RichEditableText extends UIComponent implements IViewport
 
     /**
      *  @private
+     *  If the embeddedFontContext changed
+     */
+    private var embeddedFontContextChanged:Boolean;
+
+    /**
+     *  @private
+     *  True if we need to compute the fontLookup
+     */
+    private var autoFontLookup:Boolean = false;
+
+    /**
+     *  @private
      */
     private var textFlow:TextFlow;
             
@@ -1424,13 +1436,19 @@ public class RichEditableText extends UIComponent implements IViewport
             // Create/modify TextFlow for the current text.
             _content = textFlow = createTextFlow();
 
-            // Tell it where to create its TextLines.
-            if (textChanged || contentChanged)
+            if (embeddedFontContextChanged)
             {
+                embeddedFontContextChanged = false;
+
                 if (embeddedFontContext)
                     textFlow.flowComposer.textLineCreator = ITextLineCreator(embeddedFontContext);
                 else
                     textFlow.flowComposer.textLineCreator = new TextLineCreator();
+            }
+
+            // Tell it where to create its TextLines.
+            if (textChanged || contentChanged)
+            {
                 textFlow.flowComposer.addControllerAt(
                     new DisplayObjectContainerController(this), 0);
                 // Set scroll policy appropriately.
@@ -1936,33 +1954,18 @@ public class RichEditableText extends UIComponent implements IViewport
         p.replaceChildren(0, 0, span);
         return textFlow;
     }
-    
-    /**
-     *  @private
-     */
-    private function setHostTextLayoutFormat(styleProp:String):void
+
+    private function checkEmbeddedFontContext():void
     {
-        var checkForEmbed:Boolean = false;
+        var embeddedFont:EmbeddedFont = getEmbeddedFont(
+            hostTextLayoutFormat.fontFamily, 
+            hostTextLayoutFormat.fontWeight == "bold", 
+            hostTextLayoutFormat.fontStyle == "italic");
+        
+        var oldEmbeddedFontContext:IFlexModuleFactory = embeddedFontContext;
 
-        if (styleProp in hostTextLayoutFormat)
+        if (autoFontLookup)
         {
-            var value:* = getStyle(styleProp);
-
-            if (styleProp == "tabStops" && value === undefined)
-                value = [];
-
-            if (styleProp == "fontLookup" && value == "auto")
-                checkForEmbed = true;
-            else
-                hostTextLayoutFormat[styleProp] = value;
-        }      
-        if (checkForEmbed)
-        {
-            var embeddedFont:EmbeddedFont = getEmbeddedFont(
-                hostTextLayoutFormat.fontFamily, 
-                hostTextLayoutFormat.fontWeight == "bold", 
-                hostTextLayoutFormat.fontStyle == "italic");
-            
             embeddedFontContext = 
                 embeddedFontRegistry.getAssociatedModuleFactory(
                     embeddedFont, moduleFactory);
@@ -1985,6 +1988,10 @@ public class RichEditableText extends UIComponent implements IViewport
                 {
                     hostTextLayoutFormat.fontLookup = FontLookup.EMBEDDED_CFF;
                 }
+                else
+                {
+                    hostTextLayoutFormat.fontLookup = FontLookup.DEVICE;
+                }
             }
         }
         else
@@ -1994,6 +2001,36 @@ public class RichEditableText extends UIComponent implements IViewport
             else
                 embeddedFontContext = null;
         }
+        // force us to re-create the textline factory
+        if (oldEmbeddedFontContext != embeddedFontContext)
+            embeddedFontContextChanged = true;
+    }
+
+    /**
+     *  @private
+     */
+    private function setHostTextLayoutFormat(styleProp:String):void
+    {
+        if (styleProp in hostTextLayoutFormat)
+        {
+            var value:* = getStyle(styleProp);
+
+            if (styleProp == "tabStops" && value === undefined)
+                value = [];
+
+            if (styleProp == "fontLookup")
+            {
+                if (value == "auto")
+                    autoFontLookup = true;
+                else
+                {
+                    autoFontLookup = false;
+                    hostTextLayoutFormat[styleProp] = value;
+                }
+            }
+            else
+                hostTextLayoutFormat[styleProp] = value;
+        }      
     }
 
     /**
@@ -2167,6 +2204,7 @@ public class RichEditableText extends UIComponent implements IViewport
             hostTextLayoutFormatInvalid = false;
         }
 
+        checkEmbeddedFontContext();
         textFlow.hostFormat = new TextLayoutFormat(hostTextLayoutFormat);
         
         return textFlow;
