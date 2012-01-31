@@ -466,13 +466,13 @@ public class DataGrid extends GridContainerBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function setSelectedIndices(startRowIndex:int, endRowIndex:int):Boolean
+    public function selectIndices(startRowIndex:int, endRowIndex:int):Boolean
     {
         var selectionChanged:Boolean;
         
         if (grid)
         {
-            selectionChanged = grid.setSelectedIndices(startRowIndex, endRowIndex);
+            selectionChanged = grid.selectIndices(startRowIndex, endRowIndex);
         }
         else
         {
