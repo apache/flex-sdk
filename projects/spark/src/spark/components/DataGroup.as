@@ -1113,7 +1113,7 @@ public class DataGroup extends GroupBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function getVirtualElementAt(index:int):IVisualElement
+    override public function getVirtualElementAt(index:int, eltWidth:Number=NaN, eltHeight:Number=NaN):IVisualElement
     {
         if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
             return null;
@@ -1161,6 +1161,7 @@ public class DataGroup extends GroupBase
             
             if (createdIR || recycledIR) 
             {
+                elt.setLayoutBoundsSize(eltWidth, eltHeight);
                 updateRenderer(elt, item);
                 if (elt is IInvalidating)
                     IInvalidating(elt).validateNow();
