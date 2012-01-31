@@ -135,6 +135,7 @@ public class AnimateTransform3D extends AnimateTransform
         return super.applyChangesPostLayout;
     }
 
+    private var _applyLocalProjection:Boolean = true;
     /**
      *  If <code>true</code>, the effect creates a perspective projection 
      *  using the other projection-related properties in the effect
@@ -151,7 +152,6 @@ public class AnimateTransform3D extends AnimateTransform
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    private var _applyLocalProjection:Boolean = true;
     public function get applyLocalProjection():Boolean
     {
         return _applyLocalProjection;
