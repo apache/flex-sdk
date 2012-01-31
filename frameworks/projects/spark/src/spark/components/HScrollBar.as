@@ -12,7 +12,7 @@
 package spark.components
 {
 import spark.components.supportClasses.ScrollBar;
-import spark.core.ScrollUnit;
+import spark.core.NavigationUnit;
 import spark.core.IViewport;
 import mx.core.ILayoutElement;
 import mx.events.PropertyChangeEvent;
@@ -243,7 +243,7 @@ public class HScrollBar extends ScrollBar
             // implementation.
             oldPageSize = pageSize;
             pageSize = Math.abs(viewport.getHorizontalScrollPositionDelta(
-                (increase) ? ScrollUnit.PAGE_RIGHT : ScrollUnit.PAGE_LEFT));
+                (increase) ? NavigationUnit.PAGE_RIGHT : NavigationUnit.PAGE_LEFT));
         }
         super.page(increase);
         if (viewport)
@@ -258,7 +258,7 @@ public class HScrollBar extends ScrollBar
         if (viewport)
         {
             var vpPageSize:Number = Math.abs(viewport.getHorizontalScrollPositionDelta(
-                (newValue > value) ? ScrollUnit.PAGE_RIGHT : ScrollUnit.PAGE_LEFT));
+                (newValue > value) ? NavigationUnit.PAGE_RIGHT : NavigationUnit.PAGE_LEFT));
             super.animatePaging(newValue, vpPageSize);
             return;
         }        
@@ -306,7 +306,7 @@ public class HScrollBar extends ScrollBar
             // implementation.
             oldStepSize = stepSize;
             stepSize = Math.abs(viewport.getHorizontalScrollPositionDelta(
-                (increase) ? ScrollUnit.RIGHT : ScrollUnit.LEFT));
+                (increase) ? NavigationUnit.RIGHT : NavigationUnit.LEFT));
         }
         super.step(increase);
         if (viewport)
