@@ -342,14 +342,23 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Methods
+    //  Methods - ItemRenderer State Support 
     //
     //--------------------------------------------------------------------------
-    
     /**
-     *  @private
-     *  Return the skin state. This can be overridden by subclasses to add more states.
-     *  NOTE: Undocumented for now since DataRenderer class has not been fleshed out.
+     *  Returns the name of the state to be applied to the renderer. For example, a
+     *  very basic List item renderer would return the String "normal", "hovered", 
+     *  or "selected" to specify the renderer's state. 
+     * 
+     *  <p>A subclass of ItemRenderer must override this method to return a value 
+     *  if the behavior desired differs from the default behavior.</p>
+     * 
+     *  @return A String specifying the name of the state to apply to the renderer. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function getCurrentRendererState():String
     {
