@@ -35,7 +35,6 @@ import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import mx.graphics.SolidColor;
 import mx.managers.IFocusManagerComponent;
-import mx.utils.EventUtil;
 import mx.utils.MatrixUtil;
 
 import spark.components.Button;
@@ -237,10 +236,7 @@ public class Grid extends Group
         overlayGroup.layout = new NullLayout();
         addElement(overlayGroup);        
         
-        EventUtil.addDownDragUpListeners(this, 
-                                        grid_mouseDownDragUpHandler, 
-                                        grid_mouseDownDragUpHandler, 
-                                        grid_mouseDownDragUpHandler);
+        addDownDragUpHandler(this, grid_mouseDownDragUpHandler);
         addEventListener(MouseEvent.MOUSE_MOVE, grid_mouseMoveHandler);
         addEventListener(MouseEvent.ROLL_OUT, grid_mouseRollOutHandler);
         addEventListener(MouseEvent.CLICK, grid_clickHandler);
@@ -2304,7 +2300,59 @@ public class Grid extends Group
                 e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown, e.delta);
         e.target.dispatchEvent(cancelableEvent);               
     }
-            
+    
+    /**
+     *  @private
+     */
+    private static function addDownDragUpHandler(target:UIComponent, handler:Function):void
+    {
+        var f:Function = function(e:Event):void 
+        {
+            var sbr:IEventDispatcher;
+            switch(e.type)
+            {
+                case MouseEvent.MOUSE_DOWN:
+                    if (e.isDefaultPrevented())
+                        break;
+                    handler(e);
+                    sbr = target.systemManager.getSandboxRoot();
+                    sbr.addEventListener(MouseEvent.MOUSE_MOVE, f, true);
+                    sbr.addEventListener(MouseEvent.MOUSE_UP, f, true );
+                    sbr.addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, f, true); 
+                    break;
+                case MouseEvent.MOUSE_MOVE:
+                    handler(e);
+                    break;
+                case MouseEvent.MOUSE_UP:
+                    handler(e);
+                    sbr = target.systemManager.getSandboxRoot(); 
+                    sbr.removeEventListener(MouseEvent.MOUSE_MOVE, f, true);
+                    sbr.removeEventListener(MouseEvent.MOUSE_UP, f, true);
+                    sbr.removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, f, true); 
+                    break;
+                case "removeHandler":
+                    target.removeEventListener("removeHandler", f);            
+                    target.removeEventListener(MouseEvent.MOUSE_DOWN, f);
+                    sbr = target.systemManager.getSandboxRoot();
+                    sbr.removeEventListener(MouseEvent.MOUSE_MOVE, f, true);
+                    sbr.removeEventListener(MouseEvent.MOUSE_UP, f, true);
+                    sbr.removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, f, true); 
+                    break;
+            }
+        }
+        target.addEventListener(MouseEvent.MOUSE_DOWN, f);
+        target.addEventListener("removeHandler", f);
+    }
+    
+    /**
+     *  @private
+     */
+    private static function removeDownDragUpHandler(target:UIComponent, handler:Function):void
+    {
+        target.dispatchEvent(new RemoveHandlerEvent(handler));
+    }
+    
+    
     //--------------------------------------------------------------------------
     //
     //  IList listeners: columns, dataProvider
@@ -2454,6 +2502,16 @@ public class Grid extends Group
 }
 
 import spark.layouts.supportClasses.LayoutBase;
+
+class RemoveHandlerEvent extends flash.events.Event
+{
+    public var handler:Function;
+    public function RemoveHandlerEvent(handler:Function)
+    {
+        this.handler = handler;
+        super("removeHandler");
+    }
+}
 
 class NullLayout extends LayoutBase
 {
