@@ -26,6 +26,11 @@ import mx.layout.HorizontalLayout;
  * The layout property should not be set or configured directly.
  * 
  * @see mx.layout.HorizontalLayout
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class HGroup extends Group
 {
@@ -39,6 +44,11 @@ public class HGroup extends Group
      * 
      *  @see mx.layout.HorizontalLayout
      *  @see mx.components.VGroup
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */  
     public function HGroup():void
     {
@@ -63,6 +73,11 @@ public class HGroup extends Group
 
     /**
      * @copy mx.layout.HorizontalLayout#gap
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get gap():int
     {
@@ -85,6 +100,11 @@ public class HGroup extends Group
         
     /**
      * @copy mx.layout.HorizontalLayout#columnCount
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get columnCount():int
     {
@@ -97,6 +117,11 @@ public class HGroup extends Group
 
     /**
      * @copy mx.layout.HorizontalLayout#requestedColumnCount
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get requestedColumnCount():int
     {
@@ -119,6 +144,11 @@ public class HGroup extends Group
 
     /**
      * @copy mx.layout.HorizontalLayout#columnWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get columnWidth():Number
     {
@@ -141,6 +171,11 @@ public class HGroup extends Group
 
     /**
      * @copy mx.layout.HorizontalLayout#variableColumnWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get variableColumnWidth():Boolean
     {
@@ -161,6 +196,11 @@ public class HGroup extends Group
 
     /**
      * @copy mx.layout.HorizontalLayout#verticalAlign
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get verticalAlign():String
     {
@@ -183,6 +223,11 @@ public class HGroup extends Group
 
     /**
      * @copy mx.layout.HorizontalLayout#firstIndexInView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get firstIndexInView():int
     {
@@ -197,6 +242,11 @@ public class HGroup extends Group
 
     /**
      * @copy mx.layout.HorizontalLayout#lastIndexInView
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get lastIndexInView():int
     {
