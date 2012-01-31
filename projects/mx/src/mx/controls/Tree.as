@@ -227,7 +227,8 @@ include "../styles/metadata/PaddingStyles.as";
 /**
  *  Length of an open or close transition, in milliseconds.
  *
- *  @default 250
+ *  The default value for the Halo theme is <code>250</code>.
+ *  The default value for the Spark theme is <code>0</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -251,7 +252,8 @@ include "../styles/metadata/PaddingStyles.as";
 /**
  *  Color of the background when the user rolls over the link.
  *
- *  @default undefined
+ *  The default value for the Halo theme is <code>0xB2E1FF</code>.
+ *  The default value for the Spark theme is <code>0xCEDBEF</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -263,7 +265,8 @@ include "../styles/metadata/PaddingStyles.as";
 /**
  *  Color of the background when the user selects the link.
  *
- *  @default undefined
+ *  The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -276,7 +279,6 @@ include "../styles/metadata/PaddingStyles.as";
  *  Specifies the disabled color of a list item.
  *
  *  @default 0xDDDDDD
- *
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -300,7 +302,8 @@ include "../styles/metadata/PaddingStyles.as";
 /**
  *  Color of the text when the user rolls over a row.
  *
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -312,7 +315,8 @@ include "../styles/metadata/PaddingStyles.as";
 /**
  *  Color of the text when the user selects a row.
  *
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
