@@ -64,7 +64,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="focusAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
@@ -76,7 +76,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  Class or instance to use as the default icon.
@@ -109,7 +109,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="iconPlacement", type="String", enumeration="top,bottom,right,left", inherit="no", theme="spark")]
+[Style(name="iconPlacement", type="String", enumeration="top,bottom,right,left", inherit="no", theme="spark, mobile")]
 
 /**
  *  When there is a touchDelay, and the touch interaction is complete (user mouseUp) before 
