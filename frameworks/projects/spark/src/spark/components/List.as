@@ -319,14 +319,14 @@ public class List extends ListBase implements IFocusManagerComponent
      *  Used to track whether a drag operation should be initiated when the user
      *  drags further than a certain threshold. 
      */
-    private var mouseDownPoint:Point;
+    mx_internal var mouseDownPoint:Point;
 
     /**
      *  @private
      *  The index of the element the mouse down event was received for. Used to
      *  track which is the "focus item" for a drag and drop operation.
      */
-    private var mouseDownIndex:int = -1;
+    mx_internal var mouseDownIndex:int = -1;
     
     /**
      *  @private
@@ -335,17 +335,17 @@ public class List extends ListBase implements IFocusManagerComponent
      *  intended to start a drag gesture instead. In that case we postpone
      *  comitting the selection until mouse up.
      */
-    private var pendingSelectionOnMouseUp:Boolean = false;
+    mx_internal var pendingSelectionOnMouseUp:Boolean = false;
 
     /**
      *  @private
      */
-    private var pendingSelectionShiftKey:Boolean;
+    mx_internal var pendingSelectionShiftKey:Boolean;
 
     /**
      *  @private
      */
-    private var pendingSelectionCtrlKey:Boolean;
+    mx_internal var pendingSelectionCtrlKey:Boolean;
     
     /**
      *  @private
@@ -1153,11 +1153,21 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
-     *  @private
-     *  Taking into account which modifier keys were clicked, the new
-     *  selectedIndices interval is calculated. 
+     *  Helper method to calculate how the current selection changes when an item is clicked.
+     *
+     *  @param index The index of the item that has been clicked.
+     *  @param shiftKey True when the shift key is pressed.
+     *  @param ctrlKey True when the control key is pressed.
+     *  @return The updated item indices that the new selection will be committed to.
+     * 
+     *  @see #selectedIndices
+     *   
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    private function calculateSelectedIndicesInterval(index:int, shiftKey:Boolean, ctrlKey:Boolean):Vector.<int>
+    protected function calculateSelectedIndices(index:int, shiftKey:Boolean, ctrlKey:Boolean):Vector.<int>
     {
         var i:int; 
         var interval:Vector.<int> = new Vector.<int>();  
@@ -1456,7 +1466,7 @@ public class List extends ListBase implements IFocusManagerComponent
             }
             else
             {
-                selectedIndices = calculateSelectedIndicesInterval(newIndex, event.shiftKey, event.ctrlKey);
+                selectedIndices = calculateSelectedIndices(newIndex, event.shiftKey, event.ctrlKey);
             }
         }
         
@@ -1544,7 +1554,7 @@ public class List extends ListBase implements IFocusManagerComponent
         {
             if (allowMultipleSelection)
             {
-                selectedIndices = calculateSelectedIndicesInterval(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
+                selectedIndices = calculateSelectedIndices(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
             }
             else
             {
