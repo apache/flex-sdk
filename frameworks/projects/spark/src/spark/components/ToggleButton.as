@@ -28,26 +28,51 @@ import mx.utils.BitFlagUtil;
  *  user interacts with the control by using the mouse.
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="change", type="flash.events.Event")]
 
 /**
  *  Up State of the Button when it's selected
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("upAndSelected")]
 
 /**
  *  Over State of the Button when it's selected
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("overAndSelected")]
 
 /**
  *  Down State of the Button when it's selected
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("downAndSelected")]
 
 /**
  *  Disabled State of the Button when it's selected
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [SkinState("disabledAndSelected")]
 
@@ -67,6 +92,11 @@ import mx.utils.BitFlagUtil;
  *  by using the <code>selected</code> property.</p>
  *
  *  @includeExample examples/FxToggleButtonExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxToggleButton extends FxButton implements ISelectableRenderer
 {
@@ -80,6 +110,11 @@ public class FxToggleButton extends FxButton implements ISelectableRenderer
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function FxToggleButton()
     {
@@ -117,6 +152,11 @@ public class FxToggleButton extends FxButton implements ISelectableRenderer
     /**
      *  <code>true</code> if the button can be set to
 	 *  <code>selected = false</code>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get allowDeselection():Boolean
     {
@@ -139,6 +179,11 @@ public class FxToggleButton extends FxButton implements ISelectableRenderer
     /**
      *  <code>true</code> if the button is in the down state, 
      *  and <code>false</code> if it is in the up state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get selected():Boolean
     {
@@ -162,6 +207,11 @@ public class FxToggleButton extends FxButton implements ISelectableRenderer
     /**
      *  <code>true</code> if the button should display
      *  as if it has focus even if it doesn't.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get showFocusIndicator():Boolean
     {
