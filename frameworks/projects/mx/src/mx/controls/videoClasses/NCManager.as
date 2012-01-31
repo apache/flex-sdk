@@ -47,6 +47,11 @@ public class NCManager implements INCManager
      *  Default connection timeout in milliseconds.
      *
      *  @see #timeout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DEFAULT_TIMEOUT:Number = 60000;
 
@@ -116,6 +121,11 @@ public class NCManager implements INCManager
      * <p>The second way is the user can directly set this by
      * accessing the ncMgr property in FLVPlayback or VideoPlayer and
      * set fallbackServerName property directly.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var fallbackServerName:String;
     
@@ -245,6 +255,11 @@ public class NCManager implements INCManager
 
     /*
      *  @see INCManager#timeout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get timeout():uint 
 	{
@@ -273,6 +288,11 @@ public class NCManager implements INCManager
      *  not value set via bitrate.
      *
      *  @see INCManager#bitrate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bitrate():Number 
 	{
@@ -284,6 +304,11 @@ public class NCManager implements INCManager
      *  RTMP streaming uses autodetection.
      *
      *  @see INCManager#bitrate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set bitrate(b:Number):void 
 	{
@@ -297,6 +322,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManager#videoPlayer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get videoPlayer():VideoPlayer 
 	{
@@ -322,6 +352,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManagernetConnection
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get netConnection():NetConnection 
 	{
@@ -340,6 +375,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManager#streamName
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get streamName():String 
 	{
@@ -358,6 +398,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManager#streamLength
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get streamLength():Number 
 	{
@@ -376,6 +421,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManager#streamWidth
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get streamWidth():Number 
 	{
@@ -394,6 +444,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManager#streamHeight
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get streamHeight():Number 
 	{
@@ -408,6 +463,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManager#isRTMP
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function isRTMP():Boolean
     {
@@ -416,6 +476,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManager#connectToURL()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function connectToURL(url:String):Boolean
     {
@@ -459,6 +524,11 @@ public class NCManager implements INCManager
 
 	/**
 	 *  @see INCManager#connectAgain()
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function connectAgain():Boolean
 	{
@@ -493,6 +563,11 @@ public class NCManager implements INCManager
 	
     /**
      * INCManager#reconnect
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function reconnect():void
     {
@@ -510,6 +585,11 @@ public class NCManager implements INCManager
 
     /**
      *  @see INCManager#close
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function close():void
     {
