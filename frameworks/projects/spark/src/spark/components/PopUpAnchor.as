@@ -373,19 +373,19 @@ public class PopUpAnchor extends UIComponent
 				switch(adjustedPosition)
 				{
 					case RelativePosition.BELOW :
-						if (popUpBounds.bottom > screen.bottom)
+						if (adjustedBounds.bottom > screen.bottom)
 							adjustedPosition = null; 
 						break;
 					case RelativePosition.ABOVE :
-						if (popUpBounds.top < screen.top)
+						if (adjustedBounds.top < screen.top)
 							adjustedPosition = null; 
 						break;
 					case RelativePosition.LEFT :
-						if (popUpBounds.left < screen.left)
+						if (adjustedBounds.left < screen.left)
 							adjustedPosition = null; 
 						break;
 					case RelativePosition.RIGHT :
-						if (popUpBounds.right > screen.right)
+						if (adjustedBounds.right > screen.right)
 							adjustedPosition = null;  
 						break;
 				}	
@@ -540,25 +540,6 @@ public class PopUpAnchor extends UIComponent
 		
 		// apply the color transformation
 		popUp.transform.colorTransform = $transform.concatenatedColorTransform
-	}
-	
-	/**
-	 *  @private 
-	 *  TODO (jszeto) Remove
-	 */ 
-	private function traceTransform(targ:UIComponent):void
-	{
-		var p:DisplayObject = targ;
-		
-		while (p)
-		{
-			var m:Matrix = p is UIComponent ? UIComponent(p).$transform.matrix : p.transform.matrix;
-			var concatM:Matrix = p is UIComponent ? UIComponent(p).$transform.concatenatedMatrix : p.transform.concatenatedMatrix;
-			
-			trace(p,"matrix:",m,"concatenatedMatrix:",concatM);
-			
-			p = p.parent;
-		}
 	}
 	
 	//--------------------------------------------------------------------------
