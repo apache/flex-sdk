@@ -28,16 +28,6 @@ package spark.effects.interpolation
 public interface IInterpolator
 {
     /**
-     *  The data type that an implementation class can process.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    function get interpolatedType():Class;
-    
-    /**
      *  Given an elapsed fraction of an animation, between 0.0 and 1.0,
      *  and start and end values to interpolate, return the interpolated value.
      *
