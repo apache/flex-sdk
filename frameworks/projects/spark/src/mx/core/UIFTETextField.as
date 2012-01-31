@@ -703,8 +703,8 @@ public class UIFTETextField extends FTETextField
 
     /**
      *  A reference to the document object associated with this UITextField object. 
-     *  A document object is an Object at the top of the hierarchy of a Flex application, 
-     *  MXML component, or AS component.
+     *  A document object is an Object at the top of the hierarchy of an application, 
+     *  MXML component, or ActionScript component.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -845,8 +845,8 @@ public class UIFTETextField extends FTETextField
 
     /**
      *  Number that specifies the maximum width of the component, 
-     *  in pixels, in the component's coordinates, if the maxWidth property
-     *  is set. Because maxWidth is read-only, this method returns NaN. 
+     *  in pixels, in the component's coordinates, if the <code>maxWidth</code> property
+     *  is set. Because the <code>maxWidth</code> property is read-only, this method returns <code>NaN</code>. 
      *  You must override this method and add a setter to use this
      *  property.
      *  
@@ -1086,7 +1086,7 @@ public class UIFTETextField extends FTETextField
     /**
      *  The beginning of this UITextField's chain of inheriting styles.
      *  The <code>getStyle()</code> method accesses
-     *  <code>inheritingStyles[styleName]</code> to search the entire
+     *  <code>inheritingStyles[<i>styleName</i>]</code> to search the entire
      *  prototype-linked chain.
      *  This object is set up by the <code>initProtoChain()</code> method.
      *  You typically never need to access this property directly.
@@ -1121,7 +1121,7 @@ public class UIFTETextField extends FTETextField
 
     /**
      *  A flag that determines if an object has been through all three phases
-     *  of layout validation (provided that any were required)
+     *  of layout validation (provided that any were required).
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1631,10 +1631,9 @@ public class UIFTETextField extends FTETextField
     //----------------------------------
 
     /**
-     *  Unlike textHeight, this returns a non-zero value
-     *  even when the text is empty.
-     *  In this case, it returns what the textHeight would be
-     *  if the text weren't empty.
+     *  The height of the text, in pixels. Unlike the <code>textHeight</code> property,
+     *  the <code>nonZeroTextHeight</code> property returns a non-zero value of what the 
+     *  height of the text would be, even if the text is empty.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1985,9 +1984,9 @@ public class UIFTETextField extends FTETextField
      *  Does nothing.
      *  A UITextField cannot have inline styles.
      *
-     *  @param styleProp Name of the style property.
+     *  @param styleProp n/a
      *
-     *  @param newValue New value for the style.
+     *  @param newValue n/a
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
