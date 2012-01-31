@@ -66,7 +66,7 @@ import spark.components.supportClasses.Slider;
  *  <p>The <code>&lt;HSlider&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds no tag attributes:</p>
  *  <pre>
- *  &lt;HSlider/&gt;
+ *  &lt;s:HSlider/&gt;
  *  </pre>
  *
  *  @see spark.skins.spark.HSliderSkin
@@ -142,31 +142,31 @@ public class HSlider extends Slider
      */
     override protected function updateDataTip(dataTipInstance:IDataRenderer, initialPosition:Point):void
     {
-    	var tipAsDisplayObject:DisplayObject = dataTipInstance as DisplayObject;
-    	
-    	if (tipAsDisplayObject && thumb)
-    	{
-			var relX:Number = thumb.getLayoutBoundsX() - 
-								(tipAsDisplayObject.width - thumb.getLayoutBoundsWidth()) / 2;
-	        var o:Point = new Point(relX, initialPosition.y);
-	        var r:Point = localToGlobal(o);     
-			
-			// Get the screen bounds
-			var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
-			// Get the tips bounds. We only care about the dimensions.
-			var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
-			
-			// Make sure the tip doesn't exceed the bounds of the screen
-			r.x = Math.floor( Math.max(screenBounds.left, 
-							  	Math.min(screenBounds.right - tipBounds.width, r.x)));
-			r.y = Math.floor( Math.max(screenBounds.top, 
-								Math.min(screenBounds.bottom - tipBounds.height, r.y)));
-			
-			r = tipAsDisplayObject.parent.globalToLocal(r);
-			
-        	tipAsDisplayObject.x = r.x;
-        	tipAsDisplayObject.y = r.y;
-    	}
+        var tipAsDisplayObject:DisplayObject = dataTipInstance as DisplayObject;
+        
+        if (tipAsDisplayObject && thumb)
+        {
+            var relX:Number = thumb.getLayoutBoundsX() - 
+                                (tipAsDisplayObject.width - thumb.getLayoutBoundsWidth()) / 2;
+            var o:Point = new Point(relX, initialPosition.y);
+            var r:Point = localToGlobal(o);     
+            
+            // Get the screen bounds
+            var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
+            // Get the tips bounds. We only care about the dimensions.
+            var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
+            
+            // Make sure the tip doesn't exceed the bounds of the screen
+            r.x = Math.floor( Math.max(screenBounds.left, 
+                                Math.min(screenBounds.right - tipBounds.width, r.x)));
+            r.y = Math.floor( Math.max(screenBounds.top, 
+                                Math.min(screenBounds.bottom - tipBounds.height, r.y)));
+            
+            r = tipAsDisplayObject.parent.globalToLocal(r);
+            
+            tipAsDisplayObject.x = r.x;
+            tipAsDisplayObject.y = r.y;
+        }
     }
 }
 
