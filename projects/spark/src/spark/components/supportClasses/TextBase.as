@@ -271,6 +271,16 @@ public class TextGraphicElement extends GraphicElement
     }
 
     //----------------------------------
+    //  maxWidth
+    //----------------------------------
+
+    override public function get maxWidth():Number
+    {
+        return !isNaN(_maxWidth) ? _maxWidth : 
+                UIComponent.DEFAULT_MEASURED_WIDTH;      // 160 not 10000
+    }
+
+    //----------------------------------
     //  visible
     //----------------------------------
     
