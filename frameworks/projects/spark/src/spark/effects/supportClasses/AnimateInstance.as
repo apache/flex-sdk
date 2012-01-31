@@ -158,6 +158,20 @@ public class FxAnimateInstance extends EffectInstance
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  playheadTime
+    //----------------------------------
+    
+    /**
+     *  @copy mx.effects.IEffectInstance#playheadTime
+     */
+    override public function get playheadTime():Number 
+    {
+        if (animation)
+            return animation.elapsedTime;
+        return 0;
+    }
+
     /**
      *  @private
      */
@@ -210,10 +224,10 @@ public class FxAnimateInstance extends EffectInstance
      *  @param playheadTime The position, in milliseconds, between 0
      *  and the value of the <code>duration</code> property.
      */
-    public function seek(playheadTime:Number):void
+    override public function seek(playheadTime:Number):void
     {
         if (animation)
-            animation.seek(playheadTime);
+            animation.seek(playheadTime, true);
         else
             _seekTime = playheadTime;
     } 
