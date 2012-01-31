@@ -28,7 +28,8 @@ use namespace mx_internal;
  *  The SliderThumb class can only be used within the context
  *  of a Slider control.
  *  You can create a subclass of the SliderThumb class,
- *  and use it with a Slider control by setting the <code>thumbClass</code>
+ *  and use it with a Slider control by setting the 
+ *  <code>sliderThumbClass</code>
  *  property of the Slider control to your subclass. 
  *  		
  *  @see mx.controls.HSlider
