@@ -103,10 +103,8 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             // translate these colors into uints
             StyleManager.getColorNames(alternatingColors);
             
-            if (parent is DataGroup)
-                idx = DataGroup(parent).dataProvider.getItemIndex(data);
-            else if (parent is Group)
-                idx = Group(parent).getElementIndex(this);
+            if (parent is GroupBase)
+                idx = GroupBase(parent).getElementIndex(this);
             else
                 idx = parent.getChildIndex(this);
              
