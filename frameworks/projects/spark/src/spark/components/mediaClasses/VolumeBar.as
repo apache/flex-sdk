@@ -320,10 +320,7 @@ public class VolumeBar extends VSlider
      */
     override public function get baselinePosition():Number
     {
-        if (muteButton)
-            return muteButton.baselinePosition;
-        else
-            return NaN;
+        return getBaselinePositionForPart(muteButton);
     }
     
     //--------------------------------------------------------------------------
