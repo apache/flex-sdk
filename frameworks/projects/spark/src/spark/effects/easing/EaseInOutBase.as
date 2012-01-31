@@ -59,11 +59,11 @@ public class EaseInOut implements IEaser
     /**
      * Storage for the _easeInFraction property
      */
-    private var _easeInFraction:Number;
+    private var _easeInFraction:Number = .5;
     
     /**
-     * The percentage of an animation that should be spent accelerating
-     * according to the power formula. This factor sets an implicit
+     * The percentage of an animation that should be spent accelerating. 
+     * This factor sets an implicit
      * "easeOut" parameter, equal to (1 - easeIn), so that any time not
      * spent easing in is spent easing out. For example, to have an easing
      * equation that spends half the time easing in and half easing out,
