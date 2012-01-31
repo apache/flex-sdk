@@ -143,7 +143,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *    layout="BasicLayout"
  *    mask=""
  *    maskType="clip"
- *    resizeMode="normal"
+ *    resizeMode="noScale"
  *    verticalScrollPosition="no default"
  *  
  *    <strong>Events</strong>
@@ -612,59 +612,18 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
     //  resizeMode
     //----------------------------------
-    private static const _NORMAL_UINT:uint = 0;
-    private static const _SCALE_UINT:uint = 1;
-    private var _resizeMode:uint = _NORMAL_UINT;
-
-    /**
-     *  Converts from the <code>String</code> to the <code>uint</code>
-     *  representation of the enumeration value.
-     *
-     *  @param value The String representation of the enumeration.
-     *
-     *  @return The uint value corresponding to the String.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    private static function resizeModeToUINT(value:String):uint
-    {
-        if (value == ResizeMode.SCALE)
-            return _SCALE_UINT;
-        return _NORMAL_UINT;
-    }
-
-    /**
-     *  Converts from the <code>uint</code> to the <code>String</code>
-     *  representation of the enumeration values.
-     *
-     *  @param value The uint value of the enumeration. 
-     *
-     *  @return The String corresponding to the uint value.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    private static function resizeModeToString(value:uint):String
-    {
-        if (value == _SCALE_UINT)
-            return ResizeMode.SCALE;
-        return ResizeMode.NORMAL;
-    }
     
+    private var _resizeMode:String = ResizeMode.NOSCALE; 
+
     /**
      *  The ResizeMode for this container. If the resize mode
-     *  is set to <code>ResizeMode.NORMAL</code>, resizing is done by laying 
+     *  is set to <code>ResizeMode.NOSCALE</code>, resizing is done by laying 
      *  out the children with the new width and height. If the 
      *  resize mode is set to <code>ResizeMode.SCALE</code>, all of the children 
      *  keep their unscaled width and height and the children 
      *  are scaled to change size.
      * 
-     * <p>The default value is <code>ResizeMode.NORMAL</code>, corresponding to "normal".</p>
+     * <p>The default value is <code>ResizeMode.NOSCALE</code>, corresponding to "noScale".</p>
      * 
      * @see spark.components.ResizeMode
      *  
@@ -675,17 +634,16 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function get resizeMode():String
     {
-        return resizeModeToString(_resizeMode);
+        return _resizeMode; 
     }
     
-    public function set resizeMode(stringValue:String):void
+    public function set resizeMode(value:String):void
     {
-        var value:uint = resizeModeToUINT(stringValue); 
         if (_resizeMode == value)
             return;
 
         // If old value was scale, reset it            
-        if (_resizeMode == _SCALE_UINT)
+        if (_resizeMode == ResizeMode.SCALE)
             setStretchXY(1, 1);
 
         _resizeMode = value;
@@ -754,8 +712,8 @@ public class GroupBase extends UIComponent implements IViewport
         if (!_mouseEnabledWhereTransparent || !_hasMouseListeners)
             return;
         
-        var w:Number = (_resizeMode == _SCALE_UINT) ? measuredWidth : unscaledWidth;
-        var h:Number = (_resizeMode == _SCALE_UINT) ? measuredHeight : unscaledHeight;
+        var w:Number = (_resizeMode == ResizeMode.SCALE) ? measuredWidth : unscaledWidth;
+        var h:Number = (_resizeMode == ResizeMode.SCALE) ? measuredHeight : unscaledHeight;
 
         if (isNaN(w) || isNaN(h))
             return;
@@ -801,7 +759,7 @@ public class GroupBase extends UIComponent implements IViewport
     override protected function skipMeasure():Boolean
     {
         // We never want to skip measure, if we resize by scaling
-        return _resizeMode == _SCALE_UINT ? false : super.skipMeasure();
+        return _resizeMode == ResizeMode.SCALE ? false : super.skipMeasure();
     }
 
     /**
@@ -898,7 +856,7 @@ public class GroupBase extends UIComponent implements IViewport
 
             // Make sure that we invalidate the display list if the measured
             // size changes, as we always size our content at the measured size when in scale mode.
-            if (_resizeMode == _SCALE_UINT && (measuredWidth != oldMeasuredWidth || measuredHeight != oldMeasuredHeight))
+            if (_resizeMode == ResizeMode.SCALE && (measuredWidth != oldMeasuredWidth || measuredHeight != oldMeasuredHeight))
                 invalidateDisplayList();
         }
     }
@@ -909,7 +867,7 @@ public class GroupBase extends UIComponent implements IViewport
     override protected function validateMatrix():void
     {
         // Update the stretchXY before the matrix gets validates
-        if (_resizeMode == _SCALE_UINT)
+        if (_resizeMode == ResizeMode.SCALE)
         {
             var stretchX:Number = 1;
             var stretchY:Number = 1;            
@@ -929,7 +887,7 @@ public class GroupBase extends UIComponent implements IViewport
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        if (_resizeMode == _SCALE_UINT)
+        if (_resizeMode == ResizeMode.SCALE)
         {
             unscaledWidth = measuredWidth;
             unscaledHeight = measuredHeight;
@@ -1413,7 +1371,7 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
     
     [Bindable("propertyChange")]
-    [Inspectable(category="General",enumeration="clip,alpha", defaultValue="clip")]
+    [Inspectable(category="General", enumeration="clip,alpha,luminosity", defaultValue="clip")]
     private var _maskType:String = MaskType.CLIP;
     private var maskTypeChanged:Boolean;
     private var originalMaskFilters:Array;
@@ -1441,12 +1399,99 @@ public class GroupBase extends UIComponent implements IViewport
      */
     public function set maskType(value:String):void
     {
+    	// FIXME (dsubrama): Temporarily exit when maskType is
+    	// set to luminosity; support for this will come shortly. 
+    	if (value == "luminosity")
+    		return; 
+    		
         if (_maskType != value)
         {
             _maskType = value;
             maskTypeChanged = true;
             invalidateDisplayList(); 
         }
+    }
+    
+    //----------------------------------
+    //  luminosityInvert
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the luminosityInvert property.
+     */
+    private var _luminosityInvert:Boolean = false; 
+    
+    /**
+     *  @private
+     */
+    private var luminosityInvertChanged:Boolean;
+
+    [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get luminosityInvert():Boolean
+    {
+        return _luminosityInvert;
+    }
+
+    /**
+     *  @private
+     */
+    public function set luminosityInvert(value:Boolean):void
+    {
+    	if (_luminosityInvert == value)
+            return;
+
+        _luminosityInvert = value;
+    }
+
+	//----------------------------------
+    //  luminosityClip
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the luminosityClip property.
+     */
+    private var _luminosityClip:Boolean = false; 
+    
+    /**
+     *  @private
+     */
+    private var luminosityClipChanged:Boolean;
+
+    [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get luminosityClip():Boolean
+    {
+        return _luminosityClip;
+    }
+
+    /**
+     *  @private
+     */
+    public function set luminosityClip(value:Boolean):void
+    {
+    	if (_luminosityClip == value)
+            return;
+
+        _luminosityClip = value;
     }
     
    /**
