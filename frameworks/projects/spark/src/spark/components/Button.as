@@ -29,12 +29,6 @@ import mx.core.IButton;
  */
 [Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
-// TODO (jszeto) set to mobile theme only
-[Style(name="iconClass", type="Class", inherit="no", theme="spark")]
-
-// TODO (jszeto) set to mobile theme only
-[Style(name="labelPlacement", type="String", enumeration="left,right,top,bottom", inherit="no", theme="spark")]
-
 [Exclude(name="textAlign", kind="style")]
 
 //--------------------------------------
