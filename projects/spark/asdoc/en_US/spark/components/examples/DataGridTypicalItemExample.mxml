@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Demonstrate using the DataGrid typicalItem property to initialize column widths
+and the invalidateTypicalItem() method to notify the DataGrid about typicalItem
+property changes.
+
+Use the input fields at the top of the application to change typicalItem properties.
+Use tab to commit the typicalItem change.
+
+The DataGrid's typicalItem is used to compute the initial width of each GridColumn that 
+doesn't specify an explicit width.  When the DataGrid's width is unconstrained, then its 
+overall width is essentially the sum of the column widths.  If the DataGrid's width is
+constrained, for example if left and right are specified, then the typicalItem column widths
+may be padded so that all of the available horizontal space is allocated.
+
+The typicalItem is used the first time the DataGrid is measured and if a typicalItem wasn't
+specified, then the first dataProvider item is used.  To compute column widths, a renderer is created
+and validated, its preferred size is recorded, and then the renderer is discarded.
+The advantage of basing column widths on the typicalItem, instead of specifying explicit GridColumn
+widths, is that doing so incoporates hard to predict factors like font sizes and styles, or 
+localized text values.
+
+Because typical item column widths are cached, it's necessary to notify the DataGrid when the 
+typicalItem has changed. This is done by calling the DataGrid invalidateTpyicalItem() method.
+In this example each input field calls invalidateTypicalItem() when a typicalItem property is changed.
+
+-->
+
+<s:Application applicationComplete="items.addItemAt(dataGrid.typicalItem, 0)"
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <s:Panel title="Spark DataGrid Control Example that demonstrates using the typicalItem property to size the DataGrid"
+             width="75%" height="75%" 
+             horizontalCenter="0" verticalCenter="0">
+        <s:controlBarContent>
+            <s:VGroup paddingTop="10" paddingBottom="10">
+                <s:Label text="Typical Item:" fontWeight="bold" />
+                <s:HGroup verticalAlign="baseline">
+                    <s:Label text="key:"  textAlign="right" width="40"/>
+                    <s:TextInput text="@{dataGrid.typicalItem.key}" change="dataGrid.invalidateTypicalItem()"/>
+                </s:HGroup>
+                <s:HGroup verticalAlign="baseline">        
+                    <s:Label text="name:"  textAlign="right" width="40"/>
+                    <s:TextInput text="@{dataGrid.typicalItem.name}" change="dataGrid.invalidateTypicalItem()"/>
+                </s:HGroup>
+                <s:HGroup verticalAlign="baseline">        
+                    <s:Label text="price:" textAlign="right" width="40"/>
+                    <s:TextInput text="@{dataGrid.typicalItem.price}" change="dataGrid.invalidateTypicalItem()"/>
+                </s:HGroup>
+                <s:HGroup verticalAlign="baseline">        
+                    <s:Label text="call:" textAlign="right" width="40"/>
+                    <s:TextInput text="@{dataGrid.typicalItem.call}" change="dataGrid.invalidateTypicalItem()"/>
+                </s:HGroup>        
+            </s:VGroup>
+        </s:controlBarContent>
+        
+        <s:DataGrid id="dataGrid" requestedRowCount="5" verticalCenter="0" horizontalCenter="0">
+            <!--
+                The typicalItem defines the width of each column.  We also insert it at rowIndex=0
+                (see applicationComplete above) to help visualize the impact of typicalItem changes.
+                Usually the typicalItem is not displayed.
+            -->
+            <s:typicalItem>
+                <s:DataItem key="99999" name="Typical Item" price="123.45" call="false"/>
+            </s:typicalItem>
+    
+            <s:ArrayCollection id="items">
+                <s:DataItem key="1000" name="Abrasive" price="100.11" call="false"/>
+                <s:DataItem key="1001" name="Brush" price="110.01" call="true"/>
+                <s:DataItem key="1002" name="Clamp" price="120.02" call="false"/>
+                <s:DataItem key="1003" name="Drill" price="130.03" call="true"/>
+                <s:DataItem key="1004" name="Epoxy" price="140.04" call="false"/>
+                <s:DataItem key="1005" name="File" price="150.05" call="true"/>
+                <s:DataItem key="1006" name="Gouge" price="160.06" call="false"/>
+                <s:DataItem key="1007" name="Hook" price="170.07" call="true"/>
+                <s:DataItem key="1008" name="Ink" price="180.08" call="false"/>
+                <s:DataItem key="1009" name="Jack" price="190.09" call="true"/>             
+            </s:ArrayCollection>
+        </s:DataGrid>
+    </s:Panel>
+</s:Application>
