@@ -783,12 +783,7 @@ public class RichText extends TextGraphicElement
         mx_internal::embeddedFontContext = getEmbeddedFontContext();
         
         if (mx_internal::embeddedFontContext != oldEmbeddedFontContext)
-        {
-            textLineCreator =
-            	mx_internal::embeddedFontContext ?
-             	ITextLineCreator(mx_internal::embeddedFontContext) :
-                null;
-        }
+            textLineCreator = ITextLineCreator(mx_internal::embeddedFontContext);
         
         if (hostFormatChanged)
         {
