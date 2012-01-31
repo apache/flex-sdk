@@ -29,6 +29,11 @@ import mx.events.ModuleEvent;
  *  Dispatched when the ModuleLoader starts to load a URL.
  *
  *  @eventType mx.events.FlexEvent.LOADING
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="loading", type="flash.events.Event")]
 
@@ -36,6 +41,11 @@ import mx.events.ModuleEvent;
  *  Dispatched when the ModuleLoader is given a new URL.
  *
  *  @eventType mx.events.FlexEvent.URL_CHANGED
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="urlChanged", type="flash.events.Event")]
 
@@ -45,6 +55,11 @@ import mx.events.ModuleEvent;
  *  but the module is not yet ready.
  *
  *  @eventType mx.events.ModuleEvent.SETUP
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="setup", type="mx.events.ModuleEvent")]
 
@@ -52,6 +67,11 @@ import mx.events.ModuleEvent;
  *  Dispatched when the module is finished loading.
  *
  *  @eventType mx.events.ModuleEvent.READY
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="ready", type="mx.events.ModuleEvent")]
 
@@ -59,6 +79,11 @@ import mx.events.ModuleEvent;
  *  Dispatched when the module throws an error.
  *
  *  @eventType mx.events.ModuleEvent.ERROR
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="error", type="mx.events.ModuleEvent")]
 
@@ -66,6 +91,11 @@ import mx.events.ModuleEvent;
  *  Dispatched at regular intervals as the module loads.
  *
  *  @eventType mx.events.ModuleEvent.PROGRESS
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="progress", type="mx.events.ModuleEvent")]
 
@@ -73,6 +103,11 @@ import mx.events.ModuleEvent;
  *  Dispatched when the module data is unloaded.
  *
  *  @eventType mx.events.ModuleEvent.UNLOAD
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="unload", type="mx.events.ModuleEvent")]
 
@@ -88,6 +123,11 @@ import mx.events.ModuleEvent;
  *  ModuleManager singleton.</p>
  *  
  *  @see mx.controls.SWFLoader
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ModuleLoader extends VBox
                           implements IDeferredInstantiationUIComponent
@@ -102,6 +142,11 @@ public class ModuleLoader extends VBox
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ModuleLoader()
     {
@@ -142,6 +187,11 @@ public class ModuleLoader extends VBox
      *  
      *  @see flash.system.ApplicationDomain
      *  @see flash.system.SecurityDomain
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var applicationDomain:ApplicationDomain;
 
@@ -151,6 +201,11 @@ public class ModuleLoader extends VBox
 
     /**
      *  The DisplayObject created from the module factory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var child:DisplayObject;
 
@@ -166,6 +221,11 @@ public class ModuleLoader extends VBox
 
     /**
      *  The location of the module, expressed as a URL.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get url():String
     {
@@ -254,6 +314,11 @@ public class ModuleLoader extends VBox
      *  <code>ModuleManager.getModule()</code> method and must be non-null. If
      *  this parameter is null the module will be load from the url, either 
      *  the url parameter if it is non-null, or the url property as a fallback.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function loadModule(url:String = null, bytes:ByteArray = null):void
     {
@@ -298,6 +363,11 @@ public class ModuleLoader extends VBox
      *  this method calls the <code>removeChild()</code> method on the child. 
      *  <p>If the module does not exist or has already been unloaded, this method does
      *  nothing.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function unloadModule():void
     {
