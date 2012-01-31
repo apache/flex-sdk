@@ -106,6 +106,9 @@ public class SimpleText extends TextGraphicElement
 		staticEmbeddedFont = new EmbeddedFont("", false, false);
 	
 		staticTextFormat = new TextFormat();
+
+		if ("recreateTextLine" in staticTextBlock)
+			recreateTextLine = staticTextBlock["recreateTextLine"];
 	}
 	
 	initClass();
