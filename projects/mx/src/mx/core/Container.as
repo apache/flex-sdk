@@ -3343,10 +3343,10 @@ public class Container extends UIComponent
             // Set the position and size of the overlay .
             if (effectOverlay)
             {
-				effectOverlay.x = 0;
-				effectOverlay.y = 0;
-				effectOverlay.width = unscaledWidth;
-				effectOverlay.height = unscaledHeight;
+                effectOverlay.x = 0;
+                effectOverlay.y = 0;
+                effectOverlay.width = unscaledWidth;
+                effectOverlay.height = unscaledHeight;
             }
 
             // Set the positions and sizes of the scrollbars.
@@ -4245,6 +4245,8 @@ public class Container extends UIComponent
      *  the <code>createComponentsFromDescriptors()</code> method to create all or some
      *  of its children, based on the value of the component's <code>creationPolicy</code> property.
      *
+     *  @return The created component.
+     *
      *  @see mx.core.UIComponentDescriptor
      *  
      *  @langversion 3.0
@@ -5066,7 +5068,7 @@ public class Container extends UIComponent
             needHorizontal ||
             needVertical ||
             hasNegativeCoords ||
-			effectOverlay != null ||
+            effectOverlay != null ||
             vm.left > 0 ||
             vm.top > 0;
 
