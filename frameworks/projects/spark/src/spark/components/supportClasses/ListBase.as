@@ -31,14 +31,6 @@ import mx.events.CollectionEventKind;
 
 use namespace mx_internal;  //ListBase and List share selection properties that are mx_internal
 
-/*
- TODO (jszeto) 
- - Add caretIndex public getter
- - Add setCaretIndex protected setter
-    - Should set currentCaretIndex
-    - Call itemInCaret
-*/
-    
 /**
  *  Dispatched when the selection is going to change. 
  *  Calling the <code>preventDefault()</code> method
@@ -134,6 +126,12 @@ public class ListBase extends SkinnableDataContainer
      */
     private static const NO_PROPOSED_SELECTION:int = -2;
     
+    /**
+     *  @private
+     *  Static constant representing no item in focus. 
+     */
+    private static const NO_CARET:int = -1;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -158,6 +156,28 @@ public class ListBase extends SkinnableDataContainer
     //  Properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  currentCaretIndex
+    //----------------------------------
+    
+    mx_internal var _currentCaretIndex:Number = NO_CARET; 
+    
+    [Bindable("itemFocusChanged")]
+    /**
+     *  Item that is currently in focus. 
+     *
+     *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get currentCaretIndex():Number
+    {
+        return _currentCaretIndex;
+    }
     
     /**
      *  @private
@@ -296,6 +316,14 @@ public class ListBase extends SkinnableDataContainer
      *  is the same. This flag is cleared in commitProperties().
      */
     mx_internal var selectedIndexAdjusted:Boolean = false;
+    
+    /** 
+     *  @private
+     *  Flag that is set when the currentCaretIndex has been adjusted due to
+     *  items being added or removed. This flag is cleared in 
+     *  commitProperties().
+     */
+    mx_internal var currentCaretIndexAdjusted:Boolean = false;
     
     /**
      *  @private
@@ -458,49 +486,6 @@ public class ListBase extends SkinnableDataContainer
     }
     
     //----------------------------------
-    //  selectUponNavigation
-    //----------------------------------
-    /**
-     *  @private
-     *  Storage for the selectUponNavigation property.
-     */
-    private var _selectUponNavigation:Boolean = true;
-    
-    /**
-     *  Specifies whether an item must be selected when 
-     *  navigated to or simply focused into. If true, 
-     *  when an item is navigated to, it is selected and the
-     *  selection related properties update accordingly. 
-     *  If false, when an item is navigated to, the itemFocusIn/Out
-     *  events are dispatched accordingly and the item's 
-     *  associated item renderer is put into the focused state and 
-     *  none of the selection related properties are updated. 
-     *
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get selectUponNavigation():Boolean
-    {
-        return _selectUponNavigation;
-    }
-
-    /**
-     *  @private
-     */
-    public function set selectUponNavigation(value:Boolean):void
-    {
-        if (value == _selectUponNavigation)
-            return;
-            
-        _selectUponNavigation = value;
-    }
-    
-    
-    //----------------------------------
     //  useVirtualLayout
     //----------------------------------
 
@@ -628,6 +613,7 @@ public class ListBase extends SkinnableDataContainer
      */
     override protected function commitProperties():void
     {
+    	var e:IndexChangedEvent; 
         var changedSelection:Boolean = false;
         
         super.commitProperties();
@@ -673,18 +659,37 @@ public class ListBase extends SkinnableDataContainer
             changedSelection = commitSelection();
         
         // If the selectedIndex has been adjusted to account for items that
-        // have been added or removed, send out a "selectionChanged" event so
-        // any bindings to selectedIndex are updated correctly.
+        // have been added or removed, send out a "selectionChanged" event 
+        // so any bindings to selectedIndex are updated correctly.
         if (selectedIndexAdjusted)
         {
             selectedIndexAdjusted = false;
             if (!changedSelection)
             {
-                var e:IndexChangedEvent = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
+                e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
                 e.oldIndex = selectedIndex;
                 e.newIndex = selectedIndex;
                 dispatchEvent(e);
             }
+        }
+        
+        if (currentCaretIndexAdjusted)
+        {
+        	currentCaretIndexAdjusted = false;
+        	if (!changedSelection)
+        	{
+        		// Put the new currentCaretIndex renderer into the
+        		// caret state and dispatch an "itemFocusChanged" 
+        		// event to update any bindings. Additionally, update 
+        		// the backing variable. 
+        		itemInCaret(selectedIndex, true); 
+        		_currentCaretIndex = selectedIndex; 
+        		
+        		e = new IndexChangedEvent(IndexChangedEvent.ITEM_FOCUS_CHANGED); 
+        		e.oldIndex = currentCaretIndex; 
+        		e.newIndex = currentCaretIndex;
+        		dispatchEvent(e);  
+        	}
         }
         
         if (labelFieldOrFunctionChanged)
@@ -732,7 +737,7 @@ public class ListBase extends SkinnableDataContainer
             // Make itemSelected()/itemInCaret() pass around the renderer 
             // instead of index
             IItemRenderer(renderer).selected = false;
-            IItemRenderer(renderer).caret = false; 
+            IItemRenderer(renderer).caret = false;
         }    
         
         // Now run through and initialize the renderer correctly
@@ -800,7 +805,7 @@ public class ListBase extends SkinnableDataContainer
     
     /**
      *  Called when an item is in its caret state or not. 
-     *  Subclasses must override this method to display the caret.  
+     *  Subclasses must override this method to display the caret. 
      *
      *  @param index The item index that was put into caret state. 
      *
@@ -814,7 +819,7 @@ public class ListBase extends SkinnableDataContainer
      */
     protected function itemInCaret(index:int, caret:Boolean):void
     {
-        // Subclasses must override this method to display the caret. 
+        // Subclasses must override this method to display the caret.
     }
     
     /**
@@ -861,11 +866,46 @@ public class ListBase extends SkinnableDataContainer
         return index == selectedIndex;
     }
     
+    /**
+     *  Returns true if the item at the index is the caret item, which is
+     *  essentially the item in focus. 
+     * 
+     *  @param index The index of the item whose caret status is being checked
+     *
+     *  @return true if the item at that index is the caret item, false otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function isItemInCaret(index:int):Boolean
+    {        
+        return index == currentCaretIndex;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Private Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Set current caret index. This function takes the item that was
+     *  previously the caret item and sets its caret property to false,
+     *  then takes the current proposed caret item and sets its 
+     *  caret property to true as well as updating the backing variable. 
+     * 
+     */
+    mx_internal function setCurrentCaretIndex(value:Number):void
+    {
+        itemInCaret(currentCaretIndex, false); 
+        
+        _currentCaretIndex = value;
+        
+        itemInCaret(currentCaretIndex, true);
+    }
     
     /**
      *  @private
@@ -878,11 +918,12 @@ public class ListBase extends SkinnableDataContainer
      *  Returns true if the selection was committed, or false if the selection
      *  was cancelled.
      */
-    protected function commitSelection(dispatchSelectionChanged:Boolean = true):Boolean
+    protected function commitSelection(dispatchChangedEvents:Boolean = true):Boolean
     {
         // Step 1: make sure the proposed selected index is in range.
         var maxIndex:int = dataProvider ? dataProvider.length - 1 : -1;
-        var oldIndex:int = _selectedIndex;
+        var oldSelectedIndex:int = _selectedIndex;
+        var oldCaretIndex:int = _currentCaretIndex;
         
         if (_proposedSelectedIndex < NO_SELECTION)
             _proposedSelectedIndex = NO_SELECTION;
@@ -907,24 +948,33 @@ public class ListBase extends SkinnableDataContainer
             return false;
         }
         
-        // Step 3: commit the selection change 
+        // Step 3: commit the selection change and caret change 
         if (_selectedIndex != NO_SELECTION)
             itemSelected(_selectedIndex, false);
         if (_proposedSelectedIndex != NO_SELECTION)
             itemSelected(_proposedSelectedIndex, true);
         _selectedIndex = _proposedSelectedIndex;
+        setCurrentCaretIndex(_proposedSelectedIndex); 
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
-        // Step 4: dispatch the "selectionChanged" event based on the 
-        // dispatchSelectionChanged parameter. Overrides may chose to 
-        // dispatch the selectionChanged event themselves, in which 
-        // case we wouldn't want to dispatch the event here. 
-        if (dispatchSelectionChanged)
+        // Step 4: dispatch the "selectionChanged" event and "itemFocusChanged" 
+        // events based on the dispatchChangeEvents parameter. Overrides may  
+        // chose to dispatch the selectionChanged/itemFocusChanged events 
+        // themselves, in which case we wouldn't want to dispatch the event 
+        // here. 
+        if (dispatchChangedEvents)
         {
+            // Dispatch the selectionChanged event
             e = new IndexChangedEvent(IndexChangedEvent.SELECTION_CHANGED);
-            e.oldIndex = oldIndex;
+            e.oldIndex = oldSelectedIndex;
             e.newIndex = _selectedIndex;
             dispatchEvent(e);
+            
+            //Dispatch the itemFocusChanged event 
+            e = new IndexChangedEvent(IndexChangedEvent.ITEM_FOCUS_CHANGED); 
+            e.oldIndex = oldCaretIndex; 
+            e.newIndex = currentCaretIndex; 
+            dispatchEvent(e);  
         }
         
         return true;
@@ -971,7 +1021,7 @@ public class ListBase extends SkinnableDataContainer
     {
         if (selectedIndex == NO_SELECTION || doingWholesaleChanges)
             return;
-        
+            
         // If an item is added before the selected item, bump up our
         // selected index backing variable. 
         if (index <= selectedIndex)
@@ -1050,6 +1100,7 @@ public class ListBase extends SkinnableDataContainer
             {
                 // Data provider is being reset, clear out the selection
                 selectedIndex = -1;
+                setCurrentCaretIndex(-1);  
             }
             else if (ce.kind == CollectionEventKind.REPLACE ||
                 ce.kind == CollectionEventKind.MOVE ||
