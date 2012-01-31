@@ -12,9 +12,12 @@
 package mx.components
 {
 import flash.events.MouseEvent;
+import flash.geom.Point;
 
 import mx.components.DataGroup;
 import mx.components.MXMLComponent;
+import mx.core.mx_internal;
+import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
 
@@ -63,18 +66,52 @@ public class ItemRenderer extends MXMLComponent
     	return _selected;
     }
     
-	public function set selected(value:Boolean):void
-	{
-		if (value != _selected)
-		{
-			_selected = value;
-			currentState = getCurrentSkinState();
-		}
-	}
+    public function set selected(value:Boolean):void
+    {
+        if (value != _selected)
+        {
+            _selected = value;
+            currentState = getCurrentSkinState();
+        }
+    }
 	
+    //----------------------------------
+    //  labelField
+    //----------------------------------
+	
+    /**
+     * Optional item renderer label component, used primarily for 
+     * auto-computation of baseline.
+     */
+    public var labelField:TextGraphicElement;
+
     //--------------------------------------------------------------------------
     //
-    //  Properties
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        if (!mx_internal::validateBaselinePosition() || !labelField)
+            return super.baselinePosition;
+
+        var labelPosition:Point = globalToLocal(labelField.parent.localToGlobal(
+            new Point(labelField.x, labelField.y)));
+            
+        return labelPosition.y + labelField.baselinePosition;
+    }
+        
+    //--------------------------------------------------------------------------
+    //
+    //  Event handling
     //
     //--------------------------------------------------------------------------
     
