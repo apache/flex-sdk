@@ -3393,8 +3393,10 @@ class TouchScrollHelper
 
         // If the gesture appears to have slowed or stopped prior to the mouse up, 
         // then force the velocity to zero.
-        if ( (lastDt >= 3*averageDt) &&
-            (lastVelocity.length <= minVelocityPixels))
+        // Calculate the effective velocity for the final 100ms of the drag and compare
+        // that to the minimum value. 
+        var finalDragVel:Point = calculateFinalDragVelocity(100); 
+        if ( finalDragVel.length <= minVelocityPixels)
         {
             throwVelocity.x = 0;
             throwVelocity.y = 0;
@@ -3486,7 +3488,75 @@ class TouchScrollHelper
         return new Point(velX,velY);
     }
 	
-	/**
+    /**
+     *  @private
+     *  Helper function to calculate the velocity of the touch drag
+     *  for its final <code>time</code> milliseconds. 
+     */
+    private function calculateFinalDragVelocity(time:Number):Point
+    {
+        // This function is similar to calculateThrowVelocity with the 
+        // following differences:
+        // 1) It iterates backwards through the mouse events.
+        // 2) It stops when the specified amount of time is accounted for.
+        // 3) It calculates the velocities from the overall deltas with no
+        //    weighting or averaging. 
+
+        // Find the range of mouse events to consider
+        var len:int = (mouseEventLength > EVENT_HISTORY_LENGTH ? EVENT_HISTORY_LENGTH : mouseEventLength);
+        const startIndex:int = ((mouseEventLength - len) % EVENT_HISTORY_LENGTH);
+        const endIndex:int = ((mouseEventLength - 1) % EVENT_HISTORY_LENGTH);
+        
+        // We're going to start at the last event of the drag and iterate 
+        // backward toward the first.
+        var currentIndex:int = endIndex;
+        
+        var dt:Number = 0;
+        var dx:Number = 0;
+        var dy:Number = 0;
+        
+        // Loop until we've accounted for the desired amount of time or run out of events. 
+        while (time > 0 && currentIndex != startIndex)
+        {
+            // Find the index of the previous event
+            var previousIndex:int = currentIndex - 1;
+            if (previousIndex < 0)
+                previousIndex += EVENT_HISTORY_LENGTH; 
+            
+            // Calculate time and position deltas between the two events
+            var _dt:Number = mouseEventTimeHistory[currentIndex] - mouseEventTimeHistory[previousIndex];
+            var _dx:Number = mouseEventCoordinatesHistory[currentIndex].x - mouseEventCoordinatesHistory[previousIndex].x;
+            var _dy:Number = mouseEventCoordinatesHistory[currentIndex].y - mouseEventCoordinatesHistory[previousIndex].y;
+            
+            // If the deltas exceed our desired time range, interpolate by scaling them
+            if (_dt > time)
+            {
+                var interpFraction:Number = time/_dt;
+                _dx *= interpFraction; 
+                _dy *= interpFraction;
+                _dt = time;
+            }
+
+            // Subtract the current time delta from the overall desired time range 
+            time -= _dt;
+            
+            // Accumulate the deltas
+            dt += _dt;
+            dx += _dx;
+            dy += _dy;
+            
+            // Go to the previous event in the drag
+            currentIndex = previousIndex;
+        }
+        
+        if (dt == 0)
+            return new Point(0,0);
+        
+        // Create the point representing the velocity values.
+        return new Point(dx/dt,dy/dt);
+    }
+
+    /**
 	 *  @private
 	 *  Helper method to dispatch bubbling events on mouseDownDisplayObject.  Since this 
 	 *  object can be off the display list, this may be tricky.  Technically, we should 
