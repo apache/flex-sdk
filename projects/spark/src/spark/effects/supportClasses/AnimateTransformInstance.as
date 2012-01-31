@@ -581,7 +581,6 @@ public class AnimateTransformInstance extends AnimateInstance
         // translation property as a structure instead of separate values
         switch(property)
         {
-            
             case "translationX":
             case "translationY":
             case "translationZ":
@@ -638,7 +637,7 @@ public class AnimateTransformInstance extends AnimateInstance
                 return (target.postLayoutTransformOffsets == null)? 
                     1 :
                     target.postLayoutTransformOffsets.scaleZ;
-             default:
+            default:
                 return super.getCurrentValue(property);
         }
     }
