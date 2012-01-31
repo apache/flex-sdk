@@ -17,6 +17,8 @@ import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 
+import spark.components.DataGroup;
+import spark.components.supportClasses.GridColumn;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -177,6 +179,8 @@ public class ColumnHeaderBarLayout extends LayoutBase
         // shrink below them.
         layoutTarget.measuredMinWidth = totalWidth;
         layoutTarget.measuredMinHeight = totalHeight; 
+        
+        //trace("CHB.measure", totalWidth, totalHeight);
     }
 
     /**
@@ -191,6 +195,8 @@ public class ColumnHeaderBarLayout extends LayoutBase
         if (!layoutTarget || !gridLayout)
             return;
         
+        //trace("CHB.udl", unscaledWidth, unscaledHeight);
+        
         oldVisibleColumnIndices = visibleColumnIndices;
         visibleColumnIndices = gridLayout.getVisibleColumnIndices();
         
@@ -199,43 +205,49 @@ public class ColumnHeaderBarLayout extends LayoutBase
             var element:ILayoutElement = 
                 layoutTarget.getVirtualElementAt(columnIndex);
             
-            const bounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
+            var gridColumn:GridColumn = 
+                DataGroup(target).dataProvider.getItemAt(columnIndex) as GridColumn;
+
+            var elementWidth:Number;
+            var elementHeight:Number;            
             
-            const elementWidth:Number = bounds.width;
-            
-            var elementHeight:Number;
-            const prefHeight:Number = 
-                typicalLayoutElement.getPreferredBoundsHeight();
-            if (prefHeight)
-            {
-                elementHeight = prefHeight;
-            }
+            // FIXME: this isn't right.  It isn't using a typicalItem.  And
+            // it is only working because the DefaultColumnHeaderItemRenderer
+            // has width set to 150, height set to 32.
+            if (!isNaN(gridColumn.width))
+                elementWidth = gridColumn.width;
             else
-            {
-                // Find out the element's dimensions sizes.
-                // We do this after the element has been already resized
-                // to its preferred size by passing NaN for the constraints.
-                element.setLayoutBoundsSize(NaN, NaN);                
-                elementHeight = element.getLayoutBoundsHeight();
-            }
+                elementWidth = element.getPreferredBoundsWidth();
+            
+            if (!isNaN(gridColumn.minWidth) && elementWidth < gridColumn.minWidth)
+                elementWidth = gridColumn.minWidth;
+            
+            if (!isNaN(gridColumn.maxWidth) && elementWidth > gridColumn.maxWidth)
+                elementWidth = gridColumn.maxWidth;
+            
+            // FIXME: access this through cover method
+            gridDimensions.setColumnWidth(columnIndex, elementWidth);
+            
+            elementHeight = element.getPreferredBoundsHeight();
+            
             element.setLayoutBoundsSize(elementWidth, elementHeight);
             
             // Position the element.
+            // FIXME: can this be calculated from the width of each element
+            // plus the columnGap? (but there is not a columnGap property)
+            const bounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
             element.setLayoutBoundsPosition(bounds.x, 0);
             
-            // Find maximum element extents. This is needed for
-            // the scrolling support.
+            // Find maximum element extents.
             maxHeight = Math.max(maxHeight, elementHeight);
         }
                 
         // Scrolling support - update the content size
         layoutTarget.setContentSize(gridDimensions.contentWidth, maxHeight);
         
-        // ToDo(cframpto): 
-        // These separators will need mouse listeners for the column move.
-        // The listeners will have to be removed when the separators are freed 
-        // or will have to be cached in a seperate freed list.
-        
+        // ToDo(cframpto): refactor these methods so both GridLayout and
+        // this layout can use them.
+                
         // Now layout the separators between the headers.
         visibleHeaderSeparators = gridLayout.layoutColumnHeaderSeparators(
                                                 oldVisibleColumnIndices, 
