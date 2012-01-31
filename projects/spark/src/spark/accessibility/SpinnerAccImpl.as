@@ -138,7 +138,7 @@ public class SpinnerAccImpl extends AccImpl
         return childID == 0 ? role : AccConst.ROLE_SYSTEM_PUSHBUTTON;
     }
 
-     /**
+    /**
      *  @private
      *  Method to return an array of childIDs. For the Spinner component the IDs
      *  for the decrement and increment buttons are returned.
@@ -196,7 +196,6 @@ public class SpinnerAccImpl extends AccImpl
         return accState;
     }
 
-
     /**
      *  @private
      *  IAccessible method for returning the numeric value of the Spinner
@@ -231,7 +230,6 @@ public class SpinnerAccImpl extends AccImpl
      *
      *  @param childID uint
      */
-
     override public function accDoDefaultAction(childID:uint):void
     {
         var prevValue:Number = Spinner(master).value;
@@ -264,7 +262,8 @@ public class SpinnerAccImpl extends AccImpl
     //
     //--------------------------------------------------------------------------
 
-     /**
+    /**
+	 *  @private
      *  Returns the name of the accessible component.
      *  All subclasses must implement this
      *  instead of implementing get_accName().
