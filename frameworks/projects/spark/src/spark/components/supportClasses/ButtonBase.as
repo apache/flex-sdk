@@ -30,7 +30,7 @@ import mx.utils.StringUtil;
 include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -134,7 +134,7 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  ToggleButton, CheckBox and RadioButton are subclasses of ToggleButtonBase.
  *
  *  @see mx.components.Button
- *  @see mx.components.baseClasses.ToggleButtonBase
+ *  @see spark.components.supportClasses.ToggleButtonBase
  *  @see mx.components.ToggleButton
  *  @see mx.components.CheckBox
  *  @see mx.components.RadioButton
