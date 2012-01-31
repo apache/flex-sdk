@@ -3197,6 +3197,39 @@ public class Grid extends Group implements IDataGridElement
             dispatchChangeEvent("invalidateDisplayList");
         }
     }
+    
+    /**
+     *  If the specified cell is visible, it will be redisplayed.  If variableRowHeight=true
+     *  then doing so may cause the height of the corresponding row to change.
+     * 
+     *  <p>If columnIndex is -1, then the entire row is invalidated.  Similarly if rowIndex is -1,
+     *  the entire column is invalidated.</p>
+     * 
+     *  <p>This method should be called when there is a change to any aspect of 
+     *  the dataProvider item at rowIndex that might have some impact on the way the 
+     *  specified cell is displayed. Calling this method is similar to calling 
+     *  <code>dataProvider.itemUpdated()</code>, which advises the Grid that all rows
+     *  displaying the specified item should be redisplayed.  Using this method can
+     *  be relatively efficient, since it narrows the scope of the change to a single cell.</p>
+     * 
+     *  @param rowIndex The 0-based row index of the cell that changed, or -1.
+     *  @param column Index The 0-based column index of the cell that changed or -1.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function invalidateCell(rowIndex:int, columnIndex:int):void
+    {
+        if (!dataProvider || (rowIndex < 0) || (rowIndex >= dataProvider.length))
+            return;
+        
+        // Provisional implementation: invalidate the entire row
+        const column:GridColumn = getGridColumn(columnIndex);
+        const dataField:String = (column) ? column.dataField : null;
+        dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
+    }
 
     /**
      *  @private
