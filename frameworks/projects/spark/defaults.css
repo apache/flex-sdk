@@ -115,6 +115,7 @@ FxTextArea
 
 FxTextInput
 {
+	lineBreak: "explicit";
 	skinClass: ClassReference("mx.skins.spark.FxTextInputSkin");
 }
 
