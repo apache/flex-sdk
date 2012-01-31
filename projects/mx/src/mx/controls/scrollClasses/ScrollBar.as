@@ -45,6 +45,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  the scroll bar.
  * 
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowSkin", type="Class", inherit="no", states="up, over, down, disabled")]
 
@@ -57,6 +62,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
  * 
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowDisabledSkin", type="Class", inherit="no")]
 
@@ -69,6 +79,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
  *  
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowDownSkin", type="Class", inherit="no")]
 
@@ -81,6 +96,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
  *  
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowOverSkin", type="Class", inherit="no")]
 
@@ -93,6 +113,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
  *  
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowUpSkin", type="Class", inherit="no")]
 
@@ -101,6 +126,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  the scroll bar. 
  *  
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbSkin", type="Class", inherit="no", states="up, over, down")]
 
@@ -109,6 +139,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  when you click the thumb. 
  * 
  *  @default mx.skins.halo.ScrollThumbSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbDownSkin", type="Class", inherit="no")]
 
@@ -116,6 +151,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the icon for the thumb of the scroll bar. 
  *  
  *  @default "undefined"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbIcon", type="Class", inherit="no")]
 
@@ -123,6 +163,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  The number of pixels to offset the scroll thumb from the center of the scroll bar. 
  * 
  *  @default 0 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbOffset", type="Number", inherit="no")]
 
@@ -131,6 +176,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  when the mouse pointer is over the thumb. 
  * 
  *  @default mx.skins.halo.ScrollThumbSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbOverSkin", type="Class", inherit="no")]
 
@@ -138,6 +188,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the thumb of the scroll bar.
  *  
  *  @default mx.skins.halo.ScrollThumbSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="thumbUpSkin", type="Class", inherit="no")]
 
@@ -146,6 +201,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  You can use the same color twice for a solid track color.
  * 
  *  @default [0x94999b, 0xe7e7e7]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackColors", type="Array", arrayType="uint", format="Color", inherit="no")]
 
@@ -154,6 +214,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the default skin for the track of the scroll bar. 
  * 
  *  @default mx.skins.halo.ScrollTrackSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackSkin", type="Class", inherit="no")]
 
@@ -162,6 +227,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  when the scroll bar is disabled.
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackDisabledSkin", type="Class", inherit="no")]
 
@@ -170,6 +240,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  when you click on the track.
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackDownSkin", type="Class", inherit="no")]
 
@@ -178,6 +253,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  when the mouse pointer is over the scroll bar.
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackOverSkin", type="Class", inherit="no")]
 
@@ -185,6 +265,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the skin for the track of the scroll bar.
  * 
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="trackUpSkin", type="Class", inherit="no")]
 
@@ -192,6 +277,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  Name of the class to use as the default skin for the up arrow button of the scroll bar. 
  * 
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowSkin", type="Class", inherit="no", states="up, over, down, disabled")]
 
@@ -204,6 +294,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
  *  
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowDisabledSkin", type="Class", inherit="no")]
 
@@ -216,6 +311,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
  *  
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowDownSkin", type="Class", inherit="no")]
 
@@ -228,6 +328,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
  *  
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowOverSkin", type="Class", inherit="no")]
 
@@ -240,6 +345,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  (for horizontal ScrollBars) or width (for vertical ScrollBars) as the track.
  *    
  *  @default mx.skins.halo.ScrollArrowSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowUpSkin", type="Class", inherit="no")]
 
@@ -313,6 +423,11 @@ include "../../styles/metadata/SkinStyles.as"
  *  @see mx.controls.Button
  *  @see mx.controls.scrollClasses.ScrollThumb
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ScrollBar extends UIComponent
 {
@@ -327,6 +442,11 @@ public class ScrollBar extends UIComponent
     /**
      *  The width of a vertical scrollbar, or the height of a horizontal
      *  scrollbar, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const THICKNESS:Number = 16;
 
@@ -338,6 +458,11 @@ public class ScrollBar extends UIComponent
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ScrollBar()
     {
@@ -487,6 +612,11 @@ public class ScrollBar extends UIComponent
      *  @default ScrollBarDirection.VERTICAL
      *
      *  @see mx.controls.scrollClasses.ScrollBarDirection
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get direction():String
     {
@@ -513,6 +643,11 @@ public class ScrollBar extends UIComponent
     /**
      *  Set of styles to pass from the ScrollBar to the down arrow.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get downArrowStyleFilters():Object
     {
@@ -565,6 +700,11 @@ public class ScrollBar extends UIComponent
      *  Amount to scroll when an arrow button is pressed, in pixels.
      *
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get lineScrollSize():Number
     {
@@ -610,6 +750,11 @@ public class ScrollBar extends UIComponent
      *  Number which represents the maximum scroll position.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxScrollPosition():Number
     {
@@ -656,6 +801,11 @@ public class ScrollBar extends UIComponent
      *  Number that represents the minimum scroll position.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minScrollPosition():Number
     {
@@ -719,6 +869,11 @@ public class ScrollBar extends UIComponent
      *  The number of lines equivalent to one page.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get pageSize():Number
     {
@@ -750,6 +905,11 @@ public class ScrollBar extends UIComponent
      *  track is pressed, in pixels.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get pageScrollSize():Number
     {
@@ -783,6 +943,11 @@ public class ScrollBar extends UIComponent
      *  <code>maxScrollPosition</code> inclusively.
      *  
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scrollPosition():Number
     {
@@ -828,6 +993,11 @@ public class ScrollBar extends UIComponent
     /**
      *  Set of styles to pass from the ScrollBar to the thumb.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get thumbStyleFilters():Object 
     {
@@ -867,6 +1037,11 @@ public class ScrollBar extends UIComponent
     /**
      *  Set of styles to pass from the ScrollBar to the up arrow.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get upArrowStyleFilters():Object
     {
@@ -1110,6 +1285,11 @@ public class ScrollBar extends UIComponent
      *  @param pageScrollSize Number which represents the increment to move when 
      *  the scroll track is pressed.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setScrollProperties(pageSize:Number,
                                         minScrollPosition:Number,
