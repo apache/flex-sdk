@@ -27,6 +27,7 @@ import mx.events.PropertyChangeEvent;
 import spark.components.ResizeMode;
 import spark.core.IViewport;
 import spark.core.MaskType;
+import spark.events.DisplayPlaneObjectExistenceEvent;
 import spark.layouts.BasicLayout;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.primitives.shaders.LuminosityMaskShader; 
@@ -628,7 +629,79 @@ public class GroupBase extends UIComponent implements IViewport
         }
     }
 
-    //----------------------------------
+	//----------------------------------
+	//  overlay
+	//----------------------------------
+
+	/**
+	 *  @private
+	 *  Storage for the overlay property 
+	 */
+	mx_internal var _overlay:DisplayPlane;
+
+	[Inspectable(category="General")]
+
+	/**
+	 *  The overlay plane for this Group.
+	 *  All objects of the overlay plane render on top of the Group elements.
+	 *  Don't hold on to this object, as Group destroys and creates it on demand.
+	 *   
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get overlay():DisplayPlane
+	{
+		if (!_overlay)
+		{
+			_overlay = new DisplayPlane();
+			_overlay.addEventListener(DisplayPlaneObjectExistenceEvent.OBJECT_ADD, overlay_objectAdd);
+			_overlay.addEventListener(DisplayPlaneObjectExistenceEvent.OBJECT_REMOVE, overlay_objectRemove);
+			
+			// Invalidate properties, so that if nothing was actually added to the
+			// overlay object, we'll clean it up:
+			invalidateProperties();
+		}
+		return _overlay;
+	}
+	
+	/**
+	 *  @private
+	 *  Event listener to add overlay objects when added to the overlay DisplayPlane property.
+	 */
+	private function overlay_objectAdd(event:DisplayPlaneObjectExistenceEvent):void
+	{
+		super.addChildAt(event.object, event.index + numChildren - _overlay.numDisplayObjects + 1);
+	}
+	
+	/**
+	 *  @private
+	 *  Event listener to remove overlay objects when removed from the overlay
+	 *  DisplayPlane property.
+	 */
+	private function overlay_objectRemove(event:DisplayPlaneObjectExistenceEvent):void
+	{
+		// Remove the object from the display list
+		super.removeChild(event.object);
+		
+		// Is this the last display object?
+		if (_overlay.numDisplayObjects == 1)
+			invalidateProperties();
+	}
+	
+	/**
+	 *  Destroys the overlay object. This method gets called on commitProperties
+	 *  when the overlay doesn't contain any objects. 
+	 */
+	private function destroyOverlay():void
+	{
+		_overlay.removeEventListener(DisplayPlaneObjectExistenceEvent.OBJECT_ADD, overlay_objectAdd);
+		_overlay.removeEventListener(DisplayPlaneObjectExistenceEvent.OBJECT_REMOVE, overlay_objectRemove);
+		_overlay = null;
+	}
+
+	//----------------------------------
     //  resizeMode
     //----------------------------------
     
@@ -867,7 +940,19 @@ public class GroupBase extends UIComponent implements IViewport
         if (!layout)
             layout = new BasicLayout();
     }
-    
+
+	/**
+	 *  @private
+	 */ 
+	override protected function commitProperties():void
+	{
+		super.commitProperties();
+		
+		// Cleanup the _overlay object when there are no more overlay objects
+		if (_overlay && _overlay.numDisplayObjects == 0)
+			destroyOverlay();
+	}
+
     /**
      *  @private
      */
@@ -942,7 +1027,7 @@ public class GroupBase extends UIComponent implements IViewport
                 if (!_mask.parent)
                 {
                     // TODO (jszeto): Does this need to be attached to a sibling?
-                    super.addChild(_mask);
+					overlay.addDisplayObject(_mask, OverlayDepth.MASK_DEPTH);
                     var maskComp:UIComponent = _mask as UIComponent;
                     if (maskComp)
                     {
@@ -1285,7 +1370,7 @@ public class GroupBase extends UIComponent implements IViewport
     {
         if (value)
         {
-            super.addChild(value);
+			overlay.addDisplayObject(value, OverlayDepth.FOCUS_DEPTH);
 
             value.x = 0;
             value.y = 0;
@@ -1295,9 +1380,9 @@ public class GroupBase extends UIComponent implements IViewport
         }
         else
         {
-             super.removeChild(_focusPane);
+			overlay.removeDisplayObject(_focusPane);
              
-             // TODO (jszeto): remove mask?  SDK-15310
+            // TODO (jszeto): remove mask?  SDK-15310
             _focusPane = null;
         }
     }
@@ -1419,8 +1504,8 @@ public class GroupBase extends UIComponent implements IViewport
         if (_mask !== value)
         {
             if (_mask && _mask.parent === this)
-            {       
-                super.removeChild(_mask);
+            {
+				overlay.removeDisplayObject(_mask);
             }     
             
             _mask = value;
