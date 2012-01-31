@@ -35,7 +35,7 @@ import spark.events.RendererExistenceEvent;
 
 use namespace mx_internal;  // use of ListBase/setCurrentCaretIndex(index);
 
-
+[AccessibilityClass(implementation="spark.accessibility.ButtonBarBaseAccImpl")]
 /**
  *  The ButtonBarBase class defines the common behavior for the ButtonBar, TabBar and similar subclasses.   
  *  This class does not add any new API however it refines selection, keyboard focus and keyboard navigation
@@ -78,6 +78,18 @@ use namespace mx_internal;  // use of ListBase/setCurrentCaretIndex(index);
 public class ButtonBarBase extends ListBase
 {
     include "../../core/Version.as";    
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Placeholder for mixin by ButtonBarBaseAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     /**
      *  Constructor.
@@ -198,6 +210,17 @@ public class ButtonBarBase extends ListBase
     //  Overridden Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Called by the initialize() method of UIComponent
+     *  to hook in the accessibility code.
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (ButtonBarBase.createAccessibilityImplementation != null)
+            ButtonBarBase.createAccessibilityImplementation(this);
+    }
     
     /**
      *  @private
