@@ -85,6 +85,7 @@ public class AccordionHeader extends Button implements IDataRenderer
 		toggleChanged = false;
 		mouseFocusEnabled = false;
 		tabEnabled = false;
+		tabFocusEnabled = false;
 	}
 
 	//--------------------------------------------------------------------------
