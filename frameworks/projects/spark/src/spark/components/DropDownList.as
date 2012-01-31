@@ -136,7 +136,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;DropDownList 
+ *  &lt;s:DropDownList 
  *    <strong>Properties</strong>
  *    prompt=""
  * 
