@@ -23,6 +23,7 @@ import mx.events.ResizeEvent;
 import mx.events.SandboxMouseEvent;
 
 import spark.components.Button;
+import spark.events.TouchScrollEvent;
 import spark.events.TrackBaseEvent;
 
 /**
@@ -417,6 +418,7 @@ public class TrackBase extends Range
         if (instance == thumb)
         {
             thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
+            thumb.addEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, thumb_touchScrollDragStart);
             thumb.addEventListener(ResizeEvent.RESIZE, thumb_resizeHandler);
             thumb.addEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);
             thumb.stickyHighlighting = true;
@@ -438,6 +440,7 @@ public class TrackBase extends Range
         if (instance == thumb)
         {
             thumb.removeEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
+            thumb.removeEventListener(TouchScrollEvent.TOUCH_SCROLL_STARTING, thumb_touchScrollDragStart);
             thumb.removeEventListener(ResizeEvent.RESIZE, thumb_resizeHandler);            
             thumb.removeEventListener(FlexEvent.UPDATE_COMPLETE, thumb_updateCompleteHandler);            
         }
@@ -584,6 +587,15 @@ public class TrackBase extends Range
         
         dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_PRESS));
         dispatchEvent(new FlexEvent(FlexEvent.CHANGE_START));
+    }
+    
+    /**
+     *  @private
+     */
+    protected function thumb_touchScrollDragStart(event:TouchScrollEvent):void
+    {
+        // cancel this event b/c I want to control it
+        event.preventDefault();
     }
 
     /**
