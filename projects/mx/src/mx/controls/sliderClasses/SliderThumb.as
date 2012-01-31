@@ -20,6 +20,7 @@ import mx.controls.Button;
 import mx.controls.ButtonPhase;
 import mx.core.mx_internal;
 import mx.events.SliderEvent;
+import mx.managers.ISystemManager;
 
 use namespace mx_internal;
 
@@ -167,13 +168,9 @@ public class SliderThumb extends Button
 		
 		if (enabled)
 		{
-			systemManager.removeEventListener(
+			systemManager.getSandboxRoot().removeEventListener(
 				MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
 
-			// in case we go offscreen
-			stage.removeEventListener(MouseEvent.MOUSE_MOVE, 
-							stage_mouseMoveHandler);
-						
 			Slider(owner).onThumbRelease(this);
 		}
 	}
@@ -318,17 +315,12 @@ public class SliderThumb extends Button
 			// relative to the thumb when first pressed.
 			xOffset = event.localX; 
 			
-			systemManager.addEventListener(
+			systemManager.getSandboxRoot().addEventListener(
 				MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
 						
-			// in case we go offscreen
-			stage.addEventListener(MouseEvent.MOUSE_MOVE, 
-							stage_mouseMoveHandler);
-
 			Slider(owner).onThumbPress(this);
 		}
 	}
-	
 	//--------------------------------------------------------------------------
 	//
 	//  Event handlers
@@ -354,14 +346,6 @@ public class SliderThumb extends Button
 			// Callback to the Slider to handle tooltips and update its value.
 			Slider(owner).onThumbMove(this);
 		}
-	}
-
-	private function stage_mouseMoveHandler(event:MouseEvent):void
-	{
-		if (event.target != stage)
-			return;
-
-		mouseMoveHandler(event);
 	}
 }
 
