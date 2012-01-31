@@ -183,6 +183,7 @@ public class NumericStepper extends Spinner
     public function NumericStepper()
     {
         super();
+        maximum = 10;
     }
     
     //--------------------------------------------------------------------------
@@ -419,7 +420,6 @@ public class NumericStepper extends Spinner
     // maximum
     //---------------------------------   
     
-    private var _maximum:Number = 10;
     private var maxChanged:Boolean = false;
     
     /**
@@ -436,20 +436,11 @@ public class NumericStepper extends Spinner
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function get maximum():Number
-    {
-        return _maximum;
-    }
     
     override public function set maximum(value:Number):void
     {
-        if (value == _maximum)
-            return;
-
-        _maximum = value;
         maxChanged = true;
-
-        invalidateProperties();
+        super.maximum = value;
     }
     
     //---------------------------------
