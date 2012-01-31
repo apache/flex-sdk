@@ -203,7 +203,7 @@ public class GridLayout extends LayoutBase
     {
         // TBD(hmuller):DTRT when the target changes
     }    
-    
+
     //--------------------------------------------------------------------------
     //
     //  DataGrid Access
@@ -351,7 +351,7 @@ public class GridLayout extends LayoutBase
 	 *  @private
 	 *  Update the column widths for the columns visible beginning at scrollX, that will fit
 	 *  within the specified width.  The width of GridColumns that lack an explicit width is 
-	 *  the maximuum of the preferred width of an item renderer for the grid's typicalItem, 
+	 *  the maximum of the preferred width of an item renderer for the grid's typicalItem, 
 	 *  and the preferredWidth of the corresponding ColumnHeaderBar item's renderer.
 	 * 
 	 *  This method should be called *before* layoutItemRenderers(). 
@@ -468,6 +468,11 @@ public class GridLayout extends LayoutBase
         {
             newVisibleRowIndices.push(rowIndex);
             
+            // The offset for the columns in this row.
+            const irOffsetForRow:int = newVisibleItemRenderers.length;
+            
+            // Returns the default height, if the row/cell height not previously
+            // set.
             var rowHeight:Number = gridDimensions.getRowHeight(rowIndex);
             for each (colIndex in newVisibleColumnIndices)
             {
@@ -479,7 +484,7 @@ public class GridLayout extends LayoutBase
                     var factory:IFactory = column.itemToRenderer(dataItem);
                     renderer = allocateGridElement(factory) as IVisualElement;
                 }
-                
+            
                 if (renderer.parent != itemRendererGroup)
                     itemRendererGroup.addElement(renderer);
                 
@@ -491,10 +496,23 @@ public class GridLayout extends LayoutBase
                 gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
                 cellX += colWidth + colGap;
             }
-            
-            // TBD: if gridDimensions.rowHeight is now larger, we need to make another
-            // pass to fix up the item renderer heights.
-            
+           
+            // If gridDimensions.rowHeight is now larger, we need to make another
+            // pass to fix up the item renderer heights.           
+            const finalRowHeight:Number = gridDimensions.getRowHeight(rowIndex);
+            if (rowHeight != finalRowHeight)
+            {
+                rowHeight = finalRowHeight;
+                for each (colIndex in newVisibleColumnIndices)
+                {
+                    renderer = newVisibleItemRenderers[irOffsetForRow + colIndex];                    
+                    layoutGridElement(renderer, renderer.x, renderer.y, 
+                                      renderer.width, rowHeight);
+                    gridDimensions.setCellHeight(
+                        rowIndex, colIndex, renderer.getPreferredBoundsHeight());
+                }
+            }    
+                                               
             cellX = startCellR.x;
             cellY += rowHeight + rowGap;
             
@@ -503,7 +521,7 @@ public class GridLayout extends LayoutBase
             else
                 availableHeight -= rowHeight + rowGap;            
         }
-                
+           
         // Free renderers that aren't in use
         
         for each (var oldRenderer:IVisualElement in visibleItemRenderers)
