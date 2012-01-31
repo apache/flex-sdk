@@ -1149,7 +1149,7 @@ public class Application extends SkinnableContainer
         {
             // make sure we set it back on systemManager b/c it may have been overridden by now
             if (systemManager is InteractiveObject)
-                InteractiveObject(systemManager).contextMenu = contextMenu;
+                InteractiveObject(systemManager).contextMenu = contextMenu as ContextMenu;
             return;
         }
         
