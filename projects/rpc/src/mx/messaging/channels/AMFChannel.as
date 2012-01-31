@@ -88,7 +88,7 @@ public class AMFChannel extends NetConnectionChannel
     //--------------------------------------------------------------------------
 
     /**
-     *  Creates an new AMFChannel instance.
+     *  Constructor.
      *
      *  @param id The id of this Channel.
      *
