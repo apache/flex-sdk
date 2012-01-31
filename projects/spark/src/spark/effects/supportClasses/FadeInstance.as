@@ -36,6 +36,8 @@ public class FadeInstance extends AnimateInstance
      */
     private var origAlpha:Number = NaN;
     
+    private var makeInvisible:Boolean;
+    
     /** 
      *  @private
      */
@@ -139,7 +141,18 @@ public class FadeInstance extends AnimateInstance
             alphaFrom == 0 && alphaTo != 0 &&
             propChanges && propChanges.end["visible"] !== undefined)
         {
+            target.alpha = 0;
             target.visible = true;
+        }
+        // And logic to make the object invisible at the end if we're
+        // fading it out
+        // TODO (chaase): simplify logic of which variables we are 
+        // side-effecting and what we should reset at the end
+        if ("visible" in target && target.visible && 
+            alphaFrom != 0 && alphaTo == 0 &&
+            propChanges && propChanges.end["visible"] !== undefined)
+        {
+            makeInvisible = true;
         }
         
         propertyValuesList = 
@@ -159,9 +172,10 @@ public class FadeInstance extends AnimateInstance
         super.endHandler(event);    
             
         if (restoreAlpha)
-        {
             target.alpha = origAlpha;
-        }
+
+        if (makeInvisible)
+            target.visible = false;
     }
 }
 }
