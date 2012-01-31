@@ -16,14 +16,13 @@ import flash.utils.ByteArray;
 import flash.utils.getQualifiedClassName;
 
 import mx.collections.ArrayCollection;
-import mx.collections.IList;
 import mx.logging.ILogger;
 import mx.logging.Log;
 import mx.utils.DescribeTypeCache;
-import mx.utils.object_proxy;
 import mx.utils.ObjectProxy;
 import mx.utils.URLUtil;
 import mx.utils.XMLUtil;
+import mx.utils.object_proxy;
 
 [ExcludeClass]
 
@@ -2059,9 +2058,30 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
                     propertyName = Object(name).toString();
 
 
+
                 if (parent is ContentProxy && ContentProxy(parent).object_proxy::isSimple)
                 {
-                    existingValue = ContentProxy(parent).object_proxy::content;
+                    var simpleContent:* = ContentProxy(parent).object_proxy::content;
+                    if (simpleContent != null)
+                    {
+                        if (isSimpleValue(simpleContent) || TypeIterator.isIterable(simpleContent))
+                        {
+                            existingValue = simpleContent;
+                        }
+                        else
+                        {
+                            // HACK for SDK-14800:
+                            // Flex Builder 3 may generate a strongly typed class for simpleContent extensions
+                            // or restrictions, which uses the convention of "_" + typeName for the simpleContent
+                            // value.
+                            var simplePropName:String = "_" + getUnqualifiedClassName(simpleContent);
+                            if (Object(simpleContent).hasOwnProperty(simplePropName))
+                            {
+                                simpleContent[simplePropName] = value;
+                                return;
+                            }
+                        }
+                    }
                 }
                 else 
                 {
@@ -2442,6 +2462,31 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
         }
 
         return existingValue;
+    }
+    
+    /**
+     *  Returns the name of the specified object's class,
+     *  such as <code>"Button"</code>
+     *
+     *  <p>This string does not include the package name.
+     *  If you need the package name as well, call the
+     *  <code>getQualifiedClassName()</code> method in the flash.utils package.
+     *  It will return a string such as <code>"mx.controls::Button"</code>.</p>
+     */
+    public static function getUnqualifiedClassName(object:Object):String
+    {
+        var name:String;
+        if (object is String)
+            name = object as String;
+        else
+            name = getQualifiedClassName(object);
+
+        // If there is a package name, strip it off.
+        var index:int = name.indexOf("::");
+        if (index != -1)
+            name = name.substr(index + 2);
+
+        return name;
     }
 
     /**
