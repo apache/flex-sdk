@@ -11,16 +11,12 @@
 
 package mx.components
 {
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
-import mx.components.DataGroup;
-import mx.components.MXMLComponent;
 import mx.core.mx_internal;
 import mx.graphics.graphicsClasses.TextGraphicElement;
-import mx.layout.HorizontalLayout;
-import mx.layout.VerticalLayout;
-import flash.events.Event;
 
 /**
  *  The ItemRenderer class is the base class for List item renderers.
