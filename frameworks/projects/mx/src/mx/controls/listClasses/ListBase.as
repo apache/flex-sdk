@@ -1332,7 +1332,7 @@ public class ListBase extends ScrollControlBase
      *  and selectedItems.
      */
     private var lastSelectionData:ListBaseSelectionData;
-	
+    
     /**
      *  The first proposed selectedItem.  Because the loop where it is used
      *  can be called several times becaouse of IPEs, we have to store stuff like
@@ -3534,7 +3534,7 @@ public class ListBase extends ScrollControlBase
      *  A function used to compare selectedItems against items in the
      *  dataProvider.  If there is a match, the item in the dataProvider
      *  becomes part of the selection.
-   	 *  By default, or if selectedItemsCompareFunction is set to null
+     *  By default, or if selectedItemsCompareFunction is set to null
      *  the default comparision function is used which uses
      *  strict equality (===).  Note that earlier releases of
      *  Flex used simple equality (==) so there could be behavioral
@@ -3932,7 +3932,7 @@ public class ListBase extends ScrollControlBase
     {
         // this code is nearly duplicating UIComponent.validateDisplayList();
 
-    	validateMatrix();
+        validateMatrix();
 
         if (invalidateDisplayListFlag)
         {
@@ -5630,7 +5630,7 @@ public class ListBase extends ScrollControlBase
      *  reservedItemRenderers map. Otherwise (or if no reserved renderer
      *  is found) it retrieves from the freeItemRenderers stack.
      *
-     *  @param data Object The data to be presented by the item renderer.
+     *  @param data The data to be presented by the item renderer.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
