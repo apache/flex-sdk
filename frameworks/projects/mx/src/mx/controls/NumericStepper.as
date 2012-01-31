@@ -109,6 +109,19 @@ include "../styles/metadata/TextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  Radius of component corners.
+ *  The default value depends on the component class;
+ *  if not overridden for the class, the default value
+ *  for the Halo theme is 5 and for the Spark theme is 2.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo, spark")]
+
+/**
  *  Name of the class to use as the default skin for the down arrow.
  * 
  *  @default mx.skins.halo.NumericStepperDownSkin
