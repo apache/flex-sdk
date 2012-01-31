@@ -26,6 +26,7 @@ import flash.text.TextFormat;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
 import flash.text.engine.FontLookup;
+import flash.text.engine.ITextSupport;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
@@ -383,7 +384,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 public class RichEditableText extends UIComponent
-    implements IViewport, IFocusManagerComponent, IIMESupport
+    implements IFocusManagerComponent, IIMESupport, ITextSupport, IViewport
 {
     include "../core/Version.as";
         
@@ -1080,7 +1081,19 @@ public class RichEditableText extends UIComponent
     //
     //--------------------------------------------------------------------------
 
-        
+    //----------------------------------
+    //  canReconvert
+    //----------------------------------
+
+	/**
+	 *  @private
+	 *  FIXME (gosmith)
+	 */
+	public function get canReconvert():Boolean
+	{
+		return enabled && editable;
+	}
+
     //----------------------------------
     //  content
     //----------------------------------
@@ -1607,6 +1620,34 @@ public class RichEditableText extends UIComponent
         invalidateProperties();
         invalidateDisplayList();
     }
+
+    //----------------------------------
+    //  selectionActiveIndex
+    //----------------------------------
+
+	/**
+	 *  @private
+	 *  FIXME (gosmith): ITextSupport needs to rename its
+	 *  selectionActiveIndex to selectionActivePosition.
+	 */
+	public function get selectionActiveIndex():int
+	{
+		return _selectionActivePosition;
+	}
+
+    //----------------------------------
+    //  selectionAnchorIndex
+    //----------------------------------
+
+	/**
+	 *  @private
+	 *  FIXME (gosmith): ITextSupport needs to rename its
+	 *  selectionAnchorIndex to selectionAnchorPosition.
+	 */
+	public function get selectionAnchorIndex():int
+	{
+		return _selectionAnchorPosition;
+	}
 
     //----------------------------------
     //  selectionActivePosition
@@ -3667,6 +3708,16 @@ public class RichEditableText extends UIComponent
         
         dispatchChangeAndChangingEvents = true;
     }
+
+	/**
+	 *  @private
+	 *  FIXME (gosmith).
+	 */
+	public function getTextInRange(startIndex:int = -1,
+								   endIndex:int = -1):String
+	{
+		return null;
+	}
             
     //--------------------------------------------------------------------------
     //
