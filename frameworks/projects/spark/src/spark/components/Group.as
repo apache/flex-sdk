@@ -396,10 +396,10 @@ public class Group extends GroupBase implements IVisualElementContainer
         {
         	scaleGridChanged = false;
         	
-        	scale9Grid = new Rectangle(scaleGridLeft, 
+        	/*scale9Grid = new Rectangle(scaleGridLeft, 
         							   scaleGridTop,	
         							   scaleGridRight - scaleGridLeft, 
-        							   scaleGridBottom - scaleGridTop);
+        							   scaleGridBottom - scaleGridTop);*/
         }
     }
 
