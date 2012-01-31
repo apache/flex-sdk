@@ -216,9 +216,9 @@ public class HScrollBar extends ScrollBar
      * 
      *  @see mx.components.baseClasses.TrackBase#page()
      *  @see mx.components.baseClasses.TrackBase#setValue()
-     *  @see mx.core.IViewport
-     *  @see mx.core.IViewport#horizontalScrollPosition
-     *  @see mx.core.IViewport#getHorizontalScrollPositionDelta()
+     *  @see spark.core.IViewport
+     *  @see spark.core.IViewport#horizontalScrollPosition
+     *  @see spark.core.IViewport#getHorizontalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -254,9 +254,9 @@ public class HScrollBar extends ScrollBar
      * 
      *  @see mx.components.baseClasses.TrackBase#step()
      *  @see mx.components.baseClasses.TrackBase#setValue()
-     *  @see mx.core.IViewport
-     *  @see mx.core.IViewport#horizontalScrollPosition
-     *  @see mx.core.IViewport#getHorizontalScrollPositionDelta()
+     *  @see spark.core.IViewport
+     *  @see spark.core.IViewport#horizontalScrollPosition
+     *  @see spark.core.IViewport#getHorizontalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
