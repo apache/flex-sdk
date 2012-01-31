@@ -39,6 +39,8 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 [IconFile("ButtonBar.png")]
 
+[AccessibilityClass(implementation="spark.accessibility.ButtonBarAccImpl")]
+
 /**
  *  The ButtonBar control defines a horizontal group of 
  *  logically related buttons with a common look and navigation.
@@ -107,6 +109,17 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by ButtonBarAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -377,6 +390,18 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
 
         super.setCurrentCaretIndex(value);
     }
+
+     /**
+     *  @private
+     *  Called by the initialize() method of UIComponent
+     *  to hook in the accessibility code.
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (createAccessibilityImplementation != null)
+            createAccessibilityImplementation(this);
+    }
+
 
     //--------------------------------------------------------------------------
     //
