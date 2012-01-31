@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects.interpolation
 {
-	
+    
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;    
 
@@ -19,10 +19,10 @@ import mx.resources.ResourceManager;
 //--------------------------------------
 
 [ResourceBundle("sparkEffects")]
-	
+    
 /**
  * The NumberInterpolator class provides interpolation between
- * <code>Number</code> start and end values. 
+ * start and end values represented as Number instances. 
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -33,6 +33,14 @@ public class NumberInterpolator implements IInterpolator
 {
     private static var theInstance:NumberInterpolator;
     
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function NumberInterpolator()
     {
         super();
@@ -46,8 +54,9 @@ public class NumberInterpolator implements IInterpolator
                                     ResourceManager.getInstance();
     
     /**
-     * Returns the singleton of this class. Since all NumberInterpolators
-     * have the same behavior, there is no need for more than one instance.
+     *  Returns the singleton of this class. 
+     *  Since all NumberInterpolators
+     *  have the same behavior, there is no need for more than one instance.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -62,8 +71,8 @@ public class NumberInterpolator implements IInterpolator
     }
     
     /**
-     * Returns the <code>Number</code> type, which is the type of
-     * object interpolated by NumberInterpolator
+     *  Returns Number, which is the data type of the 
+     *  objects interpolated by the NumberInterpolator class.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -76,14 +85,21 @@ public class NumberInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
-     * 
-     * <p>Interpolation for NumberInterpolator consists of a simple
-     * parametric calculation between <code>startValue</code> and 
-     * <code>endValue</code>, using <code>fraction</code> as the 
-     * fraction elapsed from start to end, like this:</p>
-     * 
-     * <p><code>return startValue + fraction * (endValue - startValue);</code></p>
+     *  Interpolation for NumberInterpolator consists of a simple
+     *  parametric calculation between <code>startValue</code> and 
+     *  <code>endValue</code>, using <code>fraction</code> as the 
+     *  fraction of the elapsed time from start to end:
+     *  
+     *  <pre>return startValue + fraction * (endValue - startValue);</pre>
+     *
+     *  @param fraction The fraction elapsed of the 
+     *  animation, between 0.0 and 1.0.
+     *
+     *  @param startValue The start value of the interpolation.
+     *
+     *  @param endValue The end value of the interpolation.
+     *
+     *  @return The interpolated value.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -105,9 +121,7 @@ public class NumberInterpolator implements IInterpolator
     }
     
     /**
-     * @inheritDoc
-     * 
-     * <p><code>return baseValue + incrementValue;</code></p>
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -120,9 +134,7 @@ public class NumberInterpolator implements IInterpolator
     }
 
     /**
-     * @inheritDoc
-     * 
-     * <p><code>return baseValue - decrementValue;</code></p>
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
