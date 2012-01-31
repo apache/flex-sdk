@@ -10,14 +10,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 package mx.effects
 {
+import __AS3__.vec.Vector;
+
 import flash.events.EventDispatcher;
 import flash.events.TimerEvent;
+import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
-import mx.effects.fxEasing.IEaser;
-import mx.effects.fxEasing.Linear;
-import mx.effects.fxEasing.Sine;
+import mx.effects.interpolation.IEaser;
+import mx.effects.interpolation.Linear;
+import mx.effects.interpolation.Sine;
 import mx.effects.interpolation.ArrayInterpolator;
 import mx.effects.interpolation.IInterpolator;
 import mx.effects.interpolation.NumberArrayInterpolator;
@@ -156,6 +159,9 @@ public class Animation extends EventDispatcher
 
     private var easingFunction:Function;
     private static var defaultEaser:IEaser = new Sine(.5); 
+    private static var delayedStartAnims:Vector.<Animation> =
+        new Vector.<Animation>();
+    private static var delayedStartTimes:Dictionary = new Dictionary();
     
     //--------------------------------------------------------------------------
     //
@@ -490,39 +496,36 @@ public class Animation extends EventDispatcher
         
         if (!timer)
         {
+            Timeline.pulse();
             timer = new Timer(_resolution);
             timer.addEventListener(TimerEvent.TIMER, timerHandler);
             timer.start();
         }
-        else
-        {
-            timer.start();
-        }
         
-        if (isNaN(intervalTime))
-            _intervalTime = getTimer();
+        _intervalTime = Timeline.currentTime;
 
         animation.startTime = _intervalTime;
     }
 
     private static function removeAnimationAt(index:int):void
     {
-        if (index >= activeAnimations.length || index < 0)
-            return;
-
-        activeAnimations.splice(index, 1);
-                
-        var n:int = activeAnimations.length;
-        for (var i:int = index; i < n; i++)
+        if (index >= 0 && index < activeAnimations.length)
         {
-            var curAnimation:Animation = Animation(activeAnimations[i]);
-            curAnimation.id--;
+            activeAnimations.splice(index, 1);
+                    
+            var n:int = activeAnimations.length;
+            for (var i:int = index; i < n; i++)
+            {
+                var curAnimation:Animation = Animation(activeAnimations[i]);
+                curAnimation.id--;
+            }
         }
-        
-        if (n == 0)
+        // If no more animations running or pending, stop the timer
+        if (activeAnimations.length == 0 && delayedStartAnims.length == 0)
         {
             _intervalTime = NaN;
             timer.reset();
+            timer = null;
         }
     }
 
@@ -537,17 +540,29 @@ public class Animation extends EventDispatcher
     private static function timerHandler(event:TimerEvent):void
     {
         var oldTime:Number = intervalTime;
-        _intervalTime = getTimer();
+        _intervalTime = Timeline.pulse();
         
         var n:int = activeAnimations.length;
                 
-        for (var i:int = n; i >= 0; i--)
+        for (var i:int = 0; i < n; ++i)
         {
             var animation:Animation = Animation(activeAnimations[i]);
             if (animation)
                 animation.doInterval();
         }
         
+        // Check to see whether it's time to start any delayed animations
+        for (i = 0; i < delayedStartAnims.length; ++i)
+        {
+            var anim:Animation = Animation(delayedStartAnims[i]);
+            var animStartTime:Number = delayedStartTimes[anim];
+            // Keep starting animations unless our sorted lists return
+            // animations that start past the current time
+            if (animStartTime < Timeline.currentTime)
+                anim.start();
+            else
+                break;
+        }
         event.updateAfterEvent();
     }
 
@@ -652,30 +667,52 @@ public class Animation extends EventDispatcher
     }
 
     /**
+     * Remove this animation from the list of pending animations,
+     * as appropriate
+     */
+    private function removeFromDelayedAnimations():void
+    {
+        if (delayedStartTimes[this])
+        {
+            var animPendingTime:int = delayedStartTimes[this];
+            for (var i:int = 0; i < delayedStartAnims.length; ++i)
+            {
+                if (delayedStartAnims[i] == this)
+                {
+                    delayedStartAnims.splice(i, 1);
+                    break;
+                }
+            }
+            delete delayedStartTimes[this];
+        }
+    }
+
+    /**
      *  Interrupt the animation, jump immediately to the end of the animation, 
      *  and send out ending notifications
      */
     public function end():void
     {
-        if (_isPlaying || duration == 0)
-        {
-            // TODO (chaase): Check whether we already send out a final
-            // UPDATE event with the end value; if so, this dup should be
-            // removed
-            var value:Object = getCurrentValue(duration);
-            
-            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
-            sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
-            
-            // If animation has been added, id >= 0
-            // but if duration = 0, this might not be the case.
-            if (id >= 0)
-                Animation.removeAnimationAt(id);
-            
-            _invertValues = false;
-            _doReverse = false;
-            _isPlaying = false;
-        }
+        removeFromDelayedAnimations();
+        
+        // TODO (chaase): Check whether we already send out a final
+        // UPDATE event with the end value; if so, this dup should be
+        // removed
+        // TODO (chaase): this will snap paused and startDelayed animations
+        // to their end values. Seems correct, but should check this.
+        var value:Object = getCurrentValue(duration);
+        
+        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
+        sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
+
+        // If animation has been added, id >= 0
+        // but if duration = 0, this might not be the case.
+        if (id >= 0)
+            Animation.removeAnimationAt(id);
+        
+        _invertValues = false;
+        _doReverse = false;
+        _isPlaying = false;
     }
 
     /**
@@ -683,11 +720,34 @@ public class Animation extends EventDispatcher
      */
     public function play():void
     {
+        setupInterpolation();
         if (startDelay > 0)
         {
-            var delayTimer:Timer = new Timer(startDelay, 1);
-            delayTimer.addEventListener(TimerEvent.TIMER, start);
-            delayTimer.start();
+            // Run timer if it's not currently running
+            if (!timer)
+            {
+                Timeline.pulse();
+                timer = new Timer(_resolution);
+                timer.addEventListener(TimerEvent.TIMER, timerHandler);
+                timer.start();
+            }
+            var animStartTime:int = Timeline.currentTime + startDelay;
+            var insertIndex:int = -1;
+            for (var i:int = 0; i < delayedStartAnims.length; ++i)
+            {
+                var timeAtIndex:int = 
+                    delayedStartTimes[delayedStartAnims[i]];
+                if (animStartTime < timeAtIndex)
+                {
+                    insertIndex = i;
+                    break;
+                }
+            }
+            if (insertIndex >= 0)
+                delayedStartAnims.splice(insertIndex, 0, this);
+            else
+                delayedStartAnims.push(this);
+            delayedStartTimes[this] = animStartTime;
         }
         else
         {
@@ -716,7 +776,7 @@ public class Animation extends EventDispatcher
         if (!_isPlaying)
         {
             setupInterpolation();
-            _intervalTime = getTimer();
+            _intervalTime = Timeline.currentTime;
             startTime = _intervalTime - playheadTime;
             doInterval();
         }
@@ -811,6 +871,8 @@ public class Animation extends EventDispatcher
      */
     public function stop():void
     {
+        removeFromDelayedAnimations();
+
         if (id >= 0)
             Animation.removeAnimationAt(id);
             
@@ -869,8 +931,18 @@ public class Animation extends EventDispatcher
      */
     private function start(event:TimerEvent = null):void
     {
+        // TODO (chaase): call removal utility instead of this code
+        // Make sure to remove any references on the delayed lists
+        for (var i:int = 0; i < delayedStartAnims.length; ++i)
+        {
+            if (this == delayedStartAnims[i])
+            {
+                delete delayedStartTimes[this];
+                delayedStartAnims.splice(i, 1);
+                break;
+            }
+        }
         numRepeats = 1;
-        setupInterpolation();
         var value:Object = getCurrentValue(0);
         sendAnimationEvent(AnimationEvent.ANIMATION_START, value);
 
