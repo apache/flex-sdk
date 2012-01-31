@@ -109,7 +109,7 @@ public class FxVScrollBar extends FxScrollBar
         {
             var trackPos:Number = track ? track.y : 0;
             var layoutElement:ILayoutElement = LayoutElementFactory.getLayoutElementFor(thumb);
-            layoutElement.setLayoutPosition(layoutElement.getLayoutPositionX(),
+            layoutElement.setLayoutBoundsPosition(layoutElement.getLayoutBoundsX(),
                                             Math.round(trackPos + thumbPos));
         }
     }
