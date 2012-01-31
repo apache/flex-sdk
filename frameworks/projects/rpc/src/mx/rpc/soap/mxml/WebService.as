@@ -81,6 +81,11 @@ use namespace mx_internal;
  *
  *  @includeExample examples/WebServiceExample.mxml -noswf
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLSupport, IMXMLObject
 {
@@ -96,6 +101,11 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
      * @param destination The destination of the WebService, which should
      * match a destination name in the services-config.xml file. If
      * unspecified, the WebService component uses the DefaultHTTP destination.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function WebService(destination:String = null)
     {
@@ -138,6 +148,11 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
      * This may simplify event handling in the client application, but care should be taken to only use 
      * this mode when results or faults for requests may be safely ignored.</li>
      * </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get concurrency():String
     {
@@ -155,6 +170,11 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
     /**
      * Deprecated, use the appropriate destination instead, or if using a url, use <code>DefaultHTTP</code> or <code>DefaultHTTPS</code>.
      * The deprecated behavior will simply update the destination if the default is being used.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     [Deprecated("Property protocol is deprecated. Please use an appropriate channel from your services configuration file (DefaultHTTP or DefaultHTTPS for instance); when useProxy is false set your URL to use the right protocol")]
     public function set protocol(protocol:String):void
@@ -194,6 +214,11 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
     /**
     * If <code>true</code>, a busy cursor is displayed while a service is executing. The default
     * value is <code>false</code>.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function get showBusyCursor():Boolean
     {
@@ -279,6 +304,11 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
      * Operation instead.
      * @param name Name of the Operation.
      * @return Operation that executes for this name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function getOperation(name:String):AbstractOperation
     {
@@ -301,6 +331,11 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
      *
      * @param document the MXML document on which this WebService lives
      * @param id the id of this WebService within the document
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialized(document:Object, id:String):void
     {
