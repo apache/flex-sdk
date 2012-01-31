@@ -36,22 +36,28 @@ import mx.styles.IStyleClient;
 
 /**
  *  Dispatched when an item is added to the content holder.
- *  event.relatedObject is the visual item that was added.
+ *  event.
  */
-[Event(name="itemAdd", type="flex.events.ItemExistenceChangedEvent")]
+[Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
 
 /**
  *  Dispatched when an item is removed from the content holder.
- *  event.relatedObject is the visual item that was removed.
+ *  event.
  */
-[Event(name="itemRemove", type="flex.events.ItemExistenceChangedEvent")]
+[Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
 [DefaultProperty("dataProvider")] 
 /**
- *  Documentation is not currently available. .
+ *  The DataGroup class is the base container class for data elements.
+ *  The DataGroup class converts data elements to visual elements for display.
+ *
+ *  @see mx.components.Group
  */
 public class DataGroup extends GroupBase 
 {
+    /**
+     *  Constructor.
+     */
     public function DataGroup()
     {
         super();
@@ -76,8 +82,8 @@ public class DataGroup extends GroupBase
     /**
      *  Renderer to use for data items. The class must
      *  implement the IDataRenderer interface.
-     *  The itemRendererFunction property,
-     *  if defined, takes precedence over this property.
+     *  If defined, the <code>itemRendererFunction</code> property
+     *  takes precedence over this property.
      *
      *  @default null
      */
@@ -118,7 +124,8 @@ public class DataGroup extends GroupBase
      *  Function that returns an item renderer for a specific item.
      *  The signature of the function is:
      *  
-     *  function itemRendererFunction(item:Object):IFactory
+     *  <pre>
+     *    function itemRendererFunction(item:Object):IFactory</pre>
      *
      *  @default null
      */
@@ -186,8 +193,7 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Internal DataGroup method used to grab the elements in the dataProvider
-     *  and add them to the DataGroup.
+     *  Adds the elements fo the dataProvider to the DataGroup.
      */ 
     protected function initializeDataProvider():void
     {
@@ -257,6 +263,9 @@ public class DataGroup extends GroupBase
      *  object for it</li>
      *  <li>if item is a DisplayObject, use it directly</li></ol>
      * 
+     *  @param item The data element.
+     *
+     *  @return The DisplayObject instance that represents the data elelement.
      */
     protected function createVisualForItem(item:Object):DisplayObject
     {
@@ -435,9 +444,10 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Internal DataGroup method called to add an item to this DataGroup.
+     *  Called to add an item to this DataGroup.
      *
      *  @param item The item that was added.
+     *
      *  @param index The index where the item was added.
      */
     protected function itemAdded(item:Object, index:int):void
@@ -470,9 +480,10 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Internal DataGroup method called to remove an item from this DataGroup.
+     *  Called to remove an item from this DataGroup.
      *
      *  @param item The item that is being removed.
+     * 
      *  @param index The index of the item that is being removed.
      */
     protected function itemRemoved(item:Object, index:int):void
@@ -515,15 +526,17 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Internal helper method to remove item from another datagroup or display list
+     *  Removes an item from another datagroup or display list
      *  before adding it to this display list.
      * 
-     *  @param child DisplayObject to add to the display list
+     *  @param child DisplayObject to add to the display list.
+     * 
      *  @param item Item associated with the display object to be added.  If 
      *  the item itself is a display object, it will be the same as the child parameter.
-     *  @param index Index position where the display object will be added
      * 
-     *  @return DisplayObject that was added
+     *  @param index Index position where the display object will be added.
+     * 
+     *  @return DisplayObject that was added.
      */ 
     protected function addItemToDisplayList(child:DisplayObject, item:*, index:int = -1):DisplayObject
     { 
@@ -768,6 +781,9 @@ public class DataGroup extends GroupBase
         }
     }
     
+    /**
+     *  @inheritDoc
+     */
     override public function addChild(child:DisplayObject):DisplayObject
     {
         throw(new Error("addChild is not available in DataGroup. " + 
