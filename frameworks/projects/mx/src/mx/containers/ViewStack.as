@@ -1347,8 +1347,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
         // been proposed, then propose this child to be selected.
         if (numChildren == 1 && proposedSelectedIndex == -1)
         {
-            proposedSelectedIndex = 0;
-            invalidateProperties();
+            selectedIndex = 0;
         } 
         else if (index <= selectedIndex && numChildren > 1 && proposedSelectedIndex == -1)         
         {
