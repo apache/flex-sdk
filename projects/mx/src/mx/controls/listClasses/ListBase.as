@@ -5962,7 +5962,7 @@ public class ListBase extends ScrollControlBase
                     if ((caretIndex == verticalScrollPosition) && 
                          (onscreenRowCount - partialRow <= 1))
                         caretIndex++;
-                    newVerticalScrollPosition = Math.min(caretIndex, maxVerticalScrollPosition);
+                    newVerticalScrollPosition = Math.max(Math.min(caretIndex, maxVerticalScrollPosition), 0);
                 }
                 bSelectItem = true;
                 break;
@@ -6001,7 +6001,7 @@ public class ListBase extends ScrollControlBase
                     newVerticalScrollPosition = Math.min(maxVerticalScrollPosition, caretIndex - onscreenRowCount + partialRow + 1);
             }
             else if (caretIndex < verticalScrollPosition)
-                newVerticalScrollPosition = caretIndex;
+                newVerticalScrollPosition = Math.max(caretIndex, 0);
         }
 
         if (!isNaN(newVerticalScrollPosition))
