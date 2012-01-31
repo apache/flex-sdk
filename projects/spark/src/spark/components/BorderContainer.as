@@ -17,10 +17,11 @@ import mx.graphics.IStroke;
 import spark.components.SkinnableContainer;
 
 /**
- *  Background image of a container.  This can be an absolute or relative
- *  URL or class.  You can either have both a <code>backgroundColor</code> and a
- *  <code>backgroundImage</code> set at the same time. The background image is displayed
- *  on top of the background color.
+ *  Background image of a container.  
+ *  This can be an absolute or relative URL or class.  
+ *  You can have both a <code>backgroundColor</code> and a
+ *  <code>backgroundImage</code> set at the same time. 
+ *  The background image is displayed on top of the background color.
  *  The default value is <code>undefined</code>, meaning "not set".
  *  If this style and the <code>backgroundColor</code> style are undefined,
  *  the component has a transparent background.
@@ -33,18 +34,19 @@ import spark.components.SkinnableContainer;
 [Style(name="backgroundImage", type="Object", format="File", inherit="no")]
 
 /**
- *  The fillMode determines how the background image fills in the dimensions. If you set the value
- *  of this property in a tag, use the string (such as "repeat"). If you set the value of 
- *  this property in ActionScript, use the constant (such as <code>BitmapFillMode.CLIP</code>).
+ *  Determines how the background image fills in the dimensions. 
+ *  If you set the value of this property in MXML, use the string (such as "repeat"). 
+ *  If you set the value of this property in ActionScript, 
+ *  use the constant (such as <code>BitmapFillMode.CLIP</code>).
  * 
- *  When set to <code>BitmapFillMode.CLIP</code> ("clip"), the image
- *  ends at the edge of the region.
+ *  <p>When set to <code>BitmapFillMode.CLIP</code> ("clip"), the image
+ *  ends at the edge of the region.</p>
  * 
- *  When set to <code>BitmapFillMode.REPEAT</code> ("repeat"), the image 
- *  repeats to fill the region.
+ *  <p>When set to <code>BitmapFillMode.REPEAT</code> ("repeat"), the image 
+ *  repeats to fill the region.</p>
  *
- *  When set to <code>BitmapFillMode.SCALE</code> ("scale"), the image
- *  stretches to fill the region.
+ *  <p>When set to <code>BitmapFillMode.SCALE</code> ("scale"), the image
+ *  stretches to fill the region.</p>
  * 
  *  @default <code>BitmapFillMode.SCALE</code>
  *  
@@ -71,8 +73,8 @@ import spark.components.SkinnableContainer;
 
 /**
  *  Color of the border.
- *  The default value depends on the component class;
- *  if not overridden for the class, the default value is <code>0xB7BABC</code>.
+ *  
+ *  @default 0xB7BABC
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -95,8 +97,9 @@ import spark.components.SkinnableContainer;
 [Style(name="borderStyle", type="String", enumeration="inset,solid", inherit="no")]
 
 /**
- *  Determines if the border is visible or not. If true, then no border will be visible,
- *  except a border set via the borderStroke property. 
+ *  Determines if the border is visible or not. 
+ *  If <code>false</code>, then no border is visible
+ *  except a border set by using the <code>borderStroke</code> property. 
  *   
  *  @default true
  *  
@@ -120,8 +123,9 @@ import spark.components.SkinnableContainer;
 [Style(name="borderWeight", type="Number", format="Length", inherit="no")]
 
 /**
- *  Radius of the curved corners of the border
- *  if not overriden for the class, the default value is 0.
+ *  Radius of the curved corners of the border.
+ *
+ *  @default 0
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -131,7 +135,7 @@ import spark.components.SkinnableContainer;
 [Style(name="cornerRadius", type="Number", format="Length", inherit="no")]
 
 /**
- *  Boolean property that specifies whether the container has a visible
+ *  If <code>true</code>, the container has a visible
  *  drop shadow.
  *  
  *  @default false
@@ -144,8 +148,45 @@ import spark.components.SkinnableContainer;
 [Style(name="dropShadowVisible", type="Boolean", inherit="no")]
 
 /**
- *  The Border class is a convenience class that provides a set of common styles that control
- *  the appearance of the border and background of a container. 
+ *  The Border class defines a set of CSS styles that control
+ *  the appearance of the border and background fill of the container. 
+ *
+ *  <p><b>Note: </b>Becasue you use CSS styles and class properties to control 
+ *  the appearance of the Border container, you cannot create a custom skin for it.</p>
+ *  
+ *  <p>The Border control has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td>112 pixels by 112 pixels</td></tr>
+ *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
+ *     <tr><td>Maximum size</td><td>No limit</td></tr>
+ *  </table>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Border&gt;</code> tag inherits all the tag attributes
+ *  of its superclass, and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:Border
+ *    <b>Properties</b>
+ *    backgroundFill="null"
+ *    borderStroke="null"
+ * 
+ *    <b>Styles</b>
+ *    backgroundImage="undefined"
+ *    backgroundImageFillMode="scale"
+ *    borderAlpha="1.0"
+ *    borderColor="0xB7BABC"
+ *    borderStyle="solid"
+ *    borderVisible="true"
+ *    borderWeight="1"
+ *    cornerRadius="0"
+ *    dropShadowVisible="false"
+ *  /&gt;
+ *  </pre>
+ * 
+ *  @see spark.skins.spark.BorderSkin
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -155,25 +196,38 @@ import spark.components.SkinnableContainer;
 public class Border extends SkinnableContainer
 {
     /**
-     *  Constructor
+     *  Constructor.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-	public function Border()
-	{
-	    super(); 
-	}
+    public function Border()
+    {
+        super(); 
+    }
      
     private var _backgroundFill:IFill;
     
     /**
-     *  The backgroundFill is used to draw the background of the Border. 
-     *  Setting this property will override the backgroundAlpha, 
-     *  backgroundColor, backgroundImage and backgroundImageFillMode styles.
+     *  Defines the background of the Border. 
+     *  Setting this property override the <code>backgroundAlpha</code>, 
+     *  <code>backgroundColor</code>, <code>backgroundImage</code>, 
+     *  and <code>backgroundImageFillMode</code> styles.
      * 
+     *  <p>The following example uses the <code>backgroundFill</code> property
+     *  to set the background color to red:</p>
+     *
+     *  <pre>
+     *  &lt;s:Border cornerRadius="10"&gt; 
+     *     &lt;s:backgroundFill&gt; 
+     *         &lt;s:SolidColor 
+     *             color="red" 
+     *             alpha="100"/&gt; 
+     *     &lt;/s:backgroundFill&gt; 
+     *  &lt;/s:Border&gt; </pre>
+     *
      *  @default null
      * 
      *  @langversion 3.0
@@ -186,6 +240,9 @@ public class Border extends SkinnableContainer
         return _backgroundFill;
     }
     
+    /**
+     *  @private
+     */ 
     public function set backgroundFill(value:IFill):void
     {
         if (value == _backgroundFill)
@@ -200,9 +257,22 @@ public class Border extends SkinnableContainer
     private var _borderStroke:IStroke;
     
     /**
-     *  The borderStroke draws the border of the Border. Setting this property will override 
-     *  the borderAlpha, borderColor, borderStyle, borderVisible and borderWeight styles.  
+     *  Defines the border of the Border container. 
+     *  Setting this property override the <code>borderAlpha</code>, 
+     *  <code>borderColor</code>, <code>borderStyle</code>, <code>borderVisible</code>, 
+     *  and <code>borderWeight</code> styles.  
      * 
+     *  <p>The following example sets the <code>borderStroke</code> property:</p>
+     *
+     *  <pre>
+     *  &lt;s:Border cornerRadius="10"&gt; 
+     *     &lt;s:borderStroke&gt; 
+     *         &lt;mx:SolidColorStroke 
+     *             color="black" 
+     *             weight="3"/&gt; 
+     *     &lt;/s:borderStroke&gt; 
+     *  &lt;/s:Border&gt; </pre>
+     *
      *  @default null
      * 
      *  @langversion 3.0
@@ -215,6 +285,9 @@ public class Border extends SkinnableContainer
         return _borderStroke;
     }
     
+    /**
+     *  @private
+     */ 
     public function set borderStroke(value:IStroke):void
     {
         if (value == _borderStroke)
