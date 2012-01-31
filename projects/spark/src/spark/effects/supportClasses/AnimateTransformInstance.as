@@ -14,19 +14,15 @@ package spark.effects.supportClasses
 import flash.display.DisplayObject;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Point;
+import flash.geom.Transform;
 import flash.geom.Vector3D;
 
-import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.effects.Effect;
 
-import spark.effects.Animate;
 import spark.effects.animation.Animation;
 import spark.effects.animation.Keyframe;
 import spark.effects.animation.MotionPath;
-import spark.effects.easing.IEaser;
-import spark.effects.easing.Linear;
 
 use namespace mx_internal;
 
@@ -145,12 +141,6 @@ public class AnimateTransformInstance extends AnimateInstance
     private var instanceStartTime:Number = 0;
 
     /**
-     *  Default transform center used in the transform calculations when
-     *  transformCenter is null.
-     */
-    private static var defaultTransformCenter:Vector3D = new Vector3D();
-
-    /**
      *  Utility map used in applyValues()
      */
     private var currentValues:Object = {rotationX:NaN, rotationY:NaN, rotationZ:NaN,
@@ -170,6 +160,8 @@ public class AnimateTransformInstance extends AnimateInstance
     private static var offsetRotation:Vector3D = new Vector3D();
     private static var offsetTranslation:Vector3D = new Vector3D();
     private static var offsetScale:Vector3D = new Vector3D();
+
+    private var prevWidth:Number, prevHeight:Number;
 
     /**
      * These maps hold the properties and layout constraints used to
@@ -206,7 +198,9 @@ public class AnimateTransformInstance extends AnimateInstance
      *  The center around which the transformations in this effect
      *  occur. In particular, rotations rotate around this point,
      *  translations move this point, and scales scale centered
-     *  around this point. If the point is not supplied, then the center
+     *  around this point. This property will be ignored if 
+     *  <code>autoCenterTransform</code> is true. If <code>autoCenterTransform</code>
+     *  is false and <code>transformCenter</code> is not supplied, then the center
      *  of the target object is used.
      *  
      *  @langversion 3.0
@@ -216,6 +210,16 @@ public class AnimateTransformInstance extends AnimateInstance
      */
     public var transformCenter:Vector3D;
 
+    /**
+     * If <code>autoCenterTransform</code> is true, the transform
+     * center will be recalculated as the effect progresses, updating to
+     * any changes in the width and height of the object. If the
+     * property is false, the <code>transformCenter</code> property
+     * will be used instead.
+     * 
+     * @copy spark.effects.AnimateTransform#animateTransform
+     */
+    public var autoCenterTransform:Boolean;
 
     //--------------------------------------------------------------------------
     //
@@ -269,23 +273,23 @@ public class AnimateTransformInstance extends AnimateInstance
         {
             if (keyframes[i].time >= newKF.time)
             {
-                if (keyframes[i].time > newKF.time)
+                // a new keyframe at the same time as an existing one
+                // will get shifted forward briefly in time. This allows,
+                // for example, multiple effects to be combined correctly
+                // where one ends at the same time the next begins. We want the
+                // first interval to use the values in the old keyframe at that
+                // time, and the next interval to start from the values in the
+                // new keyframe.
+                if (keyframes[i].time == newKF.time)
                 {
-                    keyframes.splice(i, 0, newKF);
-                    return;
+                    newKF.time += .01;
+                    keyframes.splice(i+1, 0, newKF);
                 }
                 else
                 {
-                    // don't have duplicate keyframes; combine them instead
-                    // by using any valid values in newKF
-                    if (newKF.easer)
-                        keyframes[i].easer = newKF.easer;
-                    if (isValidValue(newKF.value))
-                        keyframes[i].value = newKF.value;
-                    if (isValidValue(newKF.valueBy))
-                        keyframes[i].valueBy = newKF.valueBy;
-                    return;
+                    keyframes.splice(i, 0, newKF);
                 }
+                return;
             }
         }
         // new keyframe must happen after last existing keyframe time
@@ -375,23 +379,22 @@ public class AnimateTransformInstance extends AnimateInstance
     }
     
    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
+     *  Set up the projection that will be used during the effect
      */
-    protected function initProjection():void
+    private function initProjection():void
     {
-        if(applyLocalProjection)
+        if (applyLocalProjection)
         {
-            // FIXME (rfrishbe): need to check for IUIComponent?
-            var parent:UIComponent = target.parent;
+            var parent:DisplayObject = target.parent;
             
-            if(parent != null)
+            if (parent != null)
             {                    
-                originalProjection = parent.$transform.perspectiveProjection;
+                var parentTransform:Transform =
+                    (parent is UIComponent) ?
+                    UIComponent(parent).$transform :
+                    parent.transform;
+                originalProjection = parentTransform.perspectiveProjection;
                 var p:PerspectiveProjection = new PerspectiveProjection();
                 if(!isNaN(fieldOfView))
                     p.fieldOfView = fieldOfView;
@@ -409,35 +412,32 @@ public class AnimateTransformInstance extends AnimateInstance
                 projectionPoint = target.localToGlobal(projectionPoint);
                 p.projectionCenter = parent.globalToLocal(projectionPoint);
                  
-                parent.$transform.perspectiveProjection = p;        
+                parentTransform.perspectiveProjection = p;        
             }
         }       
         
     }
     
-   /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+    /**
+     *  @private
+     *  Restore the projection to what it was before the effect
+     *  started. 
      */
-    protected function removeProjection():void
+    private function removeProjection():void
     {
-        if(applyLocalProjection && removeLocalProjectionWhenComplete)
+        if (applyLocalProjection && removeLocalProjectionWhenComplete)
         {
             // FIXME (rfrishbe): need to check for IUIComponent? 
             // as well if checking for IVisualElement?
             var parent:DisplayObject= target.parent as DisplayObject;
             
-            if(parent is UIComponent)
+            if (parent != null)
             {
-                (parent as UIComponent).$transform.perspectiveProjection = originalProjection;
-            }
-            else if (parent != null)
-            {
-                parent.transform.perspectiveProjection = originalProjection;
+                var parentTransform:Transform =
+                    (parent is UIComponent) ?
+                    UIComponent(parent).$transform :
+                    parent.transform;
+                parentTransform.perspectiveProjection = originalProjection;
             }
         }
     }
@@ -468,18 +468,23 @@ public class AnimateTransformInstance extends AnimateInstance
             for (s in propertyChanges.end)
                 if (affectedProperties[s] !== undefined &&
                     propertyChanges.end[s] !== undefined &&
-                    propertyChanges.start[s] !== undefined &&
-                    propertyChanges.start[s] != propertyChanges.end[s])
+                    propertyChanges.start[s] !== undefined)
                 {
-                    autoProps[s] = s;
+                    if (s == "postLayoutTranslationX" ||
+                        s == "postLayoutTranslationY" ||
+                        s == "postLayoutTranslationZ" ||
+                        propertyChanges.start[s] != propertyChanges.end[s])
+                    {
+                        autoProps[s] = s;
+                    }
                 }
         }  
         if (motionPaths)
         {
             var i:int;
             var j:int;
-            var adjustXY:Boolean = transformCenter &&
-                (transformCenter.x != 0 || transformCenter.y != 0);
+            updateTransformCenter();
+            var adjustXY:Boolean = (transformCenter.x != 0 || transformCenter.y != 0);
             for (i = 0; i < motionPaths.length; ++i)
             {
                 // don't auto-animate properties already explicitly animated
@@ -543,7 +548,22 @@ public class AnimateTransformInstance extends AnimateInstance
         super.animationEnd(animation);
     }
 
-  
+    /**
+     * @private
+     * Ensures that transformCenter has proper values for use in transform
+     * calculations
+     */
+    private function updateTransformCenter():void
+    {
+        if (!transformCenter)
+            transformCenter = new Vector3D();
+        if (autoCenterTransform)
+        {
+            transformCenter.x = target.width / 2;
+            transformCenter.y = target.height / 2;
+            transformCenter.z = 0;
+        }
+    }  
     /**
      * @private
      * 
@@ -559,71 +579,67 @@ public class AnimateTransformInstance extends AnimateInstance
         // FIXME (chaase): we're recalculating the transform for every 
         // component of the translation. We should store/retrieve the
         // translation property as a structure instead of separate values
-		switch(property)
-		{
-			
-			case "translationX":
-			case "translationY":
-			case "translationZ":
-	        {
-	            var position:Vector3D = new Vector3D();
-	            var xformCenter:Vector3D = (transformCenter) ? 
-	                transformCenter : 
-	                defaultTransformCenter;
-	            target.transformPointToParent(xformCenter,
-	                position, null);
-	            if (property == "translationX")
-	                return position.x;               
-	            if (property == "translationY")
-	                return position.y;               
-	            if (property == "translationZ")
-	                return position.z;
-	            break;
-	        }			
-	        case "postLayoutTranslationX":
-			case "postLayoutTranslationY":
-			case "postLayoutTranslationZ":
-	        {
-	            var postLayoutPosition:Vector3D = new Vector3D();
-	            xformCenter  = (transformCenter) ? 
-	                transformCenter : 
-	                defaultTransformCenter;
-	            target.transformPointToParent(xformCenter,
-	                null, postLayoutPosition);
-	            if (property == "postLayoutTranslationX")
-	                return postLayoutPosition.x;               
-	            if (property == "postLayoutTranslationY")
-	                return postLayoutPosition.y;               
-	            if (property == "postLayoutTranslationZ")
-	                return postLayoutPosition.z;
-	            break;
-	        }
-	        case "postLayoutRotationX":
-	        	return (target.postLayoutTransformOffsets == null)? 
-	        	  0 :
-	        	  target.postLayoutTransformOffsets.rotationX;
-	        case "postLayoutRotationY":
+        switch(property)
+        {
+            
+            case "translationX":
+            case "translationY":
+            case "translationZ":
+            {
+                var position:Vector3D = new Vector3D();
+                updateTransformCenter();
+                target.transformPointToParent(transformCenter,
+                    position, null);
+                if (property == "translationX")
+                    return position.x;               
+                if (property == "translationY")
+                    return position.y;               
+                if (property == "translationZ")
+                    return position.z;
+                break;
+            }            
+            case "postLayoutTranslationX":
+            case "postLayoutTranslationY":
+            case "postLayoutTranslationZ":
+            {
+                var postLayoutPosition:Vector3D = new Vector3D();
+                updateTransformCenter();
+                target.transformPointToParent(transformCenter,
+                    null, postLayoutPosition);
+                if (property == "postLayoutTranslationX")
+                    return postLayoutPosition.x;               
+                if (property == "postLayoutTranslationY")
+                    return postLayoutPosition.y;               
+                if (property == "postLayoutTranslationZ")
+                    return postLayoutPosition.z;
+                break;
+            }
+            case "postLayoutRotationX":
+                return (target.postLayoutTransformOffsets == null)? 
+                    0 :
+                    target.postLayoutTransformOffsets.rotationX;
+            case "postLayoutRotationY":
                 return (target.postLayoutTransformOffsets == null)? 
                     0 :
                     target.postLayoutTransformOffsets.rotationY;
-	        case "postLayoutRotationZ":
+            case "postLayoutRotationZ":
                 return (target.postLayoutTransformOffsets == null)? 
                     0 :
                     target.postLayoutTransformOffsets.rotationZ;
-	        case "postLayoutScaleX":
+            case "postLayoutScaleX":
                 return (target.postLayoutTransformOffsets == null)? 
                     1 :
                     target.postLayoutTransformOffsets.scaleX;
-	        case "postLayoutScaleY":
+            case "postLayoutScaleY":
                 return (target.postLayoutTransformOffsets == null)? 
                     1 :
                     target.postLayoutTransformOffsets.scaleY;
-	        case "postLayoutScaleZ":
+            case "postLayoutScaleZ":
                 return (target.postLayoutTransformOffsets == null)? 
                     1 :
                     target.postLayoutTransformOffsets.scaleZ;
-	     	default:
-	            return super.getCurrentValue(property);
+             default:
+                return super.getCurrentValue(property);
         }
     }
 
@@ -657,6 +673,13 @@ public class AnimateTransformInstance extends AnimateInstance
             else
                 setValue(motionPaths[i].property, 
                     anim.currentValue[motionPaths[i].property]);
+        }
+        if (autoCenterTransform &&
+            (target.width != prevWidth || target.height != prevHeight))
+        {
+            prevWidth = target.width;
+            prevHeight = target.height;
+            updateTransformCenter();
         }
         if (!isNaN(currentValues.scaleX) ||
             !isNaN(currentValues.scaleY) || 
@@ -695,48 +718,52 @@ public class AnimateTransformInstance extends AnimateInstance
             getCurrentValue("translationZ");
         tmpPosition = position;
 
-		if (target.postLayoutTransformOffsets != null)
-		{
-	        if (!isNaN(currentValues.postLayoutRotationX) ||
-	            !isNaN(currentValues.postLayoutRotationY) || 
-	            !isNaN(currentValues.postLayoutRotationZ))
-	        {
-	            offsetRotation.x = !isNaN(currentValues.postLayoutRotationX) ? 
-	                currentValues.postLayoutRotationX : getCurrentValue("postLayoutRotationX");
-	            offsetRotation.y = !isNaN(currentValues.postLayoutRotationY) ? 
-	                currentValues.postLayoutRotationY : getCurrentValue("postLayoutRotationY");
-	            offsetRotation.z = !isNaN(currentValues.postLayoutRotationZ) ? 
-	                currentValues.postLayoutRotationZ : getCurrentValue("postLayoutRotationZ");
-	            tmpOffsetRotation = offsetRotation;
-	        }
-	
-	        if (!isNaN(currentValues.postLayoutScaleX) ||
-	            !isNaN(currentValues.postLayoutScaleY) || 
-	            !isNaN(currentValues.postLayoutScaleZ))
-	        {
-	            offsetScale.x = !isNaN(currentValues.postLayoutScaleX) ? 
-	                currentValues.postLayoutScaleX : getCurrentValue("postLayoutScaleX");
-	            offsetScale.y = !isNaN(currentValues.postLayoutScaleY) ? 
-	                currentValues.postLayoutScaleY : getCurrentValue("postLayoutScaleY");
-	            offsetScale.z = !isNaN(currentValues.postLayoutScaleZ) ? 
-	                currentValues.postLayoutScaleZ : getCurrentValue("postLayoutScaleZ");
-	            tmpOffsetScale = offsetScale;
-	        }
-	
-	        if (!isNaN(currentValues.postLayoutTranslationX) ||
-	            !isNaN(currentValues.postLayoutTranslationY) || 
-	            !isNaN(currentValues.postLayoutTranslationZ))
-	        {
-	            offsetTranslation.x = !isNaN(currentValues.postLayoutTranslationX) ? 
-	                currentValues.postLayoutTranslationX : getCurrentValue("postLayoutTranslationX");
-	            offsetTranslation.y = !isNaN(currentValues.postLayoutTranslationY) ? 
-	                currentValues.postLayoutTranslationY : getCurrentValue("postLayoutTranslationY");
-	            offsetTranslation.z = !isNaN(currentValues.postLayoutTranslationZ) ? 
-	                currentValues.postLayoutTranslationZ : getCurrentValue("postLayoutTranslationZ");
-	            tmpOffsetTranslation  = offsetTranslation;
-	        }
-		}
-		
+        if (target.postLayoutTransformOffsets != null)
+        {
+            if (!isNaN(currentValues.postLayoutRotationX) ||
+                !isNaN(currentValues.postLayoutRotationY) || 
+                !isNaN(currentValues.postLayoutRotationZ))
+            {
+                offsetRotation.x = !isNaN(currentValues.postLayoutRotationX) ? 
+                    currentValues.postLayoutRotationX : getCurrentValue("postLayoutRotationX");
+                offsetRotation.y = !isNaN(currentValues.postLayoutRotationY) ? 
+                    currentValues.postLayoutRotationY : getCurrentValue("postLayoutRotationY");
+                offsetRotation.z = !isNaN(currentValues.postLayoutRotationZ) ? 
+                    currentValues.postLayoutRotationZ : getCurrentValue("postLayoutRotationZ");
+                tmpOffsetRotation = offsetRotation;
+            }
+    
+            if (!isNaN(currentValues.postLayoutScaleX) ||
+                !isNaN(currentValues.postLayoutScaleY) || 
+                !isNaN(currentValues.postLayoutScaleZ))
+            {
+                offsetScale.x = !isNaN(currentValues.postLayoutScaleX) ? 
+                    currentValues.postLayoutScaleX : getCurrentValue("postLayoutScaleX");
+                offsetScale.y = !isNaN(currentValues.postLayoutScaleY) ? 
+                    currentValues.postLayoutScaleY : getCurrentValue("postLayoutScaleY");
+                offsetScale.z = !isNaN(currentValues.postLayoutScaleZ) ? 
+                    currentValues.postLayoutScaleZ : getCurrentValue("postLayoutScaleZ");
+                tmpOffsetScale = offsetScale;
+            }
+    
+            if (!isNaN(currentValues.postLayoutTranslationX) ||
+                !isNaN(currentValues.postLayoutTranslationY) || 
+                !isNaN(currentValues.postLayoutTranslationZ))
+            {
+                offsetTranslation.x = !isNaN(currentValues.postLayoutTranslationX) ? 
+                    currentValues.postLayoutTranslationX : getCurrentValue("postLayoutTranslationX");
+                offsetTranslation.y = !isNaN(currentValues.postLayoutTranslationY) ? 
+                    currentValues.postLayoutTranslationY : getCurrentValue("postLayoutTranslationY");
+                offsetTranslation.z = !isNaN(currentValues.postLayoutTranslationZ) ? 
+                    currentValues.postLayoutTranslationZ : getCurrentValue("postLayoutTranslationZ");
+                tmpOffsetTranslation  = offsetTranslation;
+            }
+            else
+            {
+                tmpOffsetTranslation = tmpPosition;
+            }
+        }
+        
         target.transformAround(transformCenter, tmpScale, tmpRotation, 
             tmpPosition,tmpOffsetScale,tmpOffsetRotation,tmpOffsetTranslation);
     }
