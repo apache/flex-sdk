@@ -38,6 +38,7 @@ import mx.graphics.baseClasses.TextGraphicElement;
 //--------------------------------------
 
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
+include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
 
 [IconFile("TextBox.png")]
 
