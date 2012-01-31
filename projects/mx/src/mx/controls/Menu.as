@@ -51,10 +51,10 @@ import mx.events.CollectionEventKind;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.ListEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootMouseEvent;
 import mx.events.MenuEvent;
 import mx.managers.IFocusManagerContainer;
-import mx.managers.ISystemManager2;
+import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
 
 use namespace mx_internal;
@@ -1474,9 +1474,9 @@ public class Menu extends List implements IFocusManagerContainer
         supposedToLoseFocus = true;
         
         // If the user clicks outside the menu, then hide the menu
-        var sbRoot:DisplayObject = ISystemManager2(systemManager).getSandboxRoot();
+        var sbRoot:DisplayObject = systemManager.getSandboxRoot();
         sbRoot.addEventListener(MouseEvent.MOUSE_DOWN, mouseDownOutsideHandler, false, 0, true);
-        addEventListener(MarshalMouseEvent.MOUSE_DOWN, mouseDownOutsideHandler, false, 0, true);
+        addEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE, mouseDownOutsideHandler, false, 0, true);
     }
 
     /**
@@ -1522,9 +1522,9 @@ public class Menu extends List implements IFocusManagerContainer
 
             // Now that the menu is no longer visible, it doesn't need
             // to listen to mouseDown events anymore.
-            var sbRoot:DisplayObject = ISystemManager2(systemManager).getSandboxRoot();
+            var sbRoot:DisplayObject = systemManager.getSandboxRoot();
             sbRoot.removeEventListener(MouseEvent.MOUSE_DOWN, mouseDownOutsideHandler);
-            removeEventListener(MarshalMouseEvent.MOUSE_DOWN, mouseDownOutsideHandler);
+            removeEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE, mouseDownOutsideHandler);
 
             // Fire an event
             var menuEvent:MenuEvent = new MenuEvent(MenuEvent.MENU_HIDE);
@@ -1589,7 +1589,7 @@ public class Menu extends List implements IFocusManagerContainer
             if (!isMouseOverMenu(mouseEvent) && !isMouseOverMenuBarItem(mouseEvent))
                 hideAllMenus();
         }
-        else if (event is MarshalMouseEvent)
+        else if (event is SandboxRootMouseEvent)
             hideAllMenus();
     }
 
