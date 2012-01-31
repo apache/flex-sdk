@@ -18,14 +18,25 @@ import flash.events.FocusEvent;
 import flex.component.TextView;
 import flex.events.TextOperationEvent;
 
+import mx.core.ScrollPolicy;
+
 import text.formats.LineBreak;
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
 
 [DefaultProperty("content")]
 
 /**
+ *  The built-in set of states for the TextArea component.
+ */
+[SkinStates("enabledNoScrollBars", "enabledHScrollBar", "enabledVScrollBar", "enabledBothScrollBars", "disabledNoScrollBars", "disabledHScrollBar", "disabledVScrollBar", "disabledBothScrollBars")]
+
+/**
  *  Documentation is not currently available.
  */
-public class TextArea extends TextInput
+public class TextArea extends TextBase
 {
     include "../core/Version.as";
 
@@ -127,6 +138,132 @@ public class TextArea extends TextInput
 		invalidateProperties();
 	}
     
+    //----------------------------------
+	//  horizontalScrollBar
+    //----------------------------------
+
+    [SkinPart(required="false")]
+
+	/**
+	 *  The ScrollBar for horizontal scrolling that may be present
+	 *  in skins assigned to this TextArea.
+	 */
+	public var horizontalScrollBar:ScrollBar;
+    
+	//----------------------------------
+	//  horizontalScrollPolicy
+    //----------------------------------
+
+	/**
+	 *  @private
+	 */
+	private var _horizontalScrollPolicy:String = ScrollPolicy.OFF;
+	
+	/**
+	 *  Documentation is not currently available.
+	 */
+	public function get horizontalScrollPolicy():String
+	{
+		return _horizontalScrollPolicy;
+	}
+
+	/**
+	 *  @private
+	 */
+	public function set horizontalScrollPolicy(value:String):void
+	{
+		if (value == _horizontalScrollPolicy)
+			return;
+
+		_horizontalScrollPolicy = value;
+
+		invalidateSkinState();
+	}
+    
+    //----------------------------------
+	//  verticalScrollBar
+    //----------------------------------
+
+    [SkinPart(required="false")]
+
+	/**
+	 *  The ScrollBar for vertical scrolling that may be present
+	 *  in skins assigned to this TextArea.
+	 */
+	public var verticalScrollBar:ScrollBar;
+    
+	//----------------------------------
+	//  verticalScrollPolicy
+    //----------------------------------
+
+	/**
+	 *  @private
+	 */
+	private var _verticalScrollPolicy:String = ScrollPolicy.ON;
+	
+	/**
+	 *  Documentation is not currently available.
+	 */
+	public function get verticalScrollPolicy():String
+	{
+		return _verticalScrollPolicy;
+	}
+
+	/**
+	 *  @private
+	 */
+	public function set verticalScrollPolicy(value:String):void
+	{
+		if (value == _verticalScrollPolicy)
+			return;
+
+		_verticalScrollPolicy = value;
+
+		invalidateSkinState();
+	}
+    
+	//----------------------------------
+	//  widthInChars
+    //----------------------------------
+
+	/**
+	 *  @private
+	 */
+	private var _widthInChars:int = 20;
+
+	/**
+	 *  @private
+	 */
+	private var widthInCharsChanged:Boolean = false;
+	
+	/**
+	 *  The default width for the TextInput, measured in characters.
+	 *  The width of the "0" character is used for the calculation,
+	 *  since in most fonts the digits all have the same width.
+	 *  So if you set this property to 5, it will be wide enough
+	 *  to let the user enter 5 digits.
+	 *
+	 *  @default
+	 */
+	public function get widthInChars():int
+	{
+		return _widthInChars;
+	}
+
+	/**
+	 *  @private
+	 */
+	public function set widthInChars(value:int):void
+	{
+		if (value == _widthInChars)
+			return;
+
+		_widthInChars = value;
+		widthInCharsChanged = true;
+
+		invalidateProperties();
+	}
+    
 	//--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -141,6 +278,12 @@ public class TextArea extends TextInput
 	{
         super.commitProperties();
         
+        if (widthInCharsChanged)
+		{
+			textView.widthInChars = _widthInChars;
+			widthInCharsChanged = false;
+		}
+
         if (heightInLinesChanged)
 		{
 			textView.heightInLines = _heightInLines;
@@ -168,6 +311,26 @@ public class TextArea extends TextInput
             textView.lineBreak = LineBreak.TO_FIT;
 			textView.multiline = true;
         }
+	}
+
+	/**
+	 *  @private
+	 */
+	override protected function getUpdatedSkinState():String
+	{
+        var hOn:Boolean = horizontalScrollPolicy == ScrollPolicy.ON;
+        var vOn:Boolean = verticalScrollPolicy == ScrollPolicy.ON;
+
+        if (hOn && vOn)
+            return enabled ? "enabledBothScrollBars" : "disabledBothScrollBars";
+
+        if (hOn)
+            return enabled ? "enabledHScrollBar" : "disabledHScrollBar";
+
+        if (vOn)
+            return enabled ? "enabledVScrollBar" : "disabledVScrollBar";
+
+        return enabled ? "enabledNoScrollBars" : "disabledNoScrollBars";
 	}
 
 	//--------------------------------------------------------------------------
