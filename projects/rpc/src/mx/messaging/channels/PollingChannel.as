@@ -58,9 +58,9 @@ public class PollingChannel extends Channel
      *  connected and begins polling, it will issue a poll request once every three seconds
      *  by default.
      *
- 	 *  <b>Note</b>: The PollingChannel type should not be constructed directly. Instead
+     *  <p><b>Note</b>: The PollingChannel type should not be constructed directly. Instead
 	 *  create instances of protocol specific subclasses such as HTTPChannel or
-	 *  AMFChannel that extend it.
+     *  AMFChannel that extend it.</p>
      *
 	 *  @param id The id of this Channel.
 	 *  
