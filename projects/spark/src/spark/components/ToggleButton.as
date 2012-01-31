@@ -9,16 +9,16 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
-import mx.components.baseClasses.ToggleButtonBase;
+import spark.components.supportClasses.ToggleButtonBase;
 
 
-[IconFile("FxToggleButton.png")]
+[IconFile("ToggleButton.png")]
 
 /**
- *  The FxToggleButton component defines a toggle button. 
+ *  The ToggleButton component defines a toggle button. 
  *  Clicking the button toggles it between the up and an down states.
  *  If you click the button while it is in the up state, 
  *  it toggles to the down state. You must click the button again 
@@ -27,14 +27,14 @@ import mx.components.baseClasses.ToggleButtonBase;
  *  <p>You can get or set this state programmatically
  *  by using the <code>selected</code> property.</p>
  *
- *  @includeExample examples/FxToggleButtonExample.mxml
+ *  @includeExample examples/ToggleButtonExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxToggleButton extends ToggleButtonBase
+public class ToggleButton extends ToggleButtonBase
 {
     include "../core/Version.as";
 
@@ -52,7 +52,7 @@ public class FxToggleButton extends ToggleButtonBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-    public function FxToggleButton()
+    public function ToggleButton()
     {
         super();
     }
