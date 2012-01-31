@@ -661,8 +661,11 @@ public class AnimateTransform extends Animate
                 {
                     var propName:String = effectProps[j];
                     // Only record and apply values if they change between states
+                    // Special case for tx/ty because they may change implicitly due
+                    // to transform center changes
                     if (propName in valueMap &&
-                        valueMap[propName] != otherValueMap[propName])
+                        (propName == "translationX" || propName == "translationY" ||
+                         valueMap[propName] != otherValueMap[propName]))
                     {
                         transitionValues[propName] = valueMap[propName];
                     }
@@ -880,37 +883,6 @@ public class AnimateTransform extends Animate
             }
         }
         keyframes.push(newKF);
-    }
-
-    /**
-     *  @private
-     * 
-     *  Adds a MotionPath object to the transform effect with the
-     *  given parameters. 
-     *  If a MotionPath object 
-     *  on the same property already exists, adds the keyframes from the
-     *  new MotionPath object into the existing MotionPath object, sorted
-     *  by the time values.
-     *
-     *  <p>Setting a post-layout motion path as part of an effect modifies the target, 
-     *  but the parent container ignores the changes and does not update its layout.</p>
-     *
-     *  @param property The name of the property being animated.
-     *
-     *  @param valueFrom The initial value of the property.
-     *  
-     *  @param valueTo The final value of the property.
-     *  
-     *  @param valueBy An optional parameter that specifies the delta with
-     *  which to calculate either the from or to values, if one is omitted. 
-     */
-    mx_internal function addPostLayoutMotionPath(property:String,
-        valueFrom:Number = NaN, valueTo:Number = NaN, valueBy:Number = NaN):void
-    {
-        if(isNaN(valueFrom) && isNaN(valueTo) && isNaN(valueBy))
-           return;
-           
-        addMotionPath(property,valueFrom,valueTo,valueBy);
     }
     
     /**
