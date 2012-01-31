@@ -11,6 +11,8 @@
 
 package flex.component
 {
+import flex.intf.ILayoutItem;
+import flex.layout.LayoutItemFactory;
 
 /**
  *  The HScrollBar (horizontal ScrollBar) control lets you control
@@ -76,7 +78,9 @@ public class HScrollBar extends ScrollBar
         if (thumb)
         {
             var trackPos:Number = track ? track.x : 0;   
-            thumb.x = trackPos + thumbPos;
+            var layoutItem:ILayoutItem = LayoutItemFactory.getLayoutItemFor(thumb);
+            layoutItem.setActualPosition(Math.round(trackPos + thumbPos),
+            					    	 layoutItem.actualPosition.y);
         }
     }
     
