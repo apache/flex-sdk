@@ -2628,11 +2628,14 @@ package spark.components
             // between a measured width/height that is the same as the
             // constrained width/height to know whether that dimension can
             // be sized or must be fixed at the constrained value.
-            if (!isNaN(width))
-                widthConstraint = width;
-            
-            if (!isNaN(height))
-                heightConstraint = height;
+            if (autoSize)
+            {
+                if (!isNaN(width))
+                    widthConstraint = width;
+                
+                if (!isNaN(height))
+                    heightConstraint = height;
+            }
             
             super.setLayoutBoundsSize(width, height, postLayoutTransform);
         }
