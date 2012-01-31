@@ -2336,7 +2336,7 @@ package spark.components
          *
          *  <p>Since both <code>widthInChars</code> and <code>heightInLines</code>
          *  default to <code>NaN</code>, RichTextEditable "autosizes" by default:
-         *  it starts out very samll if it has no text, grows in width as you
+         *  it starts out very small if it has no text, grows in width as you
          *  type, and grows in height when you press Enter to start a new line.</p>
          *
          *  @default NaN
