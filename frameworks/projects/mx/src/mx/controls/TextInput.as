@@ -2297,14 +2297,15 @@ public class TextInput extends UIComponent implements ITextInput
     //--------------------------------------------------------------------------
 
     /**
-     *  Used to determine if the control's border object is visible.
+     *  Used to determine if the control's border and background are 
+     *  visible.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function showBorder(visible:Boolean):void
+    public function showBorderAndBackground(visible:Boolean):void
     {
         if (border)
             border.visible = visible;
