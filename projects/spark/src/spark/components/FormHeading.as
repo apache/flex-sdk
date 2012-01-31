@@ -32,7 +32,7 @@ include "../styles/metadata/AdvancedInheritingTextStyles.as"
 [Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark")]
 
 /**
- *  Background color of a component.
+ *  Background color of the component.
  *  
  *  @default 0xFFFFFF
  * 
@@ -58,14 +58,86 @@ include "../styles/metadata/AdvancedInheritingTextStyles.as"
 [IconFile("FormHeading.png")]
 
 /**
- * A simple form item component which contains a label. It is used to 
- * provide a heading to a set of form items. It is basically a FormItem 
- * without any content, sequenceLabel or helpContent. Since it is 
- * a separate class from FormItem, it has a default style 
- * (larger font size) and its own skin.
+ *  The Spark FormHeading container displays a heading
+ *  for a group of controls inside a Spark Form container.
+ *  You can include multiple FormHeading containers within a single Form
+ *  container.
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:FormHeading&gt;</code> tag inherits all the tag 
+ *  attributes of its superclass and adds no new tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:FormHeading
+ *    <strong>Properties</strong>
+ *    label=""
+ *  
+ *    <strong>Common Styles</strong>
+ *    alignmentBaseline="baseline"
+ *    baselineShift="0"
+ *    cffHinting="0.0"
+ *    color="0x000000"
+ *    digitCase="default"
+ *    digitWidth="default"
+ *    direction="ltr"
+ *    dominantBaseline="auto"
+ *    fontFamily="Arial"
+ *    fontLookup="embeddedCFF"
+ *    fontSize="12"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    justificationRule="auto"
+ *    justificationStyle="auto"
+ *    kerning="false"
+ *    ligatureLevel="common"
+ *    lineBreak="toFit"
+ *    lineHeight="120%"
+ *    lineThrough="false%"
+ *    locale="en"
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="0"
+ *    renderingMode="cff"
+ *    textAlign="start"
+ *    textAlignLast="start"
+ *    textAlpha="1"
+ *    textDecoration="start"
+ *    textJustify="interWord"
+ *    trackingLeft="0"
+ *    trackingRight="00"
+ *    typographicCase="default"
+ *    verticalAlign="top"
+ * 
+ *    <strong>Common Styles</strong>
+ *    leading="2"
+ *    letterSpacing="0"
+ *  /&gt;
+ *  </pre>
+ * 
+ *  @see spark.components.Form
+ *  @see spark.components.FormItem
+ *  @see spark.layouts.FormLayout
+ *  @see spark.skins.spark.FormHeadingSkin
+ * 
+ *  @includeExample examples/FormExample.mxml
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5 
  */ 
 public class FormHeading extends SkinnableComponent
 {
+    /**
+     *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function FormHeading()
     {
     }
@@ -99,7 +171,7 @@ public class FormHeading extends SkinnableComponent
     [Inspectable(category="General", defaultValue="")]
     
     /**
-     *  Text to display in the FormHeading 
+     *  Text to display in the FormHeading component.
      * 
      *  @default ""
      */
