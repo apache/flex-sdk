@@ -145,6 +145,28 @@ use namespace mx_internal;
  *    the minimum range value and the maximum range value.</li>
  *  </ul>
  *
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;ScrollBar&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;ScrollBar
+ *    <strong>Properties</strong>
+ *    pageSize="20"
+ *    snapInterval=""
+ *    viewport="null"
+ *
+ *    <strong>Styles</strong>
+ *    autoThumbVisibility="true"
+ *    fixedThumbSize="false"
+ *    repeatDelay="500"
+ *    repeatInterval="35"
+ *    smoothScrolling="true"
+ *    symbolColor=""
+ *  /&gt;
+ *  </pre> 
  *  @see spark.core.IViewport
  *  @see spark.skins.spark.ScrollerSkin
  *  @see spark.skins.spark.ScrollBarDownButtonSkin
@@ -373,7 +395,7 @@ public class ScrollBar extends TrackBase
      * 
      *  <p>The VScrollBar and HScrollBar classes override these methods to 
      *  keep their <code>pageSize</code>, <code>maximum</code>, and <code>value</code> properties in sync with the
-     *  viewport.   Similarly, they override their <code>changeValueByPage()</code> and <code>changeValueByStep()</code> methods to
+     *  viewport. Similarly, they override their <code>changeValueByPage()</code> and <code>changeValueByStep()</code> methods to
      *  use the viewport's <code>scrollPositionDelta</code> methods to compute page and
      *  and step offsets.</p>
      *    
@@ -568,7 +590,7 @@ public class ScrollBar extends TrackBase
      *  smaller than the current value. 
      *  The minimum value of <code>value</code> is <code>pageSize</code>. 
      *
-     *  @param increase Whether the paging action adds (<code>true</code>)or
+     *  @param increase Whether the paging action adds (<code>true</code>) or
      *  decreases (<code>false</code>) <code>value</code>. 
      *  
      *  @langversion 3.0
