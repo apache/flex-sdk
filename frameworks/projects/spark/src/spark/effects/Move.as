@@ -81,7 +81,8 @@ public class Move extends AnimateTransform
         ["translationX", "translationY", 
          "postLayoutTranslationX","postLayoutTranslationY",
          "left", "right", "top", "bottom",
-         "horizontalCenter", "verticalCenter"];
+         "horizontalCenter", "verticalCenter",
+         "width", "height"];
 
     private static var RELEVANT_STYLES:Array = 
         ["left", "right", "top", "bottom",
