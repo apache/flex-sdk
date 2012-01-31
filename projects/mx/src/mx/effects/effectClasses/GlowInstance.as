@@ -53,6 +53,11 @@ import mx.styles.StyleManager;
  *
  *  @see mx.effects.Glow
  *  @see mx.events.TweenEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class GlowInstance extends TweenEffectInstance
 {
@@ -68,6 +73,11 @@ public class GlowInstance extends TweenEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function GlowInstance(target:Object)
 	{
@@ -86,6 +96,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  Starting transparency level.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var alphaFrom:Number;
 	
@@ -95,6 +110,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  Ending transparency level.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var alphaTo:Number;
 
@@ -104,6 +124,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  The starting amount of horizontal blur.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurXFrom:Number;
 	
@@ -113,6 +138,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  The ending amount of horizontal blur.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurXTo:Number;
 
@@ -122,6 +152,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  The starting amount of vertical blur.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurYFrom:Number;
 	
@@ -131,6 +166,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  The ending amount of vertical blur.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var blurYTo:Number;
 	
@@ -140,6 +180,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  The color of the glow. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var color:uint = StyleManager.NOT_A_COLOR;
 	
@@ -149,6 +194,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  The inner flag of the glow.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var inner:Boolean;
 	
@@ -158,6 +208,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  The knockout flag of the glow. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var knockout:Boolean;
 	
@@ -167,6 +222,11 @@ public class GlowInstance extends TweenEffectInstance
 
 	/** 
 	 *  The strength of the glow. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var strength:Number;
 	
