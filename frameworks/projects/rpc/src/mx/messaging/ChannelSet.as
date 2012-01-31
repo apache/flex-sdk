@@ -1698,6 +1698,7 @@ import mx.messaging.messages.AcknowledgeMessage;
 import mx.messaging.messages.CommandMessage;
 import mx.messaging.messages.ErrorMessage;
 import mx.rpc.AsyncToken;
+import mx.collections.ArrayCollection;
 
 use namespace mx_internal;
 
@@ -1768,10 +1769,10 @@ class ClusterMessageResponder extends MessageResponder
      */
     override protected function resultHandler(message:IMessage):void
     {        
-        if ((message.body != null) && (message.body is Array))
+        if ((message.body != null) && (message.body is Array || message.body is ArrayCollection))
         {
             var channelFailoverURIs:Object = {};
-            var mappings:Array = message.body as Array;
+            var mappings:Array = message.body is Array? message.body as Array : (message.body as ArrayCollection).toArray();
             var n:int = mappings.length;
             for (var i:int = 0; i < n; i++)
             {
