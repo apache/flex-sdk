@@ -1095,20 +1095,29 @@ public class DataGridEditor
     /**
      *  @private
      *  Check if a mouse click occured within the editor.
+     * 
+     *  @param event A MouseEvent or a SandboxMouseEvent
+     * 
+     *  @return true if the target is within the editor, false otherwise.
      */ 
     private function editorOwnsClick(event:Event):Boolean
     {
-        return (event is MouseEvent && 
-            event.target is IUIComponent &&
-            editorOwns(IUIComponent(event.target)));
+        if (event is MouseEvent)
+        {
+            var target:IUIComponent = getIUIComponent(DisplayObject(event.target));
+            if (target)
+                return editorOwns(target);
+        }
+
+        return false;
     }
     
     /**
      *  @private
-     *  Check if a mouse click occured within the editor. The editor can be either
-     *  editedItemRenderer or itemEditorInstance.
+     *  Check if a child is contained within the editor using the owns() method.
+     *  The editor can be either editedItemRenderer or itemEditorInstance.
      * 
-     *  @param child - child to test.
+     *  @param child child to test.
      *  @return true if the child is owned by the editor.
      */ 
     private function editorOwns(child:IUIComponent):Boolean
@@ -1121,6 +1130,31 @@ public class DataGridEditor
                      IUIComponent(editedItemRenderer).owns(DisplayObject(child)))));
     }
  
+    /**
+     *  @private
+     *  The IUIComponent related to a given object. If the object is not a IUIComponent
+     *  then work up the display list until we find a IUIComponent. 
+     *  @param  displayObject The object to get a IUIComponet from.
+     *  @return returns the displayObject if it is a display object or its 
+     *  closest parent that is a display object. 
+     */ 
+    private function getIUIComponent(displayObject:DisplayObject):IUIComponent
+    {
+        if (displayObject is IUIComponent)
+            return IUIComponent(displayObject);
+        
+        var current:DisplayObject = displayObject.parent;
+        while (current)
+        {
+            if (current is IUIComponent)
+                return IUIComponent(current);
+            
+            current = current.parent;
+        }
+        
+        return null;
+    }
+    
     /**
      *  @private
      * 
@@ -1180,7 +1214,8 @@ public class DataGridEditor
         
         if (event.keyCode == dataGrid.editKey)
         {
-            // ignore F2 if we are already editing a cell.
+            // ignore F2 if we are already editing a cell or the column is not
+            // editable
             if (itemEditorInstance)
                 return;
             
@@ -1195,7 +1230,7 @@ public class DataGridEditor
                                                         false);
                 return;
             }
-            else
+            else if (canEditColumn(grid.caretColumnIndex))
             {
                 dataGrid.startItemEditorSession(grid.caretRowIndex, grid.caretColumnIndex);                
             }
