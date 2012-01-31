@@ -668,11 +668,6 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    mx_internal var ignoreSelectionChangeEvent:Boolean = false;
-
-    /**
-     *  @private
-     */
     mx_internal var passwordChar:String = "*";
 
     /**
@@ -1352,7 +1347,26 @@ public class RichEditableText extends UIComponent
      */
     private function set editingMode(value:String):void
     {
+        var lastEditingMode:String = _textContainerManager.editingMode;
+
+        if (lastEditingMode == value)
+            return;
+        
         _textContainerManager.editingMode = value;
+        
+        // Make sure the selection manager selection is in sync with the
+        // current selection.
+        if (value != EditingMode.READ_ONLY && 
+            _selectionAnchorPosition != -1 && _selectionActivePosition != -1)
+        {
+            var selectionManager:ISelectionManager = 
+                _textContainerManager.beginInteraction();
+            
+            selectionManager.selectRange(
+                _selectionAnchorPosition, _selectionActivePosition);
+            
+            _textContainerManager.endInteraction();
+        }
     }
 
     //----------------------------------
@@ -1922,7 +1936,7 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
-    private var _textContainerManager:TextContainerManager;
+    private var _textContainerManager:RichEditableTextContainerManager;
             
     /**
      *  @private
@@ -2324,12 +2338,13 @@ public class RichEditableText extends UIComponent
             if (editingMode != EditingMode.READ_ONLY)
             {
                 // Must preserve the selection, if there was one.
-                var selectionManager:ISelectionManager = getSelectionManager();
+                var selManager:ISelectionManager = 
+                    _textContainerManager.beginInteraction();
                 
                 // The visible selection will be refreshed during the update.
-                selectionManager.selectRange(oldAnchorPosition, oldActivePosition);        
+                selManager.selectRange(oldAnchorPosition, oldActivePosition);        
                                      
-                releaseSelectionManager(); 
+                _textContainerManager.endInteraction();
             }           
             
             displayAsPasswordChanged = false;
@@ -2876,14 +2891,28 @@ public class RichEditableText extends UIComponent
         // Make sure all properties are committed before doing the operation.
         validateNow();
 
-        var selectionManager:ISelectionManager = getSelectionManager();
-        
-        selectionManager.selectRange(anchorPosition, activePosition);        
-                
-        // Refresh the selection.  This does not cause a damage event.
-        selectionManager.refreshSelection();
-        
-        releaseSelectionManager();
+        if (editingMode == EditingMode.READ_ONLY)
+        {
+            var selectionState:SelectionState =
+                new SelectionState(textFlow, anchorPosition, activePosition);
+            
+            var selectionEvent:SelectionEvent = 
+                new SelectionEvent(SelectionEvent.SELECTION_CHANGE, 
+                                   false, false, selectionState);
+            
+            textContainerManager_selectionChangeHandler(selectionEvent);            
+        }
+        else
+        {
+            var im:ISelectionManager = _textContainerManager.beginInteraction();
+            
+            im.selectRange(anchorPosition, activePosition);        
+            
+            // Refresh the selection.  This does not cause a damage event.
+            im.refreshSelection();
+            
+            _textContainerManager.endInteraction();
+        }
 
         // Remember if the current selection is a range which was set
         // programatically.
@@ -2939,8 +2968,6 @@ public class RichEditableText extends UIComponent
          // Make sure all properties are committed before doing the operation.
         validateNow();
 
-        var selectionManager:ISelectionManager = getSelectionManager();
-                
         // This internal TLF object maps the names of format properties
         // to Property instances.
         // Each Property instance has a category property which tells
@@ -2990,36 +3017,32 @@ public class RichEditableText extends UIComponent
         var containerFormat:ITextLayoutFormat;
         var paragraphFormat:ITextLayoutFormat;
         var characterFormat:ITextLayoutFormat;
-        
-        // Unfortunatley getCommonContainerFormat() works only on the curent
-        // selection, so if another selection is requested, we have to 
-        // temporarily change the current selection and then restore it when
-        // we are done.
-        var oldAnchorPosition:int;
-        var oldActivePosition:int;
-        if (anchorPosition != -1 && activePosition != -1)
+                                 
+        if (anchorPosition == -1 && activePosition == -1)
         {
-            oldAnchorPosition = _selectionAnchorPosition;
-            oldActivePosition = _selectionActivePosition;
-            
-            ignoreSelectionChangeEvent = true;            
-            selectionManager.selectRange(anchorPosition, activePosition);        
-        }                       
-                               
+            anchorPosition = _selectionAnchorPosition;
+            activePosition = _selectionActivePosition;
+        }
+        
         if (needContainerFormat)
-            containerFormat = selectionManager.getCommonContainerFormat();
+        {
+            containerFormat = 
+                _textContainerManager.getCommonContainerFormat();
+        }
         
         if (needParagraphFormat)
-            paragraphFormat = selectionManager.getCommonParagraphFormat();
-
-        if (needCharacterFormat)
-            characterFormat = selectionManager.getCommonCharacterFormat();
-
-        if (anchorPosition != -1 && activePosition != -1)
         {
-            selectionManager.selectRange(oldAnchorPosition, oldActivePosition);
-            ignoreSelectionChangeEvent = false;            
-        }        
+            paragraphFormat = 
+                _textContainerManager.getCommonParagraphFormat(
+                    anchorPosition, activePosition);
+        }
+        
+        if (needCharacterFormat)
+        {
+            characterFormat = 
+                _textContainerManager.getCommonCharacterFormat(
+                    anchorPosition, activePosition);
+        }
         
         // Extract the requested formats to return.
         for each (p in requestedFormats)
@@ -3036,9 +3059,6 @@ public class RichEditableText extends UIComponent
             else if (category == Category.CHARACTER && characterFormat)
                 format[p] = characterFormat[p];
         }
-        
-        // All done with the selection manager.
-        releaseSelectionManager();
         
         return format;
     }
@@ -3070,8 +3090,6 @@ public class RichEditableText extends UIComponent
     {
          // Make sure all properties are committed before doing the operation.
         validateNow();
-        
-        var editManager:IEditManager = getEditManager();
         
         // Assign each specified attribute to one of three format objects,
         // depending on whether it is container-, paragraph-,
@@ -3113,25 +3131,24 @@ public class RichEditableText extends UIComponent
             }
         }
 
-        var selectionState:SelectionState =
-            anchorPosition == -1 || activePosition == -1 ? null :                       
-            new SelectionState(editManager.textFlow, 
-                               anchorPosition, 
-                               activePosition);
-
+        // If the selection isn't specified, use the current one.
+        if (anchorPosition == -1 && activePosition == -1)
+        {
+            anchorPosition = _selectionAnchorPosition;
+            activePosition = _selectionActivePosition;
+        }
+        
         // Apply the three format objects to the current selection if
         // selectionState is null, else the specified selection.
-        editManager.applyFormat(
-            characterFormat, paragraphFormat, containerFormat, selectionState);
-        
-        // All done with the edit manager.
-        releaseEditManager(editManager);
+        _textContainerManager.applyFormatOperation(
+            characterFormat, paragraphFormat, containerFormat, 
+            anchorPosition, activePosition);
     }
 
     /**
      *  @private
      */
-    mx_internal function createTextContainerManager():TextContainerManager
+    mx_internal function createTextContainerManager():RichEditableTextContainerManager
     {
         return new RichEditableTextContainerManager(this, staticConfiguration);
     }
@@ -3231,71 +3248,6 @@ public class RichEditableText extends UIComponent
         return fontContext;
     }
 
-    /**
-     *  @private
-     *  The editingMode is set to READ_SELECT if not already READ_SELECT or
-     *  READ_WRITE.
-     *  When done call releaseSelectionManager().
-     */
-    private function getSelectionManager():ISelectionManager
-    {
-        priorEditingMode = editingMode;
-        
-        if (editingMode == EditingMode.READ_ONLY)
-            editingMode = EditingMode.READ_SELECT;
-
-        return SelectionManager(_textContainerManager.beginInteraction());
-    }
-
-    /**
-     *  @private
-     */
-    private function releaseSelectionManager():void
-    {
-        _textContainerManager.endInteraction();
-        
-        editingMode = priorEditingMode;
-    }
-
-    /**
-     *  @private
-     *  The editingMode is set to READ_WRITE.
-     *  When done call releaseEditManager().  Should only be used by API calls.
-     */
-    private function getEditManager():IEditManager
-    {
-        // This triggers a damage event if the interactionManager is
-        // changed. 
-                
-        priorEditingMode = editingMode;
-        
-        if (editingMode != EditingMode.READ_WRITE)
-            editingMode = EditingMode.READ_WRITE;
-        
-        var editManager:IEditManager =
-            EditManager(_textContainerManager.beginInteraction());
-            
-        // Combine all the edits from one API call into one operation so it 
-        // can be undone as a single operation.  It will also prevent this from
-        // possibibly being combined with the last operation.
-        editManager.beginCompositeOperation(); 
-        
-        return editManager;           
-    }
-
-    /**
-     *  @private
-     *  Should only be used by API calls.
-     */
-    private function releaseEditManager(editManager:IEditManager):void
-    {
-        editManager.endCompositeOperation();
-                    
-        _textContainerManager.endInteraction();
-
-        editingMode = priorEditingMode;
-    }
-        
     /**
      *  @private
      *  Return true if there is a width and height to use for the measure.
@@ -3612,37 +3564,32 @@ public class RichEditableText extends UIComponent
      * 
      *  This is used when text is either inserted or appended via the API.
      */
-    private function handleInsertText(text:String, isAppend:Boolean=false):void
+    private function handleInsertText(newText:String, isAppend:Boolean=false):void
     {
         // Make sure all properties are committed and events dispatched
         // before doing the append.
         validateNow();
 
-        // Always use the EditManager regardless of the values of
-        // selectable, editable and enabled.
-        var editManager:IEditManager = getEditManager();
-        
-        // An append is an insert with the selection set to the end.
-        // If no selection, then it's an append.
-         if (isAppend || !editManager.hasSelection())
-            editManager.selectRange(int.MAX_VALUE, int.MAX_VALUE);
+        if (isAppend)
+        {
+            // Set insertion pt to the end of the current text.
+            _selectionAnchorPosition = text.length;
+            _selectionActivePosition = _selectionAnchorPosition;
+        }
+        else
+        {
+            // Insert requires a selection, or it is a noop.
+            if (_selectionAnchorPosition == -1 || _selectionActivePosition == -1)
+                return;
+        }
 
-        dispatchChangeAndChangingEvents = false;
- 
-        // Insert the text.  It will be composed but the display will not be
-        // updated because of our override of 
-        // EditManager.updateAllControllers().
-        editManager.insertText(text);
-
-        // Make the insertion happen now rather than on the next frame.
-        editManager.flushPendingOperations();
-        
-        dispatchChangeAndChangingEvents = true;
-        
-        // All done with edit manager.
-        releaseEditManager(editManager);        
-
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
+        // This will update the selection after the operation is done.
+        var success:Boolean =
+            _textContainerManager.insertTextOperation(
+                newText, _selectionAnchorPosition, _selectionActivePosition);
+                
+        if (success)
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
     }
 
     /**
@@ -4066,20 +4013,22 @@ public class RichEditableText extends UIComponent
     private function textContainerManager_selectionChangeHandler(
                         event:SelectionEvent):void
     {
-        if (ignoreSelectionChangeEvent)
-            return;
-            
         var oldAnchor:int = _selectionAnchorPosition;
         var oldActive:int = _selectionActivePosition;
         
-        var selectionManager:ISelectionManager = 
-            _textContainerManager.beginInteraction();
+        var selectionState:SelectionState = event.selectionState;
         
-        _selectionAnchorPosition = selectionManager.anchorPosition;
-        _selectionActivePosition = selectionManager.activePosition;
+        if (selectionState)
+        {
+            _selectionAnchorPosition = selectionState.anchorPosition;
+            _selectionActivePosition = selectionState.activePosition;
+        }
+        else
+        {
+            _selectionAnchorPosition = -1;
+            _selectionActivePosition = -1;
+        }
         
-        _textContainerManager.endInteraction();
-
         // Selection changed so reset.
         hasProgrammaticSelectionRange = false;
         
