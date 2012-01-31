@@ -864,15 +864,6 @@ public class RichText extends TextGraphicElement
         releaseTextLines();
         
         createTextLines();
-                    
-        // If toFit and explicit width, adjust the bounds to match.
-        // This will save a recompose and/or clip in updateDisplayList() if 
-        // the bounds width matches the unscaled width.
-        if (getStyle("lineBreak") == "toFit" && !isNaN(width) && 
-            bounds.width < width)
-        {
-            bounds.width = width;
-        }                                                           
         
         addTextLines(DisplayObjectContainer(drawnDisplayObject));
         
