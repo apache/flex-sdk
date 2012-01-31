@@ -206,6 +206,8 @@ public class Button extends ButtonBase implements IButton
     //
     //--------------------------------------------------------------------------
     
+    [Inspectable(category="General")]
+    
     /**
      *  @private
      */
