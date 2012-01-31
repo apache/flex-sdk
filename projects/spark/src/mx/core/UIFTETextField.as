@@ -20,7 +20,7 @@ import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextLineMetrics;
 import flashx.textLayout.controls.TLFTextField;
-import flashx.textLayout.elements.ITextLineCreator;
+import flashx.textLayout.compose.ITextLineCreator;
 import mx.automation.IAutomationObject;
 import mx.core.FlexVersion;
 import mx.managers.ISystemManager;
