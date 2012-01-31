@@ -1,24 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Simple example to demonstrate the Spark HSlider control -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo">
-    
-	<!-- Panel used as a container for FxHSlider control examples -->
-	<mx:Panel title="Spark HSlider Control Example" height="75%" width="75%" paddingTop="10"
-	    paddingLeft="10" horizontalCenter="0" verticalCenter="0">
- 
-		<s:Group>
-			<s:layout>
-				<s:HorizontalLayout/>
-			</s:layout>
-        
-			<mx:Spacer width="100" />                       
-                       
-			<mx:Image id="fxImage" source="@Embed('assets/Nokia_6630.png')"/>           
-		</s:Group>
-                    
-    	<mx:Text width="100%" text="Drag the slider to change the image transparency"/>    	
-		    
-		<s:HSlider id="hSlider" minimum="0" maximum="1" value="1" stepSize="0.1"
-		    valueInterval="0.1" liveDragging="true" change="fxImage.alpha=hSlider.value"/>
-	</mx:Panel>                            
+
+    <!-- Panel used as a container for Spark HSlider control examples -->
+    <s:Panel title="Spark HSlider Control Example"
+            width="75%" height="75%"
+            horizontalCenter="0" verticalCenter="0">
+
+         <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:HGroup>
+                <mx:Spacer width="100" />
+                <mx:Image id="fxImage" source="@Embed('assets/Nokia_6630.png')"/>
+            </s:HGroup>
+
+            <s:SimpleText width="100%" text="Drag the slider to change the image transparency"/>
+
+            <s:HSlider id="hSlider" minimum="0" maximum="1" value="1" stepSize="0.1"
+                    valueInterval="0.1" liveDragging="true" change="fxImage.alpha=hSlider.value;"/>
+         </s:VGroup>
+    </s:Panel>
+
 </s:Application>
