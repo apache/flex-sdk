@@ -36,7 +36,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#alternatingItemColors
+ *  @copy spark.components.supportClasses.GroupBase#alternatingItemColors
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -46,7 +46,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -56,7 +56,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -66,7 +66,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
- * @copy mx.components.baseClasses.GroupBase#rollOverColor
+ * @copy spark.components.supportClasses.GroupBase#rollOverColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -76,7 +76,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
