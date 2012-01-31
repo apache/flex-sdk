@@ -886,7 +886,7 @@ public class RichText extends TextGraphicElement
             staticTextFlowFactory.createTextLines(addTextLine, _textFlow);
         }
         
-        bounds = factory.contentBounds;
+        bounds = factory.getContentBounds();
         _isTruncated = factory.isTruncated;
     }
 
