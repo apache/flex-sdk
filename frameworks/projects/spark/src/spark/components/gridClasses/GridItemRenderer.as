@@ -188,9 +188,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     //----------------------------------
     
     /**
-     *  Returns the zero-based index of the column being rendered. 
-     *  That means that values are 0, 1, 2, ... , n - 1, 
-     *  where n is the total number of columns. 
+     *  @inheritDoc 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
