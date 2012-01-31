@@ -23,12 +23,22 @@ import mx.core.EdgeMetrics;
 /**
  *  Number of pixels between children in the horizontal direction. 
  *  The default value is 8.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no")]
 
 /**
  *  Number of pixels between children in the vertical direction. 
  *  The default value is 6.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGap", type="Number", format="Length", inherit="no")]
 
@@ -143,6 +153,11 @@ import mx.core.EdgeMetrics;
  *
  *  @see mx.containers.GridRow
  *  @see mx.containers.GridItem
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Grid extends Box
 {
@@ -156,6 +171,11 @@ public class Grid extends Box
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Grid()
     {
@@ -282,6 +302,11 @@ public class Grid extends Box
      * 
      *  <p>These properties correspond to the layout properties listed previously 
      *  and, therefore, are not documented separately.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -584,6 +609,11 @@ public class Grid extends Box
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
