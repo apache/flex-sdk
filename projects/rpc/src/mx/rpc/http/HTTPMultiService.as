@@ -23,6 +23,7 @@ import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.rpc.AbstractService;
 import mx.rpc.events.FaultEvent;
+import mx.rpc.mxml.Concurrency;
 import mx.utils.URLUtil;
 
 use namespace mx_internal;
@@ -141,6 +142,8 @@ public dynamic class HTTPMultiService extends AbstractService
         _log = Log.getLogger("mx.rpc.http.HTTPMultiService");
 
         this.baseURL = baseURL;
+
+        concurrency = Concurrency.MULTIPLE;
     }
 
     //--------------------------------------------------------------------------
@@ -166,6 +169,16 @@ public dynamic class HTTPMultiService extends AbstractService
      */
     private var resourceManager:IResourceManager = ResourceManager.getInstance();
 
+    /**
+     *  @private
+     */
+    private var _showBusyCursor:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var _concurrency:String;
+
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -182,13 +195,45 @@ public dynamic class HTTPMultiService extends AbstractService
      *  The default is <code>application/x-www-form-urlencoded</code> which sends requests
      *  like a normal HTTP POST with name-value pairs. <code>application/xml</code> send
      *  requests as XML.
+     */
+    public var contentType:String = AbstractOperation.CONTENT_TYPE_FORM;
+
+    //----------------------------------
+    //  concurrency
+    //----------------------------------
+
+    [Inspectable(enumeration="multiple,single,last", defaultValue="multiple", category="General")]
+    /**
+     * Value that indicates how to handle multiple calls to the same operation within the service.
+     * The concurrency setting set here will be used for operations that do not specify concurrecny.
+     * Individual operations that have the concurrency setting set directly will ignore the value set here.
+     * The default value is <code>multiple</code>. The following values are permitted:
+     * <ul>
+     * <li><code>multiple</code> Existing requests are not cancelled, and the developer is
+     * responsible for ensuring the consistency of returned data by carefully
+     * managing the event stream. This is the default value.</li>
+     * <li><code>single</code> Only a single request at a time is allowed on the operation;
+     * multiple requests generate a fault.</li>
+     * <li><code>last</code> Making a request cancels any existing request.</li>
+     * </ul>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var contentType:String = AbstractOperation.CONTENT_TYPE_FORM;
+    public function get concurrency():String
+    {
+        return _concurrency;
+    }
+    public function set concurrency(c:String):void
+    {
+        _concurrency = c;
+    }
+
+    //----------------------------------
+    //  showBusyCursor
+    //----------------------------------
 
     [Inspectable(defaultValue="false", category="General")]
     /**
@@ -200,7 +245,15 @@ public dynamic class HTTPMultiService extends AbstractService
     *  @playerversion AIR 1.1
     *  @productversion Flex 3
     */
-    public var showBusyCursor:Boolean = false;
+    public function get showBusyCursor():Boolean
+    {
+        return _showBusyCursor;
+    }
+
+    public function set showBusyCursor(sbc:Boolean):void
+    {
+        _showBusyCursor = sbc;
+    }
 
     //----------------------------------
     //  headers
