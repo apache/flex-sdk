@@ -333,7 +333,7 @@ public class SkinnableContainer extends SkinnableContainerBase
     [SkinPart(required="false")]
     
     /**
-     *  A required skin part that defines the Group where the content 
+     *  An optional skin part that defines the Group where the content 
      *  children get pushed into and laid out.
      *  
      *  @langversion 3.0
