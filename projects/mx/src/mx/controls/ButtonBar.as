@@ -30,7 +30,6 @@ import mx.events.ChildExistenceChangedEvent;
 import mx.events.ItemClickEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.styles.CSSStyleDeclaration;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -536,8 +535,8 @@ use namespace mx_internal;
         {
             recalcButtonHeights = true;
         }
-        else if (StyleManager.isInheritingStyle(styleProp) && 
-            StyleManager.isSizeInvalidatingStyle(styleProp))
+        else if (styleManager.isInheritingStyle(styleProp) && 
+            styleManager.isSizeInvalidatingStyle(styleProp))
         {
             recalcButtonWidths = recalcButtonHeights = true;
         }        
