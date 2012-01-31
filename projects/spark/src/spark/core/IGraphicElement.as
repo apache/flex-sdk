@@ -153,6 +153,16 @@ public interface IGraphicElement
 	//  visible
 	//----------------------------------
 	
+	//----------------------------------
+	//  scaleY
+	//----------------------------------
+	/**
+	 *  Indicates the layer of the element relative to its siblings. Defaults to 0.
+	 */
+	function get layer():Number;
+	function set layer(value:Number):void;
+
+
 	/**
 	 *  Controls the visibility of the element.
 	 */
