@@ -66,7 +66,7 @@ public class LoadEvent extends WSDLLoadEvent
     /**
      * Returns a copy of this LoadEvent.
      *
-     * @return A copy of this LoadEvent.
+     * @return Returns a copy of this LoadEvent.
      */
     override public function clone():Event
     {
@@ -76,7 +76,7 @@ public class LoadEvent extends WSDLLoadEvent
     /**
      * Returns a String representation of this LoadEvent.
      *
-     * @return A String representation of this LoadEvent.
+     * @return Returns a String representation of this LoadEvent.
      */
     override public function toString():String
     {
