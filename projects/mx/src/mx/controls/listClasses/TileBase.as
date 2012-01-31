@@ -43,7 +43,6 @@ import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.events.ScrollEventDirection;
 import mx.skins.halo.ListDropIndicator;
-import mx.styles.StyleManager;
 import mx.collections.ItemWrapper;
 import mx.collections.ModifiedCollectionView;
 
@@ -2441,7 +2440,7 @@ public class TileBase extends ListBase
             return;
         }
 
-        StyleManager.getColorNames(colors);
+        styleManager.getColorNames(colors);
 
         var curItem:int = 0;
         for (var i:int = 0; i < rowCount; i++)
