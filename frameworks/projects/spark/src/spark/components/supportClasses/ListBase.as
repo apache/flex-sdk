@@ -766,8 +766,6 @@ public class ListBase extends SkinnableDataContainer
             dataProviderChanged = false;
             doingWholesaleChanges = false;
         
-            // FIXME (dsubrama): should resetting the dataProvider clear out all of its state?
-            // or should we preserve selectedIndex
             if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
                itemSelected(selectedIndex, true);
             else if (requireSelection)
@@ -912,7 +910,7 @@ public class ListBase extends SkinnableDataContainer
             if (renderer is ItemRenderer)
                 ItemRenderer(renderer).playTransitions = false; 
             
-            // FIXME (dsubrama): - Go through helper methods to do this. 
+            // TODO (dsubrama): - Go through helper methods to do this. 
             // Make itemSelected()/itemShowingCaret() pass around the renderer 
             // instead of index
             IItemRenderer(renderer).selected = false;
