@@ -971,19 +971,19 @@ class HTTPOperation extends AbstractOperation
      */ 
     override mx_internal function dispatchRpcEvent(event:AbstractEvent):void
     {
-        event.mx_internal::callTokenResponders();
-        if (!event.isDefaultPrevented())
+        if (hasEventListener(event.type))
         {
-            if (hasEventListener(event.type))
-            {
+            event.mx_internal::callTokenResponders();
+            if (!event.isDefaultPrevented())
                 dispatchEvent(event);
-            }
-            else
-            {
-                if (httpService != null)
-                    httpService.mx_internal::dispatchRpcEvent(event);                        
-            }            
         }
+        else
+        {
+            if (httpService != null)
+                httpService.mx_internal::dispatchRpcEvent(event);
+            else
+                event.mx_internal::callTokenResponders();
+        }            
     }
 
     /**
