@@ -83,7 +83,8 @@ use namespace mx_internal;
  *  Color of links as you roll the mouse pointer over them.
  *  The default value is based on the current <code>themeColor</code>.
  * 
- *  @default 0xEEFEE6 (light green)
+ *  The default value for the Halo theme is <code>0xB2E1FF</code>.
+ *  The default value for the Spark theme is <code>0xCEDBEF</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -95,7 +96,8 @@ use namespace mx_internal;
 /**
  *  Background color of the LinkButton control as you press it.
  * 
- *  @default 0xCDFFC1
+ *  The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -143,7 +145,8 @@ use namespace mx_internal;
 /**
  *  Text color of the link as you move the mouse pointer over it.
  * 
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -155,7 +158,8 @@ use namespace mx_internal;
 /**
  *  Text color of the link as you press it.
  * 
- *  @default 0x000000
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
