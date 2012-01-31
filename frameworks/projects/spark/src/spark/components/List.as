@@ -1192,10 +1192,8 @@ public class List extends ListBase implements IFocusManagerComponent
                 dispatchEvent(e);
                 dispatchChangeAfterSelection = false;
             }
-            else
-            {
-                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-            }
+
+            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
             
             e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldCaretIndex; 
