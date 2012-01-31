@@ -24,7 +24,8 @@ import spark.components.HSlider;
 
 /**
  *  The VideoScrubBar class is a video scrubbar/timeline that can show the
- *  current playHead, the amount previously played, and the buffered video.  
+ *  current playHead, the amount previously played, and the loaded in part 
+ *  of the video.  
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -78,14 +79,19 @@ public class ScrubBar extends HSlider
     
     /**
      *  An optional skin part for the area on the track 
-     *  representing the buffered video.
+     *  representing the currently loaded in part of the video.
+     * 
+     *  <p>For a progressive download video, this will correspond 
+     *  to the number of bytes downloaded.  For a streaming video, 
+     *  the whole video is "loaded in" as it's quick to seek to 
+     *  any spot in the video.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var bufferedArea:IVisualElement;
+    public var loadedRangeArea:IVisualElement;
     
     //--------------------------------------------------------------------------
     //
@@ -94,66 +100,39 @@ public class ScrubBar extends HSlider
     //--------------------------------------------------------------------------
     
     //--------------------------------- 
-    // bufferedEnd
+    // loadedRangeEnd
     //---------------------------------
     
-    private var _bufferedEnd:Number;
+    private var _loadedRangeEnd:Number;
     
     /**
-     *  The range of currently buffered in values.  This 
+     *  The range of currently loaded in values.  This 
      *  property corresponds to the end of that range.
+     * 
+     *  <p>For a progressive download video, this will correspond 
+     *  to the number of bytes downloaded.  For a streaming video, 
+     *  the whole video is "loaded in" as it's quick to seek to 
+     *  any spot in the video.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get bufferedEnd():Number
+    public function get loadedRangeEnd():Number
     {
-        return _bufferedEnd;
+        return _loadedRangeEnd;
     }
     
     /**
      *  @private
      */
-    public function set bufferedEnd(value:Number):void
+    public function set loadedRangeEnd(value:Number):void
     {
-        if (value == _bufferedEnd)
+        if (value == _loadedRangeEnd)
             return;
         
-        _bufferedEnd = value;
-        invalidateDisplayList();
-    }
-    
-    //--------------------------------- 
-    // bufferedStart
-    //---------------------------------
-    
-    private var _bufferedStart:Number;
-    
-    /**
-     *  The range of currently buffered in values.  This 
-     *  property corresponds to the start of that range.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get bufferedStart():Number
-    {
-        return _bufferedStart;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set bufferedStart(value:Number):void
-    {
-        if (value == _bufferedStart)
-            return;
-        
-        _bufferedStart = value;
+        _loadedRangeEnd = value;
         invalidateDisplayList();
     }
 
@@ -179,12 +158,12 @@ public class ScrubBar extends HSlider
             
             invalidateDisplayList();
         }
-        else if (instance == bufferedArea)
+        else if (instance == loadedRangeArea)
         {
-            if (bufferedArea is InteractiveObject)
-                InteractiveObject(bufferedArea).mouseEnabled = false;
-            if (bufferedArea is DisplayObjectContainer)
-                DisplayObjectContainer(bufferedArea).mouseChildren = false;
+            if (loadedRangeArea is InteractiveObject)
+                InteractiveObject(loadedRangeArea).mouseEnabled = false;
+            if (loadedRangeArea is DisplayObjectContainer)
+                DisplayObjectContainer(loadedRangeArea).mouseChildren = false;
             
             invalidateDisplayList();
         }
@@ -209,24 +188,24 @@ public class ScrubBar extends HSlider
     override protected function updateSkinDisplayList():void
     {
         super.updateSkinDisplayList();
-        sizeBufferedArea(calculateAreaSize(bufferedEnd));
+        sizeLoadedRangeArea(calculateAreaSize(loadedRangeEnd));
         sizePlayedArea(calculateAreaSize(value));
     }
     
     /**
-     *  Sets the size of the buffered area
+     *  Sets the size of the loaded range area
      *
-     *  @param bufferedAreaSize The new size of the buffered area
+     *  @param loadedRangeAreaSize The new size of the loaded in range area
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function sizeBufferedArea(bufferedAreaSize:Number):void
+    protected function sizeLoadedRangeArea(loadedRangeAreaSize:Number):void
     {
-        if (bufferedArea)
-            bufferedArea.setLayoutBoundsSize(Math.round(bufferedAreaSize), NaN);
+        if (loadedRangeArea)
+            loadedRangeArea.setLayoutBoundsSize(Math.round(loadedRangeAreaSize), NaN);
     }
     
     /**
