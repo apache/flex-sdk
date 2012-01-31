@@ -15,7 +15,20 @@ package spark.components
 import flash.events.Event;
 import spark.components.supportClasses.ButtonBase;
 import mx.core.IButton;
- 
+
+
+/**
+ *  Color applied to the button when the emphasized flag is true. 
+ * 
+ *  @default #0099FF
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="accentColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
