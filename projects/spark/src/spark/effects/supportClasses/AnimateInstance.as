@@ -11,24 +11,24 @@
 
 package mx.effects.effectClasses
 {
+import flash.events.Event;
 import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
 
-import mx.components.baseClasses.GroupBase;
 import mx.components.Group;
+import mx.components.baseClasses.GroupBase;
+import mx.core.Container;
+import mx.core.UIComponent;
 import mx.effects.Animation;
+import mx.effects.EffectInstance;
+import mx.effects.EffectManager;
 import mx.effects.PropertyValuesHolder;
 import mx.effects.interpolation.IEaser;
 import mx.effects.interpolation.IInterpolator;
 import mx.events.AnimationEvent;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
-
-import mx.core.Container;
-import mx.core.UIComponent;
-import mx.effects.EffectInstance;
-import mx.effects.EffectManager;
 import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
 
@@ -253,18 +253,31 @@ public class FxAnimateInstance extends EffectInstance
      */
     override public function startEffect():void
     {  
-        // This method is a copy of that in EffectInstance, but removes
-        // the startDelay functionality, as that is handled by the 
-        // underlying Animation object for AnimateInstance
-
-        // Also removes EffectManager.effectStarted() to avoid use of
+        // This override removes EffectManager.effectStarted() to avoid use of
         // mx_internal. New effects are not currently triggerable, so
         // this should not matter
                  
         if (target is UIComponent)
         {
             UIComponent(target).effectStarted(this);
-        }        
+        }
+        if (startDelay > 0)
+        {
+            // We only need a simple Timer for this, but running an
+            // Animation will synchronize this delayed effect with other
+            // effects in the system
+            var anim:Animation = new Animation(0, 1, startDelay);
+            anim.addEventListener(AnimationEvent.ANIMATION_END, delayedPlay);
+            anim.play();
+        }
+        else
+        {
+            play();
+        }
+    }
+    
+    private function delayedPlay(event:AnimationEvent):void
+    {
         play();
     }
     
@@ -276,6 +289,8 @@ public class FxAnimateInstance extends EffectInstance
      */
     override public function play():void
     {
+        super.play();
+
         if (!propertyValuesList || propertyValuesList.length == 0)
         {
             // nothing to do; at least schedule the effect to end after
@@ -383,7 +398,6 @@ public class FxAnimateInstance extends EffectInstance
         animation.repeatDelay = repeatDelay;
         animation.repeatBehavior = repeatBehavior;
         animation.easer = easer;
-        animation.startDelay = startDelay;
                     
         animation.play();
           
@@ -428,13 +442,6 @@ public class FxAnimateInstance extends EffectInstance
         // play() functionality (the setup and playing of the Animation object)
         // into startEffect(), calling play() from here, and not overriding
         // play() at all.
-
-        // Call EffectInstace.play() here instead of from our play() function
-        // because we actually start playing immediately, and leave it to the
-        // Animation to pause on startDelay. By waiting until the animation
-        // starts to call play(), we delay the EffectInstance sending out the
-        // EFFECT_START events until any start delays are over
-        super.play();
         
         if (autoRemoveTarget)
             addDisappearingTarget();
