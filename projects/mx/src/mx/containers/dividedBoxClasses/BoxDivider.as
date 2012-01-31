@@ -16,8 +16,10 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
+
 import mx.containers.DividedBox;
 import mx.containers.DividerState;
+import mx.core.ILayoutDirectionElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.SandboxMouseEvent;
@@ -255,7 +257,11 @@ public class BoxDivider extends UIComponent
                     if (knobClass)
                         knob = new knobClass();
                     if (knob)
+                    {
+                        if (knob is ILayoutDirectionElement)
+                            ILayoutDirectionElement(knob).layoutDirection = null;
                         addChild(knob);
+                    }
                 }
 
                 if (knob)
