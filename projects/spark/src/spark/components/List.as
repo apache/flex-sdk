@@ -12,11 +12,16 @@
 package mx.components
 {
 import flash.display.DisplayObject;
+import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.ui.Keyboard;
 
 import mx.components.baseClasses.FxListBase;
 import mx.core.ClassFactory;
 import mx.events.ItemExistenceChangedEvent;
+import mx.layout.BasicLayout;
+import mx.layout.HorizontalLayout;
+import mx.layout.VerticalLayout;
 import mx.skins.spark.FxDefaultItemRenderer;
 
 /**
@@ -57,6 +62,10 @@ public class FxList extends FxListBase
     {
         super();
         itemRenderer = new ClassFactory(FxDefaultItemRenderer);
+        
+        //Add a keyDown event listener so we can adjust
+        //selection accordingly.  
+        addEventListener(KeyboardEvent.KEY_DOWN, list_keyDownHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -416,6 +425,50 @@ public class FxList extends FxListBase
         
         selectedItem = dataGroup.getRendererItem(DisplayObject(event.currentTarget));
     }
+    
+    /**
+     *  @private
+     */
+    private function list_keyDownHandler(event:KeyboardEvent):void
+    {
+    	switch (event.keyCode)
+        {
+            case Keyboard.UP:
+            {
+            	if (layout is VerticalLayout)
+            		if (selectedIndex > 0)
+            			selectedIndex--;
+            	break;
+            }
+            case Keyboard.DOWN:
+            {
+            	if (layout is VerticalLayout)
+            		if (selectedIndex < (dataProvider.length - 1))
+            			selectedIndex++;
+                break;
+            }
+            case Keyboard.LEFT:
+            {
+            	if (layout is HorizontalLayout)
+            		if (selectedIndex > 0)
+            			selectedIndex--;
+            	break;
+            }
+            case Keyboard.RIGHT:
+            {
+            	if (layout is HorizontalLayout)
+            		if (selectedIndex < (dataProvider.length - 1))
+            			selectedIndex++;
+            	break;
+            }
+            default:
+            {
+            	//make sure keyDown handlers set in tag are clled 
+                event.stopPropagation();
+            }
+        }
+    }
+  
 }
 
 }
