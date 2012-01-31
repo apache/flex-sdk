@@ -179,9 +179,6 @@ public class TextInput extends SkinnableTextBase
         
         // Trigger bindings to textChanged.
         dispatchEvent(new Event("textChanged"));
-
-        // The default event to trigger a validator.
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                   
     }
 
     //----------------------------------
