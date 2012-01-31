@@ -82,7 +82,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *
  *  @mxml
  *
- *  <p>The <code>&lt;NumericStepper&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:NumericStepper&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
