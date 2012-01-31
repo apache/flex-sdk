@@ -17,7 +17,6 @@ import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Sprite;
 import flash.events.Event;
-import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.text.engine.TextLine;
 
@@ -573,25 +572,37 @@ public class TextGraphicElement extends GraphicElement
     		invalidateDisplayList();
     	}
     }
-	
+
+    /**
+     *  @private
+     */
+    override public function canShareWithPrevious(element:IGraphicElement):Boolean
+    {
+        // TextGraphicElement always requires its own display object as
+        // Group doesn't support IGraphicElements with multiple display objects.
+        return false;
+    }
+
     /**
      *  @private
      */
     override public function canShareWithNext(element:IGraphicElement):Boolean
     {
+        // TextGraphicElement always requires its own display object as
+        // Group doesn't support IGraphicElements with multiple display objects.
         return false;
-        // FIXME (egeorgie): Returning false is a temporary workaround to fix SDK-21084
-        // for Beta 1. The real problem involves how Group does z-ordering
-        // of its children without taking TextLines into account.
-        // We should restore the code below after we have a proper fix
-        // for SDK-21084.
-        
-        // We can share with the next GraphicElement only if it is also
-        // a TextGraphicElement, as TextGraphicElements add child DisplayObjects
-        // instead of drawing the the DisplayObject's graphics.
-        //return element is TextGraphicElement && super.canShareWithNext(element);
     }
-	
+
+    /**
+     *  @private
+     */
+    override public function setSharedDisplayObject(displayObject:DisplayObject):Boolean
+    {
+        // TextGraphicElement always requires its own display object as
+        // Group doesn't support IGraphicElements with multiple display objects.
+        return false;
+    }
+
     //----------------------------------
     //  styleChainInitialized
     //----------------------------------
