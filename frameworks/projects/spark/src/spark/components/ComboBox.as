@@ -120,6 +120,12 @@ use namespace mx_internal;
  *  the drop-down area of the control opens. 
  *  It then and scrolls to and highlights the closest match in the item list.</p>
  *
+ *  <p>An item renderer lets you customize the display of a list-based component, 
+ *  such as a List or DataGrid control.
+ *  For information about using this component in an item renderer, see 
+ *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
+ *  Custom Spark item renderers</a>. </p>
+ *
  *  <p><b>Note: </b>The Spark list-based controls (the Spark ListBase class and its subclasses
  *  such as ButtonBar, ComboBox, DropDownList, List, and TabBar) do not support the BasicLayout class
  *  as the value of the <code>layout</code> property. 
@@ -587,8 +593,8 @@ public class ComboBox extends DropDownListBase
             setSelectedIndex(actualProposedSelectedIndex, true);
         }
 
-		if (textInput)
-			textInput.selectRange(-1, -1);
+        if (textInput)
+            textInput.selectRange(-1, -1);
         
         userTypedIntoText = false;
     }
@@ -787,8 +793,8 @@ public class ComboBox extends DropDownListBase
         else if (event.keyCode == Keyboard.ESCAPE)
         {
             // Restore the previous selectedItem
-			if (textInput)
-				textInput.text = itemToLabel(selectedItem);
+            if (textInput)
+                textInput.text = itemToLabel(selectedItem);
             changeHighlightedSelection(selectedIndex);
         }
     }
@@ -809,9 +815,9 @@ public class ComboBox extends DropDownListBase
      */
     override protected function isOurFocus(target:DisplayObject):Boolean
     {
-		if (!textInput)
-			return false;
-		
+        if (!textInput)
+            return false;
+        
         return target == textInput.textDisplay;
     }
     
@@ -843,7 +849,7 @@ public class ComboBox extends DropDownListBase
         if (!isDropDownOpen)
         {
             if (textInput && 
-				textInput.text != itemToLabel(selectedItem))
+                textInput.text != itemToLabel(selectedItem))
                 applySelection();
         }
             
