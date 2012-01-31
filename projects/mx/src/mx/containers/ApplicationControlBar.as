@@ -76,8 +76,11 @@ use namespace mx_internal;
 [IconFile("ApplicationControlBar.png")]
 
 /**
- *  As of Flex 4, the ApplicationControlBar is no longer recommended. You can achieve
- *  the same effect by compositing groups and graphics tags in your Application.
+ *  As of Flex 4, the ApplicationControlBar component is no longer required. Use 
+ *  the <code>controlBarContent</code> property of the Spark Application class
+ *  to specify the set of components to include in the control bar area. Use
+ *  the <code>controlBarLayout</code> property of the Spark Application class
+ *  to specify the layout of the control bar area. 
  */
 [Alternative(replacement="none", since="4.0")]
 
