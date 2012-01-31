@@ -32,6 +32,7 @@ import mx.core.EventPriority;
 import mx.core.FlexGlobals;
 import mx.core.IInvalidating;
 import mx.core.InteractionMode;
+import mx.core.RuntimeDPIProvider;
 import mx.core.Singleton;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -783,7 +784,7 @@ public class Application extends SkinnableContainer
      * 
      *  @private
      */
-    private var _applicationDPI:int = -1;
+    private var _applicationDPI:Number = NaN;
     
     [Inspectable(category="General", enumeration="160,240,320")]
     
@@ -800,12 +801,12 @@ public class Application extends SkinnableContainer
      *  @see #runtimeDPI
      *  @see mx.core.DPIClassification
      */
-    public function get applicationDPI():int
+    public function get applicationDPI():Number
     {
-        if (_applicationDPI == -1)
+        if (isNaN(_applicationDPI))
         {
             var value:String = systemManager.info()["applicationDPI"];
-            _applicationDPI = value ? int(value) : runtimeDPI;
+            _applicationDPI = value ? Number(value) : runtimeDPI;
         }
         
         return _applicationDPI;
@@ -814,7 +815,7 @@ public class Application extends SkinnableContainer
     /**
      *  @private
      */
-    public function set applicationDPI(value:int):void
+    public function set applicationDPI(value:Number):void
     {
         // Can't change at run-time so do nothing here.
         // The compiler will propagate the MXML value to the
@@ -824,7 +825,7 @@ public class Application extends SkinnableContainer
     //----------------------------------
     //  runtimeDPI
     //----------------------------------
-
+    
     /**
      *  The DPI of the device the application is currently running on.
      *
@@ -833,11 +834,51 @@ public class Application extends SkinnableContainer
      *  @see #applicationDPI
      *  @see mx.core.DPIClassification
      */  
-    public function get runtimeDPI():int
+    public function get runtimeDPI():Number
     {
-        return DensityUtil.classifyDPI(flash.system.Capabilities.screenDPI);
+        return DensityUtil.getRuntimeDPI();
     }
     
+    //----------------------------------
+    //  runtimeDPIProvider
+    //----------------------------------
+    
+    /**
+     *  A class that extends RuntimeDPIProvider and overrides the default Flex
+     *  calculations for <code>runtimeDPI</code>.
+     * 
+     *  <p>Flex's default mappings are:
+     *     <table class="innertable">
+     *        <tr><td>160 DPI</td><td>&lt;200 DPI</td></tr>
+     *        <tr><td>240 DPI</td><td>&gt;=200 DPI and &lt;280 DPI</td></tr>
+     *        <tr><td>320 DPI</td><td>&gt;=280 DPI</td></tr>
+     *     </table>
+     *  </p>
+     * 
+     *  This property cannot be set by ActionScript code; it must be set in MXML code.
+     * 
+     *  @default spark.components.RuntimeDPIProvider
+     * 
+     *  @see #applicationDPI
+     *  @see #runtimeDPI
+     *  @see mx.core.DPIClassification
+     *  @see mx.core.RuntimeDPIProvider
+     */
+    public function get runtimeDPIProvider():Class
+    {
+        return systemManager.info()["runtimeDPIProvider"];
+    }
+    
+    /**
+     *  @private
+     */
+    public function set runtimeDPIProvider(value:Class):void
+    {
+        // Can't change at run-time so do nothing here.
+        // The compiler will propagate the MXML value to the
+        // systemManager's info object.
+    }
+        
     //----------------------------------
     //  usePreloader
     //----------------------------------
