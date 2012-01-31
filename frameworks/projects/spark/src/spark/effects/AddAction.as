@@ -14,11 +14,13 @@ package flex.effects
 
 import flash.display.DisplayObjectContainer;
 
+import flex.core.Group;
+import flex.effects.effectClasses.AddActionInstance;
+
 import mx.core.mx_internal;
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
 import mx.effects.effectClasses.PropertyChanges;
-import flex.effects.effectClasses.AddActionInstance;
 
 //--------------------------------------
 //  Excluded APIs
@@ -261,7 +263,12 @@ public class AddAction extends Effect
         }
 		if (property == "parent" && value == undefined)
 		    if (hasParent && target.parent)
-    			target.parent.removeChild(target);
+                // TODO : workaround for current situation of mis-match between
+                // Group having 'item's and Flex3 components having 'parent's
+                if (target.parent is Group)
+                    target.parent.removeItem(target);
+                else
+                    target.parent.removeChild(target);
     	else if (property == "elementHost" && value == undefined)
             if (!hasParent && target.elementHost)
                 target.elementHost.removeItem(target);
