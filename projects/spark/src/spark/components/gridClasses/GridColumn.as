@@ -413,13 +413,13 @@ public class GridColumn extends EventDispatcher
      *  <p>A labelFunction can be use to combine the values of several dataProvider item
      *  properties into a single string.  If specified, this property is used by the 
      *  <code>itemToLabel()</code> method, which computes the value of each item 
-     *  renderer's label property in this column.
+     *  renderer's label property in this column.</p>
      *
-     *  <p>The labelFunction's signature must match the following:
+     *  <p>The labelFunction's signature must match the following:</p>
      *
      *  <pre>labelFunction(item:Object, column:GridColumn):String</pre>
      *
-     *  The item parameter is the dataProvider item for an entire row; it's 
+     *  <p>The item parameter is the dataProvider item for an entire row; it's 
      *  the value of <code>grid.dataProvider.getItemAt(rowIndex)</code>.  The second
      *  parameter is this column.</p>
      *
