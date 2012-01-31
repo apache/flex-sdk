@@ -30,8 +30,98 @@ use namespace mx_internal;
 [ResourceBundle("components")]
 
 /**
- *  SpinnerAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the Spinner class.
+ *  SpinnerAccImpl is the accessibility implementation class
+ *  for spark.components.Spinner.
+ *
+ *  <p>When a Spark Spinner is created,
+ *  its <code>accessibilityImplementation</code> property
+ *  is set to an instance of this class.
+ *  The Flash Player then uses this class to allow MSAA clients
+ *  such as screen readers to see and manipulate the Spinner.
+ *  See the mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes
+ *  for background information about accessibility implementation
+ *  classes and MSAA.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>A Spinner has 2 MSAA children,
+ *  which are its increment and decrement buttons.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a Spinner is ROLE_SYSTEM_SPINBUTTON.</p>
+ *
+ *  <p>The Role of each child button is ROLE_SYSTEM_PUSHBUTTON.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a Spinner is, by default, an empty string.
+ *  When wrapped in a FormItem element, the Name is the FormItem's label.
+ *  To override this behavior,
+ *  set the Spinner's <code>accessibilityName</code> property.</p>
+ *
+ *  <p>The Name of each child button comes from a locale-dependent resource.
+ *  For the en_US locale, the names are "More" and "Less".</p>
+ *
+ *  <p>When the Name of the Spinner or one of its child button changes,
+ *  a Spinner dispatches the MSAA event EVENT_OBJECT_NAMECHANGE
+ *  with the proper childID for the button or 0 for itself.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a Spinner is, by default, an empty string,
+ *  but you can set the Spinner's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p>The Description of each child button is the empty string.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a Spinner is a combination of:
+ *  <ul>
+ *    <li>STATE_SYSTEM_UNAVAILABLE (when enabled is false)</li>
+ *    <li>STATE_SYSTEM_FOCUSABLE (when enabled is true)</li>
+ *    <li>STATE_SYSTEM_FOCUSED
+ *    (when enabled is true and the Spinner has focus)</li>
+ *  </ul></p>
+ *
+ *  <p>When the State of the Spinner or one of its child buttons changes,
+ *  a Spinner dispatches the MSAA event EVENT_OBJECT_STATECHANGE
+ *  with the proper childID for the button or 0 for itself.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>The MSAA Value of a Spinner is the value
+ *  currently held by the Spinner.</p>
+ *
+ *  <p>The child buttons do not have MSAA values.</p>
+ *
+ *  <p>When the Value of the Spinner changes,
+ *  a Spinner dispatches the MSAA event EVENT_OBJECT_VALUECHANGE.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a Spinner, or one of its child buttons,
+ *  is its bounding rectangle.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A Spinner does not have an MSAA DefaultAction.</p>
+ *
+ *  <p>The DefaultAction of each child button is "Press".</p>
+ *
+ *  <p>Performing the default action of one of the child buttons
+ *  will increment or decrement the value.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>A Spinner accepts focus.
+ *  When it does so, it dispatches the MSAA event EVENT_OBJECT_FOCUS event.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A Spinner does not support selection in the MSAA sense.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
