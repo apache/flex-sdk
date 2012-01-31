@@ -281,8 +281,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.displayAsPassword = value;
         }
-
-        invalidateProperties();                    
     }
 
     //----------------------------------
@@ -324,8 +322,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.editable = value;
         }
-
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -394,8 +390,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.imeMode = value;
         }
-
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -442,8 +436,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.maxChars = value;
         }
-
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -478,8 +470,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.maxWidth = value;
         }
-
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -521,8 +511,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.restrict = value;
         }
-
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -565,8 +553,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.selectable = value;
         }
-        
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -673,8 +659,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.selectionHighlighting = value;
         }
-
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -723,8 +707,6 @@ public class SkinnableTextBase extends SkinnableComponent
             textDisplayProperties.content = undefined;
             textDisplayProperties.textFlow = undefined;
         }
-
-        invalidateProperties(); 
      }
 
     //----------------------------------
@@ -799,6 +781,9 @@ public class SkinnableTextBase extends SkinnableComponent
             textDisplay.addEventListener(FlexEvent.ENTER,
                                          textDisplay_enterHandler);
 
+            textDisplay.addEventListener(FlexEvent.UPDATE_COMPLETE,
+                                         textDisplay_updateCompleteHandler);
+
             textDisplay.addEventListener(FlexEvent.VALUE_COMMIT,
                                          textDisplay_valueCommitHandler);
         }
@@ -831,6 +816,9 @@ public class SkinnableTextBase extends SkinnableComponent
 
             textDisplay.removeEventListener(FlexEvent.ENTER,
                                             textDisplay_enterHandler);
+
+            textDisplay.removeEventListener(FlexEvent.UPDATE_COMPLETE,
+                                         textDisplay_updateCompleteHandler);
 
             textDisplay.removeEventListener(FlexEvent.VALUE_COMMIT,
                                             textDisplay_valueCommitHandler);
@@ -896,8 +884,6 @@ public class SkinnableTextBase extends SkinnableComponent
             textDisplayProperties.text = undefined;
             textDisplayProperties.textFlow = undefined;
         }
-
-        invalidateProperties();            
      }
 
     //----------------------------------
@@ -933,8 +919,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.heightInLines = value;
         }
-
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -979,8 +963,6 @@ public class SkinnableTextBase extends SkinnableComponent
             textDisplayProperties.text = undefined;
             textDisplayProperties.content = undefined;
         }
-
-        invalidateProperties();            
     }
 
     //----------------------------------
@@ -1021,8 +1003,6 @@ public class SkinnableTextBase extends SkinnableComponent
         {
             textDisplayProperties.widthInChars = value;
         }
-
-        invalidateProperties();            
     }
     
     /**
@@ -1378,6 +1358,17 @@ public class SkinnableTextBase extends SkinnableComponent
      *  in response to the Enter key.
      */
     private function textDisplay_enterHandler(event:Event):void
+    {
+        // Redispatch the event that came from the RichEditableText.
+        dispatchEvent(event);
+    }
+
+    /**
+     *  @private
+     *  Called when the RichEditableText dispatches an 'update complete' event
+     *  when the validate phase of the lifecycle is complete.
+     */
+    private function textDisplay_updateCompleteHandler(event:Event):void
     {
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
