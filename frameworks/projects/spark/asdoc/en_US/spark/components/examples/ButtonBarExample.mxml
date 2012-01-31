@@ -11,12 +11,12 @@
         ButtonBar ToggleButton:overAndSelected,
         ButtonBar ToggleButton:downAndSelected,
         ButtonBar ToggleButton:disabledAndSelected {
-            baseColor: #663366;
+            chromeColor: #663366;
             color: #9999CC;
         }
 
         ButtonBar {
-            baseColor: #9999CC;
+            chromeColor: #9999CC;
             color: #663366;
         }
     </fx:Style>
