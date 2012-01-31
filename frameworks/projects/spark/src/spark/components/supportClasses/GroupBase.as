@@ -1807,7 +1807,7 @@ public class GroupBase extends UIComponent implements IViewport
         while (element)
         {
             if (element == this)
-                return true
+                return true;
             
             if (element.parent is IVisualElement)
                 element = IVisualElement(element.parent);
