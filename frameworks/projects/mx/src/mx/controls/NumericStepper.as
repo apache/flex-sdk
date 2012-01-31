@@ -78,6 +78,7 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
+include "../styles/metadata/BackgroundStyles.as"
 include "../styles/metadata/BorderStyles.as"
 include "../styles/metadata/FocusStyles.as"
 include "../styles/metadata/IconColorStyles.as"
