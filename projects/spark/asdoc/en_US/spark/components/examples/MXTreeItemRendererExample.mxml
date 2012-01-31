@@ -24,32 +24,17 @@
 					]},
 					{label: "Platinum", status: false, phone: "521-256-5555"}
 				]}
-			// Define the event listener for the itemEditBeginning event  
-			// so the top node in the tree will not be edited.
-			private function disableEditing(event:ListEvent):void {
-				if(event.rowIndex==0) {  
-					event.preventDefault(); 
-				}
-			}                                       
-			
-			// copy the updated data back to the data provider of the Tree control.
-			public function processData(event:ListEvent):void {    
-				// Notify the list control to update its display.
-				event.currentTarget.dataProvider.notifyItemUpdate(event.currentTarget.editedItemRenderer.data);
-			}    
 			
 		]]>     
 	</fx:Script>
 	<s:Panel width="75%" height="75%" title="MXTreeItemRenderer Example"
 			 horizontalCenter="0" verticalCenter="0">
 		<s:layout><s:VerticalLayout paddingLeft="20"/></s:layout>
-		<!-- default TextInputwill be used as itemEditor when user clicks in treeItem -->
+		<!-- default TextInput will be used as itemEditor when editable=true and user clicks in treeItem -->
 	    <mx:Tree id="myTree" width="80%" height="75%"  
-				 itemEditBeginning="disableEditing(event);" 
 				 labelField="label" 
 				 showRoot="true" 
-				 dataProvider="{contacts1}"
-				 itemEditEnd="processData(event);">
+				 dataProvider="{contacts1}">
 			<mx:itemRenderer>
 				<fx:Component>
 					<s:MXTreeItemRenderer width="100" height="25">
