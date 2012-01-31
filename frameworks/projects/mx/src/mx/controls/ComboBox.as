@@ -1560,7 +1560,10 @@ public class ComboBox extends ComboBase
      *    <li>If the item has a label property, returns its value.</li>
      *  </ol>
      * 
-     *  @param item The object that contains the value to convert to a label. If the item is null, this method returns the empty string.
+     *  @param item The object that contains the value to convert to a label. 
+     *  If the item is null, this method returns the empty string.
+     *
+     *  @return A string representing the <code>item</code> parameter.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1633,6 +1636,9 @@ public class ComboBox extends ComboBase
 
     /**
      *  Hides the drop-down list.
+     *
+     *  @param trigger The event to dispatch when the 
+     *  drop-down list closes.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1745,8 +1751,8 @@ public class ComboBox extends ComboBase
         if (!initialized || show == _showingDropdown)
             return;
 
-		if (inTween)
-			tween.endTween();
+        if (inTween)
+            tween.endTween();
 
         // Subclasses may extend to do pre-processing
         // before the dropdown is displayed
