@@ -206,7 +206,7 @@ public class DropDownController extends EventDispatcher
      */ 
     private function addOpenTriggers():void
     {
-        // FIXME (jszeto): Change this to be mouseDown. Figure out how to not 
+        // TODO (jszeto): Change this to be mouseDown. Figure out how to not 
         // trigger systemManager_mouseDown.
         if (openButton)
         {
@@ -225,7 +225,7 @@ public class DropDownController extends EventDispatcher
      */ 
     private function removeOpenTriggers():void
     {
-        // FIXME (jszeto): Change this to be mouseDown. Figure out how to not 
+        // TODO (jszeto): Change this to be mouseDown. Figure out how to not 
         // trigger systemManager_mouseDown.
         if (openButton)
         {
@@ -244,7 +244,6 @@ public class DropDownController extends EventDispatcher
      */ 
     private function addCloseTriggers():void
     {
-        // FIXME (jszeto): Change these to be marshall plan compliant
         if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
@@ -270,7 +269,6 @@ public class DropDownController extends EventDispatcher
      */ 
     private function removeCloseTriggers():void
     {
-        // FIXME (jszeto): Change these to be marshall plan compliant
         if (openButton)
         {
             if (isNaN(rollOverOpenDelay))
