@@ -142,3 +142,14 @@ TextView
     fontSize: 12;
     textAlign: "start";
 }
+
+global
+{
+    /* color: #000000; */
+    baseColor: #CCCCCC;
+    contentColor: #FFFFFF;
+    rollOverColor: #CEDBEF;
+    selectionColor: #A8C6EE;
+    focusColor: #70B2EE;
+    symbolColor: #000000;
+}
