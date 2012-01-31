@@ -260,6 +260,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [Event(name="caretChange", type="spark.events.GridCaretEvent")]
 
 [DefaultProperty("dataProvider")]
+
+[DiscouragedForProfile("mobileDevice")]
         
 /**
  *  TBD
