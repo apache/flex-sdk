@@ -631,7 +631,6 @@ public class RichEditableText extends UIComponent
         clipAndEnableScrollingChanged = true;
         
         invalidateProperties();
-        invalidateDisplayList();
     }
         
     //----------------------------------
@@ -727,7 +726,10 @@ public class RichEditableText extends UIComponent
         horizontalScrollPositionChanged = true;
 
         invalidateProperties();
-        invalidateDisplayList();
+
+        // Note:  TLF takes care of updating the container when the scroll
+        // position is set so there is no need for us to invalidate the 
+        // display list.
     }
     
     //----------------------------------
@@ -775,7 +777,10 @@ public class RichEditableText extends UIComponent
         verticalScrollPositionChanged = true;
 
         invalidateProperties();
-        invalidateDisplayList();
+        
+        // Note:  TLF takes care of updating the container when the scroll
+        // position is set so there is no need for us to invalidate the 
+        // display list.
     }
         
     //--------------------------------------------------------------------------
@@ -1783,18 +1788,10 @@ public class RichEditableText extends UIComponent
                                                     
         if (clipAndEnableScrollingChanged)
         {
-            // Not sure if there is any real difference between on and auto.
             // The TLF code seems to check for !off.
-            if (_clipAndEnableScrolling)
-            {
-                _textContainerManager.horizontalScrollPolicy = "on";
-                _textContainerManager.verticalScrollPolicy = "on";
-            }
-            else
-            {
-                _textContainerManager.horizontalScrollPolicy = "auto";
-                _textContainerManager.verticalScrollPolicy = "auto";
-            }
+            _textContainerManager.horizontalScrollPolicy = "auto";
+            _textContainerManager.verticalScrollPolicy = "auto";
+            
             clipAndEnableScrollingChanged = false;
         }
         
