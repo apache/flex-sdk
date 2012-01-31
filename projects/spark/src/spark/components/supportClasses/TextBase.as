@@ -1151,18 +1151,17 @@ public class TextGraphicElement extends GraphicElement
 	 *  Adds the TextLines created by composeTextLines()
      *  to a specified DisplayObjectContainer.
 	 */
-	mx_internal function addTextLines(container:DisplayObjectContainer,
-								      index:int = 0):void
+	mx_internal function addTextLines(container:DisplayObjectContainer):void
 	{
 		var n:int = textLines.length;
         if (n == 0)
             return;
 
-        var addChildAtMethod:Function = container is UIComponent ?
-        								UIComponent(container).$addChildAt :
-        								container.addChildAt;
+        var addChildMethod:Function = container is UIComponent ?
+        							  UIComponent(container).$addChild :
+        							  container.addChild;
             
-        for (var i:int = n - 1; i >= 0; i--)
+        for (var i:int = 0; i < n; i++)
 		{
 			var textLine:DisplayObject = textLines[i];
 						
@@ -1171,7 +1170,7 @@ public class TextGraphicElement extends GraphicElement
             textLine.x += drawX;
             textLine.y += drawY;
             
-			addChildAtMethod(textLine, index);
+			addChildMethod(textLine);
 		}
 		
 		// If these lines went into a shared container these need to be saved
