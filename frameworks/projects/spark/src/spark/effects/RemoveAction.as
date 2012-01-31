@@ -11,6 +11,7 @@
 
 package flex.effects
 {
+import flex.core.Group;
 import flex.effects.effectClasses.RemoveActionInstance;
 
 import mx.core.mx_internal;
@@ -163,7 +164,14 @@ public class RemoveAction extends Effect
         }
         if (property == "parent" && value)
             if (hasParent && target.parent == null)
-                value.addChildAt(target, Math.min(props.index, value.numChildren));
+                // TODO : workaround for current situation of mis-match between
+                // Group having 'item's and Flex3 components having 'parent's
+                if (value is Group)
+                    value.addItemAt(target, Math.min(props.index, 
+                        value.numChildren));
+                else
+                    value.addChildAt(target, Math.min(props.index, 
+                        value.numChildren));
         if (property == "elementHost" && value)
             if (!hasParent && target.elementHost == null)
                 value.addItemAt(target, Math.min(props.index, value.numChildren));
