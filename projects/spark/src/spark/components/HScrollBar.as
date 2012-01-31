@@ -11,15 +11,17 @@
 
 package spark.components
 {
+import flash.events.MouseEvent;
 import flash.geom.Point;
-    
+
+import mx.core.EventPriority;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
-    
+
 import spark.components.supportClasses.ScrollBar;
-import spark.core.NavigationUnit;
 import spark.core.IViewport;
+import spark.core.NavigationUnit;
 
 use namespace mx_internal;
 
@@ -141,11 +143,31 @@ public class HScrollBar extends ScrollBar
      */
     override public function set viewport(newViewport:IViewport):void
     {
+        
+        const oldViewport:IViewport = super.viewport;
+        if (oldViewport == newViewport)
+            return;
+        
+        if (oldViewport)
+        {
+            oldViewport.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler);
+            removeEventListener(MouseEvent.MOUSE_WHEEL, hsb_mouseWheelHandler, true);
+        }
+        
         super.viewport = newViewport;
+        
         if (newViewport)
         {
-            updateMaximumAndPageSize();
+            updateMaximumAndPageSize()
             value = newViewport.horizontalScrollPosition;
+            
+            // The HSB viewport mouse wheel listener is added at a low priority so that 
+            // if a VSB installs a listener it will run first and cancel the event.
+            newViewport.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, false, EventPriority.DEFAULT_HANDLER);
+
+            // The HSB mouse wheel listener stops propagation and redispatches its event, 
+            // so we listen during the capture phase.
+            addEventListener(MouseEvent.MOUSE_WHEEL, hsb_mouseWheelHandler, true); 
         }
     }      
     
@@ -388,6 +410,49 @@ public class HScrollBar extends ScrollBar
             var viewportWidth:Number = isNaN(viewport.width) ? 0 : viewport.width;        
             maximum = viewport.contentWidth - viewportWidth;
         }
+    }
+    
+    /**
+     *  @private
+     *  Scroll horizontally by event.delta "steps".  This listener is added to the viewport
+     *  at a lower priority then the vertical scrollbar mouse wheel listener, so that vertical 
+     *  scrolling is preferred when both scrollbars exist.
+     */
+    mx_internal function mouseWheelHandler(event:MouseEvent):void
+    {
+        const vp:IViewport = viewport;
+        if (event.isDefaultPrevented() || !vp || !vp.visible)
+            return;
+        
+        var nSteps:uint = Math.abs(event.delta);
+        var navigationUnit:uint;
+        
+        // Scroll event.delta "steps".  
+        navigationUnit = (event.delta < 0) ? NavigationUnit.RIGHT : NavigationUnit.LEFT;
+        for (var hStep:int = 0; hStep < nSteps; hStep++)
+        {
+            var hspDelta:Number = vp.getHorizontalScrollPositionDelta(navigationUnit);
+            if (!isNaN(hspDelta))
+                vp.horizontalScrollPosition += hspDelta;
+        }
+        
+        event.preventDefault();
+    }
+    
+    /**
+     *  @private
+     *  Redispatch HSB mouse wheel events to the viewport to give the VSB's listener, if any,
+     *  an opportunity to handle/cancel them.  If no VSB exists, mouseWheelHandler (see above)
+     *  will process the event.
+     */
+    private function hsb_mouseWheelHandler(event:MouseEvent):void
+    {
+        const vp:IViewport = viewport;
+        if (event.isDefaultPrevented() || !vp || !vp.visible)
+            return;
+
+        event.stopImmediatePropagation();            
+        vp.dispatchEvent(event);        
     }
 }
 }
