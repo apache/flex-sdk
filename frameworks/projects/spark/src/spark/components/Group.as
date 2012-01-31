@@ -69,6 +69,8 @@ use namespace mx_internal;
 
 [DefaultProperty("content")] 
 
+[IconFile("Group.png")]
+
 /**
  *  The Group class is the base container class for visual elements.
  *
