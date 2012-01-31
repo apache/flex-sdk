@@ -1059,7 +1059,7 @@ public class GridLayout extends LayoutBase
         var cellX:Number = startCellX;
         var cellY:Number = startCellY;
         var availableHeight:Number = height;
-
+        
         for (rowIndex = startRowIndex; (availableHeight > 0) && (rowIndex >= 0) && (rowIndex < rowCount); rowIndex++)
         {
             newVisibleRowIndices.push(rowIndex);
@@ -1156,6 +1156,38 @@ public class GridLayout extends LayoutBase
         visibleRowIndices = newVisibleRowIndices;
         visibleColumnIndices = newVisibleColumnIndices;
     }
+    
+    /**
+     *  Reinitialize and layout the visible renderer at rowIndex, columnIndex.  If the cell's preferred 
+     *  height changes and the Grid has been configured with variableRowHeight=true, the entire grid is 
+     *  invalidated.
+     * 
+     *  <p>If row,columnIndex do not correspond to a visible cell, nothing is done.</p>
+     * 
+     *  @param rowIndex The 0-based row index of the cell that changed.
+     *  @param columnIndex The 0-based column index of the cell that changed.
+     */
+    public function invalidateCell(rowIndex:int, columnIndex:int):void
+    {
+        const renderer:IGridItemRenderer = getVisibleItemRenderer(rowIndex, columnIndex);
+        if (!renderer)
+            return;
+        
+        initializeItemRenderer(renderer, rowIndex, columnIndex);
+        
+        // We're using layoutBoundsX,Y,Width,Height instead of x,y,width,height because
+        // the IUITextField item renderers pad their x,y,width,height properties 
+        
+        const rendererX:Number = renderer.getLayoutBoundsX();
+        const rendererY:Number = renderer.getLayoutBoundsY();
+        const rendererWidth:Number = renderer.getLayoutBoundsWidth();
+        const rendererHeight:Number = renderer.getLayoutBoundsHeight();
+        
+        layoutItemRenderer(renderer, rendererX, rendererY, rendererWidth, rendererHeight);
+        
+        if (gridDimensions.variableRowHeight && (rendererHeight != renderer.getPreferredBoundsHeight()))
+            grid.invalidateDisplayList();
+    }
 
     /**
      *  @private
@@ -1171,7 +1203,7 @@ public class GridLayout extends LayoutBase
         const colOffset:int = visibleColumnIndices.indexOf(columnIndex);
         if ((rowOffset == -1) || (colOffset == -1))
             return -1;
-        
+
         const index:int = (rowOffset * visibleColumnIndices.length) + colOffset;
         return index;
     }
