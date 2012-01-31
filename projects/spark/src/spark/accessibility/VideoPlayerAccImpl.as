@@ -28,7 +28,10 @@ import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
 import spark.components.Button;
+import spark.components.mediaClasses.VolumeBar;
+import spark.components.supportClasses.ToggleButtonBase;
 import spark.components.VideoPlayer;
+import spark.events.SkinPartEvent;
 import spark.events.VideoEvent;
 
 use namespace mx_internal;
@@ -152,14 +155,23 @@ public class VideoPlayerAccImpl extends AccImpl
 
 	    role = AccConst.ROLE_SYSTEM_PANE; 
         
-        VideoPlayer(master).playPauseButton.addEventListener(
-			Event.CHANGE, eventHandler);
+		// VideoPlayer has a playPauseButton and a volumeBar as skin parts,
+		// and we need to listen to some of their events.
+		// They may or may not be present when this constructor is called.
+		// If they come or go later, we are notified via
+		// "partAdded" and "partRemoved" events.
 
-        VideoPlayer(master).volumeBar.addEventListener
-			(Event.CHANGE, eventHandler);
+		var playPauseButton:ToggleButtonBase =
+			VideoPlayer(master).playPauseButton;
+		if (playPauseButton)
+			playPauseButton.addEventListener(Event.CHANGE, eventHandler);
 
-        VideoPlayer(master).volumeBar.addEventListener(
-			FlexEvent.MUTED_CHANGE, eventHandler);
+		var volumeBar:VolumeBar = VideoPlayer(master).volumeBar;
+        if (volumeBar)
+		{
+			volumeBar.addEventListener(Event.CHANGE, eventHandler);
+			volumeBar.addEventListener(FlexEvent.MUTED_CHANGE, eventHandler);
+		}
 	}
 
 	//--------------------------------------------------------------------------
@@ -178,8 +190,11 @@ public class VideoPlayerAccImpl extends AccImpl
 	 */
 	override protected function get eventsToHandle():Array
 	{
-        return super.eventsToHandle.concat([MouseEvent.CLICK,
-        FocusEvent.FOCUS_IN, TimeEvent.CURRENT_TIME_CHANGE ])
+        return super.eventsToHandle.concat([ MouseEvent.CLICK,
+        									 FocusEvent.FOCUS_IN,
+											 TimeEvent.CURRENT_TIME_CHANGE,
+											 SkinPartEvent.PART_ADDED,
+											 SkinPartEvent.PART_REMOVED ])
 	}
 
 	//--------------------------------------------------------------------------
@@ -205,22 +220,27 @@ public class VideoPlayerAccImpl extends AccImpl
             {
                 return videoPlayer.playPauseButton;
             }
+				
             case VIDEOPLAYER_SCRUBBAR: 
             {
                 return videoPlayer.scrubBar;
             }
+				
             case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
                 return videoPlayer.currentTimeDisplay;
             }
+				
             case VIDEOPLAYER_MUTEBUTTON:
             {
                 return videoPlayer.volumeBar;
             }
+				
             case VIDEOPLAYER_VOLUMEBAR:
             {
                 return videoPlayer.volumeBar.dropDown;
             }
+				
             case VIDEOPLAYER_FULLSCREENBUTTON:
             {
                 return videoPlayer.fullScreenButton;
@@ -259,34 +279,40 @@ public class VideoPlayerAccImpl extends AccImpl
         {
 		    case 0:
             {
-		        accRole = role;// PANE
+		        accRole = role; // PANE
 		        break;
 		    }
+				
 		    case VIDEOPLAYER_PLAYPAUSEBUTTON:
             {
 			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;  // playPauseButton
 			    break;
     		}
+				
     		case VIDEOPLAYER_SCRUBBAR:
             {
 			    accRole = AccConst.ROLE_SYSTEM_SLIDER;  // scrubBar
 			    break;
 		    }
+				
 		    case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
 			    accRole = AccConst.ROLE_SYSTEM_STATICTEXT; // currentTime
 			    break;
        		}
+				
     		case VIDEOPLAYER_MUTEBUTTON:
             {
 			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON;  // volumeBar
 			    break;
 		    }
+				
 		    case VIDEOPLAYER_VOLUMEBAR:
             {
 			    accRole = AccConst.ROLE_SYSTEM_SLIDER;  // volumeBar
 			    break;
 		    }
+				
 		    case VIDEOPLAYER_FULLSCREENBUTTON:
             {
 			    accRole = AccConst.ROLE_SYSTEM_PUSHBUTTON; // fullScreenButton
@@ -318,31 +344,31 @@ public class VideoPlayerAccImpl extends AccImpl
         // pull from the default accessibility implementation
 	    accState |= getState(childID);  
 	
-        if (videoPlayer.enabled == false)
+        if (!videoPlayer.enabled)
         {
             accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
             return accState;
         }
 
         if (childID == VIDEOPLAYER_VOLUMEBAR && 
-        !videoPlayer.volumeBar.isDropDownOpen)
+        	!videoPlayer.volumeBar.isDropDownOpen)
         {
             accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
             return accState;
         }
 
         if ((childID == VIDEOPLAYER_PLAYPAUSEBUTTON && 
-        videoPlayer.playPauseButton.enabled == false) ||
-        (childID == VIDEOPLAYER_SCRUBBAR && 
-        videoPlayer.scrubBar.enabled == false) ||
-        (childID == VIDEOPLAYER_CURRENTTIMEDISPLAY && 
-        videoPlayer.currentTimeDisplay.enabled == false) ||
-        (childID == VIDEOPLAYER_MUTEBUTTON && 
-        videoPlayer.volumeBar.enabled == false) ||
-        (childID == VIDEOPLAYER_VOLUMEBAR && 
-        videoPlayer.volumeBar.enabled == false) ||
-        (childID == VIDEOPLAYER_FULLSCREENBUTTON &&
-        videoPlayer.fullScreenButton.enabled == false))
+        	 !videoPlayer.playPauseButton.enabled) ||
+           (childID == VIDEOPLAYER_SCRUBBAR && 
+        	!videoPlayer.scrubBar.enabled) ||
+           (childID == VIDEOPLAYER_CURRENTTIMEDISPLAY && 
+        	!videoPlayer.currentTimeDisplay.enabled) ||
+           (childID == VIDEOPLAYER_MUTEBUTTON && 
+        	!videoPlayer.volumeBar.enabled) ||
+           (childID == VIDEOPLAYER_VOLUMEBAR && 
+        	!videoPlayer.volumeBar.enabled) ||
+           (childID == VIDEOPLAYER_FULLSCREENBUTTON &&
+        	!videoPlayer.fullScreenButton.enabled))
         {
            accState |= AccConst.STATE_SYSTEM_UNAVAILABLE;
            return accState;
@@ -379,7 +405,8 @@ public class VideoPlayerAccImpl extends AccImpl
                 action = "Toggle";
                 break;
             }
-            case VIDEOPLAYER_MUTEBUTTON:
+            
+			case VIDEOPLAYER_MUTEBUTTON:
             case VIDEOPLAYER_FULLSCREENBUTTON:
             {
 		        action = "Press";
@@ -419,23 +446,31 @@ public class VideoPlayerAccImpl extends AccImpl
 	override public function accDoDefaultAction(childID:uint):void
 	{
 		var videoPlayer:VideoPlayer = VideoPlayer(master);
-		var mouseEvent:MouseEvent =
-	                new MouseEvent(MouseEvent.CLICK); 
-	    var muteEvent:FlexEvent = new FlexEvent(FlexEvent.MUTED_CHANGE);			
+		
+		var clickEvent:MouseEvent; 		
 	                
 		if (master.enabled)
 		{
 			if (childID == VIDEOPLAYER_PLAYPAUSEBUTTON)
-				videoPlayer.playPauseButton.dispatchEvent(mouseEvent);
-			
-			if (childID == VIDEOPLAYER_MUTEBUTTON)
-            {
-				videoPlayer.volumeBar.muted = videoPlayer.volumeBar.muted ==
-                false ? true : false;
-				videoPlayer.volumeBar.dispatchEvent(muteEvent);
+			{
+				clickEvent = new MouseEvent(MouseEvent.CLICK);
+				videoPlayer.playPauseButton.dispatchEvent(clickEvent);
 			}
-			if (childID == VIDEOPLAYER_FULLSCREENBUTTON) 
-				videoPlayer.fullScreenButton.dispatchEvent(mouseEvent);
+			
+			else if (childID == VIDEOPLAYER_MUTEBUTTON)
+            {
+				videoPlayer.volumeBar.muted = !videoPlayer.volumeBar.muted;
+				
+				var mutedChangeEvent:FlexEvent =
+					new FlexEvent(FlexEvent.MUTED_CHANGE);	
+				videoPlayer.volumeBar.dispatchEvent(mutedChangeEvent);
+			}
+			
+			else if (childID == VIDEOPLAYER_FULLSCREENBUTTON)
+			{
+				clickEvent = new MouseEvent(MouseEvent.CLICK);
+				videoPlayer.fullScreenButton.dispatchEvent(clickEvent);
+			}
 		}
 	}
 	
@@ -450,13 +485,14 @@ public class VideoPlayerAccImpl extends AccImpl
 	override public function get_accValue(childID:uint):String
 	{
 		var videoPlayer:VideoPlayer = VideoPlayer(master);
+		
 		var accValue:String = "";
 		
 		if (childID == VIDEOPLAYER_SCRUBBAR) 
   	   	    accValue = videoPlayer.currentTimeDisplay.text; 
 		
-        if (childID == VIDEOPLAYER_VOLUMEBAR) 
-            accValue = String(Math.floor(videoPlayer.volumeBar.value*100));
+		else if (childID == VIDEOPLAYER_VOLUMEBAR) 
+            accValue = String(Math.floor(videoPlayer.volumeBar.value * 100));
 		
 		return accValue;
 	}
@@ -480,21 +516,25 @@ public class VideoPlayerAccImpl extends AccImpl
 			        videoPlayer.playPauseButton.setFocus();
 			 	    break;
 			    }
+					
 			    case VIDEOPLAYER_SCRUBBAR:
                 {
 			     	videoPlayer.scrubBar.setFocus();
 			     	break;
 			    }
+					
 			    case VIDEOPLAYER_MUTEBUTTON:
                 {
 			     	 videoPlayer.volumeBar.setFocus();
 			     	 break;
 			    }
+					
 			    case VIDEOPLAYER_VOLUMEBAR:
                 {
 			    	 videoPlayer.volumeBar.setFocus();
 			    	 break;
 			    }
+					
 			    case VIDEOPLAYER_FULLSCREENBUTTON:
                 {
 			    	 videoPlayer.fullScreenButton.setFocus();
@@ -527,28 +567,33 @@ public class VideoPlayerAccImpl extends AccImpl
 	override protected function getName(childID:uint):String
 	{
 		var videoPlayer:VideoPlayer = VideoPlayer(master);
+		
+		var resourceManager:IResourceManager = ResourceManager.getInstance();
+
 		var label:String;
-        var resourceManager:IResourceManager = ResourceManager.getInstance();
-        var name1:String="";
-        var name2:String="";
+        var name1:String = "";
+        var name2:String = "";
 
 		switch (childID)
         {
 		    case 0: 
             {
-                label = videoPlayer.accessibilityName
-                ? videoPlayer.accessibilityName: 
-                resourceManager.getString("components","videoPlayerVideoDisplayAccName")
+                label = videoPlayer.accessibilityName ?
+						videoPlayer.accessibilityName : 
+                		resourceManager.getString(
+							"components", "videoPlayerVideoDisplayAccName");
 		    	break;
 		    }
+				
 		    case VIDEOPLAYER_PLAYPAUSEBUTTON:
             {
-                label = videoPlayer.playPauseButton.accessibilityProperties
-                ? videoPlayer.playPauseButton.accessibilityName : "";
+                label = videoPlayer.playPauseButton.accessibilityProperties ?
+						videoPlayer.playPauseButton.accessibilityName :
+						"";
                 if (!label)
                 {
-                    label = resourceManager.getString("components",
-                    "videoPlayerPlayButtonAccName")
+                    label = resourceManager.getString(
+						"components", "videoPlayerPlayButtonAccName")
                 }
                 
                 if (label.indexOf(",") >= 0) 
@@ -567,25 +612,30 @@ public class VideoPlayerAccImpl extends AccImpl
 		    }
 		    case VIDEOPLAYER_SCRUBBAR:
             {
-                label = videoPlayer.scrubBar.accessibilityName
-                ? videoPlayer.scrubBar.accessibilityName: 
-                resourceManager.getString("components","videoPlayerScrubBarAccName")
+                label = videoPlayer.scrubBar.accessibilityName ?
+						videoPlayer.scrubBar.accessibilityName : 
+                		resourceManager.getString(
+							"components","videoPlayerScrubBarAccName")
                 break;
 	        }
+				
 		    case VIDEOPLAYER_CURRENTTIMEDISPLAY:
             {
-		        label = String(videoPlayer.currentTimeDisplay.text+"/"+
-                videoPlayer.durationDisplay.text);
+		        label = videoPlayer.currentTimeDisplay.text + "/" +
+                		videoPlayer.durationDisplay.text;
 		        break;
 		    }
+				
             case VIDEOPLAYER_MUTEBUTTON:
             {
-                label = videoPlayer.volumeBar.muteButton.accessibilityProperties 
-                ? videoPlayer.volumeBar.muteButton.accessibilityName : "";
+                label =
+					videoPlayer.volumeBar.muteButton.accessibilityProperties ?
+					videoPlayer.volumeBar.muteButton.accessibilityName :
+					"";
                 if (!label)
                 {
-                    label = resourceManager.getString("components",
-                    "videoPlayerMuteButtonAccName")
+                    label = resourceManager.getString(
+						"components", "videoPlayerMuteButtonAccName")
                 }
                 
                 if (label.indexOf(",") >= 0) 
@@ -602,19 +652,22 @@ public class VideoPlayerAccImpl extends AccImpl
                 
                 break;
             }
+				
             case VIDEOPLAYER_VOLUMEBAR:
             {
-                label = videoPlayer.volumeBar.accessibilityName
-                ? videoPlayer.volumeBar.accessibilityName: 
-                resourceManager.getString("components","videoPlayerVolumeBarAccName")
+                label = videoPlayer.volumeBar.accessibilityName ?
+						videoPlayer.volumeBar.accessibilityName : 
+                		resourceManager.getString(
+							"components", "videoPlayerVolumeBarAccName")
                 break;
             }
+				
             case VIDEOPLAYER_FULLSCREENBUTTON:
             {
-                label = videoPlayer.fullScreenButton.accessibilityName
-                ? videoPlayer.fullScreenButton.accessibilityName: 
-                resourceManager.getString("components",
-                "videoPlayerFullScreenButtonAccName")
+                label = videoPlayer.fullScreenButton.accessibilityName ?
+						videoPlayer.fullScreenButton.accessibilityName : 
+                		resourceManager.getString(
+							"components", "videoPlayerFullScreenButtonAccName")
                 break;
             }
 		}
@@ -634,17 +687,22 @@ public class VideoPlayerAccImpl extends AccImpl
      */
 	private function elementToChildID(obj:Object):Number 
 	{
-		var str:String = String(obj);
 		var index:Number = 0;
+
+		var str:String = String(obj);
 		
         if (str.search("playPauseButton") > 0) 
             index = VIDEOPLAYER_PLAYPAUSEBUTTON;
+		
         else if (str.search("scrubBar") > 0)
             index = VIDEOPLAYER_SCRUBBAR;
+		
         else if (str.search("durationDisplay") > 0) 
             index = VIDEOPLAYER_CURRENTTIMEDISPLAY;
+		
         else if (str.search("volumeBar") > 0)
             index = VIDEOPLAYER_VOLUMEBAR;
+		
         else if (str.search("fullScreenButton") > 0)
             index = VIDEOPLAYER_FULLSCREENBUTTON;
           
@@ -668,35 +726,46 @@ public class VideoPlayerAccImpl extends AccImpl
 	{
 		// Let AccImpl class handle the events
 		// that all accessible UIComponents understand.
-		var msaaEvt:uint = 0;
 		$eventHandler(event);
 		
 		var childID:Number = elementToChildID(event.target);
+		
+		var playPauseButton:ToggleButtonBase;
+		var volumeBar:VolumeBar;
 		
 		switch (event.type)
 		{
 			case MouseEvent.CLICK:
 			{
-				Accessibility.sendEvent(master, 0, AccConst.EVENT_OBJECT_STATECHANGE);
+				Accessibility.sendEvent(master, 0,
+										AccConst.EVENT_OBJECT_STATECHANGE);
 				Accessibility.updateProperties();
 				break;
 			}
+				
 			case FocusEvent.FOCUS_IN:
 			{
 				Accessibility.sendEvent(master, get_accFocus(), 
-                AccConst.EVENT_OBJECT_FOCUS);
+                						AccConst.EVENT_OBJECT_FOCUS);
 				Accessibility.updateProperties();
 				break;
 			}
+				
 			case Event.CHANGE:
 			{
-				if (childID == VIDEOPLAYER_PLAYPAUSEBUTTON || childID == 
-                VIDEOPLAYER_MUTEBUTTON || 
-                childID == VIDEOPLAYER_FULLSCREENBUTTON)
+				var msaaEvt:uint = 0;
+
+				if (childID == VIDEOPLAYER_PLAYPAUSEBUTTON ||
+					childID == VIDEOPLAYER_MUTEBUTTON || 
+                	childID == VIDEOPLAYER_FULLSCREENBUTTON)
+				{
 					msaaEvt = AccConst.EVENT_OBJECT_NAMECHANGE;
-				else if (childID == VIDEOPLAYER_SCRUBBAR || childID == 
-                VIDEOPLAYER_VOLUMEBAR)
+				}
+				else if (childID == VIDEOPLAYER_SCRUBBAR ||
+						 childID == VIDEOPLAYER_VOLUMEBAR)
+				{
 					msaaEvt = AccConst.EVENT_OBJECT_VALUECHANGE;
+				}
                 if (childID != VIDEOPLAYER_CURRENTTIMEDISPLAY && childID != 0)
                 {
 				    Accessibility.sendEvent(master, childID, msaaEvt);
@@ -704,23 +773,58 @@ public class VideoPlayerAccImpl extends AccImpl
 				    break;
                 }
 			}
+				
 			case FlexEvent.MUTED_CHANGE:
 			{
 				Accessibility.sendEvent(master, VIDEOPLAYER_MUTEBUTTON, 
-                AccConst.EVENT_OBJECT_NAMECHANGE);
+                						AccConst.EVENT_OBJECT_NAMECHANGE);
 				Accessibility.updateProperties();
 				break;
 			}
+				
             case TimeEvent.CURRENT_TIME_CHANGE:
 			{
 				Accessibility.sendEvent(master, VIDEOPLAYER_SCRUBBAR, 
-                AccConst.EVENT_OBJECT_VALUECHANGE);
+                						AccConst.EVENT_OBJECT_VALUECHANGE);
 				Accessibility.sendEvent(master, VIDEOPLAYER_CURRENTTIMEDISPLAY, 
-                AccConst.EVENT_OBJECT_NAMECHANGE);
+                						AccConst.EVENT_OBJECT_NAMECHANGE);
 				Accessibility.updateProperties();
+				break;
+			}
+				
+			case SkinPartEvent.PART_ADDED:
+			{
+				playPauseButton = VideoPlayer(master).playPauseButton;
+				if (SkinPartEvent(event).instance == playPauseButton)
+					playPauseButton.addEventListener(Event.CHANGE, eventHandler);
+				
+				volumeBar = VideoPlayer(master).volumeBar;
+				if (SkinPartEvent(event).instance == volumeBar)
+				{
+					volumeBar.addEventListener(Event.CHANGE, eventHandler);
+					volumeBar.addEventListener(FlexEvent.MUTED_CHANGE, eventHandler);
+				}
+
+				break;
+			}
+				
+			case SkinPartEvent.PART_REMOVED:
+			{
+				playPauseButton = VideoPlayer(master).playPauseButton;
+				if (SkinPartEvent(event).instance == playPauseButton)
+					playPauseButton.removeEventListener(Event.CHANGE, eventHandler);
+				
+				volumeBar = VideoPlayer(master).volumeBar;
+				if (SkinPartEvent(event).instance == volumeBar)
+				{
+					volumeBar.removeEventListener(Event.CHANGE, eventHandler);
+					volumeBar.removeEventListener(FlexEvent.MUTED_CHANGE, eventHandler);
+				}
+				
 				break;
 			}
 		}
 	}
 }
+
 }
