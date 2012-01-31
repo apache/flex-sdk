@@ -38,6 +38,11 @@ use namespace mx_internal;
  *  to an individual AccordionHeader object.
  *
  *  @see mx.containers.Accordion
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AccordionHeader extends Button implements IDataRenderer
 {
@@ -63,6 +68,11 @@ public class AccordionHeader extends Button implements IDataRenderer
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function AccordionHeader()
 	{
@@ -111,6 +121,11 @@ public class AccordionHeader extends Button implements IDataRenderer
 
 	/**
 	 *  Stores a reference to the content associated with the header.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	override public function get data():Object
 	{
