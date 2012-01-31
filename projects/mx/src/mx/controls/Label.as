@@ -48,6 +48,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -67,6 +72,11 @@ use namespace mx_internal;
  *  to <code>true</code> to generate the <code>link</code> event.</p>
  *
  *  @eventType flash.events.TextEvent.LINK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="link", type="flash.events.TextEvent")]
 
@@ -81,6 +91,11 @@ include "../styles/metadata/TextStyles.as"
  *  the left of the text. 
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
 
@@ -89,6 +104,11 @@ include "../styles/metadata/TextStyles.as"
  *  the right of the text. 
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingRight", type="Number", format="Length", inherit="no")]
 
@@ -97,6 +117,11 @@ include "../styles/metadata/TextStyles.as"
  *  the bottom of the text. 
  *  
  *  @default 0 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -105,6 +130,11 @@ include "../styles/metadata/TextStyles.as"
  *  the top of the text. 
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -112,6 +142,11 @@ include "../styles/metadata/TextStyles.as"
  *  Color of the Label object's opaque background.
  *  The default value is <code>undefined</code>,
  *  which means that the background is transparent.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 //[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
@@ -226,6 +261,11 @@ include "../styles/metadata/TextStyles.as"
  *  @see mx.controls.TextInput
  *  @see mx.controls.TextArea
  *  @see mx.controls.RichTextEditor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Label extends UIComponent
                    implements IDataRenderer, IDropInListItemRenderer,
@@ -304,6 +344,11 @@ public class Label extends UIComponent
             </TEXTFORMAT>
         trace(myLabel.text);
             This is bold.
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
 
     //--------------------------------------------------------------------------
@@ -314,6 +359,11 @@ public class Label extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Label()
     {
@@ -411,6 +461,11 @@ public class Label extends UIComponent
 
     /**
      *  The internal UITextField that renders the text of this Label.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var textField:IUITextField;
 
@@ -471,6 +526,11 @@ public class Label extends UIComponent
      *  and <code>&lt;p&gt;</code>, to place line breaks in the text field.</p>
      *
      *  @default false;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get condenseWhite():Boolean
     {
@@ -528,6 +588,11 @@ public class Label extends UIComponent
      *
      *  @default null
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -570,6 +635,11 @@ public class Label extends UIComponent
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -785,6 +855,11 @@ public class Label extends UIComponent
      *  @default ""
      * 
      *  @see flash.text.TextField#htmlText
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get htmlText():String
     {
@@ -873,6 +948,11 @@ public class Label extends UIComponent
      *
      *  @default null
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
@@ -913,6 +993,11 @@ public class Label extends UIComponent
      *  to <code>true</code> to execute the <code>link</code> event.</p>
      *
      *  @default false;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectable():Boolean
     {
@@ -1055,6 +1140,11 @@ public class Label extends UIComponent
      *  @default ""
      *  @tiptext Gets or sets the Label content
      *  @helpid 3907
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function get text():String
     {
@@ -1125,6 +1215,11 @@ public class Label extends UIComponent
      *  which updates the value immediately.</p>
      *
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get textHeight():Number
     {
@@ -1154,6 +1249,11 @@ public class Label extends UIComponent
      *  which updates the value immediately.</p>
      *
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get textWidth():Number
     {
@@ -1172,6 +1272,11 @@ public class Label extends UIComponent
      *  If this property is <code>false</code>, text that does not fit is clipped.
      * 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var truncateToFit:Boolean = true;
     
@@ -1295,6 +1400,11 @@ public class Label extends UIComponent
             g.drawRect(0, 0, unscaledWidth, unscaledHeight);
             g.endFill();
         }
+        *  
+        *  @langversion 3.0
+        *  @playerversion Flash 9
+        *  @playerversion AIR 1.1
+        *  @productversion Flex 3
         */
                 
         // The textField occupies the entire Label bounds minus the padding.
@@ -1426,6 +1536,11 @@ public class Label extends UIComponent
      *
      *  @see flash.text.TextField
      *  @see flash.text.TextLineMetrics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLineMetrics(lineIndex:int):TextLineMetrics
     {
