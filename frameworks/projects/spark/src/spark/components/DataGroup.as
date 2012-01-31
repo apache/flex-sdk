@@ -730,7 +730,7 @@ public class DataGroup extends GroupBase
         // GroupBase's commitProperties reattaches the mask
         super.commitProperties();
 
-        if(_layeringFlags & LAYERING_DIRTY)
+        if (_layeringFlags & LAYERING_DIRTY)
         {
             if (layout && layout.useVirtualLayout)
                 invalidateDisplayList();
@@ -990,7 +990,7 @@ public class DataGroup extends GroupBase
             return;
         
         var depthSortRequired:Boolean = false;
-        for(index = virtualLayoutStartIndex; index < virtualLayoutEndIndex; index++)
+        for (index = virtualLayoutStartIndex; index < virtualLayoutEndIndex; index++)
         {
             elt = indexToRenderer[index] as IVisualElement;
             if (!elt || !elt.visible || !elt.includeInLayout)
