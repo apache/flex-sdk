@@ -79,7 +79,7 @@ public class AsyncRequest extends mx.messaging.Producer
 	/**
 	 *  Delegates to the fault to responder
 	 *  @param    error message.
-	 *            The error codes and informaton are contained in the
+	 *            The error codes and information are contained in the
 	 *            <code>headers</code> property
 	 *  @param    msg Message original message that caused the fault.
 	 *  @private
