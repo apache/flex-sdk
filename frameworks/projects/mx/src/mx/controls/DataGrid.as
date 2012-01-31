@@ -75,7 +75,6 @@ import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
 import mx.skins.halo.ListDropIndicator;
 import mx.styles.ISimpleStyleClient;
-import mx.styles.StyleManager;
 import mx.utils.ObjectUtil;
 import mx.utils.StringUtil;
 
@@ -2577,7 +2576,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             return;
         }
 
-        StyleManager.getColorNames(colors);
+        styleManager.getColorNames(colors);
 
         var curRow:int = 0;
 
