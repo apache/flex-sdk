@@ -1785,7 +1785,7 @@ package spark.components
          *    <code>preserveSelection</code> is <code>false</code> and 
          *    <code>selectionMode</code> is 
          *    <code>GridSelectionMode.MULTIPLE_CELLS</code></li>
-         *    <li><code>columns</code> is reset and code>selectionMode</code> is 
+         *    <li><code>columns</code> is reset and <code>selectionMode</code> is 
          *    <code>GridSelectionMode.MULTIPLE_CELLS</code></li> 
          *  </ul></p>
          * 
@@ -2962,8 +2962,12 @@ package spark.components
             if (caretRowIndex != -1)
                 updateCaretForDataProviderChange(event);
             
-            if (gridDimensions && (hoverRowIndex != -1))
-                updateHoverForDataProviderChange(event);
+			// The following conditional block is written as a nested if due to ASC-4110
+            if (gridDimensions)
+			{
+				if(hoverRowIndex != -1)
+					updateHoverForDataProviderChange(event);	
+			}
 
             invalidateSize();
             invalidateDisplayList();
