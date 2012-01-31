@@ -71,7 +71,7 @@ public class ScrollerLayout extends LayoutBase
         var ch:Number = viewport.contentHeight;
         if (((cw == 0) && (ch == 0)) || (isNaN(cw) || isNaN(ch)))
             return new Point(0,0);
-        return MatrixUtil.transformSize(new Point(cw, ch), viewport.getLayoutMatrix());
+        return MatrixUtil.transformSize(cw, ch, viewport.getLayoutMatrix());
     }
 
     //----------------------------------
