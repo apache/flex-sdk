@@ -317,7 +317,7 @@ public class VideoElement extends GraphicElement
      * 
      *  <p>Set the <code>isLive</code> property to <code>false</code> when sending 
      *  a prerecorded video stream to the video player and to <code>true</code> 
-     *  when sending real-time data such as a live broadcast.
+     *  when sending real-time data such as a live broadcast.</p>
      *
      *  @see #source 
      *  @see VideoPlayer#isLive 
@@ -378,7 +378,7 @@ public class VideoElement extends GraphicElement
      *  Returns true if the video is playing or is attempting to play.
      *  
      *  <p>The video may not be currently playing, as it may be seeking 
-     *  or buferring, but the video is attempting to play.<p> 
+     *  or buferring, but the video is attempting to play.</p> 
      *
      *  @see #play()
      *  @see #pause()
