@@ -18,7 +18,6 @@ import flex.events.ItemExistenceChangedEvent;
 import flex.skin.DefaultItemRenderer;
 
 import mx.core.ClassFactory;
-import mx.core.IFactory;
 
 /**
  *  The List class.
@@ -218,6 +217,40 @@ public class List extends Selector
         if (item)
             item.selected = selected;
     }
+	
+	/**
+	 *  Called when a skin part has been added or assigned. 
+	 *  This method pushes the content, layout, itemRenderer, and
+	 *  itemRendererFunction properties down to the contentGroup
+	 *  skin part.
+	 */
+	override protected function partAdded(partName:String, instance:*):void
+	{
+		super.partAdded(partName, instance);
+		if (instance == dataGroup)
+		{
+			dataGroup.addEventListener(
+			    ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
+			dataGroup.addEventListener(
+			    ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
+		}
+	}
+
+	/**
+	 *  Called when a skin part is removed.
+	 */
+	override protected function partRemoved(partName:String, instance:*):void
+	{
+		if (instance == dataGroup)
+		{
+			dataGroup.removeEventListener(
+			    ItemExistenceChangedEvent.ITEM_ADD, dataGroup_itemAddHandler);
+			dataGroup.removeEventListener(
+			    ItemExistenceChangedEvent.ITEM_REMOVE, dataGroup_itemRemoveHandler);
+		}
+		
+		super.partRemoved(partName, instance);
+	}
     
     //--------------------------------------------------------------------------
     //
@@ -313,11 +346,9 @@ public class List extends Selector
      *  @private
      *  Called when an item has been added to this component.
      */
-    override protected function itemAddedHandler(item:*, index:int):void
+    private function dataGroup_itemAddHandler(event:ItemExistenceChangedEvent):void
     {
-        super.itemAddedHandler(item, index);
-        
-        var skin:* = dataGroup.getItemSkin(item);
+        var skin:* = dataGroup.getItemSkin(event.relatedObject);
         
         if (skin)
             skin.addEventListener("click", item_clickHandler);
@@ -327,11 +358,9 @@ public class List extends Selector
      *  @private
      *  Called when an item has been removed from this component.
      */
-    override protected function itemRemovedHandler(item:*, index:int):void
-    {
-        super.itemRemovedHandler(item, index);
-        
-        var skin:* = dataGroup.getItemSkin(item);
+    private function dataGroup_itemRemoveHandler(event:ItemExistenceChangedEvent):void
+    {        
+        var skin:* = dataGroup.getItemSkin(event.relatedObject);
         
         if (skin)
             skin.removeEventListener("click", item_clickHandler);
