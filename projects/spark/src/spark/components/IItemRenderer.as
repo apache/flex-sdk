@@ -34,9 +34,10 @@ import mx.core.IVisualElement;
  */
 public interface IItemRenderer extends IDataRenderer, IVisualElement
 {
+    
     /**
-     *  Contains <code>true</code> if the item renderer 
-     *  can show itself as selected.
+     *  The index of the item in the data set 
+     *  that this renderer is visualizing.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -44,21 +45,8 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
      *  @productversion Flex 4
      *  
      */
-    function get selected():Boolean;
-    function set selected(value:Boolean):void;
-
-    /**
-     *  Contains <code>true</code> if the item renderer 
-     *  can show itself as focused. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     *  
-     */
-    function get showsCaret():Boolean;
-    function set showsCaret(value:Boolean):void;
+    function get index():int;
+    function set index(value:int):void;
     
 	/**
 	 *  True if the item renderer is being dragged.
@@ -94,7 +82,31 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
     function get label():String;
     function set label(value:String):void;
     
+    /**
+     *  Contains <code>true</code> if the item renderer 
+     *  can show itself as selected.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     *  
+     */
+    function get selected():Boolean;
+    function set selected(value:Boolean):void;
 
+    /**
+     *  Contains <code>true</code> if the item renderer 
+     *  can show itself as focused. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     *  
+     */
+    function get showsCaret():Boolean;
+    function set showsCaret(value:Boolean):void;
 }
 
 }
