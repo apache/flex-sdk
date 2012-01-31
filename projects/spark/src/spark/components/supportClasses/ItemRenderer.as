@@ -38,9 +38,8 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;ItemRenderer
  *    <strong>Properties</strong>
- *    allowDeselection="true"
  *    selected="false"
- *    caret="false"
+ *    showsCaret="false"
  *  /&gt;
  *  </pre>
  *  
@@ -224,65 +223,34 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     public var labelDisplay:TextGraphicElement;
     
     //----------------------------------
-    //  allowDeselection
+    //  showsCaret
     //----------------------------------
 
     /**
      *  @private
-     *  Storage for the allowDeselection property 
+     *  Storage for the showsCaret property 
      */
-    private var _allowDeselection:Boolean = true;
-
-    /**
-     *  @inheritDoc 
-     *
-     *  @default true
-     */    
-    public function get allowDeselection():Boolean
-    {
-        return _allowDeselection;
-    }
-    
-    /**
-     *  @private
-     */    
-    public function set allowDeselection(value:Boolean):void
-    {
-        if (value == _allowDeselection)
-            return;
-            
-        _allowDeselection = value;
-    }
-    
-    //----------------------------------
-    //  caret
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the caret property 
-     */
-    private var _caret:Boolean = false;
+    private var _showsCaret:Boolean = false;
 
     /**
      *  @inheritDoc 
      *
      *  @default false  
      */    
-    public function get caret():Boolean
+    public function get showsCaret():Boolean
     {
-        return _caret;
+        return _showsCaret;
     }
     
     /**
      *  @private
      */    
-    public function set caret(value:Boolean):void
+    public function set showsCaret(value:Boolean):void
     {
-        if (value == _caret)
+        if (value == _showsCaret)
             return;
 
-        _caret = value;
+        _showsCaret = value;
         setCurrentState(getCurrentRendererState(), playTransitions);  
     }
     
@@ -318,33 +286,33 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     }
        
     //----------------------------------
-    //  labelText
+    //  label
     //----------------------------------
     [Bindable("textChanged")]
     
     /**
      *  @private 
-     *  Storage var for labelText
+     *  Storage var for label
      */ 
-    private var _labelText:String = "";
+    private var _label:String = "";
     
     /**
      *  @inheritDoc 
      *
      *  @default ""    
      */
-    public function get labelText():String
+    public function get label():String
     {
-        return _labelText;
+        return _label;
     }
     
     /**
      *  @private
      */ 
-    public function set labelText(value:String):void
+    public function set label(value:String):void
     {
-        if (value != _labelText)
-            _labelText = value;
+        if (value != _label)
+            _label = value;
         dispatchEvent(new FlexEvent("textChanged"));
     }
     
@@ -385,14 +353,14 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      */
     protected function getCurrentRendererState():String
     {
-    	if (selected && caret && hasState("selectedAndCaret"))
-    	   return "selectedAndCaret";
+    	if (selected && showsCaret && hasState("selectedAndShowsCaret"))
+    	   return "selectedAndShowsCaret";
     	    
-        if (hovered && caret && hasState("hoveredAndCaret"))
-            return "hoveredAndCaret";
+        if (hovered && showsCaret && hasState("hoveredAndShowsCaret"))
+            return "hoveredAndShowsCaret";
              
-        if (caret && hasState("normalAndCaret"))
-            return "normalAndCaret"; 
+        if (showsCaret && hasState("normalAndShowsCaret"))
+            return "normalAndShowsCaret"; 
             
         if (selected && hasState("selected"))
             return "selected";
