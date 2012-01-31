@@ -337,7 +337,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *     <tr><td>Default size</td><td>112 pixels wide by 112 pixels high</td></tr>
  *     <tr><td>Minimum size</td><td>112 pixels wide by 112 pixels high</td></tr>
  *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
- *     <tr><td>Default skin class</td><td>spark.skins.spark.BorderContainerSkin</td></tr>
+ *     <tr><td>Default skin class</td><td>spark.skins.spark.ListSkin</td></tr>
  *  </table>
  *
  *  @mxml <p>The <code>&lt;s:List&gt;</code> tag inherits all of the tag 
@@ -502,7 +502,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  that spans the width of the control.
      *  Create a custom drop indicator by creating a custom skin class for the drop target.
      *  In your skin class, create a skin part named <code>dropIndicator</code>,
-     *  in the &lt;fx:Declarations&gt; area of the skin class</p>
+     *  in the &lt;fx:Declarations&gt; area of the skin class.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -922,14 +922,14 @@ public class List extends ListBase implements IFocusManagerComponent
             (value && value.length == 1 && 
              selectedIndices && selectedIndices.length == 1 &&    
              value[0] == selectedIndices[0]))
-		{
-			// this should short-circuit, but we should check to make sure 
-			// that caret doesn't need to be changed either, as that's a side
-			// effect of setting selectedIndex
-			setCurrentCaretIndex(selectedIndex);
-			
-			return;
-		}
+        {
+            // this should short-circuit, but we should check to make sure 
+            // that caret doesn't need to be changed either, as that's a side
+            // effect of setting selectedIndex
+            setCurrentCaretIndex(selectedIndex);
+            
+            return;
+        }
         
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = (dispatchChangeAfterSelection || dispatchChangeEvent);
@@ -1682,9 +1682,9 @@ public class List extends ListBase implements IFocusManagerComponent
                 }
             }
             else
-			{
+            {
                 setSelectedIndex(newIndex, true);
-			}
+            }
         }
         else 
         {
