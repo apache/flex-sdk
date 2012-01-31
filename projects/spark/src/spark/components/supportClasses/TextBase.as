@@ -23,10 +23,8 @@ import flash.text.engine.TextLineValidity;
 
 import flashx.textLayout.compose.TextLineRecycler;
 
-import mx.core.FlexVersion;
 import mx.core.IFlexModuleFactory;
 import mx.core.UIComponent;
-import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.resources.IResourceManager;
@@ -159,9 +157,8 @@ public class TextBase extends UIComponent implements IDisplayText
                 "core", "truncationIndicator");
         }
         
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
-            addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
-
+        addEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
+                
         // Register as a weak listener for "change" events from ResourceManager.
         // If TextBases registered as a strong listener,
         // they wouldn't get garbage collected.
@@ -225,6 +222,13 @@ public class TextBase extends UIComponent implements IDisplayText
      *  The value of bounds.height, before the compose was done.
      */
     mx_internal var _composeHeight:Number;
+    
+    /**
+     *  @private
+     *  Cache the width constraint as set by the layout in setLayoutBoundsSize()
+     *  so that text reflow can be calculated during a subsequent measure pass.
+     */
+    private var _widthConstraint:Number = NaN;
     
     /**
      *  @private
@@ -519,7 +523,7 @@ public class TextBase extends UIComponent implements IDisplayText
         // _widthConstraint trumps even explicitWidth as some layouts may choose
         // to specify width different from the explicit.
         var constrainedWidth:Number =
-            !isNaN(this.estimatedWidth) ? this.estimatedWidth : explicitWidth;
+            !isNaN(_widthConstraint) ? _widthConstraint : explicitWidth;
             
         // for measurement, try not to collapse so small we don't measure
         // anything
@@ -535,20 +539,17 @@ public class TextBase extends UIComponent implements IDisplayText
         // x and/or y may not be 0.        
         var newMeasuredHeight:Number = Math.ceil(bounds.bottom);
 
-        // If the measured height is not affected, then set constrained
-        // width measurement and exit early
-        if (!isNaN(constrainedWidth) && measuredHeight == newMeasuredHeight)
-        {
-            measuredWidth = Math.ceil(bounds.width);
+        // If the measured height is not affected, then constrained
+        // width measurement is not neccessary.
+        if (!isNaN(_widthConstraint) && measuredHeight == newMeasuredHeight)
             return;
-        }
             
         // Call super.measure() here insted of in the beginning of the method,
         // as it zeroes the measuredWidth, measuredHeight and these values will
         // still be valid if we decided to do an early return above.
         super.measure();
 
-        measuredWidth = Math.ceil(bounds.width);
+        measuredWidth = Math.ceil(bounds.right);
         measuredHeight = newMeasuredHeight;
         
         // Remember the number of text lines during measure. We can use this to
@@ -560,37 +561,6 @@ public class TextBase extends UIComponent implements IDisplayText
     }
 
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-	override public function setEstimatedSize(estimatedWidth:Number = NaN, 
-												estimatedHeight:Number = NaN,
-												invalidateSizeAllowed:Boolean = true):void
-    {
-        var oldcw:Number = this.estimatedWidth;
-        var oldch:Number = this.estimatedHeight;
-        super.setEstimatedSize(estimatedWidth, estimatedHeight, invalidateSizeAllowed);
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-        {
-			var sameWidth:Boolean = isNaN(estimatedWidth) && isNaN(oldcw) || estimatedWidth == oldcw;
-			var sameHeight:Boolean = isNaN(estimatedHeight) && isNaN(oldch) || estimatedHeight == oldch;
-			if (!(sameHeight && sameWidth))
-            {
-                if (!isNaN(explicitWidth) &&
-                    !isNaN(explicitHeight))
-                    return;
-                
-				if (invalidateSizeAllowed)
-                	invalidateSize();
-            }
-        }        
-    }
-    
-    /**
      *  @private
      *  We override the setLayoutBoundsSize to determine whether to perform
      *  text reflow. This is a convenient place, as the layout passes NaN
@@ -600,97 +570,57 @@ public class TextBase extends UIComponent implements IDisplayText
                                                  height:Number,
                                                  postLayoutTransform:Boolean = true):void
     {
-		if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-		{
-			var newEstimates:Boolean = false;
-			var cw:Number = estimatedWidth;
-			var ch:Number = estimatedHeight;
-			var oldcw:Number = cw;
-			var oldch:Number = ch;
-			// we got lied to, probably the constraints weren't accurate or
-			// couldn't be computed
-			if (!isNaN(width))
-			{
-				if (isNaN(estimatedWidth) || width != estimatedWidth)
-				{
-					cw = width;
-					newEstimates = true;
-				}
-			}
-			// we got lied to, probably the constraints weren't accurate or
-			// couldn't be computed
-			if (!isNaN(height))
-			{
-				if (isNaN(estimatedHeight) || height != estimatedHeight)
-				{
-					ch = height;
-					newEstimates = true;
-				}
-			}
-			if (newEstimates)
-			{
-				setEstimatedSize(cw, ch);
-				
-				// re-measure with the new estimated size
-				UIComponentGlobals.layoutManager.validateClient(this, true);
-				
-				// set estimated size back to what it was
-				setEstimatedSize(oldcw, oldch, false);
-			}
-		}
         super.setLayoutBoundsSize(width, height, postLayoutTransform);
-        
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
-        {
-            // TODO (egeorgie): possible optimization - if we reflow the text
-            // immediately, we'll be able to detect whether the estimated
-            // width causes the measured height to change.
-            // Also certain layouts like vertical/horizontal will
-            // be able to get the better performance as subsequent elements
-            // will not go through updateDisplayList twice. This also has the
-            // potential of avoiding text compositing during measure.
+
+        // TODO (egeorgie): possible optimization - if we reflow the text
+        // immediately, we'll be able to detect whether the constrained
+        // width causes the measured height to change.
+        // Also certain layouts like vertical/horizontal will
+        // be able to get the better performance as subsequent elements
+        // will not go through updateDisplayList twice. This also has the
+        // potential of avoiding text compositing during measure.
+
+        // Did we already constrain the width?
+        if (_widthConstraint == width)
+            return;
+
+        // No reflow for explicit lineBreak
+        if (getStyle("lineBreak") == "explicit")
+            return;
+
+        // If we don't measure
+        if (canSkipMeasurement())
+            return;
+
+        if (!isNaN(explicitHeight))
+            return;
+
+        // We support reflow only in the case of constrained width and
+        // unconstrained height. Note that we compare with measuredWidth,
+        // as for example the TextBase can be
+        // constrained by the layout with "left" and "right", but the
+        // container width itself may not be constrained and it would depend
+        // on the element's measuredWidth.
+        var constrainedWidth:Boolean = !isNaN(width) && (width != measuredWidth) && (width != 0); 
+        if (!constrainedWidth)
+            return;
             
-            // Did we already constrain the width?
-            if (estimatedWidth == width)
-                return;
-            
-            // No reflow for explicit lineBreak
-            if (getStyle("lineBreak") == "explicit")
-                return;
-            
-            // If we don't measure
-            if (canSkipMeasurement())
-                return;
-            
-            if (!isNaN(explicitHeight))
-                return;
-            
-            // We support reflow only in the case of constrained width and
-            // constrained height. Note that we compare with measuredWidth,
-            // as for example the TextBase can be
-            // constrained by the layout with "left" and "right", but the
-            // container width itself may not be constrained and it would depend
-            // on the element's measuredWidth.
-            var widthConstrained:Boolean = !isNaN(width) && (width != measuredWidth) && (width != 0); 
-            if (!widthConstrained)
-                return;
-            
-            // Special case - if we have a single line, then having a constraint larger
-            // than the measuredWidth will not result in measuredHeight change, as we
-            // will still have only a single line
-            if (_measuredOneTextLine && width > measuredWidth)
-                return;
-            
-            // We support reflow only when we don't have a transform.
-            // We could add support for scale, but not skew or rotation.
-            if (postLayoutTransform && hasComplexLayoutMatrix)
-                return;
-            
-            setEstimatedSize(width, estimatedHeight);
-            invalidateSize();
-        }
-    }
+        // Special case - if we have a single line, then having a constraint larger
+        // than the measuredWidth will not result in measuredHeight change, as we
+        // will still have only a single line
+        if (_measuredOneTextLine && width > measuredWidth)
+            return;
     
+        // We support reflow only when we don't have a transform.
+        // We could add support for scale, but not skew or rotation.
+        if (postLayoutTransform && hasComplexLayoutMatrix)
+			return;
+
+        _widthConstraint = width;
+        invalidateSize();
+    
+    }
+
     /**
      *  @private
      */
@@ -781,7 +711,6 @@ public class TextBase extends UIComponent implements IDisplayText
         g.beginFill(uint(backgroundColor), backgroundAlpha);
         g.drawRect(0, 0, unscaledWidth, unscaledHeight);
         g.endFill();
-
     }
 
     //--------------------------------------------------------------------------
@@ -1147,9 +1076,8 @@ public class TextBase extends UIComponent implements IDisplayText
     {
         // Make sure that if we did a double pass, next time around we'll
         // measure normally
-        setEstimatedSize(NaN, estimatedHeight);
+        _widthConstraint = NaN;
     }
-
 }
 
 }
