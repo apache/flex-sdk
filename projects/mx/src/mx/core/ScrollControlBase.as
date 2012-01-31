@@ -20,7 +20,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.controls.HScrollBar;
-import mx.controls.ToolTip;
+import mx.core.IToolTip;
 import mx.controls.VScrollBar;
 import mx.controls.scrollClasses.ScrollBar;
 import mx.events.ScrollEvent;
@@ -338,7 +338,7 @@ public class ScrollControlBase extends UIComponent
      *  @private
      *  Instance of the scrollTip. (There can be only one.)
      */
-    private var scrollTip:ToolTip;
+    private var scrollTip:IToolTip;
 
     /**
      *  @private
@@ -1375,7 +1375,7 @@ public class ScrollControlBase extends UIComponent
             {
                 if (scrollTip)
                 {
-			       	systemManager.topLevelSystemManager.removeChildFromSandboxRoot("toolTipChildren", scrollTip as DisplayObject);
+			       	ToolTipManager.destroyToolTip(scrollTip);
                     scrollTip = null;
                     ToolTipManager.enabled = oldTTMEnabled;
                 }
@@ -1389,8 +1389,7 @@ public class ScrollControlBase extends UIComponent
 
                 if (!scrollTip)
                 {
-                    scrollTip = new ToolTip();
-			       	systemManager.topLevelSystemManager.addChildToSandboxRoot("toolTipChildren", scrollTip as DisplayObject);
+                    scrollTip = ToolTipManager.createToolTip("", 0, 0, null, this);
                     scrollThumbMidPoint = scrollBar.scrollThumb.height / 2;
                     oldTTMEnabled = ToolTipManager.enabled;
                     ToolTipManager.enabled = false;
