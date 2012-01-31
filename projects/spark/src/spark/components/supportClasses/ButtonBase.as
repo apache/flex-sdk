@@ -1358,6 +1358,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      */
     private function mouseUpDeselectTimer_timerCompleteHandler(event:TimerEvent):void
     {
+        buttonReleased();
         mouseCaptured = false;
     }
     
