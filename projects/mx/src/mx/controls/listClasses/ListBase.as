@@ -8381,10 +8381,10 @@ public class ListBase extends ScrollControlBase
 		dragSource.addHandler(copySelectedItems, "items");
 		
 		// The Spark drag drop data format
-		dragSource.addHandler(copySelectedItemsForDragDrop, "orderedItems");
+		dragSource.addHandler(copySelectedItemsForDragDrop, "itemsByIndex");
 
 		// Calculate the index of the focus item within the vector
-		// of ordered items returned for the "orderedItems" format.
+		// of ordered items returned for the "itemsByIndex" format.
 		var caretIndex:int = 0;
 		var draggedIndices:Array = selectedIndices;
 		var count:int = draggedIndices.length;
@@ -8393,7 +8393,7 @@ public class ListBase extends ScrollControlBase
 			if (mouseDownIndex > draggedIndices[i])
 				caretIndex++;
 		}
-		dragSource.addData(caretIndex, "orderedItemsCaretIndex");
+		dragSource.addData(caretIndex, "caretIndex");
     }
 	
 	/**
@@ -10370,7 +10370,7 @@ public class ListBase extends ScrollControlBase
         lastDragEvent = event;
 
         if (enabled && iteratorValid && 
-            (event.dragSource.hasFormat("items") || event.dragSource.hasFormat("orderedItems")))
+            (event.dragSource.hasFormat("items") || event.dragSource.hasFormat("itemsByIndex")))
         {
             DragManager.acceptDragDrop(this);
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
@@ -10403,7 +10403,7 @@ public class ListBase extends ScrollControlBase
         lastDragEvent = event;
 
         if (enabled && iteratorValid && 
-            (event.dragSource.hasFormat("items") || event.dragSource.hasFormat("orderedItems")))
+            (event.dragSource.hasFormat("items") || event.dragSource.hasFormat("itemsByIndex")))
         {
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
             showDropFeedback(event);
@@ -10473,7 +10473,7 @@ public class ListBase extends ScrollControlBase
             return;
         
         var dragSource:DragSource = event.dragSource;
-        if (!dragSource.hasFormat("items") && !dragSource.hasFormat("orderedItems"))
+        if (!dragSource.hasFormat("items") && !dragSource.hasFormat("itemsByIndex"))
             return;
 
         if (!dataProvider)
@@ -10485,22 +10485,22 @@ public class ListBase extends ScrollControlBase
         if (dragSource.hasFormat("items"))
             insertItems(dropIndex, dragSource, event);
         else
-            insertOrderedItems(dropIndex, dragSource, event);
+            insertItemsByIndex(dropIndex, dragSource, event);
 
         lastDragEvent = null;
     }
     
     /**
      *  @private 
-     *  Insert for drag and drop, handles the Spark "orderedItems" data format.
+     *  Insert for drag and drop, handles the Spark "itemsByIndex" data format.
      */
-    private function insertOrderedItems(dropIndex:int, dragSource:DragSource, event:DragEvent):void
+    private function insertItemsByIndex(dropIndex:int, dragSource:DragSource, event:DragEvent):void
     {
-        var items:Vector.<Object> = dragSource.dataForFormat("orderedItems") as Vector.<Object>;
+        var items:Vector.<Object> = dragSource.dataForFormat("itemsByIndex") as Vector.<Object>;
         
         // Copy or move the items. No need to check whether the operation is
         // reorder within this list, as ListBase never creates the
-        // "orderedItems" data format. This is a new data format from Spark List only. 
+        // "itemsByIndex" data format. This is a new data format from Spark List only. 
         collectionIterator.seek(CursorBookmark.FIRST, dropIndex);
         var count:int = items.length;
         for (var i:int = 0; i < count; i++)
