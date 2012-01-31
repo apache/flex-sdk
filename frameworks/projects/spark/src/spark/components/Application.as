@@ -222,13 +222,17 @@ public class Application extends SkinnableContainer
     //  backgroundColor
     //----------------------------------
     
-    [Inspectable(category="General", format="Color")]
+    private var _backgroundColor:uint = 0xFFFFFF;
+    
+    [Inspectable(category="General", format="Color", defaultValue="0xFFFFFF")]
     [Bindable("backgroundColorUpdated")]
     
     /**
      *  Background color of a component. 
      *  This property specifies the background color, both while the application
      *  loads, and while it is running.
+     *
+     *  @default 0xFFFFFF
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -237,7 +241,7 @@ public class Application extends SkinnableContainer
      */
     public function get backgroundColor():uint
     {
-        return getStyle("backgroundColor");
+        return _backgroundColor;
     }
     
     /**
@@ -245,10 +249,10 @@ public class Application extends SkinnableContainer
      */
     public function set backgroundColor(value:uint):void
     {
-        if (value == getStyle("backgroundColor"))
+        if (value == _backgroundColor)
             return;
             
-        setStyle("backgroundColor", value);
+        _backgroundColor = value;
         
         dispatchEvent(new Event("backgroundColorUpdated"));
     }
