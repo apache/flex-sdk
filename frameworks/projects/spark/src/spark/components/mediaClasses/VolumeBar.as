@@ -33,7 +33,6 @@ import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.components.supportClasses.ListBase;
 import spark.events.DropDownEvent;
-import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
 
 use namespace mx_internal;
