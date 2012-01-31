@@ -643,6 +643,8 @@ public class VideoElement extends UIComponent
             createUnderlyingVideoPlayer();
         }
         
+        sourceLastPlayed = null;
+        
         if (autoPlay && enabled)
             play();
         else
@@ -858,12 +860,35 @@ public class VideoElement extends UIComponent
         
         var flvPlayer:VideoPlayer = videoPlayer;
         
-        if (flvPlayer.width != Math.floor(unscaledWidth) || flvPlayer.height != Math.floor(unscaledHeight))
+        // check to see whether the video width/height has been set before to this value.
+        // if it has, let's not set it again as we could be in an animation where we keep 
+        // setting this value, and if that's the case, then the video won't play at all.
+        if (lastSetVideoWidth != Math.floor(unscaledWidth) || lastSetVideoHeight != Math.floor(unscaledHeight))
         {
-            flvPlayer.width = Math.floor(unscaledWidth);
-            flvPlayer.height = Math.floor(unscaledHeight);
+            lastSetVideoWidth = Math.floor(unscaledWidth);
+            lastSetVideoHeight = Math.floor(unscaledHeight);
+            
+            flvPlayer.width = lastSetVideoWidth;
+            flvPlayer.height = lastSetVideoHeight;
         }
     }
+    
+    // FIXME (rfrishbe): remove these "lastSet" variables...should not be needed 
+    // when switching to Strobe
+    
+    /**
+     *  @private 
+     *  Used to store the last video width/height we've set the 
+     *  underlying video player to
+     */
+    private var lastSetVideoWidth:Number;
+    
+    /**
+     *  @private 
+     *  Used to store the last video width/height we've set the 
+     *  underlying video player to
+     */
+    private var lastSetVideoHeight:Number;
     
     //--------------------------------------------------------------------------
     //
@@ -1173,6 +1198,11 @@ public class VideoElement extends UIComponent
      */
     private function videoPlayer_readyHandler(event:fl.video.VideoEvent):void
     {
+        // sometimes we don't get a metadata event, so let's check the size here and see 
+        // if we need to invalidateSize()
+        if (measuredWidth != videoPlayer.videoWidth || measuredHeight != videoPlayer.videoHeight)
+            invalidateSize();
+        
         var sparkVideoEvent:spark.events.VideoEvent = 
             new spark.events.VideoEvent(event.type, event.bubbles, event.cancelable, event.playheadTime);
         dispatchEvent(sparkVideoEvent);
