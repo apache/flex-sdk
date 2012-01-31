@@ -71,7 +71,8 @@ public class Rotate extends AnimateTransform
      *  @private
      */
     private static var AFFECTED_PROPERTIES:Array =
-        ["rotationZ", "postLayoutRotationZ"];
+        ["rotationZ", "postLayoutRotationZ",
+         "width", "height"];
 
     private static var RELEVANT_STYLES:Array = [];
 
