@@ -874,13 +874,19 @@ public class SkinnableContainer extends SkinnableContainerBase
                     // then it wouldn't been added to the display list and we can't just 
                     // copy the mxmlContent from the placeHolderGroup, but we must also 
                     // call removeElement() on those children.
+                    
+                    // remove listener prior to removal of elements
+                    // or else we'll accidentally null out the owner field
+                    _placeHolderGroup.removeEventListener(
+                        ElementExistenceEvent.ELEMENT_REMOVE, contentGroup_elementRemovedHandler);
+                    
                     for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
                     {
                         _placeHolderGroup.removeElementAt(0);  
                     }
                     
                     contentGroup.mxmlContent = sourceContent ? sourceContent.slice() : null;
-                    
+
                 }
                 else if (_mxmlContent != null)
                 {
