@@ -387,6 +387,7 @@ public class StreamingHTTPChannel extends HTTPChannel
         {
             streamingConnectionHandler.closeStreamingConnection();
             disconnectSuccess(true /* rejected */);
+            credentials = null;
         }
     }
 }
