@@ -397,9 +397,15 @@ public class Group extends GroupBase implements IVisualElementContainer
 	            if (element)
 	            {
 	            	var elementSprite:InvalidatingSprite = element.displayObject as InvalidatingSprite;
-	            	
+	            	var elementHasOwnDisplayObject:Boolean = element.needsDisplayObject;
 	            	// Each element must either have a displayObject or sharedDisplayObject property
-	            	if (elementSprite)
+	            	// if the element has a layer set on it, then it's rendering into its own display object.  
+	            	// in that case, calling the previous invalidating display object is incorrect, because the subsequent 
+	            	// element might still be sharing the DO with the previous element. But then we know that this one has
+	            	// its own display object. If that's the case, we can just update this one, and continue on with our grouping logic
+	            	// as though we never saw this one. 
+	            	// 
+	            	if (!elementHasOwnDisplayObject && elementSprite)
 	            	{
 	            		if (currentSharedSprite)
 	            		{
@@ -411,9 +417,14 @@ public class Group extends GroupBase implements IVisualElementContainer
 	            	}
 	            	
 	            	// currentSharedSprite is null if the Group is the sharedDisplayObject.            	
-	            	if (currentSharedSprite == null || currentSharedSprite.invalid) 
+	            	if (elementSprite == null || elementSprite.invalid) 
 	            	{
 	            		element.validateDisplayList();
+		            	if(elementHasOwnDisplayObject && elementSprite)
+		            	{
+		            		//we're about to forget about this invalidating displayobject, so mark it valid
+		            		elementSprite.invalid = false;
+		            	}
 	            	} 
 	
 	            }
