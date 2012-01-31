@@ -319,6 +319,8 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     private var _allowValueWrap:Boolean = false;
     
+    [Inspectable(category="General", defaultValue="false")]
+    
     /**
      *  Determines the behavior of the control for a step when the current 
      *  <code>value</code> is either the <code>maximum</code> 
