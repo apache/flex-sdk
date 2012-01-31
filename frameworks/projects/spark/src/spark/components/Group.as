@@ -550,13 +550,20 @@ public class Group extends GroupBase implements IVisualElementContainer
         // check for RangeError:
         checkForRangeError(index, true);
         
+        var host:DisplayObject = element.parent; 
+        
         // This handles the case where we call addElement on something
         // that already is in the list.  Let's just handle it silently
         // and not throw up any errors.
-        if (element.parent == this)
+        if (host == this)
         {
             setElementIndex(element, index);
             return element;
+        }
+        else if (host is IVisualElementContainer)
+        {
+            // Remove the item from the group if that group isn't this group
+            IVisualElementContainer(host).removeElement(element);
         }
         
         // If we don't have any content yet, initialize it to an empty array
@@ -1013,13 +1020,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      *  @return DisplayObject that was added.
      */ 
     protected function addItemToDisplayList(child:DisplayObject, element:IVisualElement, index:int = -1):DisplayObject
-    { 
-        var host:DisplayObject = element.parent; 
-        
-        // Remove the item from the group if that group isn't this group
-        if (host && host is IVisualElementContainer && host != this)
-            IVisualElementContainer(host).removeElement(element);
-        
+    {
         // Calling removeElement should have already removed the child. This
         // should handle the case when we don't call removeItem
         if (child.parent)
@@ -1037,8 +1038,6 @@ public class Group extends GroupBase implements IVisualElementContainer
                 super.setChildIndex(child, insertIndex);
                 return child;
             }
-            else        
-                child.parent.removeChild(child);
         }
             
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
