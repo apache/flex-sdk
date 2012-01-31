@@ -1,7 +1,7 @@
-package mx.core
+package spark.components.supportClasses
 {
 import flash.display.Sprite;
-import mx.graphics.baseClasses.ISharedGraphicsDisplayObject;
+import spark.primitives.supportClasses.ISharedGraphicsDisplayObject;
 
 /**
  *  <code>GraphicElement</code> creates shared <code>DsiplayObject</code> of type
