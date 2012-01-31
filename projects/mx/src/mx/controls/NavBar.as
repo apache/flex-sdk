@@ -23,7 +23,7 @@ import mx.containers.Box;
 import mx.containers.BoxDirection;
 import mx.containers.ViewStack;
 import mx.core.ClassFactory;
-import mx.core.Container;
+import mx.core.INavigatorContent;
 import mx.core.FlexVersion;
 import mx.core.IFactory;
 import mx.core.IFlexDisplayObject;
@@ -251,7 +251,7 @@ public class NavBar extends Box
                 if (targetStack)
                 {
                     Button(getChildAt(i)).enabled = value &&
-                            Container(targetStack.getChildAt(i)).enabled;
+                            UIComponent(targetStack.getChildAt(i)).enabled;
                 }
                 else
                 {
@@ -1069,11 +1069,11 @@ public class NavBar extends Box
                 IndexChangedEvent.CHILD_INDEX_CHANGE, childIndexChangeHandler);
 
             var numViews:int = targetStack.numChildren;
-            var child:Container;
+            var child:INavigatorContent;
 
             for (var i:int = 0; i < numViews; i++)
 	        {
-                child = Container(targetStack.getChildAt(i));
+                child = INavigatorContent(targetStack.getChildAt(i));
 
                 child.removeEventListener("labelChanged", labelChangedHandler);
                 child.removeEventListener("iconChanged", iconChangedHandler);
@@ -1106,7 +1106,7 @@ public class NavBar extends Box
 
         for (i = 0; i < numViews; i++)
         {
-            child = Container(targetStack.getChildAt(i));
+            child = INavigatorContent(targetStack.getChildAt(i));
             var item:Button = Button(createNavItem(itemToLabel(child), child.icon));
 
                  
@@ -1180,7 +1180,7 @@ public class NavBar extends Box
         if (event.relatedObject.parent != targetStack)
             return;
 
-        var newChild:Container = Container(event.relatedObject);
+        var newChild:INavigatorContent = INavigatorContent(event.relatedObject);
         var item:Button = Button(createNavItem(itemToLabel(newChild), newChild.icon));
         var index:int = newChild.parent.getChildIndex(DisplayObject(newChild));
         setChildIndex(item, index);
@@ -1259,7 +1259,7 @@ public class NavBar extends Box
         var itemIndex:int =
             targetStack.getChildIndex(DisplayObject(event.target));
 
-        updateNavItemLabel(itemIndex, Container(event.target).label);
+        updateNavItemLabel(itemIndex, INavigatorContent(event.target).label);
     }
 
     /**
@@ -1272,7 +1272,7 @@ public class NavBar extends Box
         var itemIndex:int =
             targetStack.getChildIndex(DisplayObject(event.target));
 
-        updateNavItemIcon(itemIndex, Container(event.target).icon);
+        updateNavItemIcon(itemIndex, INavigatorContent(event.target).icon);
     }
     
     /**
