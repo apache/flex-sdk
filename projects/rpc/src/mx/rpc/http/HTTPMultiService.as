@@ -67,24 +67,30 @@ use namespace mx_internal;
 /**
  *  You use the <code>&lt;mx:HTTPMultiService&gt;</code> tag to represent a
  *  collection of http operations.  Each one has a URL, method, parameters and
- *  return type.  You can set attributes such as the URL, method etc. on the
+ *  return type.  
+ *
+ *  <p>You can set attributes such as the URL and method on the
  *  HTTPMultiService tag to act as defaults for values set on each individual
- *  operation tag.  The URL of the HTTPMultiService serves as the base url (i.e. the prefix)
+ *  operation tag.  The URL of the HTTPMultiService serves as the base url (meaning the prefix)
  *  for any relative urls set on the http operation tags.
  *  Each http operation has a <code>send()</code> method, which makes an HTTP request to the
- *  specified URL, and an HTTP response is returned. You can pass
- *  parameters to the specified URL which are used to put data into the HTTP request. 
+ *  specified URL, and an HTTP response is returned. </p>
+ *
+ *  <p>You can pass parameters to the specified URL which are used to put data into the HTTP request. 
  *  The contentType property specifies a mime-type which is used to determine the over-the-wire
- *  data format (i.e. HTTP form encoding, XML).  You can also use a serialization filter to
+ *  data format (such as HTTP form encoding or XML).  </p>
+ *
+ *  <p>You can also use a serialization filter to
  *  implement a custom resultFormat such as JSON.   
  *  When you do not go through the server-based
  *  proxy service, you can use only HTTP GET or POST methods. However, when you set
- *  the useProxy  property to true and you use the server-based proxy service, you
- *  can also use the HTTP HEAD, OPTIONS, TRACE, and DELETE methods.
+ *  the <code>useProxy </code> property to true and you use the server-based proxy service, you
+ *  can also use the HTTP HEAD, OPTIONS, TRACE, and DELETE methods.</p>
  *
  *  <p><b>Note:</b> Due to a software limitation, like HTTPService, the HTTPMultiService does 
  *  not generate user-friendly error messages when using GET and not using a proxy.</p>
- *  @see mx.rpc.http.mxml.HTTPMultiService, mx.rpc.http.HTTPService, mx.rpc.http.HTTPOperation
+ * 
+ *  @see mx.rpc.http.HTTPService
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -104,7 +110,7 @@ public dynamic class HTTPMultiService extends AbstractService
      *  wish to specify the <code>baseURL</code> that will be the basis for determining the full URL (one example
      *  would be <code>Application.application.url</code>).
      *
-     * @param baseURL The URL the HTTPService should use when computing relative URLS.
+     *  @param baseURL The URL the HTTPService should use when computing relative URLS.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -214,9 +220,10 @@ public dynamic class HTTPMultiService extends AbstractService
 
     [Inspectable(defaultValue="true", category="General")]
     /**
-     *  When true, the objects returned support data binding to UI controls - i.e. they
-     *  send PropertyChangeEvents when their property values are being changed.  This is the
-     *  default value for any operations whose makeObjectsBindable property is not set explicitly.
+     *  When <code>true</code>, the objects returned support data binding to UI controls.
+     *  That means  they send PropertyChangeEvents when their property values are being changed.  
+     *  This is the default value for any operations whose makeObjectsBindable property 
+     *  is not set explicitly.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
