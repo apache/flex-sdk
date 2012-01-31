@@ -118,7 +118,7 @@ public class Animate extends Effect
     //--------------------------------------------------------------------------
     
     // Cached version of the affected properties. By default, we simply return
-    // the list of properties specified in the motionPaths array.
+    // the list of properties specified in the motionPaths Vector.
     // Subclasses should override getAffectedProperties() if they wish to 
     // specify a different set.
     private var affectedProperties:Array = null;
@@ -147,7 +147,6 @@ public class Animate extends Effect
      * Storage for the motionPaths property. 
      */
     private var _motionPaths:Vector.<MotionPath>;
-    [Inspectable(category="General", arrayType="spark.effects.MotionPath")]
     /**
      * A Vector of MotionPath objects, each of which holds the
      * name of a property being animated and the values that the property
@@ -234,14 +233,15 @@ public class Animate extends Effect
      * the start and end values of a property. 
      * By default, interpolation is handled
      * by the NumberInterpolator class or, in the case of the start
-     * and end values being Arrays, by the ArrayInterpolator class.
+     * and end values being Arrays or Vectors, by the 
+     * MultiValueInterpolator class.
      * Interpolation of other types, or of Numbers that should be interpolated
      * differently, such as <code>uint</code> values that hold color
      * channel information, can be handled by supplying a different
      * interpolator.
      *
      *  @see spark.effects.interpolation.NumberInterpolator
-     *  @see spark.effects.interpolation.ArrayInterpolator
+     *  @see spark.effects.interpolation.MultiValueInterpolator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
