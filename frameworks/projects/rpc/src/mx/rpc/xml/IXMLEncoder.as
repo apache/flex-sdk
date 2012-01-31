@@ -62,13 +62,11 @@ public interface IXMLEncoder
     function set xmlSpecialCharsFilter(func:Function):void;
     
     /**
-     * When <code>true</code>, null values
-     * are encoded according to XML Schema rules (requires <code>nillable=true</code>
-     * to be set in the definition). 
-     * When <code>false</code>, null values are always encoded with the
-     * <code>xsi:nil="true"</code> attribute. 
-     *
-     * @default false
+     * When strictNillability is set to <code>true</code>, null values
+     * are encoded according to XML Schema rules (requires nillable=true
+     * to be set in the definition). When strictNillability is set to
+     * <code>false</code>, null values are always encoded with the
+     * <code>xsi:nil="true"</code> attribute. The default is <code>false</code>.
      */
      function get strictNillability():Boolean;
 
