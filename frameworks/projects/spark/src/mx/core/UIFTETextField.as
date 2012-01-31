@@ -64,10 +64,10 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 public class UITLFTextField extends TLFTextField
-							implements IAutomationObject, IIMESupport,
-							IFlexModule,
-							IInvalidating, ISimpleStyleClient,
-							IToolTipManagerClient, IUITextField
+                            implements IAutomationObject, IIMESupport,
+                            IFlexModule,
+                            IInvalidating, ISimpleStyleClient,
+                            IToolTipManagerClient, IUITextField
        
 {
     include "../core/Version.as";
@@ -164,16 +164,6 @@ public class UITLFTextField extends TLFTextField
         
         The width and height of the TextField are 4 pixels greater than
         the textWidth and textHeight.
-    
-    *  
-    
-    *  @langversion 3.0
-    
-    *  @playerversion Flash 10
-    
-    *  @playerversion AIR 1.5
-    
-    *  @productversion Flex 4
     
     */
 
@@ -1680,11 +1670,6 @@ public class UITLFTextField extends TLFTextField
         
         dispatchEvent(new Event("textInsert"));
     }
-*  
-*  @langversion 3.0
-*  @playerversion Flash 10
-*  @playerversion AIR 1.5
-*  @productversion Flex 4
 */
 
     /**
