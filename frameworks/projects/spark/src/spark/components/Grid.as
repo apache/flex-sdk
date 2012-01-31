@@ -984,175 +984,175 @@ package spark.components
         {
             gridSelection.preserveSelection = value;
         }
-		
-		
-		//----------------------------------
-		//  requestedMinRowCount
-		//----------------------------------
-		
-		private var _requestedMinRowCount:int = -1;
-		
-		[Inspectable(category="General", minValue="-1")]
-		
-		/**
-		 *  The measured height of this grid will be large enough to display 
-		 *  at least <code>requestedMinRowCount</code> rows.
-		 * 
-		 *  <p>If <code>requestedRowCount</code> is set, then
-		 *  this property has no effect.</p>
-		 *
-		 *  <p>If the actual size of the grid has been explicitly set,
-		 *  then this property has no effect.</p>
-		 *
-		 *  @default -1
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 10
-		 *  @playerversion AIR 1.5
-		 *  @productversion Flex 4.5
-		 */
-		public function get requestedMinRowCount():int
-		{
-			return _requestedMinRowCount;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set requestedMinRowCount(value:int):void
-		{
-			if (_requestedMinRowCount == value)
-				return;
-			
-			_requestedMinRowCount = value;
-			invalidateSize();
-		}    
-		
-		//----------------------------------
-		//  requestedRowCount
-		//----------------------------------
-		
-		private var _requestedRowCount:int = -1;
-		
-		[Inspectable(category="General", minValue="-1")]
-		
-		/**
-		 *  The measured height of this grid will be large enough to display 
-		 *  the first <code>requestedRowCount</code> rows. 
-		 * 
-		 *  <p>If <code>requestedRowCount</code> is -1, then the measured
-		 *  size will be big enough for all of the layout elements.</p>
-		 * 
-		 *  <p>If the actual size of the grid has been explicitly set,
-		 *  then this property has no effect.</p>
-		 * 
-		 *  @default -1
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 10
-		 *  @playerversion AIR 1.5
-		 *  @productversion Flex 4
-		 */
-		public function get requestedRowCount():int
-		{
-			return _requestedRowCount;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set requestedRowCount(value:int):void
-		{
-			if (_requestedRowCount == value)
-				return;
-			
-			_requestedRowCount = value;
+        
+        
+        //----------------------------------
+        //  requestedMinRowCount
+        //----------------------------------
+        
+        private var _requestedMinRowCount:int = -1;
+        
+        [Inspectable(category="General", minValue="-1")]
+        
+        /**
+         *  The measured height of this grid will be large enough to display 
+         *  at least <code>requestedMinRowCount</code> rows.
+         * 
+         *  <p>If <code>requestedRowCount</code> is set, then
+         *  this property has no effect.</p>
+         *
+         *  <p>If the actual size of the grid has been explicitly set,
+         *  then this property has no effect.</p>
+         *
+         *  @default -1
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4.5
+         */
+        public function get requestedMinRowCount():int
+        {
+            return _requestedMinRowCount;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set requestedMinRowCount(value:int):void
+        {
+            if (_requestedMinRowCount == value)
+                return;
+            
+            _requestedMinRowCount = value;
             invalidateSize();
-		}
-		
-		
-		//----------------------------------
-		//  requestedMinColumnCount
-		//----------------------------------
-		
-		private var _requestedMinColumnCount:int = -1;
-		
-		[Inspectable(category="General", minValue="-1")]
-		
-		/**
-		 *  The measured width of this grid will be large enough to display 
-		 *  at least <code>requestedMinColumnCount</code> columns.
-		 * 
-		 *  <p>If <code>requestedColumnCount</code> is set, then
-		 *  this property has no effect.</p>
-		 *
-		 *  <p>If the actual size of the grid has been explicitly set,
-		 *  then this property has no effect.</p>
-		 * 
-		 *  @default -1
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 10
-		 *  @playerversion AIR 1.5
-		 *  @productversion Flex 4.5
-		 */
-		public function get requestedMinColumnCount():int
-		{
-			return _requestedMinColumnCount;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set requestedMinColumnCount(value:int):void
-		{
-			if (_requestedMinColumnCount == value)
-				return;
-			
-			_requestedMinColumnCount = value;
-	        invalidateSize();
-		}   
-		
-		//----------------------------------
-		//  requestedColumnCount
-		//----------------------------------
-		
-		private var _requestedColumnCount:int = -1;
-		
-		[Inspectable(category="General", minValue="-1")]
-		
-		/**
-		 *  The measured width of this grid will be large enough to display 
-		 *  the first <code>requestedColumnCount</code> columns. 
-		 *  If <code>requestedColumnCount</code> is -1, then the measured
-		 *  width will be big enough for all of the columns.
-		 * 
-		 *  <p>If the actual size of the grid has been explicitly set,
-		 *  then this property has no effect.</p>
-		 * 
-		 *  @default -1
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion Flash 10
-		 *  @playerversion AIR 1.5
-		 *  @productversion Flex 4.5
-		 */
-		public function get requestedColumnCount():int
-		{
-			return _requestedColumnCount;
-		}
-		
-		/**
-		 *  @private
-		 */
-		public function set requestedColumnCount(value:int):void
-		{
-			if (_requestedColumnCount == value)
-				return;
-			
-			_requestedColumnCount = value;
-		    invalidateSize();
-		}    
+        }    
+        
+        //----------------------------------
+        //  requestedRowCount
+        //----------------------------------
+        
+        private var _requestedRowCount:int = -1;
+        
+        [Inspectable(category="General", minValue="-1")]
+        
+        /**
+         *  The measured height of this grid will be large enough to display 
+         *  the first <code>requestedRowCount</code> rows. 
+         * 
+         *  <p>If <code>requestedRowCount</code> is -1, then the measured
+         *  size will be big enough for all of the layout elements.</p>
+         * 
+         *  <p>If the actual size of the grid has been explicitly set,
+         *  then this property has no effect.</p>
+         * 
+         *  @default -1
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4
+         */
+        public function get requestedRowCount():int
+        {
+            return _requestedRowCount;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set requestedRowCount(value:int):void
+        {
+            if (_requestedRowCount == value)
+                return;
+            
+            _requestedRowCount = value;
+            invalidateSize();
+        }
+        
+        
+        //----------------------------------
+        //  requestedMinColumnCount
+        //----------------------------------
+        
+        private var _requestedMinColumnCount:int = -1;
+        
+        [Inspectable(category="General", minValue="-1")]
+        
+        /**
+         *  The measured width of this grid will be large enough to display 
+         *  at least <code>requestedMinColumnCount</code> columns.
+         * 
+         *  <p>If <code>requestedColumnCount</code> is set, then
+         *  this property has no effect.</p>
+         *
+         *  <p>If the actual size of the grid has been explicitly set,
+         *  then this property has no effect.</p>
+         * 
+         *  @default -1
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4.5
+         */
+        public function get requestedMinColumnCount():int
+        {
+            return _requestedMinColumnCount;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set requestedMinColumnCount(value:int):void
+        {
+            if (_requestedMinColumnCount == value)
+                return;
+            
+            _requestedMinColumnCount = value;
+            invalidateSize();
+        }   
+        
+        //----------------------------------
+        //  requestedColumnCount
+        //----------------------------------
+        
+        private var _requestedColumnCount:int = -1;
+        
+        [Inspectable(category="General", minValue="-1")]
+        
+        /**
+         *  The measured width of this grid will be large enough to display 
+         *  the first <code>requestedColumnCount</code> columns. 
+         *  If <code>requestedColumnCount</code> is -1, then the measured
+         *  width will be big enough for all of the columns.
+         * 
+         *  <p>If the actual size of the grid has been explicitly set,
+         *  then this property has no effect.</p>
+         * 
+         *  @default -1
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 1.5
+         *  @productversion Flex 4.5
+         */
+        public function get requestedColumnCount():int
+        {
+            return _requestedColumnCount;
+        }
+        
+        /**
+         *  @private
+         */
+        public function set requestedColumnCount(value:int):void
+        {
+            if (_requestedColumnCount == value)
+                return;
+            
+            _requestedColumnCount = value;
+            invalidateSize();
+        }    
         
         //----------------------------------
         //  requireSelection
@@ -1260,7 +1260,7 @@ package spark.components
          * 
          *  <p>If <code>variableRowHeight</code> is <code>false</code>, 
          *  the default value of this property is the maximum preferred height
-         *  of the per-column renderers created for the typicalItem.
+         *  of the per-column renderers created for the typicalItem.</p>
          * 
          *  @langversion 3.0
          *  @playerversion Flash 10
@@ -1414,9 +1414,9 @@ package spark.components
         [Bindable("typicalItemChanged")]
         
         /**
-		 *  The grid's layout ensures that columns whose width is not specified will be wide
-		 *  enough to display an item renderer for this default dataProvider item.  If a typical
-		 *  item is not specified, then the first dataProvider item is used.
+         *  The grid's layout ensures that columns whose width is not specified will be wide
+         *  enough to display an item renderer for this default dataProvider item.  If a typical
+         *  item is not specified, then the first dataProvider item is used.
          * 
          *  <p>Restriction: if the <code>typicalItem</code> is an IVisualItem, it must not 
          *  also be a member of the data Provider.</p>
@@ -1442,7 +1442,7 @@ package spark.components
                 return;
             
             _typicalItem = value;
-			dispatchChangeEvent("typicalItemChanged");
+            dispatchChangeEvent("typicalItemChanged");
             
             invalidateSize();
             invalidateDisplayList();
@@ -1457,7 +1457,7 @@ package spark.components
         /**
          *  If true, each row's height is the maximum of preferred heights of the cells displayed so far.
          * 
-         *  <p>If <code>false</code>, the height of each row is just the value of <code>rowHeight</code>.
+         *  <p>If <code>false</code>, the height of each row is just the value of <code>rowHeight</code>.</p>
          * 
          *  @default true
          * 
@@ -2147,7 +2147,7 @@ package spark.components
         //  GridLayout Cover Methods, Properties
         //
         //--------------------------------------------------------------------------
-		
+        
         /**
          *  @copy spark.components.supportClasses.GridLayout#getVisibleRowIndices()
          *  
