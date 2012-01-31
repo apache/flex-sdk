@@ -13,7 +13,6 @@ package flex.graphics
 {
 
 import flash.display.DisplayObjectContainer;
-import flash.display.Graphics;
 import flash.geom.Rectangle;
 
 import flex.graphics.graphicsClasses.TextFlowComposer;
@@ -238,6 +237,7 @@ public class TextGraphic extends TextGraphicElement
 
 	/**
 	 *  @private
+     *  Keep this method in sync with the same method in TextView.
 	 */
 	private function createTextFlow():TextFlow
 	{
