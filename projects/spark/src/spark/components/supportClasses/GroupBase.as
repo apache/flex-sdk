@@ -298,18 +298,18 @@ public class GroupBase extends UIComponent implements IViewport
         return ResizeMode.NORMAL;
     }
     
-    /**
-     *  The ResizeMode for this container.  If the resize mode
-     *  is set to <code>ResizeMode.NORMAL</code>, resizing is done by laying 
-     *  out the children with our new width and height.  If the 
-     *  resize mode is set to <code>ResizeMode.SCALE</code>, all of the children 
-     *  keep their unscaled width and height and the children 
-     *  are scaled to change size.
-     * 
-     * @default ResizeMode.NORMAL
-     * 
-     * @see mx.components.ResizeMode
-     */
+/**
+ *  The ResizeMode for this container.  If the resize mode
+ *  is set to <code>ResizeMode.NORMAL</code>, resizing is done by laying 
+ *  out the children with our new width and height.  If the 
+ *  resize mode is set to <code>ResizeMode.SCALE</code>, all of the children 
+ *  keep their unscaled width and height and the children 
+ *  are scaled to change size.
+ * 
+ * @default ResizeMode.NORMAL
+ * 
+ * @see mx.components.ResizeMode
+ */
     public function get resizeMode():String
     {
         return resizeModeToString(_resizeMode);
@@ -834,14 +834,6 @@ public class GroupBase extends UIComponent implements IViewport
         // TODO!!! Need to recalculate the elements
         invalidateSize();
         invalidateDisplayList();
-    }
-    
-    /**
-     *  The Graphic tag that contains this host.
-     */
-    public function get parentGraphic():Graphic
-    {
-        return null;
     }
 }
 
