@@ -80,6 +80,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     //--------------------------------------------------------------------------
     
     [Bindable("contentBackgroundColorChanged")]
+    [Bindable("dataChange")]
     /**
      *  @langversion 3.0
      *  @playerversion Flash 10
