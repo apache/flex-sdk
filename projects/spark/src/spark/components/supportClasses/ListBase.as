@@ -69,6 +69,8 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  */
 [Event(name="caretChange", type="spark.events.IndexChangeEvent")]
 
+[AccessibilityClass(implementation="mx.accessibility.ListBaseAccImpl")]
+
 /**
  *  The ListBase class is the base class for all components that support
  *  selection. 
@@ -104,6 +106,18 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 public class ListBase extends SkinnableDataContainer 
 {
     include "../../core/Version.as";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by ListBaseAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     //--------------------------------------------------------------------------
     //
@@ -572,6 +586,15 @@ public class ListBase extends SkinnableDataContainer
     //  Overridden properties: UIComponent
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (ListBase.createAccessibilityImplementation != null)
+            ListBase.createAccessibilityImplementation(this);
+    }
 
     //----------------------------------
     //  baselinePosition
