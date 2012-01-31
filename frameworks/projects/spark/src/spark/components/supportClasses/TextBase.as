@@ -530,49 +530,68 @@ public class TextGraphicElement extends GraphicElement
 
         var compose:Boolean = false;
         var forceClip:Boolean = false;
-        
-        if (mx_internal::stylesChanged || 
-           isNaN(mx_internal::bounds.height) ||
-           (unscaledHeight > mx_internal::bounds.height && 
-           mx_internal::isOverset)) 
+               
+        // If the styles changed or composition hasn't been done, then compose.
+        if (mx_internal::stylesChanged || isNaN(mx_internal::bounds.height))
         {
-            // Style changed, composition hasn't been done or it has been done
-            // but more height is needed and it's possible there is more text 
-            // to compose since it didn't all fit before.
             compose = true;
         }
-        else if (mx_internal::lineBreakToFit)
+        else if (unscaledHeight != mx_internal::bounds.height)
         {
-            // toFit line breaks so compose if width isn't the same.
-            if (unscaledWidth != mx_internal::bounds.width)
-                compose = true;            
-        }
-        else
-        {
-            // explicit line breaks so compose only if more width is needed and
-            // there is more text to compose.
-            if (unscaledWidth > mx_internal::bounds.width && 
+            // Height changed.
+            if (unscaledHeight > mx_internal::bounds.height && 
                 mx_internal::isOverset)
             {
+                // More height is needed and it's possible there is more text
+                // since it didn't all fit before. 
                 compose = true;
-            }    
+            }
+            else if (composeOnHeightChange())
+            {
+                // Height changed and the styles require a recompose so the
+                // text is positioned correctly for the new size.
+                compose = true;
+            }
+            else
+            {
+                // Don't need to recompose but need to clip since the text is
+                // a different shape than what was composed.
+                forceClip = true;                   
+            }
         }
-                
+
+        // Width changed.        
+        if (!compose && unscaledWidth != mx_internal::bounds.width)
+        {
+            if (mx_internal::lineBreakToFit || composeOnWidthChange())
+            {
+                // Width changed and toFit line breaks or the styles
+                // require a recompose if the width changes.
+                compose = true;
+            }
+            else if (unscaledWidth > mx_internal::bounds.width && 
+                     mx_internal::isOverset)
+            {
+                // Explicit line breaks so compose only if more width is needed 
+                // and there is more text to compose.
+                compose = true;
+            }
+            else
+            {
+                // Don't need to recompose but need to clip since the text is
+                // a different shape than what was composed.
+                forceClip = true;                   
+            }
+        }
+
         if (compose)
-        {
-            // Compose and clip based on value of isOverset.
             composeTextLines(unscaledWidth, unscaledHeight);
-        }        
-        else if (unscaledHeight != mx_internal::bounds.height ||
-                 unscaledWidth != mx_internal::bounds.width)
-        {
-            // Don't need to recompose but need to clip since the text is
-            // a different shape than what was composed.
-            forceClip = true;
-        }   
+
+        // Only force the clip if compose wasn't just done.
+        forceClip = !compose && forceClip;         
 
         //trace("udl", "compose", compose, "clip", mx_internal::isOverset || forceClip);        
-                       
+              
         mx_internal::clip(unscaledWidth, unscaledHeight, forceClip);
     }
             
@@ -796,6 +815,24 @@ public class TextGraphicElement extends GraphicElement
     {
     }
     
+    /**
+     *  @private
+     *  TODO This should be mx_internal, but that causes a compiler error.
+     */
+    protected function composeOnHeightChange():Boolean
+    {
+        return false;
+    }
+
+    /**
+     *  @private
+     *  TODO This should be mx_internal, but that causes a compiler error.
+     */
+    protected function composeOnWidthChange():Boolean
+    {
+        return false;
+    }
+
     /**
      *  @private
      *  TODO This should be mx_internal, but that causes a compiler error.
