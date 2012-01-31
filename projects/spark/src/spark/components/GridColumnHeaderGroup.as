@@ -806,7 +806,7 @@ package spark.components
         private function getDataProviderItem(columnIndex:int):Object
         {
             const dataProvider:IList = dataProvider;
-            if ((dataProvider == null) || (columnIndex >= dataProvider.length))
+            if ((dataProvider == null) || (columnIndex < 0 || columnIndex >= dataProvider.length))
                 return null;
             
             return dataProvider.getItemAt(columnIndex);
@@ -1373,7 +1373,7 @@ package spark.components
                 return;
             
             const column:GridColumn = getDataProviderItem(columnIndex) as GridColumn;
-            const item:Object = column;
+            const item:Object = null;
             const itemRenderer:IVisualElement = dataGroup.getElementAt(columnIndex);
             const bubbles:Boolean = mouseEvent.bubbles;
             const cancelable:Boolean = mouseEvent.cancelable;
