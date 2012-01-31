@@ -61,6 +61,8 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
+[ResourceBundle("components")]
+
 [DefaultProperty("mxmlContent")] 
 
 [IconFile("Group.png")]
@@ -506,7 +508,7 @@ public class Group extends GroupBase implements IVisualElementContainer
             maxIndex++;
             
         if (index < 0 || index > maxIndex)
-            throw new RangeError("Index " + index + " is out of range");
+            throw new RangeError(resourceManager.getString("components", "indexOutOfRange", [index]));
     }
  
     /**
@@ -531,7 +533,7 @@ public class Group extends GroupBase implements IVisualElementContainer
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
         if (element == this)
-            throw new ArgumentError("Cannot add yourself as a child of yourself");
+            throw new ArgumentError(resourceManager.getString("components", "cannotAddYourselfAsYourChild"));
             
         // check for RangeError:
         checkForRangeError(index, true);
@@ -601,7 +603,7 @@ public class Group extends GroupBase implements IVisualElementContainer
         var index:int = _mxmlContent ? _mxmlContent.indexOf(element) : -1;
         
         if (index == -1)
-            throw ArgumentError(element + " is not found in this Group");
+            throw ArgumentError(resourceManager.getString("components", "elementNotFoundInGroup", [element]));
         else
             return index;
     }
@@ -1188,7 +1190,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -1203,7 +1205,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -1218,7 +1220,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -1233,7 +1235,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function removeChildAt(index:int):DisplayObject
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -1248,7 +1250,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -1263,7 +1265,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
     /**
@@ -1278,7 +1280,7 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
-        throw(new Error("This method is not available in this class.  Please consult the documentation."));
+        throw(new Error(resourceManager.getString("components", "methodUnavailable")));
     }
     
 }
