@@ -181,7 +181,7 @@ public class MotionPath
         if (n == 2 && keyframes[1].timeFraction == 1)
         {
             // The common case where we are just animating from/to, as in the
-            // case of an AnimationProperty
+            // case of an SimpleMotionPath
             var easedF:Number = (keyframes[1].easer) ? 
                 keyframes[1].easer.ease(fraction) : 
                 fraction;
