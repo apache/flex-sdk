@@ -1306,8 +1306,12 @@ public class RichText extends TextBase
         // it actually creates and measures one TextLine.
         // Its width is 0 but its height is equal to the font's
         // ascent plus descent.
+        // Note:  Prior to TLF2, the factory would callback addTextLine 
+        // when width=0 but that has been optimized out.  Now width to NaN.
         
-        bounds.width = width;
+        bounds.x = 0;
+        bounds.y = 0;
+        bounds.width = width ? width : NaN;
         bounds.height = height;
         
         staticStringFactory.compositionBounds = bounds;   
