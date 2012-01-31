@@ -1187,7 +1187,7 @@ public class ScrollControlBase extends UIComponent
             {
                 if (scrollTip)
                 {
-                    systemManager.toolTipChildren.removeChild(scrollTip);
+			       	systemManager.topLevelSystemManager.removeChildFromSandboxRoot("toolTipChildren", scrollTip as DisplayObject);
                     scrollTip = null;
                     ToolTipManager.enabled = oldTTMEnabled;
                 }
@@ -1202,7 +1202,7 @@ public class ScrollControlBase extends UIComponent
                 if (!scrollTip)
                 {
                     scrollTip = new ToolTip();
-                    systemManager.toolTipChildren.addChild(scrollTip);
+			       	systemManager.topLevelSystemManager.addChildToSandboxRoot("toolTipChildren", scrollTip as DisplayObject);
                     scrollThumbMidPoint = scrollBar.scrollThumb.height / 2;
                     oldTTMEnabled = ToolTipManager.enabled;
                     ToolTipManager.enabled = false;
