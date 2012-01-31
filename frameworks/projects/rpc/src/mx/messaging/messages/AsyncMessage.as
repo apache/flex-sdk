@@ -22,6 +22,12 @@ import mx.utils.RPCUIDUtil;
 
 /**
  *  AsyncMessage is the base class for all asynchronous messages.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class AsyncMessage extends AbstractMessage implements ISmallMessage
 {
@@ -34,6 +40,12 @@ public class AsyncMessage extends AbstractMessage implements ISmallMessage
 	/**
 	 *  Messages sent by a MessageAgent with a defined <code>subtopic</code>
 	 *  property indicate their target subtopic in this header.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public static const SUBTOPIC_HEADER:String = "DSSubtopic";    
 
@@ -64,6 +76,12 @@ public class AsyncMessage extends AbstractMessage implements ISmallMessage
      *  @param body The optional body to assign to the message.
      * 
      *  @param headers The optional headers to assign to the message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function AsyncMessage(body:Object = null, headers:Object = null)
     {
@@ -104,6 +122,12 @@ public class AsyncMessage extends AbstractMessage implements ISmallMessage
      *  previous message that this message refers to.
      *
      *  @see mx.messaging.messages.AbstractMessage#messageId
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get correlationId():String
     {
