@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
     
 import flash.events.Event;
@@ -20,10 +20,10 @@ import flash.events.TimerEvent;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 
-import mx.components.baseClasses.FxComponent;
+import spark.components.supportClasses.SkinnableComponent;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
-import mx.graphics.baseClasses.TextGraphicElement;
+import spark.primitives.supportClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.StringUtil;
 
@@ -130,21 +130,21 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
  *  The ButtonBase component is the base class for the all Spark button components.
- *  FxButton and ToggleButtonBase are subclasses of ButtonBase.
- *  FxToggleButton, FxCheckBox and FxRadioButton are subclasses of ToggleButtonBase.
+ *  Button and ToggleButtonBase are subclasses of ButtonBase.
+ *  ToggleButton, CheckBox and RadioButton are subclasses of ToggleButtonBase.
  *
- *  @see mx.components.FxButton
+ *  @see mx.components.Button
  *  @see mx.components.baseClasses.ToggleButtonBase
- *  @see mx.components.FxToggleButton
- *  @see mx.components.FxCheckBox
- *  @see mx.components.FxRadioButton
+ *  @see mx.components.ToggleButton
+ *  @see mx.components.CheckBox
+ *  @see mx.components.RadioButton
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ButtonBase extends FxComponent implements IFocusManagerComponent
+public class ButtonBase extends SkinnableComponent implements IFocusManagerComponent
 {
     include "../../core/Version.as";
 
