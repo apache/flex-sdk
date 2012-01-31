@@ -42,6 +42,7 @@ include "../../styles/metadata/PaddingStyles.as"
 [ExcludeClass]
 
 /**
+ *  @private
  *  The ListBaseContentHolder class defines a container in a list-based control
  *  of all of the control's item renderers and item editors.
  *  Flex uses it to mask areas of the renderers that extend outside
