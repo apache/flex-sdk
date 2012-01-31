@@ -646,6 +646,11 @@ public class FxComponent extends UIComponent
                                     ApplicationDomain.currentDomain;
         }
         
+        // If the application domain is null it is because the application that this
+        // component lives in has been unloaded.
+        if (myApplicationDomain == null)
+            return null;
+            
         var type:Class = myApplicationDomain.getDefinition(className) as Class;             
         skinParts = new Array;
         
