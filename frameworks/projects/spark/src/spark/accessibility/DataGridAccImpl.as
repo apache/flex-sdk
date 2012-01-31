@@ -193,15 +193,8 @@ public class DataGridAccImpl extends ListBaseAccImpl
         if (dgAccInfo.isColumnHeader)
         {
             // isColumnHeader implies columnHeaderGroup.visible is true.
-            // The below code remains in case it is ever decided to
-            // make invisible but present headerBars show up with childIDs.
-            /*
             if (dgAccInfo.dataGrid.columnHeaderGroup
-            && !dgAccInfo.dataGrid.columnHeaderGroup.visible)
-                accState |= AccConst.STATE_SYSTEM_INVISIBLE;
-            */
-            if (dgAccInfo.dataGrid.columnHeaderGroup
-            && !dgAccInfo.dataGrid.columnHeaderGroup.getHeaderRendererAt(childID-1).visible)
+            && !dgAccInfo.dataGrid.columnHeaderGroup.getHeaderRendererAt(dgAccInfo.columnIndex).visible)
                 accState |= AccConst.STATE_SYSTEM_OFFSCREEN;
             // There are some states we don't allow for these.
             return accState & ~(
@@ -373,7 +366,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
         if (dgAccInfo.isInvalid || !dgAccInfo.dataGrid.columns)
             return null;
         if (dgAccInfo.isColumnHeader)
-            return dgAccInfo.dataGrid.columns.getItemAt(childID-1).headerText;
+            return dgAccInfo.dataGrid.columns.getItemAt(dgAccInfo.columnIndex).headerText;
         if (!dgAccInfo.dataGrid.dataProvider)
             return null;
 
@@ -385,12 +378,11 @@ public class DataGridAccImpl extends ListBaseAccImpl
         {
             var resourceManager:IResourceManager = ResourceManager.getInstance();
             rowString = resourceManager.getString("components", "rowMofN");
-            rowString = rowString.replace("%1", dgAccInfo.rowIndex + 1).replace("%2", dgAccInfo.rowCount);
+            rowString = rowString.replace("%1", dgAccInfo.reachableRowIndex + 1).replace("%2", dgAccInfo.reachableRowCount);
         }
 
         // Construct the name to return.
         var name:String = "";
-        // TODO: Should the types of these be more specific?
         var rowObject:Object = dgAccInfo.dataGrid.dataProvider.getItemAt(dgAccInfo.rowIndex);
         var columns:IList = dgAccInfo.dataGrid.columns;
         if (dgAccInfo.isCellMode)
@@ -401,13 +393,15 @@ public class DataGridAccImpl extends ListBaseAccImpl
         }
         else if (rowObject)  // row mode
         {
-            for (var c:int = 0; c < dgAccInfo.columnCount; c++)
+            var idx:int = -1;
+            for (var c:int = 0; c < dgAccInfo.reachableColumnCount; c++)
             {
                 if (c > 0)
                     name += ", ";
+                idx = dgAccInfo.dataGrid.grid.getNextVisibleColumnIndex(idx);
                 if (dgAccInfo.headerCount > 0)
-                    name += columns.getItemAt(c).headerText + ": ";
-                name += columns.getItemAt(c).itemToLabel(rowObject);
+                    name += columns.getItemAt(idx).headerText + ": ";
+                name += columns.getItemAt(idx).itemToLabel(rowObject);
             }
         }  // cell or row mode
         if (rowString)
@@ -594,7 +588,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
             {
                 // The selected childID is effectively the 1-based cell index.
                 // This is row*colCount + columnInRow +columnHeaderCount +1.
-                accSelection[i] = items[i].rowIndex * dgAccInfo.columnCount
+                accSelection[i] = items[i].rowIndex * dgAccInfo.reachableColumnCount
                 + items[i].columnIndex
                 + dgAccInfo.headerCount + 1;
             }
@@ -708,6 +702,21 @@ public class DataGridAccImpl extends ListBaseAccImpl
 
 }
 
+/**
+ *  @private
+ *  ItemAccInfo is a support class used by DataGridAccImpl to determine various
+ *  things about a DataGrid.  For performance reasons, this class is
+ *  instantiated once by DataGridAccImpl and repopulated as needed from
+ *  DataGridAccImpl code via calls to ItemAccInfo.setup().
+ *
+ *  <p>Terminology:  A "reachable" cell, row, or column refers to an item that
+ *  the developer has allowed a user to view, whether or not it happens to be
+ *  visible on screen at the moment.
+ *  At this writing, the ability to hide rows from the user is not anticipated,
+ *  but the hiding of columns will be possible.
+ *  (When rows of data are hidden via DataProvider filtering, they simply don't
+ *  appear in the DataGrid at all.)
+ */
 internal class ItemAccInfo
 {
     import mx.core.UIComponent;
@@ -726,43 +735,76 @@ internal class ItemAccInfo
         super();
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
     /**
+     * @private
+     *  Sets up for use with a particular DataGrid and item within it.
      *
-     *  @param master The UIComponent instance that this AccImpl instance
+     *  @param master The UIComponent instance that the calling AccImpl instance
      *  is making accessible.
-     *  @param childID The childID of the item of interest.
+     *  @param childID The childID of the DataGrid item of interest.
+     *  This may refer to a header cell, a data cell, or a data row.
      */
     public function setup(master:UIComponent, childID:uint):void
     {
         this.master = master;
         this.childID = childID;
         dataGrid = DataGrid(master);
-        visibleRowIndices = null;
-        visibleColumnIndices = null;
+        reachableRowIndices = null;
+        reachableColumnIndices = null;
         if (dataGrid.columns)
         {
             columnCount = dataGrid.columns.length;
-            visibleColumnCount = visibleColumnIndices == null ?
-                columnCount : visibleColumnIndices.length;
+            // For efficiency in the common case, assume all is visible,
+            // and only build a vector of reachable indices if this is wrong.
+            var somethingIsInvisible:Boolean = false;
+            var column:Object;
+            var i:int;
+            for (i = 0; i < columnCount; i++)
+            {
+                column = dataGrid.columns.getItemAt(i);
+                if (!column.visible)
+                {
+                    somethingIsInvisible = true;
+    break;
+                }
+            }
+            if (somethingIsInvisible)
+            {
+                reachableColumnIndices = new Vector.<int>();
+                for (i = 0; i < columnCount; i++)
+                {
+                    column = dataGrid.columns.getItemAt(i);
+                    if (column.visible)
+                        reachableColumnIndices.push(column.columnIndex);
+                }
+            }
+            reachableColumnCount = reachableColumnIndices == null ?
+                columnCount : reachableColumnIndices.length;
         }
         else
         {
             columnCount = 0;
-            visibleColumnCount = 0;
+            reachableColumnCount = 0;
         }
         if (dataGrid.dataProvider)
         {
           rowCount = dataGrid.dataProvider.length;
-            visibleRowCount = visibleRowIndices == null ?
-                rowCount : visibleRowIndices.length;
+            reachableRowCount = reachableRowIndices == null ?
+                rowCount : reachableRowIndices.length;
         }
         else
         {
             rowCount = 0;
-            visibleRowCount = 0;
+            reachableRowCount = 0;
         }
         headerCount = 0;
-        visibleHeaderCount = 0;
+        reachableHeaderCount = 0;
         maxChildID = 0;
         isCellMode = false;
         isMultiSelect = false;
@@ -770,23 +812,23 @@ internal class ItemAccInfo
         isColumnHeader = false;
         rowIndex = 0;
         columnIndex = 0;
-        visibleRowIndex = 0;
-        visibleColumnIndex = 0;
+        reachableRowIndex = 0;
+        reachableColumnIndex = 0;
 
         var itemIndex:int = childID - 1;
         if (dataGrid.columnHeaderGroup && dataGrid.columnHeaderGroup.visible)
         {
             // There are visible column headers, so their childIDs come first.
-            itemIndex -= visibleColumnCount;
+            itemIndex -= reachableColumnCount;
             headerCount = columnCount;
-            visibleHeaderCount = visibleColumnCount;
+            reachableHeaderCount = reachableColumnCount;
         }
         else
         {
             // No header bar or it's invisible,
             // so we should not try to expose any data within it.
             headerCount = 0;
-            visibleHeaderCount = 0;
+            reachableHeaderCount = 0;
         }
         var mode:String = dataGrid.selectionMode;
         isCellMode = (
@@ -798,49 +840,52 @@ internal class ItemAccInfo
             || mode == GridSelectionMode.MULTIPLE_ROWS
         );
         maxChildID = 0;
-        // Account for visible headers.
-        maxChildID += visibleHeaderCount;
-        // Then for visible cells or rows as appropriate.
+        // Account for reachable headers.
+        maxChildID += reachableHeaderCount;
+        // Then for reachable cells or rows as appropriate.
         if (isCellMode)
-            maxChildID += visibleRowCount * visibleColumnCount;
+            maxChildID += reachableRowCount * reachableColumnCount;
         else
-            maxChildID += visibleRowCount;
+            maxChildID += reachableRowCount;
         isColumnHeader = false;
         isInvalid = false;
         if (childIDOutOfBounds(childID))
         {
             isInvalid = true;
-            visibleColumnIndex = -1;
-            visibleRowIndex = -1;
+            reachableColumnIndex = -1;
+            reachableRowIndex = -1;
             itemIndex = -1;
         }
         else if (itemIndex < 0)
         {
             // This childID refers to a header, not a data row or cell.
             isColumnHeader = true;
-            visibleColumnIndex = itemIndex + visibleColumnCount;
-            visibleRowIndex = -1;
+            reachableColumnIndex = itemIndex + reachableColumnCount;
+            reachableRowIndex = -1;
             itemIndex = -1;
         }
         else if (isCellMode)
         {
-            visibleRowIndex = Math.floor(itemIndex / visibleColumnCount);
-            visibleColumnIndex = itemIndex % visibleColumnCount;
+            reachableRowIndex = Math.floor(itemIndex / reachableColumnCount);
+            reachableColumnIndex = itemIndex % reachableColumnCount;
         }
         else
         {
-            visibleRowIndex = itemIndex;
+            reachableRowIndex = itemIndex;
             // Using 0 here so, for example, getItemRendererAt() calls still work for a row.
-            visibleColumnIndex = 0;
+            reachableColumnIndex = 0;
         }
-        rowIndex = visibleRowIndex;
-        columnIndex = visibleColumnIndex;
-        if (visibleRowIndex >= 0 && visibleRowIndices != null)
-            rowIndex = visibleRowIndices[visibleRowIndex];
-        if (visibleColumnIndex >= 0 && visibleColumnIndices != null)
-            columnIndex = visibleColumnIndices[visibleColumnIndex];
+        rowIndex = reachableRowIndex;
+        columnIndex = reachableColumnIndex;
+        if (reachableRowIndex >= 0 && reachableRowIndices && reachableRowIndices.length)
+            rowIndex = reachableRowIndices[reachableRowIndex];
+        if (reachableColumnIndex >= 0 && reachableColumnIndices && reachableColumnIndices.length)
+            columnIndex = reachableColumnIndices[reachableColumnIndex];
     }
 
+    /**
+     *  @private
+     */
     // The master component reference for which this AccImpl is instantiated.
     public var master:UIComponent;
     // The childID within that component for which this accInfo is calculated.
@@ -851,15 +896,15 @@ internal class ItemAccInfo
     public var columnCount:int;
     public var headerCount:int;
     public var rowCount:int;
-    // Number of columns, headers, and rows that are visible.
-    // ("Visible" means not marked invisible by programmer or user.)
-    public var visibleColumnCount:int;
-    public var visibleHeaderCount:int;
-    public var visibleRowCount:int;
-    // Indices of visible rows and columns.
+    // Number of columns, headers, and rows that are reachable.
+    // ("Reachable" means not marked invisible by the developer.)
+    public var reachableColumnCount:int;
+    public var reachableHeaderCount:int;
+    public var reachableRowCount:int;
+    // Indices of reachable rows and columns.
     // These are null when nothing is filtered, for performance reasons.
-    protected var visibleRowIndices:Vector.<int>;
-    protected var visibleColumnIndices:Vector.<int>;
+    protected var reachableRowIndices:Vector.<int>;
+    protected var reachableColumnIndices:Vector.<int>;
     // The highest valid childID.
     public var maxChildID:int;
     // True if we are in cell navigation mode (single or multiple selection).
@@ -871,36 +916,70 @@ internal class ItemAccInfo
     public var isInvalid:Boolean;
     // True if the given childID represents a column header cell.
     public var isColumnHeader:Boolean;
-    // 0-based indices of row and column in the sets of visible ones.
-    public var visibleColumnIndex:int;
-    public var visibleRowIndex:int;
+    // 0-based indices of row and column in the sets of reachable ones.
+    public var reachableColumnIndex:int;
+    public var reachableRowIndex:int;
     // 0-based indices of row and column in the set of all of each.
     public var columnIndex:int;
     public var rowIndex:int;
 
-    private function childIDFromVisibleRowAndColumn(visibleRowIndex:int, visibleColumnIndex:int):uint
+    /**
+     *  @private
+     *  Determine the childID corresponding to the given DataGrid row and column.
+     *  The row and column indices taken here are from the set of reachable
+     *  rows and colums; they are not absolute row/column indices.
+     *  This method is used internally; see childIDFromRowAndColumn() for the
+     *  external interface.
+     *
+     *  @param reachableRowIndex The 0-based index of the row among reachable rows.
+     *  @param reachableColumnIndex The 0-based index of the column among reachable columns.
+     *  Ignored if this grid is in a row navigation mode.
+     *
+     *  @return The childID corresponding to the row and column indices passed.
+     */
+    protected function childIDFromReachableRowAndColumn(reachableRowIndex:int, reachableColumnIndex:int):uint
     {
-        var childID:int = visibleHeaderCount + 1;
-        if (visibleRowIndex < 0)
+        var childID:int = reachableHeaderCount + 1;
+        if (reachableRowIndex < 0)
             childID = 0;
         else if (isCellMode)
-            if (visibleColumnIndex < 0)
+            if (reachableColumnIndex < 0)
                 childID = 0;
             else
-                childID += visibleRowIndex * visibleColumnCount + visibleColumnIndex;
+                childID += reachableRowIndex * reachableColumnCount + reachableColumnIndex;
         else
-            childID += visibleRowIndex;
+            childID += reachableRowIndex;
         return uint(childID);
     }
 
+    /**
+     *  @private
+     *  Determine the childID corresponding to the given DataGrid row and column.
+     *  The indices passed to this method are mapped onto the set of rows and
+     *  columns that are or can be exposed to the user.
+     *
+     *  @param rowIndex The 0-based index of the row.
+     *  @param columnIndex The 0-based index of the column.
+     *  Ignored if this grid is in a row navigation mode.
+     *
+     *  @return The childID corresponding to the row and column indices passed.
+     */
     public function childIDFromRowAndColumn(rowIndex:int, columnIndex:int):uint
     {
-        return childIDFromVisibleRowAndColumn(
-            visibleRowIndices == null ? rowIndex : visibleRowIndices.indexOf(rowIndex),
-            visibleColumnIndices == null ? columnIndex : visibleColumnIndices.indexOf(columnIndex)
+        return childIDFromReachableRowAndColumn(
+            reachableRowIndices == null ? rowIndex : reachableRowIndices.indexOf(rowIndex),
+            reachableColumnIndices == null ? columnIndex : reachableColumnIndices.indexOf(columnIndex)
         );
     }
 
+    /**
+     *  @private
+     *  Internal method for checking if a childID is above or below those allowed.
+     *
+     *  @param childID The childID to check.
+     *
+     *  @return true if the childID is out of bounds and false if not.
+     */
     private function childIDOutOfBounds(childID: int):Boolean
     {
         if (int(childID) <= 0)
@@ -912,6 +991,17 @@ internal class ItemAccInfo
         return false;
     }
 
+    /**
+     *  @private
+     *  Return an object giving the bounds of this grid item (row or cell).
+     *  The object returned is either an IVisualElement (renderer), in which
+     *  case its coordinates are assumed to be stage-based, or a
+     *  flash.geom.Rectangle, in which case its coordinates are relative to
+     *  the top left corner of the DataGrid.  These are the requirements of
+     *  the AccImpl::get_accLocation() method.
+     *
+     *  @return The Rectangle indicating the item's bounds.
+     */
     public function boundingRect():Object
     {
         // First see if this item is on screen.
