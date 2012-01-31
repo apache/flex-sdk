@@ -1720,9 +1720,9 @@ public class ComboBox extends ComboBase
             systemManager.addEventListener(Event.RESIZE, stage_resizeHandler, false, 0, true);
         }
         
-		var m:Matrix = transform.concatenatedMatrix;
-		_dropdown.scaleX = m.a; //scale x
-		_dropdown.scaleY = m.d; //scale y
+        var m:Matrix = transform.concatenatedMatrix;
+        _dropdown.scaleX = m.a; //scale x
+        _dropdown.scaleY = m.d; //scale y
 
         return _dropdown;
     }
@@ -1910,8 +1910,8 @@ public class ComboBox extends ComboBase
                 // Special case: Empty dataProvider.
                 if (!selectedIndexChanged && !selectedItemChanged)
                 {
-                	if (super.selectedIndex != -1)
-                    	super.selectedIndex = -1;
+                    if (super.selectedIndex != -1)
+                        super.selectedIndex = -1;
                     implicitSelectedIndex = true;
                     invalidateDisplayList();
                 }
@@ -2258,17 +2258,17 @@ public class ComboBox extends ComboBase
             inTween = false;
             _dropdown.enabled = true;
             _dropdown.visible = _showingDropdown;
-        }
-
-        if (bRemoveDropdown)
-        {
-            _dropdown.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, dropdown_mouseOutsideHandler);
-            _dropdown.removeEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE, dropdown_mouseOutsideHandler);
-            _dropdown.removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, dropdown_mouseOutsideHandler);
-            _dropdown.removeEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE, dropdown_mouseOutsideHandler);
-
-            PopUpManager.removePopUp(_dropdown);
-            _dropdown = null;
+            
+            if (bRemoveDropdown)
+            {
+                _dropdown.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, dropdown_mouseOutsideHandler);
+                _dropdown.removeEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE, dropdown_mouseOutsideHandler);
+                _dropdown.removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, dropdown_mouseOutsideHandler);
+                _dropdown.removeEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE, dropdown_mouseOutsideHandler);
+                
+                PopUpManager.removePopUp(_dropdown);
+                _dropdown = null;
+            }
         }
         
         bRemoveDropdown = true;
