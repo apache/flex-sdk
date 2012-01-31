@@ -1019,7 +1019,10 @@ public class Scroller extends SkinnableComponent
      *  @param doValidateNow if true, call validateNow() at the end of the 
      *  function 
      */  
-    private function ensureElementPositionIsVisible(element:IVisualElement, elementLocalBounds:Rectangle = null, doValidateNow:Boolean = true):void
+    private function ensureElementPositionIsVisible(element:IVisualElement, 
+                                                    elementLocalBounds:Rectangle = null,
+                                                    entireElementVisible:Boolean = true,
+                                                    doValidateNow:Boolean = true):void
     {
         // First check that the element is a descendant
         // If we are a GraphicElement, use the element's parent
@@ -1050,7 +1053,7 @@ public class Scroller extends SkinnableComponent
             
             // Scroll the element into view
             
-            var delta:Point = layout.getScrollPositionDeltaToAnyElement(element, elementLocalBounds);
+            var delta:Point = layout.getScrollPositionDeltaToAnyElement(element, elementLocalBounds, entireElementVisible);
             
             if (delta)
             {
@@ -2676,7 +2679,11 @@ public class Scroller extends SkinnableComponent
                 }
                 else
                 {
-                    ensureElementPositionIsVisible(lastFocusedElement, lastFocusedElementCaretBounds);   
+                    // Only show entire element if we just activated the soft keyboard
+                    // If the predictive text bar showed up, we don't want the
+                    // the element to jump
+                    var isSoftKeyboardActive:Boolean = oldSoftKeyboardHeight > 0 || oldSoftKeyboardWidth > 0;
+                    ensureElementPositionIsVisible(lastFocusedElement, lastFocusedElementCaretBounds, !isSoftKeyboardActive);   
                     lastFocusedElementCaretBounds = null;
                 }
             }
@@ -2750,7 +2757,8 @@ public class Scroller extends SkinnableComponent
             return;
         }
         
-        ensureElementPositionIsVisible(lastFocusedElement, event.newCaretBounds, false);
+        // If caretBounds is changing, minimize the scroll
+        ensureElementPositionIsVisible(lastFocusedElement, event.newCaretBounds, false, false);
     }
 }
 
