@@ -159,6 +159,9 @@ global
     
     /* Behaviors */
     fixedThumbSize: false;
+    horizontalScrollPolicy: "auto";
+    liveDragging: false;
     slideDuration: 300;
     smoothScrolling: true;
+    verticalScrollPolicy: "auto";
 }
