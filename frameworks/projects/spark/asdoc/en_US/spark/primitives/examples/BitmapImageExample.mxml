@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- BitmapGraphicExample.mxml -->
-<mx:Application
-     xmlns:mx="library:adobe/flex/halo"
-     xmlns="http://ns.adobe.com/mxml/2009">
-     <mx:Canvas top="0" bottom="0" left="0" right="0">
-          <Graphic x="0" y="0">
-               <BitmapGraphic id="bg1" source="@Embed('assets/AirIcon12x12.gif')" width="60" height="60" resizeMode="Scale"/>
+<Application xmlns="http://ns.adobe.com/mxml/2009">
+     <Canvas top="0" bottom="0" left="0" right="0">
+          <!-- Single image, not resized, not repeated. -->
+          <Graphic x="0" y="0">             
+               <BitmapGraphic id="bg1" source="@Embed('assets/AirIcon12x12.gif')"/>
           </Graphic>
-          <Graphic x="200" y="0">
-               <BitmapGraphic source="@Embed('assets/AirIcon12x12.gif')" width="120" height="120" repeat="true"/>
+          <!-- Single image, scaled to fit specified dimensions. -->
+          <Graphic x="150" y="0">
+               <BitmapGraphic id="bg2" source="@Embed('assets/AirIcon12x12.gif')" width="60" height="60" resizeMode="scale"/>
           </Graphic>
-     </mx:Canvas>
-
-</mx:Application>
+          <!-- Repeated image to fit specified dimensions. -->
+          <Graphic x="300" y="0">
+               <BitmapGraphic id="bg3" source="@Embed('assets/AirIcon12x12.gif')" width="120" height="120" repeat="true"/>
+          </Graphic>
+     </Canvas>
+</Application>
