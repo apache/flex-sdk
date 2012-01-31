@@ -83,14 +83,14 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     }
 
     //----------------------------------
-    //  caret
+    //  showsCaret
     //----------------------------------
 
     /**
      *  @private
-     *  Storage for the caret property 
+     *  Storage for the showsCaret property 
      */
-    private var _caret:Boolean = false;
+    private var _showsCaret:Boolean = false;
 
     /**
      *  @inheritDoc 
@@ -102,20 +102,20 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-    public function get caret():Boolean
+    public function get showsCaret():Boolean
     {
-        return _caret;
+        return _showsCaret;
     }
     
     /**
      *  @private
      */    
-    public function set caret(value:Boolean):void
+    public function set showsCaret(value:Boolean):void
     {
-        if (value == _caret)
+        if (value == _showsCaret)
             return;
 
-        _caret = value;
+        _showsCaret = value;
         drawFocusAnyway = true;
         drawFocus(value);
     }
@@ -146,13 +146,13 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     }
     
     //----------------------------------
-    //  labelText
+    //  label
     //----------------------------------
     
     /**
      *  @private 
      */
-    private var _labelText:String = "";
+    private var _label:String = "";
     
     /**
      *  @inheritDoc  
@@ -162,21 +162,22 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get labelText():String
+    override public function get label():String
     {
-        return _labelText;
+        return _label;
     }
     
     /**
      *  @private 
      */
-    public function set labelText(value:String):void
+    override public function set label(value:String):void
     {
-        if (value != _labelText)
+        if (value != _label)
         {
-            _labelText = value;
+            _label = value;
+
             if (labelDisplay)
-                labelDisplay.text = _labelText;
+                labelDisplay.text = _label;
         }
     }
     
