@@ -13,7 +13,6 @@ package flex.graphics
 {
 
 import flash.display.DisplayObjectContainer;
-import flash.display.Graphics;
 import flash.geom.Rectangle;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
