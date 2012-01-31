@@ -601,8 +601,8 @@ public class VideoPlayer extends SkinnableComponent
      *  <code>play()</code>.</p>
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
     override public function set enabled(value:Boolean):void
