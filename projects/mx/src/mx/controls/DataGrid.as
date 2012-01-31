@@ -5433,6 +5433,7 @@ package mx.controls
                 {
                     header.headerItemsChanged = true;
                     header.invalidateDisplayList(); // make sure it redraws, even if size didn't change
+                header.validateNow();
                     // internal renderers could have changed
                 }
             }
