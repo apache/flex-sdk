@@ -202,8 +202,7 @@ public class GroupBase extends UIComponent implements IViewport
      */
     override public function get baselinePosition():Number
     {
-        // TODO
-        // The baselinePosition calculation in UIComponent
+        // FIXME (clucier): The baselinePosition calculation in UIComponent
         // works only for TextField-based components.
         return 0;
     }
@@ -940,7 +939,7 @@ public class GroupBase extends UIComponent implements IViewport
             
                 if (!_mask.parent)
                 {
-                    // TODO!!! This needs to be a sibling because alpha
+                    // FIXME (jszeto): This needs to be a sibling because alpha
                     super.addChild(_mask);
                     var maskComp:UIComponent = _mask as UIComponent;
                     if (maskComp)
@@ -1220,7 +1219,7 @@ public class GroupBase extends UIComponent implements IViewport
 
     [Inspectable(environment="none")]
     
-    // TODO (rfrishbe): only reason we need to override focusPane getter/setter
+    // FIXME (rfrishbe): only reason we need to override focusPane getter/setter
     // is because addChild/removeChild for Groups throw an RTE.
     // This is the same as UIComponent's focusPane getter/setter but it uses
     // super.add/removeChild.
@@ -1252,7 +1251,7 @@ public class GroupBase extends UIComponent implements IViewport
         {
              super.removeChild(_focusPane);
              
-             // TODO: remove mask?  SDK-15310
+             // FIXME (jszeto): remove mask?  SDK-15310
             _focusPane = null;
         }
     }
