@@ -1364,6 +1364,11 @@ public class GroupBase extends UIComponent implements IViewport
     {
         if (_mask !== value)
         {
+			if (_mask && _mask.parent === this)
+			{       
+				super.removeChild(_mask);
+			}     
+			
             _mask = value;
             maskChanged = true;
             invalidateDisplayList();            
