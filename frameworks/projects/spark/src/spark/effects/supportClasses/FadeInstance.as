@@ -113,19 +113,22 @@ public class FadeInstance extends AnimateInstance
         // If nobody assigned a value, make this a "show" effect.
         if (isNaN(alphaFrom) && isNaN(alphaTo))
         {   
-            if (propChanges && propChanges.end["alpha"] !== undefined)
+            if (propChanges && propChanges.end["alpha"] !== undefined &&
+                propChanges.end["alpha"] != propChanges.start["alpha"])
             {
                 alphaFrom = origAlpha;
                 alphaTo = propChanges.end["alpha"];
             }
-            else if (propChanges && propChanges.end["visible"] !== undefined)
+            else if (propChanges && propChanges.end["visible"] !== undefined &&
+                propChanges.end["visible"] != propChanges.start["visible"])
             {
                 alphaFrom = propChanges.start["visible"] ? origAlpha : 0;
                 alphaTo = propChanges.end["visible"] ? origAlpha : 0;
                 // Force target to be visible at effect start
                 restoreAlpha = true;
             }
-            else if (propChanges && propChanges.end["parent"] !== undefined)
+            else if (propChanges && propChanges.end["parent"] !== undefined &&
+                propChanges.end["parent"] != propChanges.start["parent"])
             {
                 alphaFrom = propChanges.start["parent"] ? origAlpha : 0;
                 alphaTo = propChanges.end["parent"] ? origAlpha : 0;
