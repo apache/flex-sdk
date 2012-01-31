@@ -146,7 +146,7 @@ public class StreamingHTTPChannel extends HTTPChannel
     override public function poll():void
     {
 		var message:String = resourceManager.getString(
-			"messaging", "pollingNotSupportedAMF");    	
+			"messaging", "pollingNotSupportedHTTP");    	
         throw new Error(message);	    	
     }    
     
