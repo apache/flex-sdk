@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-package spark.components
+package spark.components.mediaClasses
 {
 
 import flash.display.DisplayObject;
@@ -19,6 +19,8 @@ import flash.display.InteractiveObject;
 import flash.events.Event;
 
 import mx.core.IVisualElement;
+
+import spark.components.HSlider;
 
 /**
  *  The VideoScrubBar class is a video scrubbar/timeline that can show the
@@ -29,7 +31,7 @@ import mx.core.IVisualElement;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */  
-public class VideoPlayerScrubBar extends HSlider
+public class ScrubBar extends HSlider
 {
     
     //--------------------------------------------------------------------------
@@ -46,7 +48,7 @@ public class VideoPlayerScrubBar extends HSlider
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function VideoPlayerScrubBar()
+    public function ScrubBar()
     {
         super();
         
@@ -92,35 +94,66 @@ public class VideoPlayerScrubBar extends HSlider
     //--------------------------------------------------------------------------
     
     //--------------------------------- 
-    // bufferedValue
+    // bufferedEnd
     //---------------------------------
     
-    private var _bufferedRange:Array;
+    private var _bufferedEnd:Number;
     
     /**
-     *  The range of values that are currently in the buffer.  The first value 
-     *  the array indicates the starting buffered value.  The second value 
-     *  indicates the end of buffered in video.
+     *  The range of currently buffered in values.  This 
+     *  property corresponds to the end of that range.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get bufferedRange():Array
+    public function get bufferedEnd():Number
     {
-        return _bufferedRange;
+        return _bufferedEnd;
     }
     
     /**
      *  @private
      */
-    public function set bufferedRange(value:Array):void
+    public function set bufferedEnd(value:Number):void
     {
-        if (value == _bufferedRange)
+        if (value == _bufferedEnd)
             return;
         
-        _bufferedRange = value;
+        _bufferedEnd = value;
+        invalidateDisplayList();
+    }
+    
+    //--------------------------------- 
+    // bufferedStart
+    //---------------------------------
+    
+    private var _bufferedStart:Number;
+    
+    /**
+     *  The range of currently buffered in values.  This 
+     *  property corresponds to the start of that range.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get bufferedStart():Number
+    {
+        return _bufferedStart;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set bufferedStart(value:Number):void
+    {
+        if (value == _bufferedStart)
+            return;
+        
+        _bufferedStart = value;
         invalidateDisplayList();
     }
 
@@ -163,7 +196,7 @@ public class VideoPlayerScrubBar extends HSlider
     override protected function completeTrackLayout():void
     {
         super.completeTrackLayout();
-        sizeBufferedArea(valueToPosition(bufferedRange[1]) + thumbSize);
+        sizeBufferedArea(valueToPosition(bufferedEnd) + thumbSize);
         sizePlayedArea(valueToPosition(value) + thumbSize);
     }
     
