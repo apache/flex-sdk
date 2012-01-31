@@ -11,13 +11,12 @@
 
 package spark.components.gridClasses
 {
-
     
 [ExcludeClass]
     
 /**
- *  A GridRowNode contains the heights of each cell for the row at rowIndex
- *  as well as the maximum height of the row's cells.
+ *  A GridRowNode represents the heights of each cell for the row at rowIndex,
+ *  and keeps track of the maximum cell height.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -37,6 +36,11 @@ public final class GridRowNode
     
     /**
      *  Constructor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function GridRowNode(numColumns:uint, rowIndex:int)
     {
@@ -53,6 +57,11 @@ public final class GridRowNode
     
     /**
      *  Number of columns in this row.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function get numColumns():uint
     {
@@ -100,10 +109,15 @@ public final class GridRowNode
     }
     
     /**
-     *  Returns the cell height at the specified index.
+     *  Returns the cell height at the specified column.
      *  
-     *  @return the cell height at the given index. NaN if index
+     *  @return the cell height at the given column. NaN if index
      *  is out of bounds.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function getCellHeight(index:int):Number
     {
@@ -116,6 +130,11 @@ public final class GridRowNode
      *  Updates the height at the specified column.
      * 
      *  @return true if max height has changed.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function setCellHeight(index:int, value:Number):Boolean
     {
@@ -130,6 +149,11 @@ public final class GridRowNode
     /**
      *  Shifts values such that count columns are inserted
      *  from the startIndex.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function insertColumns(startColumn:int, count:int):void
     {
@@ -137,7 +161,12 @@ public final class GridRowNode
     }
     
     /**
-     *  Removes and adds values such that the columns are moved.
+     *  Removes and adds values such that the specified columns are moved.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function moveColumns(fromCol:int, toCol:int, count:int):void
     {
@@ -146,6 +175,11 @@ public final class GridRowNode
     
     /**
      *  Clears values such that count columns are 0.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function clearColumns(startColumn:int, count:int):void
     {
@@ -155,8 +189,12 @@ public final class GridRowNode
     
     /**
      *  Shifts values such that count columns are removed
-     *  from the startColumn.
-     *  We assume that cellHeights is the right length.
+     *  from the startColumn. We assume that cellHeights is the right length.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */
     public function removeColumns(startColumn:int, count:int):void
     {
@@ -165,6 +203,7 @@ public final class GridRowNode
     }
     
     /**
+     *  @private
      *  toString method for testing.
      */
     public function toString():String
