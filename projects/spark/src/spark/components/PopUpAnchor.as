@@ -34,6 +34,11 @@ use namespace mx_internal;
  *  positioning the dropDown relative to itself.
  * 
  *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 public class PopUp extends UIComponent
 {
@@ -75,6 +80,11 @@ public class PopUp extends UIComponent
 	
 	/**
 	 *  UIComponent to add to the PopUpManager when the PopUp is opened. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */ 
 	public function set content(value:UIComponent):void
 	{
@@ -93,6 +103,11 @@ public class PopUp extends UIComponent
 	
 	/**
 	 *  If true, add the content to the PopUpManager. If false, remove it.  
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function set open(value:Boolean):void
 	{
@@ -250,6 +265,11 @@ public class PopUp extends UIComponent
 	/**
 	 *  Call this function to update the content's transform matrix. Typically 
 	 *  this would be called while performing an effect upon the PopUp. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function updateContentTransform():void
 	{
