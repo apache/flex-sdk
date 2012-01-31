@@ -13,11 +13,17 @@ package spark.components
 {
     
 import flash.events.Event;
+import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.formats.TextLayoutFormat;
 
-import spark.components.supportClasses.TextBase;
+import mx.core.mx_internal;
 import mx.core.ScrollPolicy;
 import mx.events.FlexEvent;
+
+import spark.components.supportClasses.SkinnableTextBase;
 import spark.events.TextOperationEvent;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Styles
@@ -110,7 +116,7 @@ import spark.events.TextOperationEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class TextArea extends TextBase
+public class TextArea extends SkinnableTextBase
 {
     include "../core/Version.as";
 
@@ -170,14 +176,15 @@ public class TextArea extends TextBase
      */
     override public function set text(value:String):void
     {
-        // Setting 'text' temporarily causes 'content' to become null.
-        // Later, after the 'text' has been committed into the TextFlow,
-        // getting 'content' will return the TextFlow.
-        setContent(null);
+        // Of 'text', 'textFlow', and 'content', the last one set wins.
+        
         super.text = value;
         
         // Trigger bindings to textChanged.
         dispatchEvent(new Event("textChanged"));        
+
+        // The default event to trigger a validator.
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                   
     }
 
     //--------------------------------------------------------------------------
@@ -190,13 +197,6 @@ public class TextArea extends TextBase
     //  content
     //----------------------------------
 
-   /**
-     *  @private
-     *  Once the text or content is composed initially, the content getter
-     *  will return the TextFlow, rather than the initial content.
-     */
-    private var useTextFlowForContent:Boolean = false;
-    
     /**
      *  @private
      *  This metadata tells the MXML compiler to disable some of its default
@@ -215,39 +215,56 @@ public class TextArea extends TextBase
     [RichTextContent]
         
     /**
-     *  Documentation is not currently available.
+     *  This write-only property is for internal use by the MXML compiler.
+     *  Please use the <code>textFlow</code> property to set
+     *  rich text content.
      * 
-     *  A TextFlow object is not shareable.  To clone a TextFlow use
-     *  TextFlow.deepCopy().
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function set content(value:Object):void
+    {
+        // Of 'text', 'textFlow', and 'content', the last one set wins.
+        
+        setContent(value);
+    }
+    
+    //----------------------------------
+    //  textFlow
+    //----------------------------------
+
+    [Bindable("change")]
+    
+    /**
+     *  The TextFlow displayed by this component.
+     * 
+     *  <p>A TextFlow is the most important class
+     *  in the Text Layout Framework.
+     *  It is the root of a tree of FlowElements
+     *  representing rich text content.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get content():Object
+    public function get textFlow():TextFlow
     {
-        return textView && useTextFlowForContent ? textView.textFlow : 
-                                                   getContent();
+        return getTextFlow();
     }
 
     /**
      *  @private
      */
-    public function set content(value:Object):void
+    public function set textFlow(value:TextFlow):void
     {
-        if (value == getContent())
-            return;
+        // Of 'text', 'textFlow', and 'content', the last one set wins.
 
-        // Setting 'content' temporarily causes 'text' to become null.
-        // Later, after the 'content' has been committed into the TextFlow,
-        // getting 'text' will extract the text from the TextFlow.
-        super.text = null;
-        setContent(value);
-
-        useTextFlowForContent = false;
+        setTextFlow(value);
     }
-    
+
     //----------------------------------
     //  heightInLines
     //----------------------------------
@@ -289,6 +306,31 @@ public class TextArea extends TextBase
      */
     public var scroller:Scroller;
 
+    //----------------------------------
+    //  widthInChars
+    //----------------------------------
+
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get widthInChars():Number
+    {
+        return getWidthInChars();
+    }
+
+    /**
+     *  @private
+     */
+    public function set widthInChars(value:Number):void
+    {
+        setWidthInChars(value);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -345,7 +387,7 @@ public class TextArea extends TextBase
     {
         super.partAdded(partName, instance);
 
-        if (instance == textView)
+        if (instance == textDisplay)
         {
             // In default.css, the TextArea selector has a declaration
             // for lineBreak which sets it to "toFit".  It needs to be on
@@ -354,10 +396,10 @@ public class TextArea extends TextBase
 
             // The skin is loaded after the intial properties have been
             // set so these wipe out explicit sets.
-			textView.multiline = true;
+			textDisplay.multiline = true;
         }
         
-        // The scroller, between textView and this in the chain, should not 
+        // The scroller, between textDisplay and this in the chain, should not 
         // getFocus.
         if (instance == scroller)
         {
@@ -387,12 +429,15 @@ public class TextArea extends TextBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function export():XML
+    public function getFormatOfRange(requestedFormats:Vector.<String>=null,
+                                     anchorPosition:int=-1,
+                                     activePosition:int=-1):TextLayoutFormat
     {
-        if (!textView)
+        if (!textDisplay)
             return null;
 
-        return textView.export();
+        return textDisplay.getFormatOfRange(requestedFormats, anchorPosition, 
+                                            activePosition);
     }
 
     /**
@@ -403,52 +448,32 @@ public class TextArea extends TextBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function getSelectionFormat(names:Array = null):Object
+    public function setFormatOfRange(format:TextLayoutFormat,
+                                     anchorPosition:int=-1, 
+                                     activePosition:int=-1):void
     {
-        if (!textView)
-            return null;
-
-        return textView.getSelectionFormat(names);
-    }
-
-    /**
-     *  Documentation is not currently available.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function setSelectionFormat(attributes:Object):void
-    {
-        if (!textView)
+        if (!textDisplay)
             return;
 
-        textView.setSelectionFormat(attributes);
+        textDisplay.setFormatOfRange(format, anchorPosition, activePosition);
     }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden event handlers: TextBase
-    //
-    //--------------------------------------------------------------------------
 
     /**
-     *  @private
-     *  Dispatched when there is an editing operation in RichEditableText.
+     *  @copy flashx.textLayout.container.ContainerController#scrollToPosition() 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
-    override protected function textView_changeHandler(
-                                        event:TextOperationEvent):void
+    public function scrollToRange(anchorPosition:int = 0,
+                                  activePosition:int = int.MAX_VALUE):void
     {
-        //trace("TextArea.textView_changeHandler");
+        if (!textDisplay)
+            return;
 
-        // A compose has been done so switch from the user's specified content
-        // (or null if text was specified) to the textFlow.
-        useTextFlowForContent = true;
-
-        super.textView_changeHandler(event);                       
+        textDisplay.scrollToRange(anchorPosition, activePosition);
     }
-
 }
 
 }
