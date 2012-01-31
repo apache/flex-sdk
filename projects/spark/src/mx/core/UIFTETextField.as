@@ -73,7 +73,7 @@ public class UITLFTextField extends TLFTextField
                             IToolTipManagerClient, IUITextField
        
 {
-    include "../core/Version.as";
+    include "../../spark/core/Version.as";
 
     //--------------------------------------------------------------------------
     //
