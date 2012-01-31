@@ -68,14 +68,25 @@ public class TextGraphicElement extends GraphicElement
 	/**
 	 *  @private
 	 */
-	private var _displayObject:DisplayObject = new Sprite();
+	//private var _displayObject:DisplayObject = new Sprite();
 
 	/**
 	 *  @private
 	 */
-	override public function get displayObject():DisplayObject
+	/* override public function get displayObject():DisplayObject
 	{
 		return _displayObject;
+	} */
+	
+	// TODO!!! Always return a DO for now. We need to optimize this later. 
+	override public function get needsDisplayObject():Boolean
+    {
+		return true;
+	}
+	
+	override public function get nextSiblingNeedsDisplayObject():Boolean
+    {
+		return true;
 	}
 	
 	//--------------------------------------------------------------------------
