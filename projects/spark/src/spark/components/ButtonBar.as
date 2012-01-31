@@ -85,7 +85,7 @@ import mx.managers.IFocusManagerComponent;
  *  </pre>
  *
  *  @see spark.components.ButtonBarButton
- *  @see spark.skins.default.ButtonBarSkin
+ *  @see spark.skins.spark.ButtonBarSkin
  *
  *  @includeExample examples/ButtonBarExample.mxml
  *  
