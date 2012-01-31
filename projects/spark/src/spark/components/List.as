@@ -871,6 +871,7 @@ public class List extends ListBase implements IFocusManagerComponent
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
+
         if (instance == dataGroup)
         {
             dataGroup.addEventListener(
@@ -878,8 +879,10 @@ public class List extends ListBase implements IFocusManagerComponent
             dataGroup.addEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
-        if (instance == scroller)
+        else if (instance == scroller)
+		{
             scroller.hasFocusableChildren = hasFocusableChildren;
+		}
     }
 
     /**
@@ -894,7 +897,7 @@ public class List extends ListBase implements IFocusManagerComponent
             dataGroup.removeEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
-        
+
         super.partRemoved(partName, instance);
     }
     
