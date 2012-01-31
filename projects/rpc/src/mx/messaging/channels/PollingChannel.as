@@ -378,21 +378,11 @@ public class PollingChannel extends Channel
      */
     final override protected function getMessageResponder(agent:MessageAgent, msg:IMessage):MessageResponder
     {
-        var responder:MessageResponder = null;
-        if (msg is CommandMessage)
+        if ((msg is CommandMessage) && ((msg as CommandMessage).operation == CommandMessage.POLL_OPERATION))
         {
-            var cmd:CommandMessage = CommandMessage(msg);
-            if ((cmd.operation == CommandMessage.SUBSCRIBE_OPERATION) ||
-                (cmd.operation == CommandMessage.UNSUBSCRIBE_OPERATION))
-            {
-                responder = getPollSyncMessageResponder(agent, cmd);
-            }
-            else if (cmd.operation == CommandMessage.POLL_OPERATION)
-            {
-                responder = new PollCommandMessageResponder(agent, msg, this, _log);
-            }
+            return new PollCommandMessageResponder(agent, msg, this, _log);
         }
-        return responder == null ? getDefaultMessageResponder(agent, msg):responder;
+        return getDefaultMessageResponder(agent, msg);
     }
     
     /**
@@ -521,14 +511,6 @@ public class PollingChannel extends Channel
            	if (props["login-after-disconnect"].length())
            		_loginAfterDisconnect = props["login-after-disconnect"].toString()=="true";          	
         }
-    }
-    
-    /**
-     *  @private
-     */
-    protected function getPollSyncMessageResponder(agent:MessageAgent, msg:CommandMessage):MessageResponder
-    {
-        return null;
     }
 
     /**
