@@ -9,18 +9,18 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects
+package mx.effects
 {
-import flex.effects.effectClasses.FadeInstance;
+import mx.effects.effectClasses.FxFadeInstance;
 
 import mx.effects.IEffectInstance;
 
-public class Fade extends Animate
+public class FxFade extends FxAnimate
 {
-    public function Fade(target:Object=null)
+    public function FxFade(target:Object=null)
     {
         super(target);
-        instanceClass = FadeInstance;
+        instanceClass = FxFadeInstance;
     }
     
     //--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ public class Fade extends Animate
     {
         super.initInstance(instance);
         
-        var fadeInstance:FadeInstance = FadeInstance(instance);
+        var fadeInstance:FxFadeInstance = FxFadeInstance(instance);
 
         fadeInstance.alphaFrom = alphaFrom;
         fadeInstance.alphaTo = alphaTo;
