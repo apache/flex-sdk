@@ -5490,7 +5490,6 @@ public class DataGrid extends DataGridBase implements IIMESupport
             {
                 header.headerItemsChanged = true;
                 header.invalidateDisplayList(); // make sure it redraws, even if size didn't change
-                header.validateNow();
                 // internal renderers could have changed
             }
         }
