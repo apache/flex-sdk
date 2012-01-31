@@ -625,7 +625,7 @@ public class DataGroup extends GroupBase
             return item.toString();
         return " ";
     }
-    
+	
     //--------------------------------------------------------------------------
     //
     //  Item -> Renderer mapping
@@ -746,7 +746,7 @@ public class DataGroup extends GroupBase
             initializeTypicalItem();
         }
     }
-    
+
     /**
      *  @private
      *  True if we are updating a renderer currently. 
