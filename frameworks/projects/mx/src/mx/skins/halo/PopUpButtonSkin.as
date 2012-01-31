@@ -21,6 +21,8 @@ import mx.styles.StyleManager;
 import mx.utils.ColorUtil;
 import mx.core.IProgrammaticSkin;
 
+use namespace mx_internal;
+
 /**
  *  The skin for all the states of a PopUpButton.
  *  
@@ -504,7 +506,7 @@ public class PopUpButtonSkin extends UIComponent implements IProgrammaticSkin
         }
 
         if (popUpIcon is PopUpIcon)
-        	PopUpIcon(popUpIcon).mx_internal::arrowColor = arrowColor;
+        	PopUpIcon(popUpIcon).arrowColor = arrowColor;
     }
 
     //--------------------------------------------------------------------------
