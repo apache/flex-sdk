@@ -507,7 +507,7 @@ public class FxComponent extends UIComponent
      *  Dynamic skin parts should always be instantiated by this method, 
      *  rather than directly by calling the <code>newInstance()</code> method on the factory.
      *  This method creates the part, but does not add it to the display list.
-     *  The componet must call the <code>Group.addItem()</code> method, or the appropriate 
+     *  The componet must call the <code>Group.addElement()</code> method, or the appropriate 
      *  method to add the skin part to the display list. 
      *
      *  @param partName The name of the part.
