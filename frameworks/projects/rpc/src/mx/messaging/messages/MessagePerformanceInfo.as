@@ -48,74 +48,152 @@ package mx.messaging.messages
 		
 		/**
 	 	 * Size of message in Bytes (message types depends on what header this MPI is in)
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */		
 		public var messageSize:int;
 		
 		/**
 	 	 * Millisecond timestamp of when this message was sent
 	 	 * (origin depends on on what header this MPI is in)
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */			
 		public var sendTime:Number = 0;
 		
 		/**
 	 	 * Millisecond timestamp of when this message was received
 	 	 * (destination depends on on what header this MPI is in)
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */			
 		public var receiveTime:Number;
 		
 		/**
 	 	 * Amount of time in milliseconds that this message was being processed on the server
 	 	 * in order to calculate and populate MPI metrics
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */			
 		public var overheadTime:Number;
 		
 		/**
 	 	 * "OUT" when this message originated on the server
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */			 	 	
 		private var _infoType:String;
 		
 		/**
 	 	 * True if this is info for a message that was pushed from server to client
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */				
 		public var pushedFlag:Boolean;
 		
 		/**
 	 	 * Millisecond timestamp of when the server became ready to push this message out 
 	 	 * to clients
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */			
 		public var serverPrePushTime:Number;
 		
 		/**
 	 	 * Millisecond timestamp of when the server called into the adapter associated with the
 	 	 * destination of this message
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */				
 		public var serverPreAdapterTime:Number;
 
 		/**
 	 	 * Millisecond timestamp of when server processing returned from the adapater associated 
 	 	 * with the destination of this message
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */				
 		public var serverPostAdapterTime:Number;	
 		
 		/**
 	 	 * Millisecond timestamp of when the adapter associated with the destination of this message
 	 	 * made a call to an external component (for example a JMS server)
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */		
 		public var serverPreAdapterExternalTime:Number;
 		
 		/**
 	 	 * Millisecond timestamp of when processing came back to the adapter associated with the destination 
 	 	 * of this message from a call to an external component (for example a JMS server)
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */				
 		public var serverPostAdapterExternalTime:Number;
 		
 		/**
 	 	 * Flag is true when record-message-times is enabled for the communication channel
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */			
         public var recordMessageTimes:Boolean;
         
 		/**
 	 	 * Flag is true when record-message-sizes is enabled for the communication channel
+	 	 *  
+	 	 *  @langversion 3.0
+	 	 *  @playerversion Flash 9
+	 	 *  @playerversion AIR 1.1
+	 	 *  @productversion BlazeDS 4
+	 	 *  @productversion LCDS 3 
 	 	 */	        
         public var recordMessageSizes:Boolean;		
 		
@@ -131,6 +209,12 @@ package mx.messaging.messages
 	   *  server)
 	   * 
 	   * @param type - "IN" or "OUT" info type
+	   *  
+	   *  @langversion 3.0
+	   *  @playerversion Flash 9
+	   *  @playerversion AIR 1.1
+	   *  @productversion BlazeDS 4
+	   *  @productversion LCDS 3 
 	   */		
 		public function set infoType(type:String):void
 		{
@@ -146,6 +230,12 @@ package mx.messaging.messages
 	   *  Get the info type of this message (IN or OUT).
 	   * 
 	   * @return "IN" or "OUT" (from the perspective of the server)
+	   *  
+	   *  @langversion 3.0
+	   *  @playerversion Flash 9
+	   *  @playerversion AIR 1.1
+	   *  @productversion BlazeDS 4
+	   *  @productversion LCDS 3 
 	   */			
 		public function get infoType():String
 		{
