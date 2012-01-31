@@ -32,6 +32,7 @@ import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
+import mx.styles.IStyleManager2;
 import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
@@ -1519,6 +1520,25 @@ public class UITLFTextField extends TLFTextField
     }
 
     //----------------------------------
+    //  styleManager
+    //----------------------------------
+    
+    /**
+     *  @private
+     * 
+     *  Returns the style manager used by this component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get styleManager():IStyleManager2
+    {
+        return StyleManager.getStyleManager(moduleFactory);
+    }
+    
+    //----------------------------------
     //  styleName
     //----------------------------------
 
@@ -1929,7 +1949,7 @@ public class UITLFTextField extends TLFTextField
      */
     public function getStyle(styleProp:String):*
     {
-        if (StyleManager.inheritingStyles[styleProp])
+        if (styleManager.inheritingStyles[styleProp])
         {        
             return inheritingStyles ?
                    inheritingStyles[styleProp] :
