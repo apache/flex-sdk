@@ -956,10 +956,8 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
             return;
 
         // Check if the label text is truncated
-        // TODO EGeorgie: use TextGraphicElement API to check for truncated text.
         labelElement.validateNow();
-        var truncated:Boolean = labelElement.getLayoutBoundsWidth() < labelElement.getPreferredBoundsWidth() ||
-                                labelElement.getLayoutBoundsHeight() < labelElement.getPreferredBoundsHeight();
+        var truncated:Boolean = labelElement.isTruncated();
         
         // If the label is truncated, show the whole label string as a tooltip
         super.toolTip = truncated ? labelElement.text : null;
