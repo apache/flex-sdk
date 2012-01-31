@@ -275,15 +275,18 @@ public class Group extends GroupBase
      */ 
     override protected function commitProperties():void
     {
-        super.commitProperties();
-        
-        if (contentChanged)
+    	if (contentChanged)
         {
             contentChanged = false;
             initializeChildrenArray();
             
-            // maskChanged = true; TODO (rfrishbe): need this maskChanged?
+            maskChanged = true; //TODO (rfrishbe): need this maskChanged?
         }
+    
+    	// Need to initializeChildrenArray before calling super.commitProperties
+    	// initializeChildrenArray removes all of the display list children.
+    	// GroupBase's commitProperties reattaches the mask
+        super.commitProperties(); 
         
         if (blendModeChanged)
         {
