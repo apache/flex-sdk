@@ -1079,9 +1079,6 @@ public class ChannelSet extends EventDispatcher
      *  @return Returns a token that client code may
      *  add a responder to in order to handle success or failure directly.
      * 
-     *  @return Returns a token that client code may
-     *  add a responder to in order to handle success or failure directly.
-     * 
      *  @throws flash.errors.IllegalOperationError if a login or logout operation is currently in progress.
      */ 
     public function logout(agent:MessageAgent=null):AsyncToken
@@ -1103,7 +1100,7 @@ public class ChannelSet extends EventDispatcher
             if (_authAgent == null)
                 _authAgent = new AuthenticationAgent(this);
             _authAgent.registerToken(token);
-            _authAgent.state == AuthenticationAgent.LOGGING_OUT_STATE;
+            _authAgent.state = AuthenticationAgent.LOGGING_OUT_STATE;
             send(_authAgent, msg);  
             return token;          
         }
