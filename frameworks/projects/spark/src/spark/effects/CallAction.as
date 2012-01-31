@@ -9,13 +9,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects
+package spark.effects
 {
 import flash.events.IEventDispatcher;
 
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
-import mx.effects.effectClasses.CallActionInstance;
+import spark.effects.supportClasses.CallActionInstance;
 
 //--------------------------------------
 //  Excluded APIs
