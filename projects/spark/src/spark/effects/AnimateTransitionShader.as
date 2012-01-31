@@ -111,7 +111,7 @@ public class FxAnimateShaderTransition extends FxAnimate
      *   shaderEffect.shaderProperties = {direction : 1};</listing>
      * or in MXML code, this:<listing version="3.0">
      *   &lt;FxAnimateShaderTransition 
-     *       shaderCode="&64;Embed(source="MyShader.pbj", mimeType="application/octet-stream")"
+     *       shaderCode="&64;Embed(source='MyShader.pbj', mimeType='application/octet-stream')"
      *       shaderProperties="{{direction : 1}}}"/&gt;
      * </listing>
      * 
