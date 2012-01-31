@@ -1580,7 +1580,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             regenerate = true;
         }
 
-        super.mx_internal::setStyle(styleProp, value);
+        super.setLocalStyle(styleProp, value);
 
         // The default implementation of setStyle won't always regenerate
         // the proto chain when headerStyleName is set, and we need to make sure
