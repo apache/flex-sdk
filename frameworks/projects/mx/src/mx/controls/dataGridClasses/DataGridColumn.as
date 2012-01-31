@@ -1272,12 +1272,12 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         {
             if (styleName is String)
             {
-                styleName =
-                    StyleManager.getStyleDeclaration("." + styleName);
+                chain = addStylesToProtoChain(String(styleName), chain, target);
             }
-
-            if (styleName is CSSStyleDeclaration)
+            else if (styleName is CSSStyleDeclaration)
+            {
                 chain = styleName.addStyleToProtoChain(chain, target);
+            }
         }
 
         chain = super.addStyleToProtoChain(chain, target);
@@ -1295,12 +1295,12 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             {
                 if (headerStyleName is String)
                 {
-                    headerStyleName =
-                        StyleManager.getStyleDeclaration("." + headerStyleName);
+                    chain = addStylesToProtoChain(String(headerStyleName), chain, target);
                 }
-
-                if (headerStyleName is CSSStyleDeclaration)
+                else if (headerStyleName is CSSStyleDeclaration)
+                {
                     chain = headerStyleName.addStyleToProtoChain(chain, target);
+                }
             }
 
             headerStyleName = getStyle("headerStyleName");
@@ -1308,12 +1308,12 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             {
                 if (headerStyleName is String)
                 {
-                    headerStyleName =
-                        StyleManager.getStyleDeclaration("." + headerStyleName);
+                    chain = addStylesToProtoChain(String(headerStyleName), chain, target);
                 }
-
-                if (headerStyleName is CSSStyleDeclaration)
+                else if (headerStyleName is CSSStyleDeclaration)
+                {
                     chain = headerStyleName.addStyleToProtoChain(chain, target);
+                }
             }
         }
 
@@ -1636,6 +1636,26 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         return fontContext != oldEmbeddedFontContext;
     }
 
+    /**
+     *  @private
+     */
+    private function addStylesToProtoChain(styles:String, chain:Object, target:DisplayObject):Object
+    {
+        var styleNames:Array = styles.split(/\s+/);
+        for (var c:int=0; c < styleNames.length; c++)
+        {
+            if (styleNames[c].length) 
+            {
+                var declaration:CSSStyleDeclaration = 
+                    StyleManager.getStyleDeclaration("." + styleNames[c]);
+                    
+                if (declaration)
+                    chain = declaration.addStyleToProtoChain(chain, target);
+            }
+        }
+        return chain;
+    }
+    
     /**
      *  @private
      *  A hash table of objects used to calculate sizes
