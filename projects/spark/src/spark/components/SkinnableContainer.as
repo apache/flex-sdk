@@ -424,14 +424,14 @@ public class SkinnableContainer extends SkinnableContainerBase
     //----------------------------------
     //  creationPolicy
     //----------------------------------
-    
-    [Inspectable(enumeration="auto,all,none", defaultValue="auto")]
-    
+        
     // Internal flag used when creationPolicy="none".
     // When set, the value of the backing store _creationPolicy
     // style is "auto" so descendants inherit the correct value.
     private var creationPolicyNone:Boolean = false;
     
+    [Inspectable(enumeration="auto,all,none", defaultValue="auto")]
+        
     /**
      *  @inheritDoc
      *
