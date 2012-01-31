@@ -252,8 +252,14 @@ public class RichEditableText extends UIComponent
         if (classInitialized)
             return;
 
+        staticConfiguration = 
+            Configuration(TextContainerManager.defaultConfiguration).clone();
+        staticConfiguration.manageEnterKey = false; // default is true
+        staticConfiguration.manageTabKey = false;   // default is false
+
         staticPlainTextImporter =
-            TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
+            TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT,
+            staticConfiguration);
         
         // Throw import errors rather than return a null textFlow.
         // Alternatively, the error strings are in the Vector, importer.errors.
@@ -278,7 +284,16 @@ public class RichEditableText extends UIComponent
      *  @private
      */
     private static var classInitialized:Boolean = false;
-    
+
+    /**
+     *  @private
+     *  Create a single Configuration used by all Text instances.  
+     *  It tells the TextContainerManager that we don't want it 
+     *  to handle the ENTER key, because we need the ENTER key to behave 
+     *  differently based on the 'multiline' property.
+     */
+    private static var staticConfiguration:Configuration;
+
     /**
      *  @private
      *  This TLF object is used to import a 'text' String
@@ -1667,35 +1682,17 @@ public class RichEditableText extends UIComponent
         // We are about to set focus on this component.  If it is due to
         // a programmatic focus change we have to programatically do what the
         // mouseOverHandler and the mouseDownHandler do so that the user can 
-        // type in this component without using the mouse first.
-        // 
-        //   1) TCM addActivationEventListeners() called so that event handlers 
-        //      are in place to catch the upcoming FocusEvent.FOCUS_IN which
-        //      will cause our focusInHandler to be called.
-        //   2) Make sure there is a textFlow with an interactionManager
-        //      in place so that selection/editing can occur.  Our focusIn
-        //      handler does this indirectly for the editable case since
-        //      to set a selection, there must be a textFlow in this state.
-        //
-        // We can't call addActivationEventListeners() directly but it is
-        // called by TCM.setTextFlow() which is called by the textFlow getter.  
-        // The textFlow getter also makes sure there is an interactionManager 
-        // in place.
-        //
-        // Alternatively, we could call convertToTextFlowWithComposer() if it
-        // was made accessible.  This eliminates the need for 
-        // addActivationEventListeners(), since the text flow with a composer
-        // is put in place immediately.
-         
-        if (editingMode != EditingMode.READ_ONLY)
-        {                
-            if (_textContainerManager.handlersState == 
-                TextContainerManager.HANDLERS_NOTADDED ||
-                _textContainerManager.composeState != 
-                TextContainerManager.COMPOSE_COMPOSER)   
-            {
-                textFlow;
-            }
+        // type in this component without using the mouse first.  Ideally 
+        // we would call convertToTextFlowWithComposer() to put a textFlow
+        // with a composer in place but it is not accessible.  The workaround
+        // is to call scrollToRange which makes sure the textFlow is in place
+        // and then returns immediately from scrollToRange since the scroll
+        // positions are not valid.         
+        if (editingMode != EditingMode.READ_ONLY &&
+            _textContainerManager.composeState != 
+            TextContainerManager.COMPOSE_COMPOSER)   
+        {
+            _textContainerManager.scrollToRange(-1, -1);
         }
                     
         super.setFocus();
@@ -2355,9 +2352,7 @@ public class RichEditableText extends UIComponent
      */
     mx_internal function createTextContainerManager():TextContainerManager
     {
-        // Use the default configuration.
-        // TODO:(cframpto) should set enableEnterKey = false
-        return new RichEditableTextContainerManager(this, null);
+        return new RichEditableTextContainerManager(this, staticConfiguration);
     }
 
     /**
@@ -2467,9 +2462,9 @@ public class RichEditableText extends UIComponent
      *  @private
      *  Should only be used by API calls.
      */
-    private function releaseEditManager():void
+    private function releaseEditManager(editManager:IEditManager):void
     {
-        EditManager(textFlow.interactionManager).endCompositeOperation();
+        editManager.endCompositeOperation();
                     
         _textContainerManager.endInteraction();
 
@@ -3088,7 +3083,7 @@ public class RichEditableText extends UIComponent
             characterFormat, paragraphFormat, containerFormat, selectionState);
         
         // All done with the edit manager.
-        releaseEditManager();
+        releaseEditManager(editManager);
     }
 
     /**
@@ -3124,7 +3119,7 @@ public class RichEditableText extends UIComponent
         dispatchChangeAndChangingEvents = true;
         
         // All done with edit manager.
-        releaseEditManager();        
+        releaseEditManager(editManager);        
 
         dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
     }
@@ -3327,13 +3322,26 @@ public class RichEditableText extends UIComponent
             return;
         
         if (event.keyCode == Keyboard.ENTER)
-        {
-            // Do not let TLF handle the ENTER key if only one line.
-            if (!multiline)
+        {            
+            // We always handle the 'enter' key since we would have to recreate
+            // the container manager to change the configuration if multiline 
+            // changes.            
+            if (multiline)
             {
-                event.preventDefault();
+                var editManager:IEditManager = 
+                    EditManager(_textContainerManager.beginInteraction());
+                
+                if (editManager.hasSelection())
+                    editManager.splitParagraph();
+                
+                _textContainerManager.endInteraction();
+            }
+            else
+            { 
                 dispatchEvent(new FlexEvent(FlexEvent.ENTER));
             }
+
+            event.preventDefault();
          }
     }
 
