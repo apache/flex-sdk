@@ -32,7 +32,7 @@ import mx.effects.IEffectInstance;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:SetAction&gt;</code> tag
+ *  <p>The <code>&lt;s:SetAction&gt;</code> tag
  *  inherits all of the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  * 
