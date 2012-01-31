@@ -23,6 +23,7 @@ import flashx.textLayout.elements.FlowElement;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.formats.CharacterFormat;
 import flashx.textLayout.formats.ContainerFormat;
 import flashx.textLayout.formats.ICharacterFormat;
@@ -196,6 +197,17 @@ public class TextGraphic extends TextGraphicElement
      */
     private var textInvalid:Boolean = false;
         
+    /**
+     *  @private
+     *  This flag is set to true if the text must be clipped.
+     */
+    private var isOverset:Boolean = false;
+
+    /**
+     *  @private
+     */
+    private var stylesChanged:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -361,11 +373,13 @@ public class TextGraphic extends TextGraphicElement
         if (!mx_internal::styleChainInitialized)
             return;
 
-        compose(explicitWidth, explicitHeight);
+        isOverset = compose(explicitWidth, explicitHeight);
 
         var bounds:Rectangle = textFlowComposer.bounds;
         measuredWidth = Math.ceil(bounds.width);
         measuredHeight = Math.ceil(bounds.height);
+
+        //trace("measure", explicitWidth, explicitHeight, measuredWidth, measuredHeight);
     }
     
     /**
@@ -374,6 +388,8 @@ public class TextGraphic extends TextGraphicElement
     override protected function updateDisplayList(unscaledWidth:Number, 
                                                   unscaledHeight:Number):void
     {
+        //trace("updateDisplayList", unscaledWidth, unscaledHeight);
+        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         
         // The updateDisplayList() method of a GraphicElement can get called
@@ -382,12 +398,20 @@ public class TextGraphic extends TextGraphicElement
         if (!mx_internal::styleChainInitialized)
             return;
 
-        var overset:Boolean = compose(unscaledWidth, unscaledHeight);
-        
+        // If both width and height are specified, then measure isn't called
+        // and measuredWidth/Height will remain 0.  In this case the compose
+        // will always be done here.  Otherwise measure will compose and set 
+        // measuredWidth/Height/isOverset.  If the unscaledWidth/Height is the
+        // same as measuredWidth/Height there is no need to redo the compose.        
+        if (stylesChanged || 
+                unscaledWidth != measuredWidth || 
+                    unscaledHeight != measuredHeight)
+            isOverset = compose(unscaledWidth, unscaledHeight);   
+            
         // Use scrollRect to clip overset lines.
         // But don't read or write scrollRect if you can avoid it,
         // because this causes Player 10.0 to allocate memory.
-        if (overset)
+        if (isOverset)
         {
             displayObject.scrollRect =
                 new Rectangle(0, 0, unscaledWidth, unscaledHeight);
@@ -397,7 +421,7 @@ public class TextGraphic extends TextGraphicElement
         {
             displayObject.scrollRect = null;
             mx_internal::hasScrollRect = false;
-        }
+        }        
     }
 
     /**
@@ -428,6 +452,8 @@ public class TextGraphic extends TextGraphicElement
             hostFormatsInvalid = true;
         else
             setHostFormat(styleProp);
+            
+        stylesChanged = true;
     }
 
     //--------------------------------------------------------------------------
@@ -627,6 +653,9 @@ public class TextGraphic extends TextGraphicElement
      */
     private function compose(width:Number = NaN, height:Number = NaN):Boolean
     {
+        // Don't want this handler firing when we're re-composing the text lines.
+        textFlow.removeEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
+                
         textFlow = createTextFlow();
         _content = textFlow;
 
@@ -642,8 +671,43 @@ public class TextGraphic extends TextGraphicElement
         
         textFlowComposer.addTextLines(DisplayObjectContainer(displayObject));
 
+        // Just recomposed so reset.
+        stylesChanged = false;
+        
+        // Listen for "damage" events in case the textFlow is 
+        // modified programatically.
+        textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);        
+
         return textFlowComposer.isOverset;
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Called when the TextFlow dispatches a 'damage' event
+     *  to indicate it has been modified.
+     */
+    private function textFlow_damageHandler(
+                            event:DamageEvent):void
+    {
+        //trace("damageHandler", "damageStart", event.damageStart, "damageLength", event.damageLength);
+                
+        // The text flow changed.  It could have been either/or content or
+        // styles within the flow.
+        contentChanged = true;
+        stylesChanged = true;
+
+        // Unless both width/height were specified, need to recalc size.
+        if (isNaN(explicitWidth) || isNaN(explicitHeight))
+            invalidateSize();
+        
+        invalidateDisplayList();  
+    }    
 }
 
 }
