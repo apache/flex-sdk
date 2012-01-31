@@ -27,6 +27,14 @@ import mx.controls.dataGridClasses.FTEDataGridItemRenderer; FTEDataGridItemRende
 import mx.controls.MXFTETextInput; MXFTETextInput;
 import mx.core.UIFTETextField; UIFTETextField;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
+import spark.primitives.shaders.ColorBurnShader; ColorBurnShader;
+import spark.primitives.shaders.ColorDodgeShader; ColorDodgeShader;
+import spark.primitives.shaders.ColorShader; ColorShader;
+import spark.primitives.shaders.ExclusionShader; ExclusionShader;
+import spark.primitives.shaders.HueShader; HueShader;
+import spark.primitives.shaders.LuminosityShader; LuminosityShader;
+import spark.primitives.shaders.SaturationShader; SaturationShader;
+import spark.primitives.shaders.SoftLightShader; SoftLightShader;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
 import spark.skins.spark.BorderSkin; BorderSkin;
 import spark.skins.spark.ButtonSkin; ButtonSkin;
