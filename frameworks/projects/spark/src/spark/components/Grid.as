@@ -2882,7 +2882,7 @@ public class Grid extends Group
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getCellAt(x:Number, y:Number):Object
+    public function getCellAt(x:Number, y:Number):CellPosition
     {
         return gridLayout.getCellAt(x, y);
     }
