@@ -3136,7 +3136,7 @@ class FTETextFieldHostFormat implements ITextLayoutFormat
 	
 	public function get color():*
 	{
-		textField._defaultTextFormat.color;
+		return textField._defaultTextFormat.color;
 	}
 	
 	public function get columnCount():*
