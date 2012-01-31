@@ -14,6 +14,7 @@ package spark.primitives
 
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.events.IOErrorEvent;
 import flash.events.KeyboardEvent;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
@@ -3240,12 +3241,17 @@ public class RichEditableText extends UIComponent
 
         // Now that the actual size of the graphic is availabe need to
         // optionally remeasure and updateContainer.
-        if (InlineGraphicElementStatus.READY)
+        if (event.status == InlineGraphicElementStatus.READY)
         {
             if (actuallyAutoSizing)
                 invalidateSize();
             
             invalidateDisplayList();
+        } 
+        else if (event.status == InlineGraphicElementStatus.ERROR)
+        {
+            if (event.errorEvent is IOErrorEvent)
+                trace(IOErrorEvent(event.errorEvent).text);
         }
     }    
 }
