@@ -986,24 +986,8 @@ public class Application extends LayoutContainer
 
     /**
      *  @private 
-     *  Applications set estimated sizes for their children
-     */  
-    override public function setActualSize(w:Number, h:Number):void
-    {
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-        {
-            setEstimatedSize(w, h, false);
-            invalidateEstimatedSizesOfChildren();
-            validateEstimatedSizesOfChildren();
-        }
-        
-        super.setActualSize(w, h);
-    }
-    
-    /**
-     *  @private 
      */
-    override protected function invalidateParentSizeAndDisplayList(estimatedSizesChanged:Boolean = false):void
+    override protected function invalidateParentSizeAndDisplayList():void
     {
         if (!includeInLayout)
             return;
@@ -1017,7 +1001,7 @@ public class Application extends LayoutContainer
             return;
         }
 
-        super.invalidateParentSizeAndDisplayList(estimatedSizesChanged);
+        super.invalidateParentSizeAndDisplayList();
     }
 
     /**
@@ -1828,7 +1812,6 @@ public class Application extends LayoutContainer
         {
             invalidateProperties();
             invalidateSize();
-            invalidateEstimatedSizesOfChildren();
         }
         
         setActualSize(w, h);
