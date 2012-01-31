@@ -18,10 +18,13 @@ import mx.events.RendererExistenceEvent;
 
 import mx.collections.IList;
 import mx.components.FxDataContainer;
+import mx.components.ItemRenderer; 
+import mx.components.IItemRendererOwner; 
 import mx.core.IVisualElement;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.utils.LabelUtil; 
     
 /**
  *  Dispatched when the selection is going to change. 
@@ -58,7 +61,7 @@ import mx.events.CollectionEventKind;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxListBase extends FxDataContainer
+public class FxListBase extends FxDataContainer implements IItemRendererOwner 
 {
     include "../../core/Version.as";
 
@@ -140,6 +143,63 @@ public class FxListBase extends FxDataContainer
 
         super.dataProvider = value;
         invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  labelField
+    //----------------------------------
+    
+    private var _labelField:String;
+    private var labelFieldOrFunctionChanged:Boolean; 
+    
+    /**
+     *  labelField
+     *
+     */
+    public function get labelField():String
+    {
+        return _labelField;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set labelField(value:String):void
+    {
+        if (value == _labelField)
+            return 
+            
+        _labelField = value;
+        labelFieldOrFunctionChanged = true;
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  labelFunction
+    //----------------------------------
+    
+    private var _labelFunction:Function; 
+    
+    /**
+     *  labelFunction
+     *
+     */
+    public function get labelFunction():Function
+    {
+        return _labelFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set labelFunction(value:Function):void
+    {
+        if (value == _labelFunction)
+            return 
+            
+        _labelFunction = value;
+        labelFieldOrFunctionChanged = true;
+        invalidateProperties(); 
     }
     
     //----------------------------------
@@ -452,6 +512,23 @@ public class FxListBase extends FxDataContainer
                 dispatchEvent(e);
             }
         }
+        
+        if (labelFieldOrFunctionChanged)
+        {
+        	//Cycle through all instantiated renderers
+        	for (var i:int = 0; i < dataGroup.numChildren; i++)
+        	{
+        		var renderer:ItemRenderer = dataGroup.getElementAt(i) as ItemRenderer; 
+        		//Push the correct text into the renderer if it has
+        		//a labelElement part. 
+        		if (renderer && renderer.labelElement)
+        		{
+        			renderer.labelElement.text = 
+        				LabelUtil.itemToLabel(renderer.data, labelField, labelFunction);
+        		}
+        	}
+        	labelFieldOrFunctionChanged = false; 
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -459,6 +536,26 @@ public class FxListBase extends FxDataContainer
     //  Methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  Given a data item, return the correct text a renderer
+     *  should display while taking labelField and labelFunction 
+     *  into account. 
+     *
+     *  @param item A data item 
+     *  
+     *  @return String representing the text to display for the 
+     *  passed in item's renderer. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function itemToLabel(item:Object):String
+    {
+    	return LabelUtil.itemToLabel(item, labelField, labelFunction);
+    }
     
     /**
      *  Called when an item is selected or deselected. 
