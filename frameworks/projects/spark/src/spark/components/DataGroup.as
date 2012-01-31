@@ -1,10 +1,10 @@
-package mx.components
+package spark.components
 {
 import flash.display.DisplayObject;
 import flash.utils.Dictionary;
 
 import mx.collections.IList;
-import mx.components.baseClasses.GroupBase;
+import spark.components.supportClasses.GroupBase;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IInvalidating;
@@ -14,9 +14,9 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.events.RendererExistenceEvent;
-import mx.layout.LayoutBase;
-import mx.layout.LayoutElementFactory;
+import spark.events.RendererExistenceEvent;
+import spark.layout.supportClasses.LayoutBase;
+import spark.layout.supportClasses.LayoutElementFactory;
 
 use namespace mx_internal;  // for mx_internal property contentChangeDelta
 
