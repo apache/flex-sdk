@@ -27,7 +27,9 @@ import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
-import flashx.textLayout.factory.TextLineFactory;
+import flashx.textLayout.factory.StringTextLineFactory;
+import flashx.textLayout.factory.TextFlowTextLineFactory;
+import flashx.textLayout.factory.TextLineFactoryBase;
 import flashx.textLayout.factory.TruncationOptions;
 import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.TextAlign;
@@ -44,6 +46,7 @@ import mx.core.IUIComponent;
 import mx.core.Singleton;
 import mx.core.mx_internal;
 import mx.managers.ISystemManager;
+
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.TextUtil;
 
@@ -101,6 +104,43 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
 
     //--------------------------------------------------------------------------
     //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private static function initClass():void
+    {
+        // Create a single Configuration used by all RichText instances.
+        staticConfiguration =
+            Configuration(TextLineFactoryBase.defaultFactoryConfiguration).clone();
+        
+        staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
+        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
+
+        staticConfiguration.textFlowInitialFormat = staticTextLayoutFormat;            
+
+        // Create the factory used to create text lines from content.
+        staticTextFlowFactory = new TextFlowTextLineFactory();
+        staticTextFlowFactory.verticalScrollPolicy = "off";
+        staticTextFlowFactory.horizontalScrollPolicy = "off";       
+
+        // Create the factory used to create text lines from text.
+        staticStringFactory = new StringTextLineFactory(staticConfiguration);
+        staticStringFactory.verticalScrollPolicy = "off";
+        staticStringFactory.horizontalScrollPolicy = "off";           
+     }
+    
+    initClass();    
+    
+    //--------------------------------------------------------------------------
+    //
     //  Class variables
     //
     //--------------------------------------------------------------------------
@@ -116,9 +156,20 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
      *  @private
      *  Used for determining whitespace processing during import.
      */
-    private static var staticConfiguration:Configuration =
-        new Configuration();
+    private static var staticConfiguration:Configuration;
     
+    /**
+     *  @private
+     *  To compose text lines using a text string.
+     */
+    private static var staticStringFactory:StringTextLineFactory;
+
+    /**
+     *  @private
+     *  To compose text lines using a text flow.
+     */
+    private static var staticTextFlowFactory:TextFlowTextLineFactory;
+
     //----------------------------------
     //  embeddedFontRegistry
     //----------------------------------
@@ -166,7 +217,6 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
     public function RichText()
     {
         super();
-        _content = textFlow = createEmptyTextFlow();
     }
     
      
@@ -188,12 +238,6 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
      * Holds the last recorded value of the module factory used to create the font.
      */
     private var embeddedFontContext:IFlexModuleFactory = null;
-
-    /**
-     *  @private
-     *  If the embeddedFontContext changed
-     */
-    private var embeddedFontContextChanged:Boolean;
 
     /**
      *  @private
@@ -240,7 +284,12 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
      *  from the 'content'.
      */
     private var textInvalid:Boolean = false;
-        
+
+    /**
+     *  @private
+     */
+    private var _textLineCreator:ITextLineCreator;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -302,6 +351,10 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
 
     /**
      *  @private
+     *  This will create a TextFlow with a single paragraph with a single span 
+     *  with exactly the text specified.  If there is whitespace and line 
+     *  breaks in the text, they will remain, regardless of the settings of
+     *  the lineBreak and whiteSpaceCollapse styles.
      */
     override public function set text(value:String):void
     {
@@ -370,11 +423,20 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
      */
     public function get content():Object 
     {
+        // If there isn't any content and there is text, create a one paragraph 
+        // text flow from the text.
+        if (!_content && mx_internal::_text)
+            content = createTextFlowFromText();
+                
         return _content;
     }
     
     /**
      *  @private
+     *  Setting content uses the markup-importing process, so depending on
+     *  the style settings, whitespace may get collapsed and newlines may be 
+     *  treated as paragraph separators so that you end up with multiple 
+     *  paragraphs.
      */
     public function set content(value:Object):void
     {
@@ -455,19 +517,6 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
-    private function createEmptyTextFlow():TextFlow
-    {
-        var textFlow:TextFlow = new TextFlow();
-        var p:ParagraphElement = new ParagraphElement();
-        var span:SpanElement = new SpanElement();
-        textFlow.replaceChildren(0, 0, p);
-        p.replaceChildren(0, 0, span);
-        return textFlow;
-    }
-
     private function checkEmbeddedFontContext():void
     {
         var embeddedFont:EmbeddedFont = getEmbeddedFont(
@@ -514,9 +563,14 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
             else
                 embeddedFontContext = null;
         }
+        
         // force us to re-create the textline factory
         if (oldEmbeddedFontContext != embeddedFontContext)
-            embeddedFontContextChanged = true;
+        {
+            _textLineCreator =
+                embeddedFontContext ?
+                ITextLineCreator(embeddedFontContext) : null;
+        }
     }
 
     /**
@@ -549,20 +603,40 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
     /**
      *  @private
      */
+    private function createEmptyTextFlow():TextFlow
+    {
+        var textFlow:TextFlow = new TextFlow();
+        var p:ParagraphElement = new ParagraphElement();
+        var span:SpanElement = new SpanElement();
+        textFlow.replaceChildren(0, 0, p);
+        p.replaceChildren(0, 0, span);
+        return textFlow;
+    }
+
+    /**
+     *  @private
+     *  One paragraph text flow.
+     */
+    private function createTextFlowFromText():TextFlow
+    {
+        var textFlow:TextFlow = new TextFlow();
+        var p:ParagraphElement = new ParagraphElement();
+        var span:SpanElement = new SpanElement();
+        span.text = mx_internal::_text;
+        textFlow.replaceChildren(0, 0, p);
+        p.replaceChildren(0, 0, span);
+        return textFlow;
+    }
+
+    /**
+     *  @private
+     */
     private function createTextFlowFromMarkup(markup:Object):TextFlow
     {
         // The whiteSpaceCollapse format determines how whitespace
         // is processed when markup is imported.
-		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
-        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
 		staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-		staticConfiguration.textFlowInitialFormat =
-            staticTextLayoutFormat;
 
         if (markup is XML || markup is String)
         {
@@ -637,12 +711,6 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
 
         // The whiteSpaceCollapse format determines how whitespace
         // is processed when the children are set.
-		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
-        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
-        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
         staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
         textFlow.hostFormat = staticTextLayoutFormat;
@@ -688,15 +756,8 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         }
         else if (textChanged)
         {
-            var t:String = mx_internal::_text;
-            if (t != null && t != "")
-            {
-                textFlow = importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
-            }
-            else
-            {
-                textFlow = createEmptyTextFlow();
-            }
+            textFlow = null;
+            textInvalid = false;
         }
 
         contentChanged = false;
@@ -712,7 +773,15 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         }
 
         checkEmbeddedFontContext();
-        textFlow.hostFormat = new TextLayoutFormat(hostTextLayoutFormat);
+
+        if (textFlow)
+        {
+            textFlow.hostFormat = new TextLayoutFormat(hostTextLayoutFormat);
+            
+            // There should always be a composer but be safe.
+            if (textFlow.flowComposer)
+                textFlow.flowComposer.textLineCreator = _textLineCreator;
+        }
 
         return textFlow;
     }
@@ -723,7 +792,7 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
      *  This will throw on import error.
      */
     private function importToFlow(source:Object, format:String, 
-                                  config:Configuration = null):TextFlow
+                                  config:Configuration):TextFlow
     {
         var importer:ITextImporter = TextFilter.getImporter(format, config);
         
@@ -744,7 +813,12 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         super.composeTextLines(width, height);
 
         // Don't want this handler firing when we're re-composing the text lines.
-        textFlow.removeEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);
+        if (textFlow)
+        {
+            textFlow.removeEventListener(DamageEvent.DAMAGE, 
+                                         textFlow_damageHandler);
+        }
+        
         
         textFlow = createTextFlow();
         _content = textFlow;
@@ -785,12 +859,16 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
         
         // Listen for "damage" events in case the textFlow is 
         // modified programatically.
-        textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);        
+        if (textFlow)
+        {
+            textFlow.addEventListener(DamageEvent.DAMAGE, 
+                                      textFlow_damageHandler);
+        }  
         
         // Created all lines.
         return true;      
     }
-    
+        
 	/**
 	 *  @private
 	 *  Uses TextLineFactory to compose the textFlow
@@ -801,32 +879,42 @@ public class RichText extends TextGraphicElement implements IFontContextComponen
 		// Clear any previously generated TextLines from the textLines Array.
 		mx_internal::textLines.length = 0;
 		
-		var truncationOptions:TruncationOptions;
-		if (truncation != 0)
-		{
-			truncationOptions = new TruncationOptions();
-			truncationOptions.lineCountLimit = truncation;
-			truncationOptions.truncationIndicator =
-				TextGraphicElement.mx_internal::truncationIndicatorResource;
-		}
+		var factory:TextLineFactoryBase;
+		if (textFlow)
+            factory = staticTextFlowFactory;
+		else if (mx_internal::_text)
+            factory = staticStringFactory;	
+ 		else
+		    return;
+        
+        factory.bounds = mx_internal::bounds;   
 
-        if (textFlow && textFlow.flowComposer)
+        // Set up the truncation options.
+        var truncationOptions:TruncationOptions;
+        if (truncation != 0)
         {
-            if (embeddedFontContext)
-                textFlow.flowComposer.textLineCreator = ITextLineCreator(embeddedFontContext);
-            else
-                textFlow.flowComposer.textLineCreator = null;
-        }
-        if (embeddedFontContext)
+            truncationOptions = new TruncationOptions();
+            truncationOptions.lineCountLimit = truncation;
+            truncationOptions.truncationIndicator =
+                TextGraphicElement.mx_internal::truncationIndicatorResource;
+        }        
+		factory.truncationOptions = truncationOptions;
+		
+        if (textFlow)
         {
-            TextLineFactory.createTextLinesFromTextFlow(
-			    addTextLine, textFlow, mx_internal::bounds, truncationOptions, ITextLineCreator(embeddedFontContext));
+            staticTextFlowFactory.createTextLines(addTextLine, 
+                                                  textFlow, 
+                                                  _textLineCreator);
         }
         else
         {
-            TextLineFactory.createTextLinesFromTextFlow(
-			    addTextLine, textFlow, mx_internal::bounds, truncationOptions);
+            // We know text is non-null since it got this far.
+            staticStringFactory.text = mx_internal::_text;
+            staticStringFactory.textFlowFormat = hostTextLayoutFormat;
+            staticStringFactory.createTextLines(addTextLine, _textLineCreator);
         }
+        
+        mx_internal::bounds = factory.measuredBounds;
     }
 
     /**
