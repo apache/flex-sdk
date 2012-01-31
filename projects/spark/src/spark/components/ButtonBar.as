@@ -59,7 +59,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;ButtonBar
+ *  &lt;s:ButtonBar
  *
  *  /&gt;
  *  </pre>
