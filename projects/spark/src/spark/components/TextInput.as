@@ -15,7 +15,6 @@ package spark.components
 import flash.events.Event;
 import flash.events.FocusEvent;
 
-import spark.components.RichEditableText;
 import spark.components.supportClasses.TextBase;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.events.TextOperationEvent;
