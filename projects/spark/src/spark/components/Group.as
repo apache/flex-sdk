@@ -14,8 +14,6 @@ import flash.utils.Dictionary;
 
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
-import flex.filters.BaseFilter;
-import flex.filters.IBitmapFilter;
 import flex.geom.Transform;
 import flex.graphics.Graphic;
 import flex.graphics.graphicsClasses.GraphicElement;
@@ -1055,43 +1053,6 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  filters
-    //----------------------------------
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]
-    private var _actualFilters:Array = [];
-    
-    override public function set filters(value:Array):void
-    {
-        var oldFilters:Array = super.filters ? super.filters.slice() : null;
-        var clonedFilters:Array = new Array();
-        
-        var len:int = value.length;
-        _actualFilters = value;
-        
-        for (var i:int = 0; i < len; i++)
-        {
-            if (value[i] is IBitmapFilter)
-            {
-                var edFilter:EventDispatcher = value[i] as EventDispatcher;
-                if (edFilter)
-                    edFilter.addEventListener(BaseFilter.FILTER_CHANGED_TYPE, filterChangedHandler);
-                clonedFilters.push(IBitmapFilter(value[i]).clone());
-            }
-            else
-                clonedFilters.push(value[i]);
-        }
-        
-        super.filters = clonedFilters;
-    }
-    
-    override public function get filters():Array
-    {
-        return _actualFilters;
-    }
-    
-    //----------------------------------
     //  mask
     //----------------------------------
     private var _mask:DisplayObject;
@@ -1281,12 +1242,6 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
                 }
             }
         }
-    }
-    
-    private function filterChangedHandler(event:Event):void
-    {
-        // Reapply the filters
-        filters = _actualFilters;
     }
     
     //--------------------------------------------------------------------------
