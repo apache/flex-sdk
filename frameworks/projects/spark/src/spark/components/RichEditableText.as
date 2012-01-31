@@ -959,7 +959,7 @@ public class RichEditableText extends UIComponent
     	if (debug)
      		trace("editingMode = ", value);
 
-        // ToDo: TextContainerManager should do this check.
+        // FIXME (cframpto): TextContainerManager should do this check.
         if (_textContainerManager.editingMode == value)
             return;
 
@@ -1679,7 +1679,7 @@ public class RichEditableText extends UIComponent
                 // change the displayed text.
                 _text = text;
                 
-                // ToDo: if content, should the paragraph terminators be
+                // FIXME (cframpto): if content, should the paragraph terminators be
                 // left in the string so the displayAsPassword string has the
                 // same form as the original string?  This is only an issue
                 // for TextArea.
@@ -1768,7 +1768,7 @@ public class RichEditableText extends UIComponent
         if (!actuallyAutoSizing)
             return;
             
-        // TODO Possible optimization - if we reflow the text
+        // FIXME (egeorgie): Possible optimization - if we reflow the text
         // immediately, we'll be able to detect whether the constrained
         // width causes the measured height to change.
         // Also certain layouts like vertical/horizontal will
@@ -1825,7 +1825,7 @@ public class RichEditableText extends UIComponent
             return true;
         }
              
-        // ToDo: consider moving to commitProperties()
+        // FIXME (cframpto): consider moving to commitProperties()
         if (isNaN(widthInChars) && isNaN(heightInLines))
         {
             // Can only autoSize if this component isn't the viewport
@@ -1992,7 +1992,7 @@ public class RichEditableText extends UIComponent
         // Scroll by a "character" which is 1 em (matches widthInChars()).
         var em:Number = getStyle("fontSize");
             
-        // ToDo: what if blockDirection!=TB and direction!=LTR?                   
+        // FIXME (cframpto): what if blockDirection!=TB and direction!=LTR?                   
         switch (navigationUnit)
         {
             case NavigationUnit.LEFT:
@@ -2041,7 +2041,7 @@ public class RichEditableText extends UIComponent
         var maxDelta:Number = contentHeight - scrollR.bottom;
         var minDelta:Number = -scrollR.top;
                 
-        // ToDo: what if blockDirection!=TB and direction!=LTR?                   
+        // FIXME (cframpto): what if blockDirection!=TB and direction!=LTR?                   
         switch (navigationUnit)
         {
             case NavigationUnit.UP:
@@ -3101,7 +3101,7 @@ public class RichEditableText extends UIComponent
         // In this case we always maintain _text with the underlying text and
         // display the appropriate number of passwordChars.  If there are any
         // interactive editing operations _text is updated during the operation.
-        // ToDo: what about the case where the textContainerManager textFlow
+        // FIXME (cframpto): what about the case where the textContainerManager textFlow
         // is modified programatically and the text is different?  This could
         // only be done with an mx_internal interface. 
         if (displayAsPassword)
