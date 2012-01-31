@@ -15,8 +15,7 @@ import flash.events.Event;
 
 import spark.components.Group;
 import spark.effects.animation.Animation;
-import spark.effects.AnimationProperty;
-import spark.events.AnimationEvent;
+import spark.effects.SimpleMotionPath;
 import mx.events.FlexEvent;
 import spark.primitives.supportClasses.GraphicElement;
 import mx.managers.LayoutManager;
@@ -160,8 +159,8 @@ public class FadeInstance extends AnimateInstance
             makeInvisible = true;
         }
         
-        animationProperties = 
-            [new AnimationProperty("alpha",alphaFrom, alphaTo, duration)];
+        motionPaths = 
+            [new SimpleMotionPath("alpha",alphaFrom, alphaTo, duration)];
         
         super.play();
     }
