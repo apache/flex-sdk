@@ -22,6 +22,11 @@ import mx.controls.SWFLoader;
  *  yourself.
  *
  *  @see mx.effects.WipeRight
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class WipeRightInstance extends MaskEffectInstance
 {
@@ -37,6 +42,11 @@ public class WipeRightInstance extends MaskEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function WipeRightInstance(target:Object)
 	{
