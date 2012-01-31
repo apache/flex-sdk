@@ -29,6 +29,11 @@ import mx.core.IVisualElementContainer;
  *  an AddAction effect; you do not create one yourself.
  *
  *  @see mx.effects.AddAction
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */  
 public class AddActionInstance extends ActionEffectInstance
 {
@@ -44,6 +49,11 @@ public class AddActionInstance extends ActionEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public function AddActionInstance(target:Object)
 	{
@@ -62,6 +72,11 @@ public class AddActionInstance extends ActionEffectInstance
 	
 	/** 
 	 *  The index of the child within the parent.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var index:int = -1;
 	
@@ -71,6 +86,11 @@ public class AddActionInstance extends ActionEffectInstance
 	
 	/** 
 	 *  The location where the child component is added.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var relativeTo:DisplayObjectContainer;
 	
@@ -80,6 +100,11 @@ public class AddActionInstance extends ActionEffectInstance
 	
 	/** 
 	 *  The position of the child component, relative to relativeTo, where it is added.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	public var position:String;
 	
