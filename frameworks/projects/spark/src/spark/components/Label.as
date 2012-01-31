@@ -19,6 +19,7 @@ import flash.text.engine.FontDescription;
 import flash.text.engine.Kerning;
 import flash.text.engine.TabStop;
 
+import mx.core.mx_internal;
 import mx.graphics.graphicsClasses.TextBlockComposer;
 import mx.graphics.graphicsClasses.TextGraphicElement;
 
@@ -112,6 +113,30 @@ public class TextBox extends TextGraphicElement
      */
     private var textBlockComposer:TextBlockComposer = new TextBlockComposer();
 
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    [Inspectable(category="General")]
+
+    /**
+     *  The y-coordinate of the baseline of the first line of text.
+     */
+    override public function get baselinePosition():Number
+    {
+        mx_internal::validateBaselinePosition();
+        
+        // Return the baseline of the first line of composed text.
+        return (textBlockComposer.textLines.length > 0) ? 
+            textBlockComposer.textLines[0].y : 0;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: GraphicElement
