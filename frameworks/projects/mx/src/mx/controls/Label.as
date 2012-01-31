@@ -1036,7 +1036,7 @@ public class Label extends UIComponent
    /**
     *  A flash.text.StyleSheet object that can perform rendering
     *  on the Label control's text.
-    *  Used for detailed control of HTML styles for the text.
+    *  Use this property for detailed control of HTML styles for the text.
     *  For more information, see the flash.text.StyleSheet
     *  class documentation.
     * 
