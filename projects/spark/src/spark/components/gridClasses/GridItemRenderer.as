@@ -67,6 +67,11 @@ use namespace mx_internal;
  *  Set the item renderer for a column by using 
  *  the <code>GridColumn.itemRenderer property</code>.</p> 
  * 
+ *  <p>By default, an item renderer does not clip to the boundaries of the cell.
+ *  If your renderer extends past the bounds of the cell, you can set 
+ *  <code>clipAndEnableScrolling</code> to <code>true</code> to clip the renderer to the bounds 
+ *  of the cell.</p>
+ * 
  *  <p>Transitions in DataGrid item renderers aren't supported. The GridItemRenderer class 
  *  has disabled its <code>transitions</code> property so setting it will have no effect.</p>
  * 
@@ -88,7 +93,7 @@ use namespace mx_internal;
  *  as text is to identify the GridItemRenderer's text displaying
  *  element with <code>id="labelDisplay"</code>.  The labelDisplay
  *  component must be a <code>TextBase</code> subclass like
- *  <code>Label</code> or <code>TextArea</code>.  You might take this
+ *  <code>Label</code> or <code>RichText</code>.  You might take this
  *  approach, instead of just using DefaultGridItemRenderer, if your
  *  item renderer included some additional elements that did not
  *  depend on the item renderer's data, like borders or other graphic
@@ -117,7 +122,8 @@ use namespace mx_internal;
  *  positions and sizes rather than constraints to define the layout.
  *  DataGrid's with <code>variableRowHeight="false"</code> (the
  *  default) tend to perform better, likewise for
- *  <code>showDataTips="false"</code> (also the default).</p>
+ *  <code>showDataTips="false"</code> (the default) and
+ *  <code>clipAndEnableScrolling="false"</code> (the default).</p>
  *  
  *  <p>Examples of the various GridItemRenderer configurations described 
  *  here are available in the examples section.</p>
