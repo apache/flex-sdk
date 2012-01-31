@@ -65,6 +65,8 @@ public class LoadEvent extends WSDLLoadEvent
 
     /**
      * Returns a copy of this LoadEvent.
+     *
+     * @return A copy of this LoadEvent.
      */
     override public function clone():Event
     {
@@ -73,6 +75,8 @@ public class LoadEvent extends WSDLLoadEvent
 
     /**
      * Returns a String representation of this LoadEvent.
+     *
+     * @return A String representation of this LoadEvent.
      */
     override public function toString():String
     {
@@ -91,7 +95,8 @@ public class LoadEvent extends WSDLLoadEvent
 
 
   /**
-    * The LOAD event type.
+    * The <code>LOAD</code> constant defines the value of the <code>type</code> property
+    * of the event object for a <code>load</code> event.
     *
     * <p>The properties of the event object have the following values:</p>
     * <table class="innertable">
@@ -101,6 +106,7 @@ public class LoadEvent extends WSDLLoadEvent
     *     <tr><td><code>wsdl</code></td><td>WSDL object.</td></tr>
     *     <tr><td><code>location</code></td><td>URI of the WSDL document</td></tr>
     *  </table>
+    *
     *  @eventType load 
     */    
     public static const LOAD:String = "load";
