@@ -40,6 +40,26 @@ use namespace mx_internal;
  *  container and is laid out. It is then responsible for sizing and 
  *  positioning the popup or drop-down control relative to itself. 
  *  It has no visual appearance.
+ *
+ *  <p>The PopUpAnchor control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>0</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>0</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
  *  
  *  @mxml
  *
