@@ -30,6 +30,8 @@ import spark.components.TextSelectionVisibility;
 import spark.events.TextOperationEvent;
 import spark.primitives.RichEditableText;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -928,7 +930,7 @@ public class TextBase extends SkinnableComponent
      */
     override public function drawFocus(isFocused:Boolean):void
     {
-        if (mx_internal::parentDrawsFocus)
+        if (parentDrawsFocus)
         {
             IFocusManagerComponent(parent).drawFocus(isFocused);
             return;
