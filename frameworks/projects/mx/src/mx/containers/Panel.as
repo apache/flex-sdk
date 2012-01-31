@@ -354,7 +354,7 @@ include "../styles/metadata/ModalTransparencyStyles.as";
  *  @see mx.containers.VBox
  */
 public class Panel extends Container
-	implements IConstraintLayout, IFontContextComponent
+    implements IConstraintLayout, IFontContextComponent
 {
     include "../core/Version.as";
 
@@ -407,8 +407,8 @@ public class Panel extends Container
 
         layoutObject = new BoxLayout();
         layoutObject.target = this;
-		
-		showInAutomationHierarchy = true;
+        
+        showInAutomationHierarchy = true;
     }
     
     //--------------------------------------------------------------------------
@@ -476,16 +476,16 @@ public class Panel extends Container
      */
     private var regY:Number;
 
-	/**
-	 *  @private
-	 */
-	private var checkedForAutoSetRoundedCorners:Boolean;
-	
-	/** 
-	 *  @private
-	 */
-	private var autoSetRoundedCorners:Boolean;
-	
+    /**
+     *  @private
+     */
+    private var checkedForAutoSetRoundedCorners:Boolean;
+    
+    /** 
+     *  @private
+     */
+    private var autoSetRoundedCorners:Boolean;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -502,13 +502,13 @@ public class Panel extends Container
      */
     override public function get baselinePosition():Number
     {
-    	if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-    		return super.baselinePosition;
-	    
-		if (!validateBaselinePosition())
-			return NaN;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+            return super.baselinePosition;
+        
+        if (!validateBaselinePosition())
+            return NaN;
 
-	    return titleBar.y + titleTextField.y + titleTextField.baselinePosition;
+        return titleBar.y + titleTextField.y + titleTextField.baselinePosition;
     }
 
     //----------------------------------
@@ -565,49 +565,49 @@ public class Panel extends Container
     //
     //--------------------------------------------------------------------------
 
- 	//----------------------------------
+    //----------------------------------
     //  _closeButtonStyleFilters
     //----------------------------------
 
    
-	private static var _closeButtonStyleFilters:Object = 
-	{
-		"closeButtonUpSkin" : "closeButtonUpSkin", 
-		"closeButtonOverSkin" : "closeButtonOverSkin",
-		"closeButtonDownSkin" : "closeButtonDownSkin",
-		"closeButtonDisabledSkin" : "closeButtonDisabledSkin",
-		"closeButtonSkin" : "closeButtonSkin",
-		"repeatDelay" : "repeatDelay",
-		"repeatInterval" : "repeatInterval"
+    private static var _closeButtonStyleFilters:Object = 
+    {
+        "closeButtonUpSkin" : "closeButtonUpSkin", 
+        "closeButtonOverSkin" : "closeButtonOverSkin",
+        "closeButtonDownSkin" : "closeButtonDownSkin",
+        "closeButtonDisabledSkin" : "closeButtonDisabledSkin",
+        "closeButtonSkin" : "closeButtonSkin",
+        "repeatDelay" : "repeatDelay",
+        "repeatInterval" : "repeatInterval"
     };
     
- 	/**
+    /**
      *  The set of styles to pass from the Panel to the close button.
      *  @see mx.styles.StyleProxy
      *  @review
      */
-	protected function get closeButtonStyleFilters():Object
-	{
-		return _closeButtonStyleFilters;
-	}
+    protected function get closeButtonStyleFilters():Object
+    {
+        return _closeButtonStyleFilters;
+    }
 
-	//----------------------------------
-	//  constraintColumns
-	//----------------------------------
+    //----------------------------------
+    //  constraintColumns
+    //----------------------------------
 
     [ArrayElementType("mx.containers.utilityClasses.ConstraintColumn")]
-	[Inspectable(arrayType="mx.containers.utilityClasses.ConstraintColumn")]
-	
-	/**
+    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintColumn")]
+    
+    /**
      *  @private
      *  Storage for the constraintColumns property.
      */
     private var _constraintColumns:Array = [];
     
-	/**
-	 *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintColumns
-	 */
-	public function get constraintColumns():Array
+    /**
+     *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintColumns
+     */
+    public function get constraintColumns():Array
     {
         return _constraintColumns;
     }
@@ -617,37 +617,37 @@ public class Panel extends Container
      */
     public function set constraintColumns(value:Array):void
     {
-    	if (value != _constraintColumns)
-    	{
-	    	var n:int = value.length;
-	    	for (var i:int = 0; i < n; i++)
-	    	{
-	    		ConstraintColumn(value[i]).container = this;
-	    	}
-			_constraintColumns = value;
+        if (value != _constraintColumns)
+        {
+            var n:int = value.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                ConstraintColumn(value[i]).container = this;
+            }
+            _constraintColumns = value;
 
-			invalidateSize();
-			invalidateDisplayList();
-     	}
+            invalidateSize();
+            invalidateDisplayList();
+        }
     }
 
-	//----------------------------------
-	//  constraintRows
-	//----------------------------------
+    //----------------------------------
+    //  constraintRows
+    //----------------------------------
 
     [ArrayElementType("mx.containers.utilityClasses.ConstraintRow")]
-	[Inspectable(arrayType="mx.containers.utilityClasses.ConstraintRow")]
+    [Inspectable(arrayType="mx.containers.utilityClasses.ConstraintRow")]
     
-	/**
+    /**
      *  @private
      *  Storage for the constraintRows property.
      */
     private var _constraintRows:Array = [];
     
-	/**
-	 *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintRows
-	 */
-	public function get constraintRows():Array
+    /**
+     *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintRows
+     */
+    public function get constraintRows():Array
     {
         return _constraintRows;
     }
@@ -657,18 +657,18 @@ public class Panel extends Container
      */
     public function set constraintRows(value:Array):void
     {
-    	if (value != _constraintRows)
-    	{
-	    	var n:int = value.length;
-	    	for (var i:int = 0; i < n; i++)
-    		{
-    			ConstraintRow(value[i]).container = this;
-    		}
-			_constraintRows = value;
+        if (value != _constraintRows)
+        {
+            var n:int = value.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                ConstraintRow(value[i]).container = this;
+            }
+            _constraintRows = value;
 
-			invalidateSize();
-			invalidateDisplayList();
-     	}
+            invalidateSize();
+            invalidateDisplayList();
+        }
     }        
        
     //----------------------------------
@@ -685,7 +685,7 @@ public class Panel extends Container
      */
     mx_internal function get _controlBar():IUIComponent
     {
-    	return controlBar;
+        return controlBar;
     }
         
     //----------------------------------
@@ -965,42 +965,42 @@ public class Panel extends Container
      */
     override public function get viewMetrics():EdgeMetrics
     {
-    	var vm:EdgeMetrics = super.viewMetrics;
-    	
+        var vm:EdgeMetrics = super.viewMetrics;
+        
         // The getViewMetrics function needs to return its own object.
         // Rather than allocating a new one each time, we'll allocate
         // one once and then hold a pointer to it.
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
         {
-	        if (!panelViewMetrics)
-	            panelViewMetrics = new EdgeMetrics(0, 0, 0, 0);
-	        vm = panelViewMetrics;
-	
-	        var o:EdgeMetrics = super.viewMetrics;
-	        var bt:Number = getStyle("borderThickness");
-	        var btl:Number = getStyle("borderThicknessLeft");
-	        var btt:Number = getStyle("borderThicknessTop");
-	        var btr:Number = getStyle("borderThicknessRight");
-	        var btb:Number = getStyle("borderThicknessBottom");
-	
-	        // Add extra space to edges (was margins).
-	        vm.left = o.left + (isNaN(btl) ? bt : btl);
-	        vm.top = o.top + (isNaN(btt) ? bt : btt);
-	        vm.right = o.right + (isNaN(btr) ? bt : btr);
-	        // Bottom is a special case. If borderThicknessBottom is NaN,
-	        // use btl if we don't have a control bar or btt if we do.
-	        vm.bottom = o.bottom + (isNaN(btb) ? 
-	            (controlBar && !isNaN(btt) ? btt : isNaN(btl) ? bt : btl) : 
-	            btb);
-	                
-	        // Since the header covers the solid portion of the border,  
-	        // we need to use the larger of borderThickness or headerHeight
-	        var hHeight:Number = getHeaderHeight();
-	        if (!isNaN(hHeight))
-	            vm.top += hHeight;
-	
-	        if (controlBar && controlBar.includeInLayout)
-	            vm.bottom += controlBar.getExplicitOrMeasuredHeight();
+            if (!panelViewMetrics)
+                panelViewMetrics = new EdgeMetrics(0, 0, 0, 0);
+            vm = panelViewMetrics;
+    
+            var o:EdgeMetrics = super.viewMetrics;
+            var bt:Number = getStyle("borderThickness");
+            var btl:Number = getStyle("borderThicknessLeft");
+            var btt:Number = getStyle("borderThicknessTop");
+            var btr:Number = getStyle("borderThicknessRight");
+            var btb:Number = getStyle("borderThicknessBottom");
+    
+            // Add extra space to edges (was margins).
+            vm.left = o.left + (isNaN(btl) ? bt : btl);
+            vm.top = o.top + (isNaN(btt) ? bt : btt);
+            vm.right = o.right + (isNaN(btr) ? bt : btr);
+            // Bottom is a special case. If borderThicknessBottom is NaN,
+            // use btl if we don't have a control bar or btt if we do.
+            vm.bottom = o.bottom + (isNaN(btb) ? 
+                (controlBar && !isNaN(btt) ? btt : isNaN(btl) ? bt : btl) : 
+                btb);
+                    
+            // Since the header covers the solid portion of the border,  
+            // we need to use the larger of borderThickness or headerHeight
+            var hHeight:Number = getHeaderHeight();
+            if (!isNaN(hHeight))
+                vm.top += hHeight;
+    
+            if (controlBar && controlBar.includeInLayout)
+                vm.bottom += controlBar.getExplicitOrMeasuredHeight();
         }
         return vm;
     }
@@ -1116,7 +1116,7 @@ public class Panel extends Container
 
             // Add the close button on top of the title/status.
             titleBar.addChild(closeButton);
-			closeButton.owner = this;
+            closeButton.owner = this;
         }
     }
 
@@ -1225,9 +1225,9 @@ public class Panel extends Container
         var textHeight:Number = textSize.height;
         
         var bm:EdgeMetrics =
-        	FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
-        	borderMetrics :
-        	EdgeMetrics.EMPTY;
+            FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
+            borderMetrics :
+            EdgeMetrics.EMPTY;
         textWidth += bm.left + bm.right;    
         
         var offset:Number = 5;
@@ -1264,7 +1264,7 @@ public class Panel extends Container
         layoutObject.updateDisplayList(unscaledWidth, unscaledHeight);
 
         if (border)
-        	border.visible = true;
+            border.visible = true;
         titleBar.visible = true;            
     }
 
@@ -1362,17 +1362,17 @@ public class Panel extends Container
         var em:EdgeMetrics = EdgeMetrics.EMPTY;
         var bt:Number = getStyle("borderThickness"); 
         if (getQualifiedClassName(border) == "mx.skins.halo::PanelSkin" &&
-        	getStyle("borderStyle") != "default" && bt) 
+            getStyle("borderStyle") != "default" && bt) 
         {
-        	em = new EdgeMetrics(bt, bt, bt, bt);
+            em = new EdgeMetrics(bt, bt, bt, bt);
         }
         
         // Remove the borderThickness from the border metrics,
         // since the header and control bar overlap any solid border.
         var bm:EdgeMetrics =
-        	FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
-        	borderMetrics :
-        	em;      
+            FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 ?
+            borderMetrics :
+            em;      
         
         var x:Number = bm.left;
         var y:Number = bm.top;
@@ -1436,9 +1436,9 @@ public class Panel extends Container
 
             // Set the position of the title text. 
             if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            	h = titleTextField.nonZeroTextHeight;
+                h = titleTextField.nonZeroTextHeight;
             else 
-            	h = titleTextField.getUITextFormat().measureText(titleTextField.text).height;
+                h = titleTextField.getUITextFormat().measureText(titleTextField.text).height;
             offset = (headerHeight - h) / 2;
 
             var borderWidth:Number = bm.left + bm.right;            
@@ -1450,9 +1450,9 @@ public class Panel extends Container
 
             // Set the position of the status text.
             if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            	h = statusTextField.textHeight;
+                h = statusTextField.textHeight;
             else
-            	h = statusTextField.text != "" ? statusTextField.getUITextFormat().measureText(statusTextField.text).height : 0;
+                h = statusTextField.text != "" ? statusTextField.getUITextFormat().measureText(statusTextField.text).height : 0;
             offset = (headerHeight - h) / 2;
             var statusX:Number = unscaledWidth - rightOffset - 4 -
                                  borderWidth - statusTextField.textWidth;
@@ -1460,7 +1460,7 @@ public class Panel extends Container
                 statusX -= (closeButton.getExplicitOrMeasuredWidth() + 4);
             statusTextField.move(statusX, offset - 1);
             statusTextField.setActualSize(
-            	statusTextField.textWidth + 8,
+                statusTextField.textWidth + 8,
                 statusTextField.textHeight + UITextField.TEXT_HEIGHT_PADDING);
 
             // Make sure the status text isn't too long.
@@ -1537,8 +1537,8 @@ public class Panel extends Container
         var lastChild:IUIComponent = IUIComponent(getChildAt(numChildren - 1));
         if (lastChild is ControlBar)
         {
-        	var oldChildDocument:Object = lastChild.document;
-        	
+            var oldChildDocument:Object = lastChild.document;
+            
             if (contentPane)
             {
                 contentPane.removeChild(DisplayObject(lastChild));
@@ -1568,7 +1568,7 @@ public class Panel extends Container
 
     /**
      *  @private
-	 *  Creates the title text field child
+     *  Creates the title text field child
      *  and adds it as a child of this component.
      * 
      *  @param childIndex The index of where to add the child.
@@ -1585,7 +1585,7 @@ public class Panel extends Container
             if (childIndex == -1)
                 titleBar.addChild(DisplayObject(titleTextField));
             else 
-				titleBar.addChildAt(DisplayObject(titleTextField), childIndex);
+                titleBar.addChildAt(DisplayObject(titleTextField), childIndex);
 
             var titleStyleName:String = getStyle("titleStyleName"); 
             titleTextField.styleName = titleStyleName;
@@ -1650,7 +1650,7 @@ public class Panel extends Container
 
     /**
      *  @private.
-	 *  Returns a Rectangle containing the largest piece of header
+     *  Returns a Rectangle containing the largest piece of header
      *  text (can be either the title or status, whichever is bigger).
      */
     private function measureHeaderText():Rectangle
@@ -1658,14 +1658,14 @@ public class Panel extends Container
         var textWidth:Number = 20;
         var textHeight:Number = 14;
 
-		var textFormat:UITextFormat;
-		var metrics:TextLineMetrics;
+        var textFormat:UITextFormat;
+        var metrics:TextLineMetrics;
         
         if (titleTextField && titleTextField.text)
         {
             titleTextField.validateNow();
-			textFormat = titleTextField.getUITextFormat();
-        	metrics = textFormat.measureText(titleTextField.text, false);
+            textFormat = titleTextField.getUITextFormat();
+            metrics = textFormat.measureText(titleTextField.text, false);
             textWidth = metrics.width;
             textHeight = metrics.height;
         }
@@ -1673,7 +1673,7 @@ public class Panel extends Container
         if (statusTextField && statusTextField.text)
         {
             statusTextField.validateNow();
-			textFormat = statusTextField.getUITextFormat();
+            textFormat = statusTextField.getUITextFormat();
             metrics = textFormat.measureText(statusTextField.text, false);
             textWidth = Math.max(textWidth, metrics.width);
             textHeight = Math.max(textHeight, metrics.height);
@@ -1684,6 +1684,8 @@ public class Panel extends Container
     
     /**
      *  Returns the height of the header.
+     *  
+     *  @return The height of the header, in pixels.
      */
     protected function getHeaderHeight():Number
     {
@@ -1698,11 +1700,11 @@ public class Panel extends Container
     /**
      *  @private
      *  Proxy to getHeaderHeight() for PanelSkin
-	 *  since we can't change its function signature
+     *  since we can't change its function signature
      */
     mx_internal function getHeaderHeightProxy():Number
     {
-    	return getHeaderHeight();
+        return getHeaderHeight();
     }
 
     /**
@@ -1730,18 +1732,18 @@ public class Panel extends Container
             
         controlBar = newControlBar;     
         
-		// If roundedBottomCorners is set locally, don't auto-set
-		// it when the controlbar is added/removed.
-		if (!checkedForAutoSetRoundedCorners)
-		{
-			checkedForAutoSetRoundedCorners = true;
-			autoSetRoundedCorners = styleDeclaration ? 
-					styleDeclaration.getStyle("roundedBottomCorners") === undefined : 
-					true;
-		}
-		
-		if (autoSetRoundedCorners)
-        	setStyle("roundedBottomCorners", controlBar != null);
+        // If roundedBottomCorners is set locally, don't auto-set
+        // it when the controlbar is added/removed.
+        if (!checkedForAutoSetRoundedCorners)
+        {
+            checkedForAutoSetRoundedCorners = true;
+            autoSetRoundedCorners = styleDeclaration ? 
+                    styleDeclaration.getStyle("roundedBottomCorners") === undefined : 
+                    true;
+        }
+        
+        if (autoSetRoundedCorners)
+            setStyle("roundedBottomCorners", controlBar != null);
 
         var controlBarStyleName:String = getStyle("controlBarStyleName");
         
@@ -1870,12 +1872,12 @@ public class Panel extends Container
      */
     private function systemManager_mouseMoveHandler(event:MouseEvent):void
     {
-    	// during a drag, only the Panel should get mouse move events
-    	// (e.g., prevent objects 'beneath' it from getting them -- see bug 187569)
-    	// we don't check the target since this is on the systemManager and the target
-    	// changes a lot -- but this listener only exists during a drag.
-    	event.stopImmediatePropagation();
-    	
+        // during a drag, only the Panel should get mouse move events
+        // (e.g., prevent objects 'beneath' it from getting them -- see bug 187569)
+        // we don't check the target since this is on the systemManager and the target
+        // changes a lot -- but this listener only exists during a drag.
+        event.stopImmediatePropagation();
+        
         move(event.stageX - regX, event.stageY - regY);
     }
 
