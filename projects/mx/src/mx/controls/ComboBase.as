@@ -1075,6 +1075,7 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             // Don't show ESC characters in the text field.
             textInput.restrict = "^\u001b";
             textInput.focusEnabled = false;
+            textInput.mouseEnabled = textInput.mouseChildren = _editable;
             textInput.imeMode = _imeMode;
             textInput.styleName = textInputStyleName;
 
