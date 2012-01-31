@@ -195,7 +195,9 @@ include "../styles/metadata/PaddingStyles.as"
 [IconFile("TextArea.png")]
 
 [ResourceBundle("controls")]
-    
+
+[Alternative(replacement="spark.components.TextArea", since="4.0")]
+
 /**
  *  The TextArea control is a multiline text field
  *  with a border and optional scroll bars.
