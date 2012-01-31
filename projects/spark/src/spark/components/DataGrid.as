@@ -13,6 +13,7 @@ package spark.components
 {
 import flash.display.DisplayObject;
 import flash.events.Event;
+import flash.events.EventPhase;
 import flash.events.KeyboardEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -848,6 +849,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {   
+        // If the key is passed down to the Scroller it will come back here when
+        // it bubbles back up.  It may or may not have default prevented.
+        if (event.eventPhase != EventPhase.AT_TARGET)
+            return;
+        
         if (!grid || event.isDefaultPrevented())
             return;
         
