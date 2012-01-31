@@ -605,16 +605,17 @@ public class DataGroup extends GroupBase
      *  @private
      *  Provisional access to the item renderers for FxList and FxButtonBar.
      */
-    internal function getRendererForItemAt(index:int):IVisualElement
+    mx_internal function getRendererForItemAt(index:int):IVisualElement
     {
-        return (index < super.numChildren) ? IVisualElement(super.getChildAt(index)) : null;
+        var i:int = index - virtualLayoutOffset;
+        return ((i >= 0) && (i < super.numChildren)) ? IVisualElement(super.getChildAt(i)) : null;
     }
 
     /**
      *  @private
      *  Provisional access to the item renderers for FxList and FxButtonBar.
      */
-    internal function getItemIndexForRenderer(renderer:IVisualElement):int
+    mx_internal function getItemIndexForRenderer(renderer:IVisualElement):int
     {
         var child:DisplayObject = DisplayObject(renderer);
         return (child.parent == this) ? super.getChildIndex(child) : -1;
