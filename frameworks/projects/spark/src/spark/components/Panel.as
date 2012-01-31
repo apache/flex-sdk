@@ -11,7 +11,8 @@
 
 package mx.components
 {
-import mx.graphics.graphicsClasses.TextGraphicElement;
+
+import mx.graphics.baseClasses.TextGraphicElement;
 
 [IconFile("FxPanel.png")]
 
