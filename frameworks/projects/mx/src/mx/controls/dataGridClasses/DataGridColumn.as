@@ -1939,7 +1939,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         {
             if (headerStyleName is String)
             {
-                headerStyleName = owner.styleManager.getStyleDeclaration(String(headerStyleName));
+                headerStyleName = owner.styleManager.getMergedStyleDeclaration(String(headerStyleName));
             }
         }
         if (headerStyleName)
@@ -1962,7 +1962,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         {
             if (headerStyleName is String)
             {
-                headerStyleName = owner.styleManager.getStyleDeclaration(String(headerStyleName));
+                headerStyleName = owner.styleManager.getMergedStyleDeclaration(String(headerStyleName));
             }
         }
 
@@ -2006,7 +2006,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             if (styleNames[c].length) 
             {
                 var declaration:CSSStyleDeclaration = 
-                    owner.styleManager.getStyleDeclaration("." + styleNames[c]);
+                    owner.styleManager.getMergedStyleDeclaration("." + styleNames[c]);
                     
                 if (declaration)
                     chain = declaration.addStyleToProtoChain(chain, target);
