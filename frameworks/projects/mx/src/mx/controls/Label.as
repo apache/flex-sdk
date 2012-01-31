@@ -22,7 +22,6 @@ import flash.text.TextLineMetrics;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -397,29 +396,6 @@ public class Label extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            if (!textField)
-                return NaN;
-            
-            // Ensure that textField.y is accurate.
-            validateNow();
-    
-            var t:String = isHTML ? explicitHTMLText : text; 
-    
-            if (t == "")
-                t = " ";
-    
-            // Measure the width and height of the text to be displayed.
-            // (This uses another TextField that isn't part of the
-            // DisplayObject hierarchy.)
-            var lineMetrics:TextLineMetrics = isHTML ?
-                                              measureHTMLText(t) :
-                                              measureText(t);
-    
-            return textField.y + lineMetrics.ascent;
-        }
-        
         if (!validateBaselinePosition())
             return NaN;
         
