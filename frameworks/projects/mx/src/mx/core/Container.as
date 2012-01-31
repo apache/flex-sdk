@@ -1233,13 +1233,13 @@ public class Container extends UIComponent
     private var creationPolicyNone:Boolean = false;
     
     /**
-     *  The child creation policy for this Container.
+     *  The child creation policy for this MX Container.
      *  ActionScript values can be <code>ContainerCreationPolicy.AUTO</code>, 
      *  <code>ContainerCreationPolicy.ALL</code>,
      *  <code>ContainerCreationPolicy.NONE</code>, 
      *  or <code>ContainerCreationPolicy.QUEUED</code>.
-     *  MXML values can be <code>"auto"</code>, <code>"all"</code>, 
-     *  <code>"none"</code>, or <code>"queued"</code>.
+     *  MXML values can be <code>auto</code>, <code>all</code>, 
+     *  <code>none</code>, or <code>queued</code>.
      *
      *  <p>If no <code>creationPolicy</code> is specified for a container,
      *  that container inherits its parent's <code>creationPolicy</code>.
@@ -1280,6 +1280,8 @@ public class Container extends UIComponent
      *  In that case, it is the responsibility of the MXML author
      *  to create the children by calling the
      *  <code>createComponentsFromDescriptors()</code> method.</p>
+     *  
+     *  @default ContainerCreationPolicy.AUTO
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
