@@ -133,7 +133,7 @@ public class Operation extends mx.rpc.soap.Operation implements IMXMLSupport
     //--------------------------------------------------------------------------
 
     /**
-     * Use superclass description.
+     * @inheritDoc
      */
     override public function cancel(id:String = null) : AsyncToken
     {
