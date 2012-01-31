@@ -27,7 +27,6 @@ use namespace mx_internal;
  *  are only required to display some column-specific aspect of their data.  They're
  *  not responsible for displaying the selection or hover indicators, the alternating
  *  background color (if any), or row/column separators.
- *
  */
 public class GridItemRenderer extends Group implements IGridItemRenderer
 {
@@ -149,7 +148,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      * 
      *  @default -1
      */    
-    public function get itemIndex():int
+    public function get rowIndex():int
     {
         return _itemIndex;
     }
@@ -157,7 +156,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     /**
      *  @private
      */    
-    public function set itemIndex(value:int):void
+    public function set rowIndex(value:int):void
     {
         if (_itemIndex == value)
             return;
@@ -346,14 +345,14 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     /**
      *  @inheritDoc
      */
-    public function prepare(recycle:Boolean):void
+    public function prepare(willBeRecycled:Boolean):void
     {
     }
 
     /**
      *  @inheritDoc
      */
-    public function discard(recycle:Boolean):void
+    public function discard(hasBeenRecycled:Boolean):void
     {
     }
 }
