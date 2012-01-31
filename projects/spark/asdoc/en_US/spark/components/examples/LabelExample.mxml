@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- TextBoxExample.mxml -->
 <Application xmlns="http://ns.adobe.com/mxml/2009">
+     <Panel title="TextBox Example"
+        height="75%" width="75%" layout="horizontal"
+        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
           <Graphic>
                <TextBox x="0" y="0" height="75" width="75">
                     <text>This is a TextBox</text>
@@ -16,4 +19,5 @@
                     </stroke>
                </Rect>               
           </Group>
+     </Panel>
 </Application>
