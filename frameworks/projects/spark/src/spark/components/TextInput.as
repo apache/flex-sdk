@@ -89,8 +89,8 @@ use namespace mx_internal;
  *  TextInput is a text-entry control that lets users enter and edit
  *  a single line of uniformly-formatted text.
  *
- *  <p>This Spark version of TextInput, which is new with Flex 4,
- *  makes use of the new Text Layout Framework (TLF) library,
+ *  <p>This Spark version of TextInput 
+ *  makes use of the Text Layout Framework (TLF) library,
  *  which in turn builds on the new Flash Text Engine (FTE) in Flash Player 10.
  *  In combination, they provide text editing with
  *  high-quality international typography.
@@ -131,18 +131,18 @@ use namespace mx_internal;
  *  This RichEditableText can be accessed as the <code>textDisplay</code>
  *  object.</p>
  *
- *  <p>As a result of its RichEditableText using TLF, the Spark TextInput
- *  supports displaying left-to-right (LTR) text such as French,
- *  right-to-left (RTL) text such as Arabic, and bidirectional text
+ *  <p>As a result of its RichEditableText using TLF, the Spark TextInput control
+ *  supports displaying left-to-right (LTR) text, such as French,
+ *  right-to-left (RTL) text, such as Arabic, and bidirectional text
  *  such as a French phrase inside of an Arabic one.
  *  If the predominant text direction is right-to-left,
- *  set the <code>direction</code> style to <code>"rtl"</code>.
- *  The <code>textAlign</code> style defaults to <code>"start"</code>,
+ *  set the <code>direction</code> style to <code>rtl</code>.
+ *  The <code>textAlign</code> style defaults to <code>start</code>,
  *  which makes the text left-aligned when <code>direction</code>
- *  is <code>"ltr"</code> and right-aligned when <code>direction</code>
- *  is <code>"rtl"</code>.
+ *  is <code>ltr</code> and right-aligned when <code>direction</code>
+ *  is <code>rtl</code>.
  *  To get the opposite alignment,
- *  set <code>textAlign</code> to <code>"end"</code>.</p>
+ *  set <code>textAlign</code> to <code>end</code>.</p>
  *
  *  <p>Also as a result of using TLF, the Spark TextInput supports
  *  unlimited undo/redo within one editing session.
@@ -179,7 +179,7 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:TextInput
  *    <strong>Properties</strong>
- *    widthInChars=""
+ *    widthInChars="<i>Calculated default</i>"
  *  
  *    <strong>Events</strong>
  *    enter="<i>No default</i>"
