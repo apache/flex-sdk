@@ -70,10 +70,18 @@ use namespace mx_internal;
  *  In combination, these layers provide text editing with
  *  high-quality international typography and layout.</p>
  * 
- *  <p><b>The TextInput skin for the mobile theme uses the StyleableTextField class instead of RichEditableText.</b>
- *  As a result, TLF-only features are not supported in the mobile theme including
- *  TextFlow, right-to-left or bidirectional text, and advanced text 
- *  styles.</p>
+ *  <p><b>The TextInput skin for the mobile theme uses the StyleableStageText class instead 
+ *  of RichEditableText.</b>  
+ *  Since StyleableStageText uses native text fields it allows for better text entry and 
+ *  manipulation experiences on mobile devices however there are some
+ *  <a href="supportClasses/StyleableStageText.html">limitations</a> that you should consider.
+ *  The native text controls used by StageText apply different paddings around text. 
+ *  In order to avoid vertical scrolling, the StageText-based TextInput skin attempts to estimate 
+ *  this padding and compensate for that. 
+ *  Because of this and other differences in how native text controls treat text, the default 
+ *  height of the TextInput control using StageText-based skin will differ from its default height 
+ *  using the the TextField-based TextInput skin.
+ * </p>
  *
  *  <p>You can set the text to be displayed, or get the text that the user
  *  has entered, using the <code>text</code> property.
@@ -102,15 +110,24 @@ use namespace mx_internal;
  *  To use this control for password input, set the
  *  <code>displayAsPassword</code> property to <code>true</code>.</p>
  *
+ *  <p>The soft-keyboard-specific properties, <code>autoCapitalize</code>
+ *  <code>autoCorrect</code>, <code>returnKeyLabel</code> and <code>softKeyboardType</code>
+ *  are keybostf hints supported in the mobile theme. 
+ *  If a soft-keyboard is present but does not support a feature represented by the 
+ *  hint, the hint is ignored. 
+ *  In mobile environments with only hardware keyboards, these hints are ignored. 
+ *  </p>
+ *  
  *  <p>This control dispatches a <code>FlexEvent.ENTER</code> event
  *  when the user pressed the Enter key rather than inserting a line
  *  break, because this control does not support entering multiple
  *  lines of text. By default, this control has explicit line breaks.</p>
  *
- *  <p>This control is a skinnable control whose default skin contains a
- *  RichEditableText instance that handles displaying and editing the text.
+ *  <p>This control is a skinnable control whose default skin contains either a
+ *  RichEditableText instance for the Spark theme or a StyleableStageText instance for the
+ *  Mobile theme. It handles displaying and editing the text.
  *  (The skin also handles drawing the border and background.)
- *  This RichEditableText can be accessed as the <code>textDisplay</code>
+ *  This RichEditableText or StyleableStageText instance can be accessed as the <code>textDisplay</code>
  *  object.</p>
  *
  *  <p>As a result of its RichEditableText using TLF, the Spark TextInput control
@@ -175,9 +192,11 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
- *  @see spark.skins.spark.TextInputSkin
  *  @see spark.components.Label
  *  @see spark.components.RichEditableText
+ *  @see spark.skins.mobile.StageTextInputSkin
+ *  @see spark.skins.mobile.TextInputSkin
+ *  @see spark.skins.spark.TextInputSkin
  *  @see TextArea
  *  
  *  @langversion 3.0
