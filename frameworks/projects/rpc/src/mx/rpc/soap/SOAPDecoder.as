@@ -395,6 +395,16 @@ public class SOAPDecoder extends XMLDecoder implements ISOAPDecoder
         }
         else if (outputEncoding.useStyle == SOAPConstants.USE_LITERAL && wsdlOperation.outputMessage.isWrapped == true)
         {
+            // Get the outputMessage definition and (more importantly) move
+            // down a level into the schema stack.
+            var wrappedDefinition:XML = schemaManager.getNamedDefinition(wsdlOperation.outputMessage.wrappedQName,
+                                                  constants.complexTypeQName,
+                                                  constants.elementTypeQName);
+
+            // TODO: Ensure that throwing this error doesn't break compatibility
+            // if (wrappedDefinition == null)
+            //    throw new Error("Cannot find definition for wrapped response type '" + wsdlOperation.outputMessage.wrappedQName + "'");
+
             // Unwrap the output message only if this is wrapped literal.
             outputMessageXML = outputMessageXML.elements()[0];
         }
