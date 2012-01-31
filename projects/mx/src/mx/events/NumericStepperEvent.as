@@ -70,6 +70,10 @@ public class NumericStepperEvent extends Event
 	 *  @param cancelable Specifies whether the behavior associated with the event can be prevented.
 	 *
 	 *  @param value The value of the NumericStepper control when the event was dispatched.
+         *
+         *  @param triggerEvent If the value changed in response to a user action, contains a value
+         *  indicating the type of input action, either <code>InteractionInputType.MOUSE</code>
+         *  or <code>InteractionInputType.KEYBOARD</code>.
 	 */
 	public function NumericStepperEvent(type:String, bubbles:Boolean = false,
                                         cancelable:Boolean = false,
