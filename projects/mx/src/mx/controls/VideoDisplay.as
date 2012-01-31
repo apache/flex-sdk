@@ -787,7 +787,7 @@ public class VideoDisplay extends UIComponent
 
     /**
      * An object that contains a metadata information packet that is received from a call to 
-     * the <code>NetSteam.onMetaData()</code> callback method, if available.  
+     * the <code>NetStream.onMetaData()</code> callback method, if available.  
      * Ready when the <code>metadataReceived</code> event is dispatched.
      * 
      * <p>If the FLV file is encoded with the Flash 8 encoder, the <code>metadata</code> 
