@@ -284,7 +284,7 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  You can access the property in ActionScript only;
      *  it is not settable in MXML.
      *  Setting this property to <code>null</code> deselects the currently
-     *  selected FxRadioButton control.
+     *  selected FxRadioButton control.  A change event is not dispatched.
      *
      *  @default null
      */
