@@ -104,6 +104,26 @@ use namespace mx_internal;
  *  for changing the formatting of text; text can be changed programmatically
  *  only.</p>
  *
+ *  <p>The TextArea control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>188 pixels wide by 149 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>36 pixels wide and 36 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;TextArea&gt;</code> tag inherits all of the tag 
