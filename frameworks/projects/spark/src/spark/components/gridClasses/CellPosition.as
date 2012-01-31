@@ -68,14 +68,6 @@ public class CellPosition
     private var _columnIndex:int;
     
     /**
-     *  @private
-     */
-    public function get columnIndex():int
-    {
-        return _columnIndex;
-    }
-    
-    /**
      *  The 0-based column index of the cell.
      *  A value of -1 indicates "not set".
      * 
@@ -85,6 +77,14 @@ public class CellPosition
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
+     */
+    public function get columnIndex():int
+    {
+        return _columnIndex;
+    }
+    
+    /**
+     *  @private
      */
     public function set columnIndex(value:int):void
     {
@@ -98,14 +98,6 @@ public class CellPosition
     private var _rowIndex:int;
     
     /**
-     *  @private
-     */
-    public function get rowIndex():int
-    {
-        return _rowIndex;
-    }
-    
-    /**
      *  The 0-based row index of the cell.  
      *  A value of -1 indicates "not set".
      * 
@@ -115,6 +107,14 @@ public class CellPosition
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
+     */
+    public function get rowIndex():int
+    {
+        return _rowIndex;
+    }
+    
+    /**
+     *  @private
      */
     public function set rowIndex(value:int):void
     {
