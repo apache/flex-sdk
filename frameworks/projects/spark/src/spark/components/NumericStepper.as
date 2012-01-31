@@ -466,16 +466,6 @@ public class NumericStepper extends Spinner
     /**
      *  @private
      */
-    override protected function enableSkinParts(value:Boolean):void
-    {
-        super.enableSkinParts(value);
-        if (textInput)
-            textInput.enabled = value;
-    }   
-
-    /**
-     *  @private
-     */
     override public function setFocus():void
     {
         if (stage)
