@@ -14,14 +14,14 @@ package spark.components.supportClasses
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
+import mx.collections.SortField;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
-import mx.core.IIMESupport;
-import mx.core.Singleton;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
+import mx.utils.ObjectUtil;
 
 import spark.components.DataGrid;
 import spark.components.Grid;
@@ -34,6 +34,11 @@ use namespace mx_internal;
  *  Each dataProvider item corresponds to one Grid row and this object specifies the item property
  *  whose value is to be displayed in one column, the item renderer to display that value, the editor
  *  that's used to change the value, and so on.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */   
 public class GridColumn extends EventDispatcher
 {
@@ -60,6 +65,20 @@ public class GridColumn extends EventDispatcher
         return _defaultItemEditorFactory;
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
     public function GridColumn()
     {
         super();
@@ -409,7 +428,7 @@ public class GridColumn extends EventDispatcher
         if (grid)
             grid.invalidateDisplayList();
 
-        dispatchEvent(new Event("headerTextChanged"));
+        dispatchChangeEvent("headerTextChanged");
     }
    
     //----------------------------------
@@ -889,11 +908,18 @@ public class GridColumn extends EventDispatcher
     
     private var _sortable:Boolean = true;
     
-    [Bindable("sortableChanged")]  
+    [Bindable("sortableChanged")]
+    [Inspectable(category="General")]
     
     /**
-     *  TBD
-     * 
+     *  If true, and if the grid's dataProvider is a ICollectionView,
+     *  and if the DataGrid's sortableColumns property is true,
+     *  then this column supports interactive sorting. Typically the column's
+     *  header handles mouse clicks by setting the dataProvider's sort property
+     *  to a Sort object whose SortField is this column's dataField.
+     *  
+     *  <p>If the dataProvider is not an ICollectionView, then this property has no effect.</p>
+     *  
      *  @default true
      */
     public function get sortable():Boolean
@@ -910,7 +936,153 @@ public class GridColumn extends EventDispatcher
             return;
         
         _sortable = value;
+        
+        // TODO (klin): Should we remove the sort?
+        
         dispatchChangeEvent("sortableChanged");        
+    }
+    
+    //----------------------------------
+    //  sortCompareFunction
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the sortCompareFunction property.
+     */
+    private var _sortCompareFunction:Function;
+    
+    [Bindable("sortCompareFunctionChanged")]
+    [Inspectable(category="Advanced")]
+    
+    /**
+     *  The function that compares two elements during a sort of on the
+     *  data elements of this column.
+     * 
+     *  If you specify a value of the <code>labelFunction</code> property,
+     *  you typically also provide a <code>sortCompareFunction</code>.
+     *
+     *  <p>The sortCompareFunction's signature must match the following:</p>
+     *
+     *  <pre>sortCompareFunction(obj1:Object, obj2:Object, column:GridColumn):int</pre>
+     * 
+     *  <p>The function should return a value based on the comparison
+     *  of the objects: </p>
+     *  <ul>
+     *    <li>-1 if obj1 should appear before obj2 in ascending order. </li>
+     *    <li>0 if obj1 = obj2. </li>
+     *    <li>1 if obj1 should appear after obj2 in ascending order.</li>
+     *  </ul>
+     *  
+     *  <p>The function may use the column parameter to write generic
+     *  compare functions.</p>
+     * 
+     *  <p><strong>Note:</strong> The <code>obj1</code> and
+     *  <code>obj2</code> parameters are entire data provider elements and not
+     *  just the data for the item.</p>
+     * 
+     *  <p>If the dataProvider is not an ICollectionView, then this property has no effect.</p>
+     *  
+     *  @default null
+     */
+    public function get sortCompareFunction():Function
+    {
+        return _sortCompareFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set sortCompareFunction(value:Function):void
+    {
+        if (_sortCompareFunction == value)
+            return;
+        
+        _sortCompareFunction = value;
+        
+        dispatchChangeEvent("sortCompareFunctionChanged");
+    }
+    
+    //----------------------------------
+    //  sortDescending
+    //----------------------------------
+    
+    private var _sortDescending:Boolean = false;
+    
+    [Bindable("sortDescendingChanged")]
+    
+    /**
+     *  If true, this column is sorted in descending order. For example, if the column's dataField 
+     *  selects a numeric value, then the first row would be the one with the largest value
+     *  for this column. 
+     *
+     *  <p>Setting this property does not start a sort; it only sets the sort direction.
+     *  Once dataProvider.refresh() is called, the sort will be performed.</p>
+     * 
+     *  <p>If the dataProvider is not an ICollectionView, then this property has no effect.</p>
+     * 
+     *  @default false;
+     */
+    public function get sortDescending():Boolean
+    {
+        return _sortDescending;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set sortDescending(value:Boolean):void
+    {
+        if (_sortDescending == value)
+            return;
+        
+        _sortDescending = value;
+        
+        dispatchChangeEvent("sortDescendingChanged");
+    }
+    
+    //----------------------------------
+    //  sortField
+    //----------------------------------
+    
+    /**
+     *  Read-only property that creates and returns a SortField that can
+     *  be used to sort a collection by this column's dataField.
+     *  
+     *  <p>If the sortCompareFunction is defined, it assigns the SortField's
+     *  compare function to a closure around the sortCompareFunction
+     *  that uses the right signature for the SortField and captures
+     *  this column.</p>
+     * 
+     *  <p>If the sortCompareFunction and dataField are not defined but the
+     *  labelFunction is defined, then it assigns the compareFunction to a 
+     *  closure that does a basic string compare on the labelFunction applied
+     *  to the data objects.</p>
+     */
+    public function get sortField():SortField
+    {
+        const column:GridColumn = this;
+        const sortField:SortField = new SortField(column.dataField);
+        
+        if (_sortCompareFunction != null)
+        {
+            sortField.compareFunction =
+                function (a:Object, b:Object):int
+                { 
+                    return _sortCompareFunction(a, b, column);
+                };
+        }
+        else if (column.dataField == null && _labelFunction != null)
+        {
+            sortField.compareFunction =
+                function (a:Object, b:Object):int
+                { 
+                    return ObjectUtil.stringCompare(_labelFunction(a, column), _labelFunction(b, column));
+                };
+        }
+        
+        sortField.descending = column.sortDescending;
+        return sortField;
     }
     
     //----------------------------------
