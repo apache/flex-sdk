@@ -1,34 +1,40 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- Simple example to demonstrate the Spark Spinner control -->
+<!-- Simple example to demonstrate the Spinner control -->
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/halo">
 
-    <!-- Panel used as a container for Spark Spinner control examples -->
-    <s:Panel title="Spark Spinner Control Example"
-            width="75%" height="75%"
-            horizontalCenter="0" verticalCenter="0">
-        <s:VGroup left="10" right="10" top="10" bottom="10">
-            <s:HGroup>
-                <s:SimpleText text="Use the arrows to change tabs" />
-                <s:Spinner id="mySpinner" maximum="3" />
-            </s:HGroup>
-            <mx:TabNavigator width="100%" height="100%" selectedIndex="{mySpinner.value}">
-                <mx:HBox label="Tab 1">
-                    <mx:Text text="Text on Tab 1" fontSize="14" color="red" />
-                </mx:HBox>
-                <mx:HBox label="Tab 2">
-                    <mx:Text text="Text on Tab 2" fontSize="16" color="blue" />
-                </mx:HBox>
-                <mx:HBox label="Tab 3">
-                    <mx:Text text="Text on Tab 3" fontSize="18" color="green" />
-                </mx:HBox>
-                <mx:HBox label="Tab 4">
-                    <mx:Text text="Text on Tab 4" fontSize="20" color="purple" />
-                </mx:HBox>
-            </mx:TabNavigator>
+	<!-- Panel used as a container for FxSpinner control examples -->
+	<mx:Panel title="Spinner Control Example" height="75%" width="75%" paddingTop="10"
+	    paddingLeft="10" horizontalCenter="0" verticalCenter="0">
 
-            <!-- Label that displays the current value of the Spark Spinner -->
-            <s:SimpleText color="purple" text="Current Tab = {mySpinner.value+1}" />
-        </s:VGroup>
-    </s:Panel>
+		<s:Group>
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+            
+			<mx:Text text="Use the arrows to change tabs"/>            
+			<s:Spinner id="mySpinner" maximum="3"/>                    
+		</s:Group>            
 
-</s:Application>
+		<!-- Two way binding is being used so that changes to the tab navigator remain synced with Spinner value -->
+		<mx:TabNavigator id="myTabNav" width="75%" height="75%" selectedIndex="@{mySpinner.value}" >
+        
+			<mx:HBox label="Tab 1">
+				<mx:Text text="Text on Tab 1" fontSize="14" color="red"/>
+			</mx:HBox>    	
+			<mx:HBox label="Tab 2">
+				<mx:Text text="Text on Tab 2" fontSize="16" color="blue"/>
+			</mx:HBox>    	    
+			<mx:HBox label="Tab 3">
+				<mx:Text text="Text on Tab 3" fontSize="18" color="green"/>
+			</mx:HBox>    	    
+			<mx:HBox label="Tab 4">
+				<mx:Text text="Text on Tab 4" fontSize="20" color="purple"/>
+			</mx:HBox>    	            
+    	    
+		</mx:TabNavigator>  
+        
+		<!-- Label that displays the current value of the Spark Spinner -->
+		<mx:Label color="purple" text="Current Tab = {mySpinner.value+1}"/>
+                                                          
+	</mx:Panel>          
+</s:Application> 
