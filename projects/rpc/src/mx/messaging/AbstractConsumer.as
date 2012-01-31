@@ -36,6 +36,12 @@ use namespace mx_internal;
  *  Dispatched when a message is received by the Consumer.
  *
  *  @eventType mx.messaging.events.MessageEvent.MESSAGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="message", type="mx.messaging.events.MessageEvent")]
 
@@ -45,6 +51,12 @@ use namespace mx_internal;
  *  The AbstractConsumer is the base class for both the Consumer and
  *  MultiTopicConsumer classes.  You use those classes to receive pushed
  *  messages from the server.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class AbstractConsumer extends MessageAgent
 {
@@ -76,6 +88,12 @@ public class AbstractConsumer extends MessageAgent
      *       trace("-App recieved message: " + msg.toString());
      *   }
      *   </listing>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	public function AbstractConsumer()
 	{
@@ -104,6 +122,12 @@ public class AbstractConsumer extends MessageAgent
 
 	/**
 	 *  Flag indicating whether this consumer should be subscribed or not.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	protected var _shouldBeSubscribed:Boolean;
 
@@ -200,6 +224,12 @@ public class AbstractConsumer extends MessageAgent
      *  Note that this property should be set before the Consumer subscribes and
      *  any changes after Consumer subscription will not have any effect until 
      *  Consumer unsubscribes and resubscribes.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     public function get maxFrequency():uint
     {
@@ -242,6 +272,12 @@ public class AbstractConsumer extends MessageAgent
 	 *  </p>
 	 *
 	 *  @see mx.messaging.Consumer#resubscribeInterval
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public function get resubscribeAttempts():int
 	{
@@ -293,6 +329,12 @@ public class AbstractConsumer extends MessageAgent
 	 *  @see mx.messaging.Consumer#resubscribeInterval
 	 *
 	 *  @throws ArgumentError If the assigned value is negative.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public function get resubscribeInterval():int
 	{
@@ -341,6 +383,12 @@ public class AbstractConsumer extends MessageAgent
 	/**
 	 *  Indicates whether the Consumer is currently subscribed. The <code>propertyChange</code>
 	 *  event is dispatched when this property changes.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public function get subscribed():Boolean
 	{
@@ -398,6 +446,12 @@ public class AbstractConsumer extends MessageAgent
 	 *  <code>timestamp</code> value will be returned during a poll operation.
 	 *  Setting this value to -1 will retrieve all cached messages from the
 	 *  destination.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public function get timestamp():Number
 	{
@@ -515,6 +569,12 @@ public class AbstractConsumer extends MessageAgent
 	 *  disconnected, unsubscribed state because it will not receive any more
 	 *  messages until it has reconnected and resubscribed.
 	 *  Disconnecting stops automatic resubscription attempts if they are running.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	override public function disconnect():void
 	{
@@ -630,6 +690,12 @@ public class AbstractConsumer extends MessageAgent
 	 *  This method is a no-op if the Consumer is not subscribed.
 	 *
 	 *  @param timestamp This argument is deprecated and is ignored.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public function receive(timestamp:Number = 0):void
 	{
@@ -650,6 +716,12 @@ public class AbstractConsumer extends MessageAgent
 	 *                  to reconnect to the correct durable subscription in the remote destination.
 	 *
 	 *  @throws mx.messaging.errors.InvalidDestinationError If no destination is set.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public function subscribe(clientId:String = null):void
 	{
@@ -684,6 +756,12 @@ public class AbstractConsumer extends MessageAgent
      *
      *  @param preserveDurable - when true, durable JMS subscriptions are not destroyed
 	 * 		allowing consumers to later resubscribe and receive missed messages
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public function unsubscribe(preserveDurable:Boolean = false):void
 	{
@@ -750,6 +828,12 @@ public class AbstractConsumer extends MessageAgent
             /*
              * Command messages are handled internally by the Consumer and
              * are not dispatched to message listeners via MessageEvents.
+             *  
+             *  @langversion 3.0
+             *  @playerversion Flash 9
+             *  @playerversion AIR 1.1
+             *  @productversion BlazeDS 4
+             *  @productversion LCDS 3 
              */
             return;
         }
@@ -777,6 +861,12 @@ public class AbstractConsumer extends MessageAgent
 	 *  subscribe messages.
 	 *
 	 *  @return The subscribe CommandMessage.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	protected function buildSubscribeMessage():CommandMessage
 	{
@@ -798,6 +888,12 @@ public class AbstractConsumer extends MessageAgent
 	 * 			allowing consumers to later resubscribe and receive missed messages
 	 *
 	 *  @return The unsubscribe CommandMessage.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	protected function buildUnsubscribeMessage(preserveDurable:Boolean):CommandMessage
 	{
@@ -868,6 +964,12 @@ public class AbstractConsumer extends MessageAgent
 	             * Initially, the timeout is set to 1 so we try to
 	             * reconnect immediately (perhaps to a different channel).
 	             * after that, it will poll at the configured time interval.
+	             *  
+	             *  @langversion 3.0
+	             *  @playerversion Flash 9
+	             *  @playerversion AIR 1.1
+	             *  @productversion BlazeDS 4
+	             *  @productversion LCDS 3 
 	             */
 	            _resubscribeTimer = new Timer(1);
 	            _resubscribeTimer.addEventListener(TimerEvent.TIMER, resubscribe);
