@@ -9,11 +9,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects.effectClasses
+package spark.effects.supportClasses
 {
     
 import mx.filters.IBitmapFilter;
-import mx.effects.FxAnimateFilter;
+import spark.effects.AnimateFilter;
 
 /**
  * The AnimateFilterInstance class implements the instance class for the
@@ -25,7 +25,7 @@ import mx.effects.FxAnimateFilter;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxAnimateFilterInstance extends FxAnimateInstance
+public class AnimateFilterInstance extends AnimateInstance
 {
     //--------------------------------------------------------------------------
     //
@@ -41,7 +41,7 @@ public class FxAnimateFilterInstance extends FxAnimateInstance
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxAnimateFilterInstance(target:Object)
+    public function AnimateFilterInstance(target:Object)
     {
         super(target);
     }
