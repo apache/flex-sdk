@@ -68,6 +68,11 @@ use namespace mx_internal;
  *  the <code>Event.bubbles</code> property set to <code>false</code>.</p>
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -80,6 +85,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  *
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -96,6 +106,11 @@ use namespace mx_internal;
  *  in your application. </p>
  *
  *  @eventType flash.events.TextEvent.LINK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="link", type="flash.events.TextEvent")]
 
@@ -107,6 +122,11 @@ use namespace mx_internal;
  *  the <code>TextEvent.bubbles</code> property set to <code>false</code>.</p>
  *
  *  @eventType flash.events.TextEvent.TEXT_INPUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="textInput", type="flash.events.TextEvent")]
 
@@ -122,6 +142,11 @@ include "../styles/metadata/PaddingStyles.as"
  *  and the bottom edge of its content area.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -130,6 +155,11 @@ include "../styles/metadata/PaddingStyles.as"
  *  and the top edge of its content area.
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -137,6 +167,11 @@ include "../styles/metadata/PaddingStyles.as"
  *  Color of the component if it is disabled.
  * 
  *  @default 0xAAB3B3
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="disabledColor", type="uint", format="Color", inherit="yes")]
 
@@ -244,6 +279,11 @@ include "../styles/metadata/PaddingStyles.as"
  *
  *  @includeExample examples/TextAreaExample.mxml
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TextArea extends ScrollControlBase
                       implements IDataRenderer, IDropInListItemRenderer,
@@ -261,6 +301,11 @@ public class TextArea extends ScrollControlBase
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TextArea()
     {
@@ -461,6 +506,11 @@ public class TextArea extends ScrollControlBase
      * 
      *  @default 0
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set horizontalScrollPosition(value:Number):void
     {
@@ -497,6 +547,11 @@ public class TextArea extends ScrollControlBase
      *
      *  @default ScrollPolicy.AUTO
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get horizontalScrollPolicy():String
     {
@@ -520,6 +575,11 @@ public class TextArea extends ScrollControlBase
      * 
      *  @default 0
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get maxHorizontalScrollPosition():Number
     {
@@ -541,6 +601,11 @@ public class TextArea extends ScrollControlBase
      * 
      *  @tiptext The maximum pixel offset into the content from the top edge
      *  @helpid 3182
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get maxVerticalScrollPosition():Number
     {
@@ -596,6 +661,11 @@ public class TextArea extends ScrollControlBase
 
     /**
      *  The internal UITextField that renders the text of this TextArea.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var textField:IUITextField;
 
@@ -619,6 +689,11 @@ public class TextArea extends ScrollControlBase
      *
      *  @tiptext The pixel offset into the content from the top edge
      *  @helpid 3181
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set verticalScrollPosition(value:Number):void
     {
@@ -657,6 +732,11 @@ public class TextArea extends ScrollControlBase
      *  @tiptext Specifies if vertical scrollbar is on, off,
      *  or automatically adjusts
      *  @helpid 3428
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get verticalScrollPolicy():String
     {
@@ -701,6 +781,11 @@ public class TextArea extends ScrollControlBase
      *  and <code>&lt;p&gt;</code> to place line breaks in the text field.</p>
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get condenseWhite():Boolean
     {
@@ -758,6 +843,11 @@ public class TextArea extends ScrollControlBase
      *
      *  @default null
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -823,6 +913,11 @@ public class TextArea extends ScrollControlBase
      *  @tiptext Specifies whether to display '*'
      *  instead of the actual characters
      *  @helpid 3177
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get displayAsPassword():Boolean
     {
@@ -873,6 +968,11 @@ public class TextArea extends ScrollControlBase
      * 
      *  @tiptext Specifies whether the component is editable or not
      *  @helpid 3176
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get editable():Boolean
     {
@@ -1097,6 +1197,11 @@ public class TextArea extends ScrollControlBase
      *  @default ""
      * 
      *  @see flash.text.TextField#htmlText
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get htmlText():String
     {
@@ -1165,6 +1270,11 @@ public class TextArea extends ScrollControlBase
      *  @default null
      * 
      * @see flash.system.IMEConversionMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
      public function get imeMode():String
     {
@@ -1202,6 +1312,11 @@ public class TextArea extends ScrollControlBase
      * 
      *  @tiptext The number of characters in the TextArea
      *  @helpid 3173
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get length():int
     {
@@ -1235,6 +1350,11 @@ public class TextArea extends ScrollControlBase
      *
      *  @default null
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
@@ -1276,6 +1396,11 @@ public class TextArea extends ScrollControlBase
      *
      *  @tiptext The maximum number of characters that the TextArea can contain
      *  @helpid 3172
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxChars():int
     {
@@ -1350,6 +1475,11 @@ public class TextArea extends ScrollControlBase
      * 
      *  @tiptext The set of characters that may be entered into the TextArea
      *  @helpid 3174
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get restrict():String
     {
@@ -1395,6 +1525,11 @@ public class TextArea extends ScrollControlBase
      *  Making the text selectable lets you copy text from the control.
      *
      *  @default false;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectable():Boolean
     {
@@ -1440,6 +1575,11 @@ public class TextArea extends ScrollControlBase
      * 
      *  @tiptext The zero-based index value of the first character
      *  in the selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectionBeginIndex():int
     {
@@ -1485,6 +1625,11 @@ public class TextArea extends ScrollControlBase
      *
      *  @tiptext The zero-based index value of the last character
      *  in the selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectionEndIndex():int
     {
@@ -1530,6 +1675,11 @@ public class TextArea extends ScrollControlBase
     *  @see flash.text.StyleSheet
     *
     *  @default null
+    *  
+    *  @langversion 3.0
+    *  @playerversion Flash 9
+    *  @playerversion AIR 1.1
+    *  @productversion Flex 3
     */
     public function get styleSheet():StyleSheet
     {
@@ -1605,6 +1755,11 @@ public class TextArea extends ScrollControlBase
      *  @default ""
      *  @tiptext Gets or sets the TextArea content
      *  @helpid 3179
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get text():String
     {
@@ -1676,6 +1831,11 @@ public class TextArea extends ScrollControlBase
      *  which updates the value immediately.</p>
      *
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get textHeight():Number
     {
@@ -1704,6 +1864,11 @@ public class TextArea extends ScrollControlBase
      *  which updates the value immediately.</p>
      *
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get textWidth():Number
     {
@@ -1737,6 +1902,11 @@ public class TextArea extends ScrollControlBase
      * 
      *  @tiptext If true, lines will wrap. If false, long lines get clipped.
      *  @helpid 3175
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get wordWrap():Boolean
     {
@@ -2111,6 +2281,11 @@ public class TextArea extends ScrollControlBase
      *
      *  @see flash.text.TextField
      *  @see flash.text.TextLineMetrics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLineMetrics(lineIndex:int):TextLineMetrics
     {
@@ -2137,6 +2312,11 @@ public class TextArea extends ScrollControlBase
      *  When the TextArea control gets the focus, the selection is visible 
      *  if the <code>selectionBeginIndex</code> and <code>selectionEndIndex</code>
      *  properties are both set.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setSelection(beginIndex:int, endIndex:int):void
     {
