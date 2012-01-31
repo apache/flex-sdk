@@ -2219,54 +2219,40 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         else
             return gridSelection.containsRow(index) && gridSelection.selectionLength == 1;
     }
-    
+        
     /**
      *  @private
+     *  Return true, if the current selection, only contains the rows in
+     *  the selection change.
      */
-    protected function selectionContainsOnlyIndices(indices:Vector.<int>):Boolean 
+    protected function selectionContainsOnlyIndices(selectionChange:CellRegion):Boolean 
     {
-        const selectedRows:Vector.<int> = 
-            grid ? grid.selectedIndices : gridSelection.allRows();
+        var selectionLength:int = 
+            grid ? grid.selectionLength : gridSelection.selectionLength;
         
-        // This assumes no duplicate rows.
-        if (selectedRows.length != indices.length)
+        if (selectionChange.rowCount != selectionLength)
             return false;
         
-        for each (var rowIndex:int in indices)
+        const bottom:int = 
+            selectionChange.rowIndex + selectionChange.rowCount;
+        
+        for (var rowIndex:int = selectionChange.rowIndex; 
+             rowIndex < bottom; 
+             rowIndex++)
         {
-            const offset:int = selectedRows.indexOf(rowIndex);
-            if (offset == -1)
-                return false;
+            if (grid)
+            {
+                if (!grid.selectionContainsIndex(rowIndex)) 
+                    return false;
+            }
             else
-                selectedRows.splice(offset, 1);
+            {
+                if (!gridSelection.containsRow(rowIndex))
+                    return false;
+            }
         }
-        
-        return selectedRows.length == 0;        
-    }
-    
-    /**
-     *  @private
-     */
-    protected function selectionContainsOnlyIndicesCR(cellRegion:CellRegion):Boolean 
-    {
-        const selectedRows:Vector.<int> = 
-            grid ? grid.selectedIndices : gridSelection.allRows();
-        
-        // This assumes no duplicate rows.
-        if (selectedRows.length != cellRegion.rowCount)
-            return false;
-        
-        for (var rowIndex:int = cellRegion.rowIndex; 
-            rowIndex < cellRegion.rowIndex + cellRegion.rowCount; rowIndex++)
-        {
-            const offset:int = selectedRows.indexOf(rowIndex);
-            if (offset == -1)
-                return false;
-            else
-                selectedRows.splice(offset, 1);
-        }
-        
-        return selectedRows.length == 0;        
+             
+        return true;        
     }
     
     /**
@@ -2752,7 +2738,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             case GridSelectionEventKind.SET_ROWS:
             {
                 changesSelection = 
-                    !selectionContainsOnlyIndicesCR(selectionChange);
+                    !selectionContainsOnlyIndices(selectionChange);
                 break;
             }
                 
