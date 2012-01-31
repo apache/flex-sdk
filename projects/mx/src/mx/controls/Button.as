@@ -38,7 +38,6 @@ import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
 import mx.core.IProgrammaticSkin;
-import mx.core.IRectangularBorder;
 import mx.core.IStateClient;
 import mx.core.IUIComponent;
 import mx.core.IUITextField;
@@ -1331,6 +1330,11 @@ public class Button extends UIComponent
     /**
      *  @private
      */
+    mx_internal var phaseChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
     mx_internal function get phase():String
     {
         return _phase;
@@ -1342,8 +1346,10 @@ public class Button extends UIComponent
     mx_internal function set phase(value:String):void
     {
         _phase = value;
+        phaseChanged = true;
         
         invalidateSize();
+        invalidateProperties();
         invalidateDisplayList();
     }
 
@@ -1605,6 +1611,16 @@ public class Button extends UIComponent
             if (!toggle)
                 selected = false;
             toggleChanged = false;
+        }  
+        
+        if (phaseChanged)
+        {
+            // Ensure all potential pseudo-selectors are reevaluated if 
+            // necessary.
+            var prevState:String = _currentButtonState;
+            if (prevState != getCurrentButtonState())
+                stateChanged(prevState, _currentButtonState, false);
+            phaseChanged = false;
         }
     }
     
@@ -1700,7 +1716,7 @@ public class Button extends UIComponent
             changeSkins();
             emphasizedChanged = false;
         }
-
+        
         // Set each skin's size to the layout size of this Button.
         var n:int = skins.length;
         for (var i:int = 0; i < n; i++)
@@ -1789,6 +1805,16 @@ public class Button extends UIComponent
         // If we don't have a skin, show focus around the icon.
         super.adjustFocusRect(!currentSkin ? DisplayObject(currentIcon) : this);
     }
+    
+    /**
+     *  @private 
+     *  The state to be used when matching CSS pseudo-selectors. This override
+     *  returns the current button state.
+     */ 
+    override protected function get currentCSSState():String
+    {
+        return getCurrentButtonState();
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -1804,34 +1830,21 @@ public class Button extends UIComponent
     mx_internal function viewSkin():void
     {
         // Determine which skin to display, based on whether this
-        // Button is enabled or disabled, whether it is
+        // button is enabled or disabled, whether it is
         // selected or unselected, and how it is currently interacting
         // with the mouse (i.e., the up/over/down state).
         var tempSkinName:String;
-        var stateName:String;
-
+        
         if (!enabled)
-        {
             tempSkinName = selected ? selectedDisabledSkinName : disabledSkinName;
-            stateName = selected ? "selectedDisabled" : "disabled";
-        }
         else if (phase == ButtonPhase.UP)
-        {
             tempSkinName = selected ? selectedUpSkinName : upSkinName;
-            stateName = selected ? "selectedUp" : "up";
-        }
         else if (phase == ButtonPhase.OVER)
-        {
             tempSkinName = selected ? selectedOverSkinName : overSkinName;
-            stateName = selected ? "selectedOver" : "over";
-        }
         else if (phase == ButtonPhase.DOWN)
-        {
             tempSkinName = selected ? selectedDownSkinName : downSkinName;
-            stateName = selected ? "selectedDown" : "down";
-        }
             
-        viewSkinForPhase(tempSkinName, stateName);
+        viewSkinForPhase(tempSkinName, getCurrentButtonState());
     }
 
     /**
@@ -2099,19 +2112,8 @@ public class Button extends UIComponent
         currentIcon = newIcon;
         
         if (defaultIconUsesStates && currentIcon is IStateClient)
-        {
-            var stateName:String = "";
-            
-            if (!enabled)
-                stateName = selected ? "selectedDisabled" : "disabled";
-            else if (phase == ButtonPhase.UP)
-                stateName = selected ? "selectedUp" : "up";
-            else if (phase == ButtonPhase.OVER)
-                stateName = selected ? "selectedOver" : "over";
-            else if (phase == ButtonPhase.DOWN)
-                stateName = selected ? "selectedDown" : "down";
-            
-            IStateClient(currentIcon).currentState = stateName;
+        {            
+            IStateClient(currentIcon).currentState = getCurrentButtonState();
             if (currentIcon is IInvalidating)
             	IInvalidating(currentIcon).validateNow();
         }
@@ -2123,6 +2125,34 @@ public class Button extends UIComponent
         return newIcon;
     }
 
+    /**
+     *  @private
+     *  Storage for the most recent button state.
+     */
+    protected var _currentButtonState:String;
+    
+    /**
+     *  @private
+     *  Computes the current button state based on whether this button is 
+     *  enabled or disabled, whether it is selected or unselected, and how it 
+     *  is currently interacting with the mouse (i.e. the up/over/down state).
+     */
+    mx_internal function getCurrentButtonState():String
+    {
+        _currentButtonState = "";
+        
+        if (!enabled)
+            _currentButtonState = selected ? "selectedDisabled" : "disabled";
+        else if (phase == ButtonPhase.UP)
+            _currentButtonState = selected ? "selectedUp" : "up";
+        else if (phase == ButtonPhase.OVER)
+            _currentButtonState = selected ? "selectedOver" : "over";
+        else if (phase == ButtonPhase.DOWN)
+            _currentButtonState = selected ? "selectedDown" : "down";
+        
+        return _currentButtonState;
+    }
+    
    /**
      *  @private
      *  Controls the layout of the icon and the label within the button.
