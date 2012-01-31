@@ -158,7 +158,8 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  Boolean flag controlling whether multiple selection
-     *  is enabled or not. 
+     *  is enabled or not. When switched dynamically, selection
+     *  is cleared. 
      *
      *  @default false
      *  
@@ -235,13 +236,13 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedItem():*
     {   
-        if (!allowMultipleSelection)
+        if (!allowMultipleSelection || !_selectedIndices)
             return super.selectedItem;
             
         if (_selectedIndices && _selectedIndices.length > 0)
             return dataProvider.getItemAt(_selectedIndices[0]); 
             
-        return NO_SELECTION;
+        return undefined;
     }
     
     /**
@@ -684,8 +685,9 @@ public class List extends ListBase implements IFocusManagerComponent
             return;
 
         var spDelta:Point = layout.getScrollPositionDeltaToElement(index);
+         
         if (spDelta)
-        { 
+        {
             horizontalScrollPosition += spDelta.x;
             verticalScrollPosition += spDelta.y;
         }
@@ -702,16 +704,51 @@ public class List extends ListBase implements IFocusManagerComponent
         
         if (dataProvider)
         {
-            //Delegate to the layout to tell us what the next item is we shoudl select. 
-	        var proposedSelectedIndex:int = layout.nextItemIndex(event.keyCode, selectedIndex, dataProvider.length - 1); 
+            var currentIndex:Number; 
+            if (allowMultipleSelection && selectedIndices && selectedIndices.length > 0)
+            {
+                currentIndex = selectedIndices[selectedIndices.length - 1]; 
+            }
+            else currentIndex = selectedIndex;  
+            
+	        //Delegate to the layout to tell us what the next item is we should select.
+	        var proposedSelectedIndex:int = layout.nextItemIndex(event.keyCode, currentIndex, dataProvider.length - 1); 
+	        
 	        // Note that the KeyboardEvent is canceled even if the selectedIndex doesn't
             // change because we don't want another component to start handling these
             // events when the selectedIndex reaches a limit.
             if (proposedSelectedIndex != -1)
             {
                 event.preventDefault(); 
-                selectedIndex = proposedSelectedIndex; 
-                ensureItemIsVisible(selectedIndex); 
+                if (allowMultipleSelection && event.shiftKey && selectedIndices)
+                {
+                    var newInterval:Array = []; 
+                    var i:int; 
+                    //contiguous multi-selection action - create the new selection
+                    //interval
+                    if (selectedIndex <= proposedSelectedIndex)
+                    {
+                        for (i = selectedIndex; i <= proposedSelectedIndex; i++)
+                        {
+                            newInterval.push(i); 
+                        }
+                    }
+                    else 
+                    {
+                        for (i = selectedIndex; i >= proposedSelectedIndex; i--)
+                        {
+                            newInterval.push(i); 
+                        }
+                    }
+                    selectedIndices = newInterval;   
+                    ensureItemIsVisible(proposedSelectedIndex); 
+                }
+                else
+                {
+                    //simple new selection 
+                    selectedIndex = proposedSelectedIndex; 
+                    ensureItemIsVisible(proposedSelectedIndex);
+                } 
             } 
 		}
     }
