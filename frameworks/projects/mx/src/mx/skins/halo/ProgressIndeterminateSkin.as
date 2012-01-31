@@ -93,7 +93,7 @@ public class ProgressIndeterminateSkin extends Border
 
 		// User-defined styles
 		var barColorStyle:* = getStyle("barColor");
-		var barColor:uint = StyleManager.isValidStyleValue(barColorStyle) ?
+		var barColor:uint = styleManager.isValidStyleValue(barColorStyle) ?
 							barColorStyle :
 							getStyle("themeColor");
 			
