@@ -19,6 +19,7 @@ import mx.components.baseClasses.GroupBase;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
+import mx.core.InvalidatingSprite;
 import mx.core.mx_internal;
 import mx.events.ItemExistenceChangedEvent;
 import mx.graphics.IGraphicElement;
@@ -341,26 +342,51 @@ public class Group extends GroupBase implements IVisualElementContainer
      *  @private
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {
+    {    	
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
-        // Iterate through the graphic elements, clear their graphics and draw them
 
         graphics.clear(); // Clear the group's graphic because graphic elements might be drawing to it
         // This isn't needed for DataGroup because there's no DisplayObject sharing
         
-        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
-        // Iterate through the graphic elements, clear their graphics and draw them
+        // Iterate through the graphic elements. If an element has a displayObject that has been 
+        // invalidated, then validate all graphic elements that draw to this displayObject. 
+        // The algorithm assumes that all of the elements that share a displayObject are in between
+        // the element with the shared displayObject and the next element that has a displayObject.
         if (numGraphicElements > 0)
         {
-            var length:int = numElements;
-            for (var i:int = 0; i < length; i++)
-            {
-                var element:IGraphicElement = getElementAt(i) as IGraphicElement;
-                if (element)
-                    element.validateDisplayList();
-            }
+	        var length:int = numElements;
+	        var currentSharedSprite:InvalidatingSprite;
+	        for (var i:int = 0; i < length; i++)
+	        {
+	            var element:IGraphicElement = getElementAt(i) as IGraphicElement;
+	            if (element)
+	            {
+	            	var elementSprite:InvalidatingSprite = element.displayObject as InvalidatingSprite;
+	            	
+	            	// Each element must either have a displayObject or sharedDisplayObject property
+	            	if (elementSprite)
+	            	{
+	            		if (currentSharedSprite)
+	            		{
+		            		// Reached a new display object, so mark the previous DisplayObject valid
+		            		currentSharedSprite.invalid = false;
+	            		}
+	            		
+	            		currentSharedSprite = elementSprite;
+	            	}
+	            	
+	            	// currentSharedSprite is null if the Group is the sharedDisplayObject.            	
+	            	if (currentSharedSprite == null || currentSharedSprite.invalid) 
+	            	{
+	            		element.validateDisplayList();
+	            	} 
+	
+	            }
+	        }
+	        
+	        // Mark the last shared displayObject valid
+	        if (currentSharedSprite)
+	        	currentSharedSprite.invalid = false;
         }
     }
 
@@ -1035,8 +1061,6 @@ public class Group extends GroupBase implements IVisualElementContainer
                 }
                 
                 element.sharedDisplayObject = mergeData.currentAssignableDO;
-                // Invalidate the element so that it redraws
-                element.invalidateDisplayList();
                 if (element.nextSiblingNeedsDisplayObject)
                     mergeData.currentAssignableDO = null;
             }
