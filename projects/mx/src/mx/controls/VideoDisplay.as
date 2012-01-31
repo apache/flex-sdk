@@ -32,6 +32,7 @@ import mx.utils.LoaderUtil;
 
 use namespace mx_internal;
 
+include "../styles/metadata/BackgroundStyles.as"
 include "../styles/metadata/BorderStyles.as"
 
 /**
