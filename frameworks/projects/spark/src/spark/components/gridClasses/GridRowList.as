@@ -514,6 +514,58 @@ public class GridRowList
     }
     
     /**
+     *  Inserts count number of columns into each node and
+     *  increases numColumns by count.
+     */
+    public function insertColumns(startColumn:int, count:int):void
+    {
+        _numColumns += count;
+        
+        var node:GridRowNode = first;
+        while (node)
+        {   
+            node.insertColumns(startColumn, count);
+            node = node.next;
+        }
+    }
+    
+    /**
+     *  Inserts count number of columns into each node and
+     *  increases numColumns by count.
+     */
+    public function removeColumns(startColumn:int, count:int):void
+    {
+        _numColumns -= count;
+        
+        var node:GridRowNode = first;
+        while (node)
+        {
+            node.removeColumns(startColumn, count);
+            node = node.next;
+        }
+    }
+    
+    public function moveColumns(fromCol:int, toCol:int, count:int):void
+    {
+        var node:GridRowNode = first;
+        while (node)
+        {
+            node.moveColumns(fromCol, toCol, count);
+            node = node.next;
+        }
+    }
+    
+    public function clearColumns(startColumn:int, count:int):void
+    {
+        var node:GridRowNode = first;
+        while (node)
+        {
+            node.clearColumns(startColumn, count);
+            node = node.next;
+        }
+    }
+    
+    /**
      *  for testing;
      */
     public function toString():String
