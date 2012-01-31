@@ -222,7 +222,14 @@ public class GridSelection
     //----------------------------------
     //  selectionLength
     //----------------------------------
-        
+       
+    // 
+    /**
+     *  @private
+     *  Cache the selectionLength.  Only recalculate if selectionLength is -1.
+     */
+    private var _selectionLength:int = 0;    
+    
     /**
      *  If the selectionMode is either <code>GridSelectionMode.SINGLE_ROW</code> or
      *  <code>GridSelectionMode.MULTIPLE_ROWS</code>, returns the number of
@@ -243,37 +250,30 @@ public class GridSelection
      */
     public function get selectionLength():int
     {
-        if (selectionMode == GridSelectionMode.NONE)
-            return 0;
+        // Note: this assumes there are no duplicate cells in cellRegions - ie
+        // 2 adds of the same cell without an intermediate delete.
         
-        // Handle simple cases directly.
-        if (cellRegions.length == 0)
+        if (_selectionLength < 0)
         {
-            return selectAllFlag ? 
-                   getGridDataProviderLength() * getGridColumnsLength() : 0;
-        }
-        
-        // Simple case.  One cell region.
-        if (!selectAllFlag && cellRegions.length == 1 && cellRegions[0].isAdd)
-            return cellRegions[0].width * cellRegions[0].height;
-
-        var bounds:Rectangle = getCellRegionsBounds();        
-        const left:int = bounds.left;
-        const right:int = bounds.right;
-        const bottom:int = bounds.bottom;
-        
-        var selectedCount:int = 0;
-        
-        for (var rowIndex:int = bounds.top; rowIndex < bottom; rowIndex++)
-        {
-            for (var columnIndex:int = left; columnIndex < right; columnIndex++)
+            _selectionLength = selectAllFlag ? 
+                getGridDataProviderLength() * getGridColumnsLength() : 0;
+                        
+            const cellRegionsLength:int = cellRegions.length;            
+            for (var i:int = 0; i < cellRegionsLength; i++)
             {
-                if (regionsContainCell(rowIndex, columnIndex))
-                    selectedCount++;
+                var cr:CellRect = cellRegions[i];
+                const numCells:int = cr.width * cr.height; 
+               
+                // Shorthand for
+                // if (cr.isAdd && !selectAllFlag || !cr.isAdd && selectAllFlag)
+                if (cr.isAdd != selectAllFlag)
+                    _selectionLength += numCells;
+                else
+                    _selectionLength -= numCells;
             }
         }
         
-        return selectedCount;
+        return _selectionLength;        
     }
     
     //----------------------------------
@@ -425,6 +425,7 @@ public class GridSelection
             // be some removals that need to be cleared.
             removeSelection();
             selectAllFlag = true;
+            _selectionLength = -1;
             return true;
         }
         
@@ -446,7 +447,9 @@ public class GridSelection
      */
     public function removeAll():Boolean
     {
-        var selectionChanged:Boolean = removeSelection();
+        var selectionChanged:Boolean = selectionLength > 0;
+        
+        removeSelection();
         selectionChanged = ensureRequiredSelection() || selectionChanged;
         
         return selectionChanged;
@@ -529,8 +532,7 @@ public class GridSelection
         if (!validateIndex(rowIndex))
             return false;
     
-        removeSelection();
-        addCellRegion(rowIndex, 0, 1, 1);
+        internalSetCellRegion(rowIndex);
                 
         return true;
     }
@@ -559,7 +561,7 @@ public class GridSelection
         if (selectionMode != GridSelectionMode.MULTIPLE_ROWS)
             return false;
         
-        addCellRegion(rowIndex, 0, 1, 1);
+        internalAddCell(rowIndex);
 
         return true;
    }
@@ -589,7 +591,7 @@ public class GridSelection
         if (requireSelection && containsRow(rowIndex) && selectionLength == 1)
             return false;
                             
-        removeCellRegion(rowIndex, 0, 1, 1);
+        internalRemoveCell(rowIndex);
         
         return true;
     }
@@ -616,8 +618,7 @@ public class GridSelection
         if (!validateRowRegion(rowIndex, rowCount))
             return false;
 
-        removeSelection();
-        addCellRegion(rowIndex, 0, rowCount, 1);
+        internalSetCellRegion(rowIndex, 0, rowCount, 1);
          
         return true;
     }
@@ -681,6 +682,24 @@ public class GridSelection
         if (!validateCellRegion(rowIndex, columnIndex, rowCount, columnCount))
             return false;
         
+        if (rowCount * columnCount > selectionLength)
+            return false;
+        
+        const cellRegionsLength:int = cellRegions.length;
+        
+        if (cellRegionsLength == 0)
+            return selectAllFlag;
+        
+        if (!selectAllFlag && cellRegionsLength == 1)
+        {
+            const cr:CellRect = cellRegions[0];
+            return (cr.y <= rowIndex && cr.x <= columnIndex &&
+                    cr.y + cr.height <= rowIndex + rowCount &&
+                    cr.x + cr.width <= columnIndex + columnCount);
+        }
+        
+        // Not a simple selection so we're going to have to check each cell.
+        
         const bottom:int = rowIndex + rowCount;
         const right:int = columnIndex + columnCount;
         
@@ -722,8 +741,7 @@ public class GridSelection
         if (!validateCell(rowIndex, columnIndex))
             return false;
         
-        removeSelection();
-        addCellRegion(rowIndex, columnIndex, 1, 1);
+        internalSetCellRegion(rowIndex, columnIndex, 1, 1);
         
         return true;
     }
@@ -753,7 +771,7 @@ public class GridSelection
         if (!validateCellRegion(rowIndex, columnIndex, 1, 1))
             return false;
         
-        addCellRegion(rowIndex, columnIndex, 1, 1);
+        internalAddCell(rowIndex, columnIndex);
         
         return true;
     }
@@ -787,7 +805,7 @@ public class GridSelection
         if (requireSelection && containsCell(rowIndex, columnIndex) && selectionLength == 1)
             return false;
         
-        removeCellRegion(rowIndex, columnIndex, 1, 1);
+        internalRemoveCell(rowIndex, columnIndex);
         
         return true;
     }
@@ -825,8 +843,7 @@ public class GridSelection
         if (!validateCellRegion(rowIndex, columnIndex, rowCount, columnCount))
             return false;
                        
-        removeSelection();
-        addCellRegion(rowIndex, columnIndex, rowCount, columnCount);
+        internalSetCellRegion(rowIndex, columnIndex, rowCount, columnCount);
         
         return true;
     }
@@ -951,17 +968,12 @@ public class GridSelection
      *  @private
      *  Remove any currently selected rows, cells and cached items.  This
      *  disregards the requireSelection flag.
-     * 
-     *  @return true if the selection has changed.
      */    
-    private function removeSelection():Boolean
+    private function removeSelection():void
     {
-        const hasSelection:Boolean = selectionLength > 0;
-        
         cellRegions.length = 0;       
         selectAllFlag = false;
-        
-        return hasSelection;
+        _selectionLength = 0;
     }
         
     /**
@@ -1067,71 +1079,59 @@ public class GridSelection
         
         return false;       
     }
-    
+            
     /**
      *  @private
-     *  Remove all cell regions that are completely contained by cr and then 
-     *  append cr to cellRegions.
+     *  Initalize the list of cellRegions with this one.
      */
-    private function filterCellRegions(cr:CellRect):void
+    private function internalSetCellRegion(rowIndex:int, columnIndex:int=0, 
+                                           rowCount:uint=1, columnCount:uint=1):void
     {
-        // If the previous region has the same isAdd and it contains this one,
-        // don't add this one.  Or if cr, contains the previous region,
-        // replace the previous region with this cr. 
-        // If there are interleaved adds/deletes we can't compress cell regions
-        // without adding more smarts.
-        const crLength:int = cellRegions.length;
-        if (crLength > 0)
-        {
-            const lastCR:CellRect = cellRegions[crLength - 1];
-            if (lastCR.isAdd == cr.isAdd)
-            {
-                if (lastCR.containsRect(cr))
-                    return;
-                    
-                if (cr.containsRect(lastCR))
-                {
-                    cellRegions[crLength - 1] = cr;
-                    return;
-                }
-            } 
-            else if (cr.equals(lastCR))
-            {
-                // If not select all, then don't need to record an add
-                // followed by the same remove.
-                // If select all, then don't need to record a remove followed
-                // by the same add.
-                if (!selectAllFlag && lastCR.isAdd ||
-                    selectAllFlag && !lastCR.isAdd)
-                {
-                    cellRegions.length--;
-                    return;
-                }
-            }
-        }
-        cellRegions.push(cr);
-    }
+        const cr:CellRect = 
+            new CellRect(rowIndex, columnIndex, rowCount, columnCount, true);
         
+        removeSelection();
+        cellRegions.push(cr);
+        
+        _selectionLength = rowCount * columnCount;
+    }
+
     /**
      *  @private
-     *  Add the given cell region to the list of cellRegions.
+     *  Add the given row/cell to the list of cellRegions.
      */
-    private function addCellRegion(rowIndex:int, columnIndex:int, 
-                                   rowCount:uint, columnCount:uint):void
+    private function internalAddCell(rowIndex:int, columnIndex:int=0):void
     {
-       filterCellRegions(new CellRect(rowIndex, columnIndex, 
-                                         rowCount, columnCount, !selectAllFlag));
+        if (!regionsContainCell(rowIndex, columnIndex))
+        {
+            const cr:CellRect = 
+                new CellRect(rowIndex, columnIndex, 1, 1, !selectAllFlag);
+            cellRegions.push(cr);
+            
+            // If the length is current before this add, just increment the 
+            // length.
+            if (_selectionLength >= 0)
+                _selectionLength++;
+        }
     }
               
     /**
      *  @private
-     *  Remove the given cell region from the list of cellRegions.
+     *  Remove the given row/cell from the list of cellRegions.
      */
-    private function removeCellRegion(rowIndex:int, columnIndex:int, 
-                                   rowCount:uint, columnCount:uint):void
+    private function internalRemoveCell(rowIndex:int, columnIndex:int=0):void
     {
-        filterCellRegions(new CellRect(rowIndex, columnIndex, 
-            rowCount, columnCount, selectAllFlag));
+        if (regionsContainCell(rowIndex, columnIndex))
+        {
+            const cr:CellRect = 
+                new CellRect(rowIndex, columnIndex, 1, 1, selectAllFlag);
+            cellRegions.push(cr);
+            
+            // If the length is current before this remove, just decrement the 
+            // length.
+            if (_selectionLength >= 0)
+                _selectionLength--;
+        }
     }
     
     /**
@@ -1270,7 +1270,8 @@ public class GridSelection
                     cr.height = insertIndex - cr.y;
                     
                     // insert newCR just after cr
-                    cellRegions.splice(++crIndex, 0, newCR);
+                    cellRegions.splice(++crIndex, 0, newCR);                    
+                    _selectionLength = -1;      // recalculate
                 }
             }
         }
@@ -1319,6 +1320,7 @@ public class GridSelection
             // new number of rows
             if (cr.bottom > rowCount)
             {
+                _selectionLength = -1;  // recalculate               
                 if (cr.y >= rowCount)
                 {
                     cellRegions.splice(crIndex, 1);
@@ -1371,6 +1373,7 @@ public class GridSelection
                 }
                 else if (removeIndex >= cr.y && removeIndex < cr.bottom)
                 {
+                    _selectionLength = -1;  // recalculate               
                     cr.height--;
                     if (cr.height == 0)
                     {
@@ -1518,6 +1521,7 @@ public class GridSelection
                     
                     // insert newCR just after cr
                     cellRegions.splice(++crIndex, 0, newCR);
+                    _selectionLength = -1;  // recalculate               
                 }
             }
         }
@@ -1587,6 +1591,7 @@ public class GridSelection
                 }
                 else if (removeIndex >= cr.x && removeIndex < cr.right)
                 {
+                    _selectionLength = -1;  // recalculate               
                     cr.width--;
                     if (cr.width == 0)
                     {
@@ -1628,6 +1633,7 @@ public class GridSelection
             // new number of columns
             if (cr.right > columnCount)
             {
+                _selectionLength = -1;  // recalculate               
                 if (cr.x >= columnCount)
                 {
                     cellRegions.splice(crIndex, 1);
@@ -1690,10 +1696,5 @@ internal class CellRect extends Rectangle
     public function containsCell(cellRowIndex:int, cellColumnIndex:int):Boolean
     {
         return contains(cellColumnIndex, cellRowIndex);
-    }
-    
-    public function containsRow(rowIndex:int):Boolean
-    {
-        return contains(0, rowIndex);
     }
 }
