@@ -19,6 +19,11 @@ import mx.rpc.xml.SchemaConstants;
 /**
  * Decodes the SOAP response for a particular operation.
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ISOAPDecoder extends IXMLDecoder
 {
@@ -41,6 +46,11 @@ public interface ISOAPDecoder extends IXMLDecoder
      * this manner, regardless of the number of values returned. Leaving
      * forcePartArrays as false will only create arrays if two or more elements
      * are returned.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get forcePartArrays():Boolean;
     function set forcePartArrays(value:Boolean):void;
@@ -54,6 +64,11 @@ public interface ISOAPDecoder extends IXMLDecoder
      * Conversely, if a type <code>whiteSpace</code> restriction is set to
      * <code>replace</code> or <code>collapse</code> then that setting is
      * be honored even if ignoreWhitespace is set to <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get ignoreWhitespace():Boolean;
     function set ignoreWhitespace(value:Boolean):void;
@@ -65,6 +80,11 @@ public interface ISOAPDecoder extends IXMLDecoder
      * <code>xml</code> specifies that the XML is left as XMLNodes. A
      * value of <code>e4x</code> specifies that the XML will be accessible
      * using ECMAScript for XML (E4X) expressions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get resultFormat():String;
     function set resultFormat(value:String):void;
@@ -77,6 +97,11 @@ public interface ISOAPDecoder extends IXMLDecoder
      * <code>xml</code> specifies that the XML is left as XMLNodes. A
      * value of <code>e4x</code> specifies that the XML should be accessible
      * using ECMAScript for XML (E4X) expressions.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get headerFormat():String;
     function set headerFormat(value:String):void;
@@ -91,6 +116,11 @@ public interface ISOAPDecoder extends IXMLDecoder
      * literal web services is "object". The default for rpc services is "array".
      * The multiplePartsFormat property is applicable only when
      * resultFormat="object" and ignored otherwise.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get multiplePartsFormat():String;
     function set multiplePartsFormat(value:String):void;
@@ -98,6 +128,11 @@ public interface ISOAPDecoder extends IXMLDecoder
     /**
      * A WSDLOperation defines the SOAP binding styles and specifies how to
      * decode a SOAP result.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get wsdlOperation():WSDLOperation;
     function set wsdlOperation(value:WSDLOperation):void;
@@ -110,6 +145,11 @@ public interface ISOAPDecoder extends IXMLDecoder
 
     /**
      * Decodes a SOAP response into a result and headers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function decodeResponse(response:*):SOAPResult;
 }
