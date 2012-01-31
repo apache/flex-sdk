@@ -27,7 +27,6 @@ import mx.core.EdgeMetrics;
 import mx.core.IFlexDisplayObject;
 import mx.core.IRectangularBorder;
 import mx.core.IUIComponent;
-import mx.core.FlexVersion;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -604,7 +603,7 @@ public class PopUpButton extends Button
                 
             _popUp.owner = this;
             
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0 && _popUp is ISimpleStyleClient)
+            if (_popUp is ISimpleStyleClient)
                 ISimpleStyleClient(_popUp).styleName = getStyle("popUpStyleName");
             
             popUpChanged = false;
@@ -645,7 +644,6 @@ public class PopUpButton extends Button
         if (styleProp == "arrowButtonWidth")
             invalidateSize();
         else if (styleProp == "popUpStyleName" && _popUp 
-                && FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0
                 && _popUp is ISimpleStyleClient)
             ISimpleStyleClient(_popUp).styleName = getStyle("popUpStyleName");
             
@@ -941,24 +939,10 @@ public class PopUpButton extends Button
         // then use it. Otherwise, use a default value.
         var bm:EdgeMetrics;
         
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0) 
-        {
-            try
-            {
-                bm = currentSkin["borderMetrics"];
-            }
-            catch(e:Error)
-            {
-                bm = new EdgeMetrics(3, 3, 3, 3);
-            }
-        }
+        if (currentSkin is IRectangularBorder)
+            bm = IRectangularBorder(currentSkin).borderMetrics;
         else
-        {
-            if (currentSkin is IRectangularBorder)
-                bm = IRectangularBorder(currentSkin).borderMetrics;
-            else
-                bm = new EdgeMetrics(3, 3, 3, 3);        
-        }
+            bm = new EdgeMetrics(3, 3, 3, 3);
         
         var popUpIcon:IFlexDisplayObject =
             IFlexDisplayObject(getChildByName("popUpIcon"));
