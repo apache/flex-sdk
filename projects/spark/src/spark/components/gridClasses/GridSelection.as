@@ -160,7 +160,7 @@ public class GridSelection
     //  preserveSelection
     //----------------------------------
     
-    private var _preserveSelection:Boolean = false;
+    private var _preserveSelection:Boolean = true;
     
     /**
      *  If true, and <code>selectionMode</code> is 
@@ -170,7 +170,7 @@ public class GridSelection
      *  if the corresponding item is contained in the collection after
      *  the refresh event.
      *
-     *  @default false
+     *  @default true
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
