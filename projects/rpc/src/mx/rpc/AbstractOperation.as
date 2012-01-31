@@ -201,9 +201,7 @@ public class AbstractOperation extends AbstractInvoker
             {
             	if (_service != null)
 		    _service.dispatchEvent(event);
-            }
-            //NetworkMonitor Call
-        	monitorRpcEvent(event);
+            }           
         }
     }
 
