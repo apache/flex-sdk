@@ -310,7 +310,7 @@ public class Text extends Label
         if (widthChanged)
         {
             textField.wordWrap = !isNaN(explicitWidth) ||
-								 !isNaN(maxWidth) ||
+								 !isNaN(explicitMaxWidth) ||
 								 !isNaN(percentWidth);
             widthChanged = false;
         }
@@ -366,10 +366,13 @@ public class Text extends Label
         }
 
         // Figure out the width we're going to use;
-		// explicitWidth trumps maxWidth.
-        var availableWidth:Number = !isNaN(explicitWidth) ?
-									explicitWidth :
-									maxWidth;
+		// explicitWidth trumps explicitMaxWidth.
+        var availableWidth:Number;
+        
+        if (!isNaN(explicitWidth))
+            availableWidth = explicitWidth;
+        else if (!isNaN(explicitMaxWidth))
+            availableWidth = explicitMaxWidth;
         
         measureUsingWidth(availableWidth);
     }
