@@ -486,7 +486,7 @@ public class DataGroup extends GroupBase
             {
                 for (index = indexToRenderer.length - 1; index >= 0; index--)
                 {
-                    // TODO (rfrishbe): we can't key off of the oldDataProvider for 
+                    // FIXME (rfrishbe): we can't key off of the oldDataProvider for 
                     // the item because it might not be there anymore (for instance, 
                     // in a dataProvider reset where the new data is loaded into 
                     // the dataProvider--the dataProvider doesn't actually change, 
@@ -511,7 +511,7 @@ public class DataGroup extends GroupBase
                 var startIndex:int = virtualLayoutStartIndex; // itemRemoved decrements virtualLayoutStartIndex
                 for (index = endIndex; (index >= 0) && (index >= startIndex); index--)
                 {
-                    // TODO (rfrishbe): same as above
+                    // FIXME (rfrishbe): same as above
                     
                     renderer = indexToRenderer[index] as IVisualElement;
                     if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
