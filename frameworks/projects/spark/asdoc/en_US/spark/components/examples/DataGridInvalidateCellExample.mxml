@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+This example demonstrates the use of the DataGrid invalidateCell() method.
+
+Pressing the "Run" button starts a timer that updates DataGrid cells at the
+rate specified with the slider.
+
+This "Christmas Tree" DataGrid example displays a dataProvider with items whose 
+substructure is constantly changing.  Each dataProvider item has one object
+valued property per column, and each of those properties has an object value
+that defines what's displayed in a single cell.  To keep things simple the
+column properties are just called "C0", "C1", ... and the value of each property
+is an object itself, with "color" and "index" properties, like {color:NN, index:NN}.
+So the data for the cell at rowIndex=10, columnIndex=5:
+
+    dataGrid.dataProvider.getItemAt(10)["C5"] =>  {color:0xFF6C0D, index:4}
+
+The DataGrid has no way of knowing when the color,index data for a cell has been updated
+so the developer must call invalidateCell(rowIndex, columnIndex) to let the DataGrid
+know that the specified cell must be redisplayed.  When the "Run" button is toggled
+on, updateTimerHandler() method  below is called up to 64 times/second and each
+time it updates a single random cell's color and index properties and then calls 
+invalidateCell().  Calling invalidateCell() only causes the (one) corresponding item
+renderer to redisplay, so long as doing so doesn't invalidate the corresponding row's
+height.  That can occur if variableRowHeight=true and if it does, the entire DataGrid
+is redisplayed.
+
+The CPU load produced by applications like this one is only proportional to the update rate 
+and the renderers' complexity, so long as the overall grid layout isn't affected by 
+the cell updates.  Using fixed height rows with variableRowHeight="false" (the default),
+simple item renderers, and not dynamically changing column widths, are good ways to ensure 
+that the CPU load is minimized.
+
+-->
+
+<s:Application  
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Script>
+        <![CDATA[
+            import mx.collections.ArrayList;
+            
+            import spark.components.gridClasses.GridColumn;
+            
+            // DatGrid size.  Roughly fills my laptop screen if the application window is maximized.
+            private var columnCount:int = 16;
+            private var rowCount:int = 16;
+            
+            // Colors from the "tropical breakfast" theme, http://kuler.adobe.com/#themeID/1194065
+            private var colors:Array = [0x216273, 0x44996F, 0xE5C10F, 0xF29E00, 0xFF6C0D];
+            
+            [Bindable] private var updatesPerSecond:Number = 12;    // update "rate"
+            private var updateTimer:Timer = null;
+            
+            // Initialize the DataGrid's columns, dataProvider and typicalItem.  We're creating
+            // columnCount columns and rowCount rows (dataProvider items).   The value of each 
+            // dataProvider item is an object with one property per column, called 
+            // "C0", "C1", ...  The value of each of those "C<N>" properties is a {color:NN, index:NN} 
+            // object that defines what's displayed in an individual cell.
+            
+            private function initializeDataGrid():void
+            {
+                const columnsArray:Array = new Array(columnCount);
+                const typicalItem:Object = {};
+                const dataArray:Array = new Array(rowCount);
+                
+                for (var columnIndex:int = 0; columnIndex < columnCount; columnIndex++)
+                {
+                    var columnProperty:String = "C" + columnIndex;
+                    columnsArray[columnIndex] = new GridColumn(columnProperty);
+                    typicalItem[columnProperty] = {color:0, index:0};
+                }
+                
+                for(var rowIndex:int = 0; rowIndex < rowCount; rowIndex++)
+                {
+                    var item:Object = {};
+                    for (columnIndex = 0; columnIndex < columnCount; columnIndex++)
+                        item["C" + columnIndex] = {color:colors[0], index:0};
+                    dataArray[rowIndex] = item;
+                }
+                
+                dataGrid.columns = new ArrayList(columnsArray);
+                dataGrid.typicalItem = typicalItem;
+                dataGrid.dataProvider = new ArrayList(dataArray);
+            }
+
+            // Toggle the timer that changes the data and calls invalidateCell().
+            // See updateTimerHandler().
+            
+            private function runTest():void
+            {
+                if (!updateTimer)
+                {
+                    updateTimer = new Timer(1000.0 / updatesPerSecond);
+                    updateTimer.addEventListener(TimerEvent.TIMER, updateTimerHandler);
+                }
+                
+                if (runToggleButton.selected)
+                {
+                    updateTimer.start();
+                }
+                else
+                {
+                    updateTimer.stop();
+                    cellLocationLabel.text = "";
+                }
+            }
+            
+            private static function randomIndex(length:int):int
+            {
+                return Math.round(Math.random() * (length - 1));
+            }
+            
+            // When the timer is running this method is called updatesPerSecond times per second.
+            // It modifies the index and color properties for a single cell and then calls
+            // invalidateCell() to let the DataGrid now that the cell needs to be redisplayed.
+            // See initializeDataGrid() for more about how the data for each cell is defined.
+            
+            private function updateTimerHandler(event:TimerEvent):void
+            {
+                const rowIndex:int = randomIndex(rowCount);
+                const columnIndex:int = randomIndex(columnCount);
+                
+                cellLocationLabel.text = "(" + rowIndex + ", " + columnIndex + ")";
+                
+                const item:Object = dataGrid.dataProvider.getItemAt(rowIndex);
+                const columnProperty:String = "C" + columnIndex;
+                
+                const index:int = Math.min(item[columnProperty].index + 1, colors.length - 1);
+                item[columnProperty].index = index;
+                item[columnProperty].color = colors[index]; 
+                
+                dataGrid.invalidateCell(rowIndex, columnIndex);
+            }
+            
+            private function changeUpdateRate():void
+            {
+                if (updateTimer)
+                    updateTimer.delay = 1000.0 / updatesPerSecond;
+            }
+        ]]>
+    </fx:Script>
+    
+    <s:Panel title="Spark DataGrid Control Example demonstrates the use of the DataGrid invalidateCell() method"
+             width="75%" height="75%" 
+             horizontalCenter="0" verticalCenter="0">
+        
+        <s:controlBarContent>
+            <s:HGroup verticalAlign="baseline" width="100%">
+                <s:ToggleButton id="runToggleButton" label="Run" change="runTest()"/>
+                <s:HSlider id="updateRateSlider" minimum="1" maximum="64" value="@{updatesPerSecond}" snapInterval="1" changeEnd="changeUpdateRate()"/>
+                <s:Label id="updateRateLabel" text="{updateRateSlider.value} updates/second" />
+                <s:Label id="cellLocationLabel" width="100%" textAlign="right"/>
+            </s:HGroup>
+        </s:controlBarContent>
+        
+        <s:DataGrid id="dataGrid" left="5" right="5" top="5" bottom="5" initialize="initializeDataGrid()">
+            <!--
+                We're using one item renderer for *all* columns, so the renderer is responsible for 
+                looking up the dataProvider item's column specific value.
+            -->
+            <s:itemRenderer>
+                <fx:Component>
+                    <s:GridItemRenderer>
+                        <fx:Script>
+                            <![CDATA[                                
+                                // Each dataProvider item has one {color:NN, index:NN} object valued
+                                // property whose name is the same as the column's dataField.  For
+                                // example the first column's dataField is "C0" and so this.data["C0"]
+                                // is the renderer's color,index object.   We use the color and index
+                                // properties to initialize the renderer here.
+                                
+                                override public function prepare(hasBeenRecycled:Boolean):void
+                                {
+                                    colorDisplay.color = data[column.dataField].color;
+                                    indexDisplay.text = String(data[column.dataField].index);
+                                }
+                            ]]>
+                        </fx:Script>
+                        <!-- black item renderer background with alpha=0.75 to expose the 
+                             selection/hover indicators -->
+                        <s:Rect left="0" right="0" top="0" bottom="0">
+                            <s:fill>
+                                <s:SolidColor alpha="0.75" color="0x000000"/>
+                            </s:fill>                        
+                        </s:Rect>
+                        
+                        <!-- single digit text, displays index property -->
+                        <s:Label id="indexDisplay" left="45" verticalCenter="0" right="5" 
+                                 color="0XFFFFFF" fontSize="20"/>
+                        
+                        <!-- 30x30 filled circle, displays color property -->
+                        <s:Ellipse left="5" top="5" bottom="5" width="30" height="30">
+                            <s:stroke>
+                                <s:SolidColorStroke color="0x000000" weight="2"/>
+                            </s:stroke>
+                            <s:fill>
+                                <s:SolidColor id="colorDisplay"/>
+                            </s:fill>
+                        </s:Ellipse>
+                    </s:GridItemRenderer>
+                </fx:Component>
+            </s:itemRenderer>
+        </s:DataGrid>
+    </s:Panel>
+</s:Application>
