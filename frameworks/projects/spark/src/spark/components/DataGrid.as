@@ -271,7 +271,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [IconFile("DataGrid.png")]
 
 /**
- *  TBD
+ *  TBD(hmuller)
  */  
 public class DataGrid extends SkinnableContainerBase implements IFocusManagerComponent, IGridItemRendererOwner
 {
