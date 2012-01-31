@@ -8,7 +8,7 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects.easing
+package mx.effects.fxEasing
 {
 /**
  * The superclass for classes that provide easing capability where there
