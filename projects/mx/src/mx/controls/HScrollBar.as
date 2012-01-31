@@ -17,6 +17,7 @@ import flash.ui.Keyboard;
 
 import mx.controls.scrollClasses.ScrollBar;
 import mx.controls.scrollClasses.ScrollBarDirection;
+import mx.core.LayoutDirection;
 import mx.core.mx_internal;
 import mx.events.ScrollEvent;
 
@@ -297,14 +298,14 @@ public class HScrollBar extends ScrollBar
         
         if (key == Keyboard.LEFT)
         {
-            direction = layoutDirection == "ltr" ? -1 : 1;
+            direction = LayoutDirection.LTR ? -1 : 1;
             lineScroll(direction);
             return true;
         }
         
         else if (key == Keyboard.RIGHT)
         {
-            direction = layoutDirection == "ltr" ? 1 : -1;
+            direction = LayoutDirection.LTR ? 1 : -1;
             lineScroll(direction);
             return true;
         }
