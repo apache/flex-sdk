@@ -79,7 +79,8 @@ public class RichEditableTextContainerManager extends TextContainerManager
      *  @productversion Flex 4
      */
     public function RichEditableTextContainerManager(
-                        container:RichEditableText, configuration:IConfiguration)
+                        container:RichEditableText, 
+                        configuration:IConfiguration=null)
     {
         super(container, configuration);
 
@@ -599,7 +600,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
 
         if (!event.isDefaultPrevented())
             super.keyDownHandler(event);
-    }    
+    }
 
     /**
      *  @private
