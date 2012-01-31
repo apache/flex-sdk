@@ -590,6 +590,9 @@ public class GridLayout extends LayoutBase
         if (completeLayoutNeeded || grid.isInvalidateDisplayListReason("editorIndicator"))
             layoutEditorIndicator(editorIndicatorLayer);
         
+        if (!completeLayoutNeeded)
+            updateVisibleItemRenderers();
+        
         // To avoid flashing, force all of the layers to render now
         
         grid.validateNow();
@@ -603,7 +606,54 @@ public class GridLayout extends LayoutBase
             performanceStatistics.updateDisplayListRectangles.push(visibleGridBounds.clone());
             performanceStatistics.updateDisplayListCellCounts.push(cellCount);
         }
-    }  
+    }
+    
+    /** 
+     *  @private
+     *  Reset the selected, showsCaret, and hovered properties for all visible item renderers.
+     *  Run the prepare() method for renderers that have changed.
+     * 
+     *  This method is only called when the item renderers are not updated as part of a general
+     *  redisplay, by layoutItemRenderers(). 
+     */
+    private function updateVisibleItemRenderers():void
+    {
+        const grid:Grid = grid;  // avoid get method cost
+        const rowSelectionMode:Boolean = isRowSelectionMode();
+        const cellSelectionMode:Boolean = isCellSelectionMode();
+        
+        if (!rowSelectionMode && !cellSelectionMode)
+            return;
+        
+        for each (var renderer:IGridItemRenderer in visibleItemRenderers)            
+        {
+            var rowIndex:int = renderer.rowIndex;
+            var columnIndex:int = renderer.columnIndex;
+            
+            var oldSelected:Boolean  = renderer.selected;
+            var oldShowsCaret:Boolean = renderer.showsCaret;
+            var oldHovered:Boolean = renderer.hovered;
+            
+            // The following initializations should match what's done in initializeItemRenderer()
+            if (rowSelectionMode)
+            {                
+                renderer.selected = grid.selectionContainsIndex(rowIndex);
+                renderer.showsCaret = grid.caretRowIndex == rowIndex;
+                renderer.hovered = grid.hoverRowIndex == rowIndex;
+            }
+            else if (cellSelectionMode)
+            {
+                renderer.selected = grid.selectionContainsCell(rowIndex, columnIndex);
+                renderer.showsCaret = (grid.caretRowIndex == rowIndex) && (grid.caretColumnIndex == columnIndex);
+                renderer.hovered = (grid.hoverRowIndex == rowIndex) && (grid.hoverColumnIndex == columnIndex);                    
+            }
+            
+            if ((oldSelected != renderer.selected) || 
+                (oldShowsCaret != renderer.showsCaret) || 
+                (oldHovered != renderer.hovered))
+                renderer.prepare(true);
+        }
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -1035,7 +1085,8 @@ public class GridLayout extends LayoutBase
                 var colWidth:Number = gridDimensions.getColumnWidth(colIndex);
                 layoutItemRenderer(renderer, cellX, cellY, colWidth, rowHeight);                
                 
-                gridDimensions.setCellHeight(rowIndex, colIndex, renderer.getPreferredBoundsHeight());
+                var preferredRowHeight:Number = renderer.getPreferredBoundsHeight()
+                gridDimensions.setCellHeight(rowIndex, colIndex, preferredRowHeight);
                 cellX += colWidth + colGap;
             }
            
@@ -1246,6 +1297,7 @@ public class GridLayout extends LayoutBase
             
             renderer.label = gridColumn.itemToLabel(dataItem);
             
+            // The following code must be kept in sync with updateVisibleItemRenderers()
             if (isRowSelectionMode())
             {
                 renderer.selected = grid.selectionContainsIndex(rowIndex);
@@ -2191,14 +2243,14 @@ public class GridLayout extends LayoutBase
                 graphicElementRenderer.validateProperties();
                 graphicElementRenderer.validateSize();
             }
-            
+                    
             renderer.setLayoutBoundsSize(width, height);            
         }
         
         if ((renderer is IInvalidating) && !(renderer is IGraphicElement))
         {
             const validateNowRenderer:IInvalidating = renderer as IInvalidating;
-            validateNowRenderer.validateNow();
+            validateNowRenderer.validateNow();            
         }
         
         renderer.setLayoutBoundsPosition(x, y);
