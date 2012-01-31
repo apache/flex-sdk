@@ -446,16 +446,7 @@ public class GridLayout extends LayoutBase
 		grid.itemRendererGroup.addElement(renderer);
 
 		initializeItemRenderer(renderer, 0 /* rowIndex */, columnIndex, grid.typicalItem, false);
-       
-        // The default width of a TextField is 100.  If autoWrap is true, and
-        // multiline is true, the measured text will wrap if it is wider than
-        // the width. This is not what we want when measuring the typicalItem
-        // unless the width is explicitly set on the column.
-        var w:Number = 
-            !isNaN(column.width) || !(renderer is DefaultGridItemRenderer) ? 
-            column.width : UIComponent.DEFAULT_MAX_WIDTH;
-        
-        layoutItemRenderer(renderer, 0, 0, w, NaN);
+        layoutItemRenderer(renderer, 0, 0, column.width, NaN);
         		
 		grid.itemRendererGroup.removeElement(renderer);
 		return renderer;
@@ -696,10 +687,9 @@ public class GridLayout extends LayoutBase
         const startRowIndex:int = gridDimensions.getRowIndexAt(scrollX, scrollY);
         const startCellR:Rectangle = gridDimensions.getCellBounds(startRowIndex, startColIndex);        
         
-        // when null, no dataProvider exists or grid in a bad state. So, clean up and return.
+        // No dataProvider exists or the grid is in a bad state. Clean up and return.
         if (!startCellR)
         {
-            // free itemRenderers
             for each (var r:IVisualElement in visibleItemRenderers)
                 freeItemRenderer(r);
                 
@@ -1263,7 +1253,7 @@ public class GridLayout extends LayoutBase
         
         if (!bounds)
             return;
-     
+        
         const y:Number = bounds.bottom; // TBD: should center on gap here.
         layoutGridElement(separator, x, y, width, height);
     }
@@ -1277,7 +1267,7 @@ public class GridLayout extends LayoutBase
         
         if (!bounds)
             return;
-
+        
         const x:Number = bounds.right; // TBD: should center on gap here.
         const y:Number = r.y;
         layoutGridElement(separator, x, y, width, height);
@@ -1292,13 +1282,13 @@ public class GridLayout extends LayoutBase
         
         if (!columnBounds)
             return;
-
+        
         // TBD: should center on gap here.
         const x:Number = columnBounds.right;
         const y:Number = columnBounds.top;
         layoutGridElement(separator, x, y, width, height);
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Selection Indicators
