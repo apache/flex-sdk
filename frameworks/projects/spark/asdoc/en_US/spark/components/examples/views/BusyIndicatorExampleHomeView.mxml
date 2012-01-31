@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="HomeView">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Panel x="6" y="4" width="434" height="245">
+		<s:BusyIndicator id="bi" x="240" y="11" visible="false" initialize="bi.setStyle('symbolColor', 'red');bi.setStyle('rotationInterval','50')"/>
+		<s:Button id="btn" x="3" y="11" label="Fetch Data" click="{bi.visible=!bi.visible};btn.label='Fetching Data ...';btn.enabled=false; "/>
+	</s:Panel>
+</s:View>
