@@ -57,8 +57,7 @@ use namespace mx_internal;
 [Event(name="applicationComplete", type="mx.events.FlexEvent")]
 
 /**
- *  Dispatched when an error occurs anywhere in the application,
- *  or when an HTTPService call fails.
+ *  Dispatched when an HTTPService call fails.
  * 
  *  @eventType flash.events.ErrorEvent.ERROR
  *  
