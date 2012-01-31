@@ -15,6 +15,8 @@ package mx.controls
 import flash.events.Event;
 import flash.events.MouseEvent;
 import mx.collections.ICollectionView;
+import mx.collections.IViewCursor;
+import mx.collections.CursorBookmark;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.controls.menuClasses.IMenuDataDescriptor;
 import mx.controls.treeClasses.DefaultDataDescriptor;
@@ -507,7 +509,10 @@ public class PopUpMenuButton extends PopUpButton
             {
                 selectedIndex = 0;
                 
-                var item:* = popUpMenu.dataProvider[selectedIndex];
+				var cursor:IViewCursor = dataProvider.createCursor()
+				cursor.seek(CursorBookmark.FIRST, 0);
+
+                var item:* = cursor.current;
                 
                 // Set button label.
                 if (labelSet)
@@ -645,11 +650,15 @@ public class PopUpMenuButton extends PopUpButton
             var menuEvent:MenuEvent = new MenuEvent(MenuEvent.ITEM_CLICK);
             menuEvent.menu = popUpMenu;
             menuEvent.menu.selectedIndex = selectedIndex;
-            menuEvent.item =  popUpMenu.dataProvider[selectedIndex];
+
+			var cursor:IViewCursor = dataProvider.createCursor();
+			cursor.seek(CursorBookmark.FIRST, selectedIndex);
+
+            menuEvent.item =  cursor.current
             menuEvent.itemRenderer = itemRenderer;
             menuEvent.index = selectedIndex;
             menuEvent.label =
-                popUpMenu.itemToLabel(popUpMenu.dataProvider[selectedIndex]);
+                popUpMenu.itemToLabel(cursor.current);
             dispatchEvent(menuEvent);
             
             // Reset selection after the change event is dispatched
@@ -666,12 +675,15 @@ public class PopUpMenuButton extends PopUpButton
         // Change label/icon if selectedIndex is changed programatically.
         if (popUpMenu.selectedIndex >= 0)
         {
+			var cursor:IViewCursor = dataProvider.createCursor();
+			cursor.seek(CursorBookmark.FIRST, selectedIndex);
+
             selectedIndex = popUpMenu.selectedIndex;
             if (labelSet)
                 super.label = _label;
             else
-                super.label = popUpMenu.itemToLabel(popUpMenu.dataProvider[selectedIndex]);
-            setSafeIcon(popUpMenu.itemToIcon(popUpMenu.dataProvider[selectedIndex]));
+                super.label = popUpMenu.itemToLabel(cursor.current);
+            setSafeIcon(popUpMenu.itemToIcon(cursor.current));
         }
     }
 
