@@ -640,7 +640,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         rowHeight: NaN,
         showDataTips: false,
         typicalItem: null,
-        variableRowHeight: true,
+        variableRowHeight: false,
         dataTipField: null,
         dataTipFunction: null
     };
