@@ -1968,6 +1968,8 @@ public class DateField extends ComboBase
         downArrowButton.setStyle("paddingLeft", 0);
         downArrowButton.setStyle("paddingRight", 0);
         textInput.editable = false;
+        textInput.mouseChildren = true;
+        textInput.mouseEnabled = true;
         textInput.addEventListener(TextEvent.TEXT_INPUT, textInput_textInputHandler);
         // hide the border, we use the text input's border
         if (border)
