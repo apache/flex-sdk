@@ -20,7 +20,7 @@ import flex.events.TextOperationEvent;
 
 import mx.core.ScrollPolicy;
 
-import text.formats.LineBreak;
+import flashx.tcal.formats.LineBreak;
 
 //--------------------------------------
 //  Other metadata
