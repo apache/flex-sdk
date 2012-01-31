@@ -326,20 +326,6 @@ public class TextGraphicElement extends GraphicElement
     //--------------------------------------------------------------------------
 
     //----------------------------------
-    //  pseudoSelectorState
-    //----------------------------------
-
-    /**
-     *  This property is required by the IAdvancedStyleClient interface,
-     *  but returns null for TextGraphicElements as they do not have
-     *  state specific behavior.
-     */
-    public function get pseudoSelectorState():String
-    {
-        return null;
-    }
-
-    //----------------------------------
     //  styleParent
     //----------------------------------
 
@@ -543,12 +529,22 @@ public class TextGraphicElement extends GraphicElement
     //--------------------------------------------------------------------------
 
     /**
+     *  This method is required by the IAdvancedStyleClient interface,
+     *  but always returns false for TextGraphicElements as they do not have
+     *  state specific behavior.
+     */ 
+    public function isPseudoSelectorMatch(pseudoState:String):Boolean
+    {
+        return false;
+    }
+
+    /**
      *  Determines whether this instance is the same as - or is a subclass of -
      *  the given type.
      */ 
-    public function isAssignableToType(type:String):Boolean
+    public function isTypeSelectorMatch(type:String):Boolean
     {
-        return StyleProtoChain.isAssignableToType(this, type);
+        return StyleProtoChain.isTypeSelectorMatch(this, type);
     }
 
     /**
