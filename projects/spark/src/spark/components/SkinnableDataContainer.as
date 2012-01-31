@@ -67,7 +67,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  Color of focus ring when the component is in focus.
@@ -91,7 +91,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="focusThickness", type="Number", format="Length", inherit="no")]
+[Style(name="focusThickness", type="Number", format="Length", inherit="no", minValue="0.0")]
 
 [DefaultProperty("dataProvider")]
 
