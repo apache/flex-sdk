@@ -285,8 +285,7 @@ public class FxListBase extends FxDataContainer
      *  Flag that is set when requiresSelection has changed.
      */
     private var requiresSelectionChanged:Boolean = false;
-    
-    [Bindable]
+
     /**
      *  Specifies whether an item must always be selected.
      *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
