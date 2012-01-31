@@ -78,7 +78,7 @@ public class FxDataContainer extends FxContainerBase
     //  clipContent
     //----------------------------------
     
-    private var _clipContent:Boolean = true;
+    private var _clipContent:Boolean = false;
     
     /**
      *  @copy mx.core.IViewport#clipContent
@@ -95,6 +95,8 @@ public class FxDataContainer extends FxContainerBase
     {
         _clipContent = value;
         
+        if (skin)  // TEMPORARY fix for SDK-17751
+            skin.clipContent = value;        
         if (dataGroup)
             dataGroup.clipContent = value;
     }
@@ -237,6 +239,7 @@ public class FxDataContainer extends FxContainerBase
             }
             if (_layout != null)
                 dataGroup.layout = _layout;
+            skin.clipContent = _clipContent;  // TEMPORARY fix for SDK-17751                
             dataGroup.clipContent = _clipContent;
             if (_itemRenderer != null || _itemRendererFunction != null)
             {
