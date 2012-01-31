@@ -871,7 +871,7 @@ public class RichEditableText extends UIComponent
     private var displayAsPasswordChanged:Boolean = false;
     
     /**
-     *  Documentation is not currently available.
+     *  @copy flash.text.TextField#displayAsPassword
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1161,7 +1161,7 @@ public class RichEditableText extends UIComponent
     private var _restrict:String = null;
 
     /**
-     *  Documentation is not currently available.
+     *  @copy flash.text.TextField#restrict
      * 
      *  @default null
      *  
@@ -1306,7 +1306,7 @@ public class RichEditableText extends UIComponent
     private var selectionFormatsChanged:Boolean = false;
 
     /**
-     *  Documentation is not currently available.
+     *  Determines when text selections should be highlighted.
      *  
      *  Possible values are <code>ALWAYS</code>, <code>WHEN_FOCUSED</code>, and <code>WHEN_ACTIVE</code>.
      *  
