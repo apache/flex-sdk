@@ -169,9 +169,44 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     public function set displayFormatFunction(value:Function):void
     {
         _displayFormatFunction = value;
-        
         displayFormatFunctionChanged = true;
-        
+        invalidateProperties();
+    }
+    
+    //--------------------------------- 
+    // extractValueFunction
+    //---------------------------------
+
+    private var _extractValueFunction:Function;
+    private var extractValueFunctionChanged:Boolean;
+    
+     /**
+     *  Callback function that extracts the numeric 
+     *  value from the displayed value in the 
+     *  textInput field.  
+     * 
+     *  The function takes a single String as an argument
+     *  and returns a Number.
+     *
+     *  <p>The function has the following signature:</p>
+     *  <pre>
+     *  funcName(value:String):Number
+     *  </pre>
+     
+     *  @default undefined   
+     */
+    public function get extractValueFunction():Function
+    {
+        return _extractValueFunction;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set extractValueFunction(value:Function):void
+    {
+        _extractValueFunction = value;
+        extractValueFunctionChanged = true;
         invalidateProperties();
     }
 
@@ -272,6 +307,12 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
                 displayFormatFunctionChanged = false;
     		}
     	}
+		
+		if (extractValueFunctionChanged)
+		{
+			commitTextInput(false);
+			extractValueFunctionChanged = false;
+		}
 			
         if (maxCharsChanged)
         {
@@ -387,8 +428,13 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      */
     protected function commitTextInput(dispatchChange:Boolean = false):void
     {
-        var inputValue:Number = Number(textInput.text);
+        var inputValue:Number;
         var prevValue:Number = value;
+        
+        if (extractValueFunction != null)
+        	inputValue = extractValueFunction(textInput.text);
+        else 
+        	inputValue = Number(textInput.text);
         
         if (textInput.text == "" || (inputValue != value && 
             (Math.abs(inputValue - value) >= 0.000001 || isNaN(inputValue))))
