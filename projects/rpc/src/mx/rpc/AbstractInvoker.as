@@ -285,13 +285,17 @@ public class AbstractInvoker extends EventDispatcher
             return;
         }
 
-        var fault:Fault = new Fault(event.faultCode, event.faultString, event.faultDetail);
-        fault.rootCause = event.rootCause;
-        var faultEvent:FaultEvent = FaultEvent.createEvent(fault, token, event.message);
-        faultEvent.headers = _responseHeaders;
-        dispatchRpcEvent(faultEvent);
+        if (processFault(event.message, token))
+        {
+            var fault:Fault = new Fault(event.faultCode, event.faultString, event.faultDetail);
+            fault.content = event.message.body;
+            fault.rootCause = event.rootCause;
+            var faultEvent:FaultEvent = FaultEvent.createEvent(fault, token, event.message);
+            faultEvent.headers = _responseHeaders;
+            dispatchRpcEvent(faultEvent);
+        }
     }
-        
+
     /**
      * Return the id for the NetworkMonitor.
      * @private
@@ -356,6 +360,14 @@ public class AbstractInvoker extends EventDispatcher
     mx_internal function preHandle(event:MessageEvent):AsyncToken
     {
         return activeCalls.removeCall(AsyncMessage(event.message).correlationId);
+    }
+
+    /**
+     * @private
+     */
+    mx_internal function processFault(message:IMessage, token:AsyncToken):Boolean
+    {
+        return true;
     }
 
     /**
