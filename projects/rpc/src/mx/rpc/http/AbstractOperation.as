@@ -748,6 +748,11 @@ function xmlEncoder (myObj)
         var ctype:String = contentType; 
         var urlToUse:String = url; 
 
+        if (urlToUse && urlToUse != '')
+        {
+            urlToUse = URLUtil.getFullURL(rootURL, urlToUse);
+        }
+
         if (filter != null)
         {
             // TODO: does this need to run on the array version of the parameters
@@ -848,7 +853,7 @@ function xmlEncoder (myObj)
         {
             if (urlToUse && urlToUse != '')
             {
-                message.url = URLUtil.getFullURL(rootURL, urlToUse);
+                message.url = urlToUse;
             }
 
             if (NetworkMonitor.isMonitoring())
@@ -882,7 +887,7 @@ function xmlEncoder (myObj)
                 message.recordHeaders = true;    
             }
 
-            message.url = URLUtil.getFullURL(rootURL, urlToUse);
+            message.url = urlToUse;
         }
 
         message.contentType = ctype;
