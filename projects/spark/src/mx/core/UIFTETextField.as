@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Sprite;
 import flash.events.Event;
+import flash.geom.Matrix;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
@@ -70,6 +71,10 @@ use namespace mx_internal;
  *  of UITextField or UIFTETextField.
  *  They are able to use either class because both classes implement
  *  the IUITextField interface.</p>
+ * 
+ *  <p>Warning: if UIFTETextField inherits <code>layoutDirection="rtl"</code>, it 
+ *  will modify its own <code>transform.matrix</code> to restore the default
+ *  coordinate system locally.</p>
  *
  *  @see mx.core.UITextField
  *  @see mx.core.FTETextField
@@ -384,12 +389,60 @@ public class UIFTETextField extends FTETextField
      *  @private
      */
     private var untruncatedText:String;
+    
+    /**
+     *  @private
+     *  True if we've inherited layoutDirection="rtl".  
+     */
+    private var mirror:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  x
+    //----------------------------------
+    
+    private var _x:Number = 0;
+    
+    /**
+     *  @private
+     */
+    override public function set x(value:Number):void
+    {
+        _x = value;
+        super.x = value;
+        if (mirror)
+            validateTransformMatrix();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function get x():Number
+    {
+        // FIXME(hmuller): by default get x returns transform.matrix.tx rounded to the nearest 20th.
+        // should do the same here, if we're returning _x.
+        return (mirror) ? _x : super.x;
+    }
+    
+    //----------------------------------
+    //  width
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set width(value:Number):void  
+    {
+        super.width = value;
+        if (mirror)
+            validateTransformMatrix();
+    }
+    
     
     //----------------------------------
     //  htmlText
@@ -2088,8 +2141,17 @@ public class UIFTETextField extends FTETextField
 
         if (!isNaN(explicitHeight) && super.height != explicitHeight)
             super.height = explicitHeight;
+        
+        // Update transform.matrix to compensate for layout mirroring
+        if (styleChangedFlag)
+        {
+            const oldMirror:Boolean = mirror;
+            mirror = getStyle("layoutDirection") == "rtl";
+            if (mirror || oldMirror)
+                validateTransformMatrix();
+        }
 
-          // Set the text format.
+        // Set the text format.
         if (styleChangedFlag)
         {
             var textFormat:TextFormat = getTextStyles();
@@ -2142,6 +2204,29 @@ public class UIFTETextField extends FTETextField
         
         styleChangedFlag = false;
         invalidateDisplayListFlag = false;
+    }
+    
+    /**
+     *  @private
+     *  Update the transform.matrix based on the mirror flag.  This method must be 
+     *  called when x, width, or layoutDirection changes.
+     */
+    private function validateTransformMatrix():void
+    {
+        if (mirror)
+        {
+            const mirrorMatrix:Matrix = this.transform.matrix;
+            mirrorMatrix.a = -1;
+            mirrorMatrix.tx = _x + width;
+            transform.matrix = mirrorMatrix;
+        }
+        else // layoutDirection changed, mirror=false, reset transform.matrix to its default
+        {
+            const defaultMatrix:Matrix = new Matrix();
+            defaultMatrix.tx = _x;
+            defaultMatrix.ty = y;
+            transform.matrix = defaultMatrix;
+        }
     }
 
     /**
