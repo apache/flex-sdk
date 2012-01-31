@@ -67,17 +67,6 @@ use namespace mx_internal;
 [Event(name="itemRemove", type="flex.events.ItemExistenceChangedEvent")]
 
 //--------------------------------------
-//  Styles
-//--------------------------------------
-
-include "../styles/metadata/BasicContainerFormatTextStyles.as"
-include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
-include "../styles/metadata/BasicParagraphFormatTextStyles.as"
-include "../styles/metadata/AdvancedParagraphFormatTextStyles.as"
-include "../styles/metadata/BasicCharacterFormatTextStyles.as"
-include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
-
-//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
@@ -86,26 +75,16 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 /**
  *  The Group class.
  */
-public class Group extends UIComponent implements IGraphicElementHost, IViewport
-{   
+public class Group extends GroupBase 
+{
     public function Group():void
     {
-        super();
-        tabChildren = true;
-        _layout = new BasicLayout();
-        ILayout(_layout).target = this;        
+        super();      
     }
     
-    private var skinRegistry:Dictionary;
     private var contentChanged:Boolean = false;
-    private var layoutChanged:Boolean = true;
-    private var transformChanged:Boolean = false;
     private var needsDisplayObjectAssignment:Boolean = false;
     
-    // item renderer
-    public var itemRenderer:IFactory;   
-    public var itemRendererFunction:Function; // signature: itemRendererFunction(item:*):IFactory
-    public var alwaysUseItemRenderer:Boolean = false; // if true, always use the itemRenderer
     private var _content:*;
     private var _contentType:int;
     private var contentCollection:ICollectionView;
@@ -146,135 +125,6 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     public function get content():*
     {
         return _content;
-    }
-
-    private var _resizeMode:uint = ResizeMode._NORMAL_UINT;
-    
-    public function get resizeMode():String
-    {
-        return ResizeMode.toString(_resizeMode);
-    }
-    
-    public function set resizeMode(stringValue:String):void
-    {
-        var value:uint = ResizeMode.toUINT(stringValue); 
-        if (_resizeMode == value)
-            return;
-            
-        _resizeMode = value;
-        
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-        {
-            super.scaleX = 1; 
-            super.scaleY = 1;
-        }
-
-        // We need the measured values and _resizeMode affects
-        // our measure (skipMeasure implementation checks resizeMode) so
-        // we need to invalidate the size.
-        invalidateSize();
-
-        // TODO EGeorgie: can we directly call setActualSize instead?
-        invalidateParentSizeAndDisplayList();
-    }
-
-    /**
-     *  @inheritDoc
-     */
-    override public function setActualSize(w:Number, h:Number):void
-    {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-        {
-            // TODO EGeorgie: make sure we don't invalidate again while
-            // setting the scale!
-            if (measuredWidth != 0)
-            {
-                $scaleX = w / measuredWidth;
-                w = measuredWidth;
-            }
-            if (measuredHeight != 0)
-            {
-                $scaleY = h / measuredHeight;
-                h = measuredHeight;
-            }
-        }
-
-        super.setActualSize(w, h);
-    }
-    
-    /**
-     *  Make sure we return 1 whenever resizeMode is set to scale. 
-     */    
-    override public function get scaleX():Number
-    {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-            return 1;
-
-        return super.scaleX;
-    }
-
-    /**
-     *  Make sure setting scale is no-op when resizeMode is set to scale. 
-     */    
-    override public function set scaleX(value:Number):void
-    {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-            return;
-
-        super.scaleX = value;
-    }
-    
-    /**
-     *  Make sure we return 1 whenever resizeMode is set to scale. 
-     */    
-    override public function get scaleY():Number
-    {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-            return 1;
-
-        return super.scaleY;
-    }
-
-    /**
-     *  Make sure setting scale is no-op when resizeMode is set to scale. 
-     */    
-    override public function set scaleY(value:Number):void
-    {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-            return;
-
-        super.scaleY = value;
-    }
-
-    /**
-     *  Override so that we can return correct width when in scale mode. 
-     */    
-    override public function get width():Number
-    {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-            return super.width * $scaleX;
-
-        return super.width;
-    }
-    
-    /**
-     *  Override so that we can return correct height when in scale mode. 
-     */    
-    override public function get height():Number
-    {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-            return super.height * $scaleY;
-
-        return super.height;
-    }
-
-    /**
-     *  @inheritDoc
-     */    
-    override protected function skipMeasure():Boolean
-    {
-        // We never want to skip measure, if we resize by scaling
-        return _resizeMode == ResizeMode._SCALE_UINT ? false : super.skipMeasure();
     }
 
     protected function initializeChildrenArray():void
@@ -329,76 +179,6 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CHANGED)); 
     }
     
-    protected function createVisualForItem(item:*):DisplayObject
-    {
-        var itemSkin:DisplayObject;
-        
-        if (item === undefined || item === null)
-            throw new Error("Group content can not contain null or undefined items.");
-        
-        // Rules for skin lookup:
-        // 0. if the item is a deferred instance, instantiate it and fall through to the other item(s)
-        // 1. if the item is a display object, use it directly
-        // 2. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
-        // 3. if itemRenderer is defined, instantiate one
-        // 4. create a Label component and call toString() on the item
-            
-        // 0. if the item is a deferred instance, instantiate it and fall through to the other item(s)
-        if (item is IDeferredInstance)
-            item = IDeferredInstance(item).getInstance();
-        
-        // 1. if the item is a display object, use it directly unless the alwaysUseItemRenderer
-        // flag is set.
-        if (item is DisplayObject && !(alwaysUseItemRenderer && (itemRenderer || itemRendererFunction)))
-            itemSkin = item;
-            
-        // 2. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
-        if (!itemSkin && itemRendererFunction != null)
-        {
-            var rendererFactory:IFactory = itemRendererFunction(item);
-            
-            if (rendererFactory)
-                itemSkin = rendererFactory.newInstance();
-        }
-        
-        // 3. if itemRenderer is defined, instantiate one
-        if (!itemSkin && itemRenderer != null)
-            itemSkin = itemRenderer.newInstance();
-                    
-        // 4. create a Label component and call toString() on the item
-        if (!itemSkin)
-        {
-            // No custom skin, use a Label
-            itemSkin = new Label();
-            Label(itemSkin).condenseWhite = true;
-            Label(itemSkin).htmlText = item.toString();
-        }
-        
-        // Set the skin data to the item, but only if the item and skin are different
-        if (itemSkin is IDataRenderer && itemSkin != item)
-            IDataRenderer(itemSkin).data = item;
-    
-        registerSkin(item, itemSkin);
-
-        return itemSkin;
-    }
-    
-    protected function registerSkin(item:*, itemSkin:DisplayObject):void
-    {
-        if (!skinRegistry)
-            skinRegistry = new Dictionary(true);
-        
-        skinRegistry[item] = itemSkin;
-    }
-    
-    protected function unregisterSkin(item:*, itemSkin:DisplayObject):void
-    {
-        if (!skinRegistry)
-            return;
-        
-        delete skinRegistry[item];
-    }
-    
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -408,86 +188,24 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             contentChanged = false;
             initializeChildrenArray();
             
-            maskChanged = true;
-        }
-                
-        if (maskChanged)
-        {
-            maskChanged = false;
-            if (_mask && (!_mask.parent || _mask.parent !== this))
-            {
-                super.addChild(_mask);
-                if (_mask is UIComponent)
-                {
-                    var maskComp:UIComponent = _mask as UIComponent;
-                    maskComp.validateSize();
-                    maskComp.setActualSize(maskComp.getExplicitOrMeasuredWidth(), 
-                                           maskComp.getExplicitOrMeasuredHeight());
-                }
-            }
+            // maskChanged = true; TODO (rfrishbe): need this maskChanged?
         }
         
-        if (maskTypeChanged)    
-        {
-            maskTypeChanged = false;
-            
-            if (_mask)
-            {
-                if (_maskType == MaskType.CLIP)
-                {
-                    // Turn off caching on mask
-                    _mask.cacheAsBitmap = false;
-                    // Save the original filters and clear the filters property
-                    originalMaskFilters = _mask.filters;
-                    _mask.filters = []; 
-                }
-                else if (_maskType == MaskType.ALPHA)
-                {
-                    _mask.cacheAsBitmap = true;
-                    cacheAsBitmap = true;
-                }
-            }
-        }
-        
-        if (transformChanged)
-        {
-            transformChanged = false;
-            // Apply the transform props or matrix
-            TransformUtil.applyTransforms(this, _matrix, NaN, NaN, NaN, NaN, 
-                                          _rotation, _transformX, _transformY);
-            _matrix = null;
-            _rotation = NaN;
-            
-            invalidateParentSizeAndDisplayList();
-        }
-
         // Check whether we manage the elements, or are they managed by an ItemRenderer
-        if (!alwaysUseItemRenderer)
+        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+        // Validate element properties
+        var length:int = numItems;
+        for (var i:int = 0; i < length; i++)
         {
-            // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
-            // Validate element properties
-            var length:int = numItems;
-            for (var i:int = 0; i < length; i++)
-            {
-                var element:GraphicElement = getItemAt(i) as GraphicElement;
-                if (element)
-                    element.validateProperties();
-            }
+            var element:GraphicElement = getItemAt(i) as GraphicElement;
+            if (element)
+                element.validateProperties();
         }
-
-		if (needsDisplayObjectAssignment)
-		{
-			needsDisplayObjectAssignment = false;
-			assignDisplayObjects();
-		}
-		
-        if (scrollPositionChanged) {
-            scrollPositionChanged = false;
-            var r:Rectangle = scrollRect;
-            if (r == null) r = new Rectangle(0, 0, width, height);
-            r.x = _horizontalScrollPosition;
-            r.y = _verticalScrollPosition;
-            scrollRect = r; 
+        
+        if (needsDisplayObjectAssignment)
+        {
+            needsDisplayObjectAssignment = false;
+            assignDisplayObjects();
         }
     }
     
@@ -497,360 +215,40 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         // validate sizes of the elements, even in cases where recursive==false.
         
         // Check whether we manage the elements, or are they managed by an ItemRenderer
-        if (!alwaysUseItemRenderer)
+        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+        // Validate element size
+        var length:int = numItems;
+        for (var i:int = 0; i < length; i++)
         {
-            // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
-            // Validate element size
-            var length:int = numItems;
-            for (var i:int = 0; i < length; i++)
-            {
-                var element:GraphicElement = getItemAt(i) as GraphicElement;
-                if (element)
-                    element.validateSize();
-            }
+            var element:GraphicElement = getItemAt(i) as GraphicElement;
+            if (element)
+                element.validateSize();
         }
 
         super.validateSize(recursive);
-    }
-    
-    override protected function measure():void
-    {
-        super.measure();
-        
-        if (_layout)
-            _layout.measure();
-    }
-    
-    /**
-     *  @private
-     *  Conditionally sets the origin of the scrollRect to 
-     *  verticalScrollPosition,horizontalScrollPosition and its width
-     *  width,height to w,h (unscaledWidth,unscaledHeight).  We avoid setting
-     *  the scrollRect (and therefore clipping) when scrolling isn't indicated:
-     *  if the scrollRect is currently null and the scrollPosition properties
-     *  are 0, and the Group's contentWidth,Height is &lt;= to
-     *  unscaledWidth/Height, then the scrollRect is not set.
-     */ 
-    private function updateScrollRect(w:Number, h:Number):void
-    {
-        var r:Rectangle = scrollRect;
-        if (r) 
-        {
-            r.width = w;
-            r.height = h;
-            scrollRect = r;
-        }
-        else // scrollRect wasn't set
-        {
-            var hsp:Number = horizontalScrollPosition;
-            var vsp:Number = verticalScrollPosition;
-            var cw:Number = contentWidth;
-            var ch:Number = contentHeight;
-            
-            // Don't set the scrollRect needlessly.
-            if ((hsp != 0) || (vsp != 0) || (cw > w) || (ch > h))
-            {
-                scrollRect = new Rectangle(hsp, vsp, w, h);
-            }
-        }
-    }    
+    }   
     
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        if (_resizeMode == ResizeMode._SCALE_UINT)
-        {
-            unscaledWidth = measuredWidth;
-            unscaledHeight = measuredHeight;
-        }  
-        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        if (_layout)
-            _layout.updateDisplayList(unscaledWidth, unscaledHeight);
+        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+        // Iterate through the graphic elements, clear their graphics and draw them
 
-        // Check whether we manage the elements, or are they managed by an ItemRenderer
-        if (!alwaysUseItemRenderer)
-        {
-            graphics.clear(); // Clear the group's graphic because graphic elements might be drawing to it
-            // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
-            // Iterate through the graphic elements, clear their graphics and draw them
-            var length:int = numItems;
-            for (var i:int = 0; i < length; i++)
-            {
-                var element:GraphicElement = getItemAt(i) as GraphicElement;
-                if (element)
-                    element.validateDisplayList();
-            }
-        }
+        graphics.clear(); // Clear the group's graphic because graphic elements might be drawing to it
+        // This isn't needed for DataGroup because there's not much DisplayObject sharing
         
-        updateScrollRect(unscaledWidth, unscaledHeight);
-    }
-    
-    override public function addChild(child:DisplayObject):DisplayObject
-    {
-        throw(new Error("addChild is not available in Group. Use addItem instead."));
-    }
-    
-    override public function addChildAt(child:DisplayObject, index:int):DisplayObject
-    {
-        throw(new Error("addChildAt is not available in Group. Use addItemAt instead."));
-    }
-    
-    override public function removeChild(child:DisplayObject):DisplayObject
-    {
-        throw(new Error("removeChild is not available in Group. Use removeItem instead."));
-    }
-    
-    override public function removeChildAt(index:int):DisplayObject
-    {
-        throw(new Error("removeChildAt is not available in Group. Use removeItemAt instead."));
-    }
-    
-    override public function setChildIndex(child:DisplayObject, index:int):void
-    {
-        throw(new Error("setChildIndex is not available in Group. Use setItemIndex instead."));
-    }
-    
-    override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
-    {
-        throw(new Error("swapChildren is not available in Group. Use swapItems instead."));
-    }
-    
-    override public function swapChildrenAt(index1:int, index2:int):void
-    {
-        throw(new Error("swapChildrenAt is not available in Group. Use swapItemsAt instead."));
-    }
-    
-    
-    //----------------------------------
-    //  layout
-    //----------------------------------    
-    
-    private var _layout:ILayout;  // initialized in the ctor
-    
-    public function get layout():ILayout
-    {
-        return _layout;
-    }
-    
-    /**
-     * @private
-     */
-    public function set layout(value:ILayout):void
-    {
-        if (_layout == value)
-            return;
-        
-        _layout = value;  
-        if (_layout)
-            ILayout(_layout).target = this;
-        invalidateSize();
-        invalidateDisplayList();
-    }
-    
-    
-    //----------------------------------
-    //  horizontalScrollPosition
-    //----------------------------------
-        
-    private var scrollPositionChanged:Boolean = false;
-    private var _horizontalScrollPosition:Number = 0;
-    
-    [Bindable]
-    [Inspectable(category="General")]
-    
-    /**
-     *  The X coordinate of the origin of the region this Group is
-     *  scrolled to.  
-     * 
-     *  Setting this property causes the <code>scrollRect</code> to
-     *  be set, if necessary, to:
-     *  <pre>
-     *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
-     *  </pre>
-     * 
-     *  @default 0
-     */
-    public function get horizontalScrollPosition():Number 
-    {
-        return _horizontalScrollPosition;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set horizontalScrollPosition(value:Number):void 
-    {
-        if (value == _horizontalScrollPosition) 
-            return;
-    
-        _horizontalScrollPosition = value;
-        scrollPositionChanged = true;
-        invalidateProperties();
-    }
-    
-
-    //----------------------------------
-    //  verticalScrollPosition
-    //----------------------------------
-
-    private var _verticalScrollPosition:Number = 0;
-    
-    [Bindable]
-    [Inspectable(category="General")]    
-    
-    /**
-     *  The Y coordinate of the origin of the region this Group is
-     *  scrolled to.  
-     * 
-     *  Setting this property causes the <code>scrollRect</code> to
-     *  be set, if necessary, to:
-     *  <pre>
-     *  new Rectangle(horizontalScrollPosition, verticalScrollPosition, width, height)
-     *  </pre>                 
-     * 
-     *  @default 0
-     */
-    public function get verticalScrollPosition():Number 
-    {
-        return _verticalScrollPosition;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set verticalScrollPosition(value:Number):void 
-    {
-        if (value == _verticalScrollPosition)
-            return;
-            
-        _verticalScrollPosition = value;
-        scrollPositionChanged = true;
-        invalidateProperties();
-    }
-    
-    
-    //----------------------------------
-    //  contentWidth
-    //---------------------------------- 
-    
-    private var _contentWidth:Number = 0;
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]    
-
-    /**
-     * The positive extent of this Group's content, relative to the 0,0
-     * origin, along the X axis.
-     */
-    public function get contentWidth():Number 
-    {
-        return _contentWidth;
-    }
-    
-    private function setContentWidth(value:Number):void 
-    {
-        if (value == _contentWidth)
-            return;
-    	var oldValue:Number = _contentWidth;
-        _contentWidth = value;
-        dispatchPropertyChangeEvent("contentWidth", oldValue, value);        
-    }
-
-    //----------------------------------
-    //  contentHeight
-    //---------------------------------- 
-    
-    private var _contentHeight:Number = 0;
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]    
-
-    /**
-     * The positive extent of this Group's content, relative to the 0,0 
-     * origin, along the Y axis.
-     */
-    public function get contentHeight():Number 
-    {
-        return _contentHeight;
-    }
-    
-    private function setContentHeight(value:Number):void 
-    {            
-        if (value == _contentHeight)
-            return;
-        var oldValue:Number = _contentHeight;
-        _contentHeight = value;
-        dispatchPropertyChangeEvent("contentHeight", oldValue, value);        
-    }    
-
-    /**
-     *  Sets this Group's <code>contentWidth</code> and <code>contentHeight</code>
-     *  properties.
-     * 
-     *  This method is is intended for layout class developers who should
-     *  call it from <code>measure()</code> and <code>updateDisplayList()</code>.
-     *
-     *  @param w The new value of contentWidth.
-     *  @param h The new value of contentHeight.
-     */
-    public function setContentSize(w:Number, h:Number):void
-    {
-        if ((w == _contentWidth) && (h == _contentHeight))
-           return;
-        setContentWidth(w);
-        setContentHeight(h);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: Overriden Focus management
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  focusPane
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the focusPane property.
-     */
-    private var _focusPane:Sprite;
-
-    [Inspectable(environment="none")]
-    
-    // TODO (rfrishbe): only reason we need to override focusPane getter/setter
-    // is because addChild/removeChild for Groups throw an RTE.
-    // This is the same as UIComponent's focusPane getter/setter but it uses
-    // super.add/removeChild.
-
-    override public function get focusPane():Sprite
-    {
-        return _focusPane;
-    }
-
-    override public function set focusPane(value:Sprite):void
-    {
-        if (value)
+        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
+        // Iterate through the graphic elements, clear their graphics and draw them
+        var length:int = numItems;
+        for (var i:int = 0; i < length; i++)
         {
-            super.addChild(value);
-
-            value.x = 0;
-            value.y = 0;
-            value.scrollRect = null;
-
-            _focusPane = value;
-        }
-        else
-        {
-             super.removeChild(_focusPane);
-             
-             // TODO: remove mask?  SDK-15310
-            _focusPane = null;
+            var element:GraphicElement = getItemAt(i) as GraphicElement;
+            if (element)
+                element.validateDisplayList();
         }
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Content management
@@ -1042,7 +440,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
      *  The number of layout items in this Group. Typically this is the same
      *  as the number of items in the Group.
      */
-    public function get numLayoutItems():int
+    override public function get numLayoutItems():int
     {
         return numItems;
     }
@@ -1056,12 +454,9 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
      *
      *  @return The layout item at the specified index.
      */
-    public function getLayoutItemAt(index:int):ILayoutItem
+    override public function getLayoutItemAt(index:int):ILayoutItem
     {
         var item:* = getItemAt(index);
-               
-        if (alwaysUseItemRenderer || !(item is IGraphicElement))
-            item = getItemSkin(item);
 
         return LayoutItemFactory.getLayoutItemFor(item);
     }
@@ -1077,7 +472,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     {
         var child:DisplayObject;
                 
-        if (item is GraphicElement && !alwaysUseItemRenderer) 
+        if (item is GraphicElement) 
         {
             item.elementHost = this;
         
@@ -1088,9 +483,9 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         }   
         else
         {     
-        	// This always adds the child to the end of the display list. Any 
-        	// ordering discrepancies will be fixed up in assignDisplayObjects().
-            child = addItemToDisplayList(createVisualForItem(item), item);
+            // This always adds the child to the end of the display list. Any 
+            // ordering discrepancies will be fixed up in assignDisplayObjects().
+            child = addItemToDisplayList(item, item);
         }
         
         dispatchEvent(new ItemExistenceChangedEvent(
@@ -1103,7 +498,6 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
     protected function itemRemoved(index:int):void
     {       
         var item:* = getItemAt(index);
-        var skin:* = getItemSkin(item);
         var childDO:DisplayObject = item as DisplayObject;
         
         dispatchEvent(new ItemExistenceChangedEvent(
@@ -1114,15 +508,6 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             item.sharedDisplayObject = null;
             childDO = GraphicElement(item).displayObject;
         }
-        else if (skin && skin is DisplayObject)
-        {
-            childDO = skin as DisplayObject;
-        }
-        // If the item and skin are different objects, set the skin data to 
-        // null here to clear it out. Otherwise, the skin keeps a reference to the item,
-        // which can cause problems later.
-        if (item && skin && item != skin)
-            skin.data = null;
                 
         if (childDO)
             super.removeChild(childDO);
@@ -1187,18 +572,12 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         var currentAssignableDO:DisplayObject = canShareDisplayObject ? this : null;
         var lastDisplayObject:DisplayObject = this;
         
-        if (alwaysUseItemRenderer)
-            return;
-        
         // Iterate through all of the items
         var len:int = numItems; 
         for (var i:int = startIndex; i < len; i++)
         {  
             var item:* = getItemAt(i);
             var insertIndex:int;
-            
-            if (!(item is GraphicElement)) 
-                item = getItemSkin(item);
             
         	if (lastDisplayObject == this)
         		insertIndex = 0;
@@ -1266,6 +645,12 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         // Remove the item from the group if that group isn't this group
         if (host && host is Group && host != this)
             Group(host).removeItem(item);
+        else if (host && host is DataGroup && host != this)
+        {
+            var dp:IList = DataGroup(host).dataProvider;
+            var index:int = dp.getItemIndex(item);
+            dp.removeItemAt(index);
+        }
         
         // Calling removeItem should have already removed the child. This
         // should handle the case when we don't call removeItem
@@ -1292,289 +677,17 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
     }
     
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Item -> Skin mapping
-    //
-    //--------------------------------------------------------------------------
-    
-    public function getItemSkin(item:*):DisplayObject
+    override public function elementLayerChanged(e:IGraphicElement):void
     {
-        var result:DisplayObject = null;
-                    
-        if (skinRegistry)
-            result = skinRegistry[item];
+        super.elementLayerChanged(e);
         
-        if (!result && item is DisplayObject)
-            result = item;
-                
-        return result;
-    }
-    
-    public function getSkinItem(skin:DisplayObject):*
-    {
-        // !! This implementation is really slow... 
-        var item:*;
-        
-        for (var i:int = 0; i < numItems; i++)
-        {
-            item = getItemAt(i);
-            if (getItemSkin(item) == skin)
-                return item;
-        }
-        
-        return null;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  IGraphicElement Implementation
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  mask
-    //----------------------------------
-    private var _mask:DisplayObject;
-    private var maskChanged:Boolean;
-    
-    [Inspectable(category="General")]
-    override public function get mask():DisplayObject
-    {
-        return _mask;
-    }
-    
-    /*
-     *  sets the mask. The mask will be added to the display list. The mask must
-     *  not already on a display list nor in the elements array.  
-     */ 
-    override public function set mask(value:DisplayObject):void
-    {
-        if (_mask !== value)
-        {
-            _mask = value;
-            maskChanged = true;
-            invalidateProperties();
-            //addDrawnElements();
-            
-        }
-        super.mask = value;         
-    } 
-    
-    //----------------------------------
-    //  maskType
-    //----------------------------------
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General",enumeration="clip,alpha", defaultValue="clip")]
-    private var _maskType:String = MaskType.CLIP;
-    private var _oldMaskType:String = MaskType.CLIP;
-    private var maskTypeChanged:Boolean;
-    private var originalMaskFilters:Array;
-    
-    public function get maskType():String
-    {
-        return _maskType;
-    }
-    
-    public function set maskType(value:String):void
-    {
-        if (_maskType != value)
-        {
-            _oldMaskType = _maskType;
-            _maskType = value;
-            maskTypeChanged = true;
-            invalidateProperties();
-        }
-    }
-    
-    //----------------------------------
-    //  rotation
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _rotation:Number = 0;
-    
-    [Bindable("propertyChange")]
-    [Inspectable(category="General")]
-    
-    /**
-     *  The rotation for this group, in degrees.
-     */
-    override public function get rotation():Number
-    {
-        return !isNaN(_rotation) ? _rotation : super.rotation;
-    }
-    
-    override public function set rotation(value:Number):void
-    {
-        if (_rotation != value)
-        {
-            var oldValue:Number = _rotation;
-            
-            _rotation = value;
-            transformChanged = true;
-            invalidateProperties();
-        }
-    }
-
-    //----------------------------------
-    //  transform
-    //----------------------------------
-    private var _transform:flash.geom.Transform;
-    private var _matrix:Matrix;
-    private var _colorTransform:ColorTransform;
-    
-    override public function set transform(value:flash.geom.Transform):void
-    {
-        // Clean up the old event listeners
-        var oldTransform:flex.geom.Transform = _transform as flex.geom.Transform;       
-        if (oldTransform)
-        {
-            oldTransform.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
-        }
-        
-        var newTransform:flex.geom.Transform = value as flex.geom.Transform;
-        
-        if (newTransform)
-        {   
-            newTransform.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, transformPropertyChangeHandler);
-            _matrix = value.matrix.clone(); // Make sure it is a copy
-            _colorTransform = value.colorTransform; 
-        }
-    
-        _transform = value; 
-        super.transform = value; 
-    } 
-    
-    //----------------------------------
-    //  transformX
-    //----------------------------------
-    private var _transformX:Number = 0;
-        
-    /**
-     *  The x position transform point of the element. 
-     */
-    public function get transformX():Number
-    {
-        return _transformX;
-    }
-    
-    public function set transformX(value:Number):void
-    {
-        if (_transformX != value)
-        {
-            _transformX = value;
-            transformChanged = true;
-            invalidateProperties();
-        }
-    }
-    
-    //----------------------------------
-    //  transformY
-    //----------------------------------
-    private var _transformY:Number = 0;
-    
-    /**
-     *  The y position transform point of the element. 
-     */
-    public function get transformY():Number
-    {
-        return _transformY;
-    }
-    
-    public function set transformY(value:Number):void
-    {
-        if (_transformY != value)
-        {
-            _transformY = value;
-            transformChanged = true;
-            invalidateProperties();
-        }
-    }
-
-    private function transformPropertyChangeHandler(event:PropertyChangeEvent):void
-    {
-        if (event.kind == PropertyChangeEventKind.UPDATE)
-        {           
-            if (event.property == "matrix")
-            {
-                // Apply matrix
-                if (_transform)
-                {
-                    _matrix = _transform.matrix.clone();
-                    transformChanged = true;
-                    invalidateProperties();
-                } 
-            }
-            else if (event.property == "colorTransform")
-            {
-                // Apply colorTranform
-                if (_transform)
-                {
-                    _colorTransform = _transform.colorTransform;
-                    // TODO EGeorgie: figure out what to invalidate when we implement
-                    // colotTransform being applied.
-                    transformChanged = true;
-                    invalidateProperties();
-                }
-            }
-        }
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  IGraphicElementHost Implementation
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @inheritDoc
-     */
-    public function elementChanged(e:IGraphicElement):void
-    {
-        // TODO!!! Optimize
-        invalidateSize();
-        invalidateDisplayList();    
-    }
-    
-    /**
-     *  @inheritDoc
-     */
-    public function elementSizeChanged(e:IGraphicElement):void
-    {
-        // TODO!!! Optimize
-        invalidateSize();
-        invalidateDisplayList();    
-    }
-    
-    /**
-     * @inheritDoc
-     */
-    public function elementLayerChanged(e:IGraphicElement):void
-    {
-        // TODO!!! Optimize
-        // TODO!!! Need to recalculate the elements
-        invalidateSize();
-        invalidateDisplayList();    
         // One of our children have told us they might need a displayObject     
         assignDisplayObjects();
     }
     
-    /**
-     *  @inheritDoc
-     */
-    public function get parentGraphic():Graphic
-    {
-        return null;
-    }
-    
     protected var maskElements:Dictionary;
     
-    public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
+    override public function addMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
         if (!maskElements)
             maskElements = new Dictionary();
@@ -1587,7 +700,7 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             
     }
     
-    public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
+    override public function removeMaskElement(mask:DisplayObject, target:IGraphicElement):void
     {
         if (maskElements && mask in maskElements)
         {
@@ -1599,10 +712,9 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
         }
     }
     
-    
     //--------------------------------------------------------------------------
     //
-    //  ScaleGrid Implementation
+    //  Properties: ScaleGrid
     //
     //--------------------------------------------------------------------------
 
@@ -1727,10 +839,42 @@ public class Group extends UIComponent implements IGraphicElementHost, IViewport
             dispatchPropertyChangeEvent("scaleGridTop", oldValue, value);
         }
     }
-
-    private function dispatchPropertyChangeEvent(prop:String, oldValue:*, value:*):void
+    
+    // TODO (rfrishbe): need to figure out if we must duplicate these 
+    // RTEs across DataGroup and Group.
+    override public function addChild(child:DisplayObject):DisplayObject
     {
-        dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, prop, oldValue, value));
+        throw(new Error("addChild is not available in Group. Use addItem instead."));
+    }
+    
+    override public function addChildAt(child:DisplayObject, index:int):DisplayObject
+    {
+        throw(new Error("addChildAt is not available in Group. Use addItemAt instead."));
+    }
+    
+    override public function removeChild(child:DisplayObject):DisplayObject
+    {
+        throw(new Error("removeChild is not available in Group. Use removeItem instead."));
+    }
+    
+    override public function removeChildAt(index:int):DisplayObject
+    {
+        throw(new Error("removeChildAt is not available in Group. Use removeItemAt instead."));
+    }
+    
+    override public function setChildIndex(child:DisplayObject, index:int):void
+    {
+        throw(new Error("setChildIndex is not available in Group. Use setItemIndex instead."));
+    }
+    
+    override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
+    {
+        throw(new Error("swapChildren is not available in Group. Use swapItems instead."));
+    }
+    
+    override public function swapChildrenAt(index1:int, index2:int):void
+    {
+        throw(new Error("swapChildrenAt is not available in Group. Use swapItemsAt instead."));
     }
     
 }
