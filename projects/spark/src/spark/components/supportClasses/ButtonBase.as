@@ -858,17 +858,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         
         if (checkForButtonDownConditions)
         {
-            var isCurrentlyDown:Boolean = isDown();
-
-            // Only if down state has changed, do we need to do something
-            if (_downEventFired != isCurrentlyDown)
-            {
-                if (isCurrentlyDown)
-                    dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
-
-                _downEventFired = isCurrentlyDown;
-                checkAutoRepeatTimerConditions(isCurrentlyDown);
-            }
+            dispatchButtonEvents();
             
             checkForButtonDownConditions = false;
         }
@@ -1127,6 +1117,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         }
         else
         {
+            // if we're not waiting then commitProperties won't have a chance to run
+            // before we flip flags back; at least dispatch any relevant button events
+            // even if the UI isn't going to reflect the click
+            dispatchButtonEvents();
             mouseUpDeselectTimer_timerCompleteHandler();
         }
     }
@@ -1140,6 +1134,24 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         {
             mouseUpDeselectTimer.stop();
             mouseUpDeselectTimer = null;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function dispatchButtonEvents():void
+    {
+        var isCurrentlyDown:Boolean = isDown();
+        
+        // Only if down state has changed, do we need to do something
+        if (_downEventFired != isCurrentlyDown)
+        {
+            if (isCurrentlyDown)
+                dispatchEvent(new FlexEvent(FlexEvent.BUTTON_DOWN));
+            
+            _downEventFired = isCurrentlyDown;
+            checkAutoRepeatTimerConditions(isCurrentlyDown);
         }
     }
     
