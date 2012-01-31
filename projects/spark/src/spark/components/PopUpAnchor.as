@@ -108,6 +108,8 @@ public class PopUpAnchor extends UIComponent
     private var popUpIsDisplayed:Boolean = false;
     private var addedToStage:Boolean = false;
     
+    private var popUpSizeCaptured:Boolean = false;
+    
     private static var decomposition:Vector.<Number> = new <Number>[0,0,0,0,0];
     
     //--------------------------------------------------------------------------
@@ -472,11 +474,12 @@ public class PopUpAnchor extends UIComponent
         {
             PopUpManager.addPopUp(popUp,this,false);
             popUpIsDisplayed = true;
-            if (popUp is UIComponent)
+            if (popUp is UIComponent && !popUpSizeCaptured)
             {
                 popUpWidth = UIComponent(popUp).explicitWidth;
                 popUpHeight = UIComponent(popUp).explicitHeight;
                 UIComponent(popUp).validateNow();
+                popUpSizeCaptured = true;
             }   
             
             applyPopUpTransform(width, height);
@@ -494,12 +497,6 @@ public class PopUpAnchor extends UIComponent
     {
         PopUpManager.removePopUp(popUp);
         popUpIsDisplayed = false;
-        
-        if (popUp is UIComponent)
-        {
-            UIComponent(popUp).explicitWidth = popUpWidth;
-            UIComponent(popUp).explicitHeight = popUpHeight;
-        }
     }
     
     /**
@@ -586,8 +583,13 @@ public class PopUpAnchor extends UIComponent
         {
             if (popUpWidthMatchesAnchorWidth)
                 UIComponent(popUp).width = unscaledWidth;
+            else
+                UIComponent(popUp).explicitWidth = popUpWidth;
+            
             if (popUpHeightMatchesAnchorHeight)
                 UIComponent(popUp).height = unscaledHeight;
+            else
+                UIComponent(popUp).explicitHeight = popUpHeight;
         }
         else
         {
