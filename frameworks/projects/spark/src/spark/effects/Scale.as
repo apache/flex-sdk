@@ -20,6 +20,7 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  in the x and y directions around the transform center.
  *  A scale of 2.0 means the object has been magnified by a factor of 2, 
  *  and a scale of 0.5 means the object has been reduced by a factor of 2.
+ *  A scale value of 0.0 is invalid.
  * 
  *  <p>Like all AnimateTransform-based effects, this effect will only work on subclasses
  *  of UIComponent and GraphicElement, as these effects depend on specific
@@ -82,6 +83,7 @@ public class AnimateTransformScale extends AnimateTransform
 
     /**
      *  The starting scale factor in the y direction.
+     *  A scale value of 0.0 is invalid.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -97,7 +99,8 @@ public class AnimateTransformScale extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * The ending scale factor in the y direction.
+     *  The ending scale factor in the y direction.
+     *  A scale value of 0.0 is invalid.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -133,7 +136,8 @@ public class AnimateTransformScale extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * The starting scale factor in the x direction.
+     *  The starting scale factor in the x direction.
+     *  A scale value of 0.0 is invalid.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -149,7 +153,8 @@ public class AnimateTransformScale extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * The ending scale factor in the x direction.
+     *  The ending scale factor in the x direction.
+     *  A scale value of 0.0 is invalid.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -165,11 +170,11 @@ public class AnimateTransformScale extends AnimateTransform
     [Inspectable(category="General", defaultValue="NaN")]
 
     /**
-     * The factor by which to scale the object in the x direction.
-     * This is an optional parameter that can be used instead of one
-     * of the other from/to values to specify the delta to add to the
-     * from value or to derive the from value by subtracting from the
-     * to value.
+     *  The factor by which to scale the object in the x direction.
+     *  This is an optional parameter that can be used instead of one
+     *  of the other from/to values to specify the delta to add to the
+     *  from value or to derive the from value by subtracting from the
+     *  to value.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
