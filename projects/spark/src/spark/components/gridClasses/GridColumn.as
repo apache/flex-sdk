@@ -20,6 +20,8 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
+import mx.formatters.IFormatter;
+import mx.styles.IAdvancedStyleClient;
 import mx.utils.ObjectUtil;
 
 import spark.collections.SortField;
@@ -110,8 +112,10 @@ public class GridColumn extends EventDispatcher
             return -1;
         
         const dataFieldPath:Array = column.dataField.split(".");
-        var obj1String:String = deriveDataFromPath(obj1, dataFieldPath);
-        var obj2String:String = deriveDataFromPath(obj2, dataFieldPath);
+        const formatter:IFormatter = column.formatter;
+        
+        const obj1String:String = column.itemToString(obj1, dataFieldPath, null, formatter);
+        const obj2String:String = column.itemToString(obj2, dataFieldPath, null, formatter);
         
         if ( obj1String < obj2String )
             return -1;
@@ -353,6 +357,73 @@ public class GridColumn extends EventDispatcher
     }
     
     //----------------------------------
+    //  dataTipFormatter
+    //----------------------------------
+    
+    private var _dataTipFormatter:IFormatter = null;
+    private var dataTipFormatterStyleParentInvalid:Boolean = false;
+    
+    [Bindable("dataTipFormatterChanged")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  Specifies the formatter used by the column's itemToDataTip() method to 
+     *  convert dataProvider items to strings.
+     * 
+     *  <p>If the formatter's <code>styleParent</code> wasn't specified, it's set
+     *  to the column's grid, so that the formatter inherits the grid's "locale" style.</p>
+     *
+     *  @default null
+     * 
+     *  @see #itemToDataTip
+     *  @see #formatter
+     *
+     *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get dataTipFormatter():IFormatter
+    {
+        if (dataTipFormatterStyleParentInvalid && grid)
+        {
+            const asc:IAdvancedStyleClient = _dataTipFormatter as IAdvancedStyleClient;
+            if (asc && (asc.styleParent != grid))
+                grid.addStyleClient(asc);            
+            dataTipFormatterStyleParentInvalid = false;
+        }
+        
+        return _dataTipFormatter;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dataTipFormatter(value:IFormatter):void
+    {
+        if (_dataTipFormatter == value)
+            return;
+        
+        if (grid && _dataTipFormatter)
+        {
+            const oldASC:IAdvancedStyleClient = _dataTipFormatter as IAdvancedStyleClient;
+            if (oldASC && (oldASC.styleParent == grid))
+                grid.removeStyleClient(oldASC);
+        }        
+        
+        _dataTipFormatter = value;
+        dataTipFormatterStyleParentInvalid = true;
+        
+        if (grid)
+            grid.invalidateDisplayList();
+        
+        dispatchChangeEvent("dataTipFormatterChanged");
+    }
+    
+    
+    //----------------------------------
     //  dataTipFunction
     //----------------------------------
     
@@ -460,6 +531,74 @@ public class GridColumn extends EventDispatcher
         
         _editable = value;
         dispatchChangeEvent("editableChanged");
+    }
+    
+    //----------------------------------
+    //  formatter
+    //----------------------------------
+    
+    private var _formatter:IFormatter = null;
+    private var formatterStyleParentInvalid:Boolean = false;
+    
+    [Bindable("formatterChanged")]
+    [Inspectable(category="General")]
+    
+    /**
+     *  Specifies the formatter used by the column's itemToLabel() method to 
+     *  convert dataProvider items to strings.
+     * 
+     *  <p>If the formatter's <code>styleParent</code> wasn't specified, it's set
+     *  to the column's grid, so that the formatter inherits the grid's "locale" style.</p>
+     *
+     *  @default null
+     * 
+     *  @see #itemToLabel
+     *  @see #dataTipFormatter
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
+    public function get formatter():IFormatter
+    {
+        if (formatterStyleParentInvalid && grid)
+        {
+            const asc:IAdvancedStyleClient = _formatter as IAdvancedStyleClient;
+            if (asc && (asc.styleParent != grid))
+                grid.addStyleClient(asc);            
+            formatterStyleParentInvalid = false;
+        }
+        
+        return _formatter;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set formatter(value:IFormatter):void
+    {
+        if (_formatter == value)
+            return;
+        
+        if (grid && _formatter)
+        {
+            const oldASC:IAdvancedStyleClient = _formatter as IAdvancedStyleClient;
+            if (oldASC && (oldASC.styleParent == grid))
+                grid.removeStyleClient(oldASC);
+        }
+        
+        _formatter = value;
+        formatterStyleParentInvalid = true;
+
+        
+        if (grid)
+        {
+            invalidateGrid();
+            grid.clearGridLayoutCache(true);
+        }
+        
+        dispatchChangeEvent("formatterChanged");
     }
     
     //----------------------------------
@@ -1392,47 +1531,32 @@ public class GridColumn extends EventDispatcher
     
     /**
      *  @private
-     *  Common logic for itemToLabel(), dataTipToLabel().   Logically this code is
+     *  Common logic for itemToLabel(), itemToDataTip().   Logically this code is
      *  similar to (not the same as) LabelUtil.itemToLabel().
-     *  This function will pass the item and the column, if provided, to the labelFunction.
      */
-    mx_internal static function itemToString(item:Object, labelPath:Array, labelFunction:Function, column:GridColumn = null):String
+    private function itemToString(item:Object, labelPath:Array, labelFunction:Function, formatter:IFormatter):String
     {
         if (!item)
             return ERROR_TEXT;
         
         if (labelFunction != null)
-        {
-            if (column != null)
-                return labelFunction(item, column);
-            else
-                return labelFunction(item);
-        }
+            return labelFunction(item, this);
         
-        const itemString:String = deriveDataFromPath(item, labelPath);
-        
-        return (itemString != null) ? itemString : ERROR_TEXT;
-    }
-    
-    /**
-     *  @private
-     */
-    private static function deriveDataFromPath(item:Object, labelPath:Array):String
-    {
+        var itemString:String = null;
         try 
         {
             var itemData:Object = item;
             for each (var pathElement:String in labelPath)
-            itemData = itemData[pathElement];
+                itemData = itemData[pathElement];
             
             if ((itemData != null) && (labelPath.length > 0))
-                return itemData.toString();
+                itemString = (formatter) ? formatter.format(itemData) : itemData.toString();
         }
         catch(ignored:Error)
         {
-        }
+        }        
         
-        return null;
+        return (itemString != null) ? itemString : ERROR_TEXT;
     }
     
     /**
@@ -1441,14 +1565,18 @@ public class GridColumn extends EventDispatcher
      * 
      *  <p>If <code>labelFunction</code> is null, and <code>dataField</code> 
      *  is a string that does not contain "." field name separator characters, 
-     *  then this method is equivalent to:</p>
+     *  and formatter is null, then this method is equivalent to:</p>
      *
      *  <pre>item[dataField].toString()</pre>   
+     * 
+     *  <p>If the formatter was specified, then this method's value is:</p>
+     * 
+     *  <pre>formatter.format(item[dataField])</pre>
      *
      *  <p>If <code>dataField</code> is a "." separated
      *  path, then this method looks up each successive path element.  
-     *  For example if <code>="foo.bar.baz"</code>, then this method returns
-     *  the value of <code>item.foo.bar.baz</code>.   
+     *  For example if <code>="foo.bar.baz"</code>, then this method returns 
+     *  a string based on the value of <code>item.foo.bar.baz</code>.   
      *  If resolving the item's <code>dataField</code>
      *  causes an error to be thrown, ERROR_TEXT is returned.</p>
      * 
@@ -1467,7 +1595,7 @@ public class GridColumn extends EventDispatcher
      */
     public function itemToLabel(item:Object):String
     {
-        return GridColumn.itemToString(item, dataFieldPath, labelFunction, this);
+        return itemToString(item, dataFieldPath, labelFunction, formatter);
     }
 
     /**
@@ -1480,8 +1608,11 @@ public class GridColumn extends EventDispatcher
      *  If <code>dataTipField</code> properties is also null in the grid control, 
      *  then use the <code>dataField</code> property.</p>
      * 
-     *  <p>If <code>dataTipFunction</code> is null, then this method is equivalent to:
-     *  <code>item[dataTipField].toString()</code>.   
+     *  <p>If <code>dataTipFunction</code> and <code>dataTipFormatter</code> are
+     *  null, then this method's value is the same as:
+     *  <code>item[dataTipField].toString()</code>.   If <code>dataTipFormatter</code> is 
+     *  specified then this method's value is the same as: 
+     *  <code>dataTipFormatter.format(item[dataTipField])</code>
      *  If resolving the item's <code>dataField</code>
      *  causes an error to be thrown, <code>ERROR_TEXT</code> is returned.</p>
      * 
@@ -1506,7 +1637,7 @@ public class GridColumn extends EventDispatcher
         const tipField:String = (dataTipField) ? dataTipField : grid.dataTipField;
         const tipPath:Array = (tipField) ? [tipField] : dataFieldPath;
         
-        return itemToString(item, tipPath, tipFunction, this);      
+        return itemToString(item, tipPath, tipFunction, dataTipFormatter);      
     }
     
     /**
