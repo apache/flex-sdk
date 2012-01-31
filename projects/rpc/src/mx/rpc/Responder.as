@@ -14,6 +14,11 @@ package mx.rpc
 
 /**
  *  This class provides a default implementation <code>mx.rpc.IResponder</code>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Responder implements IResponder
 {
@@ -24,6 +29,11 @@ public class Responder implements IResponder
 	 *           completed successfully.
 	 *  @param	fault Function that should be called when the request has
 	 *			completed with errors.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function Responder(result:Function, fault:Function)
 	{
@@ -37,6 +47,11 @@ public class Responder implements IResponder
 	 *  received.
          *
          * @param data While <code>data</code> is typed as Object, it is often (but not always) an mx.rpc.events.ResultEvent.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function result(data:Object):void
 	{
@@ -47,6 +62,11 @@ public class Responder implements IResponder
 	 *  This method is called by a service when an error has been received.
          *
          * @param info While <code>info</code> is typed as Object, it is often (but not always) an mx.rpc.events.FaultEvent.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function fault(info:Object):void
 	{
