@@ -18,6 +18,7 @@ import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.utils.Timer;
 import mx.components.FxButton;
+import mx.core.IViewport;
 
 /**
  *  A ScrollBar control is used to help position
@@ -168,6 +169,22 @@ public class FxScrollBar extends FxTrackBase
         invalidateProperties();
         invalidateDisplayList();
     }
+    
+    //----------------------------------
+    //  viewport
+    //----------------------------------    
+
+    private var _viewport:IViewport;
+    
+    public function get viewport():IViewport
+    {
+        return _viewport;
+    }
+    
+    public function set viewport(value:IViewport):void
+    {
+        _viewport = value;
+    }    
     
     //--------------------------------------------------------------------------
     //
