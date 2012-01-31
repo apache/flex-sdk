@@ -1,133 +1,147 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2010 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package spark.components
 {
-    import flash.utils.Dictionary;
-    
-    import mx.core.UIComponent;
-    import mx.events.FlexEvent;
+import flash.utils.Dictionary;
 
-    ////////////////////////////////////////////////////////////////////////////////
+import mx.core.UIComponent;
+import mx.core.mx_internal;
+import mx.events.FlexEvent;
+
+import spark.events.ElementExistenceEvent;
+    
+use namespace mx_internal;
+
+/*
+ *  TODO:
+ * 
+ * 
+ * 
+ *  ISSUES:
+ *  - Support auto-generation of numberLabel values?
+ *  - Should we support developer overriding the layout defined value in columnWidths? 
+ *  If so, we need a seperate property or function like columnWidthsOverride
+ * 
+ */ 
+
+/**
+ *  SkinnableContainer with FormItem children. 
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4.5 
+ */
+public class Form extends SkinnableContainer
+{
+    
+    public function Form()
+    {
+        super();
+        addEventListener(FlexEvent.VALID, validHandler, true);
+        addEventListener(FlexEvent.INVALID, invalidHandler, true);
+        // Set these here instead of in the CSS type selector for Form
+        // We want to hide the fact that the Form itself doesn't show
+        // the error skin or error tip, but that its children do. 
+        setStyle("showErrorSkin", false);
+        setStyle("showErrorTip", false);
+    }
+    
+    private var errorStateChanged:Boolean = false;
+    
+    //--------------------------------------------------------------------------
     //
-    //  ADOBE SYSTEMS INCORPORATED
-    //  Copyright 2008 Adobe Systems Incorporated
-    //  All Rights Reserved.
+    //  Properties
     //
-    //  NOTICE: Adobe permits you to use, modify, and distribute this file
-    //  in accordance with the terms of the license agreement accompanying it.
-    //
-    ////////////////////////////////////////////////////////////////////////////////
-        
-    /**
-     *  TODO:
-     * 
-     * 
-     * 
-     *  ISSUES:
-     *  - Support auto-generation of numberLabel values?
-     *  - Should we support developer overriding the layout defined value in columnWidths? 
-     *  If so, we need a seperate property or function like columnWidthsOverride
-     * 
-     */ 
+    //--------------------------------------------------------------------------
+    
+    
+    mx_internal var _invalidElements:Dictionary = new Dictionary(true);
     
     /**
-     *  SkinnableContainer with IFormItem children. It has a columnWidths property 
-     *  which is an array of numbers that correspond to the maximum width for 
-     *  each form column. Typically this is set by the FormLayout. 
+     *  A dictionary of descendant elements that are in an INVALID state. The 
+     *  dictionary keys are the invalid elements themselves. The dictionary
+     *  value is the errorString of that invalid element. 
      * 
+     *  If a descendant is removed from the Form, the dictionary will not get 
+     *  updated. 
+     *     
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5 
+     *  @productversion Flex 4.5
      */
-    public class Form extends SkinnableContainer
+    public function get invalidElements():Dictionary
     {
+        return _invalidElements;
+    }
+     
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  If one of our descendants has just passed validation, then
+     *  remove it from the invalidElements dictionary
+     */
+    private function validHandler(event:FlexEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
         
-        public function Form()
+        var targ:UIComponent = event.target as UIComponent;
+        if (invalidElements[targ] != undefined)
+            delete _invalidElements[targ];
+        
+        errorStateChanged = true;
+        invalidateSkinState();
+    }
+    
+    /**
+     *  @private
+     *  If one of our descendants has just failed validation, then
+     *  add it to the invalidElements dictionary
+     */
+    private function invalidHandler(event:FlexEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        var targ:UIComponent = event.target as UIComponent;
+        
+        if (targ)
+            _invalidElements[targ] = targ.errorString;                    
+        
+        errorStateChanged = true;
+        invalidateSkinState();
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function getCurrentSkinState():String
+    {
+        var result:String = super.getCurrentSkinState();
+        
+        if (errorStateChanged)
         {
-            super();
-            addEventListener(FlexEvent.VALID, validHandler, true);
-            addEventListener(FlexEvent.INVALID, invalidHandler, true);
-            setStyle("showErrorSkin", false);
-            setStyle("showErrorTip", false);
-        }
-        
-        //--------------------------------------------------------------------------
-        //
-        //  Properties
-        //
-        //--------------------------------------------------------------------------
-        
-        public var invalidElements:Dictionary = new Dictionary(true);
-        
-        //----------------------------------
-        //  columnWidths
-        //----------------------------------
-        
-        
-        private var _columnWidths:Vector.<Number>;
-        
-        [Bindable("updateComplete")]
-        
-        /**
-         *  An array of the maximum widths of the spaces allocated for each Form column
-         * 
-         *  <p>This property is set by the Form's layout. For all other purposes
-         *  it should be considered read-only.</p>
-         * 
-         *  @default 
-         * 
-         *  @langversion 3.0
-         *  @playerversion Flash 10
-         *  @playerversion AIR 1.5
-         *  @productversion Flex 4.5 
-         */
-        
-        // 
-        public function get columnWidths():Vector.<Number>
-        {
-            return _columnWidths;
-        }
-        
-        /**
-         *  @private
-         */
-        public function set columnWidths(value:Vector.<Number>):void
-        {
-            _columnWidths = value;
-        
-        }
-        
-        private function validHandler(event:FlexEvent):void
-        {
-            if (event.isDefaultPrevented())
-                return;
-            
-            var targ:UIComponent = event.target as UIComponent;
-            if (invalidElements[targ] != undefined)
-                delete invalidElements[targ];
-            
-            invalidateSkinState();
-        }
-        
-        private function invalidHandler(event:FlexEvent):void
-        {
-            if (event.isDefaultPrevented())
-                return;
-            
-            var targ:UIComponent = event.target as UIComponent;
-            
-            if (targ)
-                invalidElements[targ] = targ.errorString;                    
-            
-            invalidateSkinState();
-        }
-        
-        override protected function getCurrentSkinState():String
-        {
-            var result:String = super.getCurrentSkinState();
-            
+            errorStateChanged = false;
             var isEmpty:Boolean = true;
             var errMsg:String = "";
             
+            // TODO (jszeto) Figure out how to do the proper ordering 
             for (var key:Object in invalidElements)
             {
                 isEmpty = false;
@@ -135,22 +149,19 @@ package spark.components
                 {
                     errMsg += "\n";
                 }
-                               
+                
                 errMsg += UIComponent(key).errorString; 
             }
             
+            // disabled state takes precedence over error state
             if (!isEmpty && enabled)
-            {
-                
                 result = "error";
-            }
             
+            // Either set this to the concatenated string or empty string
             errorString = errMsg;
-            // Check if dictionary is not empty
-            //if () // dictionary not empty && enabled
-                //result = "error";
-                
-            return result;
         }
+            
+        return result;
     }
+}
 }
