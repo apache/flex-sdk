@@ -19,6 +19,7 @@ import flash.events.ProgressEvent;
 import flash.events.SecurityErrorEvent;
 
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 import mx.graphics.BitmapScaleMode;
 import mx.utils.BitFlagUtil;
 
@@ -61,7 +62,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  Ready state of the Image.
  *  
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 10.1
  *  @playerversion AIR 1.5
  *  @productversion Flex 4.5
  */
@@ -93,7 +94,14 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 //--------------------------------------
 
 /**
- *  Dispatched when content loading is complete.
+ *  Dispatched when content loading is complete. This
+ *  event is only dispatched for url and ByteArray based
+ *  sources (those sources requiring a Loader).
+ * 
+ *  <p>Note that for content loaded via Loader, both
+ *  <code>ready</code> and <code>complete</code> events
+ *  are dispatched.</p>  For other source types such as
+ *  embeds, only <code>ready</code> is dispatched.
  *
  *  @eventType flash.events.Event.COMPLETE
  *  
@@ -147,6 +155,25 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4.5
  */
 [Event(name="progress", type="flash.events.ProgressEvent")]
+
+/**
+ *  Dispatched when content loading is complete.  Unlike the
+ *  <code>complete</code> event, this event is dispatched for 
+ *  all source types.  
+ *  
+ *  <p>Note that for content loaded via Loader, both
+ *  <code>ready</code> and <code>complete</code> events
+ *  are dispatched.</p>  For other source types such as
+ *  embeds, only <code>ready</code> is dispatched.
+ *
+ *  @eventType mx.events.FlexEvent.READY
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Event(name="ready", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when a security error occurs.
@@ -287,6 +314,11 @@ public class Image extends SkinnableComponent
      *  @private
      */
     protected var _loading:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    protected var _ready:Boolean = false;
     
     /**
      *  @private
@@ -652,6 +684,7 @@ public class Image extends SkinnableComponent
         
         _loading = false;
         _invalid = false;
+        _ready = false;
         
         if (imageDisplay)
         {
@@ -764,7 +797,8 @@ public class Image extends SkinnableComponent
         {
             imageDisplay.addEventListener(IOErrorEvent.IO_ERROR, imageDisplay_ioErrorHandler, false, 0, true);
             imageDisplay.addEventListener(ProgressEvent.PROGRESS, imageDisplay_progressHandler, false, 0, true);
-            imageDisplay.addEventListener(Event.COMPLETE, imageDisplay_completeHandler, false, 0, true);
+            imageDisplay.addEventListener(FlexEvent.READY, imageDisplay_readyHandler, false, 0, true);
+            imageDisplay.addEventListener(Event.COMPLETE, dispatchEvent, false, 0, true);
             imageDisplay.addEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent, false, 0, true);
             imageDisplay.addEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent, false, 0, true);
             
@@ -874,7 +908,8 @@ public class Image extends SkinnableComponent
         {
             imageDisplay.removeEventListener(IOErrorEvent.IO_ERROR, imageDisplay_ioErrorHandler);
             imageDisplay.removeEventListener(ProgressEvent.PROGRESS, imageDisplay_progressHandler);
-            imageDisplay.removeEventListener(Event.COMPLETE, imageDisplay_completeHandler);
+            imageDisplay.removeEventListener(FlexEvent.READY, imageDisplay_readyHandler);
+            imageDisplay.removeEventListener(Event.COMPLETE, dispatchEvent);
             imageDisplay.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
             imageDisplay.removeEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
             
@@ -937,7 +972,7 @@ public class Image extends SkinnableComponent
             return "disabled";
         else if (_loading && enableLoadingState) 
             return "loading";
-        else if (imageDisplay && imageDisplay.source)
+        else if (imageDisplay && imageDisplay.source && _ready)
             return "ready";
         else
             return "uninitialized";
@@ -1032,10 +1067,11 @@ public class Image extends SkinnableComponent
     /**
      *  @private
      */
-    private function imageDisplay_completeHandler(event:Event):void
+    private function imageDisplay_readyHandler(event:Event):void
     {
         invalidateSkinState();
         _loading = false;
+        _ready = true;
         dispatchEvent(event);
     }    
 }
