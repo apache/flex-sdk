@@ -1784,6 +1784,15 @@ public class UIFTETextField extends FTETextField
         
         dispatchEvent(new Event("textReplace"));
     }
+	
+	/**
+	 *  @private
+	 */
+	override mx_internal function getErrorMessage(key:String,
+												  param:String = null):String
+	{
+		return resourceManager.getString("core", key, [ param ]);
+	}
 
     //--------------------------------------------------------------------------
     //
