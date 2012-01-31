@@ -49,7 +49,7 @@
     </fx:Script>
     <s:Panel title="Advanced CSS: Pseudo Selector Example" height="75%" width="75%"
         horizontalCenter="0" verticalCenter="0">
-        <s:SimpleText text="The Spark Button below uses pseudo selectors to define its baseColor for each of its states."
+        <s:Label text="The Spark Button below uses pseudo selectors to define its baseColor for each of its states."
         	x="10" y="10" />
         <s:Button id="submitButton" label="Submit Form" x="10" y="35"/>
 
