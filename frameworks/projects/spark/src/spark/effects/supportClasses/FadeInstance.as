@@ -1,0 +1,169 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2008 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+package flex.effects.effectClasses
+{
+import flash.events.Event;
+
+import flex.core.Group;
+import flex.effects.PropertyValuesHolder;
+import flex.graphics.graphicsClasses.GraphicElement;
+
+import mx.effects.effectClasses.PropertyChanges;
+import mx.events.FlexEvent;
+import mx.managers.LayoutManager;
+    
+public class FadeInstance extends AnimatePropertiesInstance
+{
+    public function FadeInstance(target:Object)
+    {
+        super(target);
+    }
+    
+    /** 
+     *  @private
+     *  The original transparency level.
+     */
+    private var origAlpha:Number = NaN;
+    
+    /** 
+     *  @private
+     */
+    private var restoreAlpha:Boolean;
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  alphaFrom
+    //----------------------------------
+
+    /** 
+     *  Initial transparency level between 0.0 and 1.0, 
+     *  where 0.0 means transparent and 1.0 means fully opaque. 
+     */
+    public var alphaFrom:Number;
+    
+    //----------------------------------
+    //  alphaFrom
+    //----------------------------------
+
+    /** 
+     *  Final transparency level between 0.0 and 1.0, 
+     *  where 0.0 means transparent and 1.0 means fully opaque.
+     */
+    public var alphaTo:Number;
+    
+    /**
+     *  @private
+     */
+    override public function play():void
+    {
+        // Remember the original value of the target object's alpha
+        origAlpha = target.alpha;
+        var revalidate:Boolean = false;
+        
+        var propChanges:PropertyChanges = propertyChanges;
+        
+        // If nobody assigned a value, make this a "show" effect.
+        if (isNaN(alphaFrom) && isNaN(alphaTo))
+        {   
+            if (propChanges && propChanges.end["alpha"] !== undefined)
+            {
+                alphaFrom = origAlpha;
+                alphaTo = propChanges.end["alpha"];
+            }
+            else if (propChanges && propChanges.end["visible"] !== undefined)
+            {
+                alphaFrom = propChanges.start["visible"] ? origAlpha : 0;
+                alphaTo = propChanges.end["visible"] ? origAlpha : 0;
+                // Force target to be visible at effect start
+                if (alphaFrom == 0 && alphaTo != 0)
+                {
+                    target.visible = true;
+                }
+                restoreAlpha = true;
+            }
+            else if (propChanges && propChanges.end["parent"] !== undefined)
+            {
+                alphaFrom = propChanges.start["parent"] ? origAlpha : 0;
+                alphaTo = propChanges.end["parent"] ? origAlpha : 0;
+                restoreAlpha = true;
+            }
+            else if (propChanges && propChanges.end["elementHost"] !== undefined)
+            {
+                alphaFrom = propChanges.start["elementHost"] ? origAlpha : 0;
+                alphaTo = propChanges.end["elementHost"] ? origAlpha : 0;
+                if (alphaFrom == 0)
+                {
+                    target.alpha = 0;
+                    if (GraphicElement(target).elementHost)
+                        Group(GraphicElement(target).elementHost).validateNow();
+                }
+                restoreAlpha = true;
+            }
+            else
+            {
+                alphaFrom = 0;
+                alphaTo = origAlpha;
+            }
+        }
+        else if (isNaN(alphaFrom))
+        {
+            alphaFrom = (alphaTo == 0) ? origAlpha : 0;
+        }
+        else if (isNaN(alphaTo))
+        {
+            if (propChanges && propChanges.end["alpha"] !== undefined)
+            {
+                alphaTo = propChanges.end["alpha"];
+            }
+            else
+            {
+                alphaTo = (alphaFrom == 0) ? origAlpha : 0; 
+            }
+        }
+
+        propertyValuesList = 
+            [new PropertyValuesHolder("alpha", [alphaFrom, alphaTo])];
+        
+        super.play();
+    }
+
+    private var hideOnEffectEnd:Boolean = false;
+    
+    /**
+     *  Handle any cleanup from this effect, such as setting the target to
+     *  be visible (or not) or removed (or not). 
+     *  @private
+     */
+    override public function onTweenEnd(value:Object):void
+    {
+        // Call super function first so we don't clobber resetting the alpha.
+        super.onTweenEnd(value);    
+            
+        // TODO: ideally, we would put the visible=false logic in this effect
+        // We don't want to depend on a private variable on the target
+        // to do this
+        if (hideOnEffectEnd)
+        {
+            target.setVisible(false, true);
+        }
+        if (restoreAlpha)
+        {
+            target.alpha = origAlpha;
+        }
+    }
+}
+}
