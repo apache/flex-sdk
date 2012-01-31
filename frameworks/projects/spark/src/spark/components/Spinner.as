@@ -153,7 +153,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     /**
      *  @private
      */
-    override protected function partAdded(partName:String, instance:*):void
+    override protected function partAdded(partName:String, instance:Object):void
     {
         // TODO: autoRepeat as a property on Spinner?        
         if (instance == incrementButton)
@@ -175,7 +175,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     /**
      *  @private
      */
-    override protected function partRemoved(partName:String, instance:*):void
+    override protected function partRemoved(partName:String, instance:Object):void
     {
         if (instance == incrementButton)
         {
