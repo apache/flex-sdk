@@ -666,7 +666,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      */
     public function itemToLabel(item:Object):String
     {
-        if (item)
+        if (item !== null)
             return item.toString();
         else return " ";
     }
