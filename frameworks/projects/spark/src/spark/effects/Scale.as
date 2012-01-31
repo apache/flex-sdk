@@ -74,7 +74,8 @@ public class Scale extends AnimateTransform
      */
     private static var AFFECTED_PROPERTIES:Array =
         ["scaleX", "scaleY",
-         "postLayoutScaleX","postLayoutScaleY"];
+         "postLayoutScaleX","postLayoutScaleY",
+         "width", "height"];
 
     private static var RELEVANT_STYLES:Array = [];
 
