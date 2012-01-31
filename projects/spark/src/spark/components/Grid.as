@@ -2316,31 +2316,7 @@ package spark.components
                 ctrlKey, altKey, shiftKey, buttonDown, delta);
             dispatchEvent(event);
         }
-        
-        
-        //--------------------------------------------------------------------------
-        //
-        //  Down-Drag-Up Mouse Handling
-        //
-        //--------------------------------------------------------------------------   
-        
-        /**
-         *  @private
-         *  This listener is run in the capture phase (before any other MouseEvent listeners)
-         *  so that it can redispatch a cancelable=true copy of the event.
-         */ 
-        private static function redispatchMouseDownHandler(e:MouseEvent):void
-        {
-            if (e.cancelable)
-                return;
-            
-            e.stopImmediatePropagation();
-            const cancelableEvent:MouseEvent = 
-                new MouseEvent(e.type, e.bubbles, true, e.localX, e.localY, e.relatedObject, 
-                    e.ctrlKey, e.altKey, e.shiftKey, e.buttonDown, e.delta);
-            e.target.dispatchEvent(cancelableEvent);               
-        }
-        
+                
         //--------------------------------------------------------------------------
         //
         //  IList listeners: columns, dataProvider
