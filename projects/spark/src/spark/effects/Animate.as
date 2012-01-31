@@ -364,7 +364,7 @@ public class Animate extends Effect
             {
                 var horizontalMove:Boolean;
                 var verticalMove:Boolean;
-                affectedProperties = new Array(motionPaths.length);
+                affectedProperties = new Array();
                 for (var i:int = 0; i < motionPaths.length; ++i)
                 {
                     var effectHolder:MotionPath = MotionPath(motionPaths[i]);
