@@ -24,6 +24,7 @@ import flash.ui.ContextMenu;
 import flash.ui.ContextMenuItem;
 import flash.utils.setInterval;
 import mx.core.FlexGlobals;
+import mx.core.IInvalidating;
 import mx.core.Singleton;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -834,6 +835,26 @@ public class Application extends SkinnableContainer
     //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private 
+     */
+    override protected function invalidateParentSizeAndDisplayList():void
+    {
+        if (!includeInLayout)
+            return;
+
+        var p:IInvalidating = parent as IInvalidating;
+        if (!p)
+        {
+            if (parent is ISystemManager)
+                ISystemManager(parent).invalidateParentSizeAndDisplayList();
+
+            return;
+        }
+
+        super.invalidateParentSizeAndDisplayList();
+    }
 
     /**
      *  @private
