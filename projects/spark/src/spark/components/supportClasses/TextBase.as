@@ -289,7 +289,7 @@ public class TextBase extends UIComponent
      *  @private
 	 *  Storage for the isTruncated property.
      */
-	mx_internal var _isTruncated:Boolean = false;
+    private var _isTruncated:Boolean = false;
         
     /**
 	 *  A read-only property reporting whether the text has been truncated.
@@ -328,6 +328,19 @@ public class TextBase extends UIComponent
 		// For some reason, the compiler needs an explicit cast to Boolean
 		// to avoid a warning even though at runtime "is Boolean" is true.
 		return Boolean(_isTruncated);
+    }
+    
+    /**
+     *  @private
+     *  Dispatch an "isTruncatedChanged" event when the property is set.
+     */
+    mx_internal function setIsTruncated(value:Boolean):void
+    {
+        if (_isTruncated != value)
+        {
+            _isTruncated = value;
+            dispatchEvent(new Event("isTruncatedChanged"));
+        }
     }
     
     //----------------------------------
@@ -776,7 +789,7 @@ public class TextBase extends UIComponent
 	    _composeWidth = width;
 	    _composeHeight = height;
 	    
-	    _isTruncated = false;
+	    setIsTruncated(false);
 	    
 	    return false;
 	}
