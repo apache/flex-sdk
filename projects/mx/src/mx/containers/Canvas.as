@@ -109,7 +109,7 @@ use namespace mx_internal;
  *  
  *  @includeExample examples/SimpleCanvasExample.mxml
  *
- *  @see mx.components.Container
+ *  @see mx.core.Container
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
