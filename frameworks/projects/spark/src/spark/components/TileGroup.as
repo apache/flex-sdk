@@ -17,6 +17,8 @@ import spark.layouts.supportClasses.LayoutBase;
 
 [IconFile("TileGroup.png")]
 
+[Exclude(name="layout", kind="property")]
+
 /**
  *  The TileGroup container is an instance of the Group container 
  *  that uses the TileLayout class.  
