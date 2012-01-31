@@ -279,7 +279,14 @@ public class DataGridAccImpl extends ListBaseAccImpl
 
         if (dgAccInfo.isColumnHeader)
         {
-            // TODO: Allow doDefaultAction to sort columns
+            if (dgAccInfo.dataGrid.sortableColumns
+            && dgAccInfo.dataGrid.columns.getItemAt(dgAccInfo.columnIndex).sortable)
+            {
+                // TODO: This only allows sorting by one column at a time.
+                dgAccInfo.dataGrid.sortByColumns(
+                    Vector.<int>([dgAccInfo.columnIndex])
+                );
+            }
             return;
         }
 
@@ -365,8 +372,27 @@ public class DataGridAccImpl extends ListBaseAccImpl
         dgAccInfo.setup(master, childID);
         if (dgAccInfo.isInvalid || !dgAccInfo.dataGrid.columns)
             return null;
+        var resourceManager:IResourceManager;
         if (dgAccInfo.isColumnHeader)
-            return dgAccInfo.dataGrid.columns.getItemAt(dgAccInfo.columnIndex).headerText;
+        {
+            var column:Object = dgAccInfo.dataGrid.columns.getItemAt(dgAccInfo.columnIndex);
+            var headerName:String = column.headerText;
+            var sortColumnIndices:Vector.<int> = dgAccInfo.dataGrid.columnHeaderGroup.visibleSortIndicatorIndices;
+            var sortIndex:int = sortColumnIndices.indexOf(dgAccInfo.columnIndex);
+            if (sortIndex < 0)
+                return headerName;
+            resourceManager = ResourceManager.getInstance();
+            var sortString:String;
+            if (column.sortDescending)
+                sortString = resourceManager.getString("components", "sortedDescending");
+            else
+                sortString = resourceManager.getString("components", "sortedAscending");
+            if (sortColumnIndices.length > 1)
+                sortString += resourceManager.getString("components", "sortLevel"
+                ).replace("%1", String(sortIndex+1));
+            headerName = headerName +" " +sortString;
+            return headerName;
+        }
         if (!dgAccInfo.dataGrid.dataProvider)
             return null;
 
@@ -376,7 +402,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
         var rowString:String = "";
         if ((dgAccInfo.isCellMode && dgAccInfo.columnIndex == 0) || !dgAccInfo.isCellMode)
         {
-            var resourceManager:IResourceManager = ResourceManager.getInstance();
+            resourceManager = ResourceManager.getInstance();
             rowString = resourceManager.getString("components", "rowMofN");
             rowString = rowString.replace("%1", dgAccInfo.reachableRowIndex + 1).replace("%2", dgAccInfo.reachableRowCount);
         }
