@@ -15,6 +15,8 @@ package flex.effects.effectClasses
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 
+import flex.core.Group;
+
 import mx.core.mx_internal;
 import mx.effects.effectClasses.ActionEffectInstance;
 
@@ -44,6 +46,12 @@ public class AddActionInstance extends ActionEffectInstance
 	public function AddActionInstance(target:Object)
 	{
 		super(target);
+        try {
+            target.parent;
+            hasParent = true;
+        } catch (e:Error) {
+            hasParent = false;
+        }
 	}
 	
 	//--------------------------------------------------------------------------
@@ -97,7 +105,7 @@ public class AddActionInstance extends ActionEffectInstance
 	
     private function addChild(container:*, child:*):void
     {
-        if (hasParent)
+        if (hasParent && !(container is Group))
            container.addChild(child);
         else
            container.addItem(child);
@@ -105,7 +113,7 @@ public class AddActionInstance extends ActionEffectInstance
     
     private function removeChild(container:*, child:*):void
     {
-        if (hasParent)
+        if (hasParent && !(container is Group))
            container.removeChild(child);
         else
            container.removeItem(child);
@@ -113,7 +121,7 @@ public class AddActionInstance extends ActionEffectInstance
     
     private function addChildAt(container:*, child:*, index:int):void
     {
-        if (hasParent)
+        if (hasParent && !(container is Group))
            container.addChildAt(child, index);
         else
            container.addItemAt(child, index);
@@ -121,7 +129,7 @@ public class AddActionInstance extends ActionEffectInstance
     
     private function getChildIndex(container:*, child:*):int
     {
-        if (hasParent)
+        if (hasParent && !(container is Group))
            return container.getChildIndex(child);
         else
            return container.getItemIndex(child);
@@ -139,8 +147,6 @@ public class AddActionInstance extends ActionEffectInstance
 	        hasParent = false;
 	    }
 	    
-		var targetDisplayObject:DisplayObject = DisplayObject(target);
-
 		// Dispatch an effectStart event from the target.
 		super.play();	
 		
@@ -158,51 +164,51 @@ public class AddActionInstance extends ActionEffectInstance
 		if (!mx_internal::playReversed)
 		{
 			// Set the style property
-			if (target && getContainer(targetDisplayObject) == null && relativeTo)
+			if (target && getContainer(target) == null && relativeTo)
 			{
 				switch (position)
 				{
 					case "index":
 					{
 						if (index == -1)
-							addChild(relativeTo, targetDisplayObject);
+							addChild(relativeTo, target);
 						else
-							addChildAt(relativeTo, targetDisplayObject, 
+							addChildAt(relativeTo, target, 
 												Math.min(index, relativeTo.numChildren));
 						break;
 					}
 					
 					case "before":
 					{
-						addChildAt(getContainer(relativeTo), targetDisplayObject,
+						addChildAt(getContainer(relativeTo), target,
 							getChildIndex(getContainer(relativeTo), relativeTo));
 						break;
 					}
 
 					case "after":
 					{
-						addChildAt(getContainer(relativeTo), targetDisplayObject,
+						addChildAt(getContainer(relativeTo), target,
 							getChildIndex(getContainer(relativeTo), relativeTo) + 1);
 						break;
 					}
 					
 					case "firstChild":
 					{
-						addChildAt(relativeTo, targetDisplayObject, 0);
+						addChildAt(relativeTo, target, 0);
 					}
 					
 					case "lastChild":
 					{
-						addChild(relativeTo, targetDisplayObject);
+						addChild(relativeTo, target);
 					}
 				}
 			}
 		}
 		else
 		{
-			if (target && relativeTo && getContainer(targetDisplayObject) == relativeTo)
+			if (target && relativeTo && getContainer(target) == relativeTo)
 			{
-				removeChild(relativeTo, targetDisplayObject);
+				removeChild(relativeTo, target);
 			}
 		}
 		
