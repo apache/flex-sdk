@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2009 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package spark.components
 {
 import fl.video.VideoEvent;
@@ -19,7 +30,6 @@ import spark.primitives.VideoElement;
 import spark.primitives.supportClasses.TextGraphicElement;
 import mx.utils.BitFlagUtil;
 
-import spark.events.MetadataEvent;
 import spark.events.VideoEvent;
 
 //--------------------------------------
@@ -61,18 +71,17 @@ import spark.events.VideoEvent;
  *  The event object has an <code>info</code> property that contains the 
  *  info object received by the <code>NetStream.onMetaData</code> event callback.
  * 
- *  @eventType spark.events.MetadataEvent.METADATA_RECEIVED
+ *  @eventType spark.events.VideoEvent.METADATA_RECEIVED
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="metadataReceived", type="spark.events.MetadataEvent")]
+[Event(name="metadataReceived", type="spark.events.VideoEvent")]
 
 /**
- *  Dispatched every 0.25 seconds, or how often the underlying video
- *  player's <code>playheadUpdateInterval</code> is set to, while the 
+ *  Dispatched every 0.25 seconds while the 
  *  video is playing.  This event is not dispatched when it is paused 
  *  or stopped, unless a seek occurs.
  *
@@ -86,10 +95,9 @@ import spark.events.VideoEvent;
 [Event(name="playheadUpdate", type="spark.events.VideoEvent")]
 
 /**
- *  Indicates progress made in number of bytes downloaded. Dispatched at the frequency 
- *  specified by the underlying video player's <code>progressInterval</code> property, starting 
+ *  Indicates progress made in number of bytes downloaded. Dispatched starting 
  *  when the load begins and ending when all bytes are loaded or there is a network error. 
- *  The default is every 0.25 seconds starting when load is called and ending
+ *  Dispatched every 0.25 seconds starting when load is called and ending
  *  when all bytes are loaded or if there is a network error. Use this event to check 
  *  bytes loaded or number of bytes in the buffer. 
  *
@@ -128,7 +136,7 @@ import spark.events.VideoEvent;
 //--------------------------------------
 
 /**
- *  Buffering State of the VideoDisplay
+ *  Buffering State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -138,7 +146,7 @@ import spark.events.VideoEvent;
 [SkinState("buffering")]
 
 /**
- *  Connection Error State of the VideoDisplay
+ *  Connection Error State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -148,7 +156,7 @@ import spark.events.VideoEvent;
 [SkinState("connectionError")]
 
 /**
- *  Disabled State of the VideoDisplay
+ *  Disabled State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -158,7 +166,7 @@ import spark.events.VideoEvent;
 [SkinState("disabled")]
 
 /**
- *  Disconnected State of the VideoDisplay
+ *  Disconnected State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -168,7 +176,7 @@ import spark.events.VideoEvent;
 [SkinState("disconnected")]
 
 /**
- *  FullScreen State of the VideoDisplay
+ *  FullScreen State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -178,7 +186,7 @@ import spark.events.VideoEvent;
 [SkinState("fullScreen")]
 
 /**
- *  Loading State of the VideoDisplay
+ *  Loading State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -188,7 +196,7 @@ import spark.events.VideoEvent;
 [SkinState("loading")]
 
 /**
- *  Pause State of the VideoDisplay
+ *  Pause State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -198,7 +206,7 @@ import spark.events.VideoEvent;
 [SkinState("paused")]
 
 /**
- *  Playing State of the VideoDisplay
+ *  Playing State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -208,7 +216,7 @@ import spark.events.VideoEvent;
 [SkinState("playing")]
 
 /**
- *  Seeking State of the VideoDisplay
+ *  Seeking State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -218,7 +226,7 @@ import spark.events.VideoEvent;
 [SkinState("seeking")]
 
 /**
- *  Stopped State of the VideoDisplay
+ *  Stopped State of the VideoPlayer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -233,10 +241,10 @@ import spark.events.VideoEvent;
 
 [DefaultProperty("source")]
 
-[IconFile("VideoDisplay.png")]
+[IconFile("VideoPlayer.png")]
 
 /**
- *  The VideoDisplay class is skinnable video player that supports
+ *  The VideoPlayer class is skinnable video player that supports
  *  progressive download, multi-bitrate, and streaming video.
  * 
  *  <p><code>VideoElement</code> is the chromeless version.</p>
@@ -248,7 +256,7 @@ import spark.events.VideoEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class VideoDisplay extends SkinnableComponent
+public class VideoPlayer extends SkinnableComponent
 {
     //--------------------------------------------------------------------------
     //
@@ -269,7 +277,7 @@ public class VideoDisplay extends SkinnableComponent
     /**
      *  @private
      */
-    private static const IS_LIVE_PROPERTY_FLAG:uint = 1 << 2;
+    private static const LIVE_PROPERTY_FLAG:uint = 1 << 2;
     
     /**
      *  @private
@@ -286,6 +294,11 @@ public class VideoDisplay extends SkinnableComponent
      */
     private static const VOLUME_PROPERTY_FLAG:uint = 1 << 5;
     
+    /**
+     *  @private
+     */
+    private static const MUTED_PROPERTY_FLAG:uint = 1 << 6;
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -300,7 +313,7 @@ public class VideoDisplay extends SkinnableComponent
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function VideoDisplay()
+    public function VideoPlayer()
     {
         super();
     }
@@ -459,15 +472,15 @@ public class VideoDisplay extends SkinnableComponent
     /**
      *  @private
      *  Several properties are proxied to videoElement.  However, when videoElement
-     *  is not around, we need to store values set on VideoDisplay.  This object 
+     *  is not around, we need to store values set on VideoPlayer.  This object 
      *  stores those values.  If videoElement is around, the values are stored 
      *  on the videoElement directly.  However, we need to know what values 
-     *  have been set by the developer on the VideoDisplay (versus set on 
+     *  have been set by the developer on the VideoPlayer (versus set on 
      *  the videoElement or defaults of the videoElement) as those are values 
      *  we want to carry around if the videoElement changes (via a new skin). 
      *  In order to store this info effeciently, videoElementProperties becomes 
      *  a uint to store a series of BitFlags.  These bits represent whether a 
-     *  property has been explicitely set on this VideoDisplay.  When the 
+     *  property has been explicitely set on this VideoPlayer.  When the 
      *  contentGroup is not around, videoElementProperties is a typeless 
      *  object to store these proxied properties.  When videoElement is around,
      *  videoElementProperties stores booleans as to whether these properties 
@@ -497,7 +510,7 @@ public class VideoDisplay extends SkinnableComponent
         
         if (!value && videoElement)
         {
-            if (isPlaying || wasPlayingBeforeDisabled)
+            if (playing || wasPlayingBeforeDisabled)
                 wasPlayingBeforeDisabled = true;
             else
                 wasPlayingBeforeDisabled = false;
@@ -585,81 +598,37 @@ public class VideoDisplay extends SkinnableComponent
     }
     
     //----------------------------------
-    //  isLive
+    //  live
     //----------------------------------
 
     [Inspectable(category="General", defaultValue="false")]
 
     /**
-     *  @copy spark.primitives.VideoElement#isLive
+     *  @copy spark.primitives.VideoElement#live
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get isLive():Boolean
+    public function get live():Boolean
     {
-        return (videoElement) ? videoElement.isLive : videoElementProperties.isLive;
+        return (videoElement) ? videoElement.live : videoElementProperties.live;
     }
     
     /**
      *  @private
      */
-    public function set isLive(value:Boolean):void
+    public function set live(value:Boolean):void
     {
         if (videoElement)
         {
-            videoElement.isLive = value;
+            videoElement.live = value;
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
-                                                        IS_LIVE_PROPERTY_FLAG, true);
+                                                        LIVE_PROPERTY_FLAG, true);
         }
         else
-            videoElementProperties.isLive = value;
-    }
-    
-    //----------------------------------
-    //  isMuted
-    //----------------------------------
-    
-    [Inspectable(category="General", defaultValue="false")]
-    
-    /**
-     *  @copy spark.primitives.VideoElement#isMuted
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get isMuted():Boolean
-    {
-        if (videoElement)
-            return videoElement.isMuted;
-        else
-            return false;
-    }
-    
-    //----------------------------------
-    //  isPlaying
-    //----------------------------------
-    
-    [Inspectable(category="General")]
-    
-    /**
-     *  @copy spark.primitives.VideoElement#isPlaying
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get isPlaying():Boolean
-    {
-        if (videoElement)
-            return videoElement.isPlaying;
-        else
-            return false;
+            videoElementProperties.live = value;
     }
     
     //----------------------------------
@@ -697,6 +666,43 @@ public class VideoDisplay extends SkinnableComponent
     }
     
     //----------------------------------
+    //  muted
+    //----------------------------------
+    
+    [Inspectable(category="General", defaultValue="false")]
+    
+    /**
+     *  @copy spark.primitives.VideoElement#muted
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get muted():Boolean
+    {
+        return (videoElement) ? videoElement.muted : videoElementProperties.muted;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set muted(value:Boolean):void
+    {
+        if (videoElement)
+        {
+            videoElement.muted = value;
+            videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
+                                                        MUTED_PROPERTY_FLAG, true);
+        }
+        else
+            videoElementProperties.muted = value;
+        
+        if (muteButton)
+            muteButton.selected = value;
+    }
+    
+    //----------------------------------
     //  playheadTime
     //----------------------------------
     
@@ -717,6 +723,28 @@ public class VideoDisplay extends SkinnableComponent
             return videoElement.playheadTime;
         else
             return 0;
+    }
+    
+    //----------------------------------
+    //  playing
+    //----------------------------------
+    
+    [Inspectable(category="General")]
+    
+    /**
+     *  @copy spark.primitives.VideoElement#playing
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get playing():Boolean
+    {
+        if (videoElement)
+            return videoElement.playing;
+        else
+            return false;
     }
     
     //----------------------------------
@@ -902,11 +930,11 @@ public class VideoDisplay extends SkinnableComponent
                                                         AUTO_REWIND_PROPERTY_FLAG, true);
             }
             
-            if (videoElementProperties.isLive !== undefined)
+            if (videoElementProperties.live !== undefined)
             {
-                videoElement.isLive = videoElementProperties.isLive;
+                videoElement.live = videoElementProperties.live;
                 newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                        IS_LIVE_PROPERTY_FLAG, true);
+                                                        LIVE_PROPERTY_FLAG, true);
             }
             
             if (videoElementProperties.maintainAspectRatio !== undefined)
@@ -916,11 +944,18 @@ public class VideoDisplay extends SkinnableComponent
                                                         MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG, true);
             }
             
+            if (videoElementProperties.muted !== undefined)
+            {
+                videoElement.muted = videoElementProperties.muted;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                        MUTED_PROPERTY_FLAG, true);
+            }
+            
             videoElementProperties = newVideoProperties;
             
             videoElement.addEventListener(spark.events.VideoEvent.CLOSE, dispatchEvent);
             videoElement.addEventListener(spark.events.VideoEvent.COMPLETE, dispatchEvent);
-            videoElement.addEventListener(MetadataEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
+            videoElement.addEventListener(spark.events.VideoEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
             videoElement.addEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
             videoElement.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
             videoElement.addEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
@@ -944,6 +979,9 @@ public class VideoDisplay extends SkinnableComponent
             
             if (totalTimeLabel)
                 totalTimeLabel.text = videoElement.totalTime.toString();
+            
+            if (muteButton)
+                muteButton.selected = videoElement.muted;
         }
         else if (instance == playButton)
         {
@@ -963,6 +1001,7 @@ public class VideoDisplay extends SkinnableComponent
         }
         else if (instance == muteButton)
         {
+            muteButton.selected = muted;
             muteButton.addEventListener(MouseEvent.CLICK, muteButton_clickHandler);
         }
         else if (instance == volumeBar)
@@ -1024,17 +1063,20 @@ public class VideoDisplay extends SkinnableComponent
             if (BitFlagUtil.isSet(videoElementProperties as uint, AUTO_REWIND_PROPERTY_FLAG))
                 newVideoProperties.autoRewind = videoElement.autoRewind;
             
-            if (BitFlagUtil.isSet(videoElementProperties as uint, IS_LIVE_PROPERTY_FLAG))
-                newVideoProperties.isLive = videoElement.isLive;
+            if (BitFlagUtil.isSet(videoElementProperties as uint, LIVE_PROPERTY_FLAG))
+                newVideoProperties.live = videoElement.live;
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG))
                 newVideoProperties.maintainAspectRatio = videoElement.maintainAspectRatio;
+            
+            if (BitFlagUtil.isSet(videoElementProperties as uint, MUTED_PROPERTY_FLAG))
+                newVideoProperties.muted = videoElement.muted;
                 
             videoElementProperties = newVideoProperties;
             
             videoElement.removeEventListener(spark.events.VideoEvent.CLOSE, dispatchEvent);
             videoElement.removeEventListener(spark.events.VideoEvent.COMPLETE, videoElement_completeHandler);
-            videoElement.removeEventListener(MetadataEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
+            videoElement.removeEventListener(spark.events.VideoEvent.METADATA_RECEIVED, videoElement_metaDataReceivedHandler);
             videoElement.removeEventListener(spark.events.VideoEvent.PLAYHEAD_UPDATE, videoElement_playHeadUpdateHandler);
             videoElement.removeEventListener(ProgressEvent.PROGRESS, dispatchEvent);
             videoElement.removeEventListener(fl.video.VideoEvent.STATE_CHANGE, videoElement_stateChangeHandler);
@@ -1086,25 +1128,6 @@ public class VideoDisplay extends SkinnableComponent
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.primitives.VideoElement#mute()
-     * 
-     *  @throws TypeError if the skin hasn't been loaded up yet
-     *                    and there's no videoElement.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function mute():void
-    {
-        videoElement.mute();
-        
-        if (muteButton)
-            muteButton.selected = true;
-    }
-    
-    /**
      *  @copy spark.primitives.VideoElement#pause()
      * 
      *  @throws TypeError if the skin hasn't been loaded up yet
@@ -1131,7 +1154,7 @@ public class VideoDisplay extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function play(startTime:Number=-1, duration:Number=-1):void
+    public function play(startTime:Number=NaN, duration:Number=NaN):void
     {
         videoElement.play(startTime, duration);
     }
@@ -1168,25 +1191,6 @@ public class VideoDisplay extends SkinnableComponent
         videoElement.stop();
     }
     
-    /**
-     *  @copy spark.primitives.VideoElement#unmute()
-     * 
-     *  @throws TypeError if the skin hasn't been loaded up yet
-     *                    and there's no videoElement.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function unmute():void
-    {
-        videoElement.unmute();
-        
-        if (muteButton)
-            muteButton.selected = false;
-    }
-    
     //--------------------------------------------------------------------------
     //
     //  Event handlers
@@ -1196,7 +1200,7 @@ public class VideoDisplay extends SkinnableComponent
     /**
      *  @private
      */
-    private function videoElement_completeHandler(event:MetadataEvent):void
+    private function videoElement_completeHandler(event:spark.events.VideoEvent):void
     {
         if (totalTimeLabel)
             totalTimeLabel.text = videoElement.totalTime.toString();
@@ -1207,7 +1211,7 @@ public class VideoDisplay extends SkinnableComponent
     /**
      *  @private
      */
-    private function videoElement_metaDataReceivedHandler(event:MetadataEvent):void
+    private function videoElement_metaDataReceivedHandler(event:spark.events.VideoEvent):void
     {
         if (scrubBar)
         {
@@ -1218,6 +1222,8 @@ public class VideoDisplay extends SkinnableComponent
         
         if (totalTimeLabel)
             totalTimeLabel.text = videoElement.totalTime.toString();
+        
+        dispatchEvent(event);
     }
     
     /**
@@ -1234,6 +1240,8 @@ public class VideoDisplay extends SkinnableComponent
         
         if (playheadTimeLabel)
             playheadTimeLabel.text = videoElement.playheadTime.toString();
+        
+        dispatchEvent(event);
     }
     
     /**
@@ -1242,8 +1250,10 @@ public class VideoDisplay extends SkinnableComponent
     private function videoElement_stateChangeHandler(event:fl.video.VideoEvent):void
     {
         if (playPauseButton)
-            playPauseButton.selected = isPlaying;
+            playPauseButton.selected = playing;
         invalidateSkinState();
+        
+        // don't dispatch the event here...this is an internal event
     }
     
     /**
@@ -1279,7 +1289,7 @@ public class VideoDisplay extends SkinnableComponent
      */
     private function playButton_clickHandler(event:MouseEvent):void
     {
-        if (!isPlaying)
+        if (!playing)
             play();
     }
     
@@ -1304,7 +1314,7 @@ public class VideoDisplay extends SkinnableComponent
      */
     private function playPauseButton_clickHandler(event:MouseEvent):void
     {
-        if (isPlaying)
+        if (playing)
             pause();
         else
             play();
@@ -1315,10 +1325,10 @@ public class VideoDisplay extends SkinnableComponent
      */
     private function muteButton_clickHandler(event:MouseEvent):void
     {
-        if (isMuted)
-            unmute();
+        if (muted)
+            muted = false;
         else
-            mute();
+            muted = true;
     }
     
     /**
