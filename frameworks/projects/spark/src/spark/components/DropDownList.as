@@ -582,9 +582,9 @@ public class DropDownList extends List
     /**
      *  @private
      */
-    override protected function item_mouseDownHandler(event:MouseEvent):void
+    override protected function item_clickHandler(event:MouseEvent):void
     {
-        super.item_mouseDownHandler(event);
+        super.item_clickHandler(event);
         userProposedSelectedIndex = selectedIndex;
         closeDropDown(true);
     }
