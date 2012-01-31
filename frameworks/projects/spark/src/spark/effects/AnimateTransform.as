@@ -88,36 +88,11 @@ use namespace mx_internal;
  *  &lt;mx:AnimateTransform
  *    <b>Properties</b>
  *    id="ID"
- *    applyLocalProjection="false"
  *    applyChangesPostLayout="false"
- *    autoCenterProjection="true"
  *    autoCenterTransform="false"
- *    fieldOfView="no default"
- *    focalLength="no default"
- *    postLayoutRotationX="no default"
- *    postLayoutRotationY="no default"
- *    postLayoutRotationZ="no default"
- *    postLayoutScaleX="no default"
- *    postLayoutScaleY="no default"
- *    postLayoutScaleZ="no default"
- *    postLayoutTranslationX="no default"
- *    postLayoutTranslationY="no default"
- *    postLayoutTranslationZ="no default"
- *    projectionX="0"
- *    projectionY="0"
- *    removeLocalProjectionWhenComplete="false"
- *    rotationX="no default"
- *    rotationY="no default"
- *    rotationZ="no default"
- *    scaleX="no default"
- *    scaleY="no default"
- *    scaleZ="no default"
  *    transformX="0"
  *    transformY="0"
  *    transformZ="0"
- *    translationX="no default"
- *    translationY="no default"
- *    translationZ="no default"
  *  /&gt;
  *  </pre>
  *
@@ -385,111 +360,6 @@ public class AnimateTransform extends Animate
      */
     public var transformZ:Number;
 
-
-    //--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  If <code>true</code>, the effect creates a perspective projection 
-     *  and applies it to the target component's parent when it starts playing.
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var applyLocalProjection:Boolean = false;
-    
-    /**
-     *  If <code>true</code>, the effect removes the perspective projection 
-     *  from the target component's parent when it completes playing.
-     *  By default, the perspective projection is retained.
-     *
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var removeLocalProjectionWhenComplete:Boolean = false;
-
-    /**
-     *  Set to <code>false</code> to disable a 3D effect from automatically setting 
-     *  the projection point to the center of the target. 
-     *  You then use the <code>projectionX</code> and <code>projectionY</code> properties 
-     *  to explicitly set the projection point 
-     *  as the offset of the projection point from the (0, 0) coordinate of the target.
-     *
-     *  <p>The 3D effects work by mapping a three-dimensional image onto a two-dimensional 
-     *  representation for display on a computer screen. 
-     *  The projection point defines the center of the field of view, 
-     *  and controls how the target is projected from three dimensions onto the screen.</p>
-     *
-     *  @default true
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var autoCenterProjection:Boolean = true;
-    /**
-     *  @copy flash.geom.PerspectiveProjection#fieldOfView
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var fieldOfView:Number;
-    /**
-     *  @copy flash.geom.PerspectiveProjection#focalLength
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var focalLength:Number;
-    /**
-     *  Sets the projection point 
-     *  as the offset of the projection point in the x direction 
-     *  from the (0, 0) coordinate of the target.
-     *  By default, when you apply a 3D effect, the effect automatically sets 
-     *  the projection point to the center of the target. 
-     *  You can set the <code>autoCenterProjection</code> property of the effect 
-     *  to <code>false</code> to disable this default, and use the 
-     *  <code>projectionX</code> and <code>projectionY</code> properties instead.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var projectionX:Number = 0;
-    /**
-     *  Sets the projection point 
-     *  as the offset of the projection point in the y direction 
-     *  from the (0, 0) coordinate of the target.
-     *  By default, when you apply a 3D effect, the effect automatically sets 
-     *  the projection point to the center of the target. 
-     *  You can set the <code>autoCenterProjection</code> property of the effect 
-     *  to <code>false</code> to disable this default, and use the 
-     *  <code>projectionX</code> and <code>projectionY</code> properties instead.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public var projectionY:Number = 0;
-            
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -1163,14 +1033,6 @@ public class AnimateTransform extends Animate
         if (transformInstance.initialized)
             return;
         transformInstance.initialized = true;
-
-        transformInstance.applyLocalProjection = applyLocalProjection;
-        transformInstance.removeLocalProjectionWhenComplete = removeLocalProjectionWhenComplete;
-        transformInstance.autoCenterProjection = autoCenterProjection;
-        transformInstance.fieldOfView = fieldOfView;
-        transformInstance.focalLength = focalLength;
-        transformInstance.projectionX = projectionX;
-        transformInstance.projectionY = projectionY;
 
         // If we're in a transition and we've captured the center already, use it.
         // Otherwise, calculate it.
