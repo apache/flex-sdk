@@ -33,6 +33,7 @@ import spark.primitives.shaders.ColorShader; ColorShader;
 import spark.primitives.shaders.ExclusionShader; ExclusionShader;
 import spark.primitives.shaders.HueShader; HueShader;
 import spark.primitives.shaders.LuminosityShader; LuminosityShader;
+import spark.primitives.shaders.LuminosityMaskShader; LuminosityMaskShader;
 import spark.primitives.shaders.SaturationShader; SaturationShader;
 import spark.primitives.shaders.SoftLightShader; SoftLightShader;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
