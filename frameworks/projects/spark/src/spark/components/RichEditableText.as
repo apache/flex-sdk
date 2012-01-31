@@ -20,8 +20,8 @@ import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 
-import flashx.tcal.compose.ITCALDisplayController;
-import flashx.tcal.compose.StandardDisplayController;
+import flashx.tcal.compose.IFlowComposer;
+import flashx.tcal.compose.StandardFlowComposer;
 import flashx.tcal.container.DisplayObjectContainerController;
 import flashx.tcal.container.IContainerController;
 import flashx.tcal.conversion.TextFilter;
@@ -604,19 +604,19 @@ public class TextView extends UIComponent implements IViewport
         if (textChanged || contentChanged || textAttributeChanged)
         {
             // Eliminate detritus from the previous TextFlow.
-            if (textFlow && textFlow.displayController)
-                textFlow.displayController.containerControllerList = null;
+            if (textFlow && textFlow.flowComposer)
+                textFlow.flowComposer.containerControllerList = null;
 
             // Create a new TextFlow for the current text.
             _content = textFlow = createTextFlow();
                         
             // Tell it where to create its TextLines.
-            textFlow.displayController = new StandardDisplayController();
+            textFlow.flowComposer = new StandardFlowComposer();
             var containerControllers:Vector.<IContainerController> =
                 new Vector.<IContainerController>();
             containerControllers.push(
                 new DisplayObjectContainerController(this));
-            textFlow.displayController.containerControllerList =
+            textFlow.flowComposer.containerControllerList =
                 containerControllers;
             
             // Give it an EditManager to make it editable.
@@ -641,7 +641,7 @@ public class TextView extends UIComponent implements IViewport
         }
 
         var containerController:IContainerController =
-            textFlow.displayController.getContainerControllerAt(0);
+            textFlow.flowComposer.getContainerControllerAt(0);
         
         if (horizontalScrollPositionChanged)
         {
@@ -697,8 +697,7 @@ public class TextView extends UIComponent implements IViewport
         
         // Tell the TextFlow to generate TextLines within the
         // rectangle (0, 0, unscaledWidth, unscaledHeight).
-        var displayController:ITCALDisplayController =
-            textFlow.displayController;
+        var displayController:IFlowComposer = textFlow.flowComposer;
         var containerController:IContainerController =
             displayController.getContainerControllerAt(0);
         containerController.updateComposeSize(unscaledWidth, unscaledHeight);
@@ -1100,7 +1099,7 @@ public class TextView extends UIComponent implements IViewport
                                     event:CompositionCompletionEvent):void
     {
         var containerController:IContainerController =
-            textFlow.displayController.getContainerControllerAt(0);
+            textFlow.flowComposer.getContainerControllerAt(0);
 
         var newContentWidth:Number =
             containerController.maxHorizontalScrollPosition;
@@ -1125,7 +1124,7 @@ public class TextView extends UIComponent implements IViewport
     private function textFlow_scrollHandler(event:Event):void
     {
         var containerController:IContainerController =
-            textFlow.displayController.getContainerControllerAt(0);
+            textFlow.flowComposer.getContainerControllerAt(0);
 
         var newHorizontalScrollPosition:Number =
             containerController.horizontalScrollPosition;
