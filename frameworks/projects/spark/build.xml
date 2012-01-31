@@ -27,7 +27,7 @@
 				   output="${FLEX_HOME}/frameworks/locale/@{locale}/spark_rb.swc"
 				   locale="@{locale}">
 
-				<target-player>10</target-player>
+				<target-player>10.1</target-player>
 				<jvmarg line="${compc.jvm.args}"/>
                 <include-resource-bundles bundle="layout"/>
 				<include-resource-bundles bundle="components"/>
