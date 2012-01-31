@@ -98,7 +98,8 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Skin style for a determinate progress bar.
  *
- *  @default mx.skins.halo.ProgressBarSkin
+ *  The default value for the Halo theme is <code>mx.skins.halo.ProgressBarSkin</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.ProgressBarSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -124,7 +125,8 @@ include "../styles/metadata/TextStyles.as"
  *  Once the progress bar has moved the specified number of pixels, it gets respositioned back to
  *  its starting point. A value of 0 means that the bar is not moved. 
  *
- *  @default 26
+ *  The default value for the Halo theme is <code>28</code>.
+ *  The default value for the Spark theme is <code>14</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -136,7 +138,8 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Skin style for an indeterminate progress bar.
  *
- *  @default mx.skins.halo.ProgressIndeterminateSkin
+ *  The default value for the Halo theme is <code>mx.skins.halo.ProgressIndeterminateSkin</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.ProgressIndeterminateSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -148,7 +151,8 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Skin style for the mask of the determinate and indeterminate bars.
  *
- *  @default mx.skins.halo.ProgressMaskSkin
+ *  The default value for the Halo theme is <code>mx.skins.halo.ProgressMaskSkin</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.ProgressMaskSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -160,7 +164,8 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Skin style for the progress indicator track.
  *
- *  @default mx.skins.halo.ProgressTrackSkin
+ *  The default value for the Halo theme is <code>mx.skins.halo.ProgressTrackSkin</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.ProgressBarTrackSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -223,6 +228,10 @@ include "../styles/metadata/TextStyles.as"
  *  @productversion Flex 3
  */
 [Style(name="labelWidth", type="Number", format="Length", inherit="yes")]
+
+//--------------------------------------
+//  Effects
+//--------------------------------------
 
 /**
  *  Effect called when Flex dispatches the <code>complete</code> event, 
