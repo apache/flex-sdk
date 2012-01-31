@@ -39,6 +39,7 @@ import mx.core.IIMESupport;
 import mx.core.IInvalidating;
 import mx.core.IRectangularBorder;
 import mx.core.IUITextField;
+import mx.core.ITextInput;
 import mx.core.UIComponent;
 import mx.core.UITextField;
 import mx.core.mx_internal;
@@ -266,6 +267,7 @@ include "../styles/metadata/TextStyles.as"
  *    length="0"
  *    listData="null"
  *    maxChars="0"
+ *    parentDrawsFocus="false"
  *    restrict="null"
  *    selectionBeginIndex="0"
  *    selectionEndIndex="0"
@@ -330,11 +332,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class TextInput extends UIComponent
-                       implements IDataRenderer, IDropInListItemRenderer,
-                       IFocusManagerComponent, IIMESupport, IListItemRenderer,
-                       IFontContextComponent
-
+public class TextInput extends UIComponent implements ITextInput
 {
     include "../core/Version.as";
 
@@ -383,14 +381,6 @@ public class TextInput extends UIComponent
      *  @private
      */    
     private var selectionChanged:Boolean = false;
-
-    /**
-     *  @private
-     *  If true, pass calls to drawFocus() up to the parent.
-     *  This is used when a TextInput is part of a composite control
-     *  like NumericStepper or ComboBox;
-     */
-    mx_internal var parentDrawsFocus:Boolean = false;
 
     /**
      *  @private
@@ -1351,6 +1341,41 @@ public class TextInput extends UIComponent
     }
 
     //----------------------------------
+    //  parentDrawsFocus
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the parentDrawsFocus property.
+     */
+    private var _parentDrawsFocus:Boolean = false;
+    
+    [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
+    
+    /**
+     *  If true, calls to this control's drawFocus() method are forwarded
+     *  to its parent's drawFocus() method.
+     *  This is used when a TextInput is part of a composite control
+     *  like NumericStepper or ComboBox;
+     * 
+     *  @default false;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get parentDrawsFocus():Boolean
+    {
+        return _parentDrawsFocus;
+    }
+    
+    public function set parentDrawsFocus(value:Boolean):void
+    {
+        _parentDrawsFocus = value;
+    }
+    
+    //----------------------------------
     //  restrict
     //----------------------------------
 
@@ -1445,9 +1470,9 @@ public class TextInput extends UIComponent
     private var selectableChanged:Boolean = false;
     
     /**
-     *  @private
+     *  A flag indicating whether the text in the TextInput can be selected.
      */ 
-    mx_internal function get selectable():Boolean
+    public function get selectable():Boolean
     {
         return _selectable;
     }
@@ -1455,7 +1480,7 @@ public class TextInput extends UIComponent
     /**
      *  @private
      */
-    mx_internal function set selectable(value:Boolean):void
+    public function set selectable(value:Boolean):void
     {
         if (_selectable == value)
             return;
@@ -2017,7 +2042,7 @@ public class TextInput extends UIComponent
      */
     override public function drawFocus(isFocused:Boolean):void
     {
-        if (parentDrawsFocus)
+        if (_parentDrawsFocus)
         {
             IFocusManagerComponent(parent).drawFocus(isFocused);
             return;
@@ -2274,6 +2299,43 @@ public class TextInput extends UIComponent
         return textField;
     }
 
+    //--------------------------------------------------------------------------
+    //
+    //  ITextInput Interface
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Used to determine if the control's border object is visible.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function showBorder(visible:Boolean):void
+    {
+        if (border)
+            border.visible = visible;
+    }
+    
+    /**
+     *  Selects the text in the range specified by the parameters.  Unlike
+     *  <code>setSelection</code> this is done immediately.
+     *  
+     *  @see mx.controls.TextInput#setSelection
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function selectRange(anchorIndex:int, activeIndex:int):void
+    {
+        // Do it immediately.
+        textField.setSelection(anchorIndex, activeIndex);        
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden event handlers: UIComponent
