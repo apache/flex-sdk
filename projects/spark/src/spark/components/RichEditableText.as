@@ -22,31 +22,31 @@ import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 import flash.ui.Keyboard;
 
-import flashx.tcal.compose.IFlowComposer;
-import flashx.tcal.compose.StandardFlowComposer;
-import flashx.tcal.container.DisplayObjectContainerController;
-import flashx.tcal.container.IContainerController;
-import flashx.tcal.conversion.ITextImporter;
-import flashx.tcal.conversion.TextFilter;
-import flashx.tcal.conversion.ConversionType;
-import flashx.tcal.edit.EditManager;
-import flashx.tcal.edit.ISelectionManager;
-import flashx.tcal.elements.FlowElement;
-import flashx.tcal.elements.ParagraphElement;
-import flashx.tcal.elements.SpanElement;
-import flashx.tcal.elements.TextFlow;
-import flashx.tcal.events.CompositionCompletionEvent;
-import flashx.tcal.events.FlowOperationEvent;
-import flashx.tcal.events.SelectionEvent;
-import flashx.tcal.formats.CharacterFormat;
-import flashx.tcal.formats.ContainerFormat;
-import flashx.tcal.formats.ICharacterFormat;
-import flashx.tcal.formats.IContainerFormat;
-import flashx.tcal.formats.IParagraphFormat;
-import flashx.tcal.formats.ParagraphFormat;
-import flashx.tcal.operations.ApplyFormatOperation;
-import flashx.tcal.operations.FlowOperation;
-import flashx.tcal.operations.SplitParagraphOperation;
+import flashx.textLayout.compose.IFlowComposer;
+import flashx.textLayout.compose.StandardFlowComposer;
+import flashx.textLayout.container.DisplayObjectContainerController;
+import flashx.textLayout.container.IContainerController;
+import flashx.textLayout.conversion.ITextImporter;
+import flashx.textLayout.conversion.TextFilter;
+import flashx.textLayout.conversion.ConversionType;
+import flashx.textLayout.edit.EditManager;
+import flashx.textLayout.edit.ISelectionManager;
+import flashx.textLayout.elements.FlowElement;
+import flashx.textLayout.elements.ParagraphElement;
+import flashx.textLayout.elements.SpanElement;
+import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.events.CompositionCompletionEvent;
+import flashx.textLayout.events.FlowOperationEvent;
+import flashx.textLayout.events.SelectionEvent;
+import flashx.textLayout.formats.CharacterFormat;
+import flashx.textLayout.formats.ContainerFormat;
+import flashx.textLayout.formats.ICharacterFormat;
+import flashx.textLayout.formats.IContainerFormat;
+import flashx.textLayout.formats.IParagraphFormat;
+import flashx.textLayout.formats.ParagraphFormat;
+import flashx.textLayout.operations.ApplyFormatOperation;
+import flashx.textLayout.operations.FlowOperation;
+import flashx.textLayout.operations.SplitParagraphOperation;
 
 import mx.core.IViewport;
 import mx.core.UIComponent;
@@ -937,11 +937,11 @@ public class TextView extends UIComponent implements IViewport
      */
     private function importStringMarkup(markup:String):TextFlow
     {
-        markup = '<TextFlow xmlns="http://ns.adobe.com/tcal/2008">' +
+        markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
                  markup +
                  '</TextFlow>';
         
-        return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
+        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
     }
 	
 	/**
@@ -949,7 +949,7 @@ public class TextView extends UIComponent implements IViewport
      */
     private function importXMLMarkup(markup:XML):TextFlow
     {
-        return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
+        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
     }
 
     /**
@@ -1089,7 +1089,7 @@ public class TextView extends UIComponent implements IViewport
      */
     public function export():XML
     {
-        return TextFilter.export(textFlow, TextFilter.TCAL_FORMAT,
+        return TextFilter.export(textFlow, TextFilter.TEXT_LAYOUT_FORMAT,
                                  ConversionType.XML_TYPE).children()[0];
     }
 
@@ -1371,8 +1371,8 @@ public class TextView extends UIComponent implements IViewport
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-import flashx.tcal.edit.EditManager;
-import flashx.tcal.operations.FlowOperation;
+import flashx.textLayout.edit.EditManager;
+import flashx.textLayout.operations.FlowOperation;
 
 class TextViewEditManager extends EditManager
 {
