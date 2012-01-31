@@ -710,6 +710,8 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
     protected function itemRemoved(index:int):void
     {       
         var item:* = getItemAt(index);
+        var skin:* = getItemSkin(item);
+        
         /* if (item is IGraphicElement)
         {
             removeElement(IGraphicElement(item));   
@@ -718,6 +720,13 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item));        
         if (item && (item is IGraphicElement))
             item.elementHost = null;
+        
+        // If the item and skin are different objects, set the skin data to 
+        // null here to clear it out. Otherwise, the skin keeps a reference to the item,
+        // which can cause problems later.
+        if (item && skin && item != skin)
+            skin.data = null;
+            
         super.removeChildAt(index);
         
         invalidateSize();
