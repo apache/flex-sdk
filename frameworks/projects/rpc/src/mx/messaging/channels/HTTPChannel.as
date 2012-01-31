@@ -442,12 +442,6 @@ public class HTTPChannel extends PollingChannel
                     if (smallMessage != null)
                         msgResp.message = smallMessage;
                 }
-                *  
-                *  @langversion 3.0
-                *  @playerversion Flash 9
-                *  @playerversion AIR 1.1
-                *  @productversion BlazeDS 4
-                *  @productversion LCDS 3 
                 */
 
                 var urlLoader:ChannelRequestLoader;
@@ -561,12 +555,6 @@ public class HTTPChannel extends PollingChannel
             var serverVersion:Number = msg.headers[CommandMessage.MESSAGING_VERSION] as Number;
             handleServerMessagingVersion(serverVersion);
         }
-        *  
-        *  @langversion 3.0
-        *  @playerversion Flash 9
-        *  @playerversion AIR 1.1
-        *  @productversion BlazeDS 4
-        *  @productversion LCDS 3 
         */
 
         connectSuccess();
