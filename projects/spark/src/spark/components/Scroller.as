@@ -2725,13 +2725,13 @@ public class Scroller extends SkinnableComponent
      *  @private
      */ 
     mx_internal function adjustScrollPositionAfterSoftKeyboardDeactivate():void
-    {      
-        // If the throw animation is still playing, stop it. Otherwise, fix the 
-        // scroll position. 
+    {
+        // If the throw animation is still playing, stop it.
         if (throwEffect && throwEffect.isPlaying)
-            stopThrowEffectOnMouseDown();
-        else
-            snapContentScrollPosition();
+            throwEffect.stop();
+        
+        // Fix the scroll position in case we're off the end from the animation
+        snapContentScrollPosition();
     }
     
     /**
