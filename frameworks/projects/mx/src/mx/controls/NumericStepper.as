@@ -94,7 +94,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Name of the class to use as the default skin for the down arrow.
@@ -169,7 +169,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Alphas used for the highlight fill of controls.
@@ -181,7 +181,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
+[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
 
 /**
  *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
@@ -194,7 +194,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Name of the class to use as the default skin for the up arrow.
@@ -607,6 +607,7 @@ public class NumericStepper extends UIComponent
     
     private static var _downArrowStyleFilters:Object = 
     {    
+        "borderColor" : "borderColor",
         "cornerRadius" : "cornerRadius",        
         "highlightAlphas" : "highlightAlphas",
         "downArrowUpSkin" : "downArrowUpSkin",
@@ -1007,6 +1008,7 @@ public class NumericStepper extends UIComponent
     
     private static var _upArrowStyleFilters:Object = 
     {
+        "borderColor" : "borderColor",
         "cornerRadius" : "cornerRadius",        
         "highlightAlphas" : "highlightAlphas",
         "upArrowUpSkin" : "upArrowUpSkin",
