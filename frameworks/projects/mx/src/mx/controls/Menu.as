@@ -42,6 +42,7 @@ import mx.core.EdgeMetrics;
 import mx.core.EventPriority;
 import mx.core.FlexGlobals;
 import mx.core.IFlexDisplayObject;
+import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
@@ -2428,7 +2429,8 @@ public class Menu extends List implements IFocusManagerContainer
         // menu's width to find the origin of menu, rather than subtracting.
         // Similarly, if isDirectionLeft=false, we subtract the menu item's width.
         
-        const isLayoutMirrored:Boolean = layoutDirection == "rtl";
+        const isLayoutMirrored:Boolean = 
+            (layoutDirection == LayoutDirection.RTL);
         const menuWidth:Number = menu.getExplicitOrMeasuredWidth();
         const menuItemWidth:Number = row.width;
         
