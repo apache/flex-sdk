@@ -27,6 +27,34 @@ use namespace mx_internal;
 
 /**
  *  The ItemRenderer class is the base class for Spark item renderers.
+ *
+ *  <p>Item renderers support optional view states. 
+ *  You typically use view states in MXML item renderers to control 
+ *  the appearance of a data item based on user interaction with the item. 
+ *  The ItemRenderer class supports all views states so that you can use 
+ *  those item renderers with list-based classes.</p>
+ *
+ *  <p>Flex defines the following view states that you can support 
+ *  in your item renderers: </p>
+ *  <ul>
+ *    <li>normal - The data item has no user interaction.</li>
+ *    <li>hovered - The mouse is over the data item.</li>
+ *    <li>selected - The data item is selected.</li>
+ *    <li>dragging - The data item is being dragged.</li>
+ *    <li>normalAndShowCaret - The data item is in the normal state, 
+ *      and it has focus in the item list. </li>
+ *    <li>hoveredAndShowCaret - The data item is in the hovered state, 
+ *      and it has focus in the item list.</li>
+ *    <li>selectedAndShowCaret - The data item is in the normal state, 
+ *      and it has focus in the item list.</li>
+ *  </ul>
+ *
+ *  <p>When the user interacts with a control in a way that changes 
+ *  the view state of the item renderer, Flex first determines if the 
+ *  renderer defines that view state. 
+ *  If the item renderer supports the view state, Flex sets the item renderer 
+ *  to use that view state. 
+ *  If the item renderer does not supports the view state, Flex does nothing.</p>
  * 
  *  @mxml
  *
@@ -640,11 +668,11 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             backgroundColor = getStyle("rollOverColor");
         else
         {
-			var alternatingColors:Array;
+            var alternatingColors:Array;
             var alternatingColorsStyle:Object = getStyle("alternatingItemColors");
-			
-			if (alternatingColorsStyle)
-				alternatingColors = (alternatingColorsStyle is Array) ? (alternatingColorsStyle as Array) : [alternatingColorsStyle];
+            
+            if (alternatingColorsStyle)
+                alternatingColors = (alternatingColorsStyle is Array) ? (alternatingColorsStyle as Array) : [alternatingColorsStyle];
            
             if (alternatingColors && alternatingColors.length > 0)
             {
@@ -688,10 +716,10 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */
     private function interactionStateDetector_changeHandler(event:Event):void
     {
-		playTransitions = interactionStateDetector.playTransitions;
+        playTransitions = interactionStateDetector.playTransitions;
         down = (interactionStateDetector.state == InteractionState.DOWN);
         hovered = (interactionStateDetector.state == InteractionState.OVER);
-		playTransitions = true;
+        playTransitions = true;
     }
 
 }
