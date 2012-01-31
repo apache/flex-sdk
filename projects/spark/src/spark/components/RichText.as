@@ -513,7 +513,7 @@ public class TextGraphic extends TextGraphicElement
             }
             else
             {
-                throw new Error("invalid content");
+                textFlow = createTextFlowFromMarkup(_content.toString());
             }
             textInvalid = true;
         }
