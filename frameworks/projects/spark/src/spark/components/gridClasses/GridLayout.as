@@ -228,7 +228,7 @@ public class GridLayout extends LayoutBase
         grid.measuredMinWidth = grid.measuredWidth;    
         grid.measuredMinHeight = grid.measuredHeight; 
         
-       trace("GridLayout.measure", grid.measuredWidth, grid.measuredHeight);        
+       //trace("GridLayout.measure", grid.measuredWidth, grid.measuredHeight);        
     }
     
     /**
