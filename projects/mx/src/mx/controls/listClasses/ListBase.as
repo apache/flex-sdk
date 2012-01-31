@@ -82,7 +82,6 @@ import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.skins.halo.ListDropIndicator;
-import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
 import mx.utils.ObjectUtil;
 import mx.utils.UIDUtil;
@@ -4839,7 +4838,7 @@ public class ListBase extends ScrollControlBase
             invalidateProperties();
         }
 
-        if (StyleManager.isSizeInvalidatingStyle(styleProp))
+        if (styleManager.isSizeInvalidatingStyle(styleProp))
             scrollAreaChanged = true;
     }
 
