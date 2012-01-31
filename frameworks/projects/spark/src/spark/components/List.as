@@ -500,7 +500,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         
         // Select the new items in the new selection interval 
-        if (_proposedSelectedIndices.length > 0)
+        if (!isEmpty(_proposedSelectedIndices))
         {
             count = _proposedSelectedIndices.length;
             for (i = 0; i < count; i++)
