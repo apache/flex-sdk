@@ -20,6 +20,11 @@ import mx.styles.StyleManager;
  * between given from/to color values on a per-channel basis.
  *
  *  @includeExample examples/FxAnimateColorEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxAnimateColor extends FxAnimate
 {
@@ -40,11 +45,21 @@ public class FxAnimateColor extends FxAnimate
 
     /**
      * The starting color
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var colorFrom:uint = StyleManager.NOT_A_COLOR;
     
     /**
      * The ending color
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var colorTo:uint = StyleManager.NOT_A_COLOR;
     
@@ -53,11 +68,21 @@ public class FxAnimateColor extends FxAnimate
      * by this animation.
      * 
      * @default "color"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var colorPropertyName:String = "color";
     
     /**
      * Constructs an FxAnimateColor effect with an optional target object
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxAnimateColor(target:Object=null)
     {
@@ -83,6 +108,11 @@ public class FxAnimateColor extends FxAnimate
 
     /**
      * @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function initInstance(instance:IEffectInstance):void
     {
