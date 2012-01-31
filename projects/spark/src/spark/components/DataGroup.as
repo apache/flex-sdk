@@ -700,10 +700,6 @@ public class DataGroup extends GroupBase
     { 
         if (dataProviderChanged || itemRendererChanged || useVirtualLayoutChanged)
         {
-            if (dataProviderChanged)
-                verticalScrollPosition = horizontalScrollPosition = 0;
-            
-            dataProviderChanged = false;
             itemRendererChanged = false;
             useVirtualLayoutChanged = false;
 
@@ -718,6 +714,14 @@ public class DataGroup extends GroupBase
                 
             initializeDataProvider();
             
+            // Don't reset the scroll positions until the new ItemRenderers are created
+            // with initializeDataProvider, see bug https://bugs.adobe.com/jira/browse/SDK-23175
+            if (dataProviderChanged)
+            {
+                dataProviderChanged = false;
+                verticalScrollPosition = horizontalScrollPosition = 0;
+            }
+
             maskChanged = true;
         }
         
