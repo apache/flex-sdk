@@ -129,7 +129,7 @@
         [Inspectable(category="General", defaultValue="300")]
 
         /**
-         *  The duration in milliseconds used for 
+         *  The duration, in milliseconds, used for 
          *  fading out renderers for added and removed items.
          *
          *  @default 300
@@ -161,7 +161,7 @@
         [Inspectable(category="General", defaultValue="300")]
 
         /**
-         *  The duration in milliseconds for fading
+         *  The duration, in milliseconds, for fading
          *  in renderers for added and removed items.
          *
          *  @default 300
@@ -193,7 +193,7 @@
         [Inspectable(category="General", defaultValue="300")]
 
         /**
-         *  The duration in milliseconds 
+         *  The duration, in milliseconds, 
          *  applied to renderers for added and removed items.
          *
          *  @default 300
@@ -224,7 +224,7 @@
         [Inspectable(category="General", defaultValue="300")]
 
         /**
-         *  The duration in milliseconds of 
+         *  The duration, in milliseconds, 
          *  applied to renderers for added and removed items.
          *
          *  @default 300
