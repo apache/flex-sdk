@@ -293,15 +293,19 @@ public class HScrollBar extends ScrollBar
      */
     override mx_internal function isScrollBarKey(key:uint):Boolean
     {
+        var direction:int;
+        
         if (key == Keyboard.LEFT)
         {
-            lineScroll(-1);
+            direction = layoutDirection == "ltr" ? -1 : 1;
+            lineScroll(direction);
             return true;
         }
         
         else if (key == Keyboard.RIGHT)
         {
-            lineScroll(1);
+            direction = layoutDirection == "ltr" ? 1 : -1;
+            lineScroll(direction);
             return true;
         }
         
