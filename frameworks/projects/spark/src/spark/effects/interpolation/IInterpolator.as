@@ -19,11 +19,21 @@ package mx.effects.interpolation
  * values. Implementors of this interface can provide arbitrary
  * interpolation capabilities so that Animations can be created between
  * arbitrary values.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public interface IInterpolator
 {
     /**
      * Returns the type that an implementor can handle
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get interpolatedType():Class;
     
@@ -32,6 +42,11 @@ public interface IInterpolator
      * and start and end values, this function returns some value
      * based on whatever interpolation the implementor chooses to
      * provide.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function interpolate(fraction:Number,
         startValue:Object, endValue:Object):Object;   
@@ -45,6 +60,11 @@ public interface IInterpolator
      * needs to dynamically calculate a value given some starting
      * value and a 'by' value that should be added to it, both of
      * which are of type Object and cannot simply be added together.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function increment(baseValue:Object, incrementValue:Object):Object;
 
@@ -57,6 +77,11 @@ public interface IInterpolator
      * needs to dynamically calculate a value given some ending
      * value and a 'by' value that should be subtracted from it, both of
      * which are of type Object and cannot simply be subtracted.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function decrement(baseValue:Object, decrementValue:Object):Object;
 }
