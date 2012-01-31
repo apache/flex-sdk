@@ -63,9 +63,7 @@ import mx.utils.BitFlagUtil;
 //  Excluded APIs
 //--------------------------------------
 
-[Exclude(name="content", kind="property")]
-
-[DefaultProperty("contentFactory")]
+[DefaultProperty("mxmlContentFactory")]
 
 /**
  *  The FxContainer class is the base class for all skinnable components that have 
@@ -172,8 +170,8 @@ public class FxContainer extends FxContainerBase
             {
                 _placeHolderGroup = new Group();
                  
-                if (_content)
-                    _placeHolderGroup.content = _content;
+                if (_mxml_content)
+                    _placeHolderGroup.mxmlContent = _mxml_content;
                 
                 _placeHolderGroup.addEventListener(
                     ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
@@ -189,40 +187,40 @@ public class FxContainer extends FxContainerBase
     }
    
     //----------------------------------
-    //  contentFactory
+    //  mxmlContentFactory
     //----------------------------------
     
     /** 
      *  @private
      *  Backing variable for the contentFactory property.
      */
-    private var _contentFactory:IDeferredInstance;
+    private var _mxmlContentFactory:IDeferredInstance;
 
     /**
      *  @private
      *  Flag that indicates whether or not the content has been created.
      */
-    private var contentCreated:Boolean = false;
+    private var mxmlContentCreated:Boolean = false;
     
     /**
      *  A factory object that creates the initial value for the
      *  content property.
      */
-    public function get contentFactory():IDeferredInstance
+    public function get mxmlContentFactory():IDeferredInstance
     {
-        return _contentFactory;
+        return _mxmlContentFactory;
     }   
     
     /**
      *  @private
      */
-    public function set contentFactory(value:IDeferredInstance):void
+    public function set mxmlContentFactory(value:IDeferredInstance):void
     {
-        if (value == _contentFactory)
+        if (value == _mxmlContentFactory)
             return;
         
-        _contentFactory = value;
-        contentCreated = false;
+        _mxmlContentFactory = value;
+        mxmlContentCreated = false;
     }
     
     //----------------------------------
@@ -291,39 +289,39 @@ public class FxContainer extends FxContainerBase
     //  content
     //----------------------------------    
     
-    private var _content:Object;
+    private var _mxml_content:Object;
     
     /**
      *  @copy mx.components.Group#content
      */
     [Bindable]
-    public function get content():Object
+    public function get mxmlContent():Object
     { 
         // Make sure deferred content is created, if needed
         createContentIfNeeded();
     
         if (contentGroup)
-            return contentGroup.content;
+            return contentGroup.mxmlContent;
         else if (_placeHolderGroup)
-            return _placeHolderGroup.content;
+            return _placeHolderGroup.mxmlContent;
         else
-            return _content; 
+            return _mxml_content; 
     }
     
     /**
      *  @private
      */
-    public function set content(value:Object):void
+    public function set mxmlContent(value:Object):void
     {
-        if (value == _content)
+        if (value == _mxml_content)
             return;
             
-        _content = value;   
+        _mxml_content = value;   
 
         if (contentGroup)
-            contentGroup.content = value;
+            contentGroup.mxmlContent = value;
         else if (_placeHolderGroup)
-            _placeHolderGroup.content = value;
+            _placeHolderGroup.mxmlContent = value;
     }
     
     //----------------------------------
@@ -676,15 +674,12 @@ public class FxContainer extends FxContainerBase
         {
             if (_placeHolderGroup != null)
             {
-                var sourceContent:Array = _placeHolderGroup.content as Array;
+                var sourceContent:Array = _placeHolderGroup.mxmlContent as Array;
                 
                 if (sourceContent)
-                    contentGroup.content = sourceContent.slice();
-                else if (_placeHolderGroup.content is IList)
-                    throw new Error("ContainerSkin can not currently handle content of type " + 
-                            "IList when adding children dynamically.");
+                    contentGroup.mxmlContent = sourceContent.slice();
                 else
-                    contentGroup.content = _placeHolderGroup.content;
+                    contentGroup.mxmlContent = _placeHolderGroup.mxmlContent;
                 
                 // Temporary workaround because copying content from one Group to another throws RTE
                 for (var i:int = _placeHolderGroup.numElements; i > 0; i--)
@@ -693,9 +688,9 @@ public class FxContainer extends FxContainerBase
                 }
                 
             }
-            else if (_content != null)
+            else if (_mxml_content != null)
             {
-                contentGroup.content = _content;
+                contentGroup.mxmlContent = _mxml_content;
             }
             
             // copy proxied values from contentGroupProperties (if set) to contentGroup
@@ -784,11 +779,11 @@ public class FxContainer extends FxContainerBase
                 
             contentGroupProperties = newContentGroupProperties;
             
-            if (contentGroup.content)
+            if (contentGroup.mxmlContent)
             {
                 _placeHolderGroup = new Group();
                      
-                _placeHolderGroup.content = contentGroup.content;
+                _placeHolderGroup.mxmlContent = contentGroup.mxmlContent;
                 
                 _placeHolderGroup.addEventListener(
                     ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
@@ -798,7 +793,7 @@ public class FxContainer extends FxContainerBase
             
             // TODO: Need to force the contentGroup to removeChild on its content children
             // before the any other Group adds the content children
-            contentGroup.content = null;
+            contentGroup.mxmlContent = null;
             contentGroup.validateProperties();
         }
     }
@@ -817,13 +812,13 @@ public class FxContainer extends FxContainerBase
      */
     public function createDeferredContent():void
     {
-        if (!contentCreated)
+        if (!mxmlContentCreated)
         {
-            contentCreated = true;
+            mxmlContentCreated = true;
             
-            if (contentFactory)
+            if (mxmlContentFactory)
             {
-                content = contentFactory.getInstance();
+                mxmlContent = mxmlContentFactory.getInstance();
                 dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
             }
         }
@@ -834,7 +829,7 @@ public class FxContainer extends FxContainerBase
      */
     private function createContentIfNeeded():void
     {
-        if (!contentCreated && creationPolicy != ContainerCreationPolicy.NONE)
+        if (!mxmlContentCreated && creationPolicy != ContainerCreationPolicy.NONE)
             createDeferredContent();
     }
     
