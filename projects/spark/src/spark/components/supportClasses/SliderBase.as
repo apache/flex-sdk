@@ -25,9 +25,7 @@ import mx.core.UIComponent;
 import mx.formatters.NumberFormatter;
 import mx.managers.IFocusManagerComponent;
 
-include "../../styles/metadata/BasicContainerFormatTextStyles.as"
-include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
-include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
+include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
