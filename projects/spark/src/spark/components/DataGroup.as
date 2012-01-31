@@ -1407,7 +1407,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */
     override public function getElementAt(index:int):IVisualElement
     {
-        if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
+        if ((index < 0) || (index >= indexToRenderer.length))
             return null;
         
         return indexToRenderer[index];
