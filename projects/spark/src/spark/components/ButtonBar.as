@@ -39,8 +39,6 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 [IconFile("ButtonBar.png")]
 
-[Alternative(replacement="mx.controls.ButtonBar", since="4.0")]
-
 /**
  *  The ButtonBar control defines a horizontal group of 
  *  logically related buttons with a common look and navigation.
