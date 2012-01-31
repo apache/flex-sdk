@@ -11,17 +11,23 @@
 
 package spark.components.gridClasses
 {
+import flash.events.MouseEvent;
 import flash.utils.describeType;
 
+
+import mx.core.IIMESupport;
+import mx.core.IInvalidating;
+import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
+import mx.core.UIComponent;
+import mx.validators.IValidatorListener;
 
 import spark.components.supportClasses.GridColumn;
 import spark.components.DataGrid;
 import spark.components.Group;
 import spark.components.IGridItemEditor;
 import spark.components.IGridItemRenderer;
-import mx.validators.IValidatorListener;
-import mx.core.IIMESupport;
 
 use namespace mx_internal;
     
@@ -313,6 +319,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
      */
     public function cancel():void
     {
+        clearErrorStringFromContainer(this);
     }
     
     /**
@@ -320,6 +327,9 @@ public class GridItemEditor extends Group implements IGridItemEditor
      */
     public function discard():void
     {
+        // Clean up 
+        removeEventListener(MouseEvent.MOUSE_UP, mouseUpDownHandler);
+        removeEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownHandler);
     }
     
     /**
@@ -327,6 +337,9 @@ public class GridItemEditor extends Group implements IGridItemEditor
      */
     public function prepare():void
     {
+        // Stop the item renderer from seeing mouse clicks on the editor.
+        addEventListener(MouseEvent.MOUSE_UP, mouseUpDownHandler);
+        addEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownHandler);
     }
     
     /**
@@ -387,7 +400,13 @@ public class GridItemEditor extends Group implements IGridItemEditor
         else if (typeInfo == "Boolean")
         {
             if (!(newData is Boolean))
-                newData = Boolean(newData);
+            {
+                var strNewData:String = newData.toString();
+                if (strNewData)
+                {
+                    newData = (strNewData.toLowerCase() == "true") ? true : false;
+                }
+            }
         }
      
         if (property && data[property] != newData)
@@ -405,19 +424,100 @@ public class GridItemEditor extends Group implements IGridItemEditor
      */
     public function validate():Boolean
     {
+        return validateContainer(this);
+    }
+    
+    /**
+     *  @private
+     *  
+     *  Verify the container's children are valid.
+     *  @param container container to verify, may not be null.
+     *  @return true if the container and its children are valid, false otherwise. 
+     */
+    private function validateContainer(container:IVisualElementContainer):Boolean
+    {
+        if (container is IValidatorListener && IValidatorListener(container).errorString)
+            return false;
+        
         // loop thru the children, looking for errors.
         var n:int = numElements;
         for (var i:int = 0; i < n; i++)
         {
-            var child:IValidatorListener = getElementAt(i) as IValidatorListener;
-            if (child && child.errorString)
+            var child:IVisualElement = container.getElementAt(i);
+            if (child is IValidatorListener && IValidatorListener(child).errorString)
             {
                 return false;
             }
+            
+            if (child is IVisualElementContainer &&
+                !validateContainer(IVisualElementContainer(child)))
+            {
+                return false;
+            }
+                
         }
         
         return true;
     }
     
+    /**
+     *  @private
+     *  
+     *  Clear the error strings left by any validators. This will ensure any
+     *  tooltips left by a validator are torn down.
+     * 
+     *  @param container container to verify, may not be null.
+     */
+    private function clearErrorStringFromContainer(container:IVisualElementContainer):void
+    {
+        if (container is IValidatorListener && IValidatorListener(container).errorString)
+        {
+            clearErrorString(IValidatorListener(container));
+        }
+        
+        // loop thru the children, looking for errors to clear.
+        var n:int = numElements;
+        for (var i:int = 0; i < n; i++)
+        {
+            var child:IVisualElement = container.getElementAt(i);
+            if (child is IValidatorListener && IValidatorListener(child).errorString)
+            {
+                clearErrorString(IValidatorListener(child));
+            }
+            
+            if (child is IVisualElementContainer)
+            {
+                clearErrorStringFromContainer(IVisualElementContainer(child));
+            }
+        }
+        
+    }    
+    
+    
+    /**
+     *  @private
+     *  
+     *  Clear the error string left by a validator. This will ensure any
+     *  tooltips left by a validator are torn down.
+     * 
+     *  @param validatorListener listener to clear error message in.
+     */
+    private function clearErrorString(validatorListener:IValidatorListener):void
+    {
+        validatorListener.errorString = "";
+        if (validatorListener is IInvalidating)
+        {
+            IInvalidating(validatorListener).validateNow();
+        }
+    }
+    
+    /**
+     *   @private
+     *   Stop the item renderer from getting the click.
+     */ 
+    private function mouseUpDownHandler(event:MouseEvent):void
+    {
+        event.preventDefault();
+    }
 }
 }
