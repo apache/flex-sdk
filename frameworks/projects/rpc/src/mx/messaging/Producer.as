@@ -36,6 +36,12 @@ use namespace mx_internal;
  *    defaultHeaders="<i>No default.</i>"
  *  /&gt;
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class Producer extends AbstractProducer
 {
@@ -47,6 +53,12 @@ public class Producer extends AbstractProducer
 
     /**
      *  The default message priority.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const DEFAULT_PRIORITY:int = 4;
 
@@ -71,6 +83,12 @@ public class Producer extends AbstractProducer
      *       producer.send(msg);
      *   }
      *   </pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	public function Producer()
 	{
@@ -104,6 +122,12 @@ public class Producer extends AbstractProducer
     
     /**
      *  Provides access to the subtopic for the remote destination that the MessageAgent uses.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get subtopic():String
     {
