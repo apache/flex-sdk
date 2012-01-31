@@ -25,7 +25,7 @@ package mx.messaging.messages
      * about the message that you have just received.</p>
      * 
      * <p>When these metrics are enabled an instance of this class should be created from 
-     * a response, acknowledgement, or message handler via something like: </p>
+     * a response, acknowledgement, or message handler using code such as below: </p>
      * 
      * <pre>
      *      var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(event.message);
@@ -286,10 +286,8 @@ package mx.messaging.messages
         }
         
         /**
-         * Server processing time spent outside of the adapter associated with the destination of this message
+         * Server processing time spent outside of the adapter associated with the destination of this message.
          * 
-         * @return Non-adapter server processing time in milliseconds
-         *
          * @langversion 3.0
          * @playerversion Flash 9
          * @playerversion AIR 1.1
@@ -303,7 +301,7 @@ package mx.messaging.messages
         
         /**
          * The network round trip time for a client message and the server response to it,
-         * calculated by the difference between total time and server processing time
+         * calculated by the difference between total time and server processing time.
          * 
          * @return Network round trip time in milliseconds
          *
@@ -323,7 +321,7 @@ package mx.messaging.messages
         
         /**
          * Timestamp in milliseconds since epoch of when the server sent a response message back
-         * to the client
+         * to the client.
          * 
          * @return Timestamp in milliseconds since epoch
          *
@@ -340,7 +338,7 @@ package mx.messaging.messages
         
         /**
          * Timestamp in milliseconds since epoch of when the client received response message from
-         * the server
+         * the server.
          * 
          * @return Timestamp in milliseconds since epoch
          *
@@ -357,7 +355,7 @@ package mx.messaging.messages
         
         /**
          * The size of the original client message as measured during deserialization by the server
-         * endpoint
+         * endpoint.
          * 
          * @return Message size in Bytes
          */         
@@ -371,7 +369,7 @@ package mx.messaging.messages
         
         /**
          * The size of the response message sent to the client by the server as measured during serialization
-         * at the server endpoint
+         * at the server endpoint.
          * 
          * @return Message size in Bytes
          *
@@ -388,7 +386,7 @@ package mx.messaging.messages
         
         /**
          * Returns true if message was pushed to the client and is not a response to a message that
-         * originated on the client
+         * originated on the client.
          * 
          * @return true if this message was pushed to the client and is not a response to a message that
          * originated on the client
@@ -459,7 +457,7 @@ package mx.messaging.messages
         
         /**
          * Only populated in the case of a pushed message, size in Bytes of the message that originally
-         * caused this pushed message
+         * caused this pushed message.
          * 
          * @return Pushed causer message size in Bytes
          *
@@ -475,13 +473,13 @@ package mx.messaging.messages
         }                               
         
         /**
-         * Method returns a summary of all information available in MPI.  A suggested use of this
-         * is something like,
-         * @example
-         * <listing version="3.0">
+         *  Returns a summary of all information available in MPI.  
+         *  For example:
+         * 
+         * <pre>
          *      var mpiutil:MessagePerformanceUtils = new MessagePerformanceUtils(message);                     
          *      Alert.show(mpiutil.prettyPrint(), "MPI Output", Alert.NONMODAL);
-         * </listing>            
+         * </pre>            
          * 
          * @return String containing a summary of all information available in MPI
          *
