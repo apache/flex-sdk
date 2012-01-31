@@ -14,6 +14,7 @@ package spark.primitives.supportClasses
 
 import flash.display.BlendMode;
 import flash.display.Graphics;
+import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
@@ -28,8 +29,9 @@ import flashx.textLayout.elements.IConfiguration;
 import flashx.undo.IUndoManager;
 import flashx.undo.UndoManager;
 
-import mx.styles.IStyleClient;
 import mx.core.mx_internal;
+import mx.events.SandboxMouseEvent;
+import mx.styles.IStyleClient;
 
 import spark.primitives.RichEditableText;
 import spark.components.TextSelectionHighlighting;
@@ -289,8 +291,73 @@ public class RichEditableTextContainerManager extends TextContainerManager
     {
         if (!event.isDefaultPrevented())
             super.keyUpHandler(event);
-    }    
+    }
+    
+    /**
+     *  @private
+     *  This handler gets called for ACTIVATE events from the player
+     *  and FLEX_WINDOW_ACTIVATE events from Flex.  Because of the
+     *  way AIR handles activation of AIR Windows, and because Flex
+     *  has its own concept of popups or pseudo-windows, we
+     *  ignore ACTIVATE and respond to FLEX_WINDOW_ACTIVATE instead
+     */
+    override public function activateHandler(event:Event):void
+    {
+        // block ACTIVATE events
+        if (event.type == Event.ACTIVATE)
+            return;
 
+        super.activateHandler(event);
+    }
+
+    /**
+     *  @private
+     *  This handler gets called for DEACTIVATE events from the player
+     *  and FLEX_WINDOW_DEACTIVATE events from Flex.  Because of the
+     *  way AIR handles activation of AIR Windows, and because Flex
+     *  has its own concept of popups or pseudo-windows, we
+     *  ignore DEACTIVATE and respond to FLEX_WINDOW_DEACTIVATE instead
+     */
+    override public function deactivateHandler(event:Event):void
+    {
+        // block DEACTIVATE events
+        if (event.type == Event.DEACTIVATE)
+            return;
+
+        super.deactivateHandler(event);
+    }
+
+    /**
+     *  @private
+     *  sandbox support
+     */
+    override public function beginMouseCapture():void
+    {
+        super.beginMouseCapture();
+        textDisplay.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpSomewhereHandler);
+        textDisplay.systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, mouseMoveSomewhereHandler);
+    }
+
+    /**
+     *  @private
+     *  sandbox support
+     */
+    override public function endMouseCapture():void
+    {
+        super.endMouseCapture();
+        textDisplay.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpSomewhereHandler);
+        textDisplay.systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_MOVE_SOMEWHERE, mouseMoveSomewhereHandler);
+    }
+
+    private function mouseUpSomewhereHandler(event:Event):void
+    {
+        mouseUpSomewhere(event);
+    }
+
+    private function mouseMoveSomewhereHandler(event:Event):void
+    {
+        mouseMoveSomewhere(event);
+    }
 }
 
 }
