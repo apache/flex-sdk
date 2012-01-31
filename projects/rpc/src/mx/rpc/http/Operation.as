@@ -224,6 +224,9 @@ public class Operation extends AbstractOperation
                     }
                 }
             }
+            // Also do the XML content type special case when no argument names is set
+            else if (args.length == 1 && contentType == CONTENT_TYPE_XML)
+                params = args[0];
         }
         return sendBody(params);
     }
