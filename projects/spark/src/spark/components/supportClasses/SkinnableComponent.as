@@ -44,6 +44,7 @@ include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
 include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
 include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
+include "../../styles/metadata/SparkColorStyles.as"
 
 /**
  *  Name of the skin class to use for this component. The skin must be a class that extends
