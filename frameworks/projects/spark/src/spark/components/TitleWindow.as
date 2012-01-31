@@ -123,6 +123,12 @@ use namespace mx_internal;
 
 [IconFile("TitleWindow.png")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.TitleWindowAccImpl")]
+
 /**
  *  The TitleWindow class extends Panel to include
  *  a close button and move area.
@@ -184,6 +190,18 @@ public class TitleWindow extends Panel
 {
     include "../core/Version.as";
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by TitleWindowAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -282,6 +300,15 @@ public class TitleWindow extends Panel
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (TitleWindow.createAccessibilityImplementation != null)
+            TitleWindow.createAccessibilityImplementation(this);
+    }
+
     /**
      *  @private
      */
