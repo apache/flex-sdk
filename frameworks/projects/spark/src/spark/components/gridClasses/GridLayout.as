@@ -1143,19 +1143,14 @@ public class GridLayout extends LayoutBase
         if (!layer)
             return new Vector.<IVisualElement>(0);
         
-        // TBD(hmuller): if the factory for any of the oldVisible elements isn't 
-        // the specified factory (e.g. because factory is null) then 
-        // removeGridElement all of them.  Maybe add removeGridElements(factory).
-        // Replace the following:
+        // If a factory changed, discard the old visual elements.
         
+        if (discardGridElementsIfFactoryChanged(factory, layer, oldVisibleElements))
+            oldVisibleIndices.length = 0;
+                       
         if (factory == null)
-        {
-            for each (var oldElt:IVisualElement in oldVisibleElements)
-                layer.removeElement(oldElt);
-
             return new Vector.<IVisualElement>(0);
-        }
-        
+
         // Free and clear oldVisibleElements that are no long visible
         
         freeLinearElements(oldVisibleElements, oldVisibleIndices, newVisibleIndices, lastIndex);
@@ -1164,7 +1159,7 @@ public class GridLayout extends LayoutBase
         
         const newVisibleElementCount:uint = newVisibleIndices.length;
         const newVisibleElements:Vector.<IVisualElement> = new Vector.<IVisualElement>(newVisibleElementCount);
-        
+
         for (var index:int = 0; index < newVisibleElementCount; index++) 
         {
             var newEltIndex:int = newVisibleIndices[index];
@@ -1203,15 +1198,19 @@ public class GridLayout extends LayoutBase
         newVisibleRowIndices:Vector.<int>, newVisibleColumnIndices:Vector.<int>,
         layoutFunction:Function):Vector.<IVisualElement>
     {
-        // If a factory wasn't provided, discard the old visible elements, then return
-        
-        if (factory == null)
-        {
-            for each (var oldElt:IVisualElement in oldVisibleElements)
-                layer.removeElement(oldElt);
-            
+        if (!layer)
             return new Vector.<IVisualElement>(0);
+
+        // If a factory changed, discard the old visual elements.
+        
+        if (discardGridElementsIfFactoryChanged(factory, layer, oldVisibleElements))
+        {
+            oldVisibleRowIndices.length = 0;
+            oldVisibleColumnIndices.length = 0;
         }
+
+        if (factory == null)
+            return new Vector.<IVisualElement>(0);
         
         // Create, layout, and return newVisibleElements
         
@@ -1251,6 +1250,33 @@ public class GridLayout extends LayoutBase
         return newVisibleElements;
     }
 
+    /** 
+     *  @private
+     *  If the factory has changed, or is now null, remove and free all the old
+     *  visual elements, if there were any.
+     * 
+     *  @returns True if at least one visual element was removed.
+     */
+    private function discardGridElementsIfFactoryChanged(
+        factory:IFactory,
+        layer:GridLayer,
+        oldVisibleElements:Vector.<IVisualElement>):Boolean    
+    {
+        if (oldVisibleElements.length > 0 &&
+            factory != elementToFactoryMap[oldVisibleElements[0]])
+        {
+            for each (var oldElt:IVisualElement in oldVisibleElements)
+            {
+                layer.removeElement(oldElt);
+                freeGridElement(oldElt);
+            }
+            oldVisibleElements.length = 0;
+            return true;
+        }
+        
+        return false;
+    }
+    
     /** 
      *  @private
      *  Free each member of elements if the corresponding member of oldIndices doesn't 
@@ -1429,16 +1455,7 @@ public class GridLayout extends LayoutBase
     private function layoutSelectionIndicators(layer:GridLayer):void
     {
         const selectionIndicatorFactory:IFactory = grid.selectionIndicator;
-        
-        // TBD(hmuller): if selectionIndicatorFactory has -changed- get rid
-        // of the old selection indicators.   See layoutIndicator() for an example
-        
-        if (!selectionIndicatorFactory)
-        {
-            clearSelectionIndicators();
-            return;
-        }
-        
+
         // layout and update visibleSelectionIndicators,Indices
                 
         if (isRowSelectionMode())
