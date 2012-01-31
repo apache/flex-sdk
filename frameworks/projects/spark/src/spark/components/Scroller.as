@@ -546,6 +546,15 @@ public class Scroller extends SkinnableComponent
         hasFocusableChildren = true;
         focusEnabled = false;
         
+        // Store the screen DPI.  If it's zero (probably due to a bug in the runtime), 
+        // substitute the runtimeDPI instead.
+        if (effectiveScreenDPI == 0)
+        {
+            effectiveScreenDPI = flash.system.Capabilities.screenDPI;
+            if (effectiveScreenDPI == 0 && "runtimeDPI" in FlexGlobals.topLevelApplication)
+                effectiveScreenDPI = FlexGlobals.topLevelApplication.runtimeDPI as Number;
+        }
+        
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
         addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
     }
@@ -585,6 +594,12 @@ public class Scroller extends SkinnableComponent
      *  For a faster deceleration, you can switch this to 0.990.
      */
     mx_internal var throwEffectDecelFactor:Number = 0.998;
+    
+    /**
+     *  @private
+     *  Screen DPI to use in pixels/distance calculations  
+     */
+    mx_internal static var effectiveScreenDPI:Number = 0; 
     
     /**
      *  @private
@@ -1922,7 +1937,7 @@ public class Scroller extends SkinnableComponent
                 if (!touchScrollHelper)
                 {
                     touchScrollHelper = new TouchScrollHelper(this);
-                    touchScrollHelper.scrollSlop = Math.round(minSlopInches * flash.system.Capabilities.screenDPI);
+                    touchScrollHelper.scrollSlop = Math.round(minSlopInches * effectiveScreenDPI);
                 }
             }
             else
@@ -2306,7 +2321,7 @@ public class Scroller extends SkinnableComponent
                 
                 // 5 pixels at 252dpi worked fairly well for this heuristic.
                 const THRESHOLD_INCHES:Number = 0.01984; // 5/252 
-                var captureThreshold:Number = Math.round(THRESHOLD_INCHES * flash.system.Capabilities.screenDPI);
+                var captureThreshold:Number = Math.round(THRESHOLD_INCHES * effectiveScreenDPI);
                 
                 // Need to convert the pixel delta to the local coordinate system in 
                 // order to compare it to a scroll position delta. 
@@ -2725,13 +2740,13 @@ public class Scroller extends SkinnableComponent
      *  @private
      */ 
     mx_internal function adjustScrollPositionAfterSoftKeyboardDeactivate():void
-    {
+    {      
         // If the throw animation is still playing, stop it.
         if (throwEffect && throwEffect.isPlaying)
             throwEffect.stop();
         
         // Fix the scroll position in case we're off the end from the animation
-        snapContentScrollPosition();
+            snapContentScrollPosition();
     }
     
     /**
@@ -3379,7 +3394,7 @@ class TouchScrollHelper
         lastVelocity.x /= lastDt;
         lastVelocity.y /= lastDt;
         
-        var minVelocityPixels:Number = MIN_START_VELOCITY_IPS * flash.system.Capabilities.screenDPI / 1000;
+        var minVelocityPixels:Number = MIN_START_VELOCITY_IPS * Scroller.effectiveScreenDPI / 1000;
         
         var scrollEndEvent:TouchInteractionEvent;
         
@@ -3481,7 +3496,7 @@ class TouchScrollHelper
             return new Point(0,0);
         
         // Limit the velocity to an absolute maximum
-        var maxPixelsPerMS:Number = MAX_THROW_VELOCITY_IPS * flash.system.Capabilities.screenDPI / 1000;
+        var maxPixelsPerMS:Number = MAX_THROW_VELOCITY_IPS * Scroller.effectiveScreenDPI / 1000;
         var velX:Number = Math.min(maxPixelsPerMS,Math.max(-maxPixelsPerMS,weightedSumX/totalWeight));
         var velY:Number = Math.min(maxPixelsPerMS,Math.max(-maxPixelsPerMS,weightedSumY/totalWeight));
         
