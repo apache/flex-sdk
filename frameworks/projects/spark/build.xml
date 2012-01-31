@@ -18,6 +18,8 @@
 
 	<target name="main" depends="clean,compile,en_US" description="Clean build of spark.swc and its English resources"/>
 
+	<target name="other.locales" depends="da_DK,de_DE,es_ES,fi_FI,fr_FR,it_IT,ja_JP,ko_KR,nb_NO,nl_NL,pt_BR,ru_RU,sv_SE,zh_CN,zh_TW" description="Build other locale SWCs"/>
+	
 	<target name="clean">
 		<delete failonerror="false">
 			<fileset dir="${basedir}" >
@@ -114,11 +116,102 @@
 	</target>
 
 	<!-- Targets for compiling spark_rb.swc for various locales -->
+	<target name="da_DK" description="Danish resources">
+		<antcall target="bundle">
+			<param name="locale" value="da_DK"/>
+		</antcall>
+	</target>
+
+	<target name="de_DE" description="German resources">
+		<antcall target="bundle">
+			<param name="locale" value="de_DE"/>
+		</antcall>
+	</target>
+
 	<target name="en_US" description="American English resources">
 		<antcall target="bundle">
 			<param name="locale" value="en_US"/>
 		</antcall>
 	</target>
+
+	<target name="es_ES" description="Spanish resources">
+		<antcall target="bundle">
+			<param name="locale" value="es_ES"/>
+		</antcall>
+	</target>
+
+	<target name="fi_FI" description="Finnish resources">
+		<antcall target="bundle">
+			<param name="locale" value="fi_FI"/>
+		</antcall>
+	</target>
+
+	<target name="fr_FR" description="French resources">
+		<antcall target="bundle">
+			<param name="locale" value="fr_FR"/>
+		</antcall>
+	</target>
+
+	<target name="it_IT" description="Italian resources">
+		<antcall target="bundle">
+			<param name="locale" value="it_IT"/>
+		</antcall>
+	</target>
+
+	<target name="ja_JP" description="Japanese resources">
+		<antcall target="bundle">
+			<param name="locale" value="ja_JP"/>
+		</antcall>
+	</target>
+
+	<target name="ko_KR" description="Korean resources">
+		<antcall target="bundle">
+			<param name="locale" value="ko_KR"/>
+		</antcall>
+	</target>
+
+	<target name="nb_NO" description="Norwegian Bokmal resources">
+		<antcall target="bundle">
+			<param name="locale" value="nb_NO"/>
+		</antcall>
+	</target>
+
+	<target name="nl_NL" description="Dutch resources">
+		<antcall target="bundle">
+			<param name="locale" value="nl_NL"/>
+		</antcall>
+	</target>
+
+	<target name="pt_BR" description="Brazilian Portuguese resources">
+		<antcall target="bundle">
+			<param name="locale" value="pt_BR"/>
+		</antcall>
+	</target>
+
+    <target name="ru_RU" description="Swedish resources">
+        <antcall target="bundle">
+            <param name="locale" value="ru_RU"/>
+        </antcall>
+    </target>
+
+    <target name="sv_SE" description="Swedish resources">
+		<antcall target="bundle">
+			<param name="locale" value="sv_SE"/>
+		</antcall>
+	</target>
+
+	<target name="zh_CN" description="Simplified Chinese resources">
+		<antcall target="bundle">
+			<param name="locale" value="zh_CN"/>
+		</antcall>
+	</target>
+
+	<target name="zh_TW" description="Traditional Chinese resources">
+		<antcall target="bundle">
+			<param name="locale" value="zh_TW"/>
+		</antcall>
+	</target>
+
 
 	<target name="doc" depends="clean-temp-docs" description="updates spark.swc with asdoc xml">
 		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
@@ -147,7 +240,7 @@
 		</asdoc>
 
 		<!-- updates spark.swc with asdoc xml -->
-		<zip destfile="${FLEX_HOME}/frameworks/libs/spark.swc" update="true">
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/spark_rb.swc" update="true">
 		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
 			    <include name="*.*"/>
 				<exclude name="ASDoc_Config.xml"/>
