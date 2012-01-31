@@ -18,6 +18,11 @@ import mx.effects.IEffectInstance;
 *
 *  @includeExample examples/FxResizeEffectExample.mxml    
 *
+*  
+*  @langversion 3.0
+*  @playerversion Flash 10
+*  @playerversion AIR 1.5
+*  @productversion Flex 4
 */
 
 public class FxResize extends FxAnimate
@@ -53,6 +58,11 @@ public class FxResize extends FxAnimate
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxResize(target:Object=null)
     {
@@ -76,6 +86,11 @@ public class FxResize extends FxAnimate
     /** 
      *  Number of pixels by which to modify the height of the component.
      *  Values may be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var heightBy:Number;
     
@@ -88,6 +103,11 @@ public class FxResize extends FxAnimate
     /** 
      *  Initial height, in pixels.
      *  If omitted, Flex uses the current height.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var heightFrom:Number;
 
@@ -99,6 +119,11 @@ public class FxResize extends FxAnimate
 
     /** 
      *  Final height, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var heightTo:Number;
             
@@ -111,6 +136,11 @@ public class FxResize extends FxAnimate
     /** 
      *  Number of pixels by which to modify the width of the component.
      *  Values may be negative.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var widthBy:Number;
 
@@ -123,6 +153,11 @@ public class FxResize extends FxAnimate
     /** 
      *  Initial width, in pixels.
      *  If omitted, Flex uses the current width.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var widthFrom:Number;
     
@@ -134,6 +169,11 @@ public class FxResize extends FxAnimate
 
     /** 
      *  Final width, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var widthTo:Number;
 
@@ -155,6 +195,11 @@ public class FxResize extends FxAnimate
      *
      *  <pre>&lt;mx:Resize id="e" heightFrom="100" heightTo="400"
      *  hideChildrenTargets="{[panelOne, panelTwo]}" /&gt;</pre>        
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var hideChildrenTargets:Array /* of Panel */;
 
