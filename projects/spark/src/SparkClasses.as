@@ -77,6 +77,7 @@ import spark.skins.spark.SpinnerIncrementButtonSkin; SpinnerIncrementButtonSkin;
 import spark.skins.spark.SpinnerSkin; SpinnerSkin;
 import spark.skins.spark.StackedFormHeadingSkin; StackedFormHeadingSkin;
 import spark.skins.spark.StackedFormItemSkin; StackedFormItemSkin;
+import spark.skins.spark.StackedFormSkin; StackedFormSkin;
 import spark.skins.spark.TabBarSkin; TabBarSkin;
 import spark.skins.spark.TabBarButtonSkin; TabBarButtonSkin;
 import spark.skins.spark.TextAreaSkin; TextAreaSkin;
