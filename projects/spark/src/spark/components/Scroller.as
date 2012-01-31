@@ -895,7 +895,7 @@ public class Scroller extends SkinnableComponent
 
     private var _minViewportInset:Number = 0;
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0")]
 
     /**
      *  The minimum space between the viewport and the edges of the Scroller.  
@@ -937,6 +937,8 @@ public class Scroller extends SkinnableComponent
     //----------------------------------
     
     private var _measuredSizeIncludesScrollBars:Boolean = true;
+    
+    [Inspectable(category="General", defaultValue="true")]
     
     /**
      *  If <code>true</code>, the Scroller's measured size includes the space required for
