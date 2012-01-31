@@ -675,13 +675,26 @@ public class Application extends SkinnableContainer
     [Inspectable(defaultValue="mx.preloaders.DownloadProgressBar")]
 
     /**
-     *  Specifies the path of a SWC component class or ActionScript
-     *  component class that defines a custom progress bar.
-     *  A SWC component must be in the same directory as the MXML file
-     *  or in the WEB-INF/flex/user_classes directory of your Flex
-     *  web application.
+     *  The application container supports an application preloader that 
+     *  uses a download progress bar to show the download and initialization progress 
+     *  of an application SWF file. 
+     *  By default, the application preloader is enabled. 
+     *  The preloader tracks how many bytes have been downloaded and continually 
+     *  updates the progress bar. 
+     *
+     *  <p>Use this property to specify the path of a 
+     *  component that defines a custom progress indicator.
+     *  To create a custom progress indicator, you typically create a subclass of the 
+     *  SparkDownloadProgressBar or DownloadProgressBar class, or create a subclass of 
+     *  the flash.display.Sprite class that implements the 
+     *  mx.preloaders.IPreloaderDisplay interface. </p>
      *
      *  <p><b>Note:</b> This property cannot be set by ActionScript code; it must be set in MXML code.</p>
+     *
+     *  @see mx.preloaders.SparkDownloadProgressBar 
+     *  @see mx.preloaders.DownloadProgressBar 
+     *  @see flash.display.Sprite
+     *  @see mx.preloaders.IPreloaderDisplay
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
