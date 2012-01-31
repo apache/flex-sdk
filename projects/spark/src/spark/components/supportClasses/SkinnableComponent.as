@@ -26,6 +26,8 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.PropertyChangeEvent;
 
+import spark.utils.TextUtil;
+
 use namespace mx_internal;
 
 //--------------------------------------
@@ -225,6 +227,36 @@ public class SkinnableComponent extends UIComponent
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  baselinePosition
+    //----------------------------------
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    override public function get baselinePosition():Number
+    {
+        if (!validateBaselinePosition())
+            return NaN;
+
+        // Unless the height is very small, the baselinePosition
+        // of a generic UIComponent is calculated as if there was
+        // a UITextField using the component's styles
+        // whose top coincides with the component's top.
+        // If the height is small, the baselinePosition is calculated
+        // as if there were text within whose ascent the component
+        // is vertically centered.
+        // At the crossover height, these two calculations
+        // produce the same result.
+
+        return TextUtil.calculateFontBaseline(this, height, moduleFactory);
+    }
 
     //----------------------------------
     //  currentCSSState
