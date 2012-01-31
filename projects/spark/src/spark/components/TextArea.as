@@ -417,23 +417,23 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  Documentation is not currently available.
 	 */
-    public function getAttributes(names:Array = null):Object
+    public function getSelectionFormat(names:Array = null):Object
     {
         if (!textView)
             return null;
 
-        return textView.getAttributes(names);
+        return textView.getSelectionFormat(names);
     }
 
 	/**
 	 *  Documentation is not currently available.
 	 */
-    public function setAttributes(attributes:Object):void
+    public function setSelectionFormat(attributes:Object):void
     {
         if (!textView)
             return;
 
-        textView.setAttributes(attributes);
+        textView.setSelectionFormat(attributes);
     }
 
 	//--------------------------------------------------------------------------
