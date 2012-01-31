@@ -23,6 +23,11 @@ import mx.events.TextOperationEvent;
 //  Other metadata
 //--------------------------------------
 
+/**
+ *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
 [DefaultProperty("content")]
 
 [IconFile("FxTextArea.png")]
