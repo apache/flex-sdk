@@ -19,7 +19,7 @@ import mx.events.FlexEvent;
 
 /**
  *  Dispatched when the <code>selected</code> property 
- *  changes for the ToggleButton control. 
+ *  changes for the FxToggleButton control. 
  * 
  *  This event is dispatched only when the 
  *  user interacts with the control by using the mouse.
@@ -37,7 +37,14 @@ import mx.events.FlexEvent;
 [DefaultBindingProperty(source="selected", destination="label")]
 
 /**
- *  Documentation is not currently available.
+ *  The FxToggleButton component defines a toggle button. 
+ *  Clicking the button toggles it between the up and an down states.
+ *  If you click the button while it is in the up state, 
+ *  it toggles to the down state. You must click the button again 
+ *  to toggle it back to the up state.
+ * 
+ *  <p>You can get or set this state programmatically
+ *  by using the <code>selected</code> property.</p>
  */
 public class FxToggleButton extends FxButton
 {
@@ -53,11 +60,11 @@ public class FxToggleButton extends FxButton
      *  Constructor. 
      */    
     public function FxToggleButton()
-	{
-		super();
-		
-		addEventListener(MouseEvent.CLICK, clickHandler);
-	}
+    {
+        super();
+        
+        addEventListener(MouseEvent.CLICK, clickHandler);
+    }
     
     // -----------------------------------------------------------------------
     //
@@ -65,18 +72,31 @@ public class FxToggleButton extends FxButton
     //
     // -----------------------------------------------------------------------
 
+    /**
+     *  @private
+     */    
     protected static const selectedFlag:uint = FxButton.lastFlag << 1;
     
-	protected static const lastFlag:uint = selectedFlag;
+    /**
+     *  @private
+     */    
+    protected static const lastFlag:uint = selectedFlag;
     
     [Bindable]
     
-	public function get selected():Boolean
+    /**
+     *  <code>true</code> if the button is in the down state, 
+     *  and <code>false</code> if it is in the up state.
+     */    
+    public function get selected():Boolean
     {
         return flags.isSet(selectedFlag);
     }
     
-	public function set selected(value:Boolean):void
+    /**
+     *  @private
+     */    
+    public function set selected(value:Boolean):void
     {
         if (!flags.update(selectedFlag, value))
             return;
@@ -92,8 +112,7 @@ public class FxToggleButton extends FxButton
     //--------------------------------------------------------------------------
 
     /**
-     *  <code>getUpdatedSkinState</code> returns a string representation of the component's
-     *  state as a combination of some of its public properties.
+     *  @inheritDoc
      */ 
     protected override function getUpdatedSkinState():String
     {
@@ -103,6 +122,9 @@ public class FxToggleButton extends FxButton
             return super.getUpdatedSkinState() + "AndSelected";
     }
 
+    /**
+     *  @private
+     */ 
     protected function clickHandler(event:MouseEvent):void
     {
         if (!isEnabled)
