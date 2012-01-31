@@ -57,6 +57,11 @@ use namespace mx_internal;
  *
  *  @see mx.effects.Resize
  *  @see mx.events.TweenEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */  
 public class ResizeInstance extends TweenEffectInstance
 {
@@ -72,6 +77,11 @@ public class ResizeInstance extends TweenEffectInstance
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ResizeInstance(target:Object)
 	{
@@ -204,6 +214,11 @@ public class ResizeInstance extends TweenEffectInstance
 	/** 
 	 *  Number of pixels by which to modify the height of the component.
 	 *  Values may be negative.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get heightBy():Number
 	{
@@ -225,6 +240,11 @@ public class ResizeInstance extends TweenEffectInstance
 
 	/** 
 	 *  Initial height. If omitted, Flex uses the current size.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var heightFrom:Number;
 
@@ -240,6 +260,11 @@ public class ResizeInstance extends TweenEffectInstance
 	
 	/** 
 	 *  Final height, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get heightTo():Number
 	{
@@ -262,6 +287,11 @@ public class ResizeInstance extends TweenEffectInstance
 	/**
 	 *  An Array of Panels.
 	 *  The children of these Panels are hidden while the Resize effect plays.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var hideChildrenTargets:Array /* of Panel */;
 	
@@ -278,6 +308,11 @@ public class ResizeInstance extends TweenEffectInstance
 	/** 
 	 *  Number of pixels by which to modify the width of the component.
 	 *  Values may be negative.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */	
 	public function get widthBy():Number
 	{
@@ -299,6 +334,11 @@ public class ResizeInstance extends TweenEffectInstance
 
 	/** 
 	 *  Initial width. If omitted, Flex uses the current size.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var widthFrom:Number;
 
@@ -314,6 +354,11 @@ public class ResizeInstance extends TweenEffectInstance
 	
 	/** 
 	 *  Final width, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function get widthTo():Number
 	{
@@ -564,6 +609,11 @@ public class ResizeInstance extends TweenEffectInstance
 		applyTweenStartValues();
 		/*if (needToLayout)
 			UIComponent.layoutManager.validateNow();
+		*  
+		*  @langversion 3.0
+		*  @playerversion Flash 9
+		*  @playerversion AIR 1.1
+		*  @productversion Flex 3
 		*/
 		//EffectManager.resumeEventHandling();	
 	}
