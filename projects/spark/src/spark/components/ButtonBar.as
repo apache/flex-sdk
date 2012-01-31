@@ -516,7 +516,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     {
         var newIndex:int
         if (event.currentTarget is IItemRenderer)
-            newIndex = IItemRenderer(event.currentTarget).index;
+            newIndex = IItemRenderer(event.currentTarget).itemIndex;
         else
             newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
 
