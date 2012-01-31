@@ -39,8 +39,8 @@ import mx.events.PropertyChangeEvent;
 import mx.events.PropertyChangeEventKind;
 import spark.events.RendererExistenceEvent;
 import spark.core.MaskType;
-import spark.layout.BasicLayout;
-import spark.layout.supportClasses.LayoutBase;
+import spark.layouts.BasicLayout;
+import spark.layouts.supportClasses.LayoutBase;
 import mx.utils.MatrixUtil;
 
 use namespace mx_internal;
@@ -135,7 +135,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  A group component does not control the layout of the visual items that it contains. 
  *  Instead, the layout is handled by a separate layout component.
  *
- *  @see spark.layout.supportClasses.LayoutBase
+ *  @see spark.layouts.supportClasses.LayoutBase
  *  @see spark.components.ResizeMode
  *  
  *  @langversion 3.0
@@ -208,7 +208,7 @@ public class GroupBase extends UIComponent implements IViewport
      *  This object is responsible for the measurement and layout of 
      *  the visual elements in the container.
      * 
-     *  @default spark.layout.BasicLayout
+     *  @default spark.layouts.BasicLayout
      *
      *  @see LayoutBase
      *  
