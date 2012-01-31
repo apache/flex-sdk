@@ -35,7 +35,7 @@ import mx.managers.IFocusManagerComponent;
 [Event(name="change", type="flash.events.Event")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -45,7 +45,7 @@ import mx.managers.IFocusManagerComponent;
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
