@@ -14,10 +14,13 @@ package spark.components
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.PopUpManager;
 
 import spark.events.PopUpEvent;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -174,6 +177,19 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     public function get isOpen():Boolean
     {
         return _isOpen;
+    }
+    
+    /**
+     *  Updates the isOpen flag to be reflected in the skin state
+     *  without actually popping up the container through the PopUpManager.
+     * 
+     *  @private 
+     */
+    mx_internal function setIsOpen(value:Boolean):void
+    {
+        // NOTE: DesignView relies on this API, consult tooling before making changes.
+        _isOpen = value;
+        invalidateSkinState();
     }
 
     //--------------------------------------------------------------------------
