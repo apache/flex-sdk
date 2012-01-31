@@ -103,7 +103,8 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;s:RadioButton
  *    <strong>Properties</strong>
- *    group=the automatically created default RadioButtonGroup
+ *    enabled=""
+ *    group="<i>the automatically created default RadioButtonGroup</i>"
  *    groupName="radioGroup"
  *    value="null"
  *  /&gt;
