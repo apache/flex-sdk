@@ -91,6 +91,8 @@ public class Range extends SkinnableComponent
     
     private var maxChanged:Boolean = false;
     
+    [Inspectable(category="General", defaultValue="100.0")]
+    
     /**
      *  The maximum valid <code>value</code>.
      * 
@@ -129,6 +131,8 @@ public class Range extends SkinnableComponent
     private var _minimum:Number = 0;
     
     private var minChanged:Boolean = false;
+    
+    [Inspectable(category="General", defaultValue="0.0")]
     
     /**
      *  The minimum valid <code>value</code>.
@@ -169,7 +173,7 @@ public class Range extends SkinnableComponent
     
     private var stepSizeChanged:Boolean = false;
     
-    [Inspectable(minValue="0.0")]
+    [Inspectable(category="General", defaultValue="1.0", minValue="0.0")]
     
     /**
      *  The amount that the <code>value</code> property 
@@ -212,6 +216,7 @@ public class Range extends SkinnableComponent
     private var valueChanged:Boolean = false;
     
     [Bindable(event="valueCommit")]
+    [Inspectable(category="General", defaultValue="0.0")]
     
     /**
      *  The current value for this range.
@@ -263,7 +268,7 @@ public class Range extends SkinnableComponent
     private var snapIntervalChanged:Boolean = false;
     private var _explicitSnapInterval:Boolean = false;
     
-    [Inspectable(minValue="0.0")]    
+    [Inspectable(category="General", defaultValue="1.0", minValue="0.0")]
     
     /**
      *  The snapInterval property controls the valid values of the <code>value</code> property.
