@@ -128,6 +128,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
     //--------------------------------------------------------------------------
     
     [SkinPart(required="false")]
+    
     /**
      *  A skin part that defines the  label of the button. 
      */
