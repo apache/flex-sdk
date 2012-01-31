@@ -14,8 +14,10 @@ package spark.components.supportClasses
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
+import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.mx_internal;
+import mx.core.Singleton;
 
 import spark.components.Grid;
 
@@ -305,6 +307,7 @@ public class GridColumn extends EventDispatcher
     //----------------------------------
 
     private var _itemRenderer:IFactory = null;
+    private var rendererClassFactory:GridItemRendererClassFactory = null;
     
     [Bindable("itemRendererChanged")]
     
@@ -791,6 +794,35 @@ public class GridColumn extends EventDispatcher
     }
     
     /**
+     *  @private
+     *  The static embeddedFonts property is initialized lazily. 
+     */
+    private static var  _embeddedFontRegistryExists:Boolean = false;
+    private static var embeddedFontRegistryExistsInitialized:Boolean = false;
+    
+    /**
+     *  @private
+     *  True if an embedded font registry singleton exists.
+     */
+    private static function get embeddedFontRegistryExists():Boolean
+    {
+        if (!embeddedFontRegistryExistsInitialized)
+        {
+            embeddedFontRegistryExistsInitialized = true;
+            try
+            {
+                _embeddedFontRegistryExists = Singleton.getInstance("mx.core::IEmbeddedFontRegistry") != null;
+            }
+            catch (e:Error)
+            {
+                _embeddedFontRegistryExists = false;
+            }
+        }
+        
+        return _embeddedFontRegistryExists;
+    }
+    
+    /**
      *  Convert the specified dataProvider item to a column-specific item renderer factory.
      *  By default this method calls the <code>itemRendererFunction</code> if it's 
      *  non-null, otherwise it just returns the value of the column's <code>itemRenderer</code> 
@@ -805,7 +837,19 @@ public class GridColumn extends EventDispatcher
         const itemRendererFunction:Function = itemRendererFunction;
         var factory:IFactory = (itemRendererFunction != null) ? itemRendererFunction(item, this) : itemRenderer;
         
-        return factory;
+        // If this app might have embedded fonts then item renderers must be created with the Grid's
+        // module factory.  To enable that we wrap the real item renderer factory with 
+        // a GridItemRendererClassFactory.
+        
+        if (embeddedFontRegistryExists && (factory is ClassFactory))
+        {
+            if (!rendererClassFactory || (rendererClassFactory.factory != factory))
+                rendererClassFactory = new GridItemRendererClassFactory(grid, ClassFactory(factory));
+        }
+        else 
+            rendererClassFactory = null; 
+        
+        return (rendererClassFactory) ? rendererClassFactory : factory;
     }
     
     /**
@@ -829,4 +873,52 @@ public class GridColumn extends EventDispatcher
         }
     }
 }
+}
+
+import flash.utils.getQualifiedClassName;
+
+import mx.core.ClassFactory;
+import mx.core.IFactory;
+import mx.core.IFlexModuleFactory;
+
+import spark.components.Grid;
+
+
+/**
+ *  @private
+ *  A wrapper class for item renderers that creates the renderer instance with the grid's
+ *  module factory.  
+ * 
+ *  This is necessary for applications that use embedded fonts.   The module factory creates
+ *  the renderer instance in the correct "font context" in the same way as ContextualClassFactory
+ *  does.   More about this in the  ContextualClassFactory  ASDoc.
+ */
+class GridItemRendererClassFactory extends ClassFactory
+{
+    public var grid:Grid;
+    public var factory:ClassFactory;
+    
+    public function GridItemRendererClassFactory(grid:Grid, factory:ClassFactory)
+    {
+        super(factory.generator);
+        this.grid = grid;
+        this.factory = factory;
+    }
+    
+    override public function newInstance():*
+    {
+        const factoryGenerator:Class = factory.generator;
+        const moduleFactory:IFlexModuleFactory = grid.moduleFactory;
+        const instance:Object = 
+            (moduleFactory) ? moduleFactory.create(getQualifiedClassName(factoryGenerator)) : new factoryGenerator();
+        
+        const factoryProperties:Object = factory.properties;
+        if (factoryProperties)
+        {
+            for (var p:String in factoryProperties)
+                instance[p] = factoryProperties[p];
+        }
+        
+        return instance;
+    }
 }
