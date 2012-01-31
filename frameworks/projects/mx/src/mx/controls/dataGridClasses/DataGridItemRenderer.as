@@ -638,7 +638,7 @@ public class DataGridItemRenderer extends UITextField
 		// Calculate global position of label.
 		var pt:Point = new Point(0, 0);
 		pt = localToGlobal(pt);
-		pt = stage.globalToLocal(pt);			
+		pt = toolTip.parent.globalToLocal(pt);			
 		
 		toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
 			
