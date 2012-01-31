@@ -486,8 +486,9 @@ public class VideoElement extends GraphicElement
     
     [Inspectable(category="General")]
     
-    private var _playing:Boolean = true; // initialize to same value as autoPlay
+    private var _playing:Boolean = false;
     
+    [Bindable("playingChanged")]
     /**
      *  Returns true if the video is playing or is attempting to play.
      *  
@@ -509,6 +510,23 @@ public class VideoElement extends GraphicElement
         return _playing;
     }
     
+    /**
+     *  @private
+     *  Sets the playing variable to true or false and dispatches 
+     *  the appropriate event.  We don't check to compare it to 
+     *  the last value because we want this event to dispatch every 
+     *  time.  This way when the playPauseButton is toggled in VideoPlayer, 
+     *  this binding event has the last word as to whether we are actually 
+     *  playing or paused (Someone could click the play button, but if there's 
+     *  no source, we want to still show the play button rather than toggle it 
+     *  as ToggleButton's do naturally).
+     */
+    private function setPlaying(value:Boolean):void
+    {
+        _playing = value;
+        dispatchEvent(new Event("playingChanged"));
+    }
+    
     //----------------------------------
     //  source
     //----------------------------------
@@ -523,14 +541,6 @@ public class VideoElement extends GraphicElement
      *  Passing in play(source) resets the stream back to 0.
      */
     private var sourceLastPlayed:Object;
-    
-    /**
-     *  @private
-     *  Keeps track of whether we were paused or not when someone calls 
-     *  play().  This is used for the same purpose as sourceLastPlayed.
-     *  This is set to true in pause().  It's set to false in stop() and play().
-     */
-    private var wasPaused:Boolean;
     
     [Bindable("sourceChanged")]
     [Inspectable(category="General", defaultValue="null")]
@@ -661,8 +671,12 @@ public class VideoElement extends GraphicElement
             {
                 play();
             }
+            else
+            {
+                load();
             }
         }
+    }
     
     /**
      *  @private
@@ -724,7 +738,7 @@ public class VideoElement extends GraphicElement
      */
     public function pause():void
     {
-        wasPaused = true;
+        setPlaying(false);
         mx_internal::videoPlayer.pause();
     }
     
@@ -759,7 +773,7 @@ public class VideoElement extends GraphicElement
             // if paused, pass in null as the flvSource.  Otherwise, calling 
             // play(source) will reset the stream back to zero.  To restart the 
             // stream where it was paused, one needs to call play(null).
-            if (wasPaused && (sourceLastPlayed == this.source) )
+            if (sourceLastPlayed == this.source)
             {
                 flvSource = null;
             }
@@ -779,7 +793,9 @@ public class VideoElement extends GraphicElement
                 }
             }
             
-            wasPaused = false;
+            // could wait for stateChange event, but let's do it early
+            // so the UI is more responsive
+            setPlaying(true);
             
             // we don't do anything with the duration or startTime in 
             // the play2() case, as the underlying FLVPlayback VideoPlayer
@@ -791,7 +807,7 @@ public class VideoElement extends GraphicElement
 
             mx_internal::videoPlayer.play2(flvSource);
         }
-        else
+        else if (source is String && String(source).length != 0)
         {
             // The progressive case
             var sourceString:String;
@@ -799,7 +815,7 @@ public class VideoElement extends GraphicElement
             // if paused, pass in null as the flvSource.  Otherwise, calling 
             // play(source) will reset the stream back to zero.  To restart the 
             // stream where it was paused, one needs to call play(null).
-            if (wasPaused && (sourceLastPlayed == this.source) )
+            if (sourceLastPlayed == this.source)
             {
                 sourceString = null;
             }
@@ -809,7 +825,9 @@ public class VideoElement extends GraphicElement
                 sourceLastPlayed = sourceString;
             }
             
-            wasPaused = false;
+            // could wait for stateChange event, but let's do it early
+            // so the UI is more responsive
+            setPlaying(true);
             
             // TODO (rfrishbe): how we handle startTime is pretty hacky.
             // Need to figure out if there's a better way or talk to Strobe 
@@ -826,11 +844,11 @@ public class VideoElement extends GraphicElement
                 
                 seek(startTime);
                 
-        if (isNaN(duration))
+                if (isNaN(duration))
                     mx_internal::videoPlayer.play(null);
-        else
+                else
                     mx_internal::videoPlayer.play(null, false, duration);
-    }
+            }
             else
             {
                 // if we've played this video before or we don't 
@@ -845,6 +863,51 @@ public class VideoElement extends GraphicElement
                     mx_internal::videoPlayer.play(sourceString, false, duration);
             }
         }
+        else
+        {
+            setPlaying(false);
+        }
+    }
+    
+    /**
+     *  @private
+     *  Load the video.  This allows seeks and other operations to 
+     *  be performed before the video's started to play.
+     */
+    private function load():void
+    {
+        // essentially a load is a play and then a pause
+        
+        // check for 2 cases: streaming video or progressive download
+        if (source is StreamingVideoSource)
+        {
+            // can't load in the streaming video case
+            play();
+            pause();
+        }
+        else if (source is String && String(source).length != 0)
+        {
+            // The progressive case
+            var sourceString:String;
+        
+            // if paused, pass in null as the flvSource.  Otherwise, calling 
+            // play(source) will reset the stream back to zero.  To restart the 
+            // stream where it was paused, one needs to call play(null).
+            if (sourceLastPlayed == this.source)
+            {
+                sourceString = null;
+            }
+            else
+            {
+                sourceString = String(this.source);
+                sourceLastPlayed = sourceString;
+            }
+           
+            // load the video up
+            mx_internal::videoPlayer.load(sourceString);
+        }
+        
+        setPlaying(false);
     }
    
     /**
@@ -858,6 +921,20 @@ public class VideoElement extends GraphicElement
      *  is past the end of the stream, or past the amount of file
      *  downloaded so far, then will attempt seek and when fails
      *  will recover.</p>
+     * 
+     *  <p>The <code>playheadTime</code> property might not have the expected value 
+     *  immediately after you call one of the seek methods or set  
+     *  <code>playheadTime</code> to cause seeking. For a progressive download,
+     *  you can seek only to a keyframe; therefore, a seek takes you to the 
+     *  time of the first keyframe after the specified time.</p>
+     *  
+     *  <p><strong>Note</strong>: When streaming, a seek always goes to the precise specified 
+     *  time even if the source FLV file doesn't have a keyframe there.</p>
+     *
+     *  <p>Seeking is asynchronous, so if you call a seek method or set the 
+     *  <code>playheadTime</code> property, <code>playheadTime</code> does not update immediately. 
+     *  To obtain the time after the seek is complete, listen for the <code>seek</code> event, 
+     *  which does not start until the <code>playheadTime</code> property is updated.</p>
      *
      *  @param time seconds
      *  
@@ -890,7 +967,7 @@ public class VideoElement extends GraphicElement
      */
     public function stop():void
     {
-        wasPaused = false;
+        setPlaying(false);
         mx_internal::videoPlayer.stop();
     }
     
@@ -949,13 +1026,12 @@ public class VideoElement extends GraphicElement
         switch (event.state)
         {
             case VideoState.PLAYING:
-                _playing = true;
+                setPlaying(true);
                 break;
-            case VideoState.PAUSED:
             case VideoState.STOPPED:
             case VideoState.DISCONNECTED:
             case VideoState.CONNECTION_ERROR:
-                _playing = false;
+                setPlaying(false);
                 break;
         }
         
