@@ -46,6 +46,11 @@ import mx.effects.IEffectInstance;
  *  </pre>
  *  
  *  @see mx.effects.effectClasses.SetActionInstance
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class SetAction extends Effect
 {
@@ -61,6 +66,11 @@ public class SetAction extends Effect
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function SetAction(target:Object = null)
     {
@@ -83,6 +93,11 @@ public class SetAction extends Effect
     
     /** 
      *  The name of the property being changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var property:String;
     
@@ -96,6 +111,11 @@ public class SetAction extends Effect
      *  The new value for the property.
      *  When run within a transition and value is not specified, Flex determines 
      *  the value based on that set by the new state.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var value:*;
         
