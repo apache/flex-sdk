@@ -70,9 +70,14 @@ public class FxHScrollBar extends FxScrollBar
         super.viewport = newViewport;
         if (newViewport)
         {
-            maximum = newViewport.contentWidth - newViewport.width;
+            var hsp:Number = newViewport.horizontalScrollPosition;
+            // Special case: if contentWidth is 0, assume that it hasn't been 
+            // updated yet.  Making the maximum==hsp here avoids trouble later
+            // when FxRange constrains value
+            var cWidth:Number = newViewport.contentWidth;
+            maximum = (cWidth == 0) ? hsp : cWidth - newViewport.width;
             pageSize = newViewport.width;
-            value = newViewport.horizontalScrollPosition;
+            value = hsp;
         }
     }      
     
@@ -259,7 +264,12 @@ public class FxHScrollBar extends FxScrollBar
     {
         if (viewport)
         {
-            maximum = viewport.contentWidth - viewport.width;
+            var hsp:Number = viewport.horizontalScrollPosition;
+            // Special case: if contentWidth is 0, assume that it hasn't been 
+            // updated yet.  Making the maximum==hsp here avoids trouble later
+            // when FxRange constrains value
+            var cWidth:Number = viewport.contentWidth;
+            maximum = (cWidth == 0) ? hsp : cWidth - viewport.width;
             pageSize = viewport.width;
         } 
     }
