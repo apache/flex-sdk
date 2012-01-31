@@ -15,7 +15,7 @@ import flash.events.Event;
 
 import mx.components.Group;
 import mx.effects.Animation;
-import mx.effects.PropertyValuesHolder;
+import mx.effects.AnimationProperty;
 import mx.events.AnimationEvent;
 import mx.events.FlexEvent;
 import mx.graphics.graphicsClasses.GraphicElement;
@@ -149,8 +149,8 @@ public class FxFadeInstance extends FxAnimateInstance
             makeInvisible = true;
         }
         
-        propertyValuesList = 
-            [new PropertyValuesHolder("alpha", [alphaFrom, alphaTo])];
+        animationProperties = 
+            [new AnimationProperty("alpha", alphaFrom, alphaTo)];
         
         super.play();
     }
