@@ -56,6 +56,12 @@ import mx.modules.ModuleManager;
 [Exclude(name="focusThickness", kind="style")]
 [Exclude(name="themeColor", kind="style")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("components")]
+
 /**
  *  The FxComponent class defines the base class for skinnable components. 
  *  The skins used by a FxComponent class are child classes of the Skin class.
@@ -379,7 +385,7 @@ public class FxComponent extends UIComponent
         }
         else
         {
-            throw(new Error("Skin for " + this + " cannot be found."));
+            throw(new Error(resourceManager.getString("components", "skinNotFound", [this])));
         }
         
         findSkinParts();
@@ -407,7 +413,7 @@ public class FxComponent extends UIComponent
                 if (part.required)
                 {
                     if (!(part.id in skin) || skin[part.id] == null)
-                        throw(new Error("Required skin part \"" + part.id + "\" cannot be found.")); 
+                        throw(new Error(resourceManager.getString("components", "requiredSkinPartNotFound", [part.id])));
                 }
                 
                 if (part.id in skin)
@@ -835,8 +841,7 @@ public class FxComponent extends UIComponent
      */
     override public function addChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("addChild is not available in FxComponent. " + 
-                "Instead, modify the skin directly or use addItem."));
+        throw(new Error(resourceManager.getString("components", "addChildError")));
     }
     
     /**
@@ -844,8 +849,7 @@ public class FxComponent extends UIComponent
      */
     override public function addChildAt(child:DisplayObject, index:int):DisplayObject
     {
-        throw(new Error("addChildAt is not available in FxComponent. " + 
-                "Instead, modify the skin directly or use addItemAt."));
+        throw(new Error(resourceManager.getString("components", "addChildAtError")));
     }
     
     /**
@@ -853,8 +857,7 @@ public class FxComponent extends UIComponent
      */
     override public function removeChild(child:DisplayObject):DisplayObject
     {
-        throw(new Error("removeChild is not available in FxComponent. " + 
-                "Instead, modify the skin directly or use removeItem."));
+        throw(new Error(resourceManager.getString("components", "removeChildError")));
     }
     
     /**
@@ -862,8 +865,7 @@ public class FxComponent extends UIComponent
      */
     override public function removeChildAt(index:int):DisplayObject
     {
-        throw(new Error("removeChildAt is not available in FxComponent. " + 
-                "Instead, modify the skin directly or use removeItemAt."));
+        throw(new Error(resourceManager.getString("components", "removeChildAtError")));
     }
     
     /**
@@ -871,8 +873,7 @@ public class FxComponent extends UIComponent
      */
     override public function setChildIndex(child:DisplayObject, index:int):void
     {
-        throw(new Error("setChildIndex is not available in FxComponent. " + 
-                "Instead, modify the skin directly or setItemIndex."));
+        throw(new Error(resourceManager.getString("components", "setChildIndexError")));
     }
     
     /**
@@ -880,8 +881,7 @@ public class FxComponent extends UIComponent
      */
     override public function swapChildren(child1:DisplayObject, child2:DisplayObject):void
     {
-        throw(new Error("swapChildren is not available in FxComponent. " + 
-                "Instead, modify the skin directly or use swapItems."));
+        throw(new Error(resourceManager.getString("components", "swapChildrenError")));
     }
     
     /**
@@ -889,8 +889,7 @@ public class FxComponent extends UIComponent
      */
     override public function swapChildrenAt(index1:int, index2:int):void
     {
-        throw(new Error("swapChildrenAt is not available in FxComponent. " + 
-                "Instead, modify the skin directly or use swapItemsAt."));
+        throw(new Error(resourceManager.getString("components", "swapChildrenAtError")));
     }
     
     //--------------------------------------------------------------------------
