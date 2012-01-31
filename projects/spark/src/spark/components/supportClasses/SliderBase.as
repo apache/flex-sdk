@@ -129,7 +129,16 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
     }
 
     /**
-     *  @inheritDoc
+     *  Converts a point retrieved from clicking on the track into a position. 
+     *  This method lets subclasses center the thumb button when clicking on the track. 
+     *
+     *  @param localX The X-location in the local coordinate system of the
+     *  track.
+     *
+     *  @param localY The Y-location in the local coordinate system of the
+     *  track.
+     *
+     *  @return The posisiton on the track.
      */
     protected function pointClickToPosition(localX:Number, 
                                             localY:Number):Number
