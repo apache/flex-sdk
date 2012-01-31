@@ -18,12 +18,14 @@ import flash.utils.*;
 
 import mx.core.IFactory;
 import mx.core.IFlexModuleFactory;
+import mx.core.IInvalidating;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.components.Skin;
 import mx.events.PropertyChangeEvent;
 import mx.managers.ISystemManager;
 import mx.modules.ModuleManager;
+import flash.display.DisplayObject;
 
 use namespace mx_internal;
 
@@ -180,6 +182,9 @@ public class FxComponent extends UIComponent
     {
         if (skin)
             skin.setActualSize(unscaledWidth, unscaledHeight);
+
+        if (focusObj && focusObj is IInvalidating)
+            IInvalidating(focusObj).invalidateDisplayList();
     }
     
     /**
@@ -196,6 +201,38 @@ public class FxComponent extends UIComponent
         }
         
         super.styleChanged(styleProp);
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal var focusObj:DisplayObject;
+    
+    override public function drawFocus(isFocused:Boolean):void
+    {
+        if (isFocused)
+        {
+            // For some composite components, the focused object may not
+            // be "this". If so, we don't want to draw the focus.
+            if (focusManager.getFocus() != this)
+                return;
+                
+            if (!focusObj)
+            {
+                var focusSkinClass:Class = getStyle("focusSkin");
+                
+                if (focusSkinClass)
+                    focusObj = new focusSkinClass();
+                    
+                super.addChildAt(focusObj, 0);
+            }
+        }
+        else
+        {
+            if (focusObj)
+                super.removeChild(focusObj);
+            focusObj = null;
+        }
     }
     
     //--------------------------------------------------------------------------
