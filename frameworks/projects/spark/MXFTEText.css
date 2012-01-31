@@ -43,110 +43,114 @@
     You should not modify this file.
 */
 
-@namespace "library://ns.adobe.com/flex/mx";
+@namespace mx "library://ns.adobe.com/flex/mx";
 @namespace s "library://ns.adobe.com/flex/spark";
 
+mx|AlertForm
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|Button
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|CalendarLayout
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|ColorPicker
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+	textInputClass: ClassReference("mx.controls.MXFTETextInput");
+}
+
+mx|ComboBox
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+	textInputClass: ClassReference("mx.controls.MXFTETextInput");
+}
+
+mx|DataGrid
+{
+	defaultDataGridItemEditor: ClassReference("mx.controls.MXFTETextInput");
+	defaultDataGridItemRenderer: ClassReference("mx.controls.dataGridClasses.FTEDataGridItemRenderer");
+}
+
+mx|DateChooser
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|DateField
+{
+	textInputClass: ClassReference("mx.controls.MXFTETextInput");
+}
+
+s|FTEDataGridItemRenderer
+{
+	paddingLeft: 5 /* to match DataGridItemRenderer in the MX defaults.css */
+}
+
+mx|Label
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|ListItemRenderer
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|MenuBarItem
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|MenuItemRenderer
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
 
 s|MXFTETextInput
 {
 	skinClass: ClassReference("spark.skins.spark.TextInputSkin");
 }
 
-AlertForm
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-Button
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-CalendarLayout
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-ColorPicker
+mx|NumericStepper
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 	textInputClass: ClassReference("mx.controls.MXFTETextInput");
 }
 
-ComboBox
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-	textInputClass: ClassReference("mx.controls.MXFTETextInput");
-}
-
-DataGrid
-{
-	defaultDataGridItemEditor: ClassReference("mx.controls.MXFTETextInput");
-	defaultDataGridItemRenderer: ClassReference("mx.controls.dataGridClasses.FTEDataGridItemRenderer");
-}
-
-DateChooser
+mx|Panel
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-DateField
+mx|ProgressBar
+{
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
+}
+
+mx|SwatchPanel
 {
 	textInputClass: ClassReference("mx.controls.MXFTETextInput");
 }
 
-Label
+mx|TileListItemRenderer
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-ListItemRenderer
+mx|TreeItemRenderer
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-MenuBarItem
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-MenuItemRenderer
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-NumericStepper
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-	textInputClass: ClassReference("mx.controls.MXFTETextInput");
-}
-
-Panel
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-ProgressBar
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-SwatchPanel
-{
-	textInputClass: ClassReference("mx.controls.MXFTETextInput");
-}
-
-TileListItemRenderer
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-TreeItemRenderer
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-ToolTip
+mx|ToolTip
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
