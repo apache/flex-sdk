@@ -2251,8 +2251,10 @@ public class TextView extends UIComponent implements IViewport
             _selectable = true;
         }
 
-        // The damage handler will update the display.
         textFlow.interactionManager.setSelection(anchorPosition, activePosition);        
+                
+        // Update the display with the new selection.
+        textFlow.interactionManager.refreshSelection();
       }
     
     /**
