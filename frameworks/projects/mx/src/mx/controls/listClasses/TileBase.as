@@ -57,6 +57,11 @@ use namespace mx_internal;
  *  All items in a TileList are the same width and height.
  *
  *  <p>This class is not used directly in applications.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TileBase extends ListBase
 {
@@ -70,6 +75,11 @@ public class TileBase extends ListBase
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TileBase()
     {
@@ -104,6 +114,11 @@ public class TileBase extends ListBase
 
     /**
      *  Cache of measuring objects by factory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var measuringObjects:Dictionary;
 
@@ -137,6 +152,11 @@ public class TileBase extends ListBase
      *  is reached and then a new row is started.  If more rows are created
      *  than can be displayed at once, the control will display a vertical scrollbar.
      *  The opposite is true if the value is <code>TileBaseDirection.VERTICAL</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get direction():String
     {
@@ -195,6 +215,11 @@ public class TileBase extends ListBase
      *  to display all the data.
      *
      *  <p>The default value is 0 (no limit).</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxColumns():int
     {
@@ -236,6 +261,11 @@ public class TileBase extends ListBase
      *  to display all the data.
      *
      *  <p>The default value is 0 (no limit).</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxRows():int
     {
@@ -955,6 +985,11 @@ public class TileBase extends ListBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function scrollHorizontally(pos:int, deltaPos:int,
                                                 scrollUp:Boolean):void
@@ -1929,6 +1964,11 @@ public class TileBase extends ListBase
      *  @param data The renderer's data structure.
      *  
      *  @return The item renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function createItemRenderer(data:Object):IListItemRenderer
     {
@@ -2137,6 +2177,11 @@ public class TileBase extends ListBase
      *  @param columnNum The columnIndex associated with this item. 
      *  
      *  @return A newly constructed ListData object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function makeListData(data:Object, uid:String, 
         rowNum:int, columnNum:int):BaseListData
@@ -2366,6 +2411,11 @@ public class TileBase extends ListBase
      *  of the z-order in the <code>listContent</code>, and
      *  calls <code>drawTileBackground()</code> for each visible
      *  tile.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawTileBackgrounds():void
     {
@@ -2438,6 +2488,11 @@ public class TileBase extends ListBase
      * 
      *  @return The background Sprite.
      * 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawTileBackground(s:Sprite, rowIndex:int, columnIndex:int, width:Number, height:Number,  
                                                                     color:uint, item:IListItemRenderer):DisplayObject
@@ -2683,6 +2738,11 @@ public class TileBase extends ListBase
      *  @param unscaledWidth The width of the listContent before any external scaling is applied.
      *  
      *  @param unscaledHeight The height of the listContent before any external scaling is applied.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function adjustListContent(unscaledWidth:Number = -1,
                                        unscaledHeight:Number = -1):void
