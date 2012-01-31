@@ -46,6 +46,12 @@ use namespace mx_internal;
  *  for each message they send depending upon whether the outbound message
  *  was sent and processed successfully or not.
  *  </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class MultiTopicProducer extends AbstractProducer
 {
@@ -73,6 +79,12 @@ public class MultiTopicProducer extends AbstractProducer
      *       producer.send(msg);
      *   }
      *   </listing>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	public function MultiTopicProducer()
 	{
@@ -100,6 +112,12 @@ public class MultiTopicProducer extends AbstractProducer
     
     /**
      *  Provides access to the list of subtopics used in publishing any messages
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get subtopics():ArrayCollection
     {
@@ -110,6 +128,12 @@ public class MultiTopicProducer extends AbstractProducer
      * Provide a new ArrayCollection of Strings each of which define a subtopic
      * for use in publishing the message.  Any consumers subscribed to any of the
      * subtopics will receive these messages.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function set subtopics(value:ArrayCollection):void
     {
@@ -140,6 +164,12 @@ public class MultiTopicProducer extends AbstractProducer
      * @param subtopic The subtopic to add to the current list of
      * subtopics sent by this producer.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function addSubtopic(subtopic:String):void
     {
@@ -151,6 +181,12 @@ public class MultiTopicProducer extends AbstractProducer
      * subtopic is not in the list.
      *
      * @param subtopic The subtopic to remove from the subtopics property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function removeSubtopic(subtopic:String):void
     {
