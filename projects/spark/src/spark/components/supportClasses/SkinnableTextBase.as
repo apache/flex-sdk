@@ -2190,6 +2190,15 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private function touchInteractionStartHandler(event:TouchInteractionEvent):void
     {
+        // if in iOS and keyboard is up and scrolling is occurring, drop the keyboard
+        var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
+        var _isIOS:Boolean = (Capabilities.version.indexOf("IOS") == 0);
+        if (_isIOS && topLevelApp && topLevelApp.isSoftKeyboardActive && editable)
+        {
+            // set focus
+            stage.focus = null;
+        }
+        
         // Clear out the state because starting a scroll gesture should never 
         // open the soft keyboard
         clearMouseDownState();
