@@ -11,7 +11,7 @@
 
 package spark.components
 {
-	
+    
 import flash.events.Event;
 
 import spark.components.supportClasses.TextBase;
@@ -25,7 +25,7 @@ import spark.events.TextOperationEvent;
 //--------------------------------------
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -86,36 +86,36 @@ public class TextArea extends TextBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-	public function TextArea()
-	{
-		super();
-	}
+    public function TextArea()
+    {
+        super();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  text
-	//----------------------------------
+    //----------------------------------
+    //  text
+    //----------------------------------
 
-	[Bindable("change")]
-	[Bindable("textChanged")]
+    [Bindable("change")]
+    [Bindable("textChanged")]
     
     // Compiler will strip leading and trailing whitespace from text string.
     [CollapseWhiteSpace]
        
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     override public function set text(value:String):void
     {
         // Setting 'text' temporarily causes 'content' to become null.
@@ -135,7 +135,7 @@ public class TextArea extends TextBase
     //--------------------------------------------------------------------------
 
     //----------------------------------
-	//  content
+    //  content
     //----------------------------------
 
    /**
@@ -145,31 +145,31 @@ public class TextArea extends TextBase
      */
     private var useTextFlowForContent:Boolean = false;
     
-	[Bindable("change")]
-	[Bindable("contentChanged")]
-	[Bindable("textChanged")]
-	
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get content():Object
-	{
-	    return textView && useTextFlowForContent ? textView.textFlow : 
-	                                               getContent();
-	}
+    [Bindable("change")]
+    [Bindable("contentChanged")]
+    [Bindable("textChanged")]
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get content():Object
+    {
+        return textView && useTextFlowForContent ? textView.textFlow : 
+                                                   getContent();
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set content(value:Object):void
-	{
-		if (value == getContent())
-			return;
+    /**
+     *  @private
+     */
+    public function set content(value:Object):void
+    {
+        if (value == getContent())
+            return;
 
         // Setting 'content' temporarily causes 'text' to become null.
         // Later, after the 'content' has been committed into the TextFlow,
@@ -181,76 +181,76 @@ public class TextArea extends TextBase
 
         // Trigger bindings to contentChanged.
         dispatchEvent(new Event("contentChanged"));        
-	}
+    }
     
-	//----------------------------------
-	//  heightInLines
+    //----------------------------------
+    //  heightInLines
     //----------------------------------
 
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get heightInLines():Number
-	{
-		return getHeightInLines();
-	}
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get heightInLines():Number
+    {
+        return getHeightInLines();
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set heightInLines(value:Number):void
-	{
+    /**
+     *  @private
+     */
+    public function set heightInLines(value:Number):void
+    {
         setHeightInLines(value);
-	}
+    }
     
-	//----------------------------------
-	//  horizontalScrollPolicy
+    //----------------------------------
+    //  horizontalScrollPolicy
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _horizontalScrollPolicy:String = ScrollPolicy.AUTO;
+    /**
+     *  @private
+     */
+    private var _horizontalScrollPolicy:String = ScrollPolicy.AUTO;
 
     /**
      *  @private
      */
     private var horizontalScrollPolicyChanged:Boolean = false;
-	
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get horizontalScrollPolicy():String
-	{
-		return _horizontalScrollPolicy;
-	}
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get horizontalScrollPolicy():String
+    {
+        return _horizontalScrollPolicy;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set horizontalScrollPolicy(value:String):void
-	{
-		if (value == _horizontalScrollPolicy)
-			return;
+    /**
+     *  @private
+     */
+    public function set horizontalScrollPolicy(value:String):void
+    {
+        if (value == _horizontalScrollPolicy)
+            return;
 
-		_horizontalScrollPolicy = value;
+        _horizontalScrollPolicy = value;
         horizontalScrollPolicyChanged = true;
 
-		invalidateProperties();
-	}
+        invalidateProperties();
+    }
     
-	//----------------------------------
-	//  scroller
+    //----------------------------------
+    //  scroller
     //----------------------------------
 
     [SkinPart(required="false")]
@@ -265,59 +265,59 @@ public class TextArea extends TextBase
      */
     public var scroller:Scroller;
 
-	//----------------------------------
-	//  verticalScrollPolicy
+    //----------------------------------
+    //  verticalScrollPolicy
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _verticalScrollPolicy:String = ScrollPolicy.AUTO;
+    /**
+     *  @private
+     */
+    private var _verticalScrollPolicy:String = ScrollPolicy.AUTO;
 
     /**
      *  @private
      */
     private var verticalScrollPolicyChanged:Boolean = false;
-	
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function get verticalScrollPolicy():String
-	{
-		return _verticalScrollPolicy;
-	}
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get verticalScrollPolicy():String
+    {
+        return _verticalScrollPolicy;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set verticalScrollPolicy(value:String):void
-	{
-		if (value == _verticalScrollPolicy)
-			return;
+    /**
+     *  @private
+     */
+    public function set verticalScrollPolicy(value:String):void
+    {
+        if (value == _verticalScrollPolicy)
+            return;
 
-		_verticalScrollPolicy = value;
+        _verticalScrollPolicy = value;
         verticalScrollPolicyChanged = true;
 
-		invalidateProperties();
-	}
+        invalidateProperties();
+    }
         
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
         
-	/**
-	 *  @private
-	 *  Pushes various TextInput properties down into the RichEditableText. 
-	 */
+    /**
+     *  @private
+     *  Pushes various TextInput properties down into the RichEditableText. 
+     */
     override protected function commitProperties():void
-	{
+    {
         super.commitProperties();
         
         if (horizontalScrollPolicyChanged)
@@ -333,26 +333,26 @@ public class TextArea extends TextBase
                 scroller.verticalScrollPolicy = _verticalScrollPolicy;
             verticalScrollPolicyChanged = false;
         }
-	}
+    }
 
-	/**
-	 *  @private
-	 */
-	override protected function partAdded(partName:String, instance:Object):void
-	{
+    /**
+     *  @private
+     */
+    override protected function partAdded(partName:String, instance:Object):void
+    {
         super.partAdded(partName, instance);
 
-		if (instance == textView)
-		{
-			// In default.css, the TextArea selector has a declaration
-			// for lineBreak which sets it to "toFit".  It needs to be on
-			// TextArea rather than RichEditableText so that if changed later it
-			// will be inherited.
+        if (instance == textView)
+        {
+            // In default.css, the TextArea selector has a declaration
+            // for lineBreak which sets it to "toFit".  It needs to be on
+            // TextArea rather than RichEditableText so that if changed later it
+            // will be inherited.
 
             // ToDo: The skin is loaded after the intial properties have been
             // set so these could wipe out explicit sets.
-			textView.heightInLines = 10;
-			textView.multiline = true;
+            textView.heightInLines = 10;
+            textView.multiline = true;
             textView.autoSize = false;
         }
         
@@ -360,22 +360,22 @@ public class TextArea extends TextBase
         // getFocus.
         if (instance == scroller)
             scroller.focusEnabled = false;
-	}
+    }
     
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Methods
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function export():XML
     {
         if (!textView)
@@ -384,14 +384,14 @@ public class TextArea extends TextBase
         return textView.export();
     }
 
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function getSelectionFormat(names:Array = null):Object
     {
         if (!textView)
@@ -400,14 +400,14 @@ public class TextArea extends TextBase
         return textView.getSelectionFormat(names);
     }
 
-	/**
-	 *  Documentation is not currently available.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function setSelectionFormat(attributes:Object):void
     {
         if (!textView)
@@ -416,7 +416,7 @@ public class TextArea extends TextBase
         textView.setSelectionFormat(attributes);
     }
 
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //
     //  Overridden event handlers: TextBase
     //
@@ -428,7 +428,7 @@ public class TextArea extends TextBase
      */
     override protected function textView_changeHandler(
                                         event:TextOperationEvent):void
-	{
+    {
         //trace("TextArea.textView_changeHandler");
 
         // A compose has been done so switch from the user's specified content
@@ -436,7 +436,7 @@ public class TextArea extends TextBase
         useTextFlowForContent = true;
 
         super.textView_changeHandler(event);                       
-	}
+    }
 
 }
 
