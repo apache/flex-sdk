@@ -28,9 +28,14 @@ import mx.components.FxButton;
 [Event(name="change", type="flash.events.Event")]
 
 /**
- *  Skin states for this component.
+ *  Normal State
  */
-[SkinStates("normal", "disabled")]
+[SkinState("normal")]
+
+/**
+ *  Disabled State
+ */
+[SkinState("disabled")]
 
 /**
  *  The FxTrackBase class is a base class for components with a track
