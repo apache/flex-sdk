@@ -35,6 +35,8 @@ import spark.effects.easing.IEaser;
 import spark.effects.easing.Sine;
 import spark.events.TrackBaseEvent;
 
+use namespace mx_internal;
+
 include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
@@ -251,7 +253,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         // otherwise, draw it on the whole component
         if (thumb)
         {
-            thumb.mx_internal::drawFocusAnyway = true;
+            thumb.drawFocusAnyway = true;
             thumb.drawFocus(isFocused);
         }
         else
