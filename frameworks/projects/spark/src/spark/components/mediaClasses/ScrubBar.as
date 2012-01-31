@@ -188,6 +188,10 @@ public class ScrubBar extends HSlider
     override protected function updateSkinDisplayList():void
     {
         super.updateSkinDisplayList();
+        
+        if (!thumb || !track)
+            return;
+        
         sizeLoadedRangeArea(calculateAreaSize(loadedRangeEnd));
         sizePlayedArea(calculateAreaSize(pendingValue));
     }
