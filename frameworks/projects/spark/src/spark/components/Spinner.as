@@ -37,6 +37,16 @@ import spark.components.supportClasses.Range;
 [Event(name="change", type="flash.events.Event")]
 
 /**
+ *  The alpha of the focus ring for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *  
  *  @langversion 3.0
@@ -192,7 +202,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
     
     /**
      *  A skin part that defines the  button that, 
@@ -206,7 +216,7 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     public var incrementButton:Button;
     
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
     
     /**
      *  A skin part that defines the  button that, 
