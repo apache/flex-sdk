@@ -26,6 +26,11 @@ use namespace mx_internal;
 
 /**
  *  The PanelSkin class defines the skin for the Panel, TitleWindow, and Alert components.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public class PanelSkin extends HaloBorder
 { 
@@ -33,6 +38,11 @@ public class PanelSkin extends HaloBorder
     
     /**
      *  Constructor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PanelSkin()
     {
@@ -263,6 +273,11 @@ public class PanelSkin extends HaloBorder
 
    	/**
 	 *  We don't use 'is' to prevent dependency issues
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private static var panels:Object = {};
 
