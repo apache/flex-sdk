@@ -871,6 +871,9 @@ public class ListBase extends SkinnableDataContainer
         // come back into use. 
         if (isItemIndexSelected(itemIndex))
             itemSelected(itemIndex, true);
+
+	if (isItemIndexShowingCaret(itemIndex))
+            itemShowingCaret(itemIndex, true);
         
         // Now run through and initialize the renderer correctly.  We 
         // call super.updateRenderer() last because super.updateRenderer()
