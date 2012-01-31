@@ -775,6 +775,17 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         {
             graphics.clear();
             renderFillForMouseOpaque();
+            
+            // If a scaleGrid is set, make sure the extent of the groups bounds are filled so
+            // the player will scale our contents as expected. 
+            if (scale9Grid && resizeMode == ResizeMode.SCALE)
+            {
+                graphics.lineStyle();
+                graphics.beginFill(0, 0);
+                graphics.drawRect(0, 0, 1, 1);
+                graphics.drawRect(measuredWidth - 1, measuredHeight - 1, 1, 1);
+                graphics.endFill();
+            }
         }
                 
         // Iterate through the graphic elements. If an element has a displayObject that has been 
