@@ -533,6 +533,7 @@ public class ListBase extends ScrollControlBase
         super();
 
         tabEnabled = true;
+        tabFocusEnabled = true;
 
         factoryMap = new Dictionary(true);
 
