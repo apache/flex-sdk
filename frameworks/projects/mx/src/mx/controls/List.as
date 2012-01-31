@@ -158,10 +158,10 @@ use namespace mx_internal;
  *  The data effect to play when a change occur to the control's data provider.
  *
  *  <p>By default, the List control does not use a data effect. 
- *  For the List control, use an instancs of the the DefaultListEffect class 
+ *  For the List control, use an instance of the the DefaultListEffect class 
  *  to configure the data effect. </p>
  *
- * @default undefined
+ *  @default undefined
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
