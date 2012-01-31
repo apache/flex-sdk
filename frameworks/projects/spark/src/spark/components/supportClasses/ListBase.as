@@ -339,6 +339,8 @@ public class ListBase extends SkinnableDataContainer
      */
     private var dataProviderChanged:Boolean;
     
+    [Inspectable(category="Data")]
+    
     /**
      *  @private
      *  
@@ -460,6 +462,8 @@ public class ListBase extends SkinnableDataContainer
      *  @private
      */
     private var labelFieldOrFunctionChanged:Boolean; 
+    
+    [Inspectable(category="Data", defaultValue="label")]
 
     /**
      *  The name of the field in the data provider items to display 
@@ -503,6 +507,8 @@ public class ListBase extends SkinnableDataContainer
      *  @private
      */
     private var _labelFunction:Function; 
+    
+    [Inspectable(category="Data")]
     
     /**
      *  A user-supplied function to run on each item to determine its label.  
@@ -560,6 +566,8 @@ public class ListBase extends SkinnableDataContainer
      */
     private var requireSelectionChanged:Boolean = false;
 
+    [Inspectable(category="General", defaultValue="false")]
+    
     /**
      *  If <code>true</code>, a data item must always be selected in the control.
      *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
@@ -641,6 +649,8 @@ public class ListBase extends SkinnableDataContainer
     
     [Bindable("change")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General", defaultValue="-1")]
+    
     /**
      *  The 0-based index of the selected item, or -1 if no item is selected.
      *  Setting the <code>selectedIndex</code> property deselects the currently selected
@@ -735,6 +745,8 @@ public class ListBase extends SkinnableDataContainer
     
     [Bindable("change")]
     [Bindable("valueCommit")]
+    [Inspectable(category="General", defaultValue="null")]
+    
     /**
      *  The item that is currently selected. 
      *  Setting this property deselects the currently selected 
