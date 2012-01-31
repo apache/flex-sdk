@@ -21,6 +21,11 @@ import flash.events.Event;
  *
  *  @see mx.controls.DateChooser
  *  @see mx.controls.DateField
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CalendarLayoutChangeEvent extends Event
 {
@@ -56,6 +61,11 @@ public class CalendarLayoutChangeEvent extends Event
 	 *  </table>
 	 *
      *  @eventType change
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const CHANGE:String = "change";
 	
@@ -80,6 +90,11 @@ public class CalendarLayoutChangeEvent extends Event
 	 *
 	 *  @param triggerEvent The event that triggered this change event;
 	 *       usually a <code>change</code> event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function CalendarLayoutChangeEvent(type:String,
 										      bubbles:Boolean = false,
@@ -102,6 +117,11 @@ public class CalendarLayoutChangeEvent extends Event
 
 	/**
 	 *  The selected date of the control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var newDate:Date;
 			
@@ -112,6 +132,11 @@ public class CalendarLayoutChangeEvent extends Event
 	/**
 	 *  The event that triggered the change of the date;
 	 *  usually a <code>change</code> event.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var triggerEvent:Event;
 		
