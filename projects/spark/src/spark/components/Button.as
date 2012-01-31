@@ -22,7 +22,6 @@ import flash.utils.Timer;
 
 import mx.components.baseClasses.FxComponent;
 import mx.core.IButton;
-import mx.core.IDataRenderer;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import mx.graphics.baseClasses.TextGraphicElement;
