@@ -218,8 +218,8 @@ include "../styles/metadata/PaddingStyles.as"
  *    selectionEndIndex="0"
  *    styleSheet="null"
  *    text=""
- *    textHeight="<i>height of text</i>""
- *    textWidth="<i>width of text</i>"
+ *    textHeight="<i>height of text</i>" [read-only]
+ *    textWidth="<i>width of text</i>" [read-only]
  *    verticalScrollPolicy="auto|on|off"
  *    verticalScrollPosition="0"
  *    wordWrap="true|false"
