@@ -567,7 +567,7 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    private var _heightInLines:int = 10;
+    private var _heightInLines:Number = 10;
 
     /**
      *  @private
@@ -582,7 +582,7 @@ public class TextView extends UIComponent implements IViewport
      *  to determine its measuredWidth and measuredHeight. These are 
      *  similar to the cols and rows of an HTML TextArea.</p>
      */
-    public function get heightInLines():int
+    public function get heightInLines():Number
     {
         return _heightInLines;
     }
@@ -590,7 +590,7 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    public function set heightInLines(value:int):void
+    public function set heightInLines(value:Number):void
     {
         if (value == _heightInLines)
             return;
@@ -1089,7 +1089,7 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    private var _widthInChars:int = 20;
+    private var _widthInChars:Number = 20;
 
     /**
      *  @private
@@ -1105,7 +1105,7 @@ public class TextView extends UIComponent implements IViewport
      *
      *  @default
      */
-    public function get widthInChars():int 
+    public function get widthInChars():Number 
     {
         return _widthInChars;
     }
@@ -1113,7 +1113,7 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    public function set widthInChars(value:int):void
+    public function set widthInChars(value:Number):void
     {
         if (value == _widthInChars)
             return;
