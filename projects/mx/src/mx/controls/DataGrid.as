@@ -358,7 +358,8 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  The class to use as the skin for a column that is being resized.
- *  @default mx.skins.halo.DataGridColumnResizeSkin
+ * 
+ *  @default mx.skins.halo.DataGridColumnResizeSkin (for both Halo and Spark themes)
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -487,7 +488,7 @@ include "../styles/metadata/IconColorStyles.as"
  *  The class to use as the skin that indicates that 
  *  a column can be dropped in the current location.
  *
- *  @default mx.skins.halo.DataGridColumnDropIndicator
+ *  @default mx.skins.halo.DataGridColumnDropIndicator (for both Halo and Spark themes)
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -4339,9 +4340,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
         systemManager.addEventListener(Event.RESIZE, editorAncestorResizeHandler);
         addEventListener(Event.RESIZE, editorAncestorResizeHandler);
 
-	// Dispatch our item editor created event
+    // Dispatch our item editor created event
         var event:DataGridEvent =
-        		new DataGridEvent(DataGridEvent.ITEM_EDITOR_CREATE, false, true, colIndex, null, rowIndex);
+                new DataGridEvent(DataGridEvent.ITEM_EDITOR_CREATE, false, true, colIndex, null, rowIndex);
         dispatchEvent(event);
     }
 
@@ -5074,7 +5075,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
     private function editorMouseDownHandler(event:Event):void
     {
         if (event is MouseEvent && owns(DisplayObject(event.target)))
-			return;
+            return;
 
         endEdit(DataGridEventReason.OTHER);
         // set focus back to the grid so grid logic will deal if focus doesn't
@@ -5233,8 +5234,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     private function itemEditorItemEditBeginHandler(event:DataGridEvent):void
     {
-		if (root)
-	        systemManager.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
+        if (root)
+            systemManager.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
 
         // if not prevented and if data is not null (might be from dataservices)
         if (!event.isDefaultPrevented() && actualContentHolder.listItems[actualRowIndex][actualColIndex].data != null)
@@ -5386,12 +5387,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
         losingFocus = false;
     }
     
-	protected function isComplexColumn( property:String ):Boolean
+    protected function isComplexColumn( property:String ):Boolean
     {
         return ( property.indexOf( "." ) != -1 );
     }
 
-	//Gets the reference to the parent object where a property will be updated
+    //Gets the reference to the parent object where a property will be updated
     protected function deriveComplexFieldReference( data:Object, complexFieldNameComponents:Array ):Object
     {
         var currentRef:Object = data;
@@ -5401,7 +5402,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 currentRef = currentRef[ complexFieldNameComponents[ i ] ];
         }
         
-        return currentRef;   	
+        return currentRef;      
     }
 
     //default implementations of these two methods, intended for subclassing
@@ -5418,12 +5419,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
         return String( obj );
     }
 
-	//Passing all of these parameters as it basically allows everything you would need to subclass for all sorts of fun implementations
+    //Passing all of these parameters as it basically allows everything you would need to subclass for all sorts of fun implementations
     protected function setNewValue( data:Object, property:String, value:Object, columnIndex:int ):Boolean 
     {
         if ( !isComplexColumn( property ) )
         {
-        	data[ property ] = value;
+            data[ property ] = value;
         } 
         else 
         {
