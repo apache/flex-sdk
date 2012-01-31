@@ -152,7 +152,6 @@ public class AbstractOperation extends AbstractInvoker
         }
     }
 
-
     //-------------------------------------------------------------------------
     //
     //  Methods
@@ -199,7 +198,8 @@ public class AbstractOperation extends AbstractInvoker
             }
             else
             {
-                _service.dispatchEvent(event);
+                if (_service != null)
+                    _service.dispatchEvent(event);
             }
         }
     }
