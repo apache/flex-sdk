@@ -1202,7 +1202,7 @@ public class ColorPicker extends ComboBase
             return;
         
         // Find global position for the dropdown
-        var point:Point = new Point(0, 0);
+        var point:Point = new Point(layoutDirection == "rtl" ? unscaledWidth : 0, 0);
         point = localToGlobal(point);
 
         // Show or hide the dropdown
