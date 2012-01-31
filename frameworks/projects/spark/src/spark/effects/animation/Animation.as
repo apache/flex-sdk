@@ -170,6 +170,7 @@ public final class Animation
     private var _invertValues:Boolean = false;
     // Original start time of animation
     private var startTime:Number;
+    private var started:Boolean = false;
     // Time when the current cycle started
     private var cycleStartTime:Number;
     // The amount of time that the animation should delay before
@@ -180,6 +181,7 @@ public final class Animation
     private static var delayedStartAnims:Vector.<Animation> =
         new Vector.<Animation>();
     private static var delayedStartTimes:Dictionary = new Dictionary();
+
     
     /**
      *  @private
@@ -934,6 +936,10 @@ public final class Animation
         // removed
         // FIXME (chaase): this will snap paused and startDelayed animations
         // to their end values. Seems correct, but should check this.
+        if (!started)
+            sendAnimationEvent(EffectEvent.EFFECT_START);
+        if (repeatCount > 1 && repeatBehavior == "reverse" && (repeatCount % 2 == 0))
+            _invertValues = true;
         calculateValue(duration);
         
         sendUpdateEvent();
@@ -1327,6 +1333,7 @@ public final class Animation
             if (actualStartTime > 0)
                 seek(actualStartTime);
         }
+        started = true;
     }
 
 }
