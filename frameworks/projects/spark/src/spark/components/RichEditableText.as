@@ -17,8 +17,10 @@ import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.geom.Rectangle;
+import flash.text.TextFormat;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
+import flash.text.engine.FontLookup;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
@@ -42,9 +44,11 @@ import flashx.textLayout.edit.TextScrap;
 import flashx.textLayout.edit.UndoManager;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
+import flashx.textLayout.elements.ITextLineCreator;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.elements.TextLineCreator;
 import flashx.textLayout.events.CompositionCompletionEvent;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.events.FlowOperationEvent;
@@ -64,8 +68,16 @@ import flashx.textLayout.tlf_internal;
 
 import spark.core.IViewport;
 import spark.core.ScrollUnit;
+import mx.core.EmbeddedFont;
+import mx.core.EmbeddedFontRegistry;
+import mx.core.IEmbeddedFontRegistry;
+import mx.core.IFlexModuleFactory;
+import mx.core.IFontContextComponent;
+import mx.core.IUIComponent;
+import mx.core.Singleton;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.managers.ISystemManager;
 import mx.events.FlexEvent;
 import spark.events.TextOperationEvent;
 import mx.utils.StringUtil;
@@ -209,6 +221,36 @@ public class RichEditableText extends UIComponent implements IViewport
     private static var staticConfiguration:Configuration =
         new Configuration();
     
+    //----------------------------------
+    //  embeddedFontRegistry
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the _embeddedFontRegistry property.
+     *  Note: This gets initialized on first access,
+     *  not when this class is initialized, in order to ensure
+     *  that the Singleton registry has already been initialized.
+     */
+    private static var _embeddedFontRegistry:IEmbeddedFontRegistry;
+
+    /**
+     *  @private
+     *  A reference to the embedded font registry.
+     *  Single registry in the system.
+     *  Used to look up the moduleFactory of a font.
+     */
+    private static function get embeddedFontRegistry():IEmbeddedFontRegistry
+    {
+        if (!_embeddedFontRegistry)
+        {
+            _embeddedFontRegistry = IEmbeddedFontRegistry(
+                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+        }
+
+        return _embeddedFontRegistry;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -251,6 +293,19 @@ public class RichEditableText extends UIComponent implements IViewport
     //  Variables
     //
     //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     * 
+     * Cache last value of embedded font.
+     */
+    private var cachedEmbeddedFont:EmbeddedFont = null;
+
+    /**
+     *  @private
+     * Holds the last recorded value of the module factory used to create the font.
+     */
+    private var embeddedFontContext:IFlexModuleFactory = null;
 
     /**
      *  @private
@@ -1372,6 +1427,10 @@ public class RichEditableText extends UIComponent implements IViewport
             // Tell it where to create its TextLines.
             if (textChanged || contentChanged)
             {
+                if (embeddedFontContext)
+                    textFlow.flowComposer.textLineCreator = ITextLineCreator(embeddedFontContext);
+                else
+                    textFlow.flowComposer.textLineCreator = new TextLineCreator();
                 textFlow.flowComposer.addControllerAt(
                     new DisplayObjectContainerController(this), 0);
                 // Set scroll policy appropriately.
@@ -1555,7 +1614,7 @@ public class RichEditableText extends UIComponent implements IViewport
        if (!_autoSize || recomposeForStyles())                     
             containerController.setCompositionSize(unscaledWidth, unscaledHeight);        
 
-        flowComposer.updateAllContainers();
+        flowComposer.updateAllControllers();
         
         // Reinstate the damage handler.
         textFlow.addEventListener(DamageEvent.DAMAGE, textFlow_damageHandler);        
@@ -1686,7 +1745,7 @@ public class RichEditableText extends UIComponent implements IViewport
         // be adjusted down to this and it's easy to get into an infinite
         // measure/update display loop.
         var composeWidth:Number; 
-        if (textFlow.hostTextLayoutFormat.lineBreak == "toFit")
+        if (textFlow.hostFormat.lineBreak == "toFit")
         {
             // Need to set a width to cause a wrap if text rather than 
             // formatted content.
@@ -1743,6 +1802,67 @@ public class RichEditableText extends UIComponent implements IViewport
     {
         var fontDescription:FontDescription = new FontDescription();
         fontDescription.fontName = getStyle("fontFamily");
+
+        var checkForEmbed:Boolean = false;
+
+        var s:String;
+
+        s = getStyle("cffHinting");
+        if (s != null)
+        	fontDescription.cffHinting = s;
+        
+        s = getStyle("fontLookup");
+        if (s != null && s != "auto")
+        	fontDescription.fontLookup = s;
+        else
+            checkForEmbed = true;
+        
+        s = getStyle("fontStyle");
+        if (s != null)
+        	fontDescription.fontPosture = s;
+        
+        s = getStyle("fontWeight");
+        if (s != null)
+        	fontDescription.fontWeight = s;
+        
+        if (checkForEmbed)
+        {
+            var embeddedFont:EmbeddedFont = getEmbeddedFont(
+                fontDescription.fontName, 
+                fontDescription.fontWeight == "bold", 
+                fontDescription.fontPosture == "italic");
+            
+            embeddedFontContext = 
+                embeddedFontRegistry.getAssociatedModuleFactory(
+                    embeddedFont, moduleFactory);
+
+            // if we found the font, then it is embedded. 
+            // Some fonts are not listed in info(), so are not in the above registry.
+            // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
+            if (embeddedFontContext != null) 
+            {
+                fontDescription.fontLookup = FontLookup.EMBEDDED_CFF;
+            }
+            else
+            {
+                var sm:ISystemManager = creatingSystemManager();
+                var textFormat:TextFormat = new TextFormat();
+                textFormat.font = fontDescription.fontName;
+                textFormat.bold = fontDescription.fontWeight == "bold";
+                textFormat.italic = fontDescription.fontPosture == "italic";
+                if (sm != null && sm.isFontFaceEmbedded(textFormat))
+                {
+                    fontDescription.fontLookup = FontLookup.EMBEDDED_CFF;
+                }
+            }
+        }
+        else
+        {
+            if (fontDescription.fontLookup == FontLookup.EMBEDDED_CFF)
+                embeddedFontContext = moduleFactory;
+            else
+                embeddedFontContext = null;
+        }
         
         var elementFormat:ElementFormat = new ElementFormat();
         elementFormat.fontDescription = fontDescription;
@@ -1822,6 +1942,8 @@ public class RichEditableText extends UIComponent implements IViewport
      */
     private function setHostTextLayoutFormat(styleProp:String):void
     {
+        var checkForEmbed:Boolean = false;
+
         if (styleProp in hostTextLayoutFormat)
         {
             var value:* = getStyle(styleProp);
@@ -1829,8 +1951,49 @@ public class RichEditableText extends UIComponent implements IViewport
             if (styleProp == "tabStops" && value === undefined)
                 value = [];
 
-            hostTextLayoutFormat[styleProp] = value;
+            if (styleProp == "fontLookup" && value == "auto")
+                checkForEmbed = true;
+            else
+                hostTextLayoutFormat[styleProp] = value;
         }      
+        if (checkForEmbed)
+        {
+            var embeddedFont:EmbeddedFont = getEmbeddedFont(
+                hostTextLayoutFormat.fontFamily, 
+                hostTextLayoutFormat.fontWeight == "bold", 
+                hostTextLayoutFormat.fontStyle == "italic");
+            
+            embeddedFontContext = 
+                embeddedFontRegistry.getAssociatedModuleFactory(
+                    embeddedFont, moduleFactory);
+
+            // if we found the font, then it is embedded. 
+            // Some fonts are not listed in info(), so are not in the above registry.
+            // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
+            if (embeddedFontContext != null) 
+            {
+                hostTextLayoutFormat.fontLookup = FontLookup.EMBEDDED_CFF;
+            }
+            else
+            {
+                var sm:ISystemManager = creatingSystemManager();
+                var textFormat:TextFormat = new TextFormat();
+                textFormat.font = hostTextLayoutFormat.fontFamily;
+                textFormat.bold = hostTextLayoutFormat.fontWeight == "bold";
+                textFormat.italic = hostTextLayoutFormat.fontStyle == "italic";
+                if (sm != null && sm.isFontFaceEmbedded(textFormat))
+                {
+                    hostTextLayoutFormat.fontLookup = FontLookup.EMBEDDED_CFF;
+                }
+            }
+        }
+        else
+        {
+            if (hostTextLayoutFormat.fontLookup == FontLookup.EMBEDDED_CFF)
+                embeddedFontContext = moduleFactory;
+            else
+                embeddedFontContext = null;
+        }
     }
 
     /**
@@ -1932,7 +2095,7 @@ public class RichEditableText extends UIComponent implements IViewport
         staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
         staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-        textFlow.hostTextLayoutFormat = staticTextLayoutFormat;
+        textFlow.hostFormat = staticTextLayoutFormat;
 
         textFlow.mxmlChildren = children;
 
@@ -2004,7 +2167,7 @@ public class RichEditableText extends UIComponent implements IViewport
             hostTextLayoutFormatInvalid = false;
         }
 
-        textFlow.hostTextLayoutFormat = new TextLayoutFormat(hostTextLayoutFormat);
+        textFlow.hostFormat = new TextLayoutFormat(hostTextLayoutFormat);
         
         return textFlow;
     }
@@ -2201,7 +2364,7 @@ public class RichEditableText extends UIComponent implements IViewport
         }
      
         if (updateContainers)
-            textFlow.flowComposer.updateAllContainers();        
+            textFlow.flowComposer.updateAllControllers();        
     }
 
     /**
@@ -2283,7 +2446,7 @@ public class RichEditableText extends UIComponent implements IViewport
         EditManager(textFlow.interactionManager).insertText(text);
 
         // Update TLF display.  This initiates the InsertTextOperation.
-        textFlow.flowComposer.updateAllContainers();        
+        textFlow.flowComposer.updateAllControllers();        
 
         // Restore the prior editing mode.
         switchToEditingMode(textFlow, priorEditingMode);
@@ -2316,7 +2479,7 @@ public class RichEditableText extends UIComponent implements IViewport
         EditManager(textFlow.interactionManager).insertText(text);
 
         // Update TLF display.  This initiates the InsertTextOperation.
-        textFlow.flowComposer.updateAllContainers();        
+        textFlow.flowComposer.updateAllControllers();        
 
         // Restore the prior editing mode.
         switchToEditingMode(textFlow, priorEditingMode);
@@ -2853,6 +3016,35 @@ public class RichEditableText extends UIComponent implements IViewport
     private function updateCompleteHandler(event:FlexEvent):void
     {
         lastUnscaledWidth = NaN;
+    }
+
+    private function creatingSystemManager():ISystemManager
+    {
+        return ((moduleFactory != null) && (moduleFactory is ISystemManager))
+                ? ISystemManager(moduleFactory)
+                : IUIComponent(parent).systemManager;
+    }
+    
+    /**
+     * @private
+     * 
+     * Get the embedded font for a set of font attributes.
+     */ 
+    private function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
+    {
+        // Check if we can reuse a cached value.
+        if (cachedEmbeddedFont)
+        {
+            if (cachedEmbeddedFont.fontName == fontName &&
+                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
+            {
+                return cachedEmbeddedFont;
+            }   
+        }
+        
+        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);      
+        
+        return cachedEmbeddedFont;
     }
 }
 
