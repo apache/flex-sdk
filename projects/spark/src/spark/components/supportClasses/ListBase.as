@@ -78,7 +78,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="mx.accessibility.ListBaseAccImpl")]
+[AccessibilityClass(implementation="spark.accessibility.ListBaseAccImpl")]
 
 /**
  *  The ListBase class is the base class for all components that support
