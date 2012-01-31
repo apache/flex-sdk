@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.effects.effectClasses
+package spark.effects.supportClasses
 {
 import flash.geom.Vector3D;
 
@@ -18,7 +18,6 @@ import spark.effects.animation.Animation;
 import spark.effects.AnimationProperty;
 import mx.effects.Effect;
 import spark.effects.Animate;
-import spark.effects.supportClasses.AnimateInstance;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Linear;
 
