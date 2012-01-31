@@ -14,33 +14,18 @@ package mx.components
 
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
-import flash.events.Event;
-import flash.geom.ColorTransform;
-import flash.geom.Matrix;
-import flash.geom.Rectangle;
-import flash.utils.Dictionary;
 
-import mx.events.FlexEvent;
-import mx.events.ItemExistenceChangedEvent;
-import mx.layout.ILayoutElement;
-import mx.layout.LayoutElementFactory;
-
-import mx.collections.ICollectionView;
-import mx.collections.IList;
-import mx.collections.ListCollectionView;
+import mx.components.baseClasses.GroupBase;
 import mx.core.IUITextField;
-import mx.graphics.Graphic;
+import mx.core.IVisualElement;
+import mx.core.IVisualElementContainer;
+import mx.core.mx_internal;
+import mx.events.ItemExistenceChangedEvent;
 import mx.graphics.IGraphicElement;
 import mx.graphics.graphicsClasses.GraphicElement;
 import mx.graphics.graphicsClasses.TextGraphicElement;
-import mx.components.baseClasses.GroupBase;
-import mx.controls.Label;
-import mx.core.IFactory;
-import mx.core.IVisualElementContainer;
-import mx.core.IVisualElement;
-import mx.core.UIComponent;
-import mx.core.mx_internal;
-import mx.events.CollectionEvent;
+import mx.layout.ILayoutElement;
+import mx.layout.LayoutElementFactory;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
@@ -75,7 +60,7 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
-[DefaultProperty("content")] 
+[DefaultProperty("mxmlContent")] 
 
 [IconFile("Group.png")]
 
@@ -97,18 +82,18 @@ public class Group extends GroupBase implements IVisualElementContainer
         super();      
     }
     
-    private var contentChanged:Boolean = false;
+    private var mxmlContentChanged:Boolean = false;
     private var needsDisplayObjectAssignment:Boolean = false;
     
-    private var _content:Object;
-    private var _contentType:int;
+    private var _mxmlContent:Object;
+    private var _mxmlContentType:int;
     private var layeringMode:uint = ITEM_ORDERED_LAYERING;
     
     private static const ITEM_ORDERED_LAYERING:uint = 0;
     private static const SPARSE_LAYERING:uint = 1;
     
-    private static const CONTENT_TYPE_UNKNOWN:int = 0;
-    private static const CONTENT_TYPE_ARRAY:int = 1;
+    private static const MXML_CONTENT_TYPE_UNKNOWN:int = 0;
+    private static const MXML_CONTENT_TYPE_ARRAY:int = 1;
     
     //----------------------------------
     //  alpha
@@ -199,35 +184,42 @@ public class Group extends GroupBase implements IVisualElementContainer
         invalidateProperties();
     }
     
+    //----------------------------------
+    //  mxmlContent
+    //----------------------------------
+    
     /**
-     *  Content for this Group.
+     *  Content for this Group.  Do not modify this array directly.
      *
      *  <p>The content can be an Array or a single item.
-     *  The content items can be any type.</p>
+     *  The content items should only be IVisualItems.  An 
+     *  mxmlContent Array shouldn't be shared between multiple
+     *  Groups as visual elements can only live in one Group at 
+     *  a time.</p>
      * 
      *  <p>If the content is an Array, do not modify the array 
      *  directly. Use the methods defined on Group to do this.</p>
      *
      *  @default null
      */
-    public function get content():Object
+    public function get mxmlContent():Object
     {
-        return _content;
+        return _mxmlContent;
     }
     
     /**
      *  @private
      */
-    public function set content(value:Object):void
+    public function set mxmlContent(value:Object):void
     {
-        _content = value;
+        _mxmlContent = value;
         
-        if (_content is Array)
-            _contentType = CONTENT_TYPE_ARRAY;
+        if (_mxmlContent is Array)
+            _mxmlContentType = MXML_CONTENT_TYPE_ARRAY;
         else
-            _contentType = CONTENT_TYPE_UNKNOWN;
+            _mxmlContentType = MXML_CONTENT_TYPE_UNKNOWN;
             
-        contentChanged = true;
+        mxmlContentChanged = true;
         invalidateProperties();
     }
 
@@ -246,11 +238,11 @@ public class Group extends GroupBase implements IVisualElementContainer
             //itemRemoved(0);
             super.removeChildAt(0);
         
-        if (_content !== null)
+        if (_mxmlContent !== null)
         {
             for (var i:int = 0; i < numElements; i++)
             {
-                itemAdded(getElementAt(i), i);
+                elementAdded(getElementAt(i), i);
             }
         }
         
@@ -263,9 +255,9 @@ public class Group extends GroupBase implements IVisualElementContainer
      */ 
     override protected function commitProperties():void
     {
-        if (contentChanged)
+        if (mxmlContentChanged)
         {
-            contentChanged = false;
+            mxmlContentChanged = false;
             initializeChildrenArray();
             
             maskChanged = true; 
@@ -356,7 +348,7 @@ public class Group extends GroupBase implements IVisualElementContainer
     override public function notifyStyleChangeInChildren(
                         styleProp:String, recursive:Boolean):void
     {
-        if (contentChanged || !recursive) 
+        if (mxmlContentChanged || !recursive) 
             return;
             
         var n:int = numElements;
@@ -421,11 +413,11 @@ public class Group extends GroupBase implements IVisualElementContainer
      */
     public function get numElements():int
     {
-        if (_content === null)
+        if (_mxmlContent === null)
             return 0;
             
-        if (_contentType == CONTENT_TYPE_ARRAY)
-            return _content.length;
+        if (_mxmlContentType == MXML_CONTENT_TYPE_ARRAY)
+            return _mxmlContent.length;
         
         return 1;
     }
@@ -438,13 +430,13 @@ public class Group extends GroupBase implements IVisualElementContainer
         // check for RangeError:
         checkForRangeError(index);
         
-        if (_content === null)
+        if (_mxmlContent === null)
             return null;
         
-        if (_contentType == CONTENT_TYPE_ARRAY)
-            return _content[index];
+        if (_mxmlContentType == MXML_CONTENT_TYPE_ARRAY)
+            return _mxmlContent[index];
         
-        return _content;
+        return _mxmlContent;
     }
     
     /**
@@ -456,12 +448,12 @@ public class Group extends GroupBase implements IVisualElementContainer
         // figure out the maximum allowable index
         var maxIndex:int = -1;
         
-        if (_content === null)
+        if (_mxmlContent === null)
             maxIndex = -1;
-        else if (_contentType == CONTENT_TYPE_UNKNOWN)
+        else if (_mxmlContentType == MXML_CONTENT_TYPE_UNKNOWN)
             maxIndex = 0;
-        else if (_contentType == CONTENT_TYPE_ARRAY)
-            maxIndex = content.length - 1;
+        else if (_mxmlContentType == MXML_CONTENT_TYPE_ARRAY)
+            maxIndex = mxmlContent.length - 1;
         
         // if adding an element, we allow an extra index at the end
         if (addingElement)
@@ -491,23 +483,23 @@ public class Group extends GroupBase implements IVisualElementContainer
         checkForRangeError(index, true);
         
         // If we don't have any content yet, initialize it to an empty array
-        if (_content === null)
+        if (_mxmlContent === null)
         {
-            content = [];
-            contentChanged = false;
+            mxmlContent = [];
+            mxmlContentChanged = false;
         }
         
         // If we have unknown content (ie a single item), convert to an Array
-        if (_contentType == CONTENT_TYPE_UNKNOWN)
+        if (_mxmlContentType == MXML_CONTENT_TYPE_UNKNOWN)
         {
-            _contentType = CONTENT_TYPE_ARRAY;
-            _content = [_content];
+            _mxmlContentType = MXML_CONTENT_TYPE_ARRAY;
+            _mxmlContent = [_mxmlContent];
         }
         
-        if (_contentType == CONTENT_TYPE_ARRAY)
-            _content.splice(index, 0, element);
+        if (_mxmlContentType == MXML_CONTENT_TYPE_ARRAY)
+            _mxmlContent.splice(index, 0, element);
         
-        itemAdded(element, index);
+        elementAdded(element, index);
         
         needsDisplayObjectAssignment = true;
         invalidateProperties();
@@ -533,28 +525,28 @@ public class Group extends GroupBase implements IVisualElementContainer
         
         var element:Object;
         
-        if (_content === null)
+        if (_mxmlContent === null)
             return null;
         
         // Need to call itemRemoved before removing the item so anyone listening
         // for the event can access the item.
         
-        itemRemoved(index);
+        elementRemoved(index);
         
-        switch (_contentType)
+        switch (_mxmlContentType)
         {
-            case CONTENT_TYPE_ARRAY:
+            case MXML_CONTENT_TYPE_ARRAY:
             {
-                var removed:Array = _content.splice(index, 1);
+                var removed:Array = _mxmlContent.splice(index, 1);
                 if (removed && removed.length > 0)
                     element = removed[0];
                 break;  
             }
                 
-            case CONTENT_TYPE_UNKNOWN:
+            case MXML_CONTENT_TYPE_UNKNOWN:
             {
-                element = _content;
-                _content = null;
+                element = _mxmlContent;
+                _mxmlContent = null;
                 break;
             }    
         }
@@ -572,18 +564,18 @@ public class Group extends GroupBase implements IVisualElementContainer
     {
         var index:int = -1;
         
-        switch (_contentType)
+        switch (_mxmlContentType)
         {
-            case CONTENT_TYPE_UNKNOWN:
+            case MXML_CONTENT_TYPE_UNKNOWN:
             {
-                if (_content == element)
+                if (_mxmlContent == element)
                     index = 0;
                 break;
             }
             
-            case CONTENT_TYPE_ARRAY:
+            case MXML_CONTENT_TYPE_ARRAY:
             {
-                index = _content.indexOf(element);
+                index = _mxmlContent.indexOf(element);
                 break;
             }
         }
@@ -785,23 +777,23 @@ public class Group extends GroupBase implements IVisualElementContainer
      *
      *  @param index The index where the item was added.
      */
-    protected function itemAdded(item:Object, index:int):void
+    mx_internal function elementAdded(element:Object, index:int):void
     {
         var child:DisplayObject;
                 
-        if (item is IVisualElement && (item as IVisualElement).layer != 0)
+        if (element is IVisualElement && IVisualElement(element).layer != 0)
             invalidateLayering();
 
-        if (item is GraphicElement) 
+        if (element is GraphicElement) 
         {
-            item.parent = this;
+            GraphicElement(element).parent = this;
         
             // If a styleable GraphicElement is being added,
             // build its protochain for use by getStyle().
-            if (item is IStyleClient)
-                IStyleClient(item).regenerateStyleCache(true);
-            if (item is TextGraphicElement)
-                TextGraphicElement(item).stylesInitialized();
+            if (element is IStyleClient)
+                IStyleClient(element).regenerateStyleCache(true);
+            if (element is TextGraphicElement)
+                TextGraphicElement(element).stylesInitialized();
         }   
         else
         {
@@ -809,11 +801,11 @@ public class Group extends GroupBase implements IVisualElementContainer
             
             // This always adds the child to the end of the display list. Any 
             // ordering discrepancies will be fixed up in assignDisplayObjects().
-            child = addItemToDisplayList(DisplayObject(item), item);
+            child = addItemToDisplayList(DisplayObject(element), element);
         }
         
         dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_ADD, false, false, item, index));
+                      ItemExistenceChangedEvent.ITEM_ADD, false, false, element, index));
         
         invalidateSize();
         invalidateDisplayList();
@@ -825,18 +817,18 @@ public class Group extends GroupBase implements IVisualElementContainer
      *
      *  @param index The index of the item that is being removed.
      */
-    protected function itemRemoved(index:int):void
+    mx_internal function elementRemoved(index:int):void
     {       
-        var item:Object = getElementAt(index);
-        var childDO:DisplayObject = item as DisplayObject;
+        var element:Object = getElementAt(index);
+        var childDO:DisplayObject = element as DisplayObject;
         
         dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item, index));        
-        if (item && (item is GraphicElement))
+                      ItemExistenceChangedEvent.ITEM_REMOVE, false, false, element, index));        
+        if (element && (element is GraphicElement))
         {
-            item.parent = null;
-            item.sharedDisplayObject = null;
-            childDO = GraphicElement(item).displayObject;
+            element.parent = null;
+            element.sharedDisplayObject = null;
+            childDO = GraphicElement(element).displayObject;
         }
                 
         if (childDO && childDO.parent == this)
@@ -1047,9 +1039,9 @@ public class Group extends GroupBase implements IVisualElementContainer
     /**
      *  @private
      */
-    override public function elementLayerChanged(e:IGraphicElement):void
+    override mx_internal function graphicElementLayerChanged(e:IGraphicElement):void
     {
-        super.elementLayerChanged(e);
+        super.graphicElementLayerChanged(e);
         
         // One of our children have told us they might need a displayObject     
         needsDisplayObjectAssignment = true;
