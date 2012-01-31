@@ -28,6 +28,7 @@ import flash.text.engine.Kerning;
 import flash.text.engine.LineJustification;
 import flash.text.engine.SpaceJustifier;
 import flash.text.engine.TextBlock;
+import flash.text.engine.TextBaseline;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 import flash.text.engine.TextLineValidity;
@@ -389,7 +390,7 @@ public class SimpleText extends TextGraphicElement
         // SWF where the embedded font is.)
         // Otherwise, this will be null.
         embeddedFontContext = getEmbeddedFontContext();
-        
+
         // Fill out a FontDescription based on the CSS styles.
         
         var fontDescription:FontDescription = new FontDescription();
@@ -459,7 +460,29 @@ public class SimpleText extends TextGraphicElement
         	
         s = getStyle("dominantBaseline");
         if (s != null)
-        	elementFormat.dominantBaseline = s;
+		{
+        	// TLF adds the concept of a locale-based "auto" setting for
+			// dominantBaseline, so we support that in SimpleText as well
+			// so that "auto" can be used in the global selector.
+			// TLF's rule is that "auto" means "ideographicCenter"
+			// for Japanese and Chinese locales and "roman" for other locales.
+			// (See TLF's LocaleUtil, which we avoid linking in here.)
+			if (s == "auto")
+			{
+				s = TextBaseline.ROMAN;
+				var locale:String = getStyle("locale");
+				if (locale != null)
+				{
+					var lowercaseLocale:String = locale.toLowerCase();
+					if (lowercaseLocale.indexOf("ja") == 0 ||
+						lowercaseLocale.indexOf("zh") == 0)
+					{
+						s = TextBaseline.IDEOGRAPHIC_CENTER;
+					}
+				}
+			}
+			elementFormat.dominantBaseline = s;
+		}
         	
         elementFormat.fontDescription = fontDescription;
         
@@ -560,9 +583,6 @@ public class SimpleText extends TextGraphicElement
         var trackingLeft:Object = getStyle("trackingLeft");
         var trackingRight:Object = getStyle("trackingRight");
         
-        if (trackingRight == null)
-            trackingRight = getStyle("tracking");
-
         var value:Number;
         var fontSize:Number = elementFormat.fontSize;
        
@@ -590,6 +610,32 @@ public class SimpleText extends TextGraphicElement
         var textAlign:String = getStyle("textAlign");
         var textAlignLast:String = getStyle("textAlignLast");
         var textJustify:String = getStyle("textJustify");
+
+        // TLF adds the concept of a locale-based "auto" setting for
+		// justificationRule and justificationStyle, so we support
+		// that in SimpleText as well so that "auto" can be used
+		// in the global selector.
+		// TLF's rule is that "auto" for justificationRule means "eastAsian"
+		// for Japanese and Chinese locales and "space" for other locales,
+		// and that "auto" for justificationStyle (which only affects
+		// the EastAsianJustifier) always means "pushInKinsoku".
+		// (See TLF's LocaleUtil, which we avoid linking in here.)
+		if (justificationRule == "auto")
+		{
+			justificationRule = "space";
+			var locale:String = getStyle("locale");
+			if (locale != null)
+			{
+				var lowercaseLocale:String = locale.toLowerCase();
+				if (lowercaseLocale.indexOf("ja") == 0 ||
+					lowercaseLocale.indexOf("zh") == 0)
+				{
+					justificationRule = "eastAsian";
+				}
+			}
+		}
+		if (justificationStyle == "auto")
+			justificationStyle = "pushInKinsoku";
 
 		// Set the TextBlock's content.
 		// Note: If there is no text, we do what TLF does and compose
