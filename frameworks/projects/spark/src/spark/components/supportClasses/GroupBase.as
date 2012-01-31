@@ -118,7 +118,8 @@ public class GroupBase extends UIComponent implements IViewport
     
     /**
      *  The layout object for this container.  
-     *  This object determines how the visual elements are laid out in the container.
+     *  This object is responsible for the measurement and layout of 
+     *  the visual elements in the container.
      */
     public function get layout():LayoutBase
     {
@@ -126,13 +127,13 @@ public class GroupBase extends UIComponent implements IViewport
     }
         
     /**
+     *  @private
+     * 
      *  Three properties are delegated to the layout: clipContent,
      *  verticalScrollPosition, horizontalScrollPosition.
      *  If the layout is reset, we copy the properties from the old
      *  layout to the new one.   If the new layout is null, then we
-     *  temporarily store the delegated properties in _layoutProperties.
-     *  
-     *  @private
+     *  temporarily store the delegated properties in _layoutProperties. 
      */
     public function set layout(value:LayoutBase):void
     {
@@ -887,7 +888,7 @@ public class GroupBase extends UIComponent implements IViewport
      *
      *  @param e The element that has changed.
      */
-    public function elementChanged(e:IGraphicElement):void
+    mx_internal function graphicElementChanged(e:IGraphicElement):void
     {
         // TODO!!! Optimize
         // Call super, so that we don't invalidate the layout
@@ -899,7 +900,7 @@ public class GroupBase extends UIComponent implements IViewport
      * 
      *  @param e The element that has changed size.
      */
-    public function elementSizeChanged(e:IGraphicElement):void
+    mx_internal function graphicElementSizeChanged(e:IGraphicElement):void
     {
         // TODO!!! Optimize
         // Call super so that we don't invalidate the layout
@@ -911,7 +912,7 @@ public class GroupBase extends UIComponent implements IViewport
      * 
      *  @param e The element that has layers size.
      */
-    public function elementLayerChanged(e:IGraphicElement):void
+    mx_internal function graphicElementLayerChanged(e:IGraphicElement):void
     {
         // TODO!!! Optimize
         // TODO!!! Need to recalculate the elements
