@@ -30,8 +30,9 @@ use namespace mx_internal;
 [ResourceBundle("rpc")]
 
 /**
- * The &lt;mx:RemoteObject&gt; tag gives you access to the methods of
- * Java objects using Action Message Format (AMF) encoding.
+ *  Use the &lt;mx:RemoteObject&gt; tag to represent an HTTPService object in an MXML file.
+ *  This tag gives you access to the methods of
+ *  Java objects using Action Message Format (AMF) encoding.
 
  * @mxml
  * <p>
@@ -91,9 +92,10 @@ public dynamic class RemoteObject extends mx.rpc.remoting.RemoteObject implement
     //--------------------------------------------------------------------------
 
     /**
-     * Create a new RemoteObject.
-     * @param destination the destination of the RemoteObject, should match a destination name 
-     * in the services-config.xml file.
+     *  Create a new RemoteObject.
+     * 
+     *  @param destination The destination of the RemoteObject, should match a destination name 
+     *  in the services-config.xml file.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
