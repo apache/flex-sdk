@@ -658,7 +658,7 @@ public class VideoPlayer extends SkinnableComponent
      *  videoElementProperties stores booleans as to whether these properties 
      *  have been explicitely set or not.
      */
-    private var videoElementProperties:Object;
+    private var videoElementProperties:Object = {};
     
     //--------------------------------------------------------------------------
     //
@@ -740,13 +740,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         AUTO_PLAY_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.autoPlay = value;
-        }
         else
         {
-            videoElementProperties = {autoPlay: value};
+            videoElementProperties.autoPlay = value;
         }
     }
     
@@ -788,13 +784,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         AUTO_REWIND_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.autoRewind = value;
-        }
         else
         {
-            videoElementProperties = {autoRewind: value};
+            videoElementProperties.autoRewind = value;
         }
     }
     
@@ -836,13 +828,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                 LOOP_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.loop = value;
-        }
         else
         {
-            videoElementProperties = {loop: value};
+            videoElementProperties.loop = value;
         }
     }
     
@@ -884,13 +872,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.maintainAspectRatio = value;
-        }
         else
         {
-            videoElementProperties = {maintainAspectRatio: value};
+            videoElementProperties.maintainAspectRatio = value;
         }
     }
     
@@ -933,13 +917,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         MUTED_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.muted = value;
-        }
         else
         {
-            videoElementProperties = {muted: value};
+            videoElementProperties.muted = value;
         }
         
         if (volumeBar)
@@ -1032,13 +1012,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                 PLAY_WHEN_HIDDEN_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.playWhenHidden = value;
-        }
         else
         {
-            videoElementProperties = {playWhenHidden: value};
+            videoElementProperties.playWhenHidden = value;
         }
     }
     
@@ -1081,13 +1057,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         SOURCE_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.source = value;
-        }
         else
         {
-            videoElementProperties = {source: value};
+            videoElementProperties.source = value;
         }
     }
     
@@ -1106,7 +1078,7 @@ public class VideoPlayer extends SkinnableComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get thumbnailSource():Object
+    mx_internal function get thumbnailSource():Object
     {
         if (videoElement)
         {
@@ -1122,7 +1094,7 @@ public class VideoPlayer extends SkinnableComponent
     /**
      * @private
      */
-    public function set thumbnailSource(value:Object):void
+    mx_internal function set thumbnailSource(value:Object):void
     {
         if (videoElement)
         {
@@ -1130,13 +1102,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                 THUMBNAIL_SOURCE_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.thumbnailSource = value;
-        }
         else
         {
-            videoElementProperties = {thumbnailSource: value};
+            videoElementProperties.thumbnailSource = value;
         }
     }
     
@@ -1204,13 +1172,9 @@ public class VideoPlayer extends SkinnableComponent
             videoElementProperties = BitFlagUtil.update(videoElementProperties as uint, 
                                                         VOLUME_PROPERTY_FLAG, true);
         }
-        else if (videoElementProperties)
-        {
-            videoElementProperties.volume = value;
-        }
         else
         {
-            videoElementProperties = {volume: value};
+            videoElementProperties.volume = value;
         }
     }
     
@@ -1321,86 +1285,84 @@ public class VideoPlayer extends SkinnableComponent
             
             var newVideoProperties:uint = 0;
             
-            if (videoElementProperties)
+
+            if (videoElementProperties.source !== undefined)
             {
-                if (videoElementProperties.source !== undefined)
-                {
-                    videoElement.source = videoElementProperties.source;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                            SOURCE_PROPERTY_FLAG, true);
-                }
+                videoElement.source = videoElementProperties.source;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                        SOURCE_PROPERTY_FLAG, true);
+            }
+            
+            if (videoElementProperties.autoPlay !== undefined)
+            {
+                videoElement.autoPlay = videoElementProperties.autoPlay;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                        AUTO_PLAY_PROPERTY_FLAG, true);
+            }
+            
+            if (videoElementProperties.volume !== undefined)
+            {
+                videoElement.volume = videoElementProperties.volume;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                        VOLUME_PROPERTY_FLAG, true);
+            }
+            
+            if (videoElementProperties.autoRewind !== undefined)
+            {
+                videoElement.autoRewind = videoElementProperties.autoRewind;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                        AUTO_REWIND_PROPERTY_FLAG, true);
+            }
+            
+            if (videoElementProperties.loop !== undefined)
+            {
+                videoElement.loop = videoElementProperties.loop;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                    LOOP_PROPERTY_FLAG, true);
+            }
+            
+            if (videoElementProperties.maintainAspectRatio !== undefined)
+            {
+                videoElement.maintainAspectRatio = videoElementProperties.maintainAspectRatio;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                        MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG, true);
+            }
+            
+            if (videoElementProperties.muted !== undefined)
+            {
+                videoElement.muted = videoElementProperties.muted;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                                                        MUTED_PROPERTY_FLAG, true);
+            }
+            
+            if (videoElementProperties.playWhenHidden !== undefined)
+            {
+                videoElement.playWhenHidden = videoElementProperties.playWhenHidden;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                    PLAY_WHEN_HIDDEN_PROPERTY_FLAG, true);
+            }
+            
+            if (videoElementProperties.thumbnailSource !== undefined)
+            {
+                videoElement.thumbnailSource = videoElementProperties.thumbnailSource;
+                newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
+                    THUMBNAIL_SOURCE_PROPERTY_FLAG, true);
+            }
+            
+            // these are state properties just carried over from an old video element
+            if (videoElementProperties.playheadTime !== undefined || 
+                videoElementProperties.playing !== undefined)
+            {
+                videoElement_updateCompleteHandlerProperties = {
+                    autoPlay: videoElement.autoPlay,
+                    playing: videoElementProperties.playing,
+                    playheadTime: videoElementProperties.playheadTime};
                 
-                if (videoElementProperties.autoPlay !== undefined)
-                {
-                    videoElement.autoPlay = videoElementProperties.autoPlay;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                            AUTO_PLAY_PROPERTY_FLAG, true);
-                }
+                // so the videoElement doesn't start playing...we'll handle it instead in 
+                // videoElement_updateCompleteHandler
+                videoElement.autoPlay = false;
                 
-                if (videoElementProperties.volume !== undefined)
-                {
-                    videoElement.volume = videoElementProperties.volume;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                            VOLUME_PROPERTY_FLAG, true);
-                }
-                
-                if (videoElementProperties.autoRewind !== undefined)
-                {
-                    videoElement.autoRewind = videoElementProperties.autoRewind;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                            AUTO_REWIND_PROPERTY_FLAG, true);
-                }
-                
-                if (videoElementProperties.loop !== undefined)
-                {
-                    videoElement.loop = videoElementProperties.loop;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                        LOOP_PROPERTY_FLAG, true);
-                }
-                
-                if (videoElementProperties.maintainAspectRatio !== undefined)
-                {
-                    videoElement.maintainAspectRatio = videoElementProperties.maintainAspectRatio;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                            MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG, true);
-                }
-                
-                if (videoElementProperties.muted !== undefined)
-                {
-                    videoElement.muted = videoElementProperties.muted;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                                                            MUTED_PROPERTY_FLAG, true);
-                }
-                
-                if (videoElementProperties.playWhenHidden !== undefined)
-                {
-                    videoElement.playWhenHidden = videoElementProperties.playWhenHidden;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                        PLAY_WHEN_HIDDEN_PROPERTY_FLAG, true);
-                }
-                
-                if (videoElementProperties.thumbnailSource !== undefined)
-                {
-                    videoElement.thumbnailSource = videoElementProperties.thumbnailSource;
-                    newVideoProperties = BitFlagUtil.update(newVideoProperties as uint, 
-                        THUMBNAIL_SOURCE_PROPERTY_FLAG, true);
-                }
-                
-                // these are state properties just carried over from an old video element
-                if (videoElementProperties.playheadTime !== undefined || 
-                    videoElementProperties.playing !== undefined)
-                {
-                    videoElement_updateCompleteHandlerProperties = {
-                        autoPlay: videoElement.autoPlay,
-                        playing: videoElementProperties.playing,
-                        playheadTime: videoElementProperties.playheadTime};
-                    
-                    // so the videoElement doesn't start playing...we'll handle it instead in 
-                    // videoElement_updateCompleteHandler
-                    videoElement.autoPlay = false;
-                    
-                    videoElement.addEventListener(FlexEvent.UPDATE_COMPLETE, videoElement_updateCompleteHandler);
-                }
+                videoElement.addEventListener(FlexEvent.UPDATE_COMPLETE, videoElement_updateCompleteHandler);
             }
             
             videoElementProperties = newVideoProperties;
@@ -1539,61 +1501,33 @@ public class VideoPlayer extends SkinnableComponent
             // copy proxied values from video (if explicitely set) to videoProperties
             
             var newVideoProperties:Object = {};
-            var propertySet:Boolean = false;
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, SOURCE_PROPERTY_FLAG))
-            {
                 newVideoProperties.source = videoElement.source;
-                propertySet = true;
-            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, AUTO_PLAY_PROPERTY_FLAG))
-            {
                 newVideoProperties.autoPlay = videoElement.autoPlay;
-                propertySet = true;
-            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, VOLUME_PROPERTY_FLAG))
-            {
                 newVideoProperties.volume = videoElement.volume;
-                propertySet = true;
-            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, AUTO_REWIND_PROPERTY_FLAG))
-            {
                 newVideoProperties.autoRewind = videoElement.autoRewind;
-                propertySet = true;
-            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, LOOP_PROPERTY_FLAG))
-            {
                 newVideoProperties.loop = videoElement.loop;
-                propertySet = true;
-            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, MAINTAIN_ASPECT_RATIO_PROPERTY_FLAG))
-            {
                 newVideoProperties.maintainAspectRatio = videoElement.maintainAspectRatio;
-                propertySet = true;
-            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, MUTED_PROPERTY_FLAG))
-            {
                 newVideoProperties.muted = videoElement.muted;
-                propertySet = true;
-            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, PLAY_WHEN_HIDDEN_PROPERTY_FLAG))
-            {
                 newVideoProperties.playWhenHidden = videoElement.playWhenHidden;
-                propertySet = true;
-            }
             
             if (BitFlagUtil.isSet(videoElementProperties as uint, THUMBNAIL_SOURCE_PROPERTY_FLAG))
-            {
                 newVideoProperties.thumbnailSource = videoElement.thumbnailSource;
-                propertySet = true;
-            }
             
             // push our current state (where we were in the video and whether we were playing)
             // so that the new skin gets these as well
@@ -1602,8 +1536,7 @@ public class VideoPlayer extends SkinnableComponent
             
             videoElement.stop();
             
-            if (propertySet)
-                videoElementProperties = newVideoProperties;
+            videoElementProperties = newVideoProperties;
             
             videoElement.removeEventListener(spark.events.VideoEvent.CLOSE, dispatchEvent);
             videoElement.removeEventListener(spark.events.VideoEvent.COMPLETE, videoElement_completeHandler);
