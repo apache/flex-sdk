@@ -3968,7 +3968,7 @@ public class Container extends UIComponent
             dispatchEvent(event);
         }
 
-        if (hasEventListener(FlexEvent.ADD))
+        if (child.hasEventListener(FlexEvent.ADD))
             child.dispatchEvent(new FlexEvent(FlexEvent.ADD));
                 
         super.childAdded(child); // calls createChildren()
@@ -3981,7 +3981,7 @@ public class Container extends UIComponent
     {
         super.removingChild(child);
 
-        if (hasEventListener(FlexEvent.REMOVE))
+        if (child.hasEventListener(FlexEvent.REMOVE))
             child.dispatchEvent(new FlexEvent(FlexEvent.REMOVE));
 
         if (hasEventListener(ChildExistenceChangedEvent.CHILD_REMOVE))
