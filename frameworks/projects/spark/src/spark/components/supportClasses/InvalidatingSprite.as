@@ -14,7 +14,10 @@ package spark.components.supportClasses
 import flash.display.Sprite;
 import spark.core.ISharedDisplayObject;
 
+[ExcludeClass]
+
 /**
+ *  @private
  *  <code>GraphicElement</code> creates shared <code>DsiplayObject</code> of type
  *  <code>InvalidatingSprite</code>. This class does not support mouse interaction. 
  *  
