@@ -404,7 +404,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.LEFT:
             {
-                newValue = nearestValidValue(value - stepSize, stepSize);
+                newValue = nearestValidValue(value - stepSize, valueInterval);
                 positionThumb(valueToPosition(newValue));
                 setValue(newValue);
                 break;
@@ -413,7 +413,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
             case Keyboard.UP:
             case Keyboard.RIGHT:
             {
-                newValue = nearestValidValue(value + stepSize, stepSize);
+                newValue = nearestValidValue(value + stepSize, valueInterval);
                 positionThumb(valueToPosition(newValue));
                 setValue(newValue);
                 break;
