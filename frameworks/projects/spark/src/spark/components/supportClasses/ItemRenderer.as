@@ -362,14 +362,17 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      */
     protected function getCurrentRendererState():String
     {
+    	// TODO (jszeto) Add selectedCaret state support (true if selected && caret)
         if (selected)
             return "selected";
         
         if (hovered)
             return "hovered";
         
-        if (caret)
-            return "caret"; 
+        // TODO (dsubrama) Caret state support will be turned on when the 
+        // packaged renderers support the state visually 
+        //if (caret)
+        //    return "caret"; 
             
         return "normal";
     }
