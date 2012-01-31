@@ -1929,7 +1929,7 @@ public class List extends ListBase implements IFocusManagerComponent
         var stopIndex:int;
         var retVal:Number;  
 
-        if (selectedIndex == -1)
+        if (selectedIndex == NO_SELECTION || selectedIndex == CUSTOM_SELECTED_ITEM)
         {
             startIndex = 0;
             stopIndex = dataProvider.length; 
@@ -1959,7 +1959,7 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  @private
      */
-    private function findStringLoop(str:String, startIndex:int, stopIndex:int):Number
+    mx_internal function findStringLoop(str:String, startIndex:int, stopIndex:int):Number
     {
         // Try to find the item based on the start and stop indices. 
         for (startIndex; startIndex != stopIndex; startIndex++)
