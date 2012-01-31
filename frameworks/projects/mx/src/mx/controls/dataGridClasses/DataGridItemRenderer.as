@@ -75,17 +75,17 @@ use namespace mx_internal;
  *  @productversion Flex 3
  */
 public class DataGridItemRenderer extends UITextField
-								  implements IDataRenderer,
-								  IDropInListItemRenderer, ILayoutManagerClient,
-								  IListItemRenderer, IStyleClient
+                                  implements IDataRenderer,
+                                  IDropInListItemRenderer, ILayoutManagerClient,
+                                  IListItemRenderer, IStyleClient
 {
-	include "../../core/Version.as";
+    include "../../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  Constructor.
@@ -95,42 +95,42 @@ public class DataGridItemRenderer extends UITextField
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-	public function DataGridItemRenderer()
-	{
-		super();
+    public function DataGridItemRenderer()
+    {
+        super();
 
-		tabEnabled = false;
-		mouseWheelEnabled = false;
+        tabEnabled = false;
+        mouseWheelEnabled = false;
 
-		ignorePadding = false;
+        ignorePadding = false;
 
-		addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
-		
-		inheritingStyles = nonInheritingStyles =
-			StyleProtoChain.STYLE_UNINITIALIZED;
-	}
+        addEventListener(ToolTipEvent.TOOL_TIP_SHOW, toolTipShowHandler);
+        
+        inheritingStyles = nonInheritingStyles =
+            StyleProtoChain.STYLE_UNINITIALIZED;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
     /**
      *  @private
      */
-	private var invalidatePropertiesFlag:Boolean = false;
-	
+    private var invalidatePropertiesFlag:Boolean = false;
+    
     /**
      *  @private
      */
-	private var invalidateSizeFlag:Boolean = false;
+    private var invalidateSizeFlag:Boolean = false;
 
- 	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties: UIComponent
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  nestLevel
@@ -139,22 +139,22 @@ public class DataGridItemRenderer extends UITextField
     /**
      *  @private
      */
-	override public function set nestLevel(value:int):void
-	{
-		super.nestLevel = value;
-	
-		UIComponentGlobals.layoutManager.invalidateProperties(this);
-		invalidatePropertiesFlag = true;
-		
-		UIComponentGlobals.layoutManager.invalidateSize(this);
-		invalidateSizeFlag = true;
-	}
+    override public function set nestLevel(value:int):void
+    {
+        super.nestLevel = value;
+    
+        UIComponentGlobals.layoutManager.invalidateProperties(this);
+        invalidatePropertiesFlag = true;
+        
+        UIComponentGlobals.layoutManager.invalidateSize(this);
+        invalidateSizeFlag = true;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
     //----------------------------------
     //  data
@@ -165,14 +165,14 @@ public class DataGridItemRenderer extends UITextField
      */
     private var _data:Object;
 
-	[Bindable("dataChange")]
+    [Bindable("dataChange")]
 
     /**
-	 *  The implementation of the <code>data</code> property as 
-	 *  defined by the IDataRenderer interface.
-	 *
-	 *  The value is ignored.  Only the listData property is used.
-	 *  @see mx.core.IDataRenderer
+     *  The implementation of the <code>data</code> property as 
+     *  defined by the IDataRenderer interface.
+     *
+     *  The value is ignored.  Only the listData property is used.
+     *  @see mx.core.IDataRenderer
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -184,74 +184,74 @@ public class DataGridItemRenderer extends UITextField
         return _data;
     }
     
-	/**
-	 *  @private
-	 */
-	public function set data(value:Object):void
-	{
-		_data = value;
+    /**
+     *  @private
+     */
+    public function set data(value:Object):void
+    {
+        _data = value;
 
-		dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-	}
+        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
 
     //----------------------------------
     //  listData
     //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	private var _listData:DataGridListData;
+    /**
+     *  @private
+     */
+    private var _listData:DataGridListData;
 
-	[Bindable("dataChange")]
-	
-	/**
-	 *  The implementation of the <code>listData</code> property as 
-	 *  defined by the IDropInListItemRenderer interface.
-	 *  The text of the renderer is set to the <code>label</code>
-	 *  property of the listData.
-	 *
-	 *  @see mx.controls.listClasses.IDropInListItemRenderer
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function get listData():BaseListData
-	{
-		return _listData;
-	}
+    [Bindable("dataChange")]
+    
+    /**
+     *  The implementation of the <code>listData</code> property as 
+     *  defined by the IDropInListItemRenderer interface.
+     *  The text of the renderer is set to the <code>label</code>
+     *  property of the listData.
+     *
+     *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function get listData():BaseListData
+    {
+        return _listData;
+    }
 
-	/**
-	 *  @private
-	 */
-	public function set listData(value:BaseListData):void
-	{
-		_listData = DataGridListData(value);
-		if (nestLevel && !invalidatePropertiesFlag)
-		{
-			UIComponentGlobals.layoutManager.invalidateProperties(this);
-			invalidatePropertiesFlag = true;
-			UIComponentGlobals.layoutManager.invalidateSize(this);
-			invalidateSizeFlag = true;
-		}
-	}
+    /**
+     *  @private
+     */
+    public function set listData(value:BaseListData):void
+    {
+        _listData = DataGridListData(value);
+        if (nestLevel && !invalidatePropertiesFlag)
+        {
+            UIComponentGlobals.layoutManager.invalidateProperties(this);
+            invalidatePropertiesFlag = true;
+            UIComponentGlobals.layoutManager.invalidateSize(this);
+            invalidateSizeFlag = true;
+        }
+    }
 
     //----------------------------------
     //  styleDeclaration
     //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the styleDeclaration property.
-	 */
-	private var _styleDeclaration:CSSStyleDeclaration;
+    /**
+     *  @private
+     *  Storage for the styleDeclaration property.
+     */
+    private var _styleDeclaration:CSSStyleDeclaration;
 
     /**
      *  Storage for the inline inheriting styles on this object.
-	 *  This CSSStyleDeclaration is created the first time that setStyle()
-	 *  is called on this component to set an inheriting style.
+     *  This CSSStyleDeclaration is created the first time that setStyle()
+     *  is called on this component to set an inheriting style.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -259,87 +259,87 @@ public class DataGridItemRenderer extends UITextField
      *  @productversion Flex 3
      */
     public function get styleDeclaration():CSSStyleDeclaration
-	{
-		return _styleDeclaration;
-	}
+    {
+        return _styleDeclaration;
+    }
 
     /**
      *  @private
-	 */
+     */
     public function set styleDeclaration(value:CSSStyleDeclaration):void
-	{
-		_styleDeclaration = value;
-	}
+    {
+        _styleDeclaration = value;
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods: UITextField
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UITextField
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function initialize():void
-	{
-		regenerateStyleCache(false)
-	}
+    /**
+     *  @private
+     */
+    override public function initialize():void
+    {
+        regenerateStyleCache(false)
+    }
 
-	/**
-	 *  @private
-	 */
-	override public function validateNow():void
-	{
-		if (data && parent)
-		{
-			var newColor:Number;
+    /**
+     *  @private
+     */
+    override public function validateNow():void
+    {
+        if (data && parent)
+        {
+            var newColor:Number;
 
-			if (DataGridBase(_listData.owner).isItemHighlighted(_listData.uid))
-			{
-        		newColor = getStyle("textRollOverColor");
-			}
-			else if (DataGridBase(_listData.owner).isItemSelected(_listData.uid))
-			{
-        		newColor = getStyle("textSelectedColor");
-			}
-			else
-			{
-        		newColor = getStyle("color");
-			}
+            if (DataGridBase(_listData.owner).isItemHighlighted(_listData.uid))
+            {
+                newColor = getStyle("textRollOverColor");
+            }
+            else if (DataGridBase(_listData.owner).isItemSelected(_listData.uid))
+            {
+                newColor = getStyle("textSelectedColor");
+            }
+            else
+            {
+                newColor = getStyle("color");
+            }
 
-			if (newColor != explicitColor)
-			{
-				styleChangedFlag = true;
-				explicitColor = newColor;
-				invalidateDisplayList();
-			}
-		}
+            if (newColor != explicitColor)
+            {
+                styleChangedFlag = true;
+                explicitColor = newColor;
+                invalidateDisplayList();
+            }
+        }
 
-		super.validateNow();
-	}
+        super.validateNow();
+    }
 
     /**
      *  @copy mx.core.UIComponent#getStyle()
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     override public function getStyle(styleProp:String):*
     {
         return (StyleManager.inheritingStyles[styleProp]) ?        
-        	inheritingStyles[styleProp] : nonInheritingStyles[styleProp];
+            inheritingStyles[styleProp] : nonInheritingStyles[styleProp];
     }
 
     /**
      *  @copy mx.core.UIComponent#setStyle()
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
     override public function setStyle(styleProp:String, newValue:*):void
     {
         if (styleProp == "styleName")
@@ -351,7 +351,7 @@ public class DataGridItemRenderer extends UITextField
             return;
         }
 
-		/*
+        /*
         if (styleProp == "themeColor")
         {
             // setThemeColor handles the side effects.
@@ -360,20 +360,15 @@ public class DataGridItemRenderer extends UITextField
             // Do not short circuit, because themeColor is a style.
             // It just has side effects, too.
         }
-		*  
-		*  @langversion 3.0
-		*  @playerversion Flash 9
-		*  @playerversion AIR 1.1
-		*  @productversion Flex 3
-		*/
+        */
 
         // If this UIComponent didn't previously have any inline styles,
         // then regenerate the UIComponent's proto chain (and the proto chains
         // of this UIComponent's descendants).
         var isInheritingStyle:Boolean =
-			StyleManager.isInheritingStyle(styleProp);
+            StyleManager.isInheritingStyle(styleProp);
         var isProtoChainInitialized:Boolean =
-			inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
+            inheritingStyles != StyleProtoChain.STYLE_UNINITIALIZED;
         if (isInheritingStyle)
         {
             if (getStyle(styleProp) == newValue && isProtoChainInitialized)
@@ -424,121 +419,121 @@ public class DataGridItemRenderer extends UITextField
         }
     }
 
- 	//--------------------------------------------------------------------------
-	//
-	//  Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  If Flex calls the <code>LayoutManager.invalidateProperties()</code> 
-	 *  method on this ILayoutManagerClient, then
-	 *  this function is called when it's time to commit property values.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function validateProperties():void
-	{
-		invalidatePropertiesFlag = false;
-		if (_listData)
-		{
-			var dg:DataGrid = DataGrid(_listData.owner);
+    /**
+     *  If Flex calls the <code>LayoutManager.invalidateProperties()</code> 
+     *  method on this ILayoutManagerClient, then
+     *  this function is called when it's time to commit property values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function validateProperties():void
+    {
+        invalidatePropertiesFlag = false;
+        if (_listData)
+        {
+            var dg:DataGrid = DataGrid(_listData.owner);
 
-			var column:DataGridColumn =
-				dg.columns[_listData.columnIndex];
+            var column:DataGridColumn =
+                dg.columns[_listData.columnIndex];
 
-			text = _listData.label;
-			
-			if (_data is DataGridColumn)
-				wordWrap = dg.columnHeaderWordWrap(column);
-			else
-				wordWrap = dg.columnWordWrap(column);
-			
-			if (DataGrid(_listData.owner).variableRowHeight)
-				multiline = true;
-			
-			var dataTips:Boolean = dg.showDataTips;
-			if (column.showDataTips == true)
-				dataTips = true;
-			if (column.showDataTips == false)
-				dataTips = false;
-			if (dataTips)
-			{
-				if (!(_data is DataGridColumn) && (textWidth > width 
-					|| column.dataTipFunction || column.dataTipField 
-					|| dg.dataTipFunction || dg.dataTipField))
-				{
-					toolTip = column.itemToDataTip(_data);
-				}
-				else
-				{
-					toolTip = null;
-				}
-			}
-			else
-			{
-				toolTip = null;
-			}
-		}
-		else
-		{
-			text = " ";
-			toolTip = null;
-		}
-	}
+            text = _listData.label;
+            
+            if (_data is DataGridColumn)
+                wordWrap = dg.columnHeaderWordWrap(column);
+            else
+                wordWrap = dg.columnWordWrap(column);
+            
+            if (DataGrid(_listData.owner).variableRowHeight)
+                multiline = true;
+            
+            var dataTips:Boolean = dg.showDataTips;
+            if (column.showDataTips == true)
+                dataTips = true;
+            if (column.showDataTips == false)
+                dataTips = false;
+            if (dataTips)
+            {
+                if (!(_data is DataGridColumn) && (textWidth > width 
+                    || column.dataTipFunction || column.dataTipField 
+                    || dg.dataTipFunction || dg.dataTipField))
+                {
+                    toolTip = column.itemToDataTip(_data);
+                }
+                else
+                {
+                    toolTip = null;
+                }
+            }
+            else
+            {
+                toolTip = null;
+            }
+        }
+        else
+        {
+            text = " ";
+            toolTip = null;
+        }
+    }
 
-	/**
-	 *  If Flex calls the <code>LayoutManager.invalidateSize()</code>
-	 *  method on this ILayoutManagerClient, then
-	 *  this function is called when it's time to do measurements.
-	 *
-	 *  @param recursive If <code>true</code>, call this method
-	 *  on the object's children.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function validateSize(recursive:Boolean = false):void
-	{
-		invalidateSizeFlag = false;
-		validateNow();
-	}
+    /**
+     *  If Flex calls the <code>LayoutManager.invalidateSize()</code>
+     *  method on this ILayoutManagerClient, then
+     *  this function is called when it's time to do measurements.
+     *
+     *  @param recursive If <code>true</code>, call this method
+     *  on the object's children.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function validateSize(recursive:Boolean = false):void
+    {
+        invalidateSizeFlag = false;
+        validateNow();
+    }
 
-	/**
-	 *  If Flex calls <code>LayoutManager.invalidateDisplayList()</code> 
-	 *  method on this ILayoutManagerClient, then
-	 *  this function is called when it's time to update the display list.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function validateDisplayList():void
-	{
-		validateNow();
-	}
+    /**
+     *  If Flex calls <code>LayoutManager.invalidateDisplayList()</code> 
+     *  method on this ILayoutManagerClient, then
+     *  this function is called when it's time to update the display list.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function validateDisplayList():void
+    {
+        validateNow();
+    }
 
     /**
      *  @copy mx.core.UIComponent#clearStyle()
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	public function clearStyle(styleProp:String):void
-	{
-		setStyle(styleProp, undefined);
-	}
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function clearStyle(styleProp:String):void
+    {
+        setStyle(styleProp, undefined);
+    }
 
     /**
-	 *  @inheritDoc
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -546,14 +541,14 @@ public class DataGridItemRenderer extends UITextField
      *  @productversion Flex 3
      */
     public function notifyStyleChangeInChildren(
-						styleProp:String, recursive:Boolean):void
+                        styleProp:String, recursive:Boolean):void
     {    
-	}
+    }
 
     /**
-	 *  Sets up the <code>inheritingStyles</code> 
-	 *  and <code>nonInheritingStyles</code> objects
-	 *  and their proto chains so that the <code>getStyle()</code> method can work.
+     *  Sets up the <code>inheritingStyles</code> 
+     *  and <code>nonInheritingStyles</code> objects
+     *  and their proto chains so that the <code>getStyle()</code> method can work.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -639,16 +634,16 @@ public class DataGridItemRenderer extends UITextField
         // Finally, we'll add the in-line styles
         // to the head of the proto chain.
         inheritingStyles = styleDeclaration ?
-        				   styleDeclaration.addStyleToProtoChain(inheritChain, this) :
-        				   inheritChain;
+                           styleDeclaration.addStyleToProtoChain(inheritChain, this) :
+                           inheritChain;
 
         nonInheritingStyles = styleDeclaration ?
-        					  styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
-        					  nonInheritChain;
+                              styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
+                              nonInheritChain;
     }
 
     /**
-	 *  @inheritDoc
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -657,8 +652,8 @@ public class DataGridItemRenderer extends UITextField
      */
     public function regenerateStyleCache(recursive:Boolean):void
     {
-		initProtoChain();
-	}
+        initProtoChain();
+    }
 
     /**
      *  @inheritDoc
@@ -670,10 +665,10 @@ public class DataGridItemRenderer extends UITextField
      */
     public function registerEffects(effects:Array /* of String */):void
     {
-	}
+    }
 
     /**
-	 *  @inheritDoc
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -682,66 +677,66 @@ public class DataGridItemRenderer extends UITextField
      */
     public function getClassStyleDeclarations():Array
     {
-		var className:String = getQualifiedClassName(this)
-		className = className.replace("::", ".");
+        var className:String = getQualifiedClassName(this)
+        className = className.replace("::", ".");
 
-		var decls:Array = [];
+        var decls:Array = [];
 
-		while (className != null &&
-			   className != "mx.core.UIComponent" &&
-			   className != "mx.core.UITextField")
-		{
-			var s:CSSStyleDeclaration =
-				StyleManager.getStyleDeclaration(className);
-			
-			if (s)
-			{
-			 	decls.unshift(s);
-			}
-			
-			try
-			{
-				className = getQualifiedSuperclassName(getDefinitionByName(className));
-				className = className.replace("::", ".");
-			}
-			catch(e:ReferenceError)
-			{
-				className = null;
-			}
-		}	
+        while (className != null &&
+               className != "mx.core.UIComponent" &&
+               className != "mx.core.UITextField")
+        {
+            var s:CSSStyleDeclaration =
+                StyleManager.getStyleDeclaration(className);
+            
+            if (s)
+            {
+                decls.unshift(s);
+            }
+            
+            try
+            {
+                className = getQualifiedSuperclassName(getDefinitionByName(className));
+                className = className.replace("::", ".");
+            }
+            catch(e:ReferenceError)
+            {
+                className = null;
+            }
+        }   
 
-		return decls;
+        return decls;
     }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Event handlers
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  The event handler to position the tooltip.
-	 *
-	 *  @param event The event object.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 9
-	 *  @playerversion AIR 1.1
-	 *  @productversion Flex 3
-	 */
-	protected function toolTipShowHandler(event:ToolTipEvent):void
-	{
-		var toolTip:IToolTip = event.toolTip;
+    /**
+     *  The event handler to position the tooltip.
+     *
+     *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected function toolTipShowHandler(event:ToolTipEvent):void
+    {
+        var toolTip:IToolTip = event.toolTip;
 
-		// Calculate global position of label.
+        // Calculate global position of label.
         var sm:ISystemManager = systemManager.topLevelSystemManager;
         var sbRoot:DisplayObject = sm.getSandboxRoot();
         var screen:Rectangle;
-		var pt:Point = new Point(0, 0);
-		pt = localToGlobal(pt);
-		pt = sbRoot.globalToLocal(pt);			
-		
-		toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
+        var pt:Point = new Point(0, 0);
+        pt = localToGlobal(pt);
+        pt = sbRoot.globalToLocal(pt);          
+        
+        toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
 
         if (sm != sbRoot)
         {
@@ -754,13 +749,13 @@ public class DataGridItemRenderer extends UITextField
         else
             screen = sm.getVisibleApplicationRect();
 
-		var screenRight:Number = screen.x + screen.width;
-		pt.x = toolTip.x;
-		pt.y = toolTip.y;
+        var screenRight:Number = screen.x + screen.width;
+        pt.x = toolTip.x;
+        pt.y = toolTip.y;
         pt = sbRoot.localToGlobal(pt);
-		if (pt.x + toolTip.width > screenRight)
-			toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
-	}
+        if (pt.x + toolTip.width > screenRight)
+            toolTip.move(toolTip.x - (pt.x + toolTip.width - screenRight), toolTip.y);
+    }
 }
 
 }
