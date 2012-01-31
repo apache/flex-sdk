@@ -47,6 +47,7 @@ import spark.skins.spark.ComboBoxTextInputSkin; ComboBoxTextInputSkin;
 import spark.skins.spark.DataGridSkin; DataGridSkin;
 import spark.skins.spark.DefaultButtonSkin; DefaultButtonSkin;
 import spark.skins.spark.DefaultComplexItemRenderer; DefaultComplexItemRenderer;
+import spark.skins.spark.DefaultGridItemRenderer; DefaultGridItemRenderer;
 import spark.skins.spark.DefaultItemRenderer; DefaultItemRenderer;
 import spark.skins.spark.DropDownListButtonSkin; DropDownListButtonSkin;
 import spark.skins.spark.DropDownListSkin; DropDownListSkin;
