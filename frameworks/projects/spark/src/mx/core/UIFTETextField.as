@@ -2080,7 +2080,7 @@ public class UIFTETextField extends FTETextField
      *  @productversion Flex 4
      */
     public function parentChanged(p:DisplayObjectContainer):void
-    {
+    {        
         if (!p)
         {
             _parent = null;
@@ -2136,8 +2136,9 @@ public class UIFTETextField extends FTETextField
         if (!parent)
             return;
 
+        // If mirroring, setting width can change the transform matrix.
         if (!isNaN(explicitWidth) && super.width != explicitWidth)
-            super.width = (explicitWidth > 4) ? explicitWidth : 4;
+            width = (explicitWidth > 4) ? explicitWidth : 4;
 
         if (!isNaN(explicitHeight) && super.height != explicitHeight)
             super.height = explicitHeight;
