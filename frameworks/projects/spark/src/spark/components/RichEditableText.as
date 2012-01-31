@@ -40,6 +40,7 @@ import flashx.textLayout.edit.IEditManager;
 import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.SelectionManager;
 import flashx.textLayout.edit.SelectionState;
+import flashx.textLayout.edit.TextScrap;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.InlineGraphicElementStatus;
 import flashx.textLayout.elements.TextFlow;
@@ -3010,11 +3011,12 @@ public class RichEditableText extends UIComponent
     {
         if (!restrict && !maxChars && !displayAsPassword)
             return;
+
+		var textScrap:TextScrap = op.textScrap.clone();
                     
         // If copied/cut from displayAsPassword field the pastedText
         // is '*' characters but this is correct.
-        var pastedText:String = TextUtil.extractText(
-            op.textScrap.textFlow);
+        var pastedText:String = TextUtil.extractText(textScrap.textFlow);
 
         // We know it's an EditManager or we wouldn't have gotten here.
         var editManager:IEditManager = getEditManager();
