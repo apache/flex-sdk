@@ -1676,7 +1676,7 @@ public class Menu extends List implements IFocusManagerContainer
             var pt:Point = new Point(x, y);
             pt = sbRoot.localToGlobal(pt);
     
-            screen = sm.getVisibleApplicationRect();
+            screen = sm.getVisibleApplicationRect(null, true);
                 
             var shift:Number = pt.x + width - screen.right;
             if (shift > 0)
@@ -2449,7 +2449,7 @@ public class Menu extends List implements IFocusManagerContainer
         
         // convert to global coordinates to compare with getVisibleApplicationRect().
         // the screen is the visible coordinates of our sandbox (written in global coordinates)
-        var screen:Rectangle = systemManager.getVisibleApplicationRect();
+        var screen:Rectangle = systemManager.getVisibleApplicationRect(null, true);
         var sbRoot:DisplayObject = systemManager.getSandboxRoot();
         
         var screenPoint:Point = sbRoot.localToGlobal(new Point(showX, showY));
