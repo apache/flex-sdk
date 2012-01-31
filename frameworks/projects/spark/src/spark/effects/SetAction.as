@@ -46,6 +46,8 @@ import mx.effects.IEffectInstance;
  *  </pre>
  *  
  *  @see spark.effects.supportClasses.SetActionInstance
+ *
+ *  @includeExample examples/SetActionEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
