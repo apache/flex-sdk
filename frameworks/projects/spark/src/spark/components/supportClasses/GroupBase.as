@@ -84,6 +84,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The alpha of the content background for this component.
+ *
+ *  @default 1.0
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -106,6 +108,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The alpha value when the container is disabled.
+ *
+ *  @default 0.5
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -174,15 +178,69 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *    autoLayout="true"
  *    clipAndEnableScrolling="false"
  *    horizontalScrollPosition="null"
+ *    luminosityClip="false"
+ *    luminosityInvert="false"
  *    layout="BasicLayout"
  *    mask=""
  *    maskType="clip"
+ *    mouseEnabledWhereTransparent="true"
  *    resizeMode="noScale"
  *    verticalScrollPosition="no default"
  *  
- *    <strong>Events</strong>
- *    elementAdd="<i>No default</i>"
- *    elementRemove="<i>No default</i>"
+ *    <strong>Styles</strong>
+ *    accentColor="0x0099FF"
+ *    alignmentBaseline="useDominantBaseline"
+ *    alternatingItemColors="undefined"
+ *    baselineShift="0"
+ *    blockProgression="tb"
+ *    breakOpportunity="auto"
+ *    cffHinting="horizontalStem"
+ *    chromeColor="0xCCCCCC"
+ *    color="0x000000"
+ *    contentBackgroundAlpha="1.0"
+ *    contentBackgroundColor="0xFFFFFF"
+ *    digitCase="default"
+ *    digitWidth="default"
+ *    direction="ltr"
+ *    disabledAlpha="0.5"
+ *    dominantBaseline="auto"
+ *    firstBaselineOffset="auto"
+ *    focusColor="0x70B2EE"
+ *    focusedTextSelectionColor="A8C6EE"
+ *    fontFamily="Arial"
+ *    fontLookup="device"
+ *    fontSize="12"
+ *    fontStyle="normal"
+ *    fontWeight="normal"
+ *    inactiveTextSelectionColor="E8E8E8"
+ *    justificationRule="auto"
+ *    justificationStyle="auto"
+ *    kerning="auto"
+ *    leadingModel="auto"
+ *    ligatureLevel="common"
+ *    lineHeight="120%"
+ *    lineThrough="false"
+ *    locale="en"
+ *    paragraphEndIndent="0"
+ *    paragraphSpaceAfter="0"
+ *    paragraphSpaceBefore="0"
+ *    paragraphStartIndent="0"
+ *    renderingMode="cff"
+ *    rollOverColor="0xCEDBEF"
+ *    symbolColor="0x000000"
+ *    tabStops="null"
+ *    textAlign="start"
+ *    textAlignLast="start"
+ *    textAlpha="1"
+ *    textDecoration="none"
+ *    textIndent="0"
+ *    textJustify="interWord"
+ *    textRotation="auto"
+ *    trackingLeft="0"
+ *    trackingRight="0"
+ *    typographicCase="default"
+ *    unfocusedTextSelectionColor="0xE8E8E8"
+ *    whiteSpaceCollapse="collapse"
  *  /&gt;
  *  </pre>
  *
@@ -353,7 +411,7 @@ public class GroupBase extends UIComponent implements IViewport
      * 
      *  @default spark.layouts.BasicLayout
      *
-     *  @see LayoutBase
+     *  @see spark.layouts.supportClasses.LayoutBase
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -687,9 +745,10 @@ public class GroupBase extends UIComponent implements IViewport
     [Inspectable(category="General")]
 
     /**
-     *  The overlay plane for this Group.
+     *  The overlay plane for this group.
      *  All objects of the overlay plane render on top of the Group elements.
-     *  Don't hold on to this object, as Group destroys and creates it on demand.
+     *
+     *  <p><b>Note: </b>Do not retain this object because the group destroys and creates it on demand.</p>
      *   
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -808,9 +867,9 @@ public class GroupBase extends UIComponent implements IViewport
     [Inspectable(category="General", enumeration="true,false")]
     
     /**
-     *  When set to true the mouseOpaque flag ensures that the entire bounds
-     *  of the Group are opaque to all mouse events such as clicks, rollOvers,
-     *  etc.
+     *  When set to <code>true</code>, the <code>mouseOpaque</code> property 
+     *  ensures that the entire bounds of the Group are opaque to all 
+     *  mouse events such as click and roll over.
      * 
      *  @default true
      *  
@@ -1609,21 +1668,21 @@ public class GroupBase extends UIComponent implements IViewport
      *  <p>The mask type. Possible values are <code>MaskType.CLIP</code>, <code>MaskType.ALPHA</code> 
      *  or <code>MaskType.LUMINOSITY</code>.</p> 
      *
-     *  <p>Clip Masking</p>
+     *  <p><b>Clip Masking</b></p>
      * 
      *  <p>When masking in clip mode, a clipping masks is reduced to 1-bit.  This means that a mask will 
      *  not affect the opacity of a pixel in the source content; it either leaves the value unmodified, 
      *  if the corresponding pixel in the mask is has a non-zero alpha value, or makes it fully 
      *  transparent, if the mask pixel value has an alpha value of zero.</p>
      * 
-     *  <p>Alpha Masking</p>
+     *  <p><b>Alpha Masking</b></p>
      * 
      *  <p>In alpha mode, the opacity of each pixel in the source content is multiplied by the opacity 
      *  of the corresponding region of the mask.  i.e., a pixel in the source content with an opacity of 
      *  1 that is masked by a region of opacity of .5 will have a resulting opacity of .5.  A source pixel 
      *  with an opacity of .8 masked by a region with opacity of .5 will have a resulting opacity of .4.</p>
      * 
-     *  <p>Luminosity Masking</p>
+     *  <p><b>Luminosity Masking</b></p>
      * 
      *  <p>A luminosity mask, sometimes called a 'soft mask', works very similarly to an alpha mask
      *  except that both the opacity and RGB color value of a pixel in the source content is multiplied
