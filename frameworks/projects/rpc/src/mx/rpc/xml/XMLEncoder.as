@@ -1462,8 +1462,6 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
      */
     public function encodeXSINil(definition:XML, name:QName, value:*, isRequired:Boolean = true):XML
     {
-        var strictNillability:Boolean = false;
-
         // Check for nillable in the definition only if strictNillability is true.
         // Otherwise assume nillable=true.
         var nillable:Boolean = true;
@@ -1864,6 +1862,23 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
     //--------------------------------------------------------------------------
 
     /**
+     * 
+     */
+    public function get strictNillability():Boolean
+    {
+        return _strictNillability;
+    }
+
+    /**
+     * 
+     */
+    public function set strictNillability(strict:Boolean):void
+    {
+        _strictNillability = strict;
+    }
+
+
+    /**
      * Function to be used for escaping XML special characters in simple content.
      * Returns default implementation in this class.
      */
@@ -1890,6 +1905,7 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
     // 
     //--------------------------------------------------------------------------
 
+    private var _strictNillability:Boolean = false;
     private var _xmlSpecialCharsFilter:Function = escapeXML;
 
 }
