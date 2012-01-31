@@ -74,7 +74,7 @@ public class GridColumn extends EventDispatcher
     /**
      *  Constructor. 
      * 
-     *  @param columnName Initial value for the <code>dataField</cod> and 
+     *  @param columnName Initial value for the <code>dataField</code> and 
      *     <code>headerText</code> properties. 
      *  
      *  @langversion 3.0
