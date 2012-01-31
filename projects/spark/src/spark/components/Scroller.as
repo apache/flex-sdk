@@ -56,6 +56,12 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("components")]
     
 [DefaultProperty("viewport")]
 
@@ -354,7 +360,7 @@ public class FxScroller extends FxComponent
         if (viewport && index == 0)
             return viewport;
         else
-            throw new RangeError("Index " + index + " is out of range");
+            throw new RangeError(resourceManager.getString("components", "indexOutOfRange", [index]));
     }
     
     /**
@@ -372,7 +378,7 @@ public class FxScroller extends FxComponent
         if (element != null && element == viewport)
             return 0;
         else
-            throw ArgumentError(element + " is not found in this FxScroller");
+            throw ArgumentError(resourceManager.getString("components", "elementNotFoundInFxScroller", [element]));
     }
     
     /**
@@ -384,7 +390,7 @@ public class FxScroller extends FxComponent
      */
     public function addElement(element:IVisualElement):IVisualElement
     {
-        throw new ArgumentError("This operation is not supported");
+        throw new ArgumentError(resourceManager.getString("components", "operationNotSupported"));
     }
     
     /**
@@ -396,7 +402,7 @@ public class FxScroller extends FxComponent
      */
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
-        throw new ArgumentError("This operation is not supported");
+        throw new ArgumentError(resourceManager.getString("components", "operationNotSupported"));
     }
     
     /**
@@ -408,7 +414,7 @@ public class FxScroller extends FxComponent
      */
     public function removeElement(element:IVisualElement):IVisualElement
     {
-        throw new ArgumentError("This operation is not supported");
+        throw new ArgumentError(resourceManager.getString("components", "operationNotSupported"));
     }
     
     /**
@@ -420,7 +426,7 @@ public class FxScroller extends FxComponent
      */
     public function removeElementAt(index:int):IVisualElement
     {
-        throw new ArgumentError("This operation is not supported");
+        throw new ArgumentError(resourceManager.getString("components", "operationNotSupported"));
     }
     
     /**
@@ -432,7 +438,7 @@ public class FxScroller extends FxComponent
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
-        throw new ArgumentError("This operation is not supported");
+        throw new ArgumentError(resourceManager.getString("components", "operationNotSupported"));
     }
     
     /**
@@ -444,7 +450,7 @@ public class FxScroller extends FxComponent
      */
     public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
-        throw new ArgumentError("This operation is not supported");
+        throw new ArgumentError(resourceManager.getString("components", "operationNotSupported"));
     }
     
     /**
@@ -456,7 +462,7 @@ public class FxScroller extends FxComponent
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
-        throw new ArgumentError("This operation is not supported");
+        throw new ArgumentError(resourceManager.getString("components", "operationNotSupported"));
     }
     
     //--------------------------------------------------------------------------
