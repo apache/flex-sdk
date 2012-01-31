@@ -41,9 +41,11 @@ use namespace mx_internal;
 [ResourceBundle("sparkEffects")]
 
 /**
- * The AnimateInstance class implements the instance class for the
- * Animate effect. Flex creates an instance of this class when
- * it plays a Animate effect; you do not create one yourself.
+ *  The AnimateInstance class implements the instance class for the
+ *  Animate effect. Flex creates an instance of this class when
+ *  it plays a Animate effect; you do not create one yourself.
+ *
+ *  @see spark.effects.Animate
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -52,8 +54,21 @@ use namespace mx_internal;
  */
 public class AnimateInstance extends EffectInstance implements IAnimationTarget
 {
+    /**
+     *  @private
+     */
     public var animation:Animation;
     
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function AnimateInstance(target:Object)
     {
         super(target);
@@ -119,9 +134,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
 
     private var _motionPaths:Array;
     /**
-     * An array of SimpleMotionPath objects, each of which holds the
-     * name of the property being animated and the values that the property
-     * will take on during the animation.
+     *  @copy spark.effects.Animate#motionPaths
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -143,17 +156,19 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
     
     /**
-     * This flag indicates whether a subclass would like their target to 
-     * be automatically kept around during a transition and removed when it
-     * finishes. This capability applies specifically to effects like
-     * Fade which act on targets that go away at the end of the
-     * transition and removes the need to supply a RemoveAction or similar
-     * effect to manually keep the item around and remove it when the
-     * transition completes. In order to use this capability, subclasses
-     * should set this variable to true and also expose the "parent"
-     * property in their affectedProperties array so 
-     * that the effect instance has enough information about the target
-     * and container to do the job.
+     *  If <code>true</code>, the effect retains its target 
+     *  during a transition and removes it when finished. 
+     *  This capability applies specifically to effects like
+     *  Fade which act on targets that go away at the end of the
+     *  transition and removes the need to supply a RemoveAction or similar
+     *  effect to manually keep the item around and remove it when the
+     *  transition completes. 
+     * 
+     *  <p>To use this capability, subclasses
+     *  should set this variable to <code>true</code> and also expose the <code>parent</code>
+     *  property in their <code>affectedProperties</code> Array so 
+     *  that the effect instance has enough information about the target
+     *  and container to do the job.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -164,40 +179,83 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         
     /**
      * @copy spark.effects.Animate#disableConstraints
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var disableConstraints:Boolean;    
 
     /**
      * @copy spark.effects.Animate#disableLayout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var disableLayout:Boolean;
     
     private var _easer:IEaser;    
+    /**
+     * @copy spark.effects.Animate#easer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function set easer(value:IEaser):void
     {
         _easer = value;
     }
+    /**
+     *  @private
+     */
     public function get easer():IEaser
     {
         return _easer;
     }
     
     private var _interpolator:IInterpolator;
+    /**
+     * @copy spark.effects.Animate#interpolator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function set interpolator(value:IInterpolator):void
     {
         _interpolator = value;
         
     }
+    /**
+     *  @private
+     */
     public function get interpolator():IInterpolator
     {
         return _interpolator;
     }
     
     private var _repeatBehavior:String;
+    /**
+     * @copy spark.effects.Animate#repeatBehavior
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function set repeatBehavior(value:String):void
     {
         _repeatBehavior = value;
     }
+    /**
+     *  @private
+     */
     public function get repeatBehavior():String
     {
         return _repeatBehavior;
@@ -301,6 +359,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
     
     /**
+     *  @private
      *  Interrupts an effect that is currently playing,
      *  and immediately jumps to the end of the effect.
      *  Calls the <code>Tween.endTween()</code> method
@@ -338,7 +397,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     //--------------------------------------------------------------------------
 
     /**
-     *  @copy mx.effects.IEffectInstance#startEffect()
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -447,9 +506,10 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
 
     /**
-     * Set the values in the given array on the properties held in our
-     * motionPaths array. This is called by the update and end 
-     * functions, which are called by the Animation during the animation.
+     *  @private
+     *  Set the values in the given array on the properties held in our
+     *  motionPaths array. This is called by the update and end 
+     *  functions, which are called by the Animation during the animation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -562,12 +622,13 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
 
     /**
-     * This function is called by subclasses during the play() function
-     * to add an animation to the current set of <code>motionPaths</code>.
-     * The animation will be set up on the named constraint if the constraint
-     * is in the <code>propertyChanges</code> array (which is only true during
-     * transitions for properties/styles exposed by the effect) and the
-     * value of that constraint is different between the start and end states.
+     *  @private
+     *  This function is called by subclasses during the play() function
+     *  to add an animation to the current set of <code>motionPaths</code>.
+     *  The animation will be set up on the named constraint if the constraint
+     *  is in the <code>propertyChanges</code> array (which is only true during
+     *  transitions for properties/styles exposed by the effect) and the
+     *  value of that constraint is different between the start and end states.
      */ 
     protected function setupConstraintAnimation(constraintName:String):void
     {
@@ -582,8 +643,9 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
 
     /**
-     * Called internally to handle start events for the animation.
-     * If you override this method, ensure that you call the super method.
+     *  @private
+     *  Called internally to handle start events for the animation.
+     *  If you override this method, ensure that you call the super method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -610,8 +672,9 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
     
     /**
-     * Called internally to handle update events for the animation.
-     * If you override this method, ensure that you call the super method.
+     *  @private
+     *  Called internally to handle update events for the animation.
+     *  If you override this method, ensure that you call the super method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -633,8 +696,9 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
     
     /**
-     * Called internally to handle repeat events for the animation.
-     * If you override this method, ensure that you call the super method.
+     *  @private
+     *  Called internally to handle repeat events for the animation.
+     *  If you override this method, ensure that you call the super method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -649,8 +713,9 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }    
 
     /**
-     * Called internally to handle end events for the animation. 
-     * If you override this method, ensure that you call the super method.
+     *  @private
+     *  Called internally to handle end events for the animation. 
+     *  If you override this method, ensure that you call the super method.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -698,7 +763,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
     
     /**
-     *  @copy mx.effects.IEffectInstance#finishEffect()
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -870,9 +935,10 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     }
 
     /**
-     * Utility function to handle situation where values may be queried or
-     * set on the target prior to completely setting up the effect's
-     * motionPaths data values (from which the styleMap is created)
+     *  @private
+     *  Utility function to handle situation where values may be queried or
+     *  set on the target prior to completely setting up the effect's
+     *  motionPaths data values (from which the styleMap is created)
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
