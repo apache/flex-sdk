@@ -89,6 +89,10 @@ public class Panel extends SkinnableContainer
     public function Panel()
     {
         super();
+
+        // default skin uses graphical dropshadow which 
+        // we don't want to be hittable
+        mouseEnabled=false;
     }
     
     //--------------------------------------------------------------------------
