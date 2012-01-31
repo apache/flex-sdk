@@ -11,6 +11,7 @@
 
 package spark.components
 { 
+import flash.display.DisplayObject;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.FocusEvent;
@@ -18,8 +19,14 @@ import flash.events.Event;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
+import mx.core.DragSource;
+import mx.core.EventPriority;
+import mx.core.IFlexDisplayObject;
 import mx.core.IVisualElement;
 import mx.core.mx_internal; 
+import mx.events.DragEvent;
+import mx.events.SandboxMouseEvent;
+import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 
 import spark.components.supportClasses.ListBase;
@@ -94,6 +101,31 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @productversion Flex 4
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  The class to create instance of for the drag proxy during drag
+ *  and drop operations initiated by the List.
+ *
+ *  Must be of type <code>IFlexDisplayObject</code>.
+ *
+ *  If the class implements the <code>ILayoutManagerClient</code> interface,
+ *  then the instance will be validated by the DragManager.
+ *
+ *  If the class implements the <code>IVisualElement</code> interface,
+ *  then the instance's <code>owner</code> property will be set to the List
+ *  that initiates the drag.
+ *
+ *  The AIR DragManager takes a snapshot of the instance, while
+ *  the non-AIR DragManager uses the instance directly.
+ *
+ *  @default spark.components.supportClasses.ListItemDragProxy
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="dragIndicatorClass", type="Class", inherit="no")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
@@ -203,6 +235,33 @@ public class List extends ListBase implements IFocusManagerComponent
         useVirtualLayout = true;
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  The point where the mouse down event was received.
+     *  Used to track whether a drag operation should be initiated when the user
+     *  drags further than a certain threshold. 
+     */
+    private var mouseDownPoint:Point;
+
+    /**
+     *  @private
+     *  The index of the element the mouse down event was received for. Used to
+     *  track which is the "focus item" for a drag and drop operation.
+     */
+    private var mouseDownIndex:int = -1;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Skin Parts
+    //
+    //--------------------------------------------------------------------------
+
     //----------------------------------
     //  scroller
     //----------------------------------
@@ -259,6 +318,122 @@ public class List extends ListBase implements IFocusManagerComponent
         _allowMultipleSelection = value; 
     }
     
+    //----------------------------------
+    //  dragEnabled
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the dragEnabled property.
+     */
+    private var _dragEnabled:Boolean = false;
+    
+    [Inspectable(defaultValue="false")]
+    
+    /**
+     *  A flag that indicates whether you can drag items out of
+     *  this control and drop them on other controls.
+     *  If <code>true</code>, dragging is enabled for the control.
+     *  If the <code>dropEnabled</code> property is also <code>true</code>,
+     *  you can drag items and drop them within this control
+     *  to reorder the items.
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get dragEnabled():Boolean
+    {
+        return _dragEnabled;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dragEnabled(value:Boolean):void
+    {
+        if (value == _dragEnabled)
+            return;
+        _dragEnabled = value;
+        
+        if (_dragEnabled)
+        {
+            addEventListener(DragEvent.DRAG_START, dragStartHandler, false, EventPriority.DEFAULT_HANDLER);
+            addEventListener(DragEvent.DRAG_COMPLETE, dragCompleteHandler, false, EventPriority.DEFAULT_HANDLER);
+        }
+        else
+        {
+            removeEventListener(DragEvent.DRAG_START, dragStartHandler, false);
+            removeEventListener(DragEvent.DRAG_COMPLETE, dragCompleteHandler, false);
+        }
+        
+        if (dataGroup)
+        {
+            // FIXME (egeorgie): Figure out a more efficient way to iterate through the item renderers.
+            var count:int = dataGroup.numElements;
+            for (var i:int = 0; i < count; i++)
+            {
+                var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer;
+                if (renderer)
+                {
+                    if (_dragEnabled)
+                        renderer.addEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
+                    else
+                        renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
+                }
+            }
+        }
+    }
+    
+    //----------------------------------
+    //  dragMoveEnabled
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the dragMoveEnabled property.
+     */
+    private var _dragMoveEnabled:Boolean = false;
+    
+    [Inspectable(defaultValue="false")]
+    
+    /**
+     *  A flag that indicates whether items can be moved instead
+     *  of just copied from the control as part of a drag-and-drop
+     *  operation.
+     *  If <code>true</code>, and the <code>dragEnabled</code> property
+     *  is <code>true</code>, items can be moved.
+     *  Often the data provider cannot or should not have items removed
+     *  from it, so a MOVE operation should not be allowed during
+     *  drag-and-drop.
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get dragMoveEnabled():Boolean
+    {
+        return _dragMoveEnabled;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dragMoveEnabled(value:Boolean):void
+    {
+        _dragMoveEnabled = value;
+    }
+
+    //----------------------------------
+    //  selectedIndices
+    //----------------------------------
+    
     /**
      *  @private
      *  Internal storage for the selectedIndices property and invalidation variables.
@@ -299,6 +474,10 @@ public class List extends ListBase implements IFocusManagerComponent
         invalidateProperties();
     }
     
+    //----------------------------------
+    //  selectedItems
+    //----------------------------------
+
     [Bindable("change")]
     /**
      *  An Vector of Objects representing the currently selected data items. 
@@ -364,6 +543,10 @@ public class List extends ListBase implements IFocusManagerComponent
         multipleSelectionChanged = true;
         invalidateProperties(); 
     }
+
+    //----------------------------------
+    //  useVirtualLayout
+    //----------------------------------
 
     /**
      *  @inheritDoc
@@ -795,6 +978,260 @@ public class List extends ListBase implements IFocusManagerComponent
     
     //--------------------------------------------------------------------------
     //
+    //  Drag methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  The default handler for the <code>dragStart</code> event.
+     *
+     *  @param event The DragEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function dragStartHandler(event:DragEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        var dragSource:DragSource = new DragSource();
+        addDragData(dragSource);
+        // FIXME (egeorgie): customizeable alpha? Move to the default dragSource class?
+        const imageAlpha:Number = 0.8;
+        DragManager.doDrag(this, dragSource, event, createDragIndicator(), 0, 0, 0.8, dragMoveEnabled);
+    }
+    
+    /**
+     *  @private
+     *  Used to sort the selected indices during drag and drop operations.
+     */
+    private function compareValues(a:int, b:int):int
+    {
+        return a - b;
+    } 
+    
+    /**
+     *  Handles <code>DragEvent.DRAG_COMPLETE</code> events.  This method
+     *  removes the item from the data provider.
+     *
+     *  @param event The DragEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function dragCompleteHandler(event:DragEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        // Remove the dragged items only if they were drag moved to
+        // a different list. If the items were drag moved to this
+        // list, the reordering was already handles in the 
+        // DragEvent.DRAG_DROP listener.
+        if (!dragMoveEnabled ||
+            event.action != DragManager.MOVE || 
+            event.relatedObject == this)
+            return;
+        
+        // Clear the selection, but remember which items were moved
+        var movedIndices:Vector.<int> = selectedIndices;
+        selectedIndices = new Vector.<int>();
+        
+        // Remove the moved items
+        movedIndices.sort(compareValues);
+        var count:int = movedIndices.length;
+        for (var i:int = count - 1; i >= 0; i--)
+        {
+            dataProvider.removeItemAt(movedIndices[i]);
+        }
+    }
+    
+    /**
+     *  @private
+     *
+     *  Gets an instance of a class that displays the visuals
+     *  during a drag and drop operation.
+     */
+    private function createDragIndicator():IFlexDisplayObject
+    {
+        var dragIndicator:IFlexDisplayObject;
+        var dragIndicatorClass:Class = Class(getStyle("dragIndicatorClass"));
+        if (dragIndicatorClass)
+        {
+            dragIndicator = new dragIndicatorClass();
+            if (dragIndicator is IVisualElement)
+                IVisualElement(dragIndicator).owner = this;
+        }
+        
+        return dragIndicator;
+    }
+    
+    /**
+     *  Adds the selected items to the DragSource object as part of
+     *  a drag-and-drop operation.
+     *  Override this method to add other data to the drag source.
+     * 
+     *  @param ds The DragSource object to which to add the data.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    protected function addDragData(dragSource:DragSource):void
+    {
+        dragSource.addHandler(copySelectedItemsForDragDrop, "sourceOrderedItems");
+        
+        // Calculate the index of the focus item within the vector
+        // of ordered items returned for the "sourceOrderedItems" format.
+        var focusIndex:int = 0;
+        var draggedIndices:Vector.<int> = selectedIndices;
+        var count:int = draggedIndices.length;
+        for (var i:int = 0; i < count; i++)
+        {
+            if (mouseDownIndex > draggedIndices[i])
+                focusIndex++;
+        }
+        dragSource.addData(focusIndex, "sourceOrderedItemsFocus");
+    }
+    
+    /**
+     *  @private.
+     */
+    private function copySelectedItemsForDragDrop():Array
+    {
+        var result:Array = [];
+        var draggedIndices:Vector.<int> = selectedIndices;
+        // Copy the vector so that we don't modify the original as 
+        // selectedIndices returns a reference.
+        draggedIndices = draggedIndices.slice(0, draggedIndices.length);
+        if (draggedIndices)
+        {
+            draggedIndices.sort(compareValues);
+            var count:int = draggedIndices.length;
+            for (var i:int = 0; i < count; i++)
+                result.push(dataProvider.getItemAt(draggedIndices[i]));  
+        }
+        return result;
+    }
+    
+    /**
+     *  Handles <code>MouseEvent.MOUSE_DOWN</code> events from any of the 
+     *  item renderers. This method remembers the mouse down point and
+     *  attaches <code>MouseEvent.MOUSE_MOVE</code> and
+     *  <code>MouseEvent.MOUSE_UP</code> listeners.
+     *
+     *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected function item_mouseDownHandler(event:MouseEvent):void
+    {
+        var renderer:IItemRenderer = event.currentTarget as IItemRenderer;
+        if (!renderer || !renderer.selected)
+            return;
+        
+        mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
+        
+        // Find the index of the item we're down on, this is the drag focus item.
+        // FIXME (egeorgie): When we start selecting/updating caret on mouse down, reuse the caret item,
+        // instead of calculating the index.
+        mouseDownIndex = dataGroup.getElementIndex(renderer);
+        
+        // Listen for MOUSE_MOVE on both the list and the sandboxRoot.
+        // The user may have cliked on the item renderer close
+        // to the edge of the list, and we still want to start a drag
+        // operation if they move out of the list.
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, false, 0, true);
+        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler, false, 0, true);
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, false, 0, true);
+    }
+    
+    /**
+     *  Handles <code>MouseEvent.MOUSE_MOVE</code> events from any mouse
+     *  targets contained in the list including the renderers.  This method
+     *  watches for a gesture that constitutes the beginning of a
+     *  drag drop and send a <code>DragEvent.DRAG_START</code> event.
+     *  It also checks to see if the mouse is over a non-target area of a
+     *  renderer so that Flex can try to make it look like that renderer was 
+     *  the target.
+     *
+     *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected function mouseMoveHandler(event:MouseEvent):void
+    {
+        if (!mouseDownPoint || !dragEnabled)
+            return;
+        
+        var pt:Point = new Point(event.localX, event.localY);
+        pt = DisplayObject(event.target).localToGlobal(pt);
+        
+        const DRAG_THRESHOLD:int = 5;
+        
+        if (Math.abs(mouseDownPoint.x - pt.x) > DRAG_THRESHOLD ||
+            Math.abs(mouseDownPoint.y - pt.y) > DRAG_THRESHOLD)
+        {
+            var dragEvent:DragEvent = new DragEvent(DragEvent.DRAG_START);
+            dragEvent.dragInitiator = this;
+            
+            var localMouseDownPoint:Point = this.globalToLocal(mouseDownPoint);
+            
+            dragEvent.localX = localMouseDownPoint.x;
+            dragEvent.localY = localMouseDownPoint.y;
+            dragEvent.buttonDown = true;
+            
+            // We're starting a drag operation, remove the handlers
+            // that are monitoring the mouse move, we don't need them anymore:
+            dispatchEvent(dragEvent);
+
+            // Finally, remove the mouse handlers
+            removeMouseHandlersForDragStart();
+        }
+    }
+    
+    private function removeMouseHandlersForDragStart():void
+    {
+        mouseDownPoint = null;
+        mouseDownIndex = -1;
+        
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseUpHandler, true);
+        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseUpHandler, true);
+    }
+    
+    /**
+     *  Handles <code>MouseEvent.MOUSE_DOWN</code> events from any mouse
+     *  targets contained in the list including the renderers. This method
+     *  finds the renderer that was pressed and prepares to receive
+     *  a <code>MouseEvent.MOUSE_UP</code> event.
+     *
+     *  @param event The MouseEvent object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    protected function mouseUpHandler(event:Event):void
+    {
+        removeMouseHandlersForDragStart();
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Event Handlers
     //
     //--------------------------------------------------------------------------
@@ -808,8 +1245,12 @@ public class List extends ListBase implements IFocusManagerComponent
         var index:int = event.index;
         var renderer:IVisualElement = event.renderer;
         
-        if (renderer)
-            renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
+        if (!renderer)
+            return;
+        
+        renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
+        if (dragEnabled)
+            renderer.addEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
     }
     
     /**
@@ -821,10 +1262,12 @@ public class List extends ListBase implements IFocusManagerComponent
         var index:int = event.index;
         var renderer:Object = event.renderer;
         
-        if (renderer)
-        {
-            renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
-        }
+        if (!renderer)
+            return;
+        
+        renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
+        if (dragEnabled)
+            renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
     }
     
     /**
