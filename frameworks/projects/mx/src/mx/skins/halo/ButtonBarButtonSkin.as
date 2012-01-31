@@ -387,9 +387,9 @@ public class ButtonBarButtonSkin extends Border
 	/**
 	 *  We don't use 'is' to prevent dependency issues
 	 */
-	static private var bbars:Object = {};
+	private static var bbars:Object = {};
 
-	static private function isButtonBar(parent:Object):Boolean
+	private static function isButtonBar(parent:Object):Boolean
 	{
 		var s:String = getQualifiedClassName(parent);
 		if (bbars[s] == 1)
