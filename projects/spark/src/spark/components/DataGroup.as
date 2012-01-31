@@ -678,46 +678,35 @@ public class DataGroup extends GroupBase
     /**
      *  @private
      *  Discard the ItemRenderers that aren't needed anymore, i.e. the ones
-     *  outside the logical range startIndex to endIndex.
-     *  
-     *  IRs can be recycled if they're IDataRenderers and they're
-     *  not equal to the item they represent, i.e. if 
-     *  renderersInView[item] != item.   More about item recycling
-     *  in the getElementAt() doc.
+     *  outside the range virtualLayoutStartIndex to virtualLayoutEndIndex.
+     *  Discarded IRs may be added to the freeRenderers list per the rules
+     *  defined in getVirtualElementAt().
      */
     private function finishVirtualLayout():void
     {
-        // At this point, we have renderers for the current rendering cycle at 
-        // [virtualLayoutStartIndex. virtualLayoutEndIndex], but we may also have old 
-        // ones that need to be removed at [oldVirtualLayoutStartIndex, oldVirtualLayoutEndIndex]
         if (oldVirtualLayoutStartIndex == -1 || oldVirtualLayoutEndIndex == -1)
             return;
         
-        // We want to remove item renderers at 
-        // at [oldVirtualLayoutStartIndex, oldVirtualLayoutEndIndex]
-        // but excluding [virtualLayoutStartIndex. virtualLayoutEndIndex].
-        // Most of the time's we'll be removing one contiguous block 
-        // before or after our on-screen item renderers, but sometimes 
-        // we may be removing them before and after (in the case of 
-        // the list changing heights)
+        // Remove the old ItemRenderers that aren't new ItemRenderers.  In other
+        // words remove the ItemRenderers from oldVirtualLayoutStartIndex to 
+        // oldVirtualLayoutEndIndex, but skip the ones in the range
+        // virtualLayoutStartIndex to virtualLayoutEndIndex.
 
         for (var index:int = oldVirtualLayoutStartIndex; index <= oldVirtualLayoutEndIndex; index++)
         {
-            // if we encounter an IR in our current list of item renderers, 
-            // let's smart-skip to the end.
+            // Skip the inView renderers 
             if (index >= virtualLayoutStartIndex && index <= virtualLayoutEndIndex)
             {
                 index = virtualLayoutEndIndex;
                 continue;
             }
             
+            // Remove previously "in view" IR from the item=>IR table
             var elt:IVisualElement = indexToRenderer[index] as IVisualElement;
-
-            // Remove previously "in view" IRs from the item=>IR table
             delete indexToRenderer[index];
-            
-            var item:Object = dataProvider.getItemAt(index);
+
             // Free or remove the IR.
+            var item:Object = dataProvider.getItemAt(index);
             if ((item != elt) && (elt is IDataRenderer))
             {
                 IDataRenderer(elt).data = null;  // reduce probability of leaks
@@ -725,10 +714,9 @@ public class DataGroup extends GroupBase
                 elt.includeInLayout = false;
                 freeRenderers.push(elt);
             }
-            else
+            else if (elt)
             {
-                dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_REMOVE, 
-                                false, false, elt, index, item));
+                dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_REMOVE, false, false, elt, index, item));
                 super.removeChild(DisplayObject(elt));
             }
         }
@@ -779,7 +767,6 @@ public class DataGroup extends GroupBase
             finishVirtualLayout();
             virtualLayoutUnderway = false;
         }
-        _contentChangeDeltas = null;
     }
     
     /**
@@ -924,29 +911,7 @@ public class DataGroup extends GroupBase
         _layeringFlags |= (LAYERING_ENABLED | LAYERING_DIRTY);
         invalidateProperties();
     }
-    
-    private var _contentChangeDeltas:Vector.<int> = null;
-    
-
-    /**
-     *  @private
-     *  Provisional support for notifying the layout of upcoming changes to the
-     *  layout elements (item renderers).   The value of this property is a
-     *  vector where positive values indicate item addditions, and negative values
-     *  indicate item removals.   In both cases the index values are offset by one.
-     */  
-    override mx_internal function get contentChangeDeltas():Vector.<int>
-    {
-        return _contentChangeDeltas;
-    }
-    
-    private function appendContentChangeDelta(index:int):void
-    {
-        if (!_contentChangeDeltas)
-            _contentChangeDeltas = new Vector.<int>();
-        _contentChangeDeltas.push(index);
-    }
-    
+        
     /**
      *  Adds the itemRenderer for the specified dataProvider item to this DataGroup.
      * 
@@ -963,10 +928,17 @@ public class DataGroup extends GroupBase
      */
     mx_internal function itemAdded(item:Object, index:int):void
     {
+        if (layout)
+            layout.elementAdded(index);
+        
         if (layout && layout.useVirtualLayout)
         {
-            appendContentChangeDelta(index+1);
-            indexToRenderer.splice(index, 0, null);
+            if ((index >= virtualLayoutStartIndex) && (index <= virtualLayoutEndIndex))
+            {
+                virtualLayoutEndIndex += 1;
+                indexToRenderer.splice(index, 0, null);
+            }
+
             invalidateSize();
             invalidateDisplayList();
             return;
@@ -1001,29 +973,31 @@ public class DataGroup extends GroupBase
      */
     mx_internal function itemRemoved(item:Object, index:int):void
     {
-        if (layout && layout.useVirtualLayout)
-        {
-            appendContentChangeDelta(-(index+1));
-            indexToRenderer.splice(index, 1);
-            invalidateSize();
-            invalidateDisplayList();
-            return;
-        }        
+        if (layout)
+            layout.elementRemoved(index);
         
         var myItemRenderer:IVisualElement = indexToRenderer[index];
-        indexToRenderer.splice(index, 1);
-        
+        if (layout && layout.useVirtualLayout)
+        {
+            if ((index >= virtualLayoutStartIndex) && (index <= virtualLayoutEndIndex))
+            {
+                virtualLayoutEndIndex -= 1;
+                indexToRenderer.splice(index, 1);
+            }
+        }
+        else 
+            indexToRenderer.splice(index, 0, null);
+            
         dispatchEvent(new RendererExistenceEvent(
                       RendererExistenceEvent.RENDERER_REMOVE, false, false, 
                       myItemRenderer, index, item));
         
-        // If the item and renderer are different objects, set the renderer data to 
-        // null here to clear it out. Otherwise, the renderer keeps a reference to the item,
-        // which can cause problems later.
         if (myItemRenderer is IDataRenderer && myItemRenderer != item)
             IDataRenderer(myItemRenderer).data = null;
         
-        super.removeChild(myItemRenderer as DisplayObject);
+        var child:DisplayObject = myItemRenderer as DisplayObject;
+        if (child)
+            super.removeChild(child);
         
         invalidateSize();
         invalidateDisplayList();
