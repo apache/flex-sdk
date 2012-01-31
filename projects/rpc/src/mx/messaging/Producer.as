@@ -69,7 +69,7 @@ public class Producer extends AbstractProducer
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructs a Producer.
+     *  Constructor.
      * 
      *  @example
      *  <pre>
@@ -90,12 +90,12 @@ public class Producer extends AbstractProducer
      *  @productversion BlazeDS 4
      *  @productversion LCDS 3 
      */
-	public function Producer()
-	{
-		super();
-	    _log = Log.getLogger("mx.messaging.Producer");
-		_agentType = "producer";
-	}
+    public function Producer()
+    {
+        super();
+        _log = Log.getLogger("mx.messaging.Producer");
+        _agentType = "producer";
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -109,9 +109,9 @@ public class Producer extends AbstractProducer
     // 
     //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  subtopic
-	//----------------------------------	
+    //----------------------------------
+    //  subtopic
+    //----------------------------------    
 
     /**
      *  @private
