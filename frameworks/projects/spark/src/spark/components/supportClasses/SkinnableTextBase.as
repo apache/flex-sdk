@@ -88,7 +88,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
+ *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -108,7 +108,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="focusAlpha", type="Number", inherit="no", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#focusColor
+ *  @copy spark.components.supportClasses.GroupBase#style:focusColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -304,11 +304,11 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private static const TEXT_FLOW_PROPERTY_FLAG:uint = 1 << 12;
     
-	/**
-	 *  @private
-	 */
-	private static const TYPICAL_TEXT_PROPERTY_FLAG:uint = 1 << 13;
-	
+    /**
+     *  @private
+     */
+    private static const TYPICAL_TEXT_PROPERTY_FLAG:uint = 1 << 13;
+    
     /**
      *  @private
      */
@@ -385,7 +385,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //  textDisplay
     //----------------------------------
 
-	[Bindable]
+    [Bindable]
     [SkinPart(required="false")]
 
     /**
@@ -423,152 +423,152 @@ public class SkinnableTextBase extends SkinnableComponent
     //  Overridden properties: UIComponent
     //
     //--------------------------------------------------------------------------
-	
-	/*
-	
-	Note:
-	
-	SkinnableTextBase does not have an accessibilityImplementation
-	because, if it does, the Flash Player doesn't support text-selection
-	accessibility. The selectionAnchorIndex and selectionActiveIndex
-	getters of the acc impl don't get called, probably because Player 10.1
-	doesn't like the fact that stage.focus is the texDisplay:RichEditableText
-	part instead of the SinnableTextBase component (i.e., the TextInput
-	or TextArea).
-	
-	Instead, we rely on the RichEditableTextAccImpl of the textDisplay
-	to provide accessibility.
-	
-	However, developers expect to be able to control accessibility by setting
-	accessibilityProperties, accessibilityName, accessibilityDescription,
-	tabIndex, etc. on the component itself.
-	
-	In order to make these settings usable by RichEditableTextAccImpl,
-	we push them down into the accessibilityProperties of the RichEditableText,
-	using the invalidateProperties() / commitProperties() pattern.
-	
-	*/
+    
+    /*
+    
+    Note:
+    
+    SkinnableTextBase does not have an accessibilityImplementation
+    because, if it does, the Flash Player doesn't support text-selection
+    accessibility. The selectionAnchorIndex and selectionActiveIndex
+    getters of the acc impl don't get called, probably because Player 10.1
+    doesn't like the fact that stage.focus is the texDisplay:RichEditableText
+    part instead of the SinnableTextBase component (i.e., the TextInput
+    or TextArea).
+    
+    Instead, we rely on the RichEditableTextAccImpl of the textDisplay
+    to provide accessibility.
+    
+    However, developers expect to be able to control accessibility by setting
+    accessibilityProperties, accessibilityName, accessibilityDescription,
+    tabIndex, etc. on the component itself.
+    
+    In order to make these settings usable by RichEditableTextAccImpl,
+    we push them down into the accessibilityProperties of the RichEditableText,
+    using the invalidateProperties() / commitProperties() pattern.
+    
+    */
 
-	//----------------------------------
-	//  accessibilityEnabled
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	override public function set accessibilityEnabled(value:Boolean):void
-	{
-		if (!Capabilities.hasAccessibility)
-			return;
-			
-		if (!accessibilityProperties)
-			accessibilityProperties = new AccessibilityProperties();
-		
-		accessibilityProperties.silent = !value;
-		accessibilityPropertiesChanged = true;
-		
-		invalidateProperties();
-	}
-	
-	//----------------------------------
-	//  accessibilityDescription
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	override public function set accessibilityDescription(value:String):void
-	{
-		if (!Capabilities.hasAccessibility)
-			return;
-		
-		if (!accessibilityProperties)
-			accessibilityProperties = new AccessibilityProperties();
-		
-		accessibilityProperties.description = value;
-		accessibilityPropertiesChanged = true;
-		
-		invalidateProperties();
-	}
-	
-	//----------------------------------
-	//  accessibilityName
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	override public function set accessibilityName(value:String):void 
-	{
-		if (!Capabilities.hasAccessibility)
-			return;
-		
-		if (!accessibilityProperties)
-			accessibilityProperties = new AccessibilityProperties();
-		
-		accessibilityProperties.name = value;
-		accessibilityPropertiesChanged = true;
-		
-		invalidateProperties();
-	}
-	
-	//----------------------------------
-	//  accessibilityProperties
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 *  Storage for the accessibilityProperties property.
-	 */
-	private var _accessibilityProperties:AccessibilityProperties = null;
+    //----------------------------------
+    //  accessibilityEnabled
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set accessibilityEnabled(value:Boolean):void
+    {
+        if (!Capabilities.hasAccessibility)
+            return;
+            
+        if (!accessibilityProperties)
+            accessibilityProperties = new AccessibilityProperties();
+        
+        accessibilityProperties.silent = !value;
+        accessibilityPropertiesChanged = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  accessibilityDescription
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set accessibilityDescription(value:String):void
+    {
+        if (!Capabilities.hasAccessibility)
+            return;
+        
+        if (!accessibilityProperties)
+            accessibilityProperties = new AccessibilityProperties();
+        
+        accessibilityProperties.description = value;
+        accessibilityPropertiesChanged = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  accessibilityName
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set accessibilityName(value:String):void 
+    {
+        if (!Capabilities.hasAccessibility)
+            return;
+        
+        if (!accessibilityProperties)
+            accessibilityProperties = new AccessibilityProperties();
+        
+        accessibilityProperties.name = value;
+        accessibilityPropertiesChanged = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  accessibilityProperties
+    //----------------------------------
+    
+    /**
+     *  @private
+     *  Storage for the accessibilityProperties property.
+     */
+    private var _accessibilityProperties:AccessibilityProperties = null;
 
-	/**
-	 *  @private
-	 */
-	private var accessibilityPropertiesChanged:Boolean = false;
-	
-	/**
-	 *  @private
-	 */
-	override public function get accessibilityProperties():AccessibilityProperties
-	{
-		return _accessibilityProperties;
-	}
-	
-	/**
-	 *  @private
-	 */
-	override public function set accessibilityProperties(
-									value:AccessibilityProperties):void
-	{
-		_accessibilityProperties = value;
-		accessibilityPropertiesChanged = true;
-		
-		invalidateProperties();
-	}
-	
-	//----------------------------------
-	//  accessibilityShortcut
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 */
-	override public function set accessibilityShortcut(value:String):void
-	{
-		if (!Capabilities.hasAccessibility)
-			return;		
-		
-		if (!accessibilityProperties)
-			accessibilityProperties = new AccessibilityProperties();
-		
-		accessibilityProperties.shortcut = value;
-		accessibilityPropertiesChanged = true;
-		
-		invalidateProperties();
-	}
+    /**
+     *  @private
+     */
+    private var accessibilityPropertiesChanged:Boolean = false;
+    
+    /**
+     *  @private
+     */
+    override public function get accessibilityProperties():AccessibilityProperties
+    {
+        return _accessibilityProperties;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function set accessibilityProperties(
+                                    value:AccessibilityProperties):void
+    {
+        _accessibilityProperties = value;
+        accessibilityPropertiesChanged = true;
+        
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  accessibilityShortcut
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set accessibilityShortcut(value:String):void
+    {
+        if (!Capabilities.hasAccessibility)
+            return;     
+        
+        if (!accessibilityProperties)
+            accessibilityProperties = new AccessibilityProperties();
+        
+        accessibilityProperties.shortcut = value;
+        accessibilityPropertiesChanged = true;
+        
+        invalidateProperties();
+    }
 
-	//----------------------------------
+    //----------------------------------
     //  baselinePosition
     //----------------------------------
     
@@ -668,16 +668,16 @@ public class SkinnableTextBase extends SkinnableComponent
         setPrompt(value);
     }
     
-	//----------------------------------
-	//  tabIndex
-	//----------------------------------
+    //----------------------------------
+    //  tabIndex
+    //----------------------------------
 
     /**
      *  @private
      *  Storage for the tabIndex property.
      */
     private var _tabIndex:int = -1;
-	
+    
     /**
      *  @private
      */
@@ -866,8 +866,8 @@ public class SkinnableTextBase extends SkinnableComponent
 
         if (textDisplay)
         {
-			if (richEditableText)
-            	richEditableText.imeMode = value;
+            if (richEditableText)
+                richEditableText.imeMode = value;
             textDisplayProperties = BitFlagUtil.update(
                 uint(textDisplayProperties), IME_MODE_PROPERTY_FLAG, true);
         }
@@ -1166,29 +1166,29 @@ public class SkinnableTextBase extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function commitProperties():void
-	{
-		super.commitProperties();
-		
-		if (accessibilityPropertiesChanged)
-		{
-			if (textDisplay)
-			{
-				textDisplay.accessibilityProperties = _accessibilityProperties;
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+        
+        if (accessibilityPropertiesChanged)
+        {
+            if (textDisplay)
+            {
+                textDisplay.accessibilityProperties = _accessibilityProperties;
                 textDisplay.tabIndex = _tabIndex;             
                 
-				// Note: Calling updateProperties() on players that don't
-				// support accessibility will throw an RTE.
-				if (Capabilities.hasAccessibility)
-					Accessibility.updateProperties();
-			}
-			
-			accessibilityPropertiesChanged = false;
-		}
-	}
+                // Note: Calling updateProperties() on players that don't
+                // support accessibility will throw an RTE.
+                if (Capabilities.hasAccessibility)
+                    Accessibility.updateProperties();
+            }
+            
+            accessibilityPropertiesChanged = false;
+        }
+    }
 
     /**
      *  @private
@@ -1569,48 +1569,48 @@ public class SkinnableTextBase extends SkinnableComponent
         invalidateSkinState();
     }
 
-	/**
-	 *  @see RichEditableText#typicalText
-	 *
-	 *  @private
-	 */
-	mx_internal function getTypicalText():String
-	{
-		var richEditableText:RichEditableText = textDisplay as RichEditableText;
-		
-		if (richEditableText)
-			return richEditableText.typicalText;
-		
-		// want the default to be null
-		var v:* = textDisplay ? undefined : textDisplayProperties.typicalText;
-		return (v === undefined) ? null : v;
-	}
-	
-	/**
-	 *  @private
-	 */
-	mx_internal function setTypicalText(value:String):void
-	{
-		if (textDisplay)
-		{
-			var richEditableText:RichEditableText = textDisplay as RichEditableText;
-			
-			if (richEditableText)
-				richEditableText.typicalText = value;
-			textDisplayProperties = BitFlagUtil.update(
-				uint(textDisplayProperties), 
-				TYPICAL_TEXT_PROPERTY_FLAG, true);
-		}
-		else
-		{
-			textDisplayProperties.typicalText = value;
-		}
-		
-		// Generate an UPDATE_COMPLETE event.
-		invalidateProperties();                    
-	}
+    /**
+     *  @see RichEditableText#typicalText
+     *
+     *  @private
+     */
+    mx_internal function getTypicalText():String
+    {
+        var richEditableText:RichEditableText = textDisplay as RichEditableText;
+        
+        if (richEditableText)
+            return richEditableText.typicalText;
+        
+        // want the default to be null
+        var v:* = textDisplay ? undefined : textDisplayProperties.typicalText;
+        return (v === undefined) ? null : v;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function setTypicalText(value:String):void
+    {
+        if (textDisplay)
+        {
+            var richEditableText:RichEditableText = textDisplay as RichEditableText;
+            
+            if (richEditableText)
+                richEditableText.typicalText = value;
+            textDisplayProperties = BitFlagUtil.update(
+                uint(textDisplayProperties), 
+                TYPICAL_TEXT_PROPERTY_FLAG, true);
+        }
+        else
+        {
+            textDisplayProperties.typicalText = value;
+        }
+        
+        // Generate an UPDATE_COMPLETE event.
+        invalidateProperties();                    
+    }
 
-	/**
+    /**
      *  The default width for the Text components, measured in characters.
      *  The width of the "M" character is used for the calculation.
      *  So if you set this property to 5, it will be wide enough
@@ -1760,14 +1760,14 @@ public class SkinnableTextBase extends SkinnableComponent
                 uint(newTextDisplayProperties), TEXT_FLOW_PROPERTY_FLAG, true);
         }
 
-		if (textDisplayProperties.typicalText !== undefined && richEditableText)
-		{
-			richEditableText.typicalText = textDisplayProperties.typicalText;
-			newTextDisplayProperties = BitFlagUtil.update(
-				uint(newTextDisplayProperties), 
-				TYPICAL_TEXT_PROPERTY_FLAG, true);
-		}
-		
+        if (textDisplayProperties.typicalText !== undefined && richEditableText)
+        {
+            richEditableText.typicalText = textDisplayProperties.typicalText;
+            newTextDisplayProperties = BitFlagUtil.update(
+                uint(newTextDisplayProperties), 
+                TYPICAL_TEXT_PROPERTY_FLAG, true);
+        }
+        
         if (textDisplayProperties.widthInChars !== undefined && richEditableText)
         {
             richEditableText.widthInChars = textDisplayProperties.widthInChars;
@@ -1872,12 +1872,12 @@ public class SkinnableTextBase extends SkinnableComponent
             newTextDisplayProperties.typicalText = richEditableText.typicalText;
         }
             
-		if (BitFlagUtil.isSet(uint(textDisplayProperties), 
-			WIDTH_IN_CHARS_PROPERTY_FLAG) && richEditableText)
-		{
-			newTextDisplayProperties.widthInChars = richEditableText.widthInChars;
-		}
-		
+        if (BitFlagUtil.isSet(uint(textDisplayProperties), 
+            WIDTH_IN_CHARS_PROPERTY_FLAG) && richEditableText)
+        {
+            newTextDisplayProperties.widthInChars = richEditableText.widthInChars;
+        }
+        
         // Switch from storing bit mask to storing properties.
         textDisplayProperties = newTextDisplayProperties;
     }
