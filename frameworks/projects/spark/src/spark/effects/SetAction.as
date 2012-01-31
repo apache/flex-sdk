@@ -9,10 +9,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects
+package mx.effects
 {
 
-import flex.effects.effectClasses.SetActionInstance;
+import mx.effects.effectClasses.SetActionInstance;
 
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
@@ -45,7 +45,7 @@ import mx.effects.IEffectInstance;
  *  /&gt;
  *  </pre>
  *  
- *  @see flex.effects.effectClasses.SetActionInstance
+ *  @see mx.effects.effectClasses.SetActionInstance
  */
 public class SetAction extends Effect
 {
