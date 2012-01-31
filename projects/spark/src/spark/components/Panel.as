@@ -49,7 +49,8 @@ public class FxPanel extends FxContainer
     //  middleButton
     //---------------------------------- 
     
-    [SkinPart]
+    [SkinPart(required="true")]
+
     /**
      * A skin part that defines the middle button(s).
      */
