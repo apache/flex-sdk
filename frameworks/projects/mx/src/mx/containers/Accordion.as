@@ -2372,6 +2372,10 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         var oldIndex:int = selectedIndex;
         var newIndex:int;
         var index:int = getChildIndex(child);
+
+        // Remove Event Listeners, in case children are referenced elsewhere.
+        child.removeEventListener("labelChanged", labelChangedHandler);
+        child.removeEventListener("iconChanged",  iconChangedHandler);
         
         var nChildren:int = numChildren - 1;
             // number of children remaining after child has been removed
