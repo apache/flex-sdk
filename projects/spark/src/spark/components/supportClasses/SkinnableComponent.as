@@ -166,7 +166,36 @@ public class FxComponent extends UIComponent
     {
         super.createChildren();
         
-        skinChanged = true;
+        validateSkinChange();
+    }
+    
+    /**
+     *  @private
+     */
+    private function validateSkinChange():void
+    {
+        // If our new skin Class happens to match our existing skin Class there is no
+        // reason to fully unload then reload our skin.  
+        var skipReload:Boolean = false;
+        
+        if (_skin)
+        {
+            var factory:Object = getStyle("skinFactory");
+            
+            var newSkinClass:Class = (factory && factory is ClassFactory) ? 
+                ClassFactory(factory).generator :
+                getStyle("skinClass");
+                
+            skipReload = newSkinClass && 
+                getQualifiedClassName(newSkinClass) == getQualifiedClassName(_skin);
+        }
+        
+        if (!skipReload)
+        {
+            if (skin)
+                unloadSkin();
+            loadSkin();
+        }
     }
     
     /**
@@ -179,29 +208,7 @@ public class FxComponent extends UIComponent
         if (skinChanged)
         {
             skinChanged = false;
-  
-            // If our new skin Class happens to match our existing skin Class there is no
-            // reason to fully unload then reload our skin.  
-            var skipReload:Boolean = false;
-            
-            if (_skin)
-            {
-                var factory:Object = getStyle("skinFactory");
-                
-                var newSkinClass:Class = (factory && factory is ClassFactory) ? 
-                    ClassFactory(factory).generator :
-                    getStyle("skinClass");
-                    
-                skipReload = newSkinClass && 
-                    getQualifiedClassName(newSkinClass) == getQualifiedClassName(_skin);
-            }
-            
-            if (!skipReload)
-            {
-                if (skin)
-                    unloadSkin();
-                loadSkin();
-            }
+            validateSkinChange();
         }
         
         if (skinStateIsDirty)
