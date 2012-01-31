@@ -2337,6 +2337,10 @@ public class DataGrid extends SkinnableContainerBase
             return;
         }
 
+        // If the key wasn't targeted to us, then ignore it.
+        if (!isOurFocus(DisplayObject(event.target)))
+            return;
+        
         // Ctrl-A only comes thru on Mac.  On Windows it is a SELECT_ALL
         // event.
         if (event.keyCode == Keyboard.A && event.ctrlKey)
@@ -2435,8 +2439,12 @@ public class DataGrid extends SkinnableContainerBase
      */
     protected function selectAllHandler(event:Event):void
     {
-        if (!grid || event.isDefaultPrevented())
+        // If the select all was not targeted to the DataGrid, then ignore it.
+        if (!grid || event.isDefaultPrevented() || 
+            !isOurFocus(DisplayObject(event.target)))
+        {
             return;
+        }
 
         selectAllFromKeyboard();
     }
