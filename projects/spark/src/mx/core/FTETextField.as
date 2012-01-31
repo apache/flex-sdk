@@ -39,7 +39,7 @@ import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 
-import flashx.textLayout.compose.ITextLineCreator;
+import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.compose.TextLineRecycler;
 import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.conversion.ConversionType;
@@ -1880,6 +1880,58 @@ public class FTETextField extends Sprite
 	}
 	
 	//----------------------------------
+	//  fontContext
+	//----------------------------------
+	
+	/**
+	 *  @private
+	 *  Storage for the fontContext property.
+	 */
+	private var _fontContext:ISWFContext;
+	
+	/**
+	 *  The ISWFContext instance that FTETextField
+	 *  uses for creating TextLines.
+	 * 
+	 *  <p>Set this if you need lines to be created in a different
+	 *  SWF context than the one containing the TLF code.</p>
+	 * 
+	 *  <p>Note: This property does not exist in the classic
+	 *  flash.text.TextField API.</p>
+	 * 
+	 *  @default null
+	 *
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @langversion 3.0
+	 */
+	public function get fontContext():ISWFContext
+	{
+		return _fontContext;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set fontContext(value:ISWFContext):void
+	{
+		// FTETextField allows a null value to be set;
+		// in fact, this is the default.
+
+		if (value == _fontContext)
+			return;
+				
+		_fontContext = value;
+		
+		// The TextLines may need to be recreated
+		// and the border and background may need to be redrawn.
+		setFlag(FLAG_TEXT_LINES_INVALID |
+				FLAG_GRAPHICS_INVALID);
+		
+		invalidate();
+	}
+	
+	//----------------------------------
 	//  locale
 	//----------------------------------
 	
@@ -1914,58 +1966,6 @@ public class FTETextField extends Sprite
 		// and must be recreated when needed.
 		elementFormat = null;
 		hostFormat = null;
-		
-		// The TextLines may need to be recreated
-		// and the border and background may need to be redrawn.
-		setFlag(FLAG_TEXT_LINES_INVALID |
-				FLAG_GRAPHICS_INVALID);
-		
-		invalidate();
-	}
-	
-	//----------------------------------
-	//  textLineCreator
-	//----------------------------------
-	
-	/**
-	 *  @private
-	 *  Storage for the textLineCreator property.
-	 */
-	private var _textLineCreator:ITextLineCreator;
-	
-	/**
-	 *  The ITextLineCreator instance that FTETextField
-	 *  uses for creating TextLines.
-	 * 
-	 *  <p>Set this if you need lines to be created in a different
-	 *  SWF context than the one containing the TLF code.</p>
-	 * 
-	 *  <p>Note: This property does not exist in the classic
-	 *  flash.text.TextField API.</p>
-	 * 
-	 *  @default null
-	 *
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @langversion 3.0
-	 */
-	public function get textLineCreator():ITextLineCreator
-	{
-		return _textLineCreator;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set textLineCreator(value:ITextLineCreator):void
-	{
-		// FTETextField allows a null value to be set;
-		// in fact, this is the default.
-
-		if (value == _textLineCreator)
-			return;
-				
-		_textLineCreator = value;
 		
 		// The TextLines may need to be recreated
 		// and the border and background may need to be redrawn.
@@ -2697,10 +2697,11 @@ public class FTETextField extends Sprite
 			var recycleLine:TextLine = TextLineRecycler.getLineForReuse();
 			if (recycleLine)
 			{
-				if (textLineCreator)
+				if (fontContext)
 				{
-					nextTextLine = textLineCreator.recreateTextLine(
-						textBlock, recycleLine, textLine, maxLineWidth);		
+					nextTextLine = fontContext.callInContext(
+						textBlock["recreateTextLine"], textBlock,
+						[ recycleLine, textLine, maxLineWidth ]);		
 				}        
 				else
 				{
@@ -2710,10 +2711,11 @@ public class FTETextField extends Sprite
 			}
 			else
 			{
-				if (textLineCreator)
+				if (fontContext)
 				{
-					nextTextLine = textLineCreator.createTextLine(
-						textBlock, textLine, maxLineWidth);
+					nextTextLine = fontContext.callInContext(
+						textBlock.createTextLine, textBlock,
+						[ textLine, maxLineWidth ]);
 				}
 				else
 				{
@@ -2831,7 +2833,7 @@ public class FTETextField extends Sprite
 		
 		textContainerManager.hostFormat = hostFormat;
 		
-		textContainerManager.textLineCreator = textLineCreator;
+		textContainerManager.swfContext = fontContext;
 		
 		textContainerManager.setTextFlow(textFlow)
 		
