@@ -20,6 +20,11 @@ import mx.collections.CursorBookmark;
  *
  *  @see mx.collections.errors.ItemPendingError
  *  @see mx.controls.listClasses.ListBase#lastSeekPending
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ListBaseSeekPending
 {
@@ -38,6 +43,11 @@ public class ListBaseSeekPending
 	 *                  seek operation.
 	 *  @param offset The offset from the bookmark that was the target of
 	 *                  the seek operation.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ListBaseSeekPending(bookmark:CursorBookmark, offset:int)
 	{
@@ -59,6 +69,11 @@ public class ListBaseSeekPending
 
 	/**
 	 *  The bookmark that was being used in the seek operation.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var bookmark:CursorBookmark;
 
@@ -68,6 +83,11 @@ public class ListBaseSeekPending
 
 	/**
 	 *  The offset from the bookmark that was the target of the seek operation.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var offset:int;
 }
