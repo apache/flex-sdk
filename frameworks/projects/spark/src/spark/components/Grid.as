@@ -71,8 +71,10 @@ package spark.components
     [Event(name="gridMouseDrag", type="spark.events.GridEvent")]
     
     /**
-     *  Dispatched after a GRID_MOUSE_DOWN event when the mouse button is released, even
-     *  if the mouse is no longer within the Grid.
+     *  Dispatched when the mouse button is released over a Grid cell, or, 
+     *  during a drag operation, it is dispatched after a GRID_MOUSE_DOWN event 
+     *  when the mouse button is released, even if the mouse is no longer 
+     *  within the Grid.
      *
      *  @eventType spark.events.GridEvent.GRID_MOUSE_UP
      * 
@@ -198,6 +200,12 @@ package spark.components
     {
         include "../core/Version.as";
         
+        //--------------------------------------------------------------------------
+        //
+        //  Variables
+        //
+        //--------------------------------------------------------------------------
+
         /**
          *  @private
          *  A list of functions to be called at commitProperties() time, after the dataProvider
@@ -214,6 +222,12 @@ package spark.components
          */
         mx_internal var inUpdateDisplayList:Boolean = false;  
         
+        /**
+         *  @private
+         *  True while doing a drag operation with the mouse.
+         */
+        private var dragInProgress:Boolean = false;
+        
         
         // TODO(hmuller): the following public variables are temporary 
         
@@ -223,6 +237,20 @@ package spark.components
         public var overlayGroup:Group;
         
         
+        //--------------------------------------------------------------------------
+        //
+        //  Constructor
+        //
+        //--------------------------------------------------------------------------
+        
+        /**
+         *  Constructor. 
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.4
+         *  @productversion Flex 4.5
+         */
         public function Grid()
         {
             super();
@@ -243,6 +271,8 @@ package spark.components
                 grid_mouseDownDragUpHandler, 
                 grid_mouseDownDragUpHandler, 
                 grid_mouseDownDragUpHandler);
+                        
+            addEventListener(MouseEvent.MOUSE_UP, grid_mouseUpHandler);
             addEventListener(MouseEvent.MOUSE_MOVE, grid_mouseMoveHandler);
             addEventListener(MouseEvent.ROLL_OUT, grid_mouseRollOutHandler);
             addEventListener(MouseEvent.CLICK, grid_clickHandler);
@@ -1034,7 +1064,7 @@ package spark.components
         //  requestedRowCount
         //----------------------------------
         
-        private var _requestedRowCount:int = -1;
+        private var _requestedRowCount:int = 10;
         
         [Inspectable(category="General", minValue="-1")]
         
@@ -2863,12 +2893,17 @@ package spark.components
             var gridEventType:String;
             switch(event.type)
             {
-                case MouseEvent.MOUSE_MOVE: gridEventType = GridEvent.GRID_MOUSE_DRAG; break;
-                case MouseEvent.MOUSE_UP:   gridEventType = GridEvent.GRID_MOUSE_UP; break;
+                case MouseEvent.MOUSE_MOVE: 
+                    gridEventType = GridEvent.GRID_MOUSE_DRAG; 
+                    break;
+                case MouseEvent.MOUSE_UP: 
+                    gridEventType = GridEvent.GRID_MOUSE_UP;
+                    break;
                 case MouseEvent.MOUSE_DOWN: 
                     gridEventType = GridEvent.GRID_MOUSE_DOWN;
                     mouseDownRowIndex = eventRowIndex;
                     mouseDownColumnIndex = eventColumnIndex;
+                    dragInProgress = true;
                     break;
             }
             
@@ -2921,6 +2956,9 @@ package spark.components
          */       
         protected function grid_mouseRollOutHandler(event:MouseEvent):void
         {
+            // Handle the case where the mouse up happens outside the data grid.
+            dragInProgress = false
+                
             if ((rollRowIndex != -1) || (rollColumnIndex != -1))
             {
                 const eventStageXY:Point = new Point(event.stageX, event.stageY);
@@ -2931,6 +2969,36 @@ package spark.components
             }
         }
         
+        /**
+         *  This method is called whenever a GRID_MOUSE_UP occurs on the grid.
+         *  By default it dispatches a GRID_MOUSE_UP event.
+         * 
+         *  @param event A GRID_MOUSE_UP MouseEvent from the grid.
+         * 
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */       
+        protected function grid_mouseUpHandler(event:MouseEvent):void 
+        {
+            // If in a drag, the drag handler already dispatched a mouse up
+            // event so don't do it again here.
+            if (dragInProgress)
+            {
+                dragInProgress = false;
+                return;
+            }
+            
+            const eventStageXY:Point = new Point(event.stageX, event.stageY);
+            const eventGridXY:Point = globalToLocal(eventStageXY);
+            const gridDimensions:GridDimensions = GridLayout(layout).gridDimensions;
+            const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
+            const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
+            
+            dispatchGridEvent(event, GridEvent.GRID_MOUSE_UP, eventGridXY, eventRowIndex, eventColumnIndex);
+        }
+
         /**
          *  This method is called whenever a CLICK MouseEvent occurs on the grid if both
          *  the corresponding down and up events occur within the same grid cell.
@@ -3033,14 +3101,14 @@ package spark.components
             const shiftKey:Boolean = mouseEvent.shiftKey;
             const buttonDown:Boolean = mouseEvent.buttonDown;
             const delta:int = mouseEvent.delta;        
-            
+
             const event:GridEvent = new GridEvent(
                 type, bubbles, cancelable, 
                 gridXY.x, gridXY.y, rowIndex, columnIndex, column, item, itemRenderer, 
                 relatedObject, ctrlKey, altKey, shiftKey, buttonDown, delta);
             dispatchEvent(event);
         }
-                
+            
         //--------------------------------------------------------------------------
         //
         //  IList listeners: columns, dataProvider
