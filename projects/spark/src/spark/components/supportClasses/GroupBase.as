@@ -1431,7 +1431,7 @@ public class GroupBase extends UIComponent implements IViewport
         {
             for (var j:int = i;j > 0;j--)
             {
-                if ( a[j].layer < a[j-1].layer )
+                if ( a[j].depth < a[j-1].depth )
                 {
                     tmp = a[j];
                     a[j] = a[j-1];
