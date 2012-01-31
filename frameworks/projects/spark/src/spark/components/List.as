@@ -783,7 +783,8 @@ public class List extends ListBase implements IFocusManagerComponent
             if (caretIndex >= 0)
             {
                 currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                currentRenderer.showsCaret = false;
+                if (currentRenderer)
+                    currentRenderer.showsCaret = false;
             }
 
             // Check to see if we're deselecting the currently selected item 
