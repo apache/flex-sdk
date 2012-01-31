@@ -1206,14 +1206,8 @@ public class GridLayout extends LayoutBase
             gridRenderer.data = dataItem;
             
             if (grid.dataGrid)
-                grid.dataGrid.prepareItemRenderer(gridRenderer, true);
+                renderer.owner = grid.dataGrid;
         }
-    }
-    
-    private function uninitializeItemRenderer(renderer:IGridItemRenderer):void
-    {
-        if (grid.dataGrid)
-            grid.dataGrid.discardItemRenderer(renderer, true);
     }
     
     private function freeItemRenderer(renderer:IGridItemRenderer):void
@@ -1221,9 +1215,7 @@ public class GridLayout extends LayoutBase
         if (!renderer)
             return;
         
-        const addedToFreeList:Boolean = freeGridElement(renderer);
-        if (addedToFreeList)
-            uninitializeItemRenderer(renderer);
+        freeGridElement(renderer);
     }
     
     private function freeItemRenderers(renderers:Vector.<IGridItemRenderer>):void
