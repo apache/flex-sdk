@@ -220,7 +220,7 @@ public class TileGroup extends Group
     //----------------------------------
     
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="6")]
 
     /**
      *  @copy spark.layouts.TileLayout#horizontalGap
@@ -278,7 +278,7 @@ public class TileGroup extends Group
     //  paddingLeft
     //----------------------------------
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
     
     /**
      *  @copy spark.layouts.TileLayout#paddingLeft
@@ -307,7 +307,7 @@ public class TileGroup extends Group
     //  paddingRight
     //----------------------------------
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
     
     /**
      *  @copy spark.layouts.TileLayout#paddingRight
@@ -336,7 +336,7 @@ public class TileGroup extends Group
     //  paddingTop
     //----------------------------------
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
     
     /**
      *  @copy spark.layouts.TileLayout#paddingTop
@@ -365,7 +365,7 @@ public class TileGroup extends Group
     //  paddingBottom
     //----------------------------------
     
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="0.0")]
     
     /**
      *  @copy spark.layouts.TileLayout#paddingBottom
@@ -563,7 +563,7 @@ public class TileGroup extends Group
     //----------------------------------
     
     [Bindable("propertyChange")]
-    [Inspectable(category="General")]
+    [Inspectable(category="General", defaultValue="6")]
 
     /**
      *  @copy spark.layouts.TileLayout#verticalGap
