@@ -59,16 +59,17 @@ public class AnimateFilterInstance extends AnimateInstance
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy mx.effects.IEffectInstance#startEffect()
+     * @private
      */
-    override public function startEffect():void
-    {   
+    override public function play():void
+    {
         // Apply our filter instance.
         var filters:Array = target.filters;
         filters.push(bitmapFilter);
         target.filters = filters;
-        super.startEffect();
+        super.play();
     }
+    
     
     /**
      *  @copy mx.effects.IEffectInstance#finishEffect()
@@ -114,7 +115,7 @@ public class AnimateFilterInstance extends AnimateInstance
      *  
      * @private
      */
-    override protected function getCurrentValue(property:String):Number
+    override protected function getCurrentValue(property:String):*
     {
         return bitmapFilter[property];
     }
