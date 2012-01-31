@@ -212,6 +212,40 @@ public class GridLayout extends LayoutBase
     
     //--------------------------------------------------------------------------
     //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  showCaret
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _showCaret:Boolean = false;
+    
+    /**
+     *  Determines if the caret is visible.
+     */
+    public function get showCaret():Boolean
+    {
+        return _showCaret;
+    }
+
+    /**
+     *  @private
+     */
+    public function set showCaret(show:Boolean):void
+    {
+        if (caretIndicator)
+            caretIndicator.visible = show;
+        
+        _showCaret = show;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Method Overrides
     //
     //-------------------------------------------------------------------------- 
@@ -1548,7 +1582,11 @@ public class GridLayout extends LayoutBase
         const rowIndex:int = grid.caretRowIndex;
         const colIndex:int = grid.caretColumnIndex;
         const factory:IFactory = grid.caretIndicator; 
-        caretIndicator = layoutIndicator(layer, factory, caretIndicator, rowIndex, colIndex);        
+        caretIndicator = layoutIndicator(layer, factory, caretIndicator, rowIndex, colIndex);  
+
+        // TODO (dloverin): enable to code to show/hide caret based on the showCaret property.
+//        if (caretIndicator)
+//            caretIndicator.visible = _showCaret;
     }
     
     //--------------------------------------------------------------------------
