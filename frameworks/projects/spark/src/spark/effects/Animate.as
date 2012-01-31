@@ -134,6 +134,12 @@ public class Animate extends Effect
     // specify a different set.
     private var affectedProperties:Array = null;
 
+    // Cached version of the relevant styles. By default, we simply return
+    // the list of properties specified in the motionPaths Vector.
+    // Subclasses should override relevantStyles() if they wish to 
+    // specify a different set.
+    private var _relevantStyles:Array = null;
+
     // Cached default easer. We only need one of these, so we cache this static
     // object to be reused by any Animate instances that do not specify
     // a custom easer.
@@ -371,7 +377,31 @@ public class Animate extends Effect
         }
         return affectedProperties;
     }
-
+    
+    /**
+     *  @private 
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        if (!_relevantStyles)
+        {
+            if (motionPaths)
+            {
+                _relevantStyles = new Array(motionPaths.length);
+                for (var i:int = 0; i < motionPaths.length; ++i)
+                {
+                    var effectHolder:MotionPath = MotionPath(motionPaths[i]);
+                    _relevantStyles[i] = effectHolder.property;
+                }
+            }
+            else
+            {
+                _relevantStyles = [];
+            }
+        }
+        return _relevantStyles;
+    }
+    
     /**
      * @private
      */
