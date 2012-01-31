@@ -28,7 +28,7 @@ package spark.effects.easing
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Power
+ *  &lt;s:Power
  *    id="ID"
  *    exponent="2" 
  *   /&gt;
