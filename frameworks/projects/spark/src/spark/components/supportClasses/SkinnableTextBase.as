@@ -736,6 +736,10 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         // it changes the selection to (0, 0).
         if (selectionAnchorPosition == -1 && selectionActivePosition == -1)
             setSelection(int.MAX_VALUE, int.MAX_VALUE);
+
+        // Only editable text should have a focus ring.
+        if (focusManager && editable)
+            focusManager.showFocusIndicator = true;
         
         super.focusInHandler(event);
     }
