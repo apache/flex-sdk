@@ -2462,7 +2462,7 @@ public class Menu extends List implements IFocusManagerContainer
         menu.isDirectionLeft = this.x > showX;
         
         // now do y
-        shift = screenPoint.y + height - screen.bottom;
+        shift = screenPoint.y + menu.getExplicitOrMeasuredHeight() - screen.bottom;
         if (shift > 0 || screenPoint.y < screen.y)
             showY = Math.max(showY - shift, 0);
         
