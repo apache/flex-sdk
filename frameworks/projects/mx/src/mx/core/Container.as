@@ -481,8 +481,6 @@ public class Container extends UIComponent
     {
         super();
 
-        // By default, containers cannot receive focus but their children can.
-        tabChildren = true;
         tabEnabled = false;
         
         showInAutomationHierarchy = false;
@@ -5283,7 +5281,6 @@ public class Container extends UIComponent
 
         var newPane:Sprite = new FlexSprite();
         newPane.name = "contentPane";
-        newPane.tabChildren = true;
 
         // Place content pane above border and background image but below
         // all other chrome.
