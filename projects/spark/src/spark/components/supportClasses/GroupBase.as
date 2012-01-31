@@ -1043,6 +1043,32 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
+     *  Layouts that honor the useVirtualLayout flag will use this method
+     *  to get layout elements that are "in view", i.e. that are within 
+     *  the Group's scrollRect.
+     * 
+     *  The returned layout element will have been validated.
+     * 
+     *  This method will lazily create or "recycle" and validate layout
+     *  elements as needed.
+     * 
+     *  This method is not intended to be called directly, layouts that
+     *  support virutalization will call it.
+     * 
+     *  @param index The index of the element to retrieve.
+     *  @return The validated element at the specified index.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function getVirtualElementAt(index:int):IVisualElement
+    {
+        return getElementAt(index);            
+    }
+    
+    /**
      *  @copy mx.core.IVisualElementContainer#getElementIndex
      *  
      *  @langversion 3.0
