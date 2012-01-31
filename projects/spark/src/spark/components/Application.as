@@ -73,6 +73,17 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
+/**
+ *  The background color of the application. This color is used as the stage color for the
+ *  application and the background color for the HTML embed tag.
+ *   
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
+
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
@@ -238,45 +249,6 @@ public class Application extends SkinnableContainer
      * so that we can update it for runtime localization.
      */
     private var viewSourceCMI:ContextMenuItem;
-    
-    //----------------------------------
-    //  backgroundColor
-    //----------------------------------
-    
-    private var _backgroundColor:uint = 0xFFFFFF;
-    
-    [Inspectable(category="General", format="Color", defaultValue="0xFFFFFF")]
-    [Bindable("backgroundColorUpdated")]
-    
-    /**
-     *  Background color of a component. 
-     *  This property specifies the background color, both while the application
-     *  loads, and while it is running.
-     *
-     *  @default 0xFFFFFF
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get backgroundColor():uint
-    {
-        return _backgroundColor;
-    }
-    
-    /**
-     * @private
-     */
-    public function set backgroundColor(value:uint):void
-    {
-        if (value == _backgroundColor)
-            return;
-            
-        _backgroundColor = value;
-        
-        dispatchEvent(new Event("backgroundColorUpdated"));
-    }
 
     //----------------------------------
     //  colorCorrection
