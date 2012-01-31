@@ -17,6 +17,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 import mx.core.IFlexDisplayObject;
+import mx.core.IFlexModuleFactory;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.core.FlexVersion;
@@ -174,18 +175,6 @@ public class RadioButton extends Button implements IFocusManagerGroup, IToggleBu
         // Old padding logic variables
         centerContent = false;
         extraSpacing = 8;
-        
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-        {
-            var typeSelector:CSSStyleDeclaration = 
-                StyleManager.getStyleDeclaration("mx.controls.RadioButton");
-            
-            if (typeSelector)
-            {
-                if (typeSelector.getStyle("cornerRadius") === undefined)
-                    typeSelector.setStyle("cornerRadius", 7);
-            }
-        }
     }
 
     //--------------------------------------------------------------------------
@@ -260,6 +249,26 @@ public class RadioButton extends Button implements IFocusManagerGroup, IToggleBu
         return value;
     }
 
+    /**
+     *  @private
+     */
+    override public function set moduleFactory(factory:IFlexModuleFactory):void
+    {
+        super.moduleFactory = factory;
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            var typeSelector:CSSStyleDeclaration = 
+                styleManager.getStyleDeclaration("mx.controls.RadioButton");
+            
+            if (typeSelector)
+            {
+                if (typeSelector.getStyle("cornerRadius") === undefined)
+                    typeSelector.setStyle("cornerRadius", 7);
+            }
+        }
+    }
+    
     //----------------------------------
     //  toggle
     //----------------------------------
