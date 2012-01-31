@@ -16,7 +16,6 @@ import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.FocusEvent;
-import flash.events.IEventDispatcher;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.events.TimerEvent;
@@ -296,16 +295,27 @@ public class DropDownController extends EventDispatcher
      */ 
     public function openDropDown():void
     {
+        openDropDownHelper(true);
+    }   
+    
+    /**
+     *  @private
+     *  Set isProgrammatic to true if you are opening the dropDown programmatically 
+     *  or not through a mouse click or rollover.  
+     */ 
+    private function openDropDownHelper(isProgrammatic:Boolean = false):void
+    {
         if (!isOpen)
         {
             addCloseTriggers();
             
             _isOpen = true;
-            openButton.keepDown = true; // Force the button to stay in the down state
+            // Force the button to stay in the down state
+            openButton.keepDown(true, !isProgrammatic); 
             
             dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
         }
-    }   
+    }
     
     /**
      *  Close the drop down and dispatch a <code>DropDownEvent.CLOSE</code> event.  
@@ -323,7 +333,7 @@ public class DropDownController extends EventDispatcher
         if (isOpen)
         {   
             _isOpen = false;
-            openButton.keepDown = false;
+            openButton.keepDown(false);
             
             var dde:DropDownEvent = new DropDownEvent(DropDownEvent.CLOSE, false, true);
             
@@ -357,7 +367,7 @@ public class DropDownController extends EventDispatcher
         if (isOpen)
             closeDropDown(true);
         else
-            openDropDown();
+            openDropDownHelper();
     }
             
     /**
@@ -374,7 +384,7 @@ public class DropDownController extends EventDispatcher
     protected function openButton_rollOverHandler(event:MouseEvent):void
     {
         if (rollOverOpenDelay == 0)
-            openDropDown();
+            openDropDownHelper();
         else
         {
             openButton.addEventListener(MouseEvent.ROLL_OUT, openButton_rollOutHandler);
@@ -410,7 +420,7 @@ public class DropDownController extends EventDispatcher
          openButton.removeEventListener(MouseEvent.ROLL_OUT, openButton_rollOutHandler);
          rollOverOpenDelayTimer = null;
          
-         openDropDown();
+         openDropDownHelper();
      }
             
     /**
@@ -508,7 +518,7 @@ public class DropDownController extends EventDispatcher
         // Note: event.relatedObject is the object getting focus.
         // It can be null in some cases, such as when you open
         // the dropdown and then click outside the application.
-
+        
         // If the dropdown is open...
         if (isOpen)
         {
@@ -542,7 +552,7 @@ public class DropDownController extends EventDispatcher
         
         if (event.ctrlKey && event.keyCode == Keyboard.DOWN)
         {
-            openDropDown();
+            openDropDownHelper(true); // Programmatically open
             event.stopPropagation();
         }
         else if (event.ctrlKey && event.keyCode == Keyboard.UP)
