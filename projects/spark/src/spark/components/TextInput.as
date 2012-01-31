@@ -19,6 +19,8 @@ import flex.component.TextView;
 import flex.core.SkinnableComponent;
 import flex.events.TextOperationEvent;
 
+import text.model.LineBreak;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -334,6 +336,7 @@ public class TextInput extends SkinnableComponent
 		{
 			// Set the TextView to allow only one line of input.
             textView.heightInLines = 1;
+            textView.lineBreak = LineBreak.EXPLICIT;
 			textView.multiline = false;
         
 			// Start listening for various events from the TextView.
