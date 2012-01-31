@@ -225,8 +225,10 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The base class for skinnable components, such as the Spark TextInput
- *  and TextArea, that include an instance of RichEditableText in their skin
- *  to provide rich text display, scrolling, selection, and editing.
+ *  and TextArea, that include an instance of IEditableText in their skin
+ *  to provide text display, scrolling, selection, and editing.
+ *  IEditableText is RichEditableText for the Spark theme and StyleableTextField
+ *  for the Mobile theme.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -423,8 +425,10 @@ public class SkinnableTextBase extends SkinnableComponent
     [SkinPart(required="false")]
 
     /**
-     *  The RichEditableText that may be present
+     *  The IEditableText that may be present
      *  in any skin assigned to this component.
+     *  This is RichEditableText for the Spark theme
+     *  and StyleableTextField for the Mobile theme.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -710,6 +714,8 @@ public class SkinnableTextBase extends SkinnableComponent
      *  </pre>
      *  </p>
      *
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
+     * 
      *  @default null
      *
      *  @langversion 3.0
@@ -767,16 +773,23 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="null")]
 
     /**
-     *  @copy spark.components.RichEditableText#typicalText
+     *  Text that is used to determine
+     *  the default width and height of the control, 
+     *  without actually being displayed.
+     * 
+     *  <p><b>For the Spark theme, see
+     *  spark.components.RichEditableText.typicalText</b></p>
      *
-     *  @default null
-     *
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
+     * 
      *  @see spark.components.RichEditableText#typicalText
-     *
+     * 
+     *  @default null
+     * 
      *  @langversion 3.0
-     *  @playerversion Flash 10.2
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get typicalText():String
     {
@@ -804,8 +817,10 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="false")]
 
     /**
-     *  @copy spark.components.RichEditableText#displayAsPassword
-     *  
+     *  @copy flash.text.TextField#displayAsPassword
+     * 
+     *  @default false
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -849,8 +864,17 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  @copy spark.components.RichEditableText#editable
-     *  
+     *  Specifies whether the text is editable.
+     * 
+     *  <p><b>For the Spark theme, see
+     *  spark.components.RichEditableText.editable</b></p>
+     *
+     *  <p><b>For the Mobile theme, see
+     *  spark.components.supportClasses.StyleableTextField.editable</b></p>
+     * 
+     *  @see spark.components.RichEditableText#editable
+     *  @see spark.components.supportClasses.StyleableTextField#editable
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -891,7 +915,12 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.components.RichEditableText#enableIME
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus.
+     * 
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
+     * 
+     *  @see spark.components.RichEditableText#enableIME
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -908,7 +937,16 @@ public class SkinnableTextBase extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @copy spark.components.RichEditableText#imeMode
+     *  Specifies the IME (input method editor) mode.
+     * 
+     *  <p><b>For the Spark theme, see
+     *  spark.components.RichEditableText.imeMode</b></p>
+     *
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
+     * 
+     *  @see spark.components.RichEditableText#imeMode
+     * 
+     *  @default null
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -957,8 +995,10 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="0")]    
 
     /**
-     *  @copy spark.components.RichEditableText#maxChars
-     *  
+     *  @copy flash.text.TextField#maxChars
+     * 
+     *  @default 0
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1001,7 +1041,7 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="null")]
 
     /**
-     *  @copy spark.components.RichEditableText#restrict
+     *  @copy flash.text.TextField#restrict
      * 
      *  @default null
      *  
@@ -1047,8 +1087,22 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  @copy spark.components.RichEditableText#selectable
+     *  A flag indicating whether the content is selectable.  On a Desktop, a user can 
+     *  select content with the mouse or with the keyboard when the control has 
+     *  keyboard focus.  On a touch interaction device, a user can select text with 
+     *  their fingers once they've entered into selection mode for the text component.
+     * 
+     *  <p><b>For the Spark theme, see
+     *  spark.components.RichEditableText.selectable</b></p>
+     *
+     *  <p><b>For the Mobile theme, see
+     *  spark.components.supportClasses.StyleableTextField.selectable</b></p>
+     * 
+     *  @see spark.components.RichEditableText#selectable
+     *  @see spark.components.supportClasses.StyleableTextField#selectable
      *  
+     *  @default true
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1094,7 +1148,18 @@ public class SkinnableTextBase extends SkinnableComponent
     [Bindable("selectionChange")]
     
     /**
-     *  @copy spark.components.RichEditableText#selectionActivePosition
+     *  A character position, relative to the beginning of the
+     *  <code>text</code> String, specifying the end of the selection
+     *  that moves when the selection is extended with the arrow keys.
+     * 
+     *  <p><b>For the Spark theme, see
+     *  spark.components.RichEditableText.selectionActivePosition</b></p>
+     *
+     *  <p><b>For the Mobile theme, see
+     *  spark.components.supportClasses.StyleableTextField.selectionActivePosition</b></p>
+     * 
+     *  @see spark.components.RichEditableText#selectionActivePosition
+     *  @see spark.components.supportClasses.StyleableTextField#selectionActivePosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1116,8 +1181,19 @@ public class SkinnableTextBase extends SkinnableComponent
     [Bindable("selectionChange")]
     
     /**
-     *  @copy spark.components.RichEditableText#selectionAnchorPosition
-     *  
+     *  A character position, relative to the beginning of the
+     *  <code>text</code> String, specifying the end of the selection
+     *  that stays fixed when the selection is extended with the arrow keys.
+     * 
+     *  <p><b>For the Spark theme, see
+     *  spark.components.RichEditableText.selectionAnchorPosition</b></p>
+     *
+     *  <p><b>For the Mobile theme, see
+     *  spark.components.supportClasses.StyleableTextField.selectionAnchorPosition</b></p>
+     * 
+     *  @see spark.components.RichEditableText#selectionAnchorPosition
+     *  @see spark.components.supportClasses.StyleableTextField#selectionAnchorPosition
+     *   
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1135,10 +1211,17 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", enumeration="always,whenActive,whenFocused", defaultValue="whenFocused")]
     
     /**
-     *  @copy spark.components.RichEditableText#selectionHighlighting
-     *  
+     *  Determines when the text selection is highlighted.
+     * 
+     *  <p><b>For the Spark theme, see
+     *  spark.components.RichEditableText.selectionHighlighting</b></p>
+     *
+     *  <p><b>For the Mobile theme, this is not supported.</b></p>
+     * 
+     *  @see spark.components.RichEditableText#selectionHighlighting
+     * 
      *  @default TextSelectionHighlighting.WHEN_FOCUSED
-     *  
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -1187,7 +1270,18 @@ public class SkinnableTextBase extends SkinnableComponent
     [Inspectable(category="General", defaultValue="")]
     
     /**
-     *  @copy spark.components.RichEditableText#text
+     *  The text displayed by this text component.
+     * 
+     *  <p><b>For the Spark theme, see
+     *  spark.components.RichEditableText.text</b></p>
+     *
+     *  <p><b>For the Mobile theme, see
+     *  spark.components.supportClasses.StyleableTextField.text</b></p>
+     * 
+     *  @see spark.components.RichEditableText#text
+     *  @see spark.components.supportClasses.StyleableTextField#text
+     * 
+     *  @default ""
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1321,7 +1415,7 @@ public class SkinnableTextBase extends SkinnableComponent
             // Focus on this, rather than the inner RET component.
             textDisplay.focusEnabled = false;
 
-            // Start listening for various events from the RichEditableText.
+            // Start listening for various events from the IEditableText.
 
             textDisplay.addEventListener(SelectionEvent.SELECTION_CHANGE,
                                          textDisplay_selectionChangeHandler);
@@ -1354,7 +1448,7 @@ public class SkinnableTextBase extends SkinnableComponent
             // textDisplayProperties.                        
             textDisplayRemoved();            
             
-            // Stop listening for various events from the RichEditableText.
+            // Stop listening for various events from the IEditableText.
 
             textDisplay.removeEventListener(SelectionEvent.SELECTION_CHANGE,
                                             textDisplay_selectionChangeHandler);
@@ -1407,7 +1501,7 @@ public class SkinnableTextBase extends SkinnableComponent
 
     /**
      *  @private
-     *  Focus should always be on the internal RichEditableText.
+     *  Focus should always be on the internal textDisplay.
      */
     override public function setFocus():void
     {
