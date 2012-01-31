@@ -21,6 +21,7 @@ import mx.collections.ArrayList;
 import mx.collections.IList;
 import mx.containers.Grid;
 import mx.core.IFactory;
+import mx.core.IInvalidating;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
@@ -475,7 +476,7 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _caretIndicator = value;
-        invalidateDisplayList();
+        invalidateDisplayListFor("caretIndicator");
         dispatchChangeEvent("caretIndicatorChanged");
     }    
     
@@ -531,7 +532,7 @@ public class Grid extends Group implements IDataGridElement
         invalidateProperties();
         
         if (caretIndicator)
-            invalidateDisplayList();         
+            invalidateDisplayListFor("caretIndicator");         
         dispatchChangeEvent("caretColumnIndexChanged");
     }
     
@@ -586,7 +587,7 @@ public class Grid extends Group implements IDataGridElement
         invalidateProperties();
         
         if (caretIndicator)
-            invalidateDisplayList();         
+            invalidateDisplayListFor("caretIndicator");         
         dispatchChangeEvent("caretRowIndexChanged");
     }
     
@@ -629,7 +630,7 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _hoverIndicator = value;
-        invalidateDisplayList();
+        invalidateDisplayListFor("hoverIndicator");
         dispatchChangeEvent("hoverIndicatorChanged");
     }    
     
@@ -676,7 +677,7 @@ public class Grid extends Group implements IDataGridElement
         
         _hoverColumnIndex = value;
         if (hoverIndicator)
-            invalidateDisplayList();
+            invalidateDisplayListFor("hoverIndicator");
         dispatchChangeEvent("hoverColumnIndexChanged");
     }
     
@@ -724,7 +725,7 @@ public class Grid extends Group implements IDataGridElement
         
         _hoverRowIndex = value;
         if (hoverIndicator)
-            invalidateDisplayList();           
+            invalidateDisplayListFor("hoverIndicator");           
         dispatchChangeEvent("hoverRowIndexChanged");
     }
     
@@ -1385,7 +1386,7 @@ public class Grid extends Group implements IDataGridElement
         gridSelection.requireSelection = value;
         
         if (value)
-            invalidateDisplayList();
+            invalidateDisplayListFor("selectionIndicator");
     }
  
     //----------------------------------
@@ -2043,7 +2044,7 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         _selectionIndicator = value;
-        invalidateDisplayList();
+        invalidateDisplayListFor("selectionIndicator");
         dispatchChangeEvent("selectionIndicatorChanged");
     }    
     
@@ -2115,7 +2116,7 @@ public class Grid extends Group implements IDataGridElement
         if (!requireSelection)
             initializeCaretPosition();
         
-        invalidateDisplayList();
+        invalidateDisplayListFor("selectionIndicator");
         
         dispatchChangeEvent("selectionModeChanged");
     }
@@ -2302,8 +2303,8 @@ public class Grid extends Group implements IDataGridElement
         const selectionChanged:Boolean = gridSelection.selectAll();
         if (selectionChanged)
         {               
-            initializeCaretPosition()               
-            invalidateDisplayList()
+            initializeCaretPosition();               
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
  
@@ -2333,7 +2334,7 @@ public class Grid extends Group implements IDataGridElement
         const selectionChanged:Boolean = gridSelection.removeAll();
         if (selectionChanged)
         {
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -2430,7 +2431,7 @@ public class Grid extends Group implements IDataGridElement
             caretRowIndex = rowIndex;
             caretColumnIndex = -1;
             
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -2473,7 +2474,7 @@ public class Grid extends Group implements IDataGridElement
             caretRowIndex = rowIndex;
             caretColumnIndex = -1;                
 
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -2517,7 +2518,7 @@ public class Grid extends Group implements IDataGridElement
             caretRowIndex = rowIndex;
             caretColumnIndex = -1;
             
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -2554,14 +2555,13 @@ public class Grid extends Group implements IDataGridElement
         if (invalidatePropertiesFlag)
             UIComponentGlobals.layoutManager.validateClient(this, false);
         
-        const selectionChanged:Boolean = 
-            gridSelection.setRows(rowIndex, rowCount);
+        const selectionChanged:Boolean = gridSelection.setRows(rowIndex, rowCount);
         if (selectionChanged)
         {
             caretRowIndex = rowIndex + rowCount - 1;
             caretColumnIndex = -1;
             
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -2680,7 +2680,7 @@ public class Grid extends Group implements IDataGridElement
             caretRowIndex = rowIndex;
             caretColumnIndex = columnIndex;
             
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -2730,7 +2730,7 @@ public class Grid extends Group implements IDataGridElement
             caretRowIndex = rowIndex;
             caretColumnIndex = columnIndex;
             
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -2780,7 +2780,7 @@ public class Grid extends Group implements IDataGridElement
             caretRowIndex = rowIndex;
             caretColumnIndex = columnIndex;
             
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -2842,7 +2842,7 @@ public class Grid extends Group implements IDataGridElement
             caretRowIndex = rowIndex + rowCount - 1;
             caretColumnIndex = columnIndex + columnCount - 1;
                 
-            invalidateDisplayList()
+            invalidateDisplayListFor("selectionIndicator");
             dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
         }
         
@@ -3165,6 +3165,60 @@ public class Grid extends Group implements IDataGridElement
     
     //--------------------------------------------------------------------------
     //
+    //  Tracking Grid invalidateDisplayList() "reasons", invalid cells
+    //
+    //-------------------------------------------------------------------------- 
+    /**
+     *  @private
+     *  Low cost "list" of invalidateDisplayList() reasons.
+     */
+    private var invalidateDisplayListReasonsMask:uint = 0;
+    
+    /**
+     *  @private
+     *  Table that maps from reason names to bit fields.
+     */
+    private static const invalidateDisplayListReasonBits:Object = {
+        verticalScrollPosition: uint(1 << 0),
+        horizontalScrollPosition: uint(1 << 1),
+        bothScrollPositions: (uint(1 << 0) | uint(1 << 1)),
+        hoverIndicator: uint(1 << 2),
+        caretIndicator: uint(1 << 3),
+        selectionIndicator: uint(1 << 4),
+        editorIndicator:  uint(1 << 5),
+        none: uint(~0)
+    };
+    
+    /**
+     *  @private
+     *  Set the bit that corresponds to reason.  Only used by invalidateDisplayListFor().
+     */
+    private function setInvalidateDisplayListReason(reason:String):void
+    {
+        invalidateDisplayListReasonsMask |= invalidateDisplayListReasonBits[reason];
+    }
+    
+    /**
+     *  @private
+     *  Return true if invalidateDisplayListFor() was called with the specified reason
+     *  since the last updateDisplayList() pass.
+     */
+    mx_internal function isInvalidateDisplayListReason(reason:String):Boolean
+    {
+        const bit:uint = invalidateDisplayListReasonBits[reason];
+        return (invalidateDisplayListReasonsMask & bit) == bit;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function clearInvalidateDisplayListReasons():void
+    {
+        invalidateDisplayListReasonsMask = 0;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Method Overrides
     //
     //--------------------------------------------------------------------------    
@@ -3200,6 +3254,34 @@ public class Grid extends Group implements IDataGridElement
     {
         if (!inUpdateDisplayList)
         {
+            setInvalidateDisplayListReason("none");            
+            super.invalidateDisplayList();
+            dispatchChangeEvent("invalidateDisplayList");
+        }
+    }
+    
+    /**
+     *  @private
+     *  This version of invlaidateDisplayList() stores the "reason" for the invalidate
+     *  request so that GridLayout/updateDisplayList() can do its job more efficiently.
+     *  GridLayout tests the accumulated invalidateDisplayList reasons with 
+     *  isInvalidateDisplayListReason() and they're automatically cleared by 
+     *  updateDisplayList() here.
+     * 
+     *  Note that if invalidateDisplayList() is called directly, all possible 
+     *  invalidateDispayList reasons are implicitly specified, in other words if
+     *  no reason is specified then they all are (see invalidateDisplayListReasonBits.none).
+     *  That way, callers need not be aware of this internal API.
+     * 
+     *  Also: most reason="selectionIndicator" calls also change the caret index which
+     *  in turn adds reason="caretIndicator" to the invalidateDisplayList reasons, if the
+     *  caret index actually changed.
+     */
+    mx_internal function invalidateDisplayListFor(reason:String):void
+    {
+        if (!inUpdateDisplayList)
+        {
+            setInvalidateDisplayListReason(reason);            
             super.invalidateDisplayList();
             dispatchChangeEvent("invalidateDisplayList");
         }
@@ -3362,6 +3444,7 @@ public class Grid extends Group implements IDataGridElement
         inUpdateDisplayList = true;
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         inUpdateDisplayList = false;
+        clearInvalidateDisplayListReasons();
     }
         
     //--------------------------------------------------------------------------
