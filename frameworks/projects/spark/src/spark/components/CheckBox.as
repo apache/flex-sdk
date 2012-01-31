@@ -26,6 +26,8 @@ import flash.events.MouseEvent;
  *  <p>When a user clicks a FxCheckBox component or its associated text,
  *  the FxCheckBox component sets its <code>selected</code> property
  *  to <code>true</code> for checked, and to <code>false</code> for unchecked.</p>
+ *
+ * @includeExample examples/FxCheckBoxExample.mxml
  */
 public class FxCheckBox extends FxToggleButton
 {
