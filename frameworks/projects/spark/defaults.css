@@ -13,89 +13,89 @@
 
 /* Default Skins */
 
-Button
+FxButton
 {
-	skinZZ: ClassReference("flex.skin.ButtonSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxButtonSkin");
 }
 
-CheckBox
+FxCheckBox
 {
-	skinZZ: ClassReference("flex.skin.CheckBoxSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxCheckBoxSkin");
 }
 
-DataComponent
+FxDataComponent
 {
-	skinZZ: ClassReference("flex.skin.DataComponentSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxDataComponentSkin");
 }
 
-HScrollBar
+FxHScrollBar
 {
-    skinZZ: ClassReference("flex.skin.HScrollBarSkin");
+    skinZZ: ClassReference("mx.skins.spark.FxHScrollBarSkin");
 }
 
-HSlider
+FxHSlider
 {
-    skinZZ: ClassReference("flex.skin.HSliderSkin");
+    skinZZ: ClassReference("mx.skins.spark.FxHSliderSkin");
 }
 
-ItemsComponent
+FxItemsComponent
 {
-	skinZZ: ClassReference("flex.skin.ItemsComponentSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxItemsComponentSkin");
 }
 
-List
+FxList
 {
-	skinZZ: ClassReference("flex.skin.ListSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxListSkin");
 }
 
-NumericStepper
+FxNumericStepper
 {
-    skinZZ: ClassReference("flex.skin.NumericStepperSkin");
+    skinZZ: ClassReference("mx.skins.spark.FxNumericStepperSkin");
 }
 
-RadioButton
+FxRadioButton
 {
-	skinZZ: ClassReference("flex.skin.RadioButtonSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxRadioButtonSkin");
 }
 
-Scroller
+FxScroller
 {
-    skinZZ: ClassReference("flex.skin.ScrollerSkin");
+    skinZZ: ClassReference("mx.skins.spark.FxScrollerSkin");
 }
 
-Selector
+FxSelector
 {
-	skinZZ: ClassReference("flex.skin.SelectorSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxSelectorSkin");
 }
 
-Spinner
+FxSpinner
 {
-    skinZZ: ClassReference("flex.skin.SpinnerSkin");    
+    skinZZ: ClassReference("mx.skins.spark.FxSpinnerSkin");    
 }
 
-TextArea
+FxTextArea
 {
-	skinZZ: ClassReference("flex.skin.TextAreaSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxTextAreaSkin");
 }
 
-TextInput
+FxTextInput
 {
-	skinZZ: ClassReference("flex.skin.TextInputSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxTextInputSkin");
 }
 
-ToggleButton
+FxToggleButton
 {
-	skinZZ: ClassReference("flex.skin.ToggleButtonSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxToggleButtonSkin");
 }
 
-VScrollBar
+FxVScrollBar
 {
-	skinZZ: ClassReference("flex.skin.VScrollBarSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxVScrollBarSkin");
 }
 
-VSlider
+FxVSlider
 {
-    skinZZ: ClassReference("flex.skin.VSliderSkin");
+    skinZZ: ClassReference("mx.skins.spark.FxVSliderSkin");
 }
 
 .boldText 
@@ -105,8 +105,8 @@ VSlider
 
 /* Override Flex 3 defaults */
 
-Application
+FxApplication
 {
-	skinZZ: ClassReference("flex.skin.ApplicationSkin");
+	skinZZ: ClassReference("mx.skins.spark.FxApplicationSkin");
 	backgroundGradientColors: #FFFFFF, #FFFFFF; /* TODO: remove this stuff */
 }
