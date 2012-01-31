@@ -46,7 +46,6 @@ use namespace mx_internal;
  *    heightTo="val"
  *    widthBy="val"
  *    heightBy="val"
- *    hideChildrenTargets=""
  *  /&gt;
  *  </pre>
  *
