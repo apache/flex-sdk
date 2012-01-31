@@ -223,6 +223,21 @@ use namespace mx_internal;
 include "../styles/metadata/IconColorStyles.as"
 
 /**
+ *  Name of the class of the itemRenderer to be used if one is not
+ *  specified for a column or its header.  This is a way to set
+ *  an itemRenderer for a group of DataGrids instead of having to
+ *  set each one individually.  If you set the DataGrid's itemRenderer
+ *  property, it supercedes this value.
+ *  @default null
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="defaultDataGridItemRenderer", type="Class", inherit="no")]
+
+/**
  *  A flag that indicates whether to show vertical grid lines between
  *  the columns.
  *  If <code>true</code>, shows vertical grid lines.
@@ -1154,8 +1169,11 @@ public class DataGrid extends DataGridBase implements IIMESupport
             var flexModuleFactory:IFlexModuleFactory =
                 getFontContext(fontName, bold, italic);
 
+            var c:Class = getStyle("defaultDataGridItemRenderer");
+            if (!c)
+                c = DataGridItemRenderer;
             super.itemRenderer = new ContextualClassFactory(
-                DataGridItemRenderer, flexModuleFactory);
+                c, flexModuleFactory);
         }
         
         return super.itemRenderer;
