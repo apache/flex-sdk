@@ -67,7 +67,7 @@ public class DataGridHeaderBackgroundSkin extends ProgrammaticSkin
 		g.clear();
 		
 		var colors:Array = getStyle("headerColors");
-		StyleManager.getColorNames(colors);
+		styleManager.getColorNames(colors);
 		
 		var matrix:Matrix = new Matrix();
 		matrix.createGradientBox(w, h + 1, Math.PI/2, 0, 0);
