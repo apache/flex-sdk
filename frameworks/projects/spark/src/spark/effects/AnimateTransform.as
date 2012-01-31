@@ -94,6 +94,28 @@ public class AnimateTransform extends Animate
 
     //--------------------------------------------------------------------------
     //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static var AFFECTED_PROPERTIES:Array =
+        ["translationX", "translationY", "translationZ", 
+         "rotationX", "rotationY", "rotationZ", 
+         "scaleX", "scaleY", "scaleZ",
+         "left", "right", "top", "bottom",
+         "horizontalCenter", "verticalCenter"];
+    
+    /**
+     *  @private
+     */
+    private static var RELEVANT_STYLES:Array = 
+        ["left", "right", "top", "bottom", "horizontalCenter", "verticalCenter"];
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -544,12 +566,21 @@ public class AnimateTransform extends Animate
         }
     }
 
+    /**
+     *  @private
+     */
     override public function getAffectedProperties():Array /* of String */
     {
-        return ["translationX", "translationY", "translationZ", 
-            "rotationX", "rotationY", "rotationZ", 
-            "scaleX", "scaleY", "scaleZ"];
+        return AFFECTED_PROPERTIES;
     }
+
+    /**
+     *  @private
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        return RELEVANT_STYLES;
+    }   
 
     /**
      * Inserts a keyframe into an existing set of keyframes according to
