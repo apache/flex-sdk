@@ -59,7 +59,7 @@ use namespace mx_internal;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:AnimateTransform
+ *  &lt;s:AnimateTransform
  *    <b>Properties</b>
  *    id="ID"
  *    applyChangesPostLayout="true"
