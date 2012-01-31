@@ -415,7 +415,7 @@ public class RPCObjectUtil
         else
         {
 			// don't cache describe type.  Makes it slower, but fewer dependencies
-            var classInfo:XML = describeType(obj).typeDescription;
+            var classInfo:XML = describeType(obj);
             className = classInfo.@name.toString();
             classAlias = classInfo.@alias.toString();
             dynamic = (classInfo.@isDynamic.toString() == "true");
