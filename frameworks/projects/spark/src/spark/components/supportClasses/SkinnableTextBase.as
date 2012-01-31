@@ -157,6 +157,91 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     }
 
     //----------------------------------
+    //  editable
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _editable:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var editableChanged:Boolean = false;
+
+    /**
+     *  Specifies whether the user is allowed to edit the text in this control.
+     *
+     *  @default true;
+     */
+    public function get editable():Boolean
+    {
+        return _editable;
+    }
+
+    /**
+     *  @private
+     */
+    public function set editable(value:Boolean):void
+    {
+        if (value == _editable)
+            return;
+
+        _editable = value;
+        editableChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  imeMode
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _imeMode:String = null;
+
+    /**
+     *  @private
+     */
+    private var imeModeChanged:Boolean = false;
+
+    /**
+     *  Specifies the IME (input method editor) mode.
+     *  The IME enables users to enter text in Chinese, Japanese, and Korean.
+     *  Flex sets the specified IME mode when the control gets the focus,
+     *  and sets it back to the previous value when the control loses the focus.
+     *
+     *  <p>The flash.system.IMEConversionMode class defines constants for the
+     *  valid values for this property.
+     *  You can also specify <code>null</code> to specify no IME.</p>
+     *
+     *  @default null
+     * 
+     *  @see flash.system.IMEConversionMode
+     */
+     public function get imeMode():String
+    {
+        return _imeMode;
+    }
+
+    /**
+     *  @private
+     */
+    public function set imeMode(value:String):void
+    {
+        if (value == _imeMode)
+            return;
+
+        _imeMode = value;
+        imeModeChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
     //  maxChars
     //----------------------------------
 
@@ -233,6 +318,45 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         
         _restrict = value;
         restrictChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  selectable
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _selectable:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var selectableChanged:Boolean = false;
+
+    /**
+     *  Specifies whether the text can be selected.
+     *  Making the text selectable lets you copy text from the control.
+     *
+     *  @default true;
+     */
+    public function get selectable():Boolean
+    {
+        return _selectable;
+    }
+
+    /**
+     *  @private
+     */
+    public function set selectable(value:Boolean):void
+    {
+        if (value == _selectable)
+            return;
+
+        _selectable = value;
+        selectableChanged = true;
 
         invalidateProperties();
     }
@@ -399,6 +523,18 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
             displayAsPasswordChanged = false;
         }
 
+        if (editableChanged)
+        {
+            textView.editable = _editable;
+            editableChanged = false;
+        }
+
+        if (imeModeChanged)
+        {
+            textView.imeMode = _imeMode;
+            imeModeChanged = false;
+        }
+
         if (maxCharsChanged)
         {
             textView.maxChars = _maxChars;
@@ -409,6 +545,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         {
             textView.restrict = _restrict;
             restrictChanged = false;
+        }
+
+        if (selectableChanged)
+        {
+            textView.selectable = _selectable;
+            selectableChanged = false;
         }
 
         if (selectionVisibilityChanged)
@@ -483,6 +625,14 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         }
     }
     
+	/**
+	 *  @private
+	 */
+	override protected function getCurrentSkinState():String
+	{
+        return enabled ? "normal" : "disabled";
+	}
+
     /**
      *  @private
      *  Focus should always be on the internal TextView.
