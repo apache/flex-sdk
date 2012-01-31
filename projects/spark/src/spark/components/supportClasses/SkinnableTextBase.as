@@ -23,6 +23,7 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.TextOperationEvent;
 import mx.managers.IFocusManagerComponent;
+import mx.utils.MouseShieldUtil;
 
 import flashx.textLayout.events.SelectionEvent;
 import flashx.textLayout.formats.LineBreak;
@@ -91,6 +92,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      */
     mx_internal var parentDrawsFocus:Boolean = false;
 
+    /**
+     *  @private
+     *  Mouse shield that is put up when this component is disabled.
+     */
+    private var mouseShield:DisplayObject;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties: UIComponent
@@ -118,6 +125,10 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         enabledChanged = true;
         
         invalidateSkinState();
+        
+        // We update the mouseShield that prevents clicks to propagate to
+        // children in our updateDisplayList.
+        invalidateDisplayList();
     }
     
     //----------------------------------
@@ -593,6 +604,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
             mx_internal::textChanged = false;
         }
     }
+    
+    override protected function updateDisplayList(width:Number, height:Number):void
+    {
+        super.updateDisplayList(width, height);
+        mouseShield = MouseShieldUtil.updateMouseShield(this, mouseShield);
+    }
 
     /**
      *  @private
@@ -740,7 +757,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
         textView.appendText(text);
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden event handlers
