@@ -959,7 +959,7 @@ public class Application extends SkinnableContainer
     {
         var stage:Stage = systemManager.stage;
         
-        // FIXME (chiedozi): Should use StageAspectRatio enums once added to player (spicy)
+        // TODO (chiedozi): Should use StageAspectRatio enums once added to player (spicy)
         return stage.stageWidth > stage.stageHeight ? "landscape" : "portrait";
     }
     
