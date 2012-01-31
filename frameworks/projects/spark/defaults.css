@@ -23,6 +23,11 @@ CheckBox
 	skinZZ: ClassReference("flex.skin.CheckBoxSkin");
 }
 
+DataComponent
+{
+	skinZZ: ClassReference("flex.skin.DataComponentSkin");
+}
+
 HScrollBar
 {
     skinZZ: ClassReference("flex.skin.HScrollBarSkin");
