@@ -11,6 +11,7 @@
 
 package mx.components
 {
+import flash.ui.Keyboard;
 import mx.components.baseClasses.FxTextBase;
 import mx.components.baseClasses.FxScrollBar;
 import mx.layout.ILayoutItem;
@@ -113,6 +114,41 @@ public class FxHScrollBar extends FxScrollBar
     {
         return localX;
     }
+    
+    /**
+     *  Implicitly update the viewport's verticalScrollPosition per the
+     *  specified scrolling unit, by setting the scrollbar's value.
+     *
+     *  @private
+     */
+    private function updateViewportHSP(unit:uint):void
+    {
+        var delta:Number = viewport.horizontalScrollPositionDelta(unit);
+        setValue(viewport.horizontalScrollPosition + delta);
+    }
+    
+    /**
+     * 
+     */
+    override public function page(increase:Boolean = true):void
+    {
+        if (!viewport)
+            super.page(increase);
+        else
+            updateViewportHSP((increase) ? Keyboard.PAGE_DOWN : Keyboard.PAGE_UP);
+    }
+    
+    /**
+     * 
+     */
+    override public function step(increase:Boolean = true):void
+    {
+        if (!viewport)
+            super.step(increase);
+        else
+            updateViewportHSP((increase) ? Keyboard.RIGHT : Keyboard.LEFT);
+    }    
+        
 }
 
 }
