@@ -1143,7 +1143,7 @@ public class ChannelSet extends EventDispatcher
      */
     public function send(agent:MessageAgent, message:IMessage):void
     {
-        if (connected)
+        if (_currentChannel != null && _currentChannel.connected)
         {    
             // Filter out any commands to trigger connection establishment, and ack them locally.            
             if ((message is CommandMessage) && (CommandMessage(message).operation == CommandMessage.TRIGGER_CONNECT_OPERATION))
@@ -1383,13 +1383,10 @@ public class ChannelSet extends EventDispatcher
      */
     private function connectChannel():void
     {
-        if (!connected && !_connecting)
-        {
-            _connecting = true;
-            _currentChannel.connect(this);
-            // Listen for any server pushed messages on the Channel.
-            _currentChannel.addEventListener(MessageEvent.MESSAGE, messageHandler);
-        }
+        _connecting = true;
+        _currentChannel.connect(this);
+        // Listen for any server pushed messages on the Channel.
+        _currentChannel.addEventListener(MessageEvent.MESSAGE, messageHandler);
     }
     
     /**
