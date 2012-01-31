@@ -138,6 +138,7 @@ use namespace mx_internal;
  *  Group component, set the <code>layout</code> property to <code>TileLayout</code>.
  */
 [Alternative(replacement="spark.components.Group", since="4.0")]
+[Alternative(replacement="spark.components.Border", since="4.0")]
 
 /**
  *  A Halo Tile container lays out its children
