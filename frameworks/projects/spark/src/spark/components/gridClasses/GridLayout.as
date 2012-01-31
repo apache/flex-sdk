@@ -1362,10 +1362,9 @@ public class GridLayout extends LayoutBase
         if (!layer)
             return new Vector.<IVisualElement>(0);
         
-        // If a factory changed, discard the old visual elements.
+        // If a factory changed, free the old visual elements and set oldVisibleElements.length=0
         
-        if (discardGridElementsIfFactoryChanged(factory, layer, oldVisibleElements))
-            oldVisibleIndices.length = 0;
+        discardGridElementsIfFactoryChanged(factory, layer, oldVisibleElements);
                        
         if (factory == null)
             return new Vector.<IVisualElement>(0);
@@ -1481,8 +1480,7 @@ public class GridLayout extends LayoutBase
         layer:GridLayer,
         oldVisibleElements:Vector.<IVisualElement>):Boolean    
     {
-        if (oldVisibleElements.length > 0 &&
-            factory != elementToFactoryMap[oldVisibleElements[0]])
+        if ((oldVisibleElements.length) > 0 && (factory != elementToFactoryMap[oldVisibleElements[0]]))
         {
             for each (var oldElt:IVisualElement in oldVisibleElements)
             {
