@@ -76,9 +76,6 @@ use namespace mx_internal;
  */
 [SkinState("disabledAndSelected")]
 
-// FIXME (egeorgie): figure out whether we need this?
-[DefaultBindingProperty(source="selected", destination="label")]
-
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
