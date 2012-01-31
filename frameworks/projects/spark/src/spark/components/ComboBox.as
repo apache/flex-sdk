@@ -28,6 +28,7 @@ import flashx.textLayout.operations.InsertTextOperation;
 import mx.core.mx_internal;
 import mx.styles.StyleProxy;
 
+import spark.components.supportClasses.DropDownListBase;
 import spark.components.supportClasses.ListBase;
 import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
