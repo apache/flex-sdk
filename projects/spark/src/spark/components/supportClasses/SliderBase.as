@@ -572,6 +572,10 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                     (Math.abs(value - RtempValue) / (maximum - minimum));
                 animator.motionPaths = [
                     new SimpleMotionPath("value", value, RtempValue)];
+                // TODO (rfrishbe): figure out the pattern here once ARB is resolved.
+                // Whether we dispatch "changing" always or just in this case,
+                // whether it's cancelable, and where this event lives (in what class)
+                dispatchEvent(new Event("changing"));
                 animator.play();
             }
             else
