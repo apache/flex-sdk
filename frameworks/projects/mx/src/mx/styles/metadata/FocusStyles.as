@@ -12,7 +12,8 @@
 /**
  *  Specifies the alpha transparency value of the focus skin.
  *  
- *  @default 0.4
+ *  The default value for the Halo theme is <code>0.4</code>.
+ *  The default value for the Spark theme is <code>0.55</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
