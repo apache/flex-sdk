@@ -1,22 +1,18 @@
 package mx.components
 {
 import flash.display.DisplayObject;
-import flash.events.Event;
 
 import mx.collections.IList;
 import mx.components.baseClasses.GroupBase;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
-import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.ItemExistenceChangedEvent;
-import mx.graphics.graphicsClasses.GraphicElement;
 import mx.layout.ILayoutElement;
 import mx.layout.LayoutElementFactory;
-import mx.styles.IStyleClient;
 
 /**
  *  Dispatched when an item is added to the content holder.
@@ -56,6 +52,15 @@ public class DataGroup extends GroupBase
         super();
     }
     
+    /**
+     *  @private
+     *  flag to indicate whether a child in the item renderer has a non-zero layer, requiring child re-ordering.
+     */
+    private var _layeringFlags:uint = 0;
+    
+    private static const LAYERING_ENABLED:uint =    0x1;
+    private static const LAYERING_DIRTY:uint =      0x2;
+    
     private var itemRendererRegistry:Array = [];
     
     //----------------------------------
@@ -69,15 +74,6 @@ public class DataGroup extends GroupBase
     private var _itemRenderer:IFactory;
     
     private var itemRendererChanged:Boolean;
-    
-    /**
-     *  @private
-     *  flag to indicate whether a child in the item renderer has a non-zero layer, requiring child re-ordering.
-     */
-    private var _layeringFlags:uint = 0;
-    
-    private static const LAYERING_ENABLED:uint = 	0x1;
-    private static const LAYERING_DIRTY:uint = 		0x2;
 
     [Inspectable(category="Data")]
 
@@ -106,8 +102,6 @@ public class DataGroup extends GroupBase
         invalidateDisplayList();
         
         itemRendererChanged = true;
-
-        dispatchEvent(new Event("itemRendererChanged"));
     }
     
     //----------------------------------
@@ -148,8 +142,6 @@ public class DataGroup extends GroupBase
         invalidateDisplayList();
         
         itemRendererChanged = true;
-
-        dispatchEvent(new Event("itemRendererChanged"));
     }
     
     private var _dataProvider:IList;
@@ -175,20 +167,12 @@ public class DataGroup extends GroupBase
     public function set dataProvider(value:IList):void
     {
         if (_dataProvider)
-        {
             _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
-        }
         
         _dataProvider = value;
         
-        // Need to convert null to undefined here, since subsequent content checks test for undefined
-        if (_dataProvider === null)
-            _dataProvider = undefined;
-            
-        if (_dataProvider is IList)
-        {
+        if (_dataProvider)
             _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler, false, 0, true);
-        }
             
         dataProviderChanged = true;
         invalidateProperties();
@@ -204,22 +188,6 @@ public class DataGroup extends GroupBase
         for (var idx:int = numChildren; idx > 0; idx--)
             super.removeChildAt(0);
         
-        // TODO: get rid of this code
-        // An item renderer who's rendering a graphic may not be used anymore and is
-        // removed above.  However, the graphic item's display object is still 
-        // attached to that item renderer.  We need to clear out these display objects.
-        // For now, this is a cheap way to do it.
-        // This might orphan the old display object in its previous container.
-        if (dataProvider != null)
-        {
-            for (var j:int = 0; j < dataProvider.length; j++)
-            {
-                var item:GraphicElement = dataProvider.getItemAt(j) as GraphicElement;
-                if (item)
-                    item.displayObject = item.sharedDisplayObject = null;
-            }
-        }
-        
         if (_dataProvider != null)
         {
             for (var i:int = 0; i < _dataProvider.length; i++)
@@ -229,6 +197,12 @@ public class DataGroup extends GroupBase
         }
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Item -> Renderer mapping
+    //
+    //--------------------------------------------------------------------------
+    
     /**
      *  Create the item renderer for the item, if needed.
      * 
@@ -236,26 +210,21 @@ public class DataGroup extends GroupBase
      *  <ol><li>if itemRendererFunction is defined, call 
      *  it to get the renderer factory and instantiate it</li>
      *  <li>if itemRenderer is defined, instantiate one</li>
-     *  <li>if item is a GraphicElement, create the display 
-     *  object for it</li>
-     *  <li>if item is a DisplayObject, use it directly</li></ol>
+     *  <li>if item is an IVisualElement and a DisplayObject, use 
+     *  it directly</li></ol>
      * 
      *  @param item The data element.
      *
      *  @return The renderer that represents the data elelement.
      */
-    protected function createRendererForItem(item:Object, index:int):Object
+    protected function createRendererForItem(item:Object, index:int):IVisualElement
     {
-        var myItemRenderer:Object;
-        
-        if (item === null)
-            throw new Error("DataGroup content can not contain null items.");
+        var myItemRenderer:IVisualElement;
         
         // Rules for lookup:
         // 1. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it
         // 2. if itemRenderer is defined, instantiate one
-        // 3. if item is a GraphicElement, create the display object for it
-        // 4. if item is a DisplayObject, use it directly
+        // 3. if item is an IVisualElement and a DisplayObject, use it directly
         
         // 1. if itemRendererFunction is defined, call it to get the renderer factory and instantiate it    
         if (itemRendererFunction != null)
@@ -272,27 +241,21 @@ public class DataGroup extends GroupBase
             myItemRenderer = itemRenderer.newInstance();
         }
         
-        // 3. if item is a GraphicElement, create the display object for it
-        if (!myItemRenderer && item is GraphicElement)
+        // 3. if item is an IVisualElement and a DisplayObject, use it directly
+        if (!myItemRenderer && item is IVisualElement && item is DisplayObject)
         {
-            var graphicItem:GraphicElement = GraphicElement(item);
-            graphicItem.parent = this;
-                            
-            if (!graphicItem.displayObject)
-                graphicItem.displayObject = graphicItem.createDisplayObject();
-            
-            myItemRenderer = graphicItem;
+            myItemRenderer = IVisualElement(item);
         }
         
-        // 4. if item is a DisplayObject, use it directly
-        if (!myItemRenderer && item is DisplayObject)
+        // Couldn't find item renderer.  Throw an RTE.
+        if (!myItemRenderer)
         {
-            myItemRenderer = DisplayObject(item);
+            if (item is IVisualElement || item is DisplayObject)
+                throw new Error("DataGroup cannot display visual elements directly unless the elements " + 
+                        "are display objects and implement IVisualElement");
+            else
+                throw new Error("Could not create an item renderer for " + item);
         }
-        
-        // Set the renderer's data to the item, but only if the item and renderer are different
-        if (myItemRenderer is IDataRenderer && myItemRenderer != item)
-            IDataRenderer(myItemRenderer).data = item;
 
         return myItemRenderer;
     }
@@ -304,7 +267,7 @@ public class DataGroup extends GroupBase
      *  @param index The item index to associate the renderer with
      *  @param myItemRenderer The item renderer
      */    
-    protected function registerRenderer(index:int, myItemRenderer:Object):void
+    protected function registerRenderer(index:int, myItemRenderer:IVisualElement):void
     {        
         itemRendererRegistry.splice(index, 0, myItemRenderer);
     }
@@ -316,9 +279,39 @@ public class DataGroup extends GroupBase
      *  @param index The item index to dis-associate the renderer with
      *  @param myItemRenderer The item renderer
      */
-    protected function unregisterRenderer(index:int, myItemRenderer:Object):void
+    protected function unregisterRenderer(index:int, myItemRenderer:IVisualElement):void
     {
         itemRendererRegistry.splice(index, 1);
+    }
+    
+    /**
+     *  Returns the instance of the renderer at the specified index. If the item 
+     *  at that index is a visual element and uses no renderer, then the visual  
+     *  element will be returned.
+     *
+     *  @param index The item index whose renderer is to be returned.
+     *
+     *  @return The renderer instance for the specified item. If the item
+     *          is a visual element and has no item renderer, 
+     *          the visual element itself is returned.
+     */
+    public function getItemRenderer(index:int):IVisualElement
+    {
+        return itemRendererRegistry[index];
+    }
+    
+    /**
+     *  Returns the item index associated with the specified renderer.
+     *
+     *  @param renderer The renderer whose item you want to retrieve.
+     *
+     *  @return The item index associated with the specified renderer, 
+     *          or -1 if there is no item associated with the passed in 
+     *          renderer.
+     */
+    public function getRendererItem(renderer:IVisualElement):int
+    {
+        return itemRendererRegistry.indexOf(renderer);
     }
     
     /**
@@ -344,61 +337,11 @@ public class DataGroup extends GroupBase
         {
         	manageDisplayObjectLayers();
         }
-
-        // Check whether we manage the elements, or are they managed by an ItemRenderer
-        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
-        // Validate element properties
-        var length:int = dataProvider ? dataProvider.length : 0;
-        for (var i:int = 0; i < length; i++)
-        {
-            var element:GraphicElement = dataProvider.getItemAt(i) as GraphicElement;
-            if (element)
-                element.validateProperties();
-        }
     }
     
-    /**
-     *  @private
-     */
-    override public function validateSize(recursive:Boolean = false):void
+    private function manageDisplayObjectLayers():void
     {
-        // Since GraphicElement is not ILayoutManagerClient, we need to make sure we
-        // validate sizes of the elements, even in cases where recursive==false.
-        
-        // Check whether we manage the elements, or are they managed by an ItemRenderer
-        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
-        // Validate element size
-        var length:int = dataProvider ? dataProvider.length : 0;
-        for (var i:int = 0; i < length; i++)
-        {
-            var element:GraphicElement = dataProvider.getItemAt(i) as GraphicElement;
-            if (element)
-                element.validateSize();
-        }
-
-        super.validateSize(recursive);
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
-        // Iterate through the graphic elements, clear their graphics and draw them
-        var length:int = dataProvider ? dataProvider.length : 0;
-        for (var i:int = 0; i < length; i++)
-        {
-            var element:GraphicElement = dataProvider.getItemAt(i) as GraphicElement;
-            if (element)
-                element.validateDisplayList();
-        }
-    }
-    
-   private function manageDisplayObjectLayers():void
-    {
+        // itemRenderers should be both DisplayObjects and IVisualElements
         var topLayerItems:Vector.<IVisualElement>;
         var bottomLayerItems:Vector.<IVisualElement>;        
         var keepLayeringEnabled:Boolean = false;
@@ -409,33 +352,32 @@ public class DataGroup extends GroupBase
 		
         // Iterate through all of the items
         var len:int = itemRendererRegistry.length; 
-        var displayObject:DisplayObject;
         
         for (var i:int = 0; i < len; i++)
         {  
-            var item:Object = itemRendererRegistry[i];
+            var myItemRenderer:IVisualElement = itemRendererRegistry[i];
             
-            var layer:Number = 0;
-            if (item is IVisualElement)
-                layer = (item as IVisualElement).layer;
+            var layer:Number = myItemRenderer.layer;
+            
             if (layer != 0)
             {               
                 if (layer > 0)
                 {
                     if (topLayerItems == null) topLayerItems = new Vector.<IVisualElement>();
-                    topLayerItems.push(item);
+                    topLayerItems.push(myItemRenderer);
                     continue;                   
                 }
                 else
                 {
                     if (bottomLayerItems == null) bottomLayerItems = new Vector.<IVisualElement>();
-                    bottomLayerItems.push(item);
+                    bottomLayerItems.push(myItemRenderer);
                     continue;                   
                 }
             }
-            displayObject = (item is GraphicElement)? GraphicElement(item).displayObject:item as DisplayObject;
-            super.setChildIndex(displayObject,insertIndex++);
+            
+            super.setChildIndex(myItemRenderer as DisplayObject, insertIndex++);
         }
+        
         if (topLayerItems != null)
         {
             keepLayeringEnabled = true;
@@ -443,9 +385,8 @@ public class DataGroup extends GroupBase
             len = topLayerItems.length;
             for (i=0;i<len;i++)
             {
-            	item = topLayerItems[i];
-	            displayObject = (item is GraphicElement)? GraphicElement(item).displayObject:item as DisplayObject;
-	            super.setChildIndex(displayObject,insertIndex++);
+            	myItemRenderer = topLayerItems[i];
+	            super.setChildIndex(myItemRenderer as DisplayObject, insertIndex++);
             }
         }
         
@@ -459,9 +400,8 @@ public class DataGroup extends GroupBase
 
             for (i=0;i<len;i++)
             {
-            	item = bottomLayerItems[i];
-	            displayObject = (item is GraphicElement)? GraphicElement(item).displayObject:item as DisplayObject;
-	            super.setChildIndex(displayObject,insertIndex++);
+            	myItemRenderer = bottomLayerItems[i];
+	            super.setChildIndex(myItemRenderer as DisplayObject, insertIndex++);
             }
         }
         
@@ -517,38 +457,19 @@ public class DataGroup extends GroupBase
      */
     protected function itemAdded(item:Object, index:int):void
     {
-        var childDO:DisplayObject;
-        var myItemRenderer:Object;
-                
-        if (item is GraphicElement) 
-        {
-            var graphicItem:GraphicElement = GraphicElement(item);
+        var myItemRenderer:IVisualElement = createRendererForItem(item, index);
         
-            // If a styleable GraphicElement is being added,
-            // build its protochain for use by getStyle().
-            if (item is IStyleClient)
-                IStyleClient(item).regenerateStyleCache(true);
-                
-            myItemRenderer = createRendererForItem(graphicItem, index);
-        }   
-        else
-        {
-            myItemRenderer = createRendererForItem(item, index);
-        }
+        // Set the renderer's data to the item, but only if the item and renderer are different
+        if (myItemRenderer is IDataRenderer && myItemRenderer != item)
+            IDataRenderer(myItemRenderer).data = item;
         
-
         registerRenderer(index, myItemRenderer);
         
-        if (myItemRenderer is GraphicElement)
-            childDO = GraphicElement(myItemRenderer).displayObject;
-        else
-            childDO = DisplayObject(myItemRenderer);
-        
-        addItemToDisplayList(childDO, item, index);
+        addItemToDisplayList(myItemRenderer as DisplayObject, item, index);
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_ADD, false, false, 
-                      item, index, getItemRenderer(index)));
+                      item, index, myItemRenderer));
         
         invalidateSize();
         invalidateDisplayList();
@@ -565,41 +486,21 @@ public class DataGroup extends GroupBase
      */
     protected function itemRemoved(item:Object, index:int):void
     {       
-        var renderer:Object = getItemRenderer(index);
-        var childDO:DisplayObject = item as DisplayObject;
+        var myItemRenderer:IVisualElement = getItemRenderer(index);
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, 
-                      item, index, renderer));
-        
-        // if either the item or the renderer is a GraphicElement,
-        // release the display objects
-        if (item && (item is GraphicElement))
-        {
-            item.parent = null;
-            item.sharedDisplayObject = null;
-        }
-        
-        // determine who the child display object is
-        if (renderer && (renderer is GraphicElement))
-        {
-            childDO = GraphicElement(renderer).displayObject;
-        }
-        else if (renderer && (renderer is DisplayObject))
-        {
-            childDO = renderer as DisplayObject;
-        }
+                      item, index, myItemRenderer));
         
         // If the item and renderer are different objects, set the renderer data to 
         // null here to clear it out. Otherwise, the renderer keeps a reference to the item,
         // which can cause problems later.
-        if (item && renderer && item != renderer)
-            renderer.data = null;
-                
-        if (childDO)
-            super.removeChild(childDO);
+        if (myItemRenderer is IDataRenderer && myItemRenderer != item)
+            IDataRenderer(myItemRenderer).data = null;
         
-        unregisterRenderer(index, renderer);
+        super.removeChild(myItemRenderer as DisplayObject);
+        
+        unregisterRenderer(index, myItemRenderer);
         
         invalidateSize();
         invalidateDisplayList();
@@ -620,45 +521,23 @@ public class DataGroup extends GroupBase
      */ 
     protected function addItemToDisplayList(child:DisplayObject, item:Object, index:int = -1):DisplayObject
     { 
-        var host:DisplayObject;
-        
-        // TODO (rfrishbe): need to check for DisplayObject?
-        if (item is IVisualElement)
+        // TODO: do we need this case (parented by me previously)?
+        if (child.parent && child.parent == this)
         {
-            host = IVisualElement(item).parent;
-        } 
-        else if (item is DisplayObject)
-            host = DisplayObject(item).parent;
-        
-        // Remove the item from the group if that group isn't this group
-        if (host && host is IVisualElementContainer && host != this)
-            IVisualElementContainer(host).removeElement(item);
-        else if (host && host is DataGroup && host != this)
-        {
-            var dp:IList = DataGroup(host).dataProvider;
-            var index:int = dp.getItemIndex(item);
-            dp.removeItemAt(index);
+            var insertIndex:int;
+            if (index == -1)
+                insertIndex = super.numChildren - 1;
+            else if (index == 0)
+                insertIndex = 0;
+            else
+                insertIndex = index;
+                
+            super.setChildIndex(child, insertIndex);
+            return child;
         }
-        
-        // Calling removeItem should have already removed the child. This
-        // should handle the case when we don't call removeItem
-        if (child.parent)
+        else if (child.parent && child.parent is DataGroup)
         {
-            if (child.parent == this)
-            {
-                var insertIndex:int;
-                if (index == -1)
-                    insertIndex = super.numChildren - 1;
-                else if (index == 0)
-                    insertIndex = 0;
-                else
-                    insertIndex = index;
-                    
-                super.setChildIndex(child, insertIndex);
-                return child;
-            }
-            else        
-                child.parent.removeChild(child);        
+            DataGroup(child.parent)._removeChild(child);
         }
 
         if ((_layeringFlags & LAYERING_ENABLED) || 
@@ -802,38 +681,22 @@ public class DataGroup extends GroupBase
     
     //--------------------------------------------------------------------------
     //
-    //  Item -> Renderer mapping
+    //  Methods: Access to overridden methods of base classes
     //
     //--------------------------------------------------------------------------
-    
+
     /**
-     *  Returns the instance of the renderer at the specified index. If the item 
-     *  at that index is a visual element and uses no renderer, then the visual  
-     *  element will be returned.
-     *
-     *  @param index The item index whose renderer is to be returned.
-     *
-     *  @return The renderer instance for the specified item. If the item
-     *          is a visual element and has no item renderer, 
-     *          the visual element itself is returned.
+     *  @private
+     *  This method allows access to the base class's implementation
+     *  of removeChild() (UIComponent's version), which can be useful since components
+     *  can override removeChild() and thereby hide the native implementation.  For 
+     *  instance, we override removeChild() here to throw an RTE to discourage people
+     *  from using this method.  We need this method so we can remove children
+     *  that were previously attached to another DataGroup (see addItemToDisplayList).
      */
-    public function getItemRenderer(index:int):Object
+    private function _removeChild(child:DisplayObject):DisplayObject
     {
-        return itemRendererRegistry[index];
-    }
-    
-    /**
-     *  Returns the item index associated with the specified renderer.
-     *
-     *  @param renderer The renderer whose item you want to retrieve.
-     *
-     *  @return The item index associated with the specified renderer, 
-     *          or -1 if there is no item associated with the passed in 
-     *          renderer.
-     */
-    public function getRendererItem(renderer:Object):int
-    {
-        return itemRendererRegistry.indexOf(renderer);
+        return super.removeChild(child);
     }
     
     /**
