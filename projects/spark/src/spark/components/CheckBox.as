@@ -17,6 +17,11 @@ import flash.events.MouseEvent;
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
@@ -33,6 +38,11 @@ import flash.events.MouseEvent;
  *  to <code>true</code> for checked, and to <code>false</code> for unchecked.</p>
  *
  * @includeExample examples/FxCheckBoxExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxCheckBox extends FxToggleButton
 {
@@ -46,6 +56,11 @@ public class FxCheckBox extends FxToggleButton
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxCheckBox()
     {
