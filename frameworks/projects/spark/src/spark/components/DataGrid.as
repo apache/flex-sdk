@@ -672,7 +672,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!grid)
             return;
         
-        // FIXME (klin): what if alternatingRowColorsBackground is set to null?
         if ((getStyle("alternatingRowColors") as Array) && alternatingRowColorsBackground)
             grid.rowBackground = alternatingRowColorsBackground;
     }
