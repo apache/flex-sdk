@@ -148,6 +148,7 @@ VSlider
 
 global
 {
+    /* Looks */
     /* color: #000000; */
     baseColor: #CCCCCC;
     contentBackgroundColor: #FFFFFF;
@@ -155,5 +156,9 @@ global
     selectionColor: #A8C6EE;
     focusColor: #70B2EE;
     symbolColor: #000000;
+    
+    /* Behaviors */
+    fixedThumbSize: false;
     slideDuration: 300;
+    smoothScrolling: true;
 }
