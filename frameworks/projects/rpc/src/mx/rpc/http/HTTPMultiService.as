@@ -279,7 +279,8 @@ public dynamic class HTTPMultiService extends AbstractService
     /**
      *  The URL that the HTTPService object should use when computing relative URLs.
      *  This contains a prefix which is prepended onto any URLs when it is set.
-     *  It defaults to null in which case the URLs for each operation are used.
+     *  It defaults to null in which case the URL for the SWF is used to compute
+     *  relative URLs.
      */
     public var baseURL:String;
     
