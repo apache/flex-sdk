@@ -265,6 +265,8 @@ public class TrackBase extends Range
     // maximum
     //---------------------------------     
     
+    [Inspectable(category="General", defaultValue="100.0")]
+    
     /**
      *  @private
      *  Overidden so that this property can be the source of a binding expression.
@@ -290,6 +292,8 @@ public class TrackBase extends Range
     // minimum
     //---------------------------------     
 
+    [Inspectable(category="General", defaultValue="0.0")]
+    
     /**
      *  @private
      *  Overidden so that this property can be the source of a binding expression.
@@ -372,6 +376,7 @@ public class TrackBase extends Range
     //---------------------------------     
 
     [Bindable(event="valueCommit")]  // Warning: must match the Bindable tag in Range
+    [Inspectable(category="General", defaultValue="0.0")]
     
     /**
      *  @private 
