@@ -920,7 +920,14 @@ public class List extends ListBase implements IFocusManagerComponent
             (value && value.length == 1 && 
              selectedIndices && selectedIndices.length == 1 &&    
              value[0] == selectedIndices[0]))
-            return; 
+		{
+			// this should short-circuit, but we should check to make sure 
+			// that caret doesn't need to be changed either, as that's a side
+			// effect of setting selectedIndex
+			setCurrentCaretIndex(selectedIndex);
+			
+			return;
+		}
         
         if (dispatchChangeEvent)
             dispatchChangeAfterSelection = dispatchChangeEvent;
@@ -1679,13 +1686,6 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!allowMultipleSelection)
         {
             // Single selection case, set the selectedIndex 
-            var currentRenderer:IItemRenderer;
-            if (caretIndex >= 0 && caretIndex != newIndex)
-            {
-                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                if (currentRenderer)
-                    currentRenderer.showsCaret = false;
-            }
             
             // Check to see if we're deselecting the currently selected item because if we're 
             // possibly dragging we don't want to de-select this immediately.  Similarly, if we 
@@ -1697,7 +1697,9 @@ public class List extends ListBase implements IFocusManagerComponent
                 pendingSelectionShiftKey = event.shiftKey;
             }
             else
+			{
                 setSelectedIndex(newIndex, true);
+			}
         }
         else 
         {
