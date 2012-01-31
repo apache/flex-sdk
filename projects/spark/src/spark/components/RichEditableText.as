@@ -605,19 +605,16 @@ public class TextView extends UIComponent implements IViewport
         {
             // Eliminate detritus from the previous TextFlow.
             if (textFlow && textFlow.flowComposer)
-                textFlow.flowComposer.containerControllerList = null;
+                textFlow.flowComposer.removeControllerAt(0);
 
             // Create a new TextFlow for the current text.
             _content = textFlow = createTextFlow();
                         
             // Tell it where to create its TextLines.
-            textFlow.flowComposer = new StandardFlowComposer();
-            var containerControllers:Vector.<IContainerController> =
-                new Vector.<IContainerController>();
-            containerControllers.push(
+            var flowComposer:IFlowComposer = new StandardFlowComposer();
+            flowComposer.addController(
                 new DisplayObjectContainerController(this));
-            textFlow.flowComposer.containerControllerList =
-                containerControllers;
+            textFlow.flowComposer = flowComposer;
             
             // Give it an EditManager to make it editable.
             textFlow.interactionManager = new TextViewEditManager(); 
@@ -641,7 +638,7 @@ public class TextView extends UIComponent implements IViewport
         }
 
         var containerController:IContainerController =
-            textFlow.flowComposer.getContainerControllerAt(0);
+            textFlow.flowComposer.getControllerAt(0);
         
         if (horizontalScrollPositionChanged)
         {
@@ -699,9 +696,9 @@ public class TextView extends UIComponent implements IViewport
         // rectangle (0, 0, unscaledWidth, unscaledHeight).
         var displayController:IFlowComposer = textFlow.flowComposer;
         var containerController:IContainerController =
-            displayController.getContainerControllerAt(0);
+            displayController.getControllerAt(0);
         containerController.updateComposeSize(unscaledWidth, unscaledHeight);
-        displayController.updateDisplay();
+        displayController.updateAllContainers();
     }
 
     //--------------------------------------------------------------------------
@@ -1099,7 +1096,7 @@ public class TextView extends UIComponent implements IViewport
                                     event:CompositionCompletionEvent):void
     {
         var containerController:IContainerController =
-            textFlow.flowComposer.getContainerControllerAt(0);
+            textFlow.flowComposer.getControllerAt(0);
 
         var newContentWidth:Number =
             containerController.maxHorizontalScrollPosition;
@@ -1124,7 +1121,7 @@ public class TextView extends UIComponent implements IViewport
     private function textFlow_scrollHandler(event:Event):void
     {
         var containerController:IContainerController =
-            textFlow.flowComposer.getContainerControllerAt(0);
+            textFlow.flowComposer.getControllerAt(0);
 
         var newHorizontalScrollPosition:Number =
             containerController.horizontalScrollPosition;
