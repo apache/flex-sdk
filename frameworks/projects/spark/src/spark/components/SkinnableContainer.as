@@ -48,11 +48,11 @@ import mx.managers.IFocusManagerContainer;
 [DefaultProperty("contentFactory")]
 
 /**
- * The ItemsComponent class is the base class for all skinnable components that have 
+ * The ContainerSkin class is the base class for all skinnable components that have 
  * visual content. This class is not typically instantiated in MXML. It is primarily
  * used as a base class, or as a SkinPart.
  */
-public class FxItemsComponent extends FxContainerBase 
+public class FxContainer extends FxContainerBase 
 	   implements IDeferredContentOwner
 {
     include "../core/Version.as";
@@ -66,7 +66,7 @@ public class FxItemsComponent extends FxContainerBase
     /**
      *  Constructor. 
      */
-    public function FxItemsComponent()
+    public function FxContainer()
     {
         super();
         
@@ -363,7 +363,7 @@ public class FxItemsComponent extends FxContainerBase
                 if (sourceContent)
                     contentGroup.content = sourceContent.slice();
                 else if (_placeHolderGroup.content is IList)
-                    throw new Error("ItemsComponent can not currently handle content of type " + 
+                    throw new Error("ContainerSkin can not currently handle content of type " + 
                             "IList when adding children dynamically.");
                 else
                     contentGroup.content = _placeHolderGroup.content;
