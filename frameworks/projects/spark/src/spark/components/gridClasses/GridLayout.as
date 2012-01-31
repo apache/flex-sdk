@@ -327,7 +327,7 @@ public class GridLayout extends LayoutBase
         if (enablePerformanceStatistics)
             startTime = getTimer();        
         
-        layoutColumns(horizontalScrollPosition, verticalScrollPosition, NaN /* width */);        
+        layoutColumns(horizontalScrollPosition, verticalScrollPosition, NaN /* width */);
         
         var measuredWidth:Number = gridDimensions.getTypicalContentWidth(grid.requestedColumnCount);
         var measuredHeight:Number = gridDimensions.getTypicalContentHeight(grid.requestedRowCount);
@@ -596,8 +596,6 @@ public class GridLayout extends LayoutBase
         
 		const columnGap:int = gridDimensions.columnGap;
 		const startCellX:Number = gridDimensions.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
-        const isFixedRowHeight:Boolean = !grid.variableRowHeight;
-        var maxTypicalCellHeight:Number = 0;
 
 		for (var columnIndex:int = firstVisibleColumnIndex; 
                  (isNaN(width) || (width > 0)) && (columnIndex < columnCount); 
@@ -636,12 +634,7 @@ public class GridLayout extends LayoutBase
     			else
     				width -= cellWidth + columnGap;
             }
-            
-            maxTypicalCellHeight = Math.max(maxTypicalCellHeight, cellHeight);
 		}
-        
-        if (isFixedRowHeight && isNaN(grid.rowHeight))
-            gridDimensions.fixedRowHeight = maxTypicalCellHeight;
     }
 	
 	/**
@@ -2168,7 +2161,7 @@ public class GridLayout extends LayoutBase
      *  cached for the specified row, then the item renderer's height is based 
      *  on the <code>typicalItem</code>.  If the <code>typicalItem</code> wasn't 
      *  specified or has not been measured yet, then the item renderer's height 
-     *  will default to <code>26</code>.</p>
+     *  will default to its preferred height.</p>
      *  
      *  @param rowIndex The 0-based row index of the item renderer's cell.
      *  @param columnIndex The 0-based column index of the item renderer's cell.
@@ -2202,6 +2195,8 @@ public class GridLayout extends LayoutBase
 
         // The width/height may change later if the cell becomes visible.
         var bounds:Rectangle = gridDimensions.getCellBounds(rowIndex, columnIndex);
+        if (bounds == null)
+            return null;
         layoutItemRenderer(renderer, bounds.x, bounds.y, bounds.width, bounds.height);
         
         grid.rendererLayer.removeGridElement(renderer);
