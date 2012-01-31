@@ -2970,9 +2970,12 @@ public class Grid extends Group implements IDataGridElement
     }        
     
     /**
-     *  Return the data provider indices of the currently visible rows.  
+     *  Return the data provider indices and padding indices of the 
+	 *  currently visible rows.  
+	 *  Indices which are greater than or equal to the 
+	 *  <code>dataProvider</code> length represent padding rows.
      *  Note that the item renderers for the first and last rows 
-     *  may only be partially visible.  
+     *  may only be partially visible. 
      *  The returned vector's contents are in the order they're displayed.
      * 
      *  @return A vector of the visible row indices.
@@ -3605,7 +3608,11 @@ public class Grid extends Group implements IDataGridElement
      */
     public function invalidateCell(rowIndex:int, columnIndex:int):void
     {
-        if (!dataProvider || rowIndex >= dataProvider.length)
+        if (!dataProvider)
+			return;
+		
+		const dataProviderLength:int = dataProvider.length;
+		if (rowIndex >= dataProvider.length)
 			return;
 		
 		if (!isCellVisible(rowIndex, columnIndex))
@@ -3627,6 +3634,10 @@ public class Grid extends Group implements IDataGridElement
 			const rowIndices:Vector.<int> = getVisibleRowIndices();
 			for each (rowIndex in rowIndices)
 			{
+				// If there are any padding rows, skip them.
+				if (rowIndex >= dataProviderLength)
+					break;
+				
 				dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);			
 			}
 		}
@@ -3644,7 +3655,7 @@ public class Grid extends Group implements IDataGridElement
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    protected function createGridSelection():GridSelection
+    mx_internal function createGridSelection():GridSelection
     {
         return new GridSelection();    
     }
