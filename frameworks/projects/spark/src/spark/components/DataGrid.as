@@ -749,7 +749,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  Maximum time in milliseconds between a click and a double click.
      *  
      */ 
-    mx_internal var doubleClickTime:Number = 250;
+    mx_internal var doubleClickTime:Number = 620;
     
     /** 
      *  @private
@@ -771,9 +771,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  Provides all the logic to start and end item
      *  editor sessions.
-     * 
-     *  After creating an instance of the editor call
-     *  the initialize() function.
+     *
+     *  Create your own editor by overriding the <code>createEditor()</code> 
+     *  method. 
      */ 
     mx_internal var editor:DataGridEditor;
 
