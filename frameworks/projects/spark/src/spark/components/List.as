@@ -1983,7 +1983,7 @@ public class List extends ListBase implements IFocusManagerComponent
                 item = copyItemWithUID(item);
 
             // Copy the data
-            dataProvider.addItemAt(items[i], dropIndex + i);
+            dataProvider.addItemAt(item, dropIndex + i);
 
             // Update the selection
             if (i != caretIndex)
