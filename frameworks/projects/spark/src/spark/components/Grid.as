@@ -22,7 +22,6 @@ import mx.collections.ArrayList;
 import mx.collections.IList;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
-import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
@@ -31,14 +30,15 @@ import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
 import mx.utils.ObjectUtil;
 
+import spark.components.gridClasses.CellPosition;
+import spark.components.gridClasses.GridColumn;
+import spark.components.gridClasses.GridDimensions;
+import spark.components.gridClasses.GridLayer;
+import spark.components.gridClasses.GridLayout;
+import spark.components.gridClasses.GridSelection;
+import spark.components.gridClasses.GridSelectionMode;
 import spark.components.gridClasses.IDataGridElement;
-import spark.components.supportClasses.CellPosition;
-import spark.components.supportClasses.GridColumn;
-import spark.components.supportClasses.GridDimensions;
-import spark.components.supportClasses.GridLayer;
-import spark.components.supportClasses.GridLayout;
-import spark.components.supportClasses.GridSelection;
-import spark.components.supportClasses.GridSelectionMode;
+import spark.components.gridClasses.IGridItemRenderer;
 import spark.events.GridCaretEvent;
 import spark.events.GridEvent;
 import spark.utils.MouseEventUtil;
@@ -864,7 +864,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @default null
      * 
-     *  @see spark.components.supportClasses.GridColumn#dataTipField
+     *  @see spark.components.gridClasses.GridColumn#dataTipField
      */
     public function get dataTipField():String
     {
@@ -898,7 +898,7 @@ public class Grid extends Group implements IDataGridElement
      * 
      *  @default null
      * 
-     *  @see spark.components.supportClasses.GridColumn#dataTipField
+     *  @see spark.components.gridClasses.GridColumn#dataTipField
      */
     public function get dataTipFunction():Function
     {
@@ -1157,7 +1157,7 @@ public class Grid extends Group implements IDataGridElement
     //----------------------------------
     
     /**
-     *  @copy spark.components.supportClasses.GridSelection#preserveSelection
+     *  @copy spark.components.gridClasses.GridSelection#preserveSelection
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1401,7 +1401,7 @@ public class Grid extends Group implements IDataGridElement
      *
      *  @default true
      *    
-     *  @see spark.components.supportClasses.GridColumn
+     *  @see spark.components.gridClasses.GridColumn
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -2027,7 +2027,7 @@ public class Grid extends Group implements IDataGridElement
      *
      *  @default GridSelectionMode.SINGLE_ROW
      * 
-     *  @see spark.components.supportClasses.GridSelectionMode
+     *  @see spark.components.gridClasses.GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2887,7 +2887,7 @@ public class Grid extends Group implements IDataGridElement
     }        
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getVisibleRowIndices()
+     *  @copy spark.components.gridClasses.GridLayout#getVisibleRowIndices()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2900,7 +2900,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getVisibleColumnIndices()
+     *  @copy spark.components.gridClasses.GridLayout#getVisibleColumnIndices()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2913,7 +2913,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getCellBounds()
+     *  @copy spark.components.gridClasses.GridLayout#getCellBounds()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2926,7 +2926,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getRowBounds()
+     *  @copy spark.components.gridClasses.GridLayout#getRowBounds()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2939,7 +2939,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getColumnBounds()
+     *  @copy spark.components.gridClasses.GridLayout#getColumnBounds()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2952,7 +2952,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getRowIndexAt()
+     *  @copy spark.components.gridClasses.GridLayout#getRowIndexAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2965,7 +2965,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getColumnIndexAt()
+     *  @copy spark.components.gridClasses.GridLayout#getColumnIndexAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3000,7 +3000,7 @@ public class Grid extends Group implements IDataGridElement
     }
 
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getCellAt()
+     *  @copy spark.components.gridClasses.GridLayout#getCellAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3013,7 +3013,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getCellsAt()
+     *  @copy spark.components.gridClasses.GridLayout#getCellsAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3071,7 +3071,7 @@ public class Grid extends Group implements IDataGridElement
     
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#getItemRendererAt()
+     *  @copy spark.components.gridClasses.GridLayout#getItemRendererAt()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3084,7 +3084,7 @@ public class Grid extends Group implements IDataGridElement
     }
     
     /**
-     *  @copy spark.components.supportClasses.GridLayout#isCellVisible()
+     *  @copy spark.components.gridClasses.GridLayout#isCellVisible()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
