@@ -88,6 +88,12 @@ use namespace mx_internal;
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.ComboBoxAccImpl")]
+
 /**
  *  The ComboBox control is a child class of the DropDownListBase control. 
  *  Like the DropDownListBase control, when the user selects an item from 
@@ -183,6 +189,18 @@ public class ComboBox extends DropDownListBase
      */
     [SkinPart(required="false")]
     public var textInput:TextInput;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Placeholder for mixin by ComboBoxAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
     
     /**
      *  Constructor. 
@@ -539,6 +557,15 @@ public class ComboBox extends DropDownListBase
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (ComboBox.createAccessibilityImplementation != null)
+            ComboBox.createAccessibilityImplementation(this);
+    }
     
     /**
      *  @private 
