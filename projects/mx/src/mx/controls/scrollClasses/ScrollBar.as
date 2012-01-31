@@ -1357,16 +1357,13 @@ public class ScrollBar extends UIComponent
 
         trackScrolling = true;
         
-        systemManager.addEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_UP, scrollTrack_mouseUpHandler, true);
-        systemManager.addEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
-        systemManager.addEventListener(MarshalMouseEvent.MOUSE_MOVE, 
-                            stage_scrollTrack_mouseMoveHandler);
-        // in case we go offscreen
-        systemManager.addEventListener(MarshalMouseEvent.MOUSE_UP, 
-                            scrollTrack_mouseLeaveHandler);
+        ISystemManager2(systemManager).getSandboxRoot().addEventListener(
+			MarshalMouseEvent.MOUSE_UP, scrollTrack_mouseLeaveHandler);
         
         var pt:Point = new Point(event.localX, event.localY);
         pt = event.target.localToGlobal(pt);
@@ -1426,16 +1423,13 @@ public class ScrollBar extends UIComponent
     {
         trackScrolling = false;
 
-        systemManager.removeEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_UP, scrollTrack_mouseUpHandler, true);
-        systemManager.removeEventListener(
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_MOVE, scrollTrack_mouseMoveHandler, true);
         // in case we go offscreen
-        systemManager.removeEventListener(MouseEvent.MOUSE_MOVE, 
-                            stage_scrollTrack_mouseMoveHandler);
-        // in case we go offscreen
-        systemManager.removeEventListener(MarshalMouseEvent.MOUSE_UP, 
-                            scrollTrack_mouseLeaveHandler);
+        ISystemManager2(systemManager).getSandboxRoot().removeEventListener(
+			MarshalMouseEvent.MOUSE_UP, scrollTrack_mouseLeaveHandler);
 
         if (trackScrollTimer)
             trackScrollTimer.reset();
@@ -1449,14 +1443,6 @@ public class ScrollBar extends UIComponent
         dispatchScrollEvent(oldPosition, detail);
         
         oldPosition = NaN;
-    }
-
-    private function stage_scrollTrack_mouseMoveHandler(event:MouseEvent):void
-    {
-        if (event.target != stage)
-            return;
-
-        scrollTrack_mouseMoveHandler(event);
     }
 
     /**
