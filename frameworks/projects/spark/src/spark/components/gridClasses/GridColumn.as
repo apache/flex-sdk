@@ -151,13 +151,19 @@ public class GridColumn extends EventDispatcher
         
         _dataField = value;
         
-        if (value.indexOf( "." ) != -1) 
+        if (value == null)
+        {
+            dataFieldPath = [];
+        }
+        else if (value.indexOf( "." ) != -1) 
         {
             dataFieldPath = value.split(".");
             // TBD(hmuller): deal with the sortCompareFunction, as in DataGridColumn set dataField
         }
         else
+        {
             dataFieldPath = [value];
+        }
         
         invalidateGrid();
         if (grid)
