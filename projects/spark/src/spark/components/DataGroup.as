@@ -19,7 +19,6 @@ import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
 
 
-
 /**
  *  Dispatched when a renderer is added to the content holder.
  * <code>event.renderer</code> is the renderer that was added.
@@ -231,9 +230,8 @@ public class DataGroup extends GroupBase
     {
         _itemRenderer = value;
 
+        cleanUpDataProvider();
         invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
         
         itemRendererChanged = true;
         typicalItemChanged = true;
@@ -272,16 +270,15 @@ public class DataGroup extends GroupBase
     {
         _itemRendererFunction = value;
 
+        cleanUpDataProvider();
         invalidateProperties();
-        invalidateSize();
-        invalidateDisplayList();
         
         itemRendererChanged = true;
         typicalItemChanged = true;
     }
     
     private var _dataProvider:IList;
-    private var dataProviderChanged:Boolean = false;
+    private var dataProviderChanged:Boolean;
     
     [Bindable("dataProviderChanged")]
     /**
@@ -308,21 +305,70 @@ public class DataGroup extends GroupBase
     {
         if (_dataProvider == value)
             return;
-
+        
+        cleanUpDataProvider();
+        
+        _dataProvider = value;
+        dataProviderChanged = true;
+        invalidateProperties();
+    }
+    
+    /**
+     *  Cleans up all the old item renderers.
+     */ 
+    protected function cleanUpDataProvider():void
+    {
+        if (_dataProvider)
+            _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
+        
+        var index:int;
+        var vLayout:Boolean = layout && layout.useVirtualLayout;
+        
         // if there's an old dataProvider, and we've created the item renderer for 
         // that dataProvider, then we need to clear out all those item renderers
-        if (!dataProviderChanged && _dataProvider)
+        if (indexToRenderer.length > 0)
         {
-            var vLayout:Boolean = layout && layout.useVirtualLayout;
-            var startIndex:int = vLayout ? virtualLayoutStartIndex : 0;
-            var endIndex:int = vLayout ? virtualLayoutEndIndex : dataProvider.length - 1; 
-            for (var index:int = endIndex; index >= startIndex; index--)
-            {
-                mx_internal::itemRemoved(_dataProvider.getItemAt(index), index);
-            }
+            var renderer:IVisualElement = indexToRenderer[index] as IVisualElement;
+            var item:Object;
             
-            if (vLayout)
+            if (!vLayout)
             {
+                for (index = indexToRenderer.length - 1; index >= 0; index--)
+                {
+                    // TODO (rfrishbe): we can't key off of the oldDataProvider for 
+                    // the item because it might not be there anymore (for instance, 
+                    // in a dataProvider reset where the new data is loaded into 
+                    // the dataProvider--the dataProvider doesn't actually change, 
+                    // but we still need to clean up).
+                    // Because of this, we are assuming the item is either:
+                    //   1.  The data property if the item implements IDataRenderer 
+                    //       and there is an itemRenderer or itemRendererFunction
+                    //   2.  The item itself
+                    
+                    renderer = indexToRenderer[index] as IVisualElement;
+                    if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
+                        item = IDataRenderer(renderer).data;
+                    else
+                        item = renderer;
+                    mx_internal::itemRemoved(item, index);
+                }
+                indexToRenderer = [];
+            }
+            else
+            {
+                for (index = virtualLayoutEndIndex; index >= virtualLayoutStartIndex; index--)
+                {
+                    // TODO (rfrishbe): same as above
+                    
+                    renderer = indexToRenderer[index] as IVisualElement;
+                    if (renderer is IDataRenderer && (itemRenderer != null || itemRendererFunction != null))
+                        item = IDataRenderer(renderer).data;
+                    else
+                        item = renderer;
+                    mx_internal::itemRemoved(item, index);
+                }
+                indexToRenderer = [];
+                
                 virtualLayoutStartIndex = virtualLayoutEndIndex = -1;
                 oldVirtualLayoutStartIndex = oldVirtualLayoutEndIndex = -1;
                 
@@ -333,17 +379,6 @@ public class DataGroup extends GroupBase
                 }
             }
         }
-        
-        if (_dataProvider)
-            _dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler);
-        
-        _dataProvider = value;
-        
-        if (_dataProvider)
-            _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);
-            
-        dataProviderChanged = true;
-        invalidateProperties();
     }
     
     /**
@@ -351,20 +386,25 @@ public class DataGroup extends GroupBase
      */ 
     protected function initializeDataProvider():void
     {
+        var index:int;
         var vLayout:Boolean = layout && layout.useVirtualLayout;
-
-        // Create all item renderers eagerly
-        if (_dataProvider && !vLayout)
-        {
-            for (var i:int = 0; i < _dataProvider.length; i++)
-                mx_internal::itemAdded(_dataProvider.getItemAt(i), i);
-        }
         
-        // The display list will be created lazily, at updateDisplayList() time
-        if (vLayout)
+        if (_dataProvider)
         {
-            invalidateSize();
-            invalidateDisplayList();
+            _dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);
+            
+            // Create all item renderers eagerly
+            if (!vLayout)
+            {
+                for (index = 0; index < _dataProvider.length; index++)
+                    mx_internal::itemAdded(_dataProvider.getItemAt(index), index);
+            }
+            else
+            {
+                // The display list will be created lazily, at updateDisplayList() time
+                invalidateSize();
+                invalidateDisplayList();
+            }
         }
     }
     
@@ -460,7 +500,7 @@ public class DataGroup extends GroupBase
         {
             typicalItemChanged = false;
             initializeTypicalItem();
-        }              
+        }
     }
     
     private function manageDisplayObjectLayers():void
@@ -947,9 +987,6 @@ public class DataGroup extends GroupBase
      */
     protected function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
-        if (dataProviderChanged || itemRendererChanged)
-            return;
-        
         switch (event.kind)
         {
             case CollectionEventKind.ADD:
@@ -986,7 +1023,8 @@ public class DataGroup extends GroupBase
         
             case CollectionEventKind.REFRESH:
             {
-                // from a filter or sort...let's just reset everything          
+                // from a filter or sort...let's just reset everything
+                cleanUpDataProvider();
                 dataProviderChanged = true;
                 invalidateProperties();
                 break;
@@ -994,7 +1032,8 @@ public class DataGroup extends GroupBase
             
             case CollectionEventKind.RESET:
             {
-                // reset everything          
+                // reset everything
+                cleanUpDataProvider();
                 dataProviderChanged = true;
                 invalidateProperties();
                 break;
