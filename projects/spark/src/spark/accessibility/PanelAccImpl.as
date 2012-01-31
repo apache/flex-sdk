@@ -155,10 +155,10 @@ public class PanelAccImpl extends AccImpl
     mx_internal static function createAccessibilityImplementation(
                                 component:UIComponent):void
     {
-		// The TitleWindowAccImpl is attached
-		// not to the TitleWindow but to a special child Sprite.
-		// If it were attached to the TitleWindow itself,
-		// the AccessibilityImplementations of the TitleWindow's
+		// The PanelAccImpl is attached
+		// not to the Panel but to a special child Sprite.
+		// If it were attached to the Panel itself,
+		// the AccessibilityImplementations of the Panel's
 		// children would be ignored.
 		var accImpl:PanelAccImpl = new PanelAccImpl(component);
 		accImpl.attach();
