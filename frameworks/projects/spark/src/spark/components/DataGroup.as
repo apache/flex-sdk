@@ -23,11 +23,13 @@ import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.mx_internal;
 import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ILayoutManagerClient;
+import mx.managers.LayoutManager;
 import mx.utils.MatrixUtil;
 
 import spark.components.supportClasses.GroupBase;
@@ -1245,15 +1247,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 elt.includeInLayout = false;
                 elt.visible = false;
                 
-                // If the width isn't constrained, 
-                // reset the size back to (0,0), otherwise when the element is reused
-                // it will be validated at its last layout size which causes
-                // problems with text reflow.
-                var widthConstrained:Boolean = ((layout is VerticalLayout) && 
-                    (VerticalLayout(layout).horizontalAlign == HorizontalAlign.JUSTIFY));
-                if (!widthConstrained)
-                    elt.setLayoutBoundsSize(0, 0, false);
-                
                 freeRenderers.push(elt);
             }
             else if (elt)
@@ -1439,18 +1432,19 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 addItemRendererToDisplayList(DisplayObject(elt)); 
             }
             
-            if (!isNaN(eltWidth) || !isNaN(eltHeight))
-            {
-                // If we're going to set the width or height of this
-                // layout element, first force it to initialize its
-                // measuredWidth,Height.    
-                if (elt is IInvalidating) 
-                    IInvalidating(elt).validateNow();
-                elt.setLayoutBoundsSize(eltWidth, eltHeight);
-            }
+            // We have the renderer now.  getVirtualElement() is called from within layout's 
+            // updateDisplayList().  This means it hasn't gone through a fully baked validation 
+            // pass yet.  To get it in to a valid state, we want to first force a 
+            // commitProperties() and measure() to run on our item renderer.
+            if (elt is ILayoutManagerClient)
+                LayoutManager.getInstance().validateClient(elt as ILayoutManagerClient, true);
             
-            if (elt is IInvalidating)
-                IInvalidating(elt).validateNow();
+            // Now, we can resume normal layout updateDisplayList() code.  The layout 
+            // could directly run this setLayoutBoundsSize() for us, but as legacy, 
+            // getVirtualElementAt() calls this on behalf of the layout system
+            // if eltWidth and eltHeight are both NaN
+            if (!isNaN(eltWidth) || !isNaN(eltHeight))
+                elt.setLayoutBoundsSize(eltWidth, eltHeight);
             
             if (createdIR)
                 dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_ADD, false, false, elt, index, item));
