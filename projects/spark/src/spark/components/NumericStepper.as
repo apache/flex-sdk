@@ -40,6 +40,7 @@ import mx.managers.IFocusManagerComponent;
  *
  *  @see mx.components.FxSpinner
  * 
+ *  @includeExample examples/FxNumericStepperExample.mxml
  */
 public class FxNumericStepper extends FxSpinner implements IFocusManagerComponent
 {
