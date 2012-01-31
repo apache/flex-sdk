@@ -46,12 +46,10 @@ import flashx.textLayout.events.CompositionCompletionEvent;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.events.FlowOperationEvent;
 import flashx.textLayout.events.SelectionEvent;
-import flashx.textLayout.formats.CharacterFormat;
-import flashx.textLayout.formats.ContainerFormat;
-import flashx.textLayout.formats.ICharacterFormat;
-import flashx.textLayout.formats.IContainerFormat;
-import flashx.textLayout.formats.IParagraphFormat;
-import flashx.textLayout.formats.ParagraphFormat;
+import flashx.textLayout.formats.Category;
+import flashx.textLayout.formats.FormatValue;
+import flashx.textLayout.formats.ITextLayoutFormat;
+import flashx.textLayout.formats.TextLayoutFormat;
 import flashx.textLayout.operations.CutOperation;
 import flashx.textLayout.operations.DeleteTextOperation;
 import flashx.textLayout.operations.FlowOperation;
@@ -59,6 +57,7 @@ import flashx.textLayout.operations.FlowTextOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 import flashx.textLayout.operations.PasteOperation;
 import flashx.textLayout.operations.SplitParagraphOperation;
+import flashx.textLayout.tlf_internal;
 
 import mx.core.IViewport;
 import mx.core.ScrollUnit;
@@ -175,8 +174,8 @@ public class TextView extends UIComponent implements IViewport
      *  @private
      *  Used for determining whitespace processing during import.
      */
-    private static var staticCharacterFormat:CharacterFormat =
-        new CharacterFormat();
+    private static var staticTextLayoutFormat:TextLayoutFormat =
+        new TextLayoutFormat();
     
     /**
      *  @private
@@ -227,23 +226,7 @@ public class TextView extends UIComponent implements IViewport
      *  and is updated by createTextFlow() when the hostFormatsInvalid flag
      *  is true.
      */
-    private var hostCharacterFormat:CharacterFormat = new CharacterFormat();
-
-    /**
-     *  @private
-     *  This object is determined by the CSS styles of the TextView
-     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
-     *  is true.
-     */
-    private var hostParagraphFormat:ParagraphFormat = new ParagraphFormat();
-
-    /**
-     *  @private
-     *  This object is determined by the CSS styles of the TextView
-     *  and is updated by createTextFlow() when the hostFormatsInvalid flag
-     *  is true.
-     */
-    private var hostContainerFormat:ContainerFormat = new ContainerFormat();
+    private var hostTextLayoutFormat:TextLayoutFormat = new TextLayoutFormat();
 
     /**
      *  @private
@@ -253,7 +236,7 @@ public class TextView extends UIComponent implements IViewport
      *  when styleChanged() is called with a null argument, indicating that
      *  multiple styles have changed.
      */
-    private var hostFormatsInvalid:Boolean = false;
+    private var hostTextLayoutFormatInvalid:Boolean = false;
 
     /**
      *  @private
@@ -1191,8 +1174,8 @@ public class TextView extends UIComponent implements IViewport
         measuredWidth = Math.round(getStyle("paddingLeft") +
                         widthInChars * charWidth +
                         getStyle("paddingRight"));
-         
-        measuredHeight = Math.round(getStyle("paddingTop") +
+         		
+		measuredHeight = Math.round(getStyle("paddingTop") +
                          heightInLines * (ascent + descent) +
                          getStyle("paddingBottom"));
 
@@ -1232,7 +1215,7 @@ public class TextView extends UIComponent implements IViewport
         if (textChanged || contentChanged ||
             stylesChanged || displayAsPasswordChanged)
         {
-            if (textChanged || contentChanged)
+			if (textChanged || contentChanged)
             {
                 // Eliminate detritus from the previous TextFlow only if
                 // the text/content has changed. Want to preserve scrolling
@@ -1289,7 +1272,7 @@ public class TextView extends UIComponent implements IViewport
         {
             var containerController:IContainerController =
                 flowComposer.getControllerAt(0);
-            containerController.setCompositionSize(unscaledWidth, unscaledHeight);
+			containerController.setCompositionSize(unscaledWidth, unscaledHeight);
             flowComposer.updateAllContainers();
         }
     }
@@ -1302,7 +1285,7 @@ public class TextView extends UIComponent implements IViewport
         super.stylesInitialized();
 
         fontMetricsInvalid = true;
-        hostFormatsInvalid = true;
+        hostTextLayoutFormatInvalid = true;
         stylesChanged = true;
     }
 
@@ -1327,11 +1310,11 @@ public class TextView extends UIComponent implements IViewport
         // property in either hostContainerFormat, hostParagraphFormat,
         // or hostCharacterFormat immediately.
         if (styleProp == null || styleProp == "styleName")
-            hostFormatsInvalid = true;
+            hostTextLayoutFormatInvalid = true;
         else if (isSelectionFormat(styleProp))
             selectionFormatsChanged = true;
         else
-            setHostFormat(styleProp);
+            setHostTextLayoutFormat(styleProp);
 
         stylesChanged = true;
     }
@@ -1388,25 +1371,17 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  @private
      */
-    private function setHostFormat(styleProp:String):void
+    private function setHostTextLayoutFormat(styleProp:String):void
     {
-        var value:* = getStyle(styleProp);
-        if (styleProp == "tabStops" && value === undefined)
-            value = [];
+        if (styleProp in hostTextLayoutFormat)
+		{
+			var value:* = getStyle(styleProp);
 
-        var kind:String = TextUtil.FORMAT_MAP[styleProp];
+			if (styleProp == "tabStops" && value === undefined)
+				value = [];
 
-        if (kind == TextUtil.CONTAINER)
-            hostContainerFormat[styleProp] = value;
-        
-        else if (kind == TextUtil.PARAGRAPH)
-            hostParagraphFormat[styleProp] = value;
-        
-        else if (kind == TextUtil.CHARACTER)
-            hostCharacterFormat[styleProp] = value;            
-            
-        else
-            trace("TextView.setFormat: unrecognized style", styleProp);            
+			hostTextLayoutFormat[styleProp] = value;
+		}      
     }
 
     /**
@@ -1416,10 +1391,16 @@ public class TextView extends UIComponent implements IViewport
     {
         // The whiteSpaceCollapse format determines how whitespace
         // is processed when markup is imported.
-        staticCharacterFormat.whiteSpaceCollapse =
+		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
+        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
+        staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-        staticConfiguration.textFlowInitialCharacterFormat =
-            staticCharacterFormat;
+        staticConfiguration.textFlowInitialFormat =
+            staticTextLayoutFormat;
 
         if (markup is String)
         {
@@ -1469,9 +1450,15 @@ public class TextView extends UIComponent implements IViewport
 
         // The whiteSpaceCollapse format determines how whitespace
         // is processed when the children are set.
-        staticCharacterFormat.whiteSpaceCollapse =
+		staticTextLayoutFormat.lineBreak = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingLeft = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingRight = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingTop = FormatValue.INHERIT;
+        staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
+        staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
+        staticTextLayoutFormat.whiteSpaceCollapse =
             getStyle("whiteSpaceCollapse");
-        textFlow.hostCharacterFormat = staticCharacterFormat;
+        textFlow.hostTextLayoutFormat = staticTextLayoutFormat;
 
         textFlow.mxmlChildren = children;
 
@@ -1534,18 +1521,16 @@ public class TextView extends UIComponent implements IViewport
                 TextUtil.unobscureTextFlow(textFlow, _text);
         }
 
-        if (hostFormatsInvalid)
+        if (hostTextLayoutFormatInvalid)
         {
-            for each (var p:String in TextUtil.ALL_FORMAT_NAMES)
+			for (var p:String in TextLayoutFormat.tlf_internal::description)
             {
-                setHostFormat(p);
+                setHostTextLayoutFormat(p);
             }
-            hostFormatsInvalid = false;
+            hostTextLayoutFormatInvalid = false;
         }
 
-        textFlow.hostCharacterFormat = hostCharacterFormat;
-        textFlow.hostParagraphFormat = hostParagraphFormat;
-        textFlow.hostContainerFormat = hostContainerFormat;
+		textFlow.hostTextLayoutFormat = new TextLayoutFormat(hostTextLayoutFormat);
         
         return textFlow;
     }
@@ -1573,23 +1558,22 @@ public class TextView extends UIComponent implements IViewport
             return;
            
         var selectionColor:* = getStyle("selectionColor");
-
         var unfocusedSelectionColor:* = getStyle("unfocusedSelectionColor");
+
         var unfocusedAlpha:Number =
             selectionVisibility != TextSelectionVisibility.WHEN_FOCUSED ? 
             1.0 : 0.0;
-
         var inactiveSelectionColor:* = getStyle("inactiveSelectionColor"); 
+
         var inactiveAlpha:Number =
             selectionVisibility == TextSelectionVisibility.ALWAYS ?
             1.0 : 0.0;
-            
         // The cursor is black, inverted, which makes it the inverse color
         // of the background, for maximum readability.         
         interactionManager.focusSelectionFormat = new SelectionFormat(
             selectionColor, 1.0, BlendMode.NORMAL, 
             0x000000, 1.0, BlendMode.INVERT);
-        
+
         interactionManager.noFocusSelectionFormat = new SelectionFormat(
             unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL,
             unfocusedSelectionColor, unfocusedAlpha, BlendMode.NORMAL);
@@ -1603,7 +1587,7 @@ public class TextView extends UIComponent implements IViewport
      *  @private
      *  Persist the edit manager so selection formatting can be maintained.
      */
-    private var _editManager:TextViewEditManager = null;
+    private var _editManager:EditManager = null;
     
     /**
      *  @private
@@ -1611,11 +1595,11 @@ public class TextView extends UIComponent implements IViewport
      *  be maintained if/when the interaction manager is swapped out and
      *  back in again.
      */
-    private function get editManager():TextViewEditManager
+    private function get editManager():EditManager
     {
         if (_editManager == null)
         {
-            _editManager = new TextViewEditManager(mx_internal::undoManager);
+            _editManager = new EditManager(mx_internal::undoManager);
             setSelectionFormats(_editManager);
         }
 
@@ -1857,21 +1841,36 @@ public class TextView extends UIComponent implements IViewport
      */
     public function getSelectionFormat(names:Array = null):Object
     {
+        var format:Object = {};
+        
         // Switch to the EditManager.
         var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
         switchToEditingMode(textFlow, EditingMode.READ_WRITE);
         var selectionManager:ISelectionManager = textFlow.interactionManager;
                 
+		// This internal TLF object maps the names of format properties
+		// to Property instances.
+		// Each Property instance has a category property which tells
+		// whether it is container-, paragraph-, or character-level.
+        var description:Object = TextLayoutFormat.tlf_internal::description;
+			
         var p:String;
-        var kind:String;
+        var category:String;
         
-        var needContainerFormat:Boolean = false;
+        // Based on which formats have been requested, determine which
+		// of the getCommonXXXFormat() methods we need to call.
+
+		var needContainerFormat:Boolean = false;
         var needParagraphFormat:Boolean = false;
         var needCharacterFormat:Boolean = false;
 
         if (!names)
         {
-            names = TextUtil.ALL_FORMAT_NAMES;
+            names = [];
+			for (p in description)
+			{
+				names.push(p);
+			};
             
             needContainerFormat = true;
             needParagraphFormat = true;
@@ -1879,52 +1878,44 @@ public class TextView extends UIComponent implements IViewport
         }
         else
         {
-            for each (p in names)
+			for each (p in names)
             {
-                kind = TextUtil.FORMAT_MAP[p];
+                category = description[p].category;
 
-                if (kind == TextUtil.CONTAINER)
+                if (category == Category.CONTAINER)
                     needContainerFormat = true;
-                else if (kind == TextUtil.PARAGRAPH)
+                else if (category == Category.PARAGRAPH)
                     needParagraphFormat = true;
-                else if (kind == TextUtil.CHARACTER)
+                else if (category == Category.CHARACTER)
                     needCharacterFormat = true;
             }
         }
+
+		// Get the common formats.
         
-        var containerFormat:IContainerFormat;
-        var paragraphFormat:IParagraphFormat;
-        var characterFormat:ICharacterFormat;
+        var containerFormat:ITextLayoutFormat;
+        var paragraphFormat:ITextLayoutFormat;
+        var characterFormat:ITextLayoutFormat;
         
         if (needContainerFormat)
-        {
-            containerFormat =
-                selectionManager.getCommonContainerFormat();
-        }
+            containerFormat = selectionManager.getCommonContainerFormat();
         
         if (needParagraphFormat)
-        {
-            paragraphFormat =
-                selectionManager.getCommonParagraphFormat();
-        }
+            paragraphFormat = selectionManager.getCommonParagraphFormat();
 
         if (needCharacterFormat)
-        {
-            characterFormat =
-                selectionManager.getCommonCharacterFormat();
-        }
+            characterFormat = selectionManager.getCommonCharacterFormat();
 
-        var format:Object = {};
-        
-        for each (p in names)
+        // Extract the requested formats to return.
+		for each (p in names)
         {
-            kind = TextUtil.FORMAT_MAP[p];
+            category = description[p].category;
             
-            if (kind == TextUtil.CONTAINER && containerFormat)
+            if (category == Category.CONTAINER && containerFormat)
                 format[p] = containerFormat[p];
-            else if (kind == TextUtil.PARAGRAPH && paragraphFormat)
+            else if (category == Category.PARAGRAPH && paragraphFormat)
                 format[p] = paragraphFormat[p];
-            else if (kind == TextUtil.CHARACTER && characterFormat)
+            else if (category == Category.CHARACTER && characterFormat)
                 format[p] = characterFormat[p];
         }
         
@@ -1947,40 +1938,51 @@ public class TextView extends UIComponent implements IViewport
      */
     public function setSelectionFormat(attributes:Object):void
     {
-        var containerFormat:ContainerFormat;
-        var paragraphFormat:ParagraphFormat;
-        var characterFormat:CharacterFormat;
+        // Switch to the EditManager.
+        var priorEditingMode:String =
+			getEditingMode(textFlow.interactionManager);
+        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
         
-        for (var p:String in attributes)
+        // Assign each specified attribute to one of three format objects,
+		// depending on whether it is container-, paragraph-,
+		// or character-level. Note that these can remain null.
+		var containerFormat:TextLayoutFormat;
+        var paragraphFormat:TextLayoutFormat;
+        var characterFormat:TextLayoutFormat;
+
+		// This internal TLF object maps the names of format properties
+		// to Property instances.
+		// Each Property instance has a category property which tells
+		// whether it is container-, paragraph-, or character-level.
+		var description:Object = TextLayoutFormat.tlf_internal::description;
+        
+		for (var p:String in attributes)
         {
-            var kind:String = TextUtil.FORMAT_MAP[p];
+            var category:String = description[p].category;
             
-            if (kind == TextUtil.CONTAINER)
+            if (category == Category.CONTAINER)
             {
                 if (!containerFormat)
-                   containerFormat =  new ContainerFormat();
+                   containerFormat =  new TextLayoutFormat();
                 containerFormat[p] = attributes[p];
             }
-            else if (kind == TextUtil.PARAGRAPH)
+            else if (category == Category.PARAGRAPH)
             {
                 if (!paragraphFormat)
-                   paragraphFormat =  new ParagraphFormat();
+                   paragraphFormat =  new TextLayoutFormat();
                 paragraphFormat[p] = attributes[p];
             }
-            else if (kind == TextUtil.CHARACTER)
+            else if (category == Category.CHARACTER)
             {
                 if (!characterFormat)
-                   characterFormat =  new CharacterFormat();
+                   characterFormat =  new TextLayoutFormat();
                 characterFormat[p] = attributes[p];
             }
         }
         
-        var priorEditingMode:String = getEditingMode(textFlow.interactionManager);
-        switchToEditingMode(textFlow, EditingMode.READ_WRITE);
-        
-        // Apply the format to the current selection.
+        // Apply the three format objects to the current selection.
         EditManager(textFlow.interactionManager).applyFormat(
-                        characterFormat, paragraphFormat, containerFormat);
+			characterFormat, paragraphFormat, containerFormat);
         
         // Restore the prior editing mode.
         switchToEditingMode(textFlow, priorEditingMode);
@@ -2317,27 +2319,4 @@ public class TextView extends UIComponent implements IViewport
     }
 }
 
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//  Helper class: TextViewEditManager
-//
-////////////////////////////////////////////////////////////////////////////////
-
-import flashx.textLayout.edit.EditManager;
-import flashx.textLayout.edit.IUndoManager;
-import flashx.textLayout.operations.FlowOperation;
-
-class TextViewEditManager extends EditManager
-{
-    public function TextViewEditManager(undoManager:IUndoManager = null)
-    {
-        super(undoManager);
-    }
-
-    public function execute(flowOperation:FlowOperation):void
-    {
-        doOperation(flowOperation);
-    }
 }
