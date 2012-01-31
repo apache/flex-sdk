@@ -163,7 +163,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //
     //--------------------------------------------------------------------------
     
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
     
     /**
      *  A required skin part that defines the DataGroup where the data 
