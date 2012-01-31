@@ -14,11 +14,13 @@ package flex.component
 
 import flash.display.Graphics;
 import flash.events.Event;
+import flash.geom.Rectangle;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
+import flash.ui.Keyboard;
 
 import flashx.tcal.compose.IFlowComposer;
 import flashx.tcal.compose.StandardFlowComposer;
@@ -338,6 +340,113 @@ public class TextView extends UIComponent implements IViewport
 
         invalidateProperties();
     }
+    
+    //----------------------------------
+    //  horizontal,verticalScrollPositionDelta
+    //----------------------------------
+
+    /**
+     * @copy flex.layout.LayoutBase#horizontalScrollPositionDelta
+     */
+    public function horizontalScrollPositionDelta(unit:uint):Number
+    {
+        // TBD: replace provisional implementation
+        var scrollR:Rectangle = scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = contentWidth - scrollR.width - scrollR.x;
+        var minDelta:Number = -scrollR.x; 
+            
+        switch (unit)
+        {
+            case Keyboard.UP:
+                return (scrollR.x <= 0) ? 0 : -1;
+                
+            case Keyboard.DOWN:
+                return (scrollR.x >= maxDelta) ? 0 : 1;
+                
+            case Keyboard.PAGE_UP:
+                return Math.max(minDelta, -scrollR.width);
+                
+            case Keyboard.PAGE_DOWN:
+                return Math.min(maxDelta, scrollR.width);
+                
+            case Keyboard.HOME: 
+                return minDelta;
+                
+            case Keyboard.END: 
+                return maxDelta;
+                
+            default:
+                return 0;
+        }       
+    }
+    
+    /**
+     * @copy flex.layout.LayoutBase#horizontalScrollPositionDelta
+     */
+    public function verticalScrollPositionDelta(unit:uint):Number
+    {
+        // TBD: replace provisional implementation
+        var scrollR:Rectangle = scrollRect;
+        if (!scrollR)
+            return 0;
+            
+        var maxDelta:Number = contentHeight - scrollR.height - scrollR.y;
+        var minDelta:Number = -scrollR.y; 
+            
+        switch (unit)
+        {
+            case Keyboard.UP:
+                return (scrollR.y <= 0) ? 0 : -1;
+                
+            case Keyboard.DOWN:
+                return (scrollR.y >= maxDelta) ? 0 : 1;
+                
+            case Keyboard.PAGE_UP:
+                return Math.max(minDelta, -scrollR.height);
+                
+            case Keyboard.PAGE_DOWN:
+                return Math.min(maxDelta, scrollR.height);
+                
+            case Keyboard.HOME: 
+                return minDelta;
+                
+            case Keyboard.END: 
+                return maxDelta;
+                
+            default:
+                return 0;
+        }       
+    }
+    
+    //----------------------------------
+    //  clipContent
+    //----------------------------------
+        
+    private var _clipContent:Boolean = true;
+    
+    /**
+     * @copy flex.layout.LayoutBase#clipContent
+     */
+    public function get clipContent():Boolean 
+    {
+        return _clipContent;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set clipContent(value:Boolean):void 
+    {
+        if (value == _clipContent) 
+            return;
+    
+        _clipContent = value;
+        // TBD implement this
+    }
+        
         
     //----------------------------------
     //  multiline
