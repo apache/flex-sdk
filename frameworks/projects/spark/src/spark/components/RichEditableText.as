@@ -4387,15 +4387,13 @@ package spark.components
          *  toFit
          *      width       height
          *      
-         *      smaller     smaller     width pinned to old width and
-         *                              height pinned to old height
+         *      smaller     smaller     height pinned to old height
          *      smaller     larger      ok
          *      larger      larger      ok
          *      larger      smaller     ok
          *       
          *  explicit
          *      width       height
-         * 
          *      smaller     smaller     width pinned to old width
          *      smaller     larger      width pinned to old width
          *      larger      larger      ok
@@ -4405,21 +4403,22 @@ package spark.components
         {   
             // Already reported bounds at least once for this generation of
             // the text flow so we have to be careful to mantain consistency
-            // for the scroller.  Otherwise scrollbars can come and go which
-            // causes recomposition and increases the likelihood of looping.
+            // for the scroller.
             if (_textFlow.generation == lastContentBoundsGeneration)
             {          
                 if (bounds.width <= _contentWidth)
                 {
-                    // The width may get smaller if the compose height is 
-                    // reduced and fewer lines are composed.  Use the old 
-                    // content width which is more accurate.
-                    bounds.width = _contentWidth;
-
                     if (_textContainerManager.hostFormat.lineBreak == "toFit")
                     {
                         if (bounds.height < _contentHeight)
                             bounds.height = _contentHeight;
+                    }
+                    else
+                    {
+                        // The width may get smaller if the compose height is 
+                        // reduced and fewer lines are composed.  Use the old 
+                        // content width which is more accurate.
+                        bounds.width = _contentWidth;
                     }
                 }
             }
@@ -4442,6 +4441,14 @@ package spark.components
             
             var newContentBounds:Rectangle = 
                 _textContainerManager.getContentBounds();
+            
+            // If x and/or y are not 0, adjust for what is visible.  For example, if there is an 
+            // image which is wider than the composeWidth and float="right", x will be negative
+            // and the part of the image between x and 0 will not be visible so it should
+            // not be included in the reported width.  This will avoid a scrollbar that does
+            // nothing.
+            newContentBounds.width += newContentBounds.x;
+            newContentBounds.height += newContentBounds.y;
             
             // Try to prevent the scroller from getting into a loop while
             // adding/removing scroll bars.
