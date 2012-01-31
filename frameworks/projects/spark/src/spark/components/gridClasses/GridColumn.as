@@ -241,19 +241,6 @@ public class GridColumn extends EventDispatcher
         dispatchChangeEvent("dataFieldChanged");
     }
     
-    
-    //----------------------------------
-    //  dataGrid (private, read-only)
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private function get dataGrid():spark.components.DataGrid
-    {
-        return (grid) ? grid.dataGrid : null;
-    }
-    
     //----------------------------------
     //  dataTipField
     //----------------------------------
