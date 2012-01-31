@@ -75,7 +75,7 @@ public class FxButtonBar extends FxListBase
     //  firstButton
     //---------------------------------- 
     
-    [SkinPart(required="false")]
+    [SkinPart(required="false", type="mx.components.FxButton")]
     /**
      * A skin part that defines the first button.
      */
@@ -85,7 +85,7 @@ public class FxButtonBar extends FxListBase
     //  lastButton
     //---------------------------------- 
     
-    [SkinPart(required="false")]
+    [SkinPart(required="false", type="mx.components.FxButton")]
     /**
      * A skin part that defines the last button.
      */
@@ -95,7 +95,7 @@ public class FxButtonBar extends FxListBase
     //  middleButton
     //---------------------------------- 
     
-    [SkinPart]
+    [SkinPart(type="mx.components.FxButton")]
     /**
      * A skin part that defines the middle button(s).
      */
