@@ -30,6 +30,11 @@ use namespace mx_internal;
  *  manage the cue points associated with the VideoDisplay control.  
  *
  *  @see mx.controls.VideoDisplay
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class CuePointManager 
 {
@@ -80,6 +85,11 @@ public class CuePointManager
      *  
      *  @param owner The VideoPlayer instance that is the parent of this CuePointManager.
      *  @param id This parameter is ignored; it is provided only for backwards compatibility.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function CuePointManager(owner:VideoPlayer, id:uint = 0) 
     {
@@ -151,6 +161,11 @@ public class CuePointManager
      *  </ul>
      * 
      *  @throws mx.controls.videoClasses.VideoError If the arguments are invalid.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addCuePoint(cuePoint:Object):Object
     {
@@ -236,6 +251,11 @@ public class CuePointManager
      *
      *  @return An object representing the cue point removed. If there was no
      *  matching cue point, then it returns <code>null</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeCuePoint(cuePoint:Object):Object 
     {
@@ -723,6 +743,11 @@ public class CuePointManager
      *    <li><code>index</code> - the index into the Array for the
      *    returned cue point.</li>
      *  </ul>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getCuePointByName(name:String):Object
     {
@@ -736,6 +761,11 @@ public class CuePointManager
      *  Each cue point object describes the cue
      *  point, and contains the properties <code>name:String</code> 
      *  and <code>time:Number</code> (in seconds).  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getCuePoints():Array 
     {
@@ -744,6 +774,11 @@ public class CuePointManager
     
     /**
      *  Removes all cue points.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function removeAllCuePoints():void
     {
@@ -762,6 +797,11 @@ public class CuePointManager
      *  Each cue point object describes the cue
      *  point. It must contain the properties <code>name:String</code> 
      *  and <code>time:Number</code> (in seconds).  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setCuePoints(cuePointArray:Array):void
     {
