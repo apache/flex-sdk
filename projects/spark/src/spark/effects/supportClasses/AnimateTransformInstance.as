@@ -15,7 +15,6 @@ import flash.geom.Vector3D;
 
 import mx.core.mx_internal;
 import spark.effects.animation.Animation;
-import spark.effects.AnimationProperty;
 import mx.effects.Effect;
 import spark.effects.Animate;
 import spark.effects.easing.IEaser;
@@ -210,18 +209,18 @@ public class AnimateTransformInstance extends AnimateInstance
      */
     public function addMotionPath(newMotionPath:MotionPath, newEffectStartTime:Number = 0):void
     {
-        if (animationProperties)
+        if (motionPaths)
         {
             var i:int;
             var j:int;
             var prop:MotionPath;
-            var n:int = animationProperties.length;
+            var n:int = motionPaths.length;
             if (newEffectStartTime < instanceStartTime)
             {
                 var deltaStartTime:Number = instanceStartTime - newEffectStartTime;
                 for (i = 0; i < n; i++)
                 {
-                    prop = MotionPath(animationProperties[i]);
+                    prop = MotionPath(motionPaths[i]);
                     for (j = 0; j < prop.keyframes.length; j++)
                         prop.keyframes[j].time += deltaStartTime;
                 }
@@ -229,7 +228,7 @@ public class AnimateTransformInstance extends AnimateInstance
             }
             for (i = 0; i < n; i++)
             {
-                prop = MotionPath(animationProperties[i]);
+                prop = MotionPath(motionPaths[i]);
                 if (prop.property == newMotionPath.property)
                 {
                     // add mp's keyframes here
@@ -244,7 +243,7 @@ public class AnimateTransformInstance extends AnimateInstance
         }
         else
         {
-            animationProperties = [];
+            motionPaths = [];
             // TODO (chaase): too early to reset instanceStartTime - might use
             // it below
             instanceStartTime = newEffectStartTime;
@@ -256,7 +255,7 @@ public class AnimateTransformInstance extends AnimateInstance
                 newMotionPath.keyframes[j].time += 
                     (newEffectStartTime - instanceStartTime);
         }
-        animationProperties.push(newMotionPath);
+        motionPaths.push(newMotionPath);
     }
     
     // TODO (chaase): This probably belongs at the AnimateTransform level,
@@ -280,16 +279,16 @@ public class AnimateTransformInstance extends AnimateInstance
                 if (TRANSFORM_PROPERTIES.indexOf(s) >= 0)
                     autoProps[s] = s;
         } 
-        if (animationProperties)
+        if (motionPaths)
         {
             var i:int;
             var j:int;
             var adjustXY:Boolean = transformCenter &&
                 (transformCenter.x != 0 || transformCenter.y != 0);
-            for (i = 0; i < animationProperties.length; ++i)
+            for (i = 0; i < motionPaths.length; ++i)
             {
                 // don't auto-animate properties already explicitly animated
-                var animProp:MotionPath = animationProperties[i];
+                var animProp:MotionPath = motionPaths[i];
                 delete autoProps[animProp.property];
                 // also, adjust for tx/ty with non-default transform center
                 if (adjustXY && 
@@ -312,9 +311,9 @@ public class AnimateTransformInstance extends AnimateInstance
             var mp:MotionPath = new MotionPath(s);
             mp.keyframes = [new KeyFrame(0, null), new KeyFrame(duration, null)];
             mp.mx_internal::scaleKeyframes(duration);
-            if (!animationProperties)
-                animationProperties = [];
-            animationProperties.push(mp);
+            if (!motionPaths)
+                motionPaths = [];
+            motionPaths.push(mp);
         } 
         if (propertyChanges && !disableConstraints)
         {
@@ -385,14 +384,16 @@ public class AnimateTransformInstance extends AnimateInstance
         
         // We override this function because we want to apply all values
         // simultaneously to perform our composite transform operation
-        for (var i:int = 0; i < animationProperties.length; ++i)
+        for (var i:int = 0; i < motionPaths.length; ++i)
         {
             // Collect all transform-related values in currentValues, but
             // pass any other values, like constraints, to setValue()
-            if (currentValues[animationProperties[i].property] !== undefined)
-                currentValues[animationProperties[i].property] = anim.currentValue[i];
+            if (currentValues[motionPaths[i].property] !== undefined)
+                currentValues[motionPaths[i].property] = 
+                    anim.currentValue[motionPaths[i].property];
             else
-                setValue(animationProperties[i].property, anim.currentValue[i]);
+                setValue(motionPaths[i].property, 
+                    anim.currentValue[motionPaths[i].property]);
         }
         if (!isNaN(currentValues.scaleX) ||
             !isNaN(currentValues.scaleY) || 
