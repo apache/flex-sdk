@@ -16,6 +16,7 @@ import flash.events.Event;
 import flex.core.Group;
 import flex.effects.Animation;
 import flex.effects.PropertyValuesHolder;
+import flex.events.AnimationEvent;
 import flex.graphics.graphicsClasses.GraphicElement;
 
 import mx.effects.effectClasses.PropertyChanges;
@@ -134,7 +135,8 @@ public class FadeInstance extends AnimateInstance
         
         // Extra logic to handle making the object visible if we're supposed
         // to be fading it in
-        if (!target.visible && alphaFrom == 0 && alphaTo != 0 &&
+        if ("visible" in target && !target.visible && 
+            alphaFrom == 0 && alphaTo != 0 &&
             propChanges && propChanges.end["visible"] !== undefined)
         {
             target.visible = true;
@@ -151,10 +153,10 @@ public class FadeInstance extends AnimateInstance
      *  be visible (or not) or removed (or not). 
      *  @private
      */
-    override public function animationEnd(tween:Animation, value:Object):void
+    override protected function endHandler(event:AnimationEvent):void
     {
         // Call super function first so we don't clobber resetting the alpha.
-        super.animationEnd(tween, value);    
+        super.endHandler(event);    
             
         if (restoreAlpha)
         {
