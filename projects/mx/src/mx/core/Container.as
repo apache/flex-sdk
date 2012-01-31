@@ -2682,6 +2682,7 @@ public class Container extends UIComponent
      *  @return The DisplayObject representing the child as an object of type DisplayObject.
      *  You typically cast the return value to UIComponent, 
      *  or to the type of a specific Flex control, such as ComboBox or TextArea.
+     *  Throws a run-time error if the child of the specified name does not exist.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
