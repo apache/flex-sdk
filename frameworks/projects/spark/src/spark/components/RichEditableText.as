@@ -29,21 +29,16 @@ import flex.utils.TextUtil;
 import mx.core.UIComponent;
 
 import text.container.IContainerController;
-import text.edit.ContainerStyleChangeOperation;
 import text.edit.EditManager;
-import text.edit.FlowOperation;
 import text.edit.ISelectionManager;
-import text.edit.OperationEvent;
-import text.edit.ParagraphStyleChangeOperation;
-import text.edit.SelectionChangedEvent;
 import text.edit.SelectionState;
-import text.edit.SplitParOperation;
-import text.edit.StyleChangeOperation;
 import text.elements.FlowElement;
 import text.elements.ParagraphElement;
 import text.elements.SpanElement;
 import text.elements.TextFlow;
 import text.events.ComposeDoneEvent;
+import text.events.OperationEvent;
+import text.events.SelectionChangeEvent;
 import text.formats.BlockProgression;
 import text.formats.CharacterFormat;
 import text.formats.ContainerFormat;
@@ -58,14 +53,19 @@ import text.formats.TextDecoration;
 import text.formats.VerticalAlign;
 import text.formats.WhitespaceCollapse;
 import text.importExport.TextFilter;
+import text.operations.ApplyCharacterFormatOperation;
+import text.operations.ApplyContainerFormatOperation;
+import text.operations.ApplyParagraphFormatOperation;
+import text.operations.FlowOperation;
+import text.operations.SplitParagraphOperation;
 
 //--------------------------------------
 //  Events
 //--------------------------------------
 
 /**
- *  Dispached after the <code>selectionAnchorIndex</code> and/or
- *  <code>selectionActiveIndex</code> properties have changed.
+ *  Dispached after the <code>selectionAnchorPosition</code> and/or
+ *  <code>selectionActivePosition</code> properties have changed.
  *  due to a user interaction.
  */
 [Event(name="selectionChange", type="flash.events.Event")]
@@ -166,7 +166,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _blockProgression:String = BlockProgression.TOP_TO_BOTTOM;
+    private var _blockProgression:String = BlockProgression.TB;
 
     /**
      *  Documentation is not currently available.
@@ -234,7 +234,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _direction:String = Direction.LEFT_TO_RIGHT;
+    private var _direction:String = Direction.LTR;
 
     /**
      *  Documentation is not currently available.
@@ -1273,85 +1273,85 @@ public class TextView extends UIComponent
     }
 
     //----------------------------------
-    //  selectionActiveIndex
+    //  selectionActivePosition
     //----------------------------------
 
     /**
      *  @private
      */
-    private var _selectionActiveIndex:int = -1;
+    private var _selectionActivePosition:int = -1;
 
     /**
      *  @private
      */
-    private var selectionActiveIndexChanged:Boolean = false;
+    private var selectionActivePositionChanged:Boolean = false;
     
     /**
-     *  The active index of the selection.
+     *  The active position of the selection.
      *  The "active" point is the end of the selection
      *  which is changed when the selection is extended.
-     *  The active index may be either the start
+     *  The active position may be either the start
      *  or the end of the selection. 
      *
      *  @default -1
      */
-    public function get selectionActiveIndex():int
+    public function get selectionActivePosition():int
     {
-        return _selectionActiveIndex;
+        return _selectionActivePosition;
     }
 
     /**
      *  @private
      */
-    public function set selectionActiveIndex(value:int):void
+    public function set selectionActivePosition(value:int):void
     {
-        if (value == _selectionActiveIndex)
+        if (value == _selectionActivePosition)
             return;
         
-        _selectionActiveIndex = value;
-        selectionActiveIndexChanged = true;
+        _selectionActivePosition = value;
+        selectionActivePositionChanged = true;
 
         invalidateProperties();
     }
 
     //----------------------------------
-    //  selectionAnchorIndex
+    //  selectionAnchorPosition
     //----------------------------------
     
     /**
      *  @private
      */
-    private var _selectionAnchorIndex:int = -1;
+    private var _selectionAnchorPosition:int = -1;
 
     /**
      *  @private
      */
-    private var selectionAnchorIndexChanged:Boolean = false;
+    private var selectionAnchorPositionChanged:Boolean = false;
     
     /**
-     *  The anchor index of the selection.
+     *  The anchor position of the selection.
      *  The "anchor" point is the stable end of the selection
      *  when the selection is extended.
-     *  The anchor index may be either the start
+     *  The anchor position may be either the start
      *  or the end of the selection.
      *
      *  @default -1
      */
-    public function get selectionAnchorIndex():int
+    public function get selectionAnchorPosition():int
     {
-        return _selectionAnchorIndex;
+        return _selectionAnchorPosition;
     }
 
     /**
      *  @private
      */
-    public function set selectionAnchorIndex(value:int):void
+    public function set selectionAnchorPosition(value:int):void
     {
-        if (value == _selectionAnchorIndex)
+        if (value == _selectionAnchorPosition)
             return;
         
-        _selectionAnchorIndex = value;
-        selectionAnchorIndexChanged = true;
+        _selectionAnchorPosition = value;
+        selectionAnchorPositionChanged = true;
 
         invalidateProperties();
     }
@@ -1524,7 +1524,7 @@ public class TextView extends UIComponent
             textFlow.container = this;
             
             // Give it an EditManager to make it editable.
-            textFlow.selectionManager = new TextViewEditManager(); 
+            textFlow.interactionManager = new TextViewEditManager(); 
             
             // Listen to events from the TextFlow and its EditManager.
             addListeners(textFlow);
@@ -1535,13 +1535,13 @@ public class TextView extends UIComponent
         }
 
         // Apply the specified selection indices to the TextFlow.
-        if (selectionAnchorIndexChanged || selectionActiveIndexChanged)
+        if (selectionAnchorPositionChanged || selectionActivePositionChanged)
         {
-            textFlow.selectionManager.setActiveSelection(
-                _selectionAnchorIndex, _selectionActiveIndex);
+            textFlow.interactionManager.setActiveSelection(
+                _selectionAnchorPosition, _selectionActivePosition);
             
-            selectionAnchorIndexChanged = false;
-            selectionActiveIndexChanged = false;
+            selectionAnchorPositionChanged = false;
+            selectionActivePositionChanged = false;
         }
 
         if (horizontalScrollPositionChanged)
@@ -1784,25 +1784,24 @@ public class TextView extends UIComponent
         textFlow.addEventListener(ComposeDoneEvent.COMPOSE_DONE,
                                   textFlow_composeDoneHandler);
         
-        textFlow.selectionManager.addEventListener(
-            SelectionChangedEvent.SELECTION_CHANGED,
+        textFlow.interactionManager.addEventListener(
+            SelectionChangeEvent.SELECTION_CHANGED,
             editManager_selectionChangeHandler);
 
-        textFlow.selectionManager.addEventListener(
+        textFlow.interactionManager.addEventListener(
             OperationEvent.OPERATION_BEGIN, editManager_operationBeginHandler);
 
-        textFlow.selectionManager.addEventListener(
+        textFlow.interactionManager.addEventListener(
             OperationEvent.OPERATION_END, editManager_operationEndHandler);
     }
 
     /**
      *  Sets the selection range.
      */
-    public function setSelection(anchorIndex:int = 0,
-                                 activeIndex:int = int.MAX_VALUE):void
+    public function setSelection(anchorPosition:int = 0,
+                                 activePosition:int = int.MAX_VALUE):void
     {
-        textFlow.selectionManager.setActiveSelection(anchorIndex, activeIndex,
-                                                     true);
+        textFlow.interactionManager.setActiveSelection(anchorPosition, activePosition);
     }
     
     /**
@@ -1813,7 +1812,7 @@ public class TextView extends UIComponent
      */
     public function insertText(text:String):void
     {
-        EditManager(textFlow.selectionManager).insertText(text);
+        EditManager(textFlow.interactionManager).insertText(text);
     }
     
     /**
@@ -1825,8 +1824,8 @@ public class TextView extends UIComponent
      */
     public function appendText(text:String):void
     {
-        textFlow.selectionManager.setActiveSelection(int.MAX_VALUE, int.MAX_VALUE);
-        EditManager(textFlow.selectionManager).insertText(text);
+        textFlow.interactionManager.setActiveSelection(int.MAX_VALUE, int.MAX_VALUE);
+        EditManager(textFlow.interactionManager).insertText(text);
     }
 
     /**
@@ -1857,7 +1856,7 @@ public class TextView extends UIComponent
      */
     public function getAttributes(names:Array = null):Object
     {
-        var selectionManager:ISelectionManager = textFlow.selectionManager;
+        var selectionManager:ISelectionManager = textFlow.interactionManager;
                 
         var p:String;
         var kind:String;
@@ -1970,24 +1969,24 @@ public class TextView extends UIComponent
         }
         
         var editManager:TextViewEditManager =
-            TextViewEditManager(textFlow.selectionManager);
+            TextViewEditManager(textFlow.interactionManager);
         
         if (containerFormat)
         {
-            editManager.execute(new ContainerStyleChangeOperation(
-                editManager, containerFormat));
+            editManager.execute(new ApplyContainerFormatOperation(
+                editManager.selectionState, containerFormat));
         }
 
         if (paragraphFormat)
         {
-            editManager.execute(new ParagraphStyleChangeOperation(
-                editManager, paragraphFormat));
+            editManager.execute(new ApplyParagraphFormatOperation(
+                editManager.selectionState, paragraphFormat));
         }
 
         if (characterFormat)
         {
-            editManager.execute(new StyleChangeOperation(
-                editManager, characterFormat));
+            editManager.execute(new ApplyCharacterFormatOperation(
+                editManager.selectionState, characterFormat));
         }
     }
 
@@ -2021,10 +2020,10 @@ public class TextView extends UIComponent
      *  @private
      *  Called when the EditManager dispatches a 'selectionChange' event.
      */
-    private function editManager_selectionChangeHandler(event:SelectionChangedEvent):void
+    private function editManager_selectionChangeHandler(event:SelectionChangeEvent):void
     {
-        _selectionAnchorIndex = textFlow.selectionManager.selectionAnchorIndex; // event.target isn't useful
-        _selectionActiveIndex = textFlow.selectionManager.selectionActiveIndex;
+        _selectionAnchorPosition = textFlow.interactionManager.anchorPosition; // event.target isn't useful
+        _selectionActivePosition = textFlow.interactionManager.activePosition;
         
         dispatchEvent(new Event("selectionChange"));
     }
@@ -2044,7 +2043,7 @@ public class TextView extends UIComponent
         // If the user presses the Enter key in a single-line TextView,
         // we cancel the paragraph-splitting operation and instead
         // simply dispatch an 'enter' event.
-        if (op is SplitParOperation && !multiline)
+        if (op is SplitParagraphOperation && !multiline)
         {
             event.preventDefault();
             dispatchEvent(new Event("enter"));
@@ -2099,7 +2098,7 @@ public class TextView extends UIComponent
 ////////////////////////////////////////////////////////////////////////////////
 
 import text.edit.EditManager;
-import text.edit.FlowOperation;
+import text.operations.FlowOperation;
 
 class TextViewEditManager extends EditManager
 {
@@ -2110,6 +2109,6 @@ class TextViewEditManager extends EditManager
 
     public function execute(flowOperation:FlowOperation):void
     {
-        doop(flowOperation);
+        doOperation(flowOperation);
     }
 }
