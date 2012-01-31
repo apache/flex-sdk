@@ -137,12 +137,19 @@ public class RichEditableTextContainerManager extends TextContainerManager
         // If measuring height, use the content height.
         if (isNaN(height))
             height = contentBounds.bottom;
-        
-        // If autoSize, and lineBreak="toFit there should never be 
+
+        // TODO:(cframpto)  Adjust for RL text.  
+        // See ContainerController.updateVisibleRectangle().
+        // (effectiveBlockProgression == BlockProgression.RL) ? -width : 0;
+        var xOrigin:Number = 0;
+
+        // If autoSize, and lineBreak="toFit" there should never be 
         // a scroll rect but if lineBreak="explicit" the text may need
         // to be clipped.
         if (scrollX == 0 && scrollY == 0 &&
+            contentBounds.left >= xOrigin &&
             contentBounds.right <= width &&
+            contentBounds.top >= 0 &&
             contentBounds.bottom <= height)
         {
             // skip the scrollRect
