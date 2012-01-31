@@ -13,6 +13,7 @@ package spark.components
 {
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
+import flash.events.FocusEvent;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
@@ -123,11 +124,24 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         super();
         
-        // This listener handles the arrow keys.   It runs at capture time 
-        // so that can cancel - Event.preventDefault() - events we've processed
-        // before they're seen by the skin's Scroller
-        addEventListener(KeyboardEvent.KEY_DOWN, list_keyDownHandler, true);
+        addEventListener(KeyboardEvent.KEY_DOWN, list_keyDownHandler);
     }
+    
+    //----------------------------------
+    //  scroller
+    //----------------------------------
+
+    [SkinPart(required="false")]
+
+    /**
+     *  The optional Scroller used to scroll the List.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var scroller:Scroller;
     
     //--------------------------------------------------------------------------
     //
@@ -397,6 +411,10 @@ public class List extends ListBase implements IFocusManagerComponent
             dataGroup.addEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
         }
+        // The scroller, between textView and this in the chain, should not 
+        // getFocus.
+        if (instance == scroller)
+            scroller.focusEnabled = false;
     }
 
     /**
@@ -599,7 +617,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (renderer)
         {
         	renderer.addEventListener("click", item_clickHandler);
-            updateRendererInformation(IVisualElement(renderer));
+        	updateRendererInformation(IVisualElement(renderer));
         }
             
         if (isItemIndexSelected(index))
@@ -677,46 +695,24 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  @private
      *  Build in basic keyboard navigation support in List. 
-     *  TODO: Deepa - add overrideable methods to control 
-     *  keyboard navigation across components and layout. 
      */
     protected function list_keyDownHandler(event:KeyboardEvent):void
-    {    	
+    {   
         super.keyDownHandler(event);
         
         if (dataProvider)
         {
-	        var delta:int = 0;
-	
-	        if (layout is VerticalLayout)
-	        {
-	            switch(event.keyCode)
-	            {
-	                case Keyboard.UP: delta = -1; break;
-	                case Keyboard.DOWN: delta = +1; break;
-	            }
-            }
-	        else if (layout is HorizontalLayout)
-	        {
-	            switch(event.keyCode)
-	            {
-	                case Keyboard.LEFT: delta = -1; break;
-	                case Keyboard.RIGHT: delta = +1; break;
-	            }
-	        }
+            //Delegate to the layout to tell us what the next item is we shoudl select. 
+	        var proposedSelectedIndex:int = layout.nextItemIndex(event.keyCode, selectedIndex, dataProvider.length - 1); 
 	        // Note that the KeyboardEvent is canceled even if the selectedIndex doesn't
-	        // change because we don't want another component to start handling these
-	        // events when the selectedIndex reaches a limit.
-	        if (delta != 0)
-	        {
-	            event.preventDefault();
-	            var maxSelectedIndex:int = dataProvider.length - 1;
-	            selectedIndex = Math.min(Math.max(0, selectedIndex + delta), maxSelectedIndex);
-	            // TODO (jszeto) Added this because we want the selection to commit immediately
-	            // Explore better way to accomplish this. 
-	            commitSelectedIndex();
-	            ensureItemIsVisible(selectedIndex);
-	        }
+            // change because we don't want another component to start handling these
+            // events when the selectedIndex reaches a limit.
+            if (proposedSelectedIndex != -1)
+            {
+                event.preventDefault(); 
+                selectedIndex = proposedSelectedIndex; 
+                ensureItemIsVisible(selectedIndex); 
+            } 
 		}
     }
   
