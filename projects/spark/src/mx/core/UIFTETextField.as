@@ -1884,6 +1884,8 @@ public class UITLFTextField extends TLFTextField
         textFormat.thickness = thickness;
         
         textFormat.useTLF = true;
+        textFormat.direction = direction;
+        textFormat.locale = locale;
         
         return textFormat;
     }
