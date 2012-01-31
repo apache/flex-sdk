@@ -29,6 +29,11 @@ import mx.managers.IFocusManagerGroup;
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
 
@@ -88,6 +93,11 @@ import mx.managers.IFocusManagerGroup;
  *  </pre>
  *
  *  @see mx.components.FxRadioButtonGroup
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
 {
@@ -101,6 +111,11 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxRadioButton()
     {
@@ -170,6 +185,11 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      * 
      *  @throws ArgumentError If the radio button has a different parent than
      *  the other radio buttons already in the group.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get group():FxRadioButtonGroup
     {
@@ -273,6 +293,11 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      * 
      *  @throws ArgumentError If the radio button has a different parent than
      *  the other radio buttons already in the group.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get groupName():String
     {
@@ -324,6 +349,11 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  that is associated with a FxRadioButton control.
      * 
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get value():Object
     {
