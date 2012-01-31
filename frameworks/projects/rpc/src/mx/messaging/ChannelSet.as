@@ -562,6 +562,33 @@ public class ChannelSet extends EventDispatcher
     }
     
     //----------------------------------
+    //  initialDestinationId
+    //----------------------------------    
+    
+    /**
+     *  @private
+     */
+    private var _initialDestinationId:String;
+    
+    /**
+     *  Provides access to the initial destination this ChannelSet is used to access.
+     *  When the clustered property is true, this value is used to request available failover URIs
+     *  for the configured channels for the destination.
+     */
+    public function get initialDestinationId():String
+    {
+        return _initialDestinationId;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set initialDestinationId(value:String):void
+    {
+        _initialDestinationId = value;
+    }
+    
+    //----------------------------------
     //  messageAgents
     //----------------------------------    
     
@@ -975,6 +1002,9 @@ public class ChannelSet extends EventDispatcher
      *  @param charset The character set encoding to use while encoding the
      *  credentials. The default is null, which implies the legacy charset of
      *  ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
+     *
+     *  @return Returns a token that client code may add a responder to in order to handle
+     *  success or failure directly.
      * 
      *  @throws flash.errors.IllegalOperationError in two situations; if the ChannelSet is
      *          already authenticated, or if a login or logout operation is currently in progress.
@@ -1046,6 +1076,9 @@ public class ChannelSet extends EventDispatcher
      *  
      *  @param agent Legacy argument. The MessageAgent that is initiating the logout.
      * 
+     *  @return Returns a token that client code may
+     *  add a responder to in order to handle success or failure directly.
+     * 
      *  @throws flash.errors.IllegalOperationError if a login or logout operation is currently in progress.
      */ 
     public function logout(agent:MessageAgent=null):AsyncToken
@@ -1103,7 +1136,15 @@ public class ChannelSet extends EventDispatcher
             if (!_hasRequestedClusterEndpoints && clustered)
             {            
                 var msg:CommandMessage = new CommandMessage();
-                msg.destination = agent.destination;
+                // Fetch failover URIs for the correct destination.
+                if (agent is AuthenticationAgent)
+                {
+                    msg.destination = initialDestinationId;
+                }
+                else
+                {
+                    msg.destination = agent.destination;
+                }
                 msg.operation = CommandMessage.CLUSTER_REQUEST_OPERATION;
                 _currentChannel.sendClusterRequest(new ClusterMessageResponder(msg, this));    
                 _hasRequestedClusterEndpoints = true;                           
