@@ -19,6 +19,12 @@ package mx.messaging.messages
  *  they always contain a SOAP XML envelope request body
  *  that will always be sent using HTTP POST.
  *  They also allow a SOAP action to be specified.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class SOAPMessage extends HTTPRequestMessage
 {
@@ -30,6 +36,12 @@ public class SOAPMessage extends HTTPRequestMessage
 
     /**
      *  The HTTP header that stores the SOAP action for the SOAPMessage.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static const SOAP_ACTION_HEADER:String = "SOAPAction";    
     
@@ -41,6 +53,12 @@ public class SOAPMessage extends HTTPRequestMessage
     
     /**
      *  Constructs an uninitialized SOAPMessage.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function SOAPMessage()
     {
@@ -61,6 +79,12 @@ public class SOAPMessage extends HTTPRequestMessage
      *
      *  @return Returns the name of the remote method/operation that 
      *  will be called.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function getSOAPAction():String
     {
