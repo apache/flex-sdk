@@ -204,6 +204,7 @@ public class TrackBase extends Range
     public function TrackBase():void
     {
         super();
+        addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
         addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
     }
 
@@ -501,6 +502,15 @@ public class TrackBase extends Range
      */
     protected function updateSkinDisplayList():void {}
 
+    /**
+     *  @private
+     *  Redraw whenever added to the stage to ensure the calculations
+     *  in updateSkinDisplayList() are correct.
+     */
+    private function addedToStageHandler(event:Event):void
+    {
+        updateSkinDisplayList();
+    }
     
     /**
      *  @private
