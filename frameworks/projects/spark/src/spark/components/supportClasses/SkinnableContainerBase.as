@@ -14,7 +14,7 @@ package mx.components.baseClasses
 import flash.display.Sprite;
 
 import mx.components.baseClasses.FxComponent;
-
+import mx.core.mx_internal;
 import mx.managers.IFocusManagerContainer;
 
 
@@ -109,7 +109,7 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
         {
             if (mouseShield)
             {
-                removeChild(mouseShield);
+                mx_internal::$removeChild(mouseShield);
                 mouseShield = null;
             }
         }
@@ -124,7 +124,7 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
 				mouseShield.graphics.beginFill(0, 0);
 				mouseShield.graphics.drawRect(0, 0, 100, 100);
 				mouseShield.graphics.endFill();
-				addChild(mouseShield);
+				mx_internal::$addChild(mouseShield);
             }
             
             mouseShield.width = width;
