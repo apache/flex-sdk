@@ -43,7 +43,6 @@ import mx.core.EdgeMetrics;
 import mx.core.EventPriority;
 import mx.core.FlexShape;
 import mx.core.FlexSprite;
-import mx.core.FlexVersion;
 import mx.core.IChildList;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
@@ -400,27 +399,6 @@ public class List extends ListBase implements IIMESupport
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-
-    /**
-     *  @private
-     *  The baselinePosition of a List is calculated the same as for ListBase.
-     */
-    override public function get baselinePosition():Number
-    {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            if (listItems.length && listItems[0].length)
-                return borderMetrics.top + cachedPaddingTop + listItems[0][0].baselinePosition;
-
-            return NaN;
-        }
-        
-        return super.baselinePosition;
-    }
 
     //----------------------------------
     //  maxHorizontalScrollPosition
