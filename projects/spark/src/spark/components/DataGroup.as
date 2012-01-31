@@ -309,20 +309,20 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     /**
      *  @private
-     *  Called before measure/updateDisplayList() if layout is virtual to guarantee that
-     *  the typicalLayoutElement has been defined.  If it hasn't, typicalItem is 
+     *  Called before measure/updateDisplayList(), if useVirtualLayout=true, to guarantee
+     *  that the typicalLayoutElement has been defined.  If it hasn't, typicalItem is 
      *  initialized to dataProvider[0] and layout.typicalLayoutElement is set.
      */
     private function ensureTypicalLayoutElement():void
     {
-        if (layout.typicalLayoutElement == null)
+        if (layout.typicalLayoutElement)
+            return;
+
+        const list:IList = dataProvider;
+        if (list && (list.length > 0))
         {
-            var list:IList = dataProvider;
-            if (list && (list.length > 0))
-            {
-                _typicalItem = list.getItemAt(0);
-                initializeTypicalItem();
-            }
+            _typicalItem = list.getItemAt(0);
+            initializeTypicalItem();
         }
     }
 
@@ -1107,12 +1107,13 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
 
     /**
      *  @private 
-     *  Make sure there's a typicalLayoutElement for virtual layout.
+     *  Make sure there's a valid typicalLayoutElement for virtual layout.
      */
     override protected function measure():void
     {
         if (layout && layout.useVirtualLayout)
             ensureTypicalLayoutElement();
+
         super.measure();
     }
 
