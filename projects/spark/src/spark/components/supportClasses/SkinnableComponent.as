@@ -33,7 +33,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#baseColor
+ *  @copy spark.components.supportClasses.GroupBase#style:baseColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
