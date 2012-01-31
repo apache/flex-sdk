@@ -55,6 +55,12 @@ use namespace mx_internal;
  *           <td>Maximum size</td>
  *           <td>10000 pixels wide and 10000 pixels high</td>
  *        </tr>
+ *        <tr>
+ *           <td>Default skin classes</td>
+ *           <td>spark.skins.spark.HScrollBarSkin
+ *              <p>spark.skins.spark.HScrollBarThumbSkin</p>
+ *              <p>spark.skins.spark.HScrollBarTrackSkin</p></td>
+ *        </tr>
  *     </table>
  *
  *
