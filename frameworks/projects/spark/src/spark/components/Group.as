@@ -25,7 +25,8 @@ import mx.core.InvalidatingSprite;
 import mx.core.mx_internal;
 import mx.events.ItemExistenceChangedEvent;
 import mx.graphics.IGraphicElement;
-import mx.graphics.graphicsClasses.TextGraphicElement;
+import mx.graphics.baseClasses
+.TextGraphicElement;
 import mx.layout.LayoutElementFactory;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
