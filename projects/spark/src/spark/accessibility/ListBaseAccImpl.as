@@ -361,8 +361,19 @@ public class ListBaseAccImpl extends AccImpl
     {
         if (childID == 0)
             return "";
+
         var listBase:ListBase = ListBase(master);
-        return listBase.itemToLabel(listBase.dataProvider.getItemAt(childID - 1));
+
+		var index:uint = childID - 1;
+
+		// Sometimes the player passes a bad childID such as -1001999997.
+		// (SDK-25026) Until this is fixed in the Player,
+		// we'll just return an empty string for the name
+		// if the childID is bad.
+		if (index < 0 || index >= listBase.dataProvider.length)
+			return "";
+
+        return listBase.itemToLabel(listBase.dataProvider.getItemAt(index));
     }
 
     //--------------------------------------------------------------------------
