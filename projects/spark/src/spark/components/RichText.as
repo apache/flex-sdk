@@ -388,7 +388,7 @@ public class RichText extends TextGraphicElement
     /**
      *  @private
      *  This metadata tells the MXML compiler to disable some of its default
-     *  interpreation of the value specified for the 'content' property.
+     *  interpretation of the value specified for the 'content' property.
      *  Normally, for properties of type Object, it assumes that things
      *  looking like numbers are numbers and things looking like arrays
      *  are arrays. But <content>1</content> should generate code to set the
