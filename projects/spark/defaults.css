@@ -194,6 +194,7 @@ VideoDisplay
 VideoPlayer
 {
     dropShadowVisible: true;
+    layoutDirection: "ltr";
     skinClass: ClassReference("spark.skins.spark.VideoPlayerSkin");
 }
 
