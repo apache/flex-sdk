@@ -17,10 +17,13 @@ import flash.system.ApplicationDomain;
 import flash.utils.*;
 
 import mx.core.IFactory;
+import mx.core.IFlexModuleFactory;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.components.Skin;
 import mx.events.PropertyChangeEvent;
+import mx.managers.ISystemManager;
+import mx.modules.ModuleManager;
 
 use namespace mx_internal;
 
@@ -591,7 +594,7 @@ public class FxComponent extends UIComponent
      *  @private
      *  Find the skin part metadata for a given className.
      */
-    private static function getSkinPartMetadata(className:String):Array
+    private function getSkinPartMetadata(className:String):Array
     {
         // Check cached values first
         if (!skinPartsByClassName)
@@ -602,7 +605,19 @@ public class FxComponent extends UIComponent
         if (skinParts != null)
             return skinParts;
             
-        var type:Class = ApplicationDomain.currentDomain.getDefinition(className) as Class;             
+        var myApplicationDomain:ApplicationDomain;
+        
+        var factory:IFlexModuleFactory = ModuleManager.getAssociatedFactory(this);
+        if (factory != null)
+        {
+            myApplicationDomain = ApplicationDomain(factory.info()["currentDomain"]);
+        }
+        else
+        {
+            myApplicationDomain = systemManager.loaderInfo.applicationDomain;
+        }
+        
+        var type:Class = myApplicationDomain.getDefinition(className) as Class;             
         skinParts = new Array;
         
         var des:XML = flash.utils.describeType(type);
