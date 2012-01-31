@@ -17,6 +17,8 @@ import spark.layouts.supportClasses.LayoutBase;
 
 [IconFile("VGroup.png")]
 
+[Exclude(name="layout", kind="property")]
+
 /**
  *  The VGroup container is an instance of the Group container 
  *  that uses the VerticalLayout class.  
