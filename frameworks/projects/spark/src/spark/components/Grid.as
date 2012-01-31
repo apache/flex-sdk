@@ -1482,7 +1482,7 @@ public class Grid extends Group implements IDataGridElement
      *  this property specifies the actual height of each row, in pixels.
      * 
      *  <p>If <code>variableRowHeight</code> is <code>true</code>, 
-     *  the default, the value of this property is used as the estimated
+     *  the value of this property is used as the estimated
      *  height for rows that haven't been scrolled into view yet, rather
      *  than the preferred height of renderers configured with the <code>typicalItem</code>.
      *  Similarly, when the Grid pads its display with empty rows, this property
@@ -2971,9 +2971,9 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  Return the data provider indices and padding indices of the 
-	 *  currently visible rows.  
-	 *  Indices which are greater than or equal to the 
-	 *  <code>dataProvider</code> length represent padding rows.
+     *  currently visible rows.  
+     *  Indices which are greater than or equal to the 
+     *  <code>dataProvider</code> length represent padding rows.
      *  Note that the item renderers for the first and last rows 
      *  may only be partially visible. 
      *  The returned vector's contents are in the order they're displayed.
@@ -3609,38 +3609,38 @@ public class Grid extends Group implements IDataGridElement
     public function invalidateCell(rowIndex:int, columnIndex:int):void
     {
         if (!dataProvider)
-			return;
-		
-		const dataProviderLength:int = dataProvider.length;
-		if (rowIndex >= dataProvider.length)
-			return;
-		
-		if (!isCellVisible(rowIndex, columnIndex))
-			return;
-		
+            return;
+        
+        const dataProviderLength:int = dataProvider.length;
+        if (rowIndex >= dataProvider.length)
+            return;
+        
+        if (!isCellVisible(rowIndex, columnIndex))
+            return;
+        
         // TODO (hmuller) this is a provisional implementation: invalidate the entire row
         
         const column:GridColumn = getGridColumn(columnIndex);
         const dataField:String = (column) ? column.dataField : null;
-		
-		if (rowIndex >= 0)
-		{
-			// invalidate the cell or the row by invalidating the visible row
-			dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
-		}
-		else
-		{
-			// invaliate the column by invalidating all visible rows
-			const rowIndices:Vector.<int> = getVisibleRowIndices();
-			for each (rowIndex in rowIndices)
-			{
-				// If there are any padding rows, skip them.
-				if (rowIndex >= dataProviderLength)
-					break;
-				
-				dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);			
-			}
-		}
+        
+        if (rowIndex >= 0)
+        {
+            // invalidate the cell or the row by invalidating the visible row
+            dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);
+        }
+        else
+        {
+            // invaliate the column by invalidating all visible rows
+            const rowIndices:Vector.<int> = getVisibleRowIndices();
+            for each (rowIndex in rowIndices)
+            {
+                // If there are any padding rows, skip them.
+                if (rowIndex >= dataProviderLength)
+                    break;
+                
+                dataProvider.itemUpdated(dataProvider.getItemAt(rowIndex), dataField);          
+            }
+        }
     }
     
     /**
