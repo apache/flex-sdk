@@ -228,8 +228,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         else
         {
             // want the default to be true
-            return (dataGroupProperties.autoLayout === undefined) ?
-                    true : false
+            var v:* = dataGroupProperties.autoLayout;
+            return (v === undefined) ? true : v;
         }
     }
 
