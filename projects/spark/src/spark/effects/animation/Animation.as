@@ -144,7 +144,7 @@ public class Animation extends EventDispatcher
     // TODO: more efficient way to store/remove these than in an array?
     // Dictionary, perhaps (although that may be unordered and less
     // efficient to access)
-    private var id:int;
+    private var id:int = -1;
     // TODO: re-think this variable in seeking
     private var _doSeek:Boolean = false;
     private var _isPlaying:Boolean = false;
@@ -701,15 +701,18 @@ public class Animation extends EventDispatcher
      */
     public function end():void
     {
-        // TODO (chaase): Check whether we already send out a final
-        // UPDATE event with the end value; if so, this dup should be
-        // removed
-        // TODO (chaase): this will snap paused and startDelayed animations
-        // to their end values. Seems correct, but should check this.
-        var value:Object = getCurrentValue(duration);
-        
-        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
-        sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
+        if (id >= 0)
+        {
+            // TODO (chaase): Check whether we already send out a final
+            // UPDATE event with the end value; if so, this dup should be
+            // removed
+            // TODO (chaase): this will snap paused and startDelayed animations
+            // to their end values. Seems correct, but should check this.
+            var value:Object = getCurrentValue(duration);
+            
+            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
+            sendAnimationEvent(AnimationEvent.ANIMATION_END, value);
+        }
 
         // The rest of what we need to do is handled by the stop() function
         stop();
@@ -720,7 +723,6 @@ public class Animation extends EventDispatcher
      */
     public function play():void
     {
-        setupInterpolation();
         if (startDelay > 0)
         {
             // Run timer if it's not currently running
@@ -775,6 +777,8 @@ public class Animation extends EventDispatcher
         
         if (!_isPlaying)
         {
+            // start/end values only valid after animation starts 
+            sendAnimationEvent(AnimationEvent.ANIMATION_START, startValue);
             setupInterpolation();
             _intervalTime = Timeline.currentTime;
             startTime = _intervalTime - playheadTime;
@@ -934,20 +938,32 @@ public class Animation extends EventDispatcher
      */
     private function start(event:TimerEvent = null):void
     {
+        // actualStartTime accounts for overrun in desired startDelay
+        var actualStartTime:int = 0;
+        
         // TODO (chaase): call removal utility instead of this code
         // Make sure to remove any references on the delayed lists
         for (var i:int = 0; i < delayedStartAnims.length; ++i)
         {
             if (this == delayedStartAnims[i])
             {
+                var animStartTime:int = int(delayedStartTimes[this]);
+                var overrun:int = Timeline.currentTime - animStartTime;
+                if (overrun > 0)
+                    actualStartTime = Math.min(overrun, duration);
                 delete delayedStartTimes[this];
                 delayedStartAnims.splice(i, 1);
                 break;
             }
         }
         numRepeats = 1;
+        sendAnimationEvent(AnimationEvent.ANIMATION_START, startValue);
+        
+        // start/end values may be changed by FxAnimate (set dynamically),
+        // so now we set up our interpolator based on the real values
+        setupInterpolation();
+        
         var value:Object = getCurrentValue(0);
-        sendAnimationEvent(AnimationEvent.ANIMATION_START, value);
 
         if (duration == 0)
         {
@@ -961,6 +977,8 @@ public class Animation extends EventDispatcher
             sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE, value);
             Animation.addAnimation(this);
             _isPlaying = true;
+            if (actualStartTime > 0)
+                seek(actualStartTime);
         }
     }
 
