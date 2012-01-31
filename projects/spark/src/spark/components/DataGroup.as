@@ -535,6 +535,7 @@ public class DataGroup extends GroupBase
     }
     
     /**
+     *  @private
      *  Adds the elements of the data provider to the DataGroup.
      *  
      *  @langversion 3.0
@@ -542,7 +543,7 @@ public class DataGroup extends GroupBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    protected function initializeDataProvider():void
+    private function initializeDataProvider():void
     {
         var index:int;
         var vLayout:Boolean = layout && layout.useVirtualLayout;
@@ -995,6 +996,8 @@ public class DataGroup extends GroupBase
     }
     
     /**
+     *  @private
+     *  
      *  Returns the ItemRenderer being used for the data provider item at the specified index.
      *  Note that if the layout is virtual, ItemRenderers that are scrolled
      *  out of view may be reused.
@@ -1022,6 +1025,7 @@ public class DataGroup extends GroupBase
     
     /**
      *  @private
+     * 
      *  Currently, item renderers ("IRs") can only be recycled if they're all
      *  of the same type, they implement IDataRenderer, and they're all
      *  produced - by the itemRenderer factory - with the same initial
@@ -1102,6 +1106,8 @@ public class DataGroup extends GroupBase
      }
 
     /**
+     *  @private
+     *  
      *  Returns the index of the data provider item
      *  that the specified item renderer
      *  is being used for, or -1 if there is no such item. 
@@ -1239,6 +1245,7 @@ public class DataGroup extends GroupBase
     }
     
     /**
+     *  @private
      *  Removes an item from another DataGroup or display list
      *  before adding it to this display list.
      * 
@@ -1256,7 +1263,7 @@ public class DataGroup extends GroupBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    protected function addItemRendererToDisplayList(child:DisplayObject, index:int = -1):DisplayObject
+    private function addItemRendererToDisplayList(child:DisplayObject, index:int = -1):DisplayObject
     { 
         // If this child is already an element of the display list, ensure
         // that it's at the specified index
@@ -1300,7 +1307,7 @@ public class DataGroup extends GroupBase
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function dataProvider_collectionChangeHandler(event:CollectionEvent):void
+    mx_internal function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
         switch (event.kind)
         {
@@ -1380,7 +1387,7 @@ public class DataGroup extends GroupBase
     /**
      *  @private
      */
-    protected function adjustAfterAdd(items:Array, location:int):void
+    private function adjustAfterAdd(items:Array, location:int):void
     {
         var length:int = items.length;
         for (var i:int = 0; i < length; i++)
@@ -1392,7 +1399,7 @@ public class DataGroup extends GroupBase
     /**
      *  @private
      */
-    protected function adjustAfterRemove(items:Array, location:int):void
+    private function adjustAfterRemove(items:Array, location:int):void
     {
         var length:int = items.length;
         for (var i:int = length-1; i >= 0; i--)
@@ -1404,7 +1411,7 @@ public class DataGroup extends GroupBase
     /**
      *  @private
      */
-    protected function adjustAfterMove(item:Object, location:int, oldLocation:int):void
+    private function adjustAfterMove(item:Object, location:int, oldLocation:int):void
     {
         itemRemoved(item, oldLocation);
         
@@ -1419,7 +1426,7 @@ public class DataGroup extends GroupBase
     /**
      *  @private
      */
-    protected function adjustAfterReplace(items:Array, location:int):void
+    private function adjustAfterReplace(items:Array, location:int):void
     {
         var length:int = items.length;
         for (var i:int = length-1; i >= 0; i--)
