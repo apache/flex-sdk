@@ -157,7 +157,7 @@ use namespace mx_internal;
 //  Styles
 //--------------------------------------
 
-include "../styles/metadata/BasicTextLayoutFormatStyles.as";
+include "../styles/metadata/BasicInheritingTextStyles.as";
     
 /**
  *  The time, in milli-seconds, to wait in fullscreen mode with no user-interaction 
