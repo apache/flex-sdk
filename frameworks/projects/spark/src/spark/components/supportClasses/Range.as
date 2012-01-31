@@ -32,6 +32,11 @@ import mx.events.FlexEvent;
  * 
  *  @see mx.components.baseClasses.FxTrackBase
  *  @see mx.components.FxSpinner
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */  
 public class FxRange extends FxComponent
 {
@@ -45,6 +50,11 @@ public class FxRange extends FxComponent
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxRange():void
     {
@@ -73,6 +83,11 @@ public class FxRange extends FxComponent
      *  reflect the new <code>maximum</code>
      *
      *  @default 100
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get maximum():Number
     {
@@ -106,6 +121,11 @@ public class FxRange extends FxComponent
      *  reflect the new <code>minimum</code>
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get minimum():Number
     {
@@ -141,6 +161,11 @@ public class FxRange extends FxComponent
      *  multiple &gt;= <code>valueInterval</code>.
      *
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get stepSize():Number
     {
@@ -177,6 +202,11 @@ public class FxRange extends FxComponent
      * 
      *  @default 0
      *  @see #setValue
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get value():Number
     {
@@ -222,6 +252,11 @@ public class FxRange extends FxComponent
      *  <code>valueInterval</code> and &gt;= <code>valueInterval</code>.
      * 
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get valueInterval():Number
     {
@@ -292,6 +327,11 @@ public class FxRange extends FxComponent
      *
      *  @return The multiple of <code>interval</code> closest to <code>value</code>. 
      *  The minimum returned Number is <code>interval</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function nearestValidInterval(value:Number, interval:Number):Number
     {
@@ -316,6 +356,11 @@ public class FxRange extends FxComponent
      *  is only bound to the range.
      * 
      *  @return The rounded value, or 0 if <code>value</code> is NaN.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function nearestValidValue(value:Number, interval:Number):Number
     {
@@ -373,6 +418,11 @@ public class FxRange extends FxComponent
      *  @param value The new value of the <code>value</code> property.
      *
      *  @param value The new value of <code>value</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function setValue(value:Number):void
     {
@@ -389,6 +439,11 @@ public class FxRange extends FxComponent
      *
      *  @param increase Whether the stepping action increases (<code>true</code>) or
      *  decreases (<code>false</code>) the <code>value</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function step(increase:Boolean = true):void
     {
