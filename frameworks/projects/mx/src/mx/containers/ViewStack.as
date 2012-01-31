@@ -1597,7 +1597,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
     public function toArray():Array 
     {
         var result:Array = [];
-        for(var i:int =0;i<numChildren;i++)
+        for (var i:int =0;i<numChildren;i++)
         {
             result.push(getChildAt(i));
         }
