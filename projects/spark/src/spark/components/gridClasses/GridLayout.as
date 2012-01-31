@@ -26,6 +26,7 @@ import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.styles.ISimpleStyleClient;
 
 import spark.components.ColumnHeaderBar;
 import spark.components.DataGrid;
@@ -724,7 +725,7 @@ public class GridLayout extends LayoutBase
                     var dataItem:Object = getDataProviderItem(rowIndex);
                     var column:GridColumn = getGridColumn(colIndex);
                     var factory:IFactory = column.itemToRenderer(dataItem);
-                    renderer = allocateGridElement(factory) as IVisualElement;
+                    renderer = allocateGridElement(factory) as IVisualElement;                   
                 }
             
                 if (renderer.parent != itemRendererGroup)
@@ -909,6 +910,9 @@ public class GridLayout extends LayoutBase
     {
         renderer.visible = visible;
         
+        if (renderer is ISimpleStyleClient)
+            ISimpleStyleClient(renderer).styleName = grid.gridOwner;
+
         const gridRenderer:IGridItemRenderer = renderer as IGridItemRenderer;
         const gridColumn:GridColumn = getGridColumn(columnIndex);
         
