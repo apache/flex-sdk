@@ -1031,10 +1031,7 @@ public class GridSelection
             return false;
         
         if (getGridDataProviderLength() == 0 || getGridColumnsLength() == 0)
-        {
-            grid.caretRowIndex = grid.caretColumnIndex = -1;
-            return false;
-        }
+             return false;
         
         // If there isn't a selection, set one, using the grid method rather
         // than the internal one, so that the caretPosition will be updated too.
