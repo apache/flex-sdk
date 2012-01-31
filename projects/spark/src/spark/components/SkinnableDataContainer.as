@@ -643,6 +643,13 @@ public class FxDataContainer extends FxContainerBase implements IViewport
                                                             VERTICAL_SCROLL_POSITION_PROPERTY_FLAG, true);
             }
             
+            if (dataGroupProperties.autoLayout !== undefined)
+            {
+                dataGroup.autoLayout = dataGroupProperties.autoLayout;
+                newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
+                                                            AUTO_LAYOUT_PROPERTY_FLAG, true);
+            }
+            
             if (dataGroupProperties.dataProvider !== undefined)
             {
                 dataGroup.dataProvider = dataGroupProperties.dataProvider;
@@ -662,6 +669,13 @@ public class FxDataContainer extends FxContainerBase implements IViewport
                 dataGroup.itemRendererFunction = dataGroupProperties.itemRendererFunction;
                 newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
                                                             ITEM_RENDERER_FUNCTION_PROPERTY_FLAG, true);
+            }
+            
+            if (dataGroupProperties.typicalItem !== undefined)
+            {
+                dataGroup.typicalItem = dataGroupProperties.typicalItem;
+                newDataGroupProperties = BitFlagUtil.update(newDataGroupProperties as uint, 
+                                                            TYPICAL_ITEM_PROPERTY_FLAG, true);
             }
             
             dataGroupProperties = newDataGroupProperties;
@@ -722,6 +736,9 @@ public class FxDataContainer extends FxContainerBase implements IViewport
             if (BitFlagUtil.isSet(dataGroupProperties as uint, VERTICAL_SCROLL_POSITION_PROPERTY_FLAG))
                 newDataGroupProperties.verticalScrollPosition = dataGroup.verticalScrollPosition;
             
+            if (BitFlagUtil.isSet(dataGroupProperties as uint, AUTO_LAYOUT_PROPERTY_FLAG))
+                newDataGroupProperties.autoLayout = dataGroup.autoLayout;
+            
             if (BitFlagUtil.isSet(dataGroupProperties as uint, DATA_PROVIDER_PROPERTY_FLAG))
                 newDataGroupProperties.dataProvider = dataGroup.dataProvider;
             
@@ -730,6 +747,9 @@ public class FxDataContainer extends FxContainerBase implements IViewport
             
             if (BitFlagUtil.isSet(dataGroupProperties as uint, ITEM_RENDERER_FUNCTION_PROPERTY_FLAG))
                 newDataGroupProperties.itemRendererFunction = dataGroup.itemRendererFunction;
+            
+            if (BitFlagUtil.isSet(dataGroupProperties as uint, TYPICAL_ITEM_PROPERTY_FLAG))
+                newDataGroupProperties.typicalItem = dataGroup.typicalItem;
                 
             dataGroupProperties = newDataGroupProperties;
             
