@@ -23,7 +23,6 @@ import mx.controls.Tree;
 import mx.controls.listClasses.BaseListData;
 import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory
@@ -151,9 +150,6 @@ public class TreeItemRenderer extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            super.baselinePosition;
-            
         if (!validateBaselinePosition())
             return NaN;
 
