@@ -484,7 +484,7 @@ public class List extends ListBase implements IIMESupport
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var itemEditor:IFactory = new ClassFactory(TextInput);
+    public var itemEditor:IFactory;
 
     //----------------------------------
     //  editorDataField
@@ -2165,6 +2165,17 @@ public class List extends ListBase implements IIMESupport
      */
     public function createItemEditor(colIndex:int, rowIndex:int):void
     {
+        // If the itemEditor wasn't set by the user, get the default one.
+        if (!itemEditor)
+        {
+            var textInputClass:Class = getStyle("textInputClass");
+        
+            if (textInputClass)
+                itemEditor = new ClassFactory(textInputClass);
+            else
+                itemEditor = new ClassFactory(TextInput);
+        }
+                
         colIndex = 0;
 
         if (rowIndex > lockedRowCount)
