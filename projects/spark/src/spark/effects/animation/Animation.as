@@ -936,6 +936,7 @@ public final class Animation
         // TODO (chaase): call removal utility instead of this code
         // Make sure to remove any references on the delayed lists
         if (startDelay > 0 && delayedStartAnims.length > 0)
+        {
             for (var i:int = 0; i < delayedStartAnims.length; ++i)
             {
                 if (this == delayedStartAnims[i])
@@ -945,6 +946,7 @@ public final class Animation
                     break;
                 }
             }
+        }
 
         // Note that we are potentially sending out this event to effects
         // whose Animation is not yet running (for example, if we're autoReversing
@@ -952,17 +954,14 @@ public final class Animation
         // This could mean that the end value is not yet initialized, so
         // interpolators should be written to just send back the end value
         // instead of trying to calculate it for the end time.
+        if (!started)
+            sendAnimationEvent(EffectEvent.EFFECT_START);
+        if (repeatCount > 1 && repeatBehavior == "reverse" && (repeatCount % 2 == 0))
+            _invertValues = true;
+        calculateValue(duration);
         
-        else
-        {
-            if (!started)
-                sendAnimationEvent(EffectEvent.EFFECT_START);
-            if (repeatCount > 1 && repeatBehavior == "reverse" && (repeatCount % 2 == 0))
-                _invertValues = true;
-            calculateValue(duration);
-            
-            sendUpdateEvent();
-        }
+        sendUpdateEvent();
+
         sendAnimationEvent(EffectEvent.EFFECT_END);
 
         // The rest of what we need to do is handled by stopAnimation()
