@@ -64,6 +64,7 @@ package mx.core
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @langversion 3.0
+     *  @productversion Flex 4
      */
     public class FTETextField extends Sprite implements IFontContextComponent
     {
@@ -345,6 +346,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function FTETextField()
         {
@@ -543,6 +545,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get alwaysShowSelection():Boolean
         {
@@ -572,6 +575,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get antiAliasType():String
         {
@@ -600,6 +604,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get autoSize():String
         {
@@ -644,6 +649,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get background():Boolean
         {
@@ -681,6 +687,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get backgroundColor():uint
         {
@@ -713,6 +720,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get border():Boolean
         {
@@ -755,6 +763,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get borderColor():uint
         {
@@ -791,6 +800,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get bottomScrollV():int
         {
@@ -811,6 +821,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get caretIndex():int
         {
@@ -827,6 +838,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get condenseWhite():Boolean
         {
@@ -867,6 +879,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get defaultTextFormat():TextFormat
         {
@@ -919,6 +932,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get displayAsPassword():Boolean
         {
@@ -943,6 +957,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get embedFonts():Boolean
         {
@@ -988,6 +1003,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get gridFitType():String
         {
@@ -1013,6 +1029,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get htmlText():String
         {
@@ -1090,6 +1107,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get length():int
         {
@@ -1110,6 +1128,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get maxChars():int
         {
@@ -1138,6 +1157,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get maxScrollH():int
         {
@@ -1158,6 +1178,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get maxScrollV():int
         {
@@ -1179,6 +1200,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get mouseWheelEnabled():Boolean
         {
@@ -1206,6 +1228,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get multiline():Boolean
         {
@@ -1230,6 +1253,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get numLines():int
         {
@@ -1257,6 +1281,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get restrict():String
         {
@@ -1285,6 +1310,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get scrollH():int
         {
@@ -1313,6 +1339,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get scrollV():int
         {
@@ -1341,6 +1368,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get selectable():Boolean
         {
@@ -1368,6 +1396,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get selectionBeginIndex():int
         {
@@ -1388,6 +1417,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get selectionEndIndex():int
         {
@@ -1409,6 +1439,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get sharpness():Number
         {
@@ -1435,6 +1466,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get styleSheet():StyleSheet
         {
@@ -1481,6 +1513,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get text():String
         {
@@ -1540,6 +1573,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get textColor():uint
         {
@@ -1587,6 +1621,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get textHeight():Number
         {
@@ -1610,6 +1645,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get textWidth():Number
         {
@@ -1633,6 +1669,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get thickness():Number
         {
@@ -1656,6 +1693,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get type():String
         {
@@ -1699,6 +1737,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get useRichTextClipboard():Boolean
         {
@@ -1723,6 +1762,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get wordWrap():Boolean
         {
@@ -1785,6 +1825,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get direction():String
         {
@@ -1847,6 +1888,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function get fontContext():IFlexModuleFactory
         {
@@ -1968,6 +2010,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function appendText(newText:String):void
         {
@@ -1988,6 +2031,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getCharBoundaries(charIndex:int):Rectangle
         {
@@ -2009,6 +2053,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getCharIndexAtPoint(x:Number, y:Number):int
         {
@@ -2029,6 +2074,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getFirstCharInParagraph(charIndex:int):int
         {
@@ -2051,6 +2097,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getLineIndexAtPoint(x:Number, y:Number):int
         {
@@ -2071,6 +2118,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getLineIndexOfChar(charIndex:int):int
         {
@@ -2091,6 +2139,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getLineLength(lineIndex:int):int
         {
@@ -2103,6 +2152,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getLineMetrics(lineIndex:int):TextLineMetrics
         {
@@ -2154,6 +2204,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getLineOffset(lineIndex:int):int
         {
@@ -2174,6 +2225,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getLineText(lineIndex:int):String
         {
@@ -2194,6 +2246,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getParagraphLength(charIndex:int):int
         {
@@ -2216,6 +2269,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getTextFormat(beginIndex:int = -1,
                                       endIndex:int = -1):TextFormat
@@ -2239,6 +2293,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function replaceSelectedText(value:String):void
         {
@@ -2261,6 +2316,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function replaceText(beginIndex:int, endIndex:int,
                                     newText:String):void
@@ -2282,6 +2338,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function setSelection(beginIndex:int, endIndex:int):void
         {
@@ -2304,6 +2361,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function setTextFormat(format:TextFormat,
                                       beginIndex:int = -1,
@@ -2335,6 +2393,7 @@ package mx.core
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
          *  @langversion 3.0
+         *  @productversion Flex 4
          */
         public function getImageReference(id:String):DisplayObject
         {
