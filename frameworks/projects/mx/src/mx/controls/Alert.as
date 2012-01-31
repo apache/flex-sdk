@@ -19,7 +19,7 @@ import flash.events.Event;
 import flash.events.EventPhase;
 import mx.containers.Panel;
 import mx.controls.alertClasses.AlertForm;
-import mx.core.Application;
+import mx.core.ApplicationGlobals;
 import mx.core.EdgeMetrics;
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
@@ -480,11 +480,11 @@ public class Alert extends Panel
 
         if (!parent)
         {
-            var sm:ISystemManager = ISystemManager(Application.application.systemManager);
+            var sm:ISystemManager = ISystemManager(ApplicationGlobals.application.systemManager);
             if (sm.useSWFBridge())
                 parent = Sprite(sm.getSandboxRoot());
             else
-                parent = Sprite(Application.application);
+                parent = Sprite(ApplicationGlobals.application);
         }
         
         var alert:Alert = new Alert();
