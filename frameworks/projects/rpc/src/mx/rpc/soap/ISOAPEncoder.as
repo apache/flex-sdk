@@ -22,6 +22,11 @@ import mx.rpc.xml.IXMLEncoder;
  * request should be formatted and therefore must be set before a call is made to
  * encode().
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ISOAPEncoder extends IXMLEncoder
 {
@@ -40,6 +45,11 @@ public interface ISOAPEncoder extends IXMLEncoder
      * first be set to false. Conversely, if a type <code>whiteSpace</code>
      * restriction is set to <code>replace</code> or <code>collapse</code> then
      * that setting will be honored even if ignoreWhitespace is set to <code>false</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get ignoreWhitespace():Boolean;
     function set ignoreWhitespace(value:Boolean):void;
@@ -47,6 +57,11 @@ public interface ISOAPEncoder extends IXMLEncoder
     /**
      * A WSDLOperation defines the SOAP binding styles and specifies how to
      * encode a SOAP request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function get wsdlOperation():WSDLOperation;
     function set wsdlOperation(value:WSDLOperation):void;
@@ -60,6 +75,11 @@ public interface ISOAPEncoder extends IXMLEncoder
     /**
      * Creates a SOAP-encoded request to an operation from the given input
      * parameters and headers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function encodeRequest(args:* = null, headers:Array = null):XML;
 }
