@@ -736,8 +736,14 @@ public class GridDimensions
         const padRowCount:int = row - rowCount;
         const padRowTotalGap:Number = (padRowCount > 0) ? (padRowCount - 1) * rowGap : 0;
         const y:Number = lastRowBottom + (padRowCount * defaultRowHeight) + padRowTotalGap;
-        const rowWidth:Number = 
-            ((lastCol >= 0) && (lastRow >= 0)) ? getCellX(lastRow, lastCol) + getColumnWidth(lastCol) - x : 0;
+        
+        var rowWidth:Number = 0;
+        if ((lastCol >= 0) && (lastRow >= 0))
+            rowWidth = getCellX(lastRow, lastCol) + getColumnWidth(lastCol) - x;
+        else if (lastCol >= 0)
+            rowWidth = getCellX(0, lastCol) + getColumnWidth(lastCol) - x;
+        else if (lastRow >= 0)
+            rowWidth = getCellX(lastRow, 0) + getColumnWidth(0) - x;
         
         return new Rectangle(x, y, rowWidth, defaultRowHeight);
         
