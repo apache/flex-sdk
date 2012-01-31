@@ -108,6 +108,13 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  policy, which can be <code>auto</code>, <code>on</code>, or <code>off</code>.
  *  The <code>auto</code> policy means that the scrollbar will be visible and included
  *  in the layout when the viewport's content is larger than the viewport itself.</p>
+ * 
+ *  <p>The FxScroller skin layout cannot be changed, it's unconditionally set to a 
+ *  private layout implementation that handles the scroll policies.  FxScroller skins
+ *  can only provide replacement scrollbars.  To gain more control over the layout
+ *  of a viewport and its scrollbars, instead of using FxScroller, just add them 
+ *  to a <code>Group</code> and use the scrollbar <code>viewport</code> property 
+ *  to link them together.</p>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
