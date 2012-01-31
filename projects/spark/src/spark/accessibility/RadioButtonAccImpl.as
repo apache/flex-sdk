@@ -12,6 +12,7 @@
 package spark.accessibility
 {
 
+import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
@@ -93,7 +94,7 @@ public class RadioButtonAccImpl extends CheckBoxAccImpl
     {
         super(master);
 
-        role = 0x2D; // ROLE_SYSTEM_RADIOBUTTON
+        role = AccConst.ROLE_SYSTEM_RADIOBUTTON;
     }
 
     //--------------------------------------------------------------------------
