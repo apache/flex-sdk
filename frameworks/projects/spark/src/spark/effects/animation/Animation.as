@@ -10,26 +10,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects.animation
 {
-import __AS3__.vec.Vector;
-
 import flash.events.TimerEvent;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
-import flash.utils.getTimer;
 
 import mx.core.mx_internal;
 import mx.events.EffectEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
-import spark.effects.KeyFrame;
-import spark.effects.SimpleMotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Linear;
 import spark.effects.easing.Sine;
-import spark.effects.interpolation.ArrayInterpolator;
 import spark.effects.interpolation.IInterpolator;
-import spark.effects.interpolation.NumberInterpolator;
 
 use namespace mx_internal;
 
@@ -107,7 +100,7 @@ public final class Animation
      *  Constructor. 
      *  The optional <code>property</code>, <code>startValue</code>, and 
      *  <code>endValue</code> parameters define a simple
-     *  animation with a single MotionPath object with two KeyFrames. 
+     *  animation with a single MotionPath object with two Keyframes. 
      *  If either value is non-null,
      *  <code>startValue</code> becomes the <code>value</code> of the
      *  first keyframe, at time=0, and 
@@ -132,7 +125,10 @@ public final class Animation
     {
         this.duration = duration;
         if (property != null && (startValue !== null || endValue !== null))
-            motionPaths = [new SimpleMotionPath(property, startValue, endValue, duration)];
+        {
+            motionPaths = new <MotionPath>[
+                new SimpleMotionPath(property, startValue, endValue, duration)];
+        }
     }
     
 
@@ -155,6 +151,12 @@ public final class Animation
     private static var activeAnimations:Array = [];
     private static var timer:Timer = null;
 
+    /**
+     * @private
+     * Default easer used if easer is set to null
+     */
+    private static var linearEaser:IEaser;
+    
     private var arrayMode:Boolean;
     // TODO: more efficient way to store/remove these than in an array?
     // Dictionary, perhaps (although that may be unordered and less
@@ -196,7 +198,8 @@ public final class Animation
     //--------------------------------------------------------------------------
 
     /**
-     *  An Array of the values as of the current frame of the Animation.
+     *  An Object containing the calculated values as of the current frame 
+     *  of the Animation.
      *  The values are stored as map values, using property names as the key.
      *  
      *  @langversion 3.0
@@ -217,7 +220,7 @@ public final class Animation
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var motionPaths:Array;
+    public var motionPaths:Vector.<MotionPath>;
     
     //----------------------------------
     //  animationTarget
@@ -469,7 +472,6 @@ public final class Animation
 
     private var _cycleTime:Number = 0;
     /**
-     *  @private
      *  The current millisecond position in the current cycle animation.
      *  This value is between 0 and <code>duration</code>.
      *  An animation 'cycle' is defined as a single repetition of the animation,
@@ -489,7 +491,6 @@ public final class Animation
 
     private var _cycleFraction:Number;
     /**
-     *  @private
      *  The current fraction elapsed in the animation, after easing
      *  has been applied. This value is between 0 and 1.
      *  An animation 'cycle' is defined as a single repetition of the animation,
@@ -538,7 +539,9 @@ public final class Animation
     {
         if (!value)
         {
-            value = Linear.getInstance();
+            if (!linearEaser)
+                linearEaser = new Linear();
+            value = linearEaser;
         }
         _easer = value;
     }
@@ -863,8 +866,8 @@ public final class Animation
     }
 
     /**
-     *  Interrupt the animation, jumps immediately to the end of the animation, 
-     *  and invokes the event handler for the <code>effectEnd</code> event on the target.
+     *  Interrupts the animation, jumps immediately to the end of the animation, 
+     *  and calls the animationEnd() function on the <code>animationTarget</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -941,13 +944,13 @@ public final class Animation
         var j:int;
         for (i = 0; i < motionPaths.length; ++i)
         {
-            var keyframes:Array = motionPaths[i].keyframes;
+            var keyframes:Vector.<Keyframe> = motionPaths[i].keyframes;
             if (isNaN(keyframes[0].time))
                 keyframes[0].time = 0;
             // Create an initial (time==0) value if necessary 
             else if (keyframes[0].time > 0)
             {
-                keyframes.splice(0, 0, new KeyFrame(0, null));
+                keyframes.splice(0, 0, new Keyframe(0, null));
                 keyframes[0].timeFraction = 0;
             }
             for (j = 1; j < keyframes.length; ++j)
@@ -1136,10 +1139,9 @@ public final class Animation
         }
     }
     /**
-     *  Stops the animation, ending it without dispatching an 
-     *  EFFECT_END event or calling the <code>end()</code> method.
-     *  The EFFECT_STOP event will be sent to the 
-     *  <code>animationTarget</code>. 
+     *  Stops the animation, ending it without calling the <code>end()</code> 
+     *  method. The animationStop() function on the <code>animationTarget</code>
+     *  will be called.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
