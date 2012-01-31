@@ -50,7 +50,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates the content type of this message.
      *  This value must be understood by the destination this request is sent to.
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -78,7 +78,7 @@ public class HTTPRequestMessage extends AbstractMessage
      *  Contains the final destination for this request.
      *  This is the URL that the content of this message, found in the
      *  <code>body</code> property, will be sent to, using the method specified.
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -122,7 +122,7 @@ public class HTTPRequestMessage extends AbstractMessage
      *    <li><code>HTTPRequestMessage.PUT_METHOD</code></li>
      *    <li><code>HTTPRequestMessage.TRACE_METHOD</code></li>
      *  </ul>
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -158,7 +158,7 @@ public class HTTPRequestMessage extends AbstractMessage
     
     /**
      *  Indicates that the content of this message is XML.
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_XML;
@@ -170,7 +170,7 @@ public class HTTPRequestMessage extends AbstractMessage
     
     /**
      *  Indicates that the content of this message is a form.
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -183,7 +183,7 @@ public class HTTPRequestMessage extends AbstractMessage
     /**
      *  Indicates that the content of this message is XML meant for a SOAP
      *  request.
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_SOAP_XML;
@@ -195,7 +195,7 @@ public class HTTPRequestMessage extends AbstractMessage
 
     /**
      *  Indicates that the method used for this request should be "post".
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -207,7 +207,7 @@ public class HTTPRequestMessage extends AbstractMessage
 
     /**
      *  Indicates that the method used for this request should be "get".
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -219,7 +219,7 @@ public class HTTPRequestMessage extends AbstractMessage
 
     /**
      *  Indicates that the method used for this request should be "put".
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -231,7 +231,7 @@ public class HTTPRequestMessage extends AbstractMessage
 
     /**
      *  Indicates that the method used for this request should be "head".
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -243,7 +243,7 @@ public class HTTPRequestMessage extends AbstractMessage
 
     /**
      *  Indicates that the method used for this request should be "delete".
-     *  @example
+     *  
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -255,7 +255,7 @@ public class HTTPRequestMessage extends AbstractMessage
 
     /**
      *  Indicates that the method used for this request should be "options".
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
@@ -267,7 +267,7 @@ public class HTTPRequestMessage extends AbstractMessage
 
     /**
      *  Indicates that the method used for this request should be "trace".
-     *  @example
+     *
      *    <pre>
      *      var msg:HTTPRequestMessage = new HTTPRequestMessage();
      *      msg.contentType = HTTPRequestMessage.CONTENT_TYPE_FORM;
