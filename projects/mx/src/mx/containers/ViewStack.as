@@ -1082,6 +1082,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
         numChildrenCreated = numChildren - numChildrenBefore;
 
         processedDescriptors = true;
+        dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
     }
 
     //--------------------------------------------------------------------------
