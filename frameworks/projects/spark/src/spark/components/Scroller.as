@@ -79,10 +79,10 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     
     private function invalidateSkin():void
     {
-        if (skinObject)
+        if (skin)
         {
-            skinObject.invalidateSize()
-            skinObject.invalidateDisplayList();
+            skin.invalidateSize()
+            skin.invalidateDisplayList();
         }
     }    
     
@@ -133,9 +133,9 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
 
     private function installViewport():void
     {
-        if (skinObject && viewport)
+        if (skin && viewport)
         {
-            skinObject.addItemAt(viewport, 0);
+            skin.addItemAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
         }
  	
@@ -143,9 +143,9 @@ public class FxScroller extends FxComponent implements IFocusManagerComponent
     
     private function uninstallViewport():void
     {
-    	if (skinObject && viewport)
+    	if (skin && viewport)
     	{
-    		skinObject.removeItem(viewport);
+    		skin.removeItem(viewport);
     		viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
     	}
     }
