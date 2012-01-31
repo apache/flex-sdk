@@ -7,7 +7,7 @@
 	<fx:Script>
     	<![CDATA[
     	    import mx.collections.ArrayCollection;
-    	    import mx.events.IndexChangedEvent;
+    	    import spark.events.IndexChangeEvent; 
 
     	 [Bindable]
 			public var myDP:ArrayCollection = new ArrayCollection(
@@ -16,7 +16,7 @@
 				  {product:"Catalyst", price:300},
 				  {product:"FlashBuilder", price:400} ]);
 
-    		private function updateSelection(e:IndexChangedEvent):void
+    		private function updateSelection(e:IndexChangEvent):void
     		{
     			currSel.text = "Current Product = " + myDDL.selectedItem.product;
     			currPrc.text = "Price = $" + myDDL.selectedItem.price;
