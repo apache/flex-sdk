@@ -1112,6 +1112,10 @@ public class ListBase extends SkinnableDataContainer
             }
         }
         
+        // Caching value of proposed index prevents its being changed in the dispatch
+        // of the changing event, if that results in a call into this function
+        var tmpProposedIndex:int = _proposedSelectedIndex;
+
         // Step 2: dispatch the "changing" event. If preventDefault() is called
         // on this event, the selection change will be cancelled.        
         if (dispatchChangeAfterSelection)
@@ -1128,7 +1132,7 @@ public class ListBase extends SkinnableDataContainer
         }
         
         // Step 3: commit the selection change and caret change
-        _selectedIndex = _proposedSelectedIndex;
+        _selectedIndex = tmpProposedIndex;
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
         if (oldSelectedIndex != NO_SELECTION)
