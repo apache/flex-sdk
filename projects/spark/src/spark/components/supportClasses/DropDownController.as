@@ -28,7 +28,9 @@ import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 
 import spark.events.DropDownEvent; 
- 
+
+use namespace mx_internal;
+
 /**
  *  The DropDownController class handles the mouse, keyboard, and focus
  *  interactions for an anchor button and its associated drop down. 
@@ -301,7 +303,7 @@ public class DropDownController extends EventDispatcher
             addCloseTriggers();
             
             _isOpen = true;
-            openButton.mx_internal::keepDown = true; // Force the button to stay in the down state
+            openButton.keepDown = true; // Force the button to stay in the down state
             
             dispatchEvent(new DropDownEvent(DropDownEvent.OPEN));
         }
@@ -323,7 +325,7 @@ public class DropDownController extends EventDispatcher
         if (isOpen)
         {   
             _isOpen = false;
-            openButton.mx_internal::keepDown = false;
+            openButton.keepDown = false;
             
             var dde:DropDownEvent = new DropDownEvent(DropDownEvent.CLOSE, false, true);
             
