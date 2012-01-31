@@ -638,7 +638,7 @@ public class TextArea extends SkinnableTextBase
         
         // The scroller, between textDisplay and this in the chain, should not 
         // getFocus.
-        if (instance == scroller)
+        else if (instance == scroller)
         {
             scroller.focusEnabled = false;
             
