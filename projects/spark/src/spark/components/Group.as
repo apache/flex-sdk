@@ -697,7 +697,7 @@ public class Group extends GroupBase implements IVisualElementContainer
             // if the display object ordering is invalidated (because we have graphic elements 
             // that aren't actually in the display list), then lets just add our item to the end.  
             // If the ordering isn't invalidated, then let's just try to add it to the proper index.
-            if (invalidateDisplayObjectOrdering())
+            if (invalidateDisplayObjectOrdering() || mxmlContentChanged)
             {
                 // This always adds the child to the end of the display list. Any 
                 // ordering discrepancies will be fixed up in assignDisplayObjects().
