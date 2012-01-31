@@ -20,6 +20,7 @@ import flash.events.SoftKeyboardEvent;
 import flash.events.SoftKeyboardTrigger;
 import flash.events.TimerEvent;
 import flash.geom.Rectangle;
+import flash.system.Capabilities;
 import flash.utils.Timer;
 
 import mx.core.EventPriority;
@@ -241,9 +242,62 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     
     /**
      *  @private
-     *  Original pop-up height.
+     *  Indicates the soft keyboard deactivate event was received but the
+     *  deactivate effect is delayed.
      */
-    private var cachedHeight:Number;
+    private var deactivateEffectIsPending:Boolean = false;
+    
+    /**
+     *  @private
+     *  Number of milliseconds to wait for a mouseDown and mouseUp event
+     *  sequence before playing the deactivate effect.
+     */
+    mx_internal var deactivateEffectDelay:Number = 100;
+    
+    /**
+     *  @private
+     */
+    private var deactivateTimer:Timer;
+    
+    /**
+     *  @private
+     */
+    private var orientationChanging:Boolean = false;
+    
+    /**
+     *  @private
+     *  Flag for iOS specific handling of orientation change.
+     */
+    private var isIOS:Boolean = false;
+    
+    /**
+     *  @private
+     *  Flag when orientation change handlers are installed to suppress
+     *  excess soft keyboard effects during orientation change on iOS.
+     */
+    private var orientationHandlerAdded:Boolean = false;
+    
+    /**
+     *  @private
+     *  Flag when mouse listeners are installed to delay the soft keyboard
+     *  deactivate effect.
+     */
+    private var deactiveTriggersAdded:Boolean = false;
+    
+    /**
+     *  @private
+     *  Flag when explicitHeight is set when the soft keyboard effect is
+     *  active. When true, we prevent the original cached height from being
+     *  modified.
+     */
+    private var softKeyboardEffectCachedHeightExplicit:Boolean = false;
+    
+    /**
+     *  @private
+     *  Flag when explicitHeightChanged listeners are installed after 
+     *  the soft keyboard activate effect is played.
+     */
+    private var activeListenersInstalled:Boolean;
 
     //--------------------------------------------------------------------------
     //
@@ -488,43 +542,6 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     }
     
     /**
-     *  @private
-     */
-    private function prepareEffect(yTo:Number, heightTo:Number):void
-    {
-        // stop the current effect
-        if (effect && effect.isPlaying)
-            effect.stop();
-        
-        var duration:Number = getStyle("softKeyboardEffectDuration");
-        
-        if (duration > 0)
-            effect = createSoftKeyboardEffect(yTo, heightTo);
-        
-        if (effect)
-        {
-            effect.duration = duration;
-            
-            // Wait a frame so that any queued work can be completed by the framework
-            // and runtime before the effect starts.
-            addEventListener(Event.ENTER_FRAME, startEffect);
-        }
-        // Do not restore the callout size if the pop-up is closed or closing.
-        else if (isOpen)
-        {
-            // No effect, set size and position explicitly
-            this.y = yTo;
-            this.height = heightTo;
-            
-            // Validate so that other listeners like Scroller get the updated dimensions
-            validateNow();
-            
-            if (!isSoftKeyboardEffectActive)
-                clearSizeAndPositionCache(null);
-        }
-    }
-    
-    /**
      *  Called by the soft keyboard <code>activate</code> and <code>deactive</code> event handlers, 
      *  this method is responsible for creating the Spark effect played on the pop-up.
      * 
@@ -588,6 +605,44 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     //  mx_internal properties
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  softKeyboardEffectCachedHeight
+    //----------------------------------
+    
+    private var _softKeyboardEffectCachedHeight:Number;
+    
+    /**
+     *  @private
+     *  The original pop-up height to restore to when the soft keyboard is 
+     *  deactivated. If an explicitHeight was defined at activation, use it.
+     *  If not, then use explicitMaxHeight or measuredHeight.
+     */
+    mx_internal function get softKeyboardEffectCachedHeight():Number
+    {
+        var heightTo:Number = _softKeyboardEffectCachedHeight;
+        
+        if (!softKeyboardEffectCachedHeightExplicit)
+        {
+            if (!isNaN(explicitMaxHeight) && (measuredHeight > explicitMaxHeight))
+                heightTo = explicitMaxHeight;
+            else
+                heightTo = measuredHeight;
+        }
+        
+        return heightTo;
+    }
+    
+    /**
+     *  @private
+     */
+    private function setSoftKeyboardEffectCachedHeight(value:Number):void
+    {
+        // Only allow changes to the cached height if it was not set explicitly
+        // prior to and/or during the soft keyboard effect.
+        if (!softKeyboardEffectCachedHeightExplicit)
+            _softKeyboardEffectCachedHeight = value;
+    }
     
     //----------------------------------
     //  isSoftKeyboardEffectActive
@@ -713,6 +768,17 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             return state == "normal" ? "closed" : state;
         return state;
     }
+    
+    /**
+     *  @private 
+     */
+    override public function initialize():void
+    {
+        super.initialize();
+        
+        // Determine if we are running on an iOS device
+        isIOS = Capabilities.version.indexOf("IOS") == 0;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -731,15 +797,12 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // Abort the deactivate effect if the pop-up is closed or closing.
         // The close transition state change handler will restore the original
         // size of the pop-up.
-        if (!isOpen)
+        if (!isOpen || !effect)
             return;
         
-        // Clear the cached positions when the deactivate effect is complete
-        if (!isSoftKeyboardEffectActive)
-        {
-            effect.addEventListener(EffectEvent.EFFECT_END, clearSizeAndPositionCache);
-            effect.addEventListener(EffectEvent.EFFECT_STOP, clearSizeAndPositionCache);
-        }
+        // Clear the cached positions when the deactivate effect is complete.
+        effect.addEventListener(EffectEvent.EFFECT_END, effectCleanup);
+        effect.addEventListener(EffectEvent.EFFECT_STOP, effectCleanup);
         
         // Force the master clock of the animation engine to update its
         // current time so that the overhead of creating the effect is not 
@@ -808,15 +871,21 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             owner = null;
             
             // Reset size and position if a deactivate effect was aborted while
-            // the close transition was playing.
+            // the close transition was playing. This allows the pop-up to open
+            // again later without any side effects from the aborted deactivate
+            // effect. See SDK-31534.
             if (!isNaN(cachedYPosition))
                 this.y = cachedYPosition;
             
-            if (!isNaN(cachedHeight))
-                this.height = cachedHeight;
+            // If explicit height wasn't used originally, then set height=NaN
+            // so that the next call to open() will re-measure.
+            if (softKeyboardEffectCachedHeightExplicit)
+                this.height = softKeyboardEffectCachedHeight;
+            else
+                this.height = NaN;
             
-            if (!isNaN(cachedYPosition) || !isNaN(cachedHeight))
-                clearSizeAndPositionCache(null);
+            if (!isNaN(cachedYPosition) || softKeyboardEffectCachedHeightExplicit)
+                effectCleanup();
         }
     }
     
@@ -831,13 +900,14 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         if (!isSoftKeyboardEffectActive && !effect)
         {
             cachedYPosition = this.y;
-            cachedHeight = this.height;
+            setSoftKeyboardEffectCachedHeight(this.height);
             
             // reset cached keyboard height
             cachedKeyboardHeight = 0;
         }
         
-        var softKeyboardRect:Rectangle = systemManager.stage.softKeyboardRect;
+        var smStage:Stage = systemManager.stage;
+        var softKeyboardRect:Rectangle = smStage.softKeyboardRect;
         
         // Do not update if the keyboard has no height or if the height
         // is unchanged
@@ -857,7 +927,7 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // application coordinates when playing effects. Also note that
         // softKeyboardRect is also in stage coordinates.
         var popUpY:Number = this.y * scaleFactor;
-        var popUpHeight:Number = this.height * scaleFactor;
+        var popUpHeight:Number = softKeyboardEffectCachedHeight * scaleFactor;
         var overlapGlobal:Number = (popUpY + popUpHeight) - softKeyboardRect.y;
         
         var yToGlobal:Number = popUpY;
@@ -895,22 +965,48 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             // preserve minimum height
             heightToLocal = Math.max(heightToLocal, getMinBoundsHeight());
             
-            // Listen for mouseDown event on the pop-up and delay the soft 
-            // keyboard deactivate effect. This allows button click events
-            // to complete normally before the button is re-positioned. 
-            // See SDK-31534.
-            addEventListener(MouseEvent.MOUSE_DOWN, mouseHandler);
+            if (!deactiveTriggersAdded)
+            {
+                // Listen for mouseDown event on the pop-up and delay the soft 
+                // keyboard deactivate effect. This allows button click events
+                // to complete normally before the button is re-positioned. 
+                // See SDK-31534.
+                addEventListener(MouseEvent.MOUSE_DOWN, mouseHandler);
+                
+                // Listen for mouseUp events anywhere to play the deactivate effect.
+                // See SDK-31534.
+                sandboxRoot.addEventListener(MouseEvent.MOUSE_UP, 
+                    mouseHandler, true /* useCapture */);
+                sandboxRoot.addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, 
+                    systemManager_mouseUpHandler);
+                
+                deactiveTriggersAdded = true;
+            }
             
-            // Listen for mouseUp events anywhere to play the deactivate effect
-            systemManager.getSandboxRoot().addEventListener(
-                MouseEvent.MOUSE_UP, mouseHandler, true /* useCapture */);
-            systemManager.getSandboxRoot().addEventListener(
-                SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
-            
+            // Listen for orientationChanging and orientationChange to suspend
+            // soft keyboard effects until the change is complete. On iOS, an
+            // the keyboard is deactivated after orientationChanging, then
+            // immediately activated after orientationChange is complete.
+            if (isIOS && systemManager.isTopLevelRoot())
+            {
+                orientationHandlerAdded = true;
+                orientationChanging = false;
+                
+                smStage.addEventListener("orientationChanging", stage_orientationHandler);
+                smStage.addEventListener("orientationChange", stage_orientationHandler);
+            }
+
             prepareEffect(yToLocal, heightToLocal);
         }
     }
     
+    /**
+     *  @private
+     */
+    private function stage_orientationHandler(event:Event):void
+    {
+        orientationChanging = (event.type == "orientationChanging");
+    }
     /**
      *  @private
      *  Listens for mouse events while the soft keyboard effect is active.
@@ -927,27 +1023,12 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     
     /**
      *  @private
-     *  Indicates the soft keyboard deactivate event was received but the
-     *  deactivate effect is delayed.
-     */
-    private var deactivateEffectIsPending:Boolean = false;
-    
-    /**
-     *  @private
-     *  Number of milliseconds to wait for a mouseDown and mouseUp event
-     *  sequence before playing the deactivate effect.
-     */
-    mx_internal var deactivateEffectDelay:Number = 100;
-    
-    private var deactivateTimer:Timer;
-    
-    /**
-     *  @private
      */
     private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent=null):void
     {
-        // If the pop-up didn't move, do nothing
-        if (!isSoftKeyboardEffectActive)
+        // If the pop-up didn't move, do nothing. If we're in the middle of an
+        // orientation change, also do nothing.
+        if (!isSoftKeyboardEffectActive || orientationChanging)
             return;
         
         // Reset state
@@ -1008,12 +1089,6 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         playDeactivateEffect(false);
     }
     
-    //--------------------------------------------------------------------------
-    //
-    //  Private Methods
-    //
-    //--------------------------------------------------------------------------
-    
     /**
      *  @private
      *  Plays the deactivate effect to restore the original y-position and
@@ -1048,26 +1123,41 @@ public class SkinnablePopUpContainer extends SkinnableContainer
             _isSoftKeyboardEffectActive = false;
             deactivateEffectIsPending = false;
             
-            removeEventListener(MouseEvent.MOUSE_DOWN, mouseHandler);
-            systemManager.getSandboxRoot().removeEventListener(
-                MouseEvent.MOUSE_UP, mouseHandler, true /* useCapture */);
-            systemManager.getSandboxRoot().removeEventListener(
-                SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+            if (deactiveTriggersAdded)
+            {
+                removeEventListener(MouseEvent.MOUSE_DOWN, mouseHandler);
+                
+                var sandboxRoot:DisplayObject = systemManager.getSandboxRoot();
+                sandboxRoot.removeEventListener(MouseEvent.MOUSE_UP, mouseHandler, true /* useCapture */);
+                sandboxRoot.removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+                
+                deactiveTriggersAdded = false;
+            }
             
-            prepareEffect(cachedYPosition, cachedHeight);
+            // Uninstall orientation change handling
+            if (orientationHandlerAdded)
+            {
+                var smStage:Stage = systemManager.stage;
+                smStage.removeEventListener("orientationChange", stage_orientationHandler);
+                smStage.removeEventListener("orientationChanging", stage_orientationHandler);
+                
+                orientationHandlerAdded = false;
+            }
+            
+            prepareEffect(cachedYPosition, softKeyboardEffectCachedHeight);
         }
     }
     
     /**
      *  @private
      */
-    private function clearSizeAndPositionCache(event:EffectEvent):void
+    private function effectCleanup(event:EffectEvent=null):void
     {
         // Remove event listeners if we're listening to the deactivate effect
         if (event)
         {
-            event.target.removeEventListener(EffectEvent.EFFECT_END, clearSizeAndPositionCache);
-            event.target.removeEventListener(EffectEvent.EFFECT_STOP, clearSizeAndPositionCache);
+            event.target.removeEventListener(EffectEvent.EFFECT_END, effectCleanup);
+            event.target.removeEventListener(EffectEvent.EFFECT_STOP, effectCleanup);
         }
         
         // Cleanup effect
@@ -1078,10 +1168,120 @@ public class SkinnablePopUpContainer extends SkinnableContainer
         // The deactivate effect may stop preemtively if the keyboard is 
         // activated again while the deactivate effect is playing. In that case,
         // we want to save the cached positions from the first activation.
-        if (!event || (event.type == EffectEvent.EFFECT_END))
+        var deactivateComplete:Boolean = 
+            (!isSoftKeyboardEffectActive && (event.type == EffectEvent.EFFECT_END));
+        
+        if (!event || deactivateComplete)
         {
+            // Resize and move is complete, but the resize effect modifies
+            // explicitHeight. If the original height was not explicit, then 
+            // restore it to NaN. This will cause 
+            if (!softKeyboardEffectCachedHeightExplicit)
+                this.height = NaN;
+            
             cachedYPosition = NaN;
-            cachedHeight = NaN;
+            softKeyboardEffectCachedHeightExplicit = false;
+            setSoftKeyboardEffectCachedHeight(NaN);
+            cachedKeyboardHeight = 0;
+        }
+        else if (event && isSoftKeyboardEffectActive)
+        {
+            // Flag changes to explicitHeight after the open effect has completed.
+            // Stop listening for changes on deactivate before the effect starts.
+            // See prepareEffect().
+            installActiveListeners();
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function explicitHeightChangedHandler(event:Event):void
+    {
+        softKeyboardEffectCachedHeightExplicit = !isNaN(explicitHeight);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    private function prepareEffect(yTo:Number, heightTo:Number):void
+    {
+        // stop the current effect
+        if (effect && effect.isPlaying)
+            effect.stop();
+        
+        var duration:Number = getStyle("softKeyboardEffectDuration");
+        
+        if (duration > 0)
+            effect = createSoftKeyboardEffect(yTo, heightTo);
+        
+        // Stop looking for explicitHeight changes. The Resize effect or
+        // or explicit resize will modify explicitHeight.
+        uninstallActiveListeners();
+        
+        if (effect)
+        {
+            effect.duration = duration;
+            
+            // Wait a frame so that any queued work can be completed by the framework
+            // and runtime before the effect starts.
+            addEventListener(Event.ENTER_FRAME, startEffect);
+        }
+        // Do not restore the callout size if the pop-up is closed or closing.
+        else if (isOpen)
+        {
+            // No effect, set size and position explicitly
+            this.y = yTo;
+            this.height = heightTo;
+            
+            // Validate so that other listeners like Scroller get the updated dimensions
+            validateNow();
+            
+            if (isSoftKeyboardEffectActive)
+            {
+                // Once the height is changed, begin looking for changes to 
+                // explicitHeight that are not due to soft keyboard effects.
+                installActiveListeners();
+            }
+            else
+            {
+                // Cleanup cached size and position
+                effectCleanup();
+            }
+        }
+    }
+    
+    /**
+     *  @private
+     *  Listeners installed during the phase after the initial activate effect
+     *  is complete and before the deactive effect starts.
+     */
+    private function installActiveListeners():void
+    {
+        if (!activeListenersInstalled)
+        {
+            // Check for explicitHeight changes while the soft keyboard
+            // effect is active (but not playing)
+            addEventListener("explicitHeightChanged", explicitHeightChangedHandler);
+            activeListenersInstalled = true;
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function uninstallActiveListeners():void
+    {
+        if (activeListenersInstalled)
+        {
+            removeEventListener("explicitHeightChanged", explicitHeightChangedHandler);
+            activeListenersInstalled = false;
         }
     }
 }
