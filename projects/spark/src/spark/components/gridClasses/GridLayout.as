@@ -1304,10 +1304,10 @@ public class GridLayout extends LayoutBase
             var bounds:Rectangle = isRowSelectionMode() ? 
                 gridDimensions.getRowBounds(rowIndex) :
                 gridDimensions.getCellBounds(rowIndex, columnIndex);
-            layoutGridElementR(indicator, bounds);
-            container.addElement(indicator);  // add or move to the top
-            indicator.visible = true;
-        }
+                layoutGridElementR(indicator, bounds);
+                container.addElement(indicator);  // add or move to the top
+                indicator.visible = true;
+            }
         
         return indicator;
     }
@@ -1836,7 +1836,7 @@ public class GridLayout extends LayoutBase
     }
 
     /**
-     *  Returns a vector of objects whose "rowIndex" and "columnIndex" properties specify the 
+     *  Returns a vector of CellPosition objects whose "rowIndex" and "columnIndex" properties specify the 
      *  row and column indices of the cells that overlap the specified grid region.  If no
      *  such cells exist, an empty vector is returned.
      *  
@@ -1849,7 +1849,7 @@ public class GridLayout extends LayoutBase
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    public function getCellsAt(x:Number, y:Number, w:Number, h:Number):Vector.<Object>
+    public function getCellsAt(x:Number, y:Number, w:Number, h:Number):Vector.<CellPosition>
     { 
         // TBD(hmuller)
         return new Vector.<Object>;
