@@ -114,7 +114,7 @@ public class MXItemRenderer extends ItemRenderer implements IListItemRenderer, I
     //----------------------------------
 
     /**
-     *  The ID of the component that receives focus as the item editor.
+     *  If supplied, the component that will receive focus as the editor.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
