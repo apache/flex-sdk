@@ -14,27 +14,27 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.events.ItemExistenceChangedEvent;
+import mx.events.RendererExistenceEvent;
 import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
 
 
 
 /**
- *  Dispatched when an item is added to the content holder.
- *  event.
+ *  Dispatched when a renderer is added to the content holder.
+ * <code>event.renderer</code> is the renderer that was added.
  *
- *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_ADD
+ *  @eventType mx.events.RendererExistenceEvent.RENDERER_ADD
  */
-[Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
+[Event(name="rendererAdd", type="mx.events.RendererExistenceEvent")]
 
 /**
- *  Dispatched when an item is removed from the content holder.
- *  event.
+ *  Dispatched when a renderer is removed from the content holder.
+ * <code>event.renderer</code> is the renderer that was removed.
  *
- *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
+ *  @eventType mx.events.RendererExistenceEvent.ITEM_REMOVE
  */
-[Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
+[Event(name="rendererRemove", type="mx.events.RendererExistenceEvent")]
 
 //--------------------------------------
 //  Other metadata
@@ -328,7 +328,7 @@ public class DataGroup extends GroupBase
         for (var idx:int = numChildren; idx > 0; idx--)
             super.removeChildAt(0);
         
-        var vLayout:Boolean = layout && layout.virtualLayout;
+        var vLayout:Boolean = layout && layout.useVirtualLayout;
 
         // Create all item renderers eagerly
         if (_dataProvider && !vLayout)
@@ -451,10 +451,10 @@ public class DataGroup extends GroupBase
 
         _layeringFlags &= ~LAYERING_DIRTY;
         
-        var len:int = numLayoutElements;
+        var len:int = numElements;
         for (var i:int = 0; i < len; i++)
         {  
-            var myItemRenderer:IVisualElement = getRendererForItemAt(i);
+            var myItemRenderer:IVisualElement = getElementAt(i);
             var layer:Number = myItemRenderer.layer;
             
             if (layer != 0)
@@ -521,7 +521,7 @@ public class DataGroup extends GroupBase
     /**
      *  @private
      */
-    override public function get numLayoutElements():int
+    override public function get numElements():int
     {
         return dataProvider ? dataProvider.length : 0;
     }
@@ -561,7 +561,7 @@ public class DataGroup extends GroupBase
      *  IRs can be recycled if they're IDataRenderers and they're
      *  not equal to the item they represent, i.e. if 
      *  renderersInView[item] != item.   More about item recycling
-     *  in the getLayoutElementAt() doc.
+     *  in the getElementAt() doc.
      */
     private function finishVirtualLayout():void
     {
@@ -597,7 +597,9 @@ public class DataGroup extends GroupBase
             }
             else
             {
-                dispatchEvent(new ItemExistenceChangedEvent(ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item, -1, elt));
+                // TODO (rfrishbe): it's not quite i + startIndex, especially when considering the layer property.
+                dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_REMOVE, 
+                                false, false, elt, i + lastValidChildIndex, item));
                 super.removeChild(DisplayObject(elt));
             }
         }
@@ -614,14 +616,14 @@ public class DataGroup extends GroupBase
         if (!virtualLayoutUnderway)
             super.invalidateSize();
     }
-       
+
     /**
      *  @private 
      *  Make sure there's a typicalLayoutElement for virtual layout.
      */
     override protected function measure():void
     {
-        if (layout && layout.virtualLayout)
+        if (layout && layout.useVirtualLayout)
             ensureTypicalLayoutElement();
         super.measure();
     }
@@ -632,7 +634,7 @@ public class DataGroup extends GroupBase
      */
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        if (layout && layout.virtualLayout)
+        if (layout && layout.useVirtualLayout)
         {
             virtualLayoutUnderway = true;
             virtualLayoutStartIndex = -1;
@@ -646,31 +648,26 @@ public class DataGroup extends GroupBase
             finishVirtualLayout();
             virtualLayoutUnderway = false;
         }
-    }    
+    }
     
     /**
-     *  @private
+     *  @inheritDoc
      * 
-     * - Recycling - 
+     *  For a DataGroup, <code>getElementAt()</code> returns the ItemRenderer 
+     *  being used for the dataProvider item at the specified index.
      * 
-     *  Currently, item renderers ("IRs") can only be recycled if they're all
-     *  of the same type, they implement IDataRenderer, and they're all
-     *  produced - by the itemRenderer factory - with the same initial
-     *  configuration.  We can't ever really guarantee this however the case
-     *  for which we're assuming that it's true is when just the itemRenderer
-     *  is specified.  Even in this case, for recycling to work the
-     *  itemRenderer (factory) must be essentially stateless, the IRs
-     *  appearance must be based exclusively on its data.  For this reason
-     *  we're also defeating recycling of IRs that don't implement
-     *  IDataRenderer, see endVirtualLayout().  Although one could recycle
-     *  these IRs, doing so would imply that either all of the IRs were
-     *  the same, or that some did implement IDataRenderer and others
-     *  did not.   We can't handle the latter, and a DataGroup where
-     *  all items are the same wouldn't be worth the trouble.
+     *  If the index is invalid, or if a dataProvider was not specified, then
+     *  null is returned.
+     * 
+     *  If the layout is virtual and the specified item isn't "in view", then
+     *  null will be returned.
+     *
+     *  Note that if the layout is virtual, ItemRenderers that are scrolled
+     *  out of view may be reused.
      */
-    override public function getLayoutElementAt(index:int):ILayoutElement
+    override public function getElementAt(index:int):IVisualElement
     {
-        if (dataProvider == null)
+        if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
             return null;
             
         var item:Object = dataProvider.getItemAt(index);
@@ -678,6 +675,23 @@ public class DataGroup extends GroupBase
         
         if (virtualLayoutUnderway)
         {
+            /* - Recycling - 
+             * 
+             *  Currently, item renderers ("IRs") can only be recycled if they're all
+             *  of the same type, they implement IDataRenderer, and they're all
+             *  produced - by the itemRenderer factory - with the same initial
+             *  configuration.  We can't ever really guarantee this however the case
+             *  for which we're assuming that it's true is when just the itemRenderer
+             *  is specified.  Even in this case, for recycling to work the
+             *  itemRenderer (factory) must be essentially stateless, the IRs
+             *  appearance must be based exclusively on its data.  For this reason
+             *  we're also defeating recycling of IRs that don't implement
+             *  IDataRenderer, see endVirtualLayout().  Although one could recycle
+             *  these IRs, doing so would imply that either all of the IRs were
+             *  the same, or that some did implement IDataRenderer and others
+             *  did not.   We can't handle the latter, and a DataGroup where
+             *  all items are the same wouldn't be worth the trouble.
+             */
             if (virtualLayoutStartIndex == -1)  // initialized in updateDisplayList()
             {
                 virtualLayoutStartIndex = index;
@@ -719,41 +733,18 @@ public class DataGroup extends GroupBase
             if ((createdIR || recycledIR) && (elt is IInvalidating))
                 IInvalidating(elt).validateNow();
             if (createdIR)
-                dispatchEvent(new ItemExistenceChangedEvent(ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
+                dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_ADD, 
+                                    false, false, elt, index, item));
         }
 
-        return LayoutElementFactory.getLayoutElementFor(elt);
-    }
-    
-    /**
-     *  Return the ItemRenderer being used for the dataProvider item at 
-     *  the specified index.
-     * 
-     *  If the index is invalid, or if a dataProvider was not specified, then
-     *  null is returned.
-     * 
-     *  If the layout is virtual and the specified item isn't "in view", then
-     *  null will be returned.
-     *
-     *  Note that if the layout is virtual, ItemRenderers that are scrolled
-     *  out of view may be reused.
-     * 
-     * 
-     *  @param index The dataProvider item index.
-     *  @return The ItemRenderer being used for the dataProvider item at index.
-     * 
-     *  @see #getItemIndexForRenderer
-     *  @see dataProvider
-     */
-    public function getRendererForItemAt(index:int):IVisualElement
-    {
-        if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
-            return null;
-        return itemToRenderer[dataProvider.getItemAt(index)];
+        return elt;
     }
 
     /**
-     *  Return the index of the dataProvider item that the specified ItemRenderer
+     *  @inheritDoc
+     * 
+     *  For a datagroup, this returns the index of the dataProvider 
+     *  item that the specified ItemRenderer
      *  is being used for, or -1 if there is no such item. 
      * 
      *  If renderer is null, or if a dataProvider was not specified, then -1
@@ -761,18 +752,12 @@ public class DataGroup extends GroupBase
      * 
      *  Note that if the layout is virtual, ItemRenderers that are scrolled
      *  out of view may be reused.
-     * 
-     *  @param renderer The ItemRenderer.
-     *  @return The index of the dataProvider item that the specified ItemRenderer is being used for, or -1
-     * 
-     *  @see #getRendererForItemAt
-     *  @see dataProvider
      */
-    public function getItemIndexForRenderer(renderer:IVisualElement):int
+    override public function getElementIndex(element:IVisualElement):int
     {
-        if ((dataProvider == null) || (renderer == null))
+        if ((dataProvider == null) || (element == null))
             return -1;
-        var item:Object = (renderer is IDataRenderer) ? IDataRenderer(renderer).data : renderer;
+        var item:Object = (element is IDataRenderer) ? IDataRenderer(element).data : element;
         return dataProvider.getItemIndex(item);
     }
     
@@ -801,9 +786,9 @@ public class DataGroup extends GroupBase
         itemToRenderer[item] = myItemRenderer;
 
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
-        dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_ADD, false, false, 
-                      item, index, myItemRenderer));
+        dispatchEvent(new RendererExistenceEvent(
+                      RendererExistenceEvent.RENDERER_ADD, false, false, 
+                      myItemRenderer, index, item));
         
         invalidateSize();
         invalidateDisplayList();
@@ -824,9 +809,9 @@ public class DataGroup extends GroupBase
         var myItemRenderer:IVisualElement = itemToRenderer[item];
         delete itemToRenderer[item];
         
-        dispatchEvent(new ItemExistenceChangedEvent(
-                      ItemExistenceChangedEvent.ITEM_REMOVE, false, false, 
-                      item, index, myItemRenderer));
+        dispatchEvent(new RendererExistenceEvent(
+                      RendererExistenceEvent.RENDERER_REMOVE, false, false, 
+                      myItemRenderer, index, item));
         
         // If the item and renderer are different objects, set the renderer data to 
         // null here to clear it out. Otherwise, the renderer keeps a reference to the item,
@@ -894,6 +879,9 @@ public class DataGroup extends GroupBase
      */
     protected function dataProvider_collectionChangeHandler(event:CollectionEvent):void
     {
+        if (dataProviderChanged || itemRendererChanged)
+            return;
+        
         switch (event.kind)
         {
             case CollectionEventKind.ADD:
