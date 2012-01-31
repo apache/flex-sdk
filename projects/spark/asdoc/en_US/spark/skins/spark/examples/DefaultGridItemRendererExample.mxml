@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+Demonstate how to control text wrapping in a DataGrid DefaultGridItemRenderer item renderer.
+
+This DataGrid example demonstrates how to control text wrapping with the DefaultGridItemRenderer.
+All cells in this example display the same lengthy string which does not contain newlines.  
+Note that the Flex text components unconditionally render newline characters that appear in the text.
+
+The first "Implicit wordWrap" column's renderer is DefaultGridItemRenderer.  By default it sets its 
+wordWrap property equal to the value of the DataGrid's varaiableRowHeight property. 
+
+The second "Explicit wordWrap" column's DefaultGridItemRenderer overrides the wordWrap property.   
+If the wordWrap property's value is set explicitly, the renderer ignores the DataGrid's 
+variableRowHeight property.
+
+Note also: this example's column widths and row heights are defined by the DataGrid's typicalItem.  
+The typical item uses explicit newlines to create a string that occupies three lines and a 
+reasonable column width.
+
+-->
+
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:s="library://ns.adobe.com/flex/spark">
+    
+    <fx:Declarations>
+        <fx:String id="sampleText">Lorem Ipsum is the standard dummy text of the typesetting industry.</fx:String>
+        <fx:int id="maxDisplayedLines">0</fx:int>        
+    </fx:Declarations>    
+    
+    <s:Panel title="Spark DataGrid Control Example which demonstrates how to control text wrapping in a DefaultGridItemRenderer"
+             width="75%" height="75%" 
+             horizontalCenter="0" verticalCenter="0">
+        
+        <s:controlBarContent>
+            <s:VGroup>
+                <s:CheckBox id="vrh" selected="@{dataGrid.variableRowHeight}" 
+                    label="dataGrid.variableRowHeight={vrh.selected}"/>            
+                <s:CheckBox id="wordWrapCheckBox" selected="true" 
+                    label="defaultRenderer.wordWrap={wordWrapCheckBox.selected}"/>
+            </s:VGroup>
+        </s:controlBarContent>
+    
+        <s:DataGrid id="dataGrid" variableRowHeight="false" verticalCenter="0" horizontalCenter="0">
+            <s:columns>
+                <s:ArrayList>
+                    <!--
+                    DefaultGridItemRenderer doesn't break lines if the DataGrid's variableRowHeight property
+                    is false (the default).
+                    -->
+                    <s:GridColumn dataField="value" headerText="Implicit wordWrap"/>
+                    
+                    <!--
+                    Defeat line breaking in DefaultGridItemRenderer by setting wordWrap="false".
+                    If wordWrap is set, the renderer ignores the DataGrid's variableRowHeight property.
+                    -->
+                    <s:GridColumn dataField="value" headerText="Explicit wordWrap">
+                        <s:itemRenderer>
+                            <fx:Component>
+                                <s:DefaultGridItemRenderer
+                                    color="0x1E6913"
+                                    wordWrap="{outerDocument.wordWrapCheckBox.selected}"/>
+                            </fx:Component>
+                        </s:itemRenderer>
+                    </s:GridColumn>                
+                </s:ArrayList>
+            </s:columns>
+            
+            <!--
+                The typicalItem defines column widths and the default row height.  The text
+                occpies three lines because we've used the odd XML '&#10;' escape to introduce 
+                two newlines (the value of the newline character is decimal 10).
+            -->
+            <s:typicalItem>
+                <s:DataItem value="Lorem Ipsum sample text.&#10;newline&#10;"/>
+            </s:typicalItem>
+            
+            <s:ArrayCollection>
+                <s:DataItem value="{sampleText}"/>
+                <s:DataItem value="{sampleText}"/>
+                <s:DataItem value="{sampleText}"/>
+            </s:ArrayCollection>
+        </s:DataGrid>
+    </s:Panel>
+</s:Application>
