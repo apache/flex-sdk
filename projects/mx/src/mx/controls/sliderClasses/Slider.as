@@ -2150,7 +2150,6 @@ public class Slider extends UIComponent
             var tLength:Number = getStyle("tickLength");
             var tOffset:Number = getStyle("tickOffset");
             var tickWidth:Number = getStyle("tickThickness");
-            var xOffset:Number = tickWidth / 2;
             var xPos:Number;
             var tColor:Number = getStyle("tickColor");
             
@@ -2166,7 +2165,7 @@ public class Slider extends UIComponent
 
                 do
                 {
-                    xPos = Math.round(getXFromValue(val) - xOffset);
+                    xPos = Math.round(getXFromValue(val));
                     g.moveTo(xPos, tLength);
                     g.lineTo(xPos, 0);
                     val = usePositions ? (positionIndex < _tickValues.length ? _tickValues[positionIndex++] : NaN) : _tickInterval + val;
@@ -2175,7 +2174,7 @@ public class Slider extends UIComponent
                 // draw the last tick
                 if (!usePositions || val == maximum)
                 {
-                    xPos = track.x + track.width - 1 - xOffset;
+                    xPos = track.x + track.width - 1;
                     g.moveTo(xPos, tLength);
                     g.lineTo(xPos, 0);
                 }
