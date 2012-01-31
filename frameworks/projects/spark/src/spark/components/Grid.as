@@ -1529,6 +1529,18 @@ public class Grid extends Group implements IDataGridElement
 
         dispatchChangeEvent("rowHeightChanged");            
     }
+	
+	/**
+	 *  @private
+	 */	
+	private function setFixedRowHeight(value:Number):void
+	{
+		if (_rowHeight == value)
+			return;
+		
+		_rowHeight = value;
+		dispatchChangeEvent("rowHeightChanged");		
+	}
     
     //----------------------------------
     //  rowSeparator
@@ -3600,8 +3612,12 @@ public class Grid extends Group implements IDataGridElement
         inUpdateDisplayList = true;
         super.updateDisplayList(unscaledWidth, unscaledHeight);
         inUpdateDisplayList = false;
+		
         clearInvalidateDisplayListReasons();
-    }
+		
+		if (!variableRowHeight)
+			setFixedRowHeight(gridDimensions.getRowHeight(0));    
+	}
         
     //--------------------------------------------------------------------------
     //
