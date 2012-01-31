@@ -4262,7 +4262,7 @@ public class DataGrid extends SkinnableContainerBase
         const maxWidth:Number = resizeColumn.maxWidth;
         var newWidth:Number = Math.ceil(resizeColumnWidth + widthDelta);
         
-        // Layout is LTR (see sparator_mouseDownHandler). Make sure that the
+        // Layout is RTL (see sparator_mouseDownHandler). Make sure that the
         // next column's width can shrink as much as the resizeColumn is growing,
         // or vice versa.
         
