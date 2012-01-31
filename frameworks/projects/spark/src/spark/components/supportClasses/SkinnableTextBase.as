@@ -721,7 +721,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //  textDisplay
     //----------------------------------
 
-    [SkinPart(required="true")]
+    [SkinPart(required="false")]
 
     /**
      *  The RichEditableText that must be present
