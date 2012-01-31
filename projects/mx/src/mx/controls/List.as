@@ -57,6 +57,7 @@ import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.ListEvent;
 import mx.events.ListEventReason;
+import mx.events.SandboxMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.managers.IFocusManager;
@@ -2063,6 +2064,8 @@ public class List extends ListBase implements IIMESupport
         // use weak reference
         systemManager.getSandboxRoot().
             addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
+        systemManager.getSandboxRoot().
+            addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, editorMouseDownHandler, false, 0, true);
 
     }
 
@@ -2128,6 +2131,8 @@ public class List extends ListBase implements IIMESupport
             DisplayObject(itemEditorInstance).removeEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
             systemManager.getSandboxRoot().
                 removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
+            systemManager.getSandboxRoot().
+                removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, editorMouseDownHandler);
 
             var event:ListEvent =
                 new ListEvent(ListEvent.ITEM_FOCUS_OUT);
@@ -2416,10 +2421,12 @@ public class List extends ListBase implements IIMESupport
     /**
      *  @private
      */
-    private function editorMouseDownHandler(event:MouseEvent):void
+    private function editorMouseDownHandler(event:Event):void
     {
-        if (!itemRendererContains(itemEditorInstance, DisplayObject(event.target)))
-            endEdit(ListEventReason.OTHER);
+        if (event is MouseEvent && itemRendererContains(itemEditorInstance, DisplayObject(event.target)))
+			return;
+
+        endEdit(ListEventReason.OTHER);
     }
 
     /**
