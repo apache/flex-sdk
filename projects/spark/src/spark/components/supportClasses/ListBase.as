@@ -11,6 +11,7 @@
 
 package flex.component
 {
+import flash.events.Event;
 
 import flex.events.FlexEvent;
 import flex.events.ItemExistenceChangedEvent;
