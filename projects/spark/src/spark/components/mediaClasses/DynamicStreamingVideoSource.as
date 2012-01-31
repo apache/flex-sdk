@@ -22,7 +22,7 @@ package spark.components.mediaClasses
  *  classes can take a StreamingVideoSource instance as its <code>source</code>
  *  property.
  *
- *  @see spark.controls.VideoPlayer 
+ *  @see spark.components.VideoPlayer 
  *  @see spark.primitives.VideoElement
  *  
  *  @langversion 3.0
