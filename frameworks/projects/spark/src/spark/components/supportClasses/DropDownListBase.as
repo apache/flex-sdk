@@ -494,15 +494,6 @@ public class DropDownListBase extends List
         if (DropDownListBase.createAccessibilityImplementation != null)
             DropDownListBase.createAccessibilityImplementation(this);
     }
-	
-	/**
-	 *  @private
-	 */
-	override protected function isOurFocus(target:DisplayObject):Boolean
-	{
-		return (openButton && target == openButton) || super.isOurFocus(target);
-	}
-	
     /**
      *  @private
      */ 
