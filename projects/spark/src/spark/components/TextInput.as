@@ -157,11 +157,7 @@ use namespace mx_internal;
  *        </tr>
  *        <tr>
  *           <td>Default size</td>
- *           <td>188 pixels wide by 22 pixels high</td>
- *        </tr>
- *        <tr>
- *           <td>Minimum size</td>
- *           <td>2 pixels wide and 2 pixels high</td>
+ *           <td>128 pixels wide by 22 pixels high</td>
  *        </tr>
  *        <tr>
  *           <td>Maximum size</td>
@@ -292,25 +288,25 @@ public class TextInput extends SkinnableTextBase
 
     /**
      *  The default width of the control, measured in em units.
-	 *
-	 *  <p>An em is a unit of typographic measurement
-	 *  equal to the point size.
-	 *  It is not necessarily exactly the width of the "M" character,
-	 *  but in many fonts the "M" is about one em wide.
+     *
+     *  <p>An em is a unit of typographic measurement
+     *  equal to the point size.
+     *  It is not necessarily exactly the width of the "M" character,
+     *  but in many fonts the "M" is about one em wide.
      *  The control's <code>fontSize</code> style is used,
-	 *  to calculate the em unit in pixels.</p>
-	 *
-	 *  <p>You would, for example, set this property to 20 if you want
-	 *  the width of the TextInput to be sufficient
-	 *  to input about 20 characters of text.</p>
-	 *
-	 *  <p>This property will be ignored if you specify an explicit width,
-	 *  a percent width, or both <code>left</code> and <code>right</code>
-	 *  constraints.</p>
-	 *
-	 *  @default 10
-	 *
-	 *  @see spark.primitives.heightInLines
+     *  to calculate the em unit in pixels.</p>
+     *
+     *  <p>You would, for example, set this property to 20 if you want
+     *  the width of the TextInput to be sufficient
+     *  to input about 20 characters of text.</p>
+     *
+     *  <p>This property will be ignored if you specify an explicit width,
+     *  a percent width, or both <code>left</code> and <code>right</code>
+     *  constraints.</p>
+     *
+     *  @default 10
+     *
+     *  @see spark.primitives.heightInLines
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
