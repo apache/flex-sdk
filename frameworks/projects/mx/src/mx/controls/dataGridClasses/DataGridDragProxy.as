@@ -159,6 +159,29 @@ public class DataGridDragProxy extends UIComponent
 
 		invalidateDisplayList();
 	}
+	
+	override protected function measure():void
+	{
+		super.measure();
+		
+		var w:Number = 0;
+		var h:Number = 0;
+		var child:UIComponent;
+		
+		for (var i:int = 0; i < numChildren; i++)
+		{
+			child = getChildAt(i) as UIComponent;
+			
+			if (child)
+			{
+				w = Math.max(w, child.x + child.width);
+				h = Math.max(h, child.y + child.height);
+			}
+		}
+		
+		measuredWidth = measuredMinWidth = w;
+		measuredHeight = measuredMinHeight = h;	
+	}
 }
 
 }
