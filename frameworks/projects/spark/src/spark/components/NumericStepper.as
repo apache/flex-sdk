@@ -18,6 +18,8 @@ import flash.events.Event;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
+[IconFile("FxNumericStepper.png")]
+
 /**
  *  The FxNumericStepper control lets you select
  *  a number from an ordered set.
