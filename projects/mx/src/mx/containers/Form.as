@@ -19,7 +19,10 @@ import mx.controls.Label;
 import mx.core.Container;
 import mx.core.IInvalidating;
 import mx.core.IUIComponent;
+import mx.core.mx_internal;
 import mx.styles.StyleManager;
+
+use namespace mx_internal;
 
 include "../styles/metadata/GapStyles.as";
 
@@ -223,8 +226,8 @@ public class Form extends Container
 
         showInAutomationHierarchy = true;
         
-        mx_internal::layoutObject.target = this;
-        mx_internal::layoutObject.direction = BoxDirection.VERTICAL;
+        layoutObject.target = this;
+        layoutObject.direction = BoxDirection.VERTICAL;
     }
 
     //--------------------------------------------------------------------------
@@ -372,7 +375,7 @@ public class Form extends Container
     {
         super.measure();
 
-        mx_internal::layoutObject.measure();
+        layoutObject.measure();
         
         calculateLabelWidth();
     }
@@ -417,7 +420,7 @@ public class Form extends Container
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
-        mx_internal::layoutObject.updateDisplayList(unscaledWidth, unscaledHeight);
+        layoutObject.updateDisplayList(unscaledWidth, unscaledHeight);
     }
 
     /**
