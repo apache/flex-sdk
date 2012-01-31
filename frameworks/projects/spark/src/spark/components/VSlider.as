@@ -9,18 +9,19 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
 import flash.geom.Point;
 
-import flex.intf.ILayoutItem;
-import flex.layout.LayoutItemFactory;
+import mx.layout.ILayoutItem;
+import mx.layout.LayoutItemFactory;
+import mx.components.baseClasses.FxSlider;
 
 /**
  *  VSlider
  */
-public class VSlider extends Slider
+public class FxVSlider extends FxSlider
 {
     include "../core/Version.as";
 
@@ -33,7 +34,7 @@ public class VSlider extends Slider
     /**
      *  Constructor. 
      */
-    public function VSlider()
+    public function FxVSlider()
     {
         super();
     }
