@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.display.DisplayObject;
@@ -34,35 +34,35 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes")]
 
 
-[IconFile("FxNumericStepper.png")]
+[IconFile("NumericStepper.png")]
 /**
- *  The FxNumericStepper control lets you select
+ *  The NumericStepper control lets you select
  *  a number from an ordered set.
- *  The FxNumericStepper provides the same functionality as
- *  the FxSpinner component, but adds a TextInput control
+ *  The NumericStepper provides the same functionality as
+ *  the Spinner component, but adds a TextInput control
  *  so that you can directly edit the value of the component,
  *  rather than modifying it by using the control's arrow buttons.
  *
- *  <p>The FxNumericStepper control consists of a single-line
+ *  <p>The NumericStepper control consists of a single-line
  *  input text field and a pair of arrow buttons
  *  for stepping through the possible values.
  *  The Up Arrow and Down Arrow keys also cycle through 
  *  the values. 
  *  An input value is committed when
  *  the user presses the Enter key, removes focus from the
- *  component, or steps the FxNumericStepper by pressing an arrow button
+ *  component, or steps the NumericStepper by pressing an arrow button
  *  or by calling the <code>step()</code> method.</p>
  *
- *  @see mx.components.FxSpinner
+ *  @see mx.components.Spinner
  * 
- *  @includeExample examples/FxNumericStepperExample.mxml
+ *  @includeExample examples/NumericStepperExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxNumericStepper extends FxSpinner implements IFocusManagerComponent
+public class NumericStepper extends Spinner implements IFocusManagerComponent
 {
     include "../core/Version.as";
     
@@ -80,7 +80,7 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */  
-    public function FxNumericStepper()
+    public function NumericStepper()
     {
         super();
     }
@@ -96,17 +96,17 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     /**
      *  A skin part that defines a TextInput control 
      *  which allows a user to edit the value of
-     *  the FxNumericStepper component. 
+     *  the NumericStepper component. 
      *  The value is rounded and committed
      *  when the user presses enter, focuses out of
-     *  the FxNumericStepper, or steps the FxNumericStepper.
+     *  the NumericStepper, or steps the NumericStepper.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var textInput:FxTextInput;
+    public var textInput:TextInput;
 
     //--------------------------------------------------------------------------
     //
@@ -261,7 +261,7 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden Properties: FxRange
+    //  Overridden Properties: Range
     //
     //--------------------------------------------------------------------------
     
