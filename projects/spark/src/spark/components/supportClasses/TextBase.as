@@ -15,10 +15,13 @@ package mx.graphics.baseClasses
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Sprite;
+import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.text.engine.TextLine;
 
 import mx.core.mx_internal;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IAdvancedStyleClient;
 import mx.styles.StyleManager;
@@ -36,6 +39,22 @@ public class TextGraphicElement extends GraphicElement
 
     //--------------------------------------------------------------------------
     //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Most resources are fetched on the fly from the ResourceManager,
+     *  so they automatically get the right resource when the locale changes.
+     *  But since truncation can happen frequently,
+     *  this class caches this resource value in this variable
+     *  and updates it when the locale changes.
+     */ 
+    mx_internal static var truncationIndicatorResource:String;
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -46,6 +65,20 @@ public class TextGraphicElement extends GraphicElement
     public function TextGraphicElement()
     {
         super();
+
+		var resourceManager:IResourceManager = ResourceManager.getInstance();
+                                    
+		if (!mx_internal::truncationIndicatorResource)
+        {
+            mx_internal::truncationIndicatorResource = resourceManager.getString(
+                "core", "truncationIndicator");
+        }
+                
+        // Register as a weak listener for "change" events from ResourceManager.
+        // If UITextFields registered as a strong listener,
+        // they wouldn't get garbage collected.
+        resourceManager.addEventListener(
+            Event.CHANGE, resourceManager_changeHandler, false, 0, true);
     }
     
     //--------------------------------------------------------------------------
@@ -369,6 +402,37 @@ public class TextGraphicElement extends GraphicElement
         }
     }
         
+    //----------------------------------
+    //  truncation
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _truncation:int = 0;
+    
+    /**
+     *  Documentation is not currently available.
+     */
+    public function get truncation():int
+    {
+    	return _truncation;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set truncation(value:int):void
+    {
+    	if (value != _truncation)
+    	{
+    		_truncation = value;
+    		
+    		invalidateSize();
+    		invalidateDisplayList();
+    	}
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods: GraphicElement
@@ -639,6 +703,26 @@ public class TextGraphicElement extends GraphicElement
             validateNow();  
             text = isEmpty ? "" : text;
         }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private function resourceManager_changeHandler(event:Event):void
+    {
+		var resourceManager:IResourceManager = ResourceManager.getInstance();
+
+        mx_internal::truncationIndicatorResource = resourceManager.getString(
+            "core", "truncationIndicator");
+
+        invalidateSize();
+        invalidateDisplayList();
     }
 }
 
