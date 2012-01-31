@@ -461,7 +461,7 @@ public class TextGraphic extends TextGraphicElement
 		staticConfiguration.textFlowInitialFormat =
             staticTextLayoutFormat;
 
-        if (markup is String)
+        if (markup is XML || markup is String)
         {
 	        // We need to wrap the markup in a <TextFlow> tag
 	        // unless it already has one.
@@ -472,7 +472,7 @@ public class TextGraphic extends TextGraphicElement
             // we use the markup in XML form rather than
             // having TLF reconvert it to XML.
 	        var wrap:Boolean = true;
-            if (markup.indexOf("TextFlow") != -1)
+            if (markup is XML || markup.indexOf("TextFlow") != -1)
             {
                 try
                 {
@@ -490,14 +490,39 @@ public class TextGraphic extends TextGraphicElement
 
 	        if (wrap)
 	        {
-	            markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
-	                     markup +
-	                     '</TextFlow>';
+	            if (markup is String)
+	            {
+                    markup = 
+                        '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
+                        markup +
+                        '</TextFlow>';
+                }
+                else
+                {
+                    // It is XML.  Create a root element and add the markup
+                    // as it's child.
+                    var ns:Namespace = 
+                        new Namespace("http://ns.adobe.com/textLayout/2008");
+                                                 
+                    xmlMarkup = <TextFlow />;
+                    xmlMarkup.setNamespace(ns);            
+                    xmlMarkup.setChildren(markup);  
+                                        
+                    // The namespace of the root node is not inherited by
+                    // the children so it needs to be explicitly set on
+                    // every element, at every level.  If this is not done
+                    // the import will fail with an "Unexpected namespace"
+                    // error.
+                    for each (var element:XML in xmlMarkup..*::*)
+                       element.setNamespace(ns);
+
+                    markup = xmlMarkup;
+                }
 	        }
         }
-        
-        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
-                                       staticConfiguration);
+
+        return importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
+                            staticConfiguration);
     }
     
     /**
@@ -563,7 +588,7 @@ public class TextGraphic extends TextGraphicElement
             var t:String = mx_internal::_text;
             if (t != null && t != "")
             {
-                textFlow = TextFilter.importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
+                textFlow = importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
             }
             else
             {
@@ -588,6 +613,23 @@ public class TextGraphic extends TextGraphicElement
         return textFlow;
     }
 
+    /**
+     *  @private
+     * 
+     *  This will throw on import error.
+     */
+    private function importToFlow(source:Object, format:String, 
+                                  config:Configuration = null):TextFlow
+    {
+        var importer:ITextImporter = TextFilter.getImporter(format);
+        
+        // Throw import errors rather than return a null textFlow.
+        // Alternatively, the error strings are in the Vector, importer.errors.
+        importer.throwOnError = true;
+        
+        return importer.importToFlow(source);        
+    }
+    
     /**
      *  @private
      */
