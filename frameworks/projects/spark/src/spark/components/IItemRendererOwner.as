@@ -39,7 +39,7 @@ public interface IItemRendererOwner
      *  The String is written to the <code>labelText</code>
      *  property of the item renderer.
      *
-     *  @param item The date item to display.
+     *  @param item The data item to display.
      *
      *  @return The String for display in an item renderer.
      *  
