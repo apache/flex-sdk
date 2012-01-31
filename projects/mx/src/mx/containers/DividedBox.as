@@ -16,6 +16,7 @@ import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
+
 import mx.containers.dividedBoxClasses.BoxDivider;
 import mx.core.EdgeMetrics;
 import mx.core.IFlexDisplayObject;
@@ -463,6 +464,16 @@ public class DividedBox extends Box
 	 */
 	private var numLayoutChildren:int = 0;
 
+    /**
+     * @private
+     * If last child was stretched to fill remaining space it will be asigned
+     * to this variable.
+     * See preLayoutAdjustment() for detailed description of the initial layout
+     * algorithm.
+     * Note that after resizing using dividers this property will be set to null.
+     */
+    private var stretchedChild:IUIComponent;
+
 	//--------------------------------------------------------------------------
 	//
 	//  Properties
@@ -480,6 +491,12 @@ public class DividedBox extends Box
 	{
 		if (super.direction != value)
 		{
+            // Direction has changed so we reset the last child's
+            // percentWidth/percentHeight setting. Note that
+            // we call this before assigning the new direction value
+            // as resetStrechedChild() depends on the direction.
+            resetStretchedChild();
+
 			super.direction = value;
 
 			// Need to invalidate all our dividers
@@ -545,6 +562,9 @@ public class DividedBox extends Box
 	public function get numDividers():int
 	{
 		if (dividerLayer)
+           	if (!liveDragging && activeDivider)
+           		return dividerLayer.numChildren-1;
+           	else
 			return dividerLayer.numChildren;
 		else 
 			return 0;
@@ -663,8 +683,8 @@ public class DividedBox extends Box
 			}
 		}
 
-		var wPadding:Number = layoutObject.widthPadding(numChildren);
-		var hPadding:Number = layoutObject.heightPadding(numChildren);
+        var wPadding:Number = layoutObject.widthPadding(numLayoutChildren);
+        var hPadding:Number = layoutObject.heightPadding(numLayoutChildren);
 
 		measuredMinWidth = dbMinWidth = minWidth + wPadding;
 		measuredMinHeight = dbMinHeight = minHeight + hPadding;
@@ -712,17 +732,28 @@ public class DividedBox extends Box
 		super.updateDisplayList(unscaledWidth, unscaledHeight);
 		
 		// Lay out the dividers.
-		if (dividerLayer)
-		{
+        if (!dividerLayer)
+           return;
+
 			var vm:EdgeMetrics = viewMetrics;
 
 			dividerLayer.x = vm.left;
 			dividerLayer.y = vm.top;
 
-			n = dividerLayer.numChildren;
+        var prevChild:IUIComponent = null;
+        var dividerIndex:int = 0;
+        n = numChildren;
 			for (i = 0; i < n; i++)
 			{
-				layoutDivider(i, unscaledWidth, unscaledHeight);
+            child = UIComponent(getChildAt(i));
+            if (child.includeInLayout)
+            {
+                if (prevChild)
+                {
+                    layoutDivider(dividerIndex, unscaledWidth, unscaledHeight, prevChild, child);
+                    dividerIndex++;
+                }
+                prevChild = child;
 			}
 		}
 	}
@@ -880,7 +911,9 @@ public class DividedBox extends Box
 	 */
 	private function layoutDivider(i:int, 
 								   unscaledWidth:Number, 
-								   unscaledHeight:Number):void
+                                   unscaledHeight:Number,
+                                   prevChild:IUIComponent,
+                                   nextChild:IUIComponent):void
 	{
 		// The mouse-over thickness of the divider is normally determined
 		// by the dividerAffordance style, and the visible thickness is 
@@ -901,9 +934,6 @@ public class DividedBox extends Box
 
 		var divider:BoxDivider = BoxDivider(getDividerAt(i));
 
-		var prevChild:IUIComponent = getLayoutChildAt(i);
-		var nextChild:IUIComponent = getLayoutChildAt(i + 1);
-		
 		var vm:EdgeMetrics = viewMetrics;
 
 		var verticalGap:Number = getStyle("verticalGap");
@@ -1078,6 +1108,8 @@ public class DividedBox extends Box
 		for (var i:int = 0; i < n; i++)
 		{
 			var child:IUIComponent = getLayoutChildAt(i);
+            if (!child.includeInLayout)
+                continue;
 		
 			var sz:Number = vertical ? child.height : child.width;
 
@@ -1219,14 +1251,14 @@ public class DividedBox extends Box
 		var deltaMinBelow:Number = 0;
 		var deltaMaxBelow:Number = 0;
 		
-		var n:int = numChildren;
+        var n:int = numLayoutChildren;
 		var i:int;
 		var child:ChildSizeInfo;
 
 		if (at < 0)
 			return;
 			
-		for (i = at; i >= 0; i = (i > 0) ? i - 1 : -1)
+        for (i = at; i >= 0; i--)
 		{	
 			child = ChildSizeInfo(oldChildSizes[i]);
 			
@@ -1292,7 +1324,7 @@ public class DividedBox extends Box
 	 *  @private
      *  We distribute the delta space in the same
 	 *  fashion that we calculated it. That is we
-	 *  start at the divider an give out space
+     *  start at the divider and give out space
 	 *  until we hit a limit on the component or
 	 *  we run out of space to distribute.
 	 *  We need to do this in both directions since
@@ -1307,7 +1339,7 @@ public class DividedBox extends Box
 			return;
 
 		var vertical:Boolean = isVertical();
-		var n:int = numChildren;
+        var n:int = numLayoutChildren;
 		var k:int = activeDividerIndex;
 		var smallest:Number = oldChildSizes[n].size -
 			Math.abs(dragDelta); // smallest possible child size
@@ -1322,10 +1354,24 @@ public class DividedBox extends Box
 		var child:IUIComponent;
 		var childSize:Number;
 		
+        // Find the index of the child before the active divider
+        var activeDividerChildIndex:int = -1;
+        var dividerIndex:int = -1;
+        while (dividerIndex < activeDividerIndex)
+        {
+            if (UIComponent(getChildAt(++activeDividerChildIndex)).includeInLayout)
+                ++dividerIndex;
+        }
+
+        // There's no need to track the last stretched child, as
+        // we are about to assing percentWidth/percentHeight.
+        stretchedChild = null;
+
 		// Distribute space starting from the center and 
 		// moving upwards.
+        var curChildIndex:int = activeDividerChildIndex;
 		var amt:Number = dragDelta;
-		for (i = k; i >= 0; i = (i > 0) ? i - 1 : -1)
+        for (i = k; i >= 0; i--)
 		{
 			// If dragDelta -ve  => shrink upper components
 			// otherwise grow them.
@@ -1338,8 +1384,14 @@ public class DividedBox extends Box
 			newSize = size.size + move;
 			amt -= move;
 
+            // Find the previous child included in the layout
+            do
+            {
+                 child = IUIComponent(getChildAt(curChildIndex--));
+            }
+            while (!child.includeInLayout);
+
 			// Adjust the child size.
-			child = getLayoutChildAt(i);
 			childSize = (newSize / smallest) * 100;
 			
 			if (vertical)
@@ -1355,6 +1407,7 @@ public class DividedBox extends Box
 		// assert(amt == 0)
 
 		// Now do the same distribution but moving downwards.
+        curChildIndex = activeDividerChildIndex + 1;
 		amt = dragDelta;
 		for (i = k + 1; i < n; i++)
 		{
@@ -1369,7 +1422,13 @@ public class DividedBox extends Box
 			newSize = size.size + move;
 			amt += move;
 
-			child = getLayoutChildAt(i);
+            // Find the next child included in the layout
+            do
+            {
+                 child = IUIComponent(getChildAt(curChildIndex++));
+            }
+            while (!child.includeInLayout);
+
 			childSize = (newSize / smallest) * 100;
 			
 			if (vertical)
@@ -1400,6 +1459,24 @@ public class DividedBox extends Box
 
 	/**
 	 *  @private
+     * If the last child is stretched to fill
+     * the remaining space this function resets its size
+     * and sets stretchedChild property to null.
+     */
+    private function resetStretchedChild():void
+    {
+        if (stretchedChild)
+        {
+            if (isVertical())
+                stretchedChild.percentHeight = NaN;
+            else
+                stretchedChild.percentWidth = NaN;
+            stretchedChild = null;
+        }
+    }
+
+    /**
+     *  @private
 	 *  Algorithm employed pre-layout to ensure that 
 	 *  we don't leave any dangling space and to ensure
 	 *  that only explicit min/max values are honored.
@@ -1449,18 +1526,19 @@ public class DividedBox extends Box
 		// No flexible children, so we make the last one 100%.
 		if (totalPerc == 0 && percCount == 0)
 		{
-			// Everyone is fixed and we can give 100% to the last one 
-			// without concern.
-			if (n > 0)
+            // Everyone is fixed and we can give 100% to the last
+            // included in layout one without concern.
+            for (i = n-1; i >= 0; i--)
 			{
-				child = getLayoutChildAt(n - 1);
-
+                child = UIComponent(getChildAt(i));
 				if (child.includeInLayout)
 				{
 					if (vertical)
 						child.percentHeight = 100;
 					else
 						child.percentWidth = 100;
+                    stretchedChild = child;
+                    break;
 				}
 			}
 		}
@@ -1526,53 +1604,20 @@ public class DividedBox extends Box
 	{
 		var child:DisplayObject = event.relatedObject;
 
-		if (IUIComponent(child).includeInLayout)
-			numLayoutChildren++;
-		
-		if (numLayoutChildren > 1)
-			createDivider(numLayoutChildren - 2);
-
 		child.addEventListener("includeInLayoutChanged",
                                child_includeInLayoutChangedHandler);
 
-		// If this child is the new last child, and we have already
-		// set the old last child to 100%, move that 100% setting to
-		// the new last child. This way dynamically added children
-		// (across multiple layout passes) behave the same as if they
-		// were all added in a single layout pass. Bug 165249.
-		if (initialized && getChildIndex(child) == numChildren - 1 && numChildren > 1)
-		{
-			var foundPercentage:Boolean = false;
-			var comp:IUIComponent;
-			var isVertical:Boolean = this.isVertical();
+        if (!IUIComponent(child).includeInLayout)
+          return;
 			
-			// First, check for any percentage values
-			for (var i:int = 0; i < numChildren - 2; i++)
-			{
-				comp = getLayoutChildAt(i);
-				if (!isNaN(isVertical ? comp.percentHeight : comp.percentWidth))
-					foundPercentage = true;
-			}
+        numLayoutChildren++;
 			
-			// Next, see if the old last child has 100%, and reset if it 
-			// does.
-			comp = getLayoutChildAt(numChildren - 2);
-			if (!foundPercentage)
-			{
-				if (isVertical)
-				{
-					if (comp.percentHeight == 100)
-						comp.percentHeight = NaN;
-				}
-				else
-				{
-					if (comp.percentWidth == 100)
-						comp.percentWidth = NaN;
-				}
-			}
+        if (numLayoutChildren > 1)
+            createDivider(numLayoutChildren - 2);
 			
-			// The new child will be set to 100% in preLayoutAdjustment().
-		}
+        // Clear the stretched child as the new last child
+        // will be set to 100% in preLayoutAdjustment().
+        resetStretchedChild();
 		
 		// Clear the cached values so that we do another 
 		// measurement pass.
@@ -1589,14 +1634,20 @@ public class DividedBox extends Box
 	{
 		var child:DisplayObject = event.relatedObject;
 		
-		if (IUIComponent(child).includeInLayout)
+        child.removeEventListener("includeInLayoutChanged",
+                                  child_includeInLayoutChangedHandler);
+
+        if (!IUIComponent(child).includeInLayout)
+          return;
+
 			numLayoutChildren--;
 	
 		if (numLayoutChildren > 0)
 			dividerLayer.removeChild(getDividerAt(numLayoutChildren - 1));
 
-		child.removeEventListener("includeInLayoutChanged",
-                                  child_includeInLayoutChangedHandler);
+        // Clear the stretched child as the new last child
+        // will be set to 100% in preLayoutAdjustment().
+        resetStretchedChild();
 
 		// Clear the cached values so that we do another 
 		// measurement pass.
@@ -1621,6 +1672,18 @@ public class DividedBox extends Box
 
 		else if (!child.includeInLayout && --numLayoutChildren > 0)
 			dividerLayer.removeChild(getDividerAt(numLayoutChildren - 1));
+
+        // Clear the stretched child as the new last child
+        // will be set to 100% in preLayoutAdjustment().
+        resetStretchedChild();
+
+        // Clear the cached values so that we do another
+        // measurement pass.
+        dbMinWidth = NaN;
+        dbMinHeight = NaN;
+        dbPreferredWidth = NaN;
+        dbPreferredHeight = NaN;
+        invalidateSize();
 	}
 	
 }
@@ -1711,4 +1774,5 @@ class ChildSizeInfo
 	 */
 	public var size:Number;
 }
+
 
