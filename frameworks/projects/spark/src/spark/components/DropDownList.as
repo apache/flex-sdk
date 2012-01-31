@@ -23,6 +23,16 @@ Keyboard Interaction
 - FxList current dispatches selectionChanged on arrowUp/Down. Should we subclass FxList
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
+*  
+
+*  @langversion 3.0
+
+*  @playerversion Flash 10
+
+*  @playerversion AIR 1.5
+
+*  @productversion Flex 4
+
 */
 
 package mx.components
@@ -45,6 +55,11 @@ import mx.graphics.baseClasses.TextGraphicElement;
  *  <code>selectedItem</code> property changes.
  *
  *  @eventType mx.events.ListEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Event(name="change", type="flash.events.Event")]
 
@@ -56,18 +71,33 @@ import mx.graphics.baseClasses.TextGraphicElement;
  *  Its functionality is very similar to that of the
  *  SELECT form element in HTML.
  * 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class DropDownList extends DropDownBase
 {
 	
     /**
      *  An optional skin part that holds the prompt or the text of the selectedItem 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     [SkinPart(required="false")]
     public var labelElement:TextGraphicElement;
 	
 	/**
      *  A skin part that is the instance of the dropDown list
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
      
      // TODO (jszeto) We want this to be required. But when the skin part is in a state,
@@ -77,6 +107,11 @@ public class DropDownList extends DropDownBase
 	
 	/**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
 	public function DropDownList()
 	{
@@ -106,6 +141,11 @@ public class DropDownList extends DropDownBase
      *  likely to occur.</p> 
      * 
      *  @default null
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */ 
 	public function get dataProvider():IList
 	{
@@ -128,6 +168,11 @@ public class DropDownList extends DropDownBase
     
     /**
      *  @copy mx.components.DataGroup#itemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get itemRenderer():IFactory
     {
@@ -155,6 +200,11 @@ public class DropDownList extends DropDownBase
      *  The name of the field in the data provider items to display as the label.
      
      * @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get labelField():String
     {
@@ -183,6 +233,11 @@ public class DropDownList extends DropDownBase
      *  <pre>myLabelFunction(item:Object):String</pre> 
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get labelFunction():Function
     {
@@ -216,6 +271,11 @@ public class DropDownList extends DropDownBase
      *  a String like "Select one...".  If there is no
      *  prompt, the FxComboBox control sets <code>selectedIndex</code> to 0
      *  and displays the first item in the <code>dataProvider</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get prompt():String
     {
@@ -254,6 +314,11 @@ public class DropDownList extends DropDownBase
      *  affects the other.</p>
      *
      *  @default -1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectedIndex():int
     {
@@ -297,6 +362,11 @@ public class DropDownList extends DropDownBase
      *  affects the other.</p>
      *
      *  @default null;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectedItem():Object
     {
@@ -478,6 +548,11 @@ public class DropDownList extends DropDownBase
     
     /**
 	 *  Called when the dropDown dispatches a selectionChanged event. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */ 
     protected function dropDown_selectionChangedHandler(event:IndexChangedEvent):void
     {
