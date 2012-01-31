@@ -15,6 +15,9 @@ package spark.components
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.TextBase;
 
+include "../styles/metadata/BasicInheritingTextStyles.as"
+include "../styles/metadata/AdvancedInheritingTextStyles.as"
+
 /**
  *  Alpha level of the background for this component.
  *  Valid values range from 0.0 to 1.0. 
@@ -121,6 +124,14 @@ public class FormHeading extends SkinnableComponent
         
         if (instance == labelDisplay)
             labelDisplay.text = label;
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function getCurrentSkinState():String
+    {
+        return enabled ? "normal" : "disabled";
     }
 }
 }
