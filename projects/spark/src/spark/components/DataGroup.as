@@ -838,25 +838,16 @@ public class DataGroup extends GroupBase
      */
     protected function adjustAfterReplace(items:Array, location:int):void
     {
-        // TODO (rfrishbe): we don't handle this case gracefully
-        // The reason is so swapping items works like it did in Halo.
-        // I can grab item1, item2, setItemAt(item1, item2index), and 
-        // setItemAt(item2, item1index).  For a temporary bit, we are 
-        // in a bad state, so to handle this, let's just redo everything.
-        // see SDK-16956.
-        dataProviderChanged = true;
-        invalidateProperties();
-        
-        /*var length:int = items.length;
+        var length:int = items.length;
         for (var i:int = length-1; i >= 0; i--)
         {
-            itemRemoved(items[i].oldValue, location + i);               
+            mx_internal::itemRemoved(items[i].oldValue, location + i);               
         }
         
         for (i = length-1; i >= 0; i--)
         {
-            itemAdded(items[i].newValue, location);
-        }*/
+            mx_internal::itemAdded(items[i].newValue, location);
+        }
     }
     
     //--------------------------------------------------------------------------
