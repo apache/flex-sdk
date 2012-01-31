@@ -332,10 +332,10 @@ public class List extends ListBase implements IIMESupport
     private var actualRowIndex:int;
     private var actualColIndex:int = 0;
 
-	/**
-	 *  cache of measuring objects by factory
-	 */
-	protected var measuringObjects:Dictionary;
+    /**
+     *  cache of measuring objects by factory
+     */
+    protected var measuringObjects:Dictionary;
 
     //--------------------------------------------------------------------------
     //
@@ -353,15 +353,15 @@ public class List extends ListBase implements IIMESupport
      */
     override public function get baselinePosition():Number
     {
-    	if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-    	{
-       		if (listItems.length && listItems[0].length)
-            	return borderMetrics.top + cachedPaddingTop + listItems[0][0].baselinePosition;
+        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
+        {
+            if (listItems.length && listItems[0].length)
+                return borderMetrics.top + cachedPaddingTop + listItems[0][0].baselinePosition;
 
-        	return NaN;
-		}
-		
-		return super.baselinePosition;
+            return NaN;
+        }
+        
+        return super.baselinePosition;
     }
 
     //----------------------------------
@@ -816,16 +816,16 @@ public class List extends ListBase implements IIMESupport
         var rowCount:int = listItems.length;
         if (rowCount == 0) return;
 
-		// ignore nonvisible rows off the top
-		var yy:Number;
-		var i:int;
-		var n:int = listItems.length;
+        // ignore nonvisible rows off the top
+        var yy:Number;
+        var i:int;
+        var n:int = listItems.length;
         // if there is more than one row and it is a partial row we dont count it
         while (rowCount > 1 && rowInfo[n - 1].y + rowInfo[n-1].height > listContent.height - listContent.bottomOffset)
-		{
+        {
             rowCount--;
-			n--;
-		}
+            n--;
+        }
 
         // offset, when added to rowCount, is the index of the dataProvider
         // item for that row.  IOW, row 10 in listItems is showing dataProvider
@@ -855,18 +855,18 @@ public class List extends ListBase implements IIMESupport
                 return;
         }
 
-		if (listContent.topOffset)
-		{
-			yy = Math.abs(listContent.topOffset);
-			i = 0;
-			while (rowInfo[i].y + rowInfo[i].height <= yy)
-			{
-				rowCount--;
-				i++;
-				if (i == rowCount)
-					break;
-			}
-		}
+        if (listContent.topOffset)
+        {
+            yy = Math.abs(listContent.topOffset);
+            i = 0;
+            while (rowInfo[i].y + rowInfo[i].height <= yy)
+            {
+                rowCount--;
+                i++;
+                if (i == rowCount)
+                    break;
+            }
+        }
 
         var colCount:int = listItems[0].length;
         var oldHorizontalScrollBar:Object = horizontalScrollBar;
@@ -903,12 +903,12 @@ public class List extends ListBase implements IIMESupport
 
         var paddingTop:Number = getStyle("paddingTop");
         var paddingBottom:Number = getStyle("paddingBottom");
-		var paddingLeft:Number = getStyle("paddingLeft");
-		var paddingRight:Number = getStyle("paddingRight");
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
 
         h = rowInfo[rowCount - 1].y + rowInfo[rowCount - 1].height;
         h = listContent.heightExcludingOffsets - listContent.topOffset - h;
-		
+        
         // back up one
         var numRows:int = 0;
         try
@@ -961,8 +961,8 @@ public class List extends ListBase implements IIMESupport
                 data = iterator.current;
                 setupRendererFromData(item, data);
                 ch = variableRowHeight ? 
-                	item.getExplicitOrMeasuredHeight() + paddingBottom + paddingTop : 
-                	rowHeight;
+                    item.getExplicitOrMeasuredHeight() + paddingBottom + paddingTop : 
+                    rowHeight;
             }
             
             h -= ch;
@@ -1004,9 +1004,9 @@ public class List extends ListBase implements IIMESupport
 
         setRowCount(listItems.length);
 
-		// if this code doesn't execute because editing is prevented while
-		// an effect is running, the editor should appear after the effect
-		// finishes
+        // if this code doesn't execute because editing is prevented while
+        // an effect is running, the editor should appear after the effect
+        // finishes
         if (bEditedItemPositionChanged && !editingTemporarilyPrevented(_proposedEditedItemPosition))
         {
             bEditedItemPositionChanged = false;
@@ -1023,31 +1023,31 @@ public class List extends ListBase implements IIMESupport
     override protected function adjustListContent(unscaledWidth:Number = -1,
                                        unscaledHeight:Number = -1):void
     {
-    	// Can't currently call this without valid parameters...
+        // Can't currently call this without valid parameters...
 
-		var lcx:Number = viewMetrics.left + Math.max(listContent.leftOffset, 0);
-		var lcy:Number = viewMetrics.top + listContent.topOffset;
+        var lcx:Number = viewMetrics.left + Math.max(listContent.leftOffset, 0);
+        var lcy:Number = viewMetrics.top + listContent.topOffset;
         listContent.move(lcx, lcy);
         
-		var ww:Number = Math.max(0, listContent.rightOffset) - lcx - viewMetrics.right;
-		var hh:Number = Math.max(0, listContent.bottomOffset) - lcy - viewMetrics.bottom;
-		var scrollableWidth:Number = unscaledWidth + ww;
-		
-		// if they want the scrollbar, we don't know how much to scroll, without rendering
-		// everything (on and/or off-screen).  Since this could be expensive, we use a heuristic: 
-		// if maxHorizontalScrollPosition is specified, we let them scroll that much.  If it's not 
-		// specified, we double the amount of viewable space and let them scroll that much.  This is
-		// just a heuristic and may not work perfectly for really long content or short content.
-		if (horizontalScrollPolicy == ScrollPolicy.ON ||
+        var ww:Number = Math.max(0, listContent.rightOffset) - lcx - viewMetrics.right;
+        var hh:Number = Math.max(0, listContent.bottomOffset) - lcy - viewMetrics.bottom;
+        var scrollableWidth:Number = unscaledWidth + ww;
+        
+        // if they want the scrollbar, we don't know how much to scroll, without rendering
+        // everything (on and/or off-screen).  Since this could be expensive, we use a heuristic: 
+        // if maxHorizontalScrollPosition is specified, we let them scroll that much.  If it's not 
+        // specified, we double the amount of viewable space and let them scroll that much.  This is
+        // just a heuristic and may not work perfectly for really long content or short content.
+        if (horizontalScrollPolicy == ScrollPolicy.ON ||
             (horizontalScrollPolicy == ScrollPolicy.AUTO && !isNaN(_maxHorizontalScrollPosition)))
-		{
-			if (isNaN(_maxHorizontalScrollPosition))
-				scrollableWidth *= 2;
-			else
-				scrollableWidth += _maxHorizontalScrollPosition;
-		}
+        {
+            if (isNaN(_maxHorizontalScrollPosition))
+                scrollableWidth *= 2;
+            else
+                scrollableWidth += _maxHorizontalScrollPosition;
+        }
         listContent.setActualSize(scrollableWidth, unscaledHeight + hh);
-	}
+    }
 
     /**
      *  @private
@@ -1068,13 +1068,13 @@ public class List extends ListBase implements IIMESupport
         colors = getStyle("alternatingItemColors");
 
         if (!colors || colors.length == 0)
-		{
-			while (rowBGs.numChildren > n)
-			{
-				rowBGs.removeChildAt(rowBGs.numChildren - 1);
-			}
+        {
+            while (rowBGs.numChildren > n)
+            {
+                rowBGs.removeChildAt(rowBGs.numChildren - 1);
+            }
             return;
-		}
+        }
 
         StyleManager.getColorNames(colors);
 
@@ -1087,7 +1087,7 @@ public class List extends ListBase implements IIMESupport
         {
             drawRowBackground(rowBGs, i++, rowInfo[curRow].y, rowInfo[curRow].height, colors[actualRow % colors.length], actualRow);
             curRow++;
-			actualRow++;
+            actualRow++;
         }
 
         while (rowBGs.numChildren > n)
@@ -1187,7 +1187,7 @@ public class List extends ListBase implements IIMESupport
         var oldItem:IListItemRenderer;
         var rowData:BaseListData;
         var data:Object;
-		var wrappedData:Object;
+        var wrappedData:Object;
         var uid:String;
         var more:Boolean = true;
         var valid:Boolean = true;
@@ -1203,62 +1203,62 @@ public class List extends ListBase implements IIMESupport
                     rowsNeeded--;
 
                 valid = more;
-				wrappedData = more ? iterator.current : null;
-				data = (wrappedData is ItemWrapper) ? wrappedData.data : wrappedData;
+                wrappedData = more ? iterator.current : null;
+                data = (wrappedData is ItemWrapper) ? wrappedData.data : wrappedData;
 
                 uid = null;
 
                 if (!listItems[rowNum])
                     listItems[rowNum] = [];
 
-				// TODO more code around renderer recycling should be shared with TileBase /
-				// moved to ListBase if possible
+                // TODO more code around renderer recycling should be shared with TileBase /
+                // moved to ListBase if possible
                 if (valid)
                 {
                     item = listItems[rowNum][colNum];
                     uid = itemToUID(wrappedData);
 
-					// If we have an item at the current location, we want to 
-					// re use it if the data is "the same", but the test
-					// is a little complex.
-					// If we're running a data effect, and the renderer is already
-					// presenting wrapped data, make sure the wrappers are the same.
-					// If running a data effect, but not presenting wrapped data
-					// (meaning the data effect was just initiated), or if
-					// not running data effect, just check that the data is the same.
-					if (!item ||
-					    ((runningDataEffect && dataItemWrappersByRenderer[item]) 
-					    	? (dataItemWrappersByRenderer[item] != wrappedData)
-					    	: (item.data != data)))
+                    // If we have an item at the current location, we want to 
+                    // re use it if the data is "the same", but the test
+                    // is a little complex.
+                    // If we're running a data effect, and the renderer is already
+                    // presenting wrapped data, make sure the wrappers are the same.
+                    // If running a data effect, but not presenting wrapped data
+                    // (meaning the data effect was just initiated), or if
+                    // not running data effect, just check that the data is the same.
+                    if (!item ||
+                        ((runningDataEffect && dataItemWrappersByRenderer[item]) 
+                            ? (dataItemWrappersByRenderer[item] != wrappedData)
+                            : (item.data != data)))
                     {
-                    	// if we're allowed to re-use existing renderers
-                    	if (allowRendererStealingDuringLayout)
-                    	{
-	                    	// first try to steal an item renderer
-							item = visibleData[uid];
-							// if we can't steal a renderer with the same wrapper, try to
-							// steal one with the same actual data (if the data is wrapped).
-							// This is to re-use renderers when we start running a data effect.
-							if (!item && (wrappedData != data))
-								item = visibleData[itemToUID(data)];
-                    	}
-                    	
-						if (item) // if we've stolen a renderer from somewhere else...
-						{
-							// update data structures so we're not pointing to it twice
-							var ld:BaseListData = BaseListData(rowMap[item.name]);
-
-							// don't steal a previous one...only a later one
-							if (ld && (ld.rowIndex > rowNum))
-								listItems[ld.rowIndex] = [];
-							else
-								item = null;
-						}
-						
-						if (!item)
-	                    	item = getReservedOrFreeItemRenderer(wrappedData);
+                        // if we're allowed to re-use existing renderers
+                        if (allowRendererStealingDuringLayout)
+                        {
+                            // first try to steal an item renderer
+                            item = visibleData[uid];
+                            // if we can't steal a renderer with the same wrapper, try to
+                            // steal one with the same actual data (if the data is wrapped).
+                            // This is to re-use renderers when we start running a data effect.
+                            if (!item && (wrappedData != data))
+                                item = visibleData[itemToUID(data)];
+                        }
                         
-						if (!item)
+                        if (item) // if we've stolen a renderer from somewhere else...
+                        {
+                            // update data structures so we're not pointing to it twice
+                            var ld:BaseListData = BaseListData(rowMap[item.name]);
+
+                            // don't steal a previous one...only a later one
+                            if (ld && (ld.rowIndex > rowNum))
+                                listItems[ld.rowIndex] = [];
+                            else
+                                item = null;
+                        }
+                        
+                        if (!item)
+                            item = getReservedOrFreeItemRenderer(wrappedData);
+                        
+                        if (!item)
                         {
                             item = createItemRenderer(data);
                             item.owner = this;
@@ -1283,14 +1283,14 @@ public class List extends ListBase implements IIMESupport
                             IDropInListItemRenderer(item).listData = null;
                     }
 
-	                item.data = data;
+                    item.data = data;
                     item.enabled = enabled;
                     item.visible = true;
                     if (uid != null)
                         visibleData[uid] = item;
 
                     if (wrappedData != data)
-                    	dataItemWrappersByRenderer[item] = wrappedData;
+                        dataItemWrappersByRenderer[item] = wrappedData;
 
                     item.explicitWidth = ww;
 
@@ -1298,7 +1298,7 @@ public class List extends ListBase implements IIMESupport
                         && (wordWrapChanged || variableRowHeight))
                         IInvalidating(item).invalidateSize();
 
-					UIComponentGlobals.layoutManager.validateClient(item, true);
+                    UIComponentGlobals.layoutManager.validateClient(item, true);
 
                     hh = Math.ceil(variableRowHeight ?
                          item.getExplicitOrMeasuredHeight() +
@@ -1317,7 +1317,7 @@ public class List extends ListBase implements IIMESupport
                     hh = rowNum > 0 ? rowInfo[rowNum - 1].height : rowHeight;
 
                     if (hh == 0)
-                    	hh = rowHeight;
+                        hh = rowHeight;
 
                     oldItem = listItems[rowNum][colNum];
                     if (oldItem)
@@ -1329,11 +1329,11 @@ public class List extends ListBase implements IIMESupport
                 bSelected = selectedData[uid] != null;
                 if (wrappedData != data)
                 {
-                	bSelected = bSelected || selectedData[itemToUID(data)];
-					bSelected = bSelected && (!getRendererSemanticValue(item,ModifiedCollectionView.REPLACEMENT))
-						&& (!getRendererSemanticValue(item,ModifiedCollectionView.ADDED));
+                    bSelected = bSelected || selectedData[itemToUID(data)];
+                    bSelected = bSelected && (!getRendererSemanticValue(item,ModifiedCollectionView.REPLACEMENT))
+                        && (!getRendererSemanticValue(item,ModifiedCollectionView.ADDED));
                 }
-                	
+                    
                 bHighlight = highlightUID == uid;
                 bCaret = caretUID == uid;
                 rowInfo[rowNum] = new ListRowInfo(yy, hh, uid, data);
@@ -1450,15 +1450,15 @@ public class List extends ListBase implements IIMESupport
                 {
                     try
                     {
-						if (!iteratorValid)
-							iterator.seek(CursorBookmark.FIRST, pos);
-						else
-							iterator.seek(CursorBookmark.CURRENT, delta);
-						if (!iteratorValid)
-						{
-							iteratorValid = true;
-							lastSeekPending = null;
-						}
+                        if (!iteratorValid)
+                            iterator.seek(CursorBookmark.FIRST, pos);
+                        else
+                            iterator.seek(CursorBookmark.CURRENT, delta);
+                        if (!iteratorValid)
+                        {
+                            iteratorValid = true;
+                            lastSeekPending = null;
+                        }
                     }
                     catch(e:ItemPendingError)
                     {
@@ -1542,8 +1542,8 @@ public class List extends ListBase implements IIMESupport
      */
     mx_internal function setupRendererFromData(item:IListItemRenderer, wrappedData:Object):void
     {
-		var data:Object = (wrappedData is ItemWrapper) ? wrappedData.data : wrappedData;
-		
+        var data:Object = (wrappedData is ItemWrapper) ? wrappedData.data : wrappedData;
+        
         if (item is IDropInListItemRenderer)
         {
             if (data != null)
@@ -1557,7 +1557,7 @@ public class List extends ListBase implements IIMESupport
         if (item is IInvalidating)
             IInvalidating(item).invalidateSize();
 
-		UIComponentGlobals.layoutManager.validateClient(item, true);
+        UIComponentGlobals.layoutManager.validateClient(item, true);
     }    
 
     /**
@@ -1578,18 +1578,18 @@ public class List extends ListBase implements IIMESupport
 
         var bookmark:CursorBookmark = (iterator) ? iterator.bookmark : null;
         if (index != -1 && iterator)
-		{
-			try
-			{
-				iterator.seek(CursorBookmark.FIRST, index);
-			}
-			catch (e:ItemPendingError)
-			{
-				// even the first item isn't paged in
-				return 0;
-			}
+        {
+            try
+            {
+                iterator.seek(CursorBookmark.FIRST, index);
+            }
+            catch (e:ItemPendingError)
+            {
+                // even the first item isn't paged in
+                return 0;
+            }
 
-		}
+        }
         var rw:Number;
         var more:Boolean = iterator != null;
         for (var i:int = 0; i < count; i++)
@@ -1598,14 +1598,14 @@ public class List extends ListBase implements IIMESupport
             if (more)
             {
                 data = iterator.current;
-				var factory:IFactory = getItemRendererFactory(data);
-				item = measuringObjects[factory];
-				if (!item)
-				{
-					item = getMeasuringRenderer(data);
-				}
+                var factory:IFactory = getItemRendererFactory(data);
+                item = measuringObjects[factory];
+                if (!item)
+                {
+                    item = getMeasuringRenderer(data);
+                }
 
-		        item.explicitWidth = NaN;   // gets set in measureHeightOfItems
+                item.explicitWidth = NaN;   // gets set in measureHeightOfItems
                 setupRendererFromData(item, data);
 
                 rw = item.measuredWidth;
@@ -1675,9 +1675,9 @@ public class List extends ListBase implements IIMESupport
                 rh = rowHeight;
                 data = iterator.current;
 
-				// trace("calculate height " + index + " " + count);
-				var item:IListItemRenderer = getMeasuringRenderer(data);
-		        item.explicitWidth = ww;
+                // trace("calculate height " + index + " " + count);
+                var item:IListItemRenderer = getMeasuringRenderer(data);
+                item.explicitWidth = ww;
 
                 setupRendererFromData(item, data);
 
@@ -1722,25 +1722,25 @@ public class List extends ListBase implements IIMESupport
      */
     mx_internal function getMeasuringRenderer(data:Object):IListItemRenderer
     {
-		var item:IListItemRenderer;
-		if (!measuringObjects)
-			measuringObjects = new Dictionary(true);
+        var item:IListItemRenderer;
+        if (!measuringObjects)
+            measuringObjects = new Dictionary(true);
 
-		var factory:IFactory = getItemRendererFactory(data);
-		item = measuringObjects[factory];
+        var factory:IFactory = getItemRendererFactory(data);
+        item = measuringObjects[factory];
 
-		if (!item)
-		{
-			item = createItemRenderer(data);
-			item.owner = this;
-			item.name = "hiddenItem";
-			item.visible = false;
-			item.styleName = listContent;
-			listContent.addChild(DisplayObject(item));
-			measuringObjects[factory] = item;
-		}
-		
-		return item;
+        if (!item)
+        {
+            item = createItemRenderer(data);
+            item.owner = this;
+            item.name = "hiddenItem";
+            item.visible = false;
+            item.styleName = listContent;
+            listContent.addChild(DisplayObject(item));
+            measuringObjects[factory] = item;
+        }
+        
+        return item;
     }
 
     /**
@@ -1748,14 +1748,14 @@ public class List extends ListBase implements IIMESupport
      */
     mx_internal function purgeMeasuringRenderers():void
     {
-		var item:IListItemRenderer;
+        var item:IListItemRenderer;
 
-		for each (item in measuringObjects)
-			if (item.parent)
-				item.parent.removeChild(DisplayObject(item));
+        for each (item in measuringObjects)
+            if (item.parent)
+                item.parent.removeChild(DisplayObject(item));
 
-		if (!measuringObjects)
-			measuringObjects = new Dictionary(true);
+        if (!measuringObjects)
+            measuringObjects = new Dictionary(true);
     }
 
     /**
@@ -1763,92 +1763,96 @@ public class List extends ListBase implements IIMESupport
      */
     override public function set itemRenderer(value:IFactory):void
     {
-		super.itemRenderer = value;
-		purgeMeasuringRenderers();
-	}
+        super.itemRenderer = value;
+        purgeMeasuringRenderers();
+    }
 
     /**
-     *  Get the appropriate renderer, using the default renderer if none specified
+     *  Get the appropriate renderer, using the default renderer if none is specified.
+     * 
+     *  @param data The object from which the item renderer is created.
+     *  
+     *  @return The renderer.
      */
     override public function createItemRenderer(data:Object):IListItemRenderer
-	{
-		var factory:IFactory;
+    {
+        var factory:IFactory;
 
-		// get the factory for the data
-		factory = getItemRendererFactory(data);
-		if (!factory)
-		{
-			if (data == null)
-				factory = nullItemRenderer;
-			if (!factory)
-				factory = itemRenderer;
-		}
+        // get the factory for the data
+        factory = getItemRendererFactory(data);
+        if (!factory)
+        {
+            if (data == null)
+                factory = nullItemRenderer;
+            if (!factory)
+                factory = itemRenderer;
+        }
 
-		var renderer:IListItemRenderer;
+        var renderer:IListItemRenderer;
 
-		// if it is the default column factory, see if
-		// the freeItemRenderers table has a free one
-		if (factory == itemRenderer)
-		{
-			if (freeItemRenderers && freeItemRenderers.length)
-			{
-				renderer = freeItemRenderers.pop();
-				delete freeItemRenderersByFactory[factory][renderer];
-			}
-		}
-		else if (freeItemRenderersByFactory)
-		{
-			// other re-usable renderers are in the FactoryMap
-			var d:Dictionary = freeItemRenderersByFactory[factory];
-			if (d)
-			{
-				for (var p:* in d)
-				{
-					renderer = IListItemRenderer(p);
-					delete d[p];
-					break;
-				}
-			}
-		}
+        // if it is the default column factory, see if
+        // the freeItemRenderers table has a free one
+        if (factory == itemRenderer)
+        {
+            if (freeItemRenderers && freeItemRenderers.length)
+            {
+                renderer = freeItemRenderers.pop();
+                delete freeItemRenderersByFactory[factory][renderer];
+            }
+        }
+        else if (freeItemRenderersByFactory)
+        {
+            // other re-usable renderers are in the FactoryMap
+            var d:Dictionary = freeItemRenderersByFactory[factory];
+            if (d)
+            {
+                for (var p:* in d)
+                {
+                    renderer = IListItemRenderer(p);
+                    delete d[p];
+                    break;
+                }
+            }
+        }
 
-		if (!renderer)
-		{
-			renderer = factory.newInstance();
-			renderer.styleName = this;
-			factoryMap[renderer] = factory;
-		}
+        if (!renderer)
+        {
+            renderer = factory.newInstance();
+            renderer.styleName = this;
+            factoryMap[renderer] = factory;
+        }
 
-		renderer.owner = this;
-		return renderer;
-	}
+        renderer.owner = this;
+        return renderer;
+    }
 
     /**
      *  @private
      * 
      *  Determines whether editing is prevented for a specific location 
      */
-	private function editingTemporarilyPrevented(coord:Object):Boolean
-	{
-		// This code prevents possible race conditions when trying to
-		// edit an item that is either being removed or replaced when
-		// an effect is running. (E.g., after editing the last item of
-		// a list, we can't have the editor pick up the old value of
-		// the data, which might appear to persist while the effect is
-		// running)
-		if (runningDataEffect && coord)
-		{
-	        var rowIndex:int = coord.rowIndex - verticalScrollPosition + offscreenExtraRowsTop;
-	        if ((rowIndex < 0) || rowIndex >= listItems.length)
-	        	return false;
-	        var item:IListItemRenderer = listItems[rowIndex][0];
-	        if (item && (getRendererSemanticValue(item,"replaced") || 
-	        			 getRendererSemanticValue(item,"removed")))
-	        	return true;
-		}
-		
-		return false;
-	}
-	
+    private function editingTemporarilyPrevented(coord:Object):Boolean
+    {
+        // This code prevents possible race conditions when trying to
+        // edit an item that is either being removed or replaced when
+        // an effect is running. (E.g., after editing the last item of
+        // a list, we can't have the editor pick up the old value of
+        // the data, which might appear to persist while the effect is
+        // running)
+        if (runningDataEffect && coord)
+        {
+            var rowIndex:int = coord.rowIndex - verticalScrollPosition + offscreenExtraRowsTop;
+            if ((rowIndex < 0) || rowIndex >= listItems.length)
+                return false;
+            var item:IListItemRenderer = listItems[rowIndex][0];
+            if (item && (getRendererSemanticValue(item,"replaced") || 
+                         getRendererSemanticValue(item,"removed")))
+                return true;
+        }
+        
+        return false;
+    }
+    
     /**
      *  @private
      */
@@ -1907,10 +1911,10 @@ public class List extends ListBase implements IIMESupport
 
         var actualLockedRows:int = lockedRowCount;
 
-		// determine last *visible* row
+        // determine last *visible* row
         var lastRowIndex:int = verticalScrollPosition + listItems.length - offscreenExtraRowsTop - offscreenExtraRowsBottom - 1;
         var partialRow:int = (rowInfo[listItems.length - offscreenExtraRowsBottom - 1].y + 
-        	rowInfo[listItems.length - offscreenExtraRowsBottom - 1].height > listContent.height) ? 1 : 0;
+            rowInfo[listItems.length - offscreenExtraRowsBottom - 1].height > listContent.height) ? 1 : 0;
 
         // actual row/column is the offset into listItems
         if (rowIndex > actualLockedRows)
@@ -1931,10 +1935,10 @@ public class List extends ListBase implements IIMESupport
                     if (verticalScrollPosition == maxVerticalScrollPosition)
                         break;
                     verticalScrollPosition = Math.min(verticalScrollPosition + (rowIndex > lastRowIndex ? rowIndex - lastRowIndex : partialRow), 
-                    								  maxVerticalScrollPosition);
+                                                      maxVerticalScrollPosition);
                     lastRowIndex = verticalScrollPosition + listItems.length - offscreenExtraRowsTop - offscreenExtraRowsBottom - 1;
                     partialRow = (rowInfo[listItems.length - offscreenExtraRowsBottom - 1].y + 
-                    	rowInfo[listItems.length - offscreenExtraRowsBottom - 1].height > listContent.height) ? 1 : 0;
+                        rowInfo[listItems.length - offscreenExtraRowsBottom - 1].height > listContent.height) ? 1 : 0;
                 }
             }
 
@@ -1961,12 +1965,12 @@ public class List extends ListBase implements IIMESupport
             commitEditedItemPosition(null);
             return;
         }
-		if (!isItemEditable(item.data))
-		{
+        if (!isItemEditable(item.data))
+        {
             // assume that editing was cancelled
             commitEditedItemPosition(null);
             return;
-		}
+        }
 
         var event:ListEvent =
             new ListEvent(ListEvent.ITEM_EDIT_BEGIN, false, true);
@@ -2122,7 +2126,7 @@ public class List extends ListBase implements IIMESupport
         {
             DisplayObject(itemEditorInstance).removeEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
             if (stage)
-				stage.removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
+                stage.removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
 
             var event:ListEvent =
                 new ListEvent(ListEvent.ITEM_FOCUS_OUT);
@@ -2200,13 +2204,13 @@ public class List extends ListBase implements IIMESupport
      */
     public function isItemEditable(data:Object):Boolean
     {
-		if (!editable)
-			return false;
+        if (!editable)
+            return false;
 
         if (data == null)
             return false;
 
-		return true;
+        return true;
     }
 
     /**
@@ -2631,15 +2635,15 @@ public class List extends ListBase implements IIMESupport
             {
                 bFieldChanged = true;
                 try
-				{
+                {
                     data[labelField] = newData;
                     if (!(data is IPropertyChangeNotifier))
                     {
-                    	// update the underlying collection if a data effect is running
-                    	if (actualCollection)
-                    		actualCollection.itemUpdated(data, labelField);
-                    	else
-                        	collection.itemUpdated(data, labelField);
+                        // update the underlying collection if a data effect is running
+                        if (actualCollection)
+                            actualCollection.itemUpdated(data, labelField);
+                        else
+                            collection.itemUpdated(data, labelField);
                     }
                 }
                 catch(e:Error)
@@ -2656,9 +2660,9 @@ public class List extends ListBase implements IIMESupport
                 }
                 if (bChanged)
                 {
-                	// if running a data effect try to update the underlying collection
-                	var editCollection:IList = actualCollection ? actualCollection as IList : collection as IList;
-                	// if editCollection is null here, underlying collection doesn't implement IList
+                    // if running a data effect try to update the underlying collection
+                    var editCollection:IList = actualCollection ? actualCollection as IList : collection as IList;
+                    // if editCollection is null here, underlying collection doesn't implement IList
                     if (editCollection)
                         IList(editCollection).setItemAt(data, event.rowIndex);
                     else
@@ -2778,17 +2782,17 @@ public class List extends ListBase implements IIMESupport
      */    
     mx_internal function callSetupRendererFromData(item:IListItemRenderer, data:Object):void
     {
-    	setupRendererFromData(item, data);
+        setupRendererFromData(item, data);
     }
     
     /**
      *  @private
      */    
     mx_internal function callMakeListData(data:Object, uid:String,
-								 rowNum:int):BaseListData
-	{
-		return makeListData(data, uid, rowNum);
-	}
+                                 rowNum:int):BaseListData
+    {
+        return makeListData(data, uid, rowNum);
+    }
 
 }
 
