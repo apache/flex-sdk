@@ -60,7 +60,7 @@ public class FxVSlider extends FxSlider
         {
             var trackLElement:ILayoutElement = 
                 LayoutElementFactory.getLayoutElementFor(track);
-            return trackLElement.getLayoutHeight();
+            return trackLElement.getLayoutBoundsHeight();
         }
         else
            return 0;
@@ -73,7 +73,7 @@ public class FxVSlider extends FxSlider
     {
         var thumbLElement:ILayoutElement = 
             LayoutElementFactory.getLayoutElementFor(thumb);
-        return thumbLElement.getLayoutHeight();
+        return thumbLElement.getLayoutBoundsHeight();
     }
 
     //--------------------------------------------------------------------------
@@ -105,13 +105,13 @@ public class FxVSlider extends FxSlider
                 var trackLElement:ILayoutElement = 
                     LayoutElementFactory.getLayoutElementFor(track);
                     
-                trackLen = trackLElement.getLayoutHeight();
-                trackPos = trackLElement.getLayoutPositionY();
+                trackLen = trackLElement.getLayoutBoundsHeight();
+                trackPos = trackLElement.getLayoutBoundsY();
             }
             
-            thumbLElement.setLayoutPosition(thumbLElement.getLayoutPositionX(), 
+            thumbLElement.setLayoutBoundsPosition(thumbLElement.getLayoutBoundsX(), 
                                          Math.round(trackPos + trackLen - thumbPos
-                                         - thumbLElement.getLayoutHeight())); 
+                                         - thumbLElement.getLayoutBoundsHeight())); 
         }
     }
     
@@ -132,11 +132,11 @@ public class FxVSlider extends FxSlider
     {
         var trackLElement:ILayoutElement = 
             LayoutElementFactory.getLayoutElementFor(track);
-        var trackLen:Number = trackLElement.getLayoutHeight();
+        var trackLen:Number = trackLElement.getLayoutBoundsHeight();
         
         var thumbLElement:ILayoutElement = 
             LayoutElementFactory.getLayoutElementFor(thumb);
-        var thumbH:Number = thumbLElement.getLayoutHeight();
+        var thumbH:Number = thumbLElement.getLayoutBoundsHeight();
     
         return trackLen - localY - thumbH; 
     }
@@ -149,7 +149,7 @@ public class FxVSlider extends FxSlider
     {
         var thumbLElement:ILayoutElement = 
             LayoutElementFactory.getLayoutElementFor(thumb);
-        var thumbH:Number = thumbLElement.getLayoutHeight(); 
+        var thumbH:Number = thumbLElement.getLayoutBoundsHeight(); 
         
         return pointToPosition(localX, localY) + (thumbH / 2);
     }
@@ -168,7 +168,7 @@ public class FxVSlider extends FxSlider
 	        var r:Point = localToGlobal(o);        
 			r = tipAsDisplayObject.parent.globalToLocal(r);
 			
-			// TODO (jszeto) Change to use ILayoutElement.setLayoutPosition?
+			// TODO (jszeto) Change to use ILayoutElement.setLayoutBoundsPosition?
         	tipAsDisplayObject.x = Math.floor(r.x < 0 ? 0 : r.x);
         	tipAsDisplayObject.y = Math.floor(r.y < 0 ? 0 : r.y);
     	}
