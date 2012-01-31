@@ -1340,7 +1340,7 @@ public class ViewStack extends Container implements IHistoryManagerClient
             selectedIndex++;
         }
 
-        if (child as IAutomationObject);
+        if (child is IAutomationObject)
             IAutomationObject(child).showInAutomationHierarchy = true;
         
     }
