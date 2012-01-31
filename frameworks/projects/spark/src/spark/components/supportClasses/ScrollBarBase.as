@@ -130,6 +130,12 @@ use namespace mx_internal;
  */
 [Style(name="smoothScrolling", type="Boolean", inherit="no")]
 
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="focusThickness", kind="style")]
+
 /**
  *  The ScrollBar class helps to position
  *  the portion of data that is displayed when there is too much data
