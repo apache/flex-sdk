@@ -439,11 +439,11 @@ public class GridLayout extends LayoutBase
         
         // Layers
         
-        const backgroundLayer:GridLayer = grid.getLayer("backgroundLayer");
-        const selectionLayer:GridLayer = grid.getLayer("selectionLayer");    
-        const editorIndicatorLayer:GridLayer = grid.getLayer("editorIndicatorLayer");
-        const rendererLayer:GridLayer = grid.getLayer("rendererLayer");
-        const overlayLayer:GridLayer = grid.getLayer("overlayLayer");        
+        const backgroundLayer:GridLayer = getLayer("backgroundLayer");
+        const selectionLayer:GridLayer = getLayer("selectionLayer");    
+        const editorIndicatorLayer:GridLayer = getLayer("editorIndicatorLayer");
+        const rendererLayer:GridLayer = getLayer("rendererLayer");
+        const overlayLayer:GridLayer = getLayer("overlayLayer");        
         
         // Layout the columns and item renderers
         
@@ -533,6 +533,15 @@ public class GridLayout extends LayoutBase
         return target as Grid;
     }
     
+    private function getLayer(name:String):GridLayer
+    {
+        const grid:Grid = target as Grid;
+        if (!grid)
+            return null;
+        
+        return grid.getChildByName(name) as GridLayer;
+    }
+    
     /**
      *  @private
      */
@@ -571,7 +580,7 @@ public class GridLayout extends LayoutBase
 	 */
 	private function createTypicalItemRenderer(columnIndex:int):IGridItemRenderer
 	{
-        const rendererLayer:GridLayer = grid.getLayer("rendererLayer");
+        const rendererLayer:GridLayer = getLayer("rendererLayer");
         if (!rendererLayer)
             return null;
         
@@ -2315,7 +2324,7 @@ public class GridLayout extends LayoutBase
         if (visibleItemRenderer)
             return visibleItemRenderer;
         
-        const rendererLayer:GridLayer = grid.getLayer("rendererLayer");
+        const rendererLayer:GridLayer = getLayer("rendererLayer");
         if (!rendererLayer)
             return null;
         
