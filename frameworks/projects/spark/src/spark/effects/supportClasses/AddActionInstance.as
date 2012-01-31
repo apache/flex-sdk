@@ -121,12 +121,20 @@ public class AddActionInstance extends ActionEffectInstance
        return child.parent;
     }
     
+    private function getNumElements(container:*):int
+    {
+        if (container is IVisualElementContainer)
+            return IVisualElementContainer(container).numElements;
+        else
+            return container.numChildren;
+    }
+    
     private function addChild(container:*, child:*):void
     {
         if (container is IVisualElementContainer)
-           IVisualElementContainer(container).addElement(child);
+            IVisualElementContainer(container).addElement(child);
         else
-           container.addChild(child);
+            container.addChild(child);
     }
     
     private function removeChild(container:*, child:*):void
@@ -185,7 +193,7 @@ public class AddActionInstance extends ActionEffectInstance
                             addChild(relativeTo, target);
                         else
                             addChildAt(relativeTo, target, 
-                                                Math.min(index, relativeTo.numChildren));
+                                Math.min(index, getNumElements(relativeTo)));
                         break;
                     }
                     
