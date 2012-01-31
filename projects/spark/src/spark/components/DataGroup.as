@@ -15,9 +15,9 @@ import mx.graphics.IGraphicElement;
 import mx.graphics.MaskType;
 import mx.utils.MatrixUtil;
 import mx.graphics.graphicsClasses.GraphicElement;
-import mx.layout.ILayoutItem;
+import mx.layout.ILayoutElement;
 import mx.layout.BasicLayout;
-import mx.layout.LayoutItemFactory;
+import mx.layout.LayoutElementFactory;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
@@ -423,7 +423,7 @@ public class DataGroup extends GroupBase
     /**
      *  @private
      */
-    override public function get numLayoutItems():int
+    override public function get numLayoutElements():int
     {
         return dataProvider ? dataProvider.length : 0;
     }
@@ -431,13 +431,13 @@ public class DataGroup extends GroupBase
     /**
      *  @private
      */
-    override public function getLayoutItemAt(index:int):ILayoutItem
+    override public function getLayoutElementAt(index:int):ILayoutElement
     {
         var item:Object = dataProvider.getItemAt(index);
 
         var myItemRenderer:Object = getItemRenderer(item);
 
-        return LayoutItemFactory.getLayoutItemFor(myItemRenderer);
+        return LayoutElementFactory.getLayoutElementFor(myItemRenderer);
     }
     
     /**
