@@ -126,9 +126,9 @@ ToggleButton
 	skinClass: ClassReference("spark.skins.default.ToggleButtonSkin");
 }
 
-VideoDisplay
+VideoPlayer
 {
-    skinClass: ClassReference("spark.skins.default.VideoDisplaySkin");
+    skinClass: ClassReference("spark.skins.default.VideoPlayerSkin");
 }
 
 VScrollBar
