@@ -13,16 +13,20 @@ package spark.components
 {
 
 import mx.collections.IList;
-import spark.components.DataGroup;
-import spark.components.supportClasses.SkinnableContainerBase;
 import mx.core.IFactory;
-import spark.core.IViewport;
+import mx.core.IVisualElement; 
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
-import spark.events.RendererExistenceEvent;
-import spark.layout.supportClasses.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
+
+import spark.components.DataGroup; 
+import spark.components.IItemRendererOwner;
+import spark.components.supportClasses.ItemRenderer;
+import spark.components.supportClasses.SkinnableContainerBase;
+import spark.core.IViewport;
+import spark.events.RendererExistenceEvent;
+import spark.layout.supportClasses.LayoutBase;
 
 /**
  *  Dispatched when a renderer is added to the content holder.
@@ -77,7 +81,7 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class SkinnableDataContainer extends SkinnableContainerBase implements IViewport
+public class SkinnableDataContainer extends SkinnableContainerBase implements IViewport, IItemRendererOwner
 {
     include "../core/Version.as";
     
@@ -595,6 +599,33 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         return (dataGroup) ? 
             dataGroup.getVerticalScrollPositionDelta(scrollUnit) : 0;     
     }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Given a data item, return the correct text representation 
+     *  a renderer should display. 
+     *
+     *  @param item A data item 
+     *  
+     *  @return String representing the text to display for the 
+     *  passed in item's renderer. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function itemToLabel(item:Object):String
+    {
+    	if (item)
+            return item.toString();
+        else return " ";
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -691,7 +722,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
                 // the only reason we have this listener is to re-dispatch events.  So only add it here
                 // if someone's listening on us.
                 dataGroup.addEventListener(
-                    RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+                    RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
             }
             
             if (hasEventListener(RendererExistenceEvent.RENDERER_REMOVE))
@@ -714,7 +745,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             dataGroup.removeEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
             dataGroup.removeEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
             dataGroup.removeEventListener(
                 RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
             
@@ -783,7 +814,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
         if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
         {
             dataGroup.addEventListener(
-                RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+                RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
         }
         
         if (type == RendererExistenceEvent.RENDERER_REMOVE && dataGroup)
@@ -820,7 +851,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
             if (!hasEventListener(RendererExistenceEvent.RENDERER_ADD))
             {
                 dataGroup.removeEventListener(
-                    RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+                    RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddChangeHandler);
             }
         }
         
@@ -856,6 +887,22 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
                 dispatchEvent(event);
             }
         }
+    }
+    
+    /**
+     * @private
+     */
+    private function dataGroup_rendererAddChangeHandler(event:RendererExistenceEvent):void
+    {
+    	var renderer:Object = event.renderer;
+        
+        if (renderer is IVisualElement)
+            IVisualElement(renderer).owner = this;
+        
+        if (renderer is IItemRenderer)
+            IItemRenderer(renderer).labelText = itemToLabel(renderer.data);
+        
+        dispatchEvent(event);
     }
 }
 
