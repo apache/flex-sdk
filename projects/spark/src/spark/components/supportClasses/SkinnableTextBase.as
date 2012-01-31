@@ -18,15 +18,14 @@ import flash.events.FocusEvent;
 
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.SelectionEvent;
-import flashx.textLayout.formats.LineBreak;
 
 import mx.core.IIMESupport;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
+import mx.styles.StyleProxy;
 import mx.utils.BitFlagUtil;
 
-import spark.components.supportClasses.SkinnableComponent;
 import spark.components.TextSelectionHighlighting;
 import spark.events.TextOperationEvent;
 import spark.components.RichEditableText;
@@ -77,9 +76,50 @@ use namespace mx_internal;
  */
 [Event(name="change", type="spark.events.TextOperationEvent")]
 
+include "../../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../../styles/metadata/BasicInheritingTextStyles.as"
 include "../../styles/metadata/AdvancedInheritingTextStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
+
+/**
+ *  The alpha of the border for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderAlpha", type="Number", inherit="no", theme="spark")]
+
+/**
+ *  The color of the border for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark")]
+
+/**
+ *  Controls the visibility of the border for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
+
+/**
+ *  The alpha of the content background for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#contentBackgroundColor
@@ -90,6 +130,16 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  The alpha of the focus ring for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#focusColor
@@ -187,6 +237,16 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private static const WIDTH_IN_CHARS_PROPERTY_FLAG:uint = 1 << 12;
 
+    /**
+     *  @private
+     */
+    private static const paddingStyleFilters:Object = {
+        "paddingLeft":"paddingLeft",
+        "paddingTop":"paddingTop",
+        "paddingRight":"paddingRight",
+        "paddingBottom":"paddingBottom"
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -761,6 +821,9 @@ public class SkinnableTextBase extends SkinnableComponent
 
             textDisplay.addEventListener(FlexEvent.VALUE_COMMIT,
                                          textDisplay_valueCommitHandler);
+            
+            // Proxy padding styles to the textDisplay
+            textDisplay.styleName = new StyleProxy(this, paddingStyleFilters);
         }
     }
 
