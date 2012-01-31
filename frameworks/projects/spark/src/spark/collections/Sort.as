@@ -31,6 +31,25 @@ import mx.utils.ObjectUtil;
 [DefaultProperty("fields")]
 [ResourceBundle("collections")]
 
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+/**
+ *  The locale identifier that specifies the language, region, script
+ *  and optionally other related tags and keys.
+ *  The syntax of this identifier must follow the syntax defined
+ *  by the Unicode Technical Standard #35 (e.g. en-US, de-DE, zh-Hans-CN)
+ * 
+ *  @see http://www.unicode.org/reports/tr35/
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="locale", type="String", inherit="yes")]
+
 /**
  *  Provides the sorting information required to establish a sort on an
  *  existing view (ICollectionView interface or class that implements the
@@ -724,11 +743,13 @@ public class Sort extends AdvancedStyleClient implements ISort
                 if (unique)
                 {
                     var uniqueRet2:Object;
+                    /*
                     if (sortArgs && fields.length == 1)
                     {
                         uniqueRet2 = items.sortOn(sortArgs.fields[0], sortArgs.options[0] | Array.UNIQUESORT);
                     }
                     else
+                    */
                     {
                         uniqueRet2 = items.sort(internalCompare,
                                                 Array.UNIQUESORT);
@@ -742,11 +763,13 @@ public class Sort extends AdvancedStyleClient implements ISort
                 }
                 else
                 {
+                    /*
                     if (sortArgs)
                     {
                         items.sortOn(sortArgs.fields, sortArgs.options);
                     }
                     else
+                    */
                     {
                         items.sort(internalCompare);
                     }
