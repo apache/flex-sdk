@@ -18,10 +18,10 @@ import mx.effects.IEffectInstance;
 import spark.effects.supportClasses.AnimateTransformInstance;
 
 /**
- *  The AnimateTransformMove effect move the target object
- *  in the x and y directions. An important difference between the AnimateTransformMove
+ *  The Move effect move the target object
+ *  in the x and y directions. An important difference between the Move
  *  effect and the Move effect is that the x and y property specifications
- *  for AnimateTransformMove specify not absolute values of the x and y coordinates on the target,
+ *  for Move specify not absolute values of the x and y coordinates on the target,
  *  but rather the change in x and y that should occur to the transform center around
  *  which the overall transform occurs. 
  *  If, for example, the 
@@ -34,12 +34,12 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:AnimateTransformMove&gt;</code> tag
+ *  <p>The <code>&lt;mx:Move&gt;</code> tag
  *  inherits all of the tag attributes of its of its superclass,
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:AnimateTransformMove
+ *  &lt;mx:Move
  *    id="ID"
  *    xFrom="val" 
  *    yFrom="val"
@@ -55,7 +55,7 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */   
-public class AnimateTransformMove extends AnimateTransform
+public class Move extends AnimateTransform
 {
     include "../core/Version.as";
 
@@ -69,7 +69,7 @@ public class AnimateTransformMove extends AnimateTransform
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function AnimateTransformMove(target:Object=null)
+    public function Move(target:Object=null)
     {
         super(target);
         instanceClass = AnimateTransformInstance;
