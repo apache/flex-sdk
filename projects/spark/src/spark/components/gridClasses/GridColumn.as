@@ -25,6 +25,7 @@ import mx.utils.ObjectUtil;
 
 import spark.components.Grid;
 import spark.components.gridClasses.DefaultGridItemEditor;
+import spark.components.gridClasses.GridSortField;
 
 use namespace mx_internal;
 
@@ -108,8 +109,9 @@ public class GridColumn extends EventDispatcher
         if (!obj2)
             return -1;
         
-        var obj1String:String = column.itemToLabel(obj1);
-        var obj2String:String = column.itemToLabel(obj2);
+        const dataFieldPath:Array = column.dataField.split(".");
+        var obj1String:String = deriveDataFromPath(obj1, dataFieldPath);
+        var obj2String:String = deriveDataFromPath(obj2, dataFieldPath);
         
         if ( obj1String < obj2String )
             return -1;
@@ -1249,20 +1251,25 @@ public class GridColumn extends EventDispatcher
     //----------------------------------
     
     /**
-     *  Returns a SortField that can
-     *  be used to sort a collection by this column's dataField.
+     *  Returns a SortField that can be used to sort a collection by this
+     *  column's <code>dataField</code>.
      *  
-     *  <p>If the <code>sortCompareFunction</code> property is defined, 
-     *  it assigns the SortField's compare function to a closure around 
-     *  the <code>sortCompareFunction</code> that uses the right signature 
+     *  <p>If the <code>sortCompareFunction</code> property is defined,
+     *  the SortField's compare function is assigned to a closure around
+     *  the <code>sortCompareFunction</code> that uses the right signature
      *  for the SortField and captures this column.</p>
      * 
+     *  <p>If the <code>sortCompareFunction</code> property is not defined
+     *  and the <code>dataField</code> is complex, then the SortField's
+     *  compare function is assigned to a closure around a default compare
+     *  function that handles the complex <code>dataField</code>.</p>
+     *
      *  <p>If the <code>sortCompareFunction</code> and 
      *  <code>dataField</code> properties are not defined, but the
      *  <code>labelFunction</code> property is defined, then it assigns the 
      *  <code>compareFunction</code> to a closure that does a basic string compare 
      *  on the <code>labelFunction</code> applied to the data objects.</p>
-     * 
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -1271,19 +1278,39 @@ public class GridColumn extends EventDispatcher
     public function get sortField():SortField
     {
         const column:GridColumn = this;
-        const sortField:SortField = new SortField(dataField);
-        var cF:Function = null;
+        const isComplexDataField:Boolean = dataFieldPath.length > 1;
         
+        // A complex dataField requires a GridSortField for the DataGrid
+        // to reverse a previous sort on this column by matching dataFieldPath
+        // to the dataField.
+        // TODO (klin): Might be fixed in Spark Sort. The only reason this is
+        // required is because MX Sort RTEs when the dataField doesn't exist on the
+        // data object even though a sortCompareFunction is defined.
+        var sortField:SortField;
+        if (isComplexDataField)
+        {
+            sortField = new GridSortField();
+            GridSortField(sortField).dataFieldPath = dataField;
+        }
+        else
+        {
+            sortField = new SortField(dataField);
+        }
+        
+        var cF:Function = null;
         if (_sortCompareFunction != null)
         {
             cF = function (a:Object, b:Object):int
             { 
                 return _sortCompareFunction(a, b, column);
-            };       
+            };
         }
         else
         {
-            if (dataFieldPath.length > 1)
+            // If no sortCompareFunction is specified, there are defaults for
+            // two special cases: complex dataFields and labelFunctions without dataFields.
+            
+            if (isComplexDataField)
             {
                 // use custom compare function for a complex dataField if one isn't provided.
                 cF = function (a:Object, b:Object):int
@@ -1380,18 +1407,30 @@ public class GridColumn extends EventDispatcher
                 return labelFunction(item);
         }
         
+        const itemString:String = deriveDataFromPath(item, labelPath);
+        
+        return (itemString != null) ? itemString : ERROR_TEXT;
+    }
+    
+    /**
+     *  @private
+     */
+    private static function deriveDataFromPath(item:Object, labelPath:Array):String
+    {
         try 
         {
             var itemData:Object = item;
             for each (var pathElement:String in labelPath)
-                itemData = itemData[pathElement];
-
+            itemData = itemData[pathElement];
+            
             if ((itemData != null) && (labelPath.length > 0))
                 return itemData.toString();
         }
-        catch(ignored:Error) { }
+        catch(ignored:Error)
+        {
+        }
         
-        return ERROR_TEXT;
+        return null;
     }
     
     /**
