@@ -240,6 +240,7 @@ public class Selector extends DataComponent
             
             if (requiresSelection &&
                     selectedIndex == NO_SELECTION &&
+                    dataProvider &&
                     dataProvider.length > 0)
             {
             	// Set the proposed selected index here to make sure
@@ -301,14 +302,15 @@ public class Selector extends DataComponent
     private function commitSelectedIndex():Boolean
     {
         // Step 1: make sure the proposed selected index is in range.
-        var maxIndex:int = dataProvider.length - 1;
+        var maxIndex:int = dataProvider ? dataProvider.length - 1 : -1;
         var oldIndex:int = _selectedIndex;
         
         if (_proposedSelectedIndex < NO_SELECTION)
             _proposedSelectedIndex = NO_SELECTION;
         if (_proposedSelectedIndex > maxIndex)
             _proposedSelectedIndex = maxIndex;
-        if (requiresSelection && _proposedSelectedIndex == NO_SELECTION && dataProvider.length > 0)
+        if (requiresSelection && _proposedSelectedIndex == NO_SELECTION && 
+            dataProvider && dataProvider.length > 0)
             return false;
         
         // Step 2: dispatch the "selectionChanging" event. If preventDefault() is called
@@ -396,7 +398,7 @@ public class Selector extends DataComponent
         // reset to the first item if requiresSelection is true)
         if (index == selectedIndex)
         {
-            if (requiresSelection && dataProvider.length > 0)
+            if (requiresSelection && dataProvider && dataProvider.length > 0)
                 selectedIndex = 0;
             else
                 selectedIndex = -1;
@@ -414,7 +416,8 @@ public class Selector extends DataComponent
      */
     private function dataProviderChangingHandler(event:FlexEvent):void
     {
-        dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+        if (dataProvider)
+            dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
         
     	doingWholesaleChanges = true;
     }
@@ -426,12 +429,13 @@ public class Selector extends DataComponent
     {
     	doingWholesaleChanges = false;
     	
-    	if (selectedIndex >= 0 && selectedIndex < dataProvider.length)
+    	if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
     	   itemSelected(dataProvider.getItemAt(selectedIndex), true);
     	else
     	   selectedIndex = -1;
     	   
-    	dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
+    	if (dataProvider)
+    	    dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
     }
     
     protected function collectionChangeHandler(event:Event):void
