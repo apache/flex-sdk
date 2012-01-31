@@ -1319,7 +1319,7 @@ public class VideoDisplay extends UIComponent
      *  is past the end of the stream, or past the amount of file
      *  downloaded so far, then attempts to seek and, if it fails, it then recovers.</p>
      * 
-     *  <p>The <code>playheadTime</code> property might not have the expected value 
+     *  <p>The <code>currentTime</code> property might not have the expected value 
      *  immediately after you call <code>seek()</code>. 
      *  For a progressive download,
      *  you can seek only to a keyframe; therefore, a seek takes you to the 
@@ -1328,8 +1328,8 @@ public class VideoDisplay extends UIComponent
      *  <p><strong>Note</strong>: When streaming, a seek always goes to the precise specified 
      *  time even if the source FLV file doesn't have a keyframe there.</p>
      *
-     *  <p>Seeking is asynchronous, so if you call the <code>seek()</code> method or set the 
-     *  <code>playheadTime</code> property, <code>playheadTime</code> does not update immediately. </p>
+     *  <p>Seeking is asynchronous, so if you call the <code>seek()</code> method, 
+     *  <code>currentTime</code> does not update immediately. </p>
      *
      *  @param time The seek time, in seconds.
      *  
