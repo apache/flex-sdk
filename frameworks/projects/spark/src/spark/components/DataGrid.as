@@ -60,6 +60,63 @@ use namespace mx_internal;
  */
 [Style(name="alternatingRowColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="spark")]
 
+/**
+ *  The alpha of the border for this component.
+ *
+ *  @default 1.0
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
+
+/**
+ *  The color of the border for this component.
+ *
+ *  @default #696969
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark")]
+
+/**
+ *  Controls the visibility of the border for this component.
+ *
+ *  @default true
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
+
+/**
+ *  The alpha of the content background for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark", minValue="0.0", maxValue="1.0")]
+
+/**
+ *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
+ *   
+ *  @default 0xF9F9F9
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
     
 include "../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../styles/metadata/BasicInheritingTextStyles.as"
@@ -1450,7 +1507,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.selectAll();
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }
@@ -1476,7 +1533,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.removeAll();
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }
@@ -1539,7 +1596,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.setRow(rowIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }
@@ -1565,7 +1622,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.addRow(rowIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }
@@ -1591,7 +1648,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.removeRow(rowIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }
@@ -1617,7 +1674,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.setRows(rowIndex, rowCount);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }
@@ -1686,7 +1743,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.setCell(rowIndex, columnIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }
@@ -1712,7 +1769,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             selectionChanged = gridSelection.addCell(rowIndex, columnIndex);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }
@@ -1767,7 +1824,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 rowIndex, columnIndex, rowCount, columnCount);
             if (selectionChanged)
                 dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
-            }
+        }
         
         return selectionChanged;
     }    
