@@ -266,7 +266,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
     [SkinPart(required="false")]
     
     /**
-     *  A required skin part that defines the DataGroup in the skin class 
+     *  An optional skin part that defines the DataGroup in the skin class 
      *  where data items get pushed into, rendered, and laid out.
      *  
      *  @langversion 3.0
@@ -603,7 +603,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
-		super.partAdded(partName, instance);
+        super.partAdded(partName, instance);
 
         if (instance == dataGroup)
         {
@@ -680,7 +680,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements II
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-		super.partRemoved(partName, instance);
+        super.partRemoved(partName, instance);
 
         if (instance == dataGroup)
         {
