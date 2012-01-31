@@ -9,13 +9,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects
+package mx.effects
 {
 
 import flash.display.DisplayObjectContainer;
 
-import flex.core.Group;
-import flex.effects.effectClasses.AddActionInstance;
+import mx.components.Group;
+import mx.effects.effectClasses.AddActionInstance;
 
 import mx.core.mx_internal;
 import mx.effects.Effect;
