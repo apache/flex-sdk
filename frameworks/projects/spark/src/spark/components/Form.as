@@ -134,6 +134,7 @@ public class Form extends SkinnableContainer
     override protected function getCurrentSkinState():String
     {
         var result:String = super.getCurrentSkinState();
+        var key:Object;
         
         if (errorStateChanged)
         {
@@ -142,7 +143,7 @@ public class Form extends SkinnableContainer
             var errMsg:String = "";
             
             // TODO (jszeto) Figure out how to do the proper ordering 
-            for (var key:Object in invalidElements)
+            for (key in invalidElements)
             {
                 isEmpty = false;
                 if (errMsg != "")
@@ -159,6 +160,14 @@ public class Form extends SkinnableContainer
             
             // Either set this to the concatenated string or empty string
             errorString = errMsg;
+        }
+        else if (enabled)
+        {
+            for (key in invalidElements)
+            {
+                result = "error";
+                break;
+            }
         }
             
         return result;
