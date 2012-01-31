@@ -63,9 +63,7 @@
 			<external-library-path dir="${FLEX_HOME}/frameworks/libs">
                 <include name="player/${global.playerglobal.version}/playerglobal.swc"/>
 				<include name="framework.swc"/>
-                <include name="textLayout_conversion.swc"/>
-                <include name="textLayout_core.swc"/>
-                <include name="textLayout_edit.swc"/>
+                <include name="textLayout.swc"/>
                 <include name="videoPlayer.swc"/>
 			</external-library-path>
 			<include-file name="version.properties" path="${FLEX_HOME}/frameworks/version.properties"/>
