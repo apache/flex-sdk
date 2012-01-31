@@ -218,6 +218,35 @@ public class GroupBase extends UIComponent implements IViewport
     }    
     
     //----------------------------------
+    //  scrollRect
+    //----------------------------------
+    
+    private var _scrollRectSet:Boolean = false;
+    
+    /**
+     * @private
+     * GroupBase workaround for a FP bug.  Ignore attempts to reset the
+     * DisplayObject scrollRect property to null (its default value) if we've
+     * never set it.  Similarly, don't read the DisplayObject scrollRect
+     * property if its value has not been set.
+     */
+     override public function get scrollRect():Rectangle
+     {
+         return (!_scrollRectSet) ? null : super.scrollRect;
+     }
+
+     /**
+      * @private 
+      */
+    override public function set scrollRect(value:Rectangle):void
+    {
+        if (!_scrollRectSet && !value)
+            return;
+        _scrollRectSet = true;
+        super.scrollRect = value;
+    }
+    
+    //----------------------------------
     //  autoLayout
     //----------------------------------
 
