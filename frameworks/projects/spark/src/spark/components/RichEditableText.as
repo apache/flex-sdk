@@ -687,6 +687,11 @@ package spark.components
          */
         private var inMeasureMethod:Boolean = false;
         
+		/**
+		 *  @private
+		 */
+		private var inUpdateDLMethod:Boolean = false;
+		
         /**
          *  @private
          */
@@ -2082,9 +2087,10 @@ package spark.components
                 {
                     _textFlow = staticPlainTextImporter.importToFlow(_text);
                 }
+				textFlowChanged = true;
             }
             
-            // Make sure the interactionManager is added to this textFlow.           
+            // Make sure the interactionManager and controller are added to this textFlow.           
             if (textChanged || contentChanged || textFlowChanged)
             {
                 _textContainerManager.setTextFlow(_textFlow);
@@ -2511,7 +2517,13 @@ package spark.components
                     // except if we're using the explicitWidth.  
                     bounds = measureTextSize(composeWidth);
                     
-                    measuredWidth = _textContainerManager.compositionWidth;
+					// The measured width shouldn’t be pinned to the composeWidth if 
+					// the composeWidth is set by %, otherwise the measuredWidth 
+					// can keep stretching
+					if (!isNaN(explicitWidth) || !isNaN(widthInChars))
+						measuredWidth = textContainerManager.compositionWidth;
+					else
+                    	measuredWidth = Math.ceil(bounds.width); 
                     measuredHeight = Math.ceil(bounds.bottom);
                 }
                 else if (!isNaN(heightConstraint) || !isNaN(explicitHeight) || 
@@ -2581,6 +2593,8 @@ package spark.components
         override protected function updateDisplayList(unscaledWidth:Number,
                                                       unscaledHeight:Number):void 
         {
+			inUpdateDLMethod = true;
+			
             //trace("updateDisplayList", unscaledWidth, unscaledHeight, "autoSize", autoSize);
             
             // Styles can be changed in event handlers while in the middle
@@ -2592,8 +2606,15 @@ package spark.components
             // to be remeasured.  If one of the dimension changes, the text may
             // compose differently and have a different size which the layout 
             // manager needs to know.
-            if (autoSize && remeasureText(unscaledWidth, unscaledHeight))
-                return;
+			// Don't exit early if we have changed size.  We may have to run 
+			// drawBackgroundAndSetScrollRect 
+            if (autoSize && 
+				lastUnscaledHeight == unscaledHeight && lastUnscaledWidth == unscaledWidth && 
+				remeasureText(unscaledWidth, unscaledHeight))
+			{
+				inUpdateDLMethod = false;
+				return;
+			}
             
             super.updateDisplayList(unscaledWidth, unscaledHeight);
             
@@ -2644,6 +2665,8 @@ package spark.components
             
             lastUnscaledWidth = unscaledWidth;
             lastUnscaledHeight = unscaledHeight;
+			
+			inUpdateDLMethod = false;
          }
         
         /**
@@ -2667,10 +2690,44 @@ package spark.components
             // between a measured width/height that is the same as the
             // constrained width/height to know whether that dimension can
             // be sized or must be fixed at the constrained value.                
-            widthConstraint = width;
             heightConstraint = height;
 
             super.setLayoutBoundsSize(width, height, postLayoutTransform);
+
+			// Did we already constrain the width?
+			if (widthConstraint == width)
+				return;
+			
+			// No reflow for explicit lineBreak
+			if (getStyle("lineBreak") == "explicit")
+				return;
+			
+			// If we don't measure
+			if (canSkipMeasurement())
+				return;
+			
+			if (!isNaN(explicitHeight))
+				return;
+			
+			// We support reflow only in the case of constrained width and
+			// unconstrained height. Note that we compare with measuredWidth,
+			// as for example the RichEditableText can be
+			// constrained by the layout with "left" and "right", but the
+			// container width itself may not be constrained and it would depend
+			// on the element's measuredWidth.
+			var constrainedWidth:Boolean = !isNaN(width) && (width != measuredWidth) && (width != 0); 
+			if (!constrainedWidth)
+				return;
+			
+			// We support reflow only when we don't have a transform.
+			// We could add support for scale, but not skew or rotation.
+			if (postLayoutTransform && hasComplexLayoutMatrix)
+				return;
+			
+			widthConstraint = width;
+
+			invalidateSize();
+			
         }
         
         /**
@@ -3342,15 +3399,28 @@ package spark.components
                                          composeHeight:Number=NaN):Rectangle
         {   
             // Adjust for explicit min/maxWidth so the measurement is accurate.
-            if (isNaN(explicitWidth))
+			// If no explicitWidth or widthInChars
+            if (isNaN(explicitWidth) && isNaN(widthInChars))
             {
+				// then if there is an explicit minWidth and
+				// a specified composeWidth and the composeWidth
+				// is less than the minWidth, use the minWidth
                 if (!isNaN(explicitMinWidth) &&
-                    isNaN(composeWidth) || composeWidth < minWidth)
+					!isNaN(composeWidth) && composeWidth < minWidth)
                 {
                     composeWidth = minWidth;
                 }
+				// if composeWidth is NaN, just compose and see what happens
+				// and fix up the measurements afterwards.  See final check
+				// at the end of the method
+				
+				// On the other hand, if there is an explicit maxWidth and
+				// no specified composeWidth then use maxWidth, 
+				// or if there is a a specified composeWidth 
+				// and the composeWidth is greater than maxWidth, use the maxWidth.
                 if (!isNaN(explicitMaxWidth) &&
-                    isNaN(composeWidth) || composeWidth > maxWidth)
+                    isNaN(composeWidth) || 
+					composeWidth > maxWidth)
                 {
                     composeWidth = maxWidth;
                 }
@@ -3372,9 +3442,9 @@ package spark.components
             {
                 _textContainerManager.convertToTextFlowWithComposer();
             }
-            
-            // Compose only.  The display should not be updated.
-            _textContainerManager.compose();
+            			
+			// Compose only.  The display should not be updated.
+			_textContainerManager.compose();
             
             // Adjust width and height for text alignment.
             var bounds:Rectangle = _textContainerManager.getContentBounds();
@@ -3392,6 +3462,19 @@ package spark.components
             
             //trace("measureTextSize", composeWidth, "->", bounds.width, composeHeight, "->", bounds.height);
             
+			// one final check:  If there is no explicitWidth...
+			if (isNaN(explicitWidth) && isNaN(widthInChars))
+			{
+				// but there is a minWidth, and no specified composeWidth
+				// and we measure out to be less than the minWidth
+				// report the minWidth anyway.
+				if (!isNaN(explicitMinWidth) &&
+					isNaN(composeWidth) &&
+					bounds.width < minWidth)
+				{
+					bounds.width = minWidth;
+				}
+			}
             return bounds;
         }
         
@@ -4078,6 +4161,9 @@ package spark.components
             if (event.damageLength == 0)
                 return;
             
+			if (inUpdateDLMethod)
+				return;
+			
             // Text that is being measured is damaged so update the display.
             if (inMeasureMethod)
             {
@@ -4395,6 +4481,7 @@ package spark.components
                 invalidateDisplayList();
             }
         }    
+		
     }
-    
+
 }
