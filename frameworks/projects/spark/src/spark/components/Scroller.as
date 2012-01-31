@@ -735,8 +735,13 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private 
-     */ 
-    private var isSoftKeyboardActive:Boolean = false;
+     */
+    private var oldSoftKeyboardHeight:Number = NaN;
+    
+    /**
+     *  @private 
+     */
+    private var oldSoftKeyboardWidth:Number = NaN;
     
     //--------------------------------------------------------------------------
     //
@@ -2496,10 +2501,14 @@ public class Scroller extends SkinnableComponent
         
         if (keyboardRect.width > 0 && keyboardRect.height > 0)
         {
-            if (lastFocusedElement && !isSoftKeyboardActive && ensureElementIsVisibleForSoftKeyboard)
+            if (lastFocusedElement && ensureElementIsVisibleForSoftKeyboard &&
+                (keyboardRect.height != oldSoftKeyboardHeight ||
+                 keyboardRect.width != oldSoftKeyboardWidth))
                 ensureElementIsVisible(lastFocusedElement);
             
-            isSoftKeyboardActive = true;
+            oldSoftKeyboardHeight = keyboardRect.height;
+            oldSoftKeyboardWidth = keyboardRect.width;
+            
         }
     }
     
@@ -2512,7 +2521,8 @@ public class Scroller extends SkinnableComponent
     {
         // Adjust the scroll position after the application's size is restored. 
         adjustScrollPositionAfterSoftKeyboardDeactivate();
-        isSoftKeyboardActive = false;
+        oldSoftKeyboardHeight = NaN;
+        oldSoftKeyboardWidth = NaN;
     }
     
     /**
