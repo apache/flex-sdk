@@ -38,6 +38,28 @@ import spark.components.supportClasses.ToggleButtonBase;
  *  <p>When a user clicks a CheckBox component or its associated text,
  *  the CheckBox component sets its <code>selected</code> property
  *  to <code>true</code> for checked, and to <code>false</code> for unchecked.</p>
+ *
+ * 
+ *  <p>The CheckBox control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>Wide enough to display the text label of the control</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>18 pixels wide and 18 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;CheckBox&gt;</code> tag inherits all of the tag 
