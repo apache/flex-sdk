@@ -67,6 +67,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
     //
     //-------------------------------------------------------------------------
 
+    /**
+     *  Constructor.
+     *  
+     *  @param destination The destination of the service.
+     */
     public function AbstractService(destination:String = null)
     {
         super();
@@ -89,7 +94,7 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      *  @private
      */
     private var resourceManager:IResourceManager =
-									ResourceManager.getInstance();
+                                    ResourceManager.getInstance();
 
     //-------------------------------------------------------------------------
     //
@@ -272,8 +277,8 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      */
     override flash_proxy function setProperty(name:*, value:*):void
     {
-		var message:String = resourceManager.getString(
-			"rpc", "operationsNotAllowedInService", [ getLocalName(name) ]);
+        var message:String = resourceManager.getString(
+            "rpc", "operationsNotAllowedInService", [ getLocalName(name) ]);
         throw new Error(message);
     }
 
@@ -355,10 +360,10 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
     }
 
     /**
-	 *  Disconnects the service's network connection and removes any pending
-	 *  request responders.
-	 *  This method does not wait for outstanding network operations to complete.
-	 */
+     *  Disconnects the service's network connection and removes any pending
+     *  request responders.
+     *  This method does not wait for outstanding network operations to complete.
+     */
     public function disconnect():void
     {
         asyncRequest.disconnect();
