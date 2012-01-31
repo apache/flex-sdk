@@ -14,7 +14,6 @@ package spark.components
 
 import flash.display.DisplayObject;
 import flash.text.TextFormat;
-import flash.text.engine.FontLookup;
 
 import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.conversion.ConversionType;
@@ -32,12 +31,10 @@ import flashx.textLayout.formats.ITextLayoutFormat;
 
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
-import mx.core.IFontContextComponent;
 import mx.core.IUIComponent;
 import mx.core.Singleton;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
-import mx.managers.ISystemManager;
 
 import spark.components.supportClasses.TextBase;
 import spark.core.CSSTextLayoutFormat;
@@ -216,7 +213,7 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class RichText extends TextBase implements IFontContextComponent
+public class RichText extends TextBase
 {
     include "../core/Version.as";
 
@@ -263,48 +260,6 @@ public class RichText extends TextBase implements IFontContextComponent
 	 */
 	private static var staticPlainTextExporter:ITextExporter;
 	
-    /**
-     *  @private
-     *  Used to call isFontFaceEmbedded() in getEmbeddedFontContext().
-     */
-    private static var staticTextFormat:TextFormat;
-    
-	//--------------------------------------------------------------------------
-    //
-    //  Class properties
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  embeddedFontRegistry
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the _embeddedFontRegistry property.
-     *  Note: This gets initialized on first access,
-     *  not when this class is initialized, in order to ensure
-     *  that the Singleton registry has already been initialized.
-     */
-    private static var _embeddedFontRegistry:IEmbeddedFontRegistry;
-
-    /**
-     *  @private
-     *  A reference to the embedded font registry.
-     *  Single registry in the system.
-     *  Used to look up the moduleFactory of a font.
-     */
-    private static function get embeddedFontRegistry():IEmbeddedFontRegistry
-    {
-        if (!_embeddedFontRegistry)
-        {
-            _embeddedFontRegistry = IEmbeddedFontRegistry(
-                Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
-        }
-
-        return _embeddedFontRegistry;
-    }
-
 	//--------------------------------------------------------------------------
 	//
 	//  Class methods
@@ -333,12 +288,16 @@ public class RichText extends TextBase implements IFontContextComponent
 		 *  but higher layers like Flex can provide localized versions.
 		 */
 		GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
-		
+
+        /**
+         *  Set the TLF hook used to specify the callback used for changing 
+         *  the FontLookup based on SWFContext.  
+         */
+        GlobalSettings.resolveFontLookupFunction = TextUtil.resolveFontLookup;
+
 		staticStringFactory = new StringTextLineFactory();
 		
 		staticTextFlowFactory = new TextFlowTextLineFactory();
-		
-		staticTextFormat = new TextFormat();
 		
 		staticPlainTextImporter =
 			TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
@@ -515,37 +474,6 @@ public class RichText extends TextBase implements IFontContextComponent
 		invalidateDisplayList();
 	}
     
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: IFontContextComponent
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  fontContext
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _fontContext:IFlexModuleFactory;
-
-    /**
-     *  @inheritDoc
-     */
-    public function get fontContext():IFlexModuleFactory
-    {
-        return _fontContext;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fontContext(value:IFlexModuleFactory):void
-    {
-        _fontContext = value;
-    }
-
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -1269,38 +1197,6 @@ public class RichText extends TextBase implements IFontContextComponent
 		return textFlow;
 	}
 	
-    /**
-     *  @private
-     */
-    private function getEmbeddedFontContext():IFlexModuleFactory
-    {
-        var moduleFactory:IFlexModuleFactory;
-        
-        var fontLookup:String = getStyle("fontLookup");
-        if (fontLookup != FontLookup.DEVICE)
-        {
-            var font:String = getStyle("fontFamily");
-            var bold:Boolean = getStyle("fontWeight") == "bold";
-            var italic:Boolean = getStyle("fontStyle") == "italic";
-            
-            var localLookup:ISystemManager = 
-                fontContext && fontContext is ISystemManager ? 
-                ISystemManager(fontContext) : systemManager;
-                
-            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-                font, bold, italic, this, fontContext, localLookup, true);
-        }
-        
-        if (!moduleFactory && fontLookup == FontLookup.EMBEDDED_CFF)
-        {
-            // if we couldn't find the font and somebody insists it is
-            // embedded, try the default fontContext
-            moduleFactory = fontContext;
-        }
-        
-        return moduleFactory;
-    }
-		
 	/**
 	 *  @private
 	 *  Uses TextLineFactory to compose the textFlow
