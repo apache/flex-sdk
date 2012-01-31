@@ -8,19 +8,23 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package mx.effects
+package spark.effects
 {
 
 import flash.sampler.getInvocationCount;
 
 import mx.core.mx_internal;
-import mx.effects.effectClasses.FxAnimateInstance;
-import mx.effects.interpolation.IEaser;
-import mx.effects.interpolation.IInterpolator;
-import mx.effects.interpolation.NumberInterpolator;
-import mx.effects.interpolation.Sine;
-import mx.events.AnimationEvent;
+import spark.effects.supportClasses.AnimateInstance;
+import spark.effects.easing.IEaser;
+import spark.effects.interpolation.IInterpolator;
+import spark.effects.interpolation.NumberInterpolator;
+import spark.effects.easing.Sine;
+import spark.events.AnimationEvent;
+import mx.effects.Effect;
+import mx.effects.IEffectInstance;
 import mx.events.EffectEvent;
+import spark.effects.animation.Animation;
+
 import mx.styles.IStyleClient;
 
 import spark.effects.MotionPath;
@@ -102,11 +106,11 @@ use namespace mx_internal;
  * This effect animates an arbitrary set of properties between values, as specified
  * in the <code>animationProperties</code> array. Example usage is as follows:
  * 
- * @example Using the FxAnimate effect to move a button from (100, 100)
+ * @example Using the Animate effect to move a button from (100, 100)
  * to (200, 150):
  * <listing version="3.0">
  * var button:Button = new Button();
- * var anim:FxAnimate = new FxAnimate(button);
+ * var anim:Animate = new Animate(button);
  * anim.animationProperties = [
  *     new AnimationProperty("x", 100, 200),
  *     new AnimationProperty("y", 100, 150)];
@@ -118,7 +122,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxAnimate extends Effect
+public class Animate extends Effect
 {
     include "../core/Version.as";
 
@@ -136,11 +140,11 @@ public class FxAnimate extends Effect
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxAnimate(target:Object = null)
+    public function Animate(target:Object = null)
     {
         super(target);
           
-        instanceClass = FxAnimateInstance;
+        instanceClass = AnimateInstance;
     }
     
     //--------------------------------------------------------------------------
@@ -171,8 +175,8 @@ public class FxAnimate extends Effect
      * An array of AnimationProperty objects, each of which holds the
      * name of the property being animated and the values that the property
      * will take on during the animation. This array takes precedence over
-     * any helper properties that may be declared in subclasses of FxAnimate.
-     * For example, if this array is set directly on an FxMove object, 
+     * any helper properties that may be declared in subclasses of Animate.
+     * For example, if this array is set directly on an Move object, 
      * then any helper values such as <code>xFrom</code> will be ignored. 
      *  
      *  @langversion 3.0
@@ -319,7 +323,7 @@ public class FxAnimate extends Effect
     {
         super.initInstance(instance);
         
-        var animateInstance:FxAnimateInstance = FxAnimateInstance(instance);
+        var animateInstance:AnimateInstance = AnimateInstance(instance);
 
         animateInstance.addEventListener(AnimationEvent.ANIMATION_START, animationEventHandler);
         animateInstance.addEventListener(AnimationEvent.ANIMATION_UPDATE, animationEventHandler);
