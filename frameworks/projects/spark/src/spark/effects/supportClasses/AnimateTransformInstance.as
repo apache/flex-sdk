@@ -215,13 +215,18 @@ public class AnimateTransformInstance extends AnimateInstance
     public var transformCenter:Vector3D;
 
     /**
-     * If <code>autoCenterTransform</code> is true, the transform
-     * center will be recalculated as the effect progresses, updating to
-     * any changes in the width and height of the object. If the
-     * property is false, the <code>transformCenter</code> property
-     * will be used instead.
+     *  If <code>autoCenterTransform</code> is <code>true</code>, the transform
+     *  center is recalculated as the effect progresses, updating to
+     *  any changes in the width and height of the object. If the
+     *  property is <code>false</code>, the <code>transformCenter</code> property
+     *  is used instead.
      * 
-     * @copy spark.effects.AnimateTransform#animateTransform
+     *  @copy spark.effects.AnimateTransform#animateTransform
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var autoCenterTransform:Boolean;
 
