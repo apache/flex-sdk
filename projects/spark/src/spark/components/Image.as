@@ -17,6 +17,7 @@ import flash.events.HTTPStatusEvent;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
 import flash.events.SecurityErrorEvent;
+import flash.display.BitmapData;
 
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -377,6 +378,19 @@ public class Image extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  bitmapData
+    //----------------------------------
+    
+    /**
+     *  @copy mx.primitives.BitmapImage#bitmapData
+     *  @default null
+     */
+    public function get bitmapData():BitmapData 
+    {
+        return imageDisplay ? imageDisplay.bitmapData : null; 
+    }
+    
     //----------------------------------
     //  bytesLoaded
     //----------------------------------
