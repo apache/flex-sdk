@@ -129,6 +129,7 @@ import mx.events.ModuleEvent;
  *   
  */
 [ResourceBundle("containers")]
+[IconFile("ModuleLoader.png")]
 
 /**
  *  ModuleLoader is a component that behaves much like a SWFLoader except
