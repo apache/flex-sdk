@@ -83,6 +83,13 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
+
+     *  Creates a new Operation. 
+     *
+     *  @param service The object defining the type of service, such as 
+     *  HTTPMultiService, WebService, or RemoteObject.
+     *
+     *  @param name The name of the service.
      */
     public function AbstractOperation(service:AbstractService=null, name:String=null)
     {
@@ -895,11 +902,6 @@ function xmlEncoder (myObj)
      *  the retrieval of the HTTP request headers. 
      *
      *  @return The HTTP request headers.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
