@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.core
+package mx.components
 {
 
 import flash.display.DisplayObject;
@@ -24,10 +24,6 @@ import flash.system.Capabilities;
 import flash.ui.ContextMenu;
 import flash.ui.ContextMenuItem;
 import flash.utils.setInterval;
-
-import flex.component.ItemsComponent;
-import flex.layout.VerticalLayout;
-
 import mx.core.ApplicationGlobals;
 import mx.core.EdgeMetrics;
 import mx.core.IFlexDisplayObject;
@@ -36,6 +32,7 @@ import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.effects.EffectManager;
 import mx.events.FlexEvent;
+import mx.layout.VerticalLayout;
 import mx.managers.FocusManager;
 import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
@@ -131,7 +128,7 @@ use namespace mx_internal;
  *  @see mx.managers.SystemManager
  *  @see flash.events.EventDispatcher
  */
-public class Application extends ItemsComponent 
+public class FxApplication extends FxItemsComponent 
 {
     include "../core/Version.as";
 
@@ -179,7 +176,7 @@ public class Application extends ItemsComponent
     /**
      *  Constructor.
      */
-    public function Application()
+    public function FxApplication()
     {
         name = "application";
 
@@ -390,7 +387,7 @@ public class Application extends ItemsComponent
     override public function get id():String
     {
         if (!super.id &&
-            this == Application.application && 
+            this == FxApplication.application && 
             ExternalInterface.available)
         {
             return ExternalInterface.objectID;
