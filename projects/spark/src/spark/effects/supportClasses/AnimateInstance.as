@@ -30,6 +30,7 @@ import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
 import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
+import mx.core.IVisualElementContainer;
 
 /**
  * The FxAnimateInstance class implements the instance class for the
@@ -573,8 +574,8 @@ public class FxAnimateInstance extends EffectInstance
                 var parentEnd:* = propertyChanges.end["parent"];;
                 if (parentStart && !parentEnd)
                 {
-                    if (parentStart is Group)
-                        parentStart.addItem(target);
+                    if (parentStart is IVisualElementContainer)
+                        IVisualElementContainer(parentStart).addElement(target);
                     else
                         parentStart.addChild(target);
                     needsRemoval = true;
@@ -604,8 +605,8 @@ public class FxAnimateInstance extends EffectInstance
                 var parentEnd:* = propertyChanges.end["parent"];;
                 if (parentStart && !parentEnd)
                 {
-                    if (parentStart is Group)
-                        parentStart.removeItem(target);
+                    if (parentStart is IVisualElementContainer)
+                        IVisualElementContainer(parentStart).removeElement(target);
                     else
                         parentStart.removeChild(target);
                 }
