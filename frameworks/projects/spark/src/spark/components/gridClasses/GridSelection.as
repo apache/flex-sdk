@@ -64,15 +64,7 @@ public class GridSelection
     //  Class variables
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  The owner of the grid.  This class might come into being before
-     *  the grid part is loaded.  This is the connection between this class
-     *  and its grid.
-     */    
-    private var gridOwner:GridContainerBase;
-    
+        
     /**
      *  @private
      *  Vector of rowIndexes that map to the dataProvider items.  If 
@@ -127,11 +119,9 @@ public class GridSelection
     /**
      *  @private
      */
-    public function GridSelection(owner:GridContainerBase)
+    public function GridSelection()
     {
         super();
-        
-        gridOwner = owner;
     }
     
     //--------------------------------------------------------------------------
@@ -140,6 +130,36 @@ public class GridSelection
     //
     //--------------------------------------------------------------------------
    
+    //----------------------------------
+    //  grid
+    //----------------------------------
+    
+    private var _grid:Grid;
+    
+    /**
+     *  @private
+     */
+    public function get grid():Grid
+    {
+        return _grid;
+    }
+    
+    /**
+     *  This value is created by DataGrid/partAdded() and then set here.   
+     *  It is should only be set once.
+     * 
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function set grid(value:Grid):void
+    {
+        _grid = value;
+    }
+    
     //----------------------------------
     //  preserveSelection
     //----------------------------------
@@ -967,17 +987,7 @@ public class GridSelection
     //  Methods
     //
     //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  To connect the selection with its grid.  Can't be in the constructor
-     *  since the selectionMode might be set before the grid part is added.
-     */
-    private function get grid():Grid
-    {
-        return gridOwner.grid;
-    }
-    
+        
     /**
      *  @private
      */
