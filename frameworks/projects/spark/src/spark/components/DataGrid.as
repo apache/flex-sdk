@@ -279,9 +279,15 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  */
 [Event(name="caretChange", type="spark.events.GridCaretEvent")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [DefaultProperty("dataProvider")]
 
 [DiscouragedForProfile("mobileDevice")]
+
+[IconFile("DataGrid.png")]
 
 /**
  *  TBD
