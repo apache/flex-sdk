@@ -1991,6 +1991,9 @@ public class Panel extends Container
     /**
      *  Called when the user starts dragging a Panel
      *  that has been popped up by the PopUpManager.
+     *
+     *  @param event The MouseEvent dispatched when the 
+     *  user clicks on the container.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
