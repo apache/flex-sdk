@@ -45,7 +45,7 @@ use namespace mx_internal;
 [Style(name="baseColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
- *  Name of the error skin class to use for this component. 
+ *  Name of the skin class to use for this component when a validation error occurs. 
  *  
  *  @default spark.skins.spark.ErrorSkin
  * 
