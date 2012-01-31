@@ -28,6 +28,7 @@ import flashx.tcal.formats.IContainerFormat;
 import flashx.tcal.formats.IParagraphFormat;
 import flashx.tcal.formats.ParagraphFormat;
 
+import mx.core.mx_internal;
 import mx.graphics.graphicsClasses.TextFlowComposer;
 import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.utils.TextUtil;
@@ -149,6 +150,60 @@ public class TextGraphic extends TextGraphicElement
 	 */
 	private var contentChanged:Boolean = false;
 
+    /**
+     *  @private
+     *  This flag is set to true if the 'text' needs to be extracted
+     *  from the 'content'.
+     */
+    private var textInvalid:Boolean = false;
+        
+	//--------------------------------------------------------------------------
+	//
+	//  Overridden properties
+	//
+	//--------------------------------------------------------------------------
+
+	//----------------------------------
+	//  text
+	//----------------------------------
+
+	/**
+	 *  @private
+	 */
+    override public function get text():String
+    {
+        // Extracting the plaintext from a TextFlow is somewhat expensive,
+        // as it involves iterating over the leaf FlowElements in the TextFlow.
+        // Therefore we do this extraction only when necessary, namely when
+        // you set the 'content' and then get the 'text'.
+        if (textInvalid)
+        {
+            mx_internal::_text = TextUtil.extractText(textFlow);
+            textInvalid = false;
+        }
+
+        return mx_internal::_text;
+    }
+
+	/**
+	 *  @private
+	 */
+    override public function set text(value:String):void
+    {
+		// If 'text' is being set after 'content', ignore it
+        // because 'content' has precedence.
+        if (contentChanged)
+            return;
+
+        // Setting 'text' temporarily causes 'content' to become null.
+        // Later, after the 'text' has been committed into the TextFlow,
+        // getting 'content' will return the TextFlow.
+        _content = null;
+        contentChanged = false;
+        
+        super.text = value;
+    }
+
 	//--------------------------------------------------------------------------
 	//
 	//  Properties
@@ -179,6 +234,12 @@ public class TextGraphic extends TextGraphicElement
 	{
 		if (value != _content)
 		{
+            // Setting 'content' temporarily causes 'text' to become null.
+            // Later, after the 'content' has been committed into the TextFlow,
+            // getting 'text' will extract the text from the TextFlow.
+            mx_internal::_text = null;
+            textChanged = false;
+
 			var oldValue:Object = _content;
 			_content = value;
 			dispatchPropertyChangeEvent("content", oldValue, value);
@@ -323,48 +384,47 @@ public class TextGraphic extends TextGraphicElement
 	 */
 	private function createTextFlow():TextFlow
 	{
-		if (contentChanged || textChanged)
-        {
-            if (contentChanged)
-		    {
-                if (content is TextFlow)
-                {
-                    textFlow = TextFlow(content);
-                }
-                else if (content is Array)
-                {
-                    textFlow = new TextFlow();
-                    textFlow.mxmlChildren = content as Array;
-                }
-                else if (content is FlowElement)
-                {
-                    textFlow = new TextFlow();
-                    textFlow.mxmlChildren = [ content ];
-                }
-			    else if (content is String)
-			    {
-				    textFlow = importMarkup(String(content));
-			    }
-			    else if (content == null)
-			    {
-				    textFlow = createEmptyTextFlow();
-			    }
-                else
-                {
-                    throw new Error("invalid content");
-                }
-		    }
-		    else if (textChanged)
-		    {
-			    if (text != null && text != "")
-			    {
-				    textFlow = TextFilter.importToFlow(text, TextFilter.PLAIN_TEXT_FORMAT);
-			    }
-			    else
-			    {
-				    textFlow = createEmptyTextFlow();
-			    }
+        if (contentChanged)
+		{
+            if (_content is TextFlow)
+            {
+                textFlow = TextFlow(_content);
             }
+            else if (_content is Array)
+            {
+                textFlow = new TextFlow();
+                textFlow.mxmlChildren = _content as Array;
+            }
+            else if (_content is FlowElement)
+            {
+                textFlow = new TextFlow();
+                textFlow.mxmlChildren = [ _content ];
+            }
+			else if (_content is String)
+			{
+				textFlow = importMarkup(String(_content));
+			}
+			else if (_content == null)
+			{
+				textFlow = createEmptyTextFlow();
+			}
+            else
+            {
+                throw new Error("invalid content");
+            }
+            textInvalid = true;
+		}
+		else if (textChanged)
+		{
+            var t:String = mx_internal::_text;
+            if (t != null && t != "")
+			{
+				textFlow = TextFilter.importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
+			}
+			else
+			{
+				textFlow = createEmptyTextFlow();
+			}
         }
 
  		contentChanged = false;
