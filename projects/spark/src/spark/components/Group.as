@@ -277,7 +277,7 @@ public class Group extends GroupBase implements IVisualContainer
         
         if (blendModeChanged)
         {
-            blendModeChanged = true;
+            blendModeChanged = false;
             super.blendMode = _blendMode;
             needsDisplayObjectAssignment = true;
         }
@@ -779,7 +779,7 @@ public class Group extends GroupBase implements IVisualContainer
             childDO = GraphicElement(item).displayObject;
         }
                 
-        if (childDO && childDO.parent && childDO.parent == this)
+        if (childDO && childDO.parent == this)
             super.removeChild(childDO);
         
         invalidateSize();
