@@ -92,7 +92,7 @@ public class DropDownController extends EventDispatcher
     {
         if (_openButton === value)
             return;
-		
+        
         removeOpenTriggers();
             
         _openButton = value;
@@ -109,47 +109,47 @@ public class DropDownController extends EventDispatcher
         return _openButton;
     }
     
-	/**
-	 *  @private 
-	 */
-	private var _systemManager:ISystemManager;
+    /**
+     *  @private 
+     */
+    private var _systemManager:ISystemManager;
 
-	/**
-	 *  A reference to the <code>SystemManager</code> used 
-	 *  for mouse tracking.  if none is specified, the controller
-	 *  will use the systemManager associated with the openButton.
-	 *         
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
+    /**
+     *  A reference to the <code>SystemManager</code> used 
+     *  for mouse tracking.  if none is specified, the controller
+     *  will use the systemManager associated with the openButton.
+     *         
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function set systemManager(value:ISystemManager):void
     {
-        _systemManager = value;	
+        _systemManager = value; 
     }
-	/**
-	 *  @private 
-	 */
+    /**
+     *  @private 
+     */
     public function get systemManager():ISystemManager
     {
         return (_systemManager != null)?  _systemManager:
                 (openButton != null)?  openButton.systemManager:
                                         null;
     }
-	
-	/**
-	 *  A list of display objects to consider part of the hit area
-	 *  of the drop down.  Mouse clicks within any component listed
-	 *  as an inclusion will not automatically close the drop down.
-	 *         
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public var hitAreaAdditions:Vector.<DisplayObject>;
-	
+    
+    /**
+     *  A list of display objects to consider part of the hit area
+     *  of the drop down.  Mouse clicks within any component listed
+     *  as an inclusion will not automatically close the drop down.
+     *         
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var hitAreaAdditions:Vector.<DisplayObject>;
+    
     //----------------------------------
     //  dropDown
     //----------------------------------
@@ -209,7 +209,11 @@ public class DropDownController extends EventDispatcher
     private var _closeOnResize:Boolean = true;
     
     /**
-     *  When true, resizing the system manager will close the the drop down.
+     *  When <code>true</code>, resizing the system manager 
+     *  closes the drop down.
+     *  For mobile applications, you can set this property
+     *  to <code>false</code> so that the drop down stays open when the 
+     *  page orientation changes.
      * 
      *  @default true
      *  
@@ -347,8 +351,8 @@ public class DropDownController extends EventDispatcher
             
             addCloseOnResizeTrigger();
             
-			if (openButton && openButton.systemManager)
-            	openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
+            if (openButton && openButton.systemManager)
+                openButton.systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
     }
     
@@ -385,7 +389,7 @@ public class DropDownController extends EventDispatcher
             removeCloseOnResizeTrigger();
             
             if (openButton && openButton.systemManager)
-            	openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
+                openButton.systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_WHEEL, systemManager_mouseWheelHandler);
         }
     } 
     
