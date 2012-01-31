@@ -468,10 +468,9 @@ public class ComboBoxAccImpl extends DropDownListBaseAccImpl
                         AccConst.EVENT_OBJECT_VALUECHANGE);
                     Accessibility.sendEvent(master, 1,
                         AccConst.EVENT_OBJECT_VALUECHANGE);
-                    
+					Accessibility.sendEvent(master, childID,
+						AccConst.EVENT_OBJECT_FOCUS);   
                 }
-                Accessibility.sendEvent(master, childID,
-                    AccConst.EVENT_OBJECT_FOCUS);   
                 
                 break;
             }
