@@ -38,7 +38,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="spark")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="spark", minValue="0.0")]
 
 /**
  *  The alpha of the focus ring for this component.
@@ -48,7 +48,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
