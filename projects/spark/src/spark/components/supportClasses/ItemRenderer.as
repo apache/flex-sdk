@@ -207,7 +207,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  labelElement
+    //  labelDisplay
     //----------------------------------
     
     /**
@@ -221,7 +221,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var labelElement:TextGraphicElement;
+    public var labelDisplay:TextGraphicElement;
     
     //----------------------------------
     //  allowDeselection
@@ -363,13 +363,13 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
      */
     override public function get baselinePosition():Number
     {
-        if (!validateBaselinePosition() || !labelElement)
+        if (!validateBaselinePosition() || !labelDisplay)
             return super.baselinePosition;
 
-        var labelPosition:Point = globalToLocal(labelElement.parent.localToGlobal(
-            new Point(labelElement.x, labelElement.y)));
+        var labelPosition:Point = globalToLocal(labelDisplay.parent.localToGlobal(
+            new Point(labelDisplay.x, labelDisplay.y)));
             
-        return labelPosition.y + labelElement.baselinePosition;
+        return labelPosition.y + labelDisplay.baselinePosition;
     }
     
     //--------------------------------------------------------------------------
