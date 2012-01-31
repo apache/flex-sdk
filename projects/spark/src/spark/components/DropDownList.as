@@ -51,6 +51,15 @@ use namespace mx_internal;
  *      clicking on a data item while pressing the Control key deselects 
  *      the item and closes the drop-down list.</li>
  *  </ul>
+ *  
+ *  <p>The DropDownList control has the following default characteristics:</p>
+ *  <table class="innertable">
+ *     <tr><th>Characteristic</th><th>Description</th></tr>
+ *     <tr><td>Default size</td><td></td></tr>
+ *     <tr><td>Minimum size</td><td></td></tr>
+ *     <tr><td>Maximum size</td><td>No limit</td></tr>
+ *     <tr><td>Default skin class</td><td>spark.skins.spark.DropDownListSkin</td></tr>
+ *  </table>
  *
  *  @mxml <p>The <code>&lt;s:DropDownList&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
@@ -59,6 +68,7 @@ use namespace mx_internal;
  *  &lt;s:DropDownList 
  *    <strong>Properties</strong>
  *    prompt=""
+ *    typicalItem="null"
  * 
  *    <strong>Events</strong>
  *    closed="<i>No default</i>"
