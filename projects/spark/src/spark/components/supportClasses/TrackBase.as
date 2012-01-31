@@ -18,6 +18,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import spark.components.Button;
+import spark.events.TrackBaseEvent;
 
 /**
  *  Dispatched when the value of the control changes
@@ -31,6 +32,46 @@ import spark.components.Button;
  *  @productversion Flex 4
  */
 [Event(name="change", type="flash.events.Event")]
+
+/**
+ *  Dispatched when the thumb is pressed and then moved by the mouse.
+ *  This event is always preceded by a <code>thumbPress</code> event.
+ * 
+ *  @eventType spark.events.TrackBaseEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Event(name="thumbDrag", type="spark.events.TrackBaseEvent")]
+
+/**
+ *  Dispatched when the thumb is pressed, meaning
+ *  the user presses the mouse button over the thumb.
+ *
+ *  @eventType mx.events.SliderEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Event(name="thumbPress", type="spark.events.TrackBaseEvent")]
+
+/**
+ *  Dispatched when the thumb is released, 
+ *  meaning the user releases the mouse button after 
+ *  a <code>thumbPress</code> event.
+ *
+ *  @eventType mx.events.SliderEvent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Event(name="thumbRelease", type="spark.events.TrackBaseEvent")]
 
 /**
  *  Normal State
@@ -190,6 +231,9 @@ public class TrackBase extends Range
      */
     override public function set enabled(value:Boolean):void
     {
+        if (value == super.enabled)
+            return;
+        
         super.enabled = value;
         enableSkinParts(value);
         invalidateSkinState();
@@ -213,6 +257,9 @@ public class TrackBase extends Range
      */
     override public function set maximum(value:Number):void
     {
+        if (value == super.maximum)
+            return;
+        
         super.maximum = value;
         invalidateDisplayList();
     }
@@ -235,6 +282,9 @@ public class TrackBase extends Range
      */
     override public function set minimum(value:Number):void
     {
+        if (value == super.minimum)
+            return;
+        
         super.minimum = value;
         invalidateDisplayList();
     }
@@ -259,6 +309,9 @@ public class TrackBase extends Range
      */
     override public function set value(newValue:Number):void
     {
+        if (newValue == super.value)
+            return;
+        
         super.value = newValue;
         invalidateDisplayList();
     }
@@ -391,20 +444,18 @@ public class TrackBase extends Range
                                                   unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        thumbSize = calculateThumbSize();
-        sizeThumb(thumbSize);
-
-        positionThumb(valueToPosition(value));
+        
+        if (thumb)
+        {
+            thumbSize = calculateThumbSize();
+            sizeThumb(thumbSize);
+    
+            positionThumb(valueToPosition(value));
+        }
     }
 
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private   
      */
     override protected function getCurrentSkinState():String
     {
@@ -412,12 +463,7 @@ public class TrackBase extends Range
     }
     
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -440,12 +486,7 @@ public class TrackBase extends Range
     }
 
     /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @private
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
@@ -539,6 +580,7 @@ public class TrackBase extends Range
             
         var posRange:Number = trackSize - thumbSize;
         var thumbPos:Number = (value - minimum) * (posRange / range);
+        
         return thumbPos;
     }
     
@@ -592,7 +634,7 @@ public class TrackBase extends Range
      *  <p>Subclasses should override this method to size 
      *  the thumb button.</p>
      *
-     *  @param thembSize The new size of the thumb button.
+     *  @param thumbSize The new size of the thumb button.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -752,6 +794,8 @@ public class TrackBase extends Range
         var pt2:Point = track.globalToLocal(pt);
         pt = thumb.globalToLocal(pt);
         _clickOffset = pt;
+        
+        dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_PRESS));
     }
     
     /**
@@ -783,6 +827,7 @@ public class TrackBase extends Range
         if (newValue != value)
         {
             setValue(newValue);
+            dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_DRAG));
             dispatchEvent(new Event("change"));   
         }
         
@@ -811,6 +856,8 @@ public class TrackBase extends Range
                 stage_mouseMoveHandler);
         removeSystemHandlers(MouseEvent.MOUSE_UP, system_mouseUpHandler, 
                 stage_mouseUpHandler);
+                
+        dispatchEvent(new TrackBaseEvent(TrackBaseEvent.THUMB_RELEASE));
     }
 
     //---------------------------------
