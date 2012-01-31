@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/mx" 
+               minWidth="955" minHeight="600">
+    <!-- Sample program for spark.collections.Sort and SortField --> 
+    <fx:Declarations>
+        <s:Sort id="sortbyLastName_FirstName">
+            <s:fields>
+                <s:SortField name="last" />
+                <s:SortField name="first" />
+            </s:fields>
+        </s:Sort>
+        <mx:ArrayCollection id="collection" sort="{sortbyLastName_FirstName}">
+            <mx:source>
+                <fx:Object first="Anders" last="Dickerson" />
+                <fx:Object first="Eileen" last="Maccormick" />
+                <fx:Object first="Aiden" last="MacCormick" />
+                <fx:Object first="Steve" last="MacGregor" />
+            </mx:source>
+        </mx:ArrayCollection>
+    </fx:Declarations>
+    
+    <s:VGroup>
+        <s:VGroup>
+            <s:HGroup>
+                <s:Label text="Input Locale ID Name: "/>
+                <s:TextInput id="inputLocaleIDName"/>
+                <!-- Sets the locale style on the document UI component.
+                The SortField and Sort objects defined in the 
+                fx:Declarations section will inherit this style.
+                -->
+                <s:Button click="{setStyle('locale', inputLocaleIDName.text); 
+                          collection.refresh()}" label="Apply"/>
+            </s:HGroup>
+            <s:Label text="Example: 'en-US', 'fr-FR', 'zh-CN', 'ar-SA'"/>
+        </s:VGroup>
+        <mx:DataGrid dataProvider="{collection}" 
+                     creationComplete="{collection.refresh()}">
+            <mx:columns>
+                <mx:DataGridColumn dataField="last" />
+                <mx:DataGridColumn dataField="first"/>
+            </mx:columns>
+        </mx:DataGrid>
+    </s:VGroup>
+</s:Application>
