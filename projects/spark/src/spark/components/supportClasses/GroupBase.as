@@ -202,8 +202,9 @@ public class GroupBase extends UIComponent implements IViewport
      */
     override public function get baselinePosition():Number
     {
-        // FIXME (clucier): The baselinePosition calculation in UIComponent
-        // works only for TextField-based components.
+        // TODO (clucier): The baselinePosition calculation in UIComponent
+        // works only for TextField-based components so we return 0 here
+        // for now.
         return 0;
     }
 
