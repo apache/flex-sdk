@@ -157,6 +157,8 @@ include "../styles/metadata/GapStyles.as";
 
 [IconFile("FormItem.png")]
 
+[Alternative(replacement="spark.components.FormItem", since="4.5")]
+
 /**
  *  The FormItem container defines a label and one or more children
  *  arranged horizontally or vertically.
