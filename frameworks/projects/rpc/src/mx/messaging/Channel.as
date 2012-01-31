@@ -1313,12 +1313,14 @@ public class Channel extends EventDispatcher implements IMXMLObject
      */
     private function failover():void
     {
+        var timer:Timer = null;
+        
         // Special-case retry on current URI.
         if (_previouslyConnected)
         {
             _previouslyConnected = false;
             setReconnecting(true);
-            var timer:Timer = new Timer(1, 1);
+            timer = new Timer(1, 1);
             timer.addEventListener(TimerEvent.TIMER, reconnect);
             timer.start();
             return; // Exit early - if this fails the remaining failoverURIs will be tried next.
@@ -1348,7 +1350,7 @@ public class Channel extends EventDispatcher implements IMXMLObject
             // enough and the failover scenario rare enough that special casing 
             // this for only NetConnection channels is more trouble than it's 
             // worth. 
-            var timer:Timer = new Timer(1, 1);
+            timer = new Timer(1, 1);
             timer.addEventListener(TimerEvent.TIMER, reconnect);
             timer.start();            
         }
