@@ -30,7 +30,7 @@ use namespace mx_internal;
 /**
  * Dispatched every time the effect updates the target.
  *
- * @eventType spark.events.EffectEvent.EFFECT_UPDATE
+ * @eventType mx.events.EffectEvent.EFFECT_UPDATE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -45,7 +45,7 @@ use namespace mx_internal;
  * Flex also dispatches an <code>effectUpdate</code> event 
  * for the effect at the same time.
  *
- * @eventType spark.events.EffectEvent.EFFECT_REPEAT
+ * @eventType mx.events.EffectEvent.EFFECT_REPEAT
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -56,19 +56,29 @@ use namespace mx_internal;
 
 
 /**
- * This effect animates an arbitrary set of properties between values, as specified
- * in the <code>motionPaths</code> array. Example usage is as follows:
- * 
- * @example Using the Animate effect to move a button from (100, 100)
- * to (200, 150):
- * <listing version="3.0">
- * var button:Button = new Button();
- * var anim:Animate = new Animate(button);
- * anim.motionPaths = [
- *     new SimpleMotionPath("x", 100, 200),
- *     new SimpleMotionPath("y", 100, 150)];
- * anim.play();
- * </listing>
+ * This Animate effect animates an arbitrary set of properties between values. 
+ * Specify the properties and values to animate by setting the <code>motionPaths</code> property. 
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Animate&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:Animate
+ *    <b>Properties</b>
+ *    id="ID"
+ *    disableConstraints="false"
+ *    disableLayout="false"
+ *    easer="{spark.effects.easing.Sine(.5)}"
+ *    interpolator="NumberInterpolator"
+ *    motionPaths="no default"
+ *    repeatBehavior="loop"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.effects.supportClasses.AnimateInstance
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -86,7 +96,9 @@ public class Animate extends Effect
     //--------------------------------------------------------------------------
 
     /**
-     * Constructor. 
+     *  Constructor. 
+     *
+     *  @param target The Object to animate with this effect.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -138,12 +150,13 @@ public class Animate extends Effect
     private var _motionPaths:Array;
     [Inspectable(category="General", arrayType="spark.effects.MotionPath")]
     /**
-     * An array of MotionPath objects, each of which holds the
-     * name of the property being animated and the values that the property
-     * will take on during the animation. This array takes precedence over
-     * any helper properties that may be declared in subclasses of Animate.
-     * For example, if this array is set directly on an Move object, 
-     * then any helper values such as <code>xFrom</code> will be ignored. 
+     * An Array of MotionPath objects, each of which holds the
+     * name of a property being animated and the values that the property
+     * takes during the animation. 
+     * This Array takes precedence over
+     * any properties declared in subclasses of Animate.
+     * For example, if this Array is set directly on a Move effect, 
+     * then any properties of the Move effect, such as <code>xFrom</code>, are ignored. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -171,12 +184,13 @@ public class Animate extends Effect
      */
     private var _easer:IEaser = defaultEaser;
     /**
-     * The easing behavior for this effect. This IEaser
-     * object will be used to convert the elapsed fraction of 
-     * the animation into an eased fraction, which will then be used to
+     * The easing behavior for this effect. 
+     * This IEaser object is used to convert the elapsed fraction of 
+     * the animation into an eased fraction, which is then used to
      * calculate the value at that eased elapsed fraction.
      * 
      * @default spark.effects.easing.Sine(.5)
+     *
      * @see spark.effects.easing.Sine
      *  
      *  @langversion 3.0
@@ -206,13 +220,17 @@ public class Animate extends Effect
     private var _interpolator:IInterpolator = null;
     /**
      * The interpolator used by this effect to calculate values between
-     * the start and end values. By default, interpolation is handled
-     * by <code>NumberInterpolator</code> or, in the case of the start
-     * and end values being arrays, by <code>NumberArrayInterpolator</code>.
+     * the start and end values of a property. 
+     * By default, interpolation is handled
+     * by the NumberInterpolator class or, in the case of the start
+     * and end values being Arrays, by the ArrayInterpolator class.
      * Interpolation of other types, or of Numbers that should be interpolated
      * differently, such as <code>uint</code> values that hold color
      * channel information, can be handled by supplying a different
-     * <code>interpolator</code>.
+     * interpolator.
+     *
+     *  @see spark.effects.interpolation.NumberInterpolator
+     *  @see spark.effects.interpolation.ArrayInterpolator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -240,11 +258,11 @@ public class Animate extends Effect
      */
     private var _repeatBehavior:String = RepeatBehavior.LOOP;
     /**
-     * The behavior of a repeating effect (an effect
-     * with <code>repeatCount</code> equal to either 0 or >1). This
-     * value should be either <code>RepeatBehavior.LOOP</code>, where the animation
-     * will repeat in the same order each time, or <code>RepeatBehavior.REVERSE</code>,
-     * where the animation will reverse direction each iteration.
+     * The behavior of a repeating effect, which means an effect
+     * with <code>repeatCount</code> equal to either 0 or &gt; 1. This
+     * value should be either <code>RepeatBehavior.LOOP</code>, which means the animation
+     * repeats in the same order each time, or <code>RepeatBehavior.REVERSE</code>,
+     * which means the animation reverses direction on each iteration.
      * 
      * @default RepeatBehavior.LOOP
      *  
@@ -274,10 +292,9 @@ public class Animate extends Effect
      */
     private var _disableConstraints:Boolean = false;
     /**
-     * This property indicates whether the effect should disable constraints on its
-     * targets while the effect is running. If set to true, the effect
-     * will disable any constraints that are set for the duration of the effect
-     * and then re-enable those same constraints when the effect finishes.
+     * If <code>true</code>, the effect disable constraints on its
+     * targets while the effect is running. 
+     * The effect reenables constraints when the effect finishes.
      * 
      * @default false
      *  
@@ -307,18 +324,20 @@ public class Animate extends Effect
      */
     private var _disableLayout:Boolean = false;
     /**
-     * This property indicates whether the effect should disable layout on its
-     * targets' parents while the effect is running. If set to true, the effect
-     * will set the parent containers' <code>autoLayout</code> property to 
-     * false for the duration of the effect. Note that other events may
-     * occur in those containers that force layout to happen anyway.
+     * If <code>true</code>, the effect disables layout on its
+     * targets' parent containers while the effect is running. 
+     * The effect sets the parent containers' <code>autoLayout</code> property to 
+     * false for the duration of the effect. 
+     *
+     * <p>Note that other events may
+     * occur in those containers that force layout to happen anyway.</p>
      * 
      * @default false
      *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     * @langversion 3.0
+     * @playerversion Flash 10
+     * @playerversion AIR 1.5
+     * @productversion Flex 4
      */
     public function get disableLayout():Boolean
     {
@@ -339,10 +358,19 @@ public class Animate extends Effect
     //--------------------------------------------------------------------------
 
     /**
-     * By default, the affected properties are the same as those specified
-     * in the <code>motionPaths</code> array. If subclasses affect
-     * or track a different set of properties, they should override this
-     * method.
+     *  Returns an Array of Strings, where each String is the name of a property that is changed by this effect. 
+     *  For example, the Move effect returns an Array that contains "x" and "y".
+     *
+     *  <p>Every subclass of Effect must implement this method. 
+     *  The method is used by the EffectManager to ensure that no two effects are trying 
+     *  to animate the same property of the same object at the same time.</p>
+     *
+     *  <p>By default, the affected properties are the same as those specified
+     *  in the <code>motionPaths</code> Array. If subclasses modify 
+     *  a different set of properties, they should override this
+     *  method.</p>
+     *
+     *  @return An Array of Strings specifying the names of the properties modified by this effect. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -405,7 +433,11 @@ public class Animate extends Effect
                 animateInstance.motionPaths[i] = motionPaths[i].clone();
         }
     }
+    
 
+    /**
+     * @private
+     */
     override protected function applyValueToTarget(target:Object, property:String, 
                                           value:*, props:Object):void
     {
