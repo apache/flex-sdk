@@ -28,19 +28,19 @@ import flash.utils.ByteArray;
  * <p>The bitmap effect is run by a pixel-shader program
  * that is loaded by the effect. 
  * You can specify a different crossfade behavior by specifying 
- * a pixel-shader program to the <code>shaderCode</code> property.
+ * a pixel-shader program to the <code>shaderByteCode</code> property.
  * That pixel-shader program must meet the requirements defined in the 
- * AnimateShaderTransition effect. </p>
+ * AnimateTransitionShader effect. </p>
  * 
- * @see spark.effects.AnimateShaderTransition
- * @see spark.effects.AnimateShaderTransition#shaderCode
+ * @see spark.effects.AnimateTransitionShader
+ * @see spark.effects.AnimateTransitionShader#shaderByteCode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class CrossFade extends AnimateShaderTransition
+public class CrossFade extends AnimateTransitionShader
 {
     [Embed(source="CrossFade.pbj", mimeType="application/octet-stream")]
     private static var CrossFadeShaderClass:Class;
@@ -63,7 +63,7 @@ public class CrossFade extends AnimateShaderTransition
         // addition that CrossFade adds is specifying the Crossfade
         // Pixel Bender shader. Everything else needed is in the 
         // superclass already.
-        shaderCode = crossFadeShaderCode;
+        shaderByteCode = crossFadeShaderCode;
     }
     
 }
