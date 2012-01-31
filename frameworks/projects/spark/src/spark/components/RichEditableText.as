@@ -1606,7 +1606,10 @@ public class RichEditableText extends UIComponent
             // SWF where the embedded font is.)
             // Otherwise, this will be null.
             embeddedFontContext = getEmbeddedFontContext();
-            
+
+            _textContainerManager.textLineCreator = 
+                ITextLineCreator(embeddedFontContext);                       
+
             if (debug)
                 trace("hostFormat=");
             _textContainerManager.hostFormat =
@@ -1949,17 +1952,21 @@ public class RichEditableText extends UIComponent
         // If we're autoSizing we're telling the layout manager one set of
         // values and TLF another set of values so there is room for the text
         // to grow.
-        if  (!autoSize)
-        {
-            _textContainerManager.compositionWidth = unscaledWidth;
-            _textContainerManager.compositionHeight = unscaledHeight;
-        }
         
+        // TODO:(cframpto) compositionWidth can be NaN when 
+        // autoSize for blockProgression=="rl" is implemented
+        
+        // FIXME:(cframpto) remove NaN check when TLF setter is fixed
+        // to check for NaN correctly
+        
+        _textContainerManager.compositionWidth = unscaledWidth;
+        if (!autoSize)
+            _textContainerManager.compositionHeight = unscaledHeight;
+        else if (!isNaN(_textContainerManager.compositionHeight))
+            _textContainerManager.compositionHeight = NaN;           
+            
         if (debug)
             trace("updateContainer()");
-            
-        _textContainerManager.textLineCreator = 
-            ITextLineCreator(embeddedFontContext);
             
         _textContainerManager.updateContainer();
     }
@@ -2378,7 +2385,8 @@ public class RichEditableText extends UIComponent
         // If dimension is NaN, composer will measure text in that 
         // direction.  This can cause a damage event if changed. 
         _textContainerManager.compositionWidth = composeWidth;
-        _textContainerManager.compositionHeight = NaN;
+        if (!isNaN(_textContainerManager.compositionHeight))
+            _textContainerManager.compositionHeight = NaN;
 
         // Compose only.  The display should not be updated.
         _textContainerManager.compose();
@@ -2468,15 +2476,6 @@ public class RichEditableText extends UIComponent
         // because there is flicker as the display objects are updated with the 
         // sizes and positions from layout pass1 and then from layout pass 2.
         invalidateSize();
-
-        // Changing the text size can change the 
-        // size of other components, for example, if text is in a panel.  
-        // If we do not intervene, the rest of the updates will occur, then any 
-        // invalidated components will be remeasured and the display updated 
-        // again, which can cause flicker if the sizes change.
-        //if (parentDocument is UIComponent)
-        //    (UIComponent(parentDocument)).validateNow();
-        // return false;
             
         return true;            
     }
@@ -2490,13 +2489,6 @@ public class RichEditableText extends UIComponent
      */
     private function calculateFontMetrics():void
     {
-        // If the CSS styles for this component specify an embedded font,
-        // embeddedFontContext will be set to the module factory that
-        // should create TextLines (since they must be created in the
-        // SWF where the embedded font is.)
-        // Otherwise, this will be null.
-        embeddedFontContext = getEmbeddedFontContext();
-        
         var fontDescription:FontDescription = new FontDescription();
         
         var s:String;
@@ -2519,7 +2511,7 @@ public class RichEditableText extends UIComponent
             // specify an embedded font.
             if (s == "auto")
             {
-                s = embeddedFontContext ?
+                s = _textContainerManager.textLineCreator ?
                     FontLookup.EMBEDDED_CFF :
                     FontLookup.DEVICE;
             }
