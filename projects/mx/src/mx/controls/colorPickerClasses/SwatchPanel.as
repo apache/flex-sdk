@@ -41,6 +41,11 @@ use namespace mx_internal;
  *  Dispatched when the selected color changes.
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -48,6 +53,11 @@ use namespace mx_internal;
  *  Dispatched when the user presses the Enter key.
  *
  *  @eventType mx.events.FlexEvent.ENTER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="enter", type="flash.events.Event")]
 
@@ -55,6 +65,11 @@ use namespace mx_internal;
  *  Dispatched when the mouse rolls over a color.
  *
  *  @eventType mx.events.ColorPickerEvent.ITEM_ROLL_OVER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOver", type="mx.events.ColorPickerEvent")]
 
@@ -62,6 +77,11 @@ use namespace mx_internal;
  *  Dispatched when the mouse rolls out of a color.
  *
  *  @eventType mx.events.ColorPickerEvent.ITEM_ROLL_OUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOut", type="mx.events.ColorPickerEvent")]
 
@@ -81,6 +101,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  The DataGrid control also ignores this style.
  *  The default value is <code>undefined</code>. If both this style and the
  *  backgroundImage style are undefined, the control has a transparent background.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
@@ -93,24 +118,44 @@ include "../../styles/metadata/PaddingStyles.as"
  *  components that support the <code>borderStyle</code> style.
  *  The default value depends on the component class;
  *  if not overriden for the class, it is <code>0xAAB3B3</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no")]
 
 /**
  *  Number of columns in the swatch grid.
  *  The default value is 20.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="columnCount", type="int", inherit="no")]
 
 /**
  *  Color of the control border highlight.
  *  The default value is <code>0xC4CCCC</code> (medium gray) .
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="highlightColor", type="uint", format="Color", inherit="yes")]
 
 /**
  *  Color for the left and right inside edges of a component's skin.
  *  The default value is <code>0xD5DDDD</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="shadowCapColor", type="uint", format="Color", inherit="yes")]
 
@@ -118,6 +163,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  Bottom inside color of a button's skin.
  *  A section of the three-dimensional border.
  *  The default value is <code>0xEEEEEE</code> (light gray).
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="shadowColor", type="uint", format="Color", inherit="yes")]
 
@@ -125,42 +175,77 @@ include "../../styles/metadata/PaddingStyles.as"
  *  Height of the larger preview swatch that appears above the swatch grid on
  *  the top left of the SwatchPanel object.
  *  The default value is 22.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="previewHeight", type="Number", format="Length", inherit="no")]
 
 /**
  *  Width of the larger preview swatch.
  *  The default value is 45.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="previewWidth", type="Number", format="Length", inherit="no")]
 
 /**
  *  Size of the swatchBorder outlines.
  *  The default value is 1.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchBorderSize", type="Number", format="Length", inherit="no")]
 
 /**
  *  Color of the swatch borders.
  *  The default value is <code>0x000000</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchBorderColor", type="uint", format="Color", inherit="no")]
 
 /**
  *  Size of the single border around the grid of swatches.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchGridBorderSize", type="Number", format="Length", inherit="no")]
 
 /**
  *  Color of the background rectangle behind the swatch grid.
  *  The default value is <code>0x000000</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchGridBackgroundColor", type="uint", format="Color", inherit="no")]
 
 /**
  *  Height of each swatch.
  *  The default value is 12.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchHeight", type="Number", format="Length", inherit="no")]
 
@@ -168,6 +253,11 @@ include "../../styles/metadata/PaddingStyles.as"
  *  Color of the highlight that appears around the swatch when the user
  *  rolls over a swatch.
  *  The default value is <code>0xFFFFFF</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchHighlightColor", type="uint", format="Color", inherit="no")]
 
@@ -175,12 +265,22 @@ include "../../styles/metadata/PaddingStyles.as"
  *  Size of the highlight that appears around the swatch when the user
  *  rolls over a swatch.
  *  The default value is 1.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchHighlightSize", type="Number", format="Length", inherit="no")]
 
 /**
  *  Width of each swatch.
  *  The default value is 12.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchWidth", type="Number", format="Length", inherit="no")]
 
@@ -188,12 +288,22 @@ include "../../styles/metadata/PaddingStyles.as"
  *  @REVIEW 
  *  Name of the style sheet definition to configure the text input control.
  *  The default value is "swatchPanelTextField"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textFieldStyleName", type="String", inherit="no")]
 
 /**
  *  Width of the hexadecimal text box that appears above the swatch grid.
  *  The default value is 72.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textFieldWidth", type="Number", format="Length", inherit="no")]
 
@@ -218,6 +328,11 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function SwatchPanel() 
     {
@@ -460,6 +575,11 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     
     /**
 	 *  Storage for the colorField property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     private var _colorField:String = "color";
 
@@ -485,6 +605,11 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     
     /**
 	 *  Storage for the dataProvider property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _dataProvider:IList;
 
@@ -535,6 +660,11 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     
     /**
 	 *  Storage for the editable property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private var _editable:Boolean = true;
 
@@ -563,6 +693,11 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     
     /**
 	 *  Storage for the labelField property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     private var _labelField:String = "label";
 
@@ -600,6 +735,11 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     
     /**
 	 *  Storage for the selectedColor property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     private var _selectedColor:uint = 0x000000;
 
@@ -653,6 +793,11 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     
     /**
 	 *  Storage for the selectedIndex property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     private var _selectedIndex:int = 0;
 
@@ -717,6 +862,11 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     
     /**
 	 *  Storage for the showTextField property.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     private var _showTextField:Boolean = true;
 
