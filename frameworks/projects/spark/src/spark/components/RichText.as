@@ -195,6 +195,22 @@ include "../styles/metadata/AdvancedNonInheritingTextStyles.as"
  *  
  *  @includeExample examples/RichTextExample.mxml
  *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:RichText&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:RichText
+ *    <strong>Properties</strong>
+ *    fontContext="<i>IFlexModuleFactory</i>"
+ *    luminosityClip="false"
+ *    luminosityInvert="false"
+ *    maskType="MaskType.CLIP"
+ *    textFlow="<i>TextFlow</i>"
+ *  /&gt;
+ *  </pre>
+ *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
