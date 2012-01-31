@@ -88,6 +88,7 @@ public class AMFXDecoder
         {
             var context:AMFXContext = new AMFXContext();
             context.log = Log.getLogger("mx.messaging.channels.amfx.AMFXDecoder");
+            XML.ignoreWhitespace = false;
             return decodePacket(xml, context);
         }
         else
