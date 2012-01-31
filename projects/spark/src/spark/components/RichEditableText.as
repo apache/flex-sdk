@@ -16,6 +16,9 @@ import flash.display.Graphics;
 import flash.events.Event;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
+import flash.text.engine.FontPosture;
+import flash.text.engine.FontWeight;
+import flash.text.engine.Kerning;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
@@ -38,18 +41,25 @@ import text.edit.SelectionState;
 import text.edit.SplitParOperation;
 import text.edit.StyleChangeOperation;
 import text.importExport.TextFilter;
+import text.model.BlockProgression;
 import text.model.CharacterAttributes;
 import text.model.ContainerAttributes;
+import text.model.Direction;
 import text.model.FlowElement;
 import text.model.ICharacterAttributes;
 import text.model.IContainerAttributes;
 import text.model.IParagraphAttributes;
 import text.model.LeafElement;
+import text.model.LineBreak;
 import text.model.ModelChangeEvent;
 import text.model.Paragraph;
 import text.model.ParagraphAttributes;
 import text.model.Span;
+import text.model.TextAlign;
+import text.model.TextDecoration;
 import text.model.TextFlow;
+import text.model.VerticalAlign;
+import text.model.WhitespaceCollapse;
 
 //--------------------------------------
 //  Events
@@ -268,7 +278,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _blockProgression:String = "lr";
+    private var _blockProgression:String = BlockProgression.TOP_TO_BOTTOM;
 
     /**
      *  Documentation is not currently available.
@@ -336,7 +346,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _direction:String = "ltr";
+    private var _direction:String = Direction.LEFT_TO_RIGHT;
 
     /**
      *  Documentation is not currently available.
@@ -441,7 +451,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _fontStyle:String = "normal";
+    private var _fontStyle:String = FontPosture.NORMAL;
 
     /**
      *  Determines whether the text is italic.
@@ -478,7 +488,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _fontWeight:String = "normal";
+    private var _fontWeight:String = FontWeight.NORMAL;
 
     /**
      *  Determines whether the text is boldface.
@@ -515,7 +525,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _kerning:String = "auto";
+    private var _kerning:String = Kerning.AUTO;
 
     /**
      *  Documentation is not currrently available.
@@ -549,7 +559,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _lineBreak:String = "toFit";
+    private var _lineBreak:String = LineBreak.TO_FIT;
 
     /**
      *  Documentation is not currrently available.
@@ -787,7 +797,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _paddingBottom:Number = 4;
+    private var _paddingBottom:Number = 0;
 
     /**
      *  Documentation is not currently available.
@@ -821,7 +831,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _paddingLeft:Number = 4;
+    private var _paddingLeft:Number = 0;
 
     /**
      *  Documentation is not currently available.
@@ -855,7 +865,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _paddingRight:Number = 4;
+    private var _paddingRight:Number = 0;
 
     /**
      *  Documentation is not currently available.
@@ -889,7 +899,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _paddingTop:Number = 4;
+    private var _paddingTop:Number = 0;
 
     /**
      *  Documentation is not currently available.
@@ -923,7 +933,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _textAlign:String = "left";
+    private var _textAlign:String = TextAlign.START;
 
     /**
      *  Documentation is not currrently available.
@@ -957,7 +967,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _textAlignLast:String = "left";
+    private var _textAlignLast:String = TextAlign.START;
 
     /**
      *  Documentation is not currrently available.
@@ -1025,7 +1035,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _textDecoration:String = "none";
+    private var _textDecoration:String = TextDecoration.NONE;
 
     /**
      *  Documentation is not currrently available.
@@ -1127,7 +1137,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _verticalAlign:String = "top";
+    private var _verticalAlign:String = VerticalAlign.TOP;
 
     /**
      *  Documentation is not currrently available.
@@ -1161,7 +1171,7 @@ public class TextView extends UIComponent
     /**
      *  @private
      */
-    private var _whiteSpaceCollapse:String = "preserve";
+    private var _whiteSpaceCollapse:String = WhitespaceCollapse.PRESERVE;
 
     /**
      *  Documentation is not currrently available.
