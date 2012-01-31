@@ -186,6 +186,7 @@ import spark.components.SkinnableContainer;
  *  </pre>
  * 
  *  @see spark.skins.spark.BorderSkin
+ *  @includeExample examples/BorderExample.mxml
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
