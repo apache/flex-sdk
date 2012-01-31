@@ -3248,6 +3248,9 @@ public class ListBase extends ScrollControlBase
     public override function validateDisplayList():void
     {
         // this code is nearly duplicating UIComponent.validateDisplayList();
+
+    	validateTransform();
+
         if (invalidateDisplayListFlag)
         {
             // Check if our parent is the top level system manager
