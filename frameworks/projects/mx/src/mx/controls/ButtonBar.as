@@ -698,11 +698,11 @@ use namespace mx_internal;
                     // Distribute the remaining width to others.
                     else if (excessSpace < 0)
                     {
-                        var assignedWidth:int = c.measuredWidth;
+                        var assignedWidth:Number = c.measuredWidth;
                         if (assignedWidth > averageWidth)
                             assignedWidth = (w - tSmall) / nLarge;
 
-                        c.percentWidth = Number(assignedWidth) / w * 100;
+                        c.percentWidth = assignedWidth / w * 100;
                     }
 
                     // If they fit comfortably with extra space left,
