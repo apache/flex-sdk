@@ -3215,29 +3215,12 @@ public class RichEditableText extends UIComponent
             var bold:Boolean = getStyle("fontWeight") == "bold";
             var italic:Boolean = getStyle("fontStyle") == "italic";
             
-            fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
-                font, bold, italic, this, moduleFactory);
-
-            // If we found the font, then it is embedded. 
-            // But some fonts are not listed in info()
-            // and are therefore not in the above registry.
-            // So we call isFontFaceEmbedded() which gets the list
-            // of embedded fonts from the player.
-            if (!fontContext) 
-            {
-                var sm:ISystemManager;
-                if (moduleFactory != null && moduleFactory is ISystemManager)
-                    sm = ISystemManager(moduleFactory);
-                else if (parent is IUIComponent)
-                    sm = IUIComponent(parent).systemManager;
-
-                staticTextFormat.font = font;
-                staticTextFormat.bold = bold;
-                staticTextFormat.italic = italic;
+            var localLookup:ISystemManager = 
+                fontContext && fontContext is ISystemManager ? 
+                ISystemManager(fontContext) : systemManager;
                 
-                if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
-                    fontContext = sm;
-            }
+            fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
+                font, bold, italic, this, fontContext, localLookup, true);
         }
 
         if (!fontContext && fontLookup == FontLookup.EMBEDDED_CFF)
