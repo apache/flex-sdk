@@ -11,15 +11,20 @@
 
 package spark.core
 {
+import flash.ui.Keyboard;
 
 /**
- *  Enumerated type for the LayoutBase <code>getDestinationIndex()</code>
- *  method.
- *  List maps KeyboardEvent.keyCode to NavigationUnit values in its
- *  <code>mapEventToNavigationUnit</code> method.
+ *  Enumerated type for the IViewport <code>getVerticalScrollPositionDelta()</code>,
+ *  <code>getHorizontalScrollPositionDelta()</code> and
+ *  <code>getNavigationDestinationIndex()</code> methods.
  * 
- *  @see spark.layouts.LayoutBase#getDestinationIndex
- *  @see spark.components.List#mapEventToNavigationUnit
+ *  All of these constants have the same values as their flash.ui.Keyboard
+ *  counterparts, except PAGE_LEFT and PAGE_RIGHT, for which no keyboard
+ *  key equivalents exist.
+ * 
+ *  @see IViewport#getVerticalScrollPositionDelta
+ *  @see IViewport#getHorizontalScrollPositionDelta
+ *  @see LayoutBase#getNavigationDestinationIndex
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -29,112 +34,133 @@ package spark.core
 public final class NavigationUnit
 {
     /**
-     *  Don't go to a different item.
-     */
-    public static const NONE:uint = 0;
-
-    /**
-     *  Go to the first item in the container.
+     *  Navigate to the origin of the document.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const HOME:uint = 1;
-
-    /**
-     *  Go to the last item in the container.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static const END:uint = 2;
-
-    /**
-     *  Go to the destination item by moving in the upward direction.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static const UP:uint = 3;
-
-    /**
-     *  Go to the destination item by moving in the downward direction.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static const DOWN:uint = 4;
+    public static const HOME:uint = Keyboard.HOME;
     
     /**
-     *  Go to the destination item by moving in the left direction.
+     *  Navigate to the end of the document.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const LEFT:uint = 5;
-
+    public static const END:uint = Keyboard.END;
+    
     /**
-     *  Go to the destination item by moving in the right direction.
+     *  Navigate one line or "step" upwards.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const RIGHT:uint = 6;
-
+    public static const UP:uint = Keyboard.UP;
+    
     /**
-     *  Go to the destination item by moving by
-     *  one page in the upward direction.
+     *  Navigate one line or "step" downwards.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const PAGE_UP:uint = 7;
-
+    public static const DOWN:uint = Keyboard.DOWN;
+    
     /**
-     *  Go to the destination item by moving by
-     *  one page in the downward direction.
+     *  Navigate one line or "step" to the left.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const PAGE_DOWN:uint = 8;
-
+    public static const LEFT:uint = Keyboard.LEFT;
+    
     /**
-     *  Go to the destination item by moving by
-     *  one page in the left direction.
+     *  Navigate one line or "step" to the right.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const PAGE_LEFT:uint = 9;
-
+    public static const RIGHT:uint = Keyboard.RIGHT;
+    
     /**
-     *  Go to the destination item by moving by
-     *  one page in the right direction.
+     *  Navigate one page upwards.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static const PAGE_RIGHT:uint = 10;
+    public static const PAGE_UP:uint = Keyboard.PAGE_UP;
+    
+    /**
+     *  Navigate one page downwards.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const PAGE_DOWN:uint = Keyboard.PAGE_DOWN;
+    
+    /**
+     *  Navigate one page to the left.
+     * 
+     *  The value of this constant, 0x2397, is the same as the Unicode
+     *  "previous page" character. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const PAGE_LEFT:uint = 0x2397;
+    
+    /**
+     *  Navigate one page to the right.
+     * 
+     *  The value of this constant, 0x2398, is the same as the Unicode
+     *  "next page" character. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static const PAGE_RIGHT:uint = 0x2398;
+    
+    /**
+     *  Returns true if the keyCode maps directly to a NavigationUnit enum value.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public static function isNavigationUnit(keyCode:uint):Boolean
+    {
+        switch (keyCode)
+        {
+            case Keyboard.LEFT:         return true;
+            case Keyboard.RIGHT:        return true;
+            case Keyboard.UP:           return true;
+            case Keyboard.DOWN:         return true;
+            case Keyboard.PAGE_UP:      return true;
+            case Keyboard.PAGE_DOWN:    return true;
+            case Keyboard.HOME:         return true;
+            case Keyboard.END:          return true;
+            default:                    return false;
+        }
+    }
 }
 }
