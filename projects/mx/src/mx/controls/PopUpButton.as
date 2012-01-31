@@ -450,13 +450,17 @@ public class PopUpButton extends Button
     private var _closeOnActivity:Boolean = true;
     
     /**
-     *  If <code>true</code>, specifies popUp would close
-     *  on click/enter activity.
-     *  In <code>popUp</code> like Menu/List/TileList etc,
-     *  one need not change this as they should close on activity.
-     *  However for multiple selection, and other <code>popUp</code>,
-     *  this can be set to <code>false</code>, to prevent the 
-     *  <code>popUp</code> from closing on activity.
+     *  If <code>true</code>, specifies that the pop-up control closes
+     *  on a click or other user activity.
+     *  The pop-up control is the control opened by a click on the 
+     *  pop-up button.
+     * 
+     *  <p>For pop-up controls like Menu, List, or TileList,  
+     *  you can leave this property with its default value of <code>true</code>
+     *  because those controls should close on activity.
+     *  However, for multiple selection and other types of pop-up controls,
+     *  you can set this property to <code>false</code> to prevent the 
+     *  pop-up control from closing on activity.</p>
      *  
      *  @default true 
      */     
@@ -951,21 +955,21 @@ public class PopUpButton extends Button
         
         if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0) 
         {
-        	try
-	        {
-	            bm = currentSkin["borderMetrics"];
-	        }
-	        catch(e:Error)
-	        {
-	            bm = new EdgeMetrics(3, 3, 3, 3);
-	        }
+            try
+            {
+                bm = currentSkin["borderMetrics"];
+            }
+            catch(e:Error)
+            {
+                bm = new EdgeMetrics(3, 3, 3, 3);
+            }
         }
         else
         {
-	        if (currentSkin is IRectangularBorder)
-	        	bm = IRectangularBorder(currentSkin).borderMetrics;
-	        else
-				bm = new EdgeMetrics(3, 3, 3, 3);        
+            if (currentSkin is IRectangularBorder)
+                bm = IRectangularBorder(currentSkin).borderMetrics;
+            else
+                bm = new EdgeMetrics(3, 3, 3, 3);        
         }
         
         var popUpIcon:IFlexDisplayObject =
