@@ -25,6 +25,11 @@ use namespace mx_internal;
 /**
  *  Alpha values used for the background fill of the container.
  *  The default value is <code>[0,0]</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no")]
 
@@ -36,6 +41,11 @@ use namespace mx_internal;
  *  <p>You should also set the <code>fillAlphas</code> property to 
  *  a nondefault value because its default value 
  *  of <code>[0,0]</code> makes the colors invisible.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
 
@@ -144,6 +154,11 @@ use namespace mx_internal;
  *  @see mx.core.Application
  *
  *  @includeExample examples/SimpleApplicationControlBarExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ApplicationControlBar extends ControlBar
 {
@@ -169,6 +184,11 @@ public class ApplicationControlBar extends ControlBar
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ApplicationControlBar()
     {
@@ -202,6 +222,11 @@ public class ApplicationControlBar extends ControlBar
      *  <code>dock</code> has no effect.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get dock():Boolean
     {
