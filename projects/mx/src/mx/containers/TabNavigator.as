@@ -20,7 +20,6 @@ import mx.controls.Button;
 import mx.controls.TabBar;
 import mx.core.Container;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.IInvalidating;
 import mx.core.IProgrammaticSkin;
@@ -403,9 +402,6 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            return super.baselinePosition;
-        
         if (!validateBaselinePosition())
             return NaN;
 
@@ -557,13 +553,6 @@ public class TabNavigator extends ViewStack implements IFocusManagerComponent
             tabBar.focusEnabled = false;
             tabBar.styleName = new StyleProxy(this, tabBarStyleFilters);
             rawChildren.addChild(tabBar);
-            
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            {
-                tabBar.setStyle("paddingTop", 0);
-                tabBar.setStyle("paddingBottom", 0);
-                tabBar.setStyle("borderStyle", "none");             
-            }
         }
     }
 
