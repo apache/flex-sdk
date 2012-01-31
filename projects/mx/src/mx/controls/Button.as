@@ -43,7 +43,7 @@ import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.MoveEvent;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.states.State;
@@ -2520,7 +2520,7 @@ public class Button extends UIComponent
         systemManager.getSandboxRoot().removeEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
         systemManager.getSandboxRoot().removeEventListener(
-            SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
         
         if (autoRepeatTimer)
         {
@@ -2744,7 +2744,7 @@ public class Button extends UIComponent
         systemManager.getSandboxRoot().addEventListener(
             MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);
         systemManager.getSandboxRoot().addEventListener(
-            SandboxRootMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
+            SandboxMouseEvent.MOUSE_UP_SOMEWHERE, stage_mouseLeaveHandler);
 
         buttonPressed();
 
