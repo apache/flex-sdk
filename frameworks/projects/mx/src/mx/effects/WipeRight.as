@@ -51,6 +51,11 @@ import mx.effects.effectClasses.WipeRightInstance;
  *  @see mx.effects.effectClasses.WipeRightInstance
  *  
  *  @includeExample examples/WipeRightExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class WipeRight extends MaskEffect
 {
@@ -66,6 +71,11 @@ public class WipeRight extends MaskEffect
 	 *  Constructor.
 	 *
 	 *  @param target The Object to animate with this effect.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function WipeRight(target:Object = null)
 	{
