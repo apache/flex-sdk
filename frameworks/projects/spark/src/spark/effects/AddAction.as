@@ -346,8 +346,6 @@ public class AddAction extends Effect
         {
             if (target.parent)
             {
-                // FIXME (chaase): workaround for current situation of mis-match between
-                // Group having 'item's and Flex3 components having 'parent's
                 if (target.parent is IVisualElementContainer)
                     IVisualElementContainer(target.parent).removeElement(target as IVisualElement);
                 else
