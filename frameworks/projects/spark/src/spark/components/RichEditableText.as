@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.display.BlendMode;
@@ -62,14 +62,14 @@ import flashx.textLayout.operations.PasteOperation;
 import flashx.textLayout.operations.SplitParagraphOperation;
 import flashx.textLayout.tlf_internal;
 
-import mx.core.IViewport;
-import mx.core.ScrollUnit;
+import spark.core.IViewport;
+import spark.core.ScrollUnit;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.TextOperationEvent;
+import spark.events.TextOperationEvent;
 import mx.utils.StringUtil;
-import mx.utils.TextUtil;
+import spark.utils.TextUtil;
 
 //--------------------------------------
 //  Events
@@ -142,33 +142,33 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 
 [DefaultProperty("content")]
 
-[IconFile("TextView.png")]
+[IconFile("RichEditableText.png")]
 
 /**
  *  Displays text. 
  *  
- *  <p>TextView has more functionality than TextBox and TextGraphic. In addition to the text rendering 
- *  capabilities of TextGraphic, TextView also supports hyperlinks, scrolling, selecting, and editing.</p>
+ *  <p>RichEditableText has more functionality than SimpleText and RichText. In addition to the text rendering 
+ *  capabilities of RichText, RichEditableText also supports hyperlinks, scrolling, selecting, and editing.</p>
  *  
- *  <p>The TextView class is similar to the mx.controls.TextArea control, except that it does 
+ *  <p>The RichEditableText class is similar to the mx.controls.TextArea control, except that it does 
  *  not have chrome.</p>
  *  
- *  <p>The TextView class does not support drawing a background, border, or scrollbars. To do that,
+ *  <p>The RichEditableText class does not support drawing a background, border, or scrollbars. To do that,
  *  you combine it with other components.</p>
  *  
- *  <p>Because TextView extends UIComponent, it can take focus and allows user interaction such as selection.</p>
+ *  <p>Because RichEditableText extends UIComponent, it can take focus and allows user interaction such as selection.</p>
  *  
- *  @see mx.graphics.TextBox
- *  @see mx.graphics.TextGraphic
+ *  @see mx.graphics.SimpleText
+ *  @see mx.graphics.RichText
  *
- *  @includeExample examples/TextViewExample.mxml
+ *  @includeExample examples/RichEditableTextExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class TextView extends UIComponent implements IViewport
+public class RichEditableText extends UIComponent implements IViewport
 {
     include "../core/Version.as";
         
@@ -223,7 +223,7 @@ public class TextView extends UIComponent implements IViewport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function TextView()
+    public function RichEditableText()
     {
         super();
         
@@ -262,7 +262,7 @@ public class TextView extends UIComponent implements IViewport
             
     /**
      *  @private
-     *  This object is determined by the CSS styles of the TextView
+     *  This object is determined by the CSS styles of the RichEditableText
      *  and is updated by createTextFlow() when the hostFormatsInvalid flag
      *  is true.
      */
@@ -272,7 +272,7 @@ public class TextView extends UIComponent implements IViewport
      *  @private
      *  This flag indicates whether hostCharacterFormat, hostParagraphFormat,
      *  and hostContainerFormat need to be recalculated from the CSS styles
-     *  of the TextView. It is set true by stylesInitialized() and also
+     *  of the RichEditableText. It is set true by stylesInitialized() and also
      *  when styleChanged() is called with a null argument, indicating that
      *  multiple styles have changed.
      */
@@ -685,8 +685,8 @@ public class TextView extends UIComponent implements IViewport
     /**
      *  The height of the control, in lines.
      *  
-     *  <p>TextView's measure() method does not determine the measured size from 
-     *  the text to be displayed, because a TextView often starts out with no 
+     *  <p>RichEditableText's measure() method does not determine the measured size from 
+     *  the text to be displayed, because a RichEditableText often starts out with no 
      *  text. Instead it uses this property, and the widthInChars property 
      *  to determine its measuredWidth and measuredHeight. These are 
      *  similar to the cols and rows of an HTML TextArea.</p>
@@ -857,7 +857,7 @@ public class TextView extends UIComponent implements IViewport
     private var _maxChars:int = 0;
 
     /**
-     *  The maximum number of characters that the TextView can contain,
+     *  The maximum number of characters that the RichEditableText can contain,
      *  as entered by a user.
      *  A script can insert more text than maxChars allows;
      *  the maxChars property indicates only how much text a user can enter.
@@ -897,7 +897,7 @@ public class TextView extends UIComponent implements IViewport
      *  Determines whether the user can enter multiline text.
      *  If <code>true</code>, the Enter key starts a new paragraph.
      *  If <code>false</code>, the Enter key doesn't affect the text
-     *  but causes the TextView to dispatch an <code>"enter"</code> event.
+     *  but causes the RichEditableText to dispatch an <code>"enter"</code> event.
      * 
      *  @default true
      *  
@@ -1136,7 +1136,7 @@ public class TextView extends UIComponent implements IViewport
     private var textChanged:Boolean = false;
 
     /**
-     *  The text String displayed by this TextView.
+     *  The text String displayed by this RichEditableText.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1944,7 +1944,7 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  Keep this method in sync with the same method in TextGraphic.
+     *  Keep this method in sync with the same method in RichText.
      */
     private function createTextFlow():TextFlow
     {
@@ -2293,9 +2293,9 @@ public class TextView extends UIComponent implements IViewport
     }
     
     /**
-     *  Appends the specified text to the end of the TextView,
+     *  Appends the specified text to the end of the RichEditableText,
      *  as if you had clicked at the end and typed it.
-     *  When TextView supports vertical scrolling,
+     *  When RichEditableText supports vertical scrolling,
      *  it will scroll to ensure that the last line
      *  of the inserted text is visible.
      *  
@@ -2327,7 +2327,7 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  Returns a String containing markup describing
-     *  this TextView's TextFlow.
+     *  this RichEditableText's TextFlow.
      *  This markup String has the appropriate format
      *  for setting the <code>content</code> property.
      *  
@@ -2534,7 +2534,7 @@ public class TextView extends UIComponent implements IViewport
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-        // By default, we clear the undo history when a TextView loses focus.
+        // By default, we clear the undo history when a RichEditableText loses focus.
         if (mx_internal::clearUndoOnFocusOut)
             mx_internal::undoManager.clear();
                     
@@ -2773,7 +2773,7 @@ public class TextView extends UIComponent implements IViewport
             }
         }
  
-        // Dispatch a 'changing' event from the TextView
+        // Dispatch a 'changing' event from the RichEditableText
         // as notification that an editing operation is about to occur.
         if (dispatchChangingEvent)
         {
@@ -2782,7 +2782,7 @@ public class TextView extends UIComponent implements IViewport
             newEvent.operation = op;
             dispatchEvent(newEvent);
             
-            // If the event dispatched from this TextView is canceled,
+            // If the event dispatched from this RichEditableText is canceled,
             // cancel the one from the EditManager, which will prevent
             // the editing operation from being processed.
             if (newEvent.isDefaultPrevented())
@@ -2811,7 +2811,7 @@ public class TextView extends UIComponent implements IViewport
         textInvalid = true;
         dispatchEvent(new Event("textInvalid"));
 
-        // Dispatch a 'change' event from the TextView
+        // Dispatch a 'change' event from the RichEditableText
         // as notification that an editing operation has occurred.
         var newEvent:TextOperationEvent =
             new TextOperationEvent(TextOperationEvent.CHANGE);
