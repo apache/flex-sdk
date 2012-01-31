@@ -7223,6 +7223,8 @@ public class ListBase extends ScrollControlBase
     {
         clearSelected();
 
+        items = items.slice();
+
         var useFind:Boolean = collection.sort != null;
 
         try
