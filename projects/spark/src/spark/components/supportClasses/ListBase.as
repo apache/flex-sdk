@@ -9,22 +9,22 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
 import flash.events.Event;
 
 import mx.events.FlexEvent;
-import mx.events.RendererExistenceEvent;
+import spark.events.RendererExistenceEvent;
 
 import mx.collections.IList;
-import mx.components.FxDataContainer;
-import mx.components.ItemRenderer; 
-import mx.components.IItemRendererOwner; 
+import spark.components.SkinnableDataContainer;
+import spark.components.supportClasses.ItemRenderer; 
+import spark.components.IItemRendererOwner; 
 import mx.core.IVisualElement;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-import mx.utils.LabelUtil; 
+import spark.utils.LabelUtil; 
     
 /**
  *  Dispatched when the selection is going to change. 
@@ -53,7 +53,7 @@ import mx.utils.LabelUtil;
 [Event(name="selectionChanged", type="mx.events.IndexChangedEvent")]
 
 /**
- *  The FxListBase class is the base class for all components that support
+ *  The ListBase class is the base class for all components that support
  *  selection.
  *  
  *  @langversion 3.0
@@ -61,7 +61,7 @@ import mx.utils.LabelUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxListBase extends FxDataContainer implements IItemRendererOwner 
+public class ListBase extends SkinnableDataContainer implements IItemRendererOwner 
 {
     include "../../core/Version.as";
 
@@ -97,7 +97,7 @@ public class FxListBase extends FxDataContainer implements IItemRendererOwner
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxListBase()
+    public function ListBase()
     {
         super();
     }
