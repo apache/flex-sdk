@@ -75,9 +75,39 @@ include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class SimpleText extends TextGraphicElement implements IFontContextComponent
+public class SimpleText extends TextGraphicElement
+	implements IFontContextComponent
 {
     include "../core/Version.as";
+
+	//--------------------------------------------------------------------------
+    //
+    //  Class initialization
+    //
+    //--------------------------------------------------------------------------
+	
+    /**
+	 *  @private
+	 */
+	private static function initClass():void
+	{
+		staticTextBlock = new TextBlock();
+		
+		staticTextElement = new TextElement();
+		
+		staticSpaceJustifier = new SpaceJustifier();
+		
+		staticEastAsianJustifier = new EastAsianJustifier();
+		
+		staticEmbeddedFont = new EmbeddedFont("", false, false);
+	
+		staticTextFormat = new TextFormat();
+		
+		if ("recreateTextLine" in staticTextBlock)
+			recreateTextLine = staticTextBlock["recreateTextLine"];
+	}
+	
+	initClass();
 
 	//--------------------------------------------------------------------------
     //
@@ -91,24 +121,43 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
     /**
 	 *  @private
 	 */
-	private static var staticTextBlock:TextBlock = new TextBlock();
+	private static var staticTextBlock:TextBlock;
 
 	/**
 	 *  @private
 	 */
-	private static var staticTextElement:TextElement = new TextElement();
+	private static var staticTextElement:TextElement;
 
     /**
      *  @private
      */
-    private static var staticSpaceJustifier:SpaceJustifier =
-        new SpaceJustifier();
+    private static var staticSpaceJustifier:SpaceJustifier;
 
     /**
      *  @private
      */
-    private static var staticEastAsianJustifier:EastAsianJustifier =
-        new EastAsianJustifier();
+    private static var staticEastAsianJustifier:EastAsianJustifier;
+    
+    /**
+     *  @private
+     *  Used in getEmbeddedFontContext().
+     */
+    private static var staticEmbeddedFont:EmbeddedFont;
+        
+    /**
+     *  @private
+     *  Used in getEmbeddedFontContext().
+     */
+    private static var staticTextFormat:TextFormat;
+        
+    /**
+     *  @private
+     *  A reference to the recreateTextLine() method in staticTextBlock,
+     *  if it exists. This method was added in player 10.1.
+     *  It allows better performance by making it possible to reuse
+     *  existing TextLines instead of having to create new ones.
+     */
+    private static var recreateTextLine:Function;
 
     //----------------------------------
     //  embeddedFontRegistry
@@ -198,21 +247,15 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
     //--------------------------------------------------------------------------
 
     /**
-     * @private
-     * 
-     * Cache last value of embedded font.
-     */
-    private var cachedEmbeddedFont:EmbeddedFont = null;
-     
-    /**
      *  @private
-     * Holds the last recorded value of the module factory used to create the font.
+     *  Holds the last recorded value of the module factory
+     *  used to create the font.
      */
-    private var embeddedFontContext:IFlexModuleFactory = null;
+    private var embeddedFontContext:IFlexModuleFactory;
 
     //--------------------------------------------------------------------------
     //
-    //  Properties
+    //  Properties: IFontContextComponent
     //
     //--------------------------------------------------------------------------
 
@@ -220,6 +263,9 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
     //  fontContext
     //----------------------------------
     
+    /**
+     *  @private
+     */
     private var _fontContext:IFlexModuleFactory;
 
     /**
@@ -246,6 +292,12 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
     
     /**
      *  @private
+     *  This helper method is used by measure() and updateDisplayList().
+     *  It composes TextLines to render the 'text' String,
+     *  using the staticTextBlock as a factory,
+     *  and using the 'width' and 'height' parameters to define the size
+     *  of the composition rectangle, with NaN meaning "no limit".
+     *  It stops composing when the composition rectangle has been filled.
      *  Returns true if all lines were composed, otherwise false.
      */
     override protected function composeTextLines(width:Number = NaN,
@@ -270,7 +322,7 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         // Remove the text lines from the container.  If we're recycling the
         // text lines, leave them in mx_internal::textLines.
         mx_internal::removeTextLines();
-        if (!recycleTextLines)
+        if (recreateTextLine == null)
             mx_internal::textLines.length = 0;
         
 		var allLinesComposed:Boolean = createTextLines(elementFormat);
@@ -291,8 +343,8 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         releaseLinesFromTextBlock();
         
         // If toFit and explicit width, adjust the bounds to match.
-        // This will save a recompose and/or clip in updateDisplayList() if 
-        // the bounds width matches the unscaled width.
+        // This will save a recompose and/or clip in updateDisplayList()
+        // if  bounds width matches the unscaled width.
         if (getStyle("lineBreak") == "toFit" && 
             !isNaN(width) && mx_internal::bounds.width < width)
         {
@@ -313,34 +365,14 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
 
 	/**
 	 *  @private
-     *  Cleans up and sets the validity of the lines disassociated with the 
-     *  TextBlock to TextLineValidity.INVALID.
-     */
-    private function releaseLinesFromTextBlock():void
-    {
-        var firstLine:TextLine = staticTextBlock.firstLine;
-        var lastLine:TextLine = staticTextBlock.lastLine;
-        
-        if (firstLine)
-            staticTextBlock.releaseLines(firstLine, lastLine);        
-     }
-
-    /**
-     *  @private
-     *  Returns true if the player being used supports recycling
-     *  text lines.  Support was added in FP 10.1.
-     */
-    private function get recycleTextLines():Boolean
-    {
-        return "recreateTextLine" in staticTextBlock;
-    }        
-     
-	/**
-	 *  @private
 	 *  Creates an ElementFormat (and its FontDescription)
 	 *  based on the SimpleText's CSS styles.
 	 *  These must be recreated each time because FTE
 	 *  does not allow them to be reused.
+	 *  As a side effect, this method also sets embeddedFontContext
+	 *  so that we know which SWF should be used to create TextLines.
+	 *  (TextLines using an embedded font must be created in the SWF
+	 *  where the font is.)
 	 */
 	private function createElementFormat():ElementFormat
 	{
@@ -350,10 +382,17 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
 		// Setting null values for properties in an FTE FontDescription
 		// or ElementFormat throw an error, so the following code does
 		// null-checking on the problematic properties.
-        
-        var checkForEmbed:Boolean = false;
 
         var s:String;
+        
+        // If the CSS styles for this component specify an embedded font,
+        // embeddedFontContext will be set to the module factory that
+        // should create TextLines (since they must be created in the
+        // SWF where the embedded font is.)
+        // Otherwise, this will be null.
+        embeddedFontContext = getEmbeddedFontContext();
+        
+        // Fill out a FontDescription based on the CSS styles.
         
         var fontDescription:FontDescription = new FontDescription();
         
@@ -362,10 +401,21 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         	fontDescription.cffHinting = s;
         
         s = getStyle("fontLookup");
-        if (s != null && s != "auto")
-        	fontDescription.fontLookup = s;
-        else
-            checkForEmbed = true;
+        if (s != null)
+        {
+        	// FTE understands only "device" and "embeddedCFF"
+        	// for fontLookup. But Flex allows this style to be
+        	// set to "auto", in which case we automatically
+        	// determine it based on whether the CSS styles
+        	// specify an embedded font.
+        	if (s == "auto")
+        	{
+        		s = embeddedFontContext ?
+        			FontLookup.EMBEDDED_CFF :
+                	FontLookup.DEVICE;
+        	}
+	       	fontDescription.fontLookup = s;
+        }
         
         s = getStyle("fontFamily");
         if (s != null)
@@ -378,49 +428,12 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         s = getStyle("fontWeight");
         if (s != null)
         	fontDescription.fontWeight = s;
-        
-        if (checkForEmbed)
-        {
-            var embeddedFont:EmbeddedFont = getEmbeddedFont(
-                fontDescription.fontName, 
-                fontDescription.fontWeight == "bold", 
-                fontDescription.fontPosture == "italic");
-            
-            embeddedFontContext = 
-                embeddedFontRegistry.getAssociatedModuleFactory(
-                    embeddedFont, fontContext);
-
-            // if we found the font, then it is embedded. 
-            // Some fonts are not listed in info(), so are not in the above registry.
-            // Call isFontFaceEmbedded() which get the list of embedded fonts from the player.
-            if (embeddedFontContext != null) 
-            {
-                fontDescription.fontLookup = FontLookup.EMBEDDED_CFF;
-            }
-            else
-            {
-                var sm:ISystemManager = creatingSystemManager();
-                var textFormat:TextFormat = new TextFormat();
-                textFormat.font = fontDescription.fontName;
-                textFormat.bold = fontDescription.fontWeight == "bold";
-                textFormat.italic = fontDescription.fontPosture == "italic";
-                if (sm != null && sm.isFontFaceEmbedded(textFormat))
-                {
-                    fontDescription.fontLookup = FontLookup.EMBEDDED_CFF;
-                }
-            }
-        }
-        else
-        {
-            if (fontDescription.fontLookup == FontLookup.EMBEDDED_CFF)
-                embeddedFontContext = fontContext;
-            else
-                embeddedFontContext = null;
-        }
-
+        	
         s = getStyle("renderingMode");
         if (s != null)
         	fontDescription.renderingMode = s;
+        
+        // Fill our an ElementFormat based on the CSS styles.
         
         var elementFormat:ElementFormat = new ElementFormat();
         
@@ -471,6 +484,58 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         	elementFormat.typographicCase = s;
 
 		return elementFormat;
+	}
+	
+	/**
+	 *  @private
+	 *  Uses the component's CSS styles to determine the module factory
+	 *  that should creates its TextLines.
+	 */
+	private function getEmbeddedFontContext():IFlexModuleFactory
+	{
+		var moduleFactory:IFlexModuleFactory;
+		
+		var fontLookup:String = getStyle("fontLookup");
+		if (fontLookup == "auto")
+        {
+			var font:String = getStyle("fontFamily");
+			var bold:Boolean = getStyle("fontWeight") == "bold";
+			var italic:Boolean = getStyle("fontStyle") == "italic";
+			
+			staticEmbeddedFont.initialize(font, bold, italic);
+            
+            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
+            	staticEmbeddedFont, fontContext);
+
+            // If we found the font, then it is embedded. 
+            // But some fonts are not listed in info()
+            // and are therefore not in the above registry.
+            // So we call isFontFaceEmbedded() which gets the list
+            // of embedded fonts from the player.
+            if (!moduleFactory) 
+            {
+                var sm:ISystemManager;
+                if (fontContext != null && fontContext is ISystemManager)
+                	sm = ISystemManager(fontContext);
+                else if (parent is IUIComponent)
+                	sm = IUIComponent(parent).systemManager;
+
+                staticTextFormat.font = font;
+                staticTextFormat.bold = bold;
+                staticTextFormat.italic = italic;
+                
+                if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
+                    moduleFactory = sm;
+            }
+        }
+        else
+        {
+            moduleFactory = fontLookup == FontLookup.EMBEDDED_CFF ?
+                			fontContext :
+            				null;
+        }
+        
+        return moduleFactory;
 	}
 
     /**
@@ -634,16 +699,18 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         
         var maxTextWidth:Number = 0;
 		var totalTextHeight:Number = 0;
-		
 		var n:int = 0;
-        var nRecycleLines:int = recycleTextLines ? textLines.length : 0;
+        var nRecycleLines:int = recreateTextLine != null ? textLines.length : 0;
 		var nextTextLine:TextLine;
 		var nextY:Number = 0;
 		var textLine:TextLine;
         
+        var textLineCreator:ITextLineCreator =
+        	ITextLineCreator(embeddedFontContext);
+        			
 		// For truncation, need to know if all lines have been composed.
         var createdAllLines:Boolean = false;
-		
+        
 		// Generate TextLines, stopping when we run out of text
 		// or reach the bottom of the requested bounds.
 		// In this loop the lines are positioned within the rectangle
@@ -654,21 +721,32 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
 		    {
 		        //trace("recreateTextLine", n);
 		        var recycleLine:TextLine = textLines[n];
-                if (embeddedFontContext)
-                    nextTextLine = TextLine(ITextLineCreator(embeddedFontContext).recreateTextLine
-                                    (textBlock, recycleLine, textLine, maxLineWidth));		        
+                
+                if (textLineCreator)
+                {
+                    nextTextLine = textLineCreator.recreateTextLine(
+                    	textBlock, recycleLine, textLine, maxLineWidth);		
+                }        
                 else
-                    nextTextLine = textBlock["recreateTextLine"]
-                                    (recycleLine, textLine, maxLineWidth);		        
+                {
+                    nextTextLine = recreateTextLine(
+                    	recycleLine, textLine, maxLineWidth);
+                }  
+                      
                 nRecycleLines--;    
 		    }
 		    else
 		    {
-                if (embeddedFontContext)
-                    nextTextLine = TextLine(ITextLineCreator(embeddedFontContext).createTextLine
-                                    (textBlock, textLine, maxLineWidth));
+                if (textLineCreator)
+                {
+                    nextTextLine = textLineCreator.createTextLine(
+               			textBlock, textLine, maxLineWidth);
+                }
                 else
-    			    nextTextLine = textBlock.createTextLine(textLine, maxLineWidth);
+                {
+    			    nextTextLine = textBlock.createTextLine(
+    			    	textLine, maxLineWidth);
+                }
             }
             
 			if (!nextTextLine)
@@ -856,6 +934,35 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
 	}
 	
     /**
+     *  Determines if the composed text fits in the given height and 
+     *  line count limit. 
+     */ 
+    private function doesComposedTextFit(height:Number,
+                                         createdAllLines:Boolean,
+                                         lineCountLimit:int):Boolean
+    {
+        var textLines:Array = mx_internal::textLines;
+
+        // Not all text composed because it didn't fit within bounds.
+        if (!createdAllLines)
+            return false;
+                    
+        // More text lines than allowed lines.                    
+        if (lineCountLimit != -1 && textLines.length > lineCountLimit)
+            return false;
+        
+        // No lines or no height restriction.
+        if (!textLines.length || isNaN(height))
+            return true;
+                                             
+        // Does the bottom of the last line fall within the bounds?                                                    
+        var lastLine:TextLine = TextLine(textLines[textLines.length - 1]);        
+        var lastLineExtent:Number = lastLine.y + lastLine.descent;
+        
+        return lastLineExtent <= height;
+    }
+
+    /**
      *  @private
      *  width and height are the ones used to do the compose, not the measured
      *  results resulting from the compose.
@@ -883,7 +990,7 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
             // as well as being dependent on the indicator string, they are 
             // dependent on the given width.            
             staticTextElement.text = mx_internal::truncationIndicatorResource;
-            var indicatorLines:Array = new Array();
+            var indicatorLines:Array = [];
             var indicatorBounds:Rectangle = new Rectangle(0, 0, width, NaN);
     
             createTextLinesFromTextBlock(staticTextBlock, 
@@ -950,10 +1057,10 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
                     
                     // Try again by truncating at the beginning of the 
                     // preceding atom.
-                    truncateAtCharPosition = 
-                            getNextTruncationPosition(truncLineIndex,
-                                                      truncateAtCharPosition);                            
-                } while (true);
+                    truncateAtCharPosition = getNextTruncationPosition(
+                    	truncLineIndex, truncateAtCharPosition);                         
+                }
+                while (true);
             }
         }
 
@@ -975,35 +1082,6 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         }
     }
         
-    /**
-     * Determines if the composed text fits in the given height and 
-     * line count limit. 
-     */ 
-    private function doesComposedTextFit(height:Number,
-                                         createdAllLines:Boolean,
-                                         lineCountLimit:int):Boolean
-    {
-        var textLines:Array = mx_internal::textLines;
-
-        // Not all text composed because it didn't fit within bounds.
-        if (!createdAllLines)
-            return false;
-                    
-        // More text lines than allowed lines.                    
-        if (lineCountLimit != -1 && textLines.length > lineCountLimit)
-            return false;
-        
-        // No lines or no height restriction.
-        if (!textLines.length || isNaN(height))
-            return true;
-                                             
-        // Does the bottom of the last line fall within the bounds?                                                    
-        var lastLine:TextLine = TextLine(textLines[textLines.length - 1]);        
-        var lastLineExtent:Number = lastLine.y + lastLine.descent;
-        
-        return lastLineExtent <= height;
-    }
-
     /** 
      * Calculates the last line that fits in the given height and line count 
      * limit.
@@ -1037,14 +1115,14 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
     }
 
     /** 
-     * Gets the truncation position on a line given the allowed width.
-     * - Must be at an atom boundary.
-     * - Must scan the line for atoms in logical order, not physical position 
-     *   order.
-     * For example, given bi-di text ABאבCD
-     * atoms must be scanned in this order: 
-     * A, B, א
-     * ג, C, D  
+     *  Gets the truncation position on a line given the allowed width.
+     *  - Must be at an atom boundary.
+     *  - Must scan the line for atoms in logical order, not physical position 
+     *    order.
+     *  For example, given bi-di text ABאבCD
+     *  atoms must be scanned in this order: 
+     *  A, B, א
+     *  ג, C, D  
      */
     private function getTruncationPosition(line:TextLine, 
                                            allowedWidth:Number):int
@@ -1069,8 +1147,8 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
     }
         
     /** 
-     * Gets the next truncation position by shedding an atom's worth of 
-     * characters.
+     *  Gets the next truncation position by shedding an atom's worth of 
+     *  characters.
      */
     private function getNextTruncationPosition(truncationLineIndex:int,
                                                truncateAtCharPosition:int):int
@@ -1099,10 +1177,12 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
             {
                 break;
             }
+            
             if (truncateAtCharPosition < line.textBlockBeginIndex)
                 truncationLineIndex--;
             else
                 truncationLineIndex++;
+                
             line = TextLine(textLines[truncationLineIndex]);
         }
         while (true);
@@ -1118,36 +1198,21 @@ public class SimpleText extends TextGraphicElement implements IFontContextCompon
         line.flushAtomData();
         
         return nextTruncationPosition;
-    } 
-        
-    private function creatingSystemManager():ISystemManager
-    {
-        return ((fontContext != null) && (fontContext is ISystemManager))
-                ? ISystemManager(fontContext)
-                : IUIComponent(parent).systemManager;
     }
     
     /**
-     * @private
-     * 
-     * Get the embedded font for a set of font attributes.
-     */ 
-    private function getEmbeddedFont(fontName:String, bold:Boolean, italic:Boolean):EmbeddedFont
+	 *  @private
+     *  Cleans up and sets the validity of the lines disassociated 
+     *  with the TextBlock to TextLineValidity.INVALID.
+     */
+    private function releaseLinesFromTextBlock():void
     {
-        // Check if we can reuse a cached value.
-        if (cachedEmbeddedFont)
-        {
-            if (cachedEmbeddedFont.fontName == fontName &&
-                cachedEmbeddedFont.fontStyle == EmbeddedFontRegistry.getFontStyle(bold, italic))
-            {
-                return cachedEmbeddedFont;
-            }   
-        }
+        var firstLine:TextLine = staticTextBlock.firstLine;
+        var lastLine:TextLine = staticTextBlock.lastLine;
         
-        cachedEmbeddedFont = new EmbeddedFont(fontName, bold, italic);      
-        
-        return cachedEmbeddedFont;
-    }
+        if (firstLine)
+            staticTextBlock.releaseLines(firstLine, lastLine);        
+     }
 }
 
 }
