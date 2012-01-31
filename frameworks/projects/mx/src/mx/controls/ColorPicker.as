@@ -31,7 +31,7 @@ import mx.events.ColorPickerEvent;
 import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
-import mx.events.SandboxRootMouseEvent;
+import mx.events.SandboxMouseEvent;
 import mx.managers.IFocusManager;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
@@ -1157,9 +1157,9 @@ public class ColorPicker extends ComboBase
                                             dropdownSwatch_mouseDownOutsideHandler);
             dropdownSwatch.addEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE,
                                             dropdownSwatch_mouseDownOutsideHandler);
-            dropdownSwatch.addEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE,
+            dropdownSwatch.addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE,
                                             dropdownSwatch_mouseDownOutsideHandler);
-            dropdownSwatch.addEventListener(SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE,
+            dropdownSwatch.addEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE,
                                             dropdownSwatch_mouseDownOutsideHandler);
 
             dropdownSwatch.isOpening = true;
@@ -1222,9 +1222,9 @@ public class ColorPicker extends ComboBase
                                                dropdownSwatch_mouseDownOutsideHandler);
             dropdownSwatch.removeEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE,
                                                dropdownSwatch_mouseDownOutsideHandler);
-            dropdownSwatch.removeEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE,
+            dropdownSwatch.removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE,
                                             dropdownSwatch_mouseDownOutsideHandler);
-            dropdownSwatch.removeEventListener(SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE,
+            dropdownSwatch.removeEventListener(SandboxMouseEvent.MOUSE_WHEEL_SOMEWHERE,
                                             dropdownSwatch_mouseDownOutsideHandler);
                                                
             PopUpManager.removePopUp(dropdownSwatch);
@@ -1509,7 +1509,7 @@ public class ColorPicker extends ComboBase
             if (!hitTestPoint(mouseEvent.stageX, mouseEvent.stageY, true))
                 close(event);
         }
-        else if (event is SandboxRootMouseEvent)
+        else if (event is SandboxMouseEvent)
             close(event);
     }
     
