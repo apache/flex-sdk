@@ -189,7 +189,7 @@ public class ScrubBar extends HSlider
     {
         super.updateSkinDisplayList();
         sizeLoadedRangeArea(calculateAreaSize(loadedRangeEnd));
-        sizePlayedArea(calculateAreaSize(value));
+        sizePlayedArea(calculateAreaSize(pendingValue));
     }
     
     /**
