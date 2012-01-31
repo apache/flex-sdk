@@ -26,6 +26,11 @@ use namespace mx_internal;
  *  Corner radius of the highlighted rectangle around a LinkButton.
  * 
  *  @default 4
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="cornerRadius", type="Number", format="Length", inherit="no")]
 
@@ -33,6 +38,11 @@ use namespace mx_internal;
  *  Color of a LinkButton as a user moves the mouse pointer over it.
  * 
  *  @default 0xEEFEE6
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="rollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -40,6 +50,11 @@ use namespace mx_internal;
  *  Background color of a LinkButton as a user presses it.
  * 
  *  @default 0xB7F39B
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="selectionColor", type="uint", format="Color", inherit="yes")]
 
@@ -47,6 +62,11 @@ use namespace mx_internal;
  *  Text color of a LinkButton as a user moves the mouse pointer over it.
  * 
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
 
@@ -54,6 +74,11 @@ use namespace mx_internal;
  *  Text color of a LinkButton as a user presses it.
  * 
  *  @default 0x2B333C
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
 
@@ -124,6 +149,11 @@ use namespace mx_internal;
  *  @includeExample examples/LinkButtonExample.mxml
  * 
  *  @see mx.controls.LinkBar
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class LinkButton extends Button
 {
@@ -149,6 +179,11 @@ public class LinkButton extends Button
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function LinkButton()
 	{
