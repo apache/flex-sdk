@@ -53,30 +53,34 @@ and localized strings.
                 </s:ArrayCollection>
             </s:DataGrid>
             
-            <s:Form height="100%">
-                <s:FormHeading label="Selected Product Detail" textAlign="center"/>            
-                <s:FormItem label="Product Key:">
-                    <s:Label text="{dataGrid.selectedItem.key}"/>
-                </s:FormItem>
-                <s:FormItem label="Product Name:">
-                    <s:Label text="{dataGrid.selectedItem.name}"/>
-                </s:FormItem>
-                <s:FormItem label="Product Price:">
-                    <s:HGroup verticalAlign="baseline">
-                        <s:Label text="{cf.format(dataGrid.selectedItem.price)}"/>
-                        <s:Label text="Tax: {cf.format(dataGrid.selectedItem.price * 0.0975)}"/>
-                        <s:Label text="Total: {cf.format(dataGrid.selectedItem.price * 1.0975)}"/>
-                    </s:HGroup>
-                </s:FormItem>              
-                <s:FormItem label="Followup Needed:">
-                    <s:HGroup verticalAlign="baseline">
-                        <s:Label text="{(dataGrid.selectedItem.call) ? 'Yes' : 'No'}"/>
-                        <s:Button label="Call Now"
-                                  enabled="{dataGrid.selectedItem.call}"
-                                  click="dataGrid.selectedItem.call=false"/>
-                    </s:HGroup>                              
-                </s:FormItem>            
-            </s:Form>
+            <s:Scroller height="100%">
+                <s:Group>
+                    <s:Form width="100%" height="100%">
+                        <s:FormHeading label="Selected Product Detail" textAlign="center"/>            
+                        <s:FormItem label="Product Key:">
+                            <s:Label text="{dataGrid.selectedItem.key}"/>
+                        </s:FormItem>
+                        <s:FormItem label="Product Name:">
+                            <s:Label text="{dataGrid.selectedItem.name}"/>
+                        </s:FormItem>
+                        <s:FormItem label="Product Price:">
+                            <s:HGroup verticalAlign="baseline">
+                                <s:Label text="{cf.format(dataGrid.selectedItem.price)}"/>
+                                <s:Label text="Tax: {cf.format(dataGrid.selectedItem.price * 0.0975)}"/>
+                                <s:Label text="Total: {cf.format(dataGrid.selectedItem.price * 1.0975)}"/>
+                            </s:HGroup>
+                        </s:FormItem>              
+                        <s:FormItem label="Followup Needed:" >
+                            <s:HGroup verticalAlign="baseline">
+                                <s:Label text="{(dataGrid.selectedItem.call) ? 'Yes' : 'No'}"/>
+                                <s:Button label="Call Now"
+                                          enabled="{dataGrid.selectedItem.call}"
+                                          click="dataGrid.selectedItem.call=false"/>
+                            </s:HGroup>                              
+                        </s:FormItem>            
+                    </s:Form>
+                </s:Group>
+            </s:Scroller>
         </s:VGroup>
     </s:Panel>
 </s:Application>
