@@ -189,8 +189,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */ 
 [Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
@@ -224,8 +224,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
  */ 
 [Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
@@ -450,7 +450,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  TBD(hmuller)
  */  
 public class DataGrid extends SkinnableContainerBase implements IFocusManagerComponent, 
-                              IGridItemRendererOwner, IIMESupport
+                                                                IGridItemRendererOwner, 
+                                                                IIMESupport
 {
     include "../core/Version.as";
 
@@ -727,6 +728,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     private var gridProperties:Object = new Object();
     
     /**
+     *  @private
      *  The default values of the grid skin part properties covered by DataGrid.
      */
     private static const gridPropertyDefaults:Object = {
@@ -834,13 +836,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     /** 
      *  @private
      *  Maximum time in milliseconds between a click and a double click.
-     *  
      */ 
     mx_internal var doubleClickTime:Number = 620;
     
     /** 
      *  @private
-     * 
      *  Key used to start editting a cell.
      */ 
     mx_internal var editKey:uint = Keyboard.F2;
@@ -855,7 +855,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     
     /** 
      *  @private
-     * 
      *  Provides all the logic to start and end item
      *  editor sessions.
      *
@@ -891,9 +890,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     // TBD(hmuller): baselinePosition override
     // TBD(hmuller): methods to enable scrolling
     
-    
     //----------------------------------
-    //  columns (delgates to grid.columns)
+    //  columns (delegates to grid.columns)
     //----------------------------------
     
     [Bindable("columnsChanged")]
@@ -926,12 +924,18 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         }
     }
     
+    /**
+     *  @private
+     */
     private function getColumnsLength():uint
     {
         const columns:IList = columns;
         return (columns) ? columns.length : 0;
     }
     
+    /**
+     *  @private
+     */
     private function getColumnAt(columnIndex:int):GridColumn
     {
         const grid:Grid = grid;
@@ -943,7 +947,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  dataProvider (delgates to grid.dataProvider)
+    //  dataProvider (delegates to grid.dataProvider)
     //----------------------------------
     
     [Bindable("dataProviderChanged")]
@@ -987,7 +991,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get dataTipField():String
@@ -1015,7 +1019,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get dataTipFunction():Function
@@ -1055,8 +1059,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @default false
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get editable():Boolean
@@ -1083,8 +1087,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @default -1
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get editorColumnIndex():int
@@ -1106,8 +1110,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @default -1
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get editorRowIndex():int
@@ -1146,8 +1150,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  accordingly.
      *
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get enableIME():Boolean
@@ -1200,8 +1204,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  @default null
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get imeMode():String
@@ -1221,9 +1225,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //  itemEditor
     //----------------------------------
     
-    [Bindable("itemEditorChanged")]
-    
     private var _itemEditor:IFactory = null;
+    
+    [Bindable("itemEditorChanged")]
     
     /**
      *  The default value for the GridColumn itemEditor property, which specifies
@@ -1236,7 +1240,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5 
      */
     public function get itemEditor():IFactory
@@ -1274,8 +1278,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *  <p>You do not set this property in MXML.</p>
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get itemEditorInstance():IGridItemEditor
@@ -1297,7 +1301,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get itemRenderer():IFactory
@@ -1377,7 +1381,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  requestedRowCount(delegates to grid.requestedRowCount)
+    //  requestedRowCount (delegates to grid.requestedRowCount)
     //----------------------------------
     
     /**
@@ -1402,7 +1406,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  requestedColumnCount(delegates to grid.requestedColumnCount)
+    //  requestedColumnCount (delegates to grid.requestedColumnCount)
     //----------------------------------
     
     /**
@@ -1427,7 +1431,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  requestedMinRowCount(delegates to grid.requestedMinRowCount)
+    //  requestedMinRowCount (delegates to grid.requestedMinRowCount)
     //----------------------------------
     
     /**
@@ -1452,7 +1456,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  requestedMinColumnCount(delegates to grid.requestedMinColumnCount)
+    //  requestedMinColumnCount (delegates to grid.requestedMinColumnCount)
     //----------------------------------
     
     /**
@@ -1477,8 +1481,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  resizableColumns(delegates to grid.resizableColumns)
+    //  resizableColumns (delegates to grid.resizableColumns)
     //----------------------------------
+    
+    [Bindable("resizableColumnsChanged")]
     
     /**
      *  @copy spark.components.Grid#resizableColumns
@@ -1498,11 +1504,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */    
     public function set resizableColumns(value:Boolean):void
     {
-        setGridProperty("resizableColumns", value);
+        if (setGridProperty("resizableColumns", value))
+            dispatchChangeEvent("resizableColumnsChanged");
     }        
     
     //----------------------------------
-    //  rowHeight(delegates to grid.rowHeight)
+    //  rowHeight (delegates to grid.rowHeight)
     //----------------------------------
     
     [Bindable("rowHeightChanged")]
@@ -1530,7 +1537,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }    
     
     //----------------------------------
-    //  selectionMode delegates to (delegates to grid.selectionMode)
+    //  selectionMode (delegates to grid.selectionMode)
     //----------------------------------    
     
     [Bindable("selectionModeChanged")]
@@ -1543,7 +1550,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get selectionMode():String
@@ -1578,12 +1585,18 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         dispatchChangeEvent("selectionModeChanged");
     }
     
+    /**
+     *  @private
+     */
     mx_internal function isRowSelectionMode():Boolean
     {
         const mode:String = selectionMode;
         return mode == GridSelectionMode.SINGLE_ROW || mode == GridSelectionMode.MULTIPLE_ROWS;
     }
     
+    /**
+     *  @private
+     */
     mx_internal function isCellSelectionMode():Boolean
     {
         const mode:String = selectionMode;        
@@ -1663,7 +1676,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }        
     
     //----------------------------------
-    //  typicalItem delegates to (delegates to grid.typicalItem)
+    //  typicalItem (delegates to grid.typicalItem)
     //----------------------------------    
     
     [Bindable("typicalItemChanged")]
@@ -1673,7 +1686,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
+     *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
     public function get typicalItem():Object
@@ -1705,8 +1718,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  variableRowHeight(delegates to grid.variableRowHeight)
+    //  variableRowHeight (delegates to grid.variableRowHeight)
     //----------------------------------
+    
+    [Bindable("variableRowHeightChanged")]
     
     /**
      *  @copy spark.components.Grid#variableRowHeight
@@ -1726,7 +1741,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */    
     public function set variableRowHeight(value:Boolean):void
     {
-        setGridProperty("variableRowHeight", value);
+        if (setGridProperty("variableRowHeight", value))
+            dispatchChangeEvent("variableRowHeightChanged");
     }     
     
     //--------------------------------------------------------------------------
@@ -2517,7 +2533,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         return selectionChanged;
     }
     
-    
     //----------------------------------
     //  selection for rows
     //----------------------------------    
@@ -3296,6 +3311,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //--------------------------------------------------------------------------
     
     /**
+     *  @private
      *  @return True if there is an anchor position set.
      */    
     private function isAnchorSet():Boolean
@@ -3968,6 +3984,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         }
     }    
     
+    /**
+     *  @private
+     */
     protected function separator_mouseDragHandler(event:GridEvent):void
     {
         if (!resizeColumn)
@@ -3988,6 +4007,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         resizeColumn.width = newWidth;
     } 
     
+    /**
+     *  @private
+     */
     protected function separator_mouseUpHandler(event:GridEvent):void
     {
         if (!resizeColumn)
