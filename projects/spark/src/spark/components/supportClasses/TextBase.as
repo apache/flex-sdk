@@ -290,9 +290,7 @@ public class TextGraphicElement extends GraphicElement
     {
         if (value != mx_internal::_text)
         {
-            var oldValue:String = mx_internal::_text;
             mx_internal::_text = value;
-            dispatchPropertyChangeEvent("text", oldValue, value);
 
             invalidateTextLines("text");
             invalidateSize();
