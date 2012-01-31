@@ -61,18 +61,19 @@ use namespace mx_internal;
 [ResourceBundle("rpc")]
 
 /**
-  * You use the <code>&lt;mx:HTTPService&gt;</code> tag to represent an
-  * HTTPService object in an MXML file. When you call the HTTPService object's
-  * <code>send()</code> method, it makes an HTTP request to the
-  * specified URL, and an HTTP response is returned. Optionally, you can pass
-  * parameters to the specified URL. When you do not go through the server-based
-  * proxy service, you can use only HTTP GET or POST methods. However, when you set
-  * the useProxy  property to true and you use the server-based proxy service, you
- * can also use the HTTP HEAD, OPTIONS, TRACE, and DELETE methods.
- *
- *  <p><b>Note:</b> Due to a software limitation, HTTPService does not generate user-friendly
- *  error messages when using GET.</p>
- *  @see mx.rpc.http.mxml.HTTPService
+  *  You use the HTTPService class to represent an
+  *  HTTPService object in ActionScript. When you call the HTTPService object's
+  *  <code>send()</code> method, it makes an HTTP request to the
+  *  specified URL, and an HTTP response is returned. Optionally, you can pass
+  *  parameters to the specified URL. When you do not go through the server-based
+  *  proxy service, you can use only HTTP GET or POST methods. However, when you set
+  *  the useProxy  property to true and you use the server-based proxy service, you
+  *  can also use the HTTP HEAD, OPTIONS, TRACE, and DELETE methods.
+  *
+  *  <p><b>Note:</b> Due to a software limitation, HTTPService does not generate user-friendly
+  *  error messages when using GET.</p>
+  * 
+  *  @see mx.rpc.http.mxml.HTTPService
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -270,6 +271,7 @@ public class HTTPService extends AbstractInvoker
     
 
     /**
+     * @private
      * Propagate event listeners down to the operation since it is firing some of the
      * events.
      *  
@@ -782,6 +784,9 @@ function xmlEncoder (myObj)
         return operation.lastResult;
     }
 
+    /**
+     *  @inheritDoc
+     */
     override public function clearResult(fireBindingEvent:Boolean = true):void
     {
         operation.clearResult(fireBindingEvent);
@@ -925,6 +930,9 @@ function xmlEncoder (myObj)
         asyncRequest.setRemoteCredentials(remoteUsername, remotePassword, charset);
     }
 
+    /**
+     *  @inheritDoc
+     */
     override public function cancel(id:String = null):AsyncToken
     {
         return operation.cancel(id);
