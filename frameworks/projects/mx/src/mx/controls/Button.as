@@ -660,6 +660,8 @@ public class Button extends UIComponent
         addEventListener(MouseEvent.MOUSE_DOWN, mouseDownHandler);
         addEventListener(MouseEvent.MOUSE_UP, mouseUpHandler);
         addEventListener(MouseEvent.CLICK, clickHandler);
+        
+        dir="ltr";
     }
 
     //--------------------------------------------------------------------------
