@@ -216,6 +216,19 @@ public class LinkButton extends Button
     override public function set emphasized(value:Boolean):void
     {
     }
+    
+    //----------------------------------
+    //  enabled
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        super.enabled = value;
+        buttonMode = value;
+    }
 
 	//--------------------------------------------------------------------------
 	//
