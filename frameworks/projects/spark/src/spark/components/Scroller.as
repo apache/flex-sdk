@@ -1222,7 +1222,7 @@ public class Scroller extends SkinnableComponent
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get pageScrollingEnabled():Boolean
     {
@@ -1289,7 +1289,7 @@ public class Scroller extends SkinnableComponent
      *
      *  @langversion 3.0
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get scrollSnappingMode():String
     {
