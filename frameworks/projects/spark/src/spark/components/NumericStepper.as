@@ -15,6 +15,7 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
+import flash.events.KeyboardEvent;
 
 import mx.core.IIMESupport;
 import mx.events.FlexEvent;
@@ -597,6 +598,25 @@ public class NumericStepper extends Spinner
     //  Event handlers
     //
     //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */  
+    override protected function focusInHandler(event:FocusEvent):void
+    {
+    	super.focusInHandler(event);
+    	addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
+    }
+    
+    /**
+     *  @private
+     */  
+    override protected function focusOutHandler(event:FocusEvent):void
+    {
+    	super.focusOutHandler(event);
+    	removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler, true);
+    }
+   
         
     /**
      *  @private
