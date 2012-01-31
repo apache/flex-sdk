@@ -330,6 +330,9 @@ public class GridDimensions
      */
     public function setRowHeight(row:int, height:Number):void
     {
+        if (!isNaN(fixedRowHeight))
+            return;
+        
         var node:GridRowNode = rowList.find(row);
         
         if (node)
@@ -397,9 +400,10 @@ public class GridDimensions
      */
     public function setCellHeight(row:int, col:int, height:Number):void
     {
-        var node:GridRowNode = rowList.find(row);
-        if (!node)
-            node = rowList.insert(row);
+        if (!isNaN(fixedRowHeight))
+            return;
+        
+        var node:GridRowNode = rowList.insert(row);
         
         if (node)
         {
@@ -526,7 +530,6 @@ public class GridDimensions
      */
     public function getRowIndexAt(x:Number, y:Number):int
     {
-        // TODO (klin): fixed height rows.
         if (!isNaN(fixedRowHeight))
             return y / (fixedRowHeight + rowGap);
         
@@ -654,6 +657,19 @@ public class GridDimensions
      */
     public function insertRows(startRow:int, count:int):void
     {
+        var startNode:GridRowNode = rowList.findNearest(startRow);
+        var tempNode:GridRowNode;
+        
+        // shift indices by count.
+        if (startNode)
+            tempNode = startNode.next;
+        while (tempNode)
+        {
+            tempNode.rowIndex += count;
+            tempNode = tempNode.next;
+        }
+        
+        this.rowCount += count;
     }
     
     /**
