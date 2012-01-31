@@ -60,7 +60,9 @@ use namespace mx_internal;
 
 /**
  *  Text color of a component label.
- *  The default value is <code>0x0B333C</code>.
+ * 
+ *  The default value for the Halo theme is <code>0x0B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -73,7 +75,6 @@ use namespace mx_internal;
  *  Color of the component if it is disabled.
  *  The default value is <code>0xAAB3B3</code>.
  *
- *  
  *  @langversion 3.0
  *  @playerversion Flash 9
  *  @playerversion AIR 1.1
