@@ -25,6 +25,7 @@ internal class Flex4Classes
  */
 import mx.skins.spark.FxApplicationSkin; FxApplicationSkin;
 import mx.skins.spark.FxButtonSkin; FxButtonSkin;
+import mx.skins.spark.FxDefaultButtonSkin; FxDefaultButtonSkin;
 import mx.skins.spark.FxButtonBarSkin; FxButtonBarSkin;
 import mx.skins.spark.FxButtonBarFirstButtonSkin; FxButtonBarFirstButtonSkin;
 import mx.skins.spark.FxButtonBarMiddleButtonSkin; FxButtonBarMiddleButtonSkin;
