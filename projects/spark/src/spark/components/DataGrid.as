@@ -270,12 +270,31 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 
 [IconFile("DataGrid.png")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.DataGridAccImpl")]
+
 /**
  *  TBD(hmuller)
  */  
+ 
 public class DataGrid extends SkinnableContainerBase implements IFocusManagerComponent, IGridItemRendererOwner
 {
     include "../core/Version.as";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Placeholder for mixin by DataGridAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
     
     //--------------------------------------------------------------------------
     //
@@ -1079,6 +1098,15 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (DataGrid.createAccessibilityImplementation != null)
+            DataGrid.createAccessibilityImplementation(this);
+    }
     
     /**
      *  @private
