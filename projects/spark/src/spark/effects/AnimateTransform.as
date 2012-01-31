@@ -26,6 +26,8 @@ import mx.geom.TransformOffsets;
 import mx.styles.IStyleClient;
 
 import spark.core.IGraphicElement;
+import spark.effects.animation.Keyframe;
+import spark.effects.animation.MotionPath;
 import spark.effects.supportClasses.AnimateTransformInstance;
 
 use namespace mx_internal;
@@ -1136,6 +1138,8 @@ public class AnimateTransform extends Animate
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
+     *  
      *  Creates the instance for this effect. Unlike other effects which operate
      *  autonomously, this effect uses only a single effect instance per target.
      *  So all objects of type AnimateTransform, or its subclasses, share this
@@ -1610,7 +1614,7 @@ public class AnimateTransform extends Animate
      * Inserts a keyframe into an existing set of keyframes according to
      * its time. Keyframes are sorted in increasing time order.
      */
-    private function insertKeyframe(keyframes:Array, newKF:KeyFrame):void
+    private function insertKeyframe(keyframes:Vector.<Keyframe>, newKF:Keyframe):void
     {
         for (var i:int = 0; i < keyframes.length; i++)
         {
@@ -1681,8 +1685,8 @@ public class AnimateTransform extends Animate
         }
         // Now create a MotionPath from the result
         var mp:MotionPath = new MotionPath(property);
-        mp.keyframes = [new KeyFrame(0, valueFrom),
-            new KeyFrame(duration, valueTo, valueBy)];
+        mp.keyframes = new <Keyframe>[new Keyframe(0, valueFrom),
+            new Keyframe(duration, valueTo, valueBy)];
 
         // Finally, integrate this MotionPath in with the existing
         // MotionPath objects, if there are any
@@ -1704,7 +1708,7 @@ public class AnimateTransform extends Animate
         }
         else
         {
-            motionPaths = [];
+            motionPaths = new Vector.<MotionPath>();
         }
         motionPaths.push(mp);
     }
@@ -1746,7 +1750,7 @@ public class AnimateTransform extends Animate
         if (transformPropertiesSet)
         {
             if (!motionPaths)
-                motionPaths = [];
+                motionPaths = new Vector.<MotionPath>();
             if (_translationX)
                 motionPaths.push(_translationX);
             if (_translationY)
@@ -1769,7 +1773,7 @@ public class AnimateTransform extends Animate
         if (postLayoutTransformPropertiesSet)
         {
             if (!motionPaths)
-                motionPaths = [];
+                motionPaths = new Vector.<MotionPath>();
 
             // there are two ways we can be affecting post-layout values.
             // first, if the user has explicity asked the motion paths to be post layout by setting the motionPathsAffectLayout
@@ -1810,7 +1814,7 @@ public class AnimateTransform extends Animate
                 {
                     for (var j:int = 0; j < mp.keyframes.length; ++j)
                     {
-                        var kf:KeyFrame = KeyFrame(mp.keyframes[j]);
+                        var kf:Keyframe = Keyframe(mp.keyframes[j]);
                         // NaN for the time is used by SimpleMotionPath as a
                         // placeholder for the end time of the effect
                         if (isNaN(kf.time))
@@ -1860,7 +1864,7 @@ public class AnimateTransform extends Animate
         // so that they are still available for reuse upon re-playing the effect
         var tmpStartDelay:Number = startDelay;
         startDelay = 0;
-        var tmpAnimProps:Array = motionPaths;
+        var tmpAnimProps:Vector.<MotionPath> = motionPaths;
         motionPaths = null;
         super.initInstance(instance);
         startDelay = tmpStartDelay;
