@@ -547,6 +547,15 @@ public final class Animation
         _easer = value;
     }
     
+    //----------------------------------
+    //  playReversed
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the playReversed property
+     */
+    private var _playReversed:Boolean;
     /**
      *  If <code>true</code>, play the animation in reverse.
      *  If the animation is currently playing in the opposite
@@ -562,7 +571,7 @@ public final class Animation
      */
     public function get playReversed():Boolean
     {
-        return _invertValues;
+        return _playReversed;
     }
     /**
      *  @private
@@ -578,6 +587,7 @@ public final class Animation
             }
         }
         _doReverse = value;
+        _playReversed = value;
     }
 
     //--------------------------------------------------------------------------
@@ -651,13 +661,7 @@ public final class Animation
                 curAnimation.id--;
             }
         }
-        // If no more animations running or pending, stop the timer
-        if (timer && activeAnimations.length == 0 && delayedStartAnims.length == 0)
-        {
-            intervalTime = NaN;
-            timer.reset();
-            timer = null;
-        }
+        stopTimerIfDone();
     }
 
     /**
@@ -703,7 +707,10 @@ public final class Animation
             // Keep starting animations unless our sorted lists return
             // animations that start past the current time
             if (animStartTime < Timeline.currentTime)
-                anim.start();
+                if (anim.playReversed)
+                    anim.end();
+                else
+                    anim.start();
             else
                 break;
         }
@@ -786,8 +793,16 @@ public final class Animation
 
             if (currentTime >= duration && !_doSeek)
             {
-                end();
-                animationEnded = true;
+                if (!playReversed || startDelay == 0)
+                {
+                    end();
+                    animationEnded = true;
+                }
+                else
+                {
+                    stopAnimation();
+                    addToDelayedAnimations(startDelay);
+                }
             }
             else
             {
@@ -914,6 +929,19 @@ public final class Animation
      */
     public function end():void
     {
+        // TODO (chaase): call removal utility instead of this code
+        // Make sure to remove any references on the delayed lists
+        if (startDelay > 0 && delayedStartAnims.length > 0)
+            for (var i:int = 0; i < delayedStartAnims.length; ++i)
+            {
+                if (this == delayedStartAnims[i])
+                {
+                    delete delayedStartTimes[this];
+                    delayedStartAnims.splice(i, 1);
+                    break;
+                }
+            }
+
         // Note that we are potentially sending out this event to effects
         // whose Animation is not yet running (for example, if we're autoReversing
         // a transition and then skipping past the first effect). 
@@ -921,17 +949,37 @@ public final class Animation
         // interpolators should be written to just send back the end value
         // instead of trying to calculate it for the end time.
         
-        if (!started)
-            sendAnimationEvent(EffectEvent.EFFECT_START);
-        if (repeatCount > 1 && repeatBehavior == "reverse" && (repeatCount % 2 == 0))
-            _invertValues = true;
-        calculateValue(duration);
-        
-        sendUpdateEvent();
+        else
+        {
+            if (!started)
+                sendAnimationEvent(EffectEvent.EFFECT_START);
+            if (repeatCount > 1 && repeatBehavior == "reverse" && (repeatCount % 2 == 0))
+                _invertValues = true;
+            calculateValue(duration);
+            
+            sendUpdateEvent();
+        }
         sendAnimationEvent(EffectEvent.EFFECT_END);
 
         // The rest of what we need to do is handled by stopAnimation()
-        stopAnimation();
+        if (isPlaying)
+            stopAnimation();
+        else
+            stopTimerIfDone();
+    }
+    
+    /**
+     * @private
+     * If no more animations running or pending, stop the timer
+     */
+    private static function stopTimerIfDone():void
+    {
+        if (timer && activeAnimations.length == 0 && delayedStartAnims.length == 0)
+        {
+            intervalTime = NaN;
+            timer.reset();
+            timer = null;
+        }
     }
     
     private function addToDelayedAnimations(timeToDelay:Number):void
@@ -997,6 +1045,12 @@ public final class Animation
                 var startTime:Number = keyframes[0].time;
                 keyframes.splice(0, 0, new Keyframe(0, null));
                 keyframes.splice(1, 0, new Keyframe(startTime-1, null));
+                if (playReversed)
+                {
+                    // Want to hold *next* value when playing backwards
+                    keyframes[0].value = keyframes[2].value;
+                    keyframes[1].value = keyframes[2].value;
+                }
             }
             for (j = 1; j < keyframes.length; ++j)
             {
@@ -1010,7 +1064,7 @@ public final class Animation
         if (_doReverse)
             _invertValues = true;
 
-        if (startDelay > 0)
+        if (startDelay > 0 && !playReversed)
             addToDelayedAnimations(startDelay);
         else
             start();
@@ -1045,8 +1099,9 @@ public final class Animation
         startTime = cycleStartTime = intervalTime - playheadTime;
         _doSeek = true;
         
-        if (!_isPlaying)
+        if (!_isPlaying || playReversed)
         {
+            var isPlayingTmp:Boolean = _isPlaying;
             intervalTime = Timeline.currentTime;
             if (includeStartDelay && startDelay > 0)
             {
@@ -1065,6 +1120,9 @@ public final class Animation
                     }
                     delete delayedStartTimes[this];
                     var postDelaySeekTime:Number = playheadTime - startDelay;
+                    // also subtract out duration if playing in reverse because
+                    if (playReversed)
+                        postDelaySeekTime -= duration;
                     if (postDelaySeekTime < 0)
                     {
                         animPendingTime = intervalTime + (startDelay - playheadTime);
@@ -1090,7 +1148,8 @@ public final class Animation
                         // reduce seek time by startTime; we will go ahead and
                         // seek into the now-playing animation by that much
                         playheadTime -= startDelay;
-                        start();
+                        if (!isPlaying)
+                            start();
                         startTime = cycleStartTime = intervalTime - playheadTime;
                         doInterval();
                         _doSeek = false;
@@ -1098,9 +1157,12 @@ public final class Animation
                     }
                 }
             }
-            // start/end values only valid after animation starts 
-            sendAnimationEvent(EffectEvent.EFFECT_START);
-            setupInterpolation();
+            if (!isPlayingTmp)
+            {
+                // start/end values only valid after animation starts 
+                sendAnimationEvent(EffectEvent.EFFECT_START);
+                setupInterpolation();
+            }
             startTime = cycleStartTime = intervalTime - playheadTime;
         }
         doInterval();
@@ -1278,19 +1340,20 @@ public final class Animation
         
         // TODO (chaase): call removal utility instead of this code
         // Make sure to remove any references on the delayed lists
-        for (var i:int = 0; i < delayedStartAnims.length; ++i)
-        {
-            if (this == delayedStartAnims[i])
+        if (!playReversed)
+            for (var i:int = 0; i < delayedStartAnims.length; ++i)
             {
-                var animStartTime:int = int(delayedStartTimes[this]);
-                var overrun:int = Timeline.currentTime - animStartTime;
-                if (overrun > 0)
-                    actualStartTime = Math.min(overrun, duration);
-                delete delayedStartTimes[this];
-                delayedStartAnims.splice(i, 1);
-                break;
+                if (this == delayedStartAnims[i])
+                {
+                    var animStartTime:int = int(delayedStartTimes[this]);
+                    var overrun:int = Timeline.currentTime - animStartTime;
+                    if (overrun > 0)
+                        actualStartTime = Math.min(overrun, duration);
+                    delete delayedStartTimes[this];
+                    delayedStartAnims.splice(i, 1);
+                    break;
+                }
             }
-        }
         sendAnimationEvent(EffectEvent.EFFECT_START);
         
         // start/end values may be changed by Animate (set dynamically),
