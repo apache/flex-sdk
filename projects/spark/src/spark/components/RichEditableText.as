@@ -214,6 +214,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @see spark.primitives.RichText
  *
  *  @includeExample examples/RichEditableTextExample.mxml
+ *  @includeExample examples/externalTextFlow.xml -noswf
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
