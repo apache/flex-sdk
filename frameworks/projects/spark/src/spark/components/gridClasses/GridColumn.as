@@ -14,7 +14,6 @@ package spark.components.gridClasses
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import mx.collections.SortField;
 import mx.core.ClassFactory;
 import mx.core.IFactory;
 import mx.core.mx_internal;
@@ -23,6 +22,7 @@ import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 import mx.utils.ObjectUtil;
 
+import spark.collections.SortField;
 import spark.components.Grid;
 import spark.components.gridClasses.DefaultGridItemEditor;
 import spark.components.gridClasses.GridSortField;
