@@ -13,18 +13,18 @@ package spark.components
 {
 
 import flash.events.Event;
+import flash.events.HTTPStatusEvent;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
-import flash.events.HTTPStatusEvent;
 import flash.events.SecurityErrorEvent;
-    
+
 import mx.core.mx_internal;
 import mx.graphics.BitmapScaleMode;
 import mx.utils.BitFlagUtil;
 
 import spark.components.supportClasses.Range;
 import spark.components.supportClasses.SkinnableComponent;
-import spark.core.contentLoader.IContentLoader;
+import spark.core.IContentLoader;
 import spark.primitives.BitmapImage;
 
 use namespace mx_internal;
@@ -161,6 +161,37 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  */
 [Event(name="securityError", type="flash.events.SecurityErrorEvent")]
 
+//-----------------------------------
+//  Styles
+//-----------------------------------
+
+/**
+ *  When true, enables the 'loading' skin state.
+ *  @default false
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 4.5
+ */
+[Style(name="enableLoadingState", type="Boolean", inherit="no")]
+
+/**
+ *  Style equivalent to BitmapImage's smoothingQuality property.When set to 
+ *  <code>BitmapSmoothingQuality.BEST</code>, the image is resampled (if data
+ *  is from a trusted source) to achieve a higher quality result.  
+ *  If set to <code>BitmapSmoothingQuality.DEFAULT</code>, the default stage 
+ *  quality for scaled bitmap fills is used.
+ * 
+ *  @default <code>BitmapSmoothingQuality.DEFAULT</code>
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 4.5
+ */
+[Style(name="smoothingQuality", type="String", inherit="no", enumeration="default,high")]
+
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
@@ -213,15 +244,19 @@ public class Image extends SkinnableComponent
     //
     //--------------------------------------------------------------------------
     mx_internal static const CONTENT_LOADER_PROPERTY_FLAG:uint = 1 << 0;
-    mx_internal static const FILL_MODE_PROPERTY_FLAG:uint = 1 << 1;
-    mx_internal static const PRELIMINARY_WIDTH_PROPERTY_FLAG:uint = 1 << 2;
-    mx_internal static const PRELIMINARY_HEIGHT_PROPERTY_FLAG:uint = 1 << 3;
-    mx_internal static const HORIZONTAL_ALIGN_PROPERTY_FLAG:uint = 1 << 4;
-    mx_internal static const SCALE_MODE_PROPERTY_FLAG:uint = 1 << 5;
-    mx_internal static const SMOOTH_PROPERTY_FLAG:uint = 1 << 6;
-    mx_internal static const SMOOTHING_QUALITY_PROPERTY_FLAG:uint = 1 << 7;
-    mx_internal static const SOURCE_PROPERTY_FLAG:uint = 1 << 8;
-    mx_internal static const VERTICAL_ALIGN_PROPERTY_FLAG:uint = 1 << 9;
+    mx_internal static const CONTENT_LOADER_GROUPING_PROPERTY_FLAG:uint = 1 << 1;
+    mx_internal static const FILL_MODE_PROPERTY_FLAG:uint = 1 << 2;
+    mx_internal static const PRELIMINARY_WIDTH_PROPERTY_FLAG:uint = 1 << 3;
+    mx_internal static const PRELIMINARY_HEIGHT_PROPERTY_FLAG:uint = 1 << 4;
+    mx_internal static const HORIZONTAL_ALIGN_PROPERTY_FLAG:uint = 1 << 5;
+    mx_internal static const SCALE_MODE_PROPERTY_FLAG:uint = 1 << 6;
+    mx_internal static const SMOOTH_PROPERTY_FLAG:uint = 1 << 7;
+    mx_internal static const SMOOTHING_QUALITY_PROPERTY_FLAG:uint = 1 << 8;
+    mx_internal static const SOURCE_PROPERTY_FLAG:uint = 1 << 9;
+    mx_internal static const SOURCE_WIDTH_PROPERTY_FLAG:uint = 1 << 10;
+    mx_internal static const SOURCE_HEIGHT_PROPERTY_FLAG:uint = 1 << 11;
+    mx_internal static const TRUSTED_SOURCE_PROPERTY_FLAG:uint = 1 << 12;
+    mx_internal static const VERTICAL_ALIGN_PROPERTY_FLAG:uint = 1 << 13;
     
     //--------------------------------------------------------------------------
     //
@@ -261,7 +296,8 @@ public class Image extends SkinnableComponent
     /**
      *  @private
      */
-    mx_internal var imageDisplayProperties:Object = {visible: true, scaleMode: BitmapScaleMode.LETTERBOX};
+    mx_internal var imageDisplayProperties:Object = 
+        {visible: true, scaleMode: BitmapScaleMode.LETTERBOX, trustedSource: true};
     
     //--------------------------------------------------------------------------
     //
@@ -315,7 +351,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#bytesLoaded
-     * 
      *  @default NaN
      */
     public function get bytesLoaded():Number 
@@ -329,7 +364,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#bytesTotal
-     * 
      *  @default NaN
      */
     public function get bytesTotal():Number 
@@ -343,7 +377,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#contentLoader
-     * 
      *  @default null
      */
     public function get contentLoader():IContentLoader 
@@ -368,34 +401,36 @@ public class Image extends SkinnableComponent
         else
             imageDisplayProperties.contentLoader = value;
     }
-    
+        
     //----------------------------------
-    //  enablePreload
+    //  contentLoaderGrouping
     //----------------------------------
-    private var _enablePreload:Boolean = false;
     
     /**
-     *  When true, enables the 'loading' skin state.
-     * 
-     *  @default false
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5
+     *  @copy mx.primitives.BitmapImage#contentLoaderGrouping
+     *  @default null
      */
-    public function set enablePreload(value:Boolean):void
+    public function get contentLoaderGrouping():String 
     {
-        _enablePreload = value;
-        invalidateSkinState();
+        if (imageDisplay)
+            return imageDisplay.contentLoaderGrouping;
+        else
+            return imageDisplayProperties.contentLoaderGrouping;
     }
     
     /**
      *  @private
      */
-    public function get enablePreload():Boolean
+    public function set contentLoaderGrouping(value:String):void
     {
-        return _enablePreload;
+        if (imageDisplay)
+        {
+            imageDisplay.contentLoaderGrouping = value;
+            imageDisplayProperties = BitFlagUtil.update(imageDisplayProperties as uint, 
+                CONTENT_LOADER_GROUPING_PROPERTY_FLAG, true);
+        }
+        else
+            imageDisplayProperties.contentLoaderGrouping = value;
     }
     
     //----------------------------------
@@ -406,7 +441,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#fillMode
-     * 
      *  @default <code>BitmapFillMode.SCALE</code>
      */
     public function get fillMode():String
@@ -440,7 +474,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#horizontalAlign
-     * 
      *  @default <code>HorizontalAlign.CENTER</code>
      */
     public function get horizontalAlign():String
@@ -472,7 +505,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#preliminaryHeight
-     * 
      *  @default NaN
      */
     public function get preliminaryHeight():Number
@@ -504,7 +536,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#preliminaryWidth
-     * 
      *  @default NaN
      */
     public function get preliminaryWidth():Number
@@ -538,7 +569,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#scaleMode
-     * 
      *  @default <code>BitmapScaleMode.LETTERBOX</code>
      */
     public function get scaleMode():String
@@ -563,7 +593,37 @@ public class Image extends SkinnableComponent
         else
             imageDisplayProperties.scaleMode = value;
     }
-   
+       
+    //----------------------------------
+    //  smooth
+    //----------------------------------
+    
+    /**
+     *  @copy mx.primitives.BitmapImage#smooth
+     */
+    public function set smooth(value:Boolean):void
+    {
+        if (imageDisplay)
+        {
+            imageDisplay.smooth = value;
+            imageDisplayProperties = BitFlagUtil.update(imageDisplayProperties as uint, 
+                SMOOTH_PROPERTY_FLAG, true);
+        }
+        else
+            imageDisplayProperties.smooth = value;
+    }
+    
+    /**
+     *  @private
+     */
+    public function get smooth():Boolean          
+    {
+        if (imageDisplay)
+            return imageDisplay.smooth;
+        else
+            return imageDisplayProperties.smooth;
+    }
+    
     //----------------------------------
     //  source
     //----------------------------------
@@ -600,65 +660,19 @@ public class Image extends SkinnableComponent
     }
     
     //----------------------------------
-    //  smooth
+    //  trustedSource
     //----------------------------------
-    
+        
     /**
-     *  @copy mx.primitives.BitmapImage#smooth
+     *  @copy mx.primitives.BitmapImage#trustedSource
+     *  @default true
      */
-    public function set smooth(value:Boolean):void
+    public function get trustedSource():Boolean          
     {
         if (imageDisplay)
-        {
-            imageDisplay.smooth = value;
-            imageDisplayProperties = BitFlagUtil.update(imageDisplayProperties as uint, 
-                SMOOTH_PROPERTY_FLAG, true);
-        }
+            return imageDisplay.trustedSource;
         else
-            imageDisplayProperties.smooth = value;
-    }
-    
-    /**
-     *  @private
-     */
-    public function get smooth():Boolean          
-    {
-        if (imageDisplay)
-            return imageDisplay.smooth;
-        else
-            return imageDisplayProperties.smooth;
-    }
-    
-    //----------------------------------
-    //  smoothingQuality
-    //----------------------------------
-    
-    [Inspectable(category="General", enumeration="default,high", defaultValue="default")]
-    
-    /**
-     *  @copy mx.primitives.BitmapImage#smoothingQuality
-     */
-    public function get smoothingQuality():String          
-    {
-        if (imageDisplay)
-            return imageDisplay.smoothingQuality;
-        else
-            return imageDisplayProperties.smoothingQuality;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set smoothingQuality(value:String):void
-    {
-        if (imageDisplay)
-        {
-            imageDisplay.smoothingQuality = value;
-            imageDisplayProperties = BitFlagUtil.update(imageDisplayProperties as uint, 
-                SMOOTHING_QUALITY_PROPERTY_FLAG, value != null);
-        }
-        else
-            imageDisplayProperties.smoothingQuality = value;
+            return imageDisplayProperties.trustedSource;
     }
     
     //----------------------------------
@@ -669,7 +683,6 @@ public class Image extends SkinnableComponent
     
     /**
      *  @copy mx.primitives.BitmapImage#verticalAlign
-     * 
      *  @default <code>HorizontalAlign.MIDDLE</code>
      */
     public function get verticalAlign():String
@@ -725,6 +738,13 @@ public class Image extends SkinnableComponent
                     CONTENT_LOADER_PROPERTY_FLAG, true);
             }
             
+            if (imageDisplayProperties.contentLoaderGrouping !== undefined)
+            {
+                imageDisplay.contentLoaderGrouping = imageDisplayProperties.contentLoaderGrouping;
+                newImageDisplayProperties = BitFlagUtil.update(newImageDisplayProperties, 
+                    CONTENT_LOADER_GROUPING_PROPERTY_FLAG, true);
+            }
+            
             if (imageDisplayProperties.fillMode !== undefined)
             {
                 imageDisplay.fillMode = imageDisplayProperties.fillMode;
@@ -760,7 +780,7 @@ public class Image extends SkinnableComponent
                     SOURCE_PROPERTY_FLAG, true);
             }
             
-            if (imageDisplayProperties.smoothQuality !== undefined)
+            if (imageDisplayProperties.smoothingQuality !== undefined)
             {
                 imageDisplay.smoothingQuality = imageDisplayProperties.smoothingQuality;
                 newImageDisplayProperties = BitFlagUtil.update(newImageDisplayProperties, 
@@ -773,7 +793,7 @@ public class Image extends SkinnableComponent
                 newImageDisplayProperties = BitFlagUtil.update(newImageDisplayProperties, 
                     SCALE_MODE_PROPERTY_FLAG, true);
             }
-            
+                        
             if (imageDisplayProperties.verticalAlign !== undefined)
             {
                 imageDisplay.verticalAlign = imageDisplayProperties.verticalAlign;
@@ -793,8 +813,7 @@ public class Image extends SkinnableComponent
         else if (instance == progressIndicator)
         {
             if (_loading && progressIndicator)
-                progressIndicator.value = 
-                    Math.ceil((imageDisplay.bytesLoaded / imageDisplay.bytesTotal) * 100.0);
+                progressIndicator.value = percentComplete(imageDisplay.bytesLoaded, imageDisplay.bytesTotal);
         }
     }
     
@@ -817,6 +836,9 @@ public class Image extends SkinnableComponent
             
             if (BitFlagUtil.isSet(imageDisplayProperties as uint, CONTENT_LOADER_PROPERTY_FLAG))
                 newImageDisplayProperties.contentLoader = imageDisplay.contentLoader;
+            
+            if (BitFlagUtil.isSet(imageDisplayProperties as uint, CONTENT_LOADER_GROUPING_PROPERTY_FLAG))
+                newImageDisplayProperties.contentLoaderGrouping = imageDisplay.contentLoaderGrouping;
                 
             if (BitFlagUtil.isSet(imageDisplayProperties as uint, FILL_MODE_PROPERTY_FLAG))
                 newImageDisplayProperties.fillMode = imageDisplay.fillMode;
@@ -834,10 +856,13 @@ public class Image extends SkinnableComponent
                 newImageDisplayProperties.smooth = imageDisplay.smooth;
             
             if (BitFlagUtil.isSet(imageDisplayProperties as uint, SMOOTHING_QUALITY_PROPERTY_FLAG))
-                newImageDisplayProperties.smoothQuality = imageDisplay.smoothingQuality;
+                newImageDisplayProperties.smoothingQuality = imageDisplay.smoothingQuality;
             
             if (BitFlagUtil.isSet(imageDisplayProperties as uint, SCALE_MODE_PROPERTY_FLAG))
                 newImageDisplayProperties.scaleMode = imageDisplay.scaleMode;
+            
+            if (BitFlagUtil.isSet(imageDisplayProperties as uint, TRUSTED_SOURCE_PROPERTY_FLAG))
+                newImageDisplayProperties.trustedSource = imageDisplay.trustedSource;
             
             if (BitFlagUtil.isSet(imageDisplayProperties as uint, VERTICAL_ALIGN_PROPERTY_FLAG))
                 newImageDisplayProperties.verticalAlign = imageDisplay.verticalAlign;
@@ -854,16 +879,69 @@ public class Image extends SkinnableComponent
      */
     override protected function getCurrentSkinState():String
     {
+        var enableLoadingState:Boolean = getStyle("enableLoadingState");
+        
         if (_invalid)
             return "invalid";
         else if (!enabled)
             return "disabled";
-        else if (_loading && _enablePreload)
+        else if (_loading && enableLoadingState) 
             return "loading";
         else if (imageDisplay && imageDisplay.source)
             return "ready";
         else
             return "uninitialized";
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+        super.styleChanged(styleProp);
+        
+        if (allStyles || styleProp == "enableLoadingState")
+        {
+            invalidateSkinState();
+        }
+        
+        if (allStyles || styleProp == "smoothingQuality")
+        {
+            smoothQuality = getStyle("smoothingQuality");
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Private smoothing quality setter used to push our smoothingQuality
+     *  style value to our image display instance.
+     */
+    private function set smoothQuality(value:String):void
+    {
+        if (imageDisplay)
+        {
+            imageDisplay.smoothingQuality = value;
+            imageDisplayProperties = BitFlagUtil.update(imageDisplayProperties as uint, 
+                SMOOTHING_QUALITY_PROPERTY_FLAG, value != null);
+        }
+        else
+            imageDisplayProperties.smoothingQuality = value;
+    }
+    
+    /**
+     *  @private
+     */  
+    private function percentComplete(bytesLoaded:Number, bytesTotal:Number):Number
+    {
+        var value:Number = Math.ceil((bytesLoaded / bytesTotal) * 100.0);
+        return isNaN(value) ? 0 : value;
     }
     
     //--------------------------------------------------------------------------
@@ -894,7 +972,7 @@ public class Image extends SkinnableComponent
             invalidateSkinState();
 
         if (progressIndicator)
-            progressIndicator.value = Math.ceil((event.bytesLoaded / event.bytesTotal) * 100.0);
+            progressIndicator.value = percentComplete(event.bytesLoaded, event.bytesTotal);
 
         _loading = true;
         
