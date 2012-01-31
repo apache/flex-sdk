@@ -11,6 +11,7 @@
 
 package spark.components
 {
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
@@ -546,6 +547,7 @@ public class VScrollBar extends ScrollBarBase
         
         var nSteps:uint = Math.abs(delta);
         var navigationUnit:uint;
+        var scrollPositionChanged:Boolean;
         
         // Scroll delta "steps".          
         navigationUnit = (delta < 0) ? NavigationUnit.DOWN : NavigationUnit.UP;
@@ -555,10 +557,14 @@ public class VScrollBar extends ScrollBarBase
             if (!isNaN(vspDelta))
             {
                 vp.verticalScrollPosition += vspDelta;
+                scrollPositionChanged = true;
                 if (vp is IInvalidating)
                     IInvalidating(vp).validateNow();
             }
         }
+
+        if (scrollPositionChanged)
+            dispatchEvent(new Event(Event.CHANGE));
 
         event.preventDefault();
     }
