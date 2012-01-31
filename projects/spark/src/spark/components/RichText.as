@@ -485,9 +485,37 @@ public class TextGraphic extends TextGraphicElement
 
         if (markup is String)
         {
-            markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
-                     markup +
-                     '</TextFlow>';
+	        // We need to wrap the markup in a <TextFlow> tag
+	        // unless it already has one.
+	        // Note that we avoid trying to convert it to XML
+	        // (in order to test whether the outer tag is <TextFlow>)
+	        // unless it contains the substring "TextFlow".
+            // And if we have to do the conversion, then
+            // we use the markup in XML form rather than
+            // having TLF reconvert it to XML.
+	        var wrap:Boolean = true;
+            if (markup.indexOf("TextFlow") != -1)
+            {
+                try
+                {
+                    var xmlMarkup:XML = XML(markup);
+                    if (xmlMarkup.localName() == "TextFlow")
+                    {
+                        wrap = false;
+                        markup = xmlMarkup;
+                    }
+                }
+                catch(e:Error)
+                {
+                }
+            }
+
+	        if (wrap)
+	        {
+	            markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
+	                     markup +
+	                     '</TextFlow>';
+	        }
         }
         
         return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT,
