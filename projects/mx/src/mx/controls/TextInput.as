@@ -798,18 +798,7 @@ public class TextInput extends UIComponent implements ITextInput
     [Inspectable(category="General", defaultValue="true")]
 
     /**
-     *  Indicates whether the user is allowed to edit the text in this control.
-     *  If <code>true</code>, the user can edit the text.
-     *
-     *  @default true
-     * 
-     *  @tiptext Specifies whether the component is editable or not
-     *  @helpid 3196
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @inheritDoc
      */
     public function get editable():Boolean
     {
@@ -868,24 +857,9 @@ public class TextInput extends UIComponent implements ITextInput
     [Bindable("horizontalScrollPositionChanged")]
     [Inspectable(defaultValue="0")]
 
-    /**
-     *  Pixel position in the content area of the leftmost pixel
-     *  that is currently displayed. 
-     *  (The content area includes all contents of a control, not just 
-     *  the portion that is currently displayed.)
-     *  This property is always set to 0, and ignores changes,
-     *  if <code>wordWrap</code> is set to <code>true</code>.
-     * 
-     *  @default 0
 
-     *  @tiptext The pixel position of the left-most character
-     *  that is currently displayed
-     *  @helpid 3194
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+    /**
+     *  @inheritDoc
      */
     public function get horizontalScrollPosition():Number
     {
@@ -1304,21 +1278,7 @@ public class TextInput extends UIComponent implements ITextInput
     [Inspectable(category="General", defaultValue="0")]
 
     /**
-     *  Maximum number of characters that users can enter in the text field.
-     *  This property does not limit the length of text specified by the
-     *  setting the control's <code>text</code> or <code>htmlText</code> property.
-     * 
-     *  <p>The default value is 0, which is a special case
-     *  meaning an unlimited number.</p>
-     *
-     *  @tiptext The maximum number of characters
-     *  that the TextInput can contain
-     *  @helpid 3191
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @inheritDoc
      */
     public function get maxChars():int
     {
@@ -1374,23 +1334,16 @@ public class TextInput extends UIComponent implements ITextInput
     [Inspectable(category="General", enumeration="true,false", defaultValue="false")]
     
     /**
-     *  If true, calls to this control's drawFocus() method are forwarded
-     *  to its parent's drawFocus() method.
-     *  This is used when a TextInput is part of a composite control
-     *  like NumericStepper or ComboBox;
-     * 
-     *  @default false;
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @inheritDoc
      */
     public function get parentDrawsFocus():Boolean
     {
         return _parentDrawsFocus;
     }
     
+    /**
+     *  @private
+     */
     public function set parentDrawsFocus(value:Boolean):void
     {
         _parentDrawsFocus = value;
@@ -1415,43 +1368,7 @@ public class TextInput extends UIComponent implements ITextInput
     [Inspectable(category="General")]
 
     /**
-     *  Indicates the set of characters that a user can enter into the control. 
-     *  If the value of the <code>restrict</code> property is <code>null</code>, 
-     *  you can enter any character. If the value of the <code>restrict</code> 
-     *  property is an empty string, you cannot enter any character.
-     *  This property only restricts user interaction; a script
-     *  can put any text into the text field. If the value of
-     *  the <code>restrict</code> property is a string of characters,
-     *  you may enter only characters in that string into the
-     *  text field.
-     *
-     *  <p>Flex scans the string from left to right. You can specify a range by 
-     *  using the hyphen (-) character.
-     *  If the string begins with a caret (^) character, all characters are 
-     *  initially accepted and succeeding characters in the string are excluded 
-     *  from the set of accepted characters. If the string does not begin with a 
-     *  caret (^) character, no characters are initially accepted and succeeding 
-     *  characters in the string are included in the set of accepted characters.</p>
-     * 
-     *  <p>Because some characters have a special meaning when used
-     *  in the <code>restrict</code> property, you must use
-     *  backslash characters to specify the literal characters -, &#094;, and \.
-     *  When you use the <code>restrict</code> property as an attribute
-     *  in an MXML tag, use single backslashes, as in the following 
-     *  example: \&#094;\-\\.
-     *  When you set the <code>restrict</code> In and ActionScript expression,
-     *  use double backslashes, as in the following example: \\&#094;\\-\\\.</p>
-     *
-     *  @default null
-     *  @see flash.text.TextField#restrict
-     *  @tiptext The set of characters that may be entered
-     *  into the TextInput.
-     *  @helpid 3193
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @inheritDoc
      */
     public function get restrict():String
     {
@@ -1491,7 +1408,7 @@ public class TextInput extends UIComponent implements ITextInput
     private var selectableChanged:Boolean = false;
     
     /**
-     *  A flag indicating whether the text in the TextInput can be selected.
+     *  @inheritDoc
      */ 
     public function get selectable():Boolean
     {
@@ -1636,40 +1553,7 @@ public class TextInput extends UIComponent implements ITextInput
     [NonCommittingChangeEvent("change")]
 
     /**
-     *  Plain text that appears in the control.
-     *  Its appearance is determined by the CSS styles of this Label control.
-     *  
-     *  <p>Any HTML tags in the text string are ignored,
-     *  and appear as entered in the string. 
-     *  To display text formatted using HTML tags,
-     *  use the <code>htmlText</code> property instead.
-     *  If you set the <code>htmlText</code> property,
-     *  the HTML replaces any text you had set using this propety, and the
-     *  <code>text</code> property returns a plain-text version of the
-     *  HTML text, with all HTML tags stripped out. For more information
-     *  see the <code>htmlText</code> property.</p>
-     *
-     *  <p>To include the special characters left angle  bracket (&lt;),
-     *  right angle bracket (&gt;), or ampersand (&amp;) in the text,
-     *  wrap the text string in the CDATA tag.
-     *  Alternatively, you can use HTML character entities for the
-     *  special characters, for example, <code>&amp;lt;</code>.</p>
-     *
-     *  <p>If you try to set this property to <code>null</code>,
-     *  it is set, instead, to the empty string.
-     *  The <code>text</code> property can temporarily have the value <code>null</code>,
-     *  which indicates that the <code>htmlText</code> has been recently set
-     *  and the corresponding <code>text</code> value
-     *  has not yet been determined.</p>
-     *
-     *  @default ""
-     *  @tiptext Gets or sets the TextInput content
-     *  @helpid 3190
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @inheritDoc
      */
     public function get text():String
     {
@@ -2324,14 +2208,7 @@ public class TextInput extends UIComponent implements ITextInput
     //--------------------------------------------------------------------------
 
     /**
-     *  For the ITextInput interface; the same as selectionEndIndex.
-     *  
-     *  @see mx.controls.TextInput#selectionEndIndex 
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @inheritDoc
      */
     public function get selectionActivePosition():int
     {
@@ -2340,14 +2217,7 @@ public class TextInput extends UIComponent implements ITextInput
     
    
     /**
-     *  For the ITextInput interface; the same as selectionBeginIndex.
-     *  
-     *  @see mx.controls.TextInput#selectionBeginIndex
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @inheritDoc
      */
     public function get selectionAnchorPosition():int
     {
