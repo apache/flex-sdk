@@ -520,11 +520,15 @@ public class SkinnablePopUpContainer extends SkinnableContainer
     }
     
     /**
-     *  Called by the soft keyboard activate and deactive event handlers, this
-     *  method is responsible for creating the Spark effect played on the pop-up.
+     *  Called by the soft keyboard <code>activate</code> and <code>deactive</code> event handlers, 
+     *  this method is responsible for creating the Spark effect played on the pop-up.
      * 
      *  This method may be overridden by subclasses. By default, it
      *  creates a parellel move and resize effect on the pop-up.
+     *
+     *  @param yTo The new y-coordinate of the pop-up.
+     *
+     *  @param height The new height of the pop-up.
      * 
      *  @return An IEffect instance serving as the move and/or resize transition
      *  for the pop-up. This effect is played after the soft keyboard is
