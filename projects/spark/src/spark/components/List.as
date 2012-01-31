@@ -32,8 +32,9 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IUID;
 import mx.core.IVisualElement;
 import mx.core.InteractionMode;
-import mx.core.mx_internal;
+import mx.core.ScrollPolicy;
 import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.DragEvent;
@@ -167,6 +168,41 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 [Style(name="dropIndicatorSkin", type="Class", inherit="no")]
 
 /**
+ *  Indicates under what conditions the horizontal scroll bar is displayed.
+ * 
+ *  <ul>
+ *  <li>
+ *  <code>ScrollPolicy.ON</code> ("on") - the scroll bar is always displayed.
+ *  </li> 
+ *  <li>
+ *  <code>ScrollPolicy.OFF</code> ("off") - the scroll bar is never displayed.
+ *  The viewport can still be scrolled programmatically, by setting its
+ *  horizontalScrollPosition property.
+ *  </li>
+ *  <li>
+ *  <code>ScrollPolicy.AUTO</code> ("auto") - the scroll bar is displayed when 
+ *  the viewport's contentWidth is larger than its width.
+ *  </li>
+ *  </ul>
+ * 
+ *  <p>
+ *  The scroll policy affects the measured size of the scroller skin part.  This style
+ *  is simply a cover for the scroller skin part's horizontalScrollPolicy.  It is not an 
+ *  inheriting style so, for example, it will not affect item renderers.
+ *  </p>
+ * 
+ *  @default ScrollPolicy.AUTO
+ *
+ *  @see mx.core.ScrollPolicy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="horizontalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
+
+/**
  *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
  *   
  *  @default 0xCEDBEF
@@ -221,6 +257,41 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  @productversion Flex 4.5
  */
 [Style(name="touchDelay", type="Number", format="Time", inherit="yes", minValue="0.0")]
+
+/**
+ *  Indicates under what conditions the vertical scroll bar is displayed.
+ * 
+ *  <ul>
+ *  <li>
+ *  <code>ScrollPolicy.ON</code> ("on") - the scroll bar is always displayed.
+ *  </li> 
+ *  <li>
+ *  <code>ScrollPolicy.OFF</code> ("off") - the scroll bar is never displayed.
+ *  The viewport can still be scrolled programmatically, by setting its
+ *  verticalScrollPosition property.
+ *  </li>
+ *  <li>
+ *  <code>ScrollPolicy.AUTO</code> ("auto") - the scroll bar is displayed when 
+ *  the viewport's contentHeight is larger than its height.
+ *  </li>
+ *  </ul>
+ * 
+ *  <p>
+ *  The scroll policy affects the measured size of the scroller skin part.  This style
+ *  is simply a cover for the scroller skin part's verticalScrollPolicy.  It is not an 
+ *  inheriting style so, for example, it will not affect item renderers.
+ *  </p>
+ * 
+ *  @default ScrollPolicy.AUTO
+ *
+ *  @see mx.core.ScrollPolicy
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="verticalScrollPolicy", type="String", inherit="no", enumeration="off,on,auto")]
 
 //--------------------------------------
 //  Other metadata
@@ -981,6 +1052,19 @@ public class List extends ListBase implements IFocusManagerComponent
         else if (instance == scroller)
         {
             scroller.hasFocusableChildren = hasFocusableChildren;
+            
+            // The scrollPolicy styles are initialized in framework/defaults.css
+            // so there's no way to determine if been explicitly set here.  To avoid 
+            // preempting explicitly set scroller scrollPolicy styles with the default
+            // "auto" value, we only forward the style if it's not "auto".            
+            
+            const vsp:String = getStyle("verticalScrollPolicy");
+            if (vsp && (vsp !== ScrollPolicy.AUTO))
+                scroller.setStyle("verticalScrollPolicy", vsp);
+            
+            const hsp:String = getStyle("horizontalScrollPolicy");
+            if (hsp && (hsp !== ScrollPolicy.AUTO))
+                scroller.setStyle("horizontalScrollPolicy", hsp);            
         }
     }
 
@@ -1239,6 +1323,35 @@ public class List extends ListBase implements IFocusManagerComponent
         
         return isItemIndexSelected(index);
     }
+    
+    /**
+     *  @private
+     */ 
+    override public function styleChanged(styleName:String):void
+    {
+        super.styleChanged(styleName);
+        
+        // The scrollPolicy styles are initialized in framework/defaults.css
+        // so there's no way to determine if been explicitly set here.  To avoid 
+        // preempting explicitly set scroller scrollPolicy styles with the default
+        // "auto" value, we only forward the style if it's not "auto".
+        
+        const allStyles:Boolean = (styleName == null || styleName == "styleName");
+        if (scroller)
+        {
+            const vsp:String = getStyle("verticalScrollPolicy");
+            if (styleName == "verticalScrollPolicy")
+                scroller.setStyle("verticalScrollPolicy", vsp);
+            else if (allStyles && vsp && (vsp !== ScrollPolicy.AUTO))
+                scroller.setStyle("verticalScrollPolicy", vsp);
+            
+            const hsp:String = getStyle("horizontalScrollPolicy");
+            if (styleName == "horizontalScrollPolicy")
+                scroller.setStyle("horizontalScrollPolicy", hsp);
+            else if (allStyles && hsp && (hsp !== ScrollPolicy.AUTO))
+                scroller.setStyle("horizontalScrollPolicy", hsp);
+        }
+    }    
     
     //--------------------------------------------------------------------------
     //
