@@ -207,6 +207,81 @@ public class Skin extends Group
         return needRedraw;
     }
 
+    /**
+     *  @private
+     *  Make the component's explicitMinWidth property override its skin's.
+     *  This is useful for cases where the skin's minWidth constrains
+     *  the skin's measured size. In those cases the user could set
+     *  explicit limits on the component itself thus relaxing the
+     *  hard-coded limits in the skin. See SDK-24741.
+     */
+    override public function get explicitMinWidth():Number
+    {
+        if (parent is SkinnableComponent)
+        {
+            var parentExplicitMinWidth:Number = SkinnableComponent(parent).explicitMinWidth;
+            if (!isNaN(parentExplicitMinWidth))
+                return parentExplicitMinWidth;
+        }
+        return super.explicitMinWidth;
+    }
+
+    /**
+     *  @private
+     *  Make the component's explicitMinWidth property override its skin's.
+     *  This is useful for cases where the skin's minWidth constrains
+     *  the skin's measured size. In those cases the user could set
+     *  explicit limits on the component itself thus relaxing the
+     *  hard-coded limits in the skin. See SDK-24741.
+     */
+    override public function get explicitMinHeight():Number
+    {
+        if (parent is SkinnableComponent)
+        {
+            var parentExplicitMinHeight:Number = SkinnableComponent(parent).explicitMinHeight;
+            if (!isNaN(parentExplicitMinHeight))
+                return parentExplicitMinHeight;
+        }
+        return super.explicitMinHeight;
+    }
+
+    /**
+     *  @private
+     *  Make the component's explicitMinWidth property override its skin's.
+     *  This is useful for cases where the skin's minWidth constrains
+     *  the skin's measured size. In those cases the user could set
+     *  explicit limits on the component itself thus relaxing the
+     *  hard-coded limits in the skin. See SDK-24741.
+     */
+    override public function get explicitMaxWidth():Number
+    {
+        if (parent is SkinnableComponent)
+        {
+            var parentExplicitMaxWidth:Number = SkinnableComponent(parent).explicitMaxWidth;
+            if (!isNaN(parentExplicitMaxWidth))
+                return parentExplicitMaxWidth;
+        }
+        return super.explicitMaxWidth;
+    }
+
+    /**
+     *  @private
+     *  Make the component's explicitMinWidth property override its skin's.
+     *  This is useful for cases where the skin's minWidth constrains
+     *  the skin's measured size. In those cases the user could set
+     *  explicit limits on the component itself thus relaxing the
+     *  hard-coded limits in the skin. See SDK-24741.
+     */
+    override public function get explicitMaxHeight():Number
+    {
+        if (parent is SkinnableComponent)
+        {
+            var parentExplicitMaxHeight:Number = SkinnableComponent(parent).explicitMaxHeight;
+            if (!isNaN(parentExplicitMaxHeight))
+                return parentExplicitMaxHeight;
+        }
+        return super.explicitMaxHeight;
+    }
 }
 
 }
