@@ -46,6 +46,8 @@ use namespace mx_internal;
 //  Excluded APIs
 //--------------------------------------
 
+[Exclude(name="cornerRadius", kind="style")]
+
 //--------------------------------------
 //  Other metadata
 //--------------------------------------
