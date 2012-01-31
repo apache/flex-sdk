@@ -388,6 +388,7 @@ public class StreamingAMFChannel extends AMFChannel
         {
             streamingConnectionHandler.closeStreamingConnection();
             disconnectSuccess(true /* rejected */);
+            credentials = null;
         }
     }
 }
