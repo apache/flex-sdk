@@ -54,6 +54,8 @@ use namespace mx_internal;
  *   /&gt;
  *  </pre>
  *
+ *  @includeExample examples/ScaleEffectExample.mxml
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
