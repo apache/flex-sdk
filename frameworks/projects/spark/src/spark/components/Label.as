@@ -30,9 +30,12 @@ import flash.text.engine.TextBaseline;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
+import flash.text.engine.TypographicCase;
 
 import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.compose.TextLineRecycler;
+import flashx.textLayout.formats.BaselineShift;
+import flashx.textLayout.formats.TLFTypographicCase;
 
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
@@ -586,20 +589,17 @@ public class Label extends TextBase
         
         var elementFormat:ElementFormat = new ElementFormat();
         
+        // Out of order so it can be used by baselineShift.
+        elementFormat.fontSize = getStyle("fontSize");
+        
         s = getStyle("alignmentBaseline");
         if (s != null)
             elementFormat.alignmentBaseline = s;
             
         elementFormat.alpha = getStyle("textAlpha");
             
-        elementFormat.baselineShift = -getStyle("baselineShift");
-            // Note: The negative sign is because, as in TLF,
-            // we want a positive number to shift the baseline up,
-            // whereas FTE does it the opposite way.
-            // In FTE, a positive baselineShift increases
-            // the y coordinate of the baseline, which is
-            // mathematically appropriate, but unintuitive.
-            
+        setBaselineShift(elementFormat);
+        
         // Note: Label doesn't support a breakOpportunity style,
         // so we leave elementFormat.breakOpportunity with its
         // default value of "auto".
@@ -642,10 +642,8 @@ public class Label extends TextBase
             
         elementFormat.fontDescription = fontDescription;
         
-        elementFormat.fontSize = getStyle("fontSize");
-        
         setKerning(elementFormat);
-        
+
         s = getStyle("ligatureLevel");
         if (s != null)
             elementFormat.ligatureLevel = s;
@@ -655,12 +653,56 @@ public class Label extends TextBase
             elementFormat.locale = s;
         
         setTracking(elementFormat);
-        
-        s = getStyle("typographicCase");
-        if (s != null)
-            elementFormat.typographicCase = s;
 
+        setTypographicCase(elementFormat);
+        
         return elementFormat;
+    }
+
+    /**
+     *  @private
+     */
+    private function setBaselineShift(elementFormat:ElementFormat):void
+    {
+        var baselineShift:* = getStyle("baselineShift");
+        var fontSize:Number = elementFormat.fontSize;
+        
+        if (baselineShift == BaselineShift.SUPERSCRIPT || 
+            baselineShift == BaselineShift.SUBSCRIPT)
+        {
+            var fontMetrics:FontMetrics;
+            if (embeddedFontContext)
+                fontMetrics = embeddedFontContext.callInContext(elementFormat.getFontMetrics, elementFormat, null);
+            else
+                fontMetrics = elementFormat.getFontMetrics();
+            if (baselineShift == BaselineShift.SUPERSCRIPT)
+            {
+                elementFormat.baselineShift = 
+                    fontMetrics.superscriptOffset * fontSize;
+                elementFormat.fontSize = fontMetrics.superscriptScale * fontSize;
+            }
+            else // it's subscript
+            {
+                elementFormat.baselineShift = 
+                    fontMetrics.subscriptOffset * fontSize;
+                elementFormat.fontSize = fontMetrics.subscriptScale * fontSize;
+            }
+        }			
+        else
+        {
+            // TLF will throw a range error if percentage not between
+            // -1000% and 1000%.  Label does not.
+            baselineShift = 
+                getNumberOrPercentOf(baselineShift, fontSize);
+            if (!isNaN(baselineShift))
+                elementFormat.baselineShift = -baselineShift;
+                    // Note: The negative sign is because, as in TLF,
+                    // we want a positive number to shift the baseline up,
+                    // whereas FTE does it the opposite way.
+                    // In FTE, a positive baselineShift increases
+                    // the y coordinate of the baseline, which is
+                    // mathematically appropriate, but unintuitive.    
+        }
     }
     
     /**
@@ -723,6 +765,38 @@ public class Label extends TextBase
             elementFormat.trackingRight = value;
     }
 
+    /**
+     *  @private
+     */
+    private function setTypographicCase(elementFormat:ElementFormat):void
+    {
+        var s:String = getStyle("typographicCase");
+        if (s != null)
+        {
+            switch (s)
+            {
+                case TLFTypographicCase.LOWERCASE_TO_SMALL_CAPS:
+                {
+                    elementFormat.typographicCase = 
+                        TypographicCase.CAPS_AND_SMALL_CAPS;
+                    break;
+                }
+                case TLFTypographicCase.CAPS_TO_SMALL_CAPS:
+                {
+                    elementFormat.typographicCase = TypographicCase.SMALL_CAPS;
+                    break;
+                }
+                default:
+                {
+                    // Others map directly so handle it in the default case.
+                    elementFormat.typographicCase = s;
+                    break;
+                }
+            }
+        }        
+    }
+
+    
     /**
      *  @private
      *  Stuffs the specified text and formatting info into a TextBlock
