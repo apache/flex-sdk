@@ -26,7 +26,7 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Panel
+ *  &lt;s:Panel
  *   <strong>Properties</strong>
  *   title=""
  *   &gt;
