@@ -12,12 +12,16 @@
 package mx.controls
 {
 
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import mx.core.Application;
 import mx.core.IFlexDisplayObject;
 import mx.core.IMXMLObject;
+import mx.core.IRawChildrenContainer;
 import mx.core.mx_internal;
+import mx.core.UIComponent;
 import mx.events.FlexEvent;
 import mx.events.ItemClickEvent;
 
@@ -136,12 +140,6 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  An Array of the RadioButtons that belong to this group.
      */
     private var radioButtons:Array /* of RadioButton */ = [];
-
-    /**
-     *  @private
-     *  Index for the next RadioButton added to this group.
-     */
-    private var indexNumber:int = 0;
 
     //--------------------------------------------------------------------------
     //
@@ -398,10 +396,14 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
      */
     mx_internal function addInstance(instance:RadioButton):void
     {
-        instance.indexNumber = indexNumber++;
         instance.addEventListener(Event.REMOVED, radioButton_removedHandler);    
-        radioButtons.push(instance);
-
+        radioButtons.push(instance);    
+        
+        // Apply group indices in "breadth-first" order.
+        radioButtons.sort(breadthOrderCompare);
+        for (var i:int = 0; i < radioButtons.length; i++)
+            radioButtons[i].indexNumber = i;
+            
         if (_selectedValue != null)
             selectedValue = _selectedValue;
            
@@ -438,7 +440,6 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
                     // Remove the radio button from the internal array
                     radioButtons.splice(i,1); 
                     foundInstance = true;
-                    indexNumber--;
                     // redo the same index because we removed the previous item at this index
                     i--; 
                 }
@@ -520,6 +521,38 @@ public class RadioButtonGroup extends EventDispatcher implements IMXMLObject
         }
     }
     
+    /**
+     *  @private
+     */
+    private function breadthOrderCompare(a:DisplayObject, b:DisplayObject):Number 
+    {       
+        var aParent:DisplayObject = a.parent;
+        var bParent:DisplayObject = b.parent;
+            
+        if (!aParent || !bParent) 
+            return 0;
+        
+        var aNestLevel:int = (a is UIComponent) ? UIComponent(a).nestLevel : -1;
+        var bNestLevel:int = (b is UIComponent) ? UIComponent(b).nestLevel : -1;
+        
+        var aIndex:int = aParent is IRawChildrenContainer ?
+            IRawChildrenContainer(aParent).rawChildren.getChildIndex(a) :
+            DisplayObjectContainer(aParent).getChildIndex(a);
+            
+        var bIndex:int = bParent is IRawChildrenContainer ?
+            IRawChildrenContainer(bParent).rawChildren.getChildIndex(b) :
+            DisplayObjectContainer(bParent).getChildIndex(b);
+				
+        if (aNestLevel > bNestLevel || (a.parent == b.parent && aIndex > bIndex)) 
+            return 1;
+        else if (aNestLevel < bNestLevel ||  (a.parent == b.parent && bIndex > aIndex)) 
+            return -1;
+        else if (a == b) 
+            return 0;
+        else // Nest levels are identical, compare ancestors.
+            return breadthOrderCompare(aParent, bParent);        
+    }
+        
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
