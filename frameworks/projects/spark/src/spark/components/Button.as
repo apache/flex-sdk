@@ -342,6 +342,12 @@ public class FxButton extends FxComponent implements IFocusManagerComponent
         if (instance == labelField)
         {
             labelField.text = label;
+            
+            // TODO: Remove this hard-coded styleName assignment
+            // once all global text styles are moved to the global
+            // stylesheet. This is a temporary workaround to support
+            // inline text styles for Buttons and subclasses.
+            labelField.styleName = this;
         }
     }
 
