@@ -40,7 +40,7 @@ public class GridLayout extends LayoutBase
     // Perhaps it should be a constructor parameter.   That way there's no need to sort
     // out how to migrate data from the old GLC to the new one.
     // Note also: if this was going to be shared, it should arrive as a constructor parameter.
-    public var gridDimensions:GridDimensions = new GridDimensions();
+    public var gridDimensions:GridDimensions;
         
     
     public function GridLayout()
@@ -242,8 +242,8 @@ public class GridLayout extends LayoutBase
         //trace("GridLayout.udl", unscaledWidth, unscaledHeight);
         
         // HACK
-        gridDimensions.rowCount = grid.dataProvider ? grid.dataProvider.length : 0;
-        var numCols:int = gridDimensions.columnCount = grid.columns ? grid.columns.length : 0;
+        /*gridDimensions.rowCount = grid.dataProvider ? grid.dataProvider.length : 0;
+        var numCols:int = gridDimensions.columnCount = grid.columns ? grid.columns.length : 0;*/
         
         // HACK #2 - copy column explicit widths to gridDimensions
         /*
