@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.graphics
+package spark.primitives
 {
 
 import flash.display.DisplayObjectContainer;
@@ -33,8 +33,8 @@ import flashx.textLayout.formats.VerticalAlign;
 import flashx.textLayout.tlf_internal;
 
 import mx.core.mx_internal;
-import mx.graphics.baseClasses.TextGraphicElement;
-import mx.utils.TextUtil;
+import spark.primitives.supportClasses.TextGraphicElement;
+import spark.utils.TextUtil;
 
 //--------------------------------------
 //  Styles
@@ -50,7 +50,7 @@ include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
 
 [DefaultProperty("content")]
 
-[IconFile("TextGraphic.png")]
+[IconFile("RichText.png")]
 
 /**
  *  Defines text in FXG.
@@ -58,33 +58,33 @@ include "../styles/metadata/NonInheritingTextLayoutFormatStyles.as"
  *  <p>This class can display richly-formatted text, with multiple character and paragraph formats. 
  *  However, it is non-interactive: it doesn't support scrolling, selection, or editing.</p>
  *  
- *  <p>A TextGraphic element defines a text box, specified in the parent Group element's coordinate space, 
- *  to contain the provided text. The text box is specified using the x/y and width/height attributes on the TextGraphic element.</p>
+ *  <p>A RichText element defines a text box, specified in the parent Group element's coordinate space, 
+ *  to contain the provided text. The text box is specified using the x/y and width/height attributes on the RichText element.</p>
  *  
  *  <p>Text is rendered as a graphic element similar to paths and shapes, but with a restricted subset of rendering options. 
- *  TextGraphic elements are always rendered using a solid fill color, modified by any opacity, blend mode, and color transformation 
- *  defined by parent elements, and clipped to any clipping content defined on its parent elements. TextGraphic content is only filled, 
+ *  RichText elements are always rendered using a solid fill color, modified by any opacity, blend mode, and color transformation 
+ *  defined by parent elements, and clipped to any clipping content defined on its parent elements. RichText content is only filled, 
  *  not stroked.</p>
  *  
- *  <p>TextGraphic does not support drawing a background or border; it only renders text and inline graphics. If you want a simpler text class, 
- *  use the TextBox class. If you want a text control with more capabilities, use the TextView class.</p>
+ *  <p>RichText does not support drawing a background or border; it only renders text and inline graphics. If you want a simpler text class, 
+ *  use the SimpleText class. If you want a text control with more capabilities, use the RichEditableText class.</p>
  *  
- *  <p>The TextGraphic element automatically clips the text rendering to the bounds of the text box.</p>
+ *  <p>The RichText element automatically clips the text rendering to the bounds of the text box.</p>
  *  
  *  <p>If you do not specify the value of the <code>width</code> or <code>height</code> properties, or if the specified value
  *  of these properties is 0, the width and height are calculated based on the text content.</p>
  *  
- *  @see mx.components.TextView
- *  @see mx.graphics.TextBox
+ *  @see mx.components.RichEditableText
+ *  @see mx.graphics.SimpleText
  *  
- *  @includeExample examples/TextGraphicExample.mxml
+ *  @includeExample examples/RichTextExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class TextGraphic extends TextGraphicElement
+public class RichText extends TextGraphicElement
 {
     include "../core/Version.as";
 
@@ -122,7 +122,7 @@ public class TextGraphic extends TextGraphicElement
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function TextGraphic()
+    public function RichText()
     {
         super();
         _content = textFlow = createEmptyTextFlow();
@@ -141,7 +141,7 @@ public class TextGraphic extends TextGraphicElement
 
     /**
      *  @private
-     *  This object is determined by the CSS styles of the TextGraphic
+     *  This object is determined by the CSS styles of the RichText
      *  and is updated by createTextFlow() when the hostFormatsInvalid flag
      *  is true.
      */
@@ -151,7 +151,7 @@ public class TextGraphic extends TextGraphicElement
      *  @private
      *  This flag indicates whether hostCharacterFormat, hostParagraphFormat,
      *  and hostContainerFormat need to be recalculated from the CSS styles
-     *  of the TextGraphic. It is set true by stylesInitialized() and also
+     *  of the RichText. It is set true by stylesInitialized() and also
      *  when styleChanged() is called with a null argument, indicating that
      *  multiple styles have changed.
      */
@@ -246,7 +246,7 @@ public class TextGraphic extends TextGraphicElement
     protected var _content:Object;
         
     /**
-     *  The text contained in the TextGraphic element.
+     *  The text contained in the RichText element.
      *  
      *  <p>The contents of this property can be a sequence of characters, &lt;p&gt;, &lt;br/&gt; or &lt;span&gt; elements. 
      *  The &lt;p&gt; and &lt;span&gt; elements can be implied, depending on how you use the style properties.</p>
@@ -258,7 +258,7 @@ public class TextGraphic extends TextGraphicElement
      *  <table>
      *    <tr>
      *      <td>&lt;p&gt;</td>
-     *      <td>Starts a new paragraph. A &lt;p&gt; can be a child of a TextGraphic. Children are character sequences, 
+     *      <td>Starts a new paragraph. A &lt;p&gt; can be a child of a RichText. Children are character sequences, 
      *          &lt;br/&gt; elements, or &lt;span&gt; elements. Every &lt;p&gt; has at least one &lt;span&gt; that can be implied. 
      *          Character sequences that are direct children of &lt;p&gt; are in an implied &lt;span&gt;.</td>
      *    </tr>
@@ -513,7 +513,7 @@ public class TextGraphic extends TextGraphicElement
 
     /**
      *  @private
-     *  Keep this method in sync with the same method in TextView.
+     *  Keep this method in sync with the same method in RichEditableText.
      */
     private function createTextFlow():TextFlow
     {
