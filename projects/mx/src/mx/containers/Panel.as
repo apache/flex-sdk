@@ -619,6 +619,11 @@ public class Panel extends Container
      */
     private var autoSetRoundedCorners:Boolean;
 
+    /** 
+     *  @private
+     */
+    private var inCreateComponentsFromDescriptors:Boolean;
+
     //--------------------------------------------------------------------------
     //
     //  Overridden properties
@@ -1682,11 +1687,13 @@ public class Panel extends Container
     override public function createComponentsFromDescriptors(
                                 recurse:Boolean = true):void
     {
+        inCreateComponentsFromDescriptors = true;
         super.createComponentsFromDescriptors();
         
         if (numChildren == 0)
         {
             setControlBar(null);
+            inCreateComponentsFromDescriptors = false;
             return;
         }
         
@@ -1704,7 +1711,7 @@ public class Panel extends Container
             }
             else
             {
-                removeChild(DisplayObject(lastChild));
+                super.removeChild(DisplayObject(lastChild));
             }       
             // Restore the original document. Otherwise, when we re-add the child when the Panel is
             // a custom component, the child will use the custom component as the document instead of
@@ -1717,8 +1724,47 @@ public class Panel extends Container
         {
             setControlBar(null);
         }
+        
+        inCreateComponentsFromDescriptors = false;        
     }
 
+    /**
+     *  @private
+     * 
+     *  Container implements addChild in terms of addChildAt. 
+     */
+    override public function addChildAt(child:DisplayObject,
+                                        index:int):DisplayObject
+    {
+        // Special case for adding the control bar.
+        super.addChildAt(child, index);
+        if (!inCreateComponentsFromDescriptors &&
+            child is ControlBar)
+            createComponentsFromDescriptors();
+        
+        return child;
+    }
+    
+    /**
+     *  @private
+     * 
+     *  Container implements removeChildAt in terms of removeChild.
+     */
+    override public function removeChild(child:DisplayObject):DisplayObject
+    {
+        // If the control bar is the last child.
+        if (!inCreateComponentsFromDescriptors &&
+            child is ControlBar && numChildren > 0 &&
+            child == getChildAt(numChildren - 1))
+        {
+            rawChildren.removeChild(child);
+            createComponentsFromDescriptors();
+            return child;
+        }
+        
+        return super.removeChild(child);
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Methods
