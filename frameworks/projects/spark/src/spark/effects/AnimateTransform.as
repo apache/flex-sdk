@@ -16,7 +16,6 @@ import flash.utils.Dictionary;
 
 import mx.core.mx_internal;
 import mx.effects.Effect;
-import spark.effects.Animate;
 import mx.effects.IEffectInstance;
 import mx.events.EffectEvent;
 import mx.styles.IStyleClient;
@@ -168,6 +167,13 @@ public class AnimateTransform extends Animate
     private static var rotation:Vector3D = new Vector3D();
     private static var position:Vector3D = new Vector3D();
 
+    /**
+     * @private
+     * This flag is set when any of the translationXYZ, rotationXYZ, scaleXYZ
+     * motion path properties are set directly
+     */
+    private var transformPropertiesSet:Boolean = false;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -265,6 +271,246 @@ public class AnimateTransform extends Animate
      */
     public var transformZ:Number;
 
+    //----------------------------------
+    //  translationX
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the translationX property
+     */
+    private var _translationX:MotionPath;
+    /**
+     * The MotionPath describing the change in <code>x</code> during the effect
+     */
+    public function get translationX():MotionPath
+    {
+        return _translationX;
+    }
+    public function set translationX(value:MotionPath):void
+    {
+        _translationX = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _translationX.property = "translationX";
+        }
+    }
+    
+    //----------------------------------
+    //  translationY
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the translationY property
+     */
+    private var _translationY:MotionPath;
+    /**
+     * The MotionPath describing the change in <code>y</code> during the effect
+     */
+    public function get translationY():MotionPath
+    {
+        return _translationY;
+    }
+    public function set translationY(value:MotionPath):void
+    {
+        _translationY = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _translationY.property = "translationY";
+        }
+    }
+    
+    //----------------------------------
+    //  translationX
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the translationZ property
+     */
+    private var _translationZ:MotionPath;
+    /**
+     * The MotionPath describing the change in <code>z</code> during the effect
+     */
+    public function get translationZ():MotionPath
+    {
+        return _translationZ;
+    }
+    public function set translationZ(value:MotionPath):void
+    {
+        _translationZ = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _translationZ.property = "translationZ";
+        }
+    }
+    
+    //----------------------------------
+    //  rotationX
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the rotationX property
+     */
+    private var _rotationX:MotionPath;
+    /**
+     * The MotionPath describing the change in rotation around the x
+     * axis during the effect
+     */
+    public function get rotationX():MotionPath
+    {
+        return _rotationX;
+    }
+    public function set rotationX(value:MotionPath):void
+    {
+        _rotationX = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _rotationX.property = "rotationX";
+        }
+    }
+    
+    //----------------------------------
+    //  rotationY
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the rotationY property
+     */
+    private var _rotationY:MotionPath;
+    /**
+     * The MotionPath describing the change in rotation around the y
+     * axis during the effect
+     */
+    public function get rotationY():MotionPath
+    {
+        return _rotationY;
+    }
+    public function set rotationY(value:MotionPath):void
+    {
+        _rotationY = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _rotationY.property = "rotationY";
+        }
+    }
+    
+    //----------------------------------
+    //  rotationZ
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the rotationZ property
+     */
+    private var _rotationZ:MotionPath;
+    /**
+     * The MotionPath describing the change in rotation around the z
+     * axis during the effect
+     */
+    public function get rotationZ():MotionPath
+    {
+        return _rotationZ;
+    }
+    public function set rotationZ(value:MotionPath):void
+    {
+        _rotationZ = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _rotationZ.property = "rotationZ";
+        }
+    }
+    
+    //----------------------------------
+    //  scaleX
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the scaleX property
+     */
+    private var _scaleX:MotionPath;
+    /**
+     * The MotionPath describing the change in scale in the x direction
+     * during the effect
+     */
+    public function get scaleX():MotionPath
+    {
+        return _scaleX;
+    }
+    public function set scaleX(value:MotionPath):void
+    {
+        _scaleX = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _scaleX.property = "scaleX";
+        }
+    }
+    
+    //----------------------------------
+    //  scaleY
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the scaleY property
+     */
+    private var _scaleY:MotionPath;
+    /**
+     * The MotionPath describing the change in scale in the y direction
+     * during the effect
+     */
+    public function get scaleY():MotionPath
+    {
+        return _scaleY;
+    }
+    public function set scaleY(value:MotionPath):void
+    {
+        _scaleY = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _scaleY.property = "scaleY";
+        }
+    }
+    
+    //----------------------------------
+    //  scaleZ
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the scaleZ property
+     */
+    private var _scaleZ:MotionPath;
+    /**
+     * The MotionPath describing the change in scale in the z direction
+     * during the effect
+     */
+    public function get scaleZ():MotionPath
+    {
+        return _scaleZ;
+    }
+    public function set scaleZ(value:MotionPath):void
+    {
+        _scaleZ = value;
+        if (value)
+        {
+            transformPropertiesSet = true;
+            _scaleZ.property = "scaleZ";
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -622,12 +868,12 @@ public class AnimateTransform extends Animate
 
         // Finally, integrate this MotionPath in with the existing
         // MotionPath objects, if there are any
-        if (animationProperties)
+        if (motionPaths)
         {
-            var n:int = animationProperties.length;
+            var n:int = motionPaths.length;
             for (var i:int = 0; i < n; i++)
             {
-                var prop:MotionPath = MotionPath(animationProperties[i]);
+                var prop:MotionPath = MotionPath(motionPaths[i]);
                 if (prop.property == mp.property)
                 {
                     for (var j:int = 0; j < mp.keyframes.length; j++)
@@ -640,9 +886,9 @@ public class AnimateTransform extends Animate
         }
         else
         {
-            animationProperties = [];
+            motionPaths = [];
         }
-        animationProperties.push(mp);
+        motionPaths.push(mp);
     }
 
     // TODO (chaase): This function appears in multiple places. Maybe
@@ -676,20 +922,43 @@ public class AnimateTransform extends Animate
         var transformInstance:AnimateTransformInstance =
             AnimateTransformInstance(instance);
         
+        if (transformPropertiesSet)
+        {
+            if (!motionPaths)
+                motionPaths = [];
+            if (translationX)
+                motionPaths.push(translationX);
+            if (translationY)
+                motionPaths.push(translationY);
+            if (translationZ)
+                motionPaths.push(translationZ);
+            if (rotationX)
+                motionPaths.push(rotationX);
+            if (rotationY)
+                motionPaths.push(rotationY);
+            if (rotationZ)
+                motionPaths.push(rotationZ);
+            if (scaleX)
+                motionPaths.push(scaleX);
+            if (scaleY)
+                motionPaths.push(scaleY);
+            if (scaleZ)
+                motionPaths.push(scaleZ);
+        }
         // Feed startDelay directly into keyframe times
-        if (animationProperties)
+        if (motionPaths)
         {            
             var instanceAnimProps:Array = [];
-            for (i = 0; i < animationProperties.length; ++i)
+            for (i = 0; i < motionPaths.length; ++i)
             {
-                instanceAnimProps[i] = animationProperties[i].clone();
+                instanceAnimProps[i] = motionPaths[i].clone();
                 var mp:MotionPath = MotionPath(instanceAnimProps[i]);
                 if (mp.keyframes)
                 {
                     for (var j:int = 0; j < mp.keyframes.length; ++j)
                     {
                         var kf:KeyFrame = KeyFrame(mp.keyframes[j]);
-                        // NaN for the time is used by AnimationProperty as a
+                        // NaN for the time is used by SimpleMotionPath as a
                         // placeholder for the end time of the effect
                         if (isNaN(kf.time))
                             kf.time = duration;
@@ -716,11 +985,11 @@ public class AnimateTransform extends Animate
         // so that they are still available for reuse upon re-playing the effect
         var tmpStartDelay:Number = startDelay;
         startDelay = 0;
-        var tmpAnimProps:Array = animationProperties;
-        animationProperties = null;
+        var tmpAnimProps:Array = motionPaths;
+        motionPaths = null;
         super.initInstance(instance);
         startDelay = tmpStartDelay;
-        animationProperties = tmpAnimProps;
+        motionPaths = tmpAnimProps;
     }
 
     /**
