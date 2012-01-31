@@ -24,7 +24,8 @@
         }
     </fx:Style>
 
-    <s:Panel title="Advanced CSS: Descendant Selector Example" height="75%" width="75%" >
+    <s:Panel title="Advanced CSS: Descendant Selector Example" height="75%" width="75%"
+        horizontalCenter="0" verticalCenter="0">
 
     <s:ButtonBar id="viewMenu" requiresSelection="true" x="10" y="10">
         <s:dataProvider>
@@ -32,7 +33,7 @@
         </s:dataProvider>
     </s:ButtonBar>
 
-    <mx:Text x="10" y="60" text="Only text in the VBox below has bold content." />
+    <s:SimpleText x="10" y="60" text="Only text in the VBox below has bold content." />
     <mx:VBox x="10" y="80">
     	<mx:Text text="Featured Content" fontSize="15" />
     	<mx:Text text="From holding onto depleted assets to delaying Social Security, these ..." />
