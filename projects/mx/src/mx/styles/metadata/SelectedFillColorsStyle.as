@@ -21,4 +21,4 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="selectedFillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
+[Style(name="selectedFillColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="halo")]
