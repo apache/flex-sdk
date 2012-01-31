@@ -11,42 +11,26 @@
 
 /*  NOTES
 
-- value property is removed since it is legecy and using selectedItem is preferable
-
-- Do we include these proxy properties (dataRenderer, labelField, labelFunction, rowCount)
-- Do we need selectedLabel and itemToLabel (which uses labelField and labelFunction)
-- Don't need restrict since we don't support editing
-- Don't need dropDownWidth since that is controlled by skin?
-- Do we need inline-renderer properties (data, listData)?
-
 Keyboard Interaction
 - List current dispatches selectionChanged on arrowUp/Down. Should we subclass List
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
 TODO List
 
-- finish collection_changeHandler
-- event dispatching
-- prompt
 - implicitSelectedIndex
-- expose List.layout?
-- pass styles to dropDown
-- propagate List events
 - Handle stage resize, focus in/out
-- add baseline support
 - add enabled/disabled
 - Add type assist
 - Add typicalItem support for measuredSize (lower priority) 
 - Change button to be a ToggleButton so we stay down when dropdown is open
+- No prompt should set selectedIndex = 0?
 
-*  
+BUGS
+- Setting selectedItem to undefined doesn't set selectedIndex to -1
 
 *  @langversion 3.0
-
 *  @playerversion Flash 10
-
 *  @playerversion AIR 1.5
-
 *  @productversion Flex 4
 
 */
@@ -56,39 +40,71 @@ package spark.components
 
 import flash.events.Event;
 import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
 import mx.collections.IList;
-import spark.components.supportClasses.DropDownBase;
-import spark.components.supportClasses.ListBase;
-import mx.core.IFactory;
-import mx.core.mx_internal;
-import mx.events.IndexChangedEvent;
-import spark.primitives.supportClasses.TextGraphicElement;
 import mx.events.CollectionEvent;
-import mx.collections.ListCollectionView;
-import mx.collections.CursorBookmark;
+import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
-import mx.collections.ICollectionView;
-import mx.events.CollectionEventKind;
-import mx.collections.IViewCursor;
+
+import spark.components.Button;
+import spark.components.supportClasses.ListBase;
+import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
 
 /**
- *  Dispatched when the FxComboBox contents changes as a result of user
- *  interaction, when the <code>selectedIndex</code> or
- *  <code>selectedItem</code> property changes.
+ *  Dispatched when the dropDown is dismissed for any reason such when 
+ *  the user:
+ *  <ul>
+ *      <li>selects an item in the dropDown</li>
+ *      <li>clicks outside of the dropDown</li>
+ *      <li>clicks the dropDown button while the dropDown is 
+ *  displayed</li>
+ *  </ul>
  *
- *  @eventType mx.events.ListEvent.CHANGE
+ *  @eventType mx.events.DropdownEvent.CLOSE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
- */ 
-[Event(name="change", type="flash.events.Event")]
+ */
+[Event(name="close", type="mx.events.DropdownEvent")]
 
-[DefaultProperty("dataProvider")]
+/**
+ *  Dispatched when the user clicks the dropDown button
+ *  to display the dropDown.  It is also dispatched if the user
+ *  uses the keyboard and types Ctrl-Down to open the dropDown.
+ *
+ *  @eventType mx.events.DropdownEvent.OPEN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="open", type="mx.events.DropdownEvent")]
+
+/**
+ *  Open State of the DropDown component
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[SkinState("open")]
+
+
+//--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="allowMultipleSelection", kind="property")]
+[Exclude(name="selectedIndices", kind="property")]
+[Exclude(name="selectedItems", kind="property")]
+
 
 /**
  *  DropDownList control contains a drop-down list
@@ -102,9 +118,14 @@ import spark.utils.LabelUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class DropDownList extends DropDownBase
+public class DropDownList extends List
 {
-	
+
+    //--------------------------------------------------------------------------
+    //
+    //  Skin Parts
+    //
+    //--------------------------------------------------------------------------	
     /**
      *  An optional skin part that holds the prompt or the text of the selectedItem 
      *  
@@ -117,18 +138,16 @@ public class DropDownList extends DropDownBase
     public var labelElement:TextGraphicElement;
 	
 	/**
-     *  A skin part that is the instance of the dropDown list
+     *  A skin part that defines the anchor button.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-     
-     // TODO (jszeto) We want this to be required. But when the skin part is in a state,
-     // it hasn't been created yet and we get an RTE.
-	[SkinPart(required="false")]
-	public var dropDown:ListBase;
+    // TODO!!! (jszeto) Replace with a toggle button 
+    [SkinPart(required="true")]
+    public var button:Button;
 	
 	/**
      *  Constructor. 
@@ -141,6 +160,7 @@ public class DropDownList extends DropDownBase
 	public function DropDownList()
 	{
 		super();
+		super.allowMultipleSelection = false;
 	}
 	
 	//--------------------------------------------------------------------------
@@ -148,13 +168,8 @@ public class DropDownList extends DropDownBase
     //  Variables
     //
     //--------------------------------------------------------------------------
-	 /**
-     *  @private
-     *  A flag indicating that selection has changed
-     */
-    private var selectionChanged:Boolean = false;
+	
     private var labelChanged:Boolean = false;
-	private const PAGE_SIZE:int = 5;
 	
 	//--------------------------------------------------------------------------
     //
@@ -163,233 +178,39 @@ public class DropDownList extends DropDownBase
     //--------------------------------------------------------------------------
 	
 	//----------------------------------
-    //  collection
+    //  isOpen
     //----------------------------------
-	
-	/**
-     *  The ICollectionView of items this component displays.  
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+    
+    /**
+     *  @private 
      */
-    protected var collection:ICollectionView;
-
-	//----------------------------------
-    //  dataProvider
-    //----------------------------------
-	
-	// TODO (jszeto) Add logic to handle the IList changed events
-	
-	private var dataProviderChanged:Boolean = false;
-	private var _dataProvider:IList;
-	
-	/**
-	 *  The set of items this component displays.
-	 * 
-	 *  <p>Setting this property will adjust the <code>selectedIndex</code>
-     *  property (and therefore the <code>selectedItem</code> property) if 
-     *  the <code>selectedIndex</code> property has not otherwise been set. 
-     *  If there is no <code>prompt</code> property, the <code>selectedIndex</code>
-     *  property will be set to 0; otherwise it will remain at -1,
-     *  the index used for the prompt string.  
-     *  If the <code>selectedIndex</code> property has been set and
-     *  it is out of range of the new data provider, unexpected behavior is
-     *  likely to occur.</p> 
+    private var _isOpen:Boolean = false;
+    
+    /**
+     *  Whether the dropDown is open or not.   
      * 
-     *  @default null
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */ 
-	public function get dataProvider():IList
-	{
-		return _dataProvider;
-	}
-	
-	public function set dataProvider(value:IList):void
-	{
-		if (_dataProvider != value)
-		{
-			_dataProvider = value;
-			
-			if (_dataProvider)
-			{
-				// TODO (jszeto) Change to match List implementation
-				collection = new ListCollectionView(IList(value));
-				collection.addEventListener(CollectionEvent.COLLECTION_CHANGE, collection_changeHandler, false, 0, true);
-				iterator = collection.createCursor();
-				dataProviderChanged = true;		
-				
-				var event:CollectionEvent =
-			            new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-		        event.kind = CollectionEventKind.RESET;
-		        collection_changeHandler(event);
-		  	}
-		  	
-		  	invalidateProperties();
-		}
-	}
-	
-    //----------------------------------
-    //  itemRenderer
-    //----------------------------------
-    
-    private var _itemRenderer:IFactory;
-    
-    /**
-     *  @copy spark.components.DataGroup#itemRenderer
-     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
-     */
-    public function get itemRenderer():IFactory
+     */  
+    public function get isOpen():Boolean
     {
-        return _itemRenderer;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set itemRenderer(value:IFactory):void
-    {
-        if (value != _itemRenderer)
-        {
-        	_itemRenderer = value;
-        }
-    }
-    
-    //----------------------------------
-    //  itemRendererFunction
-    //----------------------------------
-    
-    private var _itemRendererFunction:Function;
-    
-    /**
-     *  @copy spark.components.DataGroup#itemRendererFunction
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get itemRendererFunction():Function
-    {
-        return _itemRendererFunction;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set itemRendererFunction(value:Function):void
-    {
-        if (value != _itemRendererFunction)
-        {
-        	_itemRendererFunction = value;
-        }
-    }
-    
-    //----------------------------------
-    //  iterator
-    //----------------------------------
-    
-    /**
-     *  The main IViewCursor used to fetch items from the
-     *  dataProvider and pass the items to the renderers.
-     *  At the end of any sequence of code, it must always be positioned
-     *  at the topmost visible item on screen.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
-     */
-    protected var iterator:IViewCursor;
-    
-    //----------------------------------
-    //  labelField
-    //----------------------------------
-	private var _labelField:String = "label"; 
-   
-    /**
-     *  The name of the field in the data provider items to display as the label.
-     
-     * @default "label"
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get labelField():String
-    {
-    	return _labelField;
-    }
-    
-    public function set labelField(value:String):void
-    {
-    	if (value != _labelField)
-    	{
-    		_labelField = value;
-    		labelChanged = true;
-    		invalidateProperties();
-    	}
-    }
-    
-    //----------------------------------
-    //  labelField
-    //----------------------------------
-    private var _labelFunction:Function; 
-    
-    /**
-     *  A user-supplied function to run on each item to determine its label.
-     * 
-     *  The method signature for labelFunction should be:
-     *  <pre>myLabelFunction(item:Object):String</pre> 
-     *
-     *  @default null
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get labelFunction():Function
-    {
-    	return _labelFunction;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set labelFunction(value:Function):void
-    {
-    	if (value != _labelFunction)
-    	{
-    		_labelFunction = value;
-    		labelChanged = true;
-    		invalidateProperties();
-    	}
+    	return _isOpen;
     }
 
 	//----------------------------------
     //  prompt
     //----------------------------------
 
-    private var promptChanged:Boolean = false;
-    private var _prompt:String;
+    private var _prompt:String = "";
 
     /**
-     *  The prompt for the FxComboBox control. A prompt is
+     *  The prompt for the DropDownList control. A prompt is
      *  a String that is displayed in the TextInput portion of the
-     *  FxComboBox when <code>selectedIndex</code> = -1.  It is usually
+     *  DropDownList when <code>selectedIndex</code> = -1.  It is usually
      *  a String like "Select one...".  If there is no
-     *  prompt, the FxComboBox control sets <code>selectedIndex</code> to 0
+     *  prompt, the DropDownList control sets <code>selectedIndex</code> to 0
      *  and displays the first item in the <code>dataProvider</code>.
      *  
      *  @langversion 3.0
@@ -408,168 +229,85 @@ public class DropDownList extends DropDownBase
     public function set prompt(value:String):void
     {
         _prompt = value;
-        promptChanged = true;
+        labelChanged = true;
         invalidateProperties();
     }
     
-    //----------------------------------
-    //  selectedIndex
-    //----------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Properties
+    //
+    //--------------------------------------------------------------------------
     
-    private var _selectedIndex:int = -1;
-    private var selectedIndexChanged:Boolean = false;
-    
-    [Bindable("change")]
-    [Bindable("collectionChange")]
-    [Bindable("valueCommit")]
-     /**
-     *  The index in the data provider of the selected item.
-     *  If there is a <code>prompt</code> property, the <code>selectedIndex</code>
-     *  value can be set to -1 to show the prompt.
-     *  If there is no <code>prompt</code>, property then <code>selectedIndex</code>
-     *  will be set to 0 once a <code>dataProvider</code> is set.
-     *
-     *  <p>Unlike many other Flex properties that are invalidating (setting
-     *  them does not have an immediate effect), the <code>selectedIndex</code> and
-     *  <code>selectedItem</code> properties are synchronous; setting one immediately 
-     *  affects the other.</p>
-     *
-     *  @default -1
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get selectedIndex():int
-    {
-        return _selectedIndex;
-    }
+    //----------------------------------
+    //  allowMultipleSelection
+    //----------------------------------
     
     /**
      *  @private
-     */  
-    public function set selectedIndex(value:int):void
+     */
+    override public function set allowMultipleSelection(value:Boolean):void
     {
-    	// TODO (jszeto) Change selectedIndex/Item to match ListBase implementation
-    	// We want the selectedIndex to be committed as soon as possible. 
-    	// If we have a collection, then update the selectedIndex
-    	 
-    	_selectedIndex = value;
-    	if (value == -1)
-        {
-            _selectedItem = null;
-        }
-    	
-    	//2 code paths: one for before collection, one after
-        if (!collection || collection.length == 0)
-        {
-            selectedIndexChanged = true;
-            invalidateProperties();
-        }
-        else
-        {
-            if (value != -1)
-            {
-                value = Math.min(value, collection.length - 1);
-                var bookmark:CursorBookmark = iterator.bookmark;
-                var len:int = value;
-                iterator.seek(CursorBookmark.FIRST, len);
-                var data:Object = iterator.current;
-                iterator.seek(bookmark, 0);
-                _selectedIndex = value;
-                _selectedItem = data;
-                labelChanged = true;
-                invalidateProperties();
-            }
-        }
-        
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+    	// Don't allow this value to be set
+        return;
     }
     
     //----------------------------------
-    //  selectedItem
+    //  baselinePosition
     //----------------------------------
-
-	private var selectedItemChanged:Boolean = false;
-
-    private var _selectedItem:Object;
-
-	[Bindable("change")]
-    [Bindable("collectionChange")]
-    [Bindable("valueCommit")]
-    /**
-     *  The item in the data provider at the selectedIndex.
-     *
-     *  <p>If the data is an object or class instance, modifying
-     *  properties in the object or instance modifies the 
-     *  <code>dataProvider</code> object but may not update the views  
-     *  unless the instance is Bindable or implements IPropertyChangeNotifier
-     *  or a call to dataProvider.itemUpdated() occurs.</p>
-     *
-     *  Setting the <code>selectedItem</code> property causes the
-     *  FxComboBox control to select that item (display it in the text field and
-     *  set the <code>selectedIndex</code>) if it exists in the data provider.
-     *
-     *  <p>Unlike many other Flex properties that are invalidating (setting
-     *  them does not have an immediate effect), <code>selectedIndex</code> and
-     *  <code>selectedItem</code> are synchronous; setting one immediately 
-     *  affects the other.</p>
-     *
-     *  @default null;
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get selectedItem():Object
-    {
-    	// TODO (jszeto) Return _selectedItem first if it hasn't been committed yet
-        return _selectedItem;
-    }
-
+    
     /**
      *  @private
      */
-    public function set selectedItem(data:Object):void
-    {	
-        //2 code paths: one for before collection, one after
-        if (!collection || collection.length == 0)
-        {
-          	_selectedItem = data;
-            selectedItemChanged = true;
-            invalidateProperties();
-        }
-		else
-		{
-	        var found:Boolean = false;
-	        var listCursor:IViewCursor = collection.createCursor();
-	        var i:int = 0;
-	        do
-	        {
-	            if (data == listCursor.current)
-	            {
-	                _selectedIndex = i;
-	                _selectedItem = data;
-	                selectionChanged = true;
-	                found = true;
-	                break;
-	            }
-	            i++;
-	        }
-	        while (listCursor.moveNext());
-	
-	        if (!found)
-	        {
-	            selectedIndex = -1;
-	            _selectedItem = null;
-	        }
-	        
-	        labelChanged = true;
-	        invalidateProperties();
-		}        
+    override public function get baselinePosition():Number
+    {
+    	if (button)
+    		return button.baselinePosition;
+    	else
+    		return NaN;
     }
+    
+    //----------------------------------
+    //  dataProvider
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+     // TODO (jszeto) Check if we really need this
+    override public function set dataProvider(value:IList):void
+    {
+    	super.dataProvider = value;
+    	labelChanged = true;
+    	invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  selectedIndices
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set selectedIndices(value:Array):void
+    {
+    	// TODO (jszeto) This needs to be localized
+    	throw new Error("The selectedIndices property is not supported in DropDownList");
+    }
+    
+    //----------------------------------
+    //  selectedItems
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set selectedItems(value:Array):void
+    {
+    	// TODO (jszeto) This needs to be localized
+    	throw new Error("The selectedItems property is not supported in DropDownList");
+    }
+    
     
  	//--------------------------------------------------------------------------
     //
@@ -577,12 +315,104 @@ public class DropDownList extends DropDownBase
     //
     //--------------------------------------------------------------------------   
 
+	/**
+     *  Initializes the dropDown and changes the skin state to open. 
+     * 
+     *  It should not be necessary to override this function. Instead, override the
+     *  initializeDropDown function. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function openDropDown():void
+    {
+		//trace("DropDownBase.openDropDown isOpen",isOpen);
+    	if (!isOpen)
+    	{
+    		// TODO (jszeto) Change this to be marshall plan compliant
+    		systemManager.addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+    		
+    		_isOpen = true;
+    		skin.currentState = getCurrentSkinState();
+    		
+    		// TODO (jszeto) How to handle animations in the skin?
+    		dispatchEvent(new DropdownEvent(DropdownEvent.OPEN));
+	    	
+	    	// Save the original selectedIndex
+			//previousSelectedIndex = selectedIndex;
+    	}
+    }
+	
+	 /**
+     *  Changes the skin state to normal, commits the data from the dropDown and 
+     *  performs some cleanup.  
+     * 
+     *  The user can close the dropDown either in a committing or non-committing manner 
+     *  based on their interaction gesture. If the user has performed a committing 
+     *  gesture, then set commitData to true. 
+     *   
+     *  @param commitData Flag indicating if the component should commit the selected
+     *  data from the dropDown. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function closeDropDown(commitData:Boolean):void
+    {
+    	//trace("DropDownBase.closeDropDown isOpen",isOpen,"inKey",inKeyNavigation);
+    	if (isOpen)
+    	{
+    		// TODO (jszeto) Add logic to check for commitData
+    		/*if (commitData)
+        		commitDropDownData();*/	
+	
+			_isOpen = false;
+	       	skin.currentState = getCurrentSkinState();
+        	
+        	// TODO (jszeto) How to handle animations in the skin?
+        	dispatchEvent(new DropdownEvent(DropdownEvent.CLOSE));
+        	
+        	// TODO (jszeto) Change this to be marshall plan compliant
+        	systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
+    	}
+    }
+	
+	/**
+     *  @private
+     *  Called whenever we need to update the text passed to the labelElement skin part
+     */
+    // TODO (jszeto) Make this protected and make the name more generic (passing data to skin) 
+	private function updateLabelElement():void
+	{
+		if (labelElement)
+    	{
+    		if (selectedItem)
+    			labelElement.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
+	    	else
+	    		labelElement.text = prompt;
+    	}	
+	}
     
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+	
+	/**
+	 *  @private
+	 */ 
+	override protected function commitSelectedIndex():Boolean
+    {
+    	var result:Boolean = super.commitSelectedIndex();
+       	updateLabelElement();
+   
+    	return result;   	
+    }
 	
 	// TODO (jszeto) Add measure implementation that uses the longest string in the data provider as 
     // the label and calls super.measure().
@@ -593,77 +423,34 @@ public class DropDownList extends DropDownBase
     {
         super.commitProperties();
         
-		if (selectedItemChanged)
-        {
-        	// Retry applying the value in case the dataProvider is set
-            selectedItem = selectedItem;
-            selectedItemChanged = false;
-            selectedIndexChanged = false;
-        }
-
-        if (selectedIndexChanged)
-        {
-        	// Retry applying the value in case the dataProvider is set
-            selectedIndex = selectedIndex;
-            selectedIndexChanged = false;
-        }   
-        
         if (labelChanged)
 		{
 			labelChanged = false;
-			if (labelElement)
-	    	{
-	    		if (selectedItem)
-	    			labelElement.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
-	    		else
-	    			labelElement.text = "";
-	    	}
-		}
-        
-        // TODO (jszeto) Add call to valueCommit after selection changed
-
+        	updateLabelElement();
+  		}
     }
-                                                
     
     /**
-	 *  @private
-	 */ 
-    override protected function initializeDropDown():void
-    {
-    	super.initializeDropDown();
+ 	 *  @private
+ 	 */ 
+    override protected function dataProvider_collectionChangeHandler(event:Event):void
+    {    	
+    	super.dataProvider_collectionChangeHandler(event);
     	
-    	// TODO (jszeto) Look at SkinnableDataContainer to see pattern for passing
-    	// these values
-		dropDown.dataProvider = dataProvider;
-		dropDown.selectedIndex = selectedIndex;
-		dropDown.labelField = labelField;
-		dropDown.labelFunction = labelFunction;
-		
-		if (itemRenderer != null)
-			dropDown.itemRenderer = itemRenderer;
-	
-		if (itemRendererFunction != null)
-			dropDown.itemRendererFunction = itemRendererFunction;
-	
-		// TODO!! We force validation because when we set the selectedIndex, 
-		// the list doesn't commit the value until it calls commitProperties. 
-		// By this time, we are already listening for selection changed events.
-		//dropDown.validateNow();
-		/*dropDown.validateProperties();
-		dropDown.validateSize();*/
-	
-		// Wait for creationComplete before listening to selectionChanged events from the dropDown. 
-		//dropDown.addEventListener("creationComplete", dropDown_creationCompleteHandler);
-		//dropDown.addEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
+    	if (event is CollectionEvent)
+        {
+			labelChanged = true;
+			invalidateProperties();        	
+        }
     }
-    
+       
     /**
-     *  @private 
-     */ 
-    override protected function addListenersToDropDown():void
+ 	 *  @private
+ 	 */ 
+    override protected function getCurrentSkinState():String
     {
-    	dropDown.addEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
-    }
+		return !enabled ? "disabled" : isOpen ? "open" : "normal";
+    }   
        
     /**
 	 *  @private
@@ -672,8 +459,10 @@ public class DropDownList extends DropDownBase
     {
     	super.partAdded(partName, instance);
  
- 		if (instance == dropDown)
- 			dropDownInstance = dropDown;
+ 		if (instance == button)
+    	{
+    		instance.addEventListener(FlexEvent.BUTTON_DOWN, buttonDownHandler);
+    	}
     }
     
     /**
@@ -681,47 +470,42 @@ public class DropDownList extends DropDownBase
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-        if (instance == dropDown)
+    	if (instance == button)
     	{
-    		dropDownInstance = null;
+    		instance.removeEventListener(FlexEvent.BUTTON_DOWN, buttonDownHandler);
     	}
         
         super.partRemoved(partName, instance);
     }
     
     /**
-	 *  @private
-	 */ 
-    override protected function destroyDropDown():void
-    {
-    	super.destroyDropDown();
-    	
-    	dropDown.removeEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
-    }
+     *  @private
+     */
+    override protected function item_clickHandler(event:MouseEvent):void
+	{
+		super.item_clickHandler(event);
+		closeDropDown(true);
+	}
     
     /**
-	 *  @private
-	 */
-    override protected function commitDropDownData():void
-    {
-    	if (dropDown.selectedIndex != selectedIndex)
-    	{
-    		selectedIndex = dropDown.selectedIndex;
-    		dispatchEvent(new Event(Event.CHANGE));
-    	}
-    }
+     *  @private
+     */
+    // TODO (jszeto) Workaround for now until we can fix List so that it 
+    // doesn't listen for keyDown events in the capture phase 
+    override protected function keyDownHandler(event:KeyboardEvent) : void
+	{
+		//trace("DropDownList.keyDownHandler key",event.keyCode);
+		list_keyDownHandler(event);
+	}
         
     /**
 	 *  @private
 	 */
-	override protected function keyDownHandler(event:KeyboardEvent) : void
+	override protected function list_keyDownHandler(event:KeyboardEvent) : void
 	{
-
-		//trace("DropDownList.keyDownHandler key",event.keyCode);
+		//trace("DropDownList.list_keyDownHandler key",event.keyCode);
 		if(!enabled)
             return;
-
-		super.keyDownHandler(event);
         
         if (event.ctrlKey && event.keyCode == Keyboard.DOWN)
         {
@@ -751,15 +535,21 @@ public class DropDownList extends DropDownBase
                 event.stopPropagation();
             }
         }
-        else if (event.keyCode == Keyboard.UP ||
+        else 
+        {
+        	//trace("DropDownList.keyDownHandler arrow key isOpen",isOpen);
+        	// TODO (jszeto) Check if we need dataGroup skin during this event
+        	super.list_keyDownHandler(event);
+        }
+        
+        /*
+        if (event.keyCode == Keyboard.UP ||
                 event.keyCode == Keyboard.DOWN ||
                 event.keyCode == Keyboard.LEFT ||
                 event.keyCode == Keyboard.RIGHT ||
                 event.keyCode == Keyboard.PAGE_UP ||
                 event.keyCode == Keyboard.PAGE_DOWN)
-        {
-        	//trace("DropDownList.keyDownHandler arrow key isOpen",isOpen);
-        	
+        {	
         	if (isOpen)
         	{
         		// TODO (jszeto) Clean this up once we have List support for 
@@ -797,7 +587,7 @@ public class DropDownList extends DropDownBase
         		
         			dispatchEvent(new Event(Event.CHANGE));
         		}
-        	}
+        	}*/
         	
         	
         	
@@ -830,7 +620,7 @@ public class DropDownList extends DropDownBase
             event.stopPropagation();
             bInKeyDown = false;*/
 
-        }  
+          
 	}
     
     //--------------------------------------------------------------------------
@@ -839,108 +629,44 @@ public class DropDownList extends DropDownBase
     //
     //--------------------------------------------------------------------------
     
-    /**
-	 *  Called when the dropDown dispatches a selectionChanged event. 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */ 
-    protected function dropDown_selectionChangedHandler(event:IndexChangedEvent):void
+	 /**
+ 	 *  Called when the buttonDown event is dispatched. This function opens or closes
+ 	 *  the dropDown depending upon the dropDown state. 
+ 	 *  
+ 	 *  @langversion 3.0
+ 	 *  @playerversion Flash 10
+ 	 *  @playerversion AIR 1.5
+ 	 *  @productversion Flex 4
+ 	 */ 
+    protected function buttonDownHandler(event:Event):void
     {
-    	//trace("DropDownList.dropDown_selectionChangedHandler [CLOSE]");
-        
-        closeDropDown(true);
+    	//trace("DropDownBase.buttonDownHandler ", isOpen ? "[CLOSE]" : "[OPEN]");
+        if (isOpen)
+            closeDropDown(true);
+        else
+            openDropDown();
     }
     
     /**
-	 *  Called when the dataProvider changes 
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */ 
-    protected function collection_changeHandler(event:CollectionEvent):void
+     *  Called when the systemManager receives a mouseDown event. In the base class 
+     *  implementation, this closes the dropDown.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */     
+    protected function systemManager_mouseDownHandler(event:MouseEvent):void
     {
-    	// TODO (jszeto) Change this to use ListBase implementation
-    	
-        var requiresValueCommit:Boolean = false;
-
-        if (event.kind == CollectionEventKind.ADD)
+    	// TODO (jszeto) Make marshall plan compliant
+    	// TODO (jszeto) Figure a better way to handle this
+     	if ((dataGroup && !dataGroup.hitTestPoint(event.stageX, event.stageY)) &&
+     	    (button && !button.hitTestPoint(event.stageX, event.stageY)))
         {
-        	// Don't send a value commit. selectedItem remains the same
-            if (selectedIndex >= event.location)
-                _selectedIndex++;
+        	//trace("DropDownBase.systemManager_mouseDownHandler  [CLOSE]");
+            closeDropDown(true);
         }
-        else if (event.kind == CollectionEventKind.REMOVE)
-        {
-            for (var i:int = 0; i < event.items.length; i++)
-            {
-            	// TODO (jszeto) Do we need to use UID instead?
-                //var uid:String = itemToUID(ce.items[i]);
-                if (selectedItem == event.items[i])
-                {
-                    selectionChanged = true;
-                }
-            }
-            if (selectionChanged)
-            {
-                if (_selectedIndex >= collection.length)
-                    _selectedIndex = collection.length - 1;
-
-                selectedIndexChanged = true;
-                requiresValueCommit = true;
-                invalidateProperties();
-            }
-            else if (selectedIndex >= event.location)
-            {
-                _selectedIndex--;
-                selectedIndexChanged = true;
-                requiresValueCommit = true;
-                invalidateProperties();
-            }
-        
-        }
-        else if (event.kind == CollectionEventKind.REFRESH)
-        {
-            selectedItemChanged = true;
-            // Sorting always changes the selection array
-            requiresValueCommit = true;
-            invalidateProperties();
-        }
-        else if (event.kind == CollectionEventKind.UPDATE)
-        {
-            if (event.location == selectedIndex ||
-                event.items[0].source == selectedItem)
-            {
-            	selectedItem = event.items[0].source;
-            }
-        }
-        else if (event.kind == CollectionEventKind.RESET)
-        {
-           /* collectionChanged = true;
-            if (!selectedIndexChanged && !selectedItemChanged)
-                selectedIndex = prompt ? -1 : 0;
-            invalidateProperties();*/
-            if (!selectedIndexChanged && !selectedItemChanged)
-            	selectedIndex = 0;
-        }
-        
-        if (requiresValueCommit)
-            dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
-    
-    /**
-     *  @private
-     */  
-    /*private function dropDown_creationCompleteHandler(event:FlexEvent):void
-    {
-    	trace("DropDownList.dropDown_creationCompleteHandler called");
-		dropDown.removeEventListener("creationComplete", dropDown_creationCompleteHandler);	
-    	dropDown.addEventListener(IndexChangedEvent.SELECTION_CHANGED, dropDown_selectionChangedHandler);
-    }*/
-	
+
 }
 }
