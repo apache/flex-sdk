@@ -29,12 +29,13 @@ import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
 
+import spark.components.supportClasses.DisplayPlane;
 import spark.components.supportClasses.GroupBase;
 import spark.core.DisplayObjectSharingMode;
 import spark.core.IGraphicElement;
 import spark.core.ISharedDisplayObject;
+import spark.events.DisplayPlaneObjectExistenceEvent;
 import spark.events.ElementExistenceEvent;
-import spark.components.supportClasses.TextBase;
 import spark.primitives.shaders.ColorBurnShader;
 import spark.primitives.shaders.ColorDodgeShader;
 import spark.primitives.shaders.ColorShader;
@@ -971,6 +972,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
             if (isValidScaleGrid())
             {
+				// FIXME (egeorgie): how about overlays in this case? Should we care about those?
                 if (numChildren > 0)
                     throw new Error(resourceManager.getString("components", "scaleGridGroupError"));
 
@@ -1787,10 +1789,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */ 
     private function addDisplayObjectToDisplayList(child:DisplayObject, index:int = -1):void
     {
+		var overlayCount:int = _overlay ? _overlay.numDisplayObjects : 0;
         if (child.parent == this)
-            super.setChildIndex(child, index != -1 ? index : super.numChildren - 1);
+            super.setChildIndex(child, index != -1 ? index : super.numChildren - 1 - overlayCount);
         else
-            super.addChildAt(child, index != -1 ? index : super.numChildren);
+            super.addChildAt(child, index != -1 ? index : super.numChildren - overlayCount);
     }
 
     /**
