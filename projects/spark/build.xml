@@ -20,7 +20,10 @@
 
 	<target name="clean">
 		<delete failonerror="false">
-			<fileset file="${basedir}/bundles.properties"/>
+			<fileset dir="${basedir}" >
+				<include name="bundles.properties"/>
+				<include name="manifest.xml"/>
+			</fileset>
 			<fileset dir="${FLEX_HOME}/frameworks/libs">
 				<include name="flex4.swc"/>
 				<include name="graphics.swc"/>
@@ -32,8 +35,12 @@
 			</fileset>
 		</delete>
 	</target>
-
-	<target name="compile" description="Compiles flex4.swc">
+	
+	<target name="prepare" description="Copies manifests to project directories so the IDE can find them">
+		<copy file="${FLEX_HOME}/frameworks/spark-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
+	</target>
+	
+	<target name="compile" depends="prepare" description="Compiles flex4.swc">
 		<echo file="${FLEX_HOME}/frameworks/version.properties" append="false">build=${build.number}</echo>
 		<echo message="Compiling frameworks/libs/flex4.swc"/>
 		<!-- Load the <compc> task. We can't do this at the <project> level -->
