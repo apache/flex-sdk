@@ -14,12 +14,22 @@ package mx.effects.interpolation
  * Provides easing functionality using a Sine function and a
  * parameter that specifies how much time to spend easing in
  * and out.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Sine extends EaseInOut
 {    
     /**
      * Constructs a Sine instance with an optional 
      * <code>easeInFraction</code> parameter.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Sine(easeInFraction:Number = .5)
     {
@@ -31,6 +41,11 @@ public class Sine extends EaseInOut
      * 
      * The easeIn calculation for Sine is equal to 
      * <code>1 - cos(fraction*PI/2)</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function easeIn(fraction:Number):Number
     {
@@ -42,6 +57,11 @@ public class Sine extends EaseInOut
      * 
      * The easeOut calculation for Sine is equal to 
      * <code>sin(fraction*PI/2)</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function easeOut(fraction:Number):Number
     {
