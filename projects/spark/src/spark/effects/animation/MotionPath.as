@@ -171,7 +171,10 @@ public class MotionPath
 
     /**
      *  Returns a copy of this MotionPath object, including copies
-     *  of each keyframe
+     *  of each keyframe.
+     *
+     *  @return A copy of this MotionPath object, including copies
+     *  of each keyframe.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
