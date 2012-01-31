@@ -18,6 +18,7 @@ import mx.core.mx_internal;
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
 import mx.events.EffectEvent;
+import mx.geom.TransformOffsets;
 import mx.styles.IStyleClient;
 
 import spark.effects.supportClasses.AnimateTransformInstance;
@@ -140,6 +141,9 @@ public class AnimateTransform extends Animate
         ["translationX", "translationY", "translationZ", 
          "rotationX", "rotationY", "rotationZ", 
          "scaleX", "scaleY", "scaleZ",
+         "postLayoutTranslationX","postLayoutTranslationY","postLayoutTranslationZ",
+         "postLayoutRotationX","postLayoutRotationY","postLayoutRotationZ",
+         "postLayoutScaleX","postLayoutScaleY","postLayoutScaleZ",
          "left", "right", "top", "bottom",
          "horizontalCenter", "verticalCenter"];
     
@@ -213,12 +217,26 @@ public class AnimateTransform extends Animate
     private static var rotation:Vector3D = new Vector3D();
     private static var position:Vector3D = new Vector3D();
 
+    private static var offsetRotation:Vector3D = new Vector3D();
+    private static var offsetTranslation:Vector3D = new Vector3D();
+    private static var offsetScale:Vector3D = new Vector3D();
+
+    private static var xformPosition:Vector3D = new Vector3D();
+    private static var postLayoutPosition:Vector3D = new Vector3D();
+
     /**
      * @private
      * This flag is set when any of the translationXYZ, rotationXYZ, scaleXYZ
      * motion path properties are set directly
      */
     private var transformPropertiesSet:Boolean = false;
+
+    /**
+     * @private
+     * This flag is set when any of the post layout translationXYZ, rotationXYZ, scaleXYZ
+     * motion path properties are set directly
+     */
+    private var postLayoutTransformPropertiesSet:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -622,7 +640,322 @@ public class AnimateTransform extends Animate
             _scaleZ.property = "scaleZ";
         }
     }
+
+
+    //----------------------------------
+    //  postLayoutTranslationX
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutTranslationX property
+     */
+    private var _postLayoutTranslationX:MotionPath;
+    /**
+     * The MotionPath describing the change in <code>x</code> during the effect
+     */
+    public function get postLayoutTranslationX():MotionPath
+    {
+        return _postLayoutTranslationX;
+    }
+    public function set postLayoutTranslationX(value:MotionPath):void
+    {
+        _postLayoutTranslationX = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutTranslationX.property = "postLayoutTranslationX";
+        }
+    }
     
+    //----------------------------------
+    //  postLayoutTranslationY
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutTranslationY property
+     */
+    private var _postLayoutTranslationY:MotionPath;
+    /**
+     * The MotionPath describing the change in <code>y</code> during the effect
+     */
+    public function get postLayoutTranslationY():MotionPath
+    {
+        return _postLayoutTranslationY;
+    }
+    public function set postLayoutTranslationY(value:MotionPath):void
+    {
+        _postLayoutTranslationY = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutTranslationY.property = "postLayoutTranslationY";
+        }
+    }
+    
+    //----------------------------------
+    //  postLayoutTranslationX
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutTranslationZ property
+     */
+    private var _postLayoutTranslationZ:MotionPath;
+    /**
+     * The MotionPath describing the change in <code>z</code> during the effect
+     */
+    public function get postLayoutTranslationZ():MotionPath
+    {
+        return _postLayoutTranslationZ;
+    }
+    public function set postLayoutTranslationZ(value:MotionPath):void
+    {
+        _postLayoutTranslationZ = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutTranslationZ.property = "postLayoutTranslationZ";
+        }
+    }
+    
+    //----------------------------------
+    //  postLayoutRotationX
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutRotationX property
+     */
+    private var _postLayoutRotationX:MotionPath;
+    /**
+     * The MotionPath describing the change in postLayoutRotation around the x
+     * axis during the effect
+     */
+    public function get postLayoutRotationX():MotionPath
+    {
+        return _postLayoutRotationX;
+    }
+    public function set postLayoutRotationX(value:MotionPath):void
+    {
+        _postLayoutRotationX = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutRotationX.property = "postLayoutRotationX";
+        }
+    }
+    
+    //----------------------------------
+    //  postLayoutRotationY
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutRotationY property
+     */
+    private var _postLayoutRotationY:MotionPath;
+    /**
+     * The MotionPath describing the change in postLayoutRotation around the y
+     * axis during the effect
+     */
+    public function get postLayoutRotationY():MotionPath
+    {
+        return _postLayoutRotationY;
+    }
+    public function set postLayoutRotationY(value:MotionPath):void
+    {
+        _postLayoutRotationY = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutRotationY.property = "postLayoutRotationY";
+        }
+    }
+    
+    //----------------------------------
+    //  postLayoutRotationZ
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutRotationZ property
+     */
+    private var _postLayoutRotationZ:MotionPath;
+    /**
+     * The MotionPath describing the change in postLayoutRotation around the z
+     * axis during the effect
+     */
+    public function get postLayoutRotationZ():MotionPath
+    {
+        return _postLayoutRotationZ;
+    }
+    public function set postLayoutRotationZ(value:MotionPath):void
+    {
+        _postLayoutRotationZ = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutRotationZ.property = "postLayoutRotationZ";
+        }
+    }
+    
+    //----------------------------------
+    //  postLayoutScaleX
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutScaleX property
+     */
+    private var _postLayoutScaleX:MotionPath;
+    /**
+     * The MotionPath describing the change in postLayoutScale in the x direction
+     * during the effect
+     */
+    public function get postLayoutScaleX():MotionPath
+    {
+        return _postLayoutScaleX;
+    }
+    public function set postLayoutScaleX(value:MotionPath):void
+    {
+        _postLayoutScaleX = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutScaleX.property = "postLayoutScaleX";
+        }
+    }
+    
+    //----------------------------------
+    //  postLayoutScaleY
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutScaleY property
+     */
+    private var _postLayoutScaleY:MotionPath;
+    /**
+     * The MotionPath describing the change in postLayoutScale in the y direction
+     * during the effect
+     */
+    public function get postLayoutScaleY():MotionPath
+    {
+        return _postLayoutScaleY;
+    }
+    public function set postLayoutScaleY(value:MotionPath):void
+    {
+        _postLayoutScaleY = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutScaleY.property = "postLayoutScaleY";
+        }
+    }
+    
+    //----------------------------------
+    //  postLayoutScaleZ
+    //----------------------------------
+
+    /**
+     * @private
+     * Storage for the postLayoutScaleZ property
+     */
+    private var _postLayoutScaleZ:MotionPath;
+    /**
+     * The MotionPath describing the change in postLayoutScale in the z direction
+     * during the effect
+     */
+    public function get postLayoutScaleZ():MotionPath
+    {
+        return _postLayoutScaleZ;
+    }
+    public function set postLayoutScaleZ(value:MotionPath):void
+    {
+        _postLayoutScaleZ = value;
+        if (value)
+        {
+            postLayoutTransformPropertiesSet = true;
+            _postLayoutScaleZ.property = "postLayoutScaleZ";
+        }
+    }
+
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var applyLocalProjection:Boolean = false;
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var removeLocalProjectionWhenComplete:Boolean = false;
+
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var autoCenterProjection:Boolean = true;
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var fieldOfView:Number;
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var focalLength:Number;
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var projectionX:Number = 0;
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var projectionY:Number = 0;
+            
     //--------------------------------------------------------------------------
     //
     // Methods
@@ -716,12 +1049,51 @@ public class AnimateTransform extends Animate
                 
                 var computedTransformCenter:Vector3D = 
                     computeTransformCenterForTarget(target); 
-                var position:Vector3D = new Vector3D();
-                target.transformPointToParent(computedTransformCenter, position,
-                    new Vector3D());               
-                valueMap.translationX = position.x;
-                valueMap.translationY = position.y;
-                valueMap.translationZ = position.z;
+                target.transformPointToParent(computedTransformCenter, xformPosition,
+                    null);               
+                valueMap.translationX = xformPosition.x;
+                valueMap.translationY = xformPosition.y;
+                valueMap.translationZ = xformPosition.z;
+            }
+			
+			
+			// if someone has asked for the motionpaths to affect offsets, 
+			// they might not have explcitly defined any offsets.  If that's the case, 
+			// we still need to capture default start values, so let's initialize the offsets
+			// to a default set anyway.
+            if(postLayoutTransformPropertiesSet && target.offsets == null)
+            {
+            	target.offsets = new TransformOffsets();
+            }
+            
+            // if the target doesn't have any offsets, there's no need to capture
+            // offset values.
+            if(target.offsets != null)
+            {
+            	var offsets:TransformOffsets = target.offsets;
+            	valueMap.postLayoutRotationX = offsets.rotationX;
+            	valueMap.postLayoutRotationY = offsets.rotationY;
+            	valueMap.postLayoutRotationZ = offsets.rotationZ;
+
+            	valueMap.postLayoutScaleX = offsets.scaleX;
+            	valueMap.postLayoutScaleY = offsets.scaleY;
+            	valueMap.postLayoutScaleZ = offsets.scaleZ;
+
+	            if (valueMap.postLayoutTranslationX === undefined ||
+	                valueMap.postLayoutTranslationY === undefined ||
+	                valueMap.postLayoutTranslationZ === undefined)
+	            {
+    	            // TODO (chaase): do we really need this?
+	                propChanges[i].stripUnchangedValues = false;
+
+	                computedTransformCenter = 
+	                    computeTransformCenterForTarget(target); 
+	                target.transformPointToParent(computedTransformCenter, null,
+	                    postLayoutPosition);               
+	                valueMap.postLayoutTranslationX = postLayoutPosition.x;
+	                valueMap.postLayoutTranslationY = postLayoutPosition.y;
+	                valueMap.postLayoutTranslationZ = postLayoutPosition.z;
+	            }
             }
         }
         return propChanges;
@@ -826,6 +1198,13 @@ public class AnimateTransform extends Animate
                 var tmpScale:Vector3D;
                 var tmpPosition:Vector3D;
                 var tmpRotation:Vector3D;
+                
+	    	    var tmpOffsetTranslation:Vector3D;
+    	    	var tmpOffsetRotation:Vector3D;
+		        var tmpOffsetScale:Vector3D;
+		        
+		        var currentXFormPositionComputed:Boolean = false;
+
                 if (!isNaN(transitionValues.scaleX) ||
                     !isNaN(transitionValues.scaleY) || 
                     !isNaN(transitionValues.scaleZ))
@@ -857,10 +1236,9 @@ public class AnimateTransform extends Animate
                 position.z = transitionValues.translationZ;
                 if (isNaN(position.x) || isNaN(position.y) || isNaN(position.z))
                 {
-                    var xformPosition:Vector3D = new Vector3D();
-                    var postLayoutPosition:Vector3D = new Vector3D();
                     target.transformPointToParent(xformCenter,
                         xformPosition, postLayoutPosition);
+                    currentXFormPositionComputed = true;
                     if (isNaN(position.x))
                         position.x = xformPosition.x;
                     if (isNaN(position.y))
@@ -868,8 +1246,66 @@ public class AnimateTransform extends Animate
                     if (isNaN(position.z))
                         position.z = xformPosition.z;
                 }
+
+				if(target.offsets != null)
+				{
+					var offsets:TransformOffsets = target.offsets;
+			        if (!isNaN(transitionValues.postLayoutRotationX) ||
+			            !isNaN(transitionValues.postLayoutRotationY) || 
+			            !isNaN(transitionValues.postLayoutRotationZ))
+			        {
+			            offsetRotation.x = !isNaN(transitionValues.postLayoutRotationX) ? 
+			                transitionValues.postLayoutRotationX : offsets.rotationX;
+			            offsetRotation.y = !isNaN(transitionValues.postLayoutRotationY) ? 
+			                transitionValues.postLayoutRotationY : offsets.rotationY;
+			            offsetRotation.z = !isNaN(transitionValues.postLayoutRotationZ) ? 
+			                transitionValues.postLayoutRotationZ : offsets.rotationZ;
+			            tmpOffsetRotation = offsetRotation;
+			        }
+			
+			        if (!isNaN(transitionValues.postLayoutScaleX) ||
+			            !isNaN(transitionValues.postLayoutScaleY) || 
+			            !isNaN(transitionValues.postLayoutScaleZ))
+			        {
+			            offsetScale.x = !isNaN(transitionValues.postLayoutScaleX) ? 
+			                transitionValues.postLayoutScaleX : offsets.scaleX;
+			            offsetScale.y = !isNaN(transitionValues.postLayoutScaleY) ? 
+			                transitionValues.postLayoutScaleY : offsets.scaleY;
+			            offsetScale.z = !isNaN(transitionValues.postLayoutScaleZ) ? 
+			                transitionValues.postLayoutScaleZ : offsets.scaleZ;
+			            tmpOffsetScale = offsetScale;
+			        }
+			
+					
+		            offsetTranslation.x = transitionValues.postLayoutTranslationX; 
+		            offsetTranslation.y = transitionValues.postLayoutTranslationY;
+		            offsetTranslation.z = transitionValues.postLayoutTranslationZ; 
+		            
+			        if (isNaN(offsetTranslation.x) ||
+			            isNaN(offsetTranslation.y) || 
+			            isNaN(offsetTranslation.z))
+			        {
+
+	                    if(currentXFormPositionComputed == false)
+	                    {
+	                    	target.transformPointToParent(xformCenter,
+                                xformPosition, postLayoutPosition);
+                            currentXFormPositionComputed = true;
+	                    }
+			            
+			            if(isNaN(offsetTranslation.x))
+			            	offsetTranslation.x = postLayoutPosition.x;
+			            if(isNaN(offsetTranslation.y))
+			            	offsetTranslation.y = postLayoutPosition.y;
+			            if(isNaN(offsetTranslation.z))
+			            	offsetTranslation.z = postLayoutPosition.z;
+			        }
+
+			        tmpOffsetTranslation  = offsetTranslation;
+			 }
+
                 target.transformAround(xformCenter, tmpScale, tmpRotation, 
-                    position);
+                    position,tmpOffsetScale,tmpOffsetRotation,tmpOffsetTranslation);
                 appliedValuesPerTarget[target] = true;
             }
         }
@@ -920,10 +1356,16 @@ public class AnimateTransform extends Animate
         // We've already set these properties in applyStartValues() or
         // applyEndValues() override; don't set them again here
         if (property == "translationX" || property == "translationY" ||
-            property == "translationY" || property == "rotationX" ||
+            property == "translationZ" || property == "rotationX" ||
             property == "rotationY" || property == "rotationZ" ||
             property == "scaleX" || property == "scaleY" ||
-            property == "scaleZ")
+            property == "scaleZ" || 
+			property == "postLayoutTranslationX" || property == "postLayoutTranslationY" ||
+            property == "postLayoutTranslationZ" || property == "postLayoutRotationX" ||
+            property == "postLayoutRotationY" || property == "postLayoutRotationZ" ||
+            property == "postLayoutScaleX" || property == "postLayoutScaleY" ||
+            property == "postLayoutScaleZ"
+            )
         {
             return;
         }
@@ -964,6 +1406,17 @@ public class AnimateTransform extends Animate
             }
         }
         keyframes.push(newKF);
+    }
+
+    protected function addPostLayoutMotionPath(property:String,
+        valueFrom:Number = NaN, valueTo:Number = NaN, valueBy:Number = NaN):void
+    {
+    	if(isNaN(valueFrom) && isNaN(valueTo) && isNaN(valueBy))
+    	   return;
+    	   
+        if(target.offsets == null)
+            target.offsets = new TransformOffsets();
+    	addMotionPath(property,valueFrom,valueTo,valueBy);
     }
     
     /**
@@ -1037,6 +1490,8 @@ public class AnimateTransform extends Animate
             (!(value is Number) && value !== null));
     }
 
+
+
     /**
      * @private
      * 
@@ -1052,29 +1507,62 @@ public class AnimateTransform extends Animate
         
         var transformInstance:AnimateTransformInstance =
             AnimateTransformInstance(instance);
-        
+
+			
         if (transformPropertiesSet)
         {
             if (!motionPaths)
                 motionPaths = [];
-            if (translationX)
-                motionPaths.push(translationX);
-            if (translationY)
-                motionPaths.push(translationY);
-            if (translationZ)
-                motionPaths.push(translationZ);
-            if (rotationX)
-                motionPaths.push(rotationX);
-            if (rotationY)
-                motionPaths.push(rotationY);
-            if (rotationZ)
-                motionPaths.push(rotationZ);
-            if (scaleX)
-                motionPaths.push(scaleX);
-            if (scaleY)
-                motionPaths.push(scaleY);
-            if (scaleZ)
-                motionPaths.push(scaleZ);
+            if (_translationX)
+                motionPaths.push(_translationX);
+            if (_translationY)
+                motionPaths.push(_translationY);
+            if (_translationZ)
+                motionPaths.push(_translationZ);
+            if (_rotationX)
+                motionPaths.push(_rotationX);
+            if (_rotationY)
+                motionPaths.push(_rotationY);
+            if (_rotationZ)
+                motionPaths.push(_rotationZ);
+            if (_scaleX)
+                motionPaths.push(_scaleX);
+            if (_scaleY)
+                motionPaths.push(_scaleY);
+            if (_scaleZ)
+                motionPaths.push(_scaleZ);
+        }
+        if (postLayoutTransformPropertiesSet)
+        {
+            if (!motionPaths)
+                motionPaths = [];
+
+	        // there are two ways we can be affecting post-layout values.
+	        // first, if the user has explicity asked the motion paths to be post layout by setting the motionPathsAffectLayout
+	        // flag.  In that case, we can assume that they need an offsets object if one doesn't already exist.
+	        // Second, if we captured post-layout changes from a state change. In that case, we can assume that since values were captured,
+	        // offsets must already exist.      
+	        if(target.offsets == null)
+	            target.offsets = new TransformOffsets();
+        
+            if (_postLayoutTranslationX)
+                motionPaths.push(_postLayoutTranslationX);
+            if (_postLayoutTranslationY)
+                motionPaths.push(_postLayoutTranslationY);
+            if (_postLayoutTranslationZ)
+                motionPaths.push(_postLayoutTranslationZ);
+            if (_postLayoutRotationX)
+                motionPaths.push(_postLayoutRotationX);
+            if (_postLayoutRotationY)
+                motionPaths.push(_postLayoutRotationY);
+            if (_postLayoutRotationZ)
+                motionPaths.push(_postLayoutRotationZ);
+            if (_postLayoutScaleX)
+                motionPaths.push(_postLayoutScaleX);
+            if (_postLayoutScaleY)
+                motionPaths.push(_postLayoutScaleY);
+            if (_postLayoutScaleZ)
+                motionPaths.push(_postLayoutScaleZ);
         }
         // Feed startDelay directly into keyframe times
         if (motionPaths)
@@ -1107,6 +1595,16 @@ public class AnimateTransform extends Animate
         if (transformInstance.initialized)
             return;
         transformInstance.initialized = true;
+
+        transformInstance.applyLocalProjection = applyLocalProjection;
+        transformInstance.removeLocalProjectionWhenComplete = removeLocalProjectionWhenComplete;
+        transformInstance.autoCenterProjection = autoCenterProjection;
+        transformInstance.fieldOfView = fieldOfView;
+        transformInstance.focalLength = focalLength;
+        transformInstance.projectionX = projectionX;
+        transformInstance.projectionY = projectionY;
+
+
         
         transformInstance.transformCenter = 
             computeTransformCenterForTarget(instance.target);
