@@ -287,47 +287,7 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function get baselinePosition():Number
     {
-        if (!validateBaselinePosition())
-            return NaN;
-        
-        // Fabricate temporary data provider if necessary.
-        var isNull:Boolean = dataProvider == null;
-        var isEmpty:Boolean = dataProvider != null && dataProvider.length == 0;
-         
-        if (isNull || isEmpty)
-        {
-            var originalProvider:IList = isEmpty ? dataProvider : null;
-            dataProvider = new mx.collections.ArrayList([ new Object() ]);
-            validateNow();
-        }
-        
-        if (!dataGroup || dataGroup.numElements == 0)
-            return super.baselinePosition;
-        
-        // Obtain reference to newly generated item element which will be used
-        // to compute the baseline.
-        var listItem:Object = dataGroup ? dataGroup.getElementAt(0) : undefined;
-        if (!listItem)
-            return super.baselinePosition;
-        
-        // Compute baseline position of item relative to our list component.
-        if ("baselinePosition" in listItem)
-            var result:Number = getSkinPartPosition(IVisualElement(listItem)).y + listItem.baselinePosition;
-        else    
-            super.baselinePosition;
-
-        // Restore the previous state of our list.
-        if (isNull || isEmpty)
-        {
-            if (isNull)
-                dataProvider = null;
-            else if (isEmpty)
-                dataProvider = originalProvider;
-                
-            validateNow();
-        }
-        
-        return result;
+        return getBaselinePositionForPart(dataGroup);
     }
         
     //----------------------------------
@@ -1615,7 +1575,6 @@ public class ListBase extends SkinnableDataContainer
                 //These cases are handled by the DataGroup skinpart  
             }
         }
-            
     }
 }
 
