@@ -846,25 +846,23 @@ function xmlEncoder (myObj)
         var message:HTTPRequestMessage = new HTTPRequestMessage();
         if (useProxy)
         {
-            if (url && url != '')
+            if (urlToUse && urlToUse != '')
             {
-                message.url = URLUtil.getFullURL(rootURL, url);
+                message.url = URLUtil.getFullURL(rootURL, urlToUse);
             }
 
             if (NetworkMonitor.isMonitoring())
             {
-            //trace(" HTTPService: Recording Headers (useProxy = true)");
+                //trace(" HTTPService: Recording Headers (useProxy = true)");
                 message.recordHeaders = true;    
             }
-
         }
         else
         {
-            if (!url)
+            if (!urlToUse)
             {
                 token = new AsyncToken(null);
-                msg = resourceManager.getString(
-                    "rpc", "urlNotSpecified");
+                msg = resourceManager.getString("rpc", "urlNotSpecified");
                 fault = new Fault(ERROR_URL_REQUIRED, msg);
                 faultEvent = FaultEvent.createEvent(fault, token);
                 new AsyncDispatcher(dispatchRpcEvent, [faultEvent], 10);
@@ -879,12 +877,12 @@ function xmlEncoder (myObj)
             }
 
             if (NetworkMonitor.isMonitoring())
-          {
+            {
                 //trace(" HTTPService: Recording Headers (useProxy = false)");
                 message.recordHeaders = true;    
             }
 
-            message.url = URLUtil.getFullURL(rootURL, url);
+            message.url = URLUtil.getFullURL(rootURL, urlToUse);
         }
 
         message.contentType = ctype;
