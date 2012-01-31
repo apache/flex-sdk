@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects.interpolation
 {
-    
+
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;    
 
@@ -21,19 +21,20 @@ import mx.resources.ResourceManager;
 [ResourceBundle("sparkEffects")]
     
 /**
- *  The ArrayInterpolator class interpolates each element of an Array
- *  of start and end elements separately, using another interpolator to do
- *  the interpolation for each element. 
+ *  The MultiValueInterpolator class interpolates each element of Arrays or
+ *  Vectors of start and end elements separately, using another interpolator 
+ *  to do the interpolation for each element. 
  *  By default, the 
  *  interpolation for each element uses the NumberInterpolator class, but you 
- *  can construct an ArrayInterpolator instance with a different interpolator.
+ *  can construct a MultiValueInterpolator instance with a different interpolator.
  *  
+ *  @see
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ArrayInterpolator implements IInterpolator
+public class MultiValueInterpolator implements IInterpolator
 {
     
     /**
@@ -48,7 +49,7 @@ public class ArrayInterpolator implements IInterpolator
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function ArrayInterpolator(elementInterpolator:IInterpolator = null)
+    public function MultiValueInterpolator(elementInterpolator:IInterpolator = null)
     {
         if (elementInterpolator != null)
             this.elementInterpolator = elementInterpolator;
@@ -64,7 +65,7 @@ public class ArrayInterpolator implements IInterpolator
     // The internal per-element interpolator
     private var _elementInterpolator:IInterpolator = NumberInterpolator.getInstance();
     /**
-     *  The interpolator for each element of the input Array. 
+     *  The interpolator for each element of the input Array or Vector. 
      *  A value of null specifies to use the NumberInterpolator class.
      *  
      *  @default NumberInterpolator
@@ -90,9 +91,12 @@ public class ArrayInterpolator implements IInterpolator
     /**
      * @inheritDoc
      * 
-     * Interpolation for ArrayInterpolator consists of running a separate
+     * Interpolation for MultiValueInterpolator consists of running a separate
      * interpolation on each element of the startValue and endValue
-     * arrays, returning a new Array that holds those interpolated values.
+     * arrays or vectors, returning a new Array or Vector that holds those 
+     * interpolated values. The returned object will be an Array if startValue
+     * and endValue are of type Array, otherwise the returned object will be
+     * of type Vector.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -104,21 +108,30 @@ public class ArrayInterpolator implements IInterpolator
     {
         if (startValue.length != endValue.length)
             throw new Error(resourceManager.getString("sparkEffects", "arraysNotOfEqualLength"));
-        var returnArray:Array = [];
+        var returnObject:Object;
+        if (startValue is Array)
+            returnObject = [];
+        else 
+            // splice(0,0) seems to be the only way to create a Vector of the
+            // same type
+            returnObject = startValue.splice(0, 0);
         for (var i:int = 0; i < startValue.length; i++)
-            returnArray[i] = _elementInterpolator.interpolate(fraction, 
+            returnObject[i] = _elementInterpolator.interpolate(fraction, 
                 startValue[i], endValue[i]);
 
-        return returnArray;
+        return returnObject;
     }
     
     /**
      * @inheritDoc
      * 
-     * Incrementing for ArrayInterpolator consists of running a separate
+     * Incrementing for MultiValueInterpolator consists of running a separate
      * increment operation on each element of the <code>baseValue</code> array,
      * adding the same <code>incrementValue</code> to each one and
-     * returning a new Array that holds those incremented values.
+     * returning a new Array or Vector that holds those incremented values.
+     * The returned object will be an Array if startValue
+     * and endValue are of type Array, otherwise the returned object will be
+     * of type Vector.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -127,21 +140,30 @@ public class ArrayInterpolator implements IInterpolator
      */
     public function increment(baseValue:Object, incrementValue:Object):Object
     {
-        var returnArray:Array = [];
+        var returnObject:Object;
+        if (baseValue is Array)
+            returnObject = [];
+        else 
+            // splice(0,0) seems to be the only way to create a Vector of the
+            // same type
+            returnObject = baseValue.splice(0, 0);
         for (var i:int = 0; i < baseValue.length; i++)
-            returnArray[i] = _elementInterpolator.increment(
+            returnObject[i] = _elementInterpolator.increment(
                 baseValue[i], incrementValue);
 
-        return returnArray;
+        return returnObject;
     }
     
     /**
      * @inheritDoc
      * 
-     * Decrementing for ArrayInterpolator consists of running a separate
-     * decrement operation on each element of the <code>baseValue</code> array,
+     * Decrementing for MultiValueInterpolator consists of running a separate
+     * decrement operation on each element of the <code>baseValue</code> object,
      * subtracting the same <code>incrementValue</code> from each one and
-     * returning a new Array that holds those decremented values.
+     * returning a new Array or Vector that holds those decremented values.
+     * The returned object will be an Array if startValue
+     * and endValue are of type Array, otherwise the returned object will be
+     * of type Vector.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -150,12 +172,18 @@ public class ArrayInterpolator implements IInterpolator
      */
     public function decrement(baseValue:Object, decrementValue:Object):Object
     {
-        var returnArray:Array = [];
+        var returnObject:Object;
+        if (baseValue is Array)
+            returnObject = [];
+        else 
+            // splice(0,0) seems to be the only way to create a Vector of the
+            // same type
+            returnObject = baseValue.splice(0, 0);
         for (var i:int = 0; i < baseValue.length; i++)
-            returnArray[i] = _elementInterpolator.decrement(
+            returnObject[i] = _elementInterpolator.decrement(
                 baseValue[i], decrementValue);
 
-        return returnArray;
+        return returnObject;
     }
         
 }
