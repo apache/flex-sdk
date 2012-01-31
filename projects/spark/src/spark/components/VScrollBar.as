@@ -19,7 +19,12 @@ import spark.components.supportClasses.ScrollBar;
 import spark.core.IViewport;
 import spark.core.ScrollUnit;
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [IconFile("VScrollBar.png")]
+[DefaultTriggerEvent("change")]
 
 /**
  *  The VScrollBar (vertical ScrollBar) control lets you control
