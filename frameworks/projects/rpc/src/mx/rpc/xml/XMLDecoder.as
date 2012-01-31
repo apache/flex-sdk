@@ -1796,15 +1796,49 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
     {
         if (type == constants.anyTypeQName && !isSimpleValue(value))
         {
-            var content:* = createContent();
-            if (content is ContentProxy)
-                ContentProxy(content).object_proxy::isSimple = false; // The XML value has complex content.
-            var valueList:XMLList;// = new XMLList(value);
+            var propertyList:XMLList;
+            var content:*;
+
             if (value is XML)
-                valueList = value.elements();
+            {
+                var xml:XML = XML(value);
+
+                // Short-circuit for an xsi:nil="true" attribute
+                if (xml.nodeKind() == "element")
+                {
+                    var nilAttribute:String = xml.attribute(constants.nilQName).toString();
+                    if (nilAttribute == "true")
+                        return null;
+                }
+
+                // Treat both attributes and any child elements as properties.
+                // Mixed-content is not supported and character data will be
+                // ignored.
+                if (xml.hasSimpleContent())
+                {
+                    content = new SimpleContent(xml.text().toString());
+                    propertyList = xml.attributes();
+                }
+                else
+                {
+                    content = createContent();
+                    if (content is ContentProxy)
+                        ContentProxy(content).object_proxy::isSimple = false; // The XML value has complex content.
+
+                    propertyList = xml.elements();
+                    propertyList += xml.attributes(); 
+                }
+            }
             else
-                valueList = new XMLList(value);
-            decodeAnyType(content, name, valueList);
+            {
+                content = createContent();
+                if (content is ContentProxy)
+                    ContentProxy(content).object_proxy::isSimple = false; // The XML value has complex content.
+
+                propertyList = new XMLList(value);
+            }
+
+            decodeAnyType(content, name, propertyList);
             return content;
         }
         else
@@ -1949,7 +1983,15 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
     {
         if (value is XML)
         {
-            return XML(value).hasSimpleContent();
+            var xml:XML = XML(value);
+
+            // We consider XML with attributes as a complex value because
+            // the name/value pairs should be decoded as properties.
+            var attributes:XMLList = xml.attributes();
+            if (attributes != null && attributes.length() > 0)
+                return false;
+
+            return xml.hasSimpleContent();
         }
         else if (value is String || value is Number || value is Boolean
             || value is Date || value is int || value is uint
