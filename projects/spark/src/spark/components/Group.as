@@ -75,6 +75,9 @@ use namespace mx_internal;
  *  The Group class is the base container class for visual elements.
  *
  *  @see mx.components.DataGroup
+ *
+ *  @includeExample examples/GroupExample.mxml
+ *
  */
 public class Group extends GroupBase 
 {
