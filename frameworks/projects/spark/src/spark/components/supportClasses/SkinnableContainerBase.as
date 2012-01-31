@@ -11,11 +11,11 @@
 
 package mx.components.baseClasses
 {
-import flash.display.Sprite;
+import flash.display.DisplayObject;
 
 import mx.components.baseClasses.FxComponent;
-import mx.core.mx_internal;
 import mx.managers.IFocusManagerContainer;
+import mx.utils.MouseShieldUtil;
 
 
 /**
@@ -57,7 +57,10 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
     {
         super.enabled = value;
         invalidateSkinState();
-        updateMouseShield();
+        
+        // We update the mouseShield that prevents clicks to propagate to
+        // children in our updateDisplayList.
+        invalidateDisplayList();
     }
 
     //--------------------------------------------------------------------------
@@ -80,17 +83,12 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        if (mouseShield)
-        {
-            mouseShield.width = unscaledWidth;
-            mouseShield.height = unscaledHeight;
-        }
+        mouseShield = MouseShieldUtil.updateMouseShield(this, mouseShield);
     }
 
     //--------------------------------------------------------------------------
     //
-    //  Private methods
+    //  Variables
     //
     //--------------------------------------------------------------------------
      
@@ -98,38 +96,6 @@ public class FxContainerBase extends FxComponent implements IFocusManagerContain
      *  @private
      *  Mouse shield that is put up when this component is disabled.
      */
-    private var mouseShield:Sprite;
-    
-    /**
-     *  @private
-     */
-	private function updateMouseShield():void
-	{
-        if (enabled)
-        {
-            if (mouseShield)
-            {
-                mx_internal::$removeChild(mouseShield);
-                mouseShield = null;
-            }
-        }
-        else
-        {
-            if (!mouseShield)
-            {
-				// Create a 100x100 invisible shape that will
-				// be scaled to the component size by 
-				// setting width and height, below.
-				mouseShield = new Sprite();
-				mouseShield.graphics.beginFill(0, 0);
-				mouseShield.graphics.drawRect(0, 0, 100, 100);
-				mouseShield.graphics.endFill();
-				mx_internal::$addChild(mouseShield);
-            }
-            
-            mouseShield.width = width;
-            mouseShield.height = height;
-        }
-    }
+    private var mouseShield:DisplayObject;
 }
 }
