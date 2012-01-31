@@ -129,6 +129,10 @@ import mx.events.ModuleEvent;
  *   
  */
 [ResourceBundle("containers")]
+
+// Resource bundles used by this class.
+[ResourceBundle("modules")]
+
 [IconFile("ModuleLoader.png")]
 
 /**
@@ -463,6 +467,16 @@ public class ModuleLoader extends VBox
             var p:DisplayObjectContainer = parent;
             // p.removeChild(this);
             addChild(child);
+        }
+        else
+        {
+            var message:String = resourceManager.getString(
+                "modules", "couldNotCreateModule", [ module.factory.info()["mainClassName"] ]);
+            var moduleEvent:ModuleEvent = new ModuleEvent(
+                ModuleEvent.ERROR, false, false, 
+                event.bytesLoaded, event.bytesTotal,
+                message, event.module);
+            dispatchEvent(moduleEvent);
         }
     }
 
