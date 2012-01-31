@@ -1718,7 +1718,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
                     if (pt.y < yy + rowInfo[i].height)
                     {
                         var xx:Number = 0;
-                        var m:int = listItems[i].length;
+                        var m:int = visibleColumns.length;
                         for (var j:int = 0; j < m; j++)
                         {
                             if (pt.x < xx + visibleColumns[j].width)
