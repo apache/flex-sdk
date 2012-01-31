@@ -40,6 +40,26 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set rowIndex(value:int):void;
     
     /**
+     *  This property is set to true when one of two input gestures occurs within a 
+     *  grid cell:  either the mouse button or the touch screen is pressed.   The down 
+     *  property is reset to false when the mouse button goes up, the user lifts off 
+     *  the touch screen, or the mouse/touch is dragged out of the grid cell.   
+     * 
+     *  <p>Unlike a List item renderer, grid item renderers do not have exclusive
+     *  responsibility for displaying the down indicator.  The Grid itself
+     *  renders the down indicator for the selected row or cell. 
+     *  The item renderer can also change its visual properties to emphasize
+     *  that it's being pressed.</p>
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get down():Boolean;
+    function set down(value:Boolean):void;
+    
+    /**
      *  True if the item renderer is being dragged, typically as part of a drag and drop operation.
      *  Currently not supported by DataGrid.
      *  
@@ -160,5 +180,4 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      */
     function discard(willBeRecycled:Boolean):void;
 }
-
 }
