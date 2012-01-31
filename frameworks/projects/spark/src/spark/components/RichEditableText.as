@@ -2325,6 +2325,11 @@ package spark.components
                 if (displayAsPassword)
                     displayAsPasswordChanged = true;
                 
+                // New text so remove any leftover constraints.
+                // Used if an item renderer is being recycled.
+                widthConstraint = NaN;
+                heightConstraint = NaN;
+                
                 textChanged = false;
                 textFlowChanged = false;
                 contentChanged = false;             
