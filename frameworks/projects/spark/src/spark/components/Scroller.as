@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-package mx.components
+package spark.components
 {
 import flash.events.Event;
 import flash.events.FocusEvent;
@@ -20,12 +20,13 @@ import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.ui.Keyboard;
 
-import mx.components.baseClasses.FxComponent;
-import mx.core.IViewport;
+import spark.components.supportClasses.ScrollerLayout;
+import spark.components.supportClasses.SkinnableComponent;
+import spark.core.IViewport;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.ScrollPolicy;
-import mx.core.ScrollUnit;
+import spark.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
 import flash.display.InteractiveObject;
@@ -92,10 +93,10 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
     
 [DefaultProperty("viewport")]
 
-[IconFile("FxScroller.png")]
+[IconFile("Scroller.png")]
 
 /**
- *  The FxScroller component displays a single scrollable component, 
+ *  The Scroller component displays a single scrollable component, 
  *  called a viewport, and a horizontal and vertical scrollbars. 
  *  The viewport must implement the IViewport interface.
  * 
@@ -109,10 +110,10 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  The <code>auto</code> policy means that the scrollbar will be visible and included
  *  in the layout when the viewport's content is larger than the viewport itself.</p>
  * 
- *  <p>The FxScroller skin layout cannot be changed, it's unconditionally set to a 
- *  private layout implementation that handles the scroll policies.  FxScroller skins
+ *  <p>The Scroller skin layout cannot be changed, it's unconditionally set to a 
+ *  private layout implementation that handles the scroll policies.  Scroller skins
  *  can only provide replacement scrollbars.  To gain more control over the layout
- *  of a viewport and its scrollbars, instead of using FxScroller, just add them 
+ *  of a viewport and its scrollbars, instead of using Scroller, just add them 
  *  to a <code>Group</code> and use the scrollbar <code>viewport</code> property 
  *  to link them together.</p>
  *  
@@ -122,7 +123,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 
-public class FxScroller extends FxComponent 
+public class Scroller extends SkinnableComponent 
        implements IFocusManagerComponent, IVisualElementContainer
 {
     include "../core/Version.as";
@@ -141,7 +142,7 @@ public class FxScroller extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxScroller()
+    public function Scroller()
     {
         super();
     }
@@ -172,7 +173,7 @@ public class FxScroller extends FxComponent
      *  A skin part that defines the horizontal scrollbar.
      * 
      *  This property should be considered read-only, it's only
-     *  set by the FxScroller's skin.
+     *  set by the Scroller's skin.
      * 
      *  This property is Bindable.
      *  
@@ -181,7 +182,7 @@ public class FxScroller extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var horizontalScrollBar:FxHScrollBar;
+    public var horizontalScrollBar:HScrollBar;
     
     //----------------------------------
     //  verticalScrollBar
@@ -194,7 +195,7 @@ public class FxScroller extends FxComponent
      *  A skin part that defines the vertical scrollbar.
      * 
      *  This property should be considered read-only, it's only
-     *  set by the FxScroller's skin.
+     *  set by the Scroller's skin.
      * 
      *  This property is Bindable.
      *  
@@ -203,7 +204,7 @@ public class FxScroller extends FxComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var verticalScrollBar:FxVScrollBar;
+    public var verticalScrollBar:VScrollBar;
 
 
     //----------------------------------
@@ -339,7 +340,7 @@ public class FxScroller extends FxComponent
      *  </ul>
      * 
      *  <p>
-     *  The scroll policy affects the measured size of the FxScroller component.
+     *  The scroll policy affects the measured size of the Scroller component.
      *  </p>
      * 
      *  @default ScrollPolicy.AUTO
@@ -397,7 +398,7 @@ public class FxScroller extends FxComponent
      *  </ul>
      * 
      *  <p>
-     *  The scroll policy affects the measured size of the FxScroller component.
+     *  The scroll policy affects the measured size of the Scroller component.
      *  </p>
      * 
      *  @default ScrollPolicy.AUTO
@@ -509,13 +510,13 @@ public class FxScroller extends FxComponent
         if (element != null && element == viewport)
             return 0;
         else
-            throw ArgumentError(resourceManager.getString("components", "elementNotFoundInFxScroller", [element]));
+            throw ArgumentError(resourceManager.getString("components", "elementNotFoundInScroller", [element]));
     }
     
     /**
      *  @inheritDoc
      * 
-     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  <p>This operation is not supported in Scroller.  Scroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
      *  
@@ -532,7 +533,7 @@ public class FxScroller extends FxComponent
     /**
      *  @inheritDoc
      * 
-     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  <p>This operation is not supported in Scroller.  Scroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
      *  
@@ -549,7 +550,7 @@ public class FxScroller extends FxComponent
     /**
      *  @inheritDoc
      * 
-     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  <p>This operation is not supported in Scroller.  Scroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
      *  
@@ -566,7 +567,7 @@ public class FxScroller extends FxComponent
     /**
      *  @inheritDoc
      * 
-     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  <p>This operation is not supported in Scroller.  Scroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
      *  
@@ -583,7 +584,7 @@ public class FxScroller extends FxComponent
     /**
      *  @inheritDoc
      * 
-     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  <p>This operation is not supported in Scroller.  Scroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
      * 
@@ -600,7 +601,7 @@ public class FxScroller extends FxComponent
     /**
      *  @inheritDoc
      * 
-     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  <p>This operation is not supported in Scroller.  Scroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
      *  
@@ -617,7 +618,7 @@ public class FxScroller extends FxComponent
     /**
      *  @inheritDoc
      * 
-     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  <p>This operation is not supported in Scroller.  Scroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
      *  
@@ -634,7 +635,7 @@ public class FxScroller extends FxComponent
     /**
      *  @inheritDoc
      * 
-     *  <p>This operation is not supported in FxScroller.  FxScroller only 
+     *  <p>This operation is not supported in Scroller.  Scroller only 
      *  has one child.  Use the <code>viewport</code> property to manipulate 
      *  it.</p>
      *  
@@ -660,7 +661,7 @@ public class FxScroller extends FxComponent
     override protected function loadSkin():void
     {
         super.loadSkin();
-        skin.layout = new FxScrollerLayout();
+        skin.layout = new ScrollerLayout();
         installViewport();
     }
     
@@ -785,7 +786,7 @@ public class FxScroller extends FxComponent
         }
     }
     
-    // To avoid unconditionally linking the TextView class we lazily
+    // To avoid unconditionally linking the RichEditableText class we lazily
     // get a reference if it's been linked already.  See below.
     private static var textViewClassLoaded:Boolean = false;
     private static var textViewClass:Class = null;
@@ -798,7 +799,7 @@ public class FxScroller extends FxComponent
             
         // If a TextField has the focus, then check to see if it's already
         // handling mouse wheel events.  For now, we'll make the same 
-        // assumption about TextView.
+        // assumption about RichEditableText.
         
         var focusOwner:InteractiveObject = getFocus();
         if ((focusOwner is TextField) && TextField(focusOwner).mouseWheelEnabled)
@@ -807,7 +808,7 @@ public class FxScroller extends FxComponent
         if (!textViewClassLoaded)
         {
             textViewClassLoaded = true;
-            const s:String = "mx.components.TextView";
+            const s:String = "mx.components.RichEditableText";
             if (ApplicationDomain.currentDomain.hasDefinition(s))
                 textViewClass = Class(ApplicationDomain.currentDomain.getDefinition(s));
         }
