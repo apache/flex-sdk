@@ -64,7 +64,14 @@ public class AbstractMessage implements IMessage
 	 *  messages once it has been assigned by the server.
 	 */
 	public static const FLEX_CLIENT_ID_HEADER:String = "DSId";
-	
+
+    /**
+     *  Messages sent by a MessageAgent can have a priority header with a 0-9
+     *  numerical value (0 being lowest) and the server can choose to use this
+     *  numerical value to prioritize messages to clients. 
+     */
+    public static const PRIORITY_HEADER:String = "DSPriority";
+
 	/**
      *  Messages that need to set remote credentials for a destination
      *  carry the Base64 encoded credentials in this header.  
