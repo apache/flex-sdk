@@ -148,7 +148,8 @@ public class HScrollBar extends ScrollBar
      */
     override protected function calculateThumbSize():Number
     {
-        return Math.max(thumb.minWidth, super.calculateThumbSize());
+        var size:Number = (fixedThumbSize) ? thumb.getPreferredBoundsWidth() : super.calculateThumbSize();
+        return Math.max(thumb.minWidth, size);
     }
 
     /**
