@@ -30,12 +30,22 @@ include "../styles/metadata/GapStyles.as";
 /**
  *  Number of pixels between the label and child components.
  *  The default value is 14.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="indicatorGap", type="Number", format="Length", inherit="yes")]
 
 /**
  *  Width of the form labels.
  *  The default is the length of the longest label in the form.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="labelWidth", type="Number", format="Length", inherit="yes")]
 
@@ -43,6 +53,11 @@ include "../styles/metadata/GapStyles.as";
  *  Number of pixels between the container's bottom border
  *  and the bottom  edge of its content area.
  *  The default value is 16.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -50,6 +65,11 @@ include "../styles/metadata/GapStyles.as";
  *  Number of pixels between the container's top border
  *  and the top edge of its content area.
  *  The default value is 16.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -133,6 +153,11 @@ include "../styles/metadata/GapStyles.as";
  *
  *  @see mx.containers.FormHeading
  *  @see mx.containers.FormItem
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Form extends Container
 {
@@ -180,6 +205,11 @@ public class Form extends Container
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Form()
     {
@@ -227,6 +257,11 @@ public class Form extends Container
     
     /**
      *  The maximum width, in pixels, of the labels of the FormItems containers in this Form.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxLabelWidth():Number
     {
@@ -327,6 +362,11 @@ public class Form extends Container
      *
      *  <p>The <code>measuredMinHeight</code> property is set to the same value
      *  as that of the <code>measuredHeight</code> property.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -366,6 +406,11 @@ public class Form extends Container
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
