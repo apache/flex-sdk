@@ -1451,11 +1451,6 @@ public class SpriteVisualElement extends FlexSprite
 		return super.transform;
 	}
     
-    public function get coreyWidth():Number
-    {
-        return super.x;
-    }    
-    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -1535,7 +1530,7 @@ public class SpriteVisualElement extends FlexSprite
         invalidateTransform();
     }
 
-    public function get preferredWidth():Number
+    private function get preferredWidth():Number
     {
         if (!isNaN(_explicitWidth))
             return _explicitWidth;
@@ -1544,7 +1539,7 @@ public class SpriteVisualElement extends FlexSprite
         return naturalWidth;
     }
 
-    public function get preferredHeight():Number
+    private function get preferredHeight():Number
     {
         if (!isNaN(_explicitHeight))
             return _explicitHeight;
