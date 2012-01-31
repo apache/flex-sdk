@@ -458,9 +458,12 @@ public class ComboBox extends DropDownListBase
         
         //trace("CB.processInputField input string",textInput.text);
         
+        if (!dataProvider || dataProvider.length <= 0)
+            return;
+        
         // If the textInput has been changed, then use the input string as the selectedItem
         actualProposedSelectedIndex = CUSTOM_SELECTED_ITEM; 
-                
+                    
         if (textInput.text != "")
         {
             if (itemMatchingFunction != null)
@@ -850,7 +853,6 @@ public class ComboBox extends DropDownListBase
         if (operation is DeleteTextOperation || operation is CutOperation)
         {
             super.changeHighlightedSelection(CUSTOM_SELECTED_ITEM);
-            closeDropDown(false);
         }
         else
         {
@@ -864,9 +866,9 @@ public class ComboBox extends DropDownListBase
                     addEventListener(DropDownEvent.OPEN, editingOpenHandler);
                     return;
                 }   
-     
-                processInputField();
             }
+            
+            processInputField();
         }
     }
     
