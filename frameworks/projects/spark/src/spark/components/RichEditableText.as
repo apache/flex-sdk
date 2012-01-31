@@ -31,7 +31,7 @@ import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 import flash.ui.Keyboard;
 
-import flashx.textLayout.compose.ITextLineCreator;
+import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.container.TextContainerManager;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
@@ -2188,8 +2188,8 @@ public class RichEditableText extends UIComponent
             // Otherwise, this will be null.
             embeddedFontContext = getEmbeddedFontContext();
 
-            _textContainerManager.textLineCreator = 
-                ITextLineCreator(embeddedFontContext);                       
+            _textContainerManager.swfContext =
+				ISWFContext(embeddedFontContext);                       
 
             _textContainerManager.hostFormat =
             hostFormat = new CSSTextLayoutFormat(this);
@@ -3401,7 +3401,7 @@ public class RichEditableText extends UIComponent
             // specify an embedded font.
             if (s == "auto")
             {
-                s = _textContainerManager.textLineCreator ?
+                s = _textContainerManager.swfContext ?
                     FontLookup.EMBEDDED_CFF :
                     FontLookup.DEVICE;
             }
@@ -3930,7 +3930,7 @@ public class RichEditableText extends UIComponent
         //    set hostFormat
         //    set compositionWidth/compositionHeight
         //    set horizontalScrollPosition/veriticalScrollPosition
-        //    set textLineCreator
+        //    set swfContext
         //    updateContainer or compose: always if TextFlowFactory, sometimes 
         //        if flowComposer
 
