@@ -38,6 +38,26 @@ import spark.components.supportClasses.Slider;
  *  or it can be restricted to values at concrete intervals between the minimum and maximum value. 
  *  It can use a data tip to display its current value.</p>
  *
+ *  <p>The VSlider control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>11 pixels wide by 100 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>11 pixels wide and 11 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;VSlider&gt;</code> tag inherits all of the tag 
