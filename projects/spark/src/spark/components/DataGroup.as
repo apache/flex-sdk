@@ -675,9 +675,16 @@ public class DataGroup extends GroupBase
         
         if (virtualLayoutUnderway)
         {
-            if (virtualLayoutStartIndex == -1)
+            if (virtualLayoutStartIndex == -1)  // initialized in updateDisplayList()
+            {
                 virtualLayoutStartIndex = index;
-            virtualLayoutEndIndex = index;
+                virtualLayoutEndIndex = index;
+            }
+            else
+            { 
+                virtualLayoutStartIndex = Math.min(index, virtualLayoutStartIndex); 
+                virtualLayoutEndIndex = Math.max(index, virtualLayoutEndIndex);
+            }
                         
             var createdIR:Boolean = false;
             var recycledIR:Boolean = false;
