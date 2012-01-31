@@ -23,6 +23,11 @@ import mx.resources.ResourceManager;
 /**
  * The NumberInterpolator class provides interpolation between
  * <code>Number</code> start and end values. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class NumberInterpolator implements IInterpolator
 {
@@ -43,6 +48,11 @@ public class NumberInterpolator implements IInterpolator
     /**
      * Returns the singleton of this class. Since all NumberInterpolators
      * have the same behavior, there is no need for more than one instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function getInstance():NumberInterpolator
     {
@@ -54,6 +64,11 @@ public class NumberInterpolator implements IInterpolator
     /**
      * Returns the <code>Number</code> type, which is the type of
      * object interpolated by NumberInterpolator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get interpolatedType():Class
     {
@@ -69,6 +84,11 @@ public class NumberInterpolator implements IInterpolator
      * fraction elapsed from start to end, like this:</p>
      * 
      * <p><code>return startValue + fraction * (endValue - startValue);</code></p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function interpolate(fraction:Number, startValue:Object, 
         endValue:Object):Object
@@ -88,6 +108,11 @@ public class NumberInterpolator implements IInterpolator
      * @inheritDoc
      * 
      * <p><code>return baseValue + incrementValue;</code></p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function increment(baseValue:Object, incrementValue:Object):Object
     {
@@ -98,6 +123,11 @@ public class NumberInterpolator implements IInterpolator
      * @inheritDoc
      * 
      * <p><code>return baseValue - decrementValue;</code></p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
    public function decrement(baseValue:Object, decrementValue:Object):Object
    {
