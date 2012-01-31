@@ -49,7 +49,6 @@ public class ButtonAccImpl extends AccImpl
     /**
      *  @private
      */
-    private static const STATE_SYSTEM_PRESSED:uint = 0x00000008;
 
     /**
      *  @private
@@ -154,8 +153,6 @@ public class ButtonAccImpl extends AccImpl
      *  IAccessible method for returning the state of the Button.
      *  States are predefined for all the components in MSAA.
      *  Values are assigned to each state.
-     *  Depending upon the button being pressed or released,
-     *  a value is returned.
      *
      *  @param childID uint
      *
@@ -164,9 +161,6 @@ public class ButtonAccImpl extends AccImpl
     override public function get_accState(childID:uint):uint
     {
         var accState:uint = getState(childID);
-
-        if (master is ToggleButtonBase && ToggleButtonBase(master).selected)
-            accState |= STATE_SYSTEM_PRESSED;
 
         return accState;
     }
