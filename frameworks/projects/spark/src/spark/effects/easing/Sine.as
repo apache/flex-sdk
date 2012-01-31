@@ -24,7 +24,7 @@ package spark.effects.easing
  *  and adds the following tag attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Sine
+ *  &lt;s:Sine
  *    id="ID"
  *   /&gt;
  *  </pre>
