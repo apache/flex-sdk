@@ -21,7 +21,7 @@ import flashx.textLayout.compose.ITextLineCreator;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
-import flashx.textLayout.conversion.TextFilter;
+import flashx.textLayout.conversion.TextConverter;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
@@ -239,10 +239,10 @@ public class RichText extends TextGraphicElement
 		staticTextFormat = new TextFormat();
 		
 		staticPlainTextImporter =
-			TextFilter.getImporter(TextFilter.PLAIN_TEXT_FORMAT);
+			TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
 		
 		staticPlainTextExporter =
-			TextFilter.getExporter(TextFilter.PLAIN_TEXT_FORMAT);
+			TextConverter.getExporter(TextConverter.PLAIN_TEXT_FORMAT);
 			
 		classInitialized = true;
 	}
