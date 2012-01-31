@@ -28,8 +28,8 @@ use namespace mx_internal;
 /**
  *  The Scale3D class scales a target object
  *  in three dimensions around the transform center.
- *  A scale of 2.0 means the object has been magnified by a factor of 2, 
- *  and a scale of 0.5 means the object has been reduced by a factor of 2.
+ *  A scale of 2.0 means the object is magnified by a factor of 2, 
+ *  and a scale of 0.5 means the object is reduced by a factor of 2.
  *  A scale value of 0.0 is invalid.
  * 
  *  <p>Like all AnimateTransform-based effects, this effect only works on subclasses
