@@ -1326,6 +1326,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
     //  editable
     //----------------------------------
 
+    /**
+     *  @private
+     *  Storage for the draggableColumns property.
+     */
+    private var _editable:Boolean = false;
+    
     [Inspectable(category="General")]
 
     /**
@@ -1346,7 +1352,21 @@ public class DataGrid extends DataGridBase implements IIMESupport
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var editable:Boolean = false;
+    public function get editable():Boolean
+    {
+        return _editable;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set editable(value:Boolean):void
+    {
+        _editable = value;
+        
+        if (focusManager)
+            focusManager.defaultButtonEnabled = !value;
+    }
 
     //----------------------------------
     //  editedItemPosition
@@ -4678,6 +4698,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
         {
             addEventListener(FocusEvent.KEY_FOCUS_CHANGE, keyFocusChangeHandler);
             addEventListener(MouseEvent.MOUSE_DOWN, mouseFocusChangeHandler);
+            
+            if (focusManager)
+                focusManager.defaultButtonEnabled = false;
         }
 
         if (event.target != this)
@@ -4774,6 +4797,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
+        if (focusManager)
+            focusManager.defaultButtonEnabled = true;
+            
         // trace(">>DGFocusOut " + itemEditorInstance + " " + event.relatedObject, event.target);
         if (event.target == this)
             super.focusOutHandler(event);
@@ -5058,8 +5084,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
             // trace("setting focus to item editor");
             if (itemEditorInstance is IFocusManagerComponent)
                 fm.setFocus(IFocusManagerComponent(itemEditorInstance));
-            fm.defaultButtonEnabled = false;
-
+                
             var event:DataGridEvent =
                 new DataGridEvent(DataGridEvent.ITEM_FOCUS_IN);
             event.columnIndex = _editedItemPosition.columnIndex;
