@@ -37,13 +37,13 @@ reasonable column width.
         <s:controlBarContent>
             <s:VGroup>
                 <s:CheckBox id="vrh" selected="@{dataGrid.variableRowHeight}" 
-                    label="dataGrid.variableRowHeight={vrh.selected}"/>            
+                            label="dataGrid.variableRowHeight={vrh.selected}"/>            
                 <s:CheckBox id="wordWrapCheckBox" selected="true" 
-                    label="defaultRenderer.wordWrap={wordWrapCheckBox.selected}"/>
+                            label="defaultRenderer.wordWrap={wordWrapCheckBox.selected}"/>
             </s:VGroup>
         </s:controlBarContent>
-    
-        <s:DataGrid id="dataGrid" variableRowHeight="false" verticalCenter="0" horizontalCenter="0">
+        
+        <s:DataGrid id="dataGrid" variableRowHeight="false" left="5" right="5" top="5" bottom="5">
             <s:columns>
                 <s:ArrayList>
                     <!--
@@ -69,14 +69,14 @@ reasonable column width.
             </s:columns>
             
             <!--
-                The typicalItem defines column widths and the default row height.  The text
-                occpies three lines because we've used data binding to introduce two
-                newlines.
+            The typicalItem defines column widths and the default row height.  The text
+            occpies three lines because we've used data binding to introduce two
+            newlines.
             
-                Alternatively, we could have used the odd XML '&amp;#10;' escape to introduce 
-                two newlines (the value of the newline character is decimal 10).
+            Alternatively, we could have used the odd XML '&amp;#10;' escape to introduce 
+            two newlines (the value of the newline character is decimal 10).
             
-                <s:DataItem value="Lorem Ipsum sample text.&amp;#10;newline&amp;#10;"/>
+            <s:DataItem value="Lorem Ipsum sample text.&amp;#10;newline&amp;#10;"/>
             -->
             <s:typicalItem>
                 <s:DataItem value="{'Lorem Ipsum sample text.\nnewline\n'}"/>
