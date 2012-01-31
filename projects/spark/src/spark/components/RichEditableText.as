@@ -192,6 +192,12 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
 //--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="baseColor", kind="style")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
@@ -3933,7 +3939,8 @@ public class RichEditableText extends UIComponent
         //    set swfContext
         //    updateContainer or compose: always if TextFlowFactory, sometimes 
         //        if flowComposer
-
+        // or the textFlow can be modified directly.
+        
         // If no changes, don't recompose/update.  The TextFlowFactory 
         // createTextLines dispatches damage events every time the textFlow
         // is composed, even if there are no changes. 
@@ -3960,15 +3967,10 @@ public class RichEditableText extends UIComponent
         
         // We don't need to call invalidateProperties()
         // because the hostFormat and the _textFlow are still valid.
-        
-        // We don't need to call invalidateSize() for isMeasureFixed()
-        // because the width and height are still valid.  For the other cases,
-        // our override of EditManager.updateAllContainers(), will invalidate
-        // the size, if the content size has actually changed.
-            
-        // Style change by changing textFlow directly could change size.
-        if (_textContainerManager.hostFormat != _textFlow.hostFormat)
-            invalidateSize();
+                
+        // If the textFlow content is modified directly or if there is a style 
+        // change by changing the textFlow directly the size could change.
+        invalidateSize();
             
         invalidateDisplayList();
     }
