@@ -17,9 +17,19 @@ import spark.components.IItemRenderer;
 import mx.core.mx_internal;
 
 /**
- *  The <code>ButtonBarButton</code> implements <code>IDataRenderer</code>
- *  and proxies the <code>label</code> property with the <code>data</code>
- *  property. Used in the default skin for the <code>ButtonBar</code>.
+ *  The ButtonBarButton class defines the custom item renderer
+ *  used by the ButtobBar control. 
+ *  This item renderer is used in the ButtonBarSkin class, 
+ *  the default skin for the ButtonBar.
+ *
+ *  @see spark.components.ButtonBar
+ *  @see spark.skins.default.ButtonBarSkin
+ *  
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class ButtonBarButton extends ToggleButton implements IItemRenderer
 {
@@ -49,6 +59,13 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
 
     /**
      *  @inheritDoc 
+     *
+     *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get allowDeselection():Boolean
     {
@@ -75,6 +92,13 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
 
     /**
      *  @inheritDoc 
+     *
+     *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get caret():Boolean
     {
@@ -100,6 +124,11 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
 
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get data():Object
     {
@@ -126,6 +155,10 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     /**
      *  @inheritDoc  
      *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get labelText():String
     {
