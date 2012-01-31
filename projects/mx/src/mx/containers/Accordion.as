@@ -483,6 +483,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         // Container() has set tabEnabled false, so we
         // have to set it back to true.
         tabEnabled = true;
+        hasFocusableChildren = true;
 
         // Accordion always clips content, it just handles it by itself
         super.clipContent = false;
