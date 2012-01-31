@@ -90,11 +90,20 @@ public class RichEditableTextContainerManager extends TextContainerManager
         var width:Number = compositionWidth;
         var height:Number = compositionHeight;
         
-        if (isNaN(width) || isNaN(height))
+        if (!textView.actuallyAutoSizing && (isNaN(width) || isNaN(height)))
             return false;  // just measuring!
         
         var contentBounds:Rectangle = getContentBounds();
         
+        // If autoSize, use the content values rather than the composition
+        // values. The composition values allow room for growth 
+        // (width=maxWidth, height=NaN).
+        if (textView.actuallyAutoSizing)
+        {
+            width = contentBounds.width;
+            height = contentBounds.height;
+        }
+            
         if (scrollX == 0 &&
             scrollY == 0 &&
             contentBounds.width <= width &&
