@@ -9,21 +9,21 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
     
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 
-import mx.components.baseClasses.FxComponent;
-import mx.components.TextSelectionVisibility;
-import mx.components.TextView;
+import spark.components.supportClasses.SkinnableComponent;
+import spark.components.TextSelectionVisibility;
+import spark.components.RichEditableText;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.events.TextOperationEvent;
+import spark.events.TextOperationEvent;
 import mx.managers.IFocusManagerComponent;
-import mx.utils.MouseShieldUtil;
+import spark.utils.MouseShieldUtil;
 
 import flashx.textLayout.events.SelectionEvent;
 import flashx.textLayout.formats.LineBreak;
@@ -105,7 +105,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxTextBase extends FxComponent implements IFocusManagerComponent
+public class TextBase extends SkinnableComponent implements IFocusManagerComponent
 {
     include "../../core/Version.as";
 
@@ -123,7 +123,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */    
-    public function FxTextBase()
+    public function TextBase()
     {
         super();
         
@@ -397,7 +397,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     private var maxCharsChanged:Boolean = false;
 
     /**
-     *  The maximum number of characters that the TextView can contain,
+     *  The maximum number of characters that the RichEditableText can contain,
      *  as entered by a user.
      *  A script can insert more text than maxChars allows;
      *  the maxChars property indicates only how much text a user can enter.
@@ -722,7 +722,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     [SkinPart(required="true")]
 
     /**
-     *  The TextView that must be present
+     *  The RichEditableText that must be present
      *  in any skin assigned to this component.
      *  
      *  @langversion 3.0
@@ -730,7 +730,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var textView:TextView;
+    public var textView:RichEditableText;
     
     //--------------------------------------------------------------------------
     //
@@ -740,7 +740,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         
     /**
      *  @private
-     *  Pushes various properties down into the TextView. 
+     *  Pushes various properties down into the RichEditableText. 
      */
     override protected function commitProperties():void
     {
@@ -834,7 +834,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
         if (instance == textView)
         {
-            // Start listening for various events from the TextView.
+            // Start listening for various events from the RichEditableText.
 
             textView.addEventListener(SelectionEvent.SELECTION_CHANGE,
                                       textView_selectionChangeHandler);
@@ -868,7 +868,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
         if (instance == textView)
         {
-            // Stop listening for various events from the TextView.
+            // Stop listening for various events from the RichEditableText.
 
             textView.removeEventListener(SelectionEvent.SELECTION_CHANGE,
                                          textView_selectionChangeHandler);
@@ -894,7 +894,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
     /**
      *  @private
-     *  Focus should always be on the internal TextView.
+     *  Focus should always be on the internal RichEditableText.
      */
     override public function setFocus():void
     {
@@ -1026,7 +1026,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
     /**
      *  @private
-     *  Called when the TextView dispatches a 'selectionChange' event.
+     *  Called when the RichEditableText dispatches a 'selectionChange' event.
      */
     private function textView_selectionChangeHandler(event:Event):void
     {
@@ -1034,12 +1034,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         _selectionAnchorPosition = textView.selectionAnchorPosition;
         _selectionActivePosition = textView.selectionActivePosition;
         
-        // Redispatch the event that came from the TextView.
+        // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
     }
 
     /**
-     *  Called when the TextView dispatches a 'change' event
+     *  Called when the RichEditableText dispatches a 'change' event
      *  after an editing operation.
      *  
      *  @langversion 3.0
@@ -1058,23 +1058,23 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         // might be looking at.
         mx_internal::textChanged = false;
 
-        // Redispatch the event that came from the TextView.
+        // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
     }
 
     /**
      *  @private
-     *  Called when the TextView dispatches a 'changing' event
+     *  Called when the RichEditableText dispatches a 'changing' event
      *  before an editing operation.
      */
     private function textView_changingHandler(event:TextOperationEvent):void
     {
-        // Redispatch the event that came from the TextView.
+        // Redispatch the event that came from the RichEditableText.
         var newEvent:Event = event.clone();
         dispatchEvent(newEvent);
         
         // If the event dispatched from this component is canceled,
-        // cancel the one from the TextView, which will prevent
+        // cancel the one from the RichEditableText, which will prevent
         // the editing operation from being processed.
         if (newEvent.isDefaultPrevented())
             event.preventDefault();
@@ -1082,12 +1082,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
     /**
      *  @private
-     *  Called when the TextView dispatches an 'enter' event
+     *  Called when the RichEditableText dispatches an 'enter' event
      *  in response to the Enter key.
      */
     private function textView_enterHandler(event:Event):void
     {
-        // Redispatch the event that came from the TextView.
+        // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
     }
 }
