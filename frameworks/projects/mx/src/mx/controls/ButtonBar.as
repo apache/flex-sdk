@@ -1064,7 +1064,11 @@ use namespace mx_internal;
         if (event.eventPhase != EventPhase.AT_TARGET)
             return;
 
-        switch (event.keyCode)
+        // If rtl layout, need to swap LEFT/UP for RIGHT/DOWN so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event, true);
+        
+        switch (keyCode)
         {
             case Keyboard.DOWN:
             case Keyboard.RIGHT:
@@ -1093,7 +1097,7 @@ use namespace mx_internal;
                 {
                     drawButtonFocus(focusedIndex, true);
                 }
-
+ 
                 event.stopPropagation();
                 break;
             }
