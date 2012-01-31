@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- filters/examples/BlurFilterExample.mxml -->
+<s:Application 
+    xmlns:fx="http://ns.adobe.com/mxml/2009" 
+    xmlns:mx="library://ns.adobe.com/flex/mx" 
+    xmlns:s="library://ns.adobe.com/flex/spark" 
+    creationComplete="createFilters()">
+    
+  <fx:Script><![CDATA[ 
+     import spark.filters.*;
+     import flash.filters.BitmapFilterQuality;
+     import flash.filters.BitmapFilterType;
+  
+     private var myBlurFilter:BlurFilter;  
+     private var color:Number = 0xFF33FF;
+  
+     public function createFilters():void {        
+        myBlurFilter = new BlurFilter(3, 3, BitmapFilterQuality.MEDIUM);
+        b1.filters = [myBlurFilter];
+     }
+  
+  ]]></fx:Script>
+
+    <s:VGroup>
+        <!-- This button has a filter applied in ActionScript. -->
+        <s:Button id="b1" label="Click me"/>
+        
+        <!-- This button has a filter applied in MXML. -->
+        <s:Button id="b2" label="Click me">
+            <s:filters>
+                <s:BlurFilter 
+                    blurX="3" 
+                    blurY="3" 
+                    quality="{BitmapFilterQuality.MEDIUM}"/>
+            </s:filters>
+        </s:Button>
+        
+    </s:VGroup>        
+</s:Application>
