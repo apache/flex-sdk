@@ -31,13 +31,13 @@ import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.core.EdgeMetrics;
 import mx.core.FlexVersion;
-import mx.core.IBorder;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IIMESupport;
 import mx.core.IInvalidating;
+import mx.core.IRectangularBorder;
 import mx.core.IUITextField;
 import mx.core.UIComponent;
 import mx.core.UITextField;
@@ -400,9 +400,9 @@ public class TextInput extends UIComponent
             if (t == "")
                 t = " ";
     
-            return (border && border is IBorder ?
-                    IBorder(border).borderMetrics.top :
-                    0)  + measureText(t).ascent;
+            return (border && border is IRectangularBorder ?
+                    IRectangularBorder(border).borderMetrics.top :
+         			0)  + measureText(t).ascent;
         }
         
         if (!validateBaselinePosition())
@@ -1732,8 +1732,8 @@ public class TextInput extends UIComponent
     {
         super.measure();
 
-        var bm:EdgeMetrics = border && border is IBorder ?
-                             IBorder(border).borderMetrics :
+  		var bm:EdgeMetrics = border && border is IRectangularBorder ?
+                             IRectangularBorder(border).borderMetrics :
                              EdgeMetrics.EMPTY;
 
         var w:Number;
@@ -1793,8 +1793,8 @@ public class TextInput extends UIComponent
         if (border)
         {
             border.setActualSize(unscaledWidth, unscaledHeight);
-            bm = border is IBorder ?
-                    IBorder(border).borderMetrics : EdgeMetrics.EMPTY;
+            bm = border is IRectangularBorder ?
+                    IRectangularBorder(border).borderMetrics : EdgeMetrics.EMPTY;
         }
         else
         {
