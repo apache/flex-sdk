@@ -580,6 +580,8 @@ public class DateField extends ComboBase
     public function DateField()
     {
         super();
+
+        addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
     }
 
     //--------------------------------------------------------------------------
@@ -2443,6 +2445,17 @@ public class DateField extends ComboBase
     //  Event handlers
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private function removedFromStageHandler(event:Event):void
+    {
+        // Ensure we've unregistered ourselves from PopupManager, else
+        // we'll be leaked.
+        addedToPopupManager = false;
+        PopUpManager.removePopUp(_dropdown);
+    }
 
     /**
      *  @private
