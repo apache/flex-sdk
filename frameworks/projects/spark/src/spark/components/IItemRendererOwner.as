@@ -16,7 +16,7 @@ import mx.core.IVisualElement;
 
 /**
  *  The IItemRendererOwner interface defines the basic set of APIs
- *  that a class must to  support items renderers. 
+ *  that a class must implement to  support items renderers. 
  *  A class  that implements the IItemRendererOwner interface 
  *  is called the host component of the item renderer.
  *  
