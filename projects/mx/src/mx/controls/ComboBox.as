@@ -46,7 +46,7 @@ import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.ListEvent;
-import mx.events.MarshalMouseEvent;
+import mx.events.SandboxRootMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.managers.PopUpManager;
@@ -1535,8 +1535,8 @@ public class ComboBox extends ComboBase
 
             _dropdown.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, dropdown_mouseOutsideHandler);
             _dropdown.addEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE, dropdown_mouseOutsideHandler);
-            _dropdown.addEventListener(MarshalMouseEvent.MOUSE_DOWN, dropdown_mouseOutsideHandler);
-            _dropdown.addEventListener(MarshalMouseEvent.MOUSE_WHEEL, dropdown_mouseOutsideHandler);
+            _dropdown.addEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE, dropdown_mouseOutsideHandler);
+            _dropdown.addEventListener(SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE, dropdown_mouseOutsideHandler);
             
             if (_dropdown.parent == null)  // was popped up then closed
                 PopUpManager.addPopUp(_dropdown, this);
@@ -1810,7 +1810,7 @@ public class ComboBox extends ComboBase
                 close(event);
             }
         }
-        else if (event is MarshalMouseEvent) 
+        else if (event is SandboxRootMouseEvent) 
         {
             close(event);
         }
@@ -2050,8 +2050,8 @@ public class ComboBox extends ComboBase
         {
             _dropdown.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, dropdown_mouseOutsideHandler);
             _dropdown.removeEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE, dropdown_mouseOutsideHandler);
-            _dropdown.removeEventListener(MarshalMouseEvent.MOUSE_DOWN, dropdown_mouseOutsideHandler);
-            _dropdown.removeEventListener(MarshalMouseEvent.MOUSE_WHEEL, dropdown_mouseOutsideHandler);
+            _dropdown.removeEventListener(SandboxRootMouseEvent.MOUSE_DOWN_SOMEWHERE, dropdown_mouseOutsideHandler);
+            _dropdown.removeEventListener(SandboxRootMouseEvent.MOUSE_WHEEL_SOMEWHERE, dropdown_mouseOutsideHandler);
 
             PopUpManager.removePopUp(_dropdown);
             _dropdown = null;
