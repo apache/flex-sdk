@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the s:Linear class. -->
+<s:Application
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:mx="library://ns.adobe.com/flex/mx"
+    xmlns:s="library://ns.adobe.com/flex/spark">
+
+    <fx:Declarations>
+        <s:Linear id="linearEasing"
+            easeInFraction="0.3"/>
+        <s:Elastic id="elasticEasing"/>
+        <s:Move id="moveRight" 
+            target="{myImage}"
+            xBy="500"
+            duration="2000"
+            easer="{elasticEasing}"/>
+        <s:Move id="moveLeft" 
+            target="{myImage}"
+            xBy="-500"
+            duration="2000"
+            easer="{linearEasing}"/>
+    </fx:Declarations>
+
+    <s:Panel id="examplePanel"
+        title="Linear Effect Example"
+        width="75%" height="75%">
+
+        <!-- Directions -->
+        <s:VGroup id="detailsBox" width="50%" top="5" left="5">
+            <s:Label width="99%" color="blue"
+                text="Click the buttons to watch the effect."/>
+        </s:VGroup>
+
+        <mx:Image id="myImage" top="20"
+            source="@Embed(source='assets/logo.jpg')"/>
+
+        <s:Button label="Move Right"
+             bottom="10" left="5" 
+            click="moveRight.end();moveRight.play();"/>
+
+        <s:Button label="Move Left" 
+            bottom="10" left="100" 
+            click="moveLeft.end();moveLeft.play();"/>
+    </s:Panel>
+</s:Application>
