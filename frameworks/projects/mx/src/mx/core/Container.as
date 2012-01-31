@@ -2300,6 +2300,29 @@ public class Container extends UIComponent
             }
         }
     }
+    
+    /**
+     *  @private
+     *  We're doing special behavior on addEventListener to make sure that 
+     *  we successfully capture mouse events, even when there's no background.
+     *  However, this means adding an event listener changes the behavior 
+     *  a little, and this can be troublesome for overlapping components
+     *  that now don't get any mouse events.  This is acceptable normally; 
+     *  however, automation adds certain events to the Container, and 
+     *  it'd be better if automation support didn't modify the behavior of 
+     *  the component.  For this reason, especially, we have an mx_internal 
+     *  $addEventListener to add event listeners without affecting the behavior 
+     *  of the component.
+     */
+    mx_internal function $addEventListener(
+                            type:String, listener:Function,
+                            useCapture:Boolean = false,
+                            priority:int = 0,
+                            useWeakReference:Boolean = false):void
+    {
+        super.addEventListener(type, listener, useCapture,
+                               priority, useWeakReference);
+    }
 
     /**
      *  @private
@@ -2329,6 +2352,26 @@ public class Container extends UIComponent
                 setStyle("mouseShieldChildren", false);
             }
         }
+    }
+    
+    /**
+     *  @private
+     *  We're doing special behavior on removeEventListener to make sure that 
+     *  we successfully capture mouse events, even when there's no background.
+     *  However, this means removing an event listener changes the behavior 
+     *  a little, and this can be troublesome for overlapping components
+     *  that now don't get any mouse events.  This is acceptable normally; 
+     *  however, automation adds certain events to the Container, and 
+     *  it'd be better if automation support didn't modify the behavior of 
+     *  the component.  For this reason, especially, we have an mx_internal 
+     *  $removeEventListener to remove event listeners without affecting the behavior 
+     *  of the component.
+     */
+    mx_internal function $removeEventListener(
+                              type:String, listener:Function,
+                              useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
     }
 
     //--------------------------------------------------------------------------
@@ -2765,9 +2808,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function get numElements():int
     {
@@ -2778,9 +2821,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function getElementAt(index:int):IVisualElement
     {
@@ -2791,9 +2834,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getElementIndex(element:IVisualElement):int
     {
@@ -2807,9 +2850,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function addElement(element:IVisualElement):IVisualElement
     {
@@ -2823,9 +2866,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
@@ -2839,9 +2882,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeElement(element:IVisualElement):IVisualElement
     {
@@ -2855,9 +2898,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function removeElementAt(index:int):IVisualElement
     {
@@ -2868,9 +2911,25 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function removeAllElements():void
+    {
+        for (var i:int = numElements - 1; i >= 0; i--)
+        {
+            removeElementAt(i);
+        }
+    }
+    
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
@@ -2884,9 +2943,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
@@ -2902,9 +2961,9 @@ public class Container extends UIComponent
      *  @inheritDoc
      *  
      *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion Flex 3
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
