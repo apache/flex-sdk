@@ -35,7 +35,7 @@ import mx.utils.OnDemandEventDispatcher;
  *  @langversion 3.0
  *  @playerversion Flash 11
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  *
  *  @see
  */
@@ -53,7 +53,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function NumericDataProvider()
     {
@@ -107,7 +107,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get maximum():Number
     {
@@ -140,7 +140,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get minimum():Number
     {
@@ -178,7 +178,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function get stepSize():Number
     {
@@ -214,7 +214,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function addItem(item:Object):void
     {
@@ -229,7 +229,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function addItemAt(item:Object, index:int):void
     {
@@ -297,7 +297,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function itemUpdated(item:Object, property:Object=null, oldValue:Object=null, newValue:Object=null):void
     {
@@ -312,7 +312,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function removeAll():void
     {
@@ -327,7 +327,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function removeItemAt(index:int):Object
     {
@@ -343,7 +343,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function setItemAt(item:Object, index:int):Object
     {
