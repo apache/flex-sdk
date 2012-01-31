@@ -1136,6 +1136,7 @@ public class ScrollBar extends UIComponent
         {
             scrollTrack = new Button();
             scrollTrack.focusEnabled = false;
+            scrollTrack.tabEnabled = false;
             scrollTrack.skinName = "trackSkin";
             scrollTrack.upSkinName = "trackUpSkin";
             scrollTrack.overSkinName = "trackOverSkin";
@@ -1162,7 +1163,8 @@ public class ScrollBar extends UIComponent
             upArrow.autoRepeat = true;
 
             upArrow.focusEnabled = false;
-
+            upArrow.tabEnabled = false;
+            
             // This button is a 4-state Button
             // that by default uses the ScrollArrowSkin.
             upArrow.upSkinName = "upArrowUpSkin";
@@ -1195,6 +1197,7 @@ public class ScrollBar extends UIComponent
             downArrow.autoRepeat = true;
 
             downArrow.focusEnabled = false;
+            downArrow.tabEnabled = false;
 
             // This button is a 4-state Button
             // that by default uses the ScrollArrowSkin.
@@ -1350,7 +1353,8 @@ public class ScrollBar extends UIComponent
                 scrollThumb = new ScrollThumb();
 
                 scrollThumb.focusEnabled = false;
-
+                scrollThumb.tabEnabled = false;
+                
                 // Add the thumb above the up arrow but below the down arrow
                 addChildAt(scrollThumb, getChildIndex(downArrow));
 
