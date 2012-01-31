@@ -4438,9 +4438,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
         var dataGridEvent:DataGridEvent =
             new DataGridEvent(DataGridEvent.ITEM_EDIT_BEGINNING, false, true);
             // ITEM_EDIT events are cancelable
-        dataGridEvent.columnIndex = columnIndex;
+        dataGridEvent.columnIndex = Math.min(columnIndex, columns.length - 1);
         dataGridEvent.dataField = _columns[columnIndex].dataField;
-        dataGridEvent.rowIndex = rowIndex;
+        dataGridEvent.rowIndex = Math.min(rowIndex, collection.length - 1);
         dataGridEvent.itemRenderer = itemRenderer;
         if (!dispatchEvent(dataGridEvent))
             lastEditedItemPosition = { columnIndex: columnIndex, rowIndex: rowIndex };
