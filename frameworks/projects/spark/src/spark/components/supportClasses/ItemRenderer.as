@@ -38,7 +38,7 @@ import spark.primitives.supportClasses.TextGraphicElement;
  *    <strong>Properties</strong>
  *    allowDeselection="true"
  *    selected="false"
- *    showFocusIndicator="false"
+ *    caret="false"
  *  /&gt;
  *  </pre>
  *  
@@ -232,36 +232,35 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     }
     
     //----------------------------------
-    //  showFocusIndicator
+    //  caret
     //----------------------------------
 
     /**
      *  @private
-     *  Storage for the showFocusIndicator property 
+     *  Storage for the caret property 
      */
-    private var _showFocusIndicator:Boolean = false;
+    private var _caret:Boolean = false;
 
     /**
      *  @inheritDoc 
      *
      *  @default false  
      */    
-    public function get showFocusIndicator():Boolean
+    public function get caret():Boolean
     {
-        return _showFocusIndicator;
+        return _caret;
     }
     
     /**
      *  @private
      */    
-    public function set showFocusIndicator(value:Boolean):void
+    public function set caret(value:Boolean):void
     {
-        if (value == _showFocusIndicator)
+        if (value == _caret)
             return;
 
-        _showFocusIndicator = value;
-        //mx_internal::drawFocusAnyway = true;
-        //drawFocus(value);
+        _caret = value;
+        currentState = getCurrentRendererState(); 
     }
     
     //----------------------------------
@@ -368,6 +367,9 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
         
         if (hovered)
             return "hovered";
+        
+        if (caret)
+            return "caret"; 
             
         return "normal";
     }
@@ -436,7 +438,6 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     {
         addEventListener(MouseEvent.ROLL_OVER, itemRenderer_rollOverHandler);
         addEventListener(MouseEvent.ROLL_OUT, itemRenderer_rollOutHandler);
-        addEventListener(MouseEvent.MOUSE_DOWN, itemRenderer_mouseDownHandler);
     }
     
     /**
@@ -467,14 +468,6 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
         hovered = false;
         currentState = getCurrentRendererState();
     }
-    
-    /**
-     *  @private
-     *  Mouse down event handler.
-     */
-    protected function itemRenderer_mouseDownHandler(event:MouseEvent):void
-    {
-        //dispatchEvent(new MouseEvent("click"));
-    }
+
 }
 }
