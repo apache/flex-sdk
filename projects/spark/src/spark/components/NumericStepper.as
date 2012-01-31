@@ -57,7 +57,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  An input value is committed when
  *  the user presses the Enter key, removes focus from the
  *  component, or steps the NumericStepper by pressing an arrow button
- *  or by calling the <code>step()</code> method.</p>
+ *  or by calling the <code>changeValueByStep()</code> method.</p>
  *
  *  @see mx.components.Spinner
  * 
@@ -167,11 +167,11 @@ public class NumericStepper extends Spinner
     }
     
     //--------------------------------- 
-    // displayFormatFunction
+    // valueFormatFunction
     //---------------------------------
 
-    private var _displayFormatFunction:Function;
-    private var displayFormatFunctionChanged:Boolean;
+    private var _valueFormatFunction:Function;
+    private var valueFormatFunctionChanged:Boolean;
     
      /**
      *  Callback function that formats the value displayed
@@ -191,27 +191,27 @@ public class NumericStepper extends Spinner
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get displayFormatFunction():Function
+    public function get valueFormatFunction():Function
     {
-        return _displayFormatFunction;
+        return _valueFormatFunction;
     }
     
     /**
      *  @private
      */
-    public function set displayFormatFunction(value:Function):void
+    public function set valueFormatFunction(value:Function):void
     {
-        _displayFormatFunction = value;
-        displayFormatFunctionChanged = true;
+        _valueFormatFunction = value;
+        valueFormatFunctionChanged = true;
         invalidateProperties();
     }
     
     //--------------------------------- 
-    // extractValueFunction
+    // valueParseFunction
     //---------------------------------
 
-    private var _extractValueFunction:Function;
-    private var extractValueFunctionChanged:Boolean;
+    private var _valueParseFunction:Function;
+    private var valueParseFunctionChanged:Boolean;
     
      /**
      *  Callback function that extracts the numeric 
@@ -233,18 +233,18 @@ public class NumericStepper extends Spinner
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get extractValueFunction():Function
+    public function get valueParseFunction():Function
     {
-        return _extractValueFunction;
+        return _valueParseFunction;
     }
     
     /**
      *  @private
      */
-    public function set extractValueFunction(value:Function):void
+    public function set valueParseFunction(value:Function):void
     {
-        _extractValueFunction = value;
-        extractValueFunctionChanged = true;
+        _valueParseFunction = value;
+        valueParseFunctionChanged = true;
         invalidateProperties();
     }
 
@@ -387,24 +387,24 @@ public class NumericStepper extends Spinner
     {   
         super.commitProperties();
         
-        if (maxChanged || stepSizeChanged || displayFormatFunctionChanged)
+        if (maxChanged || stepSizeChanged || valueFormatFunctionChanged)
         {
             textDisplay.widthInChars = calculateWidestValue();
             maxChanged = false;
             stepSizeChanged = false;
             
-            if (displayFormatFunctionChanged)
+            if (valueFormatFunctionChanged)
             {
                 applyDisplayFormatFunction();
                
-                displayFormatFunctionChanged = false;
+                valueFormatFunctionChanged = false;
             }
         }
         
-        if (extractValueFunctionChanged)
+        if (valueParseFunctionChanged)
         {
             commitTextInput(false);
-            extractValueFunctionChanged = false;
+            valueParseFunctionChanged = false;
         }
             
         if (maxCharsChanged)
@@ -499,11 +499,11 @@ public class NumericStepper extends Spinner
      *  @private
      *  Calls commitTextInput() before stepping.
      */
-    override public function step(increase:Boolean = true):void
+    override public function changeValueByStep(increase:Boolean = true):void
     {
         commitTextInput();
         
-        super.step(increase);
+        super.changeValueByStep(increase);
     }
     
     //--------------------------------------------------------------------------
@@ -513,11 +513,12 @@ public class NumericStepper extends Spinner
     //--------------------------------------------------------------------------
 
     /**
+     *  @private
      *  Commits the current text of <code>textDisplay</code> 
      *  to the <code>value</code> property. 
      *  This method uses the <code>nearestValidValue()</code> method 
      *  to round the input value to the closest multiple of 
-     *  the <code>valueInterval</code> property, 
+     *  the <code>snapInterval</code> property, 
      *  and constrains the value to the range defined by the 
      *  <code>maximum</code> and <code>minimum</code> properties.
      *  
@@ -526,20 +527,20 @@ public class NumericStepper extends Spinner
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function commitTextInput(dispatchChange:Boolean = false):void
+    private function commitTextInput(dispatchChange:Boolean = false):void
     {
         var inputValue:Number;
         var prevValue:Number = value;
         
-        if (extractValueFunction != null)
-            inputValue = extractValueFunction(textDisplay.text);
+        if (valueParseFunction != null)
+            inputValue = valueParseFunction(textDisplay.text);
         else 
             inputValue = Number(textDisplay.text);
         
         if (textDisplay.text == "" || (inputValue != value && 
             (Math.abs(inputValue - value) >= 0.000001 || isNaN(inputValue))))
         {
-            setValue(nearestValidValue(inputValue, valueInterval));
+            setValue(nearestValidValue(inputValue, snapInterval));
             
             // Dispatch valueCommit if the display needs to change.
             if (value == prevValue && inputValue != prevValue)
@@ -573,20 +574,20 @@ public class NumericStepper extends Spinner
                               maximum;
         widestNumber += stepSize;
         
-        if (displayFormatFunction != null)
-            return displayFormatFunction(widestNumber).length;
+        if (valueFormatFunction != null)
+            return valueFormatFunction(widestNumber).length;
         else 
            return widestNumber.toString().length;
     }
     
     /**
      *  @private
-     *  Helper method that applies the displayFormatFunction  
+     *  Helper method that applies the valueFormatFunction  
      */
     private function applyDisplayFormatFunction():void
     {
-        if (displayFormatFunction != null)
-            textDisplay.text = displayFormatFunction(value);
+        if (valueFormatFunction != null)
+            textDisplay.text = valueFormatFunction(value);
         else
             textDisplay.text = value.toString();
     }
