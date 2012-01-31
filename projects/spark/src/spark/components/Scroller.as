@@ -808,7 +808,7 @@ public class Scroller extends SkinnableComponent
         if (!textViewClassLoaded)
         {
             textViewClassLoaded = true;
-            const s:String = "mx.components.RichEditableText";
+            const s:String = "spark.components.RichEditableText";
             if (ApplicationDomain.currentDomain.hasDefinition(s))
                 textViewClass = Class(ApplicationDomain.currentDomain.getDefinition(s));
         }
