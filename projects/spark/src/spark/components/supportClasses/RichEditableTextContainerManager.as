@@ -633,7 +633,12 @@ public class RichEditableTextContainerManager extends TextContainerManager
         textDisplay.keyDownHandler(event);
 
         if (!event.isDefaultPrevented())
-            super.keyDownHandler(event);
+        {
+            var clone:KeyboardEvent = KeyboardEvent(event.clone());
+            super.keyDownHandler(clone);
+            if (clone.isDefaultPrevented())
+                event.preventDefault();
+        }
     }
 
     /**
@@ -642,7 +647,12 @@ public class RichEditableTextContainerManager extends TextContainerManager
     override public function keyUpHandler(event:KeyboardEvent):void
     {
         if (!event.isDefaultPrevented())
-            super.keyUpHandler(event);
+        {
+            var clone:KeyboardEvent = KeyboardEvent(event.clone());
+            super.keyUpHandler(clone);
+            if (clone.isDefaultPrevented())
+                event.preventDefault();
+        }
     }
         
     /**
