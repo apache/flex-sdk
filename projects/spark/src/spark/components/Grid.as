@@ -1174,26 +1174,13 @@ package spark.components
         //----------------------------------
         
         private var _typicalItem:Object = null;
-        private var typicalItemChanged:Boolean;
         
         [Bindable("typicalItemChanged")]
         
         /**
-         *  TBD: update this for Grid and add to the spec.
-         * 
-         *  Layouts use the preferred size of the <code>typicalItem</code>
-         *  when fixed row or column sizes are required, but a specific 
-         *  <code>rowHeight</code> or <code>columnWidth</code> value is not set.
-         *  Similarly virtual layouts use this item to define the size 
-         *  of layout elements that have not been scrolled into view.
-         *
-         *  <p>The container uses the typical data item, and the associated item renderer, 
-         *  to determine the default size of the container children. 
-         *  By defining the typical item, the container does not have to size each child 
-         *  as it is drawn on the screen.</p>
-         *
-         *  <p>Setting this property sets the <code>typicalLayoutElement</code> property
-         *  of the layout.</p>
+		 *  The grid's layout ensures that columns whose width is not specified will be wide
+		 *  enough to display an item renderer for this default dataProvider item.  If a typical
+		 *  item is not specified, then the first dataProvider item is used.
          * 
          *  <p>Restriction: if the <code>typicalItem</code> is an IVisualItem, it must not 
          *  also be a member of the data Provider.</p>
@@ -1203,7 +1190,7 @@ package spark.components
          *  @langversion 3.0
          *  @playerversion Flash 10
          *  @playerversion AIR 1.5
-         *  @productversion Flex 4
+         *  @productversion Flex 4.5
          */
         public function get typicalItem():Object
         {
@@ -1219,9 +1206,8 @@ package spark.components
                 return;
             
             _typicalItem = value;
-            typicalItemChanged = true;
+			dispatchChangeEvent("typicalItemChanged");
             
-            invalidateProperties();
             invalidateSize();
             invalidateDisplayList();
         }
@@ -2049,13 +2035,6 @@ package spark.components
             {
                 dispatchCaretChangeEvent();
                 caretChanged = false;
-            }
-            
-            if (typicalItemChanged)
-            {
-                if (layout)
-                    layout.typicalLayoutElement = null;
-                typicalItemChanged = false;
             }
         }
         
