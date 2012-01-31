@@ -11,6 +11,7 @@
 
 package spark.components
 {
+import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.EventPhase;
 import flash.events.IEventDispatcher;
@@ -27,10 +28,27 @@ import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
+import mx.events.ItemClickEvent;
 import spark.events.RendererExistenceEvent;
 import mx.managers.IFocusManagerComponent;
 
 [IconFile("ButtonBar.png")]
+
+//--------------------------------------
+//  Events
+//--------------------------------------
+
+/**
+ *  Dispatched when a navigation item is selected.
+ *
+ *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
 /**
  *  The ButtonBar control displays a set of Buttons 
@@ -76,8 +94,8 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         addEventListener(KeyboardEvent.KEY_DOWN, buttonBar_keyDownHandler);
         addEventListener(KeyboardEvent.KEY_UP, buttonBar_keyUpHandler);
 
-		tabChildren = false;
-		tabEnabled = true;
+        tabChildren = false;
+        tabEnabled = true;
     }
     
     //--------------------------------------------------------------------------
@@ -92,12 +110,33 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     private var focusedIndex:int = 0;
 
+    /**
+     *  @private
+     */
+    private var inKeyUpHandler:Boolean;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
     
+    //----------------------------------
+    //  arrowKeysWrapFocus
+    //---------------------------------- 
+    
+    /**
+     * If true, using arrow keys to navigate within
+     * the ButtonBar will wrap around when it hits
+     * either end.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var arrowKeysWrapFocus:Boolean;
+
     //----------------------------------
     //  firstButton
     //---------------------------------- 
@@ -153,22 +192,22 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
 
-	private var requiresSelectionChanging:Boolean;
-	
-	//----------------------------------
+    private var requiresSelectionChanging:Boolean;
+    
+    //----------------------------------
     //  requiresSelection
     //---------------------------------- 
-	
+    
     /**
      *  @private
      */
     override public function set requiresSelection(value:Boolean):void
-	{
-		super.requiresSelection = value;
-		requiresSelectionChanging = true;
-	}
+    {
+        super.requiresSelection = value;
+        requiresSelectionChanging = true;
+    }
 
-	//----------------------------------
+    //----------------------------------
     //  dataProvider
     //----------------------------------
      
@@ -180,7 +219,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         if (dataProvider)
             dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler);
     
-		// not really a default handler, we just want it to run after the datagroup
+        // not really a default handler, we just want it to run after the datagroup
         if (value)
             value.addEventListener(CollectionEvent.COLLECTION_CHANGE, resetCollectionChangeHandler, false, EventPriority.DEFAULT_HANDLER);
 
@@ -191,42 +230,42 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      *  @private
      */
     private function resetCollectionChangeHandler(event:Event):void
-	{
+    {
         if (event is CollectionEvent)
         {
             var ce:CollectionEvent = CollectionEvent(event);
 
             if (ce.kind == CollectionEventKind.ADD || 
-				ce.kind == CollectionEventKind.REMOVE)
-			{
-				// force reset here so first/middle/last skins
-				// get reassigned
-				ce = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
-				ce.kind = CollectionEventKind.RESET;
-				dataProvider.dispatchEvent(ce);
-			}
-		}
-	}
+                ce.kind == CollectionEventKind.REMOVE)
+            {
+                // force reset here so first/middle/last skins
+                // get reassigned
+                ce = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                ce.kind = CollectionEventKind.RESET;
+                dataProvider.dispatchEvent(ce);
+            }
+        }
+    }
 
     /**
      *  @private
      */
     override protected function commitProperties():void
     {
-		super.commitProperties();
+        super.commitProperties();
 
         if (requiresSelectionChanging && dataProvider)
-		{
-			requiresSelectionChanging = false;
-			var n:int = dataProvider.length;
-			for (var i:int = 0; i < n; i++)
-			{
-				var renderer:IItemRenderer = 
-					dataGroup.getElementAt(i) as IItemRenderer;
-				if (renderer)
-					renderer.allowDeselection = !requiresSelection;
-			}
-		}
+        {
+            requiresSelectionChanging = false;
+            var n:int = dataProvider.length;
+            for (var i:int = 0; i < n; i++)
+            {
+                var renderer:IItemRenderer = 
+                    dataGroup.getElementAt(i) as IItemRenderer;
+                if (renderer)
+                    renderer.allowDeselection = !requiresSelection;
+            }
+        }
     }
 
     /**
@@ -234,7 +273,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     override public function drawFocus(isFocused:Boolean):void
     {
-		adjustLayering(focusedIndex);
+        adjustLayering(focusedIndex);
         drawButtonFocus(focusedIndex, isFocused);
     }
 
@@ -247,11 +286,11 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         super.itemSelected(index, selected);
         
         var renderer:IItemRenderer = 
-			dataGroup.getElementAt(index) as IItemRenderer;
+            dataGroup.getElementAt(index) as IItemRenderer;
         
         if (renderer)
         {
-			focusedIndex = index;
+            focusedIndex = index;
             renderer.selected = selected;
         }
     }
@@ -304,17 +343,17 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
     //--------------------------------------------------------------------------
 
     private function defaultButtonBarItemRendererFunction(data:Object):IFactory
-	{
-		var i:int = dataProvider.getItemIndex(data);
-		if (i == 0)
-			return firstButton ? firstButton : middleButton;
+    {
+        var i:int = dataProvider.getItemIndex(data);
+        if (i == 0)
+            return firstButton ? firstButton : middleButton;
 
-		var n:int = dataProvider.length - 1;
-		if (i == n)
-			return lastButton ? lastButton : middleButton;
+        var n:int = dataProvider.length - 1;
+        if (i == n)
+            return lastButton ? lastButton : middleButton;
 
-		return middleButton;
-	}
+        return middleButton;
+    }
 
     
     //--------------------------------------------------------------------------
@@ -333,15 +372,15 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         var index:int = event.index;
         
         if (renderer)
-		{
+        {
             renderer.addEventListener("click", item_clickHandler);
-			if (renderer is IFocusManagerComponent)
-				IFocusManagerComponent(renderer).focusEnabled = false;
-			if (renderer is IVisualElement)
-				IVisualElement(renderer).owner = this; 
-			if (renderer is IItemRenderer)
-				IItemRenderer(renderer).allowDeselection = !requiresSelection;
-		}
+            if (renderer is IFocusManagerComponent)
+                IFocusManagerComponent(renderer).focusEnabled = false;
+            if (renderer is IVisualElement)
+                IVisualElement(renderer).owner = this; 
+            if (renderer is IItemRenderer)
+                IItemRenderer(renderer).allowDeselection = !requiresSelection;
+        }
             
         if (isItemIndexSelected(index))
             itemSelected(index, true);
@@ -368,65 +407,84 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         var index:int = dataGroup.getElementIndex(
                             event.currentTarget as IVisualElement);
 
-		if (index == selectedIndex)
-		{
-			if (!requiresSelection)
-				selectedIndex = -1;
-		}
-		else
-		{
-			focusedIndex = selectedIndex = index;
-		}
+        var currentRenderer:IItemRenderer;
+        if (focusedIndex >= 0  && !inKeyUpHandler)
+        {
+            currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+            currentRenderer.showFocusIndicator = false;
+        }
+
+        if (index == selectedIndex)
+        {
+            if (!requiresSelection)
+                selectedIndex = -1;
+        }
+        else
+        {
+            focusedIndex = selectedIndex = index;
+        }
+
+        var newEvent:ItemClickEvent =
+            new ItemClickEvent(ItemClickEvent.ITEM_CLICK);
+        if ("label" in event.currentTarget)
+            newEvent.label = event.currentTarget.label;
+        newEvent.index = index;
+        newEvent.relatedObject = InteractiveObject(event.currentTarget);
+        newEvent.item = dataProvider ?
+                        dataProvider.getItemAt(index) :
+                        null;
+        dispatchEvent(newEvent);
     }
     
     /**
      *  @private
-	 *  Attempt to lift the focused button above the others
-	 *  so that the focus ring can show.
+     *  Attempt to lift the focused button above the others
+     *  so that the focus ring can show.
      */
     private function adjustLayering(focusedIndex:int):void
     {
-		var n:int = dataProvider.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var renderer:IVisualElement = IVisualElement(dataGroup.getElementAt(i));
-			if (i == focusedIndex)
-				renderer.layer = 1;
-			else
-				renderer.layer = 0;
-		}
-	}
+        var n:int = dataProvider.length;
+        for (var i:int = 0; i < n; i++)
+        {
+            var renderer:IVisualElement = IVisualElement(dataGroup.getElementAt(i));
+            if (i == focusedIndex)
+                renderer.layer = 1;
+            else
+                renderer.layer = 0;
+        }
+    }
 
     /**
      *  @private
      */
     private function buttonBar_keyDownHandler(event:KeyboardEvent):void
     {
-		var currentRenderer:IItemRenderer;
-		var renderer:IItemRenderer;
-		
-		if (event.eventPhase == EventPhase.BUBBLING_PHASE)
-			return;
+        var currentRenderer:IItemRenderer;
+        var renderer:IItemRenderer;
+        
+        if (event.eventPhase == EventPhase.BUBBLING_PHASE)
+            return;
 
-		if (!enabled)
-			return;
+        if (!enabled)
+            return;
 
+        var length:int = dataProvider.length;
         switch (event.keyCode)
         {
             case Keyboard.UP:
             case Keyboard.LEFT:
             {
-				currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-				if (focusedIndex > 0)
-				{
-					if (currentRenderer)
-						currentRenderer.showFocusIndicator = false;
-					--focusedIndex;
-					adjustLayering(focusedIndex);
-					renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-					if (renderer)
-						renderer.showFocusIndicator = true;
-				}
+                currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                if (focusedIndex > 0 || arrowKeysWrapFocus)
+                {
+                    if (currentRenderer)
+                        currentRenderer.showFocusIndicator = false;
+                    focusedIndex = (focusedIndex - 1 + length) % length;
+                    adjustLayering(focusedIndex);
+                    renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                    if (renderer)
+                        renderer.showFocusIndicator = true;
+                }
 
                 event.stopPropagation();
                 break;
@@ -434,27 +492,27 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.RIGHT:
             {
-				currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-				if (focusedIndex < dataProvider.length - 1)
-				{
-					if (currentRenderer)
-						currentRenderer.showFocusIndicator = false;
-					++focusedIndex;
-					adjustLayering(focusedIndex);
-					renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-					if (renderer)
-						renderer.showFocusIndicator = true;
-				}
+                currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                if (focusedIndex < dataProvider.length - 1 || arrowKeysWrapFocus)
+                {
+                    if (currentRenderer)
+                        currentRenderer.showFocusIndicator = false;
+                    focusedIndex = (focusedIndex + 1) % length;
+                    adjustLayering(focusedIndex);
+                    renderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                    if (renderer)
+                        renderer.showFocusIndicator = true;
+                }
 
                 event.stopPropagation();
                 break;
             }            
             case Keyboard.SPACE:
             {
-				currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-				if (!currentRenderer || (currentRenderer.selected && requiresSelection))
-					return;
-				currentRenderer.dispatchEvent(event);
+                currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                if (!currentRenderer || (currentRenderer.selected && requiresSelection))
+                    return;
+                currentRenderer.dispatchEvent(event);
                 break;
             }            
         }
@@ -465,40 +523,44 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
      */
     private function buttonBar_keyUpHandler(event:KeyboardEvent):void
     {
-		var currentRenderer:IItemRenderer;
-		var renderer:IItemRenderer;
+        var currentRenderer:IItemRenderer;
+        var renderer:IItemRenderer;
 
-		if (event.eventPhase == EventPhase.BUBBLING_PHASE)
-			return;
+        if (event.eventPhase == EventPhase.BUBBLING_PHASE)
+            return;
 
-		if (!enabled)
-			return;
+        if (!enabled)
+            return;
+
+        inKeyUpHandler = true;
 
         switch (event.keyCode)
         {
             case Keyboard.SPACE:
             {
-				currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
-				if (!currentRenderer || (currentRenderer.selected && requiresSelection))
-					return;
-				currentRenderer.dispatchEvent(event);
+                  currentRenderer = dataGroup.getElementAt(focusedIndex) as IItemRenderer;
+                if (!currentRenderer || (currentRenderer.selected && requiresSelection))
+                    return;
+                currentRenderer.dispatchEvent(event);
                 break;
             }            
         }
-	}
+
+        inKeyUpHandler = false;
+    }
 
     /**
      *  @private
      */
     private function drawButtonFocus(index:int, focused:Boolean):void
     {
-		var n:int = dataProvider.length;
+        var n:int = dataProvider.length;
         if (n > 0 && index < n)
         {
-			var renderer:IItemRenderer = 
-				dataGroup.getElementAt(index) as IItemRenderer;
-			if (renderer)
-				renderer.showFocusIndicator = focused;
+            var renderer:IItemRenderer = 
+                dataGroup.getElementAt(index) as IItemRenderer;
+            if (renderer)
+                renderer.showFocusIndicator = focused;
         }
     }
 }
