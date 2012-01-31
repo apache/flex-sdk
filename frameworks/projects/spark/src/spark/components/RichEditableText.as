@@ -770,6 +770,15 @@ package spark.components
          */
         mx_internal var autoSize:Boolean = false;
         
+        /**
+         *  @private
+         */
+        private var lastUnscaledWidth:Number;
+        /**
+         *  @private
+         */
+        private var lastUnscaledHeight:Number;
+        
         //--------------------------------------------------------------------------
         //
         //  Overridden properties: UIComponent
@@ -2632,6 +2641,9 @@ package spark.components
             }
                 
             _textContainerManager.updateContainer();
+            
+            lastUnscaledWidth = unscaledWidth;
+            lastUnscaledHeight = unscaledHeight;
          }
         
         /**
@@ -3986,8 +3998,8 @@ package spark.components
             // the text flow so we have to be careful to mantain consistency
             // for the scroller.
             if (_textFlow.generation == lastContentBoundsGeneration)
-            {            
-                if (bounds.width < _contentWidth)
+            {          
+                if (bounds.width <= _contentWidth)
                 {
                     if (_textContainerManager.hostFormat.lineBreak == "toFit")
                     {
