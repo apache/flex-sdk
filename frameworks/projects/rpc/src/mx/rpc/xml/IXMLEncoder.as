@@ -24,15 +24,20 @@ public interface IXMLEncoder
      * Encodes an ActionScript value as XML.
      * 
      * @param value The ActionScript value to encode as XML.
+     *
      * @param name The QName of an XML Schema <code>element</code> that
      * describes how to encode the value, or the name to be used for the
      * encoded XML node when a type parameter is also specified.
+     *
      * @param type The QName of an XML Schema <code>simpleType</code> or
      * <code>complexType</code> definition that describes how to encode the
      * value.
+     *
      * @param definition If neither a top-level element nor type exists in the
      * schema to describe how to encode this value, a custom element definition
      * can be provided.
+     *
+     * @return Returns an XML encoding of the given ActionScript value.
      */ 
     function encode(value:*, name:QName = null, type:QName = null, definition:XML = null):XMLList;
 
