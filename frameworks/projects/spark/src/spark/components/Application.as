@@ -224,6 +224,50 @@ public class FxApplication extends FxContainer
         dispatchEvent(new Event("backgroundColorUpdated"));
     }
 
+    //----------------------------------
+    //  colorCorrection
+    //----------------------------------
+    
+    [Inspectable(enumeration="default,off,on", defaultValue="default" )]
+    
+   /**
+    *  The value of the stage's <code>colorCorrection</code> property. If this application
+    *  does not have access to the stage's <code>colorCorrection</code> property, 
+    *  the value of the <code>colorCorrection</code> property will be reported as 
+    *  null. Also, only the main application is allowed to set the <code>colorCorrection</code>
+    *  property. 
+    *
+    *  @default ColorCorrection.DEFAULT
+    */
+    public function get colorCorrection():String
+    {
+        try
+        {
+            var sm:ISystemManager = systemManager;
+            if (sm && sm.stage)
+                return sm.stage.colorCorrection;
+        }
+        catch (e:SecurityError)
+        {
+            // ignore error if this application is not allow
+            // to view the colorCorrection property.
+        }
+
+        return null;
+    }
+    
+    /**
+     * @private
+     */
+    public function set colorCorrection(value:String):void
+    {
+        // Since only the main application is allowed to change the value this property, there
+        // is no need to catch security violations like in the getter.
+        var sm:ISystemManager = systemManager;
+        if (sm && sm.stage && sm.isTopLevelRoot())
+            sm.stage.colorCorrection = value;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Compile-time pseudo-properties
