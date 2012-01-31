@@ -29,6 +29,11 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
  *  @copy mx.components.baseClasses.GroupBase#focusColor
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
@@ -38,6 +43,11 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  The current value of the slider is determined by the relative location of 
  *  the thumb between the end points of the slider, 
  *  corresponding to the slider's minimum and maximum values. 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxSlider extends FxTrackBase implements IFocusManagerComponent
 {
@@ -51,6 +61,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxSlider():void
     {
@@ -69,6 +84,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *  A skin part that defines a dataTip that displays a formatted version of 
      *  the current value. The dataTip appears while the thumb is being dragged.
      *  This is a dynamic skin part and must be of type IFactory.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var dataTip:IFactory; 
 
@@ -91,6 +111,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
 	/**
 	 *  The dataTip instance used by subclasses to control its behavior. The instance
 	 *  is non-null only when the dataTip has been popped up.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	protected var dataTipInstance:IDataRenderer;
 
@@ -123,6 +148,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *  </pre>
      *
      *  @default undefined   
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
 	public function set dataTipFormatFunction(value:Function):void
 	{
@@ -137,6 +167,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
 	/**
 	 *  Starting position of the dataTip. Used by subclasses to 
 	 *  position the dataTip. 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
 	protected var dataTipOriginalPosition:Point;
 	
@@ -149,6 +184,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
 	 *  This value is ignored if dataTipFormatFunction is defined.
 	 * 
 	 *  @default 2
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
 	 */
     public var dataTipPrecision:int = 2;
     
@@ -164,6 +204,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *  of when the thumb button is released.
      * 
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get liveDragging():Boolean
     {
@@ -188,6 +233,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *  <code>dataTipFactory</code> must be defined in the skin in order to 
      *  display a data tip. 
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var showDataTip:Boolean = true;
 
@@ -270,6 +320,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *  track.
      *
      *  @return The posisiton on the track.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function pointClickToPosition(localX:Number, 
                                             localY:Number):Number
@@ -281,6 +336,11 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *  Used to position the data tip when it is visible. Subclasses must implement
      *  this function and can use the dataTipOriginalPosition and dataTipInstance
      *  properties. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function positionDataTip():void
     {
