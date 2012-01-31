@@ -24,6 +24,7 @@ import flash.filters.ShaderFilter;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
+import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
@@ -1447,6 +1448,20 @@ public class GroupBase extends UIComponent implements IViewport
     public function getVerticalScrollPositionDelta(navigationUnit:uint):Number
     {
         return (layout) ? layout.getVerticalScrollPositionDelta(navigationUnit) : 0;     
+    }
+    
+    /**
+     *  @private
+     *  @copy spark.layouts.supportClasses.LayoutBase#isElementVisible()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4 
+     */
+    mx_internal function isElementVisible(elt:ILayoutElement):Boolean
+    {
+        return layout && layout.isElementVisible(elt);
     }
     
     //--------------------------------------------------------------------------
