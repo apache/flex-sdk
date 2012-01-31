@@ -82,7 +82,7 @@ import spark.components.SkinnableContainer;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="backgroundImageResizeMode", type="String", enumeration="scale, noScale, repeat", inherit="no")]
+[Style(name="backgroundImageResizeMode", type="String", enumeration="scale,noScale,repeat", inherit="no")]
 
 /**
  *  Alpha level of the color defined by the <code>borderColor</code> style.
