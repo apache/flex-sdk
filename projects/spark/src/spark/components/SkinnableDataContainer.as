@@ -9,18 +9,18 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import mx.collections.IList;
-import mx.components.DataGroup;
-import mx.components.baseClasses.FxContainerBase;
+import spark.components.DataGroup;
+import spark.components.supportClasses.SkinnableContainerBase;
 import mx.core.IFactory;
-import mx.core.IViewport;
+import spark.core.IViewport;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
-import mx.events.RendererExistenceEvent;
-import mx.layout.LayoutBase;
+import spark.events.RendererExistenceEvent;
+import spark.layout.supportClasses.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
 
@@ -35,7 +35,7 @@ import mx.utils.BitFlagUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="rendererAdd", type="mx.events.RendererExistenceEvent")]
+[Event(name="rendererAdd", type="spark.events.RendererExistenceEvent")]
 
 /**
  *  Dispatched when a renderer is removed from the content holder.
@@ -48,7 +48,7 @@ import mx.utils.BitFlagUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="rendererRemove", type="mx.events.RendererExistenceEvent")]
+[Event(name="rendererRemove", type="spark.events.RendererExistenceEvent")]
 
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
@@ -64,20 +64,20 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 [DefaultProperty("dataProvider")]
 
-[IconFile("FxDataContainer.png")]
+[IconFile("SkinnableDataContainer.png")]
 
 /**
- *  The FxDataContainer class is the base class for all skinnable components that have 
+ *  The SkinnableDataContainer class is the base class for all skinnable components that have 
  *  data content.
  *
- *  @see FxContainer
+ *  @see SkinnableContainer
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxDataContainer extends FxContainerBase implements IViewport
+public class SkinnableDataContainer extends SkinnableContainerBase implements IViewport
 {
     include "../core/Version.as";
     
@@ -146,7 +146,7 @@ public class FxDataContainer extends FxContainerBase implements IViewport
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxDataContainer()
+    public function SkinnableDataContainer()
     {
         super();
         
@@ -175,15 +175,15 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     /**
      *  @private
      *  Several properties are proxied to dataGroup.  However, when dataGroup
-     *  is not around, we need to store values set on FxDataContainer.  This object 
+     *  is not around, we need to store values set on SkinnableDataContainer.  This object 
      *  stores those values.  If dataGroup is around, the values are stored 
      *  on the dataGroup directly.  However, we need to know what values 
-     *  have been set by the developer on the FxDataContainer (versus set on 
+     *  have been set by the developer on the SkinnableDataContainer (versus set on 
      *  the dataGroup or defaults of the dataGroup) as those are values 
      *  we want to carry around if the dataGroup changes (via a new skin). 
      *  In order to store this info effeciently, dataGroupProperties becomes 
      *  a uint to store a series of BitFlags.  These bits represent whether a 
-     *  property has been explicitely set on this FxDataContainer.  When the 
+     *  property has been explicitely set on this SkinnableDataContainer.  When the 
      *  dataGroup is not around, dataGroupProperties is a typeless 
      *  object to store these proxied properties.  When dataGroup is around,
      *  dataGroupProperties stores booleans as to whether these properties 
