@@ -830,6 +830,7 @@ public class ListBase extends SkinnableDataContainer
     override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
+
         if (instance == dataGroup)
         {
             // Not your typical delegation, see 'set useVirtualLayout'
