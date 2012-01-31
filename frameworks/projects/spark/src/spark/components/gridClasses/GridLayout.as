@@ -886,6 +886,8 @@ public class GridLayout extends LayoutBase
         
         const newVisibleRowIndices:Vector.<int> = new Vector.<int>();
         const newVisibleItemRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>();
+        const allocatedItemRenderers:Vector.<IGridItemRenderer> = new Vector.<IGridItemRenderer>();
+        var createdItemRenderers:Vector.<IGridItemRenderer> = null;
         
         var cellX:Number = startCellX;
         var cellY:Number = startCellY;
@@ -904,7 +906,19 @@ public class GridLayout extends LayoutBase
                     var dataItem:Object = getDataProviderItem(rowIndex);
                     column = getGridColumn(colIndex);
                     var factory:IFactory = itemToRenderer(column, dataItem);
-                    renderer = allocateGridElement(factory) as IGridItemRenderer;                   
+                    renderer = allocateGridElement(factory) as IGridItemRenderer;
+                    
+                    // Track which item renderers were created (uncommon) or recycled
+                    // for the sake of the IGridItemRenderer prepare() method.
+                    
+                    if (createdGridElement)
+                    {
+                        if (!createdItemRenderers)
+                            createdItemRenderers = new Vector.<IGridItemRenderer>();
+                        createdItemRenderers.push(renderer);
+                    }
+                    else
+                        allocatedItemRenderers.push(renderer);
                 }
             
                 rendererLayer.addGridElement(renderer);
@@ -952,11 +966,26 @@ public class GridLayout extends LayoutBase
             else
                 availableHeight -= rowHeight + rowGap;            
         }
-           
+        
+        // Run the prepare() method for renderers created or recycled for this pass
+        
+        if (createdItemRenderers)
+        {
+            for each (var createdRenderer:IGridItemRenderer in createdItemRenderers)
+                createdRenderer.prepare(false);
+        }
+        
+        for each (var allocatedRenderer:IGridItemRenderer in allocatedItemRenderers)
+            allocatedRenderer.prepare(true);
+        
         // Free renderers that aren't in use
         
         for each (var oldRenderer:IGridItemRenderer in visibleItemRenderers)
+        {
             freeItemRenderer(oldRenderer);
+            if (oldRenderer)
+                oldRenderer.discard(true);  // TBD(hmuller): need a scheme for shrinking the free-list
+        }
         
         // Update visibleItemRenderersBounds
         
@@ -1770,10 +1799,18 @@ public class GridLayout extends LayoutBase
     //
     //  Grid Elements
     //
-    //--------------------------------------------------------------------------     
+    //-------------------------------------------------------------------------- 
+    
+    /**
+     *  @private
+     *  Let the allocateGridElement() caller know if the returned element was 
+     *  created or recycled.
+     */
+    private var createdGridElement:Boolean = false;
     
     private function createGridElement(factory:IFactory):IVisualElement
     {
+        createdGridElement = true;
         const element:IVisualElement = factory.newInstance() as IVisualElement;
         elementToFactoryMap[element] = factory;
         return element;
@@ -1786,6 +1823,7 @@ public class GridLayout extends LayoutBase
      */
     private function allocateGridElement(factory:IFactory):IVisualElement
     {
+        createdGridElement = false;
         const elements:Vector.<IVisualElement> = freeElementMap[factory] as Vector.<IVisualElement>;
         if (elements)
         {
