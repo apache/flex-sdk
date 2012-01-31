@@ -644,6 +644,9 @@ public class GridColumnHeaderGroupLayout extends LayoutBase
         renderer.column = column;
         renderer.label = column.headerText;
         
+        if (columnHeaderGroup.dataGrid)
+            renderer.owner = grid.dataGrid;        
+        
         const columnHeaderGroup:GridColumnHeaderGroup = columnHeaderGroup;
         renderer.hovered = columnIndex == columnHeaderGroup.hoverColumnIndex;
         renderer.down = columnIndex == columnHeaderGroup.downColumnIndex;
