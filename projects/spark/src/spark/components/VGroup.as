@@ -45,7 +45,8 @@ import spark.layouts.supportClasses.LayoutBase;
  *  </pre>
  * 
  *  @see spark.layouts.VerticalLayout
- *  
+ *  @includeExample examples/VGroupExample.mxml
+ *
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
