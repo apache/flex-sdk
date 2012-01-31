@@ -1199,7 +1199,7 @@ public class List extends ListBase implements IIMESupport
 
         var colors:Array;
 		var colorsStyle:Object = getStyle("alternatingItemColors");
-		colorsStyle = getStyle("alternatingItemColors");
+		
 		if (colorsStyle)
 			colors = (colorsStyle is Array) ? (colorsStyle as Array) : [colorsStyle];
 
