@@ -739,7 +739,7 @@ public class ListBase extends SkinnableDataContainer
     override public function updateRenderer(renderer:IVisualElement):void
     {
         var transitions:Array;
-        
+         
         // First clean up any old, stale properties like selected and caret   
         if (renderer is IItemRenderer)
         {
@@ -770,8 +770,6 @@ public class ListBase extends SkinnableDataContainer
         // come back into use. 
         if (isItemIndexSelected(index))
             itemSelected(index, true);
-        if (renderer is IItemRenderer)
-            IItemRenderer(renderer).label = itemToLabel(IItemRenderer(renderer).data);
     }
     
     /**
