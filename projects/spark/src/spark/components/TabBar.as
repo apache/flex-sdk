@@ -68,9 +68,8 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
  *  of the tabs.
  * 
  *  <p>The set of tabs is defined by the <code>dataProvider</code> property.
- *  The appearance of each tab is defined by the TabBarSkin class.
- *  By default, each tab is defined as a ButtonBarButton component 
- *  with a skin defined by the TabBarButtonSkin class.</p>
+ *  The appearance of the TabBar is defined by the TabBarSkin class.
+ *  The appearance of each tab is defined by the TabBarButtonSkin class.</p>
  *
  *  <p>You can use the TabBar control to set the active child of a ViewStack container, 
  *  as the following example shows:</p>
@@ -120,7 +119,6 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
  *  @see mx.containers.ViewStack
  *  @see spark.skins.spark.TabBarSkin
  *  @see spark.skins.spark.TabBarButtonSkin
- *  @see spark.components.ButtonBarButton
  * 
  *  @includeExample examples/TabBarExample.mxml
  *  
