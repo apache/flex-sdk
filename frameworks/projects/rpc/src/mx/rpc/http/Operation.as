@@ -52,8 +52,6 @@ public class Operation extends AbstractOperation
 
         _log = Log.getLogger("mx.rpc.http.HTTPMultiService");
     }
-
-    private var _log:ILogger;
     
     /**
      * Stores the parent service which controls this operation.
