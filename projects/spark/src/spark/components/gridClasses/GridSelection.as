@@ -1070,17 +1070,19 @@ public class GridSelection
         if (getGridDataProviderLength() == 0 || getGridColumnsLength() == 0)
             return false;
         
+        // If there isn't a selection, set one, using the grid method rather
+        // than the internal one, so that the caretPosition will be updated too.
         if (isRowSelectionMode())
         {
             if (!hasRowSelection())
-                selectionChanged = setRow(0);
+                selectionChanged = grid.setSelectedIndex(0);
         }
         else if (isCellSelectionMode())
         {
             if (!hasCellSelection())
-                selectionChanged = setCell(0, 0);
+                selectionChanged = grid.setSelectedCell(0, 0);
         }
-        
+                
         return selectionChanged;
     }
     
