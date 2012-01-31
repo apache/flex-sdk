@@ -2386,6 +2386,8 @@ public class CalendarLayout extends UIComponent
         rowIndex = Math.min(rowIndex, 6);
 
         var colIndex:int = Math.floor((mouseX-paddingLeft) / cellWidth);
+        colIndex = Math.min(colIndex, 6);
+        
         var selCell:IUITextField = dayBlocksArray[colIndex][rowIndex];//this["dayBlock"+colIndex+"label"+rowIndex];
         // If it is disabled, we're done.
         if (disabledArrays[colIndex][rowIndex])
