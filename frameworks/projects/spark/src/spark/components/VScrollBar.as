@@ -133,6 +133,7 @@ public class FxVScrollBar extends FxScrollBar
     override protected function sizeThumb(thumbSize:Number):void
     {
         thumb.height = thumbSize;
+        thumb.visible = thumbSize < trackSize;        
     }
     
     /**
