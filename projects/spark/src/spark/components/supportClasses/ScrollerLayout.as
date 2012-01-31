@@ -415,7 +415,8 @@ public class ScrollerLayout extends LayoutBase
         var oldShowHSB:Boolean = hsbVisible;
         var oldShowVSB:Boolean = vsbVisible;
         
-        var hAuto:Boolean = false; 
+        var hAuto:Boolean = false;
+        var hsbTakeUpSpace:Boolean = true; // if visible
         switch(scroller.getStyle("horizontalScrollPolicy")) 
         {
             case ScrollPolicy.ON: 
@@ -430,11 +431,17 @@ public class ScrollerLayout extends LayoutBase
                 } 
                 break;
 
+            case ScrollPolicy.OVERLAY:
+                hsbVisible = scroller.horizontalScrollInProgress;
+                hsbTakeUpSpace = false;
+                break;
+            
             default:
                 hsbVisible = false;
         } 
 
         var vAuto:Boolean = false;
+        var vsbTakeUpSpace:Boolean = true; // if visible
         switch(scroller.getStyle("verticalScrollPolicy")) 
         {
            case ScrollPolicy.ON: 
@@ -448,7 +455,12 @@ public class ScrollerLayout extends LayoutBase
                     vsbVisible = (contentH >= (viewportH + SDT));
                 }                        
                 break;
-
+            
+            case ScrollPolicy.OVERLAY:
+                vsbVisible = scroller.verticalScrollInProgress;
+                vsbTakeUpSpace = false;
+                break;
+            
             default:
                 vsbVisible = false;
         }
@@ -457,12 +469,12 @@ public class ScrollerLayout extends LayoutBase
         // the viewport's size was explicitly set, then we just use that. 
         
         if (isNaN(explicitViewportW))
-            viewportW = w - ((vsbVisible) ? (minViewportInset + vsbRequiredWidth()) : (minViewportInset * 2));
+            viewportW = w - ((vsbVisible && vsbTakeUpSpace) ? (minViewportInset + vsbRequiredWidth()) : (minViewportInset * 2));
         else 
             viewportW = explicitViewportW;
         
         if (isNaN(explicitViewportH))
-            viewportH = h - ((hsbVisible) ? (minViewportInset + hsbRequiredHeight()) : (minViewportInset * 2));
+            viewportH = h - ((hsbVisible && hsbTakeUpSpace) ? (minViewportInset + hsbRequiredHeight()) : (minViewportInset * 2));
         else 
             viewportH = explicitViewportH;
 
@@ -482,7 +494,7 @@ public class ScrollerLayout extends LayoutBase
         // then prefer to show the "non-dependent" auto scrollbar if we added the second
         // "dependent" auto scrollbar because of the space consumed by the first.
         
-        if (hsbVisible && vsbVisible) 
+        if ((hsbVisible && hsbTakeUpSpace) && (vsbVisible && vsbTakeUpSpace)) 
         {
             if (hsbFits(w, h) && vsbFits(w, h))
             {
@@ -521,21 +533,21 @@ public class ScrollerLayout extends LayoutBase
                     vsbVisible = false;
             }
         }
-        else if (hsbVisible && !hsbFits(w, h))  // just trying to show HSB, but it doesn't fit
+        else if (hsbVisible && hsbTakeUpSpace && !hsbFits(w, h))  // just trying to show HSB, but it doesn't fit
             hsbVisible = false;
-        else if (vsbVisible && !vsbFits(w, h))  // just trying to show VSB, but it doesn't fit
+        else if (vsbVisible && vsbTakeUpSpace && !vsbFits(w, h))  // just trying to show VSB, but it doesn't fit
             vsbVisible = false;
         
         // Reset the viewport's width,height to account for the visible scrollbars, unless
         // the viewport's size was explicitly set, then we just use that.
         
         if (isNaN(explicitViewportW))
-            viewportW = w - ((vsbVisible) ? (minViewportInset + vsbRequiredWidth()) : (minViewportInset * 2));
+            viewportW = w - ((vsbVisible && vsbTakeUpSpace) ? (minViewportInset + vsbRequiredWidth()) : (minViewportInset * 2));
         else 
             viewportW = explicitViewportW;
 
         if (isNaN(explicitViewportH))
-            viewportH = h - ((hsbVisible) ? (minViewportInset + hsbRequiredHeight()) : (minViewportInset * 2));
+            viewportH = h - ((hsbVisible && hsbTakeUpSpace) ? (minViewportInset + hsbRequiredHeight()) : (minViewportInset * 2));
         else 
             viewportH = explicitViewportH;
         
@@ -549,18 +561,29 @@ public class ScrollerLayout extends LayoutBase
         
         if (hsbVisible)
         {
-            var hsbW:Number = (vsbVisible) ? w - vsb.getPreferredBoundsWidth() : w;
+            var hsbW:Number = (vsbVisible && vsbTakeUpSpace) ? w - vsb.getPreferredBoundsWidth() : w;
             var hsbH:Number = hsb.getPreferredBoundsHeight();
             hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), hsbW), hsbH);
-            hsb.setLayoutBoundsPosition(0, h - hsbH);
+            
+            // if in overlay mode, let's inset it by a bit
+            if (scroller.getStyle("horizontalScrollPolicy") == ScrollPolicy.OVERLAY)
+                hsb.setLayoutBoundsPosition(0, h - hsbH - 5);
+            else
+                hsb.setLayoutBoundsPosition(0, h - hsbH);
         }
 
         if (vsbVisible)
         {
             var vsbW:Number = vsb.getPreferredBoundsWidth(); 
-            var vsbH:Number = (hsbVisible) ? h - hsb.getPreferredBoundsHeight() : h;
+            var vsbH:Number = (hsbVisible && hsbTakeUpSpace) ? h - hsb.getPreferredBoundsHeight() : h;
             vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
-            vsb.setLayoutBoundsPosition(w - vsbW, 0);
+            
+            // if in overlay mode, let's inset it by a bit
+            // FIXME (rfrishbe): shouldn't hardcode the 5 here
+            if (scroller.getStyle("verticalScrollPolicy") == ScrollPolicy.OVERLAY)
+                vsb.setLayoutBoundsPosition(w - vsbW - 5, 0);
+            else
+                vsb.setLayoutBoundsPosition(w - vsbW, 0);
         }
 
         // If we've added an auto scrollbar, then the measured size is likely to have been wrong.
