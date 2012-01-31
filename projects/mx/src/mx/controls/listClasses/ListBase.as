@@ -4904,6 +4904,10 @@ public class ListBase extends ScrollControlBase
         var o:Sprite;
         var g:Graphics;
         var contentHolder:ListBaseContentHolder = DisplayObject(item).parent as ListBaseContentHolder;
+        
+        if (!contentHolder)
+        	return;
+        	
         var rowInfo:Array = contentHolder.rowInfo;
         var selectionLayer:Sprite = contentHolder.selectionLayer;
 
