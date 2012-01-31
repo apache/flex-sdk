@@ -640,6 +640,8 @@ public class Image extends SkinnableComponent
     /**
      *  @copy spark.primitives.BitmapImage#fillMode
      *  @default <code>BitmapFillMode.SCALE</code>
+     *
+     *  @see mx.graphics.BitmapFillMode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -792,6 +794,9 @@ public class Image extends SkinnableComponent
     /**
      *  @copy spark.primitives.BitmapImage#scaleMode
      *  @default <code>BitmapScaleMode.LETTERBOX</code>
+     *
+     *  @see mx.graphics.BitmapFillMode
+     *  @see mx.graphics.BitmapScaleMode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
