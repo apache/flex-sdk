@@ -1558,8 +1558,11 @@ public class ComboBox extends ComboBase
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function itemToLabel(item:Object):String
+    public function itemToLabel(item:Object, ...rest):String
     {
+        // rest args are needed in case dropdown is some other thing like DataGrid
+        // that has multiple arguments to labelFunction
+
         // we need to check for null explicitly otherwise
         // a numeric zero will not get properly converted to a string.
         // (do not use !item)
