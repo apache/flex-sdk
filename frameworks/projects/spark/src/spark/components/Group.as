@@ -345,8 +345,11 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
         }
     }
     
-    override protected function measure():void
+    override public function validateSize(recursive:Boolean = false):void
     {
+        // Since GraphicElement is not ILayoutManagerClient, we need to make sure we
+        // validate sizes of the elements, even in cases where recursive==false.
+        
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         if (!alwaysUseItemRenderer)
         {
@@ -361,6 +364,11 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
             }
         }
 
+        super.validateSize(recursive);
+    }
+    
+    override protected function measure():void
+    {
         super.measure();
         
         if (_layout)
