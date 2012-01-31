@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Spark PopUpAnchor component -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/halo">
+	
+	<fx:Style>
+		.popUpForm
+		{
+			backgroundColor : #FF0000;
+			borderStyle : "solid";
+			paddingTop : 2;
+			paddingBottom : 2; 
+			paddingLeft : 2; 
+			paddingRight : 2;
+		}
+	</fx:Style>
+		
+	<s:Panel width="75%" height="75%" title="My PopUpAnchor Example">		
+
+		<!-- Group with default layout so that openBtn and PopUpAnchor will be on top of 
+		     each other such that the popUp can be positioned relative to the button -->
+		<s:Group x="10" y="10">
+			<!-- Button used to open PopUp -->
+			<s:Button id="openBtn" label="Open PopUp" click="frmPUA.displayPopUp=true"/>
+			
+			<!-- PopUpAnchor component set to same size as openBtn to ensure that
+			     popUp will be positioned relative to the button -->
+			<s:PopUpAnchor id="frmPUA" popUpPosition="below" styleName="popUpForm" width="92" height="21">
+				<!-- VBox to hold popUp contents -->
+				<mx:VBox paddingTop="5" paddingLeft="5">				
+					<mx:Form>
+						<mx:FormItem label="Name :">
+							<s:TextInput/>
+						</mx:FormItem>											
+						<mx:FormItem label="E-Mail :">
+							<s:TextInput/>
+						</mx:FormItem>
+					</mx:Form>							
+					<mx:HBox>																
+						<!-- Button used to close popUp -->
+						<s:Button label="CLOSE" click="frmPUA.displayPopUp=false"/>
+					</mx:HBox>				
+				</mx:VBox>						
+			</s:PopUpAnchor>	
+		</s:Group>
+					
+	</s:Panel>    	
+</s:Application>
