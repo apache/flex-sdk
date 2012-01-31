@@ -262,7 +262,7 @@ public class SOAPArrayType implements ICustomSOAPType
             value = dataXML.elements();
         }
 
-        if (!TypeIterator.isIterable(value))
+        if (!TypeIterator.isIterable(value) && value != "")
             value = [value];
 
         var iter:TypeIterator = new TypeIterator(value);
