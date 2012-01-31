@@ -1202,10 +1202,17 @@ public class Label extends TextBase
 
         // Compute the truncation line.
         truncLineIndex = computeLastAllowedLineIndex(height, lineCountLimit);
-        // add extra line in case we wordwrapped some characters
-        // onto extra lines, but don't go off the end
-        truncLineIndex = Math.min(truncLineIndex + 1, textLines.length - 1);
-                                     
+        
+        // Add extra line in case we wordwrapped some characters
+        // onto extra lines.  If we truncate in the middle of the last word
+        // it may then fit on the line above.
+        var extraLine:Boolean;
+        if (truncLineIndex + 1 < textLines.length)
+        {
+            truncLineIndex++;
+            extraLine = true;
+        }
+                                             
         if (truncLineIndex >= 0)
         {
             // Estimate the initial truncation position using the following 
@@ -1247,7 +1254,7 @@ public class Label extends TextBase
                 // 4. Get the initial truncation position on the target 
                 // line given this allowed width. 
                 var truncateAtCharPosition:int = getTruncationPosition(
-                    TextLine(textLines[truncLineIndex]), allowedWidth);
+                    TextLine(textLines[truncLineIndex]), allowedWidth, extraLine);
 
                 // The following loop executes repeatedly composing text until 
                 // it fits.  In each iteration, an atoms's worth of characters 
@@ -1288,7 +1295,7 @@ public class Label extends TextBase
                     // preceding atom.
                     var oldCharPosition:int = truncateAtCharPosition;
                     truncateAtCharPosition = getNextTruncationPosition(
-                        Math.min(truncLineIndex, textLines.length - 1), truncateAtCharPosition);  
+                        truncLineIndex, truncateAtCharPosition);  
                     // check to see if we've run out of chars
                     if (oldCharPosition == truncateAtCharPosition)
                         break;
@@ -1419,7 +1426,13 @@ public class Label extends TextBase
 
     /** 
      *  @private
-     *  Gets the truncation position on a line given the allowed width.
+     *  Gets the initial truncation position on a line.
+     * 
+     *  If there is an extra line, start at the first word boundary since
+     *  truncating characters in this word may make it fit on the line above.
+     * 
+     *  If there is not an extra line, start at the allowed width.
+     * 
      *  - Must be at an atom boundary.
      *  - Must scan the line for atoms in logical order, not physical position 
      *    order.
@@ -1429,7 +1442,8 @@ public class Label extends TextBase
      *  ג, C, D  
      */
     private function getTruncationPosition(line:TextLine, 
-                                           allowedWidth:Number):int
+                                           allowedWidth:Number, 
+                                           extraLine:Boolean):int
     {           
         var consumedWidth:Number = 0;
         var charPosition:int = line.textBlockBeginIndex;
@@ -1437,11 +1451,23 @@ public class Label extends TextBase
         while (charPosition < line.textBlockBeginIndex + line.rawTextLength)
         {
             var atomIndex:int = line.getAtomIndexAtCharIndex(charPosition);
-            var atomBounds:Rectangle = line.getAtomBounds(atomIndex); 
-            consumedWidth += atomBounds.width;
-            if (consumedWidth > allowedWidth)
-                break;
-                
+            if (extraLine)
+            {
+                // Skip the initial word boundary.
+                if (charPosition != line.textBlockBeginIndex &&
+                    line.getAtomWordBoundaryOnLeft(atomIndex))
+                {
+                    break;
+                }
+            }
+            else
+            {
+                var atomBounds:Rectangle = line.getAtomBounds(atomIndex); 
+                consumedWidth += atomBounds.width;
+                if (consumedWidth > allowedWidth)
+                    break;
+            }
+
             charPosition = line.getAtomTextBlockEndIndex(atomIndex);
         }
         
