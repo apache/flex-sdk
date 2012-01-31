@@ -303,6 +303,11 @@ public class Scale3D extends AnimateTransform3D
         return AFFECTED_PROPERTIES;
     }
 
+    // TODO (chaase): Should try to remove this override. At a minimum, we could
+    // put the motionPaths creation at the start of initInstance(). Ideally, we'd
+    // remove that logic entirely, but there's a need to create motionPaths fresh
+    // for every call to create/initInstance() or else multi-instance effects
+    // will inherit the one motionPaths object created elsewhere.
     /**
      * @private
      */
