@@ -582,7 +582,7 @@ public class ComboBox extends DropDownListBase
             else
                 setSelectedIndex(NO_SELECTION, true);
         }
-        else if (isDropDownOpen)
+        else
         {
             setSelectedIndex(actualProposedSelectedIndex, true);
         }
@@ -726,7 +726,7 @@ public class ComboBox extends DropDownListBase
     {
         super.changeHighlightedSelection(newIndex, scrollToTop);
         
-        if (newIndex > 0)
+        if (newIndex >= 0)
         {
             var item:Object = dataProvider ? dataProvider.getItemAt(newIndex) : undefined;
             if (item)
