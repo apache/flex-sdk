@@ -28,8 +28,6 @@ import mx.collections.IList;
 import mx.collections.ListCollectionView;
 import mx.components.ResizeMode;
 import mx.controls.Label;
-import mx.core.IDataRenderer;
-import mx.core.IDeferredInstance;
 import mx.core.IFactory;
 import mx.core.mx_internal;
 import mx.core.UIComponent;
