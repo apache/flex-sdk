@@ -273,17 +273,6 @@ public class FxScrollBar extends FxTrackBase
     
     /**
      *  @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
-    {
-        super.updateDisplayList(unscaledWidth, unscaledHeight);
-        
-        // Hide the thumb if there is no room to display it
-        if (thumb)
-            thumb.visible = thumbSize < trackSize;
-    }
-    /**
-     *  @private
      */    
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -381,7 +370,7 @@ public class FxScrollBar extends FxTrackBase
         // Thumb takes up entire track.
         if (range == 0)
             return trackSize;
-
+        
         return Math.min((pageSize / (range + pageSize) ) * trackSize, trackSize);
     }
 
