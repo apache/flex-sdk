@@ -2524,6 +2524,12 @@ public class Scroller extends SkinnableComponent
             {
                 installTouchListeners();
                 
+                // Need to make sure the scroll ranges are updated now, since they may
+                // not have been if the scroller was in non-touch mode when the content
+                // was created/changed.
+                scrollRangesChanged = true;
+                invalidateProperties();
+
                 if (!touchScrollHelper)
                 {
                     touchScrollHelper = new TouchScrollHelper();
