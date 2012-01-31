@@ -44,6 +44,20 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  When <code>true</code>, the thumb's value is
+ *  committed as it is dragged along the track instead
+ *  of when the thumb button is released.
+ *  
+ *  @default false
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="liveDragging", type="Boolean", inherit="no")]
+
+/**
  *  The Slider class lets users select a value by moving a slider thumb between 
  *  the end points of the slider track. 
  *  The current value of the slider is determined by the relative location of 
@@ -199,37 +213,6 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 	 *  @productversion Flex 4
 	 */
     public var dataTipPrecision:int = 2;
-    
-    //--------------------------------- 
-    // liveDragging
-    //---------------------------------
-    
-    private var _liveDragging:Boolean = false;
-    
-    /**
-     *  When <code>true</code>, the thumb's value is
-     *  committed as it is dragged along the track instead
-     *  of when the thumb button is released.
-     * 
-     *  @default false
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get liveDragging():Boolean
-    {
-        return _liveDragging;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set liveDragging(value:Boolean):void
-    {
-        _liveDragging = value;
-    }
     
     //--------------------------------- 
     // showDataTip
@@ -413,7 +396,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
 
         positionThumb(valueToPosition(currValue));
         
-        if (liveDragging && currValue != value)
+        if (getStyle("liveDragging") && currValue != value)
         {
             setValue(currValue)
             dispatchEvent(new Event("change"));
@@ -445,7 +428,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     {
         // TODO (chaase): get rid of currValue and just calculate the new
         // value here dynamically
-        if (!liveDragging && currValue != value)
+        if (!getStyle("liveDragging") && currValue != value)
         {
             setValue(currValue);
             dispatchEvent(new Event("change"));
