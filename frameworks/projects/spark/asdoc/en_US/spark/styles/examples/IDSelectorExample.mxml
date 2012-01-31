@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the id selectors -->
+<FxApplication xmlns="http://ns.adobe.com/mxml/2009">
+     <Style>
+
+        #submitButton {
+           baseColor: #CC6666;
+        }
+
+    </Style>
+
+    <FxPanel title="Advanced CSS: ID Selector Example" height="75%" width="75%" >
+        <Label text="Only the FxButton below with the id 'submitButton' will have custom baseColor."
+        	x="10" y="10" />
+        <FxTextInput id="fileName" width="100" x="10" y="35"/>
+        <FxButton id="fileName_browse" label="browse" y="35" x="120"/>
+        <FxTextInput id="fileName2" width="100"  y="75" x="10"/>
+        <FxButton id="fileName2_browse" label="browse"  y="75" x="120"/>
+
+        <FxButton id="submitButton" label="Submit Form" x="10" y="130"/>
+
+    </FxPanel>
+</FxApplication>
