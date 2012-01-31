@@ -56,7 +56,7 @@ use namespace mx_internal;
  *  @productversion BlazeDS 4
  *  @productversion LCDS 3 
  */
-[Event(name="connect", type="mx.messaging.events.ChannelEvent")]
+[Event(name="channelConnect", type="mx.messaging.events.ChannelEvent")]
 
 /**
  *  Dispatched after a Channel in the ChannelSet has disconnected from its 
@@ -70,7 +70,7 @@ use namespace mx_internal;
  *  @productversion BlazeDS 4
  *  @productversion LCDS 3 
  */
-[Event(name="disconnect", type="mx.messaging.events.ChannelEvent")]
+[Event(name="channelDisconnect", type="mx.messaging.events.ChannelEvent")]
 
 /**
  *  Dispatched after a Channel in the ChannelSet has faulted.
@@ -83,7 +83,7 @@ use namespace mx_internal;
  *  @productversion BlazeDS 4
  *  @productversion LCDS 3 
  */
-[Event(name="fault", type="mx.messaging.events.ChannelFaultEvent")]
+[Event(name="channelFault", type="mx.messaging.events.ChannelFaultEvent")]
 
 /**
  * The result event is dispatched when a login or logout call successfully returns.
