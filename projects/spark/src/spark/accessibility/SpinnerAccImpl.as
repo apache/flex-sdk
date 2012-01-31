@@ -300,9 +300,9 @@ public class SpinnerAccImpl extends AccImpl
     {
         var resourceManager:IResourceManager = ResourceManager.getInstance();
         if (childID == 1)
-            return resourceManager.getString("components","SpinnerMoreAccName");
+            return resourceManager.getString("components","spinnerMoreAccName");
         if (childID == 2)
-            return resourceManager.getString("components","SpinnerLessAccName");
+            return resourceManager.getString("components","spinnerLessAccName");
         else
             return "";
     }
