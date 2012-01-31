@@ -1064,9 +1064,9 @@ use namespace mx_internal;
         if (event.eventPhase != EventPhase.AT_TARGET)
             return;
 
-        // If rtl layout, need to swap LEFT/UP for RIGHT/DOWN so correct action
+        // If rtl layout, need to swap LEFT and RIGHT so correct action
         // is done.
-        var keyCode:int = mapKeycodeForLayoutDirection(event, true);
+        var keyCode:uint = mapKeycodeForLayoutDirection(event, true);
         
         switch (keyCode)
         {
