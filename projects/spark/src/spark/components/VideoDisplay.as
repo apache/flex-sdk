@@ -931,6 +931,12 @@ public class VideoDisplay extends UIComponent
      */
     private var thumbnailGroup:Group;
     
+    /**
+     *  @private
+     *  BitmapImage for the thumbnail
+     */
+    private var thumbnailBitmapImage:BitmapImage;
+    
     [Inspectable(Category="General")]
     
     /**
@@ -987,32 +993,23 @@ public class VideoDisplay extends UIComponent
     private function setUpThumbnailSource():void
     {
         if (thumbnailSource)
-        {
-            var bitmapImage:BitmapImage;
-            
+        {            
             // create thumbnail group if there isn't one
             if (!thumbnailGroup)
             {
-                bitmapImage = new BitmapImage();
-                
-                bitmapImage.left = 0;
-                bitmapImage.right = 0;
-                bitmapImage.top = 0;
-                bitmapImage.bottom = 0;
+                thumbnailBitmapImage = new BitmapImage();
+                thumbnailBitmapImage.includeInLayout = false;
                 
                 thumbnailGroup = new Group();
-                thumbnailGroup.addElement(bitmapImage);
-            }
-            else
-            {
-                bitmapImage = thumbnailGroup.getElementAt(0) as BitmapImage;
+                thumbnailGroup.clipAndEnableScrolling = true;
+                thumbnailGroup.addElement(thumbnailBitmapImage);
             }
             
             // if thumbnailGroup isn't on the display list, then add it.
             if (!this.contains(thumbnailGroup))
                 addChild(thumbnailGroup);
             
-            bitmapImage.source = thumbnailSource;
+            thumbnailBitmapImage.source = thumbnailSource;
             invalidateSize();
         }
         else
@@ -1020,9 +1017,8 @@ public class VideoDisplay extends UIComponent
             if (thumbnailGroup)
             {
                 // null out the source and remove the thumbnail group
-                bitmapImage = thumbnailGroup.getElementAt(0) as BitmapImage;
-                if (bitmapImage)
-                    bitmapImage.source = null;
+                if (thumbnailBitmapImage)
+                    thumbnailBitmapImage.source = null;
                 if (this.contains(thumbnailGroup))
                     removeChild(thumbnailGroup);
                 invalidateSize();
@@ -1156,8 +1152,8 @@ public class VideoDisplay extends UIComponent
         // if showing the thumbnail, just use the thumbnail's size
         if (thumbnailSource && thumbnailGroup)
         {
-            intrinsicWidth = thumbnailGroup.getPreferredBoundsWidth();
-            intrinsicHeight = thumbnailGroup.getPreferredBoundsHeight();
+            intrinsicWidth = thumbnailBitmapImage.getPreferredBoundsWidth();
+            intrinsicHeight = thumbnailBitmapImage.getPreferredBoundsHeight();
         }
         else
         {
@@ -1192,13 +1188,17 @@ public class VideoDisplay extends UIComponent
         {
             // get what the size of our image should be
             var newSize:Point = ScaleModeUtils.getScaledSize(scaleMode, unscaledWidth, unscaledHeight, 
-                thumbnailGroup.getPreferredBoundsWidth(), thumbnailGroup.getPreferredBoundsHeight());
+                thumbnailBitmapImage.getPreferredBoundsWidth(), thumbnailBitmapImage.getPreferredBoundsHeight());
             
-            thumbnailGroup.setLayoutBoundsSize(newSize.x, newSize.y);
+            // set the thumbnailGroup to be the size of the component.
+            // set the bitmap image to be the size it should be according to OSMF
+            thumbnailGroup.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+            thumbnailBitmapImage.setLayoutBoundsSize(newSize.x, newSize.y);
             
-            // center the thumbnailGroup
-            thumbnailGroup.x = (unscaledWidth - newSize.x)/2;
-            thumbnailGroup.y = (unscaledHeight - newSize.y)/2;
+            // center the thumnail image within the thumbnail group.
+            // if it's too big to fit, the thumbnail group will crop it
+            thumbnailBitmapImage.x = (unscaledWidth - newSize.x)/2;
+            thumbnailBitmapImage.y = (unscaledHeight - newSize.y)/2;
             
             return;
         }
@@ -1206,6 +1206,10 @@ public class VideoDisplay extends UIComponent
         // set the gateway's dimensions
         LayoutUtils.setAbsoluteLayout(videoGateway.metadata, 
             Math.floor(unscaledWidth), Math.floor(unscaledHeight));
+        
+        // need to validate the gateway immediately--otherwise we may run out of synch 
+        // as they may wait a frame by default before validating (see SDK-24880)
+        videoGateway.validateContentNow();
     }
     
     //--------------------------------------------------------------------------
