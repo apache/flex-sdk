@@ -27,7 +27,7 @@ import spark.events.RendererExistenceEvent;
 import spark.layouts.supportClasses.LayoutBase;
 
 /**
- *  Dispatched when a renderer is added to the content holder.
+ *  Dispatched when a renderer is added to the dataGroup.
  * <code>event.renderer</code> is the renderer that was added.
  *
  *  @eventType spark.events.RendererExistenceEvent.RENDERER_ADD
@@ -40,7 +40,7 @@ import spark.layouts.supportClasses.LayoutBase;
 [Event(name="rendererAdd", type="spark.events.RendererExistenceEvent")]
 
 /**
- *  Dispatched when a renderer is removed from the content holder.
+ *  Dispatched when a renderer is removed from the dataGroup.
  * <code>event.renderer</code> is the renderer that was removed.
  *
  *  @eventType spark.events.RendererExistenceEvent.RENDERER_REMOVE
@@ -71,26 +71,30 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 [IconFile("SkinnableDataContainer.png")]
 
 /**
- *  The SkinnableDataContainer class is the base class for all skinnable components that have 
- *  data content.
- *  While this container can hold visual items, it is often used only 
+ *  The SkinnableDataContainer class is the base container class for
+ *  data items.  The SkinnableDataContainer class converts data 
+ *  items to visual elements for display.
+ *  While this container can hold visual elements, it is often used only 
  *  to hold data items as children.
  *
- *  <p>The SkinnableDataContainer class takes as children visual components that implement 
- *  the IUIComponent interface and data items. 
- *  Data items can be simple date items such String and Number objects, 
+ *  <p>The SkinnableDataContainer class takes as children data items 
+ *  or visual elements that implement the IVisualElement interface
+ *  and are Display Objects.
+ *  Data items can be simple data items such String and Number objects, 
  *  and more complicated data items such as Object and XMLNode objects. 
- *  While these containers can hold visual items, 
+ *  While these containers can hold visual elements, 
  *  they are often used only to hold data items as children.</p>
  *
  *  <p>An item renderer defines the visual representation of the 
  *  data item in the container. 
  *  The item renderer converts the data item into a format that can 
  *  be displayed by the container. 
- *  You must pass an item renderer to a SkinnableDataContainer container.</p>
+ *  You must pass an item renderer to a SkinnableDataContainer to 
+ *  render data items appropriately.</p>
  *
- *  <p>To improve performance and minimize application size, 
- *  you can use the DataGroup container. The DataGroup container cannot be skinned.</p>
+ *  <p>If you want a container of data items and don't need a skin, then 
+ *  it is recommended to use a DataGroup (which cannot be skinned) to 
+ *  improve performance and application size.</p>
  * 
  *  @mxml
  *
@@ -657,7 +661,9 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //--------------------------------------------------------------------------
     
     /**
-     *  @copy spark.components.DataGroup#itemToLabel()
+     *  Given a data item, return the toString() representation 
+     *  of the data item for an item renderer to display. Null 
+     *  data items return the empty string. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
