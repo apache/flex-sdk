@@ -124,6 +124,8 @@ use namespace mx_internal;
  *  from a list of predefined items in the control. 
  *  The ComboBox control lets the user either select a predefined item, 
  *  or enter a new item into the prompt area. 
+ *  When the user enters a new item, the <code>selectedIndex</code> property 
+ *  is set to -3.
  *  Your application can recognize that a new item has been entered and, 
  *  optionally, add it to the list of items in the control.</p>
  *
