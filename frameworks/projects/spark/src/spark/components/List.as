@@ -1343,8 +1343,10 @@ public class List extends ListBase implements IFocusManagerComponent
         if (pendingSelectionOnMouseUp && !DragManager.isDragging)
         {
             selectedIndices = calculateSelectedIndicesInterval(mouseDownIndex, pendingSelectionShiftKey, pendingSelectionCtrlKey);
-            pendingSelectionOnMouseUp = false;
         }
+
+		// Always clean up the flag, even if currently dragging.
+		pendingSelectionOnMouseUp = false;
         
         mouseDownPoint = null;
         mouseDownIndex = -1;
