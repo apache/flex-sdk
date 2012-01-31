@@ -62,11 +62,11 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     
     //--------------------------------------------------------------------------
     //
-    // SkinParts
+    //  SkinParts
     //
     //--------------------------------------------------------------------------
 
-    [SkinPart]
+    [SkinPart(required="true")]
     
     /**
      *  A skin part that defines a TextInput control 
@@ -80,10 +80,70 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
 
     //--------------------------------------------------------------------------
     //
-    // Methods
+    //  Properties
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  maxChars
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Storage for the maxChars property.
+     */
+    private var _maxChars:int = 0;
+
+    /**
+     *  @private
+     */
+    private var maxCharsChanged:Boolean = false;
+
+    /**
+     *  The maximum number of characters that can be entered in the field.
+     *  A value of 0 means that any number of characters can be entered.
+     *
+     *  @default 0
+     */
+    public function get maxChars():int
+    {
+        return _maxChars;
+    }
+
+    /**
+     *  @private
+     */
+    public function set maxChars(value:int):void
+    {
+        if (value == _maxChars)
+            return;
+            
+        _maxChars = value;
+        maxCharsChanged = true;
+        
+        invalidateProperties();
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
+
+        if (maxCharsChanged)
+        {
+            textInput.maxChars = _maxChars;
+            maxCharsChanged = false;
+        }
+    }
+    
     /**
      *  @private
      */
@@ -103,6 +163,9 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
         if (instance == textInput)
         {
             textInput.focusEnabled = false;
+            textInput.maxChars = _maxChars;
+            // restrict to digits, minus sign, decimal point, and comma
+            textInput.restrict = "0-9\\-\\.\\,";
             textInput.addEventListener(FlexEvent.ENTER,
                                        textInput_enterHandler);
             textInput.text = value.toString();
@@ -161,6 +224,12 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
         super.step(increase);
     }
     
+    //--------------------------------------------------------------------------
+    // 
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  Commits the current text of <code>textInput</code> 
      *  to the <code>value</code> property. 
@@ -191,14 +260,10 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     
     //--------------------------------------------------------------------------
     // 
-    // Event Handlers
+    //  Event handlers
     //
     //--------------------------------------------------------------------------
-    
-    //--------------------------------- 
-    // Keyboard handlers
-    //---------------------------------
-    
+        
     /**
      *  @private
      *  When the enter key is pressed, NumericStepper commits the
