@@ -35,7 +35,6 @@ include "../styles/metadata/BasicCharacterFormatTextStyles.as"
  *  Documentation is not currently available.
  */
 public class TextBox extends TextGraphicElement
-	implements IDisplayObjectElement
 {
 	include "../core/Version.as";
 
