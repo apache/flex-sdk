@@ -18,7 +18,6 @@ import flash.events.MouseEvent;
 import mx.containers.Accordion;
 import mx.controls.Button;
 import mx.core.Container;
-import mx.core.FlexVersion;
 import mx.core.EdgeMetrics;
 import mx.core.IDataRenderer;
 import mx.core.IFlexDisplayObject;
@@ -160,34 +159,6 @@ public class AccordionHeader extends Button implements IDataRenderer
 	//  Overridden methods: UIComponent
 	//
 	//--------------------------------------------------------------------------
-
-	/**
-	 *  @private
-	 */
-	override protected function createChildren():void
-	{
-		super.createChildren();
-		
-		if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-		{		
-			// AccordionHeader has a bit of a conflict here. Our styleName points to
-			// our parent Accordion, which has padding values defined. We also have
-			// padding values defined on our type selector, but since class selectors
-			// take precedence over type selectors, the type selector padding values
-			// are ignored. Force them in here.
-			var styleDecl:CSSStyleDeclaration = StyleManager.getStyleDeclaration(className);
-			
-			if (styleDecl)
-			{
-				var value:Number = styleDecl.getStyle("paddingLeft");
-				if (!isNaN(value))
-					setStyle("paddingLeft", value);
-				value = styleDecl.getStyle("paddingRight");
-				if (!isNaN(value))
-					setStyle("paddingRight", value);
-			}
-		}
-	}
 	
 	/**
 	 *  @private
