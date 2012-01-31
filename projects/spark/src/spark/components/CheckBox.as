@@ -14,8 +14,11 @@ package spark.components
 
 import flash.events.Event;
 import flash.events.MouseEvent;
+import mx.core.mx_internal;
 
 import spark.components.supportClasses.ToggleButtonBase;
+
+use namespace mx_internal;
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
@@ -38,6 +41,8 @@ import spark.components.supportClasses.ToggleButtonBase;
 //--------------------------------------
 
 [IconFile("CheckBox.png")]
+
+[AccessibilityClass(implementation="spark.accessibility.CheckBoxAccImpl")]
 
 /**
  *  The CheckBox component consists of an optional label and a small box
@@ -92,6 +97,19 @@ import spark.components.supportClasses.ToggleButtonBase;
 public class CheckBox extends ToggleButtonBase
 {
     include "../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by CheckBoxAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
 
     //--------------------------------------------------------------------------
     //
@@ -111,6 +129,16 @@ public class CheckBox extends ToggleButtonBase
     {
         super();
     }
+    
+     /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (CheckBox.createAccessibilityImplementation != null)
+            CheckBox.createAccessibilityImplementation(this);
+    }
+    
 }
 
 }
