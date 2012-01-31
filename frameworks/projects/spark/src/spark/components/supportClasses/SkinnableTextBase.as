@@ -283,7 +283,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
                                          textView_changingHandler);
 
 			textView.removeEventListener("change",
-                                          textView_changeHandler);
+                                         textView_changeHandler);
 
 			textView.removeEventListener(FlexEvent.ENTER,
                                          textView_enterHandler);
@@ -405,11 +405,10 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 	}
 
 	/**
-	 *  @private
 	 *  Called when the TextView dispatches a 'change' event
 	 *  after an editing operation.
 	 */
-	private function textView_changeHandler(event:TextOperationEvent):void
+	protected function textView_changeHandler(event:TextOperationEvent):void
 	{
 		// Update our storage variable for the text string.
 		mx_internal::_text = textView.text;
