@@ -435,6 +435,28 @@ public class URLUtil
     }
 
     /**
+     * Given a url, determines whether the url contains the server.name and
+     * server.port tokens.
+     * 
+     * @return <code>true</code> if the url contains server.name and server.port tokens.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public static function hasTokens(url:String):Boolean
+    {
+        if (url == null || url == "")
+            return false;
+        if (url.indexOf(SERVER_NAME_TOKEN) > 0)
+            return true;
+        if (url.indexOf(SERVER_PORT_TOKEN) > 0)
+            return true;
+        return false;
+    }
+
+    /**
      * If the <code>LoaderConfig.url</code> property is not available, the <code>replaceTokens()</code> method will not 
      * replace the server name and port properties properly.
      * 
