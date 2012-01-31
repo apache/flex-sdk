@@ -11,7 +11,7 @@
 package mx.effects.interpolation
 {
 /**
- * The Interpolator interface is used by classes that calculate
+ * The IInterpolator interface is used by classes that calculate
  * intermediate values for the Animation class. The Animation class
  * can handle parametric interpolation between Number values and
  * arrays of Number values, but it cannot handle different types
