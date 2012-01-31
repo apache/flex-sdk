@@ -27,9 +27,17 @@ import mx.effects.interpolation.IInterpolator;
 import mx.effects.interpolation.NumberInterpolator;
 import mx.events.AnimationEvent;
 import mx.layout.LayoutElementFactory;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 import mx.styles.IStyleClient;
 
 use namespace mx_internal;
+
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[ResourceBundle("sparkEffects")]
 
 /**
  * The FxAnimateInstance class implements the instance class for the
@@ -69,6 +77,13 @@ public class FxAnimateInstance extends EffectInstance
     private var reverseAnimation:Boolean;
     
     private var needsRemoval:Boolean;
+    
+    /**
+     *  @private
+     *  Used for accessing localized Error messages.
+     */
+    private var resourceManager:IResourceManager =
+                                    ResourceManager.getInstance();
     
     //--------------------------------------------------------------------------
     //
@@ -350,7 +365,7 @@ public class FxAnimateInstance extends EffectInstance
             var toValue:Object = null;
             
             if (!property || (property == ""))
-                throw new Error("Illegal property value: " + property);
+                throw new Error(resourceManager.getString("sparkEffects", "illegalPropValue", [property]));
                  
             setupStyleMapEntry(property);
 
@@ -815,8 +830,8 @@ public class FxAnimateInstance extends EffectInstance
                 }
                 catch (err:Error)
                 {
-                    throw new Error("Property " + property + " is neither " +
-                        "a property or a style on object " + target + ": " + err);
+                    throw new Error(resourceManager.getString("sparkEffects", 
+                        "propNotPropOrStyle", [property, target, err])); 
                 }
                 // TODO: check to make sure that the throw above won't
                 // let the code flow get to here
