@@ -25,6 +25,11 @@ import flash.net.URLRequest;
  *  will or return false or null as appropriate.
  *  We don't use a singleton or an instance object at the moment to simplify
  *  the code that calls the monitor.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NetworkMonitor
 {
@@ -36,31 +41,61 @@ public class NetworkMonitor
     
     /**
 	 *  To be assigned by mix-in.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static var isMonitoringImpl:Function;
     
     /**
 	 *  To be assigned by mix-in.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static var adjustURLRequestImpl:Function;
 
     /**
 	 *  To be assigned by mix-in.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static var monitorEventImpl:Function;
 
     /**
 	 *  To be assigned by mix-in.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static var monitorInvocationImpl:Function;
 
     /**
 	 *  To be assigned by mix-in.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static var monitorResultImpl:Function;
 
     /**
 	 *  To be assigned by mix-in.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public static var monitorFaultImpl:Function;
 
@@ -72,6 +107,11 @@ public class NetworkMonitor
 
     /**
      *  Returns true if the monitor is linked and monitoring.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isMonitoring():Boolean
     {
@@ -94,6 +134,11 @@ public class NetworkMonitor
 	 *
      *  @param correlationID The correlationID that may be used
 	 *  for associated events.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */ 
     public static function adjustURLRequest(urlRequest:URLRequest,
 											rootURL:String,
@@ -114,6 +159,11 @@ public class NetworkMonitor
 	 *
      *  @param correlationID The correlationID to associate with other events
 	 *  or the request.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function monitorEvent(event:Event,
 										correlationID:String):void
@@ -130,6 +180,11 @@ public class NetworkMonitor
 	 *
      *  @param invocationMessage The Message that will be sent across the wire.
      *  (It is untyped here to avoid linking in the dependency.)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function monitorInvocation(id:String,
 											 invocationMessage:Object):void
@@ -145,6 +200,11 @@ public class NetworkMonitor
      *  (It is untyped here to avoid linking in the dependency.)
 	 *
      *  @param actualResult the decoded result
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function monitorResult(resultMessage:Object,
 										 actualResult:Object):void
@@ -162,6 +222,11 @@ public class NetworkMonitor
 	 *
      *  @param actualFault The Fault that occurred.
      *  (It is untyped here to avoid linking in the dependency.)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function monitorFault(faultMessage:Object,
 										actualFault:Object):void
