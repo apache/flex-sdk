@@ -81,7 +81,7 @@ use namespace mx_internal;
  */
 [Frame(factoryClass="mx.managers.SystemManager")]
 
-[ResourceBundle("core")]
+[ResourceBundle("components")]
 
 /**
  *  Flex defines a default, or FxApplication, container that lets you start
@@ -679,7 +679,7 @@ public class FxApplication extends FxContainer
         // "View Source" on the context menu
         if (viewSourceCMI)
         {
-            viewSourceCMI.caption = resourceManager.getString("core", "viewSource");
+            viewSourceCMI.caption = resourceManager.getString("components", "viewSource");
         }
     }
     
@@ -766,7 +766,7 @@ public class FxApplication extends FxContainer
         if (_viewSourceURL)
         {
             // don't worry! this gets updated in resourcesChanged()
-            const caption:String = resourceManager.getString("core", "viewSource");
+            const caption:String = resourceManager.getString("components", "viewSource");
             
             viewSourceCMI = new ContextMenuItem(caption, true);
             viewSourceCMI.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, viewSourceMenuItemSelectHandler);
