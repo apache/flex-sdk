@@ -51,6 +51,11 @@ use namespace mx_internal;
  *      clicking on a data item while pressing the Control key deselects 
  *      the item and closes the drop-down list.</li>
  *  </ul>
+ *
+ *  <p><b>Note: </b>The Spark list-based controls (the Spark ListBase class and its subclasses
+ *  such as ButtonBar, ComboBox, DropDownList, List, and TabBar) do not support the BasicLayout class
+ *  as the value of the <code>layout</code> property. 
+ *  Do not use BasicLayout with the Spark list-based controls.</p>
  *  
  *  <p>The DropDownList control has the following default characteristics:</p>
  *  <table class="innertable">
