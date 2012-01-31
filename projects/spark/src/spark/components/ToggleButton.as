@@ -47,6 +47,8 @@ import mx.events.FlexEvent;
  * 
  *  <p>You can get or set this state programmatically
  *  by using the <code>selected</code> property.</p>
+ *
+ *  @includeExample examples/FxToggleButtonExample.mxml
  */
 public class FxToggleButton extends FxButton
 {
