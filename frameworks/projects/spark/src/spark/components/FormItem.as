@@ -68,7 +68,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds no new tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:FormItem
+ *  &lt;s:FormItem
  *    <strong>Properties</strong>
  *    helpContent="null"
  *    label=""
@@ -232,9 +232,9 @@ public class FormItem extends SkinnableContainer
     [Inspectable(category="General", defaultValue="")]
     
     /**
-     *  The label text displayed in the Form.
-     *  For example, a FormItem to 
-     *  select a state might have a form label of "State".
+     *  Text label for the FormItem.
+     *  For example, a FormItem used to input an 
+     *  address might have the label of "Address".
      * 
      *  @default ""
      *  
