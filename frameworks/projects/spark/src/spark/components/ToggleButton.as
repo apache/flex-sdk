@@ -12,70 +12,8 @@
 package mx.components
 {
 
-import flash.events.Event;
-import flash.events.MouseEvent;
+import mx.components.baseClasses.ToggleButtonBase;
 
-import mx.core.mx_internal;
-import mx.events.FlexEvent;
-
-/**
- *  Dispatched when the <code>selected</code> property 
- *  changes for the FxToggleButton control. 
- * 
- *  This event is dispatched only when the 
- *  user interacts with the control by using the mouse.
- *
- *  @eventType flash.events.Event.CHANGE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="change", type="flash.events.Event")]
-
-/**
- *  Up State of the Button when it's selected
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("upAndSelected")]
-
-/**
- *  Over State of the Button when it's selected
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("overAndSelected")]
-
-/**
- *  Down State of the Button when it's selected
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("downAndSelected")]
-
-/**
- *  Disabled State of the Button when it's selected
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[SkinState("disabledAndSelected")]
-
-// TODO EGeorgie: figure out whether we need this?
-[DefaultBindingProperty(source="selected", destination="label")]
 
 [IconFile("FxToggleButton.png")]
 
@@ -96,7 +34,7 @@ import mx.events.FlexEvent;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxToggleButton extends FxButton
+public class FxToggleButton extends ToggleButtonBase
 {
     include "../core/Version.as";
 
@@ -118,85 +56,5 @@ public class FxToggleButton extends FxButton
     {
         super();
     }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
-
-    //----------------------------------
-    //  selected
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the selected property 
-     */
-    private var _selected:Boolean;
-
-    [Bindable]
-    
-    /**
-     *  <code>true</code> if the button is in the down state, 
-     *  and <code>false</code> if it is in the up state.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */    
-    public function get selected():Boolean
-    {
-        return _selected;
-    }
-    
-    /**
-     *  @private
-     */    
-    public function set selected(value:Boolean):void
-    {
-        if (value == _selected)
-            return;
-
-        _selected = value;            
-        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
-        invalidateSkinState();
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  States
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */ 
-    protected override function getCurrentSkinState():String
-    {
-        if( !selected )
-            return super.getCurrentSkinState();
-        else
-            return super.getCurrentSkinState() + "AndSelected";
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Event handling
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */ 
-    override protected function clickHandler(event:MouseEvent):void
-    {
-        super.clickHandler(event);
-        selected = !selected;
-        dispatchEvent(new Event(Event.CHANGE));
-        event.updateAfterEvent();
-    }
 }
-
 }
