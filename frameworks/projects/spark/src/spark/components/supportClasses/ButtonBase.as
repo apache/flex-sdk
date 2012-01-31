@@ -30,7 +30,7 @@ import mx.utils.StringUtil;
 
 use namespace mx_internal;
 
-include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
+include "../../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#focusColor
@@ -948,10 +948,10 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
 
         // Check if the label text is truncated
         labelDisplay.validateNow();
-        var truncated:Boolean = labelDisplay.isTruncated();
+        var isTruncated:Boolean = labelDisplay.isTruncated;
         
         // If the label is truncated, show the whole label string as a tooltip
-        super.toolTip = truncated ? labelDisplay.text : null;
+        super.toolTip = isTruncated ? labelDisplay.text : null;
     } 
 }
 
