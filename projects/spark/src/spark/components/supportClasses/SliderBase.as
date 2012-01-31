@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
 
 import flash.display.DisplayObject;
@@ -38,7 +38,7 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 [Style(name="focusColor", type="uint", format="Color", inherit="yes")]
 
 /**
- *  The FxSlider class lets users select a value by moving a slider thumb between 
+ *  The Slider class lets users select a value by moving a slider thumb between 
  *  the end points of the slider track. 
  *  The current value of the slider is determined by the relative location of 
  *  the thumb between the end points of the slider, 
@@ -49,7 +49,7 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxSlider extends FxTrackBase implements IFocusManagerComponent
+public class Slider extends TrackBase implements IFocusManagerComponent
 {
     include "../../core/Version.as";
 
@@ -67,7 +67,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxSlider():void
+    public function Slider():void
     {
         super();
     }
@@ -137,7 +137,7 @@ public class FxSlider extends FxTrackBase implements IFocusManagerComponent
      *
      *  <p>The following example prefixes the data tip text with a dollar sign and 
      *  formats the text using the <code>dataTipPrecision</code> 
-     *  of a FxSlider Control named 'slide': </p>
+     *  of a Slider Control named 'slide': </p>
      *
      *  <pre>
      *  import mx.formatters.NumberBase;
