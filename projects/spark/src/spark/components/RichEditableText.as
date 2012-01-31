@@ -28,8 +28,7 @@ import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.IFlowComposer;
 import flashx.textLayout.compose.StandardFlowComposer;
-import flashx.textLayout.container.DisplayObjectContainerController;
-import flashx.textLayout.container.IContainerController;
+import flashx.textLayout.container.ContainerController;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextImporter;
 import flashx.textLayout.conversion.TextFilter;
@@ -48,7 +47,6 @@ import flashx.textLayout.elements.ITextLineCreator;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
-import flashx.textLayout.elements.TextLineCreator;
 import flashx.textLayout.events.CompositionCompletionEvent;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.events.FlowOperationEvent;
@@ -1310,14 +1308,14 @@ public class RichEditableText extends UIComponent implements IViewport
             {
                 return !flowComposer || flowComposer.numControllers == 0 ?
                        0 :
-                       flowComposer.getControllerAt(0).scrollLines(-1);
+                       flowComposer.getControllerAt(0).getScrollDelta(-1);
             }
                 
             case ScrollUnit.DOWN:
             {
                 return !flowComposer || flowComposer.numControllers == 0 ?
                        0 :
-                       flowComposer.getControllerAt(0).scrollLines(1);
+                       flowComposer.getControllerAt(0).getScrollDelta(1);
             }
                 
             case ScrollUnit.PAGE_UP:
@@ -1443,14 +1441,14 @@ public class RichEditableText extends UIComponent implements IViewport
                 if (embeddedFontContext)
                     textFlow.flowComposer.textLineCreator = ITextLineCreator(embeddedFontContext);
                 else
-                    textFlow.flowComposer.textLineCreator = new TextLineCreator();
+                    textFlow.flowComposer.textLineCreator = null;
             }
 
             // Tell it where to create its TextLines.
             if (textChanged || contentChanged)
             {
                 textFlow.flowComposer.addControllerAt(
-                    new DisplayObjectContainerController(this), 0);
+                    new ContainerController(this), 0);
                 // Set scroll policy appropriately.
                 autoSizeChanged = true;
             }
@@ -1483,7 +1481,7 @@ public class RichEditableText extends UIComponent implements IViewport
         if (!flowComposer || flowComposer.numControllers == 0)
             return;
         
-        var containerController:IContainerController =
+        var containerController:ContainerController =
             flowComposer.getControllerAt(0);
 
         if (autoSizeChanged)
@@ -1622,7 +1620,7 @@ public class RichEditableText extends UIComponent implements IViewport
         // Tell the TextFlow to generate TextLines within the
         // rectangle (0, 0, unscaledWidth, unscaledHeight).
         var flowComposer:IFlowComposer = textFlow.flowComposer;
-        var containerController:IContainerController =
+        var containerController:ContainerController =
             flowComposer.getControllerAt(0);   
                         
         // If autoSize, the text flow is already composed (although there are
@@ -1756,7 +1754,7 @@ public class RichEditableText extends UIComponent implements IViewport
     private function measureUsingWidth(maxComposeWidth:Number):void
     {
         var flowComposer:IFlowComposer = textFlow.flowComposer;
-        var containerController:IContainerController =
+        var containerController:ContainerController =
             flowComposer.getControllerAt(0);
 
         // Never compose over the max width because the width will always
@@ -2756,7 +2754,7 @@ public class RichEditableText extends UIComponent implements IViewport
     {
         //trace("compositionComplete");
         
-        var containerController:IContainerController =
+        var containerController:ContainerController =
             textFlow.flowComposer.getControllerAt(0);
 
         var oldContentWidth:Number = _contentWidth;
@@ -2813,7 +2811,7 @@ public class RichEditableText extends UIComponent implements IViewport
     /**
      *  @private
      */
-    private function isOverset(controller:IContainerController):Boolean
+    private function isOverset(controller:ContainerController):Boolean
     {
         // In some circumsances, the last controller gets all of the 
         // content. In this case, test contentHeight vs. compositionHeight. 
@@ -2852,7 +2850,7 @@ public class RichEditableText extends UIComponent implements IViewport
      */
     private function textFlow_scrollHandler(event:Event):void
     {
-        var containerController:IContainerController =
+        var containerController:ContainerController =
             textFlow.flowComposer.getControllerAt(0);
 
         var oldHorizontalScrollPosition:Number = _horizontalScrollPosition;
