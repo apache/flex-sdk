@@ -43,7 +43,9 @@
     You should not modify this file.
 */
 
+@namespace charts "mx.charts.chartClasses.*";
 @namespace mx "library://ns.adobe.com/flex/mx";
+@namespace olap "mx.controls.olapDataGridClasses.*";
 @namespace s "library://ns.adobe.com/flex/spark";
 
 mx|AlertForm
@@ -181,34 +183,24 @@ mx|AdvancedDataGridSortItemRenderer
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-mx|AxisRenderer
+charts|ChartLabel
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-mx|BarSeries
+charts|DataTip
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-mx|ChartLabel
+charts|DualStyleObject
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-mx|ColumnSeries
+charts|Series
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-mx|DataTip
-{
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
-}
-
-s|FTEAdvancedDataGridItemRenderer
-{
-	paddingLeft: 5 /* to match AdvancedDataGridItemRenderer in the MX defaults.css */
 }
 
 mx|LegendItem
@@ -216,13 +208,13 @@ mx|LegendItem
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-mx|OLAPDataGridGroupRenderer
+olap|OLAPDataGridGroupRenderer
 {
 	textFieldClass: ClassReference("mx.core.UIFTETextField");
 }
 
-mx|PieSeries
+s|FTEAdvancedDataGridItemRenderer
 {
-	textFieldClass: ClassReference("mx.core.UIFTETextField");
+	paddingLeft: 5 /* to match AdvancedDataGridItemRenderer in the MX defaults.css */
 }
 
