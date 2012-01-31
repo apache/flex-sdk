@@ -28,7 +28,6 @@ import mx.controls.listClasses.IDropInListItemRenderer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.controls.listClasses.ListData;
 import mx.core.ClassFactory;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.mx_internal;
@@ -2217,8 +2216,7 @@ public class DateField extends ComboBase
                             dateToString(bigDate, formatString);
 
         measuredMinWidth = measuredWidth = measureText(txt).width + 8 + 2 + buttonWidth;
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_3_0)
-            measuredMinWidth = measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
+        measuredMinWidth = measuredWidth += getStyle("paddingLeft") + getStyle("paddingRight");
         measuredMinHeight = measuredHeight = textInput.getExplicitOrMeasuredHeight();
     }
 
@@ -2470,10 +2468,7 @@ public class DateField extends ComboBase
         _dropdown.displayedMonth = todaysDate.getMonth();
         _dropdown.displayedYear = todaysDate.getFullYear();
 
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-            _dropdown.styleName = this;
-        else
-            _dropdown.styleName = new StyleProxy(this, {}); 
+        _dropdown.styleName = new StyleProxy(this, {}); 
         
         var dateChooserStyleName:Object = getStyle("dateChooserStyleName");
         if (dateChooserStyleName)
