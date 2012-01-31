@@ -35,7 +35,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 //--------------------------------------
 //  Excluded APIs
