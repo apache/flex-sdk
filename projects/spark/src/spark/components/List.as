@@ -16,18 +16,17 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.ui.Keyboard;
 
-import spark.components.supportClasses.ListBase;
 import mx.core.ClassFactory; 
-import spark.components.IItemRenderer;
-import spark.components.supportClasses.ItemRenderer;  
 import mx.core.IVisualElement;
-import spark.events.RendererExistenceEvent;
 import mx.events.FlexEvent;
+import mx.managers.IFocusManagerComponent;
+
+import spark.components.IItemRenderer;
+import spark.components.supportClasses.ItemRenderer;
+import spark.components.supportClasses.ListBase;  
+import spark.events.RendererExistenceEvent;
 import spark.layout.HorizontalLayout;
 import spark.layout.VerticalLayout;
-import mx.managers.IFocusManagerComponent;
-import spark.skins.default.DefaultItemRenderer;
-
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#alternatingItemColors
@@ -366,10 +365,9 @@ public class List extends ListBase implements IFocusManagerComponent
         
         var renderer:Object = dataGroup.getElementAt(index);
         
-        if (renderer)
+        if (renderer is IItemRenderer)
         {
-            if ("selected" in renderer)
-                renderer.selected = selected;
+            IItemRenderer(renderer).selected = selected;
         }
     }
     
@@ -521,16 +519,10 @@ public class List extends ListBase implements IFocusManagerComponent
         if (renderer)
         {
         	renderer.addEventListener("click", item_clickHandler);
-        	renderer.addEventListener("dataChange", item_dataChangeHandler);
         	if (renderer is IVisualElement)
         		IVisualElement(renderer).owner = this;
-        		
-        	//If the labelElement part has been defined on the renderer, 
-    		//push the right text in. 
-        	if ((renderer is ItemRenderer) && (renderer.labelElement))
-        	{
-        		renderer.labelElement.text = itemToLabel(renderer.data);
-        	}
+            if (renderer is IItemRenderer)
+                IItemRenderer(renderer).labelText = itemToLabel(renderer.data);
         }
             
         if (isItemIndexSelected(index))
@@ -549,7 +541,6 @@ public class List extends ListBase implements IFocusManagerComponent
         if (renderer)
         {
             renderer.removeEventListener("click", item_clickHandler);
-            renderer.removeEventListener("dataChange", item_dataChangeHandler);
         }
     }
     
@@ -562,24 +553,6 @@ public class List extends ListBase implements IFocusManagerComponent
         // Multiple selection needs to be added here....
         
         selectedIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
-    }
-    
-    /**
-     *  @private
-     *  Called when an item's data has changed. 
-     */
-    private function item_dataChangeHandler(event:FlexEvent):void
-    {
-    	var renderer:Object = event.target;
-    	if (renderer)
-    	{
-    		//If the labelElement part has been defined on the renderer, 
-    		//push the right text in based on the new data. 
-        	if ((renderer is ItemRenderer) && (renderer.labelElement))
-        	{
-        		renderer.labelElement.text = itemToLabel(renderer.data);
-        	}
-     	}
     }
     
     /**
