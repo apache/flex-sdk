@@ -39,6 +39,7 @@ import mx.styles.StyleManager;
 import mx.styles.StyleProtoChain;
 import mx.utils.NameUtil;
 
+import spark.core.IDisplayText;
 import spark.utils.TextUtil;
 
 use namespace mx_internal;
@@ -97,7 +98,7 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 
-public class TextBase extends UIComponent
+public class TextBase extends UIComponent implements IDisplayText
 {
 
     include "../../core/Version.as";
