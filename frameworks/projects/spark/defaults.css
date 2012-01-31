@@ -26,6 +26,11 @@ FxButton
 	verticalAlign: "middle";
 }
 
+FxButtonBar
+{
+	skinClass: ClassReference("mx.skins.spark.FxButtonBarSkin");
+}
+
 FxCheckBox
 {
 	skinClass: ClassReference("mx.skins.spark.FxCheckBoxSkin");
@@ -64,6 +69,11 @@ FxList
 FxNumericStepper
 {
     skinClass: ClassReference("mx.skins.spark.FxNumericStepperSkin");
+}
+
+FxPanel
+{
+	skinClass: ClassReference("mx.skins.spark.FxPanelSkin");
 }
 
 FxRadioButton
