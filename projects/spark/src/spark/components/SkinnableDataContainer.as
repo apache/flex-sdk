@@ -43,7 +43,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *  Dispatched when a renderer is removed from the content holder.
  * <code>event.renderer</code> is the renderer that was removed.
  *
- *  @eventType spark.events.RendererExistenceEvent.ITEM_REMOVE
+ *  @eventType spark.events.RendererExistenceEvent.RENDERER_REMOVE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -55,7 +55,9 @@ import spark.layouts.supportClasses.LayoutBase;
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
 /**
- *  @copy spark.components.supportClasses.GroupBase#focusColor
+ *  Color of focus ring when the component is in focus.
+ *
+ *  @default 0x70B2EE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -71,8 +73,52 @@ include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 /**
  *  The SkinnableDataContainer class is the base class for all skinnable components that have 
  *  data content.
+ *  While this container can hold visual items, it is often used only 
+ *  to hold data items as children.
+ *
+ *  <p>The SkinnableDataContainer class takes as children visual components that implement 
+ *  the IUIComponent interface and data items. 
+ *  Data items can be simple date items such String and Number objects, 
+ *  and more complicated data items such as Object and XMLNode objects. 
+ *  While these containers can hold visual items, 
+ *  they are often used only to hold data items as children.</p>
+ *
+ *  <p>An item renderer defines the visual representation of the 
+ *  data item in the container. 
+ *  The item renderer converts the data item into a format that can 
+ *  be displayed by the container. 
+ *  You must pass an item renderer to a SkinnableDataContainer container.</p>
+ *
+ *  <p>To improve performance and minimize application size, 
+ *  you can use the DataGroup container. The DataGroup container cannot be skinned.</p>
+ * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;SkinnableDataContainer&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;SkinnableDataContainer
+ *    <strong>Properties</strong>
+ *    autoLayout="true"
+ *    clipAndEnableScrolling="false"
+ *    dataProvider="null"
+ *    horizontalScrollPosition"null"
+ *    itemRenderer="null"
+ *    itemRendererFunction="null"
+ *    layout"VerticalLayout"
+ *    typicalItem"null"
+ *    verticalScrollPosition="null"
+ *  
+ *    <strong>Events</strong>
+ *    rendererAdd="<i>No default</i>"
+ *    rendererRemove="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  *  @see SkinnableContainer
+ *  @see DataGroup
+ *  @see spark.skins.default.SkinnableDataContainerSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -164,8 +210,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     [SkinPart(required="false")]
     
     /**
-     *  A required skin part that defines the DataGroup where the data 
-     *  items get pushed into, rendered, and laid out.
+     *  A required skin part that defines the DataGroup in the skin class 
+     *  where data items get pushed into, rendered, and laid out.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -213,6 +259,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
 
     /**
      *  @copy spark.components.supportClasses.GroupBase#autoLayout
+     *
+     *  @default true
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -252,6 +300,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     
     /**
      *  @inheritDoc
+     *
+     *  @default false
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -462,6 +512,8 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     
     /**
      *  @copy spark.components.supportClasses.GroupBase#layout
+     *
+     *  @default VerticalLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -605,13 +657,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
     //--------------------------------------------------------------------------
     
     /**
-     *  Given a data item, return the correct text representation 
-     *  a renderer should display. 
-     *
-     *  @param item A data item 
-     *  
-     *  @return String representing the text to display for the 
-     *  passed in item's renderer. 
+     *  @copy spark.components.DataGroup#itemToLabel()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -620,22 +666,13 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      */
     public function itemToLabel(item:Object):String
     {
-    	if (item)
+        if (item)
             return item.toString();
         else return " ";
     }
 
     /**
-     *  A bottleneck method which updates renderer specific information. 
-     * 
-     *  The DataGroup skinpart handles updating the renderer's 'data' 
-     *  property when necessary. This method comes in and sets the 
-     *  'labelText' (which is dependant on the renderer's data) 
-     *  and 'owner' properties. 
-     * 
-     *  @param renderer The renderer to update
-     *  
-     *  @param data The renderer's data  
+     *  @copy spark.components.DataGroup#updateRendererInformation()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -645,10 +682,10 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      */
     public function updateRendererInformation(renderer:IVisualElement, data:Object=null):void
     {
-    	if (!renderer)
-    	   return; 
-    	   
-    	IVisualElement(renderer).owner = this;
+        if (!renderer)
+           return; 
+           
+        IVisualElement(renderer).owner = this;
         
         if (renderer is IItemRenderer)
             IItemRenderer(renderer).labelText = itemToLabel(IItemRenderer(renderer).data);
@@ -921,7 +958,7 @@ public class SkinnableDataContainer extends SkinnableContainerBase implements IV
      */
     private function dataGroup_rendererAddChangeHandler(event:RendererExistenceEvent):void
     {
-    	var renderer:IVisualElement = event.renderer;
+        var renderer:IVisualElement = event.renderer;
         
         updateRendererInformation(renderer); 
         
