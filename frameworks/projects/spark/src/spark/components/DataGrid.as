@@ -239,7 +239,7 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  
  *  <p>This event is dispatched when the user interacts with the control.
  *  When you change the selection programmatically, 
- *  the component does not dispatch the <code>selectionChanging</code> event. 
+ *  the component does not dispatch the <code>selectionChanging</code> event. </p>
  *
  *  @eventType spark.events.GridSelectionChangeEvent.SELECTION_CHANGING
  *  
