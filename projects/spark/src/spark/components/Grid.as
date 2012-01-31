@@ -217,6 +217,13 @@ public class Grid extends Group implements IDataGridElement
     
     /**
      *  @private
+     *  Cache the dataItem that goes with the caretRowIndex so we can find the
+     *  rowIndex of the caret after a collection refresh event.
+     */    
+    private var caretSelectedItem:Object = null;
+    
+    /**
+     *  @private
      *  True while updateDisplayList is running.  Use to disable invalidateSize(),
      *  invalidateDisplayList() here and in the GridLayer class.
      */
@@ -2886,7 +2893,7 @@ public class Grid extends Group implements IDataGridElement
         }
 
         // A cell's index as defined by LayoutBase it's just its position
-        // in the row-major linear ordering of the grid's cells.  
+        // in the row-major linear ordering of the grid's cells.
         const elementIndex:int = (rowIndex * columnsLength) + columnIndex;
         
         // Iterate until we've scrolled elementIndex at least partially into view.
@@ -2897,8 +2904,13 @@ public class Grid extends Group implements IDataGridElement
                 validateNow();
             else
                 break;  // fixed row heights, and we're only scrolling vertically
+            
+            // After a validate, if there isn't at least one visible row and
+            // one visible column, bail!
+            if (getVisibleRowIndices().length == 0 || getVisibleColumnIndices().length == 0)
+                return;
         }
-        while(!isCellVisible(rowIndex, columnIndex))
+        while (!isCellVisible(scrollVertically ? rowIndex : -1, scrollHorizontally ? columnIndex : -1));
         
         // At this point we've only ensured that the requested cell is at least 
         // partially visible.  Ensure that it's completely visible.
@@ -3259,9 +3271,14 @@ public class Grid extends Group implements IDataGridElement
                 caretRowIndex = _dataProvider.length - 1;
             if (_columns && caretColumnIndex >= _columns.length)
                 caretColumnIndex =  _columns.length - 1;
+
+            caretSelectedItem = 
+                _dataProvider && _caretRowIndex >= 0 ?
+                _dataProvider.getItemAt(_caretRowIndex) : null;
+
             dispatchCaretChangeEvent();
-            caretChanged = false;
-        }
+            caretChanged = false;        
+         }
     }
     
     /**
@@ -3565,8 +3582,8 @@ public class Grid extends Group implements IDataGridElement
         const oldCaretRowIndex:int = caretRowIndex;
         const location:int = event.location;
         var itemsLength:int;
-
-        // this should stay in sync with updateCaretForColumnsChange
+        var newCaretRowIndex:int; 
+        
         switch (event.kind)
         {
             case CollectionEventKind.ADD:
@@ -3598,14 +3615,65 @@ public class Grid extends Group implements IDataGridElement
             case CollectionEventKind.REPLACE:
             case CollectionEventKind.UPDATE:
                 break;
-            
+                        
             case CollectionEventKind.REFRESH:
-            case CollectionEventKind.RESET:
-                initializeCaretPosition();
-                horizontalScrollPosition = 0;
-                verticalScrollPosition = 0;
+            {
+                newCaretRowIndex = 
+                            caretSelectedItem ?
+                            _dataProvider.getItemIndex(caretSelectedItem) : -1; 
+                            
+                // Caret sticks to item if possible and ensure it is totally 
+                // visible by scrolling vertically if necessary.
+                if (newCaretRowIndex != -1)
+                {
+                    caretRowIndex = newCaretRowIndex;
+                    ensureCellIsVisible(caretRowIndex, -1);
+                }
+                else
+                {
+                    // No caret.  Maintain the existing scroll position if
+                    // within the current data.
+                    
+                    var oldVsp:int = verticalScrollPosition;
+                    
+                    validateNow();
+                    
+                    // If variable row heights the height is 
+                    // approximate so the scroll position may not be
+                    // in exactly the same place.
+                    
+                    const cHeight:Number = Math.ceil(gridDimensions.getContentHeight());
+                    const maximum:int = Math.max(cHeight - height, 0);
+                    verticalScrollPosition = (oldVsp > maximum) ? maximum : oldVsp;                        
+                }
                 break;
-        }            
+            }
+        
+            case CollectionEventKind.RESET:
+            {
+                newCaretRowIndex = 
+                    caretSelectedItem ?
+                    _dataProvider.getItemIndex(caretSelectedItem) : -1; 
+                
+                // Caret sticks to item if possible and ensure it is totally 
+                // visible by scrolling vertically if necessary.
+                if (newCaretRowIndex != -1)
+                {
+                    caretRowIndex = newCaretRowIndex;
+                    ensureCellIsVisible(caretRowIndex, -1);
+                }
+                
+                // No caret item so reset caret and vsp.
+                else 
+                {
+                    caretRowIndex = _dataProvider.length > 0 ? 0 : -1; 
+                    verticalScrollPosition = 0;
+                }
+                
+                break;
+            }
+        }   
+        
     }
     
     /**
@@ -3618,8 +3686,6 @@ public class Grid extends Group implements IDataGridElement
         const oldCaretColumnIndex:int = caretColumnIndex;
         const location:int = event.location;
         var itemsLength:int;
-        
-        // this should stay in sync with updateCaretForDataProviderChange
         
         switch (event.kind)
         {
@@ -3652,9 +3718,9 @@ public class Grid extends Group implements IDataGridElement
             
             case CollectionEventKind.REFRESH:
             case CollectionEventKind.RESET:
-                initializeCaretPosition();
+                // maintain row position
+                caretColumnIndex = _columns && _columns.length > 0 ? 0 : -1; 
                 horizontalScrollPosition = 0;
-                verticalScrollPosition = 0;
                 break;
         }            
     }
@@ -3735,19 +3801,19 @@ public class Grid extends Group implements IDataGridElement
             gridLayout.dataProviderCollectionChanged(event);
         
         if (gridSelection)
-            gridSelection.dataProviderCollectionChanged(event);
-            
-        // ToDo:  do we need to do any scrolling to keep either the hover
-        // indicator or the caret indicator visible?
+            gridSelection.dataProviderCollectionChanged(event);            
+        
+        if (gridDimensions && hoverRowIndex != -1)
+            updateHoverForDataProviderChange(event);
+        
+        // The data has changed so need to do this here so the grid dimensions
+        // will be accurate if setting the caret requires scrolling.
+        invalidateSize();
+        invalidateDisplayList();
         
         if (caretRowIndex != -1)
             updateCaretForDataProviderChange(event);
-        
-        if (gridDimensions && hoverRowIndex != -1)
-            updateHoverForDataProviderChange(event);    
 
-        invalidateSize();
-        invalidateDisplayList();
     }
     
     /**
