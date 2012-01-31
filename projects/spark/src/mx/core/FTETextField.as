@@ -2158,9 +2158,19 @@ public class FTETextField extends Sprite
         // x is relative to textLine.x.
         var x:Number = Math.round(textLine.localToGlobal(new Point(0, 0)).x);
         var width:Number = Math.round(textLine.textWidth);
-		var ascent:Number = Math.round(textLine.ascent + textLine.descent)
+		
+		// TextField computes ascent and descent differently than FTE does.
+		// Adding FTE's ascent and descent produces
+		// a reasonable approximation of TextField's ascent.
+		// TextField's ascent, descent, and leading are always rounded.
+		// Rounding FTE's ascent and descent separately, then adding,
+		// produces a "TextField ascent" of 12 + 3 or 15 for Arial 12
+		// (Flex's default font) on Windows, exactly matching a real
+		// TextField's ascent in this most-common case.
+		var ascent:Number = Math.round(textLine.ascent) + Math.round(textLine.descent)
 		var descent:Number = Math.round(textLine.descent);
-		var leading:Number = Number(_defaultTextFormat.leading);
+		var leading:Number = Math.round(Number(_defaultTextFormat.leading));
+		
 		var height:Number = ascent + descent + leading;
 		
 		return new TextLineMetrics(x, width, height, ascent, descent, leading);
@@ -2621,9 +2631,19 @@ public class FTETextField extends Sprite
 		var innerHeight:Number =
 			compositionHeight - PADDING_TOP - PADDING_BOTTOM;
 			
+		// FTE's emBox's top gives the ascent and its bottom gives the descent.
+		// TextField computes ascent and descent differently than FTE does.
+		// Adding FTE's ascent and descent produces
+		// a reasonable approximation of TextField's ascent.
+		// TextField's ascent, descent, and leading are always rounded.
+		// Rounding FTE's ascent and descent separately, then adding,
+		// produces a "TextField ascent" of 12 + 3 or 15 for Arial 12
+		// (Flex's default font) on Windows, exactly matching a real
+		// TextField's ascent in this most-common case.
 		var emBox:Rectangle = elementFormat.getFontMetrics().emBox;
-		var ascent:int = Math.round(emBox.height);
+		var ascent:int = Math.round(-emBox.top) + Math.round(emBox.bottom);
 		var descent:int = Math.round(emBox.bottom);
+		var leading:Number = Math.round(Number(_defaultTextFormat.leading));
 		
 		// Break the text into paragraphs at CR characters.
 		// (Each LF character has already been turned into a CR.)
@@ -2649,7 +2669,7 @@ public class FTETextField extends Sprite
 										 
 			// TextField puts the same leading between paragraphs
 			// as between lines in a paragraph.
-			paragraphY += _defaultTextFormat.leading;
+			paragraphY += leading;
 			
 			i = j + 1;
 		}
@@ -3285,7 +3305,7 @@ class FTETextFieldHostFormat implements ITextLayoutFormat
 	
 	public function get leadingModel():*
 	{
-		return LeadingModel.ASCENT_DESCENT_UP;
+		return LeadingModel.APPROXIMATE_TEXT_FIELD;
 	}
 	
 	public function get ligatureLevel():*
@@ -3302,7 +3322,7 @@ class FTETextFieldHostFormat implements ITextLayoutFormat
 	
 	public function get lineHeight():*
 	{
-		return textField._defaultTextFormat.leading + 2; // FIXME (gosmith)
+		return textField._defaultTextFormat.leading;
 	}
 	
 	public function get lineThrough():*
