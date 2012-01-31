@@ -122,6 +122,18 @@ use namespace mx_internal;
 [Style(name="borderVisible", type="Boolean", inherit="no", theme="spark")]
 
 /**
+ *  Color of the caret indicator when navigating the Grid.
+ *
+ *  @default 0x0167FF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="caretColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
  *  The alpha of the content background for this component.
  *  Valid values are 0.0 to 1.0. 
  * 
@@ -145,6 +157,30 @@ use namespace mx_internal;
 [Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
+ *  @copy spark.components.supportClasses.GroupBase#style:rollOverColor
+ *   
+ *  @default 0xCEDBEF
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="rollOverColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  @copy mx.controls.listClasses.ListBase#style:selectionColor
+ *
+ *  @default 0xA8C6EE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Style(name="selectionColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
+
+/**
  *  The class to use as the skin for the cursor that indicates that a column
  *  can be resized.
  *  The default value is the <code>cursorStretch</code> symbol from the Assets.swf file.
@@ -155,6 +191,18 @@ use namespace mx_internal;
  *  @productversion Flex 4.5
  */
 [Style(name="stretchCursor", type="Class", inherit="no")]
+
+/**
+ *  @copy spark.components.supportClasses.GroupBase#style:symbolColor
+ *   
+ *  @default 0x000000
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 include "../styles/metadata/BasicNonInheritingTextStyles.as"
 include "../styles/metadata/BasicInheritingTextStyles.as"
