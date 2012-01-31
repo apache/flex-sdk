@@ -57,6 +57,16 @@ use namespace mx_internal;
 include "../styles/metadata/BasicInheritingTextStyles.as"
 
 /**
+ *  The alpha of the focus ring for this component.
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
+
+/**
  *  Color of focus ring when the component is in focus.
  *
  *  @default 0x70B2EE
@@ -67,6 +77,18 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
  *  @productversion Flex 4
  */ 
 [Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+
+/**
+ *  Thickness, in pixels, of the focus rectangle outline.
+ *
+ *  @default 2
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
+[Style(name="focusThickness", type="Number", format="Length", inherit="no")]
 
 [DefaultProperty("dataProvider")]
 
