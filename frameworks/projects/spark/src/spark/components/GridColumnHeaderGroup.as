@@ -86,22 +86,15 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
 
     //--------------------------------------------------------------------------
     //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  columns
-    //----------------------------------    
-    
-    /**
-     *  @private
-     */
-    public function set columns(value:IList):void
-    {
-        super.dataProvider = value;        
-        invalidateDisplayList();
-    }
 
     //----------------------------------
     //  firstItemRenderer
@@ -136,28 +129,47 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
             return;
         
         _firstItemRenderer = value;
-        dispatchChangeEvent("firstItemRendererChanged");
         
-        invalidateDisplayList();
+        // Force the itemRenderers to be recreated.
+        super.itemRenderer = super.itemRenderer;
+
+        dispatchChangeEvent("firstItemRendererChanged");
     }
-    
+            
     //----------------------------------
-    //  grid
-    //----------------------------------    
+    //  headerSeparator
+    //----------------------------------
     
-    private var _grid:Grid;
+    [Bindable("headerSeparatorChanged")]
+    
+    private var _headerSeparator:IFactory = null;
+    
+    /**
+     *  A visual element that's displayed in between each column.
+     * 
+     *  @default null
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.5
+     */
+    public function get headerSeparator():IFactory
+    {
+        return _headerSeparator;
+    }
     
     /**
      *  @private
      */
-    public function set grid(value:Grid):void
+    public function set headerSeparator(value:IFactory):void
     {
-        if (_grid == value)
+        if (_headerSeparator == value)
             return;
         
-        _grid = value;        
-        invalidateDisplayList();
-    }
+        _headerSeparator = value;
+        dispatchChangeEvent("columnSeparatorChanged");
+    }    
     
     //----------------------------------
     //  horizontalScrollPosition
@@ -222,7 +234,7 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
         if (value == _labelField)
             return 
             
-            _labelField = value;
+        _labelField = value;
         labelFieldOrFunctionChanged = true;
         invalidateProperties();
     }
@@ -309,9 +321,11 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
             return;
         
         _lastItemRenderer = value;
-        dispatchChangeEvent("lastItemRendererChanged");
         
-        invalidateDisplayList();
+        // Force the itemRenderers to be recreated.
+        super.itemRenderer = super.itemRenderer;
+        
+        dispatchChangeEvent("lastItemRendererChanged");
     }
     
     //--------------------------------------------------------------------------
@@ -387,8 +401,7 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
             return;
         
         _itemRenderer = value;
-        invalidateDisplayList();
-
+        
         dispatchChangeEvent("itemRendererChanged");
     }
             
@@ -422,21 +435,12 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
         {
             dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
             dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
+            horizontalScrollPosition = 0;
         }
 
         super.partRemoved(partName, instance);
     }
-        
-    /**
-     *  @private
-     */
-    override public function invalidateDisplayList():void
-    {
-        super.invalidateDisplayList();
-        if (dataGroup)
-            dataGroup.invalidateDisplayList();
-    }
-    
+            
     /**
      *  @private
      */
@@ -472,34 +476,24 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
             labelFieldOrFunctionChanged = false; 
         }
     }
-
+    
+    /**
+     *  @private
+     */
+    override protected function measure():void
+    {
+        super.measure();        
+        //trace("ColumnHeaderBar.measure", measuredWidth, measuredHeight, "min", measuredMinWidth, measuredMinHeight);        
+    }
+    
     /**
      * @private
-     */
+     */ 
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
     {
+        //trace("CoulmnHeaderBar.updateDisplayList", this.nestLevel, unscaledWidth, unscaledHeight, dataGroup);        
         super.updateDisplayList(unscaledWidth, unscaledHeight);
-
-        // ToDo: where/when should this be done?
-        
-        // Size the renderers to match the column widths.
-        if (dataGroup && _grid)
-        {
-            const indicesInView:Vector.<int> = dataGroup.getItemIndicesInView();
-            for each (var itemIndex:int in indicesInView)
-            {
-                var renderer:IVisualElement = 
-                    dataGroup.getElementAt(itemIndex) as IVisualElement;
-                if (renderer)
-                {
-                    // The width includes the columnGap.
-                    var r:Rectangle = _grid.getCellBounds(0, itemIndex);
-                    if (r)
-                        renderer.width = r.width;
-                }
-            }
-       }     
     }
     
     /**
@@ -521,7 +515,29 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
     {
         return LabelUtil.itemToLabel(item, labelField, labelFunction);
     }
+        
+    //--------------------------------------------------------------------------
+    //
+    //  Private Methods
+    //
+    //--------------------------------------------------------------------------
     
+    /**
+     *  @copy spark.components.DataGroup#getElementAt 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function getElementAt(index:int):IVisualElement
+    {
+        if (!dataGroup)
+            return null;
+        
+        return dataGroup.getElementAt(index);
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Private Methods
@@ -633,17 +649,6 @@ public class ColumnHeaderBar extends SkinnableDataContainer implements IFocusMan
         if (renderer)
         {
             renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
-            
-            // ToDo: should the width of the renderer be set here or somewhere
-            // else?
-            if (_grid)
-            {
-                var r:Rectangle = _grid.getCellBounds(0, renderer.itemIndex);
-                if (r)
-                    renderer.width = r.width;
-                else
-                    invalidateDisplayList();
-            }     
 
             // ToDo: deal with focus issues
             //if (renderer is IFocusManagerComponent)
