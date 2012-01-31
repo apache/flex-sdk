@@ -988,7 +988,7 @@ public class ComboBox extends ComboBase
     [Bindable("change")]
     [Bindable("collectionChange")]
     [Bindable("valueCommit")]
-    [Inspectable(environment="none")]
+    [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  Contains a reference to the selected item in the
