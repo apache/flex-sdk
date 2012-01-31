@@ -89,7 +89,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     public function get length():int
     {
         normalizeMinMax();
-        return (_maximum - _minimum) / stepSize + 1;
+        return (_maximum - _minimum) / Math.abs(stepSize) + 1;
     }
     
     //----------------------------------
@@ -190,7 +190,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
         if (_stepSize == value)
             return;
         
-        if (value <= 0)
+        if (value == 0)
         {
             var message:String = resourceManager.getString(
                 "collections", "stepSizeError");
@@ -253,6 +253,7 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
         var scale:Number = 1;
         var value:Number;
         var scaledStepSize:Number = stepSize;
+        var baseValue:Number = stepSize > 0 ? minimum : maximum;
         
         // If stepSize isn't an integer, there's a possibility that the floating point 
         // approximation of value will be slightly larger or smaller 
@@ -272,9 +273,9 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
         else
         {
             value = index * stepSize;
-        }
-        
-        return Math.min(Math.max(value + minimum, minimum), maximum);
+        }        
+            
+        return Math.min(Math.max(value + baseValue, minimum), maximum);
     }
     
     /**
@@ -285,7 +286,9 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
         // Calculate the index by subtracting the item from the minimum and
         // dividing by the stepSize. Make sure the index is between
         // 0 and length - 1.
-        return Math.max(Math.min((Number(item) - minimum) / stepSize, length - 1), 0);
+        var baseValue:Number = stepSize > 0 ? minimum : maximum;
+        
+        return Math.max(Math.min((Number(item) - baseValue) / stepSize, length - 1), 0);
     }
     
     /**
@@ -357,10 +360,11 @@ public class NumericDataProvider extends OnDemandEventDispatcher implements ILis
     {
         var result:Array = [];
         var numItems:int = length;
+        var baseValue:Number = stepSize > 0 ? minimum : maximum;
         
         // TODO (jszeto) Add in floating point error logic
         for (var i:int = 0; i < numItems; i++)
-            result.push(Math.min(Math.max(minimum + (i * stepSize), minimum), maximum));
+            result.push(Math.min(Math.max(baseValue + (i * stepSize), minimum), maximum));
         return result;
     }
     
