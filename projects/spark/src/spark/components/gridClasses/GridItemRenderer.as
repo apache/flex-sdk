@@ -22,6 +22,7 @@ import mx.events.FlexEvent;
 import mx.events.ToolTipEvent;
 import mx.managers.ISystemManager;
 
+import spark.components.Grid;
 import spark.components.Group;
 import spark.components.supportClasses.TextBase;
 
@@ -245,13 +246,26 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     }
     
     //----------------------------------
-    //  hovered
+    //  grid
     //----------------------------------
     
     /**
-     *  @private
-     *  storage for the hovered property 
-     */    
+     *  Returns the Grid associated with this item renderer (same value as <code>column.grid</code>).
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5 
+     */
+    public function get grid():Grid
+    {
+        return (column) ? column.grid : null;
+    }    
+
+    //----------------------------------
+    //  hovered
+    //----------------------------------
+    
     private var _hovered:Boolean = false;
     
     /**
@@ -519,7 +533,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     /**
      *  Returns the name of the state to be applied to the renderer. For example, a
      *  very basic Grid item renderer would return the String "normal", "hovered", 
-     *  or "selected" to specify the renderer's state.      
+     *  or "selected" to specify the renderer's state. 
      *  If dealing with touch interactions (or mouse interactions where selection
      *  is ignored), "down" and "downAndSelected" are also important states.
      * 
@@ -528,7 +542,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
      * 
      *  <p>In Flex 4.0, the 3 main states were "normal", "hovered", and "selected".
      *  In Flex 4.5, "down" and "downAndSelected" have been added.</p>
-     * 
+     *  
      *  <p>The full set of states supported (in order of precedence) are: 
      *    <ul>
      *      <li>dragging</li>
