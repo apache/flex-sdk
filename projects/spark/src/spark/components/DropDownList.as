@@ -434,12 +434,10 @@ public class DropDownList extends List
 	/**
 	 *  @private
 	 */ 
-	override protected function commitSelectedIndex():Boolean
+	override protected function commitMultipleSelection():void
     {
-    	var result:Boolean = super.commitSelectedIndex();
+    	super.commitMultipleSelection();
        	updateLabelElement();
-   
-    	return result;   	
     }
     
     /**
