@@ -304,8 +304,6 @@ public class GroupBase extends UIComponent implements IViewport
     //  baselinePosition
     //----------------------------------
 
-    [Bindable ("baselinePositionChanged")]
-    
     /**
      *  @inheritDoc
      *  
@@ -328,20 +326,8 @@ public class GroupBase extends UIComponent implements IViewport
         // is vertically centered.
         // At the crossover height, these two calculations
         // produce the same result.
-        
-        var bElement:IVisualElement = baselinePositionElement;
-        
-        if (bElement == null && numElements > 0)
-        {
-            bElement = getElementAt(0);
-        }
-        
-        if (bElement)
-            return bElement.baselinePosition + bElement.y;
-        else
-            return NaN;
-        
-        //return FTETextUtil.calculateFontBaseline(this, height, moduleFactory);
+
+        return FTETextUtil.calculateFontBaseline(this, height, moduleFactory);
     }
 
     //----------------------------------
@@ -410,40 +396,6 @@ public class GroupBase extends UIComponent implements IViewport
     //
     //--------------------------------------------------------------------------
         
-    //----------------------------------
-    //  baselinePositionElement
-    //---------------------------------- 
-    
-    private var _baselinePositionElement:IVisualElement;
-    
-    /**
-     *  The element used to calculate the GroupBase's baselinePosition 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get baselinePositionElement():IVisualElement
-    {
-        return _baselinePositionElement;
-    }
-    
-    /**
-     *  @private 
-     */ 
-    public function set baselinePositionElement(value:IVisualElement):void
-    {
-        if (value === _baselinePositionElement)
-            return;
-        
-        _baselinePositionElement = value;
-        invalidateSize();
-        invalidateDisplayList();
-        // TODO (jszeto) Figure out what to invalidate. We want the parent to remeasure
-    }
-    
-    
     //----------------------------------
     //  layout
     //----------------------------------    
