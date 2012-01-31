@@ -420,7 +420,7 @@ public class DataGroup extends GroupBase
         var len:int = numLayoutElements;
         for (var i:int = 0; i < len; i++)
         {  
-            var myItemRenderer:IVisualElement = mx_internal::getRendererForItemAt(i);
+            var myItemRenderer:IVisualElement = getRendererForItemAt(i);
             var layer:Number = myItemRenderer.layer;
             
             if (layer != 0)
