@@ -15,68 +15,31 @@ package spark.effects.easing
  * is an easing-in portion of the animation followed by an easing-out portion.
  * The default behavior of this class will simply return a linear
  * interpolation for both easing phases; developers should create a subclass
- * of EaseInOut to get more interestion behavior.
+ * of EaseInOutBase to get more interestion behavior.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class EaseInOut implements IEaser
+public class EaseInOutBase implements IEaser
 {
-    /**
-     * A utility constant which, when supplied as the 
-     * <code>easeInFraction</code>, will create an easing instance
-     * that spends the entire animation easing in. This is equivalent
-     * to simply using the <code>easeInFraction = 1</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static const IN:Number = 1;
 
     /**
-     * A utility constant which, when supplied as the 
-     * <code>easeInFraction</code>, will create an easing instance
-     * that spends the entire animation easing out. This is equivalent
-     * to simply using the <code>easeInFraction = 0</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static const OUT:Number = 0;
-
-    /**
-     * A utility constant which, when supplied as the 
-     * <code>easeInFraction</code>, will create an easing instance
-     * that eases in for the first half and eases out for the
-     * remainder. This is equivalent
-     * to simply using the <code>easeInFraction = .5</code>.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static const IN_OUT:Number = .5;
-
-    /**
-     * Constructs an EaseInOut instance with an optional easeInFraction
+     * Constructs an EaseInOutBase instance with an optional easeInFraction
      * parameter.
      * 
      * @param easeInFraction Optional parameter that sets the value of
-     * the <code>easeInFraction</code> property.
+     * the <code>easeInFraction</code> property. The default value is
+     * <code>EasingFraction.IN_OUT</code>, which eases in for the first half
+     * of the time and eases out for the remainder.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function EaseInOut(easeInFraction:Number = EaseInOut.IN_OUT)
+    public function EaseInOutBase(easeInFraction:Number = EasingFraction.IN_OUT)
     {
         this.easeInFraction = easeInFraction;
     }
@@ -153,7 +116,7 @@ public class EaseInOut implements IEaser
      * ease-in part of the curve. The value returned by this class 
      * is simply the fraction itself, which represents a linear 
      * interpolation of the fraction. More interesting behavior is
-     * implemented by subclasses of <code>EaseInOut</code>.
+     * implemented by subclasses of <code>EaseInOutBase</code>.
      * 
      * @param fraction The fraction elapsed of the easing-in portion
      * of the animation.
@@ -175,7 +138,7 @@ public class EaseInOut implements IEaser
      * ease-out part of the curve. The value returned by this class 
      * is simply the fraction itself, which represents a linear 
      * interpolation of the fraction. More interesting behavior is
-     * implemented by subclasses of <code>EaseInOut</code>.
+     * implemented by subclasses of <code>EaseInOutBase</code>.
      * 
      * @param fraction The fraction elapsed of the easing-out portion
      * of the animation.
