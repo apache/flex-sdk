@@ -236,7 +236,7 @@ public class SliderThumbSkin extends Border
 		var borderColor:uint = getStyle("borderColor");
 		var fillAlphas:Array = getStyle("fillAlphas");
 		var fillColors:Array = getStyle("fillColors");
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		var themeColor:uint = getStyle("themeColor");
 		
 		// Derivative styles.
