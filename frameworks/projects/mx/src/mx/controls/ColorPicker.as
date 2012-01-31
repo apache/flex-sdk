@@ -1184,6 +1184,14 @@ public class ColorPicker extends ComboBase
 
             dropdownSwatch.cacheAsBitmap = true;
             dropdownSwatch.scrollRect = new Rectangle(0, 0, 0, 0);
+            
+            PopUpManager.addPopUp(dropdownSwatch, this);
+            
+            UIComponentGlobals.layoutManager.validateClient(dropdownSwatch, true);
+            dropdownSwatch.setActualSize(
+                dropdownSwatch.getExplicitOrMeasuredWidth(),
+                dropdownSwatch.getExplicitOrMeasuredHeight());
+            dropdownSwatch.validateDisplayList();
         }
 
         dropdownSwatch.scaleX = scaleX;
@@ -1201,10 +1209,6 @@ public class ColorPicker extends ComboBase
         if (show == showingDropdown)
             return;
         
-        // Find global position for the dropdown
-        var point:Point = new Point(layoutDirection == "rtl" ? unscaledWidth : 0, 0);
-        point = localToGlobal(point);
-
         // Show or hide the dropdown
         var initY:Number;
         var endY:Number;
@@ -1217,7 +1221,14 @@ public class ColorPicker extends ComboBase
     
         if (show) // Open
         {
-            getDropdown();  
+            getDropdown();
+                        
+            // Find global position for the dropdown
+            var point:Point = new Point(layoutDirection == "rtl" ? 
+                                        dropdownSwatch.getExplicitOrMeasuredWidth() : 0, 
+                                        0);
+            point = localToGlobal(point);
+            
             if (dropdownSwatch.parent == null)
                 PopUpManager.addPopUp(dropdownSwatch, parent, false);
             else
@@ -1263,6 +1274,8 @@ public class ColorPicker extends ComboBase
                 // Dropdown appears to the left instead of right
                 point.x -= (dropdownSwatch.width - width);
             }
+            
+            point.x = Math.max(point.x, 0);
 
             // Position the dropdown
             point = dropdownSwatch.parent.globalToLocal(point);
