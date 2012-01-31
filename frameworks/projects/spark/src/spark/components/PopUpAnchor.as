@@ -613,8 +613,8 @@ public class PopUpAnchor extends UIComponent
             return;
         
         // Position the popUp. 
-        m.tx = popUpPoint.x;
-        m.ty = popUpPoint.y;
+        m.tx = Math.round(popUpPoint.x);
+        m.ty = Math.round(popUpPoint.y);
         if (popUp is UIComponent)
             UIComponent(popUp).setLayoutMatrix(m,false);
         else if (popUp is DisplayObject)
