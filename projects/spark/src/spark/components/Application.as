@@ -56,7 +56,7 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when an error occurs anywhere in the application,
- *  such as an HTTPService, WebService, or RemoteObject fails.
+ *  such as when an HTTPService, WebService, or RemoteObject fails.
  * 
  *  @eventType flash.events.ErrorEvent.ERROR
  */
@@ -121,12 +121,6 @@ use namespace mx_internal;
  *  /&gt;
  *  </pre>
  *
- *  @includeExample examples/SimpleApplicationExample.mxml
- *  
- *  @see mx.managers.CursorManager
- *  @see mx.managers.LayoutManager
- *  @see mx.managers.SystemManager
- *  @see flash.events.EventDispatcher
  */
 public class FxApplication extends FxContainer 
 {
@@ -144,23 +138,26 @@ public class FxApplication extends FxContainer
      *  <p>In general, there can be a hierarchy of Application objects,
      *  because an Application can use a SWFLoader control to dynamically
      *  load another Application.
-     *  The <code>parentApplication</code> property of a UIComponent can be
-     *  used to access the sub-Application in which that UIComponent lives,
+     *  You can use the <code>parentApplication</code> property of a UIComponent object 
+     *  to access the sub-Application in which that UIComponent lives,
      *  and to walk up the hierarchy to the top-level Application.</p>
-     */
-    /*
-     *  Note: here are two reasons that 'application' is typed as Object
-     *  rather than as Application. The first is for consistency with
-     *  the 'parentApplication' property of UIComponent. That property is not
-     *  typed as Application because it would make UIComponent dependent
+     *
+     *  <p>Note: There are two reasons why <code>application</code> is typed as Object
+     *  rather than as Application. 
+     *  The first reason is for consistency with
+     *  the <code>parentApplication</code> property of UIComponent. 
+     *  That property is not typed as Application because it would make 
+     *  the UIComponent class dependent
      *  on Application, slowing down compile times not only for SWCs
-     *  for also for MXML and AS components. Second, if it were typed
-     *  as Application, authors would not be able to access properties
-     *  and methods in the <Script> of their <Application> without
-     *  casting it to their application's subclass, as in
-     *  MyApplication(Application.application).myAppMethod().
-     *  Therefore we decided to dispense with strict typing for
-     *  'application'.
+     *  for also for MXML and AS components. 
+     *  Second, if it were typed as Application, you would not be able to access properties
+     *  and methods in the <code>&lt;Script&gt;</code> block 
+     *  of an <code>&lt;Application&gt;</code> tag without
+     *  casting it to the application's subclass, as the following example shows:</p>
+     * 
+     *  <pre>
+     *  MyApplication(Application.application).myAppMethod(). </pre>
+     *
      */
     public static function get application():Object
     {
@@ -188,7 +185,7 @@ public class FxApplication extends FxContainer
             ApplicationGlobals.application = this;
 
         super();
-		            
+                    
         showInAutomationHierarchy = true;
         // Flex's auto-generated init() override has set the
         // documentDescriptor property for the application object.
@@ -244,28 +241,35 @@ public class FxApplication extends FxContainer
     private var viewSourceCMI:ContextMenuItem;
     
     //----------------------------------
-	//  backgroundColor
-	//----------------------------------
-	
-	[Bindable("backgroundColorUpdated")]
-	
-	/**
-	 *  @copy mx.core.Container#backgroundColor
-	 */
-	public function get backgroundColor():Object /* Color (int or String) */
-	{
-		return getStyle("backgroundColor");
-	}
-	
-	public function set backgroundColor(value:Object /* Color (int or String) */):void
-	{
-		if (value == getStyle("backgroundColor"))
-			return;
-			
-		setStyle("backgroundColor", value);
-		
-		dispatchEvent(new Event("backgroundColorUpdated"));
-	}
+    //  backgroundColor
+    //----------------------------------
+    
+    [Bindable("backgroundColorUpdated")]
+    
+    /**
+     *  Background color of a component. 
+     *  This property specifies the background color while the application loads, 
+     *  and a background gradient while it is running. 
+     *  Flex calculates the gradient pattern between a color slightly darker than 
+     *  the specified color, and a color slightly lighter than the specified color.  
+     */
+    public function get backgroundColor():Object /* Color (int or String) */
+    {
+        return getStyle("backgroundColor");
+    }
+    
+    /**
+     * @private
+     */
+    public function set backgroundColor(value:Object /* Color (int or String) */):void
+    {
+        if (value == getStyle("backgroundColor"))
+            return;
+            
+        setStyle("backgroundColor", value);
+        
+        dispatchEvent(new Event("backgroundColorUpdated"));
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -287,6 +291,7 @@ public class FxApplication extends FxContainer
 
     /**
      *    Specifies the frame rate of the application.
+     * 
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default 24
@@ -301,6 +306,7 @@ public class FxApplication extends FxContainer
      *    Specifies a string that appears in the title bar of the browser.
      *    This property provides the same functionality as the
      *    HTML <code>&lt;title&gt;</code> tag.
+     * 
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default ""
@@ -319,6 +325,7 @@ public class FxApplication extends FxContainer
      *    A SWC component must be in the same directory as the MXML file
      *    or in the WEB-INF/flex/user_classes directory of your Flex
      *    web application.
+     * 
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      */
     public var preloader:Object;
@@ -333,6 +340,7 @@ public class FxApplication extends FxContainer
      *    Specifies the maximum depth of Flash Player or AIR 
      *    call stack before the player stops.
      *    This is essentially the stack overflow limit.
+     * 
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default 1000
@@ -363,6 +371,7 @@ public class FxApplication extends FxContainer
 
     /**
      *    If <code>true</code>, specifies to display the application preloader.
+     * 
      *    <p>Note: This property cannot be set by ActionScript code; it must be set in MXML code.</p>
      *
      *    @default true
@@ -456,13 +465,13 @@ public class FxApplication extends FxContainer
     //
     //--------------------------------------------------------------------------
 
-	// TODO (rfrishbe): remove historyManagementEnabled and resetHistory.
-	// Right now there are a few too many dependencies on these properties
-	// and on Application in general.  
-	// Dependencies are: BrowserManagerImpl.init, HistoryManagerImpl.submitQuery
-	// FlexPrintJob.addObject (3 places).
+    // TODO (rfrishbe): remove historyManagementEnabled and resetHistory.
+    // Right now there are a few too many dependencies on these properties
+    // and on Application in general.  
+    // Dependencies are: BrowserManagerImpl.init, HistoryManagerImpl.submitQuery
+    // FlexPrintJob.addObject (3 places).
 
-	//----------------------------------
+    //----------------------------------
     //  historyManagementEnabled
     //----------------------------------
 
@@ -488,7 +497,7 @@ public class FxApplication extends FxContainer
     mx_internal var _parameters:Object;
 
     /**
-     *  The parameters property returns an Object containing name-value
+     *  An Object containing name-value
      *  pairs representing the parameters provided to this Application.
      *
      *  <p>You can use a for-in loop to extract all the names and values
@@ -781,23 +790,23 @@ public class FxApplication extends FxContainer
      */
     private function initContextMenu():void
     {
-    	// context menu already set
-    	// nothing to init
-    	if (flexContextMenu != null)
-    	{
-    		// make sure we set it back on systemManager b/c it may have been overriden by now
-    		if (systemManager is InteractiveObject)
-        		InteractiveObject(systemManager).contextMenu = contextMenu;
-        	return;
-    	}
-    	
+        // context menu already set
+        // nothing to init
+        if (flexContextMenu != null)
+        {
+            // make sure we set it back on systemManager b/c it may have been overriden by now
+            if (systemManager is InteractiveObject)
+                InteractiveObject(systemManager).contextMenu = contextMenu;
+            return;
+        }
+        
         var defaultMenu:ContextMenu = new ContextMenu();
         defaultMenu.hideBuiltInItems();
         defaultMenu.builtInItems.print = true;
 
         if (_viewSourceURL)
         {
-        	// don't worry! this gets updated in resourcesChanged()
+            // don't worry! this gets updated in resourcesChanged()
             const caption:String = resourceManager.getString("core", "viewSource");
             
             viewSourceCMI = new ContextMenuItem(caption, true);
@@ -809,7 +818,7 @@ public class FxApplication extends FxContainer
         contextMenu = defaultMenu;
         
         if (systemManager is InteractiveObject)
-        	InteractiveObject(systemManager).contextMenu = defaultMenu;
+            InteractiveObject(systemManager).contextMenu = defaultMenu;
     }
 
     //--------------------------------------------------------------------------
