@@ -89,6 +89,11 @@ public class ButtonBarBase extends ListBase
         setCurrentCaretIndex(0);        
     }
     
+    /**
+     *  @private
+     */    
+    private var inCollectionChangeHandler:Boolean = false;
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden Properties
@@ -148,6 +153,37 @@ public class ButtonBarBase extends ListBase
     //
     //--------------------------------------------------------------------------
     
+    /**
+     *  @private
+     *  if the collection is changing and the collection is a viewstack
+     *  the viewstack will also adjust the selection and notify us
+     *  via dataProvider_changeHandler so we want to 
+     *  ignore calls to adjustSelection that the base class
+     *  calls so we don't increment or decrement
+     *  selectedIndex twice
+     */
+    override protected function dataProvider_collectionChangeHandler(event:Event):void
+    {
+        inCollectionChangeHandler = true;
+
+        super.dataProvider_collectionChangeHandler(event);
+
+        inCollectionChangeHandler = false;
+
+    }
+
+    /**
+     *  @private
+     */
+    override protected function adjustSelection(newIndex:int, add:Boolean=false):void
+    {
+        // see comment in dataProvider_collectionChangeHandler
+        if (inCollectionChangeHandler && dataProvider is ISelectableList)
+            return;
+
+        super.adjustSelection(newIndex, add);
+    }
+
     /** 
      *  @private
      *  If false, don't show the focusRing for the tab at caretIndex, see
