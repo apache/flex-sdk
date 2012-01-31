@@ -573,7 +573,8 @@ public class Image extends SkinnableComponent
      */
     public function set source(value:Object):void
     {
-        _invalid = false;
+		if (source != value)
+        	_invalid = false;
         
         if (imageDisplay)
         {
