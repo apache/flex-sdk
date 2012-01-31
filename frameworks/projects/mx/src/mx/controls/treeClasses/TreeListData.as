@@ -26,6 +26,11 @@ import mx.controls.listClasses.ListBase;
  *  or item editor. Changing these values can lead to unexpected results.</p>
  *
  *  @see mx.controls.listClasses.IDropInListItemRenderer
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TreeListData extends BaseListData
 {
@@ -51,6 +56,11 @@ public class TreeListData extends BaseListData
 	 *  @param columnIndex The index of the column in the currently visible columns of the 
      *  control.
 	 *
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function TreeListData(text:String, uid:String,
 								 owner:ListBase, rowIndex:int = 0,
@@ -71,6 +81,11 @@ public class TreeListData extends BaseListData
 
 	/**
 	 *  The level of the item in the tree. The top level is 1.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var depth:int;
 
@@ -80,6 +95,11 @@ public class TreeListData extends BaseListData
 
 	/**
 	 *  A Class representing the disclosure icon for the item in the Tree control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var disclosureIcon:Class;
 
@@ -89,6 +109,11 @@ public class TreeListData extends BaseListData
 
 	/**
 	 *  Contains <code>true</code> if the node has children.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var hasChildren:Boolean; 
 
@@ -98,6 +123,11 @@ public class TreeListData extends BaseListData
 	
 	/**
 	 *  A Class representing the icon for the item in the Tree control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var icon:Class;
 
@@ -107,6 +137,11 @@ public class TreeListData extends BaseListData
 
 	/**
 	 *  The default indentation for this row of the Tree control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var indent:int;
 
@@ -116,6 +151,11 @@ public class TreeListData extends BaseListData
 
 	/**
 	 *  The data for this item in the Tree control.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var item:Object;
 
@@ -125,6 +165,11 @@ public class TreeListData extends BaseListData
 
 	/**
 	 *  Contains <code>true</code> if the node is open.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var open:Boolean; 
 }
