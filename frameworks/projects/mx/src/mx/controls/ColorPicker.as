@@ -1413,19 +1413,23 @@ public class ColorPicker extends ComboBase
     {
         var cpEvent:ColorPickerEvent = null;
         
-        if (event.ctrlKey && event.keyCode == Keyboard.DOWN)
+        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+
+        if (event.ctrlKey && keyCode == Keyboard.DOWN)
         {
             displayDropdown(true, event);
         }
         
-        else if ((event.ctrlKey && event.keyCode == Keyboard.UP) ||
-                 event.keyCode == Keyboard.ESCAPE)
+        else if ((event.ctrlKey && keyCode == Keyboard.UP) ||
+                 keyCode == Keyboard.ESCAPE)
         {
             if (dropdownSwatch && dropdownSwatch.enabled)
                 close(event);
         }
         
-        else if (showingDropdown && event.keyCode == Keyboard.ENTER && dropdownSwatch.enabled)
+        else if (showingDropdown && keyCode == Keyboard.ENTER && dropdownSwatch.enabled)
         {
             if (!dropdownSwatch.isOverGrid && editable)
             {
@@ -1461,54 +1465,54 @@ public class ColorPicker extends ComboBase
         }
         
         else if (showingDropdown &&
-                 (event.keyCode == Keyboard.HOME ||
-                  event.keyCode == Keyboard.END ||
-                  event.keyCode == Keyboard.PAGE_UP ||
-                  event.keyCode == Keyboard.PAGE_DOWN ||
-                  event.keyCode == Keyboard.LEFT ||
-                  event.keyCode == Keyboard.RIGHT ||
-                  event.keyCode == Keyboard.UP ||
-                  event.keyCode == Keyboard.DOWN))
+                 (keyCode == Keyboard.HOME ||
+                  keyCode == Keyboard.END ||
+                  keyCode == Keyboard.PAGE_UP ||
+                  keyCode == Keyboard.PAGE_DOWN ||
+                  keyCode == Keyboard.LEFT ||
+                  keyCode == Keyboard.RIGHT ||
+                  keyCode == Keyboard.UP ||
+                  keyCode == Keyboard.DOWN))
         {
             // Redispatch the event from the SwatchPanel
             // so that its keyDownHandler() can handle it.
             dropdownSwatch.dispatchEvent(event);
         }
         
-        else if (event.keyCode == Keyboard.LEFT)
-        {
-            if (selectedIndex == -1)
+        else if (keyCode == Keyboard.LEFT)
             {
-                selectedIndex = findColorByName(selectedColor);
+                if (selectedIndex == -1)
+                {
+                    selectedIndex = findColorByName(selectedColor);
+                }
+                if (selectedIndex - 1 >= 0)
+                {
+                    selectedIndex--;
+    
+                    cpEvent = new ColorPickerEvent(ColorPickerEvent.CHANGE);
+                    cpEvent.index = selectedIndex;
+                    cpEvent.color = selectedColor;
+                    dispatchEvent(cpEvent);
+                }
             }
-            if (selectedIndex - 1 >= 0)
+            
+        else if (keyCode == Keyboard.RIGHT)
             {
-                selectedIndex--;
-
-                cpEvent = new ColorPickerEvent(ColorPickerEvent.CHANGE);
-                cpEvent.index = selectedIndex;
-                cpEvent.color = selectedColor;
-                dispatchEvent(cpEvent);
+                if (selectedIndex == -1)
+                {
+                    selectedIndex = findColorByName(selectedColor);
+                }
+                if (selectedIndex + 1 < dataProvider.length)
+                {
+                    selectedIndex++;
+    
+                    cpEvent = new ColorPickerEvent(ColorPickerEvent.CHANGE);
+                    cpEvent.index = selectedIndex;
+                    cpEvent.color = selectedColor;
+                    dispatchEvent(cpEvent);
+                }
             }
         }
-        
-        else if (event.keyCode == Keyboard.RIGHT)
-        {
-            if (selectedIndex == -1)
-            {
-                selectedIndex = findColorByName(selectedColor);
-            }
-            if (selectedIndex + 1 < dataProvider.length)
-            {
-                selectedIndex++;
-
-                cpEvent = new ColorPickerEvent(ColorPickerEvent.CHANGE);
-                cpEvent.index = selectedIndex;
-                cpEvent.color = selectedColor;
-                dispatchEvent(cpEvent);
-            }
-        }
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -1622,4 +1626,4 @@ public class ColorPicker extends ComboBase
     }
 }
 
-}
+} 
