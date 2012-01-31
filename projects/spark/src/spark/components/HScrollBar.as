@@ -19,6 +19,8 @@ import mx.layout.LayoutItemFactory;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
+[IconFile("FxHScrollBar.png")]
+
 /**
  *  The FxHScrollBar (horizontal ScrollBar) control lets you control
  *  the portion of data that is displayed when there is too much data
