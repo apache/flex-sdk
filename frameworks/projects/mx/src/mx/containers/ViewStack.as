@@ -1147,8 +1147,10 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
 
     /**
      *  Commits the selected index. This function is called during the commit 
-     *  properties phase when the selectedIndex (or selectedItem) property
-     *  has changed.
+     *  properties phase when the <code>selectedIndex</code> or 
+     *  <code>selectedItem</code> property changes.
+     *
+     *  @param newIndex The selected index.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -1407,7 +1409,7 @@ public class ViewStack extends Container implements IHistoryManagerClient, ISele
             if (currentSelectedIndex == 0)
             {
                 _selectedIndex = -1;
-				dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+                dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
             }
             else
             {
