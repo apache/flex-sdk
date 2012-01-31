@@ -1643,6 +1643,10 @@ public class List extends ListBase implements IFocusManagerComponent
      *  display the visuals of the drop location during a drag and drop
      *  operation. The instance is set in the layout's 
      *  <code>dropIndicator</code> property.
+     *
+     *  <p>If you override the <code>dragEnter</code> event handler, 
+     *  and call <code>preventDefault()</code> so that the default handler does not execute, 
+     *  call <code>createDropIndicator()</code> to create the drop indicator.</p>
      * 
      *  @return Returns the dropIndicator that was set in the layout.
      *
@@ -1680,6 +1684,10 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  Releases the <code>dropIndicator</code> instance that is currently set in the layout.
+     *
+     *  <p>If you override the <code>dragExit</code> event handler, 
+     *  and call <code>preventDefault()</code> so that the default handler does not execute, 
+     *  call <code>destroyDropIndicator()</code> to delete the drop indicator.</p>
      *
      *  @return Returns the dropIndicator that was removed. 
      * 
