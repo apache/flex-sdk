@@ -72,6 +72,7 @@ import mx.core.Singleton;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.managers.IFocusManagerComponent;
 import mx.managers.ISystemManager;
 import mx.resources.ResourceManager;
 import mx.utils.ObjectUtil;
@@ -222,7 +223,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 public class RichEditableText extends UIComponent
-    implements IViewport, IIMESupport
+    implements IViewport, IFocusManagerComponent, IIMESupport
 {
     include "../core/Version.as";
         
@@ -295,14 +296,6 @@ public class RichEditableText extends UIComponent
      */
     private static var staticTextFormat:TextFormat;
         
-    /**
-     *  @private
-     *  Used for debugging.
-     *  Set this to true to get trace output
-     *  showing what TextContainerManager APIs are being called.
-     */
-    mx_internal static var debug:Boolean = false;
-    
     //--------------------------------------------------------------------------
     //
     //  Class properties
@@ -959,6 +952,17 @@ public class RichEditableText extends UIComponent
      */
     private function get editingMode():String
     {
+        // Note: this could be called before all properties are committed.
+
+        if (enabledChanged || editableChanged || selectableChanged)
+        {
+            updateEditingMode();
+
+            enabledChanged = false;
+            editableChanged = false;
+            selectableChanged = false;
+        }
+           
         return _textContainerManager.editingMode;
     }
     
@@ -967,9 +971,6 @@ public class RichEditableText extends UIComponent
      */
     private function set editingMode(value:String):void
     {
-        if (debug)
-            trace("editingMode = ", value);
-
         _textContainerManager.editingMode = value;
     }
 
@@ -1481,15 +1482,29 @@ public class RichEditableText extends UIComponent
      */
     public function get textFlow():TextFlow
     {
+        // Note: this could be called before all properties are committed.
+        
         // We might not have a valid _textFlow for two reasons:
         // either because the 'text' was set (which is the state
         // after construction) or because the 'content' was set.
         if (!_textFlow)
         {
             if (_content != null)
+            {
                 _textFlow = createTextFlowFromContent(_content);
+                _content = null;
+            }
             else
+            {
                 _textFlow = staticPlainTextImporter.importToFlow(_text);
+            }
+        }
+        
+        // Make sure the interactionManager is added to this textFlow.           
+        if (textChanged || contentChanged || textFlowChanged)
+        {
+            _textContainerManager.setTextFlow(_textFlow);
+            textChanged = contentChanged = textFlowChanged = false;
         }
         
         // If not read-only, make sure the textFlow has a composer in
@@ -1588,7 +1603,7 @@ public class RichEditableText extends UIComponent
     
     //--------------------------------------------------------------------------
     //
-    //  Methods: UIComponent
+    //  Overridden Methods: UIComponent
     //
     //--------------------------------------------------------------------------
 
@@ -1643,6 +1658,64 @@ public class RichEditableText extends UIComponent
     /**
      *  @private
      */
+    override public function setFocus():void
+    {
+        // We are about to set focus on this component.  If it is due to
+        // a programmatic focus change we have to programatically do what the
+        // mouseOverHandler and the mouseDownHandler do so that the user can 
+        // type in this component without using the mouse first.
+        // 
+        //   1) TCM addActivationEventListeners() called so that event handlers 
+        //      are in place to catch the upcoming FocusEvent.FOCUS_IN which
+        //      will cause our focusInHandler to be called.
+        //   2) Make sure there is a textFlow with an interactionManager
+        //      in place so that selection/editing can occur.  Our focusIn
+        //      handler does this indirectly for the editable case since
+        //      to set a selection, there must be a textFlow in this state.
+        //
+        // We can't call addActivationEventListeners() directly but it is
+        // called by TCM.setTextFlow() which is called by the textFlow getter.  
+        // The textFlow getter also makes sure there is an interactionManager 
+        // in place.
+        //
+        // Alternatively, we could call convertToTextFlowWithComposer() if it
+        // was made accessible.  This eliminates the need for 
+        // addActivationEventListeners(), since the text flow with a composer
+        // is put in place immediately.
+         
+        if (editingMode != EditingMode.READ_ONLY)
+        {                
+            if (_textContainerManager.handlersState == 
+                TextContainerManager.HANDLERS_NOTADDED ||
+                _textContainerManager.composeState != 
+                TextContainerManager.COMPOSE_COMPOSER)   
+            {
+                textFlow;
+            }
+        }
+                    
+        super.setFocus();
+     }
+          
+    /**
+     *  @private
+     */
+    override public function drawFocus(isFocused:Boolean):void
+    {
+        if (isFocused)
+        {
+            // For some composite components, the focused object may not
+            // be "this". If so, we don't want to draw the focus.
+            if (focusManager.getFocus() != this)
+                return;
+        }
+        
+        super.drawFocus(isFocused);
+    }
+    
+    /**
+     *  @private
+     */
     override protected function commitProperties():void
     {
         super.commitProperties();
@@ -1659,8 +1732,6 @@ public class RichEditableText extends UIComponent
             _textContainerManager.textLineCreator = 
                 ITextLineCreator(embeddedFontContext);                       
 
-            if (debug)
-                trace("hostFormat=");
             _textContainerManager.hostFormat =
             hostFormat = new CSSTextLayoutFormat(this);
             // Note: CSSTextLayoutFormat has special processing
@@ -1672,8 +1743,6 @@ public class RichEditableText extends UIComponent
         
         if (selectionFormatsChanged)
         {
-            if (debug)
-                trace("invalidateInteractionManager()");
             _textContainerManager.invalidateSelectionFormats();
             
             selectionFormatsChanged = false;
@@ -1742,11 +1811,17 @@ public class RichEditableText extends UIComponent
         if (textChanged || textFlowChanged || contentChanged)
         {
             // If the text, textFlow or content changed, there is no selection.
-            // If we already have focus, set the selection, since we've 
-            // already  executed our focusIn handler where this is normally 
-            // done.
-            if (getFocus() == this)
-                setSelectionBasedOnScrolling();  
+            // If we already have focus, set the selection to 0,0 so there is
+            // an insertion point.  Since the text was changed programatically
+            // the caller should set the selection to the desired position.
+            if (getFocus() == this && editingMode != EditingMode.READ_ONLY)
+            {
+                var selectionManager:ISelectionManager = getSelectionManager();
+                selectionManager.selectRange(0, 0);        
+                if (!selectionManager.focused)
+                    selectionManager.focusInHandler(null);
+                releaseSelectionManager();            
+            }
                 
             // Handle the case where the initial text, textFlow or content 
             // is displayed as a password.
@@ -1784,13 +1859,16 @@ public class RichEditableText extends UIComponent
                 _textContainerManager.setText(_text);
             }
             
-            // Must preserve the selection, if there was one.
-            var selectionManager:ISelectionManager = getSelectionManager();
-            
-            // The visible selection will be refreshed during the update.
-            selectionManager.selectRange(oldAnchorPosition, oldActivePosition);        
-                                 
-            releaseSelectionManager();            
+            if (editingMode != EditingMode.READ_ONLY)
+            {
+                // Must preserve the selection, if there was one.
+                selectionManager = getSelectionManager();
+                
+                // The visible selection will be refreshed during the update.
+                selectionManager.selectRange(oldAnchorPosition, oldActivePosition);        
+                                     
+                releaseSelectionManager(); 
+            }           
             
             displayAsPasswordChanged = false;
         }
@@ -1996,12 +2074,8 @@ public class RichEditableText extends UIComponent
         // to be remeasured.  If one of the dimension changes, the text may
         // compose differently and have a different size which the layout 
         // manager needs to know.
-        if (autoSize)
-        {
-            autoSize = remeasureText(unscaledWidth, unscaledHeight)
-            if (autoSize)
-                return;
-        }
+        if (autoSize && remeasureText(unscaledWidth, unscaledHeight))
+            return;
 
         super.updateDisplayList(unscaledWidth, unscaledHeight);
 
@@ -2020,9 +2094,6 @@ public class RichEditableText extends UIComponent
             _textContainerManager.compositionWidth = unscaledWidth;
             _textContainerManager.compositionHeight = unscaledHeight;
         }
-            
-        if (debug)
-            trace("updateContainer()");
             
         _textContainerManager.updateContainer();
     }
@@ -2370,47 +2441,6 @@ public class RichEditableText extends UIComponent
         _textContainerManager.endInteraction();
 
         editingMode = priorEditingMode;
-    }
-
-    /**
-     *  @private
-     *  When this is called the component has focus.
-     */
-    private function setSelectionBasedOnScrolling(always:Boolean=true):void
-    {
-        // No selection if read-only.
-        if (editingMode == EditingMode.READ_ONLY)
-            return;
-            
-        var selectionManager:ISelectionManager = getSelectionManager();        
-
-        // Only set the selection if there isn't already one.
-        if (!always && selectionManager.hasSelection())
-        {
-            releaseSelectionManager();
-            return;
-        }            
-
-        // If scrolling, the selection/insertion point is at the begining.
-        // Othewise, it is at the end.
-        var position:int = _clipAndEnableScrolling ? 0 : int.MAX_VALUE;                
-
-        selectionManager.selectRange(position, position); 
-        
-        // This should not be necessary but it is if the text is changed after
-        // the component already has focus.  Need the selectionFormatState
-        // to be SelectionFormatState.FOCUSED rather than the initial
-        // SelectionFormatState.UNFOCUSED and need _isActive to be true
-        // so that on focusOut the selectionFormatState will correctly 
-        // transition to SelectionFormatState.UNFOCUSED.
-        if (!selectionManager.focused)
-            selectionManager.focusInHandler(null);
-                                    
-        // Refresh the selection.  This does not cause a damage event.
-        selectionManager.refreshSelection();
-        
-        releaseSelectionManager();
-        
     }
         
     /**
@@ -3143,10 +3173,20 @@ public class RichEditableText extends UIComponent
             
         if (editingMode == EditingMode.READ_WRITE)
         {
-            // If no selection, give it one so that the underlying selection
-            // manager is put in place if it isn't already there and editing
-            // will work without doing a mouse click or mouse hover first.           
-            setSelectionBasedOnScrolling(false);
+            var selectionManager:ISelectionManager = getSelectionManager();        
+    
+            if (!selectionManager.hasSelection())
+            {
+                if (multiline)
+                    selectionManager.selectRange(0, 0); 
+                else
+                    selectionManager.selectRange(0, int.MAX_VALUE);
+            }             
+                     
+            // Refresh the selection.  This does not cause a damage event.
+            selectionManager.refreshSelection();
+            
+            releaseSelectionManager();       
 
             if (_imeMode != null)
             {
@@ -3176,7 +3216,6 @@ public class RichEditableText extends UIComponent
         
         if (focusManager && multiline)
             focusManager.defaultButtonEnabled = false;
-
     }
 
     /**
