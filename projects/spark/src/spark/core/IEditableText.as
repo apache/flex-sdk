@@ -25,6 +25,17 @@ import flash.accessibility.AccessibilityProperties;
 public interface IEditableText extends IDisplayText
 { 
     /**
+     *  @copy flash.display.DisplayObject#accessibilityProperties
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get accessibilityProperties():AccessibilityProperties;
+    function set accessibilityProperties(value:AccessibilityProperties):void;
+
+    /**
      *  @copy flash.text.TextField#displayAsPassword
      *  
      *  @langversion 3.0
@@ -49,6 +60,53 @@ public interface IEditableText extends IDisplayText
     function set editable(value:Boolean):void;
     
     /**
+     *  @copy mx.core.UIComponent#enabled
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get enabled():Boolean;
+    function set enabled(value:Boolean):void;
+    
+    /**
+     *  @copy mx.core.UIComponent#focusEnabled
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get focusEnabled():Boolean;
+    function set focusEnabled(value:Boolean):void;
+    
+    /**
+     *  The horizontal scroll position of the text.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get horizontalScrollPosition():Number;
+    function set horizontalScrollPosition(value:Number):void;
+    
+    /**
+     *  Controls word wrapping within the text. This property corresponds
+     *  to the lineBreak style.
+     * 
+     *  @see flashx.textLayout.formats.ITextLayoutFormat#lineBreak 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get lineBreak():String;
+    function set lineBreak(value:String):void;
+    
+    /**
      *  @copy flash.text.TextField#maxChars
      *  
      *  @langversion 3.0
@@ -58,6 +116,17 @@ public interface IEditableText extends IDisplayText
      */
     function get maxChars():int;
     function set maxChars(value:int):void;
+    
+    /**
+     *  @copy flash.text.TextField#multiline
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get multiline():Boolean;
+    function set multiline(value:Boolean):void;
     
     /**
      *  @copy flash.text.TextField#restrict
@@ -82,15 +151,28 @@ public interface IEditableText extends IDisplayText
     function set selectable(value:Boolean):void;
     
     /**
-     *  @copy flash.display.DisplayObject#accessibilityProperties
+     *  The active, or last clicked position, of the selection.
+     *  If the implementation does not support selection anchor
+     *  this is the last character of the selection.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    function get accessibilityProperties():AccessibilityProperties;
-    function set accessibilityProperties(value:AccessibilityProperties):void;
+    function get selectionActivePosition():int;
+    
+    /**
+     *  The anchor, or first clicked position, of the selection.
+     *  If the implementation does not support selection anchor
+     *  this is the first character of the selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    function get selectionAnchorPosition():int;
 
     /**
      *  @copy flash.display.InteractiveObject#tabIndex
@@ -104,72 +186,15 @@ public interface IEditableText extends IDisplayText
     function set tabIndex(value:int):void;
     
     /**
-     *  @copy mx.core.UIComponent#focusEnabled
+     *  The vertical scroll position of the text.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */
-    function get focusEnabled():Boolean;
-    function set focusEnabled(value:Boolean):void;
-    
-    /**
-     *  @copy flash.text.TextField#multiline
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    function get multiline():Boolean;
-    function set multiline(value:Boolean):void;
-    
-    /**
-     *  @copy mx.core.UIComponent#enabled
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    function get enabled():Boolean;
-    function set enabled(value:Boolean):void;
-    
-    /**
-     *  The horizontal scroll position of the text.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    function get horizontalScrollPosition():Number;
-    function set horizontalScrollPosition(value:Number):void;
-    
-    /**
-     *  The anchor, or first clicked position, of the selection.
-     *  If the implementation does not support selection anchor
-     *  this is the first character of the selection.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    function get selectionAnchorPosition():int;
-    
-    /**
-     *  The active, or last clicked position, of the selection.
-     *  If the implementation does not support selection anchor
-     *  this is the last character of the selection.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.0
-     *  @productversion Flex 4.5
-     */
-    function get selectionActivePosition():int;
+    function get verticalScrollPosition():Number;
+    function set verticalScrollPosition(value:Number):void;
           
     /**
      *  Scroll so the specified range is in view.
@@ -249,18 +274,14 @@ public interface IEditableText extends IDisplayText
      */ 
     function selectAll():void;
     
-    // TODO: Add verticalScrollPosition
-    
-    // TODO: These properties and methods are not finalized yet. They may end up being removed.
-    function get heightInLines():Number;
-    function set heightInLines(value:Number):void;
-    
-    
-    function get widthInChars():Number;
-    function set widthInChars(value:Number):void;
-    
+    /**
+     *  Set focus to this text field.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10.1
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */ 
     function setFocus():void;
-
-    function setStyle(styleProp:String, value:*):void; // Only used for setStyle("lineBreak", "explicit")
 }
 }
