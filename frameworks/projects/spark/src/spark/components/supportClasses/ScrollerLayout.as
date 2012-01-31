@@ -166,7 +166,7 @@ public class ScrollerLayout extends LayoutBase
     private function set hsbVisible(value:Boolean):void
     {
         var hsb:ScrollBarBase = getScroller().horizontalScrollBar;
-        if (!hsb)
+        if (!hsb || hsb.visible == value)
             return;
 
         hsb.includeInLayout = hsb.visible = value;
@@ -185,6 +185,9 @@ public class ScrollerLayout extends LayoutBase
                 hsbScaleY = hsb.scaleY;
             hsb.scaleX = hsb.scaleY = 0;            
         }
+        
+        // TODO (rfrishbe) (or hmuller): perhaps rather than setting scale to 0,
+        // we should be adding/removing it from the display list
     }
 
     /**
@@ -250,7 +253,7 @@ public class ScrollerLayout extends LayoutBase
     private function set vsbVisible(value:Boolean):void
     {
         var vsb:ScrollBarBase = getScroller().verticalScrollBar;
-        if (!vsb)
+        if (!vsb || vsb.visible == value)
             return;
         
         vsb.includeInLayout = vsb.visible = value;
