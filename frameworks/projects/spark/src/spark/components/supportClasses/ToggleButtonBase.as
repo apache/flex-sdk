@@ -170,7 +170,7 @@ public class ToggleButtonBase extends ButtonBase
      */ 
     protected override function getCurrentSkinState():String
     {
-        if( !selected )
+        if (!selected)
             return super.getCurrentSkinState();
         else
             return super.getCurrentSkinState() + "AndSelected";
