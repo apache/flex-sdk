@@ -53,6 +53,30 @@ import spark.components.Button;
 [SkinState("disabled")]
 
 /**
+ *  Duration in milliseconds for a sliding animation
+ *  when you click on the track to move a thumb. This style is
+ *  used for both Sliders and Scrollbars. For Sliders, any click
+ *  on the track will cause an animation using this style, as the thumb
+ *  will move to the clicked position. For ScrollBars, this style is
+ *  used only when shift-clicking on the track, which causes the thumb
+ *  to move to the clicked position. Clicking on a ScrollBar track when
+ *  the shift key is not pressed will result in paging behavior instead.
+ *  The <code>smoothScrolling</code> style must also be set on the
+ *  ScrollBar to get animated behavior when shift-clicking.
+ *  
+ * <p>This time is for an animation that covers the entire distance of the 
+ * track; smaller distances will use a proportionally smaller duration.</p>
+ *
+ *  @default 300
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="slideDuration", type="Number", format="Time", inherit="no")]
+
+/**
  *  The TrackBase class is a base class for components with a track
  *  and one or more thumb buttons, such as Slider and ScrollBar. It
  *  declares two required skin parts: <code>thumb</code> and
@@ -346,6 +370,19 @@ public class TrackBase extends Range
     // Methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function step(increase:Boolean = true):void
+    {
+        var prevValue:Number = this.value;
+        
+        super.step(increase);
+        
+        if (value != prevValue)
+            dispatchEvent(new Event("change"));
+    }
 
     /**
      *  @private
