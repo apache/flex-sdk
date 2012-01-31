@@ -13,8 +13,31 @@ package spark.components.gridClasses
 {
 
 /**
- *  The GridSelectionMode class defines the legal constant values for the DataGrid 
- *  <code>selectionMode</code> property.
+ *  The GridSelectionMode class defines the valid constant values for the 
+ *  <code>selectionMode</code> property of the Spark DataGrid and Grid controls.
+ *  
+ *  <p>Use the constants in ActionsScript, as the following example shows: </p>
+ *  <pre>
+ *    myDG.selectionMode = GridSelectionMode.MULTIPLE_CELLS;
+ *  </pre>
+ *
+ *  <p>In MXML, use the String value of the constants, 
+ *  as the following example shows:</p>
+ *  <pre>
+ *    &lt;s:DataGrid id="myGrid" width="350" height="150"
+ *        selectionMode="multipleCells"&gt; 
+ *        ...
+ *    &lt;/s:DataGrid&gt; 
+ *  </pre>
+ * 
+ *  @see spark.components.DataGrid#selectionMode
+ *  @see spark.components.Grid#selectionMode
+ *  @see spark.components.gridClasses.GridSelection
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public final class GridSelectionMode
 {
@@ -24,7 +47,7 @@ public final class GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public function GridSelectionMode()
@@ -39,11 +62,11 @@ public final class GridSelectionMode
     //--------------------------------------------------------------------------
     
     /**
-     *  Specifies that there is no selection allowed.
+     *  Specifies that no selection is allowed.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const NONE:String = "none";
@@ -53,7 +76,7 @@ public final class GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SINGLE_ROW:String = "singleRow";
@@ -63,7 +86,7 @@ public final class GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const MULTIPLE_ROWS:String = "multipleRows";
@@ -73,7 +96,7 @@ public final class GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const SINGLE_CELL:String = "singleCell";
@@ -83,7 +106,7 @@ public final class GridSelectionMode
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.0
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
     public static const MULTIPLE_CELLS:String = "multipleCells";
