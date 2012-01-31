@@ -218,6 +218,11 @@ public class NetConnectionChannel extends PollingChannel
             _nc.close();
         }
 
+        // Propagate our requestTimeout for those platforms
+        // supporting the httpIdleTimeout property on NetConnection.
+        if ("httpIdleTimeout" in _nc && requestTimeout > 0)
+            _nc["httpIdleTimeout"] = requestTimeout * 1000;
+        
         _nc.addEventListener(NetStatusEvent.NET_STATUS, statusHandler);
         _nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
         _nc.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
