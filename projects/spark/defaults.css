@@ -98,6 +98,7 @@ Image
 {
     skinClass: ClassReference("spark.skins.spark.ImageSkin");
     enableLoadingState: false;
+    showErrorSkin : false;
     smoothingQuality: "default";
 }
 
