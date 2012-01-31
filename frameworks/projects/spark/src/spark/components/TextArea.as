@@ -16,7 +16,9 @@ import flash.events.Event;
 
 import mx.components.baseClasses.FxScrollBar;
 import mx.components.baseClasses.FxTextBase;
+import mx.core.mx_internal;
 import mx.core.ScrollPolicy;
+import mx.events.TextOperationEvent;
 
 //--------------------------------------
 //  Other metadata
@@ -431,6 +433,32 @@ public class FxTextArea extends FxTextBase
 
         textView.setAttributes(attributes);
     }
+
+	//--------------------------------------------------------------------------
+    //
+    //  Overridden event handlers: FxTextBase
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function textView_changeHandler(
+                                        event:TextOperationEvent):void
+	{
+		// Note: We don't call the superhandler here
+        // because it immediately fetches textView.text
+        // to extract the text from the TextFlow.
+        // That's too expensive for an FxTextArea,
+        // which might have a lot of leaf nodes.
+        
+        // Update our storage variable for the content.
+		_content = textView.content;
+        textInvalid = true;
+
+		// Redispatch the event that came from the TextView.
+		dispatchEvent(event);
+	}
 
 	//--------------------------------------------------------------------------
     //
