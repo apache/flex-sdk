@@ -66,8 +66,6 @@ public class DataGroup extends GroupBase
     private static const LAYERING_ENABLED:uint =    0x1;
     private static const LAYERING_DIRTY:uint =      0x2;
     
-    private var itemRendererRegistry:Array = [];
-    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -199,12 +197,12 @@ public class DataGroup extends GroupBase
     [Inspectable(category="Data")]
 
     /**
-     *  Function that returns an item renderer for a specific item.
-     *  The signature of the function is:
+     *  Function that returns an item renderer IFactory for a 
+     *  specific item.  The signature of the function is:
      *  
      *  <pre>
      *    function itemRendererFunction(item:Object):IFactory</pre>
-     *
+     * 
      *  @default null
      */
     public function get itemRendererFunction():Function
@@ -347,60 +345,6 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Called to associate an item with a particular renderer.
-     *  This is called automatically when an item renderer is created.
-     *
-     *  @param index The item index to associate the renderer with
-     *  @param myItemRenderer The item renderer
-     */    
-    private function registerRenderer(index:int, myItemRenderer:IVisualElement):void
-    {        
-        itemRendererRegistry.splice(index, 0, myItemRenderer);
-    }
-    
-    /**
-     *  Called to dis-associate an item with a particular rendering display object.
-     *  This will be called when virtualization support is added to datagroup.
-     *
-     *  @param index The item index to dis-associate the renderer with
-     *  @param myItemRenderer The item renderer
-     */
-    private function unregisterRenderer(index:int, myItemRenderer:IVisualElement):void
-    {
-        itemRendererRegistry.splice(index, 1);
-    }
-    
-    /**
-     *  Returns the instance of the renderer at the specified index. If the item 
-     *  at that index is a visual element and uses no renderer, then the visual  
-     *  element will be returned.
-     *
-     *  @param index The item index whose renderer is to be returned.
-     *
-     *  @return The renderer instance for the specified item. If the item
-     *          is a visual element and has no item renderer, 
-     *          the visual element itself is returned.
-     */
-    mx_internal function getRendererForItemAt(index:int):IVisualElement
-    {
-        return itemRendererRegistry[index];
-    }
-    
-    /**
-     *  Returns the item index associated with the specified renderer.
-     *
-     *  @param renderer The renderer whose item you want to retrieve.
-     *
-     *  @return The item index associated with the specified renderer, 
-     *          or -1 if there is no item associated with the passed in 
-     *          renderer.
-     */
-    mx_internal function getItemIndexForRenderer(renderer:IVisualElement):int
-    {
-        return itemRendererRegistry.indexOf(renderer);
-    }
-    
-    /**
      *  @private
      */
     override protected function commitProperties():void
@@ -443,11 +387,11 @@ public class DataGroup extends GroupBase
 		_layeringFlags &= ~LAYERING_DIRTY;
 		
         // Iterate through all of the items
-        var len:int = itemRendererRegistry.length; 
+        var len:int = super.numChildren; 
         
         for (var i:int = 0; i < len; i++)
         {  
-            var myItemRenderer:IVisualElement = itemRendererRegistry[i];
+            var myItemRenderer:IVisualElement = IVisualElement(super.getChildAt(i));
             
             var layer:Number = myItemRenderer.layer;
             
@@ -522,7 +466,8 @@ public class DataGroup extends GroupBase
 
     private var virtualLayoutOffset:int = 0;
     private var virtualLayoutUnderway:Boolean = false;
-    private var virtualItemRenderers:Dictionary = new Dictionary(true);
+    private var renderersInView:Dictionary = new Dictionary(true); 
+    private var freeRenderers:Array = new Array();
          
     /**
      *  @private
@@ -538,23 +483,49 @@ public class DataGroup extends GroupBase
      *  @private
      *  Discard the ItemRenderers that aren't needed anymore, i.e. the ones
      *  outside the logical range startIndex to endIndex.
+     *  
+     *  IRs can be recycled if they're IDataRenderers and they're
+     *  not equal to the item they represent, i.e. if 
+     *  renderersInView[item] != item.   More about item recycling
+     *  in the getLayoutElementAt() doc.
      * 
      *  Clear the virtualLayoutUnderway flag.
      */
     override public function endVirtualLayout(startIndex:int, endIndex:int):void
     {
         // At this point, insertion of new IRs has pushed all of the unneeded IRs
-        // past endIndex-startIndex.  Remove them without invalidating this DataGroup's
-        // size or display list.
+        // past endIndex-startIndex.  Remove or recycle them without invalidating 
+        // this DataGroup's size or display list.
         for(var i:int = super.numChildren - 1; i > (endIndex - startIndex); i--)
         {
-            // TODO: dispatch event for this...
-            var itemRenderer:IVisualElement = IVisualElement(super.getChildAt(i));
-            //trace("DataGroup::endVirtualLayout() removing " + IDataRenderer(itemRenderer).data);
-            super.removeChildAt(i);
-            var item:Object = (itemRenderer is IDataRenderer) ? IDataRenderer(itemRenderer).data : itemRenderer;
-            delete virtualItemRenderers[item];
-        }        
+            var elt:IVisualElement = IVisualElement(super.getChildAt(i));
+            
+            // Skip IRs that are already on the free list, 
+            if (freeRenderers && (freeRenderers.indexOf(elt) != -1))
+                continue;
+
+            // Remove previously "in view" IRs from the item=>IR table
+            var item:Object = elt;
+            if ((renderersInView[item] != item) && (elt is IDataRenderer))
+            {
+                item = IDataRenderer(elt).data;
+                IDataRenderer(elt).data = null;  // reduce probability of leaks
+            }
+            delete renderersInView[item];
+              
+            // Free or remove the IR
+            if ((item != elt) && (elt is IDataRenderer))
+            {
+                elt.visible = false;
+                freeRenderers.push(elt);
+            }
+            else
+            {
+                dispatchEvent(new ItemExistenceChangedEvent(ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item, -1, elt));
+                super.removeChild(DisplayObject(elt));
+            }
+        }
+        virtualLayoutUnderway = false;        
     }
     
     /**
@@ -568,42 +539,75 @@ public class DataGroup extends GroupBase
     
     /**
      *  @private
+     * 
+     * - Recycling - 
+     * 
+     *  Currently, item renderers ("IRs") can only be recycled if they're all
+     *  of the same type, they implement IDataRenderer, and they're all
+     *  produced - by the itemRenderer factory - with the same initial
+     *  configuration.  We can't ever really guarantee this however the case
+     *  for which we're assuming that it's true is when just the itemRenderer
+     *  is specified.  Even in this case, for recycling to work the
+     *  itemRenderer (factory) must be essentially stateless, the IRs
+     *  appearance must be based exclusively on its data.  For this reason
+     *  we're also defeating recycling of IRs that don't implement
+     *  IDataRenderer, see endVirtualLayout().  Although one could recycle
+     *  these IRs, doing so would imply that either all of the IRs were
+     *  the same, or that some did implement IDataRenderer and others
+     *  did not.   We can't handle the latter, and a DataGroup where
+     *  all items are the same wouldn't be worth the trouble.
      */
     override public function getLayoutElementAt(index:int):ILayoutElement
     {
-        var itemRenderer:IVisualElement;
+        var elt:IVisualElement;   // an ItemRenderer or the dataProvider item itself
         
         if (layout && layout.virtualLayout)
         {
-            // Note: the code below does most of the same work as itemAdded()
             var item:Object = dataProvider.getItemAt(index);
-            var itemRendererIndex:int = index - virtualLayoutOffset;
             var createdIR:Boolean = false;
-            
-            itemRenderer = virtualItemRenderers[item];
-            if (!itemRenderer)
+            var recycledIR:Boolean = false;
+                        
+            elt = renderersInView[item];  // an IR that's currently displayed
+            if (!elt)
             {
-                itemRenderer = createRendererForItem(item);
-                //trace("DataGroup::getLayoutElementAt("+index+") created " + item); 
-                createdIR = true;
+                var recyclingOK:Boolean = (itemRendererFunction == null) && (itemRenderer != null); 
+                if (recyclingOK && (freeRenderers.length > 0))
+                {
+                    elt = freeRenderers.pop();
+                    elt.visible = true;
+                    if (elt is IDataRenderer)
+                        IDataRenderer(elt).data = item;
+                    recycledIR = true;
+                }
+                else 
+                {
+                    elt = createRendererForItem(item);
+                    createdIR = true;
+                }
+                
+                renderersInView[item] = elt;  // weak reference
             }
 
-            addItemRendererToDisplayList(DisplayObject(itemRenderer), itemRendererIndex);
+            addItemRendererToDisplayList(DisplayObject(elt), index - virtualLayoutOffset);
             
+            if ((createdIR || recycledIR) && (elt is IInvalidating))
+                IInvalidating(elt).validateNow();
             if (createdIR)
-            {
-                virtualItemRenderers[item] = itemRenderer;  // weak reference
-                if (itemRenderer is IInvalidating)
-                    IInvalidating(itemRenderer).validateNow();
                 dispatchEvent(new ItemExistenceChangedEvent(ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
-            }
         }
-        else 
-        {
-            itemRenderer = mx_internal::getRendererForItemAt(index);            
-        }
+        else
+            elt = IVisualElement(super.getChildAt(index));
 
-        return LayoutElementFactory.getLayoutElementFor(itemRenderer);
+        return LayoutElementFactory.getLayoutElementFor(elt);
+    }
+    
+    /**
+     *  @private
+     *  Provisional access to the item renderers for FxList and FxButtonBar.
+     */
+    internal function getRendererForItemAt(index:int):IVisualElement
+    {
+        return (index < super.numChildren) ? IVisualElement(super.getChildAt(index)) : null;
     }
 
     /**
@@ -627,10 +631,7 @@ public class DataGroup extends GroupBase
     {
         var myItemRenderer:IVisualElement = createRendererForItem(item);
 
-        registerRenderer(index, myItemRenderer);
-        
         addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
-        // TBD: sync with virtualization code in getLayoutElementAt
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_ADD, false, false, 
                       item, index, myItemRenderer));
@@ -649,7 +650,7 @@ public class DataGroup extends GroupBase
      */
     mx_internal function itemRemoved(item:Object, index:int):void
     {       
-        var myItemRenderer:IVisualElement = mx_internal::getRendererForItemAt(index);
+        var myItemRenderer:IVisualElement = IVisualElement(super.getChildAt(index));
         
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, 
@@ -662,8 +663,6 @@ public class DataGroup extends GroupBase
             IDataRenderer(myItemRenderer).data = null;
         
         super.removeChild(myItemRenderer as DisplayObject);
-        
-        unregisterRenderer(index, myItemRenderer);
         
         invalidateSize();
         invalidateDisplayList();
