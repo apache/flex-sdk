@@ -143,6 +143,13 @@ public class Producer extends AbstractProducer
         if (subtopic.length > 0)
             message.headers[AsyncMessage.SUBTOPIC_HEADER] = subtopic;    
 
+        if (priority > 0)
+        {
+            // Set the priority header, only if it's not already set.
+            if (message.headers[AbstractMessage.PRIORITY_HEADER] == null)
+                message.headers[AbstractMessage.PRIORITY_HEADER] = priority;
+        }
+
         super.internalSend(message, waitForClientId);
     }
 
