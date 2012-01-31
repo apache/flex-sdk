@@ -37,6 +37,7 @@ use namespace mx_internal;
 [IconFile("VBox.png")]
 
 [Alternative(replacement="spark.components.VGroup", since="4.0")]
+[Alternative(replacement="spark.components.Border", since="4.0")]
 
 /**
  *  The Halo VBox container lays out its children in a single vertical column.
