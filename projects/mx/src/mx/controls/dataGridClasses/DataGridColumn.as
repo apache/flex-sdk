@@ -479,8 +479,8 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             }
             
         }
-		else
-			hasComplexFieldName = false;
+        else
+            hasComplexFieldName = false;
 
         if (owner)
             owner.invalidateList();
@@ -1780,6 +1780,9 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         return " ";
     }
 
+    /**
+     * @private
+     */
     protected function deriveComplexColumnData( data:Object ):Object 
     {
         var currentRef:Object = data;
@@ -1792,6 +1795,9 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         return currentRef;
     }
 
+    /**
+     * @private
+     */
     protected function complexColumnSortCompare( obj1:Object, obj2:Object ):int 
     {
         if ( !obj1 && !obj2 )
