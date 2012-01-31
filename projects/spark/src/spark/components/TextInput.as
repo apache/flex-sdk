@@ -337,10 +337,11 @@ public class TextInput extends SkinnableTextBase
 
             // Single line for interactive input.  Multi-line text can be
             // set.
-            textDisplay.setStyle("lineBreak", "explicit");
+            textDisplay.lineBreak = "explicit";
             
             // TextInput should always be 1 line.
-            textDisplay.heightInLines = 1;
+            if (textDisplay is RichEditableText)
+                RichEditableText(textDisplay).heightInLines = 1;
         }
     }
 }
