@@ -1116,16 +1116,18 @@ function xmlEncoder (myObj)
         var trimmed:String = StringUtil.trim(source);
         var params:Array = trimmed.split('&');
         var decoded:Object = {};
-        for (var i:int = 0; i<params.length; i++)
+        for (var i:int = 0; i < params.length; i++)
         {
             var param:String = params[i];
             var equalsIndex:int = param.indexOf('=');
             if (equalsIndex != -1)
             {
-                var name:String = unescape(param.substr(0, equalsIndex));
+                var name:String = param.substr(0, equalsIndex);
                 name = name.split('+').join(' ');
-                var value:String = unescape(param.substr(equalsIndex+1));
+                name = unescape(name);
+                var value:String = param.substr(equalsIndex + 1);
                 value = value.split('+').join(' ');
+                value = unescape(value);
                 decoded[name] = value;
             }
         }
