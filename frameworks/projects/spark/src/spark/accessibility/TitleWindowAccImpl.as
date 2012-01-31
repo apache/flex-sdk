@@ -101,11 +101,16 @@ public class TitleWindowAccImpl extends PanelAccImpl
 		// If it were placed on the TitleWindow itself,
 		// the AccessibilityImplementations of the TitleWindow's children
 		// would be ignored.
-		var titleBar:UIComponent = TitleWindow(component).titleDisplay;
-		titleBar.accessibilityImplementation =
-			new TitleWindowAccImpl(component);
+		var titleDisplay:UIComponent = TitleWindow(component).titleDisplay;
+        
+		if (titleDisplay)
+        {
+            titleDisplay.accessibilityImplementation = new TitleWindowAccImpl(component);
+            if (TitleWindow(component).tabIndex > 0 && titleDisplay.tabIndex == -1)
+                titleDisplay.tabIndex = TitleWindow(component).tabIndex;
+         }
 
-		Accessibility.sendEvent(titleBar, 0, EVENT_OBJECT_CREATE);
+		Accessibility.sendEvent(titleDisplay, 0, EVENT_OBJECT_CREATE);
 		Accessibility.updateProperties();
 	}
 
