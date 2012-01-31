@@ -2061,7 +2061,11 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
 
         var prevValue:int = selectedIndex;
 
-        switch (event.keyCode)
+        // If rtl layout, need to swap LEFT for RIGHT.  RIGHT should go UP
+        // and LEFT should go DOWN.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+
+        switch (keyCode)
         {
             case Keyboard.PAGE_DOWN:
             {
