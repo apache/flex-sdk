@@ -940,8 +940,7 @@ public class TextBase extends SkinnableComponent
             return;
         }
 
-        if (textView)
-            textView.drawFocus(isFocused);
+        super.drawFocus(isFocused);
     }
     
     //--------------------------------------------------------------------------
