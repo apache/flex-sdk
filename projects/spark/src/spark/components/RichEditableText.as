@@ -100,7 +100,21 @@ include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 [DefaultProperty("content")]
 
 /**
- *  The TextView class ...
+ *  Displays text. 
+ *  
+ *  <p>TextView has more functionality than TextBox and TextGraphic. In addition to the text rendering 
+ *  capabilities of TextGraphic, TextView also supports hyperlinks, scrolling, selecting, and editing.</p>
+ *  
+ *  <p>The TextView class is similar to the mx.controls.TextArea control, except that it does 
+ *  not have chrome.</p>
+ *  
+ *  <p>The TextView class does not support drawing a background, border, or scrollbars. To do that,
+ *  you combine it with other components.</p>
+ *  
+ *  <p>Because TextView extends UIComponent, it can take focus and allows user interaction such as selection.</p>
+ *  
+ *  @see mx.graphics.TextBox
+ *  @see mx.graphics.TextGraphic
  */
 public class TextView extends UIComponent implements IViewport
 {
@@ -157,14 +171,14 @@ public class TextView extends UIComponent implements IViewport
      */
     private var hostContainerFormat:ContainerFormat = new ContainerFormat();
 
-	/**
-	 *  @private
+    /**
+     *  @private
      *  This flag indicates whether hostCharacterFormat, hostParagraphFormat,
      *  and hostContainerFormat need to be recalculated from the CSS styles
      *  of the TextGraphic. It is set true by stylesInitialized() and also
      *  when styleChanged() is called with a null argument, indicating that
      *  multiple styles have changed.
-	 */
+     */
     private var hostFormatsInvalid:Boolean = false;
 
     /**
@@ -328,7 +342,12 @@ public class TextView extends UIComponent implements IViewport
     private var heightInLinesChanged:Boolean = false;
     
     /**
-     *  TBD
+     *  The height of the control, in lines.
+     *  
+     *  <p>TextView's measure() method does not determine the measured size from the text to be displayed, 
+     *  because a TextView often starts out with no text. Instead it uses this property, and the widthInChars property 
+     *  to determine its measuredWidth and measuredHeight. These are 
+     *  similar to the cols and rows of an HTML TextArea.</p>
      */
     public function get heightInLines():int
     {
@@ -539,7 +558,7 @@ public class TextView extends UIComponent implements IViewport
      */
     public function set text(value:String):void
     {
-		// If 'text' is being set after 'content', ignore it
+        // If 'text' is being set after 'content', ignore it
         // because 'content' has precedence.
         if (contentChanged)
             return;
@@ -772,8 +791,8 @@ public class TextView extends UIComponent implements IViewport
 
             // If the text was changed, clear the selection.
             if (textChanged || contentChanged)
-            	if (textFlow.interactionManager)
-                	textFlow.interactionManager.setSelection(-1, -1);
+                if (textFlow.interactionManager)
+                    textFlow.interactionManager.setSelection(-1, -1);
             
             // Create a new TextFlow for the current text.
             _content = textFlow = createTextFlow();
@@ -804,9 +823,9 @@ public class TextView extends UIComponent implements IViewport
         flowComposer.updateAllContainers();
     }
 
-	/**
-	 *  @inheritDoc
-	 */
+    /**
+     *  @inheritDoc
+     */
     override public function stylesInitialized():void
     {
         super.stylesInitialized();
@@ -816,9 +835,9 @@ public class TextView extends UIComponent implements IViewport
         stylesChanged = true;
     }
 
-	/**
-	 *  @inheritDoc
-	 */
+    /**
+     *  @inheritDoc
+     */
     override public function styleChanged(styleProp:String):void
     {
         super.styleChanged(styleProp);
@@ -880,22 +899,22 @@ public class TextView extends UIComponent implements IViewport
         charWidth = textLine.textWidth;
     }
     
-	/**
-	 *  @private
-	 */
-	private function createEmptyTextFlow():TextFlow
-	{
-		var textFlow:TextFlow = new TextFlow();
-		var p:ParagraphElement = new ParagraphElement();
-		var span:SpanElement = new SpanElement();
-		textFlow.replaceChildren(0, 0, p);
-		p.replaceChildren(0, 0, span);
-		return textFlow;
-	}
-	
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
+    private function createEmptyTextFlow():TextFlow
+    {
+        var textFlow:TextFlow = new TextFlow();
+        var p:ParagraphElement = new ParagraphElement();
+        var span:SpanElement = new SpanElement();
+        textFlow.replaceChildren(0, 0, p);
+        p.replaceChildren(0, 0, span);
+        return textFlow;
+    }
+    
+    /**
+     *  @private
+     */
     private function setHostFormat(styleProp:String):void
     {
         var value:* = getStyle(styleProp);
@@ -914,26 +933,26 @@ public class TextView extends UIComponent implements IViewport
             hostCharacterFormat[styleProp] = value;
     }
 
-	/**
-	 *  @private
-	 */
-	private function importMarkup(markup:String):TextFlow
-	{
-		markup = '<TextFlow xmlns="http://ns.adobe.com/tcal/2008">' +
+    /**
+     *  @private
+     */
+    private function importMarkup(markup:String):TextFlow
+    {
+        markup = '<TextFlow xmlns="http://ns.adobe.com/tcal/2008">' +
                  markup +
                  '</TextFlow>';
-		
+        
         return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
-	}
+    }
 
-	/**
-	 *  @private
+    /**
+     *  @private
      *  Keep this method in sync with the same method in TextGraphic.
-	 */
-	private function createTextFlow():TextFlow
-	{
-		if (contentChanged)
-		{
+     */
+    private function createTextFlow():TextFlow
+    {
+        if (contentChanged)
+        {
             if (_content is TextFlow)
             {
                 textFlow = TextFlow(_content);
@@ -948,33 +967,33 @@ public class TextView extends UIComponent implements IViewport
                 textFlow = new TextFlow();
                 textFlow.mxmlChildren = [ _content ];
             }
-			else if (_content is String)
-			{
-				textFlow = importMarkup(String(_content));
-			}
-			else if (_content == null)
-			{
-				textFlow = createEmptyTextFlow();
-			}
+            else if (_content is String)
+            {
+                textFlow = importMarkup(String(_content));
+            }
+            else if (_content == null)
+            {
+                textFlow = createEmptyTextFlow();
+            }
             else
             {
                 throw new Error("invalid content");
             }
             textInvalid = true;
             dispatchEvent(new Event("textInvalid"));
-		}
-		else if (textChanged)
-		{
+        }
+        else if (textChanged)
+        {
             var t:String = _text;
-			if (t != null && t != "")
-			{
-				textFlow = TextFilter.importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
-			}
-			else
-			{
-				textFlow = createEmptyTextFlow();
-			}
-		}
+            if (t != null && t != "")
+            {
+                textFlow = TextFilter.importToFlow(t, TextFilter.PLAIN_TEXT_FORMAT);
+            }
+            else
+            {
+                textFlow = createEmptyTextFlow();
+            }
+        }
 
         if (hostFormatsInvalid)
         {
@@ -989,8 +1008,8 @@ public class TextView extends UIComponent implements IViewport
         textFlow.hostParagraphFormat = hostParagraphFormat;
         textFlow.hostContainerFormat = hostContainerFormat;
 
-		return textFlow;
-	}
+        return textFlow;
+    }
 
     /**
      *  @private
