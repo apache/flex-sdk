@@ -517,7 +517,7 @@ public class TrackBase extends Range
      *  Handles the mouseWheel event when the component is in focus. The thumb is 
      *  moved by the amount of the mouse event delta multiplied by the stepSize.  
      */ 
-    protected function stage_mouseWheelHandler(event:MouseEvent):void
+    private function stage_mouseWheelHandler(event:MouseEvent):void
     {
     	if (event.target != stage)
             return;
