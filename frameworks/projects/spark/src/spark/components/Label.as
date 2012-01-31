@@ -13,14 +13,23 @@ package mx.graphics
 {
 
 import flash.display.DisplayObjectContainer;
+import flash.display.Graphics;
+import flash.display.Shape;
 import flash.geom.Rectangle;
+import flash.text.engine.EastAsianJustifier;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
+import flash.text.engine.FontMetrics;
 import flash.text.engine.Kerning;
+import flash.text.engine.LineJustification;
 import flash.text.engine.TabStop;
+import flash.text.engine.SpaceJustifier;
+import flash.text.engine.TextBlock;
+import flash.text.engine.TextElement;
+import flash.text.engine.TextLine;
+import flash.text.engine.TextLineValidity;
 
 import mx.core.mx_internal;
-import mx.graphics.baseClasses.TextBlockComposer;
 import mx.graphics.baseClasses.TextGraphicElement;
 
 [DefaultProperty("text")]
@@ -55,6 +64,37 @@ include "../styles/metadata/BasicCharacterFormatTextStyles.as"
 public class TextBox extends TextGraphicElement
 {
     include "../core/Version.as";
+
+	//--------------------------------------------------------------------------
+    //
+    //  Class variables
+    //
+    //--------------------------------------------------------------------------
+	    
+    // We can re-use single instances of a few FTE classes over and over,
+    // since they just serve as a factory for the TextLines that we care about.
+    
+    /**
+	 *  @private
+	 */
+	private static var staticTextBlock:TextBlock = new TextBlock();
+
+	/**
+	 *  @private
+	 */
+	private static var staticTextElement:TextElement = new TextElement();
+
+    /**
+     *  @private
+     */
+    private static var staticSpaceJustifier:SpaceJustifier =
+        new SpaceJustifier();
+
+    /**
+     *  @private
+     */
+    private static var staticEastAsianJustifier:EastAsianJustifier =
+        new EastAsianJustifier();
 
     //--------------------------------------------------------------------------
     //
@@ -104,65 +144,10 @@ public class TextBox extends TextGraphicElement
     
     //--------------------------------------------------------------------------
     //
-    //  Variables
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     */
-    private var textBlockComposer:TextBlockComposer = new TextBlockComposer();
-
-    //--------------------------------------------------------------------------
-    //
-    //  Overridden properties
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  baselinePosition
-    //----------------------------------
-
-    [Inspectable(category="General")]
-
-    /**
-     *  @private
-     */
-    override public function get baselinePosition():Number
-    {
-        mx_internal::validateBaselinePosition();
-        
-        // Return the baseline of the first line of composed text.
-        return (textBlockComposer.textLines.length > 0) ? 
-            textBlockComposer.textLines[0].y : 0;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
     //  Overridden methods: GraphicElement
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
-    override protected function measure():void
-    {
-        super.measure();
-
-        // The measure() method of a GraphicElement can get called
-        // when its style chain hasn't been initialized.
-        // In that case, compose() must not be called.
-        if (!mx_internal::styleChainInitialized)
-            return;
-
-        compose(explicitWidth, explicitHeight);
-
-        var r:Rectangle = textBlockComposer.bounds;
-        measuredWidth = Math.ceil(r.width);
-        measuredHeight = Math.ceil(r.height);
-    }
-        
     /**
      *  @private
      */
@@ -173,14 +158,14 @@ public class TextBox extends TextGraphicElement
 
         // The updateDisplayList() method of a GraphicElement can get called
         // when its style chain hasn't been initialized.
-        // In that case, compose() must not be called.
+        // In that case, composeTextLines() must not be called.
         if (!mx_internal::styleChainInitialized)
             return;
 
-        var overset:Boolean = compose(unscaledWidth, unscaledHeight);
+        composeTextLines(unscaledWidth, unscaledHeight);
 
-        mx_internal::clip(overset, unscaledWidth, unscaledHeight);
-    }
+        mx_internal::clip(unscaledWidth, unscaledHeight);
+	}
 
     //--------------------------------------------------------------------------
     //
@@ -191,11 +176,37 @@ public class TextBox extends TextGraphicElement
     /**
      *  @private
      */
-    private function compose(width:Number = NaN, height:Number = NaN):Boolean
+    override protected function composeTextLines(width:Number = NaN,
+												 height:Number = NaN):void
     {
-        var container:DisplayObjectContainer = 
-            DisplayObjectContainer(displayObject);
+        var elementFormat:ElementFormat = createElementFormat();
             
+		// Set the composition bounds to be used by createTextLines().
+		// If the width or height is NaN, it will be computed by this method
+		// by the time it returns.
+		// The bounds are then used by the addTextLines() method
+		// to determine the isOverset flag.
+		// The composition bounds are also reported by the measure() method.
+		var bounds:Rectangle = mx_internal::bounds;
+        bounds.x = 0;
+        bounds.y = 0;
+        bounds.width = width;
+        bounds.height = height;
+
+        mx_internal::removeTextLines();
+		createTextLines(elementFormat);
+        mx_internal::addTextLines(DisplayObjectContainer(displayObject));
+    }
+
+	/**
+	 *  @private
+	 *  Creates an ElementFormat (and its FontDescription)
+	 *  based on the TextBox's CSS styles.
+	 *  These must be recreated each time because FTE
+	 *  does not allow them to be reused.
+	 */
+	private function createElementFormat():ElementFormat
+	{
 		// When you databind to a text formatting style on a TextBox,
 		// as in <TextBox fontFamily="{fontCombo.selectedItem}"/>
 		// the databinding can cause the style to be set to null.
@@ -282,38 +293,9 @@ public class TextBox extends TextGraphicElement
         s = getStyle("typographicCase");
         if (s != null)
         	elementFormat.typographicCase = s;
-        
-        textBlockComposer.removeTextLines(container);
-        
-        var bounds:Rectangle = textBlockComposer.bounds;
-        bounds.x = 0;
-        bounds.y = 0;
-        bounds.width = width;
-        bounds.height = height;
 
-        textBlockComposer.direction = getStyle("direction");
-        textBlockComposer.justificationRule = getStyle("justificationRule");
-        textBlockComposer.justificationStyle = getStyle("justificationStyle");
-        textBlockComposer.lineBreak = getStyle("lineBreak");
-        textBlockComposer.lineHeight = getStyle("lineHeight");
-        textBlockComposer.lineThrough = getStyle("lineThrough");
-        textBlockComposer.paddingBottom = getStyle("paddingBottom");
-        textBlockComposer.paddingLeft = getStyle("paddingLeft");
-        textBlockComposer.paddingRight = getStyle("paddingRight");
-        textBlockComposer.paddingTop = getStyle("paddingTop");
-        setTabStops(textBlockComposer);
-        textBlockComposer.textAlign = getStyle("textAlign");
-        textBlockComposer.textAlignLast = getStyle("textAlignLast");
-        textBlockComposer.textDecoration = getStyle("textDecoration");
-        textBlockComposer.textJustify = getStyle("textJustify");
-        textBlockComposer.verticalAlign = getStyle("verticalAlign");
-
-        textBlockComposer.composeText(text, elementFormat);
-                
-        textBlockComposer.addTextLines(container);
-
-        return textBlockComposer.isOverset;
-    }
+		return elementFormat;
+	}
 
     /**
      *  @private
@@ -355,34 +337,323 @@ public class TextBox extends TextGraphicElement
             elementFormat.trackingRight = value;
     }
 
-    /**
-     *  @private
-     */
-    private function setTabStops(textBlockComposer:TextBlockComposer):void
-    {
-        var value:* = getStyle("tabStops");
-        var tabStops:Vector.<TabStop>;
-        
-        if (value is Vector.<TabStop>)
+	/**
+	 *  @private
+	 *  Stuffs the specified text and formatting info into a TextBlock
+     *  and uses it to create as many TextLines as fit into the bounds.
+	 */
+	private function createTextLines(elementFormat:ElementFormat):void
+	{
+		// Get CSS styles that affect a TextBlock and its justifier.
+		var direction:String = getStyle("direction");
+        var justificationRule:String = getStyle("justificationRule");
+        var justificationStyle:String = getStyle("justificationStyle");
+		var tabStops:* = getStyle("tabStops");
+        var textAlign:String = getStyle("textAlign");
+        var textAlignLast:String = getStyle("textAlignLast");
+        var textJustify:String = getStyle("textJustify");
+
+		// Set the TextBlock's content.
+        staticTextElement.text = text;
+		staticTextElement.elementFormat = elementFormat;
+		staticTextBlock.content = staticTextElement;
+
+        // And its bidiLevel.
+		staticTextBlock.bidiLevel = direction == "ltr" ? 0 : 1;
+
+		// And its justifier.
+		var lineJustification:String;
+		if (textAlign == "justify")
+		{
+			lineJustification = textAlignLast == "justify" ?
+				                LineJustification.ALL_INCLUDING_LAST :
+				                LineJustification.ALL_BUT_LAST;
+		}
+		else
         {
-            tabStops = value;
+			lineJustification = LineJustification.UNJUSTIFIED;
         }
-        else if (value is Array)
+		if (justificationRule == "space")
+		{
+            staticSpaceJustifier.lineJustification = lineJustification;
+			staticSpaceJustifier.letterSpacing = textJustify == "distribute";
+            staticTextBlock.textJustifier = staticSpaceJustifier;
+		}
+		else
+		{
+            staticEastAsianJustifier.lineJustification = lineJustification;
+            staticEastAsianJustifier.justificationStyle = justificationStyle;
+			
+            staticTextBlock.textJustifier = staticEastAsianJustifier;
+		}
+        				
+		// And its tabStops.
+		var tabStopsVector:Vector.<TabStop>;
+        if (tabStops is Vector.<TabStop>)
         {
-            var n:int = value.length;
-            tabStops = new Vector.<TabStop>(n);
+            tabStopsVector = tabStops;
+        }
+        else if (tabStops is Array)
+        {
+            var n:int = tabStops.length;
+            tabStopsVector = new Vector.<TabStop>(n);
             for (var i:int = 0; i < n; i++)
             {
-                tabStops[i] = value[i];
+                tabStopsVector[i] = tabStops[i];
             }
         }
         else
         {
-            tabStops = new Vector.<TabStop>();
+            tabStopsVector = new Vector.<TabStop>();
         }   
+		staticTextBlock.tabStops = tabStopsVector;
+        
+		// Then create TextLines using this TextBlock.
+		createTextLinesFromTextBlock(staticTextBlock);
+	}
 
-        textBlockComposer.tabStops = tabStops;
-    }
+	/**
+	 *  @private
+	 */
+	private function createTextLinesFromTextBlock(textBlock:TextBlock):void
+	{
+		// Clear any previously generated TextLines from the textLines Array.
+		mx_internal::textLines.length = 0;
+				
+		// Get CSS styles for formats that we have to apply ourselves.
+		var direction:String = getStyle("direction");
+        var lineBreak:String = getStyle("lineBreak");
+        var lineHeight:Object = getStyle("lineHeight");
+        var lineThrough:Boolean = getStyle("lineThrough");
+        var paddingBottom:Number = getStyle("paddingBottom");
+        var paddingLeft:Number = getStyle("paddingLeft");
+        var paddingRight:Number = getStyle("paddingRight");
+        var paddingTop:Number = getStyle("paddingTop");
+        var textAlign:String = getStyle("textAlign");
+        var textAlignLast:String = getStyle("textAlignLast");
+        var textDecoration:String = getStyle("textDecoration");
+        var verticalAlign:String = getStyle("verticalAlign");
+
+		var bounds:Rectangle = mx_internal::bounds;
+
+		var innerWidth:Number = bounds.width - paddingLeft - paddingRight;
+		var innerHeight:Number = bounds.height - paddingTop - paddingBottom;
+		
+		if (isNaN(innerWidth))
+			innerWidth = TextLine.MAX_LINE_WIDTH;
+
+        var maxLineWidth:Number = lineBreak == "explicit" ?
+                                  TextLine.MAX_LINE_WIDTH :
+                                  innerWidth;
+		
+		if (innerWidth < 0 || innerHeight < 0 || !textBlock)
+		{
+			bounds.width = 0;
+			bounds.height = 0;
+			return;
+		}
+
+		var fontSize:Number = staticTextElement.elementFormat.fontSize;
+        var actualLineHeight:Number;
+        if (lineHeight is Number)
+        {
+            actualLineHeight = Number(lineHeight);
+        }
+        else if (lineHeight is String)
+        {
+            var len:int = lineHeight.length;
+            var percent:Number =
+                Number(String(lineHeight).substring(0, len - 1));
+            actualLineHeight = percent / 100 * fontSize;
+        }
+        if (isNaN(actualLineHeight))
+            actualLineHeight = 1.2 * fontSize;
+        
+        var maxTextWidth:Number = 0;
+		var totalTextHeight:Number = 0;
+		
+		var n:int = 0;
+		var nextTextLine:TextLine;
+		var nextY:Number = 0;
+		var textLine:TextLine;
+        var createdAllLines:Boolean = false;
+		
+		// Generate TextLines, stopping when we run out of text
+		// or reach the bottom of the requested bounds.
+		// In this loop the lines are positioned within the rectangle
+		// (0, 0, innerWidth, innerHeight), with top-left alignment.
+		while (true)
+		{
+			nextTextLine = textBlock.createTextLine(textLine, maxLineWidth);
+			if (!nextTextLine)
+            {
+				createdAllLines = true;
+                break;
+            }
+			
+			// Determine the natural baseline position for this line.
+			// Note: The y coordinate of a TextLine is the location
+			// of its baseline, not of its top.
+            nextY += (n == 0 ? nextTextLine.ascent : actualLineHeight);
+			
+			// If it is completely outside the rectangle, we're done.
+			if (nextY - nextTextLine.ascent > innerHeight)
+				break;
+
+			// We'll keep this line. Put it into the textLines array.
+			textLine = nextTextLine;
+			mx_internal::textLines[n++] = textLine;
+			
+			// Assign its location based on left/top alignment.
+			// Its x position is 0 by default.
+			textLine.y = nextY;
+			
+			// Keep track of the maximum textWidth 
+			// and the accumulated textHeight of the TextLines.
+			maxTextWidth = Math.max(maxTextWidth, textLine.textWidth);
+			totalTextHeight += textLine.textHeight;
+
+            if (lineThrough || textDecoration == "underline")
+            {
+                // FTE doesn't render strikethroughs or underlines,
+                // but it can tell us where to draw them.
+                // You can't draw in a TextLine but it can have children,
+                // so we create a child Shape to draw them in.
+                
+                var elementFormat:ElementFormat =
+                    TextElement(textBlock.content).elementFormat;
+                var fontMetrics:FontMetrics = elementFormat.getFontMetrics();
+                
+                var shape:Shape = new Shape();
+                var g:Graphics = shape.graphics;
+                if (lineThrough)
+                {
+                    g.lineStyle(fontMetrics.strikethroughThickness, 
+                                elementFormat.color, elementFormat.alpha);
+                    g.moveTo(0, fontMetrics.strikethroughOffset);
+                    g.lineTo(textLine.textWidth, fontMetrics.strikethroughOffset);
+                }
+                if (textDecoration == "underline")
+                {
+                    g.lineStyle(fontMetrics.underlineThickness, 
+                                elementFormat.color, elementFormat.alpha);
+                    g.moveTo(0, fontMetrics.underlineOffset);
+                    g.lineTo(textLine.textWidth, fontMetrics.underlineOffset);
+                }
+                
+                textLine.addChild(shape);
+            }
+		}
+
+		// At this point, n is the number of lines that fit
+		// and textLine is the last line that fit.
+
+		if (n == 0)
+		{
+			bounds.width = paddingLeft + paddingRight;
+			bounds.height = paddingTop + paddingBottom;
+			return;
+		}
+		
+		if (isNaN(bounds.width))
+            bounds.width = paddingLeft + maxTextWidth + paddingRight;
+        if (isNaN(bounds.height))
+            bounds.height = paddingTop + textLine.y +
+							textLine.descent + paddingBottom;
+		
+		innerWidth = bounds.width - paddingLeft - paddingRight;
+		innerHeight = bounds.height - paddingTop - paddingBottom;
+
+        var leftAligned:Boolean = 
+            textAlign == "start" && direction == "ltr" ||
+            textAlign == "end" && direction == "rtl" ||
+            textAlign == "left" ||
+            textAlign == "justify";
+        var centerAligned:Boolean = textAlign == "center";
+        var rightAligned:Boolean =
+            textAlign == "start" && direction == "rtl" ||
+            textAlign == "end" && direction == "ltr" ||
+            textAlign == "right"; 
+
+		// Calculate loop constants for horizontal alignment.
+		var leftOffset:Number = bounds.left + paddingLeft;
+		var centerOffset:Number = leftOffset + innerWidth / 2;
+		var rightOffset:Number =  leftOffset + innerWidth;
+		
+		// Calculate loop constants for vertical alignment.
+		var topOffset:Number = bounds.top + paddingTop;
+		var bottomOffset:Number = innerHeight - (textLine.y + textLine.descent);
+		var middleOffset:Number = bottomOffset / 2;
+		bottomOffset += topOffset;
+		middleOffset += topOffset;
+		var leading:Number = (innerHeight - totalTextHeight) / (n - 1);
+		
+		var previousTextLine:TextLine;
+		var y:Number = 0;
+
+        var lastLineIsSpecial:Boolean =
+            textAlign == "justify" && createdAllLines;
+
+		// Make each line static (which decouples it from the TextBlock
+		// that created it and makes it consume less memory)
+		// and reposition each line if necessary
+		// based on the horizontal and vertical alignment.
+		for (var i:int = 0; i < n; i++)
+		{
+			textLine = TextLine(mx_internal::textLines[i]);
+
+			textLine.validity = TextLineValidity.STATIC;
+
+			// If textAlign is "justify" and there is more than one line,
+            // the last one (if we created it) gets horizontal aligned
+            // according to textAlignLast.
+            if (lastLineIsSpecial && i == n - 1)
+            {
+                leftAligned = 
+                    textAlignLast == "start" && direction == "ltr" ||
+                    textAlignLast == "end" && direction == "rtl" ||
+                    textAlignLast == "left" ||
+                    textAlignLast == "justify";
+                centerAligned = textAlignLast == "center";
+                rightAligned =
+                    textAlignLast == "start" && direction == "rtl" ||
+                    textAlignLast == "end" && direction == "ltr" ||
+                    textAlignLast == "right";
+            } 
+
+            if (leftAligned)
+				textLine.x = leftOffset;
+			else if (centerAligned)
+				textLine.x = centerOffset - textLine.textWidth / 2;
+			else if (rightAligned)
+				textLine.x = rightOffset - textLine.textWidth;
+
+			if (verticalAlign == "top")
+			{
+				textLine.y += topOffset;
+			}
+			else if (verticalAlign == "middle")
+			{
+				textLine.y += middleOffset;
+			}
+			else if (verticalAlign == "bottom")
+			{
+				textLine.y += bottomOffset;
+			}
+			else if (verticalAlign == "justify")
+			{
+				// Determine the natural baseline position for this line.
+				// Note: The y coordinate of a TextLine is the location
+				// of its baseline, not of its top.
+				y += i == 0 ?
+					 topOffset + textLine.ascent :
+					 previousTextLine.descent + leading + textLine.ascent;
+			
+				textLine.y = y;
+				previousTextLine = textLine;
+			}
+		}
+	}
 }
 
 }
