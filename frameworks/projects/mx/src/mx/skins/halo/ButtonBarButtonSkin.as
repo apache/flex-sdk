@@ -24,6 +24,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for all the states of the ButtonBarButtons in a ButtonBar.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ButtonBarButtonSkin extends Border
 {
@@ -83,6 +88,11 @@ public class ButtonBarButtonSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ButtonBarButtonSkin()
 	{
@@ -386,6 +396,11 @@ public class ButtonBarButtonSkin extends Border
 
 	/**
 	 *  We don't use 'is' to prevent dependency issues
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private static var bbars:Object = {};
 
