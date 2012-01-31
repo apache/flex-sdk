@@ -10,27 +10,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.effects.supportClasses
 {
-import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Shader;
-import flash.display.ShaderJob;
-import flash.events.ShaderEvent;
 import flash.filters.ShaderFilter;
 import flash.utils.ByteArray;
 
-import mx.containers.Panel;
-import mx.core.Application;
 import mx.core.IUIComponent;
-import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
-import spark.effects.AnimateTransitionShader;
 import spark.effects.animation.Animation;
 import spark.effects.animation.MotionPath;
 import spark.effects.animation.SimpleMotionPath;
 import spark.primitives.supportClasses.GraphicElement;
 import spark.utils.BitmapUtil;
+    
+use namespace mx_internal;    
     
 /**
  *  The AnimateTransitionShaderInstance class implements the instance class for the
@@ -268,7 +264,7 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
     private function getSnapshot(target:Object):BitmapData
     {
         if (target is GraphicElement)
-            return GraphicElement(target).getBitmapData(true, 0, false);
+            return GraphicElement(target).captureBitmapData(true, 0, false);
         else if (!(target is IUIComponent))
             throw new Error(resourceManager.getString("sparkEffects", "cannotOperateOn"));
         return BitmapUtil.getSnapshot(IUIComponent(target));
