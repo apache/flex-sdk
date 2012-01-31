@@ -808,25 +808,44 @@ public class ListBase extends SkinnableDataContainer
         
         if (labelFieldOrFunctionChanged)
         {
-            //Cycle through all instantiated renderers
+            // Cycle through all instantiated renderers to push the correct text 
+            // in to the renderer by setting its label property
             if (dataGroup)
             {
-                for (var i:int = 0; i < dataGroup.numChildren; i++)
+                var itemIndex:int;
+                
+                // if virtual layout, only loop through the indices in view
+                // otherwise, loop through all of the item renderers
+                if (layout && layout.useVirtualLayout)
                 {
-                    // FIXME (rfrishbe):(dsubrama) Ryan, figure out numChildren/numElement vs. getElement/getChild
-                    //and which is more performant.
-                    var renderer:IItemRenderer = dataGroup.getElementAt(i) as IItemRenderer; 
-                    //Push the correct text into the renderer by settings its label
-                    //property 
-                    if (renderer)
+                    for each (itemIndex in dataGroup.getItemIndicesInView())
                     {
-                        renderer.label = itemToLabel(renderer.data); 
+                        updateRendererLabelProperty(itemIndex);
+                    }
+                }
+                else
+                {
+                    var n:int = dataGroup.numElements;
+                    for (itemIndex = 0; itemIndex < n; itemIndex++)
+                    {
+                        updateRendererLabelProperty(itemIndex);
                     }
                 }
             }
 
             labelFieldOrFunctionChanged = false; 
         }
+    }
+    
+    /**
+     *  @private
+     */
+    private function updateRendererLabelProperty(itemIndex:int):void
+    {
+        // grab the renderer at that index and re-compute it's label property
+        var renderer:IItemRenderer = dataGroup.getElementAt(itemIndex) as IItemRenderer; 
+        if (renderer)
+            renderer.label = itemToLabel(renderer.data); 
     }
     
     /**
