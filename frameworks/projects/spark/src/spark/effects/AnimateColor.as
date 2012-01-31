@@ -16,8 +16,27 @@ import mx.effects.IEffectInstance;
 import mx.styles.StyleManager;
 
 /**
- * This effect animates a change in color over time, interpolating
- * between given from/to color values on a per-channel basis.
+ *  The AnimateColor effect animates a change in a color property over time, interpolating
+ *  between given from/to color values on a per-channel basis. 
+ *  use this effect, rather than the Animate or other effect, when animating color properties. 
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:AnimateColor&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass,
+ *  and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;mx:AnimateColor
+ *    <b>Properties</b>
+ *    id="ID"
+ *    colorFrom="no default"
+ *    colorPropertyName="color"
+ *    colorTo="no default"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.effects.supportClasses.AnimateColorInstance
  *
  *  @includeExample examples/AnimateColorEffectExample.mxml
  *  
@@ -45,7 +64,9 @@ public class AnimateColor extends Animate
 
     [Inspectable(category="General", format="Color")]
     /**
-     * The starting color
+     *  The starting color value. 
+     *
+     *  @default 0xFFFFFF
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -56,7 +77,9 @@ public class AnimateColor extends Animate
     
     [Inspectable(category="General", format="Color")]
     /**
-     * The ending color
+     * The ending color value.
+     *
+     *  @default 0xFFFFFF
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -66,10 +89,11 @@ public class AnimateColor extends Animate
     public var colorTo:uint = StyleManager.NOT_A_COLOR;
     
     /**
-     * The name of the color property on the target object affected
-     * by this animation.
+     *  The name of the color property on the target object affected
+     *  by this animation. 
+     *  A color property is a property that takes 32-bit color value.
      * 
-     * @default "color"
+     *  @default color
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -79,7 +103,9 @@ public class AnimateColor extends Animate
     public var colorPropertyName:String = "color";
     
     /**
-     * Constructs an AnimateColor effect with an optional target object
+     *  Constructor. 
+     *
+     *  @param target The Object to animate with this effect.  
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -109,7 +135,7 @@ public class AnimateColor extends Animate
     }   
 
     /**
-     * @inheritDoc
+     *  @private
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
