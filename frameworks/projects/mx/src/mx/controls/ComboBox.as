@@ -53,6 +53,7 @@ import mx.events.ScrollEventDetail;
 import mx.managers.ISystemManager;
 import mx.managers.PopUpManager;
 import mx.styles.CSSStyleDeclaration;
+import mx.utils.MatrixUtil;
 
 use namespace mx_internal;
 
@@ -1727,10 +1728,11 @@ public class ComboBox extends ComboBase
             systemManager.addEventListener(Event.RESIZE, stage_resizeHandler, false, 0, true);
         }
         
-        var m:Matrix = transform.concatenatedMatrix;
+        
+        var m:Matrix = MatrixUtil.getConcatenatedMatrix(this);
         _dropdown.scaleX = m.a; //scale x
         _dropdown.scaleY = m.d; //scale y
-
+        
         return _dropdown;
     }
 
@@ -1796,6 +1798,12 @@ public class ComboBox extends ComboBase
             }
         
             point = _dropdown.parent.globalToLocal(point);
+            
+            // If the combobox's layout is mirrored then the the dropdown's 
+            // will be too.  That also means that (stage coordinate) point.x is 
+            // currently the right edge of the dropdown.  Fix that:
+            if (layoutDirection == "rtl")
+                point.x -= _dropdown.width;
 
             var sel:int = _dropdown.selectedIndex;
             if (sel == -1)
