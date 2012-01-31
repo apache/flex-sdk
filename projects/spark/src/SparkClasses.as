@@ -67,6 +67,8 @@ import spark.skins.spark.SpinnerIncrementButtonSkin; SpinnerIncrementButtonSkin;
 import spark.skins.spark.SpinnerSkin; SpinnerSkin;
 import spark.skins.spark.TextAreaSkin; TextAreaSkin;
 import spark.skins.spark.TextInputSkin; TextInputSkin;
+import spark.skins.spark.TitleWindowSkin; TitleWindowSkin;
+import spark.skins.spark.TitleWindowCloseButtonSkin; TitleWindowCloseButtonSkin;
 import spark.skins.spark.ToggleButtonSkin; ToggleButtonSkin;
 import spark.skins.spark.VideoPlayerSkin; VideoPlayerSkin;
 import spark.skins.spark.VScrollBarSkin; VScrollBarSkin;
