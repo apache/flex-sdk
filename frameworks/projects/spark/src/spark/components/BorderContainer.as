@@ -156,7 +156,7 @@ import spark.components.SkinnableContainer;
  *  The BorderContainer class defines a set of CSS styles that control
  *  the appearance of the border and background fill of the container. 
  *
- *  <p><b>Note: </b>Becasue you use CSS styles and class properties to control 
+ *  <p><b>Note: </b>Because you use CSS styles and class properties to control 
  *  the appearance of the BorderContainer, you typically do not create a custom skin for it.
  *  If you do create a custom skin, your skin class should apply any styles to control the 
  *  appearance of the container.</p>
