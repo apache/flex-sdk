@@ -45,11 +45,9 @@ include "../styles/metadata/IconColorStyles.as"
 
 [AccessibilityClass(implementation="mx.accessibility.RadioButtonAccImpl")]
 
-[DefaultBindingProperty(source="selected", destination="selected")]
-
-[DefaultTriggerEvent("click")]
-
 [IconFile("RadioButton.png")]
+
+[ResourceBundle("controls")]
 
 /**
  *  The RadioButton control lets the user make a single choice
@@ -336,6 +334,7 @@ public class RadioButton extends Button implements IFocusManagerGroup
      *  if this RadioButton is part of a group defined by a RadioButtonGroup control.
      *
      *  @default "undefined"
+     *  @throws ArgumentError if Flex 4 or later and the groupName starts with _fx_ 
      */
     public function get groupName():String
     {
@@ -351,6 +350,20 @@ public class RadioButton extends Button implements IFocusManagerGroup
         if (!value || value == "")
             return;
 
+        // Since Halo and Gumbo share the same automaticRadioButtonGroups slot in
+        // UIComponent, the Gumbo group names are decorated with a prefix to
+        // differentiate.  Gumbo group names can not start with the prefix.
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            const FX_GROUP_NAME_PREFIX:String = "_fx_";
+            if (value.indexOf(FX_GROUP_NAME_PREFIX) == 0)
+            {
+                var message:String = resourceManager.getString(
+                    "controls", "invalidGroupName", [ value, FX_GROUP_NAME_PREFIX ]);
+                throw ArgumentError(message);
+            }
+        }
+            
         deleteGroup(); // Delete the old group
 
         _groupName = value;
