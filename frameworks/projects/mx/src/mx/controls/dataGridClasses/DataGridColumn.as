@@ -288,6 +288,13 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
 
     /**
      *  @private
+     *  cached header renderer so we don't have to keep
+     *  making new ones
+     */
+    mx_internal var cachedHeaderRenderer:IListItemRenderer;
+
+    /**
+     *  @private
      * Holds the last recorded value of the module factory used to create the font.
      */
     private var oldEmbeddedFontContext:IFlexModuleFactory = null;
