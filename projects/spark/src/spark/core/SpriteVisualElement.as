@@ -714,6 +714,70 @@ public class SpriteVisualElement extends FlexSprite
     }
 
     //----------------------------------
+    //  minHeight
+    //----------------------------------
+    
+    /**
+     *  @private
+     *
+     *  The minimum height explicitly set by the user.
+     */
+    private var _explicitMinHeight:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    public function get minHeight():Number
+    {
+        if (!isNaN(_explicitMinHeight))
+            return _explicitMinHeight;
+        return resizeMode == ResizeMode.SCALE ? 0 : preferredHeight;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set minHeight(value:Number):void
+    {
+        if (_explicitMinHeight == value)
+            return;
+        _explicitMinHeight = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  maxHeight
+    //----------------------------------
+    
+    /**
+     *  @private
+     *
+     *  The maximum height explicitly set by the user.
+     */
+    private var _explicitMaxHeight:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    public function get maxHeight():Number
+    {
+        if (!isNaN(_explicitMaxHeight))
+            return _explicitMaxHeight;
+        return DEFAULT_MAX_HEIGHT;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set maxHeight(value:Number):void
+    {
+        if (_explicitMaxHeight == value)
+            return;
+        _explicitMaxHeight = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
     //  horizontalCenter
     //----------------------------------
 
@@ -1726,6 +1790,70 @@ public class SpriteVisualElement extends FlexSprite
     }
 
     //----------------------------------
+    //  minWidth
+    //----------------------------------
+    
+    /**
+     *  @private
+     *
+     *  The minimum width explicitly set by the user.
+     */
+    private var _explicitMinWidth:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    public function get minWidth():Number
+    {
+        if (!isNaN(_explicitMinWidth))
+            return _explicitMinWidth;
+        return resizeMode == ResizeMode.SCALE ? 0 : preferredWidth;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set minWidth(value:Number):void
+    {
+        if (_explicitMinWidth == value)
+            return;
+        _explicitMinWidth = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
+    //  maxWidth
+    //----------------------------------
+    
+    /**
+     *  @private
+     *
+     *  The maximum width explicitly set by the user.
+     */
+    private var _explicitMaxWidth:Number = NaN;
+    
+    /**
+     *  @private
+     */
+    public function get maxWidth():Number
+    {
+        if (!isNaN(_explicitMaxWidth))
+            return _explicitMaxWidth;
+        return DEFAULT_MAX_WIDTH;
+    }
+
+    /**
+     *  @private
+     */
+    public function set maxWidth(value:Number):void
+    {
+        if (_explicitMaxWidth == value)
+            return;
+        _explicitMaxWidth = value;
+        invalidateParentSizeAndDisplayList();
+    }
+    
+    //----------------------------------
     //  viewWidth
     //----------------------------------
 
@@ -2338,7 +2466,7 @@ public class SpriteVisualElement extends FlexSprite
      */
     public function getMaxBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return transformWidthForLayout(DEFAULT_MAX_WIDTH, DEFAULT_MAX_HEIGHT, postLayoutTransform);
+        return transformWidthForLayout(maxWidth, maxHeight, postLayoutTransform);
     }
 
     /**
@@ -2351,7 +2479,7 @@ public class SpriteVisualElement extends FlexSprite
      */
     public function getMaxBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return transformHeightForLayout(DEFAULT_MAX_WIDTH, DEFAULT_MAX_HEIGHT, postLayoutTransform);
+        return transformHeightForLayout(maxWidth, maxHeight, postLayoutTransform);
     }
 
     /**
@@ -2364,7 +2492,7 @@ public class SpriteVisualElement extends FlexSprite
      */
     public function getMinBoundsWidth(postLayoutTransform:Boolean = true):Number
     {
-        return resizeMode == ResizeMode.SCALE ? 0 : getPreferredBoundsWidth(postLayoutTransform);
+        return transformWidthForLayout(minWidth, minHeight, postLayoutTransform);
     }
 
     /**
@@ -2377,7 +2505,7 @@ public class SpriteVisualElement extends FlexSprite
      */
     public function getMinBoundsHeight(postLayoutTransform:Boolean = true):Number
     {
-        return resizeMode == ResizeMode.SCALE ? 0 : getPreferredBoundsHeight(postLayoutTransform);
+        return transformHeightForLayout(minWidth, minHeight, postLayoutTransform);
     }
 
     /**
@@ -2516,10 +2644,10 @@ public class SpriteVisualElement extends FlexSprite
             _explicitHeight,
             preferredWidth,
             preferredHeight,
-            getMinBoundsWidth(false),
-            getMinBoundsHeight(false),
-            getMaxBoundsWidth(false),
-            getMaxBoundsWidth(false));
+            minWidth,
+            minHeight,
+            maxWidth,
+            maxHeight);
 
         // If we couldn't fit at all, default to the minimum size
         if (!fitSize)
