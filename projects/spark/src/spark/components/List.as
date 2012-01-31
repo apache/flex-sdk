@@ -814,8 +814,13 @@ public class List extends ListBase implements IFocusManagerComponent
     }
     
     /**
+     *  A convenience method that handles scrolling a data item
+     *  into view. 
+     * 
      *  If the data item at the specified index is not completely 
-     *  visible, scroll until it is completely visible.
+     *  visible, the List will scroll until it is brought into 
+     *  view. If the data item is already in view, no additional
+     *  scrolling will occur. 
      * 
      *  @param index The index of the data item.
      *  
@@ -824,7 +829,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function ensureIndexIsVisible(index:int):void
+    public function ensureIndexIsVisible(index:int):void
     {
         if (!layout)
             return;
