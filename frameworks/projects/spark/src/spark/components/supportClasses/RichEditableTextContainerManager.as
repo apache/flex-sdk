@@ -104,17 +104,12 @@ public class RichEditableTextContainerManager extends TextContainerManager
         
         var contentBounds:Rectangle = getContentBounds();
         
-        // If autoSize, one dimension may be NaN to allow room for growth.
-        // If so, use the content value rather than the composition value. 
-        if (isNaN(width))
-            width = contentBounds.width;
-        if (isNaN(height))            
-            height = contentBounds.height;
-            
-        if (scrollX == 0 &&
+        // If autoSize, there should never be a scroll rect.         
+        if (textDisplay.autoSize ||
+           (scrollX == 0 &&
             scrollY == 0 &&
             contentBounds.width <= width &&
-            contentBounds.height <= height)
+            contentBounds.height <= height))
         {
             // skip the scrollRect
             if (hasScrollRect)
@@ -152,7 +147,10 @@ public class RichEditableTextContainerManager extends TextContainerManager
         g.clear();
         g.lineStyle();
         g.beginFill(color, alpha);
-        g.drawRect(scrollX, scrollY, width, height);
+        if (textDisplay.autoSize)
+            g.drawRect(scrollX, scrollY, contentBounds.width, contentBounds.height);
+        else
+            g.drawRect(scrollX, scrollY, width, height);
         g.endFill();
         
         return hasScrollRect;
@@ -250,7 +248,7 @@ public class RichEditableTextContainerManager extends TextContainerManager
     override protected function createEditManager(
                         undoManager:flashx.undo.IUndoManager):IEditManager
     {
-        return new RichEditableTextEditManager(undoManager);
+        return new RichEditableTextEditManager(textDisplay, undoManager);
     }
 
     /**
