@@ -50,7 +50,9 @@ import flash.accessibility.Accessibility;
 
 use namespace mx_internal;
 
-use namespace mx_internal;
+//--------------------------------------
+//  Styles
+//--------------------------------------
 
 /**
  *  The radius of the corners for this component.
@@ -71,6 +73,10 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 [Style(name="dropShadowVisible", type="Boolean", inherit="no", theme="spark")]
+
+//--------------------------------------
+//  Events
+//--------------------------------------
 
 /**
  *  Dispatched when the drop-down list closes for any reason, such when 
@@ -106,6 +112,10 @@ use namespace mx_internal;
  */
 [Event(name="open", type="spark.events.DropDownEvent")]
 
+//--------------------------------------
+//  SkinStates
+//--------------------------------------
+
 /**
  *  Skin state for the open state of the DropDownList control.
  *  
@@ -115,7 +125,6 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 [SkinState("open")]
-
 
 //--------------------------------------
 //  Excluded APIs
@@ -127,8 +136,12 @@ use namespace mx_internal;
 [Exclude(name="dropEnabled", kind="property")]
 [Exclude(name="selectedIndices", kind="property")]
 [Exclude(name="selectedItems", kind="property")]
-[AccessibilityClass(implementation="spark.accessibility.DropDownListAccImpl")]
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
+[AccessibilityClass(implementation="spark.accessibility.DropDownListAccImpl")]
 
 /**
  *  The DropDownList control contains a drop-down list
@@ -180,48 +193,8 @@ use namespace mx_internal;
  */
 public class DropDownList extends List
 {
- 
-    //--------------------------------------------------------------------------
-    //
-    //  Skin Parts
-    //
-    //--------------------------------------------------------------------------    
-    /**
-     *  An optional skin part that holds the prompt or the text of the selected item. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    [SkinPart(required="false")]
-    public var labelDisplay:TextBase;
+    include "../core/Version.as";
     
-    /**
-     *  A skin part that defines the drop-down list area. When the DropDownList is open,
-     *  clicking anywhere outside of the dropDown skin part closes the   
-     *  drop-down list. 
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    [SkinPart(required="false")]
-    public var dropDown:DisplayObject;
-    
-    /**
-     *  A skin part that defines the anchor button.  
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    [SkinPart(required="true")]
-    public var openButton:ButtonBase;
-       
-       
     //--------------------------------------------------------------------------
     //
     //  Class mixins
@@ -234,6 +207,12 @@ public class DropDownList extends List
      */
     mx_internal static var createAccessibilityImplementation:Function;
  
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
     /**
      *  Constructor. 
      *  
@@ -245,6 +224,7 @@ public class DropDownList extends List
     public function DropDownList()
     {
         super();
+
         super.allowMultipleSelection = false;
         
         dropDownController = new DropDownController();
@@ -252,134 +232,80 @@ public class DropDownList extends List
     
     //--------------------------------------------------------------------------
     //
+    //  Skin parts
+    //
+    //--------------------------------------------------------------------------    
+
+    //----------------------------------
+    //  dropDown
+    //----------------------------------
+
+    [SkinPart(required="false")]
+
+    /**
+     *  A skin part that defines the drop-down list area. When the DropDownList is open,
+     *  clicking anywhere outside of the dropDown skin part closes the   
+     *  drop-down list. 
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var dropDown:DisplayObject;
+    
+    //----------------------------------
+    //  labelDisplay
+    //----------------------------------
+
+    [SkinPart(required="false")]
+
+    /**
+     *  An optional skin part that holds the prompt or the text of the selected item. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var labelDisplay:TextBase;
+    
+    //----------------------------------
+    //  openButton
+    //----------------------------------
+
+    [SkinPart(required="true")]
+
+    /**
+     *  A skin part that defines the anchor button.  
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var openButton:ButtonBase;
+       
+    //--------------------------------------------------------------------------
+    //
     //  Variables
     //
     //--------------------------------------------------------------------------
     
-    private var labelChanged:Boolean = false;
-    // Stores the user selected index until the dropDown closes
-    
-    mx_internal static var PAGE_SIZE:int = 5;
-    
-    private var _userProposedSelectedIndex:Number = -1;
-    
-    mx_internal function set userProposedSelectedIndex(value:Number):void
-    {
-        _userProposedSelectedIndex = value;
-    }
-    
-    mx_internal function get userProposedSelectedIndex():Number
-    {
-        return _userProposedSelectedIndex;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Properties
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  dropDownController
-    //----------------------------------
-    
-    private var _dropDownController:DropDownController; 
-    
-    /**
-     *  Instance of the DropDownController class that handles all of the mouse, keyboard 
-     *  and focus user interactions. 
-     * 
-     *  Flex calls the <code>initializeDropDownController()</code> method after 
-     *  the DropDownController instance is created in the constructor.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function get dropDownController():DropDownController
-    {
-        return _dropDownController;
-    }
-    
-    protected function set dropDownController(value:DropDownController):void
-    {
-        if (_dropDownController == value)
-            return;
-            
-        _dropDownController = value;
-            
-        _dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
-        _dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
-            
-        if (openButton)
-            _dropDownController.openButton = openButton;
-        if (dropDown)
-            _dropDownController.dropDown = dropDown;    
-    }
-    
-    //----------------------------------
-    //  isDropDownOpen
-    //----------------------------------
-    
-    /**
-     *  @copy spark.components.supportClasses.DropDownController#isOpen
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get isDropDownOpen():Boolean
-    {
-        if (dropDownController)
-            return dropDownController.isOpen;
-        else
-            return false;
-    }
-
-    //----------------------------------
-    //  prompt
-    //----------------------------------
-
-    private var _prompt:String = "";
-
-    /**
-     *  The prompt for the DropDownList control. 
-     *  The prompt is a String that is displayed in the
-     *  DropDownList when <code>selectedIndex</code> = -1.  
-     *  It is usually a String such as "Select one...". 
-     *  Selecting an item in the drop-down list replaces the 
-     *  prompt with the text from the selected item.
-     *  
-     *  @default ""
-     *       
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get prompt():String
-    {
-        return _prompt;
-    }
-
     /**
      *  @private
      */
-    public function set prompt(value:String):void
-    {
-        if (_prompt == value)
-            return;
-            
-        _prompt = value;
-        labelChanged = true;
-        invalidateProperties();
-    }
+    private var labelChanged:Boolean = false;
+    // Stores the user selected index until the dropDown closes
+    
+    /**
+     *  @private
+     */
+    mx_internal static var PAGE_SIZE:int = 5;
     
     //--------------------------------------------------------------------------
     //
-    //  Overridden Properties
+    //  Overridden properties
     //
     //--------------------------------------------------------------------------
     
@@ -472,7 +398,7 @@ public class DropDownList extends List
     //  labelField
     //----------------------------------
     
-     /**
+    /**
      *  @private
      */
     override public function set labelField(value:String):void
@@ -504,54 +430,140 @@ public class DropDownList extends List
     
     //--------------------------------------------------------------------------
     //
-    //  Methods
+    //  Properties
     //
-    //--------------------------------------------------------------------------   
-
-    /**
-     *  Open the drop-down list and dispatch 
-     *  a <code>DropdownEvent.OPEN</code> event.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */ 
-    public function openDropDown():void
-    {
-        dropDownController.openDropDown();
-    }
+    //--------------------------------------------------------------------------
     
-     /**
-     *  Close the drop-down list and dispatch a <code>DropDownEvent.CLOSE</code> event. 
-     *   
-     *  @param commit If <code>true</code>, commit the selected
-     *  data item. 
-     *  
+    //----------------------------------
+    //  dropDownController
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _dropDownController:DropDownController; 
+    
+    /**
+     *  Instance of the DropDownController class that handles all of the mouse, keyboard 
+     *  and focus user interactions. 
+     * 
+     *  Flex calls the <code>initializeDropDownController()</code> method after 
+     *  the DropDownController instance is created in the constructor.
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function closeDropDown(commit:Boolean):void
+    protected function get dropDownController():DropDownController
     {
-        dropDownController.closeDropDown(commit);
+        return _dropDownController;
     }
     
     /**
      *  @private
-     *  Called whenever we need to update the text passed to the labelDisplay skin part
      */
-    // TODO (jszeto): Make this protected and make the name more generic (passing data to skin) 
-    mx_internal function updateLabelDisplay():void
+    protected function set dropDownController(value:DropDownController):void
     {
-        if (labelDisplay)
-        {
-            if (selectedItem != null && selectedItem != undefined)
-                labelDisplay.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
-            else
-                labelDisplay.text = prompt;
-        }   
+        if (_dropDownController == value)
+            return;
+            
+        _dropDownController = value;
+            
+        _dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
+        _dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
+            
+        if (openButton)
+            _dropDownController.openButton = openButton;
+        if (dropDown)
+            _dropDownController.dropDown = dropDown;    
+    }
+    
+    //----------------------------------
+    //  isDropDownOpen
+    //----------------------------------
+    
+    /**
+     *  @copy spark.components.supportClasses.DropDownController#isOpen
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get isDropDownOpen():Boolean
+    {
+        if (dropDownController)
+            return dropDownController.isOpen;
+        else
+            return false;
+    }
+
+    //----------------------------------
+    //  prompt
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _prompt:String = "";
+
+    /**
+     *  The prompt for the DropDownList control. 
+     *  The prompt is a String that is displayed in the
+     *  DropDownList when <code>selectedIndex</code> = -1.  
+     *  It is usually a String such as "Select one...". 
+     *  Selecting an item in the drop-down list replaces the 
+     *  prompt with the text from the selected item.
+     *  
+     *  @default ""
+     *       
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get prompt():String
+    {
+        return _prompt;
+    }
+
+    /**
+     *  @private
+     */
+    public function set prompt(value:String):void
+    {
+        if (_prompt == value)
+            return;
+            
+        _prompt = value;
+        labelChanged = true;
+        invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  userProposedSelectedIndex
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _userProposedSelectedIndex:Number = -1;
+    
+    /**
+     *  @private
+     */
+    mx_internal function set userProposedSelectedIndex(value:Number):void
+    {
+        _userProposedSelectedIndex = value;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function get userProposedSelectedIndex():Number
+    {
+        return _userProposedSelectedIndex;
     }
     
     //--------------------------------------------------------------------------
@@ -560,7 +572,7 @@ public class DropDownList extends List
     //
     //--------------------------------------------------------------------------
     
-     /**
+    /**
      *  @private
      *  Called by the initialize() method of UIComponent
      *  to hook in the accessibility code.
@@ -569,16 +581,6 @@ public class DropDownList extends List
     {
         if (DropDownList.createAccessibilityImplementation != null)
             DropDownList.createAccessibilityImplementation(this);
-    }
-    
-    /**
-     *  @private
-     */ 
-    override protected function commitSelection(dispatchChangedEvents:Boolean = true):Boolean
-    {
-        var retVal:Boolean = super.commitSelection(dispatchChangedEvents);
-        updateLabelDisplay();
-        return retVal; 
     }
     
     /**
@@ -595,28 +597,6 @@ public class DropDownList extends List
         }
     }
     
-    /**
-     *  @private
-     */ 
-    override protected function dataProvider_collectionChangeHandler(event:Event):void
-    {       
-        super.dataProvider_collectionChangeHandler(event);
-        
-        if (event is CollectionEvent)
-        {
-            labelChanged = true;
-            invalidateProperties();         
-        }
-    }
-       
-    /**
-     *  @private
-     */ 
-    override protected function getCurrentSkinState():String
-    {
-        return !enabled ? "disabled" : dropDownController.isOpen ? "open" : "normal";
-    }   
-       
     /**
      *  @private
      */ 
@@ -657,6 +637,105 @@ public class DropDownList extends List
         super.partRemoved(partName, instance);
     }
     
+    /**
+     *  @private
+     */ 
+    override protected function getCurrentSkinState():String
+    {
+        return !enabled ? "disabled" : dropDownController.isOpen ? "open" : "normal";
+    }   
+       
+    /**
+     *  @private
+     */ 
+    override protected function commitSelection(dispatchChangedEvents:Boolean = true):Boolean
+    {
+        var retVal:Boolean = super.commitSelection(dispatchChangedEvents);
+        updateLabelDisplay();
+        return retVal; 
+    }
+    
+    /**
+     *  @private
+     *  In updateRenderer, we want to select the proposedSelectedIndex
+     */
+    override mx_internal function isItemIndexSelected(index:int):Boolean
+    {
+        return userProposedSelectedIndex == index;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------   
+
+    /**
+     *  Open the drop-down list and dispatch 
+     *  a <code>DropdownEvent.OPEN</code> event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */ 
+    public function openDropDown():void
+    {
+        dropDownController.openDropDown();
+    }
+    
+    /**
+     *  Close the drop-down list and dispatch a <code>DropDownEvent.CLOSE</code> event. 
+     *   
+     *  @param commit If <code>true</code>, commit the selected
+     *  data item. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function closeDropDown(commit:Boolean):void
+    {
+        dropDownController.closeDropDown(commit);
+    }
+    
+    /**
+     *  @private
+     *  Called whenever we need to update the text passed to the labelDisplay skin part
+     */
+    // TODO (jszeto): Make this protected and make the name more generic (passing data to skin) 
+    mx_internal function updateLabelDisplay():void
+    {
+        if (labelDisplay)
+        {
+            if (selectedItem != null && selectedItem != undefined)
+                labelDisplay.text = LabelUtil.itemToLabel(selectedItem, labelField, labelFunction);
+            else
+                labelDisplay.text = prompt;
+        }   
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Event handlers
+    //
+    //--------------------------------------------------------------------------   
+
+    /**
+     *  @private
+     */ 
+    override protected function dataProvider_collectionChangeHandler(event:Event):void
+    {       
+        super.dataProvider_collectionChangeHandler(event);
+        
+        if (event is CollectionEvent)
+        {
+            labelChanged = true;
+            invalidateProperties();         
+        }
+    }
+       
     /**
      *  @private
      */
@@ -777,22 +856,7 @@ public class DropDownList extends List
 
         super.focusOutHandler(event);
     }
-    
-    /**
-     *  @private
-     *  In updateRenderer, we want to select the proposedSelectedIndex
-     */
-    override mx_internal function isItemIndexSelected(index:int):Boolean
-    {
-        return userProposedSelectedIndex == index;
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Event handling
-    //
-    //--------------------------------------------------------------------------
-    
+        
     /**
      *  @private
      *  Event handler for the <code>dropDownController</code> 
@@ -852,7 +916,6 @@ public class DropDownList extends List
         
         dispatchEvent(new DropDownEvent(DropDownEvent.CLOSE));
     }
-
-    
 }
+
 }
