@@ -182,6 +182,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     private var dataTipInitialPosition:Point;
     
     private var dataTipInstance:IDataRenderer;
+
+    private var slideToValue:Number;
+
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -301,7 +304,10 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     private var _pendingValue:Number = 0;
     
     /**
-     *  The value the slider will have when the mouse button is released.
+     *  The value the slider will have when the mouse button is released. This property
+     *  also holds the temporary values set during an animation of the thumb if
+     *  the <code>liveDragging</code> style is true; the real value is only set
+     *  when the animation ends.
      * 
      *  <p>If the <code>liveDragging</code> style is false, then the slider's value is only set
      *  when the mouse button is released. The value is not updated while the slider thumb is
@@ -449,6 +455,9 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     {
         super.thumb_mouseDownHandler(event);
         clickOffset = thumb.globalToLocal(new Point(event.stageX, event.stageY));
+
+        if (animator && animator.isPlaying)
+            animator.stop();
         
         // Popup a dataTip only if we have a SkinPart and the boolean flag is true
         if (dataTip && showDataTip && enabled)
@@ -456,7 +465,8 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             dataTipInstance = IDataRenderer(createDynamicPartInstance("dataTip"));
             systemManager.toolTipChildren.addChild(DisplayObject(dataTipInstance));
             
-            dataTipInstance.data = formatDataTipText(value);
+            dataTipInstance.data = formatDataTipText(
+                nearestValidValue(pendingValue, snapInterval));
             
             // Force the dataTip to render so that we have the correct size since
             // updateDataTip might need the size
@@ -560,7 +570,10 @@ public class Slider extends TrackBase implements IFocusManagerComponent
        
         if (event.isDefaultPrevented())
             return;
-        
+
+        if (animator && animator.isPlaying)
+            animator.stop();
+            
         // FIXME (hmuller): Provide a way to easily override the keyboard
         // behavior. This means having a callback in the subclasses
         // that tell the superclass all the positions in an array
@@ -575,7 +588,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.DOWN:
             case Keyboard.LEFT:
             {
-                newValue = nearestValidValue(value - stepSize, snapInterval);
+                newValue = nearestValidValue(pendingValue - stepSize, snapInterval);
                 setValue(newValue);
                 stopPropagation = true;
                 break;
@@ -584,7 +597,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
             case Keyboard.UP:
             case Keyboard.RIGHT:
             {
-                newValue = nearestValidValue(value + stepSize, snapInterval);
+                newValue = nearestValidValue(pendingValue + stepSize, snapInterval);
                 setValue(newValue);
                 stopPropagation = true;
                 break;
@@ -647,7 +660,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         var newValue:Number = pointToValue(p.x, p.y);
         newValue = nearestValidValue(newValue, snapInterval);
 
-        if (newValue != value)
+        if (newValue != pendingValue)
         {
             var slideDuration:Number = getStyle("slideDuration");
             if (slideDuration != 0)
@@ -662,10 +675,12 @@ public class Slider extends TrackBase implements IFocusManagerComponent
                     animator.easer = new Sine(0);
                 }
                 animator.stop();
+                // holds the final value to be set when animation ends
+                slideToValue = newValue;
                 animator.duration = slideDuration * 
-                    (Math.abs(value - newValue) / (maximum - minimum));
+                    (Math.abs(pendingValue - slideToValue) / (maximum - minimum));
                 animator.motionPaths = new <MotionPath>[
-                    new SimpleMotionPath("value", value, newValue)];
+                    new SimpleMotionPath("value", pendingValue, slideToValue)];
                 
                 dispatchEvent(new FlexEvent(FlexEvent.CHANGING));
                 animator.play();
@@ -687,7 +702,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     private function animationUpdateHandler(animation:Animation):void
     {
-        setValue(animation.currentValue["value"]);
+        pendingValue = animation.currentValue["value"];
     }
     
     /**
@@ -698,6 +713,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
      */
     private function animationEndHandler(animation:Animation):void
     {
+        setValue(slideToValue);
         dispatchEvent(new Event("change"));
     }
 }
