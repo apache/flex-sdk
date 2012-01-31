@@ -25,6 +25,7 @@ import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
 import flashx.textLayout.events.DamageEvent;
 import flashx.textLayout.factory.TextLineFactory;
+import flashx.textLayout.factory.TruncationOptions;
 import flashx.textLayout.formats.FormatValue;
 import flashx.textLayout.formats.TextLayoutFormat;
 import flashx.textLayout.tlf_internal;
@@ -623,9 +624,18 @@ public class TextGraphic extends TextGraphicElement
 	{
 		// Clear any previously generated TextLines from the textLines Array.
 		mx_internal::textLines.length = 0;
+		
+		var truncationOptions:TruncationOptions;
+		if (truncation != 0)
+		{
+			truncationOptions = new TruncationOptions();
+			truncationOptions.lineCountLimit = truncation;
+			truncationOptions.truncationIndicator =
+				TextGraphicElement.mx_internal::truncationIndicatorResource;
+		}
 
         TextLineFactory.createTextLinesFromTextFlow(
-			addTextLine, textFlow, mx_internal::bounds);
+			addTextLine, textFlow, mx_internal::bounds, truncationOptions);
     }
 
     /**
