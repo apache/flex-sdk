@@ -36,6 +36,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.ScrollEvent.SCROLL
  *  @helpid 3269
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="scroll", type="mx.events.ScrollEvent")]
 
@@ -48,6 +53,11 @@ include "../styles/metadata/TextStyles.as"
  *  the appearance of the scrollbar.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalScrollBarStyleName", type="String", inherit="no")]
 
@@ -56,6 +66,11 @@ include "../styles/metadata/TextStyles.as"
  *  the appearance of the scrollbar.
  *
  *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalScrollBarStyleName", type="String", inherit="no")]
 
@@ -121,6 +136,11 @@ include "../styles/metadata/TextStyles.as"
  *
  *  @helpid 3270
  *  @tiptext base class for views/containers that support scrolling
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ScrollControlBase extends UIComponent
 {
@@ -134,6 +154,11 @@ public class ScrollControlBase extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ScrollControlBase()
     {
@@ -153,6 +178,11 @@ public class ScrollControlBase extends UIComponent
 
     /**
      *  The border object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var border:IFlexDisplayObject;
 
@@ -174,6 +204,11 @@ public class ScrollControlBase extends UIComponent
      *  <code>verticalScrollPolicy</code>, <code>horizontalScrollPosition</code>, 
      *  and <code>verticalScrollPosition</code> properties
      *  should provide sufficient control over the mask.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var maskShape:Shape;
 
@@ -185,6 +220,11 @@ public class ScrollControlBase extends UIComponent
      *  Manipulation of the <code>horizontalScrollPolicy</code> 
      *  and <code>horizontalScrollPosition</code>
      *  properties should provide sufficient control over the scroll bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var horizontalScrollBar:ScrollBar;
 
@@ -196,6 +236,11 @@ public class ScrollControlBase extends UIComponent
      *  Manipulation of the <code>verticalScrollPolicy</code> 
      *  and <code>verticalScrollPosition</code>
      *  properties should provide sufficient control over the scroll bar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var verticalScrollBar:ScrollBar;
 
@@ -229,6 +274,11 @@ public class ScrollControlBase extends UIComponent
     /**
      *  A flag that the scrolling area changed due to the appearance or disappearance of
      *  scrollbars.  Used by most layout methods to re-adjust the scrolling properties again.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var scrollAreaChanged:Boolean;
 
@@ -300,6 +350,11 @@ public class ScrollControlBase extends UIComponent
      *
      *  @return EdgeMetrics object with the left, right, top,
      *  and bottom properties.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get borderMetrics():EdgeMetrics
     {
@@ -328,6 +383,11 @@ public class ScrollControlBase extends UIComponent
      *  in a HorizontalList or TileList.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalScrollPosition():Number
     {
@@ -386,6 +446,11 @@ public class ScrollControlBase extends UIComponent
      *  the component to allow for scrollbars to appear later.</p>
      *
      *  @default ScrollPolicy.OFF
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalScrollPolicy():String
     {
@@ -419,6 +484,11 @@ public class ScrollControlBase extends UIComponent
      *  scrollbar thumb is moved
      *  or the view is not updated until the thumb is released.
      *  The default value is <code>true</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var liveScrolling:Boolean = true;
 
@@ -439,6 +509,11 @@ public class ScrollControlBase extends UIComponent
      *  <code>maxHorizontalScrollPosition</code> property is computed from the
      *  data and size of component, and must not be set by
      *  the application code.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxHorizontalScrollPosition():Number
     {
@@ -478,6 +553,11 @@ public class ScrollControlBase extends UIComponent
      *  <code>maxVerticalScrollPosition</code> property is computed from the
      *  data and size of component, and must not be set by
      *  the application code.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxVerticalScrollPosition():Number
     {
@@ -528,6 +608,11 @@ public class ScrollControlBase extends UIComponent
      *    if (direction == "vertical") return myToolTips[position];
      *    else return "";
      *  }</pre>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get scrollTipFunction():Function
     {
@@ -554,6 +639,11 @@ public class ScrollControlBase extends UIComponent
      *  A flag that indicates whether a tooltip should appear
      *  near the scroll thumb when it is being dragged.
      *  The default value is <code>false</code> to disable the tooltip.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var showScrollTips:Boolean = false;
 
@@ -567,6 +657,11 @@ public class ScrollControlBase extends UIComponent
      *
      *  @return EdgeMetrics object with the thickness, in pixels,
      *  of the left, top, right, and bottom edges.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get viewMetrics():EdgeMetrics
     {
@@ -625,6 +720,11 @@ public class ScrollControlBase extends UIComponent
      *  a TileList.
      * 
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalScrollPosition():Number
     {
@@ -680,6 +780,11 @@ public class ScrollControlBase extends UIComponent
      *  the component to allow for scrollbars to appear later.</p>
      *
      *  @default ScrollPolicy.AUTO
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get verticalScrollPolicy():String
     {
@@ -715,6 +820,11 @@ public class ScrollControlBase extends UIComponent
      *  If a subclass overrides this method, the subclass should call
      *  the <code>super.createChildren()</code> method so that the logic
      *  in the <code>ScrollControlBase.createChildren()</code> method is executed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function createChildren():void
     {
@@ -852,6 +962,11 @@ public class ScrollControlBase extends UIComponent
      *  @param unscaledHeight Specifies the height of the component, in pixels,
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function layoutChrome(unscaledWidth:Number,
                                     unscaledHeight:Number):void
@@ -870,6 +985,11 @@ public class ScrollControlBase extends UIComponent
      *  <code>borderStyle</code> and <code>borderSkin</code> styles.  
      *  It must set the border property to the instance
      *  of the border.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function createBorder():void
     {
@@ -898,6 +1018,11 @@ public class ScrollControlBase extends UIComponent
      *  Returns <code>true</code> if a border is needed for this component based
      *  on the borderStyle and whether or not there is a background
      *  for the component.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function isBorderNeeded():Boolean
     {
@@ -938,6 +1063,11 @@ public class ScrollControlBase extends UIComponent
      *  @param totalRows The number of vertical units that need to be displayed.
      *
      *  @param visibleRows The number of vertical units that can be displayed at one time
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function setScrollBarProperties(totalColumns:int, visibleColumns:int,
                                         totalRows:int, visibleRows:int):void
@@ -1129,6 +1259,11 @@ public class ScrollControlBase extends UIComponent
      *  <code>scaleY</code> property of the component.
      *
      *  @return Returns true if there is enough space for a scrollbar.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     
     protected function roomForScrollBar(bar:ScrollBar, 
@@ -1149,6 +1284,11 @@ public class ScrollControlBase extends UIComponent
      *  Default event handler for the <code>scroll</code> event.
      *
      *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function scrollHandler(event:Event):void
     {
@@ -1251,6 +1391,11 @@ public class ScrollControlBase extends UIComponent
      *  Event handler for the mouse wheel scroll event.
      *
      *  @param event The event object.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function mouseWheelHandler(event:MouseEvent):void
     {
