@@ -48,6 +48,8 @@ import spark.layouts.supportClasses.LayoutBase;
  *    paddingLeft="0"
  *    paddingRight="0"
  *    paddingTop="0"
+ *    requestedMaxRowCount="-1"
+ *    requestedMinRowCount="-1"
  *    requestedRowCount"-1"
  *    rowHeight="no default"
  *    variableRowHeight="true"
@@ -335,8 +337,8 @@ public class VGroup extends Group
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requestedMaxRowCount():int
     {
@@ -364,8 +366,8 @@ public class VGroup extends Group
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get requestedMinRowCount():int
     {
