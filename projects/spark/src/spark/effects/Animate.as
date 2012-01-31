@@ -108,8 +108,6 @@ public class FxAnimate extends Effect
         super(target);
           
         instanceClass = FxAnimateInstance;
-        
-        mx_internal::applyTransitionEndProperties = true;
     }
     
     //--------------------------------------------------------------------------
