@@ -4454,9 +4454,14 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 // setfocus back to us so something on stage has focus
                 deferFocus();
                 
-                // must call removeChild() so FocusManager.lastFocus becomes null
-                actualContentHolder.removeChild(DisplayObject(itemEditorInstance));
-                editedItemRenderer.visible = true;
+                // defer focus can cause focusOutHandler to destroy the editor
+                // and make itemEditorInstance null
+                if (itemEditorInstance)
+                {
+                    // must call removeChild() so FocusManager.lastFocus becomes null
+                    actualContentHolder.removeChild(DisplayObject(itemEditorInstance));
+                    editedItemRenderer.visible = true;
+                }
             }
             itemEditorInstance = null;
             _editedItemPosition = null;
