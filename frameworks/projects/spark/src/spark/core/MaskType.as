@@ -13,21 +13,21 @@ package mx.graphics
 {
 
 /**
- *  Documentation is not currently available.
+ *  Defines the mask types available for a GraphicElement.
  */
 public final class MaskType
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public static const CLIP:String = "clip";
+    /**
+     *  The mask either displays the pixel or doesn't. Strokes and bitmap filters are not used. 
+     */
+    public static const CLIP:String = "clip";
 
-	/**
-	 *  Documentation is not currently available.
-	 */
-	public static const ALPHA:String = "alpha";
+    /**
+     *  The mask respects opacity and uses the strokes and bitmap filters of the mask.
+     */
+    public static const ALPHA:String = "alpha";
 }
 
 }
