@@ -123,10 +123,10 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  Must be of type <code>IFlexDisplayObject</code>.
  *
  *  <p>If the class implements the <code>ILayoutManagerClient</code> interface,
- *  then the instance will be validated by the DragManager.</p>
+ *  then the instance is validated by the DragManager.</p>
  *
  *  <p>If the class implements the <code>IVisualElement</code> interface,
- *  then the instance's <code>owner</code> property will be set to the List
+ *  then the instance's <code>owner</code> property is set to the List
  *  that initiates the drag.</p>
  *
  *  <p>The AIR DragManager takes a snapshot of the instance, while
@@ -204,7 +204,7 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
 
 /**
  *  The List control displays a vertical list of items.
- *  Its functionality is very similar to that of the SELECT
+ *  Its functionality is similar to that of the SELECT
  *  form element in HTML.
  *  If there are more items than can be displayed at once, it
  *  can display a vertical scroll bar so the user can access
@@ -508,7 +508,7 @@ public class List extends ListBase implements IFocusManagerComponent
     private var _allowMultipleSelection:Boolean = false;
     
     /**
-     *  If <code>true</code> multiple selections is enabled. 
+     *  If <code>true</code> multiple selection is enabled. 
      *  When switched at run time, the current selection
      *  is cleared. 
      *
@@ -763,7 +763,7 @@ public class List extends ListBase implements IFocusManagerComponent
     [Bindable("change")]
 
     /**
-     *  An Vector of Objects representing the currently selected data items. 
+     *  A Vector of Objects representing the currently selected data items. 
      *  If multiple selection is disabled by setting <code>allowMultipleSelection</code>
      *  to <code>false</code>, and this property is set, the data item 
      *  corresponding to the first item in the Vector is selected.  
@@ -1601,7 +1601,7 @@ public class List extends ListBase implements IFocusManagerComponent
 
     /**
      *  Creates and instance of the dropIndicator class that is used to
-     *  display the visuals of the drop location during a drag and dorp
+     *  display the visuals of the drop location during a drag and drop
      *  operation. The instance is set in the layout's 
      *  <code>dropIndicator</code> property.
      * 
@@ -2324,12 +2324,12 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  Adjusts the selection based on what keystroke or 
      *  keystroke combinations were encountered. The keystroke
-     *  is sent down to the layout and its up to the layout's
+     *  is sent down to the layout and it is up to the layout's
      *  getNavigationDestinationIndex() method to determine 
      *  what the index to navigate to based on the item that 
      *  is currently in focus. Once the index is determined, 
      *  single selection, caret item and if necessary, multiple 
-     *  selection are fixed up to reflect the newly selected
+     *  selections are updated to reflect the newly selected
      *  item.  
      *
      *  @param event The Keyboard Event encountered
