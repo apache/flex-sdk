@@ -40,9 +40,9 @@ import spark.components.mediaClasses.MuteButton;
 import spark.components.mediaClasses.ScrubBar;
 import spark.components.mediaClasses.VolumeBar;
 import spark.components.supportClasses.ButtonBase;
-import spark.core.IDisplayText;
 import spark.components.supportClasses.SkinnableComponent;
 import spark.components.supportClasses.ToggleButtonBase;
+import spark.core.IDisplayText;
 import spark.events.TrackBaseEvent;
 
 use namespace mx_internal;
@@ -2036,19 +2036,25 @@ public class VideoPlayer extends SkinnableComponent
      */
     mx_internal function getScreenBounds():Rectangle
     {       
+        var resultRect:Rectangle = new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
+        
         if (screenClass)
         {
             // Get the screen where the application resides
-            var nativeWindowBounds:Rectangle = stage["nativeWindow"]["bounds"];             
-            var currentScreen:Object = screenClass["getScreensForRectangle"](nativeWindowBounds)[0];
+            try 
+            {
+                var nativeWindowBounds:Rectangle = stage["nativeWindow"]["bounds"];             
+                var currentScreen:Object = screenClass["getScreensForRectangle"](nativeWindowBounds)[0];
           
-            // Return the bounds of that screen
-            return currentScreen["bounds"];
+                // Return the bounds of that screen
+                resultRect = currentScreen["bounds"];
+            }
+            catch (e:Error)
+            {
+            }
         }
-        else
-        {
-            return new Rectangle(0, 0, stage.fullScreenWidth, stage.fullScreenHeight);
-        }
+        
+        return resultRect;
     }
     
     //--------------------------------------------------------------------------
