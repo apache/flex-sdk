@@ -527,6 +527,10 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      * of your RPC components, anything that was connected over the same
      * ChannelSet is logged out.
      *  
+     *  <p><b>Note:</b> Adobe recommends that you use the mx.messaging.ChannelSet.logout() method
+     *  rather than this method. </p>
+     *
+     *  @see mx.messaging.ChannelSet#logout()   
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
