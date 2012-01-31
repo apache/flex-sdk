@@ -11,6 +11,7 @@
 
 package spark.components.gridClasses
 {
+import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.utils.describeType;
 
@@ -137,30 +138,6 @@ public class GridItemEditor extends Group implements IGridItemEditor
     }
     
     //----------------------------------
-    //  editorUsesEnterKey
-    //----------------------------------
-    
-    private var _editorUsesEnterKey:Boolean = false;
-
-    [Inspectable(category="General", defaultValue="false")]
-    
-    /**
-     *  @inheritdoc
-     */
-    public function get editorUsesEnterKey():Boolean
-    {
-        return _editorUsesEnterKey;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set editorUsesEnterKey(value:Boolean):void
-    {
-        _editorUsesEnterKey = value;
-    }
-    
-    //----------------------------------
     //  enableIME
     //----------------------------------
     
@@ -281,6 +258,10 @@ public class GridItemEditor extends Group implements IGridItemEditor
     //  value
     //----------------------------------
     
+    private var _value:Object;
+    
+    [Bindable("valueChanged")]
+
     /** 
      *  Many custom GridItemEditor subclasses will only need to override the 
      *  get and set methods for this property.   Override the set method to 
@@ -296,7 +277,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
      */ 
     public function get value():Object
     {
-        return null;
+        return _value;
     }
     
     /**
@@ -304,6 +285,15 @@ public class GridItemEditor extends Group implements IGridItemEditor
      */
     public function set value(newValue:Object):void
     {
+        if (newValue != value)
+        {
+            _value = newValue
+            
+            if (hasEventListener("valueChanged"))
+            {
+                dispatchEvent(new Event("valueChanged"));
+            }
+        }
     }
     
     //--------------------------------------------------------------------------
