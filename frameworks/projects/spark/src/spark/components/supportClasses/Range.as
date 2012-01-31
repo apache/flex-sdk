@@ -19,24 +19,26 @@ import mx.components.baseClasses.FxComponent;
 import mx.events.FlexEvent;
 
 /**
- *  The Range class holds a value and a legal range for that 
- *  value, defined by a minimum and maximum. <code>value</code>
- *  is always constrained to be within the current minimum and
- *  maximum, and the minimum and maximum are always constrained
+ *  The FxRange class holds a value and a legal range for that 
+ *  value, defined by a <code>minimum</code> and <code>maximum</code> property. 
+ *  The <code>value</code> property 
+ *  is always constrained to be between the current <code>minimum</code> and
+ *  <code>maximum</code>, and the <code>minimum</code>,
+ *  and <code>maximum</code> are always constrained
  *  to be in the proper numerical order such that, at any time,
- *  (minimum &lt;= value &lt;= maximum) is true. 
- *  <code>value</code> is also constrained to be multiples of 
- *  valueInterval if valueInterval is not 0.
+ *  (minimum &lt;= value &lt;= maximum) is <code>true</code>. 
+ *  The <code>value</code> is also constrained to be multiples of 
+ *  <code>valueInterval</code> if <code>valueInterval</code> is not 0.
  * 
- *  <p>Range has a <code>stepSize</code> property to control 
+ *  <p>FxRange has a <code>stepSize</code> property to control 
  *  how much <code>value</code> will change based on small 
  *  stepping operations.</p>
  * 
- *  <p>Range is a base class for various controls that require Range
- *  functionality, including TrackBase and Spinner.</p>
+ *  <p>FxRange is a base class for various controls that require range
+ *  functionality, including FxTrackBase and FxSpinner.</p>
  * 
- *  @see mx.components.TrackBase
- *  @see mx.components.Spinner
+ *  @see mx.components.baseClasses.FxTrackBase
+ *  @see mx.components.FxSpinner
  */  
 public class FxRange extends FxComponent
 {
@@ -263,7 +265,7 @@ public class FxRange extends FxComponent
             
             if (valueChanged || newValue != _value)
             {
-            	_value = newValue;
+                _value = newValue;
                 dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
             }
 
@@ -283,8 +285,15 @@ public class FxRange extends FxComponent
     }
 
     /**
-     *  Utility function to round intervals (such as 
-     *  <code>stepSize</code>) to a multiple of valueInterval.
+     *  Round a value (such as <code>stepSize</code>) 
+     *  to the closets multiple of <code>interval</code>.
+     *
+     *  @param value The value to round.
+     *
+     *  @param interval The interval.
+     *
+     *  @return The closets multiple of interval. 
+     *  The minimum value returned is <code>interval</code>.
      */
     protected function nearestValidInterval(value:Number, interval:Number):Number
     {
@@ -298,13 +307,17 @@ public class FxRange extends FxComponent
     }
 
     /**
-     *  Rounds the given value to the closest multiple of the
-     *  given interval and constrains it to the range. If interval
-     *  is 0, then the value is only bound to the range.
+     *  Rounds <code>value</code> to the closest multiple of  
+     *  <code>interval</code>, and constrain the result to the range 
+     *  defined by Range. 
+     *  If <code>interval</code> is 0, then the <code>value</code> 
+     *  is only bound to the range.
      * 
-     *  @param value The value to be rounded.
+     *  @param value The value to round.
+     * 
      *  @param interval The interval to round the value against.
-     *  @return The rounded value or 0 if value was NaN.
+     * 
+     *  @return The rounded value, or 0 if <code>value</code> is NaN.
      */
     protected function nearestValidValue(value:Number, interval:Number):Number
     {
@@ -341,11 +354,11 @@ public class FxRange extends FxComponent
     }
     
     /**
-     *  Directly sets the value without going through the correction
+     *  Directly sets <code>value</code> without going through the correction
      *  and invalidation processes. Subclasses may use this method if
      *  they wish to customize behavior.
      * 
-     *  @param value The number to set <code>value</code>
+     *  @param value The new value of <code>value</code>.
      */
     protected function setValue(value:Number):void
     {
@@ -358,10 +371,11 @@ public class FxRange extends FxComponent
     }
     
     /**
-     *  Steps the range value up or down.
+     *  Increase or decrease <code>value</code> by <code>stepSize</code>.
+     *  The new value of <code>value</code> is a multiple of <code>stepSize</code>.
      *
-     *  @param increase Whether the stepping action increases or
-     *  decreases <code>value</code>.
+     *  @param increase Whether the stepping action increases (<code>true</code>) or
+     *  decreases (<code>false</code>) the <code>value</code>.
      */
     public function step(increase:Boolean = true):void
     {
