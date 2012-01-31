@@ -683,8 +683,10 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      */
     private function interactionStateDetector_changeHandler(event:Event):void
     {
+		playTransitions = interactionStateDetector.playTransitions;
         down = (interactionStateDetector.state == InteractionState.DOWN);
         hovered = (interactionStateDetector.state == InteractionState.OVER);
+		playTransitions = true;
     }
 
 }
