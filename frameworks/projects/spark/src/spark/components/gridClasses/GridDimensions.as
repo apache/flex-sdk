@@ -163,7 +163,7 @@ public class GridDimensions
     //  defaultRowHeight
     //----------------------------------
     
-    private var _defaultRowHeight:Number = 32;
+    private var _defaultRowHeight:Number = 22;
     
     /**
      *  The default height of a row. The defaultRowHeight is always
@@ -605,18 +605,22 @@ public class GridDimensions
     }
     
     /**
-     *  Returns the total layout width of the content including gaps.
+     *  Returns the total layout width of the content including gaps.   If 
+	 *  columnCountOverride is specified, then the overall width of as many columns
+	 *  is returned.
      */
-    public function get contentWidth():Number
+    public function getContentWidth(columnCountOverride:int = -1):Number
     {
+		const nCols:int = (columnCountOverride == -1) ? columnCount : columnCountOverride;
+		
         if (!_columnWidths)
-            return (_columnCount * (defaultColumnWidth + columnGap)) - columnGap;
+            return (nCols * (defaultColumnWidth + columnGap)) - columnGap;
         
         var width:Number = 0;
         
-        for (var i:int = 0; i < _columnCount; i++)
+        for (var i:int = 0; i < nCols; i++)
         {
-            if (isNaN(_columnWidths[i]))
+            if ((i >= _columnWidths.length) || isNaN(_columnWidths[i]))
                 width += defaultColumnWidth + columnGap;
             else
                 width += _columnWidths[i] + columnGap;
@@ -626,15 +630,19 @@ public class GridDimensions
     }
     
     /**
-     *  Returns the total layout height of the content including gaps.
+     *  Returns the total layout height of the content including gaps.  If 
+	 *  rowHeightOverride is specified, then the overall height of as many rows
+	 *  is returned.
      */
-    public function get contentHeight():Number
+    public function getContentHeight(rowCountOverride:int = -1):Number
     {
+		const nRows:int = (rowCountOverride == -1) ? rowCount : rowCountOverride;
+		
         if (!isNaN(fixedRowHeight))
-            return (rowCount * (fixedRowHeight + rowGap)) - rowGap;
+            return (nRows * (fixedRowHeight + rowGap)) - rowGap;
         
         if (rowList.length == 0)
-            return (rowCount * (defaultRowHeight + rowGap)) - rowGap;
+            return (nRows * (defaultRowHeight + rowGap)) - rowGap;
         
         var height:Number = 0;
         var node:GridRowNode = rowList.first;
@@ -647,7 +655,7 @@ public class GridDimensions
             node = node.next;
         }
         
-        return height + ((rowCount - numRows) * (defaultRowHeight) + (rowCount - 1) * rowGap);
+        return height + ((nRows - numRows) * (defaultRowHeight) + (nRows - 1) * rowGap);
     }
 
     /**
