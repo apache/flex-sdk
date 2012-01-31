@@ -1,5 +1,9 @@
 package spark.components
 {
+    import flash.utils.Dictionary;
+    
+    import mx.core.UIComponent;
+    import mx.events.FlexEvent;
 
     ////////////////////////////////////////////////////////////////////////////////
     //
@@ -40,6 +44,10 @@ package spark.components
         public function Form()
         {
             super();
+            addEventListener(FlexEvent.VALID, validHandler, true);
+            addEventListener(FlexEvent.INVALID, invalidHandler, true);
+            setStyle("showErrorSkin", false);
+            setStyle("showErrorTip", false);
         }
         
         //--------------------------------------------------------------------------
@@ -47,6 +55,8 @@ package spark.components
         //  Properties
         //
         //--------------------------------------------------------------------------
+        
+        public var invalidElements:Dictionary = new Dictionary(true);
         
         //----------------------------------
         //  columnWidths
@@ -86,6 +96,61 @@ package spark.components
         
         }
         
+        private function validHandler(event:FlexEvent):void
+        {
+            if (event.isDefaultPrevented())
+                return;
+            
+            var targ:UIComponent = event.target as UIComponent;
+            if (invalidElements[targ] != undefined)
+                delete invalidElements[targ];
+            
+            invalidateSkinState();
+        }
         
+        private function invalidHandler(event:FlexEvent):void
+        {
+            if (event.isDefaultPrevented())
+                return;
+            
+            var targ:UIComponent = event.target as UIComponent;
+            
+            if (targ)
+                invalidElements[targ] = targ.errorString;                    
+            
+            invalidateSkinState();
+        }
+        
+        override protected function getCurrentSkinState():String
+        {
+            var result:String = super.getCurrentSkinState();
+            
+            var isEmpty:Boolean = true;
+            var errMsg:String = "";
+            
+            for (var key:Object in invalidElements)
+            {
+                isEmpty = false;
+                if (errMsg != "")
+                {
+                    errMsg += "\n";
+                }
+                               
+                errMsg += UIComponent(key).errorString; 
+            }
+            
+            if (!isEmpty && enabled)
+            {
+                
+                result = "error";
+            }
+            
+            errorString = errMsg;
+            // Check if dictionary is not empty
+            //if () // dictionary not empty && enabled
+                //result = "error";
+                
+            return result;
+        }
     }
 }
