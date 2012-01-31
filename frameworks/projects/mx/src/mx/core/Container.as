@@ -5578,7 +5578,7 @@ public class Container extends UIComponent
     {
         // If this Container has a vertical scrollbar, then handle the event
         // and prevent further bubbling
-        if (verticalScrollBar)
+        if (verticalScrollBar && !event.isDefaultPrevented())
         {
             event.stopPropagation();
 
