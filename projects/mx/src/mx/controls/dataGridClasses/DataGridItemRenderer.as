@@ -731,23 +731,12 @@ public class DataGridItemRenderer extends UITextField
         // Calculate global position of label.
         var sm:ISystemManager = systemManager.topLevelSystemManager;
         var sbRoot:DisplayObject = sm.getSandboxRoot();
-        var screen:Rectangle;
+        var screen:Rectangle = sm.getVisibleApplicationRect();
         var pt:Point = new Point(0, 0);
         pt = localToGlobal(pt);
         pt = sbRoot.globalToLocal(pt);          
         
         toolTip.move(pt.x, pt.y + (height - toolTip.height) / 2);
-
-        if (sm != sbRoot)
-        {
-            var request:InterManagerRequest = new InterManagerRequest(InterManagerRequest.SYSTEM_MANAGER_REQUEST, 
-                                    false, false,
-                                    "getVisibleApplicationRect"); 
-            sbRoot.dispatchEvent(request);
-            screen = Rectangle(request.value);
-        }
-        else
-            screen = sm.getVisibleApplicationRect();
 
         var screenRight:Number = screen.x + screen.width;
         pt.x = toolTip.x;
