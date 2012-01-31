@@ -393,6 +393,20 @@ public class UIFTETextField extends FTETextField
     
     /**
      *  @private
+     *  TextField only has a width.  Need to remember if explicitWidth should
+     *  be used or width should be used.
+     */
+    private var useExplicitWidth:Boolean = false;
+    
+    /**
+     *  @private
+     *  TextField only has a height.  Need to remember if explicitHeight should
+     *  be used or height should be used.
+     */
+    private var useExplicitHeight:Boolean = false;
+    
+    /**
+     *  @private
      *  True if we've inherited layoutDirection="rtl".  
      */
     private var mirror:Boolean = false;
@@ -404,47 +418,18 @@ public class UIFTETextField extends FTETextField
     //--------------------------------------------------------------------------
     
     //----------------------------------
-    //  x
-    //----------------------------------
-    
-    private var _x:Number = 0;
-    
-    /**
-     *  @private
-     */
-    override public function set x(value:Number):void
-    {
-        _x = value;
-        super.x = value;
-        if (mirror)
-            validateTransformMatrix();
-    }
-    
-    /**
-     *  @private
-     */
-    override public function get x():Number
-    {
-        // TODO(hmuller): by default get x returns transform.matrix.tx rounded to the nearest 20th.
-        // should do the same here, if we're returning _x.
-        return (mirror) ? _x : super.x;
-    }
-    
-    //----------------------------------
-    //  width
+    //  height
     //----------------------------------
     
     /**
      *  @private
      */
-    override public function set width(value:Number):void  
-    {
-        super.width = value;
-        if (mirror)
-            validateTransformMatrix();
+    override public function set height(value:Number):void  
+    {        
+        super.height = value;
+        useExplicitHeight = false;
     }
-    
-    
+        
     //----------------------------------
     //  htmlText
     //----------------------------------
@@ -552,6 +537,49 @@ public class UIFTETextField extends FTETextField
 		setColor(value);
 	}
 	
+    //----------------------------------
+    //  width
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set width(value:Number):void  
+    {        
+        super.width = value;
+        if (mirror)
+            validateTransformMatrix();
+        
+        useExplicitWidth = false;
+    }
+        
+    //----------------------------------
+    //  x
+    //----------------------------------
+    
+    private var _x:Number = 0;
+    
+    /**
+     *  @private
+     */
+    override public function set x(value:Number):void
+    {
+        _x = value;
+        super.x = value;
+        if (mirror)
+            validateTransformMatrix();
+    }
+    
+    /**
+     *  @private
+     */
+    override public function get x():Number
+    {
+        // TODO(hmuller): by default get x returns transform.matrix.tx rounded to the nearest 20th.
+        // should do the same here, if we're returning _x.
+        return (mirror) ? _x : super.x;
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -902,6 +930,7 @@ public class UIFTETextField extends FTETextField
     public function set explicitHeight(value:Number):void
     {
         _explicitHeight = value;
+        useExplicitHeight = true;
     }
 
     //----------------------------------
@@ -1017,6 +1046,7 @@ public class UIFTETextField extends FTETextField
     public function set explicitWidth(value:Number):void
     {
         _explicitWidth = value;
+        useExplicitWidth = true;
     }
 
     //----------------------------------
@@ -2150,11 +2180,19 @@ public class UIFTETextField extends FTETextField
         if (!parent)
             return;
 
-        // If mirroring, setting width can change the transform matrix.
-        if (!isNaN(explicitWidth) && super.width != explicitWidth)
-            width = (explicitWidth > 4) ? explicitWidth : 4;
+        // If the explicitWidth was set, and the width wasn't set after that,
+        // for example by setLayoutBoundsSize(), push the explicit width
+        // down to the TextField to use as its width.
+        if (useExplicitWidth && !isNaN(explicitWidth) && width != explicitWidth)
+        {
+            super.width = (explicitWidth > 4) ? explicitWidth : 4;
+            // Update the transform matrix with the new width.
+            if (mirror)
+                validateTransformMatrix();
+        }
 
-        if (!isNaN(explicitHeight) && super.height != explicitHeight)
+        // Same as for width above.
+        if (useExplicitHeight && !isNaN(explicitHeight) && height != explicitHeight)
             super.height = explicitHeight;
         
         // If ancestor is mirroring, need to flip this so it is not
