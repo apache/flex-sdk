@@ -127,6 +127,8 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *    backgroundColor="0xFFFFFF"
  *    colorCorrection="default"
+ *    controlBarContent="null"
+ *    controlBarLayout="HorizontalLayout"
  *    frameRate="24"
  *    pageTitle""
  *    preloader="<i>No default</i>"
@@ -329,9 +331,11 @@ public class Application extends SkinnableContainer
 
     /**
      *  The skin part that defines the appearance of the 
-     *  control bar in the container.
+     *  control bar area of the container.
+     *  By default, the ApplicationSkin class defines the control bar area to appear at the top 
+     *  of the content area of the Application container with a grey background. 
      *
-     *  @see spark.skins.spark.PanelSkin
+     *  @see spark.skins.spark.ApplicationSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -347,8 +351,17 @@ public class Application extends SkinnableContainer
     [ArrayElementType("mx.core.IVisualElement")]
     
     /**
-     *  The set of items that become the content of
-     *  the controlBarGroup
+     *  The set of components to include in the control bar area of the 
+     *  Application container. 
+     *  The location and appearance of the control bar area of the Application container 
+     *  is determined by the spark.skins.spark.ApplicationSkin class. 
+     *  By default, the ApplicationSkin class defines the control bar area to appear at the top 
+     *  of the content area of the Application container with a grey background. 
+     *  Create a custom skin to change the default appearance of the control bar.
+     *
+     *  @default null
+     *
+     *  @see spark.skins.spark.ApplicationSkin
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -372,7 +385,9 @@ public class Application extends SkinnableContainer
     //---------------------------------- 
     
     /**
-     *  An optional Layout assigned to the control bar.
+     *  Defines the layout of the control bar area of the container.
+     *
+     *  @default HorizontalLayout
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
