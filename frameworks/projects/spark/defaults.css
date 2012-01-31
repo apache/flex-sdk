@@ -24,6 +24,7 @@ Application
 Border
 {
     borderStyle : "solid"; 
+    cornerRadius: 0;
     skinClass: ClassReference("spark.skins.spark.BorderSkin");
 }
 
@@ -59,14 +60,9 @@ SkinnableComponent
     focusSkin: ClassReference("spark.skins.spark.FocusSkin");
 }
 
-SkinnableContainerBase
-{
-    backgroundColor: #FFFFFF;
-    cornerRadius: 0;
-}
-
 SkinnableContainer
 {
+    backgroundColor: #FFFFFF;
     skinClass: ClassReference("spark.skins.spark.SkinnableContainerSkin");
 }
 
