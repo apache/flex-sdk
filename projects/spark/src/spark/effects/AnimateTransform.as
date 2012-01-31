@@ -669,6 +669,7 @@ public class AnimateTransform extends Animate
                     // to transform center changes
                     if (propName in valueMap &&
                         (propName == "translationX" || propName == "translationY" ||
+                         propName == "postLayoutTranslationX" || propName == "postLayoutTranslationY" ||
                          valueMap[propName] != otherValueMap[propName]))
                     {
                         transitionValues[propName] = valueMap[propName];
