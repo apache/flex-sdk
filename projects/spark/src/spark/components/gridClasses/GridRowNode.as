@@ -11,7 +11,7 @@ public final class GridRowNode
 {
     public var rowIndex:int;
     
-    public var cellHeights:Vector.<Number>;
+    private var cellHeights:Vector.<Number>;
     public var maxCellHeight:Number = NaN;
     public var fixedHeight:Number = NaN;
     
@@ -54,6 +54,10 @@ public final class GridRowNode
             for (var i:int = value - _numColumns; i < value; i++)
                 cellHeights[i] = 0;
         }
+        else
+        {
+            updateMaxHeight();
+        }
         
         _numColumns = value;
     }
@@ -63,7 +67,7 @@ public final class GridRowNode
      * 
      *  @return true if changed
      */
-    public function updateMaxHeight():Boolean
+    private function updateMaxHeight():Boolean
     {
         // FIXME (klin): use max heap? might not be worth the overhead.
         var max:Number = 0;
@@ -75,6 +79,35 @@ public final class GridRowNode
         maxCellHeight = max;
         return changed;
     }
+    
+    /**
+     *  Returns the cell height at the specified index.
+     *  
+     *  @return the cell height at the given index. NaN if index
+     *  is out of bounds.
+     */
+    public function getCellHeight(index:int):Number
+    {
+        if (index < 0 || index >= cellHeights.length)
+            return NaN;
+        return cellHeights[index];
+    }
+    
+    /**
+     *  Updates the height at the specified column.
+     * 
+     *  @return true if max height has changed.
+     */
+    public function setCellHeight(index:int, value:Number):Boolean
+    {
+        if (cellHeights[index] == value)
+            return false;
+        
+        cellHeights[index] = value;
+        
+        return updateMaxHeight();
+    }
+    
     
     public function toString():String
     {
