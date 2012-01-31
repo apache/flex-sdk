@@ -10,8 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package mx.components
-{
-import mx.core.IDataRenderer;	
+{	
 
 /**
  *  The Skin class defines the base class for all skins used by skinnable components. 
@@ -37,7 +36,7 @@ import mx.core.IDataRenderer;
  *
  *  @see mx.core.SkinnableComponent
  */
-public class Skin extends Group implements IDataRenderer
+public class Skin extends Group
 {
     include "../core/Version.as";
 
@@ -61,22 +60,22 @@ public class Skin extends Group implements IDataRenderer
     //
     //--------------------------------------------------------------------------
 	
-	private var _data:Object;
+	private var _fxComponent:Object;
     [Bindable]
     /**
      *  A reference to the component that hosts this skin instance.
      */    
-    public function get data():Object
+    public function get fxComponent():Object
     {
-        return _data;
+        return _fxComponent;
     }
     
     /**
      *  @private 
      */    
-    public function set data(value:Object):void
+    public function set fxComponent(value:Object):void
     {
-        _data = value;
+        _fxComponent = value;
     }
     
 }
