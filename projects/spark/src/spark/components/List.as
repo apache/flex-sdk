@@ -227,7 +227,7 @@ public class List extends Selector
      */
     override protected function itemSelected(item:Object, selected:Boolean):void
     {
-        var item:* = contentGroup.getItemSkin(item);
+        var item:* = currentContentGroup.getItemSkin(item);
         
         if (item)
             item.selected = selected;
@@ -345,7 +345,7 @@ public class List extends Selector
     {
         super.itemAddedHandler(event);
         
-        var skin:* = contentGroup.getItemSkin(event.relatedObject);
+        var skin:* = currentContentGroup.getItemSkin(event.relatedObject);
         
         if (skin)
             skin.addEventListener("click", item_clickHandler);
@@ -359,7 +359,7 @@ public class List extends Selector
     {
         super.itemRemovedHandler(event);
         
-        var skin:* = contentGroup.getItemSkin(event.relatedObject);
+        var skin:* = currentContentGroup.getItemSkin(event.relatedObject);
         
         if (skin)
             skin.removeEventListener("click", item_clickHandler);
@@ -373,7 +373,7 @@ public class List extends Selector
     {
         // Multiple selection needs to be added here....
         
-        selectedItem = contentGroup.getSkinItem(DisplayObject(event.currentTarget));
+        selectedItem = currentContentGroup.getSkinItem(DisplayObject(event.currentTarget));
     }
 }
 
