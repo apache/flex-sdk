@@ -1655,10 +1655,18 @@ public class Application extends SkinnableContainer
             
             if (nativeApp)
             {
-                var appXML:XML = XML(nativeApp["nativeApplication"]["applicationDescriptor"]);
-                var ns:Namespace = appXML.namespace();
-                
-                _softKeyboardBehavior = String(appXML..ns::softKeyboardBehavior);
+                try
+                {
+                    var appXML:XML = XML(nativeApp["nativeApplication"]["applicationDescriptor"]);
+                    var ns:Namespace = appXML.namespace();
+                    
+                    _softKeyboardBehavior = String(appXML..ns::softKeyboardBehavior);
+                }
+                catch (e:Error)
+                {
+                    // TODO (aharui): Marshall this someday?
+                    _softKeyboardBehavior = "";
+                }
             }
             else
             {
