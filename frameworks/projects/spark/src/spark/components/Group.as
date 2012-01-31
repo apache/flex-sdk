@@ -319,7 +319,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */
     private var _blendMode:String = "auto";  
     private var blendModeChanged:Boolean;
-	private var blendShaderChanged:Boolean;
+    private var blendShaderChanged:Boolean;
 
     [Inspectable(category="General", enumeration="auto,add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="auto")]
 
@@ -364,7 +364,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         invalidateProperties();
         blendModeChanged = true;
         
-    	//The default blendMode in FXG is 'auto'. There are only
+        //The default blendMode in FXG is 'auto'. There are only
         //certain cases where this results in a rendering difference,
         //one being when the alpha of the Group is > 0 and < 1. In that
         //case we set the blendMode to layer to avoid the performance
@@ -381,20 +381,20 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         }
         else 
         {
-			var oldValue:String = _blendMode;
-			_blendMode = value;
-			
-			// If one of the non-native Flash blendModes is set, 
-			// record the new value and set the appropriate 
-			// blendShader on the display object. 
-			if (value == "colordodge" || 
-				value =="colorburn" || value =="exclusion" || 
-				value =="softlight" || value =="hue" || 
-				value =="saturation" || value =="color" ||
-				value =="luminosity")
-			{
-				blendShaderChanged = true;
-			}
+            var oldValue:String = _blendMode;
+            _blendMode = value;
+            
+            // If one of the non-native Flash blendModes is set, 
+            // record the new value and set the appropriate 
+            // blendShader on the display object. 
+            if (value == "colordodge" || 
+                value =="colorburn" || value =="exclusion" || 
+                value =="softlight" || value =="hue" || 
+                value =="saturation" || value =="color" ||
+                value =="luminosity")
+            {
+                blendShaderChanged = true;
+            }
         
             // Only need to re-do display object assignment if blendmode was normal
             // and is changing to something else, or the blend mode was something else 
@@ -963,7 +963,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
             if (isValidScaleGrid())
             {
-				// FIXME (egeorgie): how about overlays in this case? Should we care about those?
+                // FIXME (egeorgie): how about overlays in this case? Should we care about those?
                 if (numChildren > 0)
                     throw new Error(resourceManager.getString("components", "scaleGridGroupError"));
 
@@ -1780,7 +1780,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */ 
     private function addDisplayObjectToDisplayList(child:DisplayObject, index:int = -1):void
     {
-		var overlayCount:int = _overlay ? _overlay.numDisplayObjects : 0;
+        var overlayCount:int = _overlay ? _overlay.numDisplayObjects : 0;
         if (child.parent == this)
             super.setChildIndex(child, index != -1 ? index : super.numChildren - 1 - overlayCount);
         else
