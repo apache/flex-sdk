@@ -9,10 +9,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.effects
+package spark.effects
 {
-import mx.effects.interpolation.IInterpolator;
-import mx.effects.interpolation.NumberArrayInterpolator;
+import spark.effects.interpolation.IInterpolator;
+import spark.effects.interpolation.NumberArrayInterpolator;
 
 import spark.effects.KeyFrame;
 import spark.effects.MotionPath;
@@ -20,7 +20,7 @@ import spark.effects.MotionPath;
     
 /**
  * This class is used to hold the name of a property and the values that
- * that property will assume over time for instances of the FxAnimate
+ * that property will assume over time for instances of the Animate
  * effect, or subclasses of that effect. This class is a simple utility
  * subclass of MotionPath, setting up two keyframes to hold the 
  * <code>valueFrom</code>, <code>valueTo</code>, and
