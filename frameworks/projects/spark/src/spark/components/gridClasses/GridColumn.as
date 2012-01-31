@@ -158,7 +158,8 @@ public class GridColumn extends EventDispatcher
             dataFieldPath = [value];
         
         invalidateGrid();
-        clearGridLayoutCache();
+        if (grid)
+            grid.clearGridLayoutCache(true);
         
         dispatchChangeEvent("dataFieldChanged");
     }
@@ -336,7 +337,8 @@ public class GridColumn extends EventDispatcher
         _itemRenderer = value;
 
         invalidateGrid();
-        clearGridLayoutCache();
+        if (grid)
+            grid.clearGridLayoutCache(true);
         
         dispatchChangeEvent("itemRendererChanged");
     }
@@ -382,7 +384,8 @@ public class GridColumn extends EventDispatcher
         _itemRendererFunction = value;
         
         invalidateGrid();
-        clearGridLayoutCache();
+        if (grid)
+            grid.clearGridLayoutCache(true);
         
         dispatchChangeEvent("itemRendererFunctionChanged");
     }
@@ -436,7 +439,8 @@ public class GridColumn extends EventDispatcher
         _labelFunction = value;
         
         invalidateGrid();
-        clearGridLayoutCache();
+        if (grid)
+            grid.clearGridLayoutCache(true);
         
         dispatchChangeEvent("labelFunctionChanged");
     }
@@ -760,21 +764,6 @@ public class GridColumn extends EventDispatcher
     {
         const itemRendererFunction:Function = itemRendererFunction;
         return (itemRendererFunction != null) ? itemRendererFunction(item) : itemRenderer;
-    }
-    
-    /**
-     *  @private
-     *  Clears the layout's cache and the typical item's measurements.
-     */
-    private function clearGridLayoutCache():void
-    {
-        if (grid && grid.layout)
-        {
-            var gridLayout:GridLayout = grid.layout as GridLayout;
-            if (gridLayout)
-                gridLayout.gridDimensions.clearTypicalCellWidthsAndHeights();
-            grid.layout.clearVirtualLayoutCache();
-        }
     }
     
     /**
