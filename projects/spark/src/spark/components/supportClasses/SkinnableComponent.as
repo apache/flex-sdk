@@ -326,7 +326,7 @@ public class SkinnableComponent extends UIComponent
      */
     protected function attachBehaviors():void
     {
-        skinObject.addEventListener("idAssigned", skin_idAssignedHandler);
+        skinObject.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
         // Declarative behaviors get attached here
     }
@@ -337,7 +337,7 @@ public class SkinnableComponent extends UIComponent
      */
     protected function removeBehaviors():void
     {
-        skinObject.removeEventListener("idAssigned", skin_idAssignedHandler);
+        skinObject.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
         // Declarative behaviors get removed here
     }
@@ -591,7 +591,7 @@ public class SkinnableComponent extends UIComponent
      * Called when a slot on the skin has been assigned a value. Deferred parts
      * may be instantiated long after the skin has been created.
      */
-    private function skin_idAssignedHandler(event:PropertyChangeEvent):void
+    private function skin_propertyChangeHandler(event:PropertyChangeEvent):void
     {
         var className:String = getQualifiedClassName(this);
         var parts:Array = getSkinPartMetadata(className);
