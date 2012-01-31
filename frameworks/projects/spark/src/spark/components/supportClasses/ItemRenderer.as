@@ -206,7 +206,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
             return;
         
         _itemIndex = value;
-        dispatchEvent(new Event("contentBackgroundColorChanged"));
+        
         if (autoDrawBackground)
         {
             redrawRequested = true;
