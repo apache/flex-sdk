@@ -64,7 +64,7 @@ use namespace mx_internal;
 
 /**
  *  FTETextField is a Sprite which displays text by using the new
- *  Text Layout Framework to implement the old TextField API.
+ *  Flash Text Engine to implement the old TextField API.
  * 
  *  @see flash.text.TextField
  *
