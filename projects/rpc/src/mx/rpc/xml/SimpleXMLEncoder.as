@@ -131,6 +131,8 @@ public class SimpleXMLEncoder
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
+     *
+     *  @return The XMLNode object. 
      */
     public function encodeValue(obj:Object, qname:QName, parentNode:XMLNode):XMLNode
     {
