@@ -27,6 +27,7 @@ import mx.validators.IValidatorListener;
 import spark.components.gridClasses.GridColumn;
 import spark.components.DataGrid;
 import spark.components.Group;
+import flash.geom.Point;
 
 use namespace mx_internal;
 
@@ -317,7 +318,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
         clearErrorStringFromContainer(this);
         removeEventListener(MouseEvent.MOUSE_UP, mouseUpDownMoveHandler);
         removeEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownMoveHandler);
-        removeEventListener(MouseEvent.MOUSE_MOVE, mouseUpDownMoveHandler);
+        removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
     }
     
     /**
@@ -330,7 +331,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
         addEventListener(MouseEvent.MOUSE_DOWN, mouseUpDownMoveHandler);
         
         // Stop hover highlighting on rows underneath the editor.
-        addEventListener(MouseEvent.MOUSE_MOVE, mouseUpDownMoveHandler);
+        addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
     }
     
     /**
@@ -523,8 +524,26 @@ public class GridItemEditor extends Group implements IGridItemEditor
     {
         if (event.cancelable)
             event.preventDefault();
-        else
-            event.stopPropagation();
+    }
+
+    /**
+     *   @private
+     *   Stop the data grid from seeing the mouse move events.
+     */ 
+    private function mouseMoveHandler(event:MouseEvent):void
+    {
+        // Redispatch the event to the dataGrid's parent and stop
+        // the event from propagating past the editor.
+        // The stopPropagation() keeps the grid from showing hover from mouse
+        // moves within the editor. 
+        // Dispatching the mouse move event to the data grid's parent 
+        // keeps the data grid from seeing the event and allows the
+        // RichEditableText control to see the event (it listens to the stage).
+        var pt:Point = dataGrid.parent.globalToLocal(new Point(event.stageX, event.stageY));
+        event.localX = pt.x;
+        event.localY = pt.y;
+        dataGrid.parent.dispatchEvent(event);
+        event.stopPropagation();
     }
 }
 }
