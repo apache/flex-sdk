@@ -482,7 +482,7 @@ public class RichEditableText extends UIComponent
      *  @private
      *  Source of text: one of "text", "textFlow" or "content".
      */
-    private var source:String = "";
+    private var source:String = "text";
 
     /**
      *  @private
@@ -886,6 +886,8 @@ public class RichEditableText extends UIComponent
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
+        
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
     }
     
     //----------------------------------
@@ -1459,6 +1461,8 @@ public class RichEditableText extends UIComponent
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
+        
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
     }
     
     //----------------------------------
@@ -1531,6 +1535,8 @@ public class RichEditableText extends UIComponent
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
+
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
     }
 
     //----------------------------------
@@ -2722,7 +2728,7 @@ public class RichEditableText extends UIComponent
                                 activePosition:int):void
     {
         // Make sure all properties are committed before doing the operation.
-        validateNow();
+        validateProperties();
 
         var selectionManager:ISelectionManager = getSelectionManager();
         
@@ -2746,7 +2752,7 @@ public class RichEditableText extends UIComponent
                                   activePosition:int = int.MAX_VALUE):void
     {
         // Make sure all properties are committed before doing the operation.
-        validateNow();
+        validateProperties();
 
         // Scrolls so that the text position is visible in the container. 
         textContainerManager.scrollToRange(anchorPosition, activePosition);       
@@ -2812,7 +2818,7 @@ public class RichEditableText extends UIComponent
         var format:TextLayoutFormat = new TextLayoutFormat();
  
          // Make sure all properties are committed before doing the operation.
-        validateNow();
+        validateProperties();
 
         var selectionManager:ISelectionManager = getSelectionManager();
                 
@@ -2940,7 +2946,7 @@ public class RichEditableText extends UIComponent
                                      activePosition:int=-1):void
     {
          // Make sure all properties are committed before doing the operation.
-        validateNow();
+        validateProperties();
         
         var editManager:IEditManager = getEditManager();
         
@@ -3023,13 +3029,13 @@ public class RichEditableText extends UIComponent
         // EditManager.updateAllControllers().
         editManager.insertText(text);
 
-        // All done with edit manager.
-        releaseEditManager();
+        // Make the insertion happen now rather than on the next frame.
+        editManager.flushPendingOperations();
         
-        // The insertion will generate a damage event which will invalidate
-        // the size and the display list.
-        validateSize();
-        validateDisplayList();
+        // All done with edit manager.
+        releaseEditManager();        
+
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                                   
     }
 
     /**
@@ -3163,6 +3169,8 @@ public class RichEditableText extends UIComponent
         if (focusManager)
             focusManager.defaultButtonEnabled = true;
 
+
+        dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));                           
     }
 
     /**
