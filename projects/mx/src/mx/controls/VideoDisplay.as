@@ -171,6 +171,8 @@ include "../styles/metadata/BorderStyles.as"
 
 [IconFile("VideoDisplay.png")]
 
+[Alternative(replacement="spark.components.VideoPlayer", since="4.0")]
+
 /**
  *  The VideoDisplay control lets you play an FLV file in a Flex application. 
  *  It supports progressive download over HTTP, streaming from the Flash Media
