@@ -87,7 +87,7 @@ public class BoxLayout extends Layout
 		var numChildrenWithOwnSpace:int = n;
 		for (var i:int = 0; i < n; i++)
 		{
-			var child:IUIComponent = IUIComponent(target.getChildAt(i));
+			var child:IUIComponent = target.getLayoutChildAt(i);
 
 			if (!child.includeInLayout)
 			{
@@ -185,7 +185,7 @@ public class BoxLayout extends Layout
 			// a GridItem. This code path works for both horizontal and
 			// vertical layout.
 
-			var child:IUIComponent = IUIComponent(target.getChildAt(0));
+			var child:IUIComponent = target.getLayoutChildAt(0);
 
 			var percentWidth:Number = child.percentWidth;
 			var percentHeight:Number = child.percentHeight;
@@ -271,7 +271,7 @@ public class BoxLayout extends Layout
 
 			for (i = 0; i < n; i++)
 			{
-				obj = IUIComponent(target.getChildAt(i));
+				obj = target.getLayoutChildAt(i);
 				left = (w - obj.width) * horizontalAlign + paddingLeft;
 				obj.move(Math.floor(left), Math.floor(top));
 				if (obj.includeInLayout)
@@ -310,7 +310,7 @@ public class BoxLayout extends Layout
 
 			for (i = 0; i < n; i++)
 			{
-				obj = IUIComponent(target.getChildAt(i));
+				obj = target.getLayoutChildAt(i);
 				top = (h - obj.height) * verticalAlign + paddingTop;
 				obj.move(Math.floor(left), Math.floor(top));
 				if (obj.includeInLayout)
