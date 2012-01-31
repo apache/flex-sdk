@@ -94,6 +94,7 @@ use namespace mx_internal;
 //--------------------------------------
 
 [AccessibilityClass(implementation="spark.accessibility.ComboBoxAccImpl")]
+[IconFile("ComboBox.png")]
 
 /**
  *  The ComboBox control is a child class of the DropDownListBase control. 
