@@ -12,6 +12,7 @@ package mx.effects
 {
 
 import mx.effects.interpolation.IEaser;
+import mx.effects.interpolation.IInterpolator;
 import mx.effects.interpolation.Sine;
 import mx.effects.effectClasses.FxAnimateInstance;
 import mx.events.AnimationEvent;
@@ -152,6 +153,18 @@ public class FxAnimate extends Effect
     public var easer:IEaser = defaultEaser;
     
     /**
+     * The interpolator used by this effect to calculate values between
+     * the start and end values. By default, interpolation is handled
+     * by <code>NumberInterpolator</code> or, in the case of the start
+     * and end values being arrays, by <code>NumberArrayInterpolator</code>.
+     * Interpolation of other types, or of Numbers that should be interpolated
+     * differently, such as <code>uint</code> values that hold color
+     * channel information, can be handled by supplying a different
+     * <code>interpolator</code>.
+     */
+    public var interpolator:IInterpolator = null;
+
+    /**
      * The behavior of a repeating effect (an effect
      * with <code>repeatCount</code> equal to either 0 or >1). This
      * value should be either <code>Animation.LOOP</code>, where the animation
@@ -244,6 +257,9 @@ public class FxAnimate extends Effect
 
         if (easer)
             animateInstance.easer = easer;
+            
+        if (interpolator)
+            animateInstance.interpolator = interpolator;
         
         if (isNaN(repeatCount))
             animateInstance.repeatCount = repeatCount;
