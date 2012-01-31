@@ -1208,6 +1208,7 @@ public class Container extends UIComponent
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
+    [Deprecated]
     public function get creationIndex():int
     {
         return _creationIndex;
@@ -1225,7 +1226,7 @@ public class Container extends UIComponent
     //  creationPolicy
     //----------------------------------
 
-    [Inspectable(enumeration="all,auto,queued,none")]
+    [Inspectable(enumeration="all,auto,none")]
 
     // Internal flag used when creationPolicy="none".
     // When set, the value of the backing store _creationPolicy
@@ -1236,10 +1237,9 @@ public class Container extends UIComponent
      *  The child creation policy for this MX Container.
      *  ActionScript values can be <code>ContainerCreationPolicy.AUTO</code>, 
      *  <code>ContainerCreationPolicy.ALL</code>,
-     *  <code>ContainerCreationPolicy.NONE</code>, 
-     *  or <code>ContainerCreationPolicy.QUEUED</code>.
+     *  or <code>ContainerCreationPolicy.NONE</code>.
      *  MXML values can be <code>auto</code>, <code>all</code>, 
-     *  <code>none</code>, or <code>queued</code>.
+     *  or <code>none</code>.
      *
      *  <p>If no <code>creationPolicy</code> is specified for a container,
      *  that container inherits its parent's <code>creationPolicy</code>.
@@ -1266,14 +1266,6 @@ public class Container extends UIComponent
      *  selected. For single-view containers such as a VBox container,
      *  there is no difference  between the <code>ContainerCreationPolicy.AUTO</code> and
      *  <code>ContainerCreationPolicy.ALL</code> policies.</p>
-     *
-     *  <p>A <code>creationPolicy</code> of <code>ContainerCreationPolicy.QUEUED</code> means
-     *  that the container is added to a creation queue rather than being
-     *  immediately instantiated and drawn.
-     *  When the application processes the queued container, it creates
-     *  the children of the container and then waits until the children
-     *  have been created before advancing to the next container in the
-     *  creation queue.</p>
      *
      *  <p>A <code>creationPolicy</code> of <code>ContainerCreationPolicy.NONE</code> means
      *  that the container creates none of its children.
@@ -3184,7 +3176,7 @@ public class Container extends UIComponent
                             FlexGlobals.topLevelApplication;
                             
             if ("addToCreationQueue" in mainApp)
-                mainApp.addToCreationQueue(this, creationIndex, null, this);
+                mainApp.addToCreationQueue(this, _creationIndex, null, this);
             else // If the app doesn't support queued creation, create our components now
                 createComponentsFromDescriptors();
         }
