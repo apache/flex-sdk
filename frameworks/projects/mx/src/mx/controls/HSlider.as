@@ -49,6 +49,8 @@ import mx.controls.sliderClasses.SliderDirection;
 
 [IconFile("HSlider.png")]
 
+[Alternative(replacement="spark.components.HSlider", since="4.0")]
+
 /**	
  *  The HSlider control lets users select a value by moving
  *  a slider thumb between the end points of the slider track.
