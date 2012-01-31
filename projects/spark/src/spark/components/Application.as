@@ -203,10 +203,8 @@ public class FxApplication extends FxContainer
     
     /**
      *  Background color of a component. 
-     *  This property specifies the background color while the application loads, 
-     *  and a background gradient while it is running. 
-     *  Flex calculates the gradient pattern between a color slightly darker than 
-     *  the specified color, and a color slightly lighter than the specified color.  
+     *  This property specifies the background color, both while the application
+     *  loads, and while it is running.
      */
     public function get backgroundColor():Object /* Color (int or String) */
     {
