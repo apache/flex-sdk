@@ -26,6 +26,9 @@ import flash.display.Graphics;
 import mx.core.IFlexDisplayObject;
 import mx.core.IFactory;
 
+import flash.geom.Rectangle;
+import mx.utils.MatrixUtil;
+
 use namespace mx_internal;
 
 
@@ -65,6 +68,13 @@ public class PopUpAnchor extends UIComponent
 	
 	private var popUpIsDisplayed:Boolean = false;
 	private var addedToStage:Boolean = false;
+	
+	private static var decomposition:Vector.<Number> = new Vector.<Number>();
+	decomposition.push(0);
+	decomposition.push(0);
+	decomposition.push(0);
+	decomposition.push(0);
+	decomposition.push(0);	
 	
 	//--------------------------------------------------------------------------
     //
@@ -301,14 +311,108 @@ public class PopUpAnchor extends UIComponent
 	 *  or when updatePopUpTransform() is called. Override this function to 
 	 *  alter the position of the popUp.  
 	 * 
+	 *  @return The absolute position of the popUp in the global coordinate system  
+	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 1.5
 	 *  @productversion Flex 4
 	 */
-	protected function positionPopUp():void
+	protected function positionPopUp():Point
 	{
+		// This implementation doesn't handle rotation
+		var matrix:Matrix = $transform.concatenatedMatrix;
+		var regPoint:Point = new Point();
 		
+		var popUpBounds:Rectangle = new Rectangle(); 
+		determinePosition(popUpPosition, popUp.width, popUp.height,
+						  matrix, regPoint, popUpBounds);
+		
+		var adjustedPosition:String;
+		
+		// Position the popUp in the opposite direction if it 
+		// does not fit on the screen. 
+		if (screen)
+		{
+			switch(popUpPosition)
+			{
+				case "below" :
+					if (popUpBounds.bottom > screen.bottom)
+						adjustedPosition = "above"; 
+					break;
+				case "above" :
+					if (popUpBounds.top < screen.top)
+						adjustedPosition = "below"; 
+					break;
+				case "left" :
+					if (popUpBounds.left < screen.left)
+						adjustedPosition = "right"; 
+					break;
+				case "right" :
+					if (popUpBounds.right > screen.right)
+						adjustedPosition = "left"; 
+					break;
+			}
+		}
+		
+		// Get the new registration point based on the adjusted position
+		if(adjustedPosition != null)
+		{
+			var adjustedRegPoint:Point = new Point();
+			var adjustedBounds:Rectangle = new Rectangle(); 
+			determinePosition(adjustedPosition, popUp.width, popUp.height,
+							  matrix, adjustedRegPoint, adjustedBounds);
+		 
+			if (screen)
+			{
+				// If we adjusted the position but the popUp still doesn't fit, 
+				// then revert to the original position. 
+				switch(adjustedPosition)
+				{
+					case "below" :
+						if (popUpBounds.bottom > screen.bottom)
+							adjustedPosition = null; 
+						break;
+					case "above" :
+						if (popUpBounds.top < screen.top)
+							adjustedPosition = null; 
+						break;
+					case "left" :
+						if (popUpBounds.left < screen.left)
+							adjustedPosition = null; 
+						break;
+					case "right" :
+						if (popUpBounds.right > screen.right)
+							adjustedPosition = null;  
+						break;
+				}	
+			}
+			
+			if (adjustedPosition != null)
+			{
+				regPoint = adjustedRegPoint;
+				popUpBounds = adjustedBounds;
+			}
+		}
+		
+		MatrixUtil.decomposeMatrix(decomposition, matrix, 0, 0);
+		var concatScaleX:Number = decomposition[3];
+		var concatScaleY:Number = decomposition[4]; 
+		
+		// If the popUp still doesn't fit, then nudge it
+		// so it is completely on the screen. Make sure to include scale.
+
+		if (popUpBounds.top < screen.top)
+			regPoint.y += (screen.top - popUpBounds.top) / concatScaleY;
+		else if (popUpBounds.bottom > screen.bottom)
+			regPoint.y -= (popUpBounds.bottom - screen.bottom) / concatScaleY;
+		
+		if (popUpBounds.left < screen.left)
+			regPoint.x += (screen.left - popUpBounds.left) / concatScaleX;	
+		else if (popUpBounds.right > screen.right)
+			regPoint.x -= (popUpBounds.right - screen.right) / concatScaleX;
+		
+		return matrix.transformPoint(regPoint);
 	}
 	
 	//--------------------------------------------------------------------------
@@ -357,14 +461,13 @@ public class PopUpAnchor extends UIComponent
 				popUpFactory.reset();
 			}*/
 		}
-		
-		
 	}
 	
 	/**
 	 *  @private 
 	 */
-	private function determinePosition(placement:String,popUpWidth:Number,popUpHeight:Number,registrationPoint:Point):void
+	mx_internal function determinePosition(placement:String, popUpWidth:Number, popUpHeight:Number,
+										   matrix:Matrix, registrationPoint:Point, bounds:Rectangle):void
 	{
 		switch(placement)
 		{
@@ -392,6 +495,20 @@ public class PopUpAnchor extends UIComponent
 				// already 0,0
 				break;
 		}
+				
+		var globalTL:Point = matrix.transformPoint(registrationPoint);
+		registrationPoint.y += popUp.height;
+		var globalBL:Point = matrix.transformPoint(registrationPoint);
+		registrationPoint.x += popUp.width;
+		var globalBR:Point = matrix.transformPoint(registrationPoint);
+		registrationPoint.y -= popUp.height;
+		var globalTR:Point = matrix.transformPoint(registrationPoint);
+		registrationPoint.x -= popUp.width;
+		
+		bounds.left = Math.min(globalTL.x, globalBL.x, globalBR.x, globalTR.x);
+		bounds.right = Math.max(globalTL.x, globalBL.x, globalBR.x, globalTR.x);
+		bounds.top = Math.min(globalTL.y, globalBL.y, globalBR.y, globalTR.y);
+		bounds.bottom = Math.max(globalTL.y, globalBL.y, globalBR.y, globalTR.y);
 	}
 	
 	/**
@@ -404,54 +521,19 @@ public class PopUpAnchor extends UIComponent
 		
 		var m:Matrix = $transform.concatenatedMatrix;
 		
-		var registrationPoint:Point = new Point();
 		var popUpWidth:Number = autoSizePopUpWidth ? unscaledWidth : popUp.getPreferredBoundsWidth(false);
 		var popUpHeight:Number = autoSizePopUpHeight ? unscaledHeight : popUp.getPreferredBoundsHeight(false);
 		
-		determinePosition(popUpPosition,popUpWidth,popUpHeight,registrationPoint);
-		var globalTL:Point = m.transformPoint(registrationPoint);
-		registrationPoint.x += popUpWidth;
-		registrationPoint.y += popUpHeight;
-		var globalBR:Point = m.transformPoint(registrationPoint);
-		var adjustedPlacement:String;
-		
-		if (screen)
-		{
-			switch(popUpPosition)
-			{
-				case "below":
-					if(globalBR.y > screen.bottom)
-						adjustedPlacement = "above"; 
-					break;
-				case "above":
-					if(globalTL.y < screen.top)
-						adjustedPlacement = "below"; 
-					break;
-				case "left":
-					if(globalBR.x < screen.left)
-						adjustedPlacement = "right"; 
-					break;
-				case "right":
-					if(globalTL.y > screen.right)
-						adjustedPlacement = "left"; 
-					break;
-			}
-		}
-		
-		if(adjustedPlacement != null)
-		{
-			determinePosition(adjustedPlacement,popUpWidth,popUpHeight,registrationPoint);
-			globalTL = m.transformPoint(registrationPoint);
-		}
-		
 		// Set the dimensions explicitly because UIComponents always set themselves to their
-		// measured / explicit dimensions if they are parented by the SystemManager.  
+		// measured / explicit dimensions if they are parented by the SystemManager. 
 		popUp.width = popUpWidth;
 		popUp.height = popUpHeight;
 		
+		var popUpPoint:Point = positionPopUp();
+				
 		// Position the popUp. 
-		m.tx = globalTL.x;
-		m.ty = globalTL.y;
+		m.tx = popUpPoint.x;
+		m.ty = popUpPoint.y;
 		popUp.setLayoutMatrix(m,false);
 	}
 	
@@ -497,5 +579,6 @@ public class PopUpAnchor extends UIComponent
 		addedToStage = false;
 		// TODO (jszeto) Remove popup from PopUpManager
 	}
+	
 }
 }
