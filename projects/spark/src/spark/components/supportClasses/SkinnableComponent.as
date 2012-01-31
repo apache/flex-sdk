@@ -372,30 +372,7 @@ public class SkinnableComponent extends UIComponent
         
         if (errorStringChanged)
         {
-            if (errorString != null && errorString != "")
-            {
-                if (!errorObj)
-                {
-                    var errorObjClass:Class = getStyle("errorSkin");
-                    
-                    if (errorObjClass)
-                        errorObj = new errorObjClass();
-                    
-                    if (errorObj)
-                    {
-                        if ("errorObject" in errorObj)
-                            errorObj["errorObject"] = this;
-                        super.addChild(errorObj);
-                    }
-                }
-            }
-            else
-            {
-                if (errorObj)
-                    super.removeChild(errorObj);
-                
-                errorObj = null;
-            }
+            updateErrorSkin();
             errorStringChanged = false;
         }
     }
@@ -688,7 +665,38 @@ public class SkinnableComponent extends UIComponent
         super.removeChild(skin);
         setSkin(null);
     }
-
+    
+    /**
+     *  @private
+     *  Method to draw or remove the error skin. The error skin is added as a sibling of the skin. 
+     */
+    mx_internal function updateErrorSkin():void
+    {
+        if (errorString != null && errorString != "")
+        {
+            if (!errorObj)
+            {
+                var errorObjClass:Class = getStyle("errorSkin");
+                
+                if (errorObjClass)
+                    errorObj = new errorObjClass();
+                
+                if (errorObj)
+                {
+                    if ("errorObject" in errorObj)
+                        errorObj["errorObject"] = this;
+                    super.addChild(errorObj);
+                }
+            }
+        }
+        else
+        {
+            if (errorObj)
+                super.removeChild(errorObj);
+            
+            errorObj = null;
+        }
+    }
     //--------------------------------------------------------------------------
     //
     //  Methods - Parts
