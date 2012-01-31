@@ -258,7 +258,7 @@ public class TextRange
 	public function set color(value:Object):void
 	{
 		var tf:TextFormat = getTextFormat();
-		var colorNumber:uint = StyleManager.getColorName(value);
+		var colorNumber:uint = owner.styleManager.getColorName(value);
 		if (colorNumber != StyleManager.NOT_A_COLOR)
 			value = colorNumber;
 		else
