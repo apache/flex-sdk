@@ -33,6 +33,11 @@ use namespace mx_internal;
  * The invoke event is dispatched when a service Operation is invoked so long as
  * an Error is not thrown before the Channel attempts to send the message.
  * @eventType mx.rpc.events.InvokeEvent.INVOKE 
+  *  
+  *  @langversion 3.0
+  *  @playerversion Flash 9
+  *  @playerversion AIR 1.1
+  *  @productversion Flex 3
   */
 [Event(name="invoke", type="mx.rpc.events.InvokeEvent")]
 
@@ -40,6 +45,11 @@ use namespace mx_internal;
  * The result event is dispatched when a service call successfully returns and
  * isn't handled by the Operation itself.
  * @eventType mx.rpc.events.ResultEvent.RESULT 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="result", type="mx.rpc.events.ResultEvent")]
 
@@ -47,6 +57,11 @@ use namespace mx_internal;
  * The fault event is dispatched when a service call fails and isn't handled by
  * the Operation itself.
  * @eventType mx.rpc.events.FaultEvent.FAULT 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="fault", type="mx.rpc.events.FaultEvent")]
 
@@ -58,6 +73,11 @@ use namespace mx_internal;
  * The AbstractService class is the base class for the WebService and
  * RemoteObject classes. This class does the work of creating Operations
  * which do the actual execution of remote procedure calls.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public dynamic class AbstractService extends Proxy implements IEventDispatcher
 {   
@@ -71,6 +91,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      *  Constructor.
      *  
      *  @param destination The destination of the service.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function AbstractService(destination:String = null)
     {
@@ -114,6 +139,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      *  ChannelSet can be manually constructed and assigned, or it will be 
      *  dynamically created to use the configured Channels for the
      *  <code>destination</code> for this service.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get channelSet():ChannelSet
     {
@@ -140,6 +170,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
     /**
      * The destination of the service. This value should match a destination
      * entry in the services-config.xml file.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get destination():String
     {
@@ -165,6 +200,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      * if the managers have a property called "service" that property is set to 
      * the value of this service.  When this service is initialized, we also call
      * the initialize method on any manager components.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get managers():Array
     {
@@ -214,6 +254,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
     /**
      * The Operations array is usually only set by the MXML compiler if you
      * create a service using an MXML tag.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function set operations(ops:Object):void
     {
@@ -239,6 +284,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
     /**
      *  Provides access to the request timeout in seconds for sent messages. 
      *  A value less than or equal to zero prevents request timeout.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */ 
     public function get requestTimeout():int
     {
@@ -309,6 +359,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
 
     /**
      *  Called to initialize the service.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function initialize():void
     {
@@ -414,6 +469,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      * Operation instead.
      * @param name Name of the Operation.
      * @return Operation that executes for this name.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getOperation(name:String):AbstractOperation
     {
@@ -426,6 +486,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      *  Disconnects the service's network connection and removes any pending
      *  request responders.
      *  This method does not wait for outstanding network operations to complete.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function disconnect():void
     {
@@ -443,6 +508,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      * @param charset The character set encoding to use while encoding the
      * credentials. The default is null, which implies the legacy charset of
      * ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setCredentials(username:String, password:String, charset:String=null):void
     {
@@ -456,6 +526,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      * if you're connected over the my-rtmp channel and you log out using one
      * of your RPC components, anything that was connected over the same
      * ChannelSet is logged out.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function logout():void
     {
@@ -472,6 +547,11 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
      * @param charset The character set encoding to use while encoding the
      * remote credentials. The default is null, which implies the legacy charset
      * of ISO-Latin-1. The only other supported charset is &quot;UTF-8&quot;.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setRemoteCredentials(remoteUsername:String, remotePassword:String, charset:String=null):void
     {
