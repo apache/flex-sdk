@@ -2560,10 +2560,11 @@ public class RichEditableText extends UIComponent
          if (!editManager.hasSelection())
             editManager.selectRange(int.MAX_VALUE, int.MAX_VALUE);
             
-        // Our damage handler should be active.  Inserting the text invokes
-        // our damage handler to invalidate the text, maybe the size, and
-        // the display list.      
+        // Force the insertion to happen right away rather than on the next
+        // frame.  We need the selection to change and our damage handler to
+        // be invoked to invalidate the text and update the display list.      
         editManager.insertText(text);
+        editManager.flushPendingOperations();
 
         // All done with edit manager.
         releaseEditManager();
@@ -2593,10 +2594,11 @@ public class RichEditableText extends UIComponent
         // An append is an insert with the selection set to the end.
         editManager.selectRange(int.MAX_VALUE, int.MAX_VALUE);
 
-        // Our damage handler should be active.  Inserting the text invokes
-        // our damage handler to invalidate the text, maybe the size, and
-        // the display list.      
+        // Force the insertion to happen right away rather than on the next
+        // frame.  We need the selection to change and our damage handler to
+        // be invoked to invalidate the text and update the display list.      
         editManager.insertText(text);
+        editManager.flushPendingOperations();
 
         // All done with edit manager.
         releaseEditManager();
