@@ -65,7 +65,7 @@ public class SetAction extends Effect
     public function SetAction(target:Object = null)
     {
         super(target);
-
+        duration = 0;
         instanceClass = SetActionInstance;
     }
     
