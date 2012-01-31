@@ -392,6 +392,23 @@ public class RichText extends TextGraphicElement
      *  @private
      */
     protected var _content:Object;
+    
+    /**
+     *  @private
+     *  This metadata tells the MXML compiler to disable some of its default
+     *  interpreation of the value specified for the 'content' property.
+     *  Normally, for properties of type Object, it assumes that things
+     *  looking like numbers are numbers and things looking like arrays
+     *  are arrays. But <content>1</content> should generate code to set the
+     *  content to  the String "1", not the int 1, and <content>[1]</content>
+     *  should set it to the String "[1]", not the Array [ 1 ].
+     *  However, {...} continues to be interpreted as a databinding
+     *  expression, and @Resource(...), @Embed(...), etc.
+     *  as compiler directives.
+     *  Similar metadata on TLF classes causes the same rules to apply
+     *  within <p>, <span>, etc.
+     */
+    [RichTextContent]
         
     /**
      *  The text contained in the RichText element.
