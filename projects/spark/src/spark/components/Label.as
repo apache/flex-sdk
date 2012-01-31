@@ -349,6 +349,15 @@ public class Label extends TextBase
      *  used to create the font.
      */
     private var embeddedFontContext:IFlexModuleFactory;
+    
+    /**
+     *  @private
+     *  When we render the text using FTE, this object represents the formatting 
+     *  for our text element(s). Every time format related styles change, this 
+     *  object is released because it is invalid. It is regenerated just in time 
+     *  to render the text.
+     */
+    private var elementFormat:ElementFormat;
 
     //--------------------------------------------------------------------------
     //
@@ -383,6 +392,30 @@ public class Label extends TextBase
 
     //--------------------------------------------------------------------------
     //
+    //  Overidden Methods: ISimpleStyleClient
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function stylesInitialized():void
+    {
+        super.stylesInitialized();
+        elementFormat = null;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function styleChanged(styleProp:String):void
+    {
+        super.styleChanged(styleProp);
+        elementFormat = null;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods: TextBase
     //
     //--------------------------------------------------------------------------
@@ -398,18 +431,19 @@ public class Label extends TextBase
      *  Returns true if all lines were composed, otherwise false.
      */
     override mx_internal function composeTextLines(width:Number = NaN,
-												   height:Number = NaN):Boolean
+                                                   height:Number = NaN):Boolean
     {
         super.composeTextLines(width, height);
         
-        var elementFormat:ElementFormat = createElementFormat();
+        if (!elementFormat)
+            elementFormat = createElementFormat(); 
             
-		// Set the composition bounds to be used by createTextLines().
-		// If the width or height is NaN, it will be computed by this method
-		// by the time it returns.
-		// The bounds are then used by the addTextLines() method
-		// to determine the isOverset flag.
-		// The composition bounds are also reported by the measure() method.
+        // Set the composition bounds to be used by createTextLines().
+        // If the width or height is NaN, it will be computed by this method
+        // by the time it returns.
+        // The bounds are then used by the addTextLines() method
+        // to determine the isOverset flag.
+        // The composition bounds are also reported by the measure() method.
         bounds.x = 0;
         bounds.y = 0;
         bounds.width = width;
@@ -420,8 +454,8 @@ public class Label extends TextBase
         removeTextLines();
         releaseTextLines();
         
-		// Create the TextLines.
-		var allLinesComposed:Boolean = createTextLines(elementFormat);
+        // Create the TextLines.
+        var allLinesComposed:Boolean = createTextLines(elementFormat);
         
         // Need truncation if all the following are true
         // - truncation options exist (0=no trunc, -1=fill up bounds then trunc,
