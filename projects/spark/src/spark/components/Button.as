@@ -36,7 +36,19 @@ import mx.core.IButton;
  *  <code>rollOut</code>, <code>mouseDown</code>, and 
  *  <code>mouseUp</code> events whether enabled or disabled.</p>
  *
+ *  @mxml <p>The <code>&lt;Button&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;Button
+ 
+ *    <strong>Properties</strong>
+ *    emphasized="false"
+ *  /&gt;
+ *  </pre>
+ *
  *  @includeExample examples/ButtonExample.mxml
+ *  @see spark.skins.default.ButtonSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -86,11 +98,16 @@ public class Button extends ButtonBase implements IButton
     [Inspectable(category="General", defaultValue="false")]
 
     /**
-     *  Reflect the default/emphasized as potentially requested by the
-     *  focus manager.
+     * Reflects the default button as requested by the
+     * focus manager. This property is typically set 
+     * by the focus manager when a button serves as the 
+     * default button in a container or form. 
+     * When set to true, the <code>emphasized</code> style
+     * is appended to the button's <code>styleName</code> 
+     * property.
      *
      *  @default false
-     * 
+     *  @see mx.managers.FocusManager.defaultButton
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
