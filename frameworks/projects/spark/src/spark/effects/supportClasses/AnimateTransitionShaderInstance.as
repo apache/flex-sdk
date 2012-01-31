@@ -21,6 +21,7 @@ import flash.utils.ByteArray;
 import mx.containers.Panel;
 import mx.core.Application;
 import mx.core.UIComponent;
+import mx.effects.FxAnimateShaderTransition;
 import mx.effects.PropertyValuesHolder;
 import mx.events.AnimationEvent;
     
@@ -170,21 +171,28 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
             }
         if (!bitmapFrom)
             if (propertyChanges &&
-                (propertyChanges.start["visible"] == false) ||
-                (propertyChanges.start["parent"] == null))
+                (propertyChanges.start["visible"] == false ||
+                 propertyChanges.start["parent"] == null))
                 if (bitmapTo)                    
                     bitmapFrom = new BitmapData(bitmapTo.width, bitmapTo.height, true, 0);
                 else
                     bitmapFrom = new BitmapData(1, 1, true, 0);
         if (!bitmapTo)
             if (propertyChanges &&
-                (propertyChanges.end["visible"] == false) ||
-                (propertyChanges.end["parent"] == null))
+                (propertyChanges.end["visible"] == false ||
+                 propertyChanges.end["parent"] == null))
                 if (bitmapFrom)                    
                     bitmapTo = new BitmapData(bitmapFrom.width, bitmapFrom.height, true, 0);
                 else
                     bitmapTo = new BitmapData(1, 1, true, 0);
         
+        // Last-ditch effort - if we don't have bitmaps yet, then just grab a 
+        // snapshot of the current target
+        if (!bitmapFrom)
+            bitmapFrom = FxAnimateShaderTransition.getSnapshot(target);
+        if (!bitmapTo)
+            bitmapTo = FxAnimateShaderTransition.getSnapshot(target);
+
         // Fix up the visibility if it's becoming visible
         if (propertyChanges &&
             !propertyChanges.start["visible"] &&
@@ -267,6 +275,17 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
     override protected function getCurrentValue(property:String):*
     {
         return shader[property];
+    }
+
+    /**
+     * Override FXAnimate's setupStyleMapEntry to avoid the need to 
+     * validate our properties against the 'target' (since we actually
+     * set properties on our associated filter instance).
+     *  
+     * @private
+     */
+    override protected function setupStyleMapEntry(property:String):void
+    {
     }
 }
 }
