@@ -118,7 +118,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  The number of pixels to move the indeterminate progress bar for each indeterminate loop.
@@ -184,7 +184,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="themeColor", type="uint", format="Color", inherit="yes")]
+[Style(name="themeColor", type="uint", format="Color", inherit="yes", theme="halo")]
 
 /**
  *  The colors of the track, as an array of two colors.
@@ -197,7 +197,7 @@ include "../styles/metadata/TextStyles.as"
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="trackColors", type="Array", arrayType="uint", format="Color", inherit="no")]
+[Style(name="trackColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  The height of the track in pixels. If the value is NaN, then
