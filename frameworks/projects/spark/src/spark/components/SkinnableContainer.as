@@ -792,12 +792,9 @@ public class FxContainer extends FxContainerBase
     
     private function contentGroup_itemAddedHandler(event:ItemExistenceChangedEvent):void
     {
-        // TODO (rfrishbe): need to check for IUIComponent 
-        // as well if checking for IVisualElement?
-        if (event.relatedObject is IVisualElement ||
-            event.relatedObject is IUIComponent)
+        if (event.relatedObject is IVisualElement)
         {
-            event.relatedObject.owner = this;
+            IVisualElement(event.relatedObject).owner = this;
         }
         
         // Re-dispatch the event
@@ -806,12 +803,9 @@ public class FxContainer extends FxContainerBase
     
     private function contentGroup_itemRemovedHandler(event:ItemExistenceChangedEvent):void
     {
-        // TODO (rfrishbe): need to check for IUIComponent 
-        // as well if checking for IVisualElement?
-        if (event.relatedObject is IVisualElement ||
-            event.relatedObject is IUIComponent)
+        if (event.relatedObject is IVisualElement)
         {
-            event.relatedObject.owner = null;
+            IVisualElement(event.relatedObject).owner = null;
         }
         
         // Re-dispatch the event
