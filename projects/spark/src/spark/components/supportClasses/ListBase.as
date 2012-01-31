@@ -137,7 +137,7 @@ public class ListBase extends SkinnableDataContainer
     /**
      *  @private
      */
-    private var doingWholesaleChanges:Boolean = false;
+    public var doingWholesaleChanges:Boolean = false;
     
     //----------------------------------
     //  dataProvider
@@ -258,7 +258,7 @@ public class ListBase extends SkinnableDataContainer
      *  The proposed selected index. This is a temporary variable that is
      *  used until the selected index is committed.
      */
-    private var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
+    public var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
     
     /** 
      *  @private
@@ -937,7 +937,7 @@ public class ListBase extends SkinnableDataContainer
             else if (ce.kind == CollectionEventKind.RESET)
             {
                 // Data provider is being reset, clear out the selection
-                _selectedIndex = -1;
+                selectedIndex = -1;
             }
             else if (ce.kind == CollectionEventKind.REPLACE ||
                 ce.kind == CollectionEventKind.MOVE ||
