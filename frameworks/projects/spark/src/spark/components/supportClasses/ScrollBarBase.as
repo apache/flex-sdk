@@ -284,7 +284,7 @@ public class ScrollBar extends TrackBase
         if (range == 0)
             return trackSize;
 
-        return Math.min((pageSize / range) * trackSize, trackSize);
+        return Math.min((pageSize / (range + pageSize) ) * trackSize, trackSize);
     }
 
     //--------------------------------------------------------------------------
