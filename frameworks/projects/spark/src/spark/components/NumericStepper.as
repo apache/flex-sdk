@@ -77,31 +77,6 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
 
     //--------------------------------------------------------------------------
     //
-    // Properties
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private var valueChanged:Boolean = false;
-    
-    /**
-     *  @private
-     */
-    override public function set value(newValue:Number):void
-    {
-        if (newValue == value)
-           return;
-           
-        super.value = newValue;
-        
-        valueChanged = true;
-        invalidateProperties();
-    }
-    
-    //--------------------------------------------------------------------------
-    //
     // Methods
     //
     //--------------------------------------------------------------------------
@@ -109,26 +84,10 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
     /**
      *  @private
      */
-    override protected function setValue(value:Number):void
+    override protected function setValue(newValue:Number):void
     {
-        super.setValue(value);
-        
-        valueChanged = true;
-        invalidateProperties();
-    }
-
-    /**
-     *  @private
-     */
-    override protected function commitProperties():void
-    {
-        super.commitProperties();
-        
-        if (valueChanged)
-        {
-            valueChanged = false;
-            textInput.text = value.toString();
-        }
+        super.setValue(newValue);
+        textInput.text = value.toString();        
     }
     
     /**
