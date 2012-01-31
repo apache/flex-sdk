@@ -102,7 +102,7 @@ use namespace mx_internal;
 
 /**
  *  The Group class is the base container class for visual elements.
- *  The Group container take as children any components that implement 
+ *  The Group container takes as children any components that implement 
  *  the IUIComponent interface, and any components that implement 
  *  the IGraphicElement interface. 
  *  Use this container when you want to manage visual children, 
@@ -119,7 +119,7 @@ use namespace mx_internal;
  *  properly.</p> 
  * 
  *  <p>Setting any of the following properties on a GraphicElement child
- *  will require that GraphicElement to create its own DisplayObject,
+ *  requires that GraphicElement to create its own DisplayObject,
  *  thus negating the scale grid properties on the Group.</p>  
  * 
  *  <pre>
@@ -342,8 +342,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  <p>A value of "auto" (the default) is specific to Group's use of 
      *  blendMode and indicates that the underlying blendMode should be 
      *  <code>BlendMode.NORMAL</code> except when <code>alpha</code> is not
-     *  equal to either 0 or 1, when it will be set to <code>BlendMode.LAYER</code>. 
-     *  This behavior ensures that groups will have correct
+     *  equal to either 0 or 1, when it is set to <code>BlendMode.LAYER</code>. 
+     *  This behavior ensures that groups have correct
      *  compositing of their graphic objects when the group is translucent.</p>
      * 
      *  @default "auto"
@@ -1514,14 +1514,14 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  display list.
      *
      *  The <code>Group</code> also ensures any elements that share the
-     *  <code>DisplayObject</code> will be redrawn.
+     *  <code>DisplayObject</code> is redrawn.
      * 
      *  <p>This method doesn't necessarily trigger new <code>DisplayObject</code>
      *  reassignment for the passed in <code>element</code>.
      *  To request new display object reassignment, call the
      *  <code>graphicElementLayerChanged</code> method.</p> 
      *
-     *  @param element The graphic element whose display object will be discarded.
+     *  @param element The graphic element whose display object is discarded.
      *  @see #graphicElementLayerChanged
      *  
      *  @langversion 3.0
@@ -1875,7 +1875,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  Notify the host that an element layer has changed.
-     *  Group will re-evaluate the sequences of elements with shared DisplayObjects
+     *  Group re-evaluates the sequences of elements with shared DisplayObjects
      *  and may re-assign the DisplayObjects and redraw the sequences as a result. 
      * 
      *  @param element The element that has changed size.
