@@ -47,7 +47,7 @@ import spark.components.supportClasses.ToggleButtonBase;
  *  </pre>
  *
  *  @includeExample examples/CheckBoxExample.mxml
- *  @see spark.skins.default.CheckBoxSkin
+ *  @see spark.skins.spark.CheckBoxSkin
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
