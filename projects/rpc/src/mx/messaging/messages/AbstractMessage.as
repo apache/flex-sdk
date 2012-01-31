@@ -18,9 +18,9 @@ import flash.utils.IDataOutput;
 import flash.utils.getQualifiedClassName;
 
 import mx.core.mx_internal;
-import mx.utils.ObjectUtil;
-import mx.utils.StringUtil;
-import mx.utils.UIDUtil;
+import mx.utils.RPCObjectUtil;
+import mx.utils.RPCStringUtil;
+import mx.utils.RPCUIDUtil;
 
 use namespace mx_internal;
 
@@ -262,7 +262,7 @@ public class AbstractMessage implements IMessage
     public function get messageId():String
     {
         if (_messageId == null)
-            _messageId = UIDUtil.createUID();
+            _messageId = RPCUIDUtil.createUID();
 
         return _messageId;
     }
@@ -396,13 +396,13 @@ public class AbstractMessage implements IMessage
                 if ((flags & CLIENT_ID_BYTES_FLAG) != 0)
                 {
                     clientIdBytes = input.readObject() as ByteArray;
-                    clientId = UIDUtil.fromByteArray(clientIdBytes);
+                    clientId = RPCUIDUtil.fromByteArray(clientIdBytes);
                 }
         
                 if ((flags & MESSAGE_ID_BYTES_FLAG) != 0)
                 {
                     messageIdBytes = input.readObject() as ByteArray;
-                    messageId = UIDUtil.fromByteArray(messageIdBytes);
+                    messageId = RPCUIDUtil.fromByteArray(messageIdBytes);
                 }
 
                 reservedPosition = 2;
@@ -430,7 +430,7 @@ public class AbstractMessage implements IMessage
      */
     public function toString():String
     {
-        return ObjectUtil.toString(this);
+        return RPCObjectUtil.toString(this);
     }
 
     /**
@@ -451,10 +451,10 @@ public class AbstractMessage implements IMessage
         var checkForMessageId:String = messageId;
 
         if (clientIdBytes == null)
-            clientIdBytes = UIDUtil.toByteArray(_clientId);
+            clientIdBytes = RPCUIDUtil.toByteArray(_clientId);
 
         if (messageIdBytes == null)
-            messageIdBytes = UIDUtil.toByteArray(_messageId);
+            messageIdBytes = RPCUIDUtil.toByteArray(_messageId);
 
         if (body != null)
             flags |= BODY_FLAG;
@@ -562,8 +562,8 @@ public class AbstractMessage implements IMessage
         for (var i:uint = 0; i < propertyNames.length; i++)
         {
             var name:String = String(propertyNames[i]);
-            var value:String = ObjectUtil.toString(attributes[name]);
-            result += StringUtil.substitute("\n  {0}={1}", name, value);
+            var value:String = RPCObjectUtil.toString(attributes[name]);
+            result += RPCStringUtil.substitute("\n  {0}={1}", name, value);
         }
 
         return result;
