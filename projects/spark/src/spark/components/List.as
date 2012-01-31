@@ -19,7 +19,6 @@ import flash.ui.Keyboard;
 import mx.components.baseClasses.FxListBase;
 import mx.core.ClassFactory;
 import mx.events.ItemExistenceChangedEvent;
-import mx.layout.BasicLayout;
 import mx.layout.HorizontalLayout;
 import mx.layout.VerticalLayout;
 import mx.skins.spark.FxDefaultItemRenderer;
@@ -62,7 +61,7 @@ public class FxList extends FxListBase
         
         //Add a keyDown event listener so we can adjust
         //selection accordingly.  
-        addEventListener(KeyboardEvent.KEY_DOWN, list_keyDownHandler);
+        addEventListener(KeyboardEvent.KEY_DOWN, list_keyDownHandler, true);
     }
     
     //--------------------------------------------------------------------------
@@ -443,44 +442,83 @@ public class FxList extends FxListBase
     
     /**
      *  @private
+     *  Build in basic keyboard navigation support in List. 
+     *  TODO: Deepa - add overrideable methods to control 
+     *  keyboard navigation across components and layout. 
      */
     private function list_keyDownHandler(event:KeyboardEvent):void
     {
+    	var nextInView:Number;
     	switch (event.keyCode)
         {
             case Keyboard.UP:
             {
             	if (layout is VerticalLayout)
+            	{
+            		nextInView = VerticalLayout(layout).inView(selectedIndex-1); 
+            		//The next item is already in full or partial view - don't scroll, just select it.
+            		if ((nextInView == 1) || (nextInView < 0))
+            			event.stopPropagation();
+            		//The last item was selected and partially in view, don't increment selection 
+            		if (nextInView == 0 && (VerticalLayout(layout).firstIndexInView == selectedIndex))
+            			return;
+            		//Adjust selection 
             		if (selectedIndex > 0)
             			selectedIndex--;
+            	}
             	break;
             }
             case Keyboard.DOWN:
             {
             	if (layout is VerticalLayout)
-            		if (selectedIndex < (dataProvider.length - 1))
-            			selectedIndex++;
+            	{
+            		nextInView = VerticalLayout(layout).inView(selectedIndex+1);
+            		//The next item is already in full or partial view - don't scroll
+            		if ((nextInView == 1) || (nextInView < 0))
+            			event.stopPropagation();
+            		//The last item was selected and partially in view, don't increment selection 
+            		if (nextInView == 0 && (VerticalLayout(layout).lastIndexInView == selectedIndex))
+            			return;
+            		//Adjust selection 
+    				if (selectedIndex < (dataProvider.length - 1))
+    					selectedIndex++;
+            	}
                 break;
             }
             case Keyboard.LEFT:
             {
             	if (layout is HorizontalLayout)
+            	{
+            		nextInView = HorizontalLayout(layout).inView(selectedIndex-1); 
+            		//The next item is already in full or partial view - don't scroll
+            		if ((nextInView == 1) || (nextInView < 0))
+            			event.stopPropagation();
+            		//The last item was selected and partially in view, don't increment selection 
+            		if (nextInView == 0 && (HorizontalLayout(layout).firstIndexInView == selectedIndex))
+            			return;
+            		//Adjust selection 
             		if (selectedIndex > 0)
             			selectedIndex--;
+            	}
             	break;
             }
             case Keyboard.RIGHT:
             {
             	if (layout is HorizontalLayout)
+            	{
+            		nextInView = HorizontalLayout(layout).inView(selectedIndex+1); 
+            		//The next item is already in full or partial view - don't scroll
+            		if ((nextInView == 1) || (nextInView < 0))
+            			event.stopPropagation();
+            		//The last item was selected and partially in view, don't increment selection 
+            		if (nextInView == 0 && (HorizontalLayout(layout).lastIndexInView == selectedIndex))
+            			return;
+            		//Adjust selection 
             		if (selectedIndex < (dataProvider.length - 1))
             			selectedIndex++;
+            	}
             	break;
-            }
-            default:
-            {
-            	//make sure keyDown handlers set in tag are clled 
-                event.stopPropagation();
-            }
+            }            
         }
     }
   
