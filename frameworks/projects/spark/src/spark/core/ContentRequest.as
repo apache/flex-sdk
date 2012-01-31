@@ -120,6 +120,16 @@ public class ContentRequest extends EventDispatcher
     
     /**
      *  Constructor. 
+     *
+     *  @param contentLoader The IContentLoader object.
+     *
+     *  @param content A reference to contained content.
+     *
+     *  @param shared <code>true</code> indicates that this request is currently 
+     *  being shared by other previous requests 
+     *
+     *  @param complete <code>true</code> indicates that someone has called load on a cache, 
+     *  and the cache has returned immediately with a fully loaded result 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -159,7 +169,7 @@ public class ContentRequest extends EventDispatcher
     protected var _content:Object;
     
     /**
-     *  Returns reference to contained content. This
+     *  A reference to contained content. This
      *  can be (among many things), a LoaderInfo instance, BitmapData,
      *  or any other generic content.  When the complete event has fired
      *  and/or complete() returns true, the content is considered valid.
@@ -191,10 +201,15 @@ public class ContentRequest extends EventDispatcher
     private var _complete:Boolean;
     
     /**
-     *  Read-only flag. Returns true if content is 
+     *  Contains <code>true</code> if content is 
      *  considered fully loaded and accessible.
      * 
-     *  @default false.
+     *  @default false
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */  
     public function get complete():Boolean
     {
