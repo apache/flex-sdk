@@ -164,6 +164,21 @@ public class Operation extends AbstractOperation
         super.useProxy = value;
     }
 
+    private var _contentTypeSet:Boolean = false;
+
+    override public function get contentType():String
+    {
+        if (_contentTypeSet)
+            return super.contentType;
+        return _multiService.contentType;
+    }
+
+    override public function set contentType(ct:String):void
+    {
+        _contentTypeSet = ct != null;
+        super.contentType = ct;
+    }
+
     //---------------------------------
     // Methods
     //---------------------------------
@@ -195,18 +210,24 @@ public class Operation extends AbstractOperation
 
         var filter:SerializationFilter = getSerializationFilter();
         if (filter != null)
+        {
             params = filter.serializeParameters(this, args);
+        }
         else
         {
             params = args;
             if (!params || (params.length == 0 && this.request))
+            {
                 params = this.request;
+            }
 
             if (params is Array && argumentNames != null)
             {
                 args = params as Array;
                 if (args.length != argumentNames.length)
+                {
                     throw new ArgumentError("HTTPMultiService operation called with " + argumentNames.length + " argumentNames and " + args.length + " number of parameters.  When argumentNames is specified, it must match the number of arguments passed to the invocation");
+                }
                 else
                 {
                     // Special case for XML content type when only one parameter is provided.
@@ -225,18 +246,31 @@ public class Operation extends AbstractOperation
                 }
             }
             // Also do the XML content type special case when no argument names is set
-            else if (args.length == 1 && contentType == CONTENT_TYPE_XML)
+            else if (args.length == 1) 
+            {
                 params = args[0];
+            }
+            else
+            {
+                throw new ArgumentError("HTTPMultiService - you must set argumentNames to an array of parameter names if you use more than one parameter.");
+            }
         }
         return sendBody(params);
     }
 
+    private var _resultFormatSet:Boolean = false;
+
     override public function get resultFormat():String
     {
-        var rf:String = super.resultFormat;
-        if (rf == null)
-            return _multiService.resultFormat;
-        return rf;
+        if (_resultFormatSet)
+            return super.resultFormat;
+        return _multiService.resultFormat;
+    }
+
+    override public function set resultFormat(rf:String):void
+    {
+        _resultFormatSet = rf != null;
+        super.resultFormat = rf;
     }
 
     override protected function getSerializationFilter():SerializationFilter
