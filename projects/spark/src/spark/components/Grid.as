@@ -1078,7 +1078,7 @@ package spark.components
          *  <p>If the actual size of the grid has been explicitly set,
          *  then this property has no effect.</p>
          * 
-         *  @default -1
+         *  @default 10
          *  
          *  @langversion 3.0
          *  @playerversion Flash 10
