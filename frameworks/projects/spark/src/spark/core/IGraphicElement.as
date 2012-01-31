@@ -39,6 +39,11 @@ import mx.core.IVisualElement;
  *  instead of directly implementing the <code>IGraphciElement</code>
  *  interface as <code>GraphicElement</code> already provides most of the
  *  required functionality.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public interface IGraphicElement extends IVisualElement
 {
@@ -66,6 +71,11 @@ public interface IGraphicElement extends IVisualElement
      *  @see #createDisplayObject
      *  @see #validateDisplayList
      *  @see #shareIndex
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get displayObject():DisplayObject;
 
@@ -97,6 +107,11 @@ public interface IGraphicElement extends IVisualElement
      * 
      *  @see #displayObject
      *  @see #createDisplayObject
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function get shareIndex():int;
 
@@ -141,6 +156,11 @@ public interface IGraphicElement extends IVisualElement
      *  @see #displayObject
      *  @see mx.components.Group#graphicElementLayerChanged
      *  @see mx.components.Group#discardDisplayObject
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function createDisplayObject():DisplayObject;
     
@@ -170,6 +190,11 @@ public interface IGraphicElement extends IVisualElement
      *
      *  @see #closeSequence
      *  @see mx.components.Group#graphicElementLayerChanged
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function canDrawToShared(sharedDisplayObject:DisplayObject):Boolean;
     
@@ -193,6 +218,11 @@ public interface IGraphicElement extends IVisualElement
      * 
      *  @see #canDrawToShared
      *  @see mx.components.Group#graphicElementLayerChanged
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     function closeSequence():Boolean;
 
@@ -202,6 +232,11 @@ public interface IGraphicElement extends IVisualElement
      *  Developers typically never need to call this method.
      *
      *  @param parent The parent group of this <code>IGraphicElement</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function parentChanged(parent:Group):void;
 
@@ -217,6 +252,11 @@ public interface IGraphicElement extends IVisualElement
      * 
      *  @see #validateSize
      *  @see #validateDisplayList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function validateProperties():void;
     
@@ -236,6 +276,11 @@ public interface IGraphicElement extends IVisualElement
      * 
      *  @see #validateProperties
      *  @see #validateDisplayList
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function validateSize(recursive:Boolean = false):void;
     
@@ -261,6 +306,11 @@ public interface IGraphicElement extends IVisualElement
      *  @see #displayObject
      *  @see #validateProperties
      *  @see #validateSize
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function validateDisplayList():void;
 }
