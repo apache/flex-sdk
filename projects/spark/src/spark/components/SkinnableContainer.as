@@ -1021,6 +1021,7 @@ public class SkinnableContainer extends SkinnableContainerBase
             }
             
             contentGroup.mxmlContent = null;
+            contentGroup.layout = null;
         }
     }
     
