@@ -883,7 +883,8 @@ public class DataGroup extends GroupBase
      *  Discard the ItemRenderers that aren't needed anymore, i.e. the ones
      *  outside the range virtualLayoutStartIndex to virtualLayoutEndIndex.
      *  Discarded IRs may be added to the freeRenderers list per the rules
-     *  defined in getVirtualElementAt().
+     *  defined in getVirtualElementAt().  If any visible renderer has a non-zero
+     *  depth we resort DisplayObject - manageDisplayObjectLayers() - as well. 
      */
     private function finishVirtualLayout():void
     {
@@ -929,6 +930,31 @@ public class DataGroup extends GroupBase
                 super.removeChild(DisplayObject(elt));
             }
         }
+
+        // If there are any visible renderers whose depth property is non-zero
+        // then use manageDisplayObjectLayers to resort the children list.  Note:
+        // we're assuming that the layout has set the bounds of any elements that
+        // were allocated but aren't actually visible to 0x0.
+        
+        if (virtualLayoutStartIndex < 0 || virtualLayoutEndIndex < 0)
+            return;
+        
+        var depthSortRequired:Boolean = false;
+        for(index = virtualLayoutStartIndex; index < virtualLayoutEndIndex; index++)
+        {
+            elt = indexToRenderer[index] as IVisualElement;
+            if (!elt || !elt.visible || !elt.includeInLayout)
+                continue;
+            if ((elt.width == 0) || (elt.height == 0))
+                continue;
+            if (elt.depth != 0)
+            {
+                depthSortRequired = true;
+                break;
+            }
+        }
+        if (depthSortRequired)
+            manageDisplayObjectLayers();
     }
     
     /**
@@ -989,8 +1015,6 @@ public class DataGroup extends GroupBase
         if (virtualLayoutUnderway)
         {
             finishVirtualLayout();
-            if(_layeringFlags & LAYERING_DIRTY)
-                manageDisplayObjectLayers();            
             virtualLayoutUnderway = false;
         }
     }
