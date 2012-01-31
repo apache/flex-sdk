@@ -978,6 +978,26 @@ public class Application extends LayoutContainer
     //--------------------------------------------------------------------------
 
     /**
+     *  @private 
+     */
+    override protected function invalidateParentSizeAndDisplayList():void
+    {
+        if (!includeInLayout)
+            return;
+
+        var p:IInvalidating = parent as IInvalidating;
+        if (!p)
+        {
+            if (parent is ISystemManager)
+                ISystemManager(parent).invalidateParentSizeAndDisplayList();
+
+            return;
+        }
+
+        super.invalidateParentSizeAndDisplayList();
+    }
+
+    /**
      *  @private
      */
     override public function initialize():void
