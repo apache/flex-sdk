@@ -26,6 +26,7 @@ import mx.core.mx_internal;
 import mx.core.UIComponent;
 import mx.events.PropertyChangeEvent;
 
+import spark.events.SkinPartEvent;
 import spark.utils.FTETextUtil;
 
 use namespace mx_internal;
@@ -789,7 +790,15 @@ public class SkinnableComponent extends UIComponent
      *  @productversion Flex 4
      */
     protected function partAdded(partName:String, instance:Object):void
-    {   
+    {
+		// Dispatch a partAdded event.
+		// This event is an internal implementation detail subject to change.
+		// The accessibility implementation classes listen for this to know
+		// when to add their event listeners to skin parts being added.
+		var event:SkinPartEvent = new SkinPartEvent(SkinPartEvent.PART_ADDED);
+		event.partName = partName;
+		event.instance = instance;
+		dispatchEvent(event);
     }
 
     /**
@@ -812,6 +821,14 @@ public class SkinnableComponent extends UIComponent
      */
     protected function partRemoved(partName:String, instance:Object):void
     {       
+		// Dispatch a partRemoved event.
+		// This event is an internal implementation detail subject to change.
+		// The accessibility implementation classes listen for this to know
+		// when to remove their event listeners from skin parts being removed
+		var event:SkinPartEvent = new SkinPartEvent(SkinPartEvent.PART_REMOVED);
+		event.partName = partName;
+		event.instance = instance;
+		dispatchEvent(event);
     }
     
     //--------------------------------------------------------------------------
