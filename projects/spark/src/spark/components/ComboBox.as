@@ -258,19 +258,21 @@ public class ComboBox extends DropDownListBase
      *  It then and scrolls to and highlights the closest match in the item list.
      * 
      *  <p>The function referenced by this property takes an input string and returns
-     *  the items in the data provider that match the input. 
-     *  The items are returned as a Vector of indices in the data provider. </p>
+     *  the index of the items in the data provider that match the input. 
+     *  The items are returned as a Vector.&lt;int&gt; of indices in the data provider. </p>
      * 
      *  <p>The callback function must have the following signature: </p>
      * 
      *  <pre>
-     *    function myMatchingFunction(comboBox:ComboBox, inputText:String):Vector</pre>
+     *    function myMatchingFunction(comboBox:ComboBox, inputText:String):Vector.&lt;int&gt;</pre>
      * 
      *  <p>If the value of this property is null, the ComboBox finds matches 
      *  using the default algorithm.  
      *  By default, if an input string of length n is equivalent to the first n characters 
      *  of an item (ignoring case), then it is a match to that item. For example, 'aRiz' 
      *  is a match to "Arizona" while 'riz' is not.</p>
+     *
+     *  <p>To disable search, create a callback function that returns an empty Vector.&lt;int&gt;.</p>
      * 
      *  @default null
      *  
