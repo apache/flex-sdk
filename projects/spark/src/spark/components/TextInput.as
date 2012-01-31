@@ -144,10 +144,7 @@ public class TextInput extends TextBase
             // for lineBreak which sets it to "explicit".  It needs to be on
             // TextInput rather than RichEditableText so that if changed later it
             // will be inherited.
-
-            textView.heightInLines = 1;
             textView.multiline = false;
-            textView.autoSize = false;
         }
     }
 }
