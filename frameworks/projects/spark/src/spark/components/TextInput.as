@@ -112,7 +112,7 @@ public class FxTextInput extends FxTextBase
     /**
      *  @private
      */
-    private var _widthInChars:Number = 20;
+    private var _widthInChars:Number = 15;
 
     /**
      *  @private
@@ -183,9 +183,16 @@ public class FxTextInput extends FxTextBase
         if (instance == textView)
         {
             // Set the TextView to allow only one line of input.
+            // In default.css, the FxTextInput selector has a declaration
+            // for lineBreak which sets it to "explicit".  It needs to be on
+            // FxTextInput rather than TextView so that if changed later it
+            // will be inherited.  It needs to be set with the default
+            // before the possibility that it is changed when FxTextInput is
+            // created.  In this case, setting it here, would overwrite
+            // that change.
             textView.heightInLines = 1;
             textView.multiline = false;
-            textView.setStyle("lineBreak", "explicit");
+            textView.autoSize = false;
         }
     }
 }
