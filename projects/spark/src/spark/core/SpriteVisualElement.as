@@ -206,7 +206,7 @@ public class SpriteVisualElement extends FlexSprite
         _width = width;
         _height = height;
 
-        if (resizeMode == ResizeMode.NOSCALE)
+        if (resizeMode == ResizeMode.NO_SCALE)
         {
             // Set the internal scale to 1
             if (_layoutFeatures)
