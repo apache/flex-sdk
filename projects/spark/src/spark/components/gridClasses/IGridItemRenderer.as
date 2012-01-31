@@ -125,7 +125,7 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
      * 
      *  <p>This method is not intended to be called directly, it's called by the Grid implementation.</p>
      * 
-     *  @param recycle True if this renderer is being reused.
+     *  @param willBeRecycled True if this renderer is being reused.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
