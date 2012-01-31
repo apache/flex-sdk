@@ -35,6 +35,73 @@ public class GridDimensions
 {
     include "../../core/Version.as";
     
+    //--------------------------------------------------------------------------
+    //
+    //  Class methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Inserts specified elements starting from startIndex.
+     * 
+     *  Our implementation of:
+     *      var argArray:Array = new Array();
+     *      for each (var x:Number in values)
+     *      {
+     *          argArray.push(x);
+     *      }
+     *      argArray.splice(0, 0, startIndex, 0);
+     *      vec.splice.apply(vec, argArray);
+     *  
+     */
+    public static function insertValuesToVector(vec:Vector.<Number>, startIndex:int, values:Vector.<Number>):void
+    {
+        // FIXME (klin): change method name.
+        const oldLength:int = vec.length;
+        const count:int = values.length;
+        vec.length += count;
+        const vecLength:int = vec.length;
+        var i:int;
+
+        // Shift elements down by count.
+        for (i = oldLength - 1; i >= startIndex; i--)
+            vec[i + count] = vec[i];
+        
+        const endIndex:int = startIndex + values.length;
+        for (i = startIndex; i < endIndex; i++)
+            vec[i] = values[i];
+    }
+    
+    /**
+     *  Insert count elements of the specified value starting from
+     *  startIndex.
+     */
+    public static function insertValueToVector(vec:Vector.<Number>, startIndex:int, count:int, value:Number):void
+    {
+        // FIXME (klin): change method name.
+        const oldLength:int = vec.length;
+        vec.length += count;
+        const vecLength:int = vec.length;
+        
+        // Shift elements down by count.
+        for (var i:int = oldLength - 1; i >= startIndex; i--)
+            vec[i + count] = vec[i];
+        
+        clearVector(vec, value, startIndex, count);
+    }
+    
+    /**
+     *  Sets all of the numbers in a vector to be value unless otherwise
+     *  specified.
+     */
+    public static function clearVector(vec:Vector.<Number>, value:Number, startIndex:int = 0, count:int = -1):void
+    {
+        const endIndex:int = (count == -1) ? vec.length : startIndex + count;
+        
+        for (var i:int = startIndex; i < endIndex; i++)
+            vec[i] = value;
+    }
+    
     /**
      *  @private
      *  Restrict a number to a particular min and max.
@@ -48,15 +115,15 @@ public class GridDimensions
         
         return a;
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
 
-    private var rowList:GridRowList = new GridRowList();
-    private var _columnWidths:Vector.<Number>;
+    public var rowList:GridRowList = new GridRowList();
+    private var _columnWidths:Vector.<Number> = new Vector.<Number>();
 
     //cache for cumulative y values.
     private var startY:Number = 0;
@@ -64,8 +131,8 @@ public class GridDimensions
     private var startY2:Number = 0;
     private var recentNode2:GridRowNode = null;
     
-    private const typicalCellWidths:Array = new Array();
-    private const typicalCellHeights:Array = new Array();
+    private const typicalCellWidths:Vector.<Number> = new Vector.<Number>();
+    private const typicalCellHeights:Vector.<Number> = new Vector.<Number>();
     private var isFirstTypicalCellHeight:Boolean = true;
     
     //--------------------------------------------------------------------------
@@ -111,14 +178,12 @@ public class GridDimensions
         if (value == _rowCount)
             return;
         
+        // remove rows greater than value.
+        // This also clears the cached nodes.
+        if (value < _rowCount)
+            removeRowsAt(value, value - _rowCount)
+        
         _rowCount = value;
-        
-        if (recentNode && recentNode.rowIndex >= _rowCount)
-            recentNode = null;
-        if (recentNode2 && recentNode2.rowIndex >= _rowCount)
-            recentNode2 = null;
-        
-        // FIXME (klin): remove a range of indices...
     }
     
     //----------------------------------
@@ -144,51 +209,9 @@ public class GridDimensions
         if (value == _columnCount)
             return;
         
-        _columnCount = value;
-        if (_columnCount == 0)
-        {
-            rowList.removeAll();
-            recentNode = null;
-            recentNode2 = null;
-            return;
-        }
-        
-        rowList.numColumns = value;        
-        
-        var i:int;
-        
-        if (!_columnWidths)
-        {
-            _columnWidths = new Vector.<Number>(_columnCount);
-            
-            for (i = 0; i < _columnCount; i++)
-                _columnWidths[i] = NaN;
-        }
-        else
-        {
-            var temp:int = _columnWidths.length;
-            _columnWidths.length = _columnCount;
-            
-            if (temp < _columnCount)
-            {
-                for (i = temp; i < _columnCount; i++)
-                    _columnWidths[i] = NaN;
-                
-                if (_columnCount == 0)
-                {
-                    clearTypicalCellWidthsAndHeights();
-                }
-                else
-                {
-                    typicalCellWidths.length = _columnCount;
-                    typicalCellHeights.length = _columnCount;
-                }
-            }
-        }
-        
-        // clear cache
-        recentNode = null;
-        recentNode2 = null;
+        // if we change the columnCount, clear everything
+        // because we don't know which columns are valid anymore.
+        resetColumns(value);
     }
 
     //----------------------------------
@@ -470,10 +493,7 @@ public class GridDimensions
     }
     
     /**
-     *  Sets the height of a given row. This height takes precedence over
-     *  the natural height of the row (determined by the maximum of its 
-     *  cell heights) and the defaultRowHeight. However, fixedRowHeight
-     *  takes precedence over this height.
+     *  Sets the width of a given column.
      */
     public function setColumnWidth(col:int, width:Number):void
     {
@@ -998,7 +1018,7 @@ public class GridDimensions
             else
                 cur -= temp + columnGap;
             
-            if (cur < 0)
+            if (cur <= 0)
                 return i;
         }
         
@@ -1074,13 +1094,13 @@ public class GridDimensions
      */
     public function getTypicalContentWidth(columnCountOverride:int = -1):Number
     {
-        const nCols:int = (columnCountOverride == -1) ? columnCount : columnCountOverride;
+        const nCols:int = (columnCountOverride == -1) ? _columnCount : columnCountOverride;
         var contentWidth:Number = 0;
         
         for (var columnIndex:int = 0; columnIndex < nCols; columnIndex++)
         {
-            var width:Number = typicalCellWidths[columnIndex];
-            contentWidth += isNaN(width) ? defaultColumnWidth : width;
+            var width:Number = columnIndex < _columnCount ? typicalCellWidths[columnIndex] : NaN;
+            contentWidth += isNaN(width) ? 0 : width;
         }
         
         if (nCols > 1)
@@ -1155,8 +1175,12 @@ public class GridDimensions
         {
             // otherwise, find the max of the typical cell heights.
             var max:Number = 0;
-            for (var i:int = 0; i < typicalCellHeights.length; i++)
-                max = Math.max(max, typicalCellHeights[i]);
+            const typicalCellHeightsLength:int = typicalCellHeights.length;
+            for (var i:int = 0; i < typicalCellHeightsLength; i++)
+            {
+                if (!isNaN(typicalCellHeights[i])) 
+                    max = Math.max(max, typicalCellHeights[i]);
+            }
             this.defaultRowHeight = max;
         }
     }
@@ -1166,8 +1190,8 @@ public class GridDimensions
      */
     public function clearTypicalCellWidthsAndHeights():void
     {
-        typicalCellWidths.length = 0;
-        typicalCellHeights.length = 0;
+        clearVector(typicalCellWidths, NaN);
+        clearVector(typicalCellHeights, NaN);
         defaultRowHeight = 26;
         isFirstTypicalCellHeight = true;
     }
@@ -1189,6 +1213,22 @@ public class GridDimensions
      */
     public function insertColumns(startColumn:int, count:int):void
     {
+        const oldColumnCount:int = _columnCount;
+        const newColumnCount:int = _columnCount + count;
+        
+        if (startColumn < 0 || startColumn > oldColumnCount)
+            return;
+        
+        // change column count of all nodes in GridRowList.
+        rowList.insertColumns(startColumn, count);
+        
+        // add to columnCount
+        _columnCount = newColumnCount;
+        
+        // insert new values into the arrays.
+        insertValueToVector(_columnWidths, startColumn, count, NaN);
+        insertValueToVector(typicalCellWidths, startColumn, count, NaN);
+        insertValueToVector(typicalCellHeights, startColumn, count, NaN);
     }
     
     /**
@@ -1208,6 +1248,75 @@ public class GridDimensions
      */
     public function removeColumns(startColumn:int, count:int):void
     {
+        const oldColumnCount:int = _columnCount;
+        const newColumnCount:int = _columnCount - count;
+        
+        if (startColumn < 0 || startColumn >= oldColumnCount)
+            return;
+        
+        // if we remove all the columns, clear everything.
+        if (newColumnCount <= 0)
+        {
+            columnCount = 0;
+            return;
+        }
+        
+        // Otherwise, lets remove the specified columns.
+        // change column count of all nodes in GridRowList.
+        rowList.removeColumns(startColumn, count)
+        
+        // lower columnCount without clearing anything else.
+        _columnCount = newColumnCount;
+        
+        // remove values from the needed vectors
+        _columnWidths.splice(startColumn, count);
+        typicalCellWidths.splice(startColumn, count);
+        typicalCellHeights.splice(startColumn, count);
+        
+        // cache is invalid because node values might have changed
+        recentNode = null;
+        recentNode2 = null;
+    }
+    
+    /**
+     *  Clears any columns that occupy the indices between startColumn
+     *  and startColumn + count.
+     */
+    public function clearColumns(startColumn:int, count:int):void
+    {
+        if (startColumn < 0 || startColumn >= _columnCount)
+            return;
+        
+        rowList.clearColumns(startColumn, count);
+        
+        clearVector(_columnWidths, NaN, startColumn, count);
+        clearVector(typicalCellWidths, NaN, startColumn, count);
+        clearVector(typicalCellHeights, NaN, startColumn, count);
+        
+        // cache is invalid because node values might have changed
+        recentNode = null;
+        recentNode2 = null;   
+    }
+    
+    /**
+     *  Clears the cache and resets GridDimensions such that the
+     *  number of columns is newLength.
+     */
+    public function resetColumns(columnsLength:int):void
+    {
+        // clear cached information
+        clear();
+        
+        // fix up the number of columns
+        _columnCount = columnsLength;
+        _columnWidths.length = columnsLength;
+        typicalCellHeights.length = columnsLength;
+        typicalCellWidths.length = columnsLength;
+        rowList.numColumns = columnsLength
+        
+        // clear the rest of the vectors
+        clearTypicalCellWidthsAndHeights();
+        clearVector(_columnWidths, NaN, 0, _columnCount);
     }
     
     /**
@@ -1234,6 +1343,14 @@ public class GridDimensions
      */
     public function moveColumns(fromCol:int, toCol:int, count:int):void
     {
+        if (fromCol < 0 || fromCol >= _columnCount || toCol < 0 || toCol > _columnCount)
+            return;
+        
+        rowList.moveColumns(fromCol, toCol, count);
+        
+        insertValuesToVector(_columnWidths, toCol, _columnWidths.splice(fromCol, count));
+        insertValuesToVector(typicalCellWidths, toCol, typicalCellWidths.splice(fromCol, count));
+        insertValuesToVector(typicalCellHeights, toCol, typicalCellHeights.splice(fromCol, count));
     }
     
     /**
@@ -1241,12 +1358,12 @@ public class GridDimensions
      */
     public function clear():void
     {
-        rowCount = 0;
+        _rowCount = 0;
         rowList.removeAll();
-        this.recentNode = null;
-        this.recentNode2 = null;
-        this.startY = 0;
-        this.startY2 = 0;
+        recentNode = null;
+        recentNode2 = null;
+        startY = 0;
+        startY2 = 0;
     }
     
     /**
@@ -1256,6 +1373,8 @@ public class GridDimensions
      */
     private function insertRowsAt(startRow:int, count:int, nodes:Vector.<GridRowNode> = null):void
     {
+        // TODO: Push this to GridRowList.
+        
         if (startRow < 0 || count <= 0)
             return;
         
@@ -1321,7 +1440,7 @@ public class GridDimensions
             node = node.next;
         }
         
-        this.rowCount -= count;
+        _rowCount -= count;
         
         // cache is invalid now.
         recentNode = null;
@@ -1433,5 +1552,105 @@ public class GridDimensions
         this.rowCount = IList(event.target).length;
         return true;
     }    
+    
+    /**
+     *  Handles changes in columns.
+     */
+    public function columnsCollectionChanged(event:CollectionEvent):void
+    {
+        switch (event.kind)
+        {
+            case CollectionEventKind.ADD: 
+            {
+                columnsCollectionAdd(event);
+                break;
+            }
+                
+            case CollectionEventKind.MOVE:
+            {
+                columnsCollectionMove(event);
+                break;
+            }
+                
+            case CollectionEventKind.REFRESH:
+            {
+                columnsCollectionRefresh(event);
+                break;
+            }
+                
+            case CollectionEventKind.REMOVE:
+            {
+                columnsCollectionRemove(event);
+                break;
+            }
+                
+            case CollectionEventKind.REPLACE:
+            {
+                columnsCollectionReplace(event);
+                break;
+            }
+                
+            case CollectionEventKind.RESET:
+            {
+                columnsCollectionReset(event);
+                break;
+            }
+                
+            case CollectionEventKind.UPDATE:
+            {
+                // handled by GridLayout
+                break;
+            }                
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    private function columnsCollectionAdd(event:CollectionEvent):void
+    {
+        insertColumns(event.location, event.items.length);
+    }
+    
+    /**
+     *  @private
+     */
+    private function columnsCollectionRemove(event:CollectionEvent):void
+    {
+        removeColumns(event.location, event.items.length);
+    }
+    
+    /**
+     *  @private
+     */
+    private function columnsCollectionReplace(event:CollectionEvent):void
+    {
+        clearColumns(event.location, event.items.length);
+    }
+    
+    /**
+     *  @private
+     */
+    private function columnsCollectionMove(event:CollectionEvent):void
+    {
+        moveColumns(event.oldLocation, event.location, event.items.length);
+    }
+    
+    /**
+     *  @private
+     */
+    private function columnsCollectionReset(event:CollectionEvent):void
+    {
+        resetColumns(IList(event.target).length);
+    }
+    
+    /**
+     *  @private
+     */
+    private function columnsCollectionRefresh(event:CollectionEvent):void
+    {
+        resetColumns(IList(event.target).length);
+    }
+
 }
 }
