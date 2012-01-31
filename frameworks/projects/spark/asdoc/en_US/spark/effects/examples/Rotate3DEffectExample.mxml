@@ -26,7 +26,7 @@
             <!-- Directions -->
             <mx:VBox id="detailsBox" width="50%" left="0">
                 <mx:Text width="99%" color="blue"
-                    text="The Rotate3D effect rotates a target using the following parameters: angleXFrom, angleXTo, angleXBy, angleYFrom, angleYTo, angleYBy, angleFrom, angleTo, angleBy. Click 'Rotate3D' to watch the effect."/>
+                    text="The Rotate3D effect rotates a target using the following parameters: angleXFrom, angleXTo, angleYFrom, angleYTo, angleZFrom, and angleZTo. Click 'Rotate3D' to watch the effect."/>
             </mx:VBox>
         </mx:HBox>
 
