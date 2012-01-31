@@ -434,7 +434,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             
         isStyleMap = new Array(motionPaths.length);        
     
-        // TODO (chaase): avoid setting up animations on properties whose
+        // FIXME (chaase): avoid setting up animations on properties whose
         // from/to values are the same. Not worth the cycles, but also want
         // to avoid triggering any side effects when we're not actually changing
         // values
@@ -443,7 +443,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         for (i = 0; i < motionPaths.length; ++i)
         {
             var mp:MotionPath = MotionPath(motionPaths[i]);
-            // TODO (chaase): should we push this keyframe-init logic
+            // FIXME (chaase): should we push this keyframe-init logic
             // into the MotionPath class instead?
             
             var keyframes:Vector.<Keyframe> = motionPaths[i].keyframes;
@@ -452,7 +452,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             if (interpolator)
                 mp.interpolator = interpolator;
             // adjust effect duration to be the max of all MotionPath keyframe times
-            // TODO (chaase): Currently we do not adjust *down* for smaller duration
+            // FIXME (chaase): Currently we do not adjust *down* for smaller duration
             // MotionPaths. This is because we do not distinguish between
             // SimpleMotionPath objects (which are created with fake durations of 1,
             // knowing that they will derive their duration from their effects) and
@@ -480,7 +480,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         
         animation.play();
           
-        // TODO (chaase): there may be a better way to organize the 
+        // FIXME (chaase): there may be a better way to organize the 
         // animations for each property. For example, we could use 
         // an animation of a single value from 0 to 1 and then update each
         // property based on that elapsed fraction.
@@ -506,7 +506,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         }
     }
     
-    // TODO (chaase): This function appears in multiple places. Maybe
+    // FIXME (chaase): This function appears in multiple places. Maybe
     // put it in some util class instead?
     /**
      * @private
@@ -648,7 +648,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             
         finalizeValues();
 
-        // TODO (chaase): Consider putting AnimateInstance (and subclass's) 
+        // FIXME (chaase): Consider putting AnimateInstance (and subclass's) 
         // play() functionality (the setup and playing of the Animation object)
         // into startEffect(), calling play() from here, and not overriding
         // play() at all.
@@ -814,7 +814,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                         parentStart.addChild(target);
                     // GraphicElements may delay parenting their underlying displayObject until
                     // a layout pass, so let's force it to make sure we're ready to go
-                    // TODO (chaase): this should probably happen as a part of applyStartValues()
+                    // FIXME (chaase): this should probably happen as a part of applyStartValues()
                     // instead, then we already force the layout to happen
                     if (target is GraphicElement)
                         GraphicElement(target).validateNow();
@@ -861,7 +861,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
 
     private var constraintsHolder:Object;
     
-    // TODO (chaase): Use IConstraintClient for this
+    // FIXME (chaase): Use IConstraintClient for this
     private function reenableConstraint(name:String):void
     {
         var value:* = constraintsHolder[name];
@@ -881,7 +881,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         // there must have been no constraints to worry about
         if (constraintsHolder)
         {
-            // TODO EGeorgie: add support for 'baseline' constraint, when the new layouts support it.
+            // FIXME (egeorgie): add support for 'baseline' constraint, when the new layouts support it.
             var left:* = reenableConstraint("left");
             var right:* = reenableConstraint("right");
             var top:* = reenableConstraint("top");
@@ -897,7 +897,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         }
     }
     
-    // TODO (chaase): Use IConstraintClient for this
+    // FIXME (chaase): Use IConstraintClient for this
     private function cacheConstraint(name:String):*
     {
         var isProperty:Boolean = (name in target);
@@ -957,7 +957,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      */
     protected function setupStyleMapEntry(property:String):void
     {
-        // TODO (chaase): Find a better way to set this up just once
+        // FIXME (chaase): Find a better way to set this up just once
         if (isStyleMap[property] == undefined)
         {
             if (property in target)
@@ -975,7 +975,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                     throw new Error(resourceManager.getString("sparkEffects", 
                         "propNotPropOrStyle", [property, target, err])); 
                 }
-                // TODO: check to make sure that the throw above won't
+                // FIXME (chaase): check to make sure that the throw above won't
                 // let the code flow get to here
             }            
         }
@@ -989,7 +989,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      */
     protected function setValue(property:String, value:Object):void
     {
-        // TODO (chaase): Find a better way to set this up just once
+        // FIXME (chaase): Find a better way to set this up just once
         setupStyleMapEntry(property);
         if (!isStyleMap[property])
             target[property] = value;
@@ -1005,7 +1005,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      */
     protected function getCurrentValue(property:String):*
     {
-        // TODO (chaase): Find a better way to set this up just once
+        // FIXME (chaase): Find a better way to set this up just once
         setupStyleMapEntry(property);
         if (!isStyleMap[property])
             return target[property];
