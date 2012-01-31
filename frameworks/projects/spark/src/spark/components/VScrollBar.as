@@ -176,8 +176,15 @@ public class VScrollBar extends ScrollBar
         var thumbSize:Number = trackSize;
         if (range > 0)
         {
-            thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize)
-            thumbSize = Math.max(thumb.minHeight, thumbSize);
+            if (getStyle("fixedThumbSize") === false)
+            {
+                thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize)
+                thumbSize = Math.max(thumb.minHeight, thumbSize);
+            }
+            else
+            {
+                thumbSize = thumb ? thumb.height : 0;
+            }
             thumbPos = (value - minimum) * ((trackSize - thumbSize) / range);
         }
 
