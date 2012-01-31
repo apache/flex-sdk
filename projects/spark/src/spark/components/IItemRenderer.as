@@ -45,8 +45,8 @@ public interface IItemRenderer extends IDataRenderer, IVisualElement
      *  @productversion Flex 4
      *  
      */
-    function get index():int;
-    function set index(value:int):void;
+    function get itemIndex():int;
+    function set itemIndex(value:int):void;
     
 	/**
 	 *  True if the item renderer is being dragged.
