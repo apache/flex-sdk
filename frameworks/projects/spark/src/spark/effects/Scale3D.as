@@ -26,11 +26,11 @@ import spark.effects.supportClasses.AnimateTransformInstance;
  * effect instance on any given target at a time, which means that they will
  * share the transform center set by any of the contributing effects.</p>
  */   
-public class AnimateTransformScale3D extends AnimateTransformScale
+public class Scale3D extends Scale
 {
     include "../core/Version.as";
 
-    public function AnimateTransformScale3D(target:Object=null)
+    public function Scale3D(target:Object=null)
     {
         super(target);
         applyLocalProjection = true;
