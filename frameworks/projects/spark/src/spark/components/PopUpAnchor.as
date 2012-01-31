@@ -67,7 +67,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;PopUpAnchor
+ *  &lt;s:PopUpAnchor
  * 
  *    <strong>Properties</strong>
  *    displayPopUp="false"
@@ -406,7 +406,7 @@ public class PopUpAnchor extends UIComponent
             var adjustedRegPoint:Point = new Point();
             var adjustedBounds:Rectangle = new Rectangle(); 
             determinePosition(adjustedPosition, popUpAsDisplayObject.width, 
-            				  popUpAsDisplayObject.height,
+                              popUpAsDisplayObject.height,
                               matrix, adjustedRegPoint, adjustedBounds);
          
             if (screen)
@@ -490,9 +490,9 @@ public class PopUpAnchor extends UIComponent
             popUpIsDisplayed = true;
             if (popUp is UIComponent)
             {
-            	popUpWidth = UIComponent(popUp).explicitWidth;
-            	popUpHeight = UIComponent(popUp).explicitHeight;
-			}	
+                popUpWidth = UIComponent(popUp).explicitWidth;
+                popUpHeight = UIComponent(popUp).explicitHeight;
+            }   
            
             applyPopUpTransform(width, height);
         }
@@ -512,8 +512,8 @@ public class PopUpAnchor extends UIComponent
         
         if (popUp is UIComponent)
         {
-        	UIComponent(popUp).explicitWidth = popUpWidth;
-        	UIComponent(popUp).explicitHeight = popUpHeight;
+            UIComponent(popUp).explicitWidth = popUpWidth;
+            UIComponent(popUp).explicitHeight = popUpHeight;
         }
         
         /*if (popUpFactory)
@@ -588,16 +588,16 @@ public class PopUpAnchor extends UIComponent
         // measured / explicit dimensions if they are parented by the SystemManager. 
         if (popUp is UIComponent)
         {
-	        if (popUpWidthMatchesAnchorWidth)
-	            UIComponent(popUp).width = unscaledWidth;
-	        if (popUpHeightMatchesAnchorHeight)
-	            UIComponent(popUp).height = unscaledHeight;
+            if (popUpWidthMatchesAnchorWidth)
+                UIComponent(popUp).width = unscaledWidth;
+            if (popUpHeightMatchesAnchorHeight)
+                UIComponent(popUp).height = unscaledHeight;
         }
         else
         {
-        	var w:Number = popUpWidthMatchesAnchorWidth ? unscaledWidth : popUp.measuredWidth;
-        	var h:Number = popUpHeightMatchesAnchorHeight ? unscaledHeight : popUp.measuredHeight;
-        	popUp.setActualSize(w, h);
+            var w:Number = popUpWidthMatchesAnchorWidth ? unscaledWidth : popUp.measuredWidth;
+            var h:Number = popUpHeightMatchesAnchorHeight ? unscaledHeight : popUp.measuredHeight;
+            popUp.setActualSize(w, h);
         }
         
         var popUpPoint:Point = calculatePopUpPosition();
@@ -614,9 +614,9 @@ public class PopUpAnchor extends UIComponent
         m.tx = popUpPoint.x;
         m.ty = popUpPoint.y;
         if (popUp is UIComponent)
-        	UIComponent(popUp).setLayoutMatrix(m,false);
+            UIComponent(popUp).setLayoutMatrix(m,false);
         else if (popUp is DisplayObject)
-        	DisplayObject(popUp).transform.matrix = m;
+            DisplayObject(popUp).transform.matrix = m;
         
         // apply the color transformation
         DisplayObject(popUp).transform.colorTransform = $transform.concatenatedColorTransform
