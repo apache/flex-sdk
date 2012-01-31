@@ -4382,9 +4382,9 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     {
                         // if we've fallen off the rows, we need to leave the grid. get rid of the editor
                         setEditedItemPosition(null);
+                        
                         // set focus back to the grid so default handler will move it to the next component
-                        losingFocus = true;
-                        setFocus();
+                        deferFocus();
                         return false;
                     }
                     return true;
@@ -4452,8 +4452,8 @@ public class DataGrid extends DataGridBase implements IIMESupport
                     UIComponent(itemEditorInstance).drawFocus(false);
 
                 // setfocus back to us so something on stage has focus
-                losingFocus = true;
-                setFocus();
+                deferFocus();
+                
                 // must call removeChild() so FocusManager.lastFocus becomes null
                 actualContentHolder.removeChild(DisplayObject(itemEditorInstance));
                 editedItemRenderer.visible = true;
@@ -4512,10 +4512,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         // trace("dontEdit", dontEdit);
 
         if (!dontEdit && reason == DataGridEventReason.CANCELLED)
-        {
-            losingFocus = true;
-            setFocus();
-        }
+            deferFocus();
 
         inEndEdit = false;
 
@@ -4883,14 +4880,14 @@ public class DataGrid extends DataGridBase implements IIMESupport
      */
     override protected function focusInHandler(event:FocusEvent):void
     {
-        // trace(">>DGFocusIn ", selectedIndex);
+        //trace(">>DGFocusIn ", selectedIndex);
         var dataGridEvent:DataGridEvent;
 
         if (losingFocus)
         {
             losingFocus = false;
-            // trace("losing focus via tab");
-            // trace("<<DGFocusIn ");
+             //trace("losing focus via tab");
+             //trace("<<DGFocusIn ");
             return;
         }
 
@@ -4904,13 +4901,13 @@ public class DataGrid extends DataGridBase implements IIMESupport
         {
             if (itemEditorInstance && itemRendererContains(itemEditorInstance, DisplayObject(event.target)))
             {
-                // trace("item editor got focus ignoring");
-                // trace("<<DGFocusIn ");
+                 //trace("item editor got focus ignoring");
+                 //trace("<<DGFocusIn ");
                 return;
             }
             lastItemFocused = DisplayObject(event.target);
-            // trace("subcomponent got focus ignoring");
-            // trace("<<DGFocusIn ");
+             //trace("subcomponent got focus ignoring");
+             //trace("<<DGFocusIn ");
             return;
         }
         lastItemFocused = null;
@@ -4947,13 +4944,13 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
             if (foundOne)
             {
-                // trace("setting focus", _editedItemPosition.columnIndex, _editedItemPosition.rowIndex);
+                //trace("setting focus", _editedItemPosition.columnIndex, _editedItemPosition.rowIndex);
                 beginningEdit(_editedItemPosition.columnIndex, _editedItemPosition.rowIndex);
             }
 
         }
 
-        // trace("<<DGFocusIn ");
+         //trace("<<DGFocusIn ");
     }
 
     /**
@@ -5024,8 +5021,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         if (itemEditorInstance)
         {
             endEdit(DataGridEventReason.OTHER);
-            losingFocus = true;
-            setFocus();
+            deferFocus();
         }
     }
 
@@ -5073,8 +5069,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
         endEdit(DataGridEventReason.OTHER);
         // set focus back to the grid so grid logic will deal if focus doesn't
         // end up somewhere else
-        losingFocus = true;
-        setFocus();
+        deferFocus();
     }
 
     /**
@@ -5369,6 +5364,18 @@ public class DataGrid extends DataGridBase implements IIMESupport
         }
     }
 
+    /**
+     *  @private
+     *  Sets focus back to the grid so default handler will move it to the 
+     *  next component.
+     */ 
+    private function deferFocus():void
+    {
+        losingFocus = true;
+        setFocus();
+        losingFocus = false;
+    }
+    
 	protected function isComplexColumn( property:String ):Boolean
     {
         return ( property.indexOf( "." ) != -1 );
