@@ -25,6 +25,11 @@ import flash.geom.Point;
 [Event(name="change", type="flash.events.Event")]
 
 /**
+ *  Skin states for this component.
+ */
+[SkinStates("normal", "disabled")]
+
+/**
  *  TrackBase is a base class for components with a track
  *  and one or more thumbs such as Slider and ScrollBar. It
  *  declares two required SkinParts, <code>thumb</code> and
@@ -103,6 +108,7 @@ public class TrackBase extends Range
     {
         super.enabled = value;
         enableSkinParts(value);
+        invalidateSkinState();
     }
     
     override public function set maximum(value:Number):void
@@ -216,6 +222,14 @@ public class TrackBase extends Range
         positionThumb(valueToPosition(value));
     }
 
+    /**
+     *  @inheritDoc
+     */
+	override protected function getUpdatedSkinState():String
+	{
+		return enabled ? "normal" : "disabled";
+	}
+	
     /**
      *  Adds event handlers to the track and thumb for mouse events.
      */
