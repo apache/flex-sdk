@@ -14,6 +14,8 @@ package spark.primitives.supportClasses
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.Graphics;
+import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
@@ -37,6 +39,41 @@ import spark.components.Group;
 import spark.core.IGraphicElement;
 
 use namespace mx_internal;
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
+
+/**
+ *  The alpha level of the color defined by
+ *  the <code>backgroundColor</code> style.
+ *  Valid values range from 0.0 to 1.0.
+ * 
+ *  @default 1.0
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo")]
+
+/**
+ *  The color of the background of the entire
+ *  bounding rectangle of this component.
+ *  If this style is <code>undefined</code>,
+ *  no background is drawn.
+ *  Otherwise, this RGB color is drawn with an alpha level
+ *  determined by the <code>backgroundAlpha</code> style.
+ * 
+ *  @default undefined
+ *
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
 /**
  *  The base class for GraphicElements such as TextBox and TextGraphic
@@ -813,8 +850,20 @@ public class TextGraphicElement extends GraphicElement
 
         // Set the scrollRect used for clipping appropriately.              
         clip(clipText, unscaledWidth, unscaledHeight);
+ 
+     	// If backgroundColor is defined, fill the bounds of the component
+    	// with backgroundColor drawn with alpha level backgroundAlpha.
+    	var backgroundColor:* = getStyle("backgroundColor");
+    	if (backgroundColor !== undefined)
+    	{
+	    	var g:Graphics = Sprite(drawnDisplayObject).graphics;
+	        g.lineStyle();
+	        g.beginFill(uint(backgroundColor), getStyle("backgroundAlpha"));
+	       	g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
+	        g.endFill();
+	    }
     }
-            
+    
     /**
      *  @private
      */
