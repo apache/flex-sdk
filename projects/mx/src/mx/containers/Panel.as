@@ -1684,8 +1684,8 @@ public class Panel extends Container
     
     /**
      *  Returns the height of the header.
-     *  
-     *  @return The height of the header, in pixels.
+     * 
+     *  @return The height of the header, in pixels.     
      */
     protected function getHeaderHeight():Number
     {
