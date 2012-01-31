@@ -57,7 +57,9 @@ in accordance with the terms of the license agreement accompanying it.
             import mx.collections.IList;
             import mx.collections.ArrayList;
             import mx.core.IVisualElement;
-            
+
+            import spark.events.DropDownEvent;
+
             //--------------------------------------------------------------------------
             //
             //  Overriden properties
@@ -137,6 +139,7 @@ in accordance with the terms of the license agreement accompanying it.
             {
                 super.prepare();
 
+                comboBox.addEventListener(DropDownEvent.OPEN, dropDown_openHandler);
                 comboBox.openDropDown();
             }
             
@@ -153,14 +156,27 @@ in accordance with the terms of the license agreement accompanying it.
             /**
              *  @private
              */ 
-            private function comboBox_changeHandler():void
+            private function dropDown_openHandler(event:DropDownEvent):void
             {
-                // When the value in the combo box changes end the editting
+                // Add a mouse down handler for the dropDown part. When 
+                // the user clicks in the drop down we want to end the editing 
+                // session.
+                if (comboBox.dropDown)
+                    comboBox.dropDown.addEventListener(MouseEvent.MOUSE_DOWN, dropDown_mouseClickHandler, false, 0, true);
+            }
+            
+            /**
+             *  @private
+             */ 
+            private function dropDown_mouseClickHandler(event:MouseEvent):void
+            {
+                // When the drop down list is clicked end the editting session
                 // to allow the edit to be completed with just one click.
-                // Use callLater to let the change handler finish before
-                // we close the editor.
+                // Use callLater to let the click and change handlers finish 
+                // before we close the editor.
                 callLater(dataGrid.endItemEditorSession);
             }
+            
         ]]>
     </fx:Script>
 
@@ -195,6 +211,6 @@ in accordance with the terms of the license agreement accompanying it.
           @playerversion AIR 2.5
           @productversion Flex 4.5
     -->
-    <s:ComboBox id="comboBox" width="100%" dataProvider="{dataProvider}" change="comboBox_changeHandler()" />
+    <s:ComboBox id="comboBox" width="100%" dataProvider="{dataProvider}" />
     
 </s:GridItemEditor>
