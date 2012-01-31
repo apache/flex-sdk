@@ -3970,7 +3970,7 @@ public class RichEditableText extends UIComponent
                 
         // If the textFlow content is modified directly or if there is a style 
         // change by changing the textFlow directly the size could change.
-        invalidateSize();
+        //invalidateSize();
             
         invalidateDisplayList();
     }
