@@ -135,9 +135,10 @@ use namespace mx_internal;
 /**
  *  The layout-specific container components in Flex 3 have been replaced by a more generic
  *  Group component that takes a generic layout. To get similar behavior from the new
- *  Group component, set the <code>layout</code> property to <code>TileLayout</code>.
+ *  Group component, set the <code>layout</code> property to <code>TileLayout</code>
+ *  or use the TileGroup container.
  */
-[Alternative(replacement="spark.components.Group", since="4.0")]
+[Alternative(replacement="spark.components.TileGroup", since="4.0")]
 [Alternative(replacement="spark.components.Border", since="4.0")]
 
 /**
