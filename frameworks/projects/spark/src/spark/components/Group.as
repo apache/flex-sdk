@@ -920,7 +920,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 
     /**
      *  @private
-     *  FIXME (rfrishbe): Most of this code is a duplicate of UIComponent::notifyStyleChangeInChildren,
+     *  TODO (rfrishbe): Most of this code is a duplicate of UIComponent::notifyStyleChangeInChildren,
      *  refactor as appropriate to avoid code duplication once we have a common
      *  child iterator between UIComponent and Group.
      */ 
@@ -946,7 +946,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     
     /**
      *  @private
-     *  FIXME (rfrishbe): Most of this code is a duplicate of UIComponent::regenerateStyleCache,
+     *  TODO (rfrishbe): Most of this code is a duplicate of UIComponent::regenerateStyleCache,
      *  refactor as appropriate to avoid code duplication once we have a common
      *  child iterator between UIComponent and Group.
      */ 
@@ -1392,18 +1392,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 
         if (child is IStyleClient)
             IStyleClient(child).notifyStyleChangeInChildren(null, true);
-
-        // FIXME (egeorgie): why do we need this here? We should not be hard-coding
-        // against concrete GraphicElement types, maybe move this to a different
-        // interface (IGraphicElement or IAdvancedStyleClient)?
-        //
-        // Inform the component that it's style properties
-        // have been fully initialized. Most components won't care,
-        // but some need to react to even this early change.
-        if (child is TextBase)
-            TextBase(child).stylesInitialized();
-        
-        // FIXME (rfrishbe): Remove above
     }
     
     /**
