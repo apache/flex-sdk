@@ -12,8 +12,6 @@
 package spark.primitives
 {
 
-import flash.display.BlendMode;
-import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -28,7 +26,6 @@ import flash.text.engine.FontLookup;
 import flash.text.engine.TextBlock;
 import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
-import flash.ui.ContextMenu;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.compose.ITextLineCreator;
@@ -41,18 +38,16 @@ import flashx.textLayout.edit.EditManager;
 import flashx.textLayout.edit.EditingMode;
 import flashx.textLayout.edit.IEditManager;
 import flashx.textLayout.edit.ISelectionManager;
-import flashx.textLayout.edit.SelectionFormat;
 import flashx.textLayout.edit.SelectionManager;
 import flashx.textLayout.edit.SelectionState;
 import flashx.textLayout.edit.TextScrap;
-import flashx.textLayout.edit.UndoManager;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
-import flashx.textLayout.events.CompositionCompletionEvent;
 import flashx.textLayout.events.DamageEvent;
+import flashx.textLayout.events.CompositionCompletionEvent;
 import flashx.textLayout.events.FlowOperationEvent;
 import flashx.textLayout.events.SelectionEvent;
 import flashx.textLayout.formats.Category;
@@ -69,7 +64,6 @@ import flashx.textLayout.tlf_internal;
 import flashx.undo.IUndoManager;
 
 import mx.core.EmbeddedFont;
-import mx.core.EmbeddedFontRegistry;
 import mx.core.IEmbeddedFontRegistry;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
@@ -90,6 +84,8 @@ import spark.core.ScrollUnit;
 import spark.events.TextOperationEvent;
 import spark.primitives.supportClasses.RichEditableTextContainerManager;
 import spark.utils.TextUtil;
+
+use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -1017,7 +1013,7 @@ public class RichEditableText extends UIComponent
      */
     private function set editingMode(value:String):void
     {
-    	if (mx_internal::debug)
+    	if (debug)
      		trace("editingMode = ", value);
 
         // ToDo: TextContainerManager should do this check.
@@ -1470,7 +1466,7 @@ public class RichEditableText extends UIComponent
      */
     public function get textFlow():TextFlow
     {
-    	if (mx_internal::debug)
+    	if (debug)
     		trace("getTextFlow()");
     	return _inputManager.getTextFlow();
     }
@@ -1542,9 +1538,9 @@ public class RichEditableText extends UIComponent
 	        // should create TextLines (since they must be created in the
 	        // SWF where the embedded font is.)
 	        // Otherwise, this will be null.
-            mx_internal::embeddedFontContext = getEmbeddedFontContext();
+            embeddedFontContext = getEmbeddedFontContext();
             
-            if (mx_internal::debug)
+            if (debug)
             	trace("hostFormat=");
             _inputManager.hostFormat =
             	hostFormat = new CSSTextLayoutFormat(this);
@@ -1559,7 +1555,7 @@ public class RichEditableText extends UIComponent
         
         if (selectionFormatsChanged)
         {
-        	if (mx_internal::debug)
+        	if (debug)
         		trace("invalidateInteractionManager()");
         	_inputManager.invalidateSelectionFormats();
         	
@@ -1568,7 +1564,7 @@ public class RichEditableText extends UIComponent
 
         if (textChanged)
         {
-        	if (mx_internal::debug)
+        	if (debug)
         		trace("setText()");
         	
             textFlowChanged = true;
@@ -1589,7 +1585,7 @@ public class RichEditableText extends UIComponent
         	
         	textFlowChanged = true;
         	
-        	if (mx_internal::debug)
+        	if (debug)
         		trace("setTextFlow()");
         	_inputManager.setTextFlow(textFlow);
 
@@ -1619,7 +1615,7 @@ public class RichEditableText extends UIComponent
                 // same form as the original string?  This is only an issue
                 // for TextArea.
                 var textToDisplay:String = StringUtil.repeat(
-                    mx_internal::passwordChar, _text.length);
+                    passwordChar, _text.length);
                     
                 _inputManager.setText(textToDisplay);                            
             }
@@ -1801,11 +1797,11 @@ public class RichEditableText extends UIComponent
             _inputManager.compositionHeight = unscaledHeight;
         }
 
-		if (mx_internal::debug)
+		if (debug)
 			trace("updateContainer()");
 			
         _inputManager.textLineCreator = 
-            ITextLineCreator(mx_internal::embeddedFontContext);
+            ITextLineCreator(embeddedFontContext);
             
         _inputManager.updateContainer();
     }
@@ -2182,7 +2178,7 @@ public class RichEditableText extends UIComponent
         // should create TextLines (since they must be created in the
         // SWF where the embedded font is.)
         // Otherwise, this will be null.
-        mx_internal::embeddedFontContext = getEmbeddedFontContext();
+        embeddedFontContext = getEmbeddedFontContext();
         
         var fontDescription:FontDescription = new FontDescription();
         
@@ -2206,7 +2202,7 @@ public class RichEditableText extends UIComponent
         	// specify an embedded font.
         	if (s == "auto")
         	{
-        		s = mx_internal::embeddedFontContext ?
+        		s = embeddedFontContext ?
         			FontLookup.EMBEDDED_CFF :
                 	FontLookup.DEVICE;
         	}
@@ -2918,8 +2914,8 @@ public class RichEditableText extends UIComponent
     override protected function focusOutHandler(event:FocusEvent):void
     {
         // By default, we clear the undo history when a TextView loses focus.
-        if (mx_internal::clearUndoOnFocusOut && mx_internal::undoManager)
-            mx_internal::undoManager.clearAll();
+        if (clearUndoOnFocusOut && undoManager)
+            undoManager.clearAll();
                     
         if (focusManager)
             focusManager.defaultButtonEnabled = true;
@@ -3178,7 +3174,7 @@ public class RichEditableText extends UIComponent
             {
                 _text = splice(_text, insertTextOperation.absoluteStart,
                                insertTextOperation.absoluteEnd, textToInsert);
-                textToInsert = StringUtil.repeat(mx_internal::passwordChar,
+                textToInsert = StringUtil.repeat(passwordChar,
                                                  textToInsert.length);
             }
 
