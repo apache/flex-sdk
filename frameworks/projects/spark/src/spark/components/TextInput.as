@@ -39,7 +39,7 @@ import flashx.tcal.formats.LineBreak;
 /**
  *  The built-in set of states for the TextInput component.
  */
-[SkinStates("enabled", "disabled")]
+[SkinStates("normal", "disabled")]
 
 /**
  *  Documentation is not currently available.
@@ -146,7 +146,7 @@ public class TextInput extends TextBase
 	 */
 	override protected function getUpdatedSkinState():String
 	{
-		return enabled ? "enabled" : "disabled";
+		return enabled ? "normal" : "disabled";
 	}
 }
 
