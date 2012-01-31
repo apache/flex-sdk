@@ -116,6 +116,12 @@ public class ThrowEffect extends Animate
      */
     mx_internal var finalPositionFilterFunction:Function;
     
+    /**
+     *  @private
+     *  Set to true when the effect is only being used to snap an element into position
+     *  and the initial velocity is zero.
+     */
+    mx_internal var isSnapping:Boolean = false;
 
     /**
      *  @private
@@ -154,6 +160,8 @@ public class ThrowEffect extends Animate
 
         var effectTime:int = calculateThrowEffectTime(startingVelocityX, startingVelocityY);
         var throwEffectMotionPaths:Vector.<MotionPath> = new Vector.<MotionPath>();
+        
+        isSnapping = false;
         
         var horizontalTime:Number = 0;
         var horizontalFinalPosition:Number = 0;
@@ -305,6 +313,7 @@ public class ThrowEffect extends Animate
                 if (alignedPosition == position)
                     return null;
 
+                isSnapping = true;
                 nowTime = addKeyframe(motionPath, nowTime + THROW_SETTLE_TIME, alignedPosition, new Power(0, THROW_CURVE_EXPONENT));
             }
         }
