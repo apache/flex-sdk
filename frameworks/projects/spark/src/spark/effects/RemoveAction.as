@@ -9,10 +9,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.effects
+package mx.effects
 {
-import flex.core.Group;
-import flex.effects.effectClasses.RemoveActionInstance;
+import mx.components.Group;
+import mx.effects.effectClasses.RemoveActionInstance;
 
 import mx.core.mx_internal;
 import mx.effects.Effect;
