@@ -189,6 +189,7 @@ public class GroupBase extends UIComponent implements IViewport
     public function GroupBase()
     {
         super();
+        showInAutomationHierarchy = false;
     }
         
     //--------------------------------------------------------------------------
