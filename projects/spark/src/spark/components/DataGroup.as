@@ -8,11 +8,15 @@ import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
+import mx.core.IInvalidating;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.ItemExistenceChangedEvent;
 import mx.layout.ILayoutElement;
+import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
+import mx.styles.IStyleClient;
+
 
 /**
  *  Dispatched when an item is added to the content holder.
@@ -62,6 +66,83 @@ public class DataGroup extends GroupBase
     private static const LAYERING_DIRTY:uint =      0x2;
     
     private var itemRendererRegistry:Array = [];
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  typicalItem
+    //----------------------------------
+
+    private var _typicalItem:Object = null;
+    private var typicalItemChanged:Boolean = false;
+    private var typicalLayoutElement:ILayoutElement = null;
+
+    /**
+     *  Layouts use the preferred size of the corresponding ILayoutElement 
+     *  when fixed row/column sizes are requested but a specific 
+     *  rowHeight or columnWidth isn't provided.
+     * 
+     *  Similarly virtual layouts use this item to define the size 
+     *  of layout elements that have not been scrolled into view.
+     *
+     *  Setting this property sets the typicalLayoutElement property
+     *  of the layout.
+     * 
+     *  @default null
+     */
+    public function get typicalItem():Object
+    {
+        return _typicalItem;
+    }
+
+    /**
+     *  @private
+     */
+    public function set typicalItem(value:Object):void
+    {
+        if (_typicalItem == value)
+            return;
+        _typicalItem = value;
+        typicalItemChanged = true;
+        invalidateProperties();
+    }
+    
+    private function initializeTypicalItem():void
+    {
+        var itemRenderer:DisplayObject = DisplayObject(createRendererForItem(_typicalItem));     
+        super.addChild(itemRenderer)            
+        if (itemRenderer is IInvalidating)
+            IInvalidating(itemRenderer).validateNow();
+        typicalLayoutElement = LayoutElementFactory.getLayoutElementFor(itemRenderer);
+        if (layout)
+            layout.typicalLayoutElement = typicalLayoutElement;    
+        super.removeChild(itemRenderer);
+    }    
+
+    //----------------------------------
+    //  layout
+    //----------------------------------
+
+    /**
+     *  @private
+     *  Sync the typicalLayoutElement var with this group's layout.
+     */    
+    override public function set layout(value:LayoutBase):void
+    {
+        var oldLayout:LayoutBase = layout;
+        if (value == oldLayout)
+            return; 
+
+        super.layout = value;    
+        if (oldLayout)
+            oldLayout.typicalLayoutElement = null;
+        if (value)
+            value.typicalLayoutElement = typicalLayoutElement;
+    } 
     
     //----------------------------------
     //  itemRenderer
@@ -192,7 +273,7 @@ public class DataGroup extends GroupBase
         for (var idx:int = numChildren; idx > 0; idx--)
             super.removeChildAt(0);
         
-        if (_dataProvider != null)
+        if (_dataProvider && (!layout || !layout.virtualLayout))
         {
             for (var i:int = 0; i < _dataProvider.length; i++)
             {
@@ -250,7 +331,11 @@ public class DataGroup extends GroupBase
         {
             myItemRenderer = IVisualElement(item);
         }
-        
+
+        // Set the renderer's data to the item, but only if the item and renderer are different
+        if ((myItemRenderer is IDataRenderer) && (myItemRenderer != item))
+            IDataRenderer(myItemRenderer).data = item;   
+                    
         // Couldn't find item renderer.  Throw an RTE.
         if (!myItemRenderer)
         {
@@ -341,6 +426,12 @@ public class DataGroup extends GroupBase
         {
         	manageDisplayObjectLayers();
         }
+        
+        if (typicalItemChanged)
+        {
+            typicalItemChanged = false;
+            initializeTypicalItem();
+        }        
     }
     
     private function manageDisplayObjectLayers():void
@@ -431,17 +522,87 @@ public class DataGroup extends GroupBase
     {
         return dataProvider ? dataProvider.length : 0;
     }
+
+    private var virtualLayoutOffset:int = 0;
+    private var virtualLayoutUnderway:Boolean = false;
+     
+    /**
+     *  @private
+     *  Update virtualLayoutOffset and clear the virtualLayoutUnderway flag.
+     */
+    override public function beginVirtualLayout(startIndex:int):void
+    {
+        virtualLayoutOffset = startIndex;
+        virtualLayoutUnderway = true;
+    }
+    
+    /**
+     *  @private
+     *  Discard the ItemRenderers that aren't needed anymore, i.e. the ones
+     *  outside the logical range startIndex to endIndex.
+     * 
+     *  Clear the virtualLayoutUnderway flag.
+     */
+    override public function endVirtualLayout(startIndex:int, endIndex:int):void
+    {
+        // At this point, insertion of new IRs has pushed all of the unneeded IRs
+        // past endIndex-startIndex.  Remove them without invalidating this DataGroup's
+        // size or display list.
+        for(var i:int = super.numChildren - 1; i > (endIndex - startIndex); i--)
+        {
+            var itemRenderer:DisplayObject = super.getChildAt(i);
+            unregisterRenderer(i, IVisualElement(itemRenderer));
+            super.removeChildAt(i);
+        }        
+        virtualLayoutUnderway = false;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function invalidateSize():void
+    {
+        if (!virtualLayoutUnderway)
+            super.invalidateSize();
+    }
     
     /**
      *  @private
      */
     override public function getLayoutElementAt(index:int):ILayoutElement
     {
-        var myItemRenderer:Object = mx_internal::getRendererForItemAt(index);
+        var itemRendererIndex:int = index - virtualLayoutOffset;
+        var itemRenderer:Object = mx_internal::getRendererForItemAt(itemRendererIndex);
 
-        return LayoutElementFactory.getLayoutElementFor(myItemRenderer);
+        if (layout && layout.virtualLayout)
+        {
+            // Note: the code below does most of the same work as itemAdded()
+            var item:Object = dataProvider.getItemAt(index);
+            var createdIR:Boolean = false;
+            
+            if (!itemRenderer)
+            {
+                itemRenderer = createRendererForItem(item);
+                createdIR = true;
+            }
+
+            if (itemRenderer.parent != this)
+                addItemRendererToDisplayList(DisplayObject(itemRenderer), itemRendererIndex);
+            else
+                super.setChildIndex(DisplayObject(itemRenderer), itemRendererIndex);
+            
+            if (createdIR)
+            {
+                if (itemRenderer is IInvalidating)
+                    IInvalidating(itemRenderer).validateNow();
+                // TBD sync with itemAdded
+                dispatchEvent(new ItemExistenceChangedEvent(ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
+            }
+        }
+
+        return LayoutElementFactory.getLayoutElementFor(itemRenderer);
     }
-    
+
     /**
      *  @private
      */
@@ -462,15 +623,11 @@ public class DataGroup extends GroupBase
     mx_internal function itemAdded(item:Object, index:int):void
     {
         var myItemRenderer:IVisualElement = createRendererForItem(item);
-        
-        // Set the renderer's data to the item, but only if the item and renderer are different
-        if (myItemRenderer is IDataRenderer && myItemRenderer != item)
-            IDataRenderer(myItemRenderer).data = item;
-        
+
         registerRenderer(index, myItemRenderer);
         
-        addItemToDisplayList(myItemRenderer as DisplayObject, item, index);
-        
+        addItemRendererToDisplayList(myItemRenderer as DisplayObject, index);
+        // TBD: sync with virtualization code in getLayoutElementAt
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_ADD, false, false, 
                       item, index, myItemRenderer));
@@ -523,7 +680,7 @@ public class DataGroup extends GroupBase
      * 
      *  @return DisplayObject that was added.
      */ 
-    protected function addItemToDisplayList(child:DisplayObject, item:Object, index:int = -1):DisplayObject
+    protected function addItemRendererToDisplayList(child:DisplayObject, index:int = -1):DisplayObject
     { 
         // TODO: do we need this case (parented by me previously)?
         if (child.parent && child.parent == this)
@@ -545,7 +702,7 @@ public class DataGroup extends GroupBase
         }
 
         if ((_layeringFlags & LAYERING_ENABLED) || 
-        	(item is IVisualElement && (item as IVisualElement).layer != 0))
+        	(child is IVisualElement && (child as IVisualElement).layer != 0))
         	invalidateLayering();
             
         return super.addChildAt(child, index != -1 ? index : super.numChildren);
