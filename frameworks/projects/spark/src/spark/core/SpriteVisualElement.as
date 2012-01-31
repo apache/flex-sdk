@@ -12,6 +12,7 @@
 package spark.core
 {
 
+import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.IEventDispatcher;
@@ -27,6 +28,7 @@ import mx.core.DesignLayer;
 import mx.core.FlexSprite;
 import mx.core.IID;
 import mx.core.IInvalidating;
+import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
@@ -34,6 +36,7 @@ import mx.filters.BaseFilter;
 import mx.filters.IBitmapFilter;
 import mx.geom.Transform;
 import mx.geom.TransformOffsets;
+import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 
 import spark.components.ResizeMode;
@@ -1445,6 +1448,71 @@ public class SpriteVisualElement extends FlexSprite
 	{
 		return super.transform;
 	}
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function addChild(child:DisplayObject):DisplayObject
+    {
+        // Do anything that needs to be done before the child is added.
+        // In the case of SVE..we just need to deal with text UIComponents
+        // and setting them up because this is a "static" object
+        addingChild(child);
+        
+        super.addChild(child);
+        
+        childAdded(child);
+        
+        return child;
+    }
+    
+    /**
+     *  @private
+     */
+    override public function addChildAt(child:DisplayObject,
+                                        index:int):DisplayObject
+    {
+        addingChild(child);
+        
+        super.addChildAt(child, index);
+        
+        childAdded(child);
+        
+        return child;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function addingChild(child:DisplayObject):void
+    {   
+        // for SVE, we just need to set up the parent and the nestLevel
+        if (child is IUIComponent)
+            IUIComponent(child).parentChanged(this);
+        
+        // Set the nestLevel to "2" since we don't really have a 
+        // concept of nestLevel for SVE
+        if (child is ILayoutManagerClient)
+            ILayoutManagerClient(child).nestLevel = 2;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function childAdded(child:DisplayObject):void
+    {
+        // for SVE, we just need call initialize()
+        if (child is IUIComponent)
+        {
+            IUIComponent(child).initialize();
+        }
+    }
 
 	//--------------------------------------------------------------------------
     //
