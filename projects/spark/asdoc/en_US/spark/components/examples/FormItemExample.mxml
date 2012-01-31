@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Simple example to demonstrate the Spark FormItem control layout -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx">
+    
+    <s:Panel title="Spark FormItem Control layout Example"
+             width="75%" height="75%"
+             horizontalCenter="0" verticalCenter="0">
+        <s:Scroller width="100%" height="100%">
+            <s:Group left="10" right="10" top="10" bottom="10">
+                <s:Form id="frm" defaultButton="{sbmt}">
+                    <s:FormHeading label="STACKED SPARK FORM" backgroundColor="haloSilver" />
+                    <s:FormItem sequenceLabel="i)" label="First/last name:" required="true">
+                        <s:TextInput id="fName" maxChars="64" />
+                        <s:TextInput id="lName" maxChars="64" />
+                    </s:FormItem>
+                    <s:FormItem sequenceLabel="ii)" label="Address:">
+                        <s:layout>
+                            <s:HorizontalLayout />
+                        </s:layout>
+                        <s:TextInput id="address1" maxChars="128" />
+                        <s:TextInput id="address2" maxChars="128" />
+                    </s:FormItem>
+                    <s:FormItem>
+                        <s:Button id="sbmt" label="Submit" />
+                    </s:FormItem>
+                </s:Form>
+            </s:Group>
+        </s:Scroller>
+    </s:Panel>
+    
+</s:Application>
