@@ -706,7 +706,7 @@ public class TextGraphicElement extends GraphicElement
         // constrained by the layout with "left" and "right", but the
         // container width itself may not be constrained and it would depend
         // on the element's measuredWidth.
-        var constrainedWidth:Boolean = !isNaN(width) && (width != measuredWidth); 
+        var constrainedWidth:Boolean = !isNaN(width) && (width != measuredWidth) && (width != 0); 
         if (!constrainedWidth)
             return;
             
