@@ -5668,7 +5668,11 @@ public class Container extends UIComponent
             direction = ScrollEventDirection.HORIZONTAL;
             oldPos = horizontalScrollPosition;
 
-            switch (event.keyCode)
+            // If rtl layout, need to swap LEFT for RIGHT so correct action
+            // is done.
+            var keyCode:int = mapKeycodeForLayoutDirection(event);
+                        
+            switch (keyCode)
             {
                 case Keyboard.LEFT:
                 {
