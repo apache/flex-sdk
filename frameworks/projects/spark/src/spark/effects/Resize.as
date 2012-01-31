@@ -38,7 +38,7 @@ use namespace mx_internal;
  *  and adds the following tab attributes:</p>
  *  
  *  <pre>
- *  &lt;mx:Resize
+ *  &lt;s:Resize
  *    id="ID"
  *    widthFrom="val"
  *    heightFrom="val"
