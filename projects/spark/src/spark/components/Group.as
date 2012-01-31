@@ -325,7 +325,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             }
         }
         
-        _mxmlContent = value.concat();  // defensive copy
+        _mxmlContent = (value) ? value.concat() : null;  // defensive copy
         
         if (_mxmlContent != null)
         {
