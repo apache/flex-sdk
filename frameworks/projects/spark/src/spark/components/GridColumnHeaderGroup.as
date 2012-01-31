@@ -23,12 +23,11 @@ import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
 
-import spark.components.gridClasses.GridColumnHeaderGroupLayout;
 import spark.components.gridClasses.GridColumn;
+import spark.components.gridClasses.GridColumnHeaderGroupLayout;
 import spark.components.gridClasses.IDataGridElement;
 import spark.components.gridClasses.IGridItemRenderer;
 import spark.events.GridEvent;
-import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.MouseEventUtil;
 
 use namespace mx_internal;
@@ -302,7 +301,7 @@ use namespace mx_internal;
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5
  */
-public class GridColumnHeaderGroup extends Group implements IDataGridElement, IFocusManagerComponent 
+public class GridColumnHeaderGroup extends Group implements IDataGridElement
 {
     include "../core/Version.as";
     
@@ -328,10 +327,10 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
             chb_mouseDownDragUpHandler, 
             chb_mouseDownDragUpHandler);
 
-        addEventListener(MouseEvent.MOUSE_MOVE, chb_mouseMoveHandler);
-        addEventListener(MouseEvent.ROLL_OUT, chb_mouseRollOutHandler);
-        addEventListener(MouseEvent.CLICK, chb_clickHandler);
-        addEventListener(MouseEvent.DOUBLE_CLICK, chb_doubleClickHandler);
+        addEventListener(MouseEvent.MOUSE_MOVE, chg_mouseMoveHandler);
+        addEventListener(MouseEvent.ROLL_OUT, chg_mouseRollOutHandler);
+        addEventListener(MouseEvent.CLICK, chg_clickHandler);
+        addEventListener(MouseEvent.DOUBLE_CLICK, chg_doubleClickHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -460,7 +459,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
             _dataGrid.grid.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
 
         _dataGrid = value;
-        
+
         if (_dataGrid && _dataGrid.grid)
             _dataGrid.grid.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, grid_changeEventHandler);
         
@@ -688,7 +687,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */    
-    protected function chb_mouseMoveHandler(event:MouseEvent):void
+    protected function chg_mouseMoveHandler(event:MouseEvent):void
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
@@ -728,7 +727,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */       
-    protected function chb_mouseRollOutHandler(event:MouseEvent):void
+    protected function chg_mouseRollOutHandler(event:MouseEvent):void
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
@@ -755,7 +754,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */       
-    protected function chb_clickHandler(event:MouseEvent):void 
+    protected function chg_clickHandler(event:MouseEvent):void 
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
@@ -783,7 +782,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement, IF
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
      */       
-    protected function chb_doubleClickHandler(event:MouseEvent):void 
+    protected function chg_doubleClickHandler(event:MouseEvent):void 
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventHeaderGroupXY:Point = globalToLocal(eventStageXY);
