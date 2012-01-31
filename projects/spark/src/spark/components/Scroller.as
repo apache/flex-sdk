@@ -12,9 +12,12 @@
 
 package flex.component
 {
+import flash.events.Event;
+	
 import flex.core.SkinnableComponent;
 import flex.core.Group;
 import flex.intf.IViewport;
+
 import mx.events.PropertyChangeEvent;
 import mx.core.ScrollPolicy;
 
