@@ -176,7 +176,7 @@ public dynamic class WebService extends mx.rpc.soap.WebService implements IMXMLS
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    [Deprecated("Property protocol is deprecated. Please use an appropriate channel from your services configuration file (DefaultHTTP or DefaultHTTPS for instance); when useProxy is false set your URL to use the right protocol")]
+    [Deprecated(replacement="channelSet")]
     public function set protocol(protocol:String):void
     {
         if (destination == DEFAULT_DESTINATION_HTTP || destination == DEFAULT_DESTINATION_HTTP)
