@@ -484,16 +484,16 @@ public class DataGridItemRenderer extends UITextField
      */
     public function initProtoChain():void
     {
-		styleChangedFlag = true;
+        styleChangedFlag = true;
 
-        var classSelector:CSSStyleDeclaration;
+        var classSelectors:Array = [];
 
         if (styleName)
         {
             if (styleName is CSSStyleDeclaration)
             {
                 // Get the style sheet referenced by the styleName property
-                classSelector = CSSStyleDeclaration(styleName);
+                classSelectors.push(CSSStyleDeclaration(styleName));
             }
             else if (styleName is IFlexDisplayObject)
             {
@@ -505,8 +505,14 @@ public class DataGridItemRenderer extends UITextField
             else if (styleName is String)
             {
                 // Get the style sheet referenced by the styleName property
-                classSelector =
-					StyleManager.getStyleDeclaration("." + styleName);
+                var styleNames:Array = styleName.split(/\s+/);
+                for (var c:int=0; c < styleNames.length; c++)
+                {
+                    if (styleNames[c].length) {
+                        classSelectors.push(StyleManager.getStyleDeclaration("." + 
+                            styleNames[c]));
+                    }
+                }
             }
         }
 
@@ -515,11 +521,8 @@ public class DataGridItemRenderer extends UITextField
         // getting the tail of the proto chain, which is:
         //  - for non-inheriting styles, the global style sheet
         //  - for inheriting styles, my parent's style object
-		var nonInheritChain:Object = StyleManager.stylesRoot;
-		/*
-        if (nonInheritChain.effects)
-            registerEffects(nonInheritChain.effects);
-		*/
+        var nonInheritChain:Object = StyleManager.stylesRoot;
+
         var p:IStyleClient = parent as IStyleClient;
         if (p)
         {
@@ -529,52 +532,38 @@ public class DataGridItemRenderer extends UITextField
         }
         else
         {
-        	// Pop ups inheriting chain starts at Application instead of global.
-        	// This allows popups to grab styles like themeColor that are
-        	// set on Application.
-        	// if (isPopUp)
-        		// inheritChain = Application.application.inheritingStyles;
-        	// else
-            	inheritChain = StyleManager.stylesRoot;
+            inheritChain = StyleManager.stylesRoot;
         }
 
         // Working backwards up the list, the next element in the
         // search path is the type selector
-		var typeSelectors:Array = getClassStyleDeclarations();
-		var n:int = typeSelectors.length;
-		for (var i:int = 0; i < n; i++)
-		{
-			var typeSelector:CSSStyleDeclaration = typeSelectors[i];
-            inheritChain = typeSelector.addStyleToProtoChain(inheritChain, this);
-
-            nonInheritChain = typeSelector.addStyleToProtoChain(nonInheritChain, this);
-			/*
-            if (typeSelector.effects)
-                registerEffects(typeSelector.effects);
-			*/
-        }
-
-        // Next is the class selector
-        if (classSelector)
+        var typeSelectors:Array = getClassStyleDeclarations();
+        var n:int = typeSelectors.length;
+        for (var i:int = 0; i < n; i++)
         {
-            inheritChain = classSelector.addStyleToProtoChain(inheritChain, this);
-
-            nonInheritChain = classSelector.addStyleToProtoChain(nonInheritChain, this);
-			/*
-            if (classSelector.effects)
-                registerEffects(classSelector.effects);
-				*/
+            var typeSelector:CSSStyleDeclaration = typeSelectors[i];
+            inheritChain = typeSelector.addStyleToProtoChain(inheritChain, this);
+            nonInheritChain = typeSelector.addStyleToProtoChain(nonInheritChain, this);
         }
+
+        // Next are the class selectors
+        for (i = 0; i < classSelectors.length; i++)
+        {
+            var classSelector:CSSStyleDeclaration = classSelectors[i];
+            inheritChain = classSelector.addStyleToProtoChain(inheritChain, this);
+            nonInheritChain = classSelector.addStyleToProtoChain(nonInheritChain, this);
+        }
+
 
         // Finally, we'll add the in-line styles
-		// to the head of the proto chain.
+        // to the head of the proto chain.
         inheritingStyles = styleDeclaration ?
-						   styleDeclaration.addStyleToProtoChain(inheritChain, this) :
-						   inheritChain;
+        				   styleDeclaration.addStyleToProtoChain(inheritChain, this) :
+        				   inheritChain;
 
         nonInheritingStyles = styleDeclaration ?
-							  styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
-							  nonInheritChain;
+        					  styleDeclaration.addStyleToProtoChain(nonInheritChain, this) :
+        					  nonInheritChain;
     }
 
     /**
