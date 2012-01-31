@@ -283,9 +283,9 @@ public class DataGridAccImpl extends ListBaseAccImpl
             && dgAccInfo.dataGrid.columns.getItemAt(dgAccInfo.columnIndex).sortable)
             {
                 // TODO: This only allows sorting by one column at a time.
-                dgAccInfo.dataGrid.sortByColumns(
-                    Vector.<int>([dgAccInfo.columnIndex])
-                );
+				var columnIndices:Vector.<int> = Vector.<int>([dgAccInfo.columnIndex]);
+                dgAccInfo.dataGrid.sortByColumns(columnIndices);
+                dgAccInfo.dataGrid.columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
             }
             return;
         }
