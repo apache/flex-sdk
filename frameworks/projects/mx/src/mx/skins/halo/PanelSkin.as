@@ -135,7 +135,11 @@ public class PanelSkin extends HaloBorder
 			styleProp == "styleName" ||
 			styleProp == "borderStyle" ||
 			styleProp == "borderThickness" ||
-			styleProp == "borderSides")
+			styleProp == "borderThicknessTop" ||
+			styleProp == "borderThicknessBottom" ||
+			styleProp == "borderThicknessLeft" ||
+			styleProp == "borderThicknessRight" ||
+			styleProp == "borderSides" )
 		{
 			_panelBorderMetrics = null;
 		}
