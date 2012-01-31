@@ -301,7 +301,7 @@ public class TextArea extends ScrollControlBase
      *  @private
      *  Previous imeMode.
      */
-    private var prevMode:String = null;
+    private var prevMode:String = IMEConversionMode.UNKNOWN;
 
     /**
      *  @private
