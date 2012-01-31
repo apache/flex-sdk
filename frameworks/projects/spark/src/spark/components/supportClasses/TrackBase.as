@@ -68,7 +68,7 @@ import spark.events.TrackBaseEvent;
  *  Dispatched when the thumb is pressed and then moved by the mouse.
  *  This event is always preceded by a <code>thumbPress</code> event.
  * 
- *  @eventType spark.events.TrackBaseEvent
+ *  @eventType spark.events.TrackBaseEvent.THUMB_DRAG
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -81,7 +81,7 @@ import spark.events.TrackBaseEvent;
  *  Dispatched when the thumb is pressed, meaning
  *  the user presses the mouse button over the thumb.
  *
- *  @eventType mx.events.SliderEvent
+ *  @eventType spark.events.TrackBaseEvent.THUMB_PRESS
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -95,7 +95,7 @@ import spark.events.TrackBaseEvent;
  *  meaning the user releases the mouse button after 
  *  a <code>thumbPress</code> event.
  *
- *  @eventType mx.events.SliderEvent
+ *  @eventType spark.events.TrackBaseEvent.THUMB_RELEASE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -165,7 +165,7 @@ import spark.events.TrackBaseEvent;
  *  &lt;s:TrackBase
  *    <strong>Styles</strong>
  *    slideDuration="300"
- *
+ * 
  *    <strong>Events</strong>
  *    change="<i>No default</i>"
  *    changing="<i>No default</i>"
@@ -485,13 +485,13 @@ public class TrackBase extends Range
     private var clickOffset:Point;
     
     /**
-     *  Sets the bounds of skin parts - typically the thumb - whose geometry isn't fully
+     *  Sets the bounds of skin parts, typically the thumb, whose geometry isn't fully
      *  specified by the skin's layout.
      * 
      *  <p>Most subclasses override this method to update the thumb's size, position, and 
      *  visibility, based on the <code>minimum</code>, <code>maximum</code>, and <code>value</code> properties. </p>
      * 
-     *  <p>Does nothing by default.</p> 
+     *  <p>By default, this method does nothing.</p> 
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -528,6 +528,7 @@ public class TrackBase extends Range
     }
     
     /**
+     *  @private
      *  Handles the <code>mouseWheel</code> event when the component is in focus. The thumb is 
      *  moved by the amount of the mouse event delta multiplied by the <code>stepSize</code>.  
      *  
