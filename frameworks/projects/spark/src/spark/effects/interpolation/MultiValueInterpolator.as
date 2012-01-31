@@ -47,9 +47,10 @@ public class ArrayInterpolator implements IInterpolator
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function ArrayInterpolator(value:IInterpolator = null)
+    public function ArrayInterpolator(elementInterpolator:IInterpolator = null)
     {
-        elementInterpolator = value;
+        if (elementInterpolator != null)
+            this.elementInterpolator = elementInterpolator;
     }
 
     /**
@@ -60,11 +61,14 @@ public class ArrayInterpolator implements IInterpolator
                                     ResourceManager.getInstance();
 
     // The internal per-element interpolator
-    private var _elementInterpolator:IInterpolator;
+    private var _elementInterpolator:IInterpolator = NumberInterpolator.getInstance();
     /**
      * The internal interpolator that ArrayInterpolator uses for
-     * each element of the input arrays
-     *  
+     * each element of the input arrays. A value of null will
+     * result in the use of NumberInterpolator.
+     * 
+     * @default NumberInterpolator.getInstance()
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
