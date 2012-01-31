@@ -107,6 +107,11 @@ use namespace mx_internal;
  *  @includeExample examples/SimpleCanvasExample.mxml
  *
  *  @see mx.components.Container
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class Canvas extends Container implements IConstraintLayout
 {
@@ -120,6 +125,11 @@ public class Canvas extends Container implements IConstraintLayout
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function Canvas()
     {
@@ -179,6 +189,11 @@ public class Canvas extends Container implements IConstraintLayout
     
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintColumns
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get constraintColumns():Array
     {
@@ -219,6 +234,11 @@ public class Canvas extends Container implements IConstraintLayout
     
     /**
      *  @copy mx.containers.utilityClasses.IConstraintLayout#constraintRows
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get constraintRows():Array
     {
@@ -305,6 +325,11 @@ public class Canvas extends Container implements IConstraintLayout
      *  </ul>
      *  These properties correspond to the layout properties listed previously
      *  and, therefore, are not documented separately.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -359,6 +384,11 @@ public class Canvas extends Container implements IConstraintLayout
      *  in the component's coordinates, regardless of the value of the
      *  <code>scaleY</code> property of the component.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
