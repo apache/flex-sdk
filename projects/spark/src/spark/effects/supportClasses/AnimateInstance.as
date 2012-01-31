@@ -289,7 +289,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
      */
     override public function get playheadTime():Number 
     {
-        return animation ? animation.playheadTime : 0;
+        return animation ? animation.playheadTime : _seekTime;
     }
     /**
      * @private
@@ -298,8 +298,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
     {
         if (animation)
             animation.playheadTime = value;
-        else
-            _seekTime = value;
+        _seekTime = value;
     } 
     
 
@@ -452,14 +451,17 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             if (interpolator)
                 mp.interpolator = interpolator;
             // adjust effect duration to be the max of all MotionPath keyframe times
+            // duration==0 is special-case, because the user (or an internal request)
+            // specifically asked the effect to be of zero duration
             // FIXME (chaase): Currently we do not adjust *down* for smaller duration
             // MotionPaths. This is because we do not distinguish between
             // SimpleMotionPath objects (which are created with fake durations of 1,
             // knowing that they will derive their duration from their effects) and
             // actual keyframe-based MotionPaths.
-            for (j = 0; j < keyframes.length; ++j)
-                if (!isNaN(keyframes[j].time))
-                    duration = Math.max(duration, keyframes[j].time);
+            if (duration > 0)
+                for (j = 0; j < keyframes.length; ++j)
+                    if (!isNaN(keyframes[j].time))
+                        duration = Math.max(duration, keyframes[j].time);
 
         }
 
@@ -804,14 +806,17 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             // the same target
             if ("parent" in target && !target.parent)
             {
-                var parentStart:* = propertyChanges.start["parent"];;
-                var parentEnd:* = propertyChanges.end["parent"];;
-                if (parentStart && !parentEnd)
+                var parentStart:* = propertyChanges.start["parent"];
+                var parentEnd:* = propertyChanges.end["parent"];
+                if (parentStart && !parentEnd && parentStart is IVisualElementContainer)
                 {
-                    if (parentStart is IVisualElementContainer)
-                        IVisualElementContainer(parentStart).addElement(target as IVisualElement);
+                    var startIndex:* = propertyChanges.start["index"];
+                    if (startIndex !== undefined)
+                        IVisualElementContainer(parentStart).addElementAt(
+                            target as IVisualElement, int(startIndex));
                     else
-                        parentStart.addChild(target);
+                        IVisualElementContainer(parentStart).addElement(
+                            target as IVisualElement);
                     // GraphicElements may delay parenting their underlying displayObject until
                     // a layout pass, so let's force it to make sure we're ready to go
                     // FIXME (chaase): this should probably happen as a part of applyStartValues()
