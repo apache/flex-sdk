@@ -15,6 +15,11 @@ package mx.utils
 /**
  *  The RPCStringUtil class is a subset of StringUtil, removing methods
  *  that create dependency issues when RPC messages are in a bootstrap loader.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RPCStringUtil
 {
@@ -34,6 +39,11 @@ public class RPCStringUtil
      *
      *  @return Updated String where whitespace was removed from the 
      *  beginning and end. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function trim(str:String):String
     {
@@ -63,6 +73,11 @@ public class RPCStringUtil
      *
      *  @return Updated String where whitespace was removed from the 
      *  beginning and end of each element. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function trimArrayElements(value:String, delimiter:String):String
     {
@@ -93,6 +108,11 @@ public class RPCStringUtil
      *
      *  @return <code>true</code> if the specified string is
      *  a single space, tab, carriage return, newline, or formfeed character.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function isWhitespace(character:String):Boolean
     {
@@ -144,6 +164,11 @@ public class RPCStringUtil
      *
      *  // this will output the following string:
      *  // "here is some info '15.4' and true"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function substitute(str:String, ... rest):String
     {
