@@ -157,6 +157,10 @@ public class SkinnableComponent extends UIComponent
         return null;
     }
     
+    //----------------------------------
+    //  skin
+    //----------------------------------
+    
     /**
      * @private 
      * Storage for skin instance
@@ -200,6 +204,10 @@ public class SkinnableComponent extends UIComponent
     //
     //--------------------------------------------------------------------------
 
+    //----------------------------------
+    //  currentCSSState
+    //----------------------------------
+
     /**
      *  The state to be used when matching CSS pseudo-selectors. This override
      *  returns the current skin state instead of the component state.
@@ -208,6 +216,28 @@ public class SkinnableComponent extends UIComponent
     {
         return getCurrentSkinState();
     }
+
+    //----------------------------------
+    //  enabled
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        super.enabled = value;
+        invalidateSkinState();
+
+        // If enabled, reset the mouseChildren, mouseEnabled to the previously
+        // set explicit value, otherwise disable mouse interaction.
+        super.mouseChildren = value ? _explicitMouseChildren : false;
+        super.mouseEnabled  = value ? _explicitMouseEnabled  : false; 
+    }
+
+    //----------------------------------
+    //  errorString
+    //----------------------------------
 
     /**
      *  @private
@@ -224,6 +254,38 @@ public class SkinnableComponent extends UIComponent
         
         errorStringChanged = true;
         invalidateProperties();
+    }
+    
+    //----------------------------------
+    //  mouseEnabled
+    //----------------------------------
+
+    private var _explicitMouseEnabled:Boolean = true;
+
+    /**
+     *  @private
+     */
+    override public function set mouseEnabled(value:Boolean):void
+    {
+        if (enabled)
+            super.mouseEnabled = value;
+        _explicitMouseEnabled = value;
+    }
+    
+    //----------------------------------
+    //  mouseChildren
+    //----------------------------------
+
+    private var _explicitMouseChildren:Boolean = true;
+
+    /**
+     *  @private
+     */
+    override public function set mouseChildren(value:Boolean):void
+    {
+        if (enabled)
+            super.mouseChildren = value;
+        _explicitMouseChildren = value;
     }
     
     //--------------------------------------------------------------------------
