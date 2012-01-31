@@ -2185,7 +2185,7 @@ public class VideoDisplay extends UIComponent
             }
             
             // call play(), here, then wait to call pause() and seek(0) in the 
-            // dimensionChangeHandler
+            // mediaSizeChangeHandler
             videoPlayer.play();
         }
     }
@@ -2204,12 +2204,11 @@ public class VideoDisplay extends UIComponent
             {
                 inLoadingState3 = true;
                 
-                // the seek(0) is asynchronous so let's add an event listener to see when it's finsished:
-                videoPlayer.addEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
-                
-                // called play(), now call pause() and seek(0);
-                videoPlayer.pause();
-                videoPlayer.seek(0);
+                // Don't call pause and seek inside this handler because OSMF is 
+                // not expecting us to change its HTTPStreamingState value in 
+                // HTTPNetStream.onMainTimer as a result of dispatching this 
+                // event (see SDK-27028).
+                callLater(pauseAndSeekCallBack);
             }
             else
             {
@@ -2221,6 +2220,17 @@ public class VideoDisplay extends UIComponent
         }
     }
 
+    private function pauseAndSeekCallBack():void
+    {
+        // the seek(0) is asynchronous so let's add an event listener to see when it's finsished:
+        videoPlayer.addEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
+        
+        // called play(), now call pause() and seek(0);
+        videoPlayer.pause();
+        videoPlayer.seek(0);
+                
+    }
+    
     /**
      *  @private
      *  Wait until the media is seekable before we call pause() and seek().
@@ -2237,12 +2247,11 @@ public class VideoDisplay extends UIComponent
             {
                 inLoadingState3 = true;
                 
-                // the seek(0) is asynchronous so let's add an event listener to see when it's finsished:
-                videoPlayer.addEventListener(SeekEvent.SEEKING_CHANGE, videoPlayer_seekChangeHandler);
-                
-                // called play(), now call pause() and seek(0);
-                videoPlayer.pause();
-                videoPlayer.seek(0);
+                // Don't call pause and seek inside this handler because OSMF is 
+                // not expecting us to change its HTTPStreamingState value in 
+                // HTTPNetStream.onMainTimer as a result of dispatching this 
+                // event (see SDK-27028).
+                callLater(pauseAndSeekCallBack);
             }
         }
     }
