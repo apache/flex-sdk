@@ -14,8 +14,7 @@ package mx.components
 import flash.events.MouseEvent;
 
 import mx.components.FxButton;
-import mx.core.IDataRenderer;
-import mx.core.ISelectableRenderer;
+import mx.components.IItemRenderer;
 import mx.core.mx_internal;
 
 /**
@@ -23,7 +22,7 @@ import mx.core.mx_internal;
  *  and proxies the <code>label</code> property with the <code>data</code>
  *  property. Used in the default skin for the <code>ButtonBar</code>.
  */
-public class ButtonBarButton extends FxToggleButton implements IDataRenderer, ISelectableRenderer
+public class ButtonBarButton extends FxToggleButton implements IItemRenderer
 {
     /**
      *  Constructor. 
