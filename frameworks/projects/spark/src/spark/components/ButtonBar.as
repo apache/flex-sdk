@@ -31,6 +31,11 @@ import mx.managers.IFocusManagerComponent;
  *  The FxButtonBar control displays a set of Buttons 
  *
  *  @includeExample examples/FxButtonBarExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 {
@@ -50,6 +55,11 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxButtonBar()
     {
@@ -90,6 +100,11 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     
     /**
      * A skin part that defines the first button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var firstButton:IFactory;
     
@@ -101,6 +116,11 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     
     /**
      * A skin part that defines the last button.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var lastButton:IFactory;
 
@@ -112,6 +132,11 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
     
     /**
      * A skin part that defines the middle button(s).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var middleButton:IFactory;
 
@@ -217,6 +242,11 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
         
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
@@ -232,6 +262,11 @@ public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
