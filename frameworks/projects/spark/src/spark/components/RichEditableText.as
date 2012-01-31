@@ -1227,12 +1227,16 @@ public class TextView extends UIComponent implements IViewport
         }
         
         // Tell the TextFlow to generate TextLines within the
-        // rectangle (0, 0, unscaledWidth, unscaledHeight).
+        // rectangle (0, 0, unscaledWidth, unscaledHeight).  There is not
+        // a flowComposer if there is no text/content specified.
         flowComposer = textFlow.flowComposer;
-        var containerController:IContainerController =
-            flowComposer.getControllerAt(0);
-        containerController.setCompositionSize(unscaledWidth, unscaledHeight);
-        flowComposer.updateAllContainers();
+        if (flowComposer && flowComposer.numControllers > 0)
+        {
+            var containerController:IContainerController =
+                flowComposer.getControllerAt(0);
+            containerController.setCompositionSize(unscaledWidth, unscaledHeight);
+            flowComposer.updateAllContainers();
+        }
     }
 
     /**
