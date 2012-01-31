@@ -190,11 +190,28 @@ public class FxScrollBar extends FxTrackBase
     private var _viewport:IViewport;
     
     /**
-     *  The ViewPort object associated with the scroll bars.
-     *  A viewport is a UIComponent that implements the IViewport interface, 
-     *  such as the Group component.
-     *
-     *  @see mx.components.Group
+     *  The viewport controlled by this scrollbar.
+     * 
+     *  If a viewport is specified, then changes to its actual size, content 
+     *  size, and scroll position, cause the corresponding ScrollBar methods to
+     *  run:
+     *  <ul>
+     *  <li><code>viewportResizeHandler()</code></li>
+     *  <li><code>contentWidthChangeHandler()</code></li>
+     *  <li><code>contentHeightChangeHandler()</code></li>
+     *  <li><code>viewportVerticalScrollPositionChangeHandler()</code></li>
+     *  <li><code>viewportHorizontalScrollPositionChangeHandler()</code></li>
+     *  </ul>
+     * 
+     *  <p>The FxVScrollBar and FxHScrollBar classes override these methods to 
+     *  keep their pageSize, maximum, and value properties in sync with the
+     *  viewport.   Similarly, they override their page and step methods to
+     *  use the viewport's scrollPositionDelta methods to compute page and
+     *  and step offsets.<p>
+     *    
+     *  @default null
+     *  @see mx.components.FxVScrollBar
+     *  @see mx.components.FxHScrollBar
      *
      */
     public function get viewport():IViewport
