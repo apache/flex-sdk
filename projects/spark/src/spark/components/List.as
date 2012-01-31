@@ -914,8 +914,11 @@ public class List extends ListBase implements IFocusManagerComponent
      * 
      *  @param dispatchChangeEvent if true, the component will dispatch a "change" event if the
      *  value has changed. Otherwise, it will dispatch a "valueCommit" event. 
+     * 
+     *  @param changeCaret if true, the caret will be set to the selectedIndex as a side-effect of calling 
+     *  this method.  If false, caretIndex won't change.
      */
-    mx_internal function setSelectedIndices(value:Vector.<int>, dispatchChangeEvent:Boolean = false):void
+    mx_internal function setSelectedIndices(value:Vector.<int>, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
     {
         // TODO (jszeto) Do a deep compare of the vectors
         if (_proposedSelectedIndices == value || 
@@ -926,7 +929,8 @@ public class List extends ListBase implements IFocusManagerComponent
             // this should short-circuit, but we should check to make sure 
             // that caret doesn't need to be changed either, as that's a side
             // effect of setting selectedIndex
-            setCurrentCaretIndex(selectedIndex);
+            if (changeCaret)
+                setCurrentCaretIndex(selectedIndex);
             
             return;
         }
@@ -938,7 +942,8 @@ public class List extends ListBase implements IFocusManagerComponent
             _proposedSelectedIndices = value;
         else
             _proposedSelectedIndices = new Vector.<int>();
-        multipleSelectionChanged = true;  
+        multipleSelectionChanged = true;
+        changeCaretOnSelection = changeCaret;
         invalidateProperties();
     }
     
@@ -1133,6 +1138,9 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!isEmpty(_proposedSelectedIndices))
             _proposedSelectedIndex = getFirstItemValue(_proposedSelectedIndices); 
         
+        // need to store changeCaretOnSelection since super.commitSelection() may change it
+        var currentChangeCaretOnSelection:Boolean = changeCaretOnSelection;
+        
         // Let ListBase handle the validating and commiting of the single-selection
         // properties.  
         var retVal:Boolean = super.commitSelection(false); 
@@ -1155,7 +1163,8 @@ public class List extends ListBase implements IFocusManagerComponent
         commitMultipleSelection(); 
         
         // Set the caretIndex based on the current selection 
-        setCurrentCaretIndex(selectedIndex);
+        if (currentChangeCaretOnSelection)
+            setCurrentCaretIndex(selectedIndex);
         
         // And dispatch change and caretChange events so that all of 
         // the bindings update correctly. 
@@ -1174,10 +1183,13 @@ public class List extends ListBase implements IFocusManagerComponent
 
             dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
             
-            e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
-            e.oldIndex = oldCaretIndex; 
-            e.newIndex = caretIndex;
-            dispatchEvent(e);    
+            if (currentChangeCaretOnSelection)
+            {
+                e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
+                e.oldIndex = oldCaretIndex; 
+                e.newIndex = caretIndex;
+                dispatchEvent(e);
+            }
         }
         
         return retVal; 
@@ -1485,7 +1497,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         if (!shiftKey)
         {
-            // FIXME (rfrishbe): make this part a style, like "multipleSelectionRequiresModifierKey"
+            // TODO (rfrishbe): make this part a style, like "multipleSelectionRequiresModifierKey"
             if (ctrlKey || getStyle("interactionMode") == InteractionMode.TOUCH)
             {
                 if (!isEmpty(selectedIndices))
@@ -2699,22 +2711,38 @@ public class List extends ListBase implements IFocusManagerComponent
         // be an editable input control.
         if (isEditableTarget(event.target))
             return;
+		
+		var touchMode:Boolean = (getStyle("interactionMode") == InteractionMode.TOUCH);
         
-        // 1. Was the space bar hit? 
+        // 1. Was the space bar hit? or was the enter key hit and we're in 5-way mode
         // Hitting the space bar means the current caret item, 
         // that is the item currently in focus, is being 
-        // selected. 
-        if (event.keyCode == Keyboard.SPACE)
+        // selected or de-selected. 
+        if (event.keyCode == Keyboard.SPACE ||
+			(touchMode && event.keyCode == Keyboard.ENTER))
         {
-            setSelectedIndex(caretIndex, true); 
-            event.preventDefault();
-            return; 
-        }
-        
-        // FIXME (rfrishbe): hack for 5-way
-        if (getStyle("interactionMode") == InteractionMode.TOUCH && event.keyCode == Keyboard.ENTER)
-        {
-            setSelectedIndex(caretIndex, true); 
+			if (allowMultipleSelection)
+            {
+                // Need to set "changeCaret" to false below so that we 
+                // don't change the caret to an item in the selectedIndices
+                // if we are currently deselecting an item
+				setSelectedIndices(calculateSelectedIndices(caretIndex, event.shiftKey, event.ctrlKey), true, false);
+            }
+			else
+            {
+                // check to see if we're de-selecting the current item
+                if (caretIndex == selectedIndex && (event.ctrlKey || touchMode))
+                {
+                    // Unselect it, but don't change the caret
+                    setSelectedIndex(NO_SELECTION, true, false);
+                }
+                else
+                {
+                    // select the current item
+                    setSelectedIndex(caretIndex, true, false);
+                }
+            	
+            }
             event.preventDefault();
             return; 
         }
@@ -2804,7 +2832,7 @@ public class List extends ListBase implements IFocusManagerComponent
             ensureIndexIsVisible(proposedNewIndex); 
         }
         // Entering the caret state with the Ctrl key down 
-        // FIXME (rfrishbe): shouldn't just check interactionMode but should depend on 
+        // TODO (rfrishbe): shouldn't just check interactionMode but should depend on 
         // either the platform or whether it was a 5-way button or whether 
         // soem other keyboardSelection style.
         else if (event.ctrlKey || getStyle("interactionMode") == InteractionMode.TOUCH)
