@@ -272,7 +272,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#getItemAt()
      */
-    public function getItemAt(index:int):*
+    public function getItemAt(index:int):Object
     {
         return currentContentGroup.getItemAt(index);
     }
@@ -280,7 +280,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#addItem()
      */
-    public function addItem(item:*):*
+    public function addItem(item:Object):Object
     {
         return currentContentGroup.addItem(item);
     }
@@ -288,7 +288,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#addItemAt()
      */
-    public function addItemAt(item:*, index:int):*
+    public function addItemAt(item:Object, index:int):Object
     {
         return currentContentGroup.addItemAt(item, index);
     }
@@ -296,7 +296,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#removeItem()
      */
-    public function removeItem(item:*):*
+    public function removeItem(item:Object):Object
     {
         return currentContentGroup.removeItem(item);
     }
@@ -304,7 +304,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#removeItemAt()
      */
-    public function removeItemAt(index:int):*
+    public function removeItemAt(index:int):Object
     {
         return currentContentGroup.removeItemAt(index);
     }
@@ -312,7 +312,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#getItemIndex()
      */
-    public function getItemIndex(item:*):int
+    public function getItemIndex(item:Object):int
     {
         return currentContentGroup.getItemIndex(item);
     }
@@ -320,7 +320,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#setItemIndex()
      */
-    public function setItemIndex(item:*, index:int):void
+    public function setItemIndex(item:Object, index:int):void
     {
         currentContentGroup.setItemIndex(item, index);
     }
@@ -328,7 +328,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#swapItems()
      */
-    public function swapItems(item1:*, item2:*):void
+    public function swapItems(item1:Object, item2:Object):void
     {
         currentContentGroup.swapItems(item1, item2);
     }
@@ -336,7 +336,7 @@ public class FxContainer extends FxContainerBase
     /**
      *  @copy mx.components.Group#swapItemsAt()
      */
-    public function swapItemsAt(index1:*, index2:*):void
+    public function swapItemsAt(index1:int, index2:int):void
     {
         currentContentGroup.swapItemsAt(index1, index2);
     }
