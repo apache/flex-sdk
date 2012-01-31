@@ -456,16 +456,10 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  True if TextOperationEvent.CHANGING should be dispatched at
-     *  operationEnd.
+     *  True if TextOperationEvent.CHANGING and TextOperationEvent.CHANGE 
+     *  events should be dispatched.
      */
-    private var dispatchChangingEvent:Boolean = true;
-    
-    /**
-     *  @private
-     *  True if TextOperationEvent.CHANGE should be dispatched.
-     */
-    private var dispatchChangeEvent:Boolean = false;
+    private var dispatchChangeAndChangingEvents:Boolean = true;
 
     /**
      *  @private
@@ -1654,19 +1648,12 @@ public class RichEditableText extends UIComponent
             if (debug)
                 trace("hostFormat=");
             _textContainerManager.hostFormat =
-                hostFormat = new CSSTextLayoutFormat(this);
-                // Note: CSSTextLayoutFormat has special processing
-                // for the fontLookup style. If it is "auto",
-                // the fontLookup format is set to either
-                // "device" or "embedded" depending on whether
-                // embeddedFontContext is null or non-null.
-
-            // reset the text to propagate a new textLineCreator.  We only
-            // do this if the text didn't change since it will get done
-            // further down if it did
-            if (_textFlow && !(textChanged || textFlowChanged || contentChanged))
-                _textContainerManager.setTextFlow(_textFlow);
-
+            hostFormat = new CSSTextLayoutFormat(this);
+            // Note: CSSTextLayoutFormat has special processing
+            // for the fontLookup style. If it is "auto",
+            // the fontLookup format is set to either
+            // "device" or "embedded" depending on whether
+            // embeddedFontContext is null or non-null.
         }
         
         if (selectionFormatsChanged)
@@ -1740,8 +1727,6 @@ public class RichEditableText extends UIComponent
          
         if (textChanged || textFlowChanged || contentChanged)
         {
-            dispatchChangeEvent = true;
-            
             // If the text, textFlow or content changed, there is no selection.
             // If we already have focus, set the selection, since we've 
             // already  executed our focusIn handler where this is normally 
@@ -3041,7 +3026,8 @@ public class RichEditableText extends UIComponent
      */
     private function handleInsertText(text:String, isAppend:Boolean=false):void
     {
-        // Make sure all properties are committed before doing the append.
+        // Make sure all properties are committed and events dispatched
+        // before doing the append.
         validateNow();
 
         // Always use the EditManager regardless of the values of
@@ -3053,6 +3039,8 @@ public class RichEditableText extends UIComponent
          if (isAppend || !editManager.hasSelection())
             editManager.selectRange(int.MAX_VALUE, int.MAX_VALUE);
 
+        dispatchChangeAndChangingEvents = false;
+ 
         // Insert the text.  It will be composed but the display will not be
         // updated because of our override of 
         // EditManager.updateAllControllers().
@@ -3060,6 +3048,8 @@ public class RichEditableText extends UIComponent
 
         // Make the insertion happen now rather than on the next frame.
         editManager.flushPendingOperations();
+        
+        dispatchChangeAndChangingEvents = true;
         
         // All done with edit manager.
         releaseEditManager();        
@@ -3085,7 +3075,7 @@ public class RichEditableText extends UIComponent
         // Generate a CHANGING event for the PasteOperation but not for the
         // DeleteTextOperation or the InsertTextOperation which are also part
         // of the paste.
-        dispatchChangingEvent = false;
+        dispatchChangeAndChangingEvents = false;
 
         var selectionState:SelectionState = new SelectionState(
             op.textFlow, op.absoluteStart, 
@@ -3102,7 +3092,7 @@ public class RichEditableText extends UIComponent
         // All done with the edit manager.
         releaseEditManager();
         
-        dispatchChangingEvent = true;
+        dispatchChangeAndChangingEvents = true;
     }
             
     //--------------------------------------------------------------------------
@@ -3233,18 +3223,6 @@ public class RichEditableText extends UIComponent
     {
         //trace("compositionComplete");
                 
-        // We need to dispatch a change event and it wasn't already done.                
-        // This happens if the text/content is set and there were no additional 
-        // editing operations. 
-        if (dispatchChangeEvent)
-        {
-            var newEvent:TextOperationEvent =
-                new TextOperationEvent(TextOperationEvent.CHANGE);
-            dispatchEvent(newEvent); 
-                       
-            dispatchChangeEvent = false;
-        }
-        
         var oldContentWidth:Number = _contentWidth;
 
         var newContentBounds:Rectangle = 
@@ -3514,7 +3492,7 @@ public class RichEditableText extends UIComponent
  
         // Dispatch a 'changing' event from the RichEditableText
         // as notification that an editing operation is about to occur.
-        if (dispatchChangingEvent)
+        if (dispatchChangeAndChangingEvents)
         {
             var newEvent:TextOperationEvent =
                 new TextOperationEvent(TextOperationEvent.CHANGING);
@@ -3546,12 +3524,13 @@ public class RichEditableText extends UIComponent
 
         // Dispatch a 'change' event from the RichEditableText
         // as notification that an editing operation has occurred.
-        var newEvent:TextOperationEvent =
-            new TextOperationEvent(TextOperationEvent.CHANGE);
-        newEvent.operation = event.operation;
-        dispatchEvent(newEvent);
-            
-        dispatchChangeEvent = false;            
+        if (dispatchChangeAndChangingEvents)
+        {
+            var newEvent:TextOperationEvent =
+                new TextOperationEvent(TextOperationEvent.CHANGE);
+            newEvent.operation = event.operation;
+            dispatchEvent(newEvent);
+        }
     }
 
     /**
