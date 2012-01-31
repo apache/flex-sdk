@@ -67,11 +67,16 @@ use namespace mx_internal;
 
 /**
  *  The ApplicationControlBar container holds components
- *  that provide global navigation and application commands. 
+ *  that provide global navigation and application commands 
+ *  For the Halo Application container. 
  *  An ApplicationControlBar for an editor, for example, could include 
  *  Button controls for setting the font weight, a ComboBox control to select
  *  the font, and a MenuBar control to select the edit mode. Typically, you
- *  place an ApplicationControlBar container at the top of the application.
+ *  place an ApplicationControlBar container at the top of the Halo Application container.
+ *
+ *  <p><b>Note:</b> The Spark Application container does not support 
+ *  the ApplicationControlBar container. 
+ *  Modify the skin of the Spark Application container to add this functionality.</p>
  *
  *  <p>The ApplicationControlBar container can be in either of the following
  *  modes:</p> 
@@ -136,155 +141,157 @@ use namespace mx_internal;
  *  &lt;/mx:ApplicationControlBar&gt;
  *  </pre>
  *
+ *  @see mx.core.Application
+ *
  *  @includeExample examples/SimpleApplicationControlBarExample.mxml
  */
 public class ApplicationControlBar extends ControlBar
 {
-	include "../core/Version.as";
+    include "../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 *  Whether the value of the <code>dock</code> property has changed.
-	 */
-	private var dockChanged:Boolean = false;
+    /**
+     *  @private
+     *  Whether the value of the <code>dock</code> property has changed.
+     */
+    private var dockChanged:Boolean = false;
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function ApplicationControlBar()
-	{
-		super();
-	}
+    /**
+     *  Constructor.
+     */
+    public function ApplicationControlBar()
+    {
+        super();
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  dock
-	//----------------------------------
+    //----------------------------------
+    //  dock
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  Storage for the dock property.
-	 */
-	private var _dock:Boolean = false;
+    /**
+     *  @private
+     *  Storage for the dock property.
+     */
+    private var _dock:Boolean = false;
 
-	[Inspectable(category="General", enumeration="false,true", defaultValue="false")]
-	[Bindable("dockChanged")]
+    [Inspectable(category="General", enumeration="false,true", defaultValue="false")]
+    [Bindable("dockChanged")]
 
-	/**
-	 *  If <code>true</code>, specifies that the ApplicationControlBar should be docked to the
-	 *  top of the application. If <code>false</code>, specifies that the ApplicationControlBar 
-	 *  gets sized and positioned just like any other component. This property is supported when 
-	 *  the application is of type <code>Application</code>, otherwise the value of 
-	 *  <code>dock</code> has no effect.
-	 *
-	 *  @default false
-	 */
-	public function get dock():Boolean
-	{
-		return _dock;
-	}
-	
-	/**
-	 *  @private
-	 */
-	public function set dock(value:Boolean):void
-	{
-		if (_dock != value)
-		{
-			_dock = value;
-			dockChanged = true;
-			invalidateProperties();
+    /**
+     *  If <code>true</code>, specifies that the ApplicationControlBar should be docked to the
+     *  top of the application. If <code>false</code>, specifies that the ApplicationControlBar 
+     *  gets sized and positioned just like any other component. This property is supported when 
+     *  the application is of type <code>Application</code>, otherwise the value of 
+     *  <code>dock</code> has no effect.
+     *
+     *  @default false
+     */
+    public function get dock():Boolean
+    {
+        return _dock;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set dock(value:Boolean):void
+    {
+        if (_dock != value)
+        {
+            _dock = value;
+            dockChanged = true;
+            invalidateProperties();
 
-			dispatchEvent(new Event("dockChanged"));
-		}
-	}
+            dispatchEvent(new Event("dockChanged"));
+        }
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
 
     [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
 
-	//----------------------------------
-	//  enabled
-	//----------------------------------
+    //----------------------------------
+    //  enabled
+    //----------------------------------
 
-	/**
-	 *  @private
-	 */
-	override public function set enabled(value:Boolean):void
-	{
-		var oldBlocker:Object = blocker;
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+    {
+        var oldBlocker:Object = blocker;
 
-		super.enabled = value;
+        super.enabled = value;
 
-		if (blocker && blocker != oldBlocker)
-		{
-			if (blocker is IStyleClient)
-			{
-				IStyleClient(blocker).setStyle("borderStyle",
-											   "applicationControlBar");
-			}
-		}
-	}
+        if (blocker && blocker != oldBlocker)
+        {
+            if (blocker is IStyleClient)
+            {
+                IStyleClient(blocker).setStyle("borderStyle",
+                                               "applicationControlBar");
+            }
+        }
+    }
 
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	override protected function commitProperties():void
-	{
-		super.commitProperties();
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+        super.commitProperties();
 
-		if (dockChanged)
-		{
-			dockChanged = false;
+        if (dockChanged)
+        {
+            dockChanged = false;
 
             var applicationClass:Class = Class(systemManager.getDefinitionByName("mx.core::Application"));
-			if (applicationClass && parent is applicationClass)
-				applicationClass(parent).dockControlBar(this, _dock);
-		}
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//   methods
-	//
-	//--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 *  This method forces a recaldculation of docking the AppControlBar.
-	 */
-	public function resetDock(value:Boolean):void
-	{
-		_dock = !value
-		dock = value;
-	}
+            if (applicationClass && parent is applicationClass)
+                applicationClass(parent).dockControlBar(this, _dock);
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //   methods
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  This method forces a recaldculation of docking the AppControlBar.
+     */
+    public function resetDock(value:Boolean):void
+    {
+        _dock = !value
+        dock = value;
+    }
 }
 
 }
