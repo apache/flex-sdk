@@ -54,9 +54,11 @@ use namespace mx_internal;
 [IconFile("ControlBar.png")]
 
 /**
- *  As of Flex 4, the ControlBar is no longer recommended. You can achieve the same 
- *  effect by compositing groups and graphics tags in your Panel, or creating a
- *  Panel subclass that has a control bar part.
+ *  As of Flex 4, the ControlBar component is no longer required. Use 
+ *  the <code>controlBarContent</code> property of the Spark Panel class
+ *  to specify the set of components to include in the control bar area. Use
+ *  the <code>controlBarLayout</code> property of the Spark Panel class
+ *  to specify the layout of the control bar area. 
  */
 [Alternative(replacement="none", since="4.0")]
 
