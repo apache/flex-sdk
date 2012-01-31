@@ -127,28 +127,6 @@ FxVSlider
     skinClass: ClassReference("mx.skins.spark.FxVSliderSkin");
 }
 
-/* Default text styles for the Gumbo components. Eventually these
-   will be moved into the global selector, but to avoid collision
-   with the Halo defaults, they are currently defined here.
-   
-   The default font settings for Gumbo components are defined in
-   two selectors: TextGraphicElement, and TextView. */
-TextGraphicElement
-{
-    color: 0;
-    fontFamily: "Arial";
-    fontSize: 12;
-    textAlign: "start";
-}
-
-TextView
-{
-    color: 0;
-    fontFamily: "Arial";
-    fontSize: 12;
-    textAlign: "start";
-}
-
 global
 {
     /* color: #000000; */
