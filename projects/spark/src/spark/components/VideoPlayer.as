@@ -321,13 +321,51 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [IconFile("VideoPlayer.png")]
 
 /**
- *  The VideoPlayer class is skinnable video player that supports
+ *  The VideoPlayer control is a skinnable video player that supports
  *  progressive download, multi-bitrate streaming, and streaming video.
+ *  It supports playback of FLV and F4v files. The VideoPlayer control
+ *  contains a full-featured UI for controlling video playback.
  * 
  *  <p><code>VideoElement</code> is the chromeless version.</p>
  *
  *  @see spark.primitives.VideoElement
  *  @see spark.skins.spark.VideoPlayerSkin
+ *  @see spark.skins.spark.mediaClasses.FullScreenButtonSkin
+ *  @see spark.skins.spark.mediaClasses.MuteButtonSkin
+ *  @see spark.skins.spark.mediaClasses.PlayPauseButtonSkin
+ *  @see spark.skins.spark.mediaClasses.ScrubBarSkin
+ *  @see spark.skins.spark.mediaClasses.ScrubBarThumbSkin
+ *  @see spark.skins.spark.mediaClasses.ScrubBarTrackSkin
+ *  @see spark.skins.spark.mediaClasses.VolumeBarSkin
+ *  @see spark.skins.spark.mediaClasses.VolumeBarThumbSkin
+ *  @see spark.skins.spark.mediaClasses.VolumeBarTrackSkin
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;VideoPlayer&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;VideoPlayer
+  
+ *    <strong>Properties</strong>
+ *    autoPlay="true"
+ *    autoRewind="false"
+ *    enabled=""
+ *    maintainAspectRatio="<i>No default</i>"
+ *    muted="false"
+ *    source=""
+ *    volume=".75"
+ *  
+ *    <strong>Events</strong>
+ *    close="<i>No default</i>"
+ *    complete="<i>No default</i>"
+ *    metadataReceived="<i>No default</i>"
+ *    playheadUpdate="<i>No default</i>"
+ *    progress="<i>No default</i>"
+ *    ready="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -427,7 +465,7 @@ public class VideoPlayer extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  An optional skin part for a fullScreen button.
+     *  An optional skin part for a button to toggle fullscreen mode.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -477,9 +515,9 @@ public class VideoPlayer extends SkinnableComponent
     [SkinPart(required="false")]
     
     /**
-     *  An optional skin part for all of the player controls.  We 
-     *  need this skin part to know what to hide when in full screen 
-     *  mode and there's been no user-interaction.
+     *  An optional skin part for all of the player controls.   
+     *  This skin is used to determine what to hide when the player is in full screen 
+     *  mode and there has been no user interaction.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -588,15 +626,15 @@ public class VideoPlayer extends SkinnableComponent
     //----------------------------------
 
     /**
-     *  @inheritDoc
+     *  
      * 
-     *  <p>Setting enabled to <code>false</code> disables the UI and 
+     *  Setting enabled to <code>false</code> disables the UI and 
      *  pauses the video if it was currently playing.  Re-enabling the component
      *  does not cause the video to continue playing again; you must 
-     *  explicitly call <code>play()</code>.</p>
+     *  explicitly call <code>play()</code>.
      * 
      *  <p>Even though the component is initially paused while disabled, 
-     *  if you would like to play the video or perform some other action 
+     *  if you want to play the video or perform some other action 
      *  while disabled, you may still do so through method calls, like 
      *  <code>play()</code>.</p>
      *  
