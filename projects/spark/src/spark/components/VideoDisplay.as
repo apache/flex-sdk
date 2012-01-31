@@ -1,4 +1,4 @@
-package mx.graphics
+package spark.primitives
 {
 import fl.video.MetadataEvent;
 import fl.video.VideoAlign;
@@ -12,7 +12,7 @@ import flash.events.Event;
 import flash.events.ProgressEvent;
 
 import mx.core.mx_internal;
-import mx.graphics.baseClasses.GraphicElement;
+import spark.primitives.supportClasses.GraphicElement;
 
 import spark.events.MetadataEvent;
 import spark.events.VideoEvent;
@@ -130,9 +130,9 @@ import spark.events.VideoEvent;
  *  The VideoElement class is chromeless video player that supports
  *  progressive download, multi-bitrate, and streaming video.
  * 
- *  <p><code>FxVideoDisplay</code> is the skinnable version.</p>
+ *  <p><code>VideoDisplay</code> is the skinnable version.</p>
  *
- *  @see mx.components.FxVideoDisplay
+ *  @see mx.components.VideoDisplay
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
