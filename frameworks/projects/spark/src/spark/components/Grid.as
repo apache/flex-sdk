@@ -2006,16 +2006,18 @@ package spark.components
         /**
          *  If <code>selectionMode</code> is <code>GridSelectionMode.MULTIPLE_ROWS</code>,
          *  sets the selection to the specfied rows and the caret position to
-         *  the last row in <code>indices</code>.
+         *  <code>endRowIndex</code>.
          *  For all other selection modes, this method has no effect.
          * 
-         *  <p>Each element in the Vector is an index in <code>dataProvider</code> 
-         *  of an item to include in the selection.</p>
+         *  <p>Each index represents an item in <code>dataProvider</code> 
+         *  to include in the selection.</p>
          *
-         *  @param rowIndices Vector of 0-based row indices to include in selection. 
+         *  @param startRowIndex 0-based row index of the first row in the selection
+         *  @param endRowIndex 0-based row index of the last row in the selection
          * 
-         *  @return True if no errors, or false if any of the <code>indices</code> 
-         *  are invalid or the <code>selectionMode</code> is invalid. 
+         *  @return True if no errors, or false if any of the indices are invalid
+         *  or <code>startRowIndex</code> is not less than or equal to 
+         *  <code>endRowIndex</code> or the <code>selectionMode</code> is invalid. 
          *    
          *  @see spark.components.Grid#dataProvider
          * 
@@ -2024,12 +2026,13 @@ package spark.components
          *  @playerversion AIR 2.0
          *  @productversion Flex 4.5
          */
-        public function setSelectedIndices(rowIndices:Vector.<int>):Boolean
+        public function setSelectedIndices(startRowIndex:int, endRowIndex:int):Boolean
         {
-            const selectionChanged:Boolean = gridSelection.setRows(rowIndices);
+            const selectionChanged:Boolean = 
+                gridSelection.setRows(startRowIndex, endRowIndex);
             if (selectionChanged)
             {
-                caretRowIndex = rowIndices[rowIndices.length - 1];
+                caretRowIndex = endRowIndex;
                 caretColumnIndex = -1;
                 
                 invalidateDisplayList()
@@ -2038,7 +2041,7 @@ package spark.components
             
             return selectionChanged;
         }
-                
+
         //----------------------------------
         //  selection for cells
         //----------------------------------    
