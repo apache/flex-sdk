@@ -687,7 +687,7 @@ function xmlEncoder (myObj)
                     asyncRequest.channelSet = dcs;
             }
             
-            message.url = url;
+            message.url = URLUtil.getFullURL(rootURL, url);
         }
 
         message.contentType = ctype;
