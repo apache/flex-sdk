@@ -596,7 +596,7 @@ public class GridColumn extends EventDispatcher
      * 
      *  <p>If this property's value is undefined(the default), then the grid's showDataTips
      *  property determines if dataTips will be shown.   If this property is set, then 
-     *  the grid's showDataTips property is ignored. 
+     *  the grid's showDataTips property is ignored. </p>
      * 
      *  @default undefined
      * 
