@@ -19,6 +19,8 @@ import flash.geom.Point;
 import flash.utils.Timer;
 import mx.components.FxButton;
 import mx.core.IViewport;
+import mx.events.PropertyChangeEvent;
+import mx.events.ResizeEvent;
 
 /**
  *  The FxScrollBar class helps to position
@@ -205,8 +207,23 @@ public class FxScrollBar extends FxTrackBase
      */
     public function set viewport(value:IViewport):void
     {
+        if (value == _viewport)
+            return;
+            
+        if (_viewport)  // old _viewport
+        {
+            _viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+            _viewport.removeEventListener(ResizeEvent.RESIZE, viewportResizeHandler);
+        }
+
         _viewport = value;
-    }    
+
+        if (_viewport)  // new _viewport
+        {
+            _viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+            _viewport.addEventListener(ResizeEvent.RESIZE, viewportResizeHandler);
+        }
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -339,6 +356,68 @@ public class FxScrollBar extends FxTrackBase
     //
     //--------------------------------------------------------------------------
 
+    //---------------------------------
+    // Viewport property changes
+    //---------------------------------
+     
+    private function viewport_propertyChangeHandler(event:PropertyChangeEvent):void
+    {
+        switch(event.property) 
+        {
+            case "contentWidth": 
+                viewportContentWidthChangeHandler(event);
+                break;
+                
+            case "contentHeight": 
+                viewportContentHeightChangeHandler(event);
+                break;
+                
+            case "horizontalScrollPosition":
+                viewportHorizontalScrollPositionChangeHandler(event);
+                break;
+
+            case "verticalScrollPosition":
+                viewportVerticalScrollPositionChangeHandler(event);
+                break;
+        }
+    }
+    
+    
+   /**
+    *  Called when the viewport's width or height changes, does nothing by default.
+    */
+    protected function viewportResizeHandler(event:ResizeEvent):void
+    {
+    }
+    
+   /**
+    *  Called when the viewport's contentWidth changes, does nothing by default.
+    */
+    protected function viewportContentWidthChangeHandler(event:PropertyChangeEvent):void
+    {
+    }
+    
+    /**
+     *  Called when the viewport's contentHeight changes, does nothing by default.
+     */
+    protected function viewportContentHeightChangeHandler(event:PropertyChangeEvent):void
+    {
+    }
+    
+    /**
+     *  Called when the viewport's horizontalScrollPosition changes, does nothing by default.
+     */
+    protected function viewportHorizontalScrollPositionChangeHandler(event:PropertyChangeEvent):void
+    {
+    }  
+    
+    /**
+     *  Called when the viewport's verticalScrollPosition changes, does nothing by default. 
+     */
+    protected function viewportVerticalScrollPositionChangeHandler(event:PropertyChangeEvent):void
+    {
+    }   
+    
     //---------------------------------
     // Mouse up/down handlers
     //---------------------------------
