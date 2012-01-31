@@ -153,9 +153,9 @@ public class FxListBase extends FxDataContainer
      *  <p>If the selected item is removed, the selected index is set to:</p>
      *
      *  <ul>
-     *    <li>-1 if <code>requireSelection</code> = <code>false</code> 
+     *    <li>-1 if <code>requiresSelection</code> = <code>false</code> 
      *     or there are no remaining items.</li>
-     *    <li>0 if <code>requireSelection</code> = <code>true</code> 
+     *    <li>0 if <code>requiresSelection</code> = <code>true</code> 
      *     and there is at least one item.</li>
      *  </ul>
      *
@@ -200,9 +200,9 @@ public class FxListBase extends FxDataContainer
      *  <p>If the selected item is removed, the selected item is set to:</p>
      *
      *  <ul>
-     *    <li><code>undefined</code> if <code>requireSelection</code> = <code>false</code> 
+     *    <li><code>undefined</code> if <code>requiresSelection</code> = <code>false</code> 
      *      or there are no remaining items.</li>
-     *    <li>The first item if <code>requireSelection</code> = <code>true</code> 
+     *    <li>The first item if <code>requiresSelection</code> = <code>true</code> 
      *      and there is at least one item.</li>
      *  </ul>
      *
