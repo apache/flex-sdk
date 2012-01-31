@@ -449,7 +449,7 @@ public class SkinnableComponent extends UIComponent
         {
             // For some composite components, the focused object may not
             // be "this". If so, we don't want to draw the focus.
-            if (focusManager.getFocus() != this && !mx_internal::drawFocusAnyway)
+            if (!mx_internal::drawFocusAnyway && focusManager.getFocus() != this)
                 return;
                 
             if (!mx_internal::focusObj)
