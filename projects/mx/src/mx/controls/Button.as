@@ -37,6 +37,7 @@ import mx.core.IFlexDisplayObject;
 import mx.core.IFlexModuleFactory;
 import mx.core.IFontContextComponent;
 import mx.core.IInvalidating;
+import mx.core.ILayoutDirectionElement;
 import mx.core.IProgrammaticSkin;
 import mx.core.IStateClient;
 import mx.core.IUIComponent;
@@ -1466,6 +1467,21 @@ public class Button extends UIComponent
     public var selectedField:String = null;
 
     //----------------------------------
+    //  skinLayoutDirection
+    //----------------------------------
+    
+    private var skinLayoutDirectionSet:Boolean = false;
+    private var _skinLayoutDirection:String;
+    /**
+     *  @private 
+     */ 
+    mx_internal function set skinLayoutDirection(value:String):void
+    {
+        skinLayoutDirectionSet = true;
+        _skinLayoutDirection = value;
+    }
+    
+    //----------------------------------
     //  stickyHighlighting
     //----------------------------------
 
@@ -1903,6 +1919,9 @@ public class Button extends UIComponent
                 if (newSkin)
                 {
                     checkedDefaultSkin = true;
+                    
+                    if (newSkin is ILayoutDirectionElement && skinLayoutDirectionSet)
+                        ILayoutDirectionElement(newSkin).layoutDirection = _skinLayoutDirection;
                 }
             }
         }
@@ -1925,6 +1944,9 @@ public class Button extends UIComponent
                 if (styleableSkin)
                     styleableSkin.styleName = this;
 
+                if (newSkin is ILayoutDirectionElement && skinLayoutDirectionSet)
+                    ILayoutDirectionElement(newSkin).layoutDirection = _skinLayoutDirection;
+                
                 addChild(DisplayObject(newSkin));
 
                 // Make the skin the proper size for this Button.
