@@ -11,9 +11,8 @@
 
 package mx.core
 {
-import flash.events.IEventDispatcher;
 
-public interface IViewport extends IEventDispatcher
+public interface IViewport extends IVisualElement
 {
     function get width():Number;
     function get height():Number;
