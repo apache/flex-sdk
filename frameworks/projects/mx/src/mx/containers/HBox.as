@@ -77,6 +77,11 @@ import mx.core.mx_internal;
  *  @see mx.components.Container
  *  @see mx.containers.Box
  *  @see mx.containers.VBox
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class HBox extends Box
 {
@@ -90,6 +95,11 @@ public class HBox extends Box
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function HBox()
     {
