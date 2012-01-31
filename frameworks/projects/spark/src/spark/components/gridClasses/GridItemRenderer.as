@@ -70,7 +70,7 @@ use namespace mx_internal;
  *  <p>Transitions in DataGrid item renderers aren't supported. The GridItemRenderer class 
  *  has disabled its <code>transitions</code> property so setting it will have no effect.</p>
  * 
- *  <h2>Efficiency Considerations</h2>
+ *  <p><b>Efficiency Considerations</b></p>
  *  
  *  <p>DataGrid scrolling and startup performance are directly linked
  *  to item renderer complexity and the number of item renderers that
@@ -137,11 +137,11 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
 {
     include "../../core/Version.as";
     
-	//--------------------------------------------------------------------------
-	//
-	//  Static Methods
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Static Methods
+    //
+    //--------------------------------------------------------------------------
     
     /**
      * If the effective value of showDataTips has changed for this column, then
@@ -162,39 +162,39 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         else if (dataTip && !showDataTips)
             toolTipClient.toolTip = null;
     }
-	
-	/**
-	 *  Shows the tooltip for one of the grid's item renderers.
-	 *  This is the handler for the <code>ToolTipEvent.TOOL_TIP_SHOW</code>
-	 *  event in GridItemRenderer, DefaultGridItemRenderer, and 
-	 *  UITextFieldGridItemRenderer which are installed by the corresponding
-	 *  constructors.
-	 *  The item renderer's tool tip is computed just before it is shown.
-	 * 
-	 *  If the item renderer's column <code>showDataTips<code> property is true, 
-	 *  a placeholder tool tip is registered with the tool tip manager so that 
-	 *  mouse handlers are put in place to detect when the tool tip should be
-	 *  shown by calling this handler.
-	 *   
-	 *  This handler replaces the placeholder text with the actual text and 
-	 *  resizes the tooltip before moving it into position.  
-	 *  The tip is positioned over the item renderer with the origin of the tip 
-	 *  at 0, 0, after accounting for the layoutDirection of the grid.
-	 *  
-	 *  The current target is expected to implement IGridItemRenderer and
-	 *  IUIComponent.
-	 */	
-	static mx_internal function toolTipShowHandler(event:ToolTipEvent):void
-	{
-		var toolTip:IToolTip = event.toolTip;
-		
-		const renderer:IGridItemRenderer = event.currentTarget as IGridItemRenderer;
-		if (!renderer)
-			return;
-		
-		const uiComp:IUIComponent = event.currentTarget as IUIComponent;
-		if (!uiComp)
-			return;
+    
+    /**
+     *  Shows the tooltip for one of the grid's item renderers.
+     *  This is the handler for the <code>ToolTipEvent.TOOL_TIP_SHOW</code>
+     *  event in GridItemRenderer, DefaultGridItemRenderer, and 
+     *  UITextFieldGridItemRenderer which are installed by the corresponding
+     *  constructors.
+     *  The item renderer's tool tip is computed just before it is shown.
+     * 
+     *  If the item renderer's column <code>showDataTips<code> property is true, 
+     *  a placeholder tool tip is registered with the tool tip manager so that 
+     *  mouse handlers are put in place to detect when the tool tip should be
+     *  shown by calling this handler.
+     *   
+     *  This handler replaces the placeholder text with the actual text and 
+     *  resizes the tooltip before moving it into position.  
+     *  The tip is positioned over the item renderer with the origin of the tip 
+     *  at 0, 0, after accounting for the layoutDirection of the grid.
+     *  
+     *  The current target is expected to implement IGridItemRenderer and
+     *  IUIComponent.
+     */ 
+    static mx_internal function toolTipShowHandler(event:ToolTipEvent):void
+    {
+        var toolTip:IToolTip = event.toolTip;
+        
+        const renderer:IGridItemRenderer = event.currentTarget as IGridItemRenderer;
+        if (!renderer)
+            return;
+        
+        const uiComp:IUIComponent = event.currentTarget as IUIComponent;
+        if (!uiComp)
+            return;
         
         // If the renderer is partially obscured because the Grid has been 
         // scrolled, we'll put the tooltip in the center of the exposed portion
@@ -213,13 +213,13 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         if ((rendererR.height == 0) || (rendererR.width == 0))
             return;
             
-		// Determine if the toolTip needs to be adjusted for RTL layout.
-		const mirror:Boolean = renderer.layoutDirection == LayoutDirection.RTL;
-		
-		// Lazily compute the tooltip text and recalculate its width.
-		toolTip.text = renderer.column.itemToDataTip(renderer.data);
-		ToolTipManager.sizeTip(toolTip);
-		
+        // Determine if the toolTip needs to be adjusted for RTL layout.
+        const mirror:Boolean = renderer.layoutDirection == LayoutDirection.RTL;
+        
+        // Lazily compute the tooltip text and recalculate its width.
+        toolTip.text = renderer.column.itemToDataTip(renderer.data);
+        ToolTipManager.sizeTip(toolTip);
+        
         // We need to position the tooltip at same x coordinate, 
         // center vertically and make sure it doesn't overlap the screen.
         // Call the helper function to handle this for us.
@@ -237,7 +237,7 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
                                                        null, 
                                                        new Point(x, y)); 
         toolTip.move(pt.x, pt.y);
-	}
+    }
          
    //--------------------------------------------------------------------------
     //
