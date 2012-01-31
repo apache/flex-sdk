@@ -22,8 +22,8 @@ import flash.utils.*;
 import mx.core.IFactory;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.mx_internal;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
 import spark.events.SkinPartEvent;
@@ -740,7 +740,7 @@ public class SkinnableComponent extends UIComponent
      */
     mx_internal function updateErrorSkin():void
     {
-        if (errorString != null && errorString != "")
+        if (errorString != null && errorString != "" && getStyle("showErrorSkin"))
         {
             if (!errorObj)
             {
