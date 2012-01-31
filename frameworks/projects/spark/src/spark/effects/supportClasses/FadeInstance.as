@@ -28,6 +28,9 @@ public class FadeInstance extends AnimateInstance
     public function FadeInstance(target:Object)
     {
         super(target);
+        
+        // Automatically keep disappearing targets around during this effect
+        autoRemoveTarget = true;
     }
     
     /** 
