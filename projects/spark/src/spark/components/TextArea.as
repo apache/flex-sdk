@@ -350,7 +350,7 @@ public class FxTextArea extends FxTextBase
 	/**
 	 *  @private
 	 */
-	private var _widthInChars:Number = 20;
+	private var _widthInChars:Number = 15;
 
 	/**
 	 *  @private
@@ -456,6 +456,7 @@ public class FxTextArea extends FxTextBase
 			// that change.
 			textView.heightInLines = 10;
 			textView.multiline = true;
+            textView.autoSize = false;
 
             textView.addEventListener("textInvalid",
 									  textView_textInvalidHandler);
