@@ -13,8 +13,12 @@ package mx.containers
 {
 
 import flash.events.Event;
+
+import mx.core.FlexVersion;
 import mx.core.mx_internal;
+import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
+import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -202,6 +206,24 @@ public class ApplicationControlBar extends ControlBar
     public function ApplicationControlBar()
     {
         super();
+        
+        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+        {
+            var typeSelector:CSSStyleDeclaration = 
+                StyleManager.getStyleDeclaration("mx.containers.ApplicationControlBar");
+            
+            if (typeSelector)
+            {
+                if (typeSelector.getStyle("borderStyle") === undefined)
+                    typeSelector.setStyle("borderStyle", "applicationControlBar");
+                if (typeSelector.getStyle("docked") === undefined)
+                    typeSelector.setStyle("docked", false);
+                if (typeSelector.getStyle("dropShadowEnabled") === undefined)
+                    typeSelector.setStyle("dropShadowEnabled", true);
+                if (typeSelector.getStyle("shadowDistance") === undefined)
+                    typeSelector.setStyle("shadowDistance", 5);
+            }
+        }
     }
 
     //--------------------------------------------------------------------------
