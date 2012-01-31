@@ -16,11 +16,21 @@ package mx.rpc.xml
  * QualifiedResourceManager is a helper class that simply maintains
  * the order that resources were added and maps a target namespace to
  * one or more resources.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class QualifiedResourceManager
 {
     /**
      * Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function QualifiedResourceManager()
     {
@@ -34,6 +44,11 @@ public class QualifiedResourceManager
      * @param ns The namespace for the Array of resources.
      *
      * @param resource The resource to add.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function addResource(ns:Namespace, resource:Object):void
     {
@@ -64,6 +79,11 @@ public class QualifiedResourceManager
      * @param The namespace for the Array of resources.
      *
      * @return An Array of resources.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getResourcesForNamespace(ns:Namespace):Array
     {
@@ -76,6 +96,11 @@ public class QualifiedResourceManager
      * @param uri The URI for the Array of resources.
      *
      * @return An Array of resources.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getResourcesForURI(uri:String):Array
     {
@@ -94,6 +119,11 @@ public class QualifiedResourceManager
      * Gets an Array of all resources.
      *
      * @return An Array of resources.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getResources():Array
     {
@@ -103,12 +133,22 @@ public class QualifiedResourceManager
     /**
      * This Array is used to preserve order in which resources were
      * added so as to support the order in which they are searched.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var resources:Array;
 
     /**
      * Maps <code>Namespace.uri</code> to an <code>Array</code> of
      * resources.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var resourcesMap:Object;
 }
