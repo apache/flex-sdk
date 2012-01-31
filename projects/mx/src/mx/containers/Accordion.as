@@ -483,6 +483,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         // Container() has set tabEnabled false, so we
         // have to set it back to true.
         tabEnabled = true;
+        tabFocusEnabled = true;
         hasFocusableChildren = true;
 
         // Accordion always clips content, it just handles it by itself
@@ -1305,7 +1306,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
         // cache until we're fully initialized.  (bug 102639)
         // This check was moved from the beginning of this function to
         // here to fix bugs 103665/104213.
-        if (selectedChild && selectedChild.deferredContentCreated)
+        if (selectedChild && INavigatorContent(selectedChild).deferredContentCreated == false)
             return;
 
         // Don't remember sizes if we don't have any children
