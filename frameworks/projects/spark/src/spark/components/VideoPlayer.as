@@ -52,6 +52,8 @@ import spark.events.VideoEvent;
 import spark.primitives.VideoElement;
 import spark.primitives.supportClasses.TextGraphicElement;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Events
 //--------------------------------------
@@ -1008,7 +1010,7 @@ public class VideoPlayer extends SkinnableComponent
         var currentState:String;
         
         if (videoElement)
-            currentState = videoElement.mx_internal::videoPlayer.state;
+            currentState = videoElement.videoPlayer.state;
         
         // only push certain video player states to our skins.
         // Resizing, rewinding, and execQueuedCmd are ignored, 
@@ -1461,7 +1463,7 @@ public class VideoPlayer extends SkinnableComponent
         }
         
         scrubBar.bufferedStart = 0;
-        scrubBar.bufferedEnd = videoElement.mx_internal::videoPlayer.bytesLoaded/videoElement.mx_internal::videoPlayer.bytesTotal * videoElement.totalTime;
+        scrubBar.bufferedEnd = videoElement.videoPlayer.bytesLoaded/videoElement.videoPlayer.bytesTotal * videoElement.totalTime;
     }
      
    /**
@@ -1689,8 +1691,8 @@ public class VideoPlayer extends SkinnableComponent
                                     y: this.y,
                                     width: this.getPreferredBoundsWidth(false),
                                     height: this.getPreferredBoundsHeight(false),
-                                    smoothing: videoElement.mx_internal::videoPlayer.smoothing,
-                                    deblocking: videoElement.mx_internal::videoPlayer.deblocking, 
+                                    smoothing: videoElement.videoPlayer.smoothing,
+                                    deblocking: videoElement.videoPlayer.deblocking, 
                                     includeInLayout: this.includeInLayout};
             includeInLayout = false;
             
@@ -1721,8 +1723,8 @@ public class VideoPlayer extends SkinnableComponent
             this.y = 0;
             
             // this is for video performance reasons
-            videoElement.mx_internal::videoPlayer.smoothing = false;
-            videoElement.mx_internal::videoPlayer.deblocking = 0;
+            videoElement.videoPlayer.smoothing = false;
+            videoElement.videoPlayer.deblocking = 0;
             
             this.validateNow();
             
@@ -1821,8 +1823,8 @@ public class VideoPlayer extends SkinnableComponent
         this.y = beforeFullScreenInfo.y;
         this.setLayoutBoundsSize(beforeFullScreenInfo.width, beforeFullScreenInfo.height);
         
-        videoElement.mx_internal::videoPlayer.smoothing = beforeFullScreenInfo.smoothing;
-        videoElement.mx_internal::videoPlayer.deblocking = beforeFullScreenInfo.deblocking;
+        videoElement.videoPlayer.smoothing = beforeFullScreenInfo.smoothing;
+        videoElement.videoPlayer.deblocking = beforeFullScreenInfo.deblocking;
         
         if (beforeFullScreenInfo.parent is IVisualElementContainer)
             beforeFullScreenInfo.parent.addElementAt(this, beforeFullScreenInfo.childIndex);
@@ -1960,10 +1962,10 @@ public class VideoPlayer extends SkinnableComponent
     {
         if (scrubBarMouseCaptured)
         {
-            videoElement.mx_internal::videoPlayer.flvplayback_internal::flushQueuedCmds();
+            videoElement.videoPlayer.flvplayback_internal::flushQueuedCmds();
             
             // check if streaming and play()...then don't seek to last value
-            if (videoElement.mx_internal::videoPlayer.isRTMP && !(source is StreamingVideoSource) && scrubBar.value == totalTime)
+            if (videoElement.videoPlayer.isRTMP && !(source is StreamingVideoSource) && scrubBar.value == totalTime)
             {
                 seek(Math.max(0, scrubBar.value-0.5));
             }
