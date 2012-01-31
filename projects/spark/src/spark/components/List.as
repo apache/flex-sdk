@@ -199,8 +199,8 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedIndex():int
     {   
-        if (_selectedIndices && _selectedIndices.length > 0)
-            return _selectedIndices[_selectedIndices.length - 1];
+        if (selectedIndices && selectedIndices.length > 0)
+            return selectedIndices[selectedIndices.length - 1];
             
         return super.selectedIndex;  
     }
@@ -216,9 +216,11 @@ public class List extends ListBase implements IFocusManagerComponent
         super.selectedIndex = value;
         
         if (value !== NO_SELECTION) 
-            selectedIndices = [value];
+            _proposedSelectedIndices = [value];
         else 
-            selectedIndices = [];     
+            _proposedSelectedIndices = [];
+            
+        commitMultipleSelection(); 
     }
     
     //----------------------------------
@@ -231,8 +233,8 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override public function get selectedItem():*
     {   
-        if (_selectedIndices && _selectedIndices.length > 0)
-            return dataProvider.getItemAt(_selectedIndices[_selectedIndices.length - 1]); 
+        if (selectedIndices && selectedIndices.length > 0)
+            return dataProvider.getItemAt(selectedIndices[selectedIndices.length - 1]); 
             
         return super.selectedItem; 
     }
@@ -247,10 +249,12 @@ public class List extends ListBase implements IFocusManagerComponent
         
         super.selectedItem = value;
         
-        if (value !== undefined)
-            selectedItems = [value];
+        if (value !== undefined && dataProvider)
+            _proposedSelectedIndices = [dataProvider.getItemAt(value)]; 
         else
-            selectedItems = []; 
+            _proposedSelectedIndices = [];
+            
+        commitMultipleSelection(); 
     }
     
     
@@ -264,7 +268,10 @@ public class List extends ListBase implements IFocusManagerComponent
     
     [Bindable("selectionChanged")]
     /**
-     *  Selected indices for this component.
+     *  Selected indices for this component. If multiple selection 
+     *  is off and this property is set, the first value in 
+     *  the Array will be selected in order to honor single 
+     *  selection.  
      *  
      *  @default null
      *  
@@ -293,7 +300,10 @@ public class List extends ListBase implements IFocusManagerComponent
     
     [Bindable("selectionChanged")]
     /**
-     *  Selected items for this component.
+     *  Selected items for this component. If multiple selection 
+     *  is off and this property is set, the first value in 
+     *  the Array will be selected in order to honor single 
+     *  selection.  
      * 
      *  @default null
      *  
@@ -369,9 +379,15 @@ public class List extends ListBase implements IFocusManagerComponent
     {
         var retVal:Boolean = super.commitSelectedIndex(); 
         
+        // The requiresSelection property is handled by ListBase. 
+        // When true, selectedIndex gets updated in commitSelectedIndex()
+        // in the parent class. We need to ensure the selectedIndices 
+        // property stays in-sync and so we override commitSelectedIndex 
+        // here to keep the properties in lockstep with each other.   
         if (_selectedIndex != NO_SELECTION)
+        {
             selectedIndices = [_selectedIndex]; 
-        
+        }
         return retVal; 
     }
     
@@ -507,6 +523,14 @@ public class List extends ListBase implements IFocusManagerComponent
         var addedItems:Array = [];
         var i:int;
         var count:int;
+        
+        // Ensure that multiple selection is allowed and that proposed 
+        // selected indices honors it. For example, in the single 
+        // selection case, proposedSelectedIndices should only be an 
+        // array of 1 entry. If its not, we pare it down and select the 
+        // first item.  
+        if (!allowMultipleSelection && _proposedSelectedIndices.length > 1)
+            _proposedSelectedIndices = [_proposedSelectedIndices[0]]; 
         
         if (!isEmpty(_selectedIndices) && !isEmpty(_proposedSelectedIndices))
         {
