@@ -1442,7 +1442,10 @@ public class Tree extends List implements IIMESupport
         }
         else
         {
-            colors = getStyle("alternatingItemColors");
+			var colorsStyle:Object = getStyle("alternatingItemColors");
+			
+			if (colorsStyle)
+				colors = (colorsStyle is Array) ? (colorsStyle as Array) : [colorsStyle];
         }
         color = getStyle("backgroundColor");
         if (color === undefined)
