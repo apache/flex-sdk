@@ -15,16 +15,45 @@ import spark.effects.supportClasses.ResizeInstance;
 import mx.effects.IEffectInstance;
 
 /**
-*
-*  @includeExample examples/ResizeEffectExample.mxml    
-*
-*  
-*  @langversion 3.0
-*  @playerversion Flash 10
-*  @playerversion AIR 1.5
-*  @productversion Flex 4
-*/
-
+ *  The Resize effect changes the width, height, or both dimensions
+ *  of a component over a specified time interval. 
+ *  
+ *  <p>If you specify only two of the three values of the
+ *  <code>widthFrom</code>, <code>widthTo</code>, and
+ *  <code>widthBy</code> properties, Flex calculates the third.
+ *  If you specify all three, Flex ignores the <code>widthBy</code> value.
+ *  If you specify only the <code>widthBy</code> or the
+ *  <code>widthTo</code> value, the <code>widthFrom</code> property
+ *  is set to be the object's current width.
+ *  The same is true for <code>heightFrom</code>, <code>heightTo</code>,
+ *  and <code>heightBy</code> property values.</p>
+ *  
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Resize&gt;</code> tag
+ *  inherits all of the tag attributes of its superclass, 
+ *  and adds the following tab attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;mx:Resize
+ *    id="ID"
+ *    widthFrom="val"
+ *    heightFrom="val"
+ *    widthTo="val"
+ *    heightTo="val"
+ *    widthBy="val"
+ *    heightBy="val"
+ *    hideChildrenTargets=""
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.effects.supportClasses.ResizeInstance
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
 public class Resize extends Animate
 {
     include "../core/Version.as";
@@ -102,7 +131,7 @@ public class Resize extends Animate
 
     /** 
      *  Initial height, in pixels.
-     *  If omitted, Flex uses the current height.
+     *  If omitted, Flex uses the current height of the target.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -118,7 +147,7 @@ public class Resize extends Animate
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Final height, in pixels.
+     *  Final height of the target, in pixels.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -134,7 +163,7 @@ public class Resize extends Animate
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Number of pixels by which to modify the width of the component.
+     *  Number of pixels by which to modify the width of the target.
      *  Values may be negative.
      *  
      *  @langversion 3.0
@@ -151,7 +180,7 @@ public class Resize extends Animate
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Initial width, in pixels.
+     *  Initial width of the target, in pixels.
      *  If omitted, Flex uses the current width.
      *  
      *  @langversion 3.0
@@ -168,7 +197,7 @@ public class Resize extends Animate
     [Inspectable(category="General", defaultValue="NaN")]
 
     /** 
-     *  Final width, in pixels.
+     *  Final width of the target, in pixels.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
