@@ -269,10 +269,11 @@ public class ToggleButtonBar extends ButtonBar
      *  @private.
      */
     override public function set selectedIndex(value:int):void
-    {    	
-        if (value == selectedIndex)
-            return;
-
+    {  
+    	//#SDK-15690 - if the user has asked for -1 (no child selected) then we must preserve this
+		if (value == selectedIndex && value != -1)
+			return;
+    	
         // If the buttons have not been created yet, store the selectedIndex.
         if (numChildren == 0)
         {
