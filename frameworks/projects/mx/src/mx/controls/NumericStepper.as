@@ -454,19 +454,6 @@ public class NumericStepper extends UIComponent
     }
 
     //----------------------------------
-    //  editable
-    //----------------------------------
-
-    /**
-     *  @private
-     *  for IIMESupport 
-     */
-    public function get editable():Boolean
-    {
-        return true;
-    }
-
-    //----------------------------------
     //  enabled
     //----------------------------------
 
@@ -632,6 +619,24 @@ public class NumericStepper extends UIComponent
         "repeatDelay" : "repeatDelay",
         "repeatInterval" : "repeatInterval"
     };
+
+    //----------------------------------
+    //  enableIME
+    //----------------------------------
+
+    /**
+     *  A flag that indicates whether the IME should
+     *  be enabled when the component receives focus.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get enableIME():Boolean
+    {
+        return true;
+    }
 
     //----------------------------------
     //  imeMode
