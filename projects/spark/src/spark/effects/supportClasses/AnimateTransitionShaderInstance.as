@@ -163,22 +163,6 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      *  @productversion Flex 4
      */
     protected var shader:Shader;    
-
-    /**
-     * @private
-     * Cache the filters set on the target when the effect begins.
-     * We will assign our own filters during the effect, so we should
-     * restore the old filters when we're done
-     */
-    private var previousFilters:Array;
-
-    /**
-     * @private
-     * The filters that we will assign during the animation. This is
-     * a concatenation of our shaderFilter plus any filters that were
-     * already on the target.
-     */
-    private var previousPlusShaderFilters:Array;
     
     /**
      *  @private
@@ -211,14 +195,7 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
      *  @private
      */
     override public function play():void
-    {
-        // Buggy seeking behavior of Sequence sometimes causes an instance
-        // to play twice, causing problems with our temporary filters variables.
-        // If this variable is not null, then we must be playing already; don't
-        // play again.
-        if (previousPlusShaderFilters != null)
-            return;
-        
+    {  
         // Only dispose bitmaps that are not provided by the caller
         disposeFrom = (bitmapFrom == null);
         disposeTo = (bitmapTo == null);
@@ -382,8 +359,7 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
             return;
         
         shader.data.progress.value = [value];
-        if (previousPlusShaderFilters != null)
-            target.filters = previousPlusShaderFilters;
+        target.filters = [shaderFilter].concat(acquireFilters());
     }
 
     /**
@@ -396,9 +372,7 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
         if (!hasBitmaps)
             return;
         
-        previousFilters = target.filters;
-        previousPlusShaderFilters = [shaderFilter].concat(previousFilters);
-        target.filters = previousPlusShaderFilters;
+        target.filters = [shaderFilter].concat(target.filters);;
     }
 
     /**
@@ -411,13 +385,31 @@ public class AnimateTransitionShaderInstance extends AnimateInstance
         if (!hasBitmaps)
             return;
         
-        target.filters = (previousFilters != null) ? previousFilters : [];
-        previousFilters = null;
-        previousPlusShaderFilters = null;
+        target.filters = acquireFilters();
+        
         if (disposeFrom)
             bitmapFrom.dispose();
         if (disposeTo)
             bitmapTo.dispose();
+    }
+    
+    /**
+     * Acquires the current list of filters for our target, *excluding*
+     * our active shader filter. 
+     * @private
+     */
+    private function acquireFilters():Array
+    {
+        var filters:Array = target.filters;
+        for (var i:int=0; i < filters.length; i++)
+        {
+            if (filters[i] == shaderFilter)
+            {
+                filters.splice(i, 1);
+                break;
+            }
+        }
+        return filters;
     }
     
     /**
