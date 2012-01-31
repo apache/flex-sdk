@@ -24,7 +24,7 @@ import spark.components.supportClasses.SkinnableComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.StringUtil;
 
@@ -258,7 +258,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var labelDisplay:TextGraphicElement;
+    public var labelDisplay:TextBase;
 
     //--------------------------------------------------------------------------
     //
