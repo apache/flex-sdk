@@ -1467,10 +1467,6 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
     override protected function focusInHandler(event:FocusEvent):void
     {
         super.focusInHandler(event);
-
-        var fm:IFocusManager = focusManager;
-        if (fm)
-            fm.defaultButtonEnabled = false;
     }
 
     /**
