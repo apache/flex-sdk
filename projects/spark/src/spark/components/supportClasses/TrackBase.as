@@ -412,6 +412,8 @@ public class TrackBase extends Range
      */
     override protected function partAdded(partName:String, instance:Object):void
     {
+		super.partAdded(partName, instance);
+
         if (instance == thumb)
         {
             thumb.addEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
@@ -431,6 +433,8 @@ public class TrackBase extends Range
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
+		super.partRemoved(partName, instance);
+
         if (instance == thumb)
         {
             thumb.removeEventListener(MouseEvent.MOUSE_DOWN, thumb_mouseDownHandler);
