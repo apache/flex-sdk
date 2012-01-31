@@ -33,7 +33,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
 
 
 /**
- *  Dispatched when a renderer is added to the content holder.
+ *  Dispatched when a renderer is added to this dataGroup.
  * <code>event.renderer</code> is the renderer that was added.
  *
  *  @eventType spark.events.RendererExistenceEvent.RENDERER_ADD
@@ -46,7 +46,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
 [Event(name="rendererAdd", type="spark.events.RendererExistenceEvent")]
 
 /**
- *  Dispatched when a renderer is removed from the content holder.
+ *  Dispatched when a renderer is removed from this dataGroup.
  * <code>event.renderer</code> is the renderer that was removed.
  *
  *  @eventType spark.events.RendererExistenceEvent.RENDERER_REMOVE
@@ -84,23 +84,24 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
 [IconFile("DataGroup.png")]
 
 /**
- *  The DataGroup class is the base container class for data elements.
- *  The DataGroup class converts data elements to visual elements for display.
- *  While this container can hold visual items, it is often used only 
+ *  The DataGroup class is the base container class for data items.
+ *  The DataGroup class converts data items to visual elements for display.
+ *  While this container can hold visual elements, it is often used only 
  *  to hold data items as children.
  *
- *  <p>The DataGroup class takes as children visual components that implement 
- *  the IUIComponent interface and data items. 
- *  Data items can be simple date items such String and Number objects, 
+ *  <p>The DataGroup class takes as children data items or visual elements 
+ *  that implement the IVisualElement interface and are DisplayObjects.  
+ *  Data items can be simple data items such String and Number objects, 
  *  and more complicated data items such as Object and XMLNode objects. 
- *  While these containers can hold visual items, 
+ *  While these containers can hold visual elements, 
  *  they are often used only to hold data items as children.</p>
  *
  *  <p>An item renderer defines the visual representation of the 
  *  data item in the container. 
  *  The item renderer converts the data item into a format that can 
  *  be displayed by the container. 
- *  You must pass an item renderer to a DataGroup container.</p>
+ *  You must pass an item renderer to a DataGroup container to render 
+ *  data items appropriately.</p>
  *
  *  <p>To improve performance and minimize application size, 
  *  the DataGroup container cannot be skinned. 
@@ -382,10 +383,11 @@ public class DataGroup extends GroupBase
 
     /**
      *  Function that returns an item renderer IFactory for a 
-     *  specific item.  The signature of the function is:
+     *  specific item.  You should define an item renderer function 
+     *  similar to this sample function:
      *  
      *  <pre>
-     *    function itemRendererFunction(item:Object):IFactory</pre>
+     *    function myItemRendererFunction(item:Object):IFactory</pre>
      * 
      *  @default null
      *  
