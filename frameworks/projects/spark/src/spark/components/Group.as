@@ -295,16 +295,8 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (super.alpha == value)
             return;
         
-        if (value > 0 && value < 1 && !blendModeExplicitlySet && _blendMode == "auto")
+        if (!blendModeExplicitlySet && _blendMode == "auto")
         {
-            _blendMode = BlendMode.LAYER;
-            blendModeChanged = true;
-            invalidateDisplayObjectOrdering();
-            invalidateProperties();
-        }
-        else if ((value == 1 || value == 0) && !blendModeExplicitlySet && _blendMode == "auto")
-        {
-            _blendMode = BlendMode.NORMAL;
             blendModeChanged = true;
             invalidateDisplayObjectOrdering();
             invalidateProperties();
@@ -365,27 +357,16 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         //case we set the blendMode to layer to avoid the performance
         //overhead that comes with a non-normal blendMode. 
         
-        if (alpha > 0 && alpha < 1 && !blendModeExplicitlySet && value == "auto")
+        if (!blendModeExplicitlySet && value == "auto")
         {
-            if (_blendMode != BlendMode.LAYER)
+            if (((alpha > 0 && alpha < 1) && super.blendMode != BlendMode.LAYER) ||
+                ((alpha == 1 || alpha == 0) && super.blendMode != BlendMode.NORMAL) )
             {
-                _blendMode = BlendMode.LAYER;
                 blendModeChanged = true;
                 invalidateDisplayObjectOrdering();
                 invalidateProperties();
             }
         }
-        else if ((alpha == 1 || alpha == 0) && !blendModeExplicitlySet && value == "auto")
-        {
-            if (_blendMode != BlendMode.NORMAL)
-            {
-                _blendMode = BlendMode.NORMAL;
-                blendModeChanged = true;
-                invalidateDisplayObjectOrdering();
-                invalidateProperties();
-            }
-        }
-
         else 
         {
 			var oldValue:String = _blendMode;
