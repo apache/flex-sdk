@@ -165,12 +165,12 @@ import spark.components.SkinnableContainer;
  *  If you do not want rounded corners, set the <code>joints</code> property of 
  *  the stroke to <code>JointStyle.MITER</code>. </p>
  *  
- *  <p>The BorderContainer control has the following default characteristics:</p>
+ *  <p>The BorderContainer container has the following default characteristics:</p>
  *  <table class="innertable">
  *     <tr><th>Characteristic</th><th>Description</th></tr>
- *     <tr><td>Default size</td><td>112 pixels by 112 pixels</td></tr>
- *     <tr><td>Minimum size</td><td>0 pixels</td></tr>
- *     <tr><td>Maximum size</td><td>No limit</td></tr>
+ *     <tr><td>Default size</td><td>112 pixels wide by 112 pixels high</td></tr>
+ *     <tr><td>Minimum size</td><td>112 pixels wide by 112 pixels high</td></tr>
+ *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
  *     <tr><td>Default skin class</td><td>spark.skins.spark.BorderContainerSkin</td></tr>
  *  </table>
  *
@@ -199,7 +199,7 @@ import spark.components.SkinnableContainer;
  *  </pre>
  * 
  *  @see spark.skins.spark.BorderContainerSkin
- *  @includeExample examples/BorderExample.mxml
+ *  @includeExample examples/BorderContainerExample.mxml
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
