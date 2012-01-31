@@ -120,9 +120,62 @@ use namespace mx_internal;
  *  The VideoDisplay class is chromeless video player that supports
  *  progressive download, multi-bitrate, and streaming video.
  * 
+ *  <p><code>VideoDisplay</code> is the chromeless version that does not support skinning.
+ *  It is useful when you do not want the user to interact with the control.</p>
+ * 
  *  <p><code>VideoPlayer</code> is the skinnable version.</p>
  *
+ *  <p>The VideoDisplay control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>0 pixels wide by 0 pixels high with no content, 
+ *             and the width and height of the video with content</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>0</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:VideoDisplay&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:VideoDisplay 
+ *    <strong>Properties</strong>
+ *    autoDisplayFirstFrame="true"
+ *    autoPlay="true"
+ *    autoRewind="true"
+ *    loop="false"
+ *    muted="false"
+ *    pauseWhenHidden="true"
+ *    scaleMode="letterbox"
+ *    source=""
+ *    volume="1"
+ *  
+ *    <strong>Events</strong>
+ *    bytesLoadedChange="<i>No default</i>"
+ *    currentTimeChange="<i>No default</i>"
+ *    durationChange="<i>No default</i>"
+ *    mediaPlayerStateChange="<i>No default</i>"
+ *  
+ *  /&gt;
+ *  </pre>
+ *
  *  @see mx.components.VideoPlayer
+ *
+ *  @includeExample examples/VideoDisplayExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -759,6 +812,8 @@ public class VideoDisplay extends UIComponent
      *  to the video file to play.  For streaming (streaming, live streaming, 
      *  or multi-bitrate streaming), the source property is a 
      *  DynamicStreamingVideoSource object.
+     *
+     *  @see spark.components.mediaClasses.DynamicStreamingVideoSource
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -925,7 +980,7 @@ public class VideoDisplay extends UIComponent
     [Bindable("volumeChanged")]
     
     /**
-     *  The volume level, specified as an value between 0 and 1.
+     *  The volume level, specified as a value between 0 and 1.
      * 
      *  @default 1
      *  
