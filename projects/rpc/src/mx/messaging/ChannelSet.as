@@ -21,6 +21,7 @@ import flash.utils.Timer;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 import mx.messaging.channels.NetConnectionChannel;
+import mx.messaging.channels.PollingChannel;
 import mx.messaging.config.ServerConfig;
 import mx.messaging.errors.NoChannelAvailableError;
 import mx.messaging.events.ChannelEvent;
@@ -255,6 +256,13 @@ public class ChannelSet extends EventDispatcher
      */
     private var _hasRequestedClusterEndpoints:Boolean;
     
+    /**
+     *  @private
+     *  Timer used to issue periodic heartbeats to the remote host if the
+     *  client is idle, and not actively sending messages.
+     */
+    private var _heartbeatTimer:Timer;
+
     /**
      *  @private
      *  Flag indicating whether the ChannelSet is in the process of hunting to a
@@ -569,12 +577,6 @@ public class ChannelSet extends EventDispatcher
     [Bindable(event="propertyChange")]
     /**
      *  Indicates whether the ChannelSet is connected.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     public function get connected():Boolean
     {
@@ -592,6 +594,14 @@ public class ChannelSet extends EventDispatcher
             _connected = value;
             dispatchEvent(event);
             setAuthenticated(value && currentChannel && currentChannel.authenticated, _credentials, false /* Agents also listen for channel disconnects */);
+            if (!connected)
+            {
+                unscheduleHeartbeat();
+            }
+            else if (heartbeatInterval > 0) 
+            {
+                scheduleHeartbeat();
+            }
         }
     }
         
@@ -652,6 +662,68 @@ public class ChannelSet extends EventDispatcher
         }
     }
     
+    //----------------------------------
+    //  heartbeatInterval
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _heartbeatInterval:int = 0;
+    
+    /**
+     *  The number of milliseconds between heartbeats sent to the remote
+     *  host while this ChannelSet is actively connected but idle.
+     *  Any outbound message traffic will delay heartbeats temporarily, with 
+     *  this number of milliseconds elapsing after the last sent message before
+     *  the next heartbeat is issued.
+     *  <p>
+     *  This property is useful for applications that connect to a remote host
+     *  to received pushed updates and are not actively sending any messages, but
+     *  still wish to be notified of a dropped connection even when the networking
+     *  layer fails to provide such notification directly. By issuing periodic
+     *  heartbeats the client can force the networking layer to report a timeout
+     *  if the underlying connection has dropped without notification and the
+     *  application can respond to the disconnect appropriately.
+     *  </p> 
+     *  <p>
+     *  Any non-positive value disables heartbeats to the remote host.
+     *  The default value is 0 indicating that heartbeats are disabled.
+     *  If the application sets this value it should prefer a longer rather than
+     *  shorter interval, to avoid placing unnecessary load on the remote host.
+     *  As an illustrative example, low-level TCP socket keep-alives generally 
+     *  default to an interval of 2 hours. That is a longer interval than most
+     *  applications that enable heartbeats will likely want to use, but it
+     *  serves as a clear precedent to prefer a longer interval over a shorter
+     *  interval.
+     *  </p>
+     *  <p>
+     *  If the currently connected underlying Channel issues poll requests to
+     *  the remote host, heartbeats are suppressed because the periodic poll
+     *  requests effectively take their place.
+     */
+    public function get heartbeatInterval():int
+    {
+        return _heartbeatInterval;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set heartbeatInterval(value:int):void
+    {
+        if (_heartbeatInterval != value)
+        {
+            var event:PropertyChangeEvent = PropertyChangeEvent.createUpdateEvent(this, "heartbeatInterval", _heartbeatInterval, value);
+            _heartbeatInterval = value;
+            dispatchEvent(event);
+            if (_heartbeatInterval > 0 && connected)
+            {
+                scheduleHeartbeat();
+            }
+        }
+    }
+
     //----------------------------------
     //  initialDestinationId
     //----------------------------------    
@@ -1245,12 +1317,6 @@ public class ChannelSet extends EventDispatcher
      *  add a responder to in order to handle success or failure directly.
      * 
      *  @throws flash.errors.IllegalOperationError if a login or logout operation is currently in progress.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */ 
     public function logout(agent:MessageAgent=null):AsyncToken
     {        
@@ -1272,7 +1338,11 @@ public class ChannelSet extends EventDispatcher
             for (i = 0; i < n; i++)
             {
                 if (_channels[i] != null)
+                {
                     _channels[i].internalSetCredentials(null);
+                    if (_channels[i] is PollingChannel)
+                        PollingChannel(_channels[i]).disablePolling();
+                }
             }
             
             var msg:CommandMessage = new CommandMessage();
@@ -1347,11 +1417,12 @@ public class ChannelSet extends EventDispatcher
                     msg.destination = agent.destination;
                 }
                 msg.operation = CommandMessage.CLUSTER_REQUEST_OPERATION;
-                _currentChannel.sendClusterRequest(new ClusterMessageResponder(msg, this));    
+                _currentChannel.sendInternalMessage(new ClusterMessageResponder(msg, this));
                 _hasRequestedClusterEndpoints = true;                           
             }                    
-
+            unscheduleHeartbeat();
             _currentChannel.send(agent, message);
+            scheduleHeartbeat();
         }
         else
         {
@@ -1548,18 +1619,71 @@ public class ChannelSet extends EventDispatcher
      *  Redispatches message events from the currently connected Channel.
      * 
      *  @param event The MessageEvent from the Channel.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 9
-     *  @playerversion AIR 1.1
-     *  @productversion BlazeDS 4
-     *  @productversion LCDS 3 
      */
     protected function messageHandler(event:MessageEvent):void
     {
         dispatchEvent(event);
     }    
     
+    /**
+     *  @private
+     *  Schedules a heartbeat to be sent in heartbeatInterval milliseconds.
+     */
+    protected function scheduleHeartbeat():void
+    {          
+        if (_heartbeatTimer == null && heartbeatInterval > 0)
+        {
+            _heartbeatTimer = new Timer(heartbeatInterval, 1);
+            _heartbeatTimer.addEventListener(TimerEvent.TIMER, sendHeartbeatHandler);
+            _heartbeatTimer.start();
+        }
+    }
+    
+    /**
+     *  @private
+     *  Handles a heartbeat timer event by conditionally sending a heartbeat
+     *  and scheduling the next.
+     */
+    protected function sendHeartbeatHandler(event:TimerEvent):void
+    {
+        unscheduleHeartbeat();
+        if (currentChannel != null)
+        {
+            sendHeartbeat();
+            scheduleHeartbeat();
+        }
+    }
+    
+    /**
+     *  @private 
+     *  Sends a heartbeat request.
+     */
+    protected function sendHeartbeat():void
+    {        
+        // Current channel may be actively polling, which suppresses explicit heartbeats.
+        var pollingChannel:PollingChannel = currentChannel as PollingChannel;
+        if (pollingChannel != null && pollingChannel._shouldPoll) return;
+        // Issue an explicit heartbeat and schedule the next.
+        var heartbeat:CommandMessage = new CommandMessage();
+        heartbeat.operation = CommandMessage.CLIENT_PING_OPERATION;
+        heartbeat.headers[CommandMessage.HEARTBEAT_HEADER] = true;
+        currentChannel.sendInternalMessage(new MessageResponder(null /* no agent */, heartbeat));
+    }
+    
+    /**
+     *  @private
+     *  Unschedules any currently scheduled pending heartbeat.
+     */
+    protected function unscheduleHeartbeat():void
+    {
+        if (_heartbeatTimer != null)
+        {
+            _heartbeatTimer.stop();
+            _heartbeatTimer.removeEventListener(TimerEvent.TIMER, sendHeartbeatHandler);
+            _heartbeatTimer = null;
+        }
+    }    
+
     //--------------------------------------------------------------------------
     //
     // Private Methods
