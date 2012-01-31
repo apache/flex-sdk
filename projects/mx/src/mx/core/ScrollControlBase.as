@@ -1450,8 +1450,6 @@ public class ScrollControlBase extends UIComponent
         // then handle the event and prevent further bubbling.
         if (verticalScrollBar && verticalScrollBar.visible && !event.isDefaultPrevented())
         {
-            event.stopPropagation();
-
             var scrollDirection:int = event.delta <= 0 ? 1 : -1;
 
             // Make sure we scroll by at least one line
@@ -1467,6 +1465,8 @@ public class ScrollControlBase extends UIComponent
             scrollEvent.position = verticalScrollPosition;
             scrollEvent.delta = verticalScrollPosition - oldPosition;
             dispatchEvent(scrollEvent);
+            
+            event.preventDefault();
         }
     }
 	
