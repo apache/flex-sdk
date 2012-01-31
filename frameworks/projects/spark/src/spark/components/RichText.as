@@ -13,6 +13,8 @@ package spark.primitives
 {
 
 import flash.display.DisplayObjectContainer;
+import flash.display.Graphics;
+import flash.display.Sprite;
 import flash.geom.Rectangle;
 import flash.text.TextFormat;
 import flash.text.engine.FontLookup;
@@ -187,6 +189,14 @@ public class RichText extends TextGraphicElement
      *  Used in getEmbeddedFontContext().
      */
     private static var staticTextFormat:TextFormat;
+
+    /**
+     *  @private
+     *  Used for debugging.
+     *  Set this to an RGB uint to draw an opaque background
+     *  so that you can see the bounds of the component.
+     */
+    mx_internal static var backgroundColor:Object = null;
 
     //--------------------------------------------------------------------------
     //
@@ -469,6 +479,33 @@ public class RichText extends TextGraphicElement
             invalidateSize();
             invalidateDisplayList();
         }
+    }
+    
+   //--------------------------------------------------------------------------
+    //
+    //  Overridden methods: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number,
+    											  unscaledHeight:Number):void
+    {
+    	super.updateDisplayList(unscaledWidth, unscaledHeight);
+    	
+    	// Draw an optional background for debugging.
+    	var bc:Object = mx_internal::backgroundColor;
+    	if (bc != null)
+    	{
+	    	var g:Graphics = Sprite(drawnDisplayObject).graphics;
+	    	g.clear();
+	        g.lineStyle();
+	        g.beginFill(uint(bc)); 
+	       	g.drawRect(0, 0, unscaledWidth, unscaledHeight);
+	        g.endFill();
+	    }
     }
     
     //--------------------------------------------------------------------------
