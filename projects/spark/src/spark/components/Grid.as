@@ -2308,7 +2308,36 @@ package spark.components
         //
         //  GridLayout Cover Methods, Properties
         //
-        //--------------------------------------------------------------------------
+        //--------------------------------------------------------------------------   
+        
+        /**
+         *  If necessary, set the verticalScrollPosition and horizontalScrollPosition 
+         *  properties so that the specified cell is completely visible.  If columnIndex
+         *  is -1, then just adjust the verticalScrollPosition so that the specified
+         *  row is visible.
+         * 
+         *  @param rowIndex The 0-based row index of the item renderer's cell.
+         *  @param columnIndex The 0-based column index of the item renderer's cell, or -1 to specify a row.
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */
+        public function ensureIndexIsVisible(rowIndex:int, columnIndex:int = -1):void
+        {
+            // A cell's index as defined by LayoutBase it's just its position
+            // in the row-major linear ordering of the grid's cells.
+            
+            const index:int = (rowIndex * dataProvider.length) + ((columnIndex < 0) ? 0 : columnIndex);
+            var spDelta:Point = gridLayout.getScrollPositionDeltaToElement(index);
+            if (spDelta)
+            {
+                if (columnIndex >= 0)
+                    horizontalScrollPosition += spDelta.x;
+                verticalScrollPosition += spDelta.y;
+            }
+        }        
         
         /**
          *  @copy spark.components.supportClasses.GridLayout#getVisibleRowIndices()
@@ -2439,6 +2468,19 @@ package spark.components
         public function getItemRendererAt(rowIndex:int, columnIndex:int):IVisualElement
         {
             return gridLayout.getItemRendererAt(rowIndex, columnIndex);
+        }
+        
+        /**
+         *  @copy spark.components.supportClasses.GridLayout#isCellVisible()
+         *  
+         *  @langversion 3.0
+         *  @playerversion Flash 10
+         *  @playerversion AIR 2.0
+         *  @productversion Flex 4.5
+         */        
+        public function isCellVisible(rowIndex:int, columnIndex:int):Boolean
+        {
+            return gridLayout.isCellVisible(rowIndex, columnIndex);
         }
         
         //--------------------------------------------------------------------------
