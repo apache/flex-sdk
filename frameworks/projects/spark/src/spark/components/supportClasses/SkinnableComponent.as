@@ -65,7 +65,7 @@ include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
  *  &lt;MyComponent skinZZ="my.skins.MyComponentSkin"/&gt;</pre>
  *
  *
- *  @see mx.core.Skin
+ *  @see mx.components.Skin
  */
 public class FxComponent extends UIComponent
 {
@@ -109,8 +109,8 @@ public class FxComponent extends UIComponent
     
     private function set _skinObject(value:Skin):void
     {
-    	if (value === __skinObject)
-    	   return;
+        if (value === __skinObject)
+           return;
         
         __skinObject = value;
         dispatchEvent(new Event("skinObjectChanged"));
@@ -243,6 +243,9 @@ public class FxComponent extends UIComponent
      *  Sets the new state of the skin. 
      *  A subclass of FxComponent can override this method to add 
      *  extra validation logic.
+     *
+     *  <p>You do not call this method directly. 
+     *  Flex calls it in response to a call to the <code>invalidateSkinState()</code> method.</p>
      * 
      *  @param newState A string specifying the name of the state to set.
      */
@@ -257,17 +260,17 @@ public class FxComponent extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-	/**
+    /**
      *  Load the skin for the component. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls 
      *  the <code>UIComponent.commitProperties()</code> method.
      *  Typically, a subclass of FxComponent does not override this method.
-	 * 
+     * 
      *  <p>This method instantiates the skin for the component, 
      *  adds the skin as a child of the component, 
      *  resolves all part associations for the skin, and calls the <code>skinLoaded()</code> method.</p>
-	 */
+     */
     protected function loadSkin():void
     {
         // Factory
@@ -304,7 +307,7 @@ public class FxComponent extends UIComponent
                 }
                 catch (err:Error) {}
             }
-           	
+            
             addChild(skinObject);
         }
         else
@@ -353,17 +356,17 @@ public class FxComponent extends UIComponent
         }
     }
     
-	/**
+    /**
      *  Attach behaviors to the skin object. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
-	 *  
+     *  
      *  <p>A subclass of FxComponent must override this method to
      *  attach behaviors to the skin object.</p>
      * 
      *  <p>Override the <code>partAdded()</code> method to attach behaviors to 
      *  an individual part of the skin.</p>
-	 */
+     */
     protected function skinLoaded():void
     {
         skinObject.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
@@ -372,13 +375,13 @@ public class FxComponent extends UIComponent
         // Use partAdded for individual part behaviors
     }
     
-	/**
+    /**
      *  Remove behavior from the skin object. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>unloadSkin()</code> method.
-	 *
+     *
      *  <p>This method should be overridden by subclasses of FxComponent. </p>
-	 */
+     */
     protected function unloadingSkin():void
     {
         skinObject.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
@@ -495,11 +498,12 @@ public class FxComponent extends UIComponent
     private var dynamicPartsCache:Object;
     
     /**
-     *  Create an instance of a dynamic part. 
-     *  Dynamic parts should always be instantiated by this method, 
+     *  Create an instance of a dynamic skin part. 
+     *  Dynamic skin parts should always be instantiated by this method, 
      *  rather than directly by calling the <code>newInstance()</code> method on the factory.
      *  This method creates the part, but does not add it to the display list.
-     *  The componet must call UIComponent.addItem()
+     *  The componet must call the <code>Group.addItem()</code> method, or the appropriate 
+     *  method to add the skin part to the display list. 
      *
      *  @param partName The name of the part.
      *
@@ -655,10 +659,16 @@ public class FxComponent extends UIComponent
     // the component as an argument to derive the systemManager instead.
     
     /**
-     * Add handlers to both the systemManager and stage objects to track this
-     * event both on and off the stage. If <code>offstageHandler</code> is
-     * <code>null</code> or is not supplied, <code>onstagehandler</code> will
-     * be used as the handler for both situations.
+     * Add handlers to both the SystemManager and stage objects to track this
+     * event both on and off the stage. 
+     *
+     *  @param eventType The event type to handle.
+     *
+     *  @param onstageHandler The handler added to the SystemManager object. 
+     *
+     *  @param offstageHandler The handler added to the stage.  
+     *  If <code>null</code> or not specified, the <code>onstagehandler</code> 
+     *  is used.
      */ 
     protected function addSystemHandlers(eventType:String, onstageHandler:Function,
            offstageHandler:Function = null):void
@@ -673,10 +683,15 @@ public class FxComponent extends UIComponent
     
     /**
      * Removes handlers from both the systemManager and stage objects for this
-     * event. If <code>offstageHandler</code> is
-     * <code>null</code> or is not supplied, <code>onstagehandler</code> will
-     * be used as the handler for both situations. Parameters to this function
-     * should match the parameters supplied to <code>addSystemHandlers</code>.
+     * event. 
+     * Parameters passed to this method should match the 
+     * parameters supplied to the corresponding <code>addSystemHandlers()</code> method.
+     *
+     *  @param eventType The event type to handle.
+     *
+     *  @param onstageHandler The handler added to the SystemManager object. 
+     *
+     *  @param offstageHandler The handler added to the stage.  
      */ 
     protected function removeSystemHandlers(eventType:String, onstageHandler:Function,
            offstageHandler:Function = null):void
