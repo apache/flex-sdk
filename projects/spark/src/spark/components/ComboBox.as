@@ -437,6 +437,14 @@ public class ComboBox extends DropDownListBase
     //--------------------------------------------------------------------------
     
     /**
+     *  @private
+     */
+    override public function get baselinePosition():Number
+    {
+        return getBaselinePositionForPart(textInput);
+    }
+    
+    /**
      *  @private 
      */
     override public function set selectedIndex(value:int):void
