@@ -103,6 +103,9 @@ public class CalendarLayoutChangeEvent extends Event
                                               triggerEvent:Event = null)
 	{
 		super(type, bubbles, cancelable);
+		
+		this.newDate = newDate;
+		this.triggerEvent = triggerEvent;
 	}
 
 	//--------------------------------------------------------------------------
