@@ -275,7 +275,6 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      */
     private var groupChanged:Boolean = false;
 
-    [Bindable("groupNameChanged")]
     [Inspectable(category="General", defaultValue="radioGroup")]
 
     /**
@@ -327,8 +326,6 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
         
         invalidateProperties();
         invalidateDisplayList();
-
-        dispatchEvent(new Event("groupNameChanged"));
     }
 
     //----------------------------------
@@ -359,7 +356,6 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      */
     private var _value:Object;
 
-    [Bindable("valueChanged")]
     [Inspectable(category="General", defaultValue="")]
 
     /**
@@ -385,7 +381,6 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
     {
         _value = value;
 
-        dispatchEvent(new Event("valueChanged"));
         if (selected && group)
             group.dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
     }
@@ -434,7 +429,10 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
         // FxComponent.commitProperties() which uses skinStateIsDirty, enabled
         // and selected to determine if the skin should be changed.
         if (always || super.enabled != enabled)
-            invalidateButtonState();
+        {
+            invalidateProperties();
+            invalidateSkinState();
+        }
     }    
     
     /**
@@ -673,7 +671,7 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  @private
      *  Set radio button to selected and dispatch that there has been a change.
      */
-    override protected function onClick(event:MouseEvent):void
+    override protected function clickHandler(event:MouseEvent):void
     {
         if (!enabled || selected)
             return; // prevent a selected button from dispatching "click"
@@ -683,7 +681,7 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
 
         // Must call super.clickHandler() before setting
         // the group's selection.
-        super.onClick(event);
+        super.clickHandler(event);
 
         group.mx_internal::setSelection(this);
 
