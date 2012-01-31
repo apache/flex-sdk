@@ -192,7 +192,32 @@ public class FxContainer extends FxContainerBase
     //  Properties proxied to contentHolder
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  clipContent
+    //----------------------------------
+    
+    private var _clipContent:Boolean;
+    
+    /**
+     *  @copy mx.core.IViewport#clipContent
+     */
+    public function get clipContent():Boolean 
+    {
+        return (contentGroup) ? contentGroup.clipContent : _clipContent;
+    }
+
+    /**
+     *  @private
+     */
+    public function set clipContent(value:Boolean):void 
+    {
+        _clipContent = value;
         
+        if (contentGroup)
+            contentGroup.clipContent = value;
+    }
+    
     //----------------------------------
     //  content
     //----------------------------------    
@@ -398,6 +423,7 @@ public class FxContainer extends FxContainerBase
             }
             if (_layout != null)
                 contentGroup.layout = _layout;
+            contentGroup.clipContent = _clipContent;
             
             contentGroup.addEventListener(
                 ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
