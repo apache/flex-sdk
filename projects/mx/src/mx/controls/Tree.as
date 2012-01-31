@@ -2909,7 +2909,11 @@ public class Tree extends List implements IIMESupport
 
         if (itemEditorInstance)
             return;
-
+            
+        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+                        
         // Keyboard handling is consistent with Windows Explorer.
         var item:Object = selectedItem;
         if (event.ctrlKey)
@@ -2917,7 +2921,7 @@ public class Tree extends List implements IIMESupport
             // Ctrl keys always get sent to the List.
             super.keyDownHandler(event);
         }
-        else if (event.keyCode == Keyboard.SPACE)
+        else if (keyCode == Keyboard.SPACE)
         {
             // if user has moved the caret cursor from the selected item
             // move the cursor back to selected item
@@ -2944,7 +2948,7 @@ public class Tree extends List implements IIMESupport
             }
             event.stopImmediatePropagation();
         }
-        else if (event.keyCode == Keyboard.LEFT)
+        else if (keyCode == Keyboard.LEFT)
         {
             // Left Arrow closes an open item.
             // Otherwise, selects the parent item if there is one.
@@ -2969,7 +2973,7 @@ public class Tree extends List implements IIMESupport
             }
             event.stopImmediatePropagation();
         }
-        else if (event.keyCode == Keyboard.RIGHT)
+        else if (keyCode == Keyboard.RIGHT)
         {
             // Right Arrow has no effect on leaf items. Closed branch items are opened. 
             //Opened branch items select the first child.
@@ -2994,7 +2998,7 @@ public class Tree extends List implements IIMESupport
 					
 					finishArrowKeySelection();
                 }
-                else
+            else
                 {
                     dispatchTreeEvent(TreeEvent.ITEM_OPENING,
                                         item,   //item
@@ -3007,11 +3011,11 @@ public class Tree extends List implements IIMESupport
             }
             event.stopImmediatePropagation();
         }
-        else if (event.keyCode == Keyboard.NUMPAD_MULTIPLY)
+        else if (keyCode == Keyboard.NUMPAD_MULTIPLY)
         {
             expandChildrenOf(item, !isItemOpen(item));
         }
-        else if (event.keyCode == Keyboard.NUMPAD_ADD)
+        else if (keyCode == Keyboard.NUMPAD_ADD)
         {
             if (isBranch(item))
             {
@@ -3027,7 +3031,7 @@ public class Tree extends List implements IIMESupport
                 }
             }
         }
-        else if (event.keyCode == Keyboard.NUMPAD_SUBTRACT)
+        else if (keyCode == Keyboard.NUMPAD_SUBTRACT)
         {
             if (isItemOpen(item))
             {
