@@ -16,6 +16,7 @@ import mx.core.ILayoutElement;
 import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
 import mx.styles.IStyleClient;
+import flash.utils.Dictionary;
 
 
 /**
@@ -525,7 +526,8 @@ public class DataGroup extends GroupBase
 
     private var virtualLayoutOffset:int = 0;
     private var virtualLayoutUnderway:Boolean = false;
-     
+    private var virtualItemRenderers:Dictionary = new Dictionary(true);
+         
     /**
      *  @private
      *  Update virtualLayoutOffset and clear the virtualLayoutUnderway flag.
@@ -550,11 +552,12 @@ public class DataGroup extends GroupBase
         // size or display list.
         for(var i:int = super.numChildren - 1; i > (endIndex - startIndex); i--)
         {
-            var itemRenderer:DisplayObject = super.getChildAt(i);
-            unregisterRenderer(i, IVisualElement(itemRenderer));
+            var itemRenderer:IVisualElement = IVisualElement(super.getChildAt(i));
+            //trace("DataGroup::endVirtualLayout() removing " + IDataRenderer(itemRenderer).data);
             super.removeChildAt(i);
+            var item:Object = (itemRenderer is IDataRenderer) ? IDataRenderer(itemRenderer).data : itemRenderer;
+            delete virtualItemRenderers[item];
         }        
-        virtualLayoutUnderway = false;
     }
     
     /**
@@ -571,33 +574,35 @@ public class DataGroup extends GroupBase
      */
     override public function getLayoutElementAt(index:int):ILayoutElement
     {
-        var itemRendererIndex:int = index - virtualLayoutOffset;
-        var itemRenderer:Object = mx_internal::getRendererForItemAt(itemRendererIndex);
-
+        var itemRenderer:IVisualElement;
+        
         if (layout && layout.virtualLayout)
         {
             // Note: the code below does most of the same work as itemAdded()
             var item:Object = dataProvider.getItemAt(index);
+            var itemRendererIndex:int = index - virtualLayoutOffset;
             var createdIR:Boolean = false;
             
+            itemRenderer = virtualItemRenderers[item];
             if (!itemRenderer)
             {
                 itemRenderer = createRendererForItem(item);
+                //trace("DataGroup::getLayoutElementAt("+index+") created " + item); 
                 createdIR = true;
             }
 
-            if (itemRenderer.parent != this)
-                addItemRendererToDisplayList(DisplayObject(itemRenderer), itemRendererIndex);
-            else
-                super.setChildIndex(DisplayObject(itemRenderer), itemRendererIndex);
+            addItemRendererToDisplayList(DisplayObject(itemRenderer), itemRendererIndex);
             
             if (createdIR)
             {
+                virtualItemRenderers[item] = itemRenderer;  // weak reference
                 if (itemRenderer is IInvalidating)
                     IInvalidating(itemRenderer).validateNow();
-                // TBD sync with itemAdded
                 dispatchEvent(new ItemExistenceChangedEvent(ItemExistenceChangedEvent.ITEM_ADD, false, false, item));
             }
+        }
+        else {
+            itemRenderer = mx_internal::getRendererForItemAt(index);            
         }
 
         return LayoutElementFactory.getLayoutElementFor(itemRenderer);
@@ -682,7 +687,8 @@ public class DataGroup extends GroupBase
      */ 
     protected function addItemRendererToDisplayList(child:DisplayObject, index:int = -1):DisplayObject
     { 
-        // TODO: do we need this case (parented by me previously)?
+        // If this child is already an element of the display list, ensure
+        // that it's at the specified index
         if (child.parent && child.parent == this)
         {
             var insertIndex:int;
