@@ -543,11 +543,20 @@ public class GridLayout extends LayoutBase
         // width, if any.   If that isn't specified, then use 4096, to avoid wrapping.
         
         var columnWidth:Number = column.width;
+        
         if (isNaN(columnWidth))
         {
-            const rendererUIC:IUIComponent = renderer as IUIComponent;
-            columnWidth = (rendererUIC) ? rendererUIC.explicitWidth : NaN;
+            // Sadly, IUIComponent, UITextField, and UIFTETextField all have an 
+            // explicitWidth property but do not share a common type.  
+            if ("explicitWidth" in renderer)
+                columnWidth = Object(renderer).explicitWidth;
         }
+        
+        // The default width of a UI[FTE]TextField is 100.  If autoWrap is true, and
+        // multiline is true, the measured text will wrap if it is wider than
+        // the TextField's width. This is not what we want when measuring the 
+        // width of typicalItem columns that lack an explicit column width.
+        
         if (isNaN(columnWidth))
             columnWidth = 4096;
         
