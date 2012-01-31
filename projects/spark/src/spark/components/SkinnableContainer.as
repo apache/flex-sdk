@@ -33,6 +33,8 @@ import spark.layouts.supportClasses.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
 
+use namespace mx_internal;
+
 /**
  *  Dispatched after the content for this component has been created. With deferred 
  *  instantiation, the content for a component may be created long after the 
@@ -656,7 +658,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function get numElements():int
     {
-        return mx_internal::currentContentGroup.numElements;
+        return currentContentGroup.numElements;
     }
     
     /**
@@ -669,7 +671,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function getElementAt(index:int):IVisualElement
     {
-        return mx_internal::currentContentGroup.getElementAt(index);
+        return currentContentGroup.getElementAt(index);
     }
     
         
@@ -683,7 +685,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function getElementIndex(element:IVisualElement):int
     {
-        return mx_internal::currentContentGroup.getElementIndex(element);
+        return currentContentGroup.getElementIndex(element);
     }
     
     /**
@@ -696,7 +698,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function addElement(element:IVisualElement):IVisualElement
     {
-        return mx_internal::currentContentGroup.addElement(element);
+        return currentContentGroup.addElement(element);
     }
     
     /**
@@ -709,7 +711,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function addElementAt(element:IVisualElement, index:int):IVisualElement
     {
-        return mx_internal::currentContentGroup.addElementAt(element, index);
+        return currentContentGroup.addElementAt(element, index);
     }
     
     /**
@@ -722,7 +724,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function removeElement(element:IVisualElement):IVisualElement
     {
-        return mx_internal::currentContentGroup.removeElement(element);
+        return currentContentGroup.removeElement(element);
     }
     
     /**
@@ -735,7 +737,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function removeElementAt(index:int):IVisualElement
     {
-        return mx_internal::currentContentGroup.removeElementAt(index);
+        return currentContentGroup.removeElementAt(index);
     }
     
     /**
@@ -748,7 +750,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function removeAllElements():void
     {
-        mx_internal::currentContentGroup.removeAllElements();
+        currentContentGroup.removeAllElements();
     }
     
     /**
@@ -756,7 +758,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function setElementIndex(element:IVisualElement, index:int):void
     {
-        mx_internal::currentContentGroup.setElementIndex(element, index);
+        currentContentGroup.setElementIndex(element, index);
     }
     
     /**
@@ -769,7 +771,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function swapElements(element1:IVisualElement, element2:IVisualElement):void
     {
-        mx_internal::currentContentGroup.swapElements(element1, element2);
+        currentContentGroup.swapElements(element1, element2);
     }
     
     /**
@@ -782,7 +784,7 @@ public class SkinnableContainer extends SkinnableContainerBase
      */
     public function swapElementsAt(index1:int, index2:int):void
     {
-        mx_internal::currentContentGroup.swapElementsAt(index1, index2);
+        currentContentGroup.swapElementsAt(index1, index2);
     }
     
     //----------------------------------
