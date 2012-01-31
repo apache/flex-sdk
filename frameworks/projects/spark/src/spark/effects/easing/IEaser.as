@@ -24,7 +24,7 @@ package spark.effects.easing
  * only have to deal with the fractional value of time instead of any
  * specific object types.</p>
  * 
- * @see mx.effects.Animation
+ * @see spark.effects.animation.Animation
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
