@@ -72,6 +72,8 @@ use namespace mx_internal;
 
 [IconFile("Panel.png")]
 
+[AccessibilityClass(implementation="spark.accessibility.PanelAccImpl")]
+
 /**
  *  The Panel class defines a container that includes a title bar, 
  *  a caption, a border, and a content area for its children.
@@ -123,6 +125,12 @@ public class Panel extends SkinnableContainer
      *  @private
      */
     mx_internal static const LAYOUT_PROPERTY_FLAG:uint = 1 << 1;
+
+    /**
+     *  @private
+     *  Placeholder for mixin by PanelAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
 
     /**
      *  @private
@@ -483,6 +491,16 @@ public class Panel extends SkinnableContainer
 
         return state;
     }
+    
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (Panel.createAccessibilityImplementation != null)
+            Panel.createAccessibilityImplementation(this);
+    }
+
 }
 
 }
