@@ -15,18 +15,18 @@ package mx.graphics
 import flash.display.DisplayObjectContainer;
 import flash.geom.Rectangle;
 
-import flashx.tcal.conversion.ITextImporter;
-import flashx.tcal.conversion.TextFilter;
-import flashx.tcal.elements.FlowElement;
-import flashx.tcal.elements.ParagraphElement;
-import flashx.tcal.elements.SpanElement;
-import flashx.tcal.elements.TextFlow;
-import flashx.tcal.formats.CharacterFormat;
-import flashx.tcal.formats.ContainerFormat;
-import flashx.tcal.formats.ICharacterFormat;
-import flashx.tcal.formats.IContainerFormat;
-import flashx.tcal.formats.IParagraphFormat;
-import flashx.tcal.formats.ParagraphFormat;
+import flashx.textLayout.conversion.ITextImporter;
+import flashx.textLayout.conversion.TextFilter;
+import flashx.textLayout.elements.FlowElement;
+import flashx.textLayout.elements.ParagraphElement;
+import flashx.textLayout.elements.SpanElement;
+import flashx.textLayout.elements.TextFlow;
+import flashx.textLayout.formats.CharacterFormat;
+import flashx.textLayout.formats.ContainerFormat;
+import flashx.textLayout.formats.ICharacterFormat;
+import flashx.textLayout.formats.IContainerFormat;
+import flashx.textLayout.formats.IParagraphFormat;
+import flashx.textLayout.formats.ParagraphFormat;
 
 import mx.core.mx_internal;
 import mx.graphics.graphicsClasses.TextFlowComposer;
@@ -406,11 +406,11 @@ public class TextGraphic extends TextGraphicElement
      */
     private function importStringMarkup(markup:String):TextFlow
     {
-        markup = '<TextFlow xmlns="http://ns.adobe.com/tcal/2008">' +
+        markup = '<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">' +
                  markup +
                  '</TextFlow>';
         
-        return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
+        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
     }
     
     /**
@@ -418,7 +418,7 @@ public class TextGraphic extends TextGraphicElement
      */
     private function importXMLMarkup(markup:XML):TextFlow
     {
-        return TextFilter.importToFlow(markup, TextFilter.TCAL_FORMAT);
+        return TextFilter.importToFlow(markup, TextFilter.TEXT_LAYOUT_FORMAT);
     }
 
     /**
