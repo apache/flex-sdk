@@ -1408,9 +1408,9 @@ public class Scroller extends SkinnableComponent
             // clipped/obscured by the soft keyboard
             var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
             var eltBounds:Rectangle;
-            var adjustForSoftKeyboard:Boolean = topLevelApp && 
+            var adjustForSoftKeyboard:Boolean = topLevelApp &&
                                                 (!topLevelApp.resizeForSoftKeyboard) &&
-                                                (stage.softKeyboardRect.height > 0);
+                                                (stage && stage.softKeyboardRect.height > 0);
             
             if (adjustForSoftKeyboard)
             {
@@ -1478,10 +1478,6 @@ public class Scroller extends SkinnableComponent
                         else if (viewport.horizontalScrollPosition + width < eltBounds.right + focusThickness)
                             viewport.horizontalScrollPosition = eltBounds.right + focusThickness - width;
                     }
-                
-                    // Do not snap vertically when increasing the 
-                    // verticalScrollPosition for the soft keyboard
-                    snapContentScrollPosition(true, !adjustForSoftKeyboard);
                 }
                 
                 if (doValidateNow && viewport is UIComponent)
@@ -3212,18 +3208,18 @@ public class Scroller extends SkinnableComponent
     private function snapContentScrollPosition(snapHorizontal:Boolean = true, snapVertical:Boolean = true):void
     {
         if (snapHorizontal)
-    {
-        viewport.horizontalScrollPosition = getSnappedPosition( 
-            Math.min(Math.max(minHorizontalScrollPosition, viewport.horizontalScrollPosition), maxHorizontalScrollPosition),
-            HORIZONTAL_SCROLL_POSITION);
+        {
+            viewport.horizontalScrollPosition = getSnappedPosition( 
+                Math.min(Math.max(minHorizontalScrollPosition, viewport.horizontalScrollPosition), maxHorizontalScrollPosition),
+                HORIZONTAL_SCROLL_POSITION);
         }
 
         if (snapVertical)
         {
-        viewport.verticalScrollPosition = getSnappedPosition( 
-            Math.min(Math.max(minVerticalScrollPosition, viewport.verticalScrollPosition), maxVerticalScrollPosition),
-            VERTICAL_SCROLL_POSITION);
-    }
+            viewport.verticalScrollPosition = getSnappedPosition( 
+                Math.min(Math.max(minVerticalScrollPosition, viewport.verticalScrollPosition), maxVerticalScrollPosition),
+                VERTICAL_SCROLL_POSITION);
+        }
     }
     
     /**
