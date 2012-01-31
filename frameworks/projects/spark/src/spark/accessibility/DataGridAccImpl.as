@@ -14,6 +14,7 @@ package spark.accessibility
 
 import flash.accessibility.Accessibility;
 import flash.events.Event;
+import flash.events.FocusEvent;
 import mx.accessibility.AccConst;
 import mx.collections.IList;
 import mx.core.UIComponent;
@@ -28,6 +29,7 @@ import spark.events.GridEvent;
 import spark.events.GridCaretEvent;
 import spark.events.GridSelectionEvent;
 import spark.events.GridSelectionEventKind;
+import spark.events.GridItemEditorEvent;
 import spark.skins.spark.DefaultGridItemRenderer;
 
 use namespace mx_internal;
@@ -83,10 +85,14 @@ public class DataGridAccImpl extends ListBaseAccImpl
     mx_internal static function createAccessibilityImplementation(
                                 component:UIComponent):void
     {
-        component.accessibilityImplementation =
-            new DataGridAccImpl(component);
+        // attach AccImpl to placeholder focusOwner component so that item editors
+        // are exposed as sibling of the dataGrid allow for correct exposure in MSAA
+        // and the ability for iSimpleTextSelection interface to work as it requires 
+        // that the stage focused component be the same MSAA component 
+        var accImpl:DataGridAccImpl = new DataGridAccImpl(component);
+        DataGrid(component).focusOwner.accessibilityImplementation = accImpl;
     }
-
+    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -132,7 +138,8 @@ public class DataGridAccImpl extends ListBaseAccImpl
      */
     override protected function get eventsToHandle():Array
     {
-        return super.eventsToHandle.concat([GridSelectionEvent.SELECTION_CHANGE]);
+        return super.eventsToHandle.concat([GridSelectionEvent.SELECTION_CHANGE, FocusEvent.FOCUS_IN, GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START,
+        GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE, GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL]);
     }
 
     //--------------------------------------------------------------------------
@@ -181,6 +188,9 @@ public class DataGridAccImpl extends ListBaseAccImpl
     override public function get_accState(childID:uint):uint
     {
         var accState:uint = getState(childID);
+        if (childID == 0
+        && DataGrid(master).focusOwner == UIComponent(master).getFocus())
+            accState |= AccConst.STATE_SYSTEM_FOCUSED;
         if (int(childID) <= 0)
             return accState;
 
@@ -399,13 +409,7 @@ public class DataGridAccImpl extends ListBaseAccImpl
         // We now have only rows and data cells to consider.
 
         // String representation of row position.
-        var rowString:String = "";
-        if ((dgAccInfo.isCellMode && dgAccInfo.reachableColumnIndex == 0) || !dgAccInfo.isCellMode)
-        {
-            resourceManager = ResourceManager.getInstance();
-            rowString = resourceManager.getString("components", "rowMofN");
-            rowString = rowString.replace("%1", dgAccInfo.reachableRowIndex + 1).replace("%2", dgAccInfo.reachableRowCount);
-        }
+        var rowString:String = makeRowString(dgAccInfo);
 
         // Construct the name to return.
         var name:String = "";
@@ -665,9 +669,12 @@ public class DataGridAccImpl extends ListBaseAccImpl
                 childID = dgAccInfo.childIDFromRowAndColumn(
                     int(GridCaretEvent(event).newRowIndex),
                     int(GridCaretEvent(event).newColumnIndex)
-                );
+                )
                 if (int(childID) > 0)
-                    Accessibility.sendEvent(dgAccInfo.dataGrid, childID, AccConst.EVENT_OBJECT_FOCUS);
+                    if (!dgAccInfo.dataGrid.itemEditorInstance)
+                        Accessibility.sendEvent(dgAccInfo.dataGrid.focusOwner, childID, AccConst.EVENT_OBJECT_FOCUS);
+                    else
+                        Accessibility.sendEvent(UIComponent(dgAccInfo.dataGrid.itemEditorInstance), 0, AccConst.EVENT_OBJECT_FOCUS);
                 break;
             }
             case GridSelectionEvent.SELECTION_CHANGE:
@@ -694,8 +701,85 @@ public class DataGridAccImpl extends ListBaseAccImpl
                 || kind == GridSelectionEventKind.SET_ROWS)
                     eventID = AccConst.EVENT_OBJECT_SELECTIONWITHIN;
 
-                Accessibility.sendEvent(dgAccInfo.dataGrid, childID, eventID);
+                Accessibility.sendEvent(dgAccInfo.dataGrid.focusOwner, childID, eventID);
                 break;
+            }
+            case FocusEvent.FOCUS_IN:
+            {
+                // do not fire focus changes for list when a child editor is focused 
+                // as this causes an extra event being fired
+                if (event.target == DataGrid(master).focusOwner)
+                    Accessibility.sendEvent(DataGrid(master).focusOwner, 0, AccConst.EVENT_OBJECT_FOCUS);
+                break;
+            }
+            case GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_START:
+            {
+                dgAccInfo.setup(master, 0);
+                
+                childID = dgAccInfo.childIDFromRowAndColumn(
+                    GridItemEditorEvent(event).rowIndex,
+                    GridItemEditorEvent(event).columnIndex
+                );
+                var editor:Object = event.currentTarget.itemEditorInstance;
+                var defaultGridItemEditorClass:Class = Class(getDefinition("spark.components.gridClasses.DefaultGridItemEditor", master.moduleFactory));
+                if (editor is defaultGridItemEditorClass)
+                {
+                    // The specific part with focus.
+                    try
+                    {
+                        editor = Object(editor).textArea;
+                    }
+                    catch(e:Error)
+                    {
+                    }
+                }
+                else
+                {
+                    // Try to find the specific part with focus,
+                    // falling back to the itemEditorInstance if we don't know it.
+                    var realEditor:UIComponent = null;
+                    try
+                    {
+                        realEditor = UIComponent(editor.stage.focus);
+                    }
+                    catch(e:Error)
+                    {
+                    }
+                    if (Boolean(realEditor) && editor != realEditor)
+                    {
+                        editor = realEditor;
+                    }
+                }
+                // Name the editor with this cell's name.
+                // This applies the same rules for row identification for both edit and non-edit cells.
+                if (!editor.accessibilityName)
+                {
+                    var edName:String = "";
+                    if (dgAccInfo.headerCount > 0)
+                    {
+                        var columns:IList = dgAccInfo.dataGrid.columns;
+                        var columnIndex:int = GridItemEditorEvent(event).columnIndex;
+                        edName += columns.getItemAt(columnIndex).headerText;
+                    }
+                    // For the row string, we need to indicate which cell to use.
+                    dgAccInfo.setup(master, childID);
+                    var rowString:String = makeRowString(dgAccInfo);
+                    if (rowString)
+                        edName += " " +rowString;
+                    editor.accessibilityName = edName;
+                    Accessibility.updateProperties();
+                }
+                Accessibility.sendEvent(UIComponent(editor), 0, AccConst.EVENT_OBJECT_FOCUS);
+                break;
+            }
+            case GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_SAVE, GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_CANCEL:
+            {
+                dgAccInfo.setup(master, 0);
+                
+                childID = dgAccInfo.childIDFromRowAndColumn(
+                GridItemEditorEvent(event).rowIndex, GridItemEditorEvent(event).columnIndex);
+
+                Accessibility.sendEvent(DataGrid(master).focusOwner, childID, AccConst.EVENT_OBJECT_FOCUS);
             }
         }
     }
@@ -709,11 +793,24 @@ public class DataGridAccImpl extends ListBaseAccImpl
     /**
      *  @private
      */
+    private function makeRowString(dgAccInfo:ItemAccInfo):String
+    {
+        var rowString:String = "";
+        if ((dgAccInfo.isCellMode && dgAccInfo.reachableColumnIndex == 0) || !dgAccInfo.isCellMode)
+        {
+            var resourceManager:IResourceManager = ResourceManager.getInstance();
+            rowString = resourceManager.getString("components", "rowMofN");
+            rowString = rowString.replace("%1", dgAccInfo.reachableRowIndex + 1).replace("%2", dgAccInfo.reachableRowCount);
+        }
+        return rowString;
+    }
+
+    /**
+     *  @private
+     */
     private function cellName(rowObject:Object, columnIndex:int):String
     {
         var item:Object = rowObject;
-        if (item is String)
-            return "" + item;
         var dataGrid:DataGrid = DataGrid(master);
         var columns:IList = dataGrid.columns;
         if (!columns)
