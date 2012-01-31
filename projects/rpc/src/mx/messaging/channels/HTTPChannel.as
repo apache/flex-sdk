@@ -941,6 +941,10 @@ class HTTPMessageResponder extends MessageResponder
         msg.rootCause = event;
 
         (channel as HTTPChannel).connectionError(msg);
+        
+        // already disconnected, now let the agent know the the message faulted
+        // this is similar to the disconnect() and fault() in the NetConnectionChannel statusHandler
+        agent.fault(msg, message);    
     }
 
     /**
