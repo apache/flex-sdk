@@ -37,9 +37,15 @@ public interface IViewport extends IVisualElement
 {
     
     /**
-     *  The width of the viewport along the x axis. 
-     *  The value of this property is defined relative to the component's
-     *  coordinate system.
+     *  The width of the viewport's contents.
+     * 
+     *  If <code>clipAndEnabledScrolling</code> is true, the viewport's 
+     *  <code>contentWidth</code> defines the limit for horizontal scrolling 
+     *  and the viewport's actual width defines how much of the content is visible.
+     * 
+     *  To scroll through the content horizontally, vary the 
+     *  <code>horizontalScrollPosition</code> between 0 and
+     *  <code>contentWidth - width</code>.  
      * 
      *  <p>Implementations of this property must be Bindable and
      *  must generate events of type <code>propertyChange</code>.</p>
@@ -52,9 +58,15 @@ public interface IViewport extends IVisualElement
     function get contentWidth():Number;
     
     /**
-     *  The height of the viewport along the y axis.
-     *  The value of this property is defined relative to the container's
-     *  coordinate system.
+     *  The height of the viewport's content.
+     * 
+     *  If <code>clipAndEnabledScrolling</code> is true, the viewport's 
+     *  <code>contentHeight</code> defines the limit for vertical scrolling 
+     *  and the viewport's actual height defines how much of the content is visible.
+     * 
+     *  To scroll through the content vertically, vary the 
+     *  <code>verticalScrollPosition</code> between 0 and
+     *  <code>contentHeight - height</code>.  
      *
      *  <p>Implementations of this property must be Bindable and
      *  must generate events of type <code>propertyChange</code>.</p>
