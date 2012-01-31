@@ -85,7 +85,6 @@ FormHeading
 
 FormItem
 {
-    fontWeight : "bold";
     errorIndicatorSource : Embed(source="assets/ErrorIndicator.png");
     requiredIndicatorSource : Embed(source="assets/RequiredIndicator.png");
     skinClass : ClassReference("spark.skins.spark.FormItemSkin");
