@@ -3271,12 +3271,10 @@ public class ListBase extends ScrollControlBase
             {
                 runDataEffectNextUpdate = false;
                 runningDataEffect = true;
-                initiateDataChangeEffect(scaleX == 0 ? 0 : width / scaleX, 
-                                         scaleY == 0 ? 0 : height / scaleY);
+                initiateDataChangeEffect(unscaledWidth, unscaledHeight);
             }
             else
-                updateDisplayList(scaleX == 0 ? 0 : width / scaleX, 
-                                  scaleY == 0 ? 0 : height / scaleY);
+                updateDisplayList(unscaledWidth, unscaledHeight);
 
             invalidateDisplayListFlag = false;
         }
