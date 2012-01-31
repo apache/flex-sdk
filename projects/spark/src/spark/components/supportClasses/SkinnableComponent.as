@@ -619,7 +619,9 @@ public class SkinnableComponent extends UIComponent
             
             // the skin's styles should be the same as the components
             skin.styleName = this;
-            
+             
+			// Note: The Spark PanelAccImpl adds a child Sprite at index 0.
+			// The skin should be in front of that.
             super.addChild(skin);
             
             skin.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
