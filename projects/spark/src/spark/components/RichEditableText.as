@@ -553,6 +553,12 @@ public class RichEditableText extends UIComponent
      *  contents.
      */
     mx_internal var autoSize:Boolean = false;
+
+    /**
+     *  @private
+     *  True if need to scroll after updating the container.
+     */
+    mx_internal var scrollAfterUpdate:Boolean = false;
                 
     //--------------------------------------------------------------------------
     //
@@ -1612,8 +1618,6 @@ public class RichEditableText extends UIComponent
         _widthInChars = value;
         widthInCharsChanged = true;
         
-        widthConstraint = NaN;
-        
         invalidateProperties();
         invalidateSize();
         invalidateDisplayList();
@@ -1682,17 +1686,14 @@ public class RichEditableText extends UIComponent
         // We are about to set focus on this component.  If it is due to
         // a programmatic focus change we have to programatically do what the
         // mouseOverHandler and the mouseDownHandler do so that the user can 
-        // type in this component without using the mouse first.  Ideally 
-        // we would call convertToTextFlowWithComposer() to put a textFlow
-        // with a composer in place but it is not accessible.  The workaround
-        // is to call scrollToRange which makes sure the textFlow is in place
-        // and then returns immediately from scrollToRange since the scroll
-        // positions are not valid.         
+        // type in this component without using the mouse first.  We need to
+        // put a textFlow with a composer in place.
         if (editingMode != EditingMode.READ_ONLY &&
             _textContainerManager.composeState != 
             TextContainerManager.COMPOSE_COMPOSER)   
         {
-            _textContainerManager.scrollToRange(-1, -1);
+            _textContainerManager.beginInteraction();
+            _textContainerManager.endInteraction();
         }
                     
         super.setFocus();
@@ -1742,9 +1743,6 @@ public class RichEditableText extends UIComponent
             // the fontLookup format is set to either
             // "device" or "embedded" depending on whether
             // embeddedFontContext is null or non-null.
-            
-            if (hasEventListener("styleChanged"))
-                dispatchEvent(new Event("styleChanged"));
         }
         
         if (selectionFormatsChanged)
@@ -1933,14 +1931,6 @@ public class RichEditableText extends UIComponent
     {
         super.measure();
                  
-        // ScrollerLayout.measure() has heuristics for figuring out whether to
-        // use the actual content size or the preferred size when there are
-        // automatic scroll bars.  Force it to use the preferredSizes until
-        // the content sizes have been updated to accurate values.  This
-        // comes into play when remeasuring to reduce either the width/height.
-        _contentWidth = 0;
-        _contentHeight = 0;
-               
         // percentWidth and/or percentHeight will come back in as constraints
         // on the remeasure if we're autoSizing.
                           
@@ -1953,10 +1943,25 @@ public class RichEditableText extends UIComponent
             // Go large.  For performance reasons, want to avoid a scrollRect 
             // whenever possible in drawBackgroundAndSetScrollRect().  This is
             // particularly true for 1 line TextInput components.
-            measuredWidth = !isNaN(explicitWidth) ? explicitWidth :
-                            Math.ceil(calculateWidthInChars());
-            measuredHeight = !isNaN(explicitHeight) ? explicitHeight :
-                             Math.ceil(calculateHeightInLines());
+            if (!isNaN(widthConstraint))
+            {
+                measuredWidth = widthConstraint;
+            }
+            else
+            {                
+                measuredWidth = !isNaN(explicitWidth) ? explicitWidth :
+                                Math.ceil(calculateWidthInChars());
+            }
+            
+            if (!isNaN(heightConstraint))
+            {            
+                measuredHeight = heightConstraint;
+            }
+            else
+            {
+                measuredHeight = !isNaN(explicitHeight) ? explicitHeight :
+                                 Math.ceil(calculateHeightInLines());
+            }
         }
         else
         {
@@ -2091,10 +2096,6 @@ public class RichEditableText extends UIComponent
         
         // TODO:(cframpto) compositionWidth can be NaN when 
         // autoSize for blockProgression=="rl" is implemented
-        
-        // FIXME:(cframpto) remove NaN check when TLF setter is fixed
-        // to check for NaN correctly
-        
         if (!autoSize)
         {
             _textContainerManager.compositionWidth = unscaledWidth;
@@ -2102,6 +2103,21 @@ public class RichEditableText extends UIComponent
         }
             
         _textContainerManager.updateContainer();
+        
+        // Because our EditManager override of updateAllControllers() does
+        // not call the composer's flowComposer.updateAllControllers() 
+        // immediately, when an editing operation occurs, scrollToRange() in 
+        // EditManager.finalizeDo() may be a no-op and will need to be done 
+        // after the container is really updated.
+        if (scrollAfterUpdate)
+        {
+            _textContainerManager.scrollToRange(_selectionAnchorPosition, 
+                                                _selectionActivePosition);
+            scrollAfterUpdate = false;                                                
+        }
+                                                
+        widthConstraint = NaN;
+        heightConstraint = NaN;                   
     }
 
     /**
@@ -2193,8 +2209,6 @@ public class RichEditableText extends UIComponent
     {
         super.explicitWidth = value;
 
-        widthConstraint = NaN;
-        
         // Because of autoSizing, the size and display might be impacted.
         invalidateSize();
         invalidateDisplayList();
@@ -2229,8 +2243,6 @@ public class RichEditableText extends UIComponent
     {
         super.percentWidth = value;
 
-        widthConstraint = NaN;
-        
         // If we were autoSizing and now we are not we need to remeasure.
         invalidateSize();
         invalidateDisplayList();
@@ -2477,11 +2489,16 @@ public class RichEditableText extends UIComponent
      */
     mx_internal function isMeasureFixed():Boolean
     {
-        return ((!isNaN(explicitWidth) || !isNaN(_widthInChars)) &&
-                (!isNaN(explicitHeight) || !isNaN(_heightInLines)) ||
-                hostFormat.blockProgression != BlockProgression.TB);   
-    }
+        if (hostFormat.blockProgression != BlockProgression.TB)
+            return true;
             
+        // Is there some sort of width and some sort of height?
+        return  (!isNaN(explicitWidth) || !isNaN(_widthInChars) ||
+                 !isNaN(widthConstraint)) &&
+                (!isNaN(explicitHeight) || !isNaN(_heightInLines) ||
+                 !isNaN(heightConstraint));
+    }
+           
     /**
      *  @private
      *  Returns the bounds of the measured text.  The initial composeWidth may
@@ -2504,11 +2521,8 @@ public class RichEditableText extends UIComponent
         }
         
         // The bottom border can grow to allow all the text to fit.
-        // If dimension is NaN, composer will measure text in that 
-        // direction.  This can cause a damage event if changed. 
         _textContainerManager.compositionWidth = composeWidth;
-        if (!isNaN(_textContainerManager.compositionHeight))
-            _textContainerManager.compositionHeight = NaN;
+        _textContainerManager.compositionHeight = NaN;
 
         // Compose only.  The display should not be updated.
         _textContainerManager.compose();
@@ -2552,10 +2566,14 @@ public class RichEditableText extends UIComponent
      */
     private function remeasureText(width:Number, height:Number):Boolean
     {   
-        // Neither dimensions changed.
+        // Neither dimensions changed.  If auto-sizing we're still auto-sizing.
         if (width == measuredWidth && height == measuredHeight)
             return false;
              
+        // Either constraints are preventing auto-sizing or we need to
+        // remeasure which will reset autoSize.
+        autoSize = false;
+        
         if (width != measuredWidth)
         {
             // Do we have a constrained width and an explicit height?
@@ -2573,7 +2591,8 @@ public class RichEditableText extends UIComponent
 
             widthConstraint = width;
         } 
-        else // height != measuredHeight
+        
+        if (height != measuredHeight)
         {        
             // Do we have a constrained height and an explicit width?
             // If so, the sizes are set so no need to remeasure now.
@@ -2581,7 +2600,7 @@ public class RichEditableText extends UIComponent
                 return false;
 
             // Is there no height?
-            if (height == heightConstraint || height == 0)
+            if (height == 0)
                 return false;
 
             heightConstraint = height;
@@ -2829,8 +2848,7 @@ public class RichEditableText extends UIComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function scrollToRange(anchorPosition:int = 0,
-                                  activePosition:int = int.MAX_VALUE):void
+    public function scrollToRange(anchorPosition:int, activePosition:int):void
     {
         // Make sure the properties are commited and the text is composed.
         validateNow();
@@ -3389,6 +3407,23 @@ public class RichEditableText extends UIComponent
             _textContainerManager.getContentBounds();
         var newContentWidth:Number = newContentBounds.width;
         
+        // TODO:(cframpto) handle blockProgression == RL
+        
+        // If we are scrolling, and reflowing text to fit the width, there
+        // should never be a horizontal scroll bar. For the content width 
+        // property which is in the IViewport interface, return the
+        // compositionWidth which will be more constant than the content
+        // width.  This is an attempt to minimize the scroller's confusion
+        // and many layouts due to the ever-changing content width.
+        
+        if (_clipAndEnableScrolling &&
+            hostFormat.blockProgression == BlockProgression.TB &&
+            hostFormat.lineBreak == "toFit" &&
+            !isNaN(_textContainerManager.compositionWidth))
+        {
+            newContentWidth = _textContainerManager.compositionWidth;
+        }
+
         // TODO:(cframpto) Figure out if we still need these checks.
         // Error correction for rounding errors.  It shouldn't be so but
         // the contentWidth can be slightly larger than the requested
@@ -3397,16 +3432,16 @@ public class RichEditableText extends UIComponent
             Math.round(newContentWidth) == 
             _textContainerManager.compositionWidth)
         { 
-            trace("***contentWidth > compositionWidth", newContentWidth, _textContainerManager.compositionWidth);
             newContentWidth = _textContainerManager.compositionWidth;
         }
-            
+
         if (newContentWidth != oldContentWidth)
         {
             _contentWidth = newContentWidth;
             
             //trace("contentWidth", oldContentWidth, newContentWidth);
 
+            // If there is a scroller, this triggers the scroller layout.
             dispatchPropertyChangeEvent(
                 "contentWidth", oldContentWidth, newContentWidth);
         }
@@ -3421,7 +3456,6 @@ public class RichEditableText extends UIComponent
             Math.round(newContentHeight) == 
             _textContainerManager.compositionHeight)
         { 
-            trace("***contentHeight > compositionHeight", newContentHeight, _textContainerManager.compositionHeight);
             newContentHeight = _textContainerManager.compositionHeight;
         }
             
@@ -3431,6 +3465,7 @@ public class RichEditableText extends UIComponent
             
             //trace("contentHeight", oldContentHeight, newContentHeight);
             
+            // If there is a scroller, this triggers the scroller layout.
             dispatchPropertyChangeEvent(
                 "contentHeight", oldContentHeight, newContentHeight);
         } 
