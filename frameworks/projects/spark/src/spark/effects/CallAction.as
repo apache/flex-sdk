@@ -31,6 +31,11 @@ import mx.effects.effectClasses.CallActionInstance;
  * with other effects.
  *  
  * @see mx.effects.effectClasses.CallFunctionActionInstance
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class CallAction extends Effect
 {
@@ -46,6 +51,11 @@ public class CallAction extends Effect
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function CallAction(target:Object = null)
     {
@@ -66,6 +76,11 @@ public class CallAction extends Effect
 
     /** 
      * Name of the function that will be called on the target when this effect plays
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var functionName:String;
     
@@ -76,6 +91,11 @@ public class CallAction extends Effect
     /** 
      * Parameters that will be supplied to the function that is called
      * by this effect
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var parameters:Array;
 
