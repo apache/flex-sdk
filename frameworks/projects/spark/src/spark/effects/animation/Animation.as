@@ -774,12 +774,17 @@ public final class Animation
                         }
                     }
                 }
+                else if (currentTime > duration)
+                {
+                    currentTime = duration;
+                    _playheadTime = duration;
+                }
             }
             _cycleTime = currentTime;
             
             calculateValue(currentTime);
 
-            if (currentTime >= duration)
+            if (currentTime >= duration && !_doSeek)
             {
                 end();
                 animationEnded = true;
