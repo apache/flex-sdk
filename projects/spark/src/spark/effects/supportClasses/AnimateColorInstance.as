@@ -16,8 +16,13 @@ import spark.effects.interpolation.RGBInterpolator;
 import mx.styles.StyleManager;
 
 /**
- * The instance of the AnimateColor effect, which animates a change in
- * color by interpolating the from/to values per color channel
+ *  The AnimateColorInstance class is the instance class of 
+ *  the AnimateColor effect, which animates a change in
+ *  color by interpolating the from/to values per color channel.
+ *  Flex creates an instance of this class when
+ *  it plays a AnimateFilter effect; you do not create one yourself.
+ *
+ *  @see spark.effects.AnimateColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -27,7 +32,7 @@ import mx.styles.StyleManager;
 public class AnimateColorInstance extends AnimateInstance
 {
     /**
-     * copy mx.effects.AnimateColor#colorFrom
+     *  @copy spark.effects.AnimateColor#colorFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -37,7 +42,7 @@ public class AnimateColorInstance extends AnimateInstance
     public var colorFrom:uint;
 
     /**
-     * copy mx.effects.AnimateColor#colorTo
+     *  @copy spark.effects.AnimateColor#colorTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -47,7 +52,7 @@ public class AnimateColorInstance extends AnimateInstance
     public var colorTo:uint;
 
     /**
-     * copy mx.effects.AnimateColor#colorPropertyName
+     *  @copy spark.effects.AnimateColor#colorPropertyName
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -56,6 +61,16 @@ public class AnimateColorInstance extends AnimateInstance
      */
     public var colorPropertyName:String;
 
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function AnimateColorInstance(target:Object)
     {
         super(target);
