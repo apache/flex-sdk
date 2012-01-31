@@ -82,7 +82,7 @@ public class Consumer extends AbstractConsumer
     //--------------------------------------------------------------------------
 
     /**
-     *  Constructs a Consumer.
+     *  Constructor.
      * 
      *  @param messageType The alias for the message type processed by the service
      *                     hosting the remote destination the Consumer will subscribe to.
