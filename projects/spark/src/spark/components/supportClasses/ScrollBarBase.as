@@ -273,6 +273,17 @@ public class FxScrollBar extends FxTrackBase
     
     /**
      *  @private
+     */
+    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+    {
+        super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
+        // Hide the thumb if there is no room to display it
+        if (thumb)
+            thumb.visible = thumbSize < trackSize;
+    }
+    /**
+     *  @private
      */    
     override protected function partAdded(partName:String, instance:Object):void
     {
