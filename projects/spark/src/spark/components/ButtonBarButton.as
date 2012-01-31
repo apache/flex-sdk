@@ -114,6 +114,37 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
          content = value;
     }
     
+    //----------------------------------
+    //  labelText
+    //----------------------------------
+    
+    /**
+     *  @private 
+     */
+    private var _labelText:String = "";
+    
+    /**
+     *  @inheritDoc  
+     *  
+     */
+    public function get labelText():String
+    {
+        return _labelText;
+    }
+    
+    /**
+     *  @private 
+     */
+    public function set labelText(value:String):void
+    {
+        if (value != _labelText)
+        {
+            _labelText = value;
+            if (labelElement)
+                labelElement.text = _labelText;
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event handling
