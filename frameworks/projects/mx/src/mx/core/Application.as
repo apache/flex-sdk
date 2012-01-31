@@ -1217,7 +1217,7 @@ public class Application extends LayoutContainer
             var rc:Number;
             var sc:Number;
             var globalSelector:CSSStyleDeclaration = 
-                styleManager.getStyleDeclaration("global");
+                styleManager.getMergedStyleDeclaration("global");
             
             if (globalSelector)
             {
