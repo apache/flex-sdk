@@ -24,6 +24,11 @@ import mx.resources.ResourceManager;
  *  thrown by the VideoDisplay control.
  *
  *  @see mx.controls.VideoDisplay
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */ 
 public class VideoError extends Error 
 {
@@ -43,41 +48,81 @@ public class VideoError extends Error
 
     /**
      *  Unable to make connection to server or to find FLV on server.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const NO_CONNECTION:uint = 1000;
 
     /**
      *  No matching cue point found.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const NO_CUE_POINT_MATCH:uint = 1001;
 
     /**
      *  Illegal cue point.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const ILLEGAL_CUE_POINT:uint = 1002;
 
     /**
      *  Invalid seek.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INVALID_SEEK:uint = 1003;
 
     /**
      *  Invalid content path.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INVALID_CONTENT_PATH:uint = 1004;
 
     /**
      *  Invalid XML.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const INVALID_XML:uint = 1005;
 
     /**
      *  No bitrate match.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const NO_BITRATE_MATCH:uint = 1006;
 
     /**
      *  Cannot delete default VideoPlayer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DELETE_DEFAULT_PLAYER:uint = 1007;
     
@@ -93,6 +138,11 @@ public class VideoError extends Error
      *  @param The error code.
      *
      *  @param msg The error message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function VideoError(errCode:uint, msg:String = null) 
     {
@@ -141,6 +191,11 @@ public class VideoError extends Error
 
     /**
      *  Contains the error code.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get code():uint 
     { 
