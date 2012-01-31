@@ -111,7 +111,7 @@ public class FxAnimateInstance extends EffectInstance
      * effect to manually keep the item around and remove it when the
      * transition completes. In order to use this capability, subclasses
      * should set this variable to true and also expose the "parent"
-     * and "elementHost" properties in their affectedProperties array so 
+     * property in their affectedProperties array so 
      * that the effect instance has enough information about the target
      * and container to do the job.
      */
@@ -584,16 +584,6 @@ public class FxAnimateInstance extends EffectInstance
                     needsRemoval = true;
                 }
             }
-            else if ("elementHost" in target && !target.elementHost)
-            {
-                var hostStart:* = propertyChanges.start["elementHost"];
-                var hostEnd:* = propertyChanges.end["elementHost"];
-                if (hostStart && !hostEnd)
-                {
-                    hostStart.addItem(target);
-                    needsRemoval = true;
-                }
-            }
         }
     }
 
@@ -623,13 +613,6 @@ public class FxAnimateInstance extends EffectInstance
                     else
                         parentStart.removeChild(target);
                 }
-            }
-            else if ("elementHost" in target && target.elementHost)
-            {
-                var hostStart:* = propertyChanges.start["elementHost"];
-                var hostEnd:* = propertyChanges.end["elementHost"];
-                if (hostStart && !hostEnd)
-                    hostStart.removeItem(target);
             }
         }
     }
@@ -672,10 +655,6 @@ public class FxAnimateInstance extends EffectInstance
                     {
                         parentH = target.parent.height;
                     }
-                    else if ("elementHost" in target && target.elementHost)
-                    {
-                        parentH = target.elementHost.height;
-                    }
                 }
                 
                 // For 'right' or 'horizontalCenter' we need the parent width
@@ -685,10 +664,6 @@ public class FxAnimateInstance extends EffectInstance
                     if ("parent" in target && target.parent)
                     {
                         parentW = target.parent.width;
-                    }
-                    else if ("elementHost" in target && target.elementHost)
-                    {
-                        parentW = target.elementHost.width;
                     }
                 }
 
@@ -851,10 +826,7 @@ public class FxAnimateInstance extends EffectInstance
         {
             parent = target.parent;
         }
-        else if ("elementHost" in target && target.elementHost)
-        {
-            parent = target.elementHost;
-        }
+        
         if (parent)
         {
             if (parent is Container)
