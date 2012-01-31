@@ -16,7 +16,7 @@
 
 	<property file="${FLEX_HOME}/build.properties"/>
 
-	<target name="main" depends="clean,compile" description="Clean build of flex4.swc"/>
+	<target name="main" depends="clean,compile,en_US" description="Clean build of flex4.swc and its English resources"/>
 
 	<target name="clean">
 		<delete failonerror="false">
@@ -25,6 +25,10 @@
 				<include name="flex4.swc"/>
 				<include name="graphics.swc"/>
 				<include name="flex4.swc.incr"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/flex4_rb.swc"/>
+				<include name="*/flex4_rb.swc.incr"/>
 			</fileset>
 		</delete>
 	</target>
@@ -73,6 +77,42 @@
 			<accessible>true</accessible>
 		</compc>
 		<delete file="${FLEX_HOME}/frameworks/version.properties"/>
+	</target>
+
+	<!-- This is a private target for building flex4_rb.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+	<target name="bundle">
+		<echo message="Compiling frameworks/locale/${locale}/flex4_rb.swc"/>
+		<!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<compc fork="true"
+			   output="${FLEX_HOME}/frameworks/locale/${locale}/flex4_rb.swc"
+			   locale="${locale}">
+            
+            <target-player>10</target-player>
+			<jvmarg line="${compc.jvm.args}"/>
+ 			<include-resource-bundles bundle="components"/>
+			<include-resource-bundles bundle="sparkEffects"/>
+			<include-resource-bundles bundle="layout"/>
+			<include-namespaces/>
+			<include-classes/>
+			<source-path path-element="${basedir}/bundles/${locale}"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/flex4/src"/>
+			<source-path path-element="${FLEX_HOME}/frameworks/projects/framework/src"/>
+			<include-libraries/>
+			<library-path/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="player/${local.playerglobal.version}/playerglobal.swc"/>
+			</external-library-path>
+		</compc>
+	</target>
+
+	<!-- Targets for compiling flex4_rb.swc for various locales -->
+	<target name="en_US" description="American English resources">
+		<antcall target="bundle">
+			<param name="locale" value="en_US"/>
+		</antcall>
 	</target>
 
 	<target name="doc" depends="clean-temp-docs" description="updates flex4.swc with asdoc xml">
