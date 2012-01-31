@@ -3191,12 +3191,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         dataProvider.sort = sort;
         dataProvider.refresh();
-        columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
         return true;
     }
 
     /**
-     *  @priavte
+     *  @private
      *  This function builds an array of SortFields based on the column
      *  indices given. The direction is based on the current value of
      *  sortDescending from the column.
@@ -3888,7 +3887,9 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             return;
     
         const columnIndices:Vector.<int> = Vector.<int>([column.columnIndex]);
-        sortByColumns(columnIndices);
+        
+        if (sortByColumns(columnIndices))
+            columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
     }
     
     /**
