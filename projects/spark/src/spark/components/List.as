@@ -1234,10 +1234,37 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     protected function item_mouseDownHandler(event:MouseEvent):void
     {
+		//Fix up selection 
+		var newIndex:Number = dataGroup.getElementIndex(event.currentTarget as IVisualElement); 
+		
+		if (!allowMultipleSelection)
+		{
+			var currentRenderer:IItemRenderer;
+			if (caretIndex >= 0)
+			{
+				currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
+				if (currentRenderer)
+					currentRenderer.showsCaret = false;
+			}
+			
+			// Check to see if we're deselecting the currently selected item 
+			if (event.ctrlKey && selectedIndex == newIndex)
+				selectedIndex = NO_SELECTION;
+				// Otherwise, select the new item 
+			else
+				selectedIndex = newIndex;
+		}
+		else 
+		{
+			// Multiple selection is handled by the helper method below
+			selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
+		}
+		
         var renderer:IItemRenderer = event.currentTarget as IItemRenderer;
-        if (!renderer || !renderer.selected)
+        if (!renderer || !dragEnabled)
             return;
         
+		// Set properties in order to prepare for a potential drag & drop gesture 
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
         
         // Find the index of the item we're down on, this is the drag focus item.
@@ -1646,9 +1673,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!renderer)
             return;
         
-        renderer.addEventListener(MouseEvent.CLICK, item_clickHandler);
-        if (dragEnabled)
-            renderer.addEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
+        renderer.addEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
     }
     
     /**
@@ -1663,44 +1688,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (!renderer)
             return;
         
-        renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
-        if (dragEnabled)
-            renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
-    }
-    
-    /**
-     *  @private
-     *  Called when an item is clicked.
-     */
-    protected function item_clickHandler(event:MouseEvent):void
-    {
-        var newIndex:Number; 
-        
-        if (!allowMultipleSelection)
-        {
-            // Single selection case, set the selectedIndex 
-            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);  
-            
-            var currentRenderer:IItemRenderer;
-            if (caretIndex >= 0)
-            {
-                currentRenderer = dataGroup.getElementAt(caretIndex) as IItemRenderer;
-                if (currentRenderer)
-                    currentRenderer.showsCaret = false;
-            }
-
-            // Check to see if we're deselecting the currently selected item 
-            if (event.ctrlKey && selectedIndex == newIndex)
-                selectedIndex = NO_SELECTION;
-            // Otherwise, select the new item 
-            else
-                selectedIndex = newIndex;
-        }
-        else 
-        {
-            // Multiple selection is handled by the helper method below
-            selectedIndices = calculateSelectedIndicesInterval(event.currentTarget as IVisualElement, event.shiftKey, event.ctrlKey); 
-        }
+        renderer.removeEventListener(MouseEvent.MOUSE_DOWN, item_mouseDownHandler);
     }
     
     /**
