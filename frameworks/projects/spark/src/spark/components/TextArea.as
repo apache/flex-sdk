@@ -89,6 +89,11 @@ use namespace mx_internal;
  *  high-quality international typography and layout.
  *  The older MX version of TextArea displays text using the older
  *  TextField class.</p>
+ * 
+ *  <p>The mobile theme uses TextField-based text instead of RichEditableText.
+ *  Some TLF-only features are not supported in the mobile theme including
+ *  TextFlow, right-to-left or bidirectional text, and advanced text 
+ *  styles.</p>
  *
  *  <p>The most important differences between Spark TextArea and the
  *  MX TextArea control are as follows:
@@ -174,7 +179,7 @@ use namespace mx_internal;
  *  of character that the user can enter and the <code>restrict</code>
  *  to limit which characters the user can enter.</p>
  *
- *  <p>This control is a skinnable control whose skin uses a
+ *  <p>This control is a skinnable control whose default skin uses a
  *  RichEditableText control to display and edit the text
  *  and a Scroller control to provide scrollbars.
  *  The RichEditableText can be accessed as <code>textDisplay</code>
