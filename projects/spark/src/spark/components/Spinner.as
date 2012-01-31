@@ -14,12 +14,12 @@ package spark.components
 
 import flash.events.Event;
 import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
-import spark.components.supportClasses.Range;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
+
+import spark.components.supportClasses.Range;
 
 /**
  *  Dispatched when the value of the Spinner control changes
@@ -333,9 +333,9 @@ public class Spinner extends Range implements IFocusManagerComponent
      */
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
-        if (event.isDefaultPrevented())
-            return;
-        
+    	if (event.isDefaultPrevented())
+    		return;
+    	        
         var prevValue:Number = this.value;
         var stopPropagation:Boolean = false;
                 
