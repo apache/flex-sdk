@@ -734,7 +734,10 @@ public class RichText extends TextGraphicElement
         }
         else if (textChanged)
         {
-            textFlow = null;
+            if (textHasLineBreaks())
+	            textFlow = createTextFlowFromText(_text);
+            else
+            	textFlow = null;
         }
 
         contentChanged = false;
@@ -782,6 +785,27 @@ public class RichText extends TextGraphicElement
         }
 
         return textFlow;
+    }
+    
+    /**
+     *  @private
+     */
+    private function textHasLineBreaks():Boolean
+    {
+    	return text.indexOf("\n") != -1 ||
+    		   text.indexOf("\r") != -1;
+    }
+    
+    /**
+     *  @private
+	 *  Splits 'text' into paragraphs on \n, etc.
+     */
+    private function createTextFlowFromText(text:String):TextFlow
+    {
+    	var importer:ITextImporter =
+    		TextFilter.getImporter(TextFilter.PLAIN_TEXT_FORMAT);
+    		
+    	return importer.importToFlow(text);
     }
 
     /**
