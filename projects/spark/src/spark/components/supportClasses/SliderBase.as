@@ -96,7 +96,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     /**
      *  @private
      */
-    override protected function partAdded(partName:String, instance:*):void
+    override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
         
@@ -104,6 +104,20 @@ public class Slider extends TrackBase implements IFocusManagerComponent
         {
             thumb.addEventListener(KeyboardEvent.KEY_DOWN, 
                                    thumb_keyboardHandler);
+        }
+    }
+    
+    /**
+     *  @private
+     */
+    override protected function partRemoved(partName:String, instance:Object):void
+    {
+        super.partRemoved(partName, instance);
+        
+        if (instance == thumb)
+        {
+            thumb.removeEventListener(KeyboardEvent.KEY_DOWN, 
+                                      thumb_keyboardHandler);
         }
     }
 
