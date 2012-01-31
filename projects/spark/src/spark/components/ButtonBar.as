@@ -115,7 +115,7 @@ public class FxButtonBar extends FxListBase
     {
         super.itemSelected(index, selected);
         
-        var renderer:Object = dataGroup.getItemRenderer(index);
+        var renderer:Object = dataGroup.mx_internal::getRendererForItemAt(index);
         
         if (renderer)
         {
@@ -221,7 +221,8 @@ public class FxButtonBar extends FxListBase
      */
     private function item_clickHandler(event:MouseEvent):void
     {
-        var index:int = dataGroup.getRendererItem(event.currentTarget as IVisualElement);
+        var index:int = dataGroup.mx_internal::getItemIndexForRenderer(
+                            event.currentTarget as IVisualElement);
 		
 		selectedIndex = index;
     }
@@ -238,13 +239,14 @@ public class FxButtonBar extends FxListBase
 		var renderer:Object;
 
 		currentButton = focusManager.getFocus();
-		index = dataGroup.getRendererItem(currentButton as IVisualElement);
+		index = dataGroup.mx_internal::getItemIndexForRenderer(
+		              currentButton as IVisualElement);
 
 		var n:int = dataProvider.length;
 		var zz:int = 0;
 		for (var i:int = 0; i < n; i++)
 		{
-			renderer = dataGroup.getItemRenderer(i);
+			renderer = dataGroup.mx_internal::getRendererForItemAt(i);
 			if (renderer == currentButton)
 				renderer.layer = n - 1;
 			else
@@ -268,10 +270,11 @@ public class FxButtonBar extends FxListBase
             {
 				focusManager.showFocusIndicator = true;
 				currentButton = focusManager.getFocus();
-		        index = dataGroup.getRendererItem(currentButton as IVisualElement);
+		        index = dataGroup.mx_internal::getItemIndexForRenderer(
+		                  currentButton as IVisualElement);
 				if (index > 0)
 				{
-					renderer = dataGroup.getItemRenderer(index-1);
+					renderer = dataGroup.mx_internal::getRendererForItemAt(index-1);
 					IFocusManagerComponent(renderer).setFocus();
 				}
 
@@ -282,10 +285,11 @@ public class FxButtonBar extends FxListBase
             {
 				focusManager.showFocusIndicator = true;
 				currentButton = focusManager.getFocus();
-		        index = dataGroup.getRendererItem(currentButton as IVisualElement);
+		        index = dataGroup.mx_internal::getItemIndexForRenderer(
+		                  currentButton as IVisualElement);
 				if (index < dataProvider.length - 1)
 				{
-					renderer = dataGroup.getItemRenderer(index+1);
+					renderer = dataGroup.mx_internal::getRendererForItemAt(index+1);
 					IFocusManagerComponent(renderer).setFocus();
 				}
 
