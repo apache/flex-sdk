@@ -15,6 +15,10 @@ import mx.effects.effectClasses.FxFadeInstance;
 
 import mx.effects.IEffectInstance;
 
+/**
+ * 
+ *  @includeExample examples/FxFadeEffectExample.mxml
+ */
 public class FxFade extends FxAnimate
 {
     public function FxFade(target:Object=null)
