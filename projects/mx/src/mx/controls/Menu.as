@@ -1312,7 +1312,7 @@ public class Menu extends List implements IFocusManagerContainer
      *  Toggles the menu item. The menu item type identifier must be a
      *  check box or radio button, otherwise this method has no effect.
      *
-     *  @param item The menu item to toggle
+     *  @param item The menu item to toggle.
      *  @param toggle Boolean value that indicates whether the item is 
      *  toggled. 
      */
@@ -1446,25 +1446,25 @@ public class Menu extends List implements IFocusManagerContainer
         var duration:Number = getStyle("openDuration");
         if (duration != 0)
         {
-	        scrollRect = new Rectangle(0, 0, unscaledWidth, 0);
-	
-	        // Make it visible
-	        visible = true;
-	        
-	        UIComponentGlobals.layoutManager.validateNow();
-	
-	        // Block all layout, responses from web service, and other background
-	        // processing until the tween finishes executing.
-	        UIComponent.suspendBackgroundProcessing();
-	
-	        popupTween = new Tween(this, [0,0], [unscaledWidth,unscaledHeight], duration);
+            scrollRect = new Rectangle(0, 0, unscaledWidth, 0);
+    
+            // Make it visible
+            visible = true;
+            
+            UIComponentGlobals.layoutManager.validateNow();
+    
+            // Block all layout, responses from web service, and other background
+            // processing until the tween finishes executing.
+            UIComponent.suspendBackgroundProcessing();
+    
+            popupTween = new Tween(this, [0,0], [unscaledWidth,unscaledHeight], duration);
         }
         else 
         {
-        	// if duration is zero, this should allow alternate 
-        	// effects specified via showEffect to work
-			UIComponentGlobals.layoutManager.validateNow();
-			visible = true;
+            // if duration is zero, this should allow alternate 
+            // effects specified via showEffect to work
+            UIComponentGlobals.layoutManager.validateNow();
+            visible = true;
         }
         
         focusManager.setFocus(this);
@@ -1928,8 +1928,8 @@ public class Menu extends List implements IFocusManagerContainer
                 {
                     supposedToLoseFocus = true;
                     sourceMenuBar.setFocus();
-		            // Redispatch the event to the MenuBar
-		            // and let its keyDownHandler() handle it.
+                    // Redispatch the event to the MenuBar
+                    // and let its keyDownHandler() handle it.
                     sourceMenuBar.dispatchEvent(event);
                 }
             }
@@ -1948,8 +1948,8 @@ public class Menu extends List implements IFocusManagerContainer
                 supposedToLoseFocus = true;
                 menu.setFocus();
                 
-				// start at -1 and move down 1
-				menu.moveSelBy(-1, 1);
+                // start at -1 and move down 1
+                menu.moveSelBy(-1, 1);
             }
             else if (rowData)
             {
@@ -2027,28 +2027,28 @@ public class Menu extends List implements IFocusManagerContainer
             
         var limit:Number = Math.max(0, Math.min(rowCount, collection.length) - 1);
 
-		var newIndex:Number = curIndex;
-		var item:Object;
-		var curItem:int = 0;
-		
-		do
-		{ 
-			newIndex = newIndex + incr;
-			
-			if (curItem > limit)
-				return;
-			else
-				curItem++;
-			
-			if (newIndex > limit)
-	            newIndex = 0;
-	        else if (newIndex < 0)
-	            newIndex = limit;
-	
-	        item = listItems[newIndex][0];
-	        
-		}
-		while (item.data && (_dataDescriptor.getType(item.data) == "separator" || !_dataDescriptor.isEnabled(item.data)));
+        var newIndex:Number = curIndex;
+        var item:Object;
+        var curItem:int = 0;
+        
+        do
+        { 
+            newIndex = newIndex + incr;
+            
+            if (curItem > limit)
+                return;
+            else
+                curItem++;
+            
+            if (newIndex > limit)
+                newIndex = 0;
+            else if (newIndex < 0)
+                newIndex = limit;
+    
+            item = listItems[newIndex][0];
+            
+        }
+        while (item.data && (_dataDescriptor.getType(item.data) == "separator" || !_dataDescriptor.isEnabled(item.data)));
 
         var menuEvent:MenuEvent;
 
