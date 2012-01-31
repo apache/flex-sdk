@@ -51,7 +51,8 @@ import mx.core.INavigatorContent
  *  @see mx.containers.Accordion
  *  @see mx.containers.TabNavigator
  *  @see mx.containers.ViewStack
- *  
+ *  @includeExample examples/NavigatorContentExample.mxml
+ 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
