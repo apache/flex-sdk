@@ -23,9 +23,9 @@ import flash.events.SecurityErrorEvent;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
 
-import spark.events.LoaderInvalidationEvent;
-
 import mx.core.mx_internal;
+
+import spark.events.LoaderInvalidationEvent;
 use namespace mx_internal;
 
 //--------------------------------------
@@ -217,11 +217,13 @@ public class ContentRequest extends EventDispatcher
     {
         if (_content && _content is LoaderInfo)
         {
-            _content.addEventListener(Event.COMPLETE, content_completeHandler);
-            _content.addEventListener(IOErrorEvent.IO_ERROR, content_ioErrorHandler);
-            _content.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
-            _content.addEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
-            _content.addEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
+            var _contentLoaderInfo:LoaderInfo = LoaderInfo(_content);
+            
+            _contentLoaderInfo.addEventListener(Event.COMPLETE, content_completeHandler);
+            _contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, content_ioErrorHandler);
+            _contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
+            _contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
+            _contentLoaderInfo.addEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
         }
     }
     
@@ -232,11 +234,13 @@ public class ContentRequest extends EventDispatcher
     {
         if (_content && _content is LoaderInfo)
         {
-            _content.removeEventListener(Event.COMPLETE, content_completeHandler);
-            _content.removeEventListener(IOErrorEvent.IO_ERROR, content_ioErrorHandler);
-            _content.removeEventListener(ProgressEvent.PROGRESS, dispatchEvent);
-            _content.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
-            _content.removeEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
+            var _contentLoaderInfo:LoaderInfo = LoaderInfo(_content);
+            
+            _contentLoaderInfo.removeEventListener(Event.COMPLETE, content_completeHandler);
+            _contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, content_ioErrorHandler);
+            _contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS, dispatchEvent);
+            _contentLoaderInfo.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
+            _contentLoaderInfo.removeEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
         }
     }
     
