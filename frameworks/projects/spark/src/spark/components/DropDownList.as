@@ -43,6 +43,7 @@ import mx.events.FlexEvent;
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.components.supportClasses.ListBase;
+import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
 import spark.layouts.VerticalLayout;
 import spark.layouts.supportClasses.LayoutBase;
@@ -182,6 +183,7 @@ public class DropDownList extends List
     private var labelChanged:Boolean = false;
     // TODO (jszeto) Should this be protected?
     private var proposedSelectedIndex:Number = -1;
+    mx_internal static var PAGE_SIZE:int = 5;
 	
 	//--------------------------------------------------------------------------
     //
@@ -369,22 +371,6 @@ public class DropDownList extends List
     	invalidateProperties();
     }
     
-    //----------------------------------
-    //  layout
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    override public function get layout():LayoutBase
-    {
-    	// Since the dataGroup is optional, if it doesn't exist yet,
-    	// then just default to using a VerticalLayout so that keyboard
-        // navigation will still work. 
-        return (dataGroup) 
-            ? super.layout 
-            : new VerticalLayout();
-    }
     
     //----------------------------------
     //  selectedIndices
@@ -576,10 +562,13 @@ public class DropDownList extends List
         
         if (!dropDownController.processKeyDown(event))
         {
+        	var navigationUnit:uint;
+        	var proposedNewIndex:int = -1;
+        	
 			if (dropDownController.isOpen)
 			{	
-	        	var navigationUnit:uint = mapEventToNavigationUnit(event);
-	        	var proposedNewIndex:int = layout.getDestinationIndex(navigationUnit, proposedSelectedIndex)
+	        	navigationUnit = mapEventToNavigationUnit(event);
+	        	proposedNewIndex = layout.getDestinationIndex(navigationUnit, proposedSelectedIndex)
 	        	
 	        	if (proposedNewIndex != -1)
 	        	{
@@ -589,10 +578,45 @@ public class DropDownList extends List
 	        		ensureItemIsVisible(proposedSelectedIndex);
 	        	}
 	   		}
-	   		else
+	   		else if (dataProvider)
 	   		{
-	   			super.keyDownHandler(event);
-	   		}
+	   			navigationUnit = mapEventToNavigationUnit(event);
+	   			
+	   			switch (navigationUnit)
+		        {
+		            case NavigationUnit.UP:
+		               proposedNewIndex = selectedIndex - 1;  
+		               break;
+		
+		            case NavigationUnit.DOWN: 
+		               proposedNewIndex = selectedIndex + 1;  
+		               break;
+		             
+		            case NavigationUnit.PAGE_UP:
+		               proposedNewIndex = selectedIndex == -1 ? 
+		               						-1 : Math.max(selectedIndex - mx_internal::PAGE_SIZE, 0);  
+		               break;
+			   		
+			   		case NavigationUnit.PAGE_DOWN:
+		               proposedNewIndex = selectedIndex + mx_internal::PAGE_SIZE;  
+		               break;
+		               
+            		case NavigationUnit.HOME:
+		               proposedNewIndex = 0;  
+		               break;
+
+             		case NavigationUnit.END:
+		               proposedNewIndex = dataProvider.length - 1;  
+		               break;
+		               
+		               
+		        }
+		        
+		        proposedNewIndex = Math.min(proposedNewIndex, dataProvider.length - 1);
+		        
+		        if (proposedNewIndex >= 0)
+		        	selectedIndex = proposedNewIndex;
+		    }
         }
 
 	}
