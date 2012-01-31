@@ -9,18 +9,21 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.core.contentLoader
+package spark.core
 {
 
 import flash.display.Loader;
 import flash.display.LoaderInfo;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.HTTPStatusEvent;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
 import flash.events.SecurityErrorEvent;
 import flash.net.URLRequest;
 import flash.system.LoaderContext;
+
+import spark.events.LoaderInvalidationEvent;
 
 import mx.core.mx_internal;
 use namespace mx_internal;
@@ -145,7 +148,7 @@ public class ContentRequest extends EventDispatcher
     /**
      * @private
      */  
-    protected var _content:*;
+    protected var _content:Object;
     
     /**
      *  Returns reference to contained content. This
@@ -158,7 +161,7 @@ public class ContentRequest extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */   
-    public function get content():*
+    public function get content():Object
     {
         return _content;
     }
@@ -166,7 +169,7 @@ public class ContentRequest extends EventDispatcher
     /**
      * @private
      */   
-    public function set content(value:*):void
+    public function set content(value:Object):void
     {
         removeLoaderListeners();
         _content = value;
@@ -180,8 +183,8 @@ public class ContentRequest extends EventDispatcher
     /**
      *  Read-only flag. Returns true if content is 
      *  considered fully loaded and accessible.
-	 * 
-	 *  @default false.
+     * 
+     *  @default false.
      */  
     public function get complete():Boolean
     {
@@ -211,6 +214,7 @@ public class ContentRequest extends EventDispatcher
             _content.addEventListener(IOErrorEvent.IO_ERROR, content_ioErrorHandler);
             _content.addEventListener(ProgressEvent.PROGRESS, dispatchEvent);
             _content.addEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
+            _content.addEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
         }
     }
     
@@ -225,6 +229,7 @@ public class ContentRequest extends EventDispatcher
             _content.removeEventListener(IOErrorEvent.IO_ERROR, content_ioErrorHandler);
             _content.removeEventListener(ProgressEvent.PROGRESS, dispatchEvent);
             _content.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, dispatchEvent);
+            _content.removeEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
         }
     }
     
@@ -245,18 +250,18 @@ public class ContentRequest extends EventDispatcher
             removeLoaderListeners();
         }
     }
-	
-	/**
-	 * @private
-	 */ 
-	mx_internal function content_ioErrorHandler(e:Event):void
-	{
-		if (e.target == _content)
-		{
-			if (hasEventListener(IOErrorEvent.IO_ERROR))
-				dispatchEvent(e);
-		}
-	}
+    
+    /**
+     * @private
+     */ 
+    mx_internal function content_ioErrorHandler(e:Event):void
+    {
+        if (e.target == _content)
+        {
+            if (hasEventListener(IOErrorEvent.IO_ERROR))
+                dispatchEvent(e);
+        }
+    }
     
     /**
      * @private
