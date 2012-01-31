@@ -23,7 +23,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Radius of component corners.
@@ -39,7 +39,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo")]
 
 /**
  *  Alphas used for the background fill of controls. Use [1, 1] to make the control background
@@ -52,7 +52,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no")]
+[Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
 
 /**
  *  Colors used to tint the background of the control.
@@ -65,7 +65,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
+[Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no", theme="halo")]
 
 /**
  *  Alpha transparencies used for the highlight fill of controls.
@@ -79,4 +79,4 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
+[Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no", theme="halo")]
