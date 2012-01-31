@@ -121,9 +121,6 @@ public class AnimateFilterInstance extends AnimateInstance
      */
     override protected function setValue(property:String, value:Object):void
     {
-        if (roundValues && (value is Number))
-            value = Math.round(Number(value));
-            
         bitmapFilter[property] = value;
     }
 
