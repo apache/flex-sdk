@@ -25,6 +25,11 @@ package mx.effects.interpolation
  * specific object types.</p>
  * 
  * @see mx.effects.Animation
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public interface IEaser
 {
@@ -45,6 +50,11 @@ public interface IEaser
      * and end point without a problem, but other value types (such as color) 
      * may not result in desired effects if they use time values that cause
      * them to surpass their endpoint values.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     function ease(fraction:Number):Number;
 }
