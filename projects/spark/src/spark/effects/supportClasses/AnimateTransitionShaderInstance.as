@@ -248,6 +248,7 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
 
     override protected function startHandler(event:AnimationEvent):void
     {
+        super.startHandler(event);
         // Note that we don't want the old filters active on the target
         // during the animation; these filters will already be accounted
         // for when we take a bitmap snapshot of the object. Applying
@@ -256,7 +257,6 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
         // we can replace them when we're done, and then use only our
         // shader filter during the animation.
         oldFilters  = target.filters;
-        
     }    
     override protected function endHandler(event:AnimationEvent):void
     {
