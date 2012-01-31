@@ -1168,6 +1168,7 @@ public class ColorPicker extends ComboBase
             dropdownSwatch.showTextField = showTextField;
             dropdownSwatch.selectedColor = selectedColor;
             dropdownSwatch.selectedIndex = selectedIndex;
+            dropdownSwatch.textInputClass = getStyle("textInputClass");
 
             var swatchPanelStyleName:Object = getStyle("swatchPanelStyleName");
             if (swatchPanelStyleName)
