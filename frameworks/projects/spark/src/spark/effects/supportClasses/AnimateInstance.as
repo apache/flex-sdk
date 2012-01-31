@@ -458,12 +458,6 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             var keyframes:Array = motionPaths[i].keyframes;
             if (!keyframes)
                 continue;
-            // Create an initial (time==0) value if necessary 
-            if (keyframes[0].time > 0)
-            {
-                keyframes.splice(0, 0, new KeyFrame(0, null));
-                keyframes[0].timeFraction = 0;
-            }
             if (interpolator)
                 mp.interpolator = interpolator;
             // adjust effect duration to be the max of all MotionPath keyframe times
@@ -473,14 +467,10 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             // knowing that they will derive their duration from their effects) and
             // actual keyframe-based MotionPaths.
             for (j = 0; j < keyframes.length; ++j)
-                if (isNaN(keyframes[j].time))
-                    keyframes[j].time = duration;
-                else
+                if (!isNaN(keyframes[j].time))
                     duration = Math.max(duration, keyframes[j].time);
 
         }
-        for (i = 0; i < motionPaths.length; ++i)
-            motionPaths[i].scaleKeyframes(duration);
 
         animation = new Animation(duration);
         animation.animationTarget = this;
