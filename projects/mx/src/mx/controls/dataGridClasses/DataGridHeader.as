@@ -29,6 +29,7 @@ import mx.core.EdgeMetrics;
 import mx.core.FlexSprite;
 import mx.core.IFlexDisplayObject;
 import mx.core.IUIComponent;
+import mx.core.LayoutDirection;
 import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.events.DataGridEvent;
@@ -948,7 +949,7 @@ public class DataGridHeader extends DataGridHeaderBase
         // left (layoutDirection=”rtl”) half of the column, the drop indicator 
         // should be shown before the next column.
         var deltaXInLocalCoordinates:Number = 
-            (layoutDirection == "ltr" ? +deltaX : -deltaX);
+            (layoutDirection == LayoutDirection.LTR ? +deltaX : -deltaX);
         
         // Move header selection.
         s = Sprite(dgSelectionLayer.getChildByName("headerSelection"));
