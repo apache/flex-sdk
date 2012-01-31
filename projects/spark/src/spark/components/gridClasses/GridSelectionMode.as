@@ -32,7 +32,6 @@ package spark.components.gridClasses
  * 
  *  @see spark.components.DataGrid#selectionMode
  *  @see spark.components.Grid#selectionMode
- *  @see spark.components.gridClasses.GridSelection
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
