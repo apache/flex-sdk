@@ -13,6 +13,7 @@ package spark.components.gridClasses
 {
 import mx.core.IInvalidating;
 import mx.core.IVisualElement;
+import mx.managers.ILayoutManagerClient;
 
 import spark.components.DataGrid;
 
@@ -29,7 +30,7 @@ import spark.components.DataGrid;
  *  @playerversion AIR 2.0
  *  @productversion Flex 4.5 
  */
-public interface IDataGridElement extends IVisualElement, IInvalidating
+public interface IDataGridElement extends IVisualElement, ILayoutManagerClient, IInvalidating
 {
     /**
      *  The DataGrid whose layout and grid scroll position this element must stay in sync with.
