@@ -61,17 +61,18 @@ public class ScrollerLayout extends LayoutBase
         if (!scroller) 
             return;
             
-        var measuredW:Number = 0;
-        var measuredH:Number = 0;
-        var minW:Number = 0;
-        var minH:Number = 0;            
+        var minViewportInset:Number = scroller.minViewportInset;
+        var measuredW:Number = minViewportInset;
+        var measuredH:Number = minViewportInset;
+        var minW:Number = minViewportInset;
+        var minH:Number = minViewportInset;            
         
         var viewport:IViewport = scroller.viewport;
         if (viewport)
         {
             var viewportElt:ILayoutElement = ILayoutElement(viewport);
-            measuredW = viewportElt.getPreferredBoundsWidth();
-            measuredH = viewportElt.getPreferredBoundsHeight();
+            measuredW += viewportElt.getPreferredBoundsWidth();
+            measuredH += viewportElt.getPreferredBoundsHeight();
         }
         
         var hsb:ScrollBar = scroller.horizontalScrollBar;
@@ -98,17 +99,28 @@ public class ScrollerLayout extends LayoutBase
         
         if (showHSB)
         {
-            measuredH += hsb.getPreferredBoundsHeight();
+            measuredH += Math.max(minViewportInset, hsb.getPreferredBoundsHeight());
             minW += hsb.getMinBoundsWidth();              
-            minH += hsb.getMinBoundsHeight();  
+            minH += Math.max(minViewportInset, hsb.getMinBoundsHeight());  
         }
+        else
+        {
+            measuredH += minViewportInset;
+            minH += minViewportInset;
+        }
+
         if (showVSB)
         {
-            measuredW += vsb.getPreferredBoundsWidth();
-            minW += vsb.getMinBoundsWidth();
+            measuredW += Math.max(minViewportInset, vsb.getPreferredBoundsWidth());
+            minW += Math.max(minViewportInset, vsb.getMinBoundsWidth());
             minH += vsb.getMinBoundsHeight();
         }
-        
+        else
+        {
+            measuredW += minViewportInset;
+            minW += minViewportInset;
+        }
+
         var g:GroupBase = target;
         g.measuredWidth = measuredW;
         g.measuredHeight = measuredH;
@@ -139,8 +151,9 @@ public class ScrollerLayout extends LayoutBase
         var viewport:IViewport = scroller.viewport;
         var hsb:ScrollBar = scroller.horizontalScrollBar;
         var vsb:ScrollBar = scroller.verticalScrollBar;
-           
-        // Decide which scrollbars will be visible
+        var minViewportInset:Number = scroller.minViewportInset;
+        
+        // Decide which scrollbars will be visible based on the viewport's content size
         var showHSB:Boolean = false;
         var hAuto:Boolean = false; 
         switch(scroller.horizontalScrollPolicy) {
@@ -150,7 +163,7 @@ public class ScrollerLayout extends LayoutBase
             case ScrollPolicy.AUTO: 
                 if (hsb && viewport)
                 {
-                    showHSB = viewport.contentWidth > w;
+                    showHSB = viewport.contentWidth > (w - (minViewportInset * 2));
                     hAuto = true;
                 } 
                 break;
@@ -164,50 +177,55 @@ public class ScrollerLayout extends LayoutBase
             case ScrollPolicy.AUTO: 
                 if (vsb && viewport)
                 { 
-                    showVSB = viewport.contentHeight > h;
+                    showVSB = viewport.contentHeight > (h - (minViewportInset * 2));
                     vAuto = true;
                 }                        
                 break;
         }
         
         // Shrink the viewport's width,height for the visible scrollbars
-        var viewportH:Number = h;
+        var viewportH:Number = h - minViewportInset;
         var hsbH:Number = 0;
         if (showHSB) 
         {
             hsbH = hsb.getPreferredBoundsHeight();
-            viewportH -= hsbH;
+            viewportH -= Math.max(minViewportInset, hsbH);
         }
-        var viewportW:Number = w;
+        var viewportW:Number = w - minViewportInset;
         var vsbW:Number = 0;
         if (showVSB) 
         {
             vsbW = vsb.getPreferredBoundsWidth();
-            viewportW -= vsbW;
+            viewportW -= Math.max(minViewportInset, vsbW);
         }
         
         // If the scrollBarPolicy is auto, and we're only showing one scrollbar, 
         // the viewport may have shrunk enough to require showing the other one.
-        
         if (showVSB && !showHSB && hAuto && (viewport.contentWidth > viewportW))
         {
             showHSB = true;
             hsbH = hsb.getPreferredBoundsHeight();                
-            viewportH -= hsbH;
+            viewportH -= Math.max(minViewportInset, hsbH);
         }
         else if (!showVSB && showHSB && vAuto && (viewport.contentHeight > viewportH))
         {
             showVSB = true;
             vsbW = vsb.getPreferredBoundsWidth();                
-            viewportW -= vsbW;
+            viewportW -= Math.max(minViewportInset, vsbW);
         }
+        
+        // Factor in scrollBar-side viewportInsets where there aren't scrollbars
+        if (!showHSB)
+            viewportH -= minViewportInset;
+        if (!showVSB)
+            viewportW -= minViewportInset;
 
         // layout the viewport
         if (viewport)
         {
             var viewportElt:ILayoutElement = ILayoutElement(viewport);
             viewportElt.setLayoutBoundsSize(viewportW, viewportH);
-            viewportElt.setLayoutBoundsPosition(0,0);
+            viewportElt.setLayoutBoundsPosition(minViewportInset, minViewportInset);
         }
         
         // layout the scrollbars
@@ -215,13 +233,13 @@ public class ScrollerLayout extends LayoutBase
         if (showHSB)
         {
             hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), viewportW), hsbH);
-            hsb.setLayoutBoundsPosition(0, h - hsbH);
+            hsb.setLayoutBoundsPosition(minViewportInset, h - Math.max(minViewportInset, hsbH));
         }
         if (vsb) vsb.visible = showVSB;
         if (showVSB)
         {
             vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), viewportH));
-            vsb.setLayoutBoundsPosition(w - vsbW, 0);
+            vsb.setLayoutBoundsPosition(w - Math.max(minViewportInset, vsbW), minViewportInset);
         }
         
         target.setContentSize(w, h);
