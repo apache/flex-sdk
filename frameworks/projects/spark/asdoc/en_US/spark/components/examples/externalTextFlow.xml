@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- externalTextFlow.xml -->
+<TextFlow xmlns="http://ns.adobe.com/textLayout/2008">
+    <p fontSize="24">External TextFlow</p>
+    <p>1) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus aliquet tristique libero, vel mattis massa pellentesque nec. Maecenas non nulla nibh, et egestas ligula. Etiam massa mauris, elementum gravida rhoncus sit amet, blandit eu lacus. Proin nisi felis, accumsan at interdum eu, mattis at velit. Nulla at ipsum risus. Nullam non justo vel lacus vulputate mollis id quis libero.</p>
+    <p>2) Cras posuere posuere sem, eu congue orci mattis quis. Morbi vitae est ut purus vestibulum iaculis malesuada quis metus. Donec feugiat sapien quis turpis porttitor vel mattis libero viverra. Sed nisl justo, fringilla eget ultrices ut, venenatis quis magna. Nulla feugiat egestas mattis. Phasellus sed dignissim justo. Etiam malesuada bibendum urna, id dapibus nulla posuere eu.</p>
+    <p>3) Curabitur pulvinar tellus venenatis ipsum tempus lobortis. Vestibulum eros velit, bibendum at aliquet ut, placerat sed mauris.</p>
+</TextFlow>
