@@ -676,20 +676,6 @@ public class Container extends UIComponent
      */
     override public function get baselinePosition():Number
     {
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-        {
-            // If we have a verticalAlignment of top,
-            // then return the baseline of our first child
-            if (getStyle("verticalAlign") == "top" && numChildren > 0)
-            {
-                var child:IUIComponent = getChildAt(0) as IUIComponent;
-                if (child)
-                    return child.y + child.baselinePosition;
-            }
-    
-            return super.baselinePosition;
-        }
-        
         if (!validateBaselinePosition())
             return NaN;
 
