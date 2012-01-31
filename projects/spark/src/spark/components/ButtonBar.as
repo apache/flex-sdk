@@ -52,9 +52,23 @@ import mx.managers.IFocusManagerComponent;
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
 /**
- *  The ButtonBar control displays a set of Buttons 
+ *  The ButtonBar control displays a set of Buttons. 
+ *
+ *  @mxml <p>The <code>&lt;ButtonBar&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;ButtonBar
+ *
+ *    <strong>Properties</strong>
+ *    arrowKeysWrapFocus="true|false"
+ *    <strong>Events</strong>
+ *    itemClick="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
  *
  *  @includeExample examples/ButtonBarExample.mxml
+ *  @see spark.skins.default.ButtonBarSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
