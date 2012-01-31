@@ -537,6 +537,9 @@ public class PopUpAnchor extends UIComponent
 		m.tx = popUpPoint.x;
 		m.ty = popUpPoint.y;
 		popUp.setLayoutMatrix(m,false);
+		
+		// apply the color transformation
+		popUp.transform.colorTransform = $transform.concatenatedColorTransform
 	}
 	
 	/**
