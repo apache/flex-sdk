@@ -20,6 +20,11 @@ import mx.collections.IViewCursor;
  *  to a collection of data that is displayed by a Tree control.
  *
  *  @see mx.collections.ICollectionView
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public interface ITreeDataDescriptor2 extends ITreeDataDescriptor
 {
@@ -39,6 +44,11 @@ public interface ITreeDataDescriptor2 extends ITreeDataDescriptor
      *  @return An ICollectionView instance.
      *
      *  @see mx.controls.Tree
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getHierarchicalCollectionAdaptor(hierarchicalData:ICollectionView, 
                                                 uidFunction:Function, 
@@ -56,6 +66,11 @@ public interface ITreeDataDescriptor2 extends ITreeDataDescriptor
      *  
      *  @return The depth of the node, where 0 corresponds to the top level, 
      *  and -1 if the depth cannot be calculated.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getNodeDepth(node:Object, iterator:IViewCursor, model:Object = null):int;
 
@@ -72,6 +87,11 @@ public interface ITreeDataDescriptor2 extends ITreeDataDescriptor
      *  @return The parent node containing the node as child, 
      *  <code>null</code> for a top-level node,  
      *  and <code>undefined</code> if the parent cannot be determined.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     function getParent(node:Object, collection:ICollectionView, model:Object = null):Object;
 }
