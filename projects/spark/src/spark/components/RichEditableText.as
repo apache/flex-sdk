@@ -212,7 +212,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @see spark.primitives.SimpleText
  *  @see spark.primitives.RichText
  *
- *  @includeExample examples/TextViewExample.mxml
+ *  @includeExample examples/RichEditableTextExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -220,7 +220,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @productversion Flex 4
  */
 public class RichEditableText extends UIComponent
-	implements IViewport, IIMESupport
+    implements IViewport, IIMESupport
 {
     include "../core/Version.as";
         
@@ -254,14 +254,14 @@ public class RichEditableText extends UIComponent
         staticTextLayoutFormat.paddingBottom = FormatValue.INHERIT;
         staticTextLayoutFormat.verticalAlign = FormatValue.INHERIT;
             
-    	// Create a single Configuration used by all TextContainerManager 
-    	// instances.  It tells the TextContainerManager that we don't want it 
-    	// to handle the ENTER key, because we need the ENTER key to behave 
-    	// differently based on the 'multiline' property.
-    	staticTextContainerManagerConfiguration =
-    		Configuration(TextContainerManager.defaultConfiguration).clone();
-    	staticTextContainerManagerConfiguration.manageEnterKey = false;
-    	
+        // Create a single Configuration used by all TextContainerManager 
+        // instances.  It tells the TextContainerManager that we don't want it 
+        // to handle the ENTER key, because we need the ENTER key to behave 
+        // differently based on the 'multiline' property.
+        staticTextContainerManagerConfiguration =
+            Configuration(TextContainerManager.defaultConfiguration).clone();
+        staticTextContainerManagerConfiguration.manageEnterKey = false;
+        
         staticPlainTextImporter =
             TextConverter.getImporter(TextConverter.PLAIN_TEXT_FORMAT);
         
@@ -272,10 +272,10 @@ public class RichEditableText extends UIComponent
         staticPlainTextExporter =
             TextConverter.getExporter(TextConverter.PLAIN_TEXT_FORMAT);
             
-        // Used for embedded fonts.        	
-    	staticTextFormat = new TextFormat();
-    	
-    	classInitialized = true;
+        // Used for embedded fonts.         
+        staticTextFormat = new TextFormat();
+        
+        classInitialized = true;
     } 
     
     //--------------------------------------------------------------------------
@@ -291,7 +291,7 @@ public class RichEditableText extends UIComponent
     
     /**
      *  @private
-	 *  Used for telling TextContainerManager not to process the Enter key.
+     *  Used for telling TextContainerManager not to process the Enter key.
      */
     private static var staticTextContainerManagerConfiguration:Configuration;
     
@@ -323,9 +323,9 @@ public class RichEditableText extends UIComponent
         
     /**
      *  @private
-	 *  Used for debugging.
-	 *  Set this to true to get trace output
-	 *  showing what TextContainerManager APIs are being called.
+     *  Used for debugging.
+     *  Set this to true to get trace output
+     *  showing what TextContainerManager APIs are being called.
      */
     mx_internal static var debug:Boolean = false;
     
@@ -426,10 +426,10 @@ public class RichEditableText extends UIComponent
             textContainerManager_compositionCompleteHandler);
         
         _textContainerManager.addEventListener(
-        	DamageEvent.DAMAGE, textContainerManager_damageHandler);
+            DamageEvent.DAMAGE, textContainerManager_damageHandler);
 
         _textContainerManager.addEventListener(
-        	Event.SCROLL, textContainerManager_scrollHandler);
+            Event.SCROLL, textContainerManager_scrollHandler);
 
         _textContainerManager.addEventListener(
             SelectionEvent.SELECTION_CHANGE,
@@ -987,7 +987,7 @@ public class RichEditableText extends UIComponent
      */
     private function get editingMode():String
     {
-    	return _textContainerManager.editingMode;
+        return _textContainerManager.editingMode;
     }
     
     /**
@@ -995,10 +995,10 @@ public class RichEditableText extends UIComponent
      */
     private function set editingMode(value:String):void
     {
-    	if (debug)
-     		trace("editingMode = ", value);
+        if (debug)
+            trace("editingMode = ", value);
 
-     	_textContainerManager.editingMode = value;
+        _textContainerManager.editingMode = value;
     }
 
     //----------------------------------
@@ -1105,11 +1105,11 @@ public class RichEditableText extends UIComponent
      *  The TLF TextContainerManager instance that displays,
      *  scrolls, and edits the text in this component.
      */
-	mx_internal function get textContainerManager():TextContainerManager
-	{
-		return _textContainerManager;
-	}
-	
+    mx_internal function get textContainerManager():TextContainerManager
+    {
+        return _textContainerManager;
+    }
+    
     //----------------------------------
     //  maxChars
     //----------------------------------
@@ -1269,7 +1269,7 @@ public class RichEditableText extends UIComponent
      */
     private var _selectionActivePosition:int = -1;
 
-	[Bindable("selectionChange")]
+    [Bindable("selectionChange")]
 
     /**
      *  The active position of the selection.
@@ -1299,7 +1299,7 @@ public class RichEditableText extends UIComponent
      */
     private var _selectionAnchorPosition:int = -1;
 
-	[Bindable("selectionChange")]
+    [Bindable("selectionChange")]
 
     /**
      *  The anchor position of the selection.
@@ -1595,31 +1595,31 @@ public class RichEditableText extends UIComponent
 
         if (!hostFormat)
         {
-	        // If the CSS styles for this component specify an embedded font,
-	        // embeddedFontContext will be set to the module factory that
-	        // should create TextLines (since they must be created in the
-	        // SWF where the embedded font is.)
-	        // Otherwise, this will be null.
+            // If the CSS styles for this component specify an embedded font,
+            // embeddedFontContext will be set to the module factory that
+            // should create TextLines (since they must be created in the
+            // SWF where the embedded font is.)
+            // Otherwise, this will be null.
             embeddedFontContext = getEmbeddedFontContext();
             
             if (debug)
-            	trace("hostFormat=");
+                trace("hostFormat=");
             _textContainerManager.hostFormat =
-            	hostFormat = new CSSTextLayoutFormat(this);
-       			// Note: CSSTextLayoutFormat has special processing
-        		// for the fontLookup style. If it is "auto",
-        		// the fontLookup format is set to either
-        		// "device" or "embedded" depending on whether
-        		// embeddedFontContext is null or non-null.
+                hostFormat = new CSSTextLayoutFormat(this);
+                // Note: CSSTextLayoutFormat has special processing
+                // for the fontLookup style. If it is "auto",
+                // the fontLookup format is set to either
+                // "device" or "embedded" depending on whether
+                // embeddedFontContext is null or non-null.
         }
         
         if (selectionFormatsChanged)
         {
-        	if (debug)
-        		trace("invalidateInteractionManager()");
-        	_textContainerManager.invalidateSelectionFormats();
-        	
-        	selectionFormatsChanged = false;
+            if (debug)
+                trace("invalidateInteractionManager()");
+            _textContainerManager.invalidateSelectionFormats();
+            
+            selectionFormatsChanged = false;
         }
 
         // If fontMetrics changed, recalculate the ascent, and descent.
@@ -1981,9 +1981,9 @@ public class RichEditableText extends UIComponent
 
         ignoreDamageEvent = false;
         
-		if (debug)
-			trace("updateContainer()");
-			
+        if (debug)
+            trace("updateContainer()");
+            
         _textContainerManager.textLineCreator = 
             ITextLineCreator(embeddedFontContext);
             
@@ -2213,33 +2213,33 @@ public class RichEditableText extends UIComponent
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  @private
-	 */
-	mx_internal function createTextContainerManager():TextContainerManager
-	{
-		return new RichEditableTextContainerManager(
-			this, staticTextContainerManagerConfiguration);
-	}
+    /**
+     *  @private
+     */
+    mx_internal function createTextContainerManager():TextContainerManager
+    {
+        return new RichEditableTextContainerManager(
+            this, staticTextContainerManagerConfiguration);
+    }
 
-	/**
-	 *  @private
-	 *  Uses the component's CSS styles to determine the module factory
-	 *  that should creates its TextLines.
-	 */
-	private function getEmbeddedFontContext():IFlexModuleFactory
-	{
-		var fontContext:IFlexModuleFactory;
-		
-		var fontLookup:String = getStyle("fontLookup");
-		if (fontLookup != FontLookup.DEVICE)
+    /**
+     *  @private
+     *  Uses the component's CSS styles to determine the module factory
+     *  that should creates its TextLines.
+     */
+    private function getEmbeddedFontContext():IFlexModuleFactory
+    {
+        var fontContext:IFlexModuleFactory;
+        
+        var fontLookup:String = getStyle("fontLookup");
+        if (fontLookup != FontLookup.DEVICE)
         {
-			var font:String = getStyle("fontFamily");
-			var bold:Boolean = getStyle("fontWeight") == "bold";
-			var italic:Boolean = getStyle("fontStyle") == "italic";
-			
+            var font:String = getStyle("fontFamily");
+            var bold:Boolean = getStyle("fontWeight") == "bold";
+            var italic:Boolean = getStyle("fontStyle") == "italic";
+            
             fontContext = embeddedFontRegistry.getAssociatedModuleFactory(
-            	font, bold, italic, this, moduleFactory);
+                font, bold, italic, this, moduleFactory);
 
             // If we found the font, then it is embedded. 
             // But some fonts are not listed in info()
@@ -2250,9 +2250,9 @@ public class RichEditableText extends UIComponent
             {
                 var sm:ISystemManager;
                 if (moduleFactory != null && moduleFactory is ISystemManager)
-                	sm = ISystemManager(moduleFactory);
+                    sm = ISystemManager(moduleFactory);
                 else if (parent is IUIComponent)
-                	sm = IUIComponent(parent).systemManager;
+                    sm = IUIComponent(parent).systemManager;
 
                 staticTextFormat.font = font;
                 staticTextFormat.bold = bold;
@@ -2271,7 +2271,7 @@ public class RichEditableText extends UIComponent
         }
         
         return fontContext;
-	}
+    }
 
     /**
      *  @private
@@ -2286,7 +2286,7 @@ public class RichEditableText extends UIComponent
         if (editingMode == EditingMode.READ_ONLY)
             editingMode = EditingMode.READ_SELECT;
 
-    	return SelectionManager(_textContainerManager.beginInteraction());
+        return SelectionManager(_textContainerManager.beginInteraction());
     }
 
     /**
@@ -2536,35 +2536,35 @@ public class RichEditableText extends UIComponent
 
         s = getStyle("cffHinting");
         if (s != null)
-        	fontDescription.cffHinting = s;
+            fontDescription.cffHinting = s;
         
         s = getStyle("fontFamily");
         if (s != null)
-        	fontDescription.fontName = s;
+            fontDescription.fontName = s;
         
         s = getStyle("fontLookup");
         if (s != null)
         {
-        	// FTE understands only "device" and "embeddedCFF"
-        	// for fontLookup. But Flex allows this style to be
-        	// set to "auto", in which case we automatically
-        	// determine it based on whether the CSS styles
-        	// specify an embedded font.
-        	if (s == "auto")
-        	{
-        		s = embeddedFontContext ?
-        			FontLookup.EMBEDDED_CFF :
-                	FontLookup.DEVICE;
-        	}
+            // FTE understands only "device" and "embeddedCFF"
+            // for fontLookup. But Flex allows this style to be
+            // set to "auto", in which case we automatically
+            // determine it based on whether the CSS styles
+            // specify an embedded font.
+            if (s == "auto")
+            {
+                s = embeddedFontContext ?
+                    FontLookup.EMBEDDED_CFF :
+                    FontLookup.DEVICE;
+            }
         }
          
         s = getStyle("fontStyle");
         if (s != null)
-        	fontDescription.fontPosture = s;
+            fontDescription.fontPosture = s;
         
         s = getStyle("fontWeight");
         if (s != null)
-        	fontDescription.fontWeight = s;
+            fontDescription.fontWeight = s;
         
         var elementFormat:ElementFormat = new ElementFormat();
         elementFormat.fontDescription = fontDescription;
@@ -2588,22 +2588,22 @@ public class RichEditableText extends UIComponent
      */
     private function calculateWidthInChars():Number
     {
-    	var em:Number = getStyle("fontSize");
+        var em:Number = getStyle("fontSize");
 
         var effectiveWidthInChars:int;
-            	
+                
         // If both height and width are NaN use 15 chars.  Otherwise if only 
         // width is NaN, use 1.                
-    	if (isNaN(_widthInChars))
-    	   effectiveWidthInChars = isNaN(_heightInLines) ? 10 : 1;
-    	else
-    	   effectiveWidthInChars = _widthInChars;
-    	   
-    	// Without the explicit casts, if padding values are non-zero, the
-    	// returned width is a very large number.
-    	return getStyle("paddingLeft") +
-    		   effectiveWidthInChars * em +
-    		   getStyle("paddingRight");
+        if (isNaN(_widthInChars))
+           effectiveWidthInChars = isNaN(_heightInLines) ? 10 : 1;
+        else
+           effectiveWidthInChars = _widthInChars;
+           
+        // Without the explicit casts, if padding values are non-zero, the
+        // returned width is a very large number.
+        return getStyle("paddingLeft") +
+               effectiveWidthInChars * em +
+               getStyle("paddingRight");
     }
     
     /**
@@ -2642,7 +2642,7 @@ public class RichEditableText extends UIComponent
         {
             var value:Object = getStyle("lineHeight");     
             var lineHeight:Number =
-            	TextUtil.getNumberOrPercentOf(value, getStyle("fontSize"));
+                TextUtil.getNumberOrPercentOf(value, getStyle("fontSize"));
                 
             // Default is 120%
             if (isNaN(lineHeight))
@@ -2663,50 +2663,50 @@ public class RichEditableText extends UIComponent
      */
     private function createTextFlowFromContent(content:Object):TextFlow
     {
-		var textFlow:TextFlow ;
-		
-		// The whiteSpaceCollapse format determines how whitespace
-		// is processed when the children are set.
-		staticTextLayoutFormat.whiteSpaceCollapse =
-			getStyle("whiteSpaceCollapse");
-		
-		if (content is TextFlow)
-		{
-			textFlow = content as TextFlow;
-			textFlow.hostFormat = staticTextLayoutFormat;
-					}
-		else if (content is Array)
-		{
-			textFlow = new TextFlow();
-			textFlow.hostFormat = staticTextLayoutFormat;
-			textFlow.mxmlChildren = content as Array;
-		}
-		else
-		{
-			textFlow = new TextFlow();
-			textFlow.hostFormat = staticTextLayoutFormat;
-			textFlow.mxmlChildren = [ content ];
-		}
-		
-		return textFlow;
-	}
+        var textFlow:TextFlow ;
+        
+        // The whiteSpaceCollapse format determines how whitespace
+        // is processed when the children are set.
+        staticTextLayoutFormat.whiteSpaceCollapse =
+            getStyle("whiteSpaceCollapse");
+        
+        if (content is TextFlow)
+        {
+            textFlow = content as TextFlow;
+            textFlow.hostFormat = staticTextLayoutFormat;
+                    }
+        else if (content is Array)
+        {
+            textFlow = new TextFlow();
+            textFlow.hostFormat = staticTextLayoutFormat;
+            textFlow.mxmlChildren = content as Array;
+        }
+        else
+        {
+            textFlow = new TextFlow();
+            textFlow.hostFormat = staticTextLayoutFormat;
+            textFlow.mxmlChildren = [ content ];
+        }
+        
+        return textFlow;
+    }
         
     /**
      *  @private
      */
     private function updateEditingMode():void
     {
-    	var newEditingMode:String = EditingMode.READ_ONLY;
-    	
-    	if (enabled)
-    	{
-    		if (_editable)
-    			newEditingMode = EditingMode.READ_WRITE;
-    		else if (_selectable)
-    			newEditingMode = EditingMode.READ_SELECT;
-    	}
-    	
-  		editingMode = newEditingMode;
+        var newEditingMode:String = EditingMode.READ_ONLY;
+        
+        if (enabled)
+        {
+            if (_editable)
+                newEditingMode = EditingMode.READ_WRITE;
+            else if (_selectable)
+                newEditingMode = EditingMode.READ_SELECT;
+        }
+        
+        editingMode = newEditingMode;
     }
 
     /**
@@ -2737,7 +2737,7 @@ public class RichEditableText extends UIComponent
         // Make sure all properties are committed before doing the operation.
         validateNow();
 
-		var selectionManager:ISelectionManager = getSelectionManager();
+        var selectionManager:ISelectionManager = getSelectionManager();
         
         selectionManager.selectRange(anchorPosition, activePosition);        
                 
@@ -3004,7 +3004,7 @@ public class RichEditableText extends UIComponent
         // Apply the three format objects to the current selection if
         // selectionState is null, else the specified selection.
         editManager.applyFormat(
-        	characterFormat, paragraphFormat, containerFormat, selectionState);
+            characterFormat, paragraphFormat, containerFormat, selectionState);
         
         // All done with the edit manager.
         releaseEditManager();
@@ -3043,9 +3043,9 @@ public class RichEditableText extends UIComponent
         validateDisplayList();
     }
 
-	/**
-	 *  @private
-	 */
+    /**
+     *  @private
+     */
     private function handlePasteOperation(op:PasteOperation):void
     {
         if (!restrict && !maxChars && !displayAsPassword)
@@ -3067,15 +3067,15 @@ public class RichEditableText extends UIComponent
         dispatchChangingEvent = false;
 
         var selectionState:SelectionState = new SelectionState(
-        	op.textFlow, op.absoluteStart, 
-        	op.absoluteStart + pastedText.length);             
+            op.textFlow, op.absoluteStart, 
+            op.absoluteStart + pastedText.length);             
         editManager.deleteText(selectionState);
 
         // Insert the same text, the same place where the paste was done.
         // This will go thru the InsertPasteOperation and do the right
         // things with restrict, maxChars and displayAsPassword.
         selectionState = new SelectionState(
-        	op.textFlow, op.absoluteStart, op.absoluteStart);
+            op.textFlow, op.absoluteStart, op.absoluteStart);
         editManager.insertText(pastedText, selectionState);        
 
         // All done with the edit manager.
@@ -3178,7 +3178,7 @@ public class RichEditableText extends UIComponent
     mx_internal function keyDownHandler(event:KeyboardEvent):void
     {
         if (editingMode != EditingMode.READ_WRITE)
-        	return;
+            return;
         
         if (event.keyCode == Keyboard.ENTER)
         {
@@ -3186,8 +3186,8 @@ public class RichEditableText extends UIComponent
             {
                 // This is the same code that is in the EditManager for handling
                 // the enter key.
-        		getEditManager().splitParagraph();
-        		releaseEditManager();
+                getEditManager().splitParagraph();
+                releaseEditManager();
                 event.preventDefault();
                 //event.stopImmediatePropagation();
             }
