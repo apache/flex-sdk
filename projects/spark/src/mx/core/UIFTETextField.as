@@ -1883,6 +1883,8 @@ public class UITLFTextField extends TLFTextField
         textFormat.sharpness = sharpness;
         textFormat.thickness = thickness;
         
+        textFormat.useTLF = true;
+        
         return textFormat;
     }
 
