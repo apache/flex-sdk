@@ -16,7 +16,7 @@ import mx.effects.interpolation.RGBInterpolator;
 import mx.styles.StyleManager;
 
 /**
- * The instance of the Tint effect, which animates a change in
+ * The instance of the FxAnimateColor effect, which animates a change in
  * color by interpolating the from/to values per color channel
  *  
  *  @langversion 3.0
@@ -27,7 +27,7 @@ import mx.styles.StyleManager;
 public class FxAnimateColorInstance extends FxAnimateInstance
 {
     /**
-     * copy mx.effects.Tint#colorFrom
+     * copy mx.effects.FxAnimateColor#colorFrom
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -37,7 +37,7 @@ public class FxAnimateColorInstance extends FxAnimateInstance
     public var colorFrom:uint;
 
     /**
-     * copy mx.effects.Tint#colorTo
+     * copy mx.effects.FxAnimateColor#colorTo
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -47,7 +47,7 @@ public class FxAnimateColorInstance extends FxAnimateInstance
     public var colorTo:uint;
 
     /**
-     * copy mx.effects.Tint#colorPropertyName
+     * copy mx.effects.FxAnimateColor#colorPropertyName
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
