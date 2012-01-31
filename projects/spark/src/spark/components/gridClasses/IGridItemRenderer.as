@@ -175,7 +175,8 @@ public interface IGridItemRenderer extends IDataRenderer, IVisualElement
     function set column(value:GridColumn):void;
     
     /**
-     *  The column index for this item renderer's cell.
+     *  The column index for this item renderer's cell.  
+     *  This is the same value as column.columnIndex.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
