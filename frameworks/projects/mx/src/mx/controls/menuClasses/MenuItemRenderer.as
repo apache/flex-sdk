@@ -59,7 +59,8 @@ use namespace mx_internal;
 /**
  *  Text color of the menu item label.
  *  
- *  @default 0x0B333C
+ *  The default value for the Halo theme is <code>0x0B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
