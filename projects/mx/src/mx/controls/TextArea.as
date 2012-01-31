@@ -2226,7 +2226,9 @@ public class TextArea extends ScrollControlBase
             textField.addEventListener("textInsert",
                                        textField_textModifiedHandler);                                       
             textField.addEventListener("textReplace",
-                                       textField_textModifiedHandler);                                       
+                                       textField_textModifiedHandler);                                                   
+            textField.addEventListener("textFieldWidthChange",
+                                       textField_textFieldWidthChangeHandler);
             
             // can't use NativeDragEvent.NATIVE_DRAG_DROP b/c we need AIR for that
             // ideally we don't need to listen for this event as doing a dragDrop should 
@@ -2262,6 +2264,8 @@ public class TextArea extends ScrollControlBase
                                           textField_textModifiedHandler);                                       
             textField.removeEventListener("textReplace",
                                           textField_textModifiedHandler);                                       
+            textField.removeEventListener("textFieldWidthChange",
+                                          textField_textFieldWidthChangeHandler);
             textField.removeEventListener("nativeDragDrop", textField_nativeDragDropHandler);
             
             removeChild(DisplayObject(textField));
@@ -2626,7 +2630,16 @@ public class TextArea extends ScrollControlBase
     {
         textFieldChanged(false, true);
     }
-
+    
+    /**
+     *  @private
+     *  Changing the width of the text field can cause the text to reflow.
+     *  Make sure our local _textWidth and _textHeight are in sync with text field.
+     */
+    private function textField_textFieldWidthChangeHandler(event:Event):void
+    {
+        textFieldChanged(true, false);
+    }   
 }
 
 }
