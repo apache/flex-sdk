@@ -823,7 +823,8 @@ public class GridColumn extends EventDispatcher
     [Bindable("resizableChanged")]    
     
     /**
-     *  Enable interactive resizing of this column's width.
+     *  Enable interactive resizing of this column's width if the grid's 
+     *  <code>resizableColumns</code> property is also <code>true</code>.
      * 
      *  @default true
      */
@@ -842,7 +843,6 @@ public class GridColumn extends EventDispatcher
         
         _resizable = value;
         dispatchChangeEvent("resizableChanged");
-        // TBD invalidate grid
     }
     
     //----------------------------------
