@@ -662,7 +662,7 @@ public class DataGroup extends GroupBase
             useVirtualLayoutChanged = false;
 
             if (layout)
-                layout.clearCachedVirtualLayoutState();
+                layout.clearVirtualLayoutCache();
                 
             // If an explicit value for typicalItem was never set, then clear
             // the layout's typicalLayoutElement, which will force it to be
