@@ -1,47 +1,93 @@
 <?xml version="1.0"?>
-<!-- Simple example to demonstrate the Group component -->
-<FxApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
-    <s:Panel title="Group Component Example" height="75%" width="75%" 
-        layout="vertical" horizontalCenter="0" verticalCenter="0" 
-        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+<!-- Simple example to demonstrate the Spark Group component. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+               xmlns:s="library://ns.adobe.com/flex/spark" 
+               xmlns:mx="library://ns.adobe.com/flex/halo" >
 
-        <s:Group>
-            <!-- use a vertical layout with a 1 pixel gap between items -->
-            <s:layout><s:VerticalLayout gap="1" /></s:layout>
+    <s:Panel title="Group Component Example"
+            width="75%" height="75%" 
+            horizontalCenter="0" verticalCenter="0"> 
+        <s:VGroup left="10" right="10" top="10" bottom="10">
+            <s:Group>
+                <!-- use a vertical layout with a 1 pixel gap between items -->
+                <s:layout>
+                    <s:VerticalLayout gap="1" />
+                </s:layout>
 
-            <Label text="Group with a vertical layout" />
-            <s:Rect width="150" height="20"><s:fill><s:SolidColor color="0xE3E3E3" /></s:fill></s:Rect>
-            <s:Rect width="150" height="20"><s:fill><s:SolidColor color="0xCCCCCC" /></s:fill></s:Rect>
-            <s:Rect width="150" height="20"><s:fill><s:SolidColor color="0x888888" /></s:fill></s:Rect>
-        </s:Group>
+                <s:SimpleText text="Group with a vertical layout" />
+                <s:Rect width="150" height="20">
+                    <s:fill>
+                        <s:SolidColor color="0xE3E3E3" />
+                    </s:fill>
+                </s:Rect>
+                <s:Rect width="150" height="20">
+                    <s:fill>
+                        <s:SolidColor color="0xCCCCCC" />
+                    </s:fill>
+                </s:Rect>
+                <s:Rect width="150" height="20">
+                    <s:fill>
+                        <s:SolidColor color="0x888888" />
+                    </s:fill>
+                </s:Rect>
+            </s:Group>
 
-        <Spacer height="20" />
+            <mx:Spacer height="20" />
 
-        <s:Group>
-            <!-- use a horizontal layout with a 1 pixel gap between items -->
-            <s:layout><s:HorizontalLayout gap="1" /></s:layout>
+            <s:Group>
+                <!-- use a horizontal layout with a 1 pixel gap between items -->
+                <s:layout>
+                    <s:HorizontalLayout gap="1" />
+                </s:layout>
 
-            <Label text="Group with a horizontal layout" />
-            <s:Rect width="25" height="25"><s:fill><s:SolidColor color="0xE3E3E3" /></s:fill></s:Rect>
-            <s:Rect width="25" height="25"><s:fill><s:SolidColor color="0xCCCCCC" /></s:fill></s:Rect>
-            <s:Rect width="25" height="25"><s:fill><s:SolidColor color="0x888888" /></s:fill></s:Rect>
-        </s:Group>
+                <s:SimpleText text="Group with a horizontal layout" />
+                <s:Rect width="25" height="25">
+                    <s:fill>
+                        <s:SolidColor color="0xE3E3E3" />
+                    </s:fill>
+                </s:Rect>
+                <s:Rect width="25" height="25">
+                    <s:fill>
+                        <s:SolidColor color="0xCCCCCC" />
+                    </s:fill>
+                </s:Rect>
+                <s:Rect width="25" height="25">
+                    <s:fill>
+                        <s:SolidColor color="0x888888" />
+                    </s:fill>
+                </s:Rect>
+            </s:Group>
 
-        <Spacer height="20" />
+            <mx:Spacer height="20" />
 
-        <s:Group width="150" height="100">
-            <!-- use the default basic layout where items are absolutely positioned -->
+            <s:Group width="150" height="100">
+                <!-- use the default basic layout where items are absolutely positioned -->
 
-            <!-- add a background rectangle to stretch to fit the group -->
-            <s:Rect top="0" left="0" right="0" bottom="0">
-                <s:fill><s:SolidColor color="0xCCCCCC" /></s:fill>
-            </s:Rect>
+                <!-- add a background rectangle to stretch to fit the group -->
+                <s:Rect top="0" left="0" right="0" bottom="0">
+                    <s:fill>
+                        <s:SolidColor color="0xCCCCCC" />
+                    </s:fill>
+                </s:Rect>
 
-            <Label x="0" y="0" text="Group with a basic layout" />
-            <s:Rect x="20" y="20" width="30" height="25"><s:fill><s:SolidColor color="0xE3E3E3" /></s:fill></s:Rect>
-            <s:Rect x="40" y="40" width="30" height="30"><s:fill><s:SolidColor color="0x888888" /></s:fill></s:Rect>
-            <s:Rect x="60" y="60" width="30" height="30"><s:fill><s:SolidColor color="0xBBBBBB" /></s:fill></s:Rect>	
-        </s:Group>
-
+                <s:SimpleText x="0" y="0" text="Group with a basic layout" />
+                <s:Rect x="20" y="20" width="30" height="25">
+                    <s:fill>
+                        <s:SolidColor color="0xE3E3E3" />
+                    </s:fill>
+                </s:Rect>
+                <s:Rect x="40" y="40" width="30" height="30">
+                    <s:fill>
+                        <s:SolidColor color="0x888888" />
+                    </s:fill>
+                </s:Rect>
+                <s:Rect x="60" y="60" width="30" height="30">
+                    <s:fill>
+                        <s:SolidColor color="0xBBBBBB" />
+                    </s:fill>
+                </s:Rect>
+            </s:Group>
+        </s:VGroup>
     </s:Panel>
-</FxApplication>
+
+</s:Application>
