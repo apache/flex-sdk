@@ -16,8 +16,13 @@ in accordance with the terms of the license agreement accompanying it.
     
     <fx:Script>
         <![CDATA[
+            import spark.core.IEditableText;
+            import mx.events.FlexEvent;
+            import spark.primitives.Rect;
+            import mx.core.IUITextField;
             import mx.core.IVisualElement;
             import mx.core.UIComponent;
+            import mx.managers.ISystemManager;
             
             //--------------------------------------------------------------------------
             //
@@ -52,24 +57,48 @@ in accordance with the terms of the license agreement accompanying it.
              */ 
             override public function prepare():void
             {
-                var cellBounds:Rectangle = column.grid.getCellBounds(rowIndex, columnIndex);
-                //                width = cellBounds.width;
-                //                height = cellBounds.height;
-                textArea.textDisplay.multiline = false;
+                super.prepare();
                 
-                var itemRenderer:IVisualElement = column.grid.getItemRendererAt(rowIndex, columnIndex);
-                if (itemRenderer && "singleLine" in itemRenderer && itemRenderer["singleLine"] == true)
+                var cellBounds:Rectangle = column.grid.getCellBounds(rowIndex, columnIndex);
+                var textDisplay:IEditableText = textArea.textDisplay;
+                var itemRenderer:IVisualElement = dataGrid.grid.getItemRendererAt(rowIndex, columnIndex);
+
+                if (itemRenderer is IUITextField)
                 {
+                    textDisplay.multiline = IUITextField(itemRenderer).multiline;
+                    textDisplay.lineBreak = IUITextField(itemRenderer).wordWrap ? "toFit" : "explicit";
+                    
+                }
+                else if ("multiline" in itemRenderer)
+                {
+                    textDisplay.multiline = itemRenderer["multiline"];                    
+                }
+                else
+                {
+                    textDisplay.multiline = false;                    
+                }
+                    
+                if ("lineBreak" in itemRenderer)
+                    textDisplay.lineBreak = itemRenderer["lineBreak"];
+                    
+                if (textDisplay.multiline == false &&
+                    textDisplay.lineBreak == "explicit")
+                {
+                    // Single line control. Set the initial width to be the width of the cell.
                     textArea.width = NaN;
-                    textArea.textDisplay.lineBreak = "explicit";
                     textArea.widthInChars = NaN;
                     
-                    // Set a max width of six inches for the text.
+                    // Set a max width of six inches for the text or the visible edge of
+                    // the application.
                     const MAX_WIDTH_INCHES:uint = 6;
-                    textArea.maxWidth = MAX_WIDTH_INCHES * Capabilities.screenDPI;
-                    
-                    if (textArea.textDisplay is UIComponent)
-                        UIComponent(textArea.textDisplay).maxWidth = textArea.maxWidth;
+                    var sm:ISystemManager = systemManager.topLevelSystemManager;
+                    var screen:Rectangle = sm.getVisibleApplicationRect(null, true);
+                    var globalCellTopLeft:Point = dataGrid.grid.localToGlobal(cellBounds.topLeft);
+
+                    // Bug in text width: the width is allowed to grow larger than maxWidth so
+                    // subtract 10 pixels to stay within the max.
+                    textArea.maxWidth = Math.min(screen.right - globalCellTopLeft.x - 1, 
+                                                 MAX_WIDTH_INCHES * Capabilities.screenDPI) - 10;
                 }
                 else
                 {
@@ -79,7 +108,6 @@ in accordance with the terms of the license agreement accompanying it.
                 textArea.minWidth = cellBounds.width;
                 textArea.height = cellBounds.height;
             }
-            
             
             /**
              *  @private
@@ -92,6 +120,6 @@ in accordance with the terms of the license agreement accompanying it.
         ]]>
     </fx:Script>
     
-    <s:TextArea id="textArea" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+    <s:TextArea id="textArea" horizontalScrollPolicy="off" verticalScrollPolicy="off" />
     
 </s:GridItemEditor>
