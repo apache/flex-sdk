@@ -553,7 +553,7 @@ public class TextBase extends UIComponent
     {
         super.setLayoutBoundsSize(width, height, postLayoutTransform);
 
-        // FIXME (egeorgie): possible optimization - if we reflow the text
+        // TODO (egeorgie): possible optimization - if we reflow the text
         // immediately, we'll be able to detect whether the constrained
         // width causes the measured height to change.
         // Also certain layouts like vertical/horizontal will
