@@ -803,6 +803,8 @@ public class VideoDisplay extends UIComponent
      *  this property has no effect.</p>
      *
      *  @default "letterbox"
+     *
+     *  @see org.osmf.display.ScaleMode
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
