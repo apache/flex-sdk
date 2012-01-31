@@ -17,6 +17,7 @@ import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
+import flash.events.MouseEvent;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
 
@@ -291,6 +292,16 @@ public class RichEditableTextContainerManager extends TextContainerManager
             super.keyUpHandler(event);
     }
     
+    /**
+     *  @private
+     */
+    override public function mouseDownHandler(event:MouseEvent):void
+    {
+        textDisplay.mouseDownHandler(event);
+        
+        super.mouseDownHandler(event);
+    }
+        
     /**
      *  @private
      *  This handler gets called for ACTIVATE events from the player
