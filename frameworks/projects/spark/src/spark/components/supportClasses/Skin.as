@@ -35,6 +35,11 @@ package mx.components
  *  &lt;/Skin&gt;</pre>
  *
  *  @see mx.core.SkinnableComponent
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Skin extends Group
 {
@@ -48,6 +53,11 @@ public class Skin extends Group
 
     /**
      *  Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
 	public function Skin()
 	{
@@ -64,6 +74,11 @@ public class Skin extends Group
     [Bindable]
     /**
      *  A reference to the component that hosts this skin instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */    
     public function get fxComponent():Object
     {
