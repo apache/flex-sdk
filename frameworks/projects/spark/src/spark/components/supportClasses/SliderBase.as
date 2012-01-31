@@ -517,7 +517,7 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     /**
      *  @private
      */
-    override protected function system_mouseUpHandler(event:MouseEvent):void
+    override protected function system_mouseUpHandler(event:Event):void
     {
         if ((getStyle("liveDragging") === false) && (value != pendingValue))
         {
