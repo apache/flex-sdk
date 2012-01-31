@@ -464,17 +464,21 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [Event(name="selectionChange", type="spark.events.GridSelectionEvent")]
 
 /**
- *  Dispatched before the sort has been applied to the data provder's collection.
+ *  Dispatched before the sort has been applied to the data provider's collection.
  *  Typically this is when the user releases the mouse button on a column header
  *  to request the control to sort the grid contents based on the contents of the column.
  *  Only dispatched if the column is sortable and the data provider supports sorting.
  *  
  *  <p>The DataGrid control has a default handler for this event that implements
  *  a single-column sort and updates the <code>visibleSortIndices</code> in the grid's
- *  <code>columnHeaderGroup</code> with the <code>columnIndices</code>.
- *  Multiple-column sort can be implemented by calling the <code>preventDefault()</code> method 
+ *  <code>columnHeaderGroup</code> with the <code>columnIndices</code>.</p>
+ * 
+ *  <p>Multiple-column sort can be implemented by calling the <code>preventDefault()</code> method 
  *  to prevent the single column sort and setting the <code>columnIndices</code> and 
- *  <code>newSortFields</code> parameters of the event to change the default behavior.</p>
+ *  <code>newSortFields</code> parameters of the event to change the default behavior.
+ *  <code>newSortFields</code> should be set to the desired sort fields.
+ *  <code>columnIndices</code> should be set to the indices of the columns that should
+ *  have a visible sort indicator in the column header bar.</p>
  *   
  *  <p>This event is dispatched when the user interacts with the control.
  *  When you sort the data provider's collection programmatically, 
@@ -490,8 +494,8 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [Event(name="sortChanging", type="spark.events.GridSortEvent")]
 
 /**
- *  Dispatched after the sort has been applied to the data provder's collection. 
- *  Typcically this is after the user releases the mouse button on a column header and 
+ *  Dispatched after the sort has been applied to the data provider's collection. 
+ *  Typically this is after the user releases the mouse button on a column header and 
  *  the sort has been applied to the data provider's collection. 
  *  
  *  <p>This event is dispatched when the user interacts with the control.
@@ -3630,7 +3634,8 @@ public class DataGrid extends SkinnableContainerBase
      * 
      *  @param isInteractive If true, <code>GridSortEvent.SORT_CHANGING</code> and
      *  <code>GridSortEvent.SORT_CHANGE</code> events are dispatched and the column header group 
-     *  <code>visibleSortIndicatorIndices</code> is updated with <code>columnIndices</code>.
+     *  <code>visibleSortIndicatorIndices</code> is updated with <code>columnIndices</code>
+     *  if the <code>GridSortEvent.SORT_CHANGING</code> event is not cancelled.
      * 
      *  @return <code>true</code> if the <code>dataProvider</code> was sorted with the provided
      *  column indicies.
