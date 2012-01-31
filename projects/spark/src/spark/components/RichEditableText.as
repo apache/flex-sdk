@@ -426,7 +426,7 @@ public class RichEditableText extends UIComponent
 		 *  TLF itself has English-only messages,
 		 *  but higher layers like Flex can provide localized versions.
 		 */
-		GlobalSettings.getResourceStringFunction = TextUtil.getResourceString;
+		GlobalSettings.resourceStringFunction = TextUtil.getResourceString;
 		
         staticConfiguration = 
             Configuration(TextContainerManager.defaultConfiguration).clone();
