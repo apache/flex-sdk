@@ -446,13 +446,8 @@ public class DropDownController extends EventDispatcher
      *  @private
      *  Called when the buttonDown event is dispatched. This function opens or closes
      *  the dropDown depending upon the dropDown state. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */ 
-    protected function openButton_buttonDownHandler(event:Event):void
+    mx_internal function openButton_buttonDownHandler(event:Event):void
     {
         if (isOpen)
             closeDropDown(true);
@@ -465,13 +460,8 @@ public class DropDownController extends EventDispatcher
      *  Called when the openButton's <code>rollOver</code> event is dispatched. This function opens 
      *  the drop down, or opens the drop down after the length of time specified by the 
      *  <code>rollOverOpenDelay</code> property.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */ 
-    protected function openButton_rollOverHandler(event:MouseEvent):void
+    mx_internal function openButton_rollOverHandler(event:MouseEvent):void
     {
         if (rollOverOpenDelay == 0)
             openDropDownHelper();
@@ -517,13 +507,8 @@ public class DropDownController extends EventDispatcher
      *  @private
      *  Called when the systemManager receives a mouseDown event. This closes
      *  the dropDown if the target is outside of the dropDown. 
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */     
-    protected function systemManager_mouseDownHandler(event:Event):void
+    mx_internal function systemManager_mouseDownHandler(event:Event):void
     {
         if (!dropDown || 
             (dropDown && 
@@ -549,13 +534,8 @@ public class DropDownController extends EventDispatcher
      *  Called when the dropdown is popped up from a rollover and the mouse moves 
      *  anywhere on the screen.  If the mouse moves over the openButton or the dropdown, 
      *  the popup will stay open.  Otherwise, the popup will close.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */ 
-    protected function systemManager_mouseMoveHandler(event:Event):void
+    mx_internal function systemManager_mouseMoveHandler(event:Event):void
     {
         var target:DisplayObject = event.target as DisplayObject;
         var containedTarget:Boolean = isTargetOverDropDownOrOpenButton(target);
@@ -579,13 +559,8 @@ public class DropDownController extends EventDispatcher
      *  @private
      *  Called when the dropdown is popped up from a rollover and the mouse is released 
      *  anywhere on the screen.  This will close the popup.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */ 
-    protected function systemManager_mouseUpHandler(event:Event):void
+    mx_internal function systemManager_mouseUpHandler(event:Event):void
     {
         var target:DisplayObject = event.target as DisplayObject;
         var containedTarget:Boolean = isTargetOverDropDownOrOpenButton(target);
@@ -605,13 +580,8 @@ public class DropDownController extends EventDispatcher
     /**
      *  @private
      *  Close the dropDown if the stage has been resized.
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
      */
-    protected function systemManager_resizeHandler(event:Event):void
+    mx_internal function systemManager_resizeHandler(event:Event):void
     {
         closeDropDown(true);
     }       
