@@ -39,9 +39,12 @@ public class HaloColors
 	//--------------------------------------------------------------------------
 
 	/**
-	 *  Returns a unique hash key based on the colors that are passed in. This
-	 *  key is used to store the calculated colors so they only need to be 
-	 *  calculated once.
+	 *  Returns a unique hash key based on the colors that are
+	 *  passed in. This key is used to store the calculated colors
+	 *  so they only need to be calculated once.
+	 *
+	 *  @param colors An arbitrary number of RGB colors expressed
+	 *  as <code>uint</code> values (for example, 0xFF0000).
 	 */
 	public static function getCacheKey(... colors):String
 	{
@@ -49,13 +52,21 @@ public class HaloColors
 	}
 
 	/**
-	 *  Calculates colors that are used by components that support the Halo theme, such as the colors of beveled edges.
-	 *  This method uses the <code>themeColor</code> and <code>fillColors</code> properties to calculate its colors. 
+	 *  Calculates colors that are used by components that 
+	 *  support the Halo theme, such as the colors of beveled
+	 *  edges.  This method uses the <code>themeColor</code> and
+	 *  <code>fillColors</code> properties to calculate its
+	 *  colors.
 	 * 
-	 *  @param colors 
-	 *  @param themeColor The value of the <code>themeColor</code> style property.
-	 *  @param fillColor0 The start color of a fill.
-	 *  @param fillColor1 The end color of a fill.
+	 *  @param colors The object on which the calculated color
+	 *  values are stored.  
+	 *  
+	 *  @param themeColor The value of the <code>themeColor</code>
+	 *  style property.
+	 * 
+	 * @param fillColor0 The start color of a fill.
+
+	 * @param fillColor1 The end color of a fill.
 	 */
 	public static function addHaloColors(colors:Object,
 										 themeColor:uint,
