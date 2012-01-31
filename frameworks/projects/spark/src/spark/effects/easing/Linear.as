@@ -74,26 +74,6 @@ public class Linear implements IEaser
         this.easeOutFraction = easeOutFraction;
     }
     
-    private static var instance:Linear;
-    
-    /**
-     *  Returns the singleton instance of the Linear class.
-     *
-     *  @return The singleton instance of the Linear class.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static function getInstance():Linear
-    {
-        if (!instance)
-            instance = new Linear();
-
-        return instance;
-    }
-
     /**
      * Storage for the _easeInFraction property
      *  
@@ -169,7 +149,7 @@ public class Linear implements IEaser
      *  properties. 
      *  If <code>fraction</code>
      *  is less than <code>easeInFraction</code>, it calculates a value
-     *  based on accelerating up to the linear moiton phase. 
+     *  based on accelerating up to the linear motion phase. 
      *  If <code>fraction</code>
      *  is greater than <code>easeInFraction</code> and less than 
      *  <code>(1-easeOutFraction)</code>, it calculates a value based
