@@ -20,8 +20,8 @@ import flash.text.engine.Kerning;
 import flash.text.engine.TabStop;
 
 import mx.core.mx_internal;
-import mx.graphics.graphicsClasses.TextBlockComposer;
-import mx.graphics.graphicsClasses.TextGraphicElement;
+import mx.graphics.baseClasses.TextBlockComposer;
+import mx.graphics.baseClasses.TextGraphicElement;
 
 [DefaultProperty("text")]
 
