@@ -593,25 +593,24 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     /**
      *  @private
      *  If true, forces the button to be in the down state
+     *  Set fireEvent to false if you want to supress the ButtonDown event. 
+     *  This is useful if you have programmatically set keepDown but the 
+     *  mouse is not over the button. 
      */
-    mx_internal function set keepDown(value:Boolean):void
+    mx_internal function keepDown(down:Boolean, fireEvent:Boolean = true):void
     {
-        if (_keepDown == value)
+        if (_keepDown == down)
             return;
         
-        _keepDown = value;
+        _keepDown = down;
+        
+        if (!fireEvent) // Don't let the ButtonDown event get fired
+            _downEventFired = true;
+          
         if (_keepDown)
             invalidateSkinState();
         else
             invalidateButtonState();
-    }
-    
-    /**
-     *  @private
-     */
-    mx_internal function get keepDown():Boolean
-    {
-        return _keepDown;   
     }
 
 
@@ -694,7 +693,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
         if (!enabled)
             return false;
 
-        if (keepDown)
+        if (_keepDown)
             return true;
 
         if (keyboardPressed)
