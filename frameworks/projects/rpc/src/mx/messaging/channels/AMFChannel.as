@@ -301,7 +301,7 @@ public class AMFChannel extends NetConnectionChannel
     override protected function internalDisconnect(rejected:Boolean = false):void
     {
         // Attempt to notify the server of the disconnect.
-        if (!rejected)
+        if (!rejected && !shouldBeConnected)
         {
             var msg:CommandMessage = new CommandMessage();
             msg.operation = CommandMessage.DISCONNECT_OPERATION;
