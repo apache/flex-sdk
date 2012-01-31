@@ -371,8 +371,7 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
                 if (g)
                 {
                     g.clear();
-                    if (element.visible)
-                        element.draw(g); 
+                    element.draw(g); 
                 }
             }
         }
