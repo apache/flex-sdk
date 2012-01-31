@@ -38,7 +38,7 @@ import spark.effects.supportClasses.CallActionInstance;
  *  and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:CallAction
+ *  &lt;s:CallAction
  *    <b>Properties</b>
  *    id="ID"
  *    functionName="no default"
