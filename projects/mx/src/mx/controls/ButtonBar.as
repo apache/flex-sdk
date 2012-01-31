@@ -236,6 +236,8 @@ use namespace mx_internal;
 
 [MaxChildren(0)]
 
+[Alternative(replacement="spark.components.ButtonBar", since="4.0")]
+
 /**
  *  The ButtonBar control defines a horizontal or vertical group of 
  *  logically related push buttons with a common look and navigation.
