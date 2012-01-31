@@ -769,6 +769,7 @@ package spark.components
         //----------------------------------
         
         private var _dataProvider:IList = null;
+        private var dataProviderChanged:Boolean;
         
         [Bindable("dataProviderChanged")]
         
@@ -806,13 +807,10 @@ package spark.components
             if (newDataProvider)
                 newDataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, dataProvider_collectionChangeHandler, false, 0, true);        
             
+            dataProviderChanged = true;
+            invalidateProperties();
             invalidateSize();
             invalidateDisplayList();
-            
-            //TBD: clear selection
-            gridDimensions.clear();
-            if (_dataProvider)
-                gridDimensions.rowCount = _dataProvider.length;
             
             dispatchChangeEvent("dataProviderChanged");        
         }
@@ -2308,6 +2306,33 @@ package spark.components
             {
                 dispatchCaretChangeEvent();
                 caretChanged = false;
+            }
+            
+            // If the dp changes, reset the selection and the grid dimensions.
+            // This has to be done here rather than in the dp setter because the
+            // gridSelection and gridDimensions might not be set yet, depending
+            // on the order they are initialized when the grid skin part is 
+            // added to the data grid.
+            if (dataProviderChanged)
+            {
+                // Remove the current selection and, if requireSelection, make
+                // sure the selection is reset to row 0 or cell 0,0.
+                if (gridSelection)
+                {
+                    var savedRequireSelection:Boolean = gridSelection.requireSelection;
+                    gridSelection.requireSelection = false;
+                    gridSelection.removeAll();
+                    gridSelection.requireSelection = savedRequireSelection;
+                }
+                
+                if (gridDimensions)
+                {
+                    gridDimensions.clear();
+                    if (_dataProvider)
+                        gridDimensions.rowCount = _dataProvider.length;
+                }
+                
+                dataProviderChanged = false;
             }
         }
         
