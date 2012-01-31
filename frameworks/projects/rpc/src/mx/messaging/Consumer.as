@@ -37,6 +37,12 @@ use namespace mx_internal;
  *  Dispatched when a message is received by the Consumer.
  *
  *  @eventType mx.messaging.events.MessageEvent.MESSAGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 [Event(name="message", type="mx.messaging.events.MessageEvent")]
 
@@ -60,6 +66,12 @@ use namespace mx_internal;
  *    timestamp="<i>No default.</i>"
  *  /&gt;
  *  </pre> 
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class Consumer extends AbstractConsumer
 {
@@ -95,6 +107,12 @@ public class Consumer extends AbstractConsumer
      *       trace("-App recieved message: " + msg.toString());
      *   }
      *   </listing>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	public function Consumer(messageType:String="flex.messaging.messages.AsyncMessage")
 	{
@@ -133,6 +151,12 @@ public class Consumer extends AbstractConsumer
 	 * 
 	 *  <p>The remote destination must understand the value of the selector 
 	 *  expression.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */	
 	public function get selector():String
 	{
@@ -178,6 +202,12 @@ public class Consumer extends AbstractConsumer
     
     /**
      *  Provides access to the subtopic for the remote destination that the MessageAgent uses.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function get subtopic():String
     {
@@ -188,6 +218,12 @@ public class Consumer extends AbstractConsumer
 	 *  Setting the subtopic when the Consumer is connected and
 	 *  subscribed has the side effect of unsubscribing and resubscribing
 	 *  the Consumer.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
     public function set subtopic(value:String):void
     {
