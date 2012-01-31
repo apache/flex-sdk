@@ -12,7 +12,6 @@
 package mx.components
 {
 import flash.events.Event;
-import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
@@ -154,12 +153,8 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
 
     /**
      *  The FxRadioButtonGroup object to which this FxRadioButton belongs.
-     *  All radio buttons in the group must have the same parent.
      *
      *  @default "undefined"
-     * 
-     *  @throws ArgumentError If the radio button has a different parent than
-     *  the other radio buttons already in the group.
      */
     public function get group():FxRadioButtonGroup
     {
@@ -252,12 +247,8 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  Specifies the name of the group to which this FxRadioButton control belongs, or 
      *  specifies the value of the <code>id</code> property of a FxRadioButtonGroup control
      *  if this FxRadioButton is part of a group defined by a FxRadioButtonGroup control.
-     *  All radio buttons in the group must have the same parent.
      *
      *  @default "undefined"
-     * 
-     *  @throws ArgumentError If the radio button has a different parent than
-     *  the other radio buttons already in the group.
      */
     public function get groupName():String
     {
@@ -346,13 +337,6 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
             addToGroup();
             groupChanged = false;
         }
-
-        if (enabledChanged)
-        {        
-            // Make sure the group is known before calling this.
-            setEnabled();
-            enabledChanged = true;
-        }
     }
 
     //--------------------------------------------------------------------------
@@ -376,22 +360,12 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  @private
      *  Create radio button group if it does not exist
      *  and add the instance to the group.
-     * 
-     *  @throws ArgumentError If the radio button has a different parent than
-     *  the other radio buttons already in the group.
      */
     private function addToGroup():FxRadioButtonGroup
     {        
         var g:FxRadioButtonGroup = group; // Trigger getting the group
         if (g)
         {
-            if (g.numRadioButtons && g.getRadioButtonAt(0).parent != parent)
-            {
-                throw ArgumentError(
-                    "This radio button must have the same parent as the " +
-                    "other radio buttons already in the radio button group.");
-            }
-                        
             g.addInstance(this);
 
             // If this button is selected, then change the group selection.            
@@ -506,12 +480,20 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
 
     /**
      *  @private
-     *  Enable the component if the group it is in is enabled and the radio 
-     *  button itself is enabled. If the group is disabled, the button is disabled.
+     *  Enable the component if the group it is enabled and the radio button
+     *  itself is enabled. If the group is disabled the button is disabled.
      */
     mx_internal function setEnabled():void
     {
-        super.enabled = (group && !group.enabled) ? false : _buttonEnabled;
+        if (_group && !_group.enabled)
+        {
+            super.enabled = false;
+        }
+        else
+        {
+            super.enabled = _buttonEnabled;
+        }
+        
         invalidateButtonState();
     }
 
@@ -520,12 +502,7 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
      *  Storage for enabled property.  It must be merged with the FxRadionButtonGroup
      *  enabled property to determine if the button is enabled.
      */
-    private var _buttonEnabled:Boolean;
-
-    /**
-     *  @private
-     */
-    private var enabledChanged:Boolean = false;
+    mx_internal var _buttonEnabled:Boolean;
 
     /**
      *  @private
@@ -536,8 +513,7 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
     override public function set enabled(value:Boolean):void
     {
         _buttonEnabled = value;
-        enabledChanged = true;
-        invalidateProperties();
+        setEnabled();
     }
     
     //--------------------------------------------------------------------------
@@ -546,18 +522,6 @@ public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
-    override protected function focusInHandler(event:FocusEvent):void
-    {
-        var fm:IFocusManager = focusManager;
-        if (fm)
-            fm.showFocusIndicator = enabled;
-        
-        super.focusInHandler(event);
-    }
-    
     /**
      *  @private
      *  Support the use of keyboard within the group.
