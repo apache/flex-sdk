@@ -309,6 +309,8 @@ public class SkinnableComponent extends UIComponent
     //  enabled
     //----------------------------------
 
+    [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
+
     /**
      *  @private
      */
