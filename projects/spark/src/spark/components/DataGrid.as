@@ -468,6 +468,8 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     public function DataGrid()
     {
         super();
+        
+        addEventListener(Event.SELECT_ALL, selectAllHandler);
     }
     
     //--------------------------------------------------------------------------
@@ -1784,20 +1786,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!grid || event.isDefaultPrevented())
             return;
 
-        // Caret is not required for ctrl-A selectAll operation.
+        // Ctrl-A only comes thru on Mac.  On Windows it is a SELECT_ALL
+        // event.
         if (event.keyCode == Keyboard.A && event.ctrlKey)
-        {            
-            if (selectionMode == GridSelectionMode.MULTIPLE_CELLS || 
-                selectionMode == GridSelectionMode.MULTIPLE_ROWS)
-            {
-                commitInteractiveSelection(
-                    GridSelectionEventKind.SELECT_ALL,
-                    0, 0, dataProvider.length, columns.length);
-                
-                grid.anchorRowIndex = 0;
-                grid.anchorColumnIndex = 0;
-                commitCaretPosition(-1, -1);
-            }
+        { 
+            selectAllFromKeyboard();
             return;
         }
 
@@ -1877,6 +1870,39 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         
         // Was some other navigation key hit?
         adjustSelectionUponNavigation(event);
+    }
+    
+    /**
+     *  @private
+     *  New event in FP10 dispatched when the user activates the platform 
+     *  specific accelerator key combination for a select all operation.
+     *  On Windows this is ctrl-A and on Mac this is cmd-A.
+     */
+    protected function selectAllHandler(event:Event):void
+    {
+        if (!grid || event.isDefaultPrevented())
+            return;
+
+        selectAllFromKeyboard();
+    }
+    
+    /**
+     *  @private
+     */
+    private function selectAllFromKeyboard():void
+    {
+        // Caret is not required for selectAll operation.
+        if (selectionMode == GridSelectionMode.MULTIPLE_CELLS || 
+            selectionMode == GridSelectionMode.MULTIPLE_ROWS)
+        {
+            commitInteractiveSelection(
+                GridSelectionEventKind.SELECT_ALL,
+                0, 0, dataProvider.length, columns.length);
+            
+            grid.anchorRowIndex = 0;
+            grid.anchorColumnIndex = 0;
+            commitCaretPosition(-1, -1);
+        }
     }
     
     /**
@@ -3932,10 +3958,18 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      */
     protected function dataGrid_focusHandler(event:FocusEvent):void
     {
-        if (event.target == this && grid && (grid.layout is GridLayout))
+        if (!grid || !(grid.layout is GridLayout))
+            return;
+              
+        // Show the caret if the focus is either on the DataGrid or the
+        // columnHeaderBar.
+        
+        if (event.target == this || 
+            (columnHeaderGroup && event.target == columnHeaderGroup))
         { 
-            GridLayout(grid.layout).showCaret = (event.type == FocusEvent.FOCUS_IN &&
-                                                (selectionMode != GridSelectionMode.NONE));
+            GridLayout(grid.layout).showCaret = 
+                event.type == FocusEvent.FOCUS_IN &&
+                selectionMode != GridSelectionMode.NONE;
         }    
     }
     
