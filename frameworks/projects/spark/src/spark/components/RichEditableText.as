@@ -21,7 +21,6 @@ package spark.components
     import flash.geom.Rectangle;
     import flash.system.IME;
     import flash.system.IMEConversionMode;
-    import flash.text.TextFormat;
     import flash.text.engine.ElementFormat;
     import flash.text.engine.FontDescription;
     import flash.text.engine.FontLookup;
@@ -31,7 +30,6 @@ package spark.components
     import flash.ui.Keyboard;
     
     import flashx.textLayout.compose.ISWFContext;
-    import flashx.textLayout.compose.TextLineRecycler;
     import flashx.textLayout.container.TextContainerManager;
     import flashx.textLayout.conversion.ConversionType;
     import flashx.textLayout.conversion.ITextExporter;
@@ -75,7 +73,6 @@ package spark.components
     import mx.events.FlexEvent;
     import mx.managers.IFocusManager;
     import mx.managers.IFocusManagerComponent;
-    import mx.managers.ISystemManager;
     import mx.resources.ResourceManager;
     import mx.utils.StringUtil;
     
@@ -4709,9 +4706,8 @@ package spark.components
          */
         private function tossTextLine(textLine:DisplayObject):void
         {
-            TextLineRecycler.addLineForReuse(TextLine(textLine));
+            TextUtil.recycleTextLine(textLine as TextLine);
         }
-        
     }
 
 }
