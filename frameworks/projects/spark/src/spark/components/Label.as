@@ -607,46 +607,28 @@ public class Label extends TextBase
 		return elementFormat;
 	}
 	
-	/**
-	 *  @private
-	 *  Uses the component's CSS styles to determine the module factory
-	 *  that should creates its TextLines.
-	 */
-	private function getEmbeddedFontContext():IFlexModuleFactory
-	{
-		var moduleFactory:IFlexModuleFactory;
-		
-		var fontLookup:String = getStyle("fontLookup");
-		if (fontLookup != FontLookup.DEVICE)
+    /**
+     *  @private
+     *  Uses the component's CSS styles to determine the module factory
+     *  that should creates its TextLines.
+     */
+    private function getEmbeddedFontContext():IFlexModuleFactory
+    {
+        var moduleFactory:IFlexModuleFactory;
+        
+        var fontLookup:String = getStyle("fontLookup");
+        if (fontLookup != FontLookup.DEVICE)
         {
-			var font:String = getStyle("fontFamily");
-			var bold:Boolean = getStyle("fontWeight") == "bold";
-			var italic:Boolean = getStyle("fontStyle") == "italic";
-			
-            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
-            	font, bold, italic,
-                this, fontContext);
-
-            // If we found the font, then it is embedded. 
-            // But some fonts are not listed in info()
-            // and are therefore not in the above registry.
-            // So we call isFontFaceEmbedded() which gets the list
-            // of embedded fonts from the player.
-            if (!moduleFactory) 
-            {
-                var sm:ISystemManager;
-                if (fontContext != null && fontContext is ISystemManager)
-                	sm = ISystemManager(fontContext);
-                else if (parent is IUIComponent)
-                	sm = IUIComponent(parent).systemManager;
-
-                staticTextFormat.font = font;
-                staticTextFormat.bold = bold;
-                staticTextFormat.italic = italic;
+            var font:String = getStyle("fontFamily");
+            var bold:Boolean = getStyle("fontWeight") == "bold";
+            var italic:Boolean = getStyle("fontStyle") == "italic";
+            
+            var localLookup:ISystemManager = 
+                fontContext && fontContext is ISystemManager ? 
+                ISystemManager(fontContext) : systemManager;
                 
-                if (sm != null && sm.isFontFaceEmbedded(staticTextFormat))
-                    moduleFactory = sm;
-            }
+            moduleFactory = embeddedFontRegistry.getAssociatedModuleFactory(
+                font, bold, italic, this, fontContext, localLookup, true);
         }
 
         if (!moduleFactory && fontLookup == FontLookup.EMBEDDED_CFF)
@@ -657,7 +639,7 @@ public class Label extends TextBase
         }
         
         return moduleFactory;
-	}
+    }
 
     /**
      *  @private
