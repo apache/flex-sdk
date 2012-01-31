@@ -121,7 +121,7 @@ use namespace mx_internal;
 /**
  *  Seperator symbol between LinkButton controls in the LinkBar. 
  * 
- *  @default mx.skins.halo.LinkSeparator
+ *  @default mx.skins.halo.LinkSeparator (for both Halo and Spark themes)
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
