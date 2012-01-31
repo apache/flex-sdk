@@ -67,7 +67,9 @@ public class WSDLLoadEvent extends XMLLoadEvent
     public var wsdl:WSDL
 
     /**
-     * Returns a copy of this WSDLLoadEvent object.
+     *  Returns a copy of this WSDLLoadEvent object.
+     *
+     *  @return A copy of this WSDLLoadEvent object.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -80,7 +82,9 @@ public class WSDLLoadEvent extends XMLLoadEvent
     }
 
     /**
-     * Returns a String representation of this WSDLLoadEvent object.
+     *  Returns a String representation of this WSDLLoadEvent object.
+     *
+     *  @return A String representation of this WSDLLoadEvent object.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
