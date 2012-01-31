@@ -87,6 +87,13 @@ public class AbstractMessage implements IMessage
 	 */
 	public static const REQUEST_TIMEOUT_HEADER:String = "DSRequestTimeout";	
 
+    /**
+     *  A status code can provide context about the nature of a response
+     *  message. For example, messages received from an HTTP based channel may
+     *  need to report the HTTP response status code (if available).
+     */
+    public static const STATUS_CODE_HEADER:String = "DSStatusCode";
+
 
     //--------------------------------------------------------------------------
     //
