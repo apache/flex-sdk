@@ -173,7 +173,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *
  *  @see SkinnableDataContainer
  *  @see Group
- *  @see spark.skins.default.SkinnableContainerSkin
+ *  @see spark.skins.spark.SkinnableContainerSkin
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
