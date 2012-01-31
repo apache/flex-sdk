@@ -381,10 +381,16 @@ public class FxTextArea extends FxTextBase
 
 		if (instance == textView)
 		{
-			// Set the TextView to allow multiple lines of input.
+			// Set the TextView to allow multiple lines of input.  
+			// In default.css, the FxTextArea selector has a declaration
+			// for lineBreak which sets it to "toFit".  It needs to be on
+			// FxTextArea rather than TextView so that if changed later it
+			// will be inherited.  It needs to be set with the default
+			// before the possibility that it is changed when FxTextArea is
+			// created.  In this case, setting it here, would overwrite
+			// that change.
 			textView.heightInLines = 10;
 			textView.multiline = true;
-            textView.setStyle("lineBreak", "toFit");
 
             textView.addEventListener("textInvalid",
 									  textView_textInvalidHandler);
