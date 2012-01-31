@@ -66,6 +66,11 @@ use namespace mx_internal;
  *  the <code>Event.bubbles</code> property set to <code>false</code>.</p>
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -78,6 +83,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  *
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -85,6 +95,11 @@ use namespace mx_internal;
  *  Dispatched when the user presses the Enter key.
  *
  *  @eventType mx.events.FlexEvent.ENTER
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="enter", type="mx.events.FlexEvent")]
 
@@ -96,6 +111,11 @@ use namespace mx_internal;
  *  the <code>TextEvent.bubbles</code> property set to <code>false</code>.</p>
  *
  *  @eventType flash.events.TextEvent.TEXT_INPUT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="textInput", type="flash.events.TextEvent")]
 
@@ -113,6 +133,11 @@ include "../styles/metadata/TextStyles.as"
  *  and the bottom edge of its content area.
  *
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
@@ -121,6 +146,11 @@ include "../styles/metadata/TextStyles.as"
  *  and the top edge of its content area.
  *  
  *  @default 0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -267,6 +297,11 @@ include "../styles/metadata/TextStyles.as"
  *
  *  @helpid 3188
  *  @tiptext TextInput is a single-line, editable text field.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class TextInput extends UIComponent
                        implements IDataRenderer, IDropInListItemRenderer,
@@ -284,6 +319,11 @@ public class TextInput extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function TextInput()
     {
@@ -301,6 +341,11 @@ public class TextInput extends UIComponent
 
     /**
      *  The internal subcontrol that draws the border and background.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var border:IFlexDisplayObject;
 
@@ -446,6 +491,11 @@ public class TextInput extends UIComponent
     
     /**
      *  @inheritDoc 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -540,6 +590,11 @@ public class TextInput extends UIComponent
      *  and <code>&lt;p&gt;</code>, to place line breaks in the text field.</p>
      *
      *  @default false;
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get condenseWhite():Boolean
     {
@@ -597,6 +652,11 @@ public class TextInput extends UIComponent
      *
      *  @default null
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -661,6 +721,11 @@ public class TextInput extends UIComponent
      *  @tiptext Specifies whether to display '*'
      *  instead of the actual characters
      *  @helpid 3197
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get displayAsPassword():Boolean
     {
@@ -711,6 +776,11 @@ public class TextInput extends UIComponent
      * 
      *  @tiptext Specifies whether the component is editable or not
      *  @helpid 3196
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get editable():Boolean
     {
@@ -764,6 +834,11 @@ public class TextInput extends UIComponent
      *  @tiptext The pixel position of the left-most character
      *  that is currently displayed
      *  @helpid 3194
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get horizontalScrollPosition():Number
     {
@@ -988,6 +1063,11 @@ public class TextInput extends UIComponent
      *  @default ""
      * 
      *  @see flash.text.TextField#htmlText
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get htmlText():String
     {
@@ -1056,6 +1136,11 @@ public class TextInput extends UIComponent
      *  @default null
      * 
      *  @see flash.system.IMEConversionMode
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get imeMode():String
     {
@@ -1100,6 +1185,11 @@ public class TextInput extends UIComponent
      *  @default 0
      *  @tiptext The number of characters in the TextInput.
      *  @helpid 3192
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get length():int
     {
@@ -1129,6 +1219,11 @@ public class TextInput extends UIComponent
      *
      *  @default null
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
@@ -1172,6 +1267,11 @@ public class TextInput extends UIComponent
      *  @tiptext The maximum number of characters
      *  that the TextInput can contain
      *  @helpid 3191
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxChars():int
     {
@@ -1265,6 +1365,11 @@ public class TextInput extends UIComponent
      *  @tiptext The set of characters that may be entered
      *  into the TextInput.
      *  @helpid 3193
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get restrict():String
     {
@@ -1347,6 +1452,11 @@ public class TextInput extends UIComponent
      * 
      *  @tiptext The zero-based index value of the first character
      *  in the selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectionBeginIndex():int
     {
@@ -1392,6 +1502,11 @@ public class TextInput extends UIComponent
      *
      *  @tiptext The zero-based index value of the last character
      *  in the selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectionEndIndex():int
     {
@@ -1468,6 +1583,11 @@ public class TextInput extends UIComponent
      *  @default ""
      *  @tiptext Gets or sets the TextInput content
      *  @helpid 3190
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get text():String
     {
@@ -1523,6 +1643,11 @@ public class TextInput extends UIComponent
 
     /**
      *  The internal UITextField that renders the text of this TextInput.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var textField:IUITextField;
 
@@ -1548,6 +1673,11 @@ public class TextInput extends UIComponent
      *  which updates the value immediately.</p>
      *
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get textHeight():Number
     {
@@ -1576,6 +1706,11 @@ public class TextInput extends UIComponent
      *  which updates the value immediately.</p>
      *
      *  @see flash.text.TextField
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get textWidth():Number
     {
@@ -1956,6 +2091,11 @@ public class TextInput extends UIComponent
      *  <code>borderStyle</code> and <code>borderSkin</code> styles.  
      *  It must set the border property to the instance
      *  of the border.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function createBorder():void
     {
@@ -1997,6 +2137,11 @@ public class TextInput extends UIComponent
      * 
      *  @see flash.text.TextField
      *  @see flash.text.TextLineMetrics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function getLineMetrics(lineIndex:int):TextLineMetrics
     {
@@ -2025,6 +2170,11 @@ public class TextInput extends UIComponent
      *  properties are both set.
      *
      *  @tiptext Sets a new text selection.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setSelection(beginIndex:int, endIndex:int):void
     {
