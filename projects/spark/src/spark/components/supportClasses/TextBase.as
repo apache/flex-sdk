@@ -630,7 +630,11 @@ public class TextBase extends UIComponent implements IDisplayText
 			if (newEstimates)
 			{
 				setEstimatedSize(cw, ch);
+				
+				// re-measure with the new estimated size
 				UIComponentGlobals.layoutManager.validateClient(this, true);
+				
+				// set estimated size back to what it was
 				setEstimatedSize(oldcw, oldch, false);
 			}
 		}
