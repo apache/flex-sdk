@@ -1297,18 +1297,18 @@ public class Application extends SkinnableContainer
                 if (resizeForSoftKeyboard && !softKeyboardHandlersAdded)
                 {
                     // Use a high priority so that the application resize will occur first
-                    systemManager.stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
-                                                         softKeyboardActivateHandler, false, 
-                                                         EventPriority.BINDING, true);
-                    systemManager.stage.addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
-                                                         softKeyboardDeactivateHandler, false, 
-                                                         EventPriority.BINDING, true);
+                    addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, 
+                                                         softKeyboardActivateHandler, true, 
+                                                         EventPriority.DEFAULT, true);
+                    addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
+                                                         softKeyboardDeactivateHandler, true, 
+                                                         EventPriority.DEFAULT, true);
                     softKeyboardHandlersAdded = true;
                 }
                 else if (!resizeForSoftKeyboard && softKeyboardHandlersAdded)
                 {
-                    systemManager.stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler, false);
-                    systemManager.stage.removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler, false);
+                    removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATE, softKeyboardActivateHandler, true);
+                    removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, softKeyboardDeactivateHandler, true);
                     softKeyboardHandlersAdded = false;
                 }
             }
@@ -1583,7 +1583,7 @@ public class Application extends SkinnableContainer
         {
             // Get the keyboard size
             var keyboardRect:Rectangle = stage.softKeyboardRect;
-                        
+            
             var sm:SystemManager = systemManager as SystemManager;
             var scaleFactor:Number = 1;
             
@@ -1594,7 +1594,7 @@ public class Application extends SkinnableContainer
             var appHeight:Number = (stage.stageHeight - keyboardRect.height) / scaleFactor;
             
             if (appHeight != height)
-            {                
+            {
                 setActualSize(width, appHeight);
                 validateNow(); // Validate so that other listeners like Scroller get the updated dimensions
             }
@@ -1609,10 +1609,7 @@ public class Application extends SkinnableContainer
     private function softKeyboardDeactivateHandler(event:SoftKeyboardEvent):void
     {
         if (this === FlexGlobals.topLevelApplication)
-        {
-            // Get the keyboard size
-            var keyboardRect:Rectangle = stage.softKeyboardRect;
-            
+        {                        
             var sm:SystemManager = systemManager as SystemManager;
             var scaleFactor:Number = 1;
             
