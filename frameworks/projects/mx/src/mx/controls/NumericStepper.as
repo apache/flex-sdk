@@ -1228,6 +1228,7 @@ public class NumericStepper extends UIComponent
             nextButton.disabledIconName = "";
 
             nextButton.focusEnabled = false;
+            nextButton.tabEnabled = false;
             nextButton.autoRepeat = true;
 
             nextButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
@@ -1251,6 +1252,7 @@ public class NumericStepper extends UIComponent
             prevButton.disabledIconName = "";
 
             prevButton.focusEnabled = false;
+            prevButton.tabEnabled = false;
             prevButton.autoRepeat = true;
 
             prevButton.addEventListener(MouseEvent.CLICK, buttonClickHandler);
