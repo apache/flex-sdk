@@ -39,86 +39,86 @@ public class AddActionInstance extends ActionEffectInstance
 {
     include "../../core/Version.as";
 
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 *
-	 *  @param target The Object to animate with this effect.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public function AddActionInstance(target:Object)
-	{
-		super(target);
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Properties
-	//
-	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//  index
-	//----------------------------------
-	
-	/** 
-	 *  The index of the child within the parent.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public var index:int = -1;
-	
-	//----------------------------------
-	//  relativeTo
-	//----------------------------------
-	
-	/** 
-	 *  The location where the child component is added.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public var relativeTo:DisplayObjectContainer;
-	
-	//----------------------------------
-	//  position
-	//----------------------------------
-	
-	/** 
-	 *  The position of the child component, relative to relativeTo, where it is added.
-	 *  
-	 *  @langversion 3.0
-	 *  @playerversion Flash 10
-	 *  @playerversion AIR 1.5
-	 *  @productversion Flex 4
-	 */
-	public var position:String;
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden methods
-	//
-	//--------------------------------------------------------------------------
-	
-	private function getContainer(child:*):*
-	{
-	   return child.parent;
-	}
-	
+    /**
+     *  Constructor.
+     *
+     *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function AddActionInstance(target:Object)
+    {
+        super(target);
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Properties
+    //
+    //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  index
+    //----------------------------------
+    
+    /** 
+     *  @copy spark.effects.AddAction#index
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var index:int = -1;
+    
+    //----------------------------------
+    //  relativeTo
+    //----------------------------------
+    
+    /** 
+     *  @copy spark.effects.AddAction#relativeTo
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var relativeTo:DisplayObjectContainer;
+    
+    //----------------------------------
+    //  position
+    //----------------------------------
+    
+    /** 
+     *  @copy spark.effects.AddAction#position
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public var position:String;
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden methods
+    //
+    //--------------------------------------------------------------------------
+    
+    private function getContainer(child:*):*
+    {
+       return child.parent;
+    }
+    
     private function addChild(container:*, child:*):void
     {
         // TODO: can remove once we're sure all parents are 
@@ -153,79 +153,79 @@ public class AddActionInstance extends ActionEffectInstance
            return container.getChildIndex(child);
     }
 
-	/**
-	 *  @private
-	 */
-	override public function play():void
-	{
-		// Dispatch an effectStart event from the target.
-		super.play();	
-		
-		if (!relativeTo && propertyChanges)
-		{
-			if (getContainer(propertyChanges.start) == null &&
-				getContainer(propertyChanges.end) != null)
-			{
-				relativeTo = getContainer(propertyChanges.end);
-				position = "index";
-				index = propertyChanges.end.index;
-			}
-		}
-		
-		if (!mx_internal::playReversed)
-		{
-			// Set the style property
-			if (target && getContainer(target) == null && relativeTo)
-			{
-				switch (position)
-				{
-					case AddAction.INDEX:
-					{
-						if (index == -1)
-							addChild(relativeTo, target);
-						else
-							addChildAt(relativeTo, target, 
-												Math.min(index, relativeTo.numChildren));
-						break;
-					}
-					
-					case AddAction.BEFORE:
-					{
-						addChildAt(getContainer(relativeTo), target,
-							getChildIndex(getContainer(relativeTo), relativeTo));
-						break;
-					}
+    /**
+     *  @private
+     */
+    override public function play():void
+    {
+        // Dispatch an effectStart event from the target.
+        super.play();   
+        
+        if (!relativeTo && propertyChanges)
+        {
+            if (getContainer(propertyChanges.start) == null &&
+                getContainer(propertyChanges.end) != null)
+            {
+                relativeTo = getContainer(propertyChanges.end);
+                position = "index";
+                index = propertyChanges.end.index;
+            }
+        }
+        
+        if (!mx_internal::playReversed)
+        {
+            // Set the style property
+            if (target && getContainer(target) == null && relativeTo)
+            {
+                switch (position)
+                {
+                    case AddAction.INDEX:
+                    {
+                        if (index == -1)
+                            addChild(relativeTo, target);
+                        else
+                            addChildAt(relativeTo, target, 
+                                                Math.min(index, relativeTo.numChildren));
+                        break;
+                    }
+                    
+                    case AddAction.BEFORE:
+                    {
+                        addChildAt(getContainer(relativeTo), target,
+                            getChildIndex(getContainer(relativeTo), relativeTo));
+                        break;
+                    }
 
-					case AddAction.AFTER:
-					{
-						addChildAt(getContainer(relativeTo), target,
-							getChildIndex(getContainer(relativeTo), relativeTo) + 1);
-						break;
-					}
-					
-					case AddAction.FIRST_CHILD:
-					{
-						addChildAt(relativeTo, target, 0);
-					}
-					
-					case AddAction.LAST_CHILD:
-					{
-						addChild(relativeTo, target);
-					}
-				}
-			}
-		}
-		else
-		{
-			if (target && relativeTo && getContainer(target) == relativeTo)
-			{
-				removeChild(relativeTo, target);
-			}
-		}
-		
-		// We're done...
-		finishRepeat();
-	}
-}	
+                    case AddAction.AFTER:
+                    {
+                        addChildAt(getContainer(relativeTo), target,
+                            getChildIndex(getContainer(relativeTo), relativeTo) + 1);
+                        break;
+                    }
+                    
+                    case AddAction.FIRST_CHILD:
+                    {
+                        addChildAt(relativeTo, target, 0);
+                    }
+                    
+                    case AddAction.LAST_CHILD:
+                    {
+                        addChild(relativeTo, target);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (target && relativeTo && getContainer(target) == relativeTo)
+            {
+                removeChild(relativeTo, target);
+            }
+        }
+        
+        // We're done...
+        finishRepeat();
+    }
+}   
 
 }
