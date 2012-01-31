@@ -1450,7 +1450,12 @@ public class ChannelSet extends EventDispatcher
                 var faultEvent:ChannelFaultEvent = event as ChannelFaultEvent;
                 errorMsg.faultDetail = faultEvent.faultCode + " " + 
                                    faultEvent.faultString + " " +
-                                   faultEvent.faultDetail;                   
+                                   faultEvent.faultDetail;
+                // This is to make streaming channels report authentication fault
+                // codes correctly as they don't report connected until streaming 
+                // connection is established and hence end up here.  
+                if (faultEvent.faultCode == "Channel.Authentication.Error")
+                    errorMsg.faultCode = faultEvent.faultCode;
             }
             // ChannelEvent.DISCONNECT is treated the same as never
             // being able to connect at all.
