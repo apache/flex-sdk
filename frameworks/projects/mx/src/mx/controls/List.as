@@ -62,6 +62,7 @@ import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.managers.IFocusManager;
 import mx.managers.IFocusManagerComponent;
+import mx.managers.ISystemManager2;
 import mx.styles.StyleManager;
 import mx.collections.ItemWrapper;
 import mx.collections.ModifiedCollectionView;
@@ -2061,7 +2062,7 @@ public class List extends ListBase implements IIMESupport
         DisplayObject(itemEditorInstance).addEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
         // we disappear on any mouse down outside the editor
         // use weak reference
-        stage.addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
+        systemManager.addEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true, 0, true);
 
     }
 
@@ -2558,8 +2559,10 @@ public class List extends ListBase implements IIMESupport
     private function itemEditorItemEditBeginHandler(event:ListEvent):void
     {
         // trace("listening for deactivate");
-        // weak reference to stage
-        stage.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
+
+        // weak reference to stage or systemManager
+		if (root)	// we're on the display list
+    		systemManager.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
 
         if (!event.isDefaultPrevented() && listItems[actualRowIndex][actualColIndex].data != null)
         {
