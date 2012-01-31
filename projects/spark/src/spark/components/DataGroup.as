@@ -25,8 +25,8 @@ import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.mx_internal;
 import mx.core.UIComponentGlobals;
+import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
@@ -202,10 +202,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (!validateBaselinePosition())
             return NaN;
         
-        if (numElements == 0)
-            return super.baselinePosition;
+        ensureTypicalLayoutElement();
         
-        return getElementAt(0).baselinePosition + getElementAt(0).y;
+        if (layout)
+            return layout.typicalLayoutElementBaselinePosition;
+        
+        return super.baselinePosition;
     }
     
     //--------------------------------------------------------------------------
