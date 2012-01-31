@@ -56,6 +56,12 @@ use namespace mx_internal;  //ListBase and List share selection properties that 
  *  The ButtonBar control automatically adds or removes the necessary children based on 
  *  changes to the <code>dataProvider</code> property.</p>
  *
+ *  <p>An item renderer lets you customize the display of a list-based component, 
+ *  such as a List or DataGrid control.
+ *  For information about using this component in an item renderer, see 
+ *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
+ *  Custom Spark item renderers</a>. </p>
+ *
  *  <p>You can use the ButtonBar control to set the active child of a ViewStack container, 
  *  as the following example shows:</p>
  *
