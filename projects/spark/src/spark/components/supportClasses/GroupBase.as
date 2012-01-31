@@ -126,6 +126,25 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 [Style(name="disabledAlpha", type="Number", inherit="no", theme="spark, mobile", minValue="0.0", maxValue="1.0")]
 
 /**
+ *  Color of the background of an item renderer when it is being pressed down
+ * 
+ *  <p>If <code>downColor</code> is set to <code>undefined</code>, 
+ *  <code>downColor</code> is not used.</p>
+ * 
+ *  <p>The default value in the 
+ *  spark theme is <code>undefined</code>.  The default value in the 
+ *  mobile theme is <code>0xB2B2B2</code>.</p>
+ *   
+ *  @default undefined
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10.1
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
+ */
+[Style(name="downColor", type="uint", format="Color", inherit="yes", theme="mobile")]
+
+/**
  *  Color of focus ring when the component is in focus.
  *   
  *  @default 0x70B2EE
@@ -139,7 +158,7 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  Color of the highlights when the mouse is over the component.
- *   
+ * 
  *  @default 0xCEDBEF
  *  
  *  @langversion 3.0
