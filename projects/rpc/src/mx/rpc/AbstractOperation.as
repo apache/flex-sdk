@@ -238,11 +238,6 @@ public class AbstractOperation extends AbstractInvoker
     * event bubbling; dispatch the event if there's someone listening on us,
     * otherwise have the RemoteObject dispatch it in case there's a default
     * handler.
-    *  
-    *  @langversion 3.0
-    *  @playerversion Flash 9
-    *  @playerversion AIR 1.1
-    *  @productversion Flex 3
     */
     override mx_internal function dispatchRpcEvent(event:AbstractEvent):void
     {
