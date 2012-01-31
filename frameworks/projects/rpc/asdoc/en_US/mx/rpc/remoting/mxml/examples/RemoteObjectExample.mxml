@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the RemoteObject tag. -->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml">
+
+<!--  Make sure the Flex Data Services proxy-config.xml file contains the following definition.
+      The Java class mypackage.stockquote.MyTicker.class must be available on the 
+      web application's classpath.
+
+    <destination id="MyRemoteObjectDest">
+        <properties>
+            <source>mypackage.stockquote.MyTicker</source>
+            <scope>application</scope>
+        </properties>
+    </destination>
+-->
+
+    <mx:Script>
+        <![CDATA[
+            import mx.controls.Alert;        
+        ]]>    
+    </mx:Script>
+
+    <mx:RemoteObject id="RO" destination="MyRemoteObjectDest"
+        fault="Alert.show(event.fault.faultString), 'Error'">
+
+        <mx:method name="GetQuote">
+            <mx:arguments>
+                <symbol>{stockSymbol.text}</symbol>
+            </mx:arguments>
+        </mx:method>
+    </mx:RemoteObject>
+
+    <mx:Panel title="RemoteObject Example" height="75%" width="75%" 
+        paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+
+        <mx:Label width="100%"  color="blue"
+            text="Enter a stock symbol to obtain a quote."/>
+
+        <mx:TextInput id="stockSymbol" text="ADBE"/>
+        <mx:Button label="Get Quote" click="RO.GetQuote.send()"/>
+
+        <mx:Text htmlText="Company: {RO.GetQuote.lastResult.GetQuoteResult.StockQuote.Company}"/>
+        <mx:Text htmlText="Current price: ${RO.GetQuote.lastResult.GetQuoteResult.StockQuote.Price}"/>
+
+    </mx:Panel>    
+</mx:Application>
