@@ -26,7 +26,7 @@ import mx.utils.OnDemandEventDispatcher;
  *  @langversion 3.0
  *  @playerversion Flash 11
  *  @playerversion AIR 3
- *  @productversion Flex 4.5.2
+ *  @productversion Flex 4.6
  *
  *  @see
  */
@@ -44,7 +44,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */
     public function OnDemandDataProvider()
     {
@@ -79,7 +79,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function get length():int
     {
@@ -101,7 +101,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function addItem(item:Object):void
     {
@@ -116,7 +116,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function addItemAt(item:Object, index:int):void
     {
@@ -131,7 +131,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function getItemAt(index:int, prefetch:int=0):Object
     {
@@ -147,7 +147,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function getItemIndex(item:Object):int
     {
@@ -163,7 +163,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function itemUpdated(item:Object, property:Object=null, oldValue:Object=null, newValue:Object=null):void
     {
@@ -178,7 +178,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function removeAll():void
     {
@@ -193,7 +193,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function removeItemAt(index:int):Object
     {
@@ -209,7 +209,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function setItemAt(item:Object, index:int):Object
     {
@@ -225,7 +225,7 @@ public class OnDemandDataProvider extends OnDemandEventDispatcher implements ILi
      *  @langversion 3.0
      *  @playerversion Flash 11
      *  @playerversion AIR 3
-     *  @productversion Flex 4.5.2
+     *  @productversion Flex 4.6
      */ 
     public function toArray():Array
     {
