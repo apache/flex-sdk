@@ -756,6 +756,20 @@ public class ListBase extends SkinnableDataContainer
             IItemRenderer(renderer).labelText = itemToLabel(IItemRenderer(renderer).data);
     }
     
+    /**
+     *  @private
+     */
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        super.partAdded(partName, instance);
+        if (instance == dataGroup)
+        {
+            // Not your typical delegation, see 'set useVirtualLayout'
+            if (_useVirtualLayout && dataGroup.layout)
+                dataGroup.layout.useVirtualLayout = true;
+        }
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Methods
