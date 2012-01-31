@@ -359,6 +359,8 @@ public class StreamingConnectionHandler extends EventDispatcher
 	/**
 	 *  Used by the streamProgressHandler to read a message. Default implementation
 	 *  returns null and subclasses must override this method.
+	 *
+	 *  @return Returns the message that was read.
 	 */
     protected function readMessage():IMessage
     {    	
