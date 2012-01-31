@@ -71,6 +71,7 @@ import spark.skins.default.VScrollBarTrackSkin; VScrollBarTrackSkin;
 import spark.skins.default.VSliderSkin; VSliderSkin;
 import spark.skins.default.VSliderThumbSkin; VSliderThumbSkin;
 import spark.skins.default.VSliderTrackSkin; VSliderTrackSkin;
+import spark.utils.TextFlowUtil; TextFlowUtil;
 }
 
 }
