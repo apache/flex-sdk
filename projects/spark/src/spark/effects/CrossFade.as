@@ -23,7 +23,7 @@ import flash.utils.ByteArray;
  * values in the first and second bitmaps are <code>v1</code> and <code>v2</code>, 
  * the resulting pixel value <code>v</code> for any pixel in the image is:</p>
  *
- * <pre>v = v1 * (1 - f) + v2 * f</pre>
+ * <pre>v = v1 &#42; (1 - f) + v2 &#42; f</pre>
  * 
  * <p>The bitmap effect is run by a pixel-shader program
  * that is loaded by the effect. 
@@ -46,6 +46,16 @@ public class CrossFade extends AnimateShaderTransition
     private static var CrossFadeShaderClass:Class;
     private static var crossFadeShaderCode:ByteArray = new CrossFadeShaderClass();
 
+    /**
+     *  Constructor. 
+     *
+     *  @param target The Object to animate with this effect.  
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
     public function CrossFade(target:Object=null)
     {
         super(target);
