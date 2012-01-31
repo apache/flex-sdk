@@ -44,6 +44,11 @@ use namespace mx_internal;
  *  Dispatched when the selected child container changes.
  *
  *  @eventType mx.events.IndexChangedEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.IndexChangedEvent")]
 
@@ -56,12 +61,22 @@ include "../styles/metadata/GapStyles.as"
 /**
  *  Number of pixels between the container's bottom border and its content area.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
 /**
  *  Number of pixels between the container's top border and its content area.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -205,6 +220,11 @@ include "../styles/metadata/GapStyles.as"
  *  @see mx.controls.LinkBar
  *  @see mx.managers.HistoryManager
  *  @see mx.managers.LayoutManager
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ViewStack extends Container implements IHistoryManagerClient
 {
@@ -218,6 +238,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ViewStack()
     {
@@ -388,6 +413,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  The height of the area, in pixels, in which content is displayed.
      *  You can override this getter if your content
      *  does not occupy the entire area of the ViewStack container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get contentHeight():Number
     {
@@ -403,6 +433,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  The width of the area, in pixels, in which content is displayed.
      *  You can override this getter if your content
      *  does not occupy the entire area of the ViewStack container.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get contentWidth():Number
     {
@@ -423,6 +458,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *
      *  Override the <code>get()</code> method if you do not want
      *  your content to start layout at x = 0.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get contentX():Number
     {
@@ -442,6 +482,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *
      *  Override the <code>get()</code> method if you do not want
      *  your content to start layout at y = 0.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get contentY():Number
     {
@@ -476,6 +521,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  @default false
      *
      *  @see mx.managers.HistoryManager
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get historyManagementEnabled():Boolean
     {
@@ -511,6 +561,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  resizes to the size of its current child.
      *
      *  @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get resizeToContent():Boolean
     {
@@ -545,6 +600,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      * 
      *  <p><strong>Note:</strong> You can only set this property in an
      *  ActionScript statement, not in MXML.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedChild():Container
     {
@@ -601,6 +661,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  <p><strong>Note:</strong> When you add a new child to a ViewStack 
      *  container, the <code>selectedIndex</code> property is automatically 
      *  adjusted, if necessary, so that the selected child remains selected.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedIndex():int
     {
@@ -713,6 +778,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  container - it remains unbounded.</p>
      * 
      *  @see mx.core.UIComponent#measure()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -815,6 +885,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  <code>scaleY</code> property of the component.
      * 
      *  @see mx.core.UIComponent#updateDisplayList()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(unscaledWidth:Number,
                                                   unscaledHeight:Number):void
@@ -1003,6 +1078,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
 
     /**
      *  @copy mx.managers.IHistoryManagerClient#saveState()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function saveState():Object
     {
@@ -1012,6 +1092,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
 
     /**
      *  @copy mx.managers.IHistoryManagerClient#loadState()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function loadState(state:Object):void
     {
@@ -1043,6 +1128,11 @@ public class ViewStack extends Container implements IHistoryManagerClient
      *  Commits the selected index. This function is called during the commit 
      *  properties phase when the selectedIndex (or selectedItem) property
      *  has changed.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function commitSelectedIndex(newIndex:int):void
     {
