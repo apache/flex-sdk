@@ -40,7 +40,6 @@ import flashx.textLayout.edit.IEditManager;
 import flashx.textLayout.edit.ISelectionManager;
 import flashx.textLayout.edit.SelectionManager;
 import flashx.textLayout.edit.SelectionState;
-import flashx.textLayout.edit.TextScrap;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.InlineGraphicElementStatus;
 import flashx.textLayout.elements.TextFlow;
@@ -2707,7 +2706,7 @@ public class RichEditableText extends UIComponent
     }
     
     /**
-     *  @copy flashx.textLayout.container.ContainerController#scrollToPosition() 
+     *  @copy flashx.textLayout.container.ContainerController#scrollToRange() 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -2721,7 +2720,7 @@ public class RichEditableText extends UIComponent
         validateNow();
 
         // Scrolls so that the text position is visible in the container. 
-        textContainerManager.scrollToPosition(anchorPosition, activePosition);       
+        textContainerManager.scrollToRange(anchorPosition, activePosition);       
     }
         
     /**
@@ -3011,13 +3010,11 @@ public class RichEditableText extends UIComponent
     {
         if (!restrict && !maxChars && !displayAsPassword)
             return;
-            
-        var textScrap:TextScrap = op.scrapToPaste();
-        
+                    
         // If copied/cut from displayAsPassword field the pastedText
         // is '*' characters but this is correct.
         var pastedText:String = TextUtil.extractText(
-            textScrap.textFlow);
+            op.textScrap.textFlow);
 
         // We know it's an EditManager or we wouldn't have gotten here.
         var editManager:IEditManager = getEditManager();
