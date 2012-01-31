@@ -377,13 +377,15 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     override protected function keyDownHandler(event:KeyboardEvent):void
     {
         var prevValue:Number = this.value;
-        
+        var stopPropagation:Boolean = false;
+                
         switch (event.keyCode)
         {
             case Keyboard.DOWN:
             //case Keyboard.LEFT:
             {
                 step(false);
+                stopPropagation = true;
                 break;
             }
 
@@ -391,18 +393,21 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
             //case Keyboard.RIGHT:
             {
                 step(true);
+                stopPropagation = true;
                 break;
             }
 
             case Keyboard.HOME:
             {
                 value = minimum;
+                stopPropagation = true;
                 break;
             }
 
             case Keyboard.END:
             {
                 value = maximum;
+                stopPropagation = true;
                 break;
             }
             
@@ -416,7 +421,8 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
         if (value != prevValue)
             dispatchEvent(new Event("change"));
 
-        event.stopImmediatePropagation();
+		if (stopPropagation)
+        	event.stopPropagation();
     }
 }
 
