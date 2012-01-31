@@ -82,6 +82,7 @@ import mx.managers.IFocusManagerComponent;
  *  <code>rollOut</code>, <code>mouseDown</code>, and 
  *  <code>mouseUp</code> events whether enabled or disabled.</p>
  *
+ *  @includeExample examples/FxButtonExample.mxml
  */
 public class FxButton extends FxComponent implements IFocusManagerComponent
 {
