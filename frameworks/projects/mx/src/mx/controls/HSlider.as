@@ -31,7 +31,7 @@ import mx.controls.sliderClasses.SliderDirection;
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="dataTipPlacement", type="String", enumeration="left, top, right, bottom", inherit="no")]
+[Style(name="dataTipPlacement", type="String", enumeration="left,top,right,bottom", inherit="no")]
 
 //--------------------------------------
 //  Excluded APIs
