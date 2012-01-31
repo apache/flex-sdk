@@ -256,7 +256,10 @@ public class GridDimensions
     //----------------------------------
     //  defaultRowHeight
     //----------------------------------
-    
+
+    /**
+     *  If this changes, update the ASDoc for GridLayout/getItemRendererAt().
+     */
     private var _defaultRowHeight:Number = 26;
     
     /**
@@ -289,6 +292,7 @@ public class GridDimensions
     
     /**
      *  The default width of a column.
+     *  If this changes, update the ASDoc for GridLayout/getItemRendererAt().
      */
     public var defaultColumnWidth:Number = 150;
     
