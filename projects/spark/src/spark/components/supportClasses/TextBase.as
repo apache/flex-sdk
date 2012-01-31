@@ -576,6 +576,15 @@ public class TextGraphicElement extends GraphicElement
         if (parent)
             parent.removeEventListener(FlexEvent.UPDATE_COMPLETE, updateCompleteHandler);
 
+        // When this GraphicElement is removed from a Group,
+		// the Group calls this method with a null argument.
+		// In that case, the text lines must go away.
+	    if (!value)
+        {
+        	mx_internal::removeTextLines();
+        	mx_internal::releaseTextLines();
+        }
+        
         super.parentChanged(value);
 
         if (parent) 
