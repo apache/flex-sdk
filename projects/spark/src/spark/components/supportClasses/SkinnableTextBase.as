@@ -57,12 +57,8 @@ import flashx.textLayout.formats.LineBreak;
  */
 [Event(name="change", type="mx.events.TextOperationEvent")]
 
-include "../../styles/metadata/AdvancedCharacterFormatTextStyles.as"
-include "../../styles/metadata/AdvancedContainerFormatTextStyles.as"
-include "../../styles/metadata/AdvancedParagraphFormatTextStyles.as"
-include "../../styles/metadata/BasicCharacterFormatTextStyles.as"
-include "../../styles/metadata/BasicContainerFormatTextStyles.as"
-include "../../styles/metadata/BasicParagraphFormatTextStyles.as"
+include "../../styles/metadata/AdvancedTextLayoutFormatStyles.as"
+include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
 include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
