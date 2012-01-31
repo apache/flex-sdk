@@ -52,8 +52,8 @@ use namespace mx_internal;
  *  in parallel to avoid any conflict when modifying overlapping property values. 
  *  This effect works by combining all current transform effects
  *  on a target into one single effect instance for that target. That is, multiple
- *  transform effects within the same Parallel effect will be combined (transform
- *  effects within a Sequence will run separately).
+ *  transform effects within the same Parallel effect are combined (transform
+ *  effects within a Sequence run separately).
  * 
  *  <p>While this combination of multiple transform effects happens
  *  internally,
@@ -202,9 +202,9 @@ public class AnimateTransform extends Animate
     /**
      * The sharedObjectDepot holds shared transform effect instances on a 
      * per-toplevel-Parallel basis. That is, transform effects running in
-     * parallel will share a common effect instance with other effects
+     * parallel shares a common effect instance with other effects
      * grouped in the same Parallel tree. Effects running individually, or
-     * running inside a Sequence, will not share instances. We manage this
+     * running inside a Sequence, does not share instances. We manage this
      * by having a map-of-maps inside our sharedObjectDepot. The top-level
      * map manages the per-toplevel-Parallel maps (maps keyd from particular
      * Parallel effects), whose entries are maps that are keyed off of
@@ -245,7 +245,7 @@ public class AnimateTransform extends Animate
     
     [Inspectable(category="General", enumeration="true,false")]
     /** 
-     *  This flag is used by the subclasses of AnimateTransform to specify
+     *  Subclasses of AnimateTransform use this flag to specify
      *  whether the effect changes transform values used by the layout 
      *  manager, or whether it changes values used after layout is run.
      *
@@ -406,7 +406,7 @@ public class AnimateTransform extends Animate
      *  autonomously, this effect uses only a single effect instance per target.
      *  So all objects of type AnimateTransform, or its subclasses, share this
      *  one global instance. If there is already an instance created for the effect,
-     *  the values from the new effect will be inserted as animation values into
+     *  the values from the new effect is inserted as animation values into
      *  the existing instance.
      *
      *  @param target The Object to animate with this effect.  
