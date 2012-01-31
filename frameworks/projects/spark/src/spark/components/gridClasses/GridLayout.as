@@ -236,6 +236,8 @@ public class GridLayout extends LayoutBase
      */
     override public function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
     {
+        // TBD (hmuller): Short-circuit if there aren't any rows or columns.
+        
         if (!grid)
             return;
         
@@ -336,7 +338,7 @@ public class GridLayout extends LayoutBase
     private function getGridColumn(columnIndex:int):GridColumn
     {
         const columns:IList = grid.columns;
-        if ((columns == null) || (columnIndex >= columns.length))
+        if ((columns == null) || (columnIndex >= columns.length) || (columnIndex < 0))
             return null;
         
         return columns.getItemAt(columnIndex) as GridColumn;
@@ -497,11 +499,13 @@ public class GridLayout extends LayoutBase
  	private function layoutColumns(scrollX:Number, scrollY:Number, width:Number):void
 	{
         const gridDimensions:GridDimensions = gridDimensions;
+        var columnCount:int = gridDimensions.columnCount;
+        if (columnCount <= 0)
+            return;
         
         // If width isn't specified (see measure()), then only update requestedColumnCount columns
         
         const requestedColumnCount:int = grid.requestedColumnCount;
-        var columnCount:int = gridDimensions.columnCount;
         if (isNaN(width) && (requestedColumnCount != -1))
             columnCount = Math.min(columnCount, requestedColumnCount);
         
@@ -555,12 +559,12 @@ public class GridLayout extends LayoutBase
         // there's space left over, widen the columns whose GridColumn width 
         // isn't set explicitly, to fill the extra space.
         
-        if ((scrollX != 0) || isNaN(width) || (availableWidth <= 1.0) || (flexibleColumnCount == 0))
+        if ((scrollX != 0) || isNaN(width) || (availableWidth < 1.0) || (flexibleColumnCount == 0))
             return;
         
         const columnWidthDelta:Number = Math.ceil(availableWidth / flexibleColumnCount);
-        
-        for (columnIndex = firstVisibleColumnIndex; (columnIndex < columnCount) && (availableWidth > 1.0); columnIndex++)
+
+        for (columnIndex = firstVisibleColumnIndex; (columnIndex < columnCount) && (availableWidth >= 1.0); columnIndex++)
         {
             gridColumn = getGridColumn(columnIndex);
             
