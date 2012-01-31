@@ -53,6 +53,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.ColorPickerEvent.CHANGE
  *  @helpid 4918
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.ColorPickerEvent")]
 
@@ -61,6 +66,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.DropdownEvent.CLOSE
  *  @helpid 4921
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="close", type="mx.events.DropdownEvent")]
 
@@ -71,6 +81,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.ColorPickerEvent.ENTER
  *  @helpid 4919
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="enter", type="mx.events.ColorPickerEvent")]
 
@@ -80,6 +95,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.ColorPickerEvent.ITEM_ROLL_OUT
  *  @helpid 4924
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOut", type="mx.events.ColorPickerEvent")]
 
@@ -89,6 +109,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.ColorPickerEvent.ITEM_ROLL_OVER
  *  @helpid 4923
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="itemRollOver", type="mx.events.ColorPickerEvent")]
 
@@ -97,6 +122,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.DropdownEvent.OPEN
  *  @helpid 4920
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="open", type="mx.events.DropdownEvent")]
 
@@ -112,36 +142,66 @@ include "../styles/metadata/TextStyles.as"
 /**
  *  Color of the SwatchPanel object's background.
  *  The default value is <code>0xE5E6E7</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Color of the outer border on the SwatchPanel object.
  *  The default value is <code>0xA5A9AE</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="borderColor", type="uint", format="Color", inherit="no")]
 
 /**
  *  Length of a close transition, in milliseconds.
  *  The default value is 250.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeDuration", type="Number", format="Time", inherit="no")]
 
 /**
  *  Easing function to control component tweening.
  *  The default value is <code>undefined</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="closeEasingFunction", type="Function", inherit="no")]
 
 /**
  *  Number of columns in the swatch grid.
  *  The default value is 20.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="columnCount", type="int", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Alphas used for the background fill of controls.
  *  The default value is <code>[ 0.6, 0.4 ]</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillAlphas", type="Array", arrayType="Number", inherit="no")]
 
@@ -149,54 +209,99 @@ include "../styles/metadata/TextStyles.as"
  *  Colors used to tint the background of the control.
  *  Pass the same color for both values for a flat-looking control.
  *  The default value is <code>[ 0xFFFFFF, 0xCCCCCC ]</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="fillColors", type="Array", arrayType="uint", format="Color", inherit="no")]
 
 /**
  *  Alphas used for the highlight fill of controls.
  *  The default value is <code>[ 0.3, 0.0 ]</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
 
 /**
  *  Horizontal gap between swatches in the swatch grid.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="horizontalGap", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Length of an open transition, in milliseconds.
  *  The default value is 250.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openDuration", type="Number", format="Time", inherit="no")]
 
 /**
  *  Easing function to control component tweening.
  *  The default value is <code>undefined</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="openEasingFunction", type="Function", inherit="no")]
 
 /**
  *  Bottom padding of SwatchPanel object below the swatch grid.
  *  The default value is 5.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingBottom", type="Number", format="Length", inherit="no")]
 
 /**
  *  Left padding of SwatchPanel object to the side of the swatch grid.
  *  The default value is 5.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingLeft", type="Number", format="Length", inherit="no")]
 
 /**
  *  Right padding of SwatchPanel object to the side of the swatch grid.
  *  The default value is 5.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingRight", type="Number", format="Length", inherit="no")]
 
 /**
  *  Top padding of SwatchPanel object above the swatch grid.
  *  The default value is 4.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="paddingTop", type="Number", format="Length", inherit="no")]
 
@@ -204,42 +309,77 @@ include "../styles/metadata/TextStyles.as"
  *  Height of the larger preview swatch that appears above the swatch grid on
  *  the upper left of the SwatchPanel object.
  *  The default value is 22.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="previewHeight", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Width of the larger preview swatch.
  *  The default value is 45.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="previewWidth", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Color of the swatches' borders.
  *  The default value is <code>0x000000</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchBorderColor", type="uint", format="Color", inherit="no")]
 
 /**
  *  Size of the outlines of the swatches' borders.
  *  The default value is 1.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchBorderSize", type="Number", format="Length", inherit="no")]
 
 /**
  *  Color of the background rectangle behind the swatch grid.
  *  The default value is <code>0x000000</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchGridBackgroundColor", type="uint", format="Color", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Size of the single border around the grid of swatches.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchGridBorderSize", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Height of each swatch.
  *  The default value is 12.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchHeight", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
@@ -247,6 +387,11 @@ include "../styles/metadata/TextStyles.as"
  *  Color of the highlight that appears around the swatch when the user
  *  rolls over a swatch.
  *  The default value is <code>0xFFFFFF</code>.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchHighlightColor", type="uint", format="Color", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
@@ -254,6 +399,11 @@ include "../styles/metadata/TextStyles.as"
  *  Size of the highlight that appears around the swatch when the user
  *  rolls over a swatch.
  *  The default value is 1.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchHighlightSize", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
@@ -282,30 +432,55 @@ include "../styles/metadata/TextStyles.as"
  *      verticalGap:0;
  *  }
  *  </pre>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchPanelStyleName", type="String", inherit="no")]
 
 /**
  *  Width of each swatch.
  *  The default value is 12.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="swatchWidth", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Name of the style sheet definition to configure the text input control.
  *  The default value is "swatchPanelTextField"
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textFieldStyleName", type="String", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Width of the text box that appears above the swatch grid.
  *  The default value is 72.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="textFieldWidth", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
 /**
  *  Vertical gap between swatches in the grid.
  *  The default value is 0.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="verticalGap", type="Number", format="Length", inherit="no", deprecatedReplacement="swatchPanelStyleName", deprecatedSince="3.0")]
 
@@ -430,6 +605,11 @@ include "../styles/metadata/TextStyles.as"
  *  @includeExample examples/ColorPickerExample.mxml
  *
  *  @helpid 4917
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ColorPicker extends ComboBase
 {
@@ -455,6 +635,11 @@ public class ColorPicker extends ComboBase
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function ColorPicker()
     {
@@ -623,6 +808,11 @@ public class ColorPicker extends ComboBase
      *  black(0x000000) color if found, else it is 0.
      *
      *  @helpid 4931
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set selectedIndex(value:int):void
     {
@@ -718,6 +908,11 @@ public class ColorPicker extends ComboBase
      *
      *  @default "color"
      *  @helpid 4927
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get colorField():String
     {
@@ -746,6 +941,11 @@ public class ColorPicker extends ComboBase
      *  the ColorPicker control.
      *
      *  @helpid 4922
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function get dropdown():SwatchPanel
     {
@@ -758,6 +958,11 @@ public class ColorPicker extends ComboBase
 
     /**
      *  Storage for the labelField property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var _labelField:String = "label";
 
@@ -775,6 +980,11 @@ public class ColorPicker extends ComboBase
      *
      *  @default "label"
      *  @helpid 4928
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get labelField():String
     {
@@ -818,6 +1028,11 @@ public class ColorPicker extends ComboBase
      *  the item at index 0 of the data provider.
      *
      *  @helpid 4932
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get selectedColor():uint
     {
@@ -870,6 +1085,11 @@ public class ColorPicker extends ComboBase
      *  label or hexadecimal color value.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get showTextField():Boolean
     {
@@ -895,6 +1115,11 @@ public class ColorPicker extends ComboBase
      *  Set of styles to pass from the ColorPicker through to the preview swatch. 
      *  @see mx.styles.StyleProxy
      *  @review
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get swatchStyleFilters():Object
     {
@@ -1065,6 +1290,11 @@ public class ColorPicker extends ComboBase
      *  that shows colors that users can select.
      *
      *  @helpid 4925
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function open():void
     {
@@ -1075,6 +1305,11 @@ public class ColorPicker extends ComboBase
      *  Hides the drop-down SwatchPanel object.
      *
      *  @helpid 4926
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function close(trigger:Event = null):void
     {
