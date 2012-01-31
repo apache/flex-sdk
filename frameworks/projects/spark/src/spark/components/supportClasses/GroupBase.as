@@ -1178,7 +1178,7 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
 
     /**
-     *  @copy spark.core.IViewport#horizontalScrollPositionDelta()
+     *  @copy spark.layouts.supportClasses.LayoutBase#getHorizontalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1191,7 +1191,7 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  @copy spark.core.IViewport#verticalScrollPositionDelta()
+     *  @copy spark.layouts.supportClasses.LayoutBase#getVerticalScrollPositionDelta()
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
