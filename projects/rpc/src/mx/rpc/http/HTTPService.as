@@ -282,6 +282,17 @@ public class HTTPService extends AbstractInvoker
         super.addEventListener(type, listener, useCapture, priority, useWeakReference);
     }
 
+    /**
+     * @private
+     * Remove event listener on operation added in the addEventListener override.
+     */
+    override public function removeEventListener(type:String, listener:Function,
+        useCapture:Boolean = false):void
+    {
+        operation.removeEventListener(type, listener, useCapture);
+        super.removeEventListener(type, listener, useCapture);
+    }
+
     mx_internal var operation:AbstractOperation;
 
     override mx_internal function set asyncRequest(ar:AsyncRequest):void
