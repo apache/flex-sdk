@@ -23,8 +23,8 @@ import flash.ui.Keyboard;
 import flash.utils.getTimer;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.core.EdgeMetrics;
-import mx.core.IBorder;
 import mx.core.IFlexDisplayObject;
+import mx.core.IRectangularBorder;
 import mx.core.IUIComponent;
 import mx.core.FlexVersion;
 import mx.core.UIComponent;
@@ -816,8 +816,8 @@ public class PopUpButton extends Button
         }
         else
         {
-	        if (currentSkin is IBorder)
-	        	bm = IBorder(currentSkin).borderMetrics;
+	        if (currentSkin is IRectangularBorder)
+	        	bm = IRectangularBorder(currentSkin).borderMetrics;
 	        else
 				bm = new EdgeMetrics(3, 3, 3, 3);        
         }
