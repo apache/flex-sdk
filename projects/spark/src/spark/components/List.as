@@ -11,12 +11,14 @@
 
 package spark.components
 {
-
+    
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
+import flash.system.ApplicationDomain;
+import flash.text.TextField;
 import flash.ui.Keyboard;
 
 import mx.core.DragSource;
@@ -283,6 +285,16 @@ public class List extends ListBase implements IFocusManagerComponent
         super();
 
         useVirtualLayout = true;
+        
+        // If available, get soft reference to the RichEditableText class
+        // to use in keyDownHandler().
+        if (ApplicationDomain.currentDomain.hasDefinition(
+            "spark.components.RichEditableText"))
+        {
+            richEditableTextClass =
+                Class(ApplicationDomain.currentDomain.getDefinition(
+                    "spark.components.RichEditableText"));
+        }
     }
     
     //--------------------------------------------------------------------------
@@ -324,6 +336,12 @@ public class List extends ListBase implements IFocusManagerComponent
      *  @private
      */
     private var pendingSelectionCtrlKey:Boolean;
+    
+    /**
+     *  @private
+     *  Soft reference to RichEditableText class object, if available.
+     */
+    private var richEditableTextClass:Class;
     
     //--------------------------------------------------------------------------
     //
@@ -2239,8 +2257,14 @@ public class List extends ListBase implements IFocusManagerComponent
     override protected function keyDownHandler(event:KeyboardEvent):void
     {   
         super.keyDownHandler(event);
-
+        
         if (!dataProvider || !layout || event.isDefaultPrevented())
+            return;
+            
+        // In lue of a formal item editor architecture (pending), we will
+        // defer all keyboard events to the target if the target happens to 
+        // be an editable input control.
+        if (isEditableTarget(event.target))
             return;
         
         // 1. Was the space bar hit? 
@@ -2261,6 +2285,7 @@ public class List extends ListBase implements IFocusManagerComponent
         // matches the keystroke. 
         if (findKey(event.charCode))
         {
+            trace("findkey");
             event.preventDefault();
             return;
         }
@@ -2357,6 +2382,19 @@ public class List extends ListBase implements IFocusManagerComponent
             selectedIndex = proposedNewIndex;
             ensureIndexIsVisible(proposedNewIndex);
         }
+    }
+    
+    /**
+     *  @private
+     *  Helper used to determine if the target of a KeyboardEvent happens to 
+     *  be an editable text instance.
+     */
+    protected function isEditableTarget(target:Object):Boolean
+    {
+        var focusObj:Object = getFocus();
+        return ((focusObj is TextField && focusObj.type=="input") ||
+            (richEditableTextClass && focusObj is richEditableTextClass &&
+             focusObj.editable == true))
     }
 }
 
