@@ -35,6 +35,11 @@ import mx.resources.ResourceManager;
  * same time.
  *
  * @eventType mx.events.AnimationEvent.ANIMATION_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="animationStart", type="mx.events.AnimationEvent")]
 
@@ -42,6 +47,11 @@ import mx.resources.ResourceManager;
  * Dispatched every time the animation updates the target.
  *
  * @eventType mx.events.AnimationEvent.ANIMATION_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="animationUpdate", type="mx.events.AnimationEvent")]
 
@@ -52,6 +62,11 @@ import mx.resources.ResourceManager;
  * at the same time.
  *
  * @eventType mx.events.AnimationEvent.ANIMATION_REPEAT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="animationRepeat", type="mx.events.AnimationEvent")]
 
@@ -61,6 +76,11 @@ import mx.resources.ResourceManager;
  * this event only after the final repetition.
  *
  * @eventType mx.events.AnimationEvent.ANIMATION_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="animationEnd", type="mx.events.AnimationEvent")]
 
@@ -97,12 +117,22 @@ import mx.resources.ResourceManager;
  *
  *  @see mx.effects.Animate
  *  @see mx.effects.effectClasses.FxAnimateInstance
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Animation extends EventDispatcher
 {
     /**
      * TODOs:
      * - seek? reverse?
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
 
     include "../core/Version.as";
@@ -120,6 +150,11 @@ public class Animation extends EventDispatcher
      * @param endValue The final value that the animation ends on
      * @param duration The length of time, in milliseconds, that the animation
      * will run
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Animation(startValue:Object=null, endValue:Object=null, 
                                   duration:Number=-1)
@@ -194,6 +229,11 @@ public class Animation extends EventDispatcher
      * running or not. The value is <code>false</code> unless the animation
      * has been played and not yet stopped (either programmatically or
      * automatically) or paused.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get isPlaying():Boolean
     {
@@ -211,6 +251,11 @@ public class Animation extends EventDispatcher
      * values.
      * 
      * @see #interpolator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var startValue:Object;
 
@@ -225,12 +270,22 @@ public class Animation extends EventDispatcher
      * values.
      * 
      * @see #interpolator
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var endValue:Object;
 
     /**
      * The length of time, in milliseconds, that this animation will run,
      * not counting any repetitions by use of <code>repeatCount</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var duration:Number;
 
@@ -253,6 +308,11 @@ public class Animation extends EventDispatcher
      * Animation.LOOP or Animation.REVERSE
      * 
      * @default LOOP
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get repeatBehavior():String
     {
@@ -282,6 +342,11 @@ public class Animation extends EventDispatcher
      * number.
      * 
      * @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set repeatCount(value:Number):void
     {
@@ -316,6 +381,11 @@ public class Animation extends EventDispatcher
      * @see #startDelay
      * 
      * @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set repeatDelay(value:Number):void
     {
@@ -339,6 +409,11 @@ public class Animation extends EventDispatcher
      * the animation. Must be a value >= 0.
      * 
      * @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function set startDelay(value:Number):void
     {
@@ -361,6 +436,11 @@ public class Animation extends EventDispatcher
     /**
      * The time being used in the current frame calculations. This time is
      * shared by all active animations.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function get intervalTime():Number
     {
@@ -380,6 +460,11 @@ public class Animation extends EventDispatcher
      * differently, such as <code>uint</code> values that hold color
      * channel information, can be handled by supplying a different
      * <code>interpolator</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var interpolator:IInterpolator = null;
 
@@ -403,6 +488,11 @@ public class Animation extends EventDispatcher
      * requested.
      * 
      * @default 10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get resolution():Number
     {
@@ -473,6 +563,11 @@ public class Animation extends EventDispatcher
      * <code>animation.easer = Linear.getInstance();</code>.
      * 
      * @default Sine(.5)
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get easer():IEaser
     {
@@ -507,6 +602,11 @@ public class Animation extends EventDispatcher
      * Adds a new animation to the system. All animations run off the same
      * single Timer, so starting any one animation simply adds it onto the
      * static list of active animations.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private static function addAnimation(animation:Animation):void
     {
@@ -684,6 +784,11 @@ public class Animation extends EventDispatcher
     
     /**
      * Utility function for dispatching a specified AnimationEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function sendAnimationEvent(eventType:String, value:Object):void
     {
@@ -717,6 +822,11 @@ public class Animation extends EventDispatcher
     /**
      * Remove this animation from the list of pending animations,
      * as appropriate
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function removeFromDelayedAnimations():void
     {
@@ -738,6 +848,11 @@ public class Animation extends EventDispatcher
     /**
      *  Interrupt the animation, jump immediately to the end of the animation, 
      *  and send out ending notifications
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function end():void
     {
@@ -789,6 +904,11 @@ public class Animation extends EventDispatcher
 
     /**
      * Start the animation
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function play():void
     {
@@ -803,6 +923,11 @@ public class Animation extends EventDispatcher
      *
      *  @param playheadTime The position, in milliseconds, between 0
      *  and the value of the <code>duration</code> property.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */ 
     public function seek(playheadTime:Number, includeStartDelay:Boolean = false):void
     {
@@ -887,6 +1012,11 @@ public class Animation extends EventDispatcher
      * are arrays but the supplied interpolator does not interpolate
      * Arrays, then it sets up an ArrayInterpolator that uses the supplied
      * interpolator for each element.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function setupInterpolation():void
     {
@@ -936,6 +1066,11 @@ public class Animation extends EventDispatcher
     /**
      *  Plays the effect in reverse,
      *  starting from the current position of the effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function reverse():void
     {
@@ -955,6 +1090,11 @@ public class Animation extends EventDispatcher
      * Pauses the effect until the <code>resume()</code> method is called.
      * 
      * @see resume()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function pause():void
     {
@@ -970,6 +1110,11 @@ public class Animation extends EventDispatcher
     /**
      *  Stops the animation, ending it without dispatching an event or calling
      *  the Animation's <code>end()</code> function. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function stop():void
     {
@@ -989,6 +1134,11 @@ public class Animation extends EventDispatcher
     /**
      *  Resumes the effect after it has been paused 
      *  by a call to the <code>pause()</code> method. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function resume():void
     {
@@ -1040,6 +1190,11 @@ public class Animation extends EventDispatcher
      * Called by play() or by a Timer, if startDelay is nonzero. This
      * method initializes any necessary default state and adds the animation
      * to the list of active animations, which starts it actually running.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private function start(event:TimerEvent = null):void
     {
