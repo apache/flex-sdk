@@ -16,7 +16,7 @@ import flash.display.DisplayObject;
 import flash.text.TextFormat;
 import flash.text.engine.FontLookup;
 
-import flashx.textLayout.compose.ITextLineCreator;
+import flashx.textLayout.compose.ISWFContext;
 import flashx.textLayout.conversion.ConversionType;
 import flashx.textLayout.conversion.ITextExporter;
 import flashx.textLayout.conversion.ITextImporter;
@@ -810,10 +810,10 @@ public class RichText extends TextBase implements IFontContextComponent
 		
 		if (embeddedFontContext != oldEmbeddedFontContext)
 		{
-			staticTextFlowFactory.textLineCreator =
-				ITextLineCreator(embeddedFontContext)
-			staticStringFactory.textLineCreator = 
-				ITextLineCreator(embeddedFontContext)
+			staticTextFlowFactory.swfContext =
+				ISWFContext(embeddedFontContext)
+			staticStringFactory.swfContext = 
+				ISWFContext(embeddedFontContext)
 		}
 				
 		// If the styles have changed, hostFormat will have
@@ -837,8 +837,8 @@ public class RichText extends TextBase implements IFontContextComponent
 		
 			if (_textFlow.flowComposer)
 			{
-				_textFlow.flowComposer.textLineCreator = 
-					staticTextFlowFactory.textLineCreator;
+				_textFlow.flowComposer.swfContext = 
+					staticTextFlowFactory.swfContext;
 			}
             
             // Add a damage handler.
