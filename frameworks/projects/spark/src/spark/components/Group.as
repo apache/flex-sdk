@@ -17,6 +17,7 @@ import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 
 import mx.components.baseClasses.GroupBase;
+import mx.core.Container;
 import mx.core.ILayoutElement;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
@@ -24,14 +25,14 @@ import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
 import mx.events.ElementExistenceEvent;
 import mx.graphics.IGraphicElement;
-import mx.graphics.baseClasses.TextGraphicElement;
 import mx.graphics.ISharedDisplayObject;
+import mx.graphics.baseClasses.ISharedGraphicsDisplayObject;
+import mx.graphics.baseClasses.TextGraphicElement;
+import mx.layout.LayoutBase;
 import mx.layout.LayoutElementFactory;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
-import mx.graphics.baseClasses.ISharedGraphicsDisplayObject;
-import mx.core.Container;
 
 use namespace mx_internal;
 
@@ -110,9 +111,9 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function Group():void
+    public function Group(layout:LayoutBase = null):void
     {
-        super();    
+        super(layout);    
     }
 
 	//--------------------------------------------------------------------------
