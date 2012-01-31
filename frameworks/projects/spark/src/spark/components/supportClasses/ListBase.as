@@ -446,11 +446,11 @@ public class Selector extends DataComponent
             }
             else if (ce.kind == CollectionEventKind.REPLACE)
             {
-                itemRemovedHandler(ce.items[0], ce.location);
+                
             }
             else if (ce.kind == CollectionEventKind.REMOVE)
             {
-                
+                itemRemovedHandler(ce.items[0], ce.location);
             }
             else if (ce.kind == CollectionEventKind.MOVE)
             {
