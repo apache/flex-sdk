@@ -1317,7 +1317,12 @@ public class Channel extends EventDispatcher implements IMXMLObject
         {
             _previouslyConnected = false;              
                       
-            var acs:Class = getDefinitionByName("mx.messaging.AdvancedChannelSet") as Class; 
+            var acs:Class = null;
+            try
+            {
+                acs = getDefinitionByName("mx.messaging.AdvancedChannelSet") as Class;
+            } 
+            catch (ignore:Error) {}
             var duration:int = -1;                      
             if (acs != null)
             {                
