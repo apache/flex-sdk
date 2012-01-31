@@ -66,7 +66,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="alternatingItemColors", type="Array", arrayType="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  The alpha of the content background for this component.
@@ -76,7 +76,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundAlpha", type="Number", inherit="yes", theme="spark, mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:contentBackgroundColor
@@ -86,7 +86,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="contentBackgroundColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#style:focusColor
@@ -96,7 +96,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  Indicates under what conditions the horizontal scroll bar is displayed.
@@ -149,7 +149,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark")]
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes", theme="spark, mobile")]
 
 /**
  *  When in touch interaction mode, the number of milliseconds to wait before showing the 
