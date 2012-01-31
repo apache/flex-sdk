@@ -143,10 +143,13 @@ public interface IGraphicElement extends IVisualElement, IInvalidating
     function createDisplayObject():DisplayObject;
     
     /**
-     *  Destroys the DisplayObject where the GraphicElement is drawn, 
-     *  if it exists.  This methods also nulls out the graphic element's 
-     *  <code>displayObject</code> property.
+     *  This method is called to let the GraphicElement know that the 
+     *  display object is no longer needed.  This does not remove the 
+     *  display object from the display list.
+     * 
+     *  @return The display object that this graphic element owned (null 
+     *  if it didn't own one).
      */
-    function destroyDisplayObject():void;
+    function destroyDisplayObject():DisplayObject;
 }
 }
