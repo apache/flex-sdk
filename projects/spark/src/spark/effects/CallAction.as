@@ -28,8 +28,8 @@ import spark.effects.supportClasses.CallActionInstance;
  * <code>functionName</code> property on the <code>target</code> object with
  * optional parameters specified by the <code>parameters</code> property. 
  * The effect is useful in
- * effect sequences where some function call can be choreographed
- * with other effects.
+ * effect sequences where a function call can be included as part of 
+ * a composite effect.
  *  
  *  @mxml
  *
