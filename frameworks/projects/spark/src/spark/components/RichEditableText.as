@@ -29,6 +29,7 @@ import flash.text.engine.TextElement;
 import flash.text.engine.TextLine;
 import flash.ui.Keyboard;
 
+import flashx.textLayout.compose.ITextLineCreator;
 import flashx.textLayout.container.IInputManagerClient;
 import flashx.textLayout.container.InputManager;
 import flashx.textLayout.conversion.ConversionType;
@@ -45,7 +46,6 @@ import flashx.textLayout.edit.TextScrap;
 import flashx.textLayout.edit.UndoManager;
 import flashx.textLayout.elements.Configuration;
 import flashx.textLayout.elements.FlowElement;
-import flashx.textLayout.elements.ITextLineCreator;
 import flashx.textLayout.elements.ParagraphElement;
 import flashx.textLayout.elements.SpanElement;
 import flashx.textLayout.elements.TextFlow;
