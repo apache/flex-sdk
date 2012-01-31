@@ -27,6 +27,26 @@ import spark.components.supportClasses.ToggleButtonBase;
  *  <p>You can get or set this state programmatically
  *  by using the <code>selected</code> property.</p>
  *
+ *  <p>The ToggleButton control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>Wide enough to display the text label of the control</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>21 pixels wide and 21 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;ToggleButton&gt;</code> tag inherits all of the tag 
