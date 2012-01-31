@@ -48,6 +48,11 @@ use namespace mx_internal;
  *  as a result of user interaction.
  *
  *  @eventType mx.events.NumericStepperEvent.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="change", type="mx.events.NumericStepperEvent")]
 
@@ -60,6 +65,11 @@ use namespace mx_internal;
  *  when the <code>data</code> property changes.</p>
  * 
  *  @eventType mx.events.FlexEvent.DATA_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="dataChange", type="mx.events.FlexEvent")]
 
@@ -78,6 +88,11 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the default skin for the down arrow.
  * 
  *  @default mx.skins.halo.NumericStepperDownSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowSkin", type="Class", inherit="no", states="up, over, down, disabled")]
 
@@ -86,6 +101,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the arrow is disabled.
  *
  *  @default mx.skins.halo.NumericStepperDownSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowDisabledSkin", type="Class", inherit="no")]
 
@@ -94,6 +114,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the arrow is enabled and a user presses the mouse button over the arrow.
  *
  *  @default mx.skins.halo.NumericStepperDownSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowDownSkin", type="Class", inherit="no")]
 
@@ -102,6 +127,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the arrow is enabled and the mouse pointer is over the arrow.
  *  
  *  @default mx.skins.halo.NumericStepperDownSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowOverSkin", type="Class", inherit="no")]
 
@@ -109,6 +139,11 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the skin for the Down arrow
  *  when the arrow is enabled and the mouse pointer is not on the arrow.
  *  There is no default.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="downArrowUpSkin", type="Class", inherit="no")]
 
@@ -116,6 +151,11 @@ include "../styles/metadata/TextStyles.as"
  *  Alphas used for the highlight fill of controls.
  *
  *  @default [ 0.3, 0.0 ]
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="highlightAlphas", type="Array", arrayType="Number", inherit="no")]
 
@@ -123,6 +163,11 @@ include "../styles/metadata/TextStyles.as"
  *  Name of the class to use as the default skin for the up arrow.
  *  
  *  @default mx.skins.halo.NumericStepperUpSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowSkin", type="Class", inherit="no", states="up, over, down, disabled")]
 
@@ -131,6 +176,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the arrow is disabled.
  *
  *  @default mx.skins.halo.NumericStepperUpSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowDisabledSkin", type="Class", inherit="no")]
 
@@ -139,6 +189,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the arrow is enabled and a user presses the mouse button over the arrow.
  *
  *  @default mx.skins.halo.NumericStepperUpSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowDownSkin", type="Class", inherit="no")]
 
@@ -147,6 +202,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the arrow is enabled and the mouse pointer is over the arrow.
  *
  *  @default mx.skins.halo.NumericStepperUpSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowOverSkin", type="Class", inherit="no")]
 
@@ -155,6 +215,11 @@ include "../styles/metadata/TextStyles.as"
  *  when the arrow is enabled and the mouse pointer is not on the arrow.
  *
  *  @default mx.skins.halo.NumericStepperUpSkin
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Style(name="upArrowUpSkin", type="Class", inherit="no")]
 
@@ -264,6 +329,11 @@ include "../styles/metadata/TextStyles.as"
  *
  *  @includeExample examples/NumericStepperExample.mxml
  *
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class NumericStepper extends UIComponent
                             implements IDataRenderer, IDropInListItemRenderer,
@@ -280,6 +350,11 @@ public class NumericStepper extends UIComponent
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function NumericStepper()
     {
@@ -445,6 +520,11 @@ public class NumericStepper extends UIComponent
      *
      *  @default null
      *  @see mx.core.IDataRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get data():Object
     {
@@ -477,6 +557,11 @@ public class NumericStepper extends UIComponent
     /**
      *  Set of styles to pass from the NumericStepper to the down arrow.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get downArrowStyleFilters():Object
     {
@@ -520,6 +605,11 @@ public class NumericStepper extends UIComponent
      *  @see flash.system.IMEConversionMode
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get imeMode():String
     {
@@ -544,6 +634,11 @@ public class NumericStepper extends UIComponent
     /**
      *  Set of styles to pass from the NumericStepper to the input field.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get inputFieldStyleFilters():Object
     {
@@ -604,6 +699,11 @@ public class NumericStepper extends UIComponent
      *
      *  @default null
      *  @see mx.controls.listClasses.IDropInListItemRenderer
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get listData():BaseListData
     {
@@ -640,6 +740,11 @@ public class NumericStepper extends UIComponent
      *  A value of 0 means that any number of characters can be entered.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maxChars():int
     {
@@ -677,6 +782,11 @@ public class NumericStepper extends UIComponent
      *  The maximum can be any number, including a fractional value.
      *
      *  @default 10
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get maximum():Number
     {
@@ -715,6 +825,11 @@ public class NumericStepper extends UIComponent
      *  The minimum can be any number, including a fractional value.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get minimum():Number
     {
@@ -748,6 +863,11 @@ public class NumericStepper extends UIComponent
     /**
      *  The value that is one step larger than the current <code>value</code>
      *  property and not greater than the <code>maximum</code> property value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get nextValue():Number
     {
@@ -770,6 +890,11 @@ public class NumericStepper extends UIComponent
     /**
      *  The value that is one step smaller than the current <code>value</code>
      *  property and not smaller than the <code>maximum</code> property value.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get previousValue():Number
     {
@@ -797,6 +922,11 @@ public class NumericStepper extends UIComponent
      *  The <code>value</code> property must be a multiple of this number.
      *
      *  @default 1
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get stepSize():Number
     {
@@ -827,6 +957,11 @@ public class NumericStepper extends UIComponent
     /**
      *  Set of styles to pass from the NumericStepper to the up arrow.
      *  @see mx.styles.StyleProxy
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function get upArrowStyleFilters():Object 
     {
@@ -889,6 +1024,11 @@ public class NumericStepper extends UIComponent
      *  this property is set to the closest valid value.
      *
      *  @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get value():Number
     {
