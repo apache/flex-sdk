@@ -337,8 +337,17 @@ public class GridColumn extends EventDispatcher
             return;
         
         _itemRenderer = value;
+        
+        if (grid)
+        {
+            if (grid.layout)
+                grid.layout.typicalLayoutElement = null;
+            grid.invalidateDisplayList();
+        }
+        
         dispatchChangeEvent("itemRendererChanged");
-        // TBD invalidate grid        
+        
+        // TBD invalidate grid    
     }
     
     //----------------------------------
