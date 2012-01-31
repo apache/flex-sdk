@@ -77,18 +77,24 @@ public class FTETextField extends Sprite implements IFontContextComponent
      */
     private static function initClass():void
     {   
-        staticTextBlockAllButLast = new TextBlock();
-        staticTextBlockAllButLast.textJustifier = new SpaceJustifier("en",LineJustification.ALL_BUT_LAST);
+        if (initialized)
+            return;
         
-        staticTextBlockUnjustified = new TextBlock();
-        staticTextBlockAllButLast.textJustifier = new SpaceJustifier("en",LineJustification.UNJUSTIFIED);
-        
-        FlexGlobals.topLevelApplication.addEventListener(Event.RENDER, staticRenderHandler);
-        FlexGlobals.topLevelApplication.addEventListener(Event.ENTER_FRAME, staticRenderHandler);
+        if (FlexGlobals.topLevelApplication)
+        {
+            staticTextBlockAllButLast = new TextBlock();
+            staticTextBlockAllButLast.textJustifier = new SpaceJustifier("en",LineJustification.ALL_BUT_LAST);
+            
+            staticTextBlockUnjustified = new TextBlock();
+            staticTextBlockAllButLast.textJustifier = new SpaceJustifier("en",LineJustification.UNJUSTIFIED);
+            
+            FlexGlobals.topLevelApplication.addEventListener(Event.RENDER, staticRenderHandler);
+            FlexGlobals.topLevelApplication.addEventListener(Event.ENTER_FRAME, staticRenderHandler);
+            
+            initialized = true;
+        }
     }
-    
-    initClass();
-    
+        
     static private var invalidFields:Dictionary = new Dictionary();
     
     /** @private */
@@ -104,6 +110,11 @@ public class FTETextField extends Sprite implements IFontContextComponent
         if (count)
             invalidFields = new Dictionary();
     }
+    
+    /**
+     *  @private
+     */
+    private static var initialized:Boolean = false;
     
     //--------------------------------------------------------------------------
     //
@@ -324,6 +335,8 @@ public class FTETextField extends Sprite implements IFontContextComponent
     public function FTETextField()
     {
         super();
+        
+        initClass();
         
         // The mouse should not be aware of the TextLines.
         // Otherwise, FTETextField will dispatch mouseOver and mouseOut
