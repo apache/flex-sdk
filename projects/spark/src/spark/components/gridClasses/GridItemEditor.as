@@ -41,6 +41,21 @@ use namespace mx_internal;
  *  Set the item editor for a column by using 
  *  the <code>GridColumn.itemEditor property</code>.</p> 
  *
+ *  @mxml <p>The <code>&lt;s:GridItemEditor&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:GridItemEditor
+ *    <strong>Properties</strong>
+ *    column="null"
+ *    data="null"
+ *    imeMode="null"
+ *    itemRenderer="null"
+ *    rowIndex="0"
+ *    value="null"
+ *  /&gt;
+ *  </pre>
+ * 
  *  @see spark.components.DataGrid
  *  @see spark.components.Grid
  *  @see spark.components.gridClasses.GridColumn
@@ -91,6 +106,8 @@ public class GridItemEditor extends Group implements IGridItemEditor
     /**
      *  @inheritDoc 
      *  
+     *  @default null
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -135,6 +152,8 @@ public class GridItemEditor extends Group implements IGridItemEditor
     /**
      *  @inheritDoc 
      *  
+     *  @default null
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -262,6 +281,8 @@ public class GridItemEditor extends Group implements IGridItemEditor
     /**
      *  The item renderer associated with the edited cell.
      *  
+     *  @default null
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -292,6 +313,8 @@ public class GridItemEditor extends Group implements IGridItemEditor
     /**
      *  @inheritDoc 
      *  
+     *  @default 0
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -335,6 +358,8 @@ public class GridItemEditor extends Group implements IGridItemEditor
      *  Override the setter method to initialize the editor based on the cell value. 
      *  Override the getter method  to return a new cell value to 
      *  the <code>save()</code> method. </p>
+     * 
+     *  @default null
      * 
      *  @langversion 3.0
      *  @playerversion Flash 10
