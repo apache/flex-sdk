@@ -210,8 +210,7 @@ public class FxNumericStepper extends FxSpinner implements IFocusManagerComponen
         }
         
         // Select all the text.
-        textInput.selectionAnchorPosition = 0;
-        textInput.selectionActivePosition = int.MAX_VALUE;
+        textInput.setSelection();
     }
     
     //--------------------------------------------------------------------------
