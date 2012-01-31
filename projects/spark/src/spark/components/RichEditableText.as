@@ -40,26 +40,24 @@ import text.edit.SelectionColor;
 import text.edit.SelectionState;
 import text.edit.SplitParOperation;
 import text.edit.StyleChangeOperation;
+import text.elements.FlowElement;
+import text.elements.ParagraphElement;
+import text.elements.SpanElement;
+import text.elements.TextFlow;
+import text.formats.BlockProgression;
+import text.formats.CharacterFormat;
+import text.formats.ContainerFormat;
+import text.formats.Direction;
+import text.formats.ICharacterFormat;
+import text.formats.IContainerFormat;
+import text.formats.IParagraphFormat;
+import text.formats.LineBreak;
+import text.formats.ParagraphFormat;
+import text.formats.TextAlign;
+import text.formats.TextDecoration;
+import text.formats.VerticalAlign;
+import text.formats.WhitespaceCollapse;
 import text.importExport.TextFilter;
-import text.model.BlockProgression;
-import text.model.CharacterFormat;
-import text.model.ContainerFormat;
-import text.model.Direction;
-import text.model.FlowElement;
-import text.model.ICharacterFormat;
-import text.model.IContainerFormat;
-import text.model.IParagraphFormat;
-import text.model.LeafElement;
-import text.model.LineBreak;
-import text.model.ModelChangeEvent;
-import text.model.Paragraph;
-import text.model.ParagraphFormat;
-import text.model.Span;
-import text.model.TextAlign;
-import text.model.TextDecoration;
-import text.model.TextFlow;
-import text.model.VerticalAlign;
-import text.model.WhitespaceCollapse;
 
 //--------------------------------------
 //  Events
@@ -1520,8 +1518,8 @@ public class TextView extends UIComponent
 	private function createEmptyTextFlow():TextFlow
 	{
 		var textFlow:TextFlow = new TextFlow();
-		var p:Paragraph = new Paragraph();
-		var span:Span = new Span();
+		var p:ParagraphElement = new ParagraphElement();
+		var span:SpanElement = new SpanElement();
 		textFlow.replaceElements(0, 0, p);
 		p.replaceElements(0, 0, span);
 		return textFlow;
@@ -1659,9 +1657,6 @@ public class TextView extends UIComponent
      */
     private function addListeners(textFlow:TextFlow):void
     {
-        textFlow.addEventListener(
-            ModelChangeEvent.MODEL_CHANGE, textFlow_modelChangeHandler);
-
         textFlow.selectionManager.addEventListener(
             SelectionChangedEvent.SELECTION_CHANGED,
             editManager_selectionChangeHandler);
@@ -1715,7 +1710,7 @@ public class TextView extends UIComponent
      */
     public function export():XML
     {
-        return TextFilter.export(textFlow, TextFilter.XFL_FORMAT).children()[0];
+        return TextFilter.export(textFlow, TextFilter.TCAL_FORMAT).children()[0];
     }
 
     /**
@@ -1945,15 +1940,6 @@ public class TextView extends UIComponent
             new TextOperationEvent(TextOperationEvent.CHANGE);
         newEvent.operation = event.operation;
         dispatchEvent(newEvent);
-    }
-
-    /**
-     *  @private
-     *  Called when the TextFlow dispatches a 'modelChange' event.
-     */
-    private function textFlow_modelChangeHandler(event:ModelChangeEvent):void
-    {
-        //trace("modelChange");
     }
 }
 
