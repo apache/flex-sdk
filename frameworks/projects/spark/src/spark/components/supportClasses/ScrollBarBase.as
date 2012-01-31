@@ -23,6 +23,11 @@ import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
 
 /**
+ *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
+/**
  *  The FxScrollBar class helps to position
  *  the portion of data that is displayed when there is too much data
  *  to fit in a display area. 
