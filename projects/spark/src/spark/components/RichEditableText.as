@@ -12,6 +12,8 @@
 package spark.primitives
 {
 
+import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -528,12 +530,6 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
-     *  Previous imeMode.
-     */
-    private var prevMode:String = IMEConversionMode.UNKNOWN;
-
-    /**
-     *  @private
      */    
     private var errorCaught:Boolean = false;
     
@@ -1004,6 +1000,7 @@ public class RichEditableText extends UIComponent
 
         _textContainerManager.editingMode = value;
     }
+
 
     //----------------------------------
     //  heightInLines
@@ -1589,6 +1586,38 @@ public class RichEditableText extends UIComponent
     //  Methods: UIComponent
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function parentChanged(p:DisplayObjectContainer):void
+    {
+        if (focusManager)
+        {
+            focusManager.removeEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
+                _textContainerManager.activateHandler)
+            focusManager.removeEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
+                _textContainerManager.deactivateHandler)
+        }
+
+        super.parentChanged(p);
+
+        if (focusManager)
+        {
+            focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
+                _textContainerManager.activateHandler, false, 0, true)
+            focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
+                _textContainerManager.deactivateHandler, false, 0, true)
+        }
+        else
+        {
+            // if no focusmanager yet, add capture phase to detect when it
+            // gets added
+            systemManager.getSandboxRoot().addEventListener(FlexEvent.ADD_FOCUS_MANAGER, 
+                    addFocusManagerHandler, true, 0, true)
+        }
+
+    }
 
     /**
      *  @private
@@ -3049,6 +3078,27 @@ public class RichEditableText extends UIComponent
 
     /**
      *  @private
+     *  Called when a FocusManager is added to an IFocusManagerContainer.
+     *  We need to check that it belongs
+     *  to us before listening to it.
+     *  Because we listen to sandboxroot, you cannot assume the type of
+     *  the event.
+     */
+    private function addFocusManagerHandler(event:Event):void
+    {
+        if (focusManager == event.target["focusManager"])
+        {
+            systemManager.getSandboxRoot().removeEventListener(FlexEvent.ADD_FOCUS_MANAGER, 
+                    addFocusManagerHandler, true)
+            focusManager.addEventListener(FlexEvent.FLEX_WINDOW_ACTIVATE, 
+                _textContainerManager.activateHandler, false, 0, true)
+            focusManager.addEventListener(FlexEvent.FLEX_WINDOW_DEACTIVATE, 
+                _textContainerManager.deactivateHandler, false, 0, true)
+        }
+    }
+
+    /**
+     *  @private
      *  RichEditableTextContainerManager overrides focusInHandler and calls
      *  this before executing it's own focusInHandler.
      * 
@@ -3069,8 +3119,6 @@ public class RichEditableText extends UIComponent
 
             if (_imeMode != null)
             {
-                IME.enabled = true;
-                prevMode = IME.conversionMode;
                 // When IME.conversionMode is unknown it cannot be
                 // set to anything other than unknown(English)      
                 try
@@ -3115,16 +3163,6 @@ public class RichEditableText extends UIComponent
         if (focusManager)
             focusManager.defaultButtonEnabled = true;
 
-        if (_imeMode != null && editingMode == EditingMode.READ_WRITE)
-        {
-            // When IME.conversionMode is unknown it cannot be
-            // set to anything other than unknown(English)
-            // and when known it cannot be set to unknown           
-            if (IME.conversionMode != IMEConversionMode.UNKNOWN 
-                && prevMode != IMEConversionMode.UNKNOWN)
-                IME.conversionMode = prevMode;
-            IME.enabled = false;
-        }
     }
 
     /**
@@ -3508,6 +3546,7 @@ public class RichEditableText extends UIComponent
             invalidateDisplayList();
         } 
     }    
+
 }
 
 }
