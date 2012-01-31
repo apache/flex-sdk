@@ -21,20 +21,25 @@ import mx.components.FxDataContainer;
 import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
-	
+    
 /**
- *  Dispatched when the selection is going to change. Calling preventDefault()
+ *  Dispatched when the selection is going to change. 
+ *  Calling the <code>preventDefault()</code> method
  *  on the event will prevent the selection from changing.
+ *
+ *  @eventType mx.events.IndexChangedEvent.ITEM_ADD
  */
 [Event(name="selectionChanging", type="mx.events.IndexChangedEvent")]
 
 /**
  *  Dispatched after the selection has changed. 
+ *
+ *  @eventType mx.events.IndexChangedEvent.ITEM_ADD
  */
 [Event(name="selectionChanged", type="mx.events.IndexChangedEvent")]
 
 /**
- *  The Selector class is the base class for all components that support
+ *  The FxListBase class is the base class for all components that support
  *  selection.
  */
 public class FxListBase extends FxDataContainer
@@ -65,12 +70,12 @@ public class FxListBase extends FxDataContainer
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  Constructor.
-	 */
-	public function FxListBase()
+    /**
+     *  Constructor.
+     */
+    public function FxListBase()
     {
-    	super();
+        super();
     }
     
     //--------------------------------------------------------------------------
@@ -78,18 +83,21 @@ public class FxListBase extends FxDataContainer
     //  Properties
     //
     //--------------------------------------------------------------------------
-	
-	/**
-	 *  @private
-	 */
-	private var doingWholesaleChanges:Boolean = false;
-	
-	//----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var doingWholesaleChanges:Boolean = false;
+    
+    //----------------------------------
     //  dataProvider
     //----------------------------------
     
     private var dataProviderChanged:Boolean;
     
+    /**
+     *  @inheritDoc
+     */
     override public function set dataProvider(value:IList):void
     {
         if (dataProvider)
@@ -103,90 +111,111 @@ public class FxListBase extends FxDataContainer
         if (dataProvider)
             dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, collectionChangeHandler);
     }
-	
-	//----------------------------------
-	//  selectedIndex
-	//----------------------------------
+    
+    //----------------------------------
+    //  selectedIndex
+    //----------------------------------
 
-	/**
-	 *  @private
-	 *  The proposed selected index. This is a temporary variable that is
-	 *  used until the selected index is committed.
-	 */
-	private var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
-	
-	/** 
-	 *  @private
-	 *  Flag that is set when the selectedIndex has been adjusted due to
-	 *  items being added or removed. When this flag is true, the value
-	 *  of the selectedIndex has changed, but the actual selected item
-	 *  is the same. This flag is cleared in commitProperties().
-	 */
-	private var selectedIndexAdjusted:Boolean = false;
-	
-	/**
-	 *  @private
-	 *  Internal storage for the selectedIndex property.
-	 */
-	private var _selectedIndex:int = NO_SELECTION;
-	
-   /**
+    /**
+     *  @private
+     *  The proposed selected index. This is a temporary variable that is
+     *  used until the selected index is committed.
+     */
+    private var _proposedSelectedIndex:int = NO_PROPOSED_SELECTION;
+    
+    /** 
+     *  @private
+     *  Flag that is set when the selectedIndex has been adjusted due to
+     *  items being added or removed. When this flag is true, the value
+     *  of the selectedIndex has changed, but the actual selected item
+     *  is the same. This flag is cleared in commitProperties().
+     */
+    private var selectedIndexAdjusted:Boolean = false;
+    
+    /**
+     *  @private
+     *  Internal storage for the selectedIndex property.
+     */
+    private var _selectedIndex:int = NO_SELECTION;
+    
+    [Bindable("selectionChanged")]
+    /**
      *  The 0-based index of the selected item, or -1 if no item is selected.
-     *  Setting the selectedIndex property de-selects the currently selected
+     *  Setting the <code>selectedIndex</code> property deselects the currently selected
      *  item and selects the item at the specified index.
      *
-     *  The value of selectedIndex is always pinned between -1 and 
-     *  (numItems - 1). If items at a lower index than selectedIndex are 
+     *  <p>The value is always between -1 and (<code>numItems</code> - 1). 
+     *  If items at a lower index than <code>selectedIndex</code> are 
      *  removed from the component, the selected index is adjusted downward
-     *  accordingly. If the selected item is removed, selected index is
-     *  set to -1 (if requireSelection = false or there are no remaining items) 
-     *  or 0 (if requireSelection = true and there is at least one item).
+     *  accordingly.</p>
+     *
+     *  <p>If the selected item is removed, the selected index is set to:</p>
+     *
+     *  <ul>
+     *    <li>-1 if <code>requireSelection</code> = <code>false</code> 
+     *     or there are no remaining items.</li>
+     *    <li>0 if <code>requireSelection</code> = <code>true</code> 
+     *     and there is at least one item.</li>
+     *  </ul>
      *
      *  @default -1
      */
-    [Bindable("selectionChanged")]
     public function get selectedIndex():int
     {
-    	if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
-    		return _proposedSelectedIndex;
-    		
-    	return _selectedIndex;
+        if (_proposedSelectedIndex != NO_PROPOSED_SELECTION)
+            return _proposedSelectedIndex;
+            
+        return _selectedIndex;
     }
     
+    /**
+     *  @private
+     */
     public function set selectedIndex(value:int):void
     {
-    	if (value == selectedIndex)
-    		return;
-    		
-		_proposedSelectedIndex = value;
-		invalidateProperties();
+        if (value == selectedIndex)
+            return;
+            
+        _proposedSelectedIndex = value;
+        invalidateProperties();
     }
 
     //----------------------------------
     //  selectedItem
     //----------------------------------
     
-   /**
-     *  The item that is currently selected. Setting the selectedItem property
-     *  de-selects the currently selected item and selects the specified item.
+    [Bindable("selectionChanged")]
+    /**
+     *  The item that is currently selected. 
+     *  Setting this property
+     *  deselects the currently selected item and selects the specified item.
      *
-     *  Setting selectedItem to an item that is not in this component results in
-     *  no selection, and selectedItem being set to undefined. If the selected 
-     *  item is removed, the selected item is set to undefined (if requireSelection
-     *  = false or there are no remaining items) or the first item (if 
-     *  requireSelection = true and there is at least one item).
+     *  <p>Setting <code>selectedItem</code> to an item that is not 
+     *  in this component results in no selection, 
+     *  and <code>selectedItem</code> being set to <code>undefined</code>.</p>
+     * 
+     *  <p>If the selected item is removed, the selected item is set to:</p>
+     *
+     *  <ul>
+     *    <li><code>undefined</code> if <code>requireSelection</code> = <code>false</code> 
+     *      or there are no remaining items.</li>
+     *    <li>The first item if <code>requireSelection</code> = <code>true</code> 
+     *      and there is at least one item.</li>
+     *  </ul>
      *
      *  @default undefined
      */
-    [Bindable("selectionChanged")]
     public function get selectedItem():*
     {
-    	if (selectedIndex == NO_SELECTION)
-    	   return undefined;
-    	   
+        if (selectedIndex == NO_SELECTION)
+           return undefined;
+           
         return dataProvider.getItemAt(selectedIndex);
     }
     
+    /**
+     *  @private
+     */
     public function set selectedItem(value:*):void
     {
         selectedIndex = dataProvider.getItemIndex(value);
@@ -208,25 +237,28 @@ public class FxListBase extends FxDataContainer
      */
     private var requiresSelectionChanged:Boolean = false;
     
+    [Bindable]
     /**
      *  Specifies whether an item must always be selected.
-     *  If the value is true, the selectedIndex property will always be
-     *  set to a value between 0 and (numItems - 1), or -1 if there are
-     *  no items.
+     *  If the value is <code>true</code>, the <code>selectedIndex</code> property 
+     *  is always set to a value between 0 and (<code>numItems</code> - 1), 
+     *  or -1 if there are no items.
      *
      *  @default false
      */
-    [Bindable]
     public function get requiresSelection():Boolean
     {
         return _requiresSelection;
     }
 
+    /**
+     *  @private
+     */
     public function set requiresSelection(value:Boolean):void
     {
         if (value == _requiresSelection)
-        	return;
-        	
+            return;
+            
         _requiresSelection = value;
         
         // We only need to update if the value is changing 
@@ -249,21 +281,21 @@ public class FxListBase extends FxDataContainer
      */
     override protected function commitProperties():void
     {
-    	var changedSelection:Boolean = false;
-    	
+        var changedSelection:Boolean = false;
+        
         super.commitProperties();
         
         if (dataProviderChanged)
         {
             dataProviderChanged = false;
             doingWholesaleChanges = false;
-    	
-    	    // TODO: should resetting the dataProvider clear out all of its state?
-    	    // or should we preserve selectedIndex
-        	if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
-        	   itemSelected(dataProvider.getItemAt(selectedIndex), true);
-        	else
-        	   selectedIndex = -1;
+        
+            // TODO: should resetting the dataProvider clear out all of its state?
+            // or should we preserve selectedIndex
+            if (selectedIndex >= 0 && dataProvider && selectedIndex < dataProvider.length)
+               itemSelected(dataProvider.getItemAt(selectedIndex), true);
+            else
+               selectedIndex = -1;
         }
             
         if (requiresSelectionChanged)
@@ -275,8 +307,8 @@ public class FxListBase extends FxDataContainer
                     dataProvider &&
                     dataProvider.length > 0)
             {
-            	// Set the proposed selected index here to make sure
-            	// commitSelectedIndex() is called below.
+                // Set the proposed selected index here to make sure
+                // commitSelectedIndex() is called below.
                 _proposedSelectedIndex = 0;
             }
         }
@@ -292,10 +324,10 @@ public class FxListBase extends FxDataContainer
             selectedIndexAdjusted = false;
             if (!changedSelection)
             {
-	            var e:IndexChangedEvent = new IndexChangedEvent("selectionChanged");
-	            e.oldIndex = selectedIndex;
-	            e.newIndex = selectedIndex;
-	            dispatchEvent(e);
+                var e:IndexChangedEvent = new IndexChangedEvent("selectionChanged");
+                e.oldIndex = selectedIndex;
+                e.newIndex = selectedIndex;
+                dispatchEvent(e);
             }
         }
     }
@@ -307,8 +339,13 @@ public class FxListBase extends FxDataContainer
     //--------------------------------------------------------------------------
     
     /**
-     *  Called when an item is selected or de-selected. Subclasses must override
-     *  this method to display the selection.
+     *  Called when an item is selected or deselected. 
+     *  Subclasses must override this method to display the selection.
+     *
+     *  @param item The item.
+     *
+     *  @param selected <code>true</code> if the item is selected, 
+     *  and <code>false</code> if it is deselected.
      */
     protected function itemSelected(item:Object, selected:Boolean):void
     {
@@ -359,9 +396,9 @@ public class FxListBase extends FxDataContainer
         
         // Step 3: commit the selection change
         if (_selectedIndex != NO_SELECTION)
-        	itemSelected(dataProvider.getItemAt(_selectedIndex), false);
+            itemSelected(dataProvider.getItemAt(_selectedIndex), false);
         if (_proposedSelectedIndex != NO_SELECTION)
-        	itemSelected(dataProvider.getItemAt(_proposedSelectedIndex), true);
+            itemSelected(dataProvider.getItemAt(_proposedSelectedIndex), true);
         _selectedIndex = _proposedSelectedIndex;
         _proposedSelectedIndex = NO_PROPOSED_SELECTION;
         
@@ -377,14 +414,20 @@ public class FxListBase extends FxDataContainer
     /**
      *  Adjusts the selected index to account for items being added to or 
      *  removed from this component. This method adjusts the selected index
-     *  value and sends a "selectionChanged" event. It does NOT send
-     *  "selectionChanging" or allow the cancellation of the selection. It
-     *  also does not call itemSelected(), since the same item is selected -
+     *  value and dispatches a <code>selectionChanged</code> event. 
+     *  It does not dispatch a <code>selectionChanging</code> event 
+     *  or allow the cancellation of the selection. 
+     *  It also does not call the <code>itemSelected()</code> method, 
+     *  since the same item is selected; 
      *  the only thing that has changed is the index of the item.
      * 
-     *  A "selectionChanged" event is sent in the next call to 
-     *  commitProperties(). The "selectionChanging" event is not sent when
-     *  the selectedIndex is adjusted.
+     *  <p>A <code>selectionChanged</code> event is dispatched in the next call to 
+     *  the <code>commitProperties()</code> method.</p>
+     *
+     *  <p>The <code>selectionChanging</code> event is not sent when
+     *  the <code>selectedIndex</code> is adjusted.</p>
+     *
+     *  @param newIndex The new index.
      */
     protected function adjustSelectedIndex(newIndex:int):void
     {
@@ -443,6 +486,9 @@ public class FxListBase extends FxDataContainer
         }
     }
     
+    /**
+     *  @private
+     */
     protected function collectionChangeHandler(event:Event):void
     {
         if (event is CollectionEvent)
