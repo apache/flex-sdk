@@ -19,17 +19,18 @@ import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.effects.EffectInstance;
+import mx.events.EffectEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 import mx.styles.IStyleClient;
 
-import spark.effects.AnimationProperty;
 import spark.effects.KeyFrame;
 import spark.effects.MotionPath;
+import spark.effects.SimpleMotionPath;
 import spark.effects.animation.Animation;
+import spark.effects.animation.IAnimationTarget;
 import spark.effects.easing.IEaser;
 import spark.effects.interpolation.IInterpolator;
-import spark.events.AnimationEvent;
 
 use namespace mx_internal;
 
@@ -49,7 +50,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class AnimateInstance extends EffectInstance
+public class AnimateInstance extends EffectInstance implements IAnimationTarget
 {
     public var animation:Animation;
     
@@ -80,13 +81,20 @@ public class AnimateInstance extends EffectInstance
     /**
      *  @private.
      *  Used internally to hold the value of the new playhead position
-     *  if the tween doesn't currently exist.
+     *  if the animation doesn't currently exist.
      */
     private var _seekTime:Number = 0;
 
     private var reverseAnimation:Boolean;
     
     private var needsRemoval:Boolean;
+
+    /**
+     * @private
+     * Track number of update listeners for optimization purposes
+     */
+    private var numUpdateListeners:int = 0;
+    
     
     /**
      *  @private
@@ -109,9 +117,9 @@ public class AnimateInstance extends EffectInstance
     //
     //--------------------------------------------------------------------------
 
-    private var _animationProperties:Array;
+    private var _motionPaths:Array;
     /**
-     * An array of AnimationProperty objects, each of which holds the
+     * An array of SimpleMotionPath objects, each of which holds the
      * name of the property being animated and the values that the property
      * will take on during the animation.
      *  
@@ -120,33 +128,20 @@ public class AnimateInstance extends EffectInstance
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function get animationProperties():Array
+    public function get motionPaths():Array
     {
-        return _animationProperties;
+        return _motionPaths;
     }
-    public function set animationProperties(value:Array):void
+    public function set motionPaths(value:Array):void
     {
         // Only set the list to the given value if we have a 
         // null list to begin with. Otherwise, we've already
         // set up the list once and don't need to do it again
         // (for example, in a repeating effect).
-        if (!_animationProperties)
-            _animationProperties = value;
+        if (!_motionPaths)
+            _motionPaths = value;
     }
     
-    /**
-     * This flag indicates whether values should be rounded before set on
-     * the targets. This can be useful in situations where values resolve to
-     * pixel coordinates and snapping to pixels is desired over landing
-     * on fractional pixels.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected var roundValues:Boolean;
-
     /**
      * This flag indicates whether a subclass would like their target to 
      * be automatically kept around during a transition and removed when it
@@ -236,7 +231,7 @@ public class AnimateInstance extends EffectInstance
     //----------------------------------
     
     /**
-     *  @copy mx.effects.IEffectInstance#playheadTime
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -245,10 +240,19 @@ public class AnimateInstance extends EffectInstance
      */
     override public function get playheadTime():Number 
     {
-        if (animation)
-            return animation.elapsedTime;
-        return 0;
+        return animation ? animation.playheadTime : 0;
     }
+    /**
+     * @private
+     */
+    override public function set playheadTime(value:Number):void
+    {
+        if (animation)
+            animation.seek(value, true);
+        else
+            _seekTime = value;
+    } 
+    
 
     /**
      *  @private
@@ -295,25 +299,6 @@ public class AnimateInstance extends EffectInstance
         
         reverseAnimation = !reverseAnimation;
     }
-    
-    /**
-     *  Advances the effect to the specified position. 
-     *
-     *  @param playheadTime The position, in milliseconds, between 0
-     *  and the value of the <code>duration</code> property.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function seek(playheadTime:Number):void
-    {
-        if (animation)
-            animation.seek(playheadTime, true);
-        else
-            _seekTime = playheadTime;
-    } 
     
     /**
      *  Interrupts an effect that is currently playing,
@@ -387,7 +372,7 @@ public class AnimateInstance extends EffectInstance
     {
         super.play();
 
-        if (!animationProperties || animationProperties.length == 0)
+        if (!motionPaths || motionPaths.length == 0)
         {
             // nothing to do; at least schedule the effect to end after
             // the specified duration
@@ -397,7 +382,7 @@ public class AnimateInstance extends EffectInstance
             return;
         }
             
-        isStyleMap = new Array(animationProperties.length);        
+        isStyleMap = new Array(motionPaths.length);        
     
         // TODO (chaase): avoid setting up animations on properties whose
         // from/to values are the same. Not worth the cycles, but also want
@@ -405,13 +390,13 @@ public class AnimateInstance extends EffectInstance
         // values
         var i:int;
         var j:int;
-        for (i = 0; i < animationProperties.length; ++i)
+        for (i = 0; i < motionPaths.length; ++i)
         {
-            var mp:MotionPath = MotionPath(animationProperties[i]);
+            var mp:MotionPath = MotionPath(motionPaths[i]);
             // TODO (chaase): should we push this keyframe-init logic
             // into the MotionPath class instead?
             
-            var keyframes:Array = animationProperties[i].keyframes;
+            var keyframes:Array = motionPaths[i].keyframes;
             if (!keyframes)
                 continue;
             // Create an initial (time==0) value if necessary 
@@ -425,7 +410,7 @@ public class AnimateInstance extends EffectInstance
             // adjust effect duration to be the max of all MotionPath keyframe times
             // TODO (chaase): Currently we do not adjust *down* for smaller duration
             // MotionPaths. This is because we do not distinguish between
-            // AnimationProperty objects (which are created with fake durations of 1,
+            // SimpleMotionPath objects (which are created with fake durations of 1,
             // knowing that they will derive their duration from their effects) and
             // actual keyframe-based MotionPaths.
             for (j = 0; j < keyframes.length; ++j)
@@ -435,17 +420,13 @@ public class AnimateInstance extends EffectInstance
                     duration = Math.max(duration, keyframes[j].time);
 
         }
-        for (i = 0; i < animationProperties.length; ++i)
-            animationProperties[i].scaleKeyframes(duration);
+        for (i = 0; i < motionPaths.length; ++i)
+            motionPaths[i].scaleKeyframes(duration);
 
         animation = new Animation(duration);
-        animation.animationProperties = animationProperties;
-
-        animation.addEventListener(AnimationEvent.ANIMATION_START, startHandler);
-        animation.addEventListener(AnimationEvent.ANIMATION_UPDATE, updateHandler);
-        animation.addEventListener(AnimationEvent.ANIMATION_REPEAT, repeatHandler);
-        animation.addEventListener(AnimationEvent.ANIMATION_END, endHandler);
-            
+        animation.animationTarget = this;
+        animation.motionPaths = motionPaths;
+        
         if (_seekTime > 0)
             animation.seek(_seekTime);
         if (reverseAnimation)
@@ -467,7 +448,7 @@ public class AnimateInstance extends EffectInstance
 
     /**
      * Set the values in the given array on the properties held in our
-     * animationProperties array. This is called by the update and end 
+     * motionPaths array. This is called by the update and end 
      * functions, which are called by the Animation during the animation.
      *  
      *  @langversion 3.0
@@ -477,8 +458,11 @@ public class AnimateInstance extends EffectInstance
      */
     protected function applyValues(anim:Animation):void
     {
-        for (var i:int = 0; i < animationProperties.length; ++i)
-            setValue(animationProperties[i].property, anim.currentValue[i]);
+        for (var i:int = 0; i < motionPaths.length; ++i)
+        {
+            var prop:String = motionPaths[i].property;
+            setValue(prop, anim.currentValue[prop]);
+        }
     }
     
     // TODO (chaase): This function appears in multiple places. Maybe
@@ -497,7 +481,7 @@ public class AnimateInstance extends EffectInstance
     }
     
     /**
-     * Walk the animationProperties looking for null values. A null indicates
+     * Walk the motionPaths looking for null values. A null indicates
      * that the value should be replaced by the current value or one that
      * is calculated from the other value and a supplied delta value.
      * 
@@ -513,10 +497,10 @@ public class AnimateInstance extends EffectInstance
         var changedValues:Boolean = false;
         var j:int;
         var prevValue:Object;
-        for (var i:int = 0; i < animationProperties.length; ++i)
+        for (var i:int = 0; i < motionPaths.length; ++i)
         {
             var motionPath:MotionPath = 
-                MotionPath(animationProperties[i]);
+                MotionPath(motionPaths[i]);
             // set the first value (if invalid) to the current value
             // in the target
             var keyframes:Array = motionPath.keyframes;
@@ -579,7 +563,7 @@ public class AnimateInstance extends EffectInstance
 
     /**
      * This function is called by subclasses during the play() function
-     * to add an animation to the current set of <code>animationProperties</code>.
+     * to add an animation to the current set of <code>motionPaths</code>.
      * The animation will be set up on the named constraint if the constraint
      * is in the <code>propertyChanges</code> array (which is only true during
      * transitions for properties/styles exposed by the effect) and the
@@ -593,12 +577,12 @@ public class AnimateInstance extends EffectInstance
             startVal !== null && endVal !== null &&
             startVal != endVal)
         {
-            animationProperties.push(new AnimationProperty(constraintName, startVal, endVal));
+            motionPaths.push(new SimpleMotionPath(constraintName, startVal, endVal));
         }
     }
 
     /**
-     * Handles start events from the animation.
+     * Called internally to handle start events for the animation.
      * If you override this method, ensure that you call the super method.
      *  
      *  @langversion 3.0
@@ -606,7 +590,7 @@ public class AnimateInstance extends EffectInstance
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function startHandler(event:AnimationEvent):void
+    public function animationStart(animation:Animation):void
     {
         // Wait until the underlying Animation actually starts (after
         // any startDelay) to cache constraints and disable layout. This
@@ -617,19 +601,16 @@ public class AnimateInstance extends EffectInstance
         if (disableLayout)
             setupParentLayout(false);
             
-        var anim:Animation = Animation(event.target);
         finalizeValues();
 
         // TODO (chaase): Consider putting AnimateInstance (and subclass's) 
         // play() functionality (the setup and playing of the Animation object)
         // into startEffect(), calling play() from here, and not overriding
         // play() at all.
-        
-        dispatchEvent(event);
     }
     
     /**
-     * Handles update events from the animation.
+     * Called internally to handle update events for the animation.
      * If you override this method, ensure that you call the super method.
      *  
      *  @langversion 3.0
@@ -637,14 +618,22 @@ public class AnimateInstance extends EffectInstance
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function updateHandler(event:AnimationEvent):void
+    public function animationUpdate(animation:Animation):void
     {
-        applyValues(Animation(event.target));
-        dispatchEvent(event);
+        applyValues(animation);
+        if (numUpdateListeners > 0)
+        {
+            // Only bother dispatching this event if there are listeners. This avoids
+            // unnecessary overhead for the common case of no listeners on this frequent
+            // event
+            var event:EffectEvent = new EffectEvent(EffectEvent.EFFECT_UPDATE);
+            event.effectInstance = this;
+            dispatchEvent(event);
+        }
     }
     
     /**
-     * Handles repeat events from the animation.
+     * Called internally to handle repeat events for the animation.
      * If you override this method, ensure that you call the super method.
      *  
      *  @langversion 3.0
@@ -652,16 +641,62 @@ public class AnimateInstance extends EffectInstance
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    protected function repeatHandler(event:AnimationEvent):void
+    public function animationRepeat(animation:Animation):void
     {
+        var event:EffectEvent = new EffectEvent(EffectEvent.EFFECT_REPEAT);
+        event.effectInstance = this;
         dispatchEvent(event);
+    }    
+
+    /**
+     * Called internally to handle end events for the animation. 
+     * If you override this method, ensure that you call the super method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function animationEnd(animation:Animation):void
+    {
+        if (disableConstraints)
+            reenableConstraints();
+        if (disableLayout)
+            setupParentLayout(true);
+        finishEffect();
     }
-    
+
     private function noopAnimationHandler(event:TimerEvent):void
     {
         finishEffect();
     }
 
+    /**
+     * @private
+     * Track number of listeners to update event for optimization purposes
+     */
+    override public function addEventListener(type:String, listener:Function, 
+        useCapture:Boolean=false, priority:int=0, 
+        useWeakReference:Boolean=false):void
+    {
+        super.addEventListener(type, listener, useCapture, priority, 
+            useWeakReference);
+        if (type == EffectEvent.EFFECT_UPDATE)
+            ++numUpdateListeners;
+    }
+    
+    /**
+     * @private
+     * Track number of listeners to update event for optimization purposes
+     */
+    override public function removeEventListener(type:String, listener:Function, 
+        useCapture:Boolean=false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+        if (type == EffectEvent.EFFECT_UPDATE)
+            --numUpdateListeners;
+    }
+    
     /**
      *  @copy mx.effects.IEffectInstance#finishEffect()
      *  
@@ -675,26 +710,6 @@ public class AnimateInstance extends EffectInstance
         if (autoRemoveTarget)
             removeDisappearingTarget();
         super.finishEffect();
-    }
-
-    /**
-     * Handles the end event from the animation. The value here is an Array of
-     * values, one for each 'property' in our animationProperties.
-     * If you override this method, ensure that you call the super method.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function endHandler(event:AnimationEvent):void
-    {
-        dispatchEvent(event);
-        if (disableConstraints)
-            reenableConstraints();
-        if (disableLayout)
-            setupParentLayout(true);
-        finishEffect();
     }
 
     /**
@@ -857,7 +872,7 @@ public class AnimateInstance extends EffectInstance
     /**
      * Utility function to handle situation where values may be queried or
      * set on the target prior to completely setting up the effect's
-     * animationProperties data values (from which the styleMap is created)
+     * motionPaths data values (from which the styleMap is created)
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -898,9 +913,6 @@ public class AnimateInstance extends EffectInstance
      */
     protected function setValue(property:String, value:Object):void
     {
-        if (roundValues && (value is Number))
-            value = Math.round(Number(value));
-        
         // TODO (chaase): Find a better way to set this up just once
         setupStyleMapEntry(property);
         if (!isStyleMap[property])
