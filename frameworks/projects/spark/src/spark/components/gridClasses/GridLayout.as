@@ -1169,7 +1169,7 @@ public class GridLayout extends LayoutBase
             // Selection is row-based so if there are existing cell selections, 
             // free them since they can't be reused.
             // TBD: this check won't work with column selections.
-            if (visibleColumnSelectionIndices.length)
+            if (visibleColumnSelectionIndices.length > 0)
             {
                 freeGridElements(visibleSelectionIndicators);
                 visibleSelectionIndicators.length = 0;
@@ -1206,7 +1206,7 @@ public class GridLayout extends LayoutBase
         // Selection is not row-based so if there are existing row selections, 
         // free them since they can't be reused.
         // TBD: this check won't work with column selections.
-        if (visibleRowSelectionIndices.length && 
+        if (visibleRowSelectionIndices.length > 0 && 
             visibleColumnSelectionIndices.length == 0)
         {
             freeGridElements(visibleSelectionIndicators);
@@ -1248,6 +1248,17 @@ public class GridLayout extends LayoutBase
         }
         
         // No selection.
+        
+        // If there are existing cell selections, 
+        // free them since there is no selection.
+        // TBD: this check won't work with column selections.
+        if (visibleColumnSelectionIndices.length > 0)
+        {
+            freeGridElements(visibleSelectionIndicators);
+            visibleSelectionIndicators.length = 0;
+            visibleRowSelectionIndices.length = 0;
+            visibleColumnSelectionIndices.length = 0;
+        }
     }
     
     private function layoutRowSelectionIndicator(indicator:IVisualElement, rowIndex:int):void
