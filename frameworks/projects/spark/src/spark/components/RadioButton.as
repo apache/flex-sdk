@@ -54,7 +54,7 @@ use namespace mx_internal;
 
 [IconFile("RadioButton.png")]
 
-
+[AccessibilityClass(implementation="spark.accessibility.RadioButtonAccImpl")]
 
 /**
  *  The RadioButton component allows the user make a single choice
@@ -123,6 +123,18 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     
     //--------------------------------------------------------------------------
     //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by RadioButtonAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -174,6 +186,16 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
     //  Overridden properties
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (RadioButton.createAccessibilityImplementation != null)
+            RadioButton.createAccessibilityImplementation(this);
+    }
+
 
     //----------------------------------
     //  enabled
