@@ -28,12 +28,14 @@ use namespace mx_internal;
 [Exclude(name="listData", kind="property")]
 
 /**
- *  The MXItemRenderer class is the base class for Spark item renderers in 
- *  Halo (mx) classes
+ *  The MXTreeItemRenderer class defines the Spark item renderer class 
+ *  for use with the MX Tree control.
+ *  This class lets you use the Spark item renderer architecture with the 
+ *  MX Tree control. 
  * 
  *  @mxml
  *
- *  <p>The <code>&lt;s:MXItemRenderer&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:MXTreeItemRenderer &gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
@@ -41,6 +43,8 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *  /&gt;
  *  </pre>
+ *  
+ *  @see mx.controls.Tree
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -78,7 +82,7 @@ public class MXTreeItemRenderer extends MXItemRenderer
     private var _disclosureGroup:Group;
 
     /**
-     *  ID of the component that will receive focus as the editor
+     *  The ID of the component that receives focus as the item editor.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -124,6 +128,8 @@ public class MXTreeItemRenderer extends MXItemRenderer
     /**
      *  The implementation of the <code>listData</code> property
      *  as defined by the IDropInListItemRenderer interface.
+     *  Use this property to access information about the 
+     *  data item displayed by the item renderer.     
      *
      *  @see mx.controls.listClasses.IDropInListItemRenderer
      *  
