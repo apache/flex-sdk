@@ -247,18 +247,19 @@ public class ButtonBarButton extends ToggleButton implements IItemRenderer
     
     //--------------------------------------------------------------------------
     //
-    //  Event handling
+    //  Overridden functions: ButtonBase
     //
     //--------------------------------------------------------------------------
 
     /**
      *  @private
      */ 
-    override protected function clickHandler(event:MouseEvent):void
+    override protected function buttonReleased():void
     {
         if (selected && !allowDeselection)
             return;
-        super.clickHandler(event);
+        
+        super.buttonReleased();
     }
 }
 
