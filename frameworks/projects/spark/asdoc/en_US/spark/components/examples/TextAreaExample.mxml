@@ -14,8 +14,13 @@
 	            <s:text>This is a multiline, editable Spark TextArea control. If you need a non-editable multiline control, use the Text control.</s:text>
 	        </s:TextArea>
 	        <s:TextArea width="400" height="100">
-	            <s:content><![CDATA[This is <span color="#FF0000">HTML text</span> in an <span fontWeight="bold">Spark TextArea control</span>. Use the <span textDecoration="underline">content property</span> of the <span color="#008800">Spark TextArea control</span> to include basic HTML markup in your text.]]></s:content>
-	        </s:TextArea>
+	            <s:content>This is <s:span color="#FF0000">HTML text</s:span>
+					in an <s:span fontWeight="bold">Spark TextArea control</s:span>.
+					Use the <s:span textDecoration="underline">content</s:span> property
+					of the <s:span color="#008800">Spark TextArea control</s:span> 
+					to include basic HTML markup in your text, including
+					<s:a href="http://www.adobe.com" target="_blank">links</s:a>.</s:content>
+			</s:TextArea>
 		</s:VGroup>
     </s:Panel>
 
