@@ -128,7 +128,13 @@ public class FxHScrollBar extends FxScrollBar
     }
     
     /**
+     *  If viewport is non null then ask it to compute the horizontal
+     *  scroll position delta for page up/down.  The delta is added
+     *  to this scrollbar's value.  
      * 
+     *  @see viewport
+     *  @see #setValue
+     *  @see IViewport#horizontalScrollPositionDelta
      */
     override public function page(increase:Boolean = true):void
     {
@@ -139,7 +145,13 @@ public class FxHScrollBar extends FxScrollBar
     }
     
     /**
+     *  If viewport is non null then ask it to compute the horizontal
+     *  scroll position delta for step up/down.  The delta is added
+     *  to this scrollbar's value.  
      * 
+     *  @see viewport
+     *  @see #setValue
+     *  @see IViewport#horizontalScrollPositionDelta
      */
     override public function step(increase:Boolean = true):void
     {
