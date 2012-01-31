@@ -12,6 +12,7 @@
 package mx.controls.colorPickerClasses
 {
 
+import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.EventPhase;
 import flash.events.KeyboardEvent;
@@ -24,6 +25,7 @@ import mx.controls.ColorPicker;
 import mx.controls.TextInput;
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
+import mx.core.ITextInput;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.ColorPickerEvent;
@@ -352,7 +354,7 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     /**
      *  @private
      */    
-    mx_internal var textInput:TextInput;
+    mx_internal var textInput:ITextInput;
 
     /**
      *  @private
@@ -950,7 +952,17 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
         // Create the hex text field  
         if (!textInput)
 		{			
-			textInput = new TextInput();    
+            // Mechanism to use TLFTextInput. 
+            var textInputClass:Class = getStyle("textInputClass");            
+            if (!textInputClass || 
+                FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
+            {
+                textInput = new TextInput();
+            }
+            else
+            {
+                textInput = new textInputClass();
+            }
 			
 			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
 			{
@@ -978,7 +990,7 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
 			textInput.addEventListener(Event.CHANGE, textInput_changeHandler);
 			textInput.addEventListener(KeyboardEvent.KEY_DOWN, textInput_keyDownHandler);
 			
-			addChild(textInput);        
+			addChild(DisplayObject(textInput));        
 		}
         
         // Create the swatches grid
@@ -1490,7 +1502,7 @@ public class SwatchPanel extends UIComponent implements IFocusManagerContainer
     private function textInput_changeHandler(event:Event):void
     {
         // Handle events from hex TextField.
-        var color:String = TextInput(event.target).text;
+        var color:String = ITextInput(event.target).text;
         if (color.charAt(0) == "#")
         {
             textInput.maxChars = 7;
