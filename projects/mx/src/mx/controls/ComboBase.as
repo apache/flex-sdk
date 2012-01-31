@@ -1204,6 +1204,10 @@ public class ComboBase extends UIComponent implements IIMESupport, IFocusManager
             // non-editable states.
             if (useFullDropdownSkin)
             {
+            	if (e && getStyle("editableSkin") != null)
+            		downArrowButton.skinName = "editableSkin";
+            	else
+            		downArrowButton.skinName = "skin";
                 downArrowButton.upSkinName = e ? "editableUpSkin" : "upSkin";
                 downArrowButton.overSkinName = e ? "editableOverSkin" : "overSkin";
                 downArrowButton.downSkinName = e ? "editableDownSkin" : "downSkin";
