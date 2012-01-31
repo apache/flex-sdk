@@ -26,18 +26,6 @@ import mx.core.IFactory;
 import mx.managers.IFocusManagerContainer;
 
 /**
- *  Dispatched prior to the component's content being changed. This is only
- *  dispatched when all content of the component is changing.
- */
-[Event(name="contentChanging", type="flex.events.FlexEvent")]
-
-/**
- *  Dispatched after the component's content has changed. This is only
- *  dispatched when all content of the component has changed.
- */
-[Event(name="contentChanged", type="flex.events.FlexEvent")]
-
-/**
  *  Sent after the content for this component has been created. With deferred 
  *  instantiation, the content for a component may be created long after the 
  *  component is created.
@@ -119,10 +107,6 @@ public class ItemsComponent extends ContainerBase
                     ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
                 _placeHolderGroup.addEventListener(
                     ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
-                _placeHolderGroup.addEventListener(
-                    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
-                _placeHolderGroup.addEventListener(
-                    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
             }
             return _placeHolderGroup;
         }
@@ -401,10 +385,6 @@ public class ItemsComponent extends ContainerBase
                 ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
             contentGroup.addEventListener(
                 ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
-            contentGroup.addEventListener(
-                FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
-            contentGroup.addEventListener(
-                FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
             
             if (_placeHolderGroup)
             {
@@ -412,10 +392,6 @@ public class ItemsComponent extends ContainerBase
                     ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
                 _placeHolderGroup.removeEventListener(
                     ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
-                _placeHolderGroup.removeEventListener(
-                    FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
-                _placeHolderGroup.removeEventListener(
-                    FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
                 
                 _placeHolderGroup = null;
             }
@@ -433,10 +409,6 @@ public class ItemsComponent extends ContainerBase
                 ItemExistenceChangedEvent.ITEM_ADD, contentGroup_itemAddedHandler);
             contentGroup.removeEventListener(
                 ItemExistenceChangedEvent.ITEM_REMOVE, contentGroup_itemRemovedHandler);
-            contentGroup.removeEventListener(
-                FlexEvent.CONTENT_CHANGING, contentGroup_contentChangingHandler);
-            contentGroup.removeEventListener(
-                FlexEvent.CONTENT_CHANGED, contentGroup_contentChangedHandler);
         }
     }
     
@@ -488,18 +460,6 @@ public class ItemsComponent extends ContainerBase
     }
     
     private function contentGroup_itemRemovedHandler(event:ItemExistenceChangedEvent):void
-    {
-        // Re-dispatch the event
-        dispatchEvent(event);
-    }
-    
-    private function contentGroup_contentChangingHandler(event:FlexEvent):void
-    {
-        // Re-dispatch the event
-        dispatchEvent(event);
-    }
-    
-    private function contentGroup_contentChangedHandler(event:FlexEvent):void
     {
         // Re-dispatch the event
         dispatchEvent(event);
