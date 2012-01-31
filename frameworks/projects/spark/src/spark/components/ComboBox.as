@@ -14,6 +14,7 @@ package spark.components
 import adobe.utils.CustomActions;
 
 import flash.display.DisplayObject;
+import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
@@ -707,7 +708,8 @@ public class ComboBox extends DropDownListBase implements IIMESupport
             textInput.restrict = restrict;
             textInput.focusEnabled = false;
             
-            textInput.textDisplay.batchTextInput = false;
+            if (textInput.textDisplay is RichEditableText)
+                RichEditableText(textInput.textDisplay).batchTextInput = false;
         }
     }
     
@@ -807,7 +809,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     {
         if (stage && textInput)
         {            
-            stage.focus = textInput.textDisplay;            
+            stage.focus = textInput.textDisplay as InteractiveObject;            
         }
     }
     
