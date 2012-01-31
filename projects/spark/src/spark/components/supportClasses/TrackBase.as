@@ -208,41 +208,9 @@ public class TrackBase extends Range
 
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: UIComponent, Range
+    //  Overridden properties: Range
     //
     //--------------------------------------------------------------------------
- 
-    //---------------------------------
-    // enabled
-    //---------------------------------     
-    
-    /**
-     *  Enable (<code>true</code>) or disable (<code>false</code>) this component. 
-     *  This property also enables and disables any of the 
-     *  skin parts for this component.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function get enabled():Boolean
-    {
-        return super.enabled;
-    }
-    
-    /**
-     *  @private
-     */
-    override public function set enabled(value:Boolean):void
-    {
-        if (value == super.enabled)
-            return;
-        
-        super.enabled = value;
-        enableSkinParts(value);
-        invalidateSkinState();
-    }
     
     //---------------------------------
     // maximum
@@ -486,8 +454,6 @@ public class TrackBase extends Range
                                    track_updateCompleteHandler);
             
         }
-        
-        enableSkinParts(enabled);
     }
 
     /**
@@ -508,25 +474,6 @@ public class TrackBase extends Range
                                       track_updateCompleteHandler);
             tempTrackSize = NaN;                                      
         }
-    }
-
-    /**
-     *  Set the <code>enabled</code> property of the skins parts.
-     *
-     *  @param value <code>true</code> to enable the skin parts, 
-     *  and <code>false</code> to disable them.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    protected function enableSkinParts(value:Boolean):void
-    {
-        if (thumb)
-            thumb.enabled = value;
-        if (track)
-            track.enabled = value;
     }
     
     /**
