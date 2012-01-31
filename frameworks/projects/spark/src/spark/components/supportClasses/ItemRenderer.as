@@ -22,7 +22,7 @@ import mx.styles.StyleManager;
 import spark.components.DataGroup;
 import spark.components.Group;
 import spark.components.IItemRenderer;
-import spark.components.MXMLComponent; 
+import spark.components.DataRenderer; 
 import spark.primitives.supportClasses.TextGraphicElement;
 
 use namespace mx_internal; 
@@ -48,7 +48,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ItemRenderer extends MXMLComponent implements IItemRenderer
+public class ItemRenderer extends DataRenderer implements IItemRenderer
 {    
     //--------------------------------------------------------------------------
     //
@@ -349,7 +349,7 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
     /**
      *  @private
      *  Return the skin state. This can be overridden by subclasses to add more states.
-     *  NOTE: Undocumented for now since MXMLComponent class has not been fleshed out.
+     *  NOTE: Undocumented for now since DataRenderer class has not been fleshed out.
      */
     protected function getCurrentRendererState():String
     {
