@@ -32,6 +32,8 @@ public class MessageSerializationError extends MessagingError
 	 *  with the specified message.
 	 *
 	 *  @param msg String that contains the message that describes the error.
+	 *  @param fault Provides specific information about the fault that occured
+	 *  and for which message.
      */
     public function MessageSerializationError(msg:String, fault:ErrorMessage)
     {
