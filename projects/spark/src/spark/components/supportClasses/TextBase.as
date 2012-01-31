@@ -14,6 +14,7 @@ package spark.primitives.supportClasses
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+import flash.display.Shape;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
@@ -113,9 +114,11 @@ public class TextGraphicElement extends GraphicElement
 
     /**
      *  @private
-	 *  The TextLines created to render the text.
+	 *  The TextLines and Shapes created to render the text.
+	 *  (Shapes are used to render the backgroundColor format.)
      */
-    mx_internal var textLines:Array = [];
+    mx_internal var textLines:Vector.<DisplayObject> =
+    	new Vector.<DisplayObject>();
             
     /**
      *  @private
@@ -1123,8 +1126,8 @@ public class TextGraphicElement extends GraphicElement
 
         for (var i:int = n - 1; i >= 0; i--)
 		{
-			var textLine:TextLine = TextLine(mx_internal::textLines[i]);
-			
+			var textLine:DisplayObject = mx_internal::textLines[i];
+						
             //trace(container.name, "addTextLines", textLine.x, textLine.y, drawX, drawY);
 
             textLine.x += drawX;
@@ -1163,7 +1166,7 @@ public class TextGraphicElement extends GraphicElement
 
 		for (var i:int = 0; i < n; i++)
 		{
-			var textLine:TextLine = TextLine(mx_internal::textLines[i]);
+			var textLine:DisplayObject = mx_internal::textLines[i];
             if (container is IVisualElementContainer)
                 IVisualElementContainer(container).mx_internal::$removeChild(textLine);
             else
@@ -1182,21 +1185,23 @@ public class TextGraphicElement extends GraphicElement
      *  @private
      *  Adds the TextLines to the reuse cache, and clears the textLines array.
      */
-    mx_internal function releaseTextLines(textLinesArray:Array=null):void
+    mx_internal function releaseTextLines(
+    	textLines:Vector.<DisplayObject> = null):void
     {
-        if (!textLinesArray)
-            textLinesArray = mx_internal::textLines;
+        if (!textLines)
+            textLines = mx_internal::textLines;
             
-        for (var i:int = 0; i < textLinesArray.length; i++)
+        for (var i:int = 0; i < textLines.length; i++)
         {
-            var textLine:TextLine = TextLine(textLinesArray[i]);
+            var textLine:DisplayObject = textLines[i];
             
             // This method does the Flash Player version check so we don't
             // have to.
-            TextLineRecycler.addLineForReuse(textLine);
+            if (textLine is TextLine)
+            	TextLineRecycler.addLineForReuse(TextLine(textLine));
         }
         
-        textLinesArray.length = 0;
+        textLines.length = 0;
    }
 
     /**
@@ -1218,7 +1223,7 @@ public class TextGraphicElement extends GraphicElement
             
         for (var i:int = 0; i < n; i++)
         {
-            var textLine:TextLine = TextLine(mx_internal::textLines[i]);
+            var textLine:DisplayObject = mx_internal::textLines[i];
             
             textLine.x +=  drawX - _lastDrawX;
             textLine.y += drawY - _lastDrawY;
@@ -1237,9 +1242,8 @@ public class TextGraphicElement extends GraphicElement
                                        composeHeight:Number):Boolean
     {        
         // The composition bounds available for text placement.
-        var compositionRect:Rectangle = new Rectangle(0, 0, 
-                                                      composeWidth,
-                                                      composeHeight);
+        var compositionRect:Rectangle =
+        	new Rectangle(0, 0, composeWidth, composeHeight);
     
         // Add in a half-pixel slop factor to the throw-away rectangle (do
         // not modify mx_internal::bounds).  This covers the case where the
@@ -1315,8 +1319,10 @@ public class TextGraphicElement extends GraphicElement
         var isEmpty:Boolean = (text == "");
         text = isEmpty ? "Wj" : text;
         
-        if (mx_internal::invalidatePropertiesFlag || mx_internal::invalidateSizeFlag || 
-            mx_internal::invalidateDisplayListFlag || isEmpty)
+        if (mx_internal::invalidatePropertiesFlag ||
+        	mx_internal::invalidateSizeFlag || 
+            mx_internal::invalidateDisplayListFlag ||
+            isEmpty)
         {
             validateNow();  
             text = isEmpty ? "" : text;
