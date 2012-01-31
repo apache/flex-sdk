@@ -31,7 +31,6 @@ import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
 import mx.styles.ISimpleStyleClient;
 
-import spark.components.ColumnHeaderBar;
 import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.Group;
@@ -299,7 +298,7 @@ public class GridLayout extends LayoutBase
             
         super.scrollPositionChanged();  // sets grid.scrollRect
         
-        // Only invalidate if we're clipping and scrollR extends outside validBounds
+        // Only invalidate if we're clipping and scrollR extends outside visisibleRenderersBounds
         
         const scrollR:Rectangle = grid.scrollRect;
         if (scrollR && !visibleItemRenderersBounds.containsRect(scrollR))
@@ -419,9 +418,10 @@ public class GridLayout extends LayoutBase
         visibleColumnSeparators = layoutLinearElements(grid.columnSeparator, grid.overlayLayer, 
             visibleColumnSeparators, oldVisibleColumnIndices, visibleColumnIndices, layoutColumnSeparator, lastColumnIndex);
         
-        // Tell the ColumnHeaderBar to update its layout.
-        
-        layoutColumnHeaderBar();
+        // HACK
+        var dg:DataGrid = grid.gridOwner as DataGrid;
+        if (dg && dg.columnHeaderBar)
+            dg.columnHeaderBar.invalidateDisplayList();
         
         // Layout the hoverIndicator, caretIndicator, and selectionIndicators        
         
@@ -489,30 +489,6 @@ public class GridLayout extends LayoutBase
         return dataProvider.getItemAt(rowIndex);
     }
     
-    /**
-     *  @private
-     */
-    private function getColumnHeaderBar():ColumnHeaderBar
-    {
-        const dataGrid:DataGrid = grid.gridOwner as DataGrid;
-        if (dataGrid == null)
-            return null;
-        
-        return dataGrid.columnHeaderBar;
-    }
-
-    /**
-     *  @private
-     */
-    private function getGridColumnHeader(columnIndex:int):IVisualElement
-    {
-        const headerBar:ColumnHeaderBar = getColumnHeaderBar();
-        if (headerBar == null || headerBar.dataGroup == null)
-            return null;
-        
-        return headerBar.dataGroup.getElementAt(columnIndex);
-    }
-        
 	//--------------------------------------------------------------------------
 	//
 	//  Updating the GridDimensions' typicalCell sizes and columnWidths
@@ -911,58 +887,6 @@ public class GridLayout extends LayoutBase
         visibleColumnIndices = newVisibleColumnIndices;
     }
 
-    /**
-     *  @private
-     *  ToDo(cframpto): what is the correct way to do this?
-     * 
-     *  For now, header width is determined by the grid column width and the
-     *  header height, is the column bar header height if it has been explicitly
-     *  set, otherwise it is the column header bar dataGroup's 
-     *  typicalLayoutElement height.
-     */
-    private function layoutColumnHeaderBar():void
-    {
-        const colGap:int = gridDimensions.columnGap;
-        
-        const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
-        if (columnHeaderBar)
-        {
-            const layout:ColumnHeaderBarLayout = 
-                columnHeaderBar.layout as ColumnHeaderBarLayout;
-            if (layout)
-                layout.updateLayout(this);
-        }        
-    }
-
-    /**
-     *  @private
-     *  Callback for the ColumnHeaderBar layout to use to layout the column
-     *  header separators so all the layout code doesn't have to be duplicated.
-     */
-    mx_internal function layoutColumnHeaderSeparators(
-                        oldVisibleColumnIndices:Vector.<int>,
-                        visibleColumnIndices:Vector.<int>,
-                        visibleHeaderSeparators:Vector.<IVisualElement>):Vector.<IVisualElement>
-    {
-        // ToDo(cframpto): the factory and group should come in as args
-        
-        const columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
-        if (columnHeaderBar)
-        {
-            const factory:IFactory = 
-                columnHeaderBar.headerSeparator ?
-                columnHeaderBar.headerSeparator : grid.columnSeparator;
-            const lastColumnIndex:int = gridDimensions.columnCount - 1;
-            
-            visibleHeaderSeparators =  layoutLinearElements(factory,
-                columnHeaderBar.overlayLayer, visibleHeaderSeparators,
-                oldVisibleColumnIndices, visibleColumnIndices, 
-                layoutHeaderSeparator, lastColumnIndex);
-        }
-        
-        return visibleHeaderSeparators;
-    }
-
 	/**
      *  @private
      */
@@ -1017,9 +941,6 @@ public class GridLayout extends LayoutBase
     {
         renderer.visible = visible;
         
-        
-        // Initialize the renderer's properties
-
         const gridRenderer:IGridItemRenderer = renderer as IGridItemRenderer;
         const gridColumn:GridColumn = getGridColumn(columnIndex);
         
@@ -1351,22 +1272,6 @@ public class GridLayout extends LayoutBase
         const height:Number = Math.max(r.height, visibleGridBounds.height); 
         const x:Number = gridDimensions.getCellX(0, columnIndex) + gridDimensions.getColumnWidth(columnIndex); // TBD: should center on gap here.
         const y:Number = r.y;
-        layoutGridElement(separator, x, y, width, height);
-    }
-    
-    private function layoutHeaderSeparator(separator:IVisualElement, columnIndex:int):void
-    {
-        var columnHeaderBar:ColumnHeaderBar = getColumnHeaderBar();
-        const width:Number = separator.getPreferredBoundsWidth();
-        const height:Number = columnHeaderBar.height; 
-        const columnBounds:Rectangle = gridDimensions.getColumnBounds(columnIndex);
-        
-        if (!columnBounds)
-            return;
-        
-        // TBD: should center on gap here.
-        const x:Number = columnBounds.right;
-        const y:Number = columnBounds.top;
         layoutGridElement(separator, x, y, width, height);
     }
     
@@ -1755,42 +1660,24 @@ public class GridLayout extends LayoutBase
     
     /**
      *  @private
-     *  The elements currently "in use".
-     * 
-     *  Maps from an IFactory to a list of the elements allocated by that factory.
-     *  The list is represented by a Vector.<IVisualElement>.
-     */
-    private const allocatedElementMap:Dictionary = new Dictionary();  // TBD: should be weak refs here?
-    
-    /**
-     *  @private
      *  The elements available for reuse.
      * 
      *  Maps from an IFactory to a list of the elements that have been allocated by that factory
      *  and then freed.   The list is represented by a Vector.<IVisualElement>.
      */
-    private const freeElementMap:Dictionary = new Dictionary();  // and here?
+    private const freeElementMap:Dictionary = new Dictionary();
     
     /**
      *  @private
      *  Records the IFactory used to allocate a Element so that free(Element)
      *  can find it again.
      */
-    private const elementToFactoryMap:Dictionary = new Dictionary();  // and here?
+    private const elementToFactoryMap:Dictionary = new Dictionary();
     
     private function createGridElement(factory:IFactory):IVisualElement
     {
         const element:IVisualElement = factory.newInstance() as IVisualElement;
         elementToFactoryMap[element] = factory;
-        
-        var elements:Vector.<IVisualElement> = allocatedElementMap[factory];
-        if (!elements)
-        {
-            elements = new Vector.<IVisualElement>();
-            allocatedElementMap[factory] = elements;     
-        }
-        elements.push(element);
-        
         return element;
     }
     
@@ -1810,6 +1697,7 @@ public class GridLayout extends LayoutBase
     }
     
     /**
+     *  @private
      *  Move the specified element to the free list after hiding it.  Return true if the 
      *  element was added to the free list (freeElements).   Note that we do not actually
      *  remove the element from its parent.
@@ -1831,19 +1719,7 @@ public class GridLayout extends LayoutBase
         const factory:IFactory = elementToFactoryMap[element]; 
         if (!factory)
             return false;
-        
-        // Remove the element from allocatedElementMap and then clear it
-        
-        const elements:Vector.<IVisualElement> = allocatedElementMap[factory];
-        if (elements)
-        {
-            const index:int = elements.indexOf(element);
-            if (index != -1)
-                elements.splice(index, 1);
-            if (elements.length == 0)
-                delete allocatedElementMap[factory];
-        }
-        
+
         // Add the renderer to the freeElementMap
         
         var freeElements:Vector.<IVisualElement> = freeElementMap[factory];
@@ -1871,8 +1747,8 @@ public class GridLayout extends LayoutBase
      *  This is supposed to eliminate problems with (text) components that defer reflow until the next
      *  updateDisplayList() pass.
      *  
-     *  Since doing so is rather expensive, we economize when the renderer is a DefaultGridItemRenderer,
-     *  since UITextField reflows synchronously.
+     *  Since doing so is rather expensive, we economize when the renderer is an IUITextField
+     *  since UITextField and UIFTETextField reflow synchronously.
      */ 
     private function layoutItemRenderer(renderer:IGridItemRenderer, x:Number, y:Number, width:Number, height:Number):void
     {
@@ -2143,9 +2019,9 @@ public class GridLayout extends LayoutBase
     
     /**
      *  If the requested item renderer is visible, returns a reference to 
-     *  the item renderer currently displayed at the specified cell.  Once the 
-     *  item renderer is no longer visible it is recycled and its properties 
-     *  will be reset.  
+     *  the item renderer currently displayed at the specified cell.  Note
+     *  that once the returned item renderer is no longer visible it may be 
+     *  recycled and its properties reset.  
      * 
      *  <p>If the requested item renderer is not visible then, 
      *  each time this method is called, a new item renderer is created.  The
