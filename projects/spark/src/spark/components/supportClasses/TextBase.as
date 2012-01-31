@@ -28,6 +28,7 @@ import mx.styles.CSSStyleDeclaration;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
+import mx.styles.StyleProtoChain;
 
 import text.formats.TextAlign;
 import text.formats.VerticalAlign;
@@ -659,7 +660,7 @@ public class TextGraphicElement extends GraphicElement
      *  Storage for the inheritingStyles property.
      */
     private var _inheritingStyles:Object =
-        StyleManager.mx_internal::STYLE_UNINITIALIZED;
+        StyleProtoChain.STYLE_UNINITIALIZED;
     
     [Inspectable(environment="none")]
 
@@ -688,7 +689,7 @@ public class TextGraphicElement extends GraphicElement
      *  Storage for the nonInheritingStyles property.
      */
     private var _nonInheritingStyles:Object =
-        StyleManager.mx_internal::STYLE_UNINITIALIZED;
+        StyleProtoChain.STYLE_UNINITIALIZED;
 
     [Inspectable(environment="none")]
 
