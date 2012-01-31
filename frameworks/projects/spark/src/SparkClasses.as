@@ -56,6 +56,7 @@ import mx.skins.spark.FxSpinnerSkin; FxSpinnerSkin;
 import mx.skins.spark.FxTextAreaSkin; FxTextAreaSkin;
 import mx.skins.spark.FxTextInputSkin; FxTextInputSkin;
 import mx.skins.spark.FxToggleButtonSkin; FxToggleButtonSkin;
+import mx.skins.spark.FxVideoDisplaySkin; FxVideoDisplaySkin;
 import mx.skins.spark.FxVScrollBarSkin; FxVScrollBarSkin;
 import mx.skins.spark.FxVScrollBarThumbSkin; FxVScrollBarThumbSkin;
 import mx.skins.spark.FxVSliderSkin; FxVSliderSkin;
