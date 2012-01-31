@@ -546,8 +546,6 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         animation.animationTarget = this;
         animation.motionPaths = motionPaths;
         
-        if (_seekTime > 0)
-            animation.playheadTime = _seekTime;
         if (reverseAnimation)
             animation.playReversed = true;
         animation.interpolator = interpolator;
@@ -558,6 +556,8 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
         animation.startDelay = startDelay;
         
         animation.play();
+        if (_seekTime > 0)
+            animation.playheadTime = _seekTime;
     }
 
     /**
@@ -639,7 +639,7 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
                     // current values of the objects, from getCurrentValue(), may be
                     // set to the end values of that previous transition, so we do not
                     // want those values for the animation
-                    if (Effect(effect).transitionInterruption && 
+                    if ((playReversed || Effect(effect).transitionInterruption) && 
                         propertyChanges &&
                         propertyChanges.start[motionPath.property] !== undefined)
                     {
@@ -896,10 +896,18 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             {
                 var parentStart:* = propertyChanges.start["parent"];
                 var parentEnd:* = propertyChanges.end["parent"];
+                if (playReversed)
+                {
+                    var tmp:* = parentStart;
+                    parentStart = parentEnd;
+                    parentEnd = tmp;
+                }
                 if (parentStart && !parentEnd && 
                     (parentStart is IVisualElementContainer || parentStart is SystemManager))
                 {
-                    var startIndex:* = propertyChanges.start["index"];
+                    var startIndex:* = !playReversed ? 
+                        propertyChanges.start["index"] :
+                        propertyChanges.end["index"];
                     if (parentStart is IVisualElementContainer)
                     {
                         var startContainer:IVisualElementContainer = 
@@ -955,8 +963,14 @@ public class AnimateInstance extends EffectInstance implements IAnimationTarget
             // the same target
             if ("parent" in target && target.parent)
             {
-                var parentStart:* = propertyChanges.start["parent"];;
-                var parentEnd:* = propertyChanges.end["parent"];;
+                var parentStart:* = propertyChanges.start["parent"];
+                var parentEnd:* = propertyChanges.end["parent"];
+                if (playReversed)
+                {
+                    var tmp:* = parentStart;
+                    parentStart = parentEnd;
+                    parentEnd = tmp;
+                }
                 if (parentStart && !parentEnd)
                 {
                     if (parentStart is IVisualElementContainer)
