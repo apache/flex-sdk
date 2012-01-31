@@ -17,6 +17,8 @@ import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.geom.Transform;
 
+import mx.components.baseClasses.GroupBase;
+
 /**
  *  The IGraphicElement interface is implemented by all child tags of Graphic and Group.
  */
@@ -36,8 +38,8 @@ public interface IGraphicElement
     /**
      *  @private
      */
-    function get elementHost():IGraphicElementHost;
-    function set elementHost(value:IGraphicElementHost):void;
+    function get elementHost():GroupBase;
+    function set elementHost(value:GroupBase):void;
 
     //----------------------------------
     //  alpha
