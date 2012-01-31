@@ -317,7 +317,7 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function set layout(value:LayoutBase):void
     {
-        if (useVirtualLayout)
+        if (value && useVirtualLayout)
             value.useVirtualLayout = true;
 
         super.layout = value;
