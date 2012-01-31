@@ -86,7 +86,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="spark.accessibility.SpinnerAccImpl")]
+[AccessibilityClass(implementation="spark.accessibility.NumericStepperAccImpl")]
 
 [DefaultTriggerEvent("change")]
 
