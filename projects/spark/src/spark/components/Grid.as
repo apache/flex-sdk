@@ -1318,6 +1318,10 @@ public class Grid extends Group
     //  resizableColumns
     //----------------------------------
     
+    private var _resizableColumns:Boolean = true;
+    
+    [Bindable("resizableColumnsChanged")]
+    
     /**
      *  A flag that indicates whether the user can change the size of the
      *  columns.
@@ -1330,14 +1334,28 @@ public class Grid extends Group
      *  @default true
      *    
      *  @see spark.components.supportClasses.GridColumn
-     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.5
+     *  @playerversion AIR 1.5
      *  @productversion Flex 4.5
      */
-    public var resizableColumns:Boolean = true;
-                    
+    public function get resizableColumns():Boolean
+    {
+        return _resizableColumns;
+    }
+    
+    /**
+     *  @private
+     */        
+    public function set resizableColumns(value:Boolean):void
+    {
+        if (value == resizableColumns)
+            return;
+        
+        _resizableColumns = value;        
+        dispatchChangeEvent("resizableColumnsChanged");            
+    }
+    
     //----------------------------------
     //  rowBackground
     //----------------------------------
@@ -3186,7 +3204,7 @@ public class Grid extends Group
     /**
      *  @private
      */
-    private function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IVisualElement
+    private function getVisibleItemRenderer(rowIndex:int, columnIndex:int):IGridItemRenderer
     {
         const layout:GridLayout = layout as GridLayout;
         if (!layout)
@@ -3399,7 +3417,7 @@ public class Grid extends Group
     {
         const column:GridColumn = columnIndex >= 0 ? getGridColumn(columnIndex) : null;
         const item:Object = rowIndex >= 0 ? getDataProviderItem(rowIndex) : null;
-        const itemRenderer:IVisualElement = getVisibleItemRenderer(rowIndex, columnIndex);
+        const itemRenderer:IGridItemRenderer = getVisibleItemRenderer(rowIndex, columnIndex);
         const bubbles:Boolean = mouseEvent.bubbles;
         const cancelable:Boolean = mouseEvent.cancelable;
         const relatedObject:InteractiveObject = mouseEvent.relatedObject;
