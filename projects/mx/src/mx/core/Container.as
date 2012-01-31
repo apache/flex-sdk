@@ -2582,11 +2582,15 @@ public class Container extends UIComponent
         }
         else if (actualCreationPolicy == ContainerCreationPolicy.QUEUED)
         {
-            var mainApp:Application = parentApplication ?
-                                      Application(parentApplication) :
-                                      Application(Application.application);
-            
-            mainApp.addToCreationQueue(this, creationIndex, null, this);
+            var mainApp:* = parentApplication ?
+                            parentApplication :
+                            ApplicationGlobals.application;
+                            
+            if ("addToCreationQueue" in mainApp)
+                mainApp.addToCreationQueue(this, creationIndex, null, this);
+            else
+            	// TODO: Clarify error message and add to resource manager
+                throw new Error("addToCreationQueue called but method does not exist within application");
         }
         else if (recursionFlag)
         {
