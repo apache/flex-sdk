@@ -63,6 +63,20 @@ public class Rotate extends AnimateTransform
 
     //--------------------------------------------------------------------------
     //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static var AFFECTED_PROPERTIES:Array =
+        ["rotationZ", "postLayoutRotationZ"];
+
+    private static var RELEVANT_STYLES:Array = [];
+
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
@@ -161,6 +175,22 @@ public class Rotate extends AnimateTransform
     //  Overridden methods
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        return RELEVANT_STYLES;
+    }   
+
+    /**
+     *  @private
+     */
+    override public function getAffectedProperties():Array /* of String */
+    {
+        return AFFECTED_PROPERTIES;
+    }
 
     // FIXME (chaase): Can we remove this override? It exists only to create motionPaths,
     // which we should be able to do somewhere else
