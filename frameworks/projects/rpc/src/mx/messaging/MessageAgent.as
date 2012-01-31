@@ -651,12 +651,7 @@ public class MessageAgent extends EventDispatcher implements IMXMLObject
             {
                 _log.debug("Could not get message performance information for: " + msg.toString());   
             }
-        }            
-
-        // Remove error hint. ErrorMessages returned by the server are
-        // acknowledged before being faulted.
-        if (ackMsg.headers[AcknowledgeMessage.ERROR_HINT_HEADER])
-            delete ackMsg.headers[AcknowledgeMessage.ERROR_HINT_HEADER];                        
+        }                       
         
         if (configRequested)
         {
