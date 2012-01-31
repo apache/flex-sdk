@@ -124,7 +124,7 @@ use namespace mx_internal;
  * 
  *  <pre>
  *  alpha
- *  blendMode other than BlendMode.NORMAL
+ *  blendMode other than BlendMode.NORMAL or "auto"
  *  colorTransform
  *  filters
  *  mask
@@ -293,11 +293,17 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         if (super.alpha == value)
             return;
         
-        if (!blendModeExplicitlySet && _blendMode == "auto")
+        if (_blendMode == "auto")
         {
-            blendModeChanged = true;
-            invalidateDisplayObjectOrdering();
-            invalidateProperties();
+            // if alpha changes from an opaque/transparent (1/0) and translucent
+            // (0 < value < 1), then trigger a blendMode change
+            if ((value > 0 && value < 1 && (super.alpha == 0 || super.alpha == 1)) ||
+                ((value == 0 || value == 1) && (super.alpha > 0 && super.alpha < 1)))
+            {
+                blendModeChanged = true;
+                invalidateDisplayObjectOrdering();
+                invalidateProperties();
+            }
         }
         
         super.alpha = value;
@@ -314,7 +320,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     private var _blendMode:String = "auto";  
     private var blendModeChanged:Boolean;
 	private var blendShaderChanged:Boolean;
-    private var blendModeExplicitlySet:Boolean;
 
     [Inspectable(category="General", enumeration="auto,add,alpha,darken,difference,erase,hardlight,invert,layer,lighten,multiply,normal,subtract,screen,overlay,colordodge,colorburn,exclusion,softlight,hue,saturation,color,luminosity", defaultValue="auto")]
 
@@ -326,6 +331,13 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      *  If you attempt to set this property to an invalid value, 
      *  Flash Player or Adobe AIR sets the value to <code>BlendMode.NORMAL</code>. 
      *
+     *  <p>A value of "auto" (the default) is specific to Group's use of 
+     *  blendMode and indicates that the underlying blendMode should be 
+     *  <code>BlendMode.NORMAL</code> except when <code>alpha</code> is not
+     *  equal to either 0 or 1, when it will be set to <code>BlendMode.LAYER</code>. 
+     *  This behavior ensures that groups will have correct
+     *  compositing of their graphic objects when the group is translucent.</p>
+     * 
      *  @default "auto"
      *
      *  @see flash.display.DisplayObject#blendMode
@@ -346,8 +358,11 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
      */
     override public function set blendMode(value:String):void
     {
-        if (blendModeExplicitlySet && value == _blendMode)
+        if (value == _blendMode)
             return;
+        
+        invalidateProperties();
+        blendModeChanged = true;
         
     	//The default blendMode in FXG is 'auto'. There are only
         //certain cases where this results in a rendering difference,
@@ -355,14 +370,13 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         //case we set the blendMode to layer to avoid the performance
         //overhead that comes with a non-normal blendMode. 
         
-        if (!blendModeExplicitlySet && value == "auto")
+        if (value == "auto")
         {
+            _blendMode = value;
             if (((alpha > 0 && alpha < 1) && super.blendMode != BlendMode.LAYER) ||
                 ((alpha == 1 || alpha == 0) && super.blendMode != BlendMode.NORMAL) )
             {
-                blendModeChanged = true;
                 invalidateDisplayObjectOrdering();
-                invalidateProperties();
             }
         }
         else 
@@ -376,16 +390,10 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
 			if (value == "colordodge" || 
 				value =="colorburn" || value =="exclusion" || 
 				value =="softlight" || value =="hue" || 
-				value =="saturation" || value =="color" 
-				|| value =="luminosity")
+				value =="saturation" || value =="color" ||
+				value =="luminosity")
 			{
-				blendModeExplicitlySet = true;
 				blendShaderChanged = true;
-			}
-			else
-			{
-            	blendModeExplicitlySet = true;
-            	blendModeChanged = true;
 			}
         
             // Only need to re-do display object assignment if blendmode was normal
@@ -398,7 +406,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
                 invalidateDisplayObjectOrdering();
             }
         
-            invalidateProperties();
         }
     }
 
@@ -729,68 +736,73 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
     {
         super.commitProperties();
         
-        if (blendModeChanged && !blendShaderChanged)
+        if (blendModeChanged)
         {
             blendModeChanged = false;
-            if (_blendMode == "auto" && alpha < 1 && alpha > 0)
-                super.blendMode = BlendMode.LAYER;
-            else if (_blendMode == "auto" && alpha == 1 || alpha == 0)
-                super.blendMode = BlendMode.NORMAL;
-            else 
-                super.blendMode = _blendMode; 			
+            if (!blendShaderChanged)
+            {
+                if (_blendMode == "auto")
+                {
+                    if (alpha == 0 || alpha == 1) 
+                        super.blendMode = BlendMode.NORMAL;
+                    else
+                        super.blendMode = BlendMode.LAYER;
+                }
+                else 
+                    super.blendMode = _blendMode; 
+            }
+            else
+            {
+                // The graphic element's blendMode was set to a non-Flash 
+                // blendMode. We mimic the look by instantiating the 
+                // appropriate shader class and setting the blendShader
+                // property on the displayObject. 
+                blendShaderChanged = false; 
+                switch(_blendMode)
+                {
+                    case "color": 
+                    {
+                        super.blendShader = new ColorShader();
+                        break; 
+                    }
+                    case "colordodge":
+                    {
+                        super.blendShader = new ColorDodgeShader();
+                        break; 
+                    }
+                    case "colorburn":
+                    {
+                        super.blendShader = new ColorBurnShader();
+                        break; 
+                    }
+                    case "exclusion":
+                    {
+                        super.blendShader = new ExclusionShader();
+                        break; 
+                    }
+                    case "hue":
+                    {
+                        super.blendShader = new HueShader();
+                        break; 
+                    }
+                    case "luminosity":
+                    {
+                        super.blendShader = new LuminosityShader();
+                        break; 
+                    }
+                    case "saturation": 
+                    {
+                        super.blendShader = new SaturationShader();
+                        break; 
+                    }
+                    case "softlight":
+                    {
+                        super.blendShader = new SoftLightShader();
+                        break; 
+                    }
+                }
+            }
         }
-		
-		if (blendShaderChanged)
-		{
-			// The graphic element's blendMode was set to a non-Flash 
-			// blendMode. We mimic the look by instantiating the 
-			// appropriate shader class and setting the blendShader
-			// property on the displayObject. 
-			blendShaderChanged = false; 
-			switch(_blendMode)
-			{
-				case "color": 
-				{
-					super.blendShader = new ColorShader();
-					break; 
-				}
-				case "colordodge":
-				{
-					super.blendShader = new ColorDodgeShader();
-					break; 
-				}
-				case "colorburn":
-				{
-					super.blendShader = new ColorBurnShader();
-					break; 
-				}
-				case "exclusion":
-				{
-					super.blendShader = new ExclusionShader();
-					break; 
-				}
-				case "hue":
-				{
-					super.blendShader = new HueShader();
-					break; 
-				}
-				case "luminosity":
-				{
-					super.blendShader = new LuminosityShader();
-					break; 
-				}
-				case "saturation": 
-				{
-					super.blendShader = new SaturationShader();
-					break; 
-				}
-				case "softlight":
-				{
-					super.blendShader = new SoftLightShader();
-					break; 
-				}
-			}
-		}
         
         if (needsDisplayObjectAssignment)
         {
