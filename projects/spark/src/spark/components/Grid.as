@@ -655,6 +655,8 @@ package spark.components
          *  The list of GridColumns displayed by this grid.  Each column
          *  selects different dataProvider item properties to display in grid <i>cells</i>.
          *  
+         *  <p>GridColumn objects can only appear in one columns list.</p> 
+         *  
          *  @default null
          * 
          *  @see spark.components.Grid#dataProvider
@@ -672,11 +674,6 @@ package spark.components
             if (_columns == value)
                 return;
             
-            setColumns(value);
-        }
-        
-        private function setColumns(value:IList):void
-        {
             // Remove the old column listener, and set each column's grid=null, columnIndex=-1.
             
             const oldColumns:IList = _columns;
@@ -719,7 +716,7 @@ package spark.components
             invalidateSize();
             invalidateDisplayList();
             
-            dispatchChangeEvent("columnsChanged");        
+            dispatchChangeEvent("columnsChanged");             
         }
         
         /**
@@ -2531,6 +2528,9 @@ package spark.components
          */
         override protected function commitProperties():void
         {
+            if (!columns && dataProvider && (dataProvider.length > 0))
+                columns = generateColumns();
+            
             // If the dataProvider or columns change, reset the selection and 
             // the grid dimensions.  This has to be done here rather than in the 
             // setters because the gridSelection and gridDimensions might not 
