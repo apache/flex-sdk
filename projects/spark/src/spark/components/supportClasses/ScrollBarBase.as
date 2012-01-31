@@ -207,7 +207,7 @@ public class FxScrollBar extends FxTrackBase
      *  keep their pageSize, maximum, and value properties in sync with the
      *  viewport.   Similarly, they override their page and step methods to
      *  use the viewport's scrollPositionDelta methods to compute page and
-     *  and step offsets.<p>
+     *  and step offsets.</p>
      *    
      *  @default null
      *  @see mx.components.FxVScrollBar
