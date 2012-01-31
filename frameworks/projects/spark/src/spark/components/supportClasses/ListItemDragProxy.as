@@ -221,15 +221,11 @@ public class ListItemDragProxy extends Group
         if (!newRenderer)
             return null;
         
-        // Set the data    
-        newRenderer.data = data;
+        // The list is the IItemRendererOwner for this renderer.
+        // It will set all the properties on this renderer, based on 
+        // the itemIndex and data.
+        list.updateRenderer(newRenderer, renderer.itemIndex, data);
         
-        // set itemIndex
-        newRenderer.itemIndex = renderer.itemIndex;
-        
-        // The lis tis the IItemRendererOwner for this renderer.
-        // It will update the renderer owner.
-        list.updateRenderer(newRenderer);
         return newRenderer;
     }
 }
