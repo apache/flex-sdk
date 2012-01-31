@@ -159,7 +159,22 @@ public class FxHScrollBar extends FxScrollBar
             super.step(increase);
         else
             updateViewportHSP((increase) ? Keyboard.RIGHT : Keyboard.LEFT);
-    }    
+    }   
+    
+    /**
+     *  @private
+     */    
+    override protected function partAdded(partName:String, instance:Object):void
+    {
+        if (instance == thumb)
+        {
+            thumb.setConstraintValue("left", undefined);
+            thumb.setConstraintValue("right", undefined);
+            thumb.setConstraintValue("horizontalCenter", undefined);
+        }      
+        
+        super.partAdded(partName, instance);
+    }     
         
 }
 
