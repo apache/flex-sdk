@@ -780,10 +780,12 @@ public class List extends ListBase implements IFocusManagerComponent
         super.commitProperties(); 
         
         if (multipleSelectionChanged)
-        {
+			// multipleSelectionChanged flag is cleared in commitSelection();
+			// this is so, because commitSelection() could be called from
+			// super.commitProperties() as well and in that case we don't
+			// want to commitSelection() twice, as that will actually wrongly 
+			// clear the selection.
             commitSelection(); 
-            multipleSelectionChanged = false; 
-        }
     }
     
     /**
@@ -845,6 +847,9 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     override protected function commitSelection(dispatchChangedEvents:Boolean = true):Boolean
     {
+		// Clear the flag so that we don't commit the selection again.
+		multipleSelectionChanged = false;
+
         var oldSelectedIndex:Number = _selectedIndex;
         var oldCaretIndex:Number = _caretIndex;  
         
@@ -1366,7 +1371,7 @@ public class List extends ListBase implements IFocusManagerComponent
             validateProperties();
 
         // Handle any drag gestures that may have been started
-        if (!dragEnabled || this.selectedIndices.indexOf(newIndex) == -1)
+        if (!dragEnabled || !selectedIndices || this.selectedIndices.indexOf(newIndex) == -1)
             return;
         
         mouseDownPoint = event.target.localToGlobal(new Point(event.localX, event.localY));
