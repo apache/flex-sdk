@@ -183,7 +183,7 @@ public class HSlider extends SliderBase
             var r:Point = thumb.parent.localToGlobal(o);  
             
             // Get the screen bounds
-            var screenBounds:Rectangle = systemManager.getVisibleApplicationRect();
+            var screenBounds:Rectangle = systemManager.getVisibleApplicationRect(null, true);
             // Get the tips bounds. We only care about the dimensions.
             var tipBounds:Rectangle = tipAsDisplayObject.getBounds(tipAsDisplayObject.parent);
             
