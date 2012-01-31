@@ -514,15 +514,12 @@ public class List extends ListBase implements IFocusManagerComponent
     private function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
     {
         var index:int = event.index;
-        var renderer:Object = event.renderer;
+        var renderer:IVisualElement = event.renderer;
         
         if (renderer)
         {
         	renderer.addEventListener("click", item_clickHandler);
-        	if (renderer is IVisualElement)
-        		IVisualElement(renderer).owner = this;
-            if (renderer is IItemRenderer)
-                IItemRenderer(renderer).labelText = itemToLabel(renderer.data);
+            updateRendererInformation(IVisualElement(renderer));
         }
             
         if (isItemIndexSelected(index))
