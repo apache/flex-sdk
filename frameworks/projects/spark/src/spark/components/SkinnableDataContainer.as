@@ -73,7 +73,32 @@ public class FxDataContainer extends FxContainerBase
     //  Properties proxied to dataGroup
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  clipContent
+    //----------------------------------
+    
+    private var _clipContent:Boolean;
+    
+    /**
+     *  @copy mx.core.IViewport#clipContent
+     */
+    public function get clipContent():Boolean 
+    {
+        return (dataGroup) ? dataGroup.clipContent : _clipContent;
+    }
+
+    /**
+     *  @private
+     */
+    public function set clipContent(value:Boolean):void 
+    {
+        _clipContent = value;
         
+        if (dataGroup)
+            dataGroup.clipContent = value;
+    }
+    
     //----------------------------------
     //  content
     //----------------------------------    
@@ -212,6 +237,7 @@ public class FxDataContainer extends FxContainerBase
             }
             if (_layout != null)
                 dataGroup.layout = _layout;
+            dataGroup.clipContent = _clipContent;
             if (_itemRenderer != null || _itemRendererFunction != null)
             {
                 dataGroup.itemRenderer = _itemRenderer;
