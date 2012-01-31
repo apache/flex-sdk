@@ -49,7 +49,7 @@ import spark.components.supportClasses.ToggleButtonBase;
  *
  *  @mxml
  *
- *  <p>The <code>&lt;ToggleButton&gt;</code> tag inherits all of the tag 
+ *  <p>The <code>&lt;s:ToggleButton&gt;</code> tag inherits all of the tag 
  *  attributes of its superclass and adds no tag attributes:</p>
  * 
  *  <pre>
