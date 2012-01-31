@@ -967,13 +967,13 @@ public class TextInput extends UIComponent implements ITextInput
      *  <p>where the <code>myTextInput_initialize</code> method is in a script CDATA section:</p>
      *  
      *  <pre>
-     *  &lt;mx:Script&gt;
+     *  &lt;fx:Script&gt;
      *  &lt;![CDATA[
      *  private function myTextInput_initialize():void {
      *      myTextInput.htmlText = "This is an example of &lt;b&gt;bold&lt;/b&gt; markup";
      *  }
      *  ]]&gt;
-     *  &lt;/mx:Script&gt;
+     *  &lt;/fx:Script&gt;
      *  
      *  </pre>
      *  
