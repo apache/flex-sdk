@@ -567,7 +567,7 @@ public class List extends ListBase implements IFocusManagerComponent
      *  
      *  @default false
      *  
-     *  @langversion 4.0
+     *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
@@ -2718,24 +2718,24 @@ public class List extends ListBase implements IFocusManagerComponent
         // be an editable input control.
         if (isEditableTarget(event.target))
             return;
-		
-		var touchMode:Boolean = (getStyle("interactionMode") == InteractionMode.TOUCH);
+        
+        var touchMode:Boolean = (getStyle("interactionMode") == InteractionMode.TOUCH);
         
         // 1. Was the space bar hit? or was the enter key hit and we're in 5-way mode
         // Hitting the space bar means the current caret item, 
         // that is the item currently in focus, is being 
         // selected or de-selected. 
         if (event.keyCode == Keyboard.SPACE ||
-			(touchMode && event.keyCode == Keyboard.ENTER))
+            (touchMode && event.keyCode == Keyboard.ENTER))
         {
-			if (allowMultipleSelection)
+            if (allowMultipleSelection)
             {
                 // Need to set "changeCaret" to false below so that we 
                 // don't change the caret to an item in the selectedIndices
                 // if we are currently deselecting an item
-				setSelectedIndices(calculateSelectedIndices(caretIndex, event.shiftKey, event.ctrlKey), true, false);
+                setSelectedIndices(calculateSelectedIndices(caretIndex, event.shiftKey, event.ctrlKey), true, false);
             }
-			else
+            else
             {
                 // check to see if we're de-selecting the current item
                 if (caretIndex == selectedIndex && (event.ctrlKey || touchMode))
@@ -2748,7 +2748,7 @@ public class List extends ListBase implements IFocusManagerComponent
                     // select the current item
                     setSelectedIndex(caretIndex, true, false);
                 }
-            	
+                
             }
             event.preventDefault();
             return; 
