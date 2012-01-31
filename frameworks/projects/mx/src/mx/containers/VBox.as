@@ -35,11 +35,14 @@ package mx.containers
 [IconFile("VBox.png")]
 
 /**
- *  The VBox container lays out its children in a single vertical column.
+ *  The Halo VBox container lays out its children in a single vertical column.
  *  You use the <code>&lt;mx:VBox&gt;</code> tag instead of the
  *  <code>&lt;mx:Box&gt;</code> tag as a shortcut to avoid having to
  *  set the <code>direction</code> property to <code>"vertical"</code>.
- *  
+ * 
+ *  <p><b>Note:</b> Adobe recommends that, when possible, you use the Spark containers 
+ *  with VerticalLayout instead of the Halo VBox container.</p>
+ *
  *  <p>An VBox container has the following default sizing characteristics:</p>
  *     <table class="innertable">
  *        <tr>
@@ -67,48 +70,49 @@ package mx.containers
  *  
  *  @includeExample examples/VBoxExample.mxml
  *
+ *  @see mx.components.Container
  *  @see mx.containers.Box
  *  @see mx.containers.HBox
  */
 public class VBox extends Box
 {
-	include "../core/Version.as";
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Constructor
-	//
-	//--------------------------------------------------------------------------
+    include "../core/Version.as";
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
 
-	/**
-	 *  Constructor.
-	 */
-	public function VBox()
-	{
-		super();
-		
-		mx_internal::layoutObject.direction = BoxDirection.VERTICAL;
-	}
-	
-	//--------------------------------------------------------------------------
-	//
-	//  Overridden properties
-	//
-	//--------------------------------------------------------------------------
+    /**
+     *  Constructor.
+     */
+    public function VBox()
+    {
+        super();
+        
+        mx_internal::layoutObject.direction = BoxDirection.VERTICAL;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden properties
+    //
+    //--------------------------------------------------------------------------
 
-	//----------------------------------
-	//  direction
-	//----------------------------------
-	
-	[Inspectable(environment="none")]	
+    //----------------------------------
+    //  direction
+    //----------------------------------
+    
+    [Inspectable(environment="none")]   
 
-	/**
-	 *  @private
-	 *  Don't allow user to change the direction
-	 */
-	override public function set direction(value:String):void
-	{
-	}
+    /**
+     *  @private
+     *  Don't allow user to change the direction
+     */
+    override public function set direction(value:String):void
+    {
+    }
 }
 
 }
