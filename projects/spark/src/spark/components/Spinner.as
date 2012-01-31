@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components
 {
 
 import flash.events.Event;
@@ -17,12 +17,12 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
-import mx.components.baseClasses.FxRange;
+import spark.components.supportClasses.Range;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
 /**
- *  Dispatched when the value of the FxSpinner control changes
+ *  Dispatched when the value of the Spinner control changes
  *  as a result of user interaction.
  *
  *  @eventType flash.events.Event.CHANGE
@@ -74,10 +74,10 @@ import mx.managers.IFocusManagerComponent;
  */
 [SkinState("disabled")]
 
-[IconFile("FxSpinner.png")]
+[IconFile("Spinner.png")]
 
 /**
- *  A FxSpinner component selects a value from an
+ *  A Spinner component selects a value from an
  *  ordered set. It uses two buttons that increase or
  *  decrease the current value based on the current
  *  value of the <code>stepSize</code> property.
@@ -86,7 +86,7 @@ import mx.managers.IFocusManagerComponent;
  *  one to increase the current value and one to decrease the 
  *  current value.</p>
  *
- *  <p>The scale of an FxSpinner component is the set of 
+ *  <p>The scale of an Spinner component is the set of 
  *  allowed values for the <code>value</code> property. 
  *  The allowed values are the multiples of 
  *  the <code>valueInterval</code> property between 
@@ -102,16 +102,16 @@ import mx.managers.IFocusManagerComponent;
  *  
  *  Therefore the scale is {-1,3,6,9,10}.
  *
- *  @see mx.components.FxNumericStepper
+ *  @see mx.components.NumericStepper
  *
- *  @includeExample examples/FxSpinnerExample.mxml
+ *  @includeExample examples/SpinnerExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxSpinner extends FxRange implements IFocusManagerComponent
+public class Spinner extends Range implements IFocusManagerComponent
 {
     include "../core/Version.as";
 
@@ -129,7 +129,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxSpinner():void
+    public function Spinner():void
     {
         super();
     }
@@ -152,7 +152,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var incrementButton:FxButton;
+    public var incrementButton:Button;
     
     [SkinPart(required="true")]
     
@@ -166,7 +166,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var decrementButton:FxButton;
+    public var decrementButton:Button;
     
     //--------------------------------------------------------------------------
     //
