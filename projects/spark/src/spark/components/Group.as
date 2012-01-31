@@ -1,5 +1,6 @@
 package flex.core {
 import flash.display.DisplayObject;
+import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
 import flash.display.Shape;
 import flash.display.Sprite;
@@ -631,8 +632,19 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
         swapItemsAt(getItemIndex(item1), getItemIndex(item2));
     }
     
-    public function swapItemsAt(index1:*, index2:*):void
+    public function swapItemsAt(index1:int, index2:int):void
     {
+    	// Make sure that index1 is the smaller index so that addItemAt 
+    	// doesn't RTE
+    	if (index1 > index2)
+    	{
+    		var temp:int = index2;
+    		index2 = index1;
+    		index1 = temp; 
+    	}
+    	else if (index1 == index2)
+    		return;
+    	
         var item1:* = getItemAt(index1);
         var item2:* = getItemAt(index2);
         
@@ -691,12 +703,30 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
         var child:DisplayObject;
         
         // TODO!! Don't add Group this way
+        
         if (item is IGraphicElement && !alwaysUseItemRenderer) 
         {
+        	// Hack for SDK-15738 to remove item if it is currently attached
+        	var host:IGraphicElementHost = IGraphicElement(item).elementHost;
+        	if (host && host is Group)
+        		Group(host).removeItem(item);
+        		 
             child = initElement(IGraphicElement(item), index);
         }   
         else
         {
+        	// Hack for SDK-15738 to remove item if it is currently attached
+        	var dispObj:DisplayObject = item as DisplayObject;
+        	if (dispObj)
+        	{
+        		var dispObjParent:DisplayObjectContainer = dispObj.parent;
+        		if (dispObjParent)
+        		{
+        			if (dispObjParent is Group)
+        				Group(dispObjParent).removeItem(item);
+        		} 
+        	}
+        	
             child = super.addChildAt(createVisualForItem(item), index);
         }
         
@@ -847,18 +877,14 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
                 
         if (element is IDisplayObjectElement)
         {
-            var elementDO:DisplayObject = IDisplayObjectElement(element).displayObject;
+            var elementDO:DisplayObject = IDisplayObjectElement(element).createDisplayObject();
             elementToDisplayObjectMap[element] = elementDO;
+            IDisplayObjectElement(element).displayObject = elementDO;
             result = super.addChildAt(elementDO, index);
         }
         else if (element is IAssignableDisplayObjectElement)
         {
-            // TODO!!! For now we will always create a DO for the element. 
-            // This needs optimization      
-            var newShape:DisplayObject = IAssignableDisplayObjectElement(element).createDisplayObject();
-            elementToDisplayObjectMap[element] = newShape;
-            IAssignableDisplayObjectElement(element).displayObject = newShape;
-            result = super.addChildAt(newShape, index);
+            throw new Error("IAssignableDisplayObjectElement not allowed");
         }
     
         if (element is ILayoutManagerClient)
@@ -900,7 +926,7 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
     
     [Bindable("propertyChange")]
     [Inspectable(category="General")]
-    private var _actualFilters:Array;
+    private var _actualFilters:Array = [];
     
     override public function set filters(value:Array):void
     {
@@ -983,6 +1009,7 @@ public class Group extends UIComponent implements IDataRenderer, IGraphicElement
             _oldMaskType = _maskType;
             _maskType = value;
             maskTypeChanged = true;
+            invalidateProperties();
         }
     }
     
