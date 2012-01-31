@@ -17,11 +17,9 @@ package mx.rpc.wsdl
 /**
  * From the WSDL 1.1 specification:
  * 
- * <blockquote>
  * Messages consist of one or more logical parts. Each part is associated with
  * a type from some type system using a message-typing attribute. The set of
  * message-typing attributes is extensible.
- * </blockquote>
  * 
  * @private
  */
