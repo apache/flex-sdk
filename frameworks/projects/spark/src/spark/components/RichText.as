@@ -198,6 +198,9 @@ public class TextGraphic extends TextGraphicElement
     //  text
     //----------------------------------
 
+    // Compiler will strip leading and trailing whitespace from text string.
+    [CollapseWhiteSpace]
+    
     /**
      *  @private
      */
