@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- Simple example to demonstrate the Spark TextInput control. -->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+    <s:layout>
+        <s:BasicLayout />
+    </s:layout>
+
+    <s:Panel title="Spark TextInput Control Example"
+    		horizontalCenter="0" verticalCenter="0">
+    	<s:VGroup left="10" right="10" top="10" bottom="10">
+	        <s:TextInput id="src" text="Hello World!" />
+	
+	        <s:Button label="Copy Text" click="dest.text = src.text" />
+	
+	        <s:TextInput id="dest" />
+    	</s:VGroup>
+    </s:Panel>
+
+</s:Application>
