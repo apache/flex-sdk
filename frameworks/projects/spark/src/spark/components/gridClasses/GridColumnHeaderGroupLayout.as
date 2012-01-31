@@ -183,16 +183,18 @@ public class ColumnHeaderBarLayout extends LayoutBase
 
         const overlayGroup:Group = columnHeaderBar.overlayGroup;
         const columnSeparatorFactory:IFactory = columnHeaderBar.columnSeparator;
+        var renderer:IGridItemRenderer;
+        var column:GridColumn;
         
         // Add all of the renderers whose column is still visible to oldRenderers and free the rest
         
         for (var eltIndex:int = 0; eltIndex < columnHeaderBar.numElements; eltIndex++)
         {
-            var renderer:IGridItemRenderer = columnHeaderBar.getElementAt(eltIndex) as IGridItemRenderer;
+            renderer = columnHeaderBar.getElementAt(eltIndex) as IGridItemRenderer;
             if (!renderer || !renderer.visible)
                 continue;
             
-            var column:GridColumn = renderer.column;
+            column = renderer.column;
             if (column && (visibleColumnIndices.indexOf(column.columnIndex) != -1))
                 oldRenderers[column] = renderer;
             else
@@ -213,13 +215,14 @@ public class ColumnHeaderBarLayout extends LayoutBase
         
         const columns:IList = grid.columns;
         const columnsLength:int = (columns) ? columns.length : 0;
+        const lastVisibleColumnIndex:int = grid.getPreviousVisibleColumnIndex(columnsLength);
         const rendererY:Number = paddingTop;
         const rendererHeight:Number = unscaledHeight - paddingTop - paddingBottom;
         const maxRendererX:Number = columnHeaderBar.horizontalScrollPosition + unscaledWidth;
         
         var columnIndex:int = -1;
         var visibleLeft:Number = 0;
-        var visibleRight:Number = 0;              
+        var visibleRight:Number = 0;
         
         // This isn't quite as simple as: 
         //     for each (var columnIndex:int in visibleColumnIndices)
@@ -232,9 +235,9 @@ public class ColumnHeaderBarLayout extends LayoutBase
             if (index < visibleColumnIndices.length)
                 columnIndex = visibleColumnIndices[index];
             else
-                columnIndex += 1;  // TBD(hmuller): find the next visible column
+                columnIndex = grid.getNextVisibleColumnIndex(columnIndex);
            
-            if (columnIndex >= columnsLength)
+            if (columnIndex < 0 || columnIndex >= columnsLength)
                 break;
 
             column = columns.getItemAt(columnIndex) as GridColumn;
@@ -260,7 +263,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
             
             // layout the renderer
             
-            var isLastColumn:Boolean = columnIndex == (columnsLength - 1);  // TBD(hmuller): last VISIBLE column
+            var isLastColumn:Boolean = columnIndex == lastVisibleColumnIndex;
             var rendererX:Number = grid.getCellX(0, columnIndex) + paddingLeft;
             var rendererWidth:Number = grid.getColumnWidth(columnIndex); 
 
@@ -385,15 +388,15 @@ public class ColumnHeaderBarLayout extends LayoutBase
         if (columnIndex == -1)
             return -1;
         
-        const isFirstColumn:Boolean = columnIndex == 0;  // TBD first VISIBLE column
-        const isLastColumn:Boolean = columnIndex == (grid.columns.length - 1); // TBD likewise
+        const isFirstColumn:Boolean = columnIndex == grid.getNextVisibleColumnIndex(-1);
+        const isLastColumn:Boolean = columnIndex == grid.getPreviousVisibleColumnIndex(grid.columns.length);
         
         const columnLeft:Number = grid.getCellX(0, columnIndex);
         const columnRight:Number = columnLeft + grid.getColumnWidth(columnIndex);
         const smw:Number = columnHeaderBar.separatorMouseWidth;
         
         if (!isFirstColumn && (x > (columnLeft - smw)) && (x < (columnLeft + smw)))
-            return columnIndex - 1;  // TBD previous VISIBLE column
+            return grid.getPreviousVisibleColumnIndex(columnIndex);
         
         if (!isLastColumn && (x > (columnRight - smw)) && (x < columnRight + smw))
             return columnIndex;
@@ -431,12 +434,16 @@ public class ColumnHeaderBarLayout extends LayoutBase
         if (columnIndex >= columnsLength)
             return null;
         
+        const column:GridColumn = columns.getItemAt(columnIndex) as GridColumn;
+        if (!column.visible)
+            return null;
+        
         const paddingLeft:Number = columnHeaderBar.getStyle("paddingLeft");
         const paddingRight:Number = columnHeaderBar.getStyle("paddingRight");
         const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
         const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
         
-        var isLastColumn:Boolean = columnIndex == (columnsLength - 1);  // TBD(hmuller): last VISIBLE column
+        var isLastColumn:Boolean = columnIndex == grid.getPreviousVisibleColumnIndex(columnsLength);
         var rendererX:Number = grid.getCellX(0, columnIndex) + paddingLeft;
         const rendererY:Number = paddingTop;
         var rendererWidth:Number = grid.getColumnWidth(columnIndex); 
@@ -499,6 +506,8 @@ public class ColumnHeaderBarLayout extends LayoutBase
         if (!columns || (columns.length <= columnIndex))
             return null;
         const column:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn;
+        if (!column.visible)
+            return null;
         
         var factory:IFactory = column.headerRenderer;
         if (!factory)
@@ -519,7 +528,7 @@ public class ColumnHeaderBarLayout extends LayoutBase
         const paddingTop:Number = columnHeaderBar.getStyle("paddingTop");
         const paddingBottom:Number = columnHeaderBar.getStyle("paddingBottom");
         
-        const isLastColumn:Boolean = columnIndex == (columns.length - 1);
+        const isLastColumn:Boolean = columnIndex == grid.getPreviousVisibleColumnIndex(columns.length);
         const rendererX:Number = grid.getCellX(0, columnIndex) + paddingLeft;
         const rendererY:Number = paddingTop;
         const rendererHeight:Number = columnHeaderBar.height - paddingTop - paddingBottom;
