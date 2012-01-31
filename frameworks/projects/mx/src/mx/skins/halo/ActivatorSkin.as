@@ -24,6 +24,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  Defines the up, down, and over states for MenuBarItem objects.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ActivatorSkin extends Border
 {
@@ -79,6 +84,11 @@ public class ActivatorSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ActivatorSkin()
 	{
@@ -286,6 +296,11 @@ public class ActivatorSkin extends Border
 
 	/**
 	 *  We don't use 'is' to prevent dependency issues
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	private static var acbs:Object = {};
 
