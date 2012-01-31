@@ -18,13 +18,6 @@
 Application
 {
     skinClass: ClassReference("spark.skins.default.ApplicationSkin");
-    backgroundColor: #FFFFFF;
-}
-
-ButtonBase
-{
-    lineBreak: "explicit";
-    textAlign: "center";
 }
 
 Button
@@ -45,7 +38,6 @@ ButtonBar
 CheckBox
 {
     skinClass: ClassReference("spark.skins.default.CheckBoxSkin");
-    textAlign: "start";
 }
 
 DropDownList
@@ -96,7 +88,6 @@ Panel
 RadioButton
 {
 	skinClass: ClassReference("spark.skins.default.RadioButtonSkin");
-    textAlign: "start";
 }
 
 Scroller
@@ -111,13 +102,11 @@ Spinner
 
 TextArea
 {
-	lineBreak: "toFit";
 	skinClass: ClassReference("spark.skins.default.TextAreaSkin");
 }
 
 TextInput
 {
-	lineBreak: "explicit";
 	skinClass: ClassReference("spark.skins.default.TextInputSkin");
 }
 
