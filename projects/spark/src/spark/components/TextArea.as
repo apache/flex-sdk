@@ -24,7 +24,7 @@ import spark.events.TextOperationEvent;
 //--------------------------------------
 
 /**
- *  @copy mx.components.baseClasses.GroupBase#symbolColor
+ *  @copy spark.components.supportClasses.GroupBase#symbolColor
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
