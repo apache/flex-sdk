@@ -248,6 +248,10 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
         }
 
         super.dataProvider = value;
+
+        if (value is ISelectableList)
+            if (ISelectableList(dataProvider).selectedIndex != selectedIndex)
+                selectedIndex = ISelectableList(dataProvider).selectedIndex;
     }
 
     /**
