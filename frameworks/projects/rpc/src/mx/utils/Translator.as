@@ -63,6 +63,11 @@ public class Translator
     /**
      *  Assumes the bundle name is the name of the second package
 	 *  (e.g foo in mx.foo).
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static function getDefaultInstanceFor(source:Class):Translator
     {
@@ -107,6 +112,11 @@ public class Translator
 
 	/**
 	 *  Constructor
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
     public function Translator(bundleName:String)
     {
