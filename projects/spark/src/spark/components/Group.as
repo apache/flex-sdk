@@ -1,8 +1,6 @@
 package flex.core {
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
-import flash.display.Graphics;
-import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
@@ -70,8 +68,8 @@ import mx.managers.ILayoutManagerClient;
 /**
  *  The Group class.
  */
-public class Group extends UIComponent implements IGraphicElementHost // TODO!! , IDisplayObjectElement
-{
+public class Group extends UIComponent implements IGraphicElementHost
+{	
     public function Group():void
     {
     	tabChildren = true;
@@ -229,7 +227,8 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         // send an event for each content child. This logic will send
         // remove event for the 0th content child x times. 
         for (var idx:int = numChildren; idx > 0; idx--)
-            itemRemoved(0);
+            //itemRemoved(0);
+        	super.removeChildAt(0);
         
         if (_content !== undefined)
         {
@@ -239,7 +238,9 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
             }
         }
         
-        if (maskElements)
+        assignDisplayObjects();
+        
+        /* if (maskElements)
         {
             for (var k:Object in maskElements)
             {
@@ -262,7 +263,7 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
                     }
                 }
             }
-        }
+        } */
         
         dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CHANGED)); 
     }
@@ -503,6 +504,7 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         // Check whether we manage the elements, or are they managed by an ItemRenderer
         if (!alwaysUseItemRenderer)
         {
+        	graphics.clear(); // Clear the group's graphic because graphic elements might be drawing to it
             // TODO EGeorgie: we need to optimize this, iterating through all the elements is slow.
             // Iterate through the graphic elements, clear their graphics and draw them
             var length:int = numItems;
@@ -833,6 +835,8 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         
         itemAdded(item, index);
         
+        assignDisplayObjects(index);
+        
         return item;
     }
     
@@ -875,6 +879,8 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
             }    
         }
             
+        assignDisplayObjects(index);
+        
         return item;
     }
     
@@ -977,33 +983,43 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     protected function itemAdded(item:*, index:int):void
     {
         var child:DisplayObject;
-        
-        // TODO!! Don't add Group this way
-        
-        if (item is IGraphicElement && !alwaysUseItemRenderer) 
+                
+        if (item is GraphicElement && !alwaysUseItemRenderer) 
         {
-        	// Hack for SDK-15738 to remove item if it is currently attached
-        	var host:IGraphicElementHost = IGraphicElement(item).elementHost;
-        	if (host && host is Group)
-        		Group(host).removeItem(item);
-        		 
-            child = initElement(IGraphicElement(item), index);
+	        item.elementHost = this;
         }   
         else
-        {
-        	// Hack for SDK-15738 to remove item if it is currently attached
-        	var dispObj:DisplayObject = item as DisplayObject;
-        	if (dispObj)
-        	{
-        		var dispObjParent:DisplayObjectContainer = dispObj.parent;
-        		if (dispObjParent)
-        		{
-        			if (dispObjParent is Group)
-        				Group(dispObjParent).removeItem(item);
-        		} 
-        	}
+        {        	
+        	var childIndex:int = -1;
         	
-            child = super.addChildAt(createVisualForItem(item), index);
+        	if (index == 0)
+        	{
+        		childIndex = 0; 
+        	}
+        	else if (index != numItems - 1)
+        	{
+	        	for (var i:int = index - 1; i >= 0; i--)
+	        	{
+	        		var prevItem:* = getItemAt(i);
+	        		if (prevItem is DisplayObject)
+	        			childIndex = super.getChildIndex(DisplayObject(prevItem)) ;
+	        		else if (prevItem is GraphicElement)
+	        		{
+	        			var prevElement:GraphicElement = prevItem as GraphicElement;
+	        			if (prevElement.displayObject)
+	        				childIndex = super.getChildIndex(prevElement.displayObject);
+	        		}
+	        		
+	        		if (childIndex != -1)
+	        		{
+	        			childIndex++;
+	        			break;
+	        		}
+	        		
+	        	}
+	        }
+        	
+            child = addItemToDisplayList(createVisualForItem(item), item, childIndex);
         }
         
         dispatchEvent(new ItemExistenceChangedEvent(
@@ -1017,23 +1033,28 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
     {       
         var item:* = getItemAt(index);
         var skin:* = getItemSkin(item);
+        var childDO:DisplayObject = item as DisplayObject;
         
-        /* if (item is IGraphicElement)
-        {
-            removeElement(IGraphicElement(item));   
-        } */
         dispatchEvent(new ItemExistenceChangedEvent(
                       ItemExistenceChangedEvent.ITEM_REMOVE, false, false, item));        
-        if (item && (item is IGraphicElement))
+        if (item && (item is GraphicElement))
+        {
             item.elementHost = null;
-        
+            item.sharedDisplayObject = null;
+            childDO = GraphicElement(item).displayObject;
+        }
+        else if (skin && skin is DisplayObject)
+        {
+        	childDO = skin as DisplayObject;
+        }
         // If the item and skin are different objects, set the skin data to 
         // null here to clear it out. Otherwise, the skin keeps a reference to the item,
         // which can cause problems later.
         if (item && skin && item != skin)
             skin.data = null;
-            
-        super.removeChildAt(index);
+                
+        if (childDO)
+        	super.removeChild(childDO);
         
         invalidateSize();
         invalidateDisplayList();
@@ -1080,6 +1101,117 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         }
             
     }
+    
+    // This function assumes that the only displayObjects are either items in the content array
+    // or created directly for an item in the content array. 
+    private function assignDisplayObjects(startIndex:int = 0):void
+    {
+    	var currentAssignableDO:DisplayObject = this;
+    	var lastDisplayObject:DisplayObject = this;
+    	
+    	if (alwaysUseItemRenderer)
+    		return;
+    	
+    	// Iterate through all of the items
+    	var len:int = numItems; 
+    	for (var i:int = startIndex; i < len; i++)
+    	{  
+    		var item:* = getItemAt(i);
+    		
+    		if (!(item is GraphicElement)) 
+    			item = getItemSkin(item);
+    		
+    		if (item is DisplayObject)
+    		{
+    			lastDisplayObject = item as DisplayObject;
+    			// Null this out so that we are forced to create one for the next item
+    			currentAssignableDO = null; 
+    		}  			
+    		else if (item is GraphicElement)
+    		{
+    			var element:GraphicElement = item as GraphicElement;
+    			
+    			if (currentAssignableDO == null || element.needsDisplayObject)
+    			{
+    				var insertIndex:int;
+    				var newChild:DisplayObject = element.displayObject;
+    				
+    				if (lastDisplayObject == this)
+    					insertIndex = 0;
+    				else
+    					insertIndex = super.getChildIndex(lastDisplayObject) + 1;				
+    				
+    				if (newChild == null)
+    				{
+	    				newChild = element.createDisplayObject();
+	    				element.displayObject = newChild; // TODO!! Handle this in createDisplayObject?    				
+    				}
+    				
+    				addItemToDisplayList(newChild, item, insertIndex); 
+    				// If the element is transformed, the next item needs its own DO		
+    				currentAssignableDO = element.nextSiblingNeedsDisplayObject ? null : newChild;
+    				lastDisplayObject = newChild;
+    			}
+    			else
+    			{
+    				// Item should be assigned the currentAssignableDO
+    				// If it already has a DO, we need to remove it
+    				if (element.displayObject)
+    				{
+						if (element.displayObject.parent == this)
+    						super.removeChild(element.displayObject);
+    					element.destroyDisplayObject();
+    				}
+    				
+    				element.sharedDisplayObject = currentAssignableDO;
+    				if (element.nextSiblingNeedsDisplayObject)
+    					currentAssignableDO = null;
+    			}
+    		}
+    	}
+    } 
+    
+    
+    // Helper function to remove child from other Group or display list before 
+    // adding to the display list. 
+    protected function addItemToDisplayList(child:DisplayObject, item:*, index:int = -1):DisplayObject
+    { 
+    	var host:DisplayObject;
+    	
+    	if (item is GraphicElement)
+    		host = DisplayObject(GraphicElement(item).elementHost); 
+    	else if (item is DisplayObject)
+    		host = DisplayObject(item).parent;
+    	
+    	// Remove the item from the group if that group isn't this group
+    	if (host && host is Group && host != this)
+    		Group(host).removeItem(item);
+    	
+    	// Calling removeItem should have already removed the child. This
+    	// should handle the case when we don't call removeItem
+    	if (child.parent)
+    	{
+    		if (child.parent == this)
+    		{
+    			var insertIndex:int;
+    			if (index == -1)
+    				insertIndex = super.numChildren;
+    			else if (index == 0)
+    				insertIndex = 0;
+    			else
+    				insertIndex = index -1;
+    				
+    			super.setChildIndex(child, insertIndex);
+    			return child;
+    		}
+    		else		
+    			child.parent.removeChild(child);
+    	
+    	}
+    		
+ 		return super.addChildAt(child, index != -1 ? index : super.numChildren);
+    }
+    
     
     //--------------------------------------------------------------------------
     //
@@ -1130,64 +1262,8 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         
         invalidateSize();
         invalidateDisplayList();
-    }
+    }   
 
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Graphic Elements Management
-    //
-    //--------------------------------------------------------------------------
-    
-    private var elementToDisplayObjectMap:Dictionary;
-    
-    protected function initElement(element:IGraphicElement, index:int):DisplayObject
-    {
-        var result:DisplayObject;
-        
-        element.elementHost = this;
-        
-        if (!elementToDisplayObjectMap)
-            elementToDisplayObjectMap = new Dictionary();
-                
-        if (element is IDisplayObjectElement)
-        {
-            var elementDO:DisplayObject = IDisplayObjectElement(element).createDisplayObject();
-            elementToDisplayObjectMap[element] = elementDO;
-            IDisplayObjectElement(element).displayObject = elementDO;
-            result = super.addChildAt(elementDO, index);
-        }
-        else if (element is IAssignableDisplayObjectElement)
-        {
-            throw new Error("IAssignableDisplayObjectElement not allowed");
-        }
-    
-        if (element is ILayoutManagerClient)
-            ILayoutManagerClient(element).nestLevel = nestLevel + 1;
-        
-        return result;
-    }
-    
-    protected function removeElement(element:IGraphicElement):void
-    {
-        // Find the DO associated with the element
-        var assignableElement:IAssignableDisplayObjectElement = element as IAssignableDisplayObjectElement;
-        
-        if (assignableElement)
-        {
-            // CLear the DO
-            //assignableElement.displayObject = null;
-        }
-        else
-        {
-            // TODO!!! Figure out what to do here. 
-            var displayElement:IDisplayObjectElement = element as IDisplayObjectElement;
-            //if (displayElement)
-                
-        }
-        
-    }
-    
     
     //--------------------------------------------------------------------------
     //
@@ -1422,6 +1498,8 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         // TODO!!! Need to recalculate the elements
         invalidateSize();
         invalidateDisplayList();    
+		// One of our children have told us they might need a displayObject     
+        assignDisplayObjects();
     }
     
     /**
