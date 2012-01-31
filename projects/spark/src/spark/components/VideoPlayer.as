@@ -313,6 +313,12 @@ include "../styles/metadata/BasicInheritingTextStyles.as";
 [SkinState("stopped")]
 
 //--------------------------------------
+//  Excluded APIs
+//--------------------------------------
+
+[Exclude(name="focusThickness", kind="style")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
