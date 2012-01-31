@@ -41,6 +41,11 @@ use namespace mx_internal;
  *  @eventType mx.events.VideoEvent.CLOSE
  *  @helpid 3482
  *  @tiptext close event
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="close", type="mx.events.VideoEvent")]
 
@@ -58,6 +63,11 @@ use namespace mx_internal;
  *  @eventType mx.events.VideoEvent.COMPLETE
  *  @helpid 3482
  *  @tiptext complete event
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="complete", type="mx.events.VideoEvent")]
 
@@ -67,6 +77,11 @@ use namespace mx_internal;
  *  @eventType mx.events.MetadataEvent.CUE_POINT
  *  @helpid 3483
  *  @tiptext cuePoint event
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="cuePoint", type="mx.events.MetadataEvent")]
 
@@ -75,6 +90,11 @@ use namespace mx_internal;
  *
  *  @eventType mx.events.MetadataEvent.METADATA_RECEIVED
  *  @tiptext metadata event
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="metadataReceived", type="mx.events.MetadataEvent")]
 
@@ -86,6 +106,11 @@ use namespace mx_internal;
  *  @eventType mx.events.VideoEvent.PLAYHEAD_UPDATE
  *  @helpid 3480
  *  @tiptext change event
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="playheadUpdate", type="mx.events.VideoEvent")]
 
@@ -101,6 +126,11 @@ use namespace mx_internal;
  *  @eventType flash.events.ProgressEvent.PROGRESS
  *  @helpid 3485
  *  @tiptext progress event
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="progress", type="flash.events.ProgressEvent")]
 
@@ -113,6 +143,11 @@ use namespace mx_internal;
  *  It is dispatched once for each FLV loaded.</p>
  *
  *  @eventType mx.events.VideoEvent.READY
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="ready", type="mx.events.VideoEvent")]
 
@@ -120,6 +155,11 @@ use namespace mx_internal;
  *  Dispatched when the video autorewinds.
  *
  *  @eventType mx.events.VideoEvent.REWIND
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="rewind", type="mx.events.VideoEvent")]
 
@@ -134,6 +174,11 @@ use namespace mx_internal;
  *  when the player enters a responsive state.</p>
  *
  *  @eventType mx.events.VideoEvent.STATE_CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 [Event(name="stateChange", type="mx.events.VideoEvent")]
 
@@ -182,6 +227,11 @@ public class VideoPlayer extends Video
      *  @see #connected
      *  @see #idleTimeout
      *  @see #close()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const DISCONNECTED:String = "disconnected";
 
@@ -195,6 +245,11 @@ public class VideoPlayer extends Video
      *  @see #state
      *  @see #stateResponsive
      *  @see #stop()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const STOPPED:String = "stopped";
 
@@ -208,6 +263,11 @@ public class VideoPlayer extends Video
      *  @see #state
      *  @see #stateResponsive
      *  @see #play()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const PLAYING:String = "playing";
 
@@ -222,6 +282,11 @@ public class VideoPlayer extends Video
      *  @see #stateResponsive
      *  @see #pause()
      *  @see #load()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const PAUSED:String = "paused";
 
@@ -233,6 +298,11 @@ public class VideoPlayer extends Video
      *
      *  @see #state
      *  @see #stateResponsive
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const BUFFERING:String = "buffering";
 
@@ -246,6 +316,11 @@ public class VideoPlayer extends Video
      *  @see #stateResponsive
      *  @see #load()
      *  @see #play()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const LOADING:String = "loading";
 
@@ -258,6 +333,11 @@ public class VideoPlayer extends Video
      *
      *  @see #state  
      *  @see #stateResponsive
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const CONNECTION_ERROR:String = "connectionError";
 
@@ -271,6 +351,11 @@ public class VideoPlayer extends Video
      *  @see #state  
      *  @see #autoRewind
      *  @see #stateResponsive
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const REWINDING:String = "rewinding";
 
@@ -283,6 +368,11 @@ public class VideoPlayer extends Video
      *  @see #state  
      *  @see #stateResponsive
      *  @see #seek()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const SEEKING:String = "seeking";
 
@@ -293,6 +383,11 @@ public class VideoPlayer extends Video
      *
      *  @see #state
      *  @see #stateResponsive
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const RESIZING:String = "resizing";
 
@@ -305,6 +400,11 @@ public class VideoPlayer extends Video
      *
      *  @see #state
      *  @see #stateResponsive
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static const EXEC_QUEUED_CMD:String = "execQueuedCmd";
 
@@ -360,6 +460,11 @@ public class VideoPlayer extends Video
      *  make all VideoPlayer objects created use that class as the
      *  default INCManager implementation.  The default value is
      *  "mx.controls.videoClasses.NCManager".</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public static var DEFAULT_INCMANAGER:Class = NCManager;
 
@@ -610,6 +715,11 @@ public class VideoPlayer extends Video
      *  @see #setScale()
      *  @tiptext Specifies the horizontal scale factor
      *  @helpid 3974
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set scaleX(xs:Number):void
     {
@@ -626,6 +736,11 @@ public class VideoPlayer extends Video
      *  @see #setScale()
      *  @tiptext Specifies the vertical scale factor
      *  @helpid 3975
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set scaleY(ys:Number):void
     {
@@ -642,6 +757,11 @@ public class VideoPlayer extends Video
      *  @see #setSize()
      *  @see #videoWidth
      *  @helpid 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set width(value:Number):void
     {
@@ -658,6 +778,11 @@ public class VideoPlayer extends Video
      *  @see #setSize()
      *  @see #videoHeight
      *  @helpid 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set height(value:Number):void
     {
@@ -670,6 +795,11 @@ public class VideoPlayer extends Video
      *  undefined if no information available yet.</p>
      *
      *  @see #width
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get videoWidth():int
     {
@@ -699,6 +829,11 @@ public class VideoPlayer extends Video
      *  undefined if no information available yet.</p>
      *
      *  @see #height
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get videoHeight():int
     {
@@ -736,6 +871,11 @@ public class VideoPlayer extends Video
      * <p>Use this instead of <code>_visible</code> because we
      * sometimes do internal visibility management when doing an
      * autoresize.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function get visible():Boolean 
     {
@@ -773,6 +913,11 @@ public class VideoPlayer extends Video
      *  reaching the end of the stream.  Meaningless for live streams.</p>
      *
      *  @helpid 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get autoRewind():Boolean
     {
@@ -804,6 +949,11 @@ public class VideoPlayer extends Video
      *  @tiptext Current position of the playhead in seconds
      *  @helpid 3463
      *  @see #seek()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get playheadTime():Number
     {
@@ -840,6 +990,11 @@ public class VideoPlayer extends Video
      *
      *  @tiptext Holds the relative path and filename of the media to be streamed
      *  @helpid 3457
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get url():String
     {
@@ -863,6 +1018,11 @@ public class VideoPlayer extends Video
      *  @tiptext The volume setting in value range from 0 to 1.
      *  @helpid 3468
      *  @see #soundTransform
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get volume():Number
     {
@@ -903,6 +1063,11 @@ public class VideoPlayer extends Video
      *  settings to tweak.
      *
      *  @see #volume
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get soundTransform():SoundTransform 
     {
@@ -926,6 +1091,11 @@ public class VideoPlayer extends Video
     /**
      * True if stream is RTMP download (streaming from Flash
      * Communication Server), read only.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isRTMP():Boolean 
     {
@@ -947,6 +1117,11 @@ public class VideoPlayer extends Video
      * <p>True if stream is live, read only.  isLive only makes sense when
      * streaming from FVSS or FCS, value is ignored when doing http
      * download.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get isLive():Boolean 
     {
@@ -966,6 +1141,11 @@ public class VideoPlayer extends Video
      * Get state.  Read only.  Set with <code>load</code>,
      * <code>play()</code>, <code>stop()</code>,
      * <code>pause()</code> and <code>seek()</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get state():String 
     {
@@ -994,6 +1174,11 @@ public class VideoPlayer extends Video
      *  @see #RESIZING
      *  @see #CONNECTION_ERROR
      *  @see #REWINDING
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get stateResponsive():Boolean 
     {
@@ -1022,6 +1207,11 @@ public class VideoPlayer extends Video
      *
      *  @tiptext Number of bytes already loaded
      *  @helpid 3455
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bytesLoaded():int
     {
@@ -1042,6 +1232,11 @@ public class VideoPlayer extends Video
      *
      *  @tiptext Number of bytes to be loaded
      *  @helpid 3456
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bytesTotal():int
     {
@@ -1063,6 +1258,11 @@ public class VideoPlayer extends Video
      *  @return The total running time of the FLV in seconds
      *  @tiptext The total length of the FLV in seconds
      *  @helpid 3467
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get totalTime():Number
     {
@@ -1083,6 +1283,11 @@ public class VideoPlayer extends Video
      * back stream.  For slow connections streaming over rtmp, it is
      * important to increase this from the default.  Default is
      * 0.1</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get bufferTime():Number
     {
@@ -1111,6 +1316,11 @@ public class VideoPlayer extends Video
      *
      * <p>If set when stream already idle, restarts idle timeout with
      * new value.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get idleTimeout():uint 
     {
@@ -1134,6 +1344,11 @@ public class VideoPlayer extends Video
      * in milliseconds between each "playheadUpdate" event.</p>
      *
      * <p>If set when stream is playing, will restart timer.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get playheadUpdateInterval():uint 
     {
@@ -1157,6 +1372,11 @@ public class VideoPlayer extends Video
      * in milliseconds between each "progress" event.</p>
      *
      * <p>If set when stream is playing, will restart timer.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get progressInterval():uint 
     {
@@ -1187,6 +1407,11 @@ public class VideoPlayer extends Video
      * <p>One use case for this is that a custom
      * <code>INCManager</code> implementation may require custom
      * initialization.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get ncMgr():INCManager 
     {
@@ -1212,6 +1437,11 @@ public class VideoPlayer extends Video
      *
      *  @see #load()
      *  @see #play()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get metadata():Object 
     { 
@@ -1239,6 +1469,11 @@ public class VideoPlayer extends Video
      *  @param height
      *  @see width
      *  @see height
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setSize(w:Number, h:Number):void
     {
@@ -1262,6 +1497,11 @@ public class VideoPlayer extends Video
      *  @param scaleY
      *  @see scaleX
      *  @see scaleY
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function setScale(xs:Number, ys:Number):void 
     {
@@ -1298,6 +1538,11 @@ public class VideoPlayer extends Video
      *  @see #connected
      *  @see #stateResponsive
      *  @see #load()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function play(url:String = null, isLive:Boolean = false, totalTime:Number = -1):void 
     {
@@ -1460,6 +1705,11 @@ public class VideoPlayer extends Video
      *  trump this one in any case.  Default is -1.
      *  @see #connected
      *  @see #play()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function load(url:String, isLive:Boolean = false, totalTime:Number = -1):void 
     {
@@ -1501,6 +1751,11 @@ public class VideoPlayer extends Video
      *  @see #connected
      *  @see #stateResponsive
      *  @see #play()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function pause():void 
     {
@@ -1543,6 +1798,11 @@ public class VideoPlayer extends Video
      *  @see #stateResponsive
      *  @see #autoRewind
      *  @see #play()
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function stop():void
     {
@@ -1617,6 +1877,11 @@ public class VideoPlayer extends Video
      *  @throws VideoError if time is < 0
      *  @see #connected
      *  @see #stateResponsive
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function seek(time:Number):void
     {
@@ -1688,6 +1953,11 @@ public class VideoPlayer extends Video
      *  because the idle timeout functionality will take care of this.</p>
      *
      *  @see idleTimeout
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function close():void 
     {
@@ -2683,6 +2953,11 @@ public class VideoPlayer extends Video
     /**
      * <p>Makes video visible, turns on sound and starts
      * playing if live or autoplay.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private function finishAutoResize(event:Event):void 
     {
@@ -2890,6 +3165,11 @@ dynamic class VideoPlayerNetStream extends NetStream
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function VideoPlayerNetStream(connection:NetConnection,
                                          videoPlayer:VideoPlayer)
