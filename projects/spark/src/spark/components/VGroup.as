@@ -43,10 +43,7 @@ public class VGroup extends Group
 	public function VGroup():void
 	{
 		super();
-		var vl:VerticalLayout = new VerticalLayout();
-        vl.addEventListener("indexInViewChanged", redispatchHandler);
-        vl.addEventListener("propertyChange", redispatchHandler);
-        layout = vl;
+		layout = new VerticalLayout();
 	}
 	
     private function get verticalLayout():VerticalLayout
@@ -191,6 +188,38 @@ public class VGroup extends Group
     //  Event Handlers
     //
     //--------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+    {
+        switch(type)
+        {
+            case "indexInViewChanged":
+            case "propertyChange":
+                if (!hasEventListener(type))
+                    verticalLayout.addEventListener(type, redispatchHandler);
+                break;
+        }
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference)
+    }    
+    
+    /**
+     * @private
+     */
+    override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+    {
+        super.removeEventListener(type, listener, useCapture);
+        switch(type)
+        {
+            case "indexInViewChanged":
+            case "propertyChange":
+                if (!hasEventListener(type))
+                    verticalLayout.removeEventListener(type, redispatchHandler);
+                break;
+        }
+    }
     
     private function redispatchHandler(event:Event):void
     {
