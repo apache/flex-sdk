@@ -754,7 +754,8 @@ public class TrackBase extends Range
     {
     	var newValue:Number = nearestValidValue(value + event.delta * stepSize, stepSize);
         positionThumb(valueToPosition(newValue));
-        setValue(newValue);    	
+        setValue(newValue);  
+        event.preventDefault();  	
     }
     
     /**
