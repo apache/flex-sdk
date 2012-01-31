@@ -14,6 +14,7 @@ package spark.components
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.EventPhase;
+import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -267,6 +268,74 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 [Event(name="caretChange", type="spark.events.GridCaretEvent")]
 
 //--------------------------------------
+//  Edit Events
+//--------------------------------------
+
+/**
+ *  Dispatched when a new item editor session has been requested. A listener can
+ *  dynamically determine if a cell is editable and cancel the edit (with 
+ *  preventDefault()) if it is not. A listener may also dynamically 
+ *  change the editor that will be used by assigning a different item editor to
+ *  a column.
+ * 
+ *  <p>If this event is cancelled the item editor will not be created.</p>
+ *
+ *  @eventType spark.events.DataGridEditEvent.START_GRID_ITEM_EDITOR_SESSION
+ *  
+ *  @see spark.components.DataGrid.itemEditorInstance
+ *  @see flash.events.Event
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Event(name="startGridItemEditorSession", type="spark.events.DataGridEditEvent")]
+
+/**
+ *  Dispatched immediately after an item editor has been opened. 
+ *
+ *  @eventType spark.events.DataGridEditEvent.OPEN_GRID_ITEM_EDITOR_SESSION
+ *  
+ *  @see spark.components.DataGrid.itemEditorInstance
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Event(name="openGridItemEditorSession", type="spark.events.DataGridEditEvent")]
+
+/**
+ *  Dispatched after the data in item editor has been saved into the data provider
+ *  and the editor has been closed.  
+ *
+ *  @eventType spark.events.DataGridEditEvent.SAVE_GRID_ITEM_EDITOR_SESSION
+ *  
+ *  @see spark.components.DataGrid.itemEditorInstance
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Event(name="saveGridItemEditorSession", type="spark.events.DataGridEditEvent")]
+
+/**
+ *  Dispatched after the item editor has been closed without saving its data.  
+ *
+ *  @eventType spark.events.DataGridEditEvent.CANCEL_GRID_ITEM_EDITOR_SESSION
+ *  
+ *  @see spark.components.DataGrid.itemEditorInstance
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.0
+ *  @productversion Flex 4.5
+ */
+[Event(name="cancelGridItemEditorSession", type="spark.events.DataGridEditEvent")]
+
+//--------------------------------------
 //  Other metadata
 //--------------------------------------
 
@@ -406,13 +475,11 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     //----------------------------------
     //  editorLayer
     //----------------------------------
-    
+    [Bindable]    
     [SkinPart(required="false", type="mx.core.IVisualElementContainer")]
     
     /**
-     *  @private
-     *  
-     *  Where item editors are added to the data grid.
+     *  The container for the itemEditor visual element.
      */
     public var itemEditorLayer:IVisualElementContainer;
     
@@ -1869,7 +1936,10 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             
             // Data grid editor
             if (editor)
+            {
                 editor.uninitialize();
+                editor = null;
+            }
         }
         
         if (grid)
@@ -2846,6 +2916,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
      * 
      *  @return true if the editor session was started. Returns false if
      *  the editor session was cancelled.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     *  
      */ 
     public function startItemEditorSession(rowIndex:int, columnIndex:int):Boolean
     {
@@ -2856,20 +2932,20 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     /**
-     *  Starts an editor session on a selected cell in the data grid.
+     *  Closes the currently active editor and optionally saves the editor's value
+     *  by calling the item editor's save() method.  If the cancel parameter is true,
+     *  then the editor's cancel() method is called instead.
      * 
-     *  A <code>startItemEditorSession</code> event is dispatch before
-     *  an item editor is created. This allows a listener a change to 
-     *  dynamically set an item editor for a specified cell. 
-     * 
-     *  The event can be cancelled which will prevent the editor session
-     *  from being created.
-     * 
-     *  @param rowIndex The zero-based row index of the cell to edit.
-     *  @param columnIndex The zero-based column index of the cell to edit.
-     * 
+     *  @param cancel If false the data in the editor is saved. 
+     *  Otherwise the data in the editor is discarded.
+     *
      *  @return true if the editor session was saved, false if the save was
      *  cancelled.  
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */ 
     public function endItemEditorSession(cancel:Boolean = false):Boolean
     {
