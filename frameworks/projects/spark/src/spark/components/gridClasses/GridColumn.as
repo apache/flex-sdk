@@ -16,9 +16,10 @@ import flash.events.EventDispatcher;
 
 import mx.core.ClassFactory;
 import mx.core.IFactory;
-import mx.core.mx_internal;
 import mx.core.Singleton;
+import mx.core.mx_internal;
 
+import spark.components.DataGrid;
 import spark.components.Grid;
 
 use namespace mx_internal;
@@ -172,6 +173,19 @@ public class GridColumn extends EventDispatcher
         dispatchChangeEvent("dataFieldChanged");
     }
     
+    
+    //----------------------------------
+    //  dataGrid (private, read-only)
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private function get dataGrid():spark.components.DataGrid
+    {
+        return (grid) ? grid.gridOwner as DataGrid : null;
+    }
+    
     //----------------------------------
     //  dataTipField
     //----------------------------------
@@ -276,7 +290,8 @@ public class GridColumn extends EventDispatcher
     [Bindable("headerRendererChanged")]
     
     /**
-     *  A factory for the IGridItemRenderer used as the header for this column.  
+     *  A factory for the IGridItemRenderer used as the header for this column.  If null,
+     *  the value of the DataGrid headerRenderer property is returned. 
      * 
      *  @default null
      *
@@ -285,7 +300,11 @@ public class GridColumn extends EventDispatcher
      */
     public function get headerRenderer():IFactory
     {
-        return _headerRenderer;
+        if (_headerRenderer)
+            return _headerRenderer;
+        
+        const dataGrid:DataGrid = dataGrid;
+        return (dataGrid) ? dataGrid.headerRenderer : null;
     }
     
     /**
@@ -298,7 +317,7 @@ public class GridColumn extends EventDispatcher
         
         _headerRenderer = value;
         
-        // TBD: invalidate the CHB
+        // TBD(hmuller) invalidate CHB
         
         dispatchChangeEvent("headerRendererChanged");
     }
