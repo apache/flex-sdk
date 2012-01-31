@@ -73,8 +73,6 @@ public class AbstractOperation extends mx.rpc.AbstractOperation
     {
         super(service, name);
 
-        argumentNames = [];
-
         _log = Log.getLogger("mx.rpc.http.HTTPService");
 
         concurrency = Concurrency.MULTIPLE;
@@ -586,7 +584,9 @@ function xmlEncoder (myObj)
         
         if (ctype == CONTENT_TYPE_XML)
         {
-            if (!(parameters is XMLNode) && !(parameters is XML))
+            if (parameters is String && xmlEncode == null)
+                paramsToSend = parameters as String;
+            else if (!(parameters is XMLNode) && !(parameters is XML))
             {
                 if (xmlEncode != null)
                 {
