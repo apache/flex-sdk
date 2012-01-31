@@ -1232,6 +1232,17 @@ public final class Animation
     }
     
     /**
+     *  @private
+     *  Method is used to force the animation timeline to update its current
+     *  time.
+     */ 
+    mx_internal static function pulse():void
+    {
+        if (timer)
+            Timeline.pulse();
+    }
+    
+    /**
      *  Pauses the effect until the <code>resume()</code> method is called.
      *  If <code>stop()</code> is called before <code>resume()</code>, then
      *  the animation cannot be resumed.
