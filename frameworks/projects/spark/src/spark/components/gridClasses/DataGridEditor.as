@@ -9,14 +9,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-/**
- *  The DataGridEditor contains all the logic and event handling needed to 
- *  manage the life cycle of an item editor. A DataGridEditor is owned by a 
- *  specified DataGrid. The owning DataGrid is responsible for calling
- *  initialize() to enable editing and uninitialize() when editing is no 
- *  longer needed.
- * 
- */
 package spark.components.gridClasses
 {
 import flash.display.DisplayObject;
@@ -58,21 +50,39 @@ use namespace mx_internal;
 
 [ExcludeClass]
 
-//--------------------------------------------------------------------------
-//
-//  Constructor
-//
-//--------------------------------------------------------------------------
-
 /**
- *  Constructor
+ *  The DataGridEditor contains all the logic and event handling needed to 
+ *  manage the life cycle of an item editor. 
+ *  A DataGridEditor is owned by a 
+ *  specified DataGrid. The owning DataGrid is responsible for calling
+ *  initialize() to enable editing and uninitialize() when editing is no 
+ *  longer needed.
  * 
- *  @param dataGrid The owner of this editor.
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 2.5
+ *  @productversion Flex 4.5
  */
 public class DataGridEditor
 {
     include "../../core/Version.as";    
 
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  Constructor
+     * 
+     *  @param dataGrid The owner of this editor.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
+     */
     public function DataGridEditor(dataGrid:DataGrid)
     {
         _dataGrid = dataGrid;
