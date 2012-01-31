@@ -3813,7 +3813,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 
             case GridSelectionEventKind.SELECT_ALL:
             {
-                changesSelection = !gridSelection.selectAllFlag;
+                changesSelection = true;
                 break;
             }
         }
