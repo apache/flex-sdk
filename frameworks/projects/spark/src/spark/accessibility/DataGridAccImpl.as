@@ -35,8 +35,275 @@ import spark.skins.spark.DefaultGridItemRenderer;
 use namespace mx_internal;
 
 /**
- *  DataGridAccImpl is a subclass of AccessibilityImplementation
- *  which implements accessibility for the DataGrid class.
+ *  This is the accessibility implementation class for
+ *  spark.components.DataGrid.
+ *
+ *  <p>When a Spark DataGrid is created, its <code>focusOwner</code> child
+ *  object's <code>accessibilityImplementation</code> property is set to an
+ *  instance of this class. The accessibility implementation is placed on
+ *  this placeholder <code>focusOwner</code> object so that the DataGrid's
+ *  accessibility implementation does not obscure the item editor's
+ *  accessibility implementation.  The DataGrid component itself does not
+ *  have an accessibility implementation.  This step is required as the
+ *  current version of the Flash Player does not support multiple levels of
+ *  MSAA objects.  Item editors can be any component and need to be full MSAA
+ *  objects.  The item editor objects appear as sibling objects to the
+ *  DataGrid in the MSAA tree structure.  The accessibility implementation
+ *  for each item editor is thus handled by the accessibility implementation
+ *  associated with that component, such as <code>CheckBoxAccImpl</code> for
+ *  a CheckBox.  The item editor's accessibility implementation only exists
+ *  when there is an item editor session, and there can only be one item
+ *  editor active at one time; thus, there is one or zero instances of the
+ *  item editor accessibility implementation active at any time.</p>
+ *
+ *  <p>Two methods are overwritten in the <code>DataGrid</code> class to
+ *  properly handle focus among <code>DataGrid</code> and the
+ *  <code>focusOwner</code> child of <code>DataGrid</code>.  The
+ *  <code>GridItemRenderer</code> class turns accessibility off for item
+ *  renderers, as by default these will be handled as simple objects under
+ *  the DataGrid accessibility implementation.  While this limits how
+ *  non-item editor components such as CheckBox, Panel, etc. can be used in
+ *  DataGrids, it prevents these items from showing up as siblings to the
+ *  DataGrid in the MSAA tree.  Allowing all grid item renderers to show up
+ *  as siblings to the DataGrid in the MSAA tree would be very confusing to
+ *  users of screen readers as there would be no context or relationship.
+ *  Developers can of course override this default behavior if desired to
+ *  display these renderers with accessibility enabled.</p>
+ *
+ *  <p>The Flash Player then uses this class to allow MSAA clients such as
+ *  screen readers to see and manipulate the DataGrid. See the
+ *  mx.accessibility.AccImpl and
+ *  flash.accessibility.AccessibilityImplementation classes for background
+ *  information about accessibility implementation classes and MSAA.</p>
+ *
+ *  <p>The <code>DataGridAccImpl</code> extends the
+ *  <code>ListBaseAccImpl</code> (as the <code>DataGrid</code> extends the
+ *  <code>DataGridBase</code> which extends the <code>ListBase</code> class).
+ *  The Spark <code>DataGridAccImpl</code> is most similar to the MX
+ *  <code>AdvancedDataGridAccImpl</code> as the AdvancedDataGrid also
+ *  supports single cell and row selection which the MX DataGrid did not.</p>
+ *
+ *  <p><b>Children</b></p>
+ *
+ *  <p>The MSAA children of a DataGrid are, in this order</p>
+ *  <ul>
+ *  <li>One child for each visible header cell, starting from the left.
+ *  "Visible" here means not hidden by the developer
+ *  (<code>column.visible=false</code>).  The header for a column that is not
+ *  marked invisible by the developer but which is scrolled off screen is
+ *  considered "visible" here.
+ *  <li>In row selection mode, one child for each data row in the grid; OR
+ *  <li>In cell selection mode, one child for each cell in the grid,
+ *  excluding cells in invisible (as just described) columns.
+ *  </ul>
+ *
+ *  <p>The number of children depends on the number of rows and columns in
+ *  the <code>dataProvider</code>, not on the number of items currently
+ *  displayed on screen.</p>
+ *
+ *  <p>Note that, unlike for <code>ListBase</code>, DataGrid child count does
+ *  not reflect the number of data rows in the control.  Assistive technology
+ *  should therefore avoid using <code>AccChildCount</code> as a means of
+ *  reporting row count.</p>
+ *
+ *  <p>This property is not handled by the DataGrid accessibility
+ *  implementation for item editors as item editors manage themselves.</p>
+ *
+ *  <p><b>Role</b></p>
+ *
+ *  <p>The MSAA Role of a DataGrid is <code>ROLE_SYSTEM_LIST</code>.</p>
+ *
+ *  <p>The Role of each data row or cell in the DataGrid is
+ *  <code>ROLE_SYSTEM_LISTITEM</code>.</p>
+ *
+ *  <p>The Role of each header cell in the DataGrid is
+ *  <code>ROLE_SYSTEM_COLUMNHEADER</code>.</p>
+ *
+ *  <p>This property is not handled by the DataGrid accessibility
+ *  implementation for item editors as item editors manage themselves.</p>
+ *
+ *  <p><b>Name</b></p>
+ *
+ *  <p>The MSAA Name of a DataGrid is, by default, an empty string. When
+ *  wrapped in a <code>FormItem</code> element, the Name is the FormItem's
+ *  label. To override this behavior, set the DataGrids's
+ *  <code>accessibilityName</code> property.  Setting the
+ *  <code>accessibilityName</code> property will also apply the accessible
+ *  name to the <code>focusOwner</code> child object of the DataGrid which
+ *  represents the DataGrid.</p>
+ *
+ *  <p>The Name of each data row (when in row selection mode) is a string of
+ *  the form "_column1Name_: _column1Value_, _column2Name_: _column2Value_,
+ *  ..., _columnNName_: _columnNValue_, Row _m_ of _n_."  Columns are
+ *  separated from each other by commas, and column names and values are
+ *  separated from each other by colons.  Columns hidden by the developer are
+ *  omitted entirely from the Name string.  Example Name string: "Contact
+ *  Name: Doug, Contact Phone: 555-1212, Contact Zip: 12345, row 3 of 7."</p>
+ *  <p>Note that "Row _m_ of _n_" is localized.</p>
+ *
+ *  <p>The Name of each data cell in column 1 (when in cell selection mode)
+ *  is a string of the form "_columnName_: _columnValue_, Row _m_ of _n_."
+ *  Example:  "Contact Phone: 555-1212, Row 2 of 5."  Subsequent columns use
+ *  the same format but omit the "Row _m_ of _n_" portion.</p>
+ *  <p>Note that "Row _m_ of _n_" is localized.</p>
+ *
+ *  <p>The Name string for a column header (in cell or row selection mode) is
+ *  normally the text of the header.  Example:  "Contact Phone."  If the grid
+ *  is sorted by the corresponding column however, the string "sorted" or
+ *  "sorted descending" is appended to the column name, to indicate the sort
+ *  and its direction.  Example:  "Contact Name sorted."  For a multicolumn
+ *  sort, level strings are also appended indicating each column's level in
+ *  the set of sorting columns.  For example, if a grid is sorted first by
+ *  column 3 and then by column 2, and column 2 is sorted in descending
+ *  order, column 3's name will end with "Sorted Level 1," and column 2's
+ *  name will end with "Sorted descending level 2."  The strings for
+ *  indicating ascending sort, descending sort, and sort level are
+ *  localized.</p>
+ *
+ *  <p>When the Name of the DataGrid or one of its items changes, a DataGrid
+ *  dispatches the MSAA event <code>EVENT_OBJECT_NAMECHANGE</code> with the
+ *  proper childID for a row or cell or 0 for itself.</p>
+ *
+ *  <p>If an accessibility name is not set for an item editor, one is set
+ *  based on the column header name for the cell.</p>
+ *
+ *  <p><b>Description</b></p>
+ *
+ *  <p>The MSAA Description of a DataGrid is, by default, an empty string,
+ *  but you can set the DataGrid's <code>accessibilityDescription</code>
+ *  property.</p>
+ *
+ *  <p>The Description of each row, cell, or header is the empty string and
+ *  can not be set by an AccImpl.</p>
+ *
+ *  <p>This property is not handled by the DataGrid accessibility
+ *  implementation for item editors as item editors manage themselves.</p>
+ *
+ *  <p><b>State</b></p>
+ *
+ *  <p>The MSAA State of a DataGrid is a combination of:</p>
+ *  <ul>
+ *  <li><code>STATE_SYSTEM_UNAVAILABLE</code> (when <code>enabled</code> is
+ *  <code>false</code>)
+ *  <li><code>STATE_SYSTEM_FOCUSABLE</code> (when <code>enabled</code> is
+ *  <code>true</code>)
+ *  <li><code>STATE_SYSTEM_FOCUSED</code> (when <code>enabled</code> is
+ *  <code>true</code> and the DataGrid has focus)
+ *  <li><code>STATE_SYSTEM_MULTISELECTABLE</code> (when
+ *  <code>allowMultipleSelection</code> is true)
+ *  </ul>
+ *
+ *  <p>The State of a data row or cell is a combination of:</p>
+ *  <ul>
+ *  <li><code>STATE_SYSTEM_FOCUSABLE</code>
+ *  <li><code>STATE_SYSTEM_FOCUSED</code> (when focused)
+ *  <li><code>STATE_SYSTEM_OFFSCREEN</code> (when the row or cell has
+ *  scrolled offscreen)
+ *  <li><code>STATE_SYSTEM_SELECTABLE</code>
+ *  <li><code>STATE_SYSTEM_SELECTED</code> (when it is selected)
+ *  </ul>
+ *
+ *  <p>The State of a header cell is <code>STATE_SYSTEM_NORMAL</code>, since
+ *  header cells may not receive focus or be selected.  As currently
+ *  implemented, header cells may not report
+ *  <code>STATE_SYSTEM_OFFSCREEN</code> even if the grid itself is moved such
+ *  that its headers are offscreen.</p>
+ *
+ *  <p>When the State of the DataGrid or one of its items changes, a DataGrid
+ *  dispatches the MSAA event <code>EVENT_OBJECT_STATECHANGE</code> with the
+ *  proper childID for the row or cell or 0 for itself.</p>
+ *
+ *  <p>This property is not handled by the DataGrid accessibility
+ *  implementation for item editors as item editors manage themselves.</p>
+ *
+ *  <p><b>Value</b></p>
+ *
+ *  <p>DataGrids and their children (rows, cells, and headers) do not have
+ *  MSAA Values.</p>
+ *
+ *  <p><b>Location</b></p>
+ *
+ *  <p>The MSAA Location of a DataGrid or a row, data cell, or header cell
+ *  within it is its bounding rectangle.  The Location of an item that is
+ *  currently not displayed on screen is undefined.</p>
+ *
+ *  <p>This property is not handled by the DataGrid accessibility
+ *  implementation for item editors as item editors manage themselves.</p>
+ *
+ *  <p><b>Default Action</b></p>
+ *
+ *  <p>A DataGrid does not have an MSAA DefaultAction. The MSAA DefaultAction
+ *  for a row or cell is "Double Click" and for a header cell is "Click," and
+ *  the corresponding localized string will be returned when the default
+ *  action string is requested.</p>
+ *
+ *  <p>Performing the default action on a data row or cell will cause it to
+ *  be focused and selected and may cause other behavior depending on
+ *  cell/row type.  Performing the default action on a header will cause the
+ *  grid to be sorted by that column.  Repeated default actions on the header
+ *  will toggle the sort order between ascending and descending.  At this
+ *  writing, there is no way via the AccImpl to arrange for a multilevel sort
+ *  on several columns at once.</p>
+ *
+ *  <p>This property is not handled by the DataGrid accessibility
+ *  implementation for item editors as item editors manage themselves.</p>
+ *
+ *  <p><b>Focus</b></p>
+ *
+ *  <p>When there is no specific item (row or cell depending on selection
+ *  mode) in focus within the grid, Focus returns 0 indicating that the grid
+ *  itself has focus.  This should only happen when the grid contains no
+ *  data.</p>
+ *
+ *  <p>When a row (row selection mode) or cell (cell selection mode) has
+ *  focus, Focus returns the childID of the focused item.</p>
+ *
+ *  <p>When a DataGrid receives focus, it dispatches the MSAA event
+ *  <code>EVENT_OBJECT_FOCUS</code>.  This event is also dispatched when
+ *  focus moves among rows or cells within the grid.</p>
+ *
+ *  <p>A focus change event is fired on the item editor when it
+ *  starts/appears.  A focus change event is fired on the DataGrid when the
+ *  item editor is saved or closed.</p>
+ *
+ *  <p><b>Selection</b></p>
+ *
+ *  <p>A DataGrid allows either a single row or cell or multiple rows or
+ *  cells to be selected, depending on the
+ *  <code>allowMultipleSelection</code> property.  Selection returns an array
+ *  of the integer childIDs of the selected items.</p>
+ *
+ *  <p>When an item is selected exclusively, it dispatches MSAA event
+ *  <code>EVENT_OBJECT_SELECTION</code>.  When a cell (cell selection mode)
+ *  or row (row selection mode) is added to the current set of selections,
+ *  the dispatched event is <code>EVENT_OBJECT_SELECTIONADD</code>.
+ *  Similarly, if an item (cell or row) is removed from selection, the
+ *  dispatched event is <code>EVENT_OBJECT_SELECTIONREMOVE</code>.  If all
+ *  selections are cleared (regardless of how many items were selected) or a
+ *  select-all or select-region action is performed, the dispatched event is
+ *  <code>EVENT_OBJECT_SELECTIONWITHIN</code>.  Any selection operation not
+ *  matching one of those listed above will dispatch
+ *  <code>EVENT_OBJECT_SELECTION</code>.</p>
+ *
+ *  <p>This property is not handled by the DataGrid accessibility
+ *  implementation for item editors as item editors manage themselves.</p>
+ *
+ *  <p><b>Select</b></p>
+ *
+ *  <p>The <code>accSelect</code> method implements requests made via MSAA
+ *  for changes in selection and/or focus within the DataGrid.  The AccImpl
+ *  for the DataGrid supports the setting of focus to a DataGrid itself or to
+ *  a data item or set of items (row or cell depending on selection mode)
+ *  within it.  Supported actions include setting focus, exclusively
+ *  selecting one item, and adding and removing an item or set of items from
+ *  selection, all as defined in the Microsoft Active Accessibility
+ *  specification.  At this writing, attempting to use <code>accSelect</code>
+ *  to extend an already-selected multi-cell region in cell multiselection
+ *  mode to include more rows and columns at once may yield different results
+ *  than doing the same action with a mouse.</p>
+ *
+ *  <p>This property is not handled by the DataGrid accessibility
+ *  implementation for item editors as item editors manage themselves.</p>
  *
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -349,8 +616,6 @@ public class DataGridAccImpl extends ListBaseAccImpl
         dgAccInfo.setup(master, 0);
         if (!dgAccInfo.dataGrid.columns || !dgAccInfo.dataGrid.dataProvider)
             return null;
-
-        // TODO: handle editable
 
         return dgAccInfo.childIDFromRowAndColumn(
             dgAccInfo.dataGrid.grid.caretRowIndex,
