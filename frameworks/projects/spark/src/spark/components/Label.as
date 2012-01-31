@@ -548,9 +548,8 @@ public class SimpleText extends TextGraphicElement
         else if (kerning === false)
             kerning = Kerning.OFF;
         
-        var s:String = String(kerning);
-        if (s != null)
-           elementFormat.kerning = s;
+        if (kerning != null)
+           elementFormat.kerning = String(kerning);
     }
 
     /**
