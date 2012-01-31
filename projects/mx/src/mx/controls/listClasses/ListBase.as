@@ -243,7 +243,8 @@ include "../../styles/metadata/PaddingStyles.as"
 /**
  *  The color of the background of a renderer when the user rolls over it.
  *
- *  @default 0xEEFEE6
+ *  The default value for the Halo theme is <code>0xB2E1FF</code>.
+ *  The default value for the Spark theme is <code>0xCEDBEF</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -255,7 +256,8 @@ include "../../styles/metadata/PaddingStyles.as"
 /**
  *  The color of the background of a renderer when the user selects it.
  *
- *  @default 0x7FCEFF
+ *  The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -309,7 +311,8 @@ include "../../styles/metadata/PaddingStyles.as"
 /**
  *  The color of the text of a renderer when the user rolls over a it.
  *
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -321,7 +324,8 @@ include "../../styles/metadata/PaddingStyles.as"
 /**
  *  The color of the text of a renderer when the user selects it.
  *
- *  @default 0x2B333C
+ *  The default value for the Halo theme is <code>0x2B333C</code>.
+ *  The default value for the Spark theme is <code>0x000000</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
