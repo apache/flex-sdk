@@ -1061,7 +1061,7 @@ public class Application extends SkinnableContainer
         // the application will not resize.
         // If developer has specified percent width/height,
         // application will resize to the required value
-        // based on the current stage width/height.
+        // based on the current SystemManager's width/height.
         // If developer has specified min/max values,
         // then application will not resize beyond those values.
 
@@ -1078,7 +1078,7 @@ public class Application extends SkinnableContainer
             {
                 super.percentWidth = Math.max(percentWidth, 0);
                 super.percentWidth = Math.min(percentWidth, 100);
-                w = percentWidth*screen.width/100;
+                w = percentWidth*DisplayObject(systemManager).width/100;
             }
 
             if (!isNaN(explicitMaxWidth))
@@ -1102,7 +1102,7 @@ public class Application extends SkinnableContainer
             {
                 super.percentHeight = Math.max(percentHeight, 0);
                 super.percentHeight = Math.min(percentHeight, 100);
-                h = percentHeight*screen.height/100;
+                h = percentHeight*DisplayObject(systemManager).height/100;
             }
             
             if (!isNaN(explicitMaxHeight))
