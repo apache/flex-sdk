@@ -18,8 +18,8 @@ import flash.events.ProgressEvent;
 import flash.media.Camera;
 import mx.controls.videoClasses.VideoPlayer;
 import mx.core.EdgeMetrics;
-import mx.core.IBorder;
 import mx.core.IFlexDisplayObject;
+import mx.core.IRectangularBorder;
 import mx.core.IUIComponent;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -417,8 +417,8 @@ public class VideoDisplay extends UIComponent
      */
     public function get borderMetrics():EdgeMetrics
     {
-        return (border && border is IBorder) ?
-                IBorder(border).borderMetrics : EdgeMetrics.EMPTY;
+		return (border && border is IRectangularBorder) ?
+                IRectangularBorder(border).borderMetrics : EdgeMetrics.EMPTY;
     }
 
     //----------------------------------
