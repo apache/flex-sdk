@@ -321,10 +321,9 @@ public class SimpleText extends TextGraphicElement
     	if (bc != null)
     	{
 	    	var g:Graphics = Sprite(drawnDisplayObject).graphics;
-	    	g.clear();
 	        g.lineStyle();
-	        g.beginFill(uint(bc)); 
-	       	g.drawRect(0, 0, unscaledWidth, unscaledHeight);
+	        g.beginFill(uint(bc));
+	       	g.drawRect(drawX, drawY, unscaledWidth, unscaledHeight);
 	        g.endFill();
 	    }
     }
