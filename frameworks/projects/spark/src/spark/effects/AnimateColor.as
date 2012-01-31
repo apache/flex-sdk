@@ -22,7 +22,7 @@ import mx.styles.StyleManager;
  *  
  *  @mxml
  *
- *  <p>The <code>&lt;mx:AnimateColor&gt;</code> tag
+ *  <p>The <code>&lt;s:AnimateColor&gt;</code> tag
  *  inherits all of the tag attributes of its superclass,
  *  and adds the following tag attributes:</p>
  *
