@@ -207,28 +207,6 @@ public interface IViewport extends IVisualElement
      */
     function get clipAndEnableScrolling():Boolean;
     function set clipAndEnableScrolling(value:Boolean):void;
-    
-    /**
-     *  If <code>clipAndEnabledScrolling</code> is <code>true</code> and 
-     *  <code>inputMode</code> is <code>touch</code>, 
-     *  <code>scrollAxis</code> specifies which direction this scroller 
-     *  can scroll. 
-     *  
-     *  Possible values for this property are <code>vertical</code>, 
-     *  <code>horizontal</code>, and <code>diagonal</code>.
-     *  
-     *  @default vertical
-     *
-     *  @see mx.core.UIComponent#inputMode
-     *  @see #clipAndEnableScrolling
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5
-     */
-    function get scrollAxis():String;
-    function set scrollAxis(value:String):void;
 }
 
 }
