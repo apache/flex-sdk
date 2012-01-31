@@ -194,6 +194,30 @@ include "../styles/metadata/BasicInheritingTextStyles.as"
 //-----------------------------------
 
 /**
+ *  The alpha of the background for this component.
+ * 
+ *  @default NaN
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="backgroundAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
+
+/**
+ *  The background color for this component.
+ *   
+ *  @default NaN
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="backgroundColor", type="uint", format="Color", inherit="no", theme="spark")]
+
+/**
  *  When true, enables the 'loading' skin state.
  *  @default false
  * 
@@ -271,20 +295,21 @@ public class Image extends SkinnableComponent
     //  Class constants
     //
     //--------------------------------------------------------------------------
-    mx_internal static const CONTENT_LOADER_PROPERTY_FLAG:uint = 1 << 0;
-    mx_internal static const CONTENT_LOADER_GROUPING_PROPERTY_FLAG:uint = 1 << 1;
-    mx_internal static const FILL_MODE_PROPERTY_FLAG:uint = 1 << 2;
-    mx_internal static const PRELIMINARY_WIDTH_PROPERTY_FLAG:uint = 1 << 3;
-    mx_internal static const PRELIMINARY_HEIGHT_PROPERTY_FLAG:uint = 1 << 4;
-    mx_internal static const HORIZONTAL_ALIGN_PROPERTY_FLAG:uint = 1 << 5;
-    mx_internal static const SCALE_MODE_PROPERTY_FLAG:uint = 1 << 6;
-    mx_internal static const SMOOTH_PROPERTY_FLAG:uint = 1 << 7;
-    mx_internal static const SMOOTHING_QUALITY_PROPERTY_FLAG:uint = 1 << 8;
-    mx_internal static const SOURCE_PROPERTY_FLAG:uint = 1 << 9;
-    mx_internal static const SOURCE_WIDTH_PROPERTY_FLAG:uint = 1 << 10;
-    mx_internal static const SOURCE_HEIGHT_PROPERTY_FLAG:uint = 1 << 11;
-    mx_internal static const TRUSTED_SOURCE_PROPERTY_FLAG:uint = 1 << 12;
-    mx_internal static const VERTICAL_ALIGN_PROPERTY_FLAG:uint = 1 << 13;
+    mx_internal static const CLEAR_ON_LOAD_PROPERTY_FLAG:uint = 1 << 0;
+    mx_internal static const CONTENT_LOADER_PROPERTY_FLAG:uint = 1 << 1;
+    mx_internal static const CONTENT_LOADER_GROUPING_PROPERTY_FLAG:uint = 1 << 2;
+    mx_internal static const FILL_MODE_PROPERTY_FLAG:uint = 1 << 3;
+    mx_internal static const PRELIMINARY_WIDTH_PROPERTY_FLAG:uint = 1 << 4;
+    mx_internal static const PRELIMINARY_HEIGHT_PROPERTY_FLAG:uint = 1 << 5;
+    mx_internal static const HORIZONTAL_ALIGN_PROPERTY_FLAG:uint = 1 << 6;
+    mx_internal static const SCALE_MODE_PROPERTY_FLAG:uint = 1 << 7;
+    mx_internal static const SMOOTH_PROPERTY_FLAG:uint = 1 << 8;
+    mx_internal static const SMOOTHING_QUALITY_PROPERTY_FLAG:uint = 1 << 9;
+    mx_internal static const SOURCE_PROPERTY_FLAG:uint = 1 << 10;
+    mx_internal static const SOURCE_WIDTH_PROPERTY_FLAG:uint = 1 << 11;
+    mx_internal static const SOURCE_HEIGHT_PROPERTY_FLAG:uint = 1 << 12;
+    mx_internal static const TRUSTED_SOURCE_PROPERTY_FLAG:uint = 1 << 13;
+    mx_internal static const VERTICAL_ALIGN_PROPERTY_FLAG:uint = 1 << 14;
     
     //--------------------------------------------------------------------------
     //
@@ -415,6 +440,37 @@ public class Image extends SkinnableComponent
     public function get bytesTotal():Number 
     {
         return imageDisplay ? imageDisplay.bytesTotal : NaN;
+    }
+    
+    //----------------------------------
+    //  clearOnLoad
+    //----------------------------------
+    
+    /**
+     *  @copy mx.primitives.BitmapImage#clearOnLoad
+     *  @default true
+     */
+    public function get clearOnLoad():Boolean 
+    {
+        if (imageDisplay)
+            return imageDisplay.clearOnLoad;
+        else
+            return imageDisplayProperties.clearOnLoad;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set clearOnLoad(value:Boolean):void
+    {
+        if (imageDisplay)
+        {
+            imageDisplay.clearOnLoad = value;
+            imageDisplayProperties = BitFlagUtil.update(imageDisplayProperties as uint, 
+                CLEAR_ON_LOAD_PROPERTY_FLAG, true);
+        }
+        else
+            imageDisplayProperties.clearOnLoad = value;
     }
     
     //----------------------------------
@@ -818,6 +874,13 @@ public class Image extends SkinnableComponent
             
             var newImageDisplayProperties:uint = 0;
             
+            if (imageDisplayProperties.clearOnLoad !== undefined)
+            {
+                imageDisplay.clearOnLoad = imageDisplayProperties.clearOnLoad;
+                newImageDisplayProperties = BitFlagUtil.update(newImageDisplayProperties, 
+                    CLEAR_ON_LOAD_PROPERTY_FLAG, true);
+            }
+            
             if (imageDisplayProperties.contentLoader !== undefined)
             {
                 imageDisplay.contentLoader = imageDisplayProperties.contentLoader;
@@ -928,6 +991,9 @@ public class Image extends SkinnableComponent
             imageDisplay.removeEventListener(HTTPStatusEvent.HTTP_STATUS, dispatchEvent);
             
             var newImageDisplayProperties:Object = {};
+            
+            if (BitFlagUtil.isSet(imageDisplayProperties as uint, CLEAR_ON_LOAD_PROPERTY_FLAG))
+                newImageDisplayProperties.clearOnLoad = imageDisplay.clearOnLoad;
             
             if (BitFlagUtil.isSet(imageDisplayProperties as uint, CONTENT_LOADER_PROPERTY_FLAG))
                 newImageDisplayProperties.contentLoader = imageDisplay.contentLoader;
