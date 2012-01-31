@@ -92,7 +92,7 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
      *   shaderEffect.shaderProperties = {direction : 1};</listing>
      * or in MXML code, this:<listing version="3.0">
      *   &lt;FxAnimateShaderTransition 
-     *       shaderCode="&64;Embed(source="MyShader.pbj", mimeType="application/octet-stream")"
+     *       shaderCode="&64;Embed(source='MyShader.pbj', mimeType='application/octet-stream')"
      *       shaderProperties="{{direction : 1}}}"/&gt;
      * </listing>
      * 
@@ -201,24 +201,24 @@ public class FxAnimateShaderTransitionInstance extends FxAnimateInstance
             propertyValuesList = [
                 new PropertyValuesHolder("progress", [0,1])
             ];
-        }
-        // auto-set width/height if exposed in shader
-        if ("width" in shader.data)
-            shader.data.width.value = [target.width];
-        if ("height" in shader.data)
-            shader.data.height.value = [target.height];
-            
-        if (shaderProperties)
-        {
-            for (var prop:String in shaderProperties)
+            // auto-set width/height if exposed in shader
+            if ("width" in shader.data)
+                shader.data.width.value = [bitmapFrom.width];
+            if ("height" in shader.data)
+                shader.data.height.value = [bitmapFrom.height];
+            if (shaderProperties)
             {
-                var value:Object = shaderProperties[prop];
-                shader.data[prop].value = (value is Array) ?
-                    value :
-                    [value];
+                for (var prop:String in shaderProperties)
+                {
+                    var value:Object = shaderProperties[prop];
+                    shader.data[prop].value = (value is Array) ?
+                        value :
+                        [value];
+                }
             }
+            shaderFilter = new ShaderFilter(shader);
         }
-        shaderFilter = new ShaderFilter(shader);
+            
         super.play();
     }    
     
