@@ -1335,7 +1335,7 @@ public class Application extends LayoutContainer
         // nothing to init
         if (flexContextMenu != null)
         {
-            // make sure we set it back on systemManager b/c it may have been overriden by now
+            // make sure we set it back on systemManager b/c it may have been overridden by now
             if (systemManager is InteractiveObject)
                 InteractiveObject(systemManager).contextMenu = contextMenu;
             return;
