@@ -25,6 +25,16 @@ import mx.events.IndexChangedEvent;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import spark.utils.LabelUtil; 
+
+/*
+ TODO (jszeto) 
+ - Add caretIndex public getter
+ - Add setCaretIndex protected setter
+ 	- Should set currentCaretIndex
+ 	- Call itemInCaret
+
+
+*/
     
 /**
  *  Dispatched when the selection is going to change. 
@@ -621,9 +631,12 @@ public class ListBase extends SkinnableDataContainer
      */
     override public function updateRenderer(renderer:IVisualElement):void
     {
-        //First clean up any old, stale properties like selected and caret      
-        if (renderer is IItemRenderer && IItemRenderer(renderer).selected)
+        //First clean up any old, stale properties like selected and caret   
+        if (renderer is IItemRenderer)
         {
+            // TODO (dsubrama) - Go through helper methods to do this. 
+            // Make itemSelected()/itemInCaret() pass around the renderer 
+            // instead of index. 
             IItemRenderer(renderer).selected = false;
             IItemRenderer(renderer).caret = false; 
         }    
