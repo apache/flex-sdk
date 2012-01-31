@@ -353,7 +353,6 @@ public class Spinner extends Range implements IFocusManagerComponent
     {
 		super.partAdded(partName, instance);
 
-        // FIXME (hmuller): autoRepeat as a property on Spinner?        
         if (instance == incrementButton)
         {
             incrementButton.focusEnabled = false;
