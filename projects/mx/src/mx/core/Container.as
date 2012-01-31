@@ -3117,7 +3117,7 @@ public class Container extends UIComponent
             if ("addToCreationQueue" in mainApp)
                 mainApp.addToCreationQueue(this, creationIndex, null, this);
             else
-                // TODO: Clarify error message and add to resource manager
+                // FIXME (clucier): Clarify error message and add to resource manager
                 throw new Error("addToCreationQueue called but method does not exist within application");
         }
         else if (recursionFlag)
@@ -5459,7 +5459,7 @@ public class Container extends UIComponent
     {
         // If a text field currently has focus, it is handling all arrow keys.
         // We shouldn't also scroll this Container.
-        // ToDo: replace with universal scrolling scheme that provides same
+        // FIXME (cframpto): replace with universal scrolling scheme that provides same
         // experience as browser.
         var focusObj:Object = getFocus();
         if ((focusObj is TextField) ||
