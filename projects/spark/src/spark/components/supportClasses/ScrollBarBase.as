@@ -35,8 +35,9 @@ import spark.effects.easing.Sine;
 use namespace mx_internal;
 
 /**
- *  Inactive State
- *  This is the state when there is no content to scroll through (maximum <= minimum).
+ *  The inactive state.
+ *  This is the state when there is no content to scroll,
+ *  which means <code>maximum</code> &lt;= <code>minimum</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
