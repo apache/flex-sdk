@@ -49,7 +49,7 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  Dispatched when a renderer is removed from the content holder.
  * <code>event.renderer</code> is the renderer that was removed.
  *
- *  @eventType spark.events.RendererExistenceEvent.ITEM_REMOVE
+ *  @eventType spark.events.RendererExistenceEvent.RENDERER_REMOVE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -87,9 +87,47 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
  *  The DataGroup class is the base container class for data elements.
  *  The DataGroup class converts data elements to visual elements for display.
  *
- *  @see spark.components.Group
- *  @includeExample examples/DataGroupExample.mxml
+ *  <p>The DataGroup class takes as children visual components that implement 
+ *  the IUIComponent interface and data items. 
+ *  Data items can be simple date items such String and Number objects, 
+ *  and more complicated data items such as Object and XMLNode objects. 
+ *  While these containers can hold visual items, 
+ *  they are often used only to hold data items as children.</p>
  *
+ *  <p>An item renderer defines the visual representation of the 
+ *  data item in the container. 
+ *  The item renderer converts the data item into a format that can 
+ *  be displayed by the container. 
+ *  You must pass an item renderer to a DataGroup or SkinnableDataContainer container.</p>
+ *
+ *  <p>To improve performance and minimize application size, 
+ *  the DataGroup container cannot be skinned. 
+ *  If you want to apply a skin, use the SkinnableDataContainer instead. </p>
+ * 
+ *  @mxml
+ *
+ *  <p>The <code>&lt;DataGroup&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;DataGroup
+ *    <strong>Properties</strong>
+ *    dataProvider="null"
+ *    itemRenderer="null"
+ *    itemRendererFunction="null"
+ *    typicalItem"null"
+ *  
+ *    <strong>Events</strong>
+ *    rendererAdd="<i>No default</i>"
+ *    rendererRemove="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ *
+ *  @see spark.components.SkinnableDataContainer
+ *  @see spark.components.Group
+ *  @see spark.skins.default.DefaultItemRenderer
+ *  @see spark.skins.default.DefaultComplexItemRenderer
+ *  @includeExample examples/DataGroupExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -135,18 +173,22 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     private var typicalLayoutElement:ILayoutElement = null;
 
     /**
-     *  Layouts use the preferred size of the corresponding ILayoutElement 
-     *  when fixed row/column sizes are requested but a specific 
-     *  rowHeight or columnWidth isn't provided.
-     * 
+     *  Layouts use the preferred size of the <code>typicalItem</code>
+     *  when fixed row or column sizes are required, but a specific 
+     *  <code>rowHeight</code> or <code>columnWidth</code> value is not set.
      *  Similarly virtual layouts use this item to define the size 
      *  of layout elements that have not been scrolled into view.
      *
-     *  Setting this property sets the typicalLayoutElement property
-     *  of the layout.
+     *  <p>The container  uses the typical data item, and the associated item renderer, 
+     *  to determine the default size of the container children. 
+     *  By defining the typical item, the container does not have to size each child 
+     *  as it is drawn on the screen.</p>
+     *
+     *  <p>Setting this property sets the <code>typicalLayoutElement</code> property
+     *  of the layout.</p>
      * 
-     *  Restriction: if the typicalItem is an IVisualItem, it must not 
-     *  also be a member of the dataProvider IList.
+     *  Restriction: if the <code>typicalItem</code> is an IVisualItem, it must not 
+     *  also be a member of the data Provider.
      * 
      *  @default null
      *  
@@ -292,8 +334,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     [Inspectable(category="Data")]
 
     /**
-     *  Renderer to use for data items. The class must
-     *  implement the IDataRenderer interface.
+     *  The item renderer to use for data items. 
+     *  The class must implement the IDataRenderer interface.
      *  If defined, the <code>itemRendererFunction</code> property
      *  takes precedence over this property.
      *
@@ -373,7 +415,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     
     [Bindable("dataProviderChanged")]
     /**
-     *  DataProvider for this DataGroup.  It must be an IList.
+     *  The data provider for this DataGroup. 
+     *  It must be an IList.
      * 
      *  <p>There are several IList implementations included in the 
      *  Flex framework, including ArrayCollection, ArrayList, and
@@ -383,6 +426,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *
      *  @see #itemRenderer
      *  @see #itemRendererFunction
+     *  @see mx.collections.IList
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -410,6 +454,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     }
     
     /**
+     *  @private
      *  Cleans up all the old item renderers.
      *  
      *  @langversion 3.0
@@ -485,7 +530,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     }
     
     /**
-     *  Adds the elements fo the dataProvider to the DataGroup.
+     *  Adds the elements of the data provider to the DataGroup.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -517,10 +562,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     }
     
     /**
-     *  Given a data item, return the correct text representation 
-     *  a renderer should display. 
+     *  Given a data item, return the String representation 
+     *  of the data item that an item renderer displays.
+     *  The String is wirtten to <code>labelText</code> property 
+     *  of the item renderer.
      *
-     *  @param item A data item 
+     *  @param item A data item.
      *  
      *  @return String representing the text to display for the 
      *  passed in item's renderer. 
@@ -532,7 +579,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */
     public function itemToLabel(item:Object):String
     {
-    	if (item)
+        if (item)
             return item.toString();
         return " ";
     }
@@ -555,7 +602,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      * 
      *  @param item The data element.
      *
-     *  @return The renderer that represents the data elelement.
+     *  @return The renderer that represents the data element.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -591,7 +638,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         // Couldn't find item renderer.  Throw an RTE.
         if (!myItemRenderer && failRTE)
         {
-        	var err:String;
+            var err:String;
             if (item is IVisualElement || item is DisplayObject)
                 err = resourceManager.getString("components", "cannotDisplayVisualElement");
             else
@@ -603,20 +650,13 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     }
    
     /**
-     *  A bottleneck method which updates renderer specific information. 
+     *  Sets the renderer's <code>data</code> property to the data item.
+     *  It also sets the renderer's <code>labelText</code> property 
+     *  by calling the <code>itemToLabel()</code> method. 
      * 
-     *  Set the renderer's data to the item, but only if the item and 
-     *  renderer are different.This step isn't integrated into createRendererForItem()
-     *  so that we can delay calling the IR's 'set data' method until after the
-     *  IR has a valid parent, i.e. until after it has been added to the 
-     *  display list. 
-     * 
-     *  Additionally, this method sets the renderer's labelText (the result of
-     *  which is dependant on its data) and owner properties. 
-     * 
-     *  @param renderer The renderer to update
+     *  @param renderer The item renderer to update.
      *  
-     *  @param data The renderer's data  
+     *  @param data The data item.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -626,8 +666,8 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      */
     public function updateRendererInformation(renderer:IVisualElement, data:Object=null):void
     {
-    	if (!renderer)
-    	   return; 
+        if (!renderer)
+           return; 
         
         if ((renderer is IDataRenderer) && (renderer != data))
             IDataRenderer(renderer).data = data;   
@@ -895,19 +935,17 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     }
     
     /**
-     *  @inheritDoc
-     * 
-     *  For a DataGroup, <code>getElementAt()</code> returns the ItemRenderer 
-     *  being used for the dataProvider item at the specified index.
-     * 
-     *  If the index is invalid, or if a dataProvider was not specified, then
-     *  null is returned.
-     * 
-     *  If the layout is virtual and the specified item isn't "in view", then
-     *  null will be returned.
-     *
+     *  Returns the ItemRenderer being used for the data provider item at the specified index.
      *  Note that if the layout is virtual, ItemRenderers that are scrolled
      *  out of view may be reused.
+     * 
+     *  @param index The index of the data provider item.
+     *
+     *  @return The ItemRenderer being used for the data provider item 
+     *  If the index is invalid, or if a data provider was not specified, then
+     *  return <code>null</code>.
+     *  If the layout is virtual and the specified item is not in view, then
+     *  return <code>null</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1004,17 +1042,17 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      }
 
     /**
-     *  @inheritDoc
-     * 
-     *  For a datagroup, this returns the index of the dataProvider 
-     *  item that the specified ItemRenderer
+     *  Returns the index of the data provider item
+     *  that the specified item renderer
      *  is being used for, or -1 if there is no such item. 
-     * 
-     *  If renderer is null, or if a dataProvider was not specified, then -1
-     *  is returned.
-     * 
      *  Note that if the layout is virtual, ItemRenderers that are scrolled
      *  out of view may be reused.
+     * 
+     *  @param element The item renderer.
+     *
+     *  @return The index of the data provider item. 
+     *  If <code>renderer</code> is <code>null</code>, or if the <code>dataProvider</code>
+     *  property was not specified, then return -1.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1192,6 +1230,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     }
     
     /**
+     *  @private
      *  Called when contents within the dataProvider changes.  We will catch certain 
      *  events and update our children based on that.
      *
@@ -1258,18 +1297,18 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             
             case CollectionEventKind.UPDATE:
             {
-            	//update the renderer's data and data-dependant
-            	//properties. 
-            	for (var i:int = 0; i < event.items.length; i++)
-            	{
-	            	var pe:PropertyChangeEvent = event.items[i]; 
-	            	if (pe)
-	            	{
-	                    var renderer:IVisualElement = indexToRenderer[dataProvider.getItemIndex(pe.source)];
-	            		if (renderer)
-	            		  IItemRendererOwner(renderer.owner).updateRendererInformation(renderer, pe.source); 
-	            	}
-            	}
+                //update the renderer's data and data-dependant
+                //properties. 
+                for (var i:int = 0; i < event.items.length; i++)
+                {
+                    var pe:PropertyChangeEvent = event.items[i]; 
+                    if (pe)
+                    {
+                        var renderer:IVisualElement = indexToRenderer[dataProvider.getItemIndex(pe.source)];
+                        if (renderer)
+                          IItemRendererOwner(renderer.owner).updateRendererInformation(renderer, pe.source); 
+                    }
+                }
                 break;
             }
         }
