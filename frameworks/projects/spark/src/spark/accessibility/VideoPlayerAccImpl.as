@@ -51,11 +51,6 @@ public class VideoPlayerAccImpl extends AccImpl
 	//
 	//--------------------------------------------------------------------------
 
-	/**
-	 *  @private
-	 */
-	private static const SELFLAG_TAKEFOCUS:uint = 0x1;
-
     /**
      *  @private
      */
@@ -644,7 +639,7 @@ public class VideoPlayerAccImpl extends AccImpl
 	{   
         var videoPlayer:VideoPlayer = VideoPlayer(master);
 
-	    if (selFlag == SELFLAG_TAKEFOCUS) 
+	    if (selFlag == AccConst.SELFLAG_TAKEFOCUS) 
         {
 	       	switch (childID) 
             {
