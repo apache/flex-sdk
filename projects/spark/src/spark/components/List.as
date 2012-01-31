@@ -1230,7 +1230,11 @@ public class List extends ListBase implements IFocusManagerComponent
     protected function item_mouseDownHandler(event:MouseEvent):void
     {
         // Handle the fixup of selection
-        var newIndex:Number = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
+        var newIndex:int
+        if (event.currentTarget is IItemRenderer)
+            newIndex = IItemRenderer(event.currentTarget).index;
+        else
+            newIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
 
         if (!allowMultipleSelection)
         {
