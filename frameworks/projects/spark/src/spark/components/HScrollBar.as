@@ -178,8 +178,15 @@ public class HScrollBar extends ScrollBar
         var thumbSize:Number = trackSize;
         if (range > 0)
         {
-            thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize)
-            thumbSize = Math.max(thumb.minWidth, thumbSize);
+            if (getStyle("fixedThumbSize") === false)
+            {
+                thumbSize = Math.min((pageSize / (range + pageSize)) * trackSize, trackSize)
+                thumbSize = Math.max(thumb.minWidth, thumbSize);
+            }
+            else
+            {
+                thumbSize = thumb ? thumb.width : 0;
+            }
             thumbPos = (value - minimum) * ((trackSize - thumbSize) / range);
         }
         
