@@ -93,7 +93,7 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;mx:RadioButton
  *    <strong>Properties</strong>
- *    groupName=""  
+ *    groupName="radioGroup"  
  *  /&gt;
  *  </pre>
  *
@@ -182,7 +182,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
      *  The RadioButtonGroup object to which this RadioButton belongs.
      *  When creating radio buttons to put in a RadioButtonGroup, it is 
      *  advisable to use group for all of the buttons or groupName for all of 
-     *  the buttons.  The groupName will be set to the generated name of the 
+     *  the buttons. The groupName will be set to the generated name of the 
      *  RadioButtonGroup object.
      *  
      *  @default the default RadioButtonGroup
