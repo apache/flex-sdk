@@ -231,7 +231,7 @@ public class AnimateTransformInstance extends AnimateInstance
     /**
      * @private
      * 
-     * This function is overriden to prevent starting the single instance more
+     * This function is overridden to prevent starting the single instance more
      * than once. It will be called whenever any of the transform effects are
      * played, but it should only actually start the instance the first time.
      */
