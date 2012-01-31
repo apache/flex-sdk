@@ -21,6 +21,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for all the states of an AccordionHeader in an Accordion.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class AccordionHeaderSkin extends Border
 {
@@ -82,6 +87,11 @@ public class AccordionHeaderSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function AccordionHeaderSkin()
 	{
