@@ -17,6 +17,7 @@ import flash.events.Event;
 
 import mx.core.mx_internal;
 import mx.messaging.events.MessageFaultEvent;
+import mx.messaging.messages.AbstractMessage;
 import mx.messaging.messages.IMessage;
 import mx.rpc.AsyncToken;
 import mx.rpc.Fault;
@@ -84,6 +85,9 @@ public class FaultEvent extends AbstractEvent
     {
         super(type, bubbles, cancelable, token, message);
 
+        if (message != null && message.headers != null)
+            _statusCode = message.headers[AbstractMessage.STATUS_CODE_HEADER] as int;
+
         _fault = fault;
     }
 
@@ -119,6 +123,15 @@ public class FaultEvent extends AbstractEvent
         _headers = value;
     }
 
+    /**
+     * If the source message was sent via HTTP, this property provides access
+     * to the HTTP response status code (if available), otherwise the value is
+     * 0.
+     */ 
+    public function get statusCode():int
+    {
+        return _statusCode;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -195,6 +208,7 @@ public class FaultEvent extends AbstractEvent
 
     private var _fault:Fault;
     private var _headers:Object;
+    private var _statusCode:int;
 }
 
 }
