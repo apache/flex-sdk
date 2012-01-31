@@ -1,4 +1,32 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2006 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
+/**
+ *  Modality of components launched by the PopUp Manager is simulated by
+ *  creating a large translucent overlay underneath the component.
+ *  Because of the way translucent objects are rendered, you may notice a slight
+ *  dimming of the objects under the overlay.
+ *  The effective transparency can be set by changing the
+ *  <code>modalTransparency</code> value from 0.0 (fully transparent)
+ *  to 1.0 (fully opaque).
+ *  You can also set the color of the overlay by changing the 
+ *  <code>modalTransparencyColor</code> style.
+ *
+ *  @default 0.5
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
 [Style(name="modalTransparency", type="Number", inherit="yes")]
 
 /**
