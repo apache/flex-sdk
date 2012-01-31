@@ -73,7 +73,6 @@ use namespace mx_internal;
 //  Excluded APIs
 //--------------------------------------
 
-[Exclude(name="errorColor", kind="style")]
 [Exclude(name="themeColor", kind="style")]
 [Exclude(name="addChild", kind="method")]
 [Exclude(name="addChildAt", kind="method")]
