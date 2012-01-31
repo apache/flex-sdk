@@ -129,6 +129,14 @@ public class InteractionStateDetector extends EventDispatcher
      */
     mx_internal var playTransitions:Boolean = true;
     
+    /**
+     *  @private
+     *  Keeps track of whether the system mouse handlers are installed
+     */
+    private var systemMouseHandlersAdded:Boolean = false;
+    
+    
+    
     //--------------------------------------------------------------------------
     //
     //  Variables
@@ -191,15 +199,18 @@ public class InteractionStateDetector extends EventDispatcher
      */
     private function set mouseCaptured(value:Boolean):void
     {
+        // System mouse handlers are not needed when the renderer is not mouse captured
+        // NOTE: do this before the short-circuit because setting false needs to remove 
+        // the handlers even if the value is already false.
+        if (!value)
+            removeSystemMouseHandlers();
+
         if (value == _mouseCaptured)
             return;
         
         _mouseCaptured = value;        
         invalidateState();
         
-        // System mouse handlers are not needed when the renderer is not mouse captured
-        if (!value)
-            removeSystemMouseHandlers();
     }
     
     //--------------------------------------------------------------------------
@@ -291,13 +302,15 @@ public class InteractionStateDetector extends EventDispatcher
     {
         var systemManager:ISystemManager = component.systemManager;
         
-        if (systemManager)
+        if (systemManager && !systemMouseHandlersAdded)
         {
             systemManager.getSandboxRoot().addEventListener(
                 MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true /* useCapture */);
             
             systemManager.getSandboxRoot().addEventListener(
                 SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+            
+            systemMouseHandlersAdded = true;
         }
     }
     
@@ -310,13 +323,15 @@ public class InteractionStateDetector extends EventDispatcher
     {
         var systemManager:ISystemManager = component.systemManager;
         
-        if (systemManager)
+        if (systemManager && systemMouseHandlersAdded)
         {
             systemManager.getSandboxRoot().removeEventListener(
                 MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true /* useCapture */);
             
             systemManager.getSandboxRoot().removeEventListener(
                 SandboxMouseEvent.MOUSE_UP_SOMEWHERE, systemManager_mouseUpHandler);
+            
+            systemMouseHandlersAdded = false;
         }
     }
     
