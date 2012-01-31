@@ -398,7 +398,6 @@ public class NumericStepper extends UIComponent
     public function NumericStepper()
     {
         super();
-        tabChildren = true;
     }
 
     //--------------------------------------------------------------------------
@@ -452,6 +451,19 @@ public class NumericStepper extends UIComponent
             return NaN;
 
         return inputField.y + inputField.baselinePosition;
+    }
+
+    //----------------------------------
+    //  editable
+    //----------------------------------
+
+    /**
+     *  @private
+     *  for IIMESupport 
+     */
+    public function get editable():Boolean
+    {
+        return true;
     }
 
     //----------------------------------
