@@ -646,9 +646,14 @@ public class VideoDisplay extends UIComponent
         _pauseWhenHidden = value;
         
         if (_pauseWhenHidden)
+        {
             addVisibilityListeners();
+            computeEffectiveVisibilityAndEnabled();
+        }
         else
+        {
             removeVisibilityListeners();
+        }
         
         // call changePlayback().  If we're invisible or off the stage, 
         // setting this to true can pause the video.  However, setting it 
