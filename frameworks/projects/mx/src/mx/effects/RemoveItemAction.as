@@ -47,6 +47,11 @@ use namespace mx_internal;
  *  @see mx.effects.effectClasses.RemoveItemActionInstance
  *
  *  @includeExample examples/AddItemActionEffectExample.mxml
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class RemoveItemAction extends Effect
 {
@@ -73,6 +78,11 @@ public class RemoveItemAction extends Effect
      *  Constructor.
      *
      *  @param target The Object to animate with this effect.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function RemoveItemAction(target:Object = null)
     {
