@@ -263,7 +263,7 @@ public class TitleWindow extends Panel
      */
     public function get showCloseButton():Boolean
     {
-        return mx_internal::_showCloseButton;
+        return _showCloseButton;
     }
 
     /**
@@ -271,7 +271,7 @@ public class TitleWindow extends Panel
      */
     public function set showCloseButton(value:Boolean):void
     {
-        mx_internal::_showCloseButton = value;
+        _showCloseButton = value;
     }
 
     //--------------------------------------------------------------------------
