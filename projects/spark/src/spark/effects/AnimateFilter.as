@@ -8,11 +8,11 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package flex.effects
+package mx.effects
 {
 
-import flex.effects.easing.IEaser;
-import flex.effects.effectClasses.AnimateFilterInstance;
+import mx.effects.easing.IEaser;
+import mx.effects.effectClasses.FxAnimateFilterInstance;
 
 import mx.core.mx_internal;
 import mx.effects.Effect;
@@ -41,7 +41,7 @@ use namespace mx_internal;
  * anim.play();
  * </listing>
  */
-public class AnimateFilter extends Animate
+public class FxAnimateFilter extends FxAnimate
 {
     include "../core/Version.as";
 
@@ -65,10 +65,10 @@ public class AnimateFilter extends Animate
     /**
      *  Constructor. 
      */
-    public function AnimateFilter(target:Object = null, filter:IBitmapFilter = null)
+    public function FxAnimateFilter(target:Object = null, filter:IBitmapFilter = null)
     {
         super(target);
-        instanceClass = AnimateFilterInstance;
+        instanceClass = FxAnimateFilterInstance;
         this.bitmapFilter = filter;
     }
     
@@ -111,7 +111,7 @@ public class AnimateFilter extends Animate
     override protected function initInstance(instance:IEffectInstance):void
     {
         super.initInstance(instance);
-        var animateInstance:AnimateFilterInstance = instance as AnimateFilterInstance;
+        var animateInstance:FxAnimateFilterInstance = instance as FxAnimateFilterInstance;
         animateInstance.bitmapFilter = bitmapFilter;
     }
 }
