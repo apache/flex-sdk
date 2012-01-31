@@ -27,33 +27,39 @@ import mx.core.IFactory;
 import mx.managers.IFocusManagerContainer;
 
 /**
- *  Sent after the content for this component has been created. With deferred 
+ *  Dispatched after the content for this component has been created. With deferred 
  *  instantiation, the content for a component may be created long after the 
  *  component is created.
+ *
+ *  @eventType mx.events.FlexEvent.CONTENT_CREATION_COMPLETE
  */
 [Event(name="contentCreationComplete", type="mx.events.FlexEvent")]
 
 /**
  *  Dispatched when an item is added to the component.
- *  event.relatedObject is the visual item that was added.
+ *
+ *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_ADD
  */
 [Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
 
 /**
  *  Dispatched when an item is removed from the component.
- *  event.relatedObject is the visual item that was removed.
+ *
+ *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
  */
 [Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
 [DefaultProperty("contentFactory")]
 
 /**
- * The ContainerSkin class is the base class for all skinnable components that have 
- * visual content. This class is not typically instantiated in MXML. It is primarily
- * used as a base class, or as a SkinPart.
+ *  The FxContainer class is the base class for all skinnable components that have 
+ *  visual content. This class is not typically instantiated in MXML. It is primarily
+ *  used as a base class, or to define a skin part.
+ *
+ *  @see FxDataContainer
  */
 public class FxContainer extends FxContainerBase 
-	   implements IDeferredContentOwner
+       implements IDeferredContentOwner
 {
     include "../core/Version.as";
 
@@ -93,14 +99,14 @@ public class FxContainer extends FxContainerBase
     
     protected function get currentContentGroup():Group
     {          
-	    createContentIfNeeded();
-	
+        createContentIfNeeded();
+    
         if (!contentGroup)
         {
             if (!_placeHolderGroup)
             {
                 _placeHolderGroup = new Group();
-				 
+                 
                 if (_content)
                     _placeHolderGroup.content = _content;
                 
@@ -127,21 +133,24 @@ public class FxContainer extends FxContainerBase
      */
     private var _contentFactory:IDeferredInstance;
 
-	/**
-	 *  @private
-	 *  Flag that indicates whether or not the content has been created.
-	 */
+    /**
+     *  @private
+     *  Flag that indicates whether or not the content has been created.
+     */
     private var contentCreated:Boolean = false;
     
-	/**
-	 *  A factory object that creates the initial value for the
-	 *  content property.
-	 */
+    /**
+     *  A factory object that creates the initial value for the
+     *  content property.
+     */
     public function get contentFactory():IDeferredInstance
     {
         return _contentFactory;
     }   
     
+    /**
+     *  @private
+     */
     public function set contentFactory(value:IDeferredInstance):void
     {
         if (value == _contentFactory)
@@ -150,28 +159,31 @@ public class FxContainer extends FxContainerBase
         _contentFactory = value;
         contentCreated = false;
     }
-	
+    
     //----------------------------------
     //  creationPolicy
     //----------------------------------
     
-	private var _creationPolicy:String = "auto";
-	
-	/**
-	 *  @inheritDoc
-	 */
-	public function get creationPolicy():String
-	{
-		return _creationPolicy;
-	}
-	
-	public function set creationPolicy(value:String):void
-	{
-		if (value == _creationPolicy)
-			return;
-		
-		_creationPolicy = value;
-	}
+    private var _creationPolicy:String = "auto";
+    
+    /**
+     *  @inheritDoc
+     */
+    public function get creationPolicy():String
+    {
+        return _creationPolicy;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set creationPolicy(value:String):void
+    {
+        if (value == _creationPolicy)
+            return;
+        
+        _creationPolicy = value;
+    }
 
     //--------------------------------------------------------------------------
     //
@@ -191,9 +203,9 @@ public class FxContainer extends FxContainerBase
     [Bindable]
     public function get content():Object
     { 
-	    // Make sure deferred content is created, if needed
-		createContentIfNeeded();
-	
+        // Make sure deferred content is created, if needed
+        createContentIfNeeded();
+    
         if (contentGroup)
             return contentGroup.content;
         else if (_placeHolderGroup)
@@ -202,6 +214,9 @@ public class FxContainer extends FxContainerBase
             return _content; 
     }
     
+    /**
+     *  @private
+     */
     public function set content(value:Object):void
     {
         if (value == _content)
@@ -222,7 +237,7 @@ public class FxContainer extends FxContainerBase
     private var _layout:LayoutBase = null;
     
     /**
-     *  @copy mx.components.Group#layout
+     *  @copy mx.components.baseClasses.GroupBase#layout
      */
     public function get layout():LayoutBase
     {
@@ -332,17 +347,17 @@ public class FxContainer extends FxContainerBase
     //
     //--------------------------------------------------------------------------
     
-	/**
-	 *  Create our content, if the creationPolicy is != "none".
-	 */
+    /**
+     *  Create our content, if the creationPolicy is != "none".
+     */
     override protected function createChildren():void
     {
         super.createChildren();
         
-		// TODO: When navigator support is added, this is where we would 
-		// determine if content should be created now, or wait until
-		// later. For now, we always create content here unless
-		// creationPolicy="none".
+        // TODO: When navigator support is added, this is where we would 
+        // determine if content should be created now, or wait until
+        // later. For now, we always create content here unless
+        // creationPolicy="none".
         createContentIfNeeded();
     }
    
@@ -419,35 +434,35 @@ public class FxContainer extends FxContainerBase
     //
     //--------------------------------------------------------------------------
 
-	/**
-	 *  Create the content for this component. When creationPolicy is "auto" or
-	 *  "all", this function is called automatically by the Flex framework.
-	 *  When creationPolicy="none", this method must be called to initialize
-	 *  the content property.
-	 */
+    /**
+     *  Create the content for this component. When creationPolicy is "auto" or
+     *  "all", this function is called automatically by the Flex framework.
+     *  When creationPolicy="none", this method must be called to initialize
+     *  the content property.
+     */
     public function createDeferredContent():void
-	{
-		if (!contentCreated)
-		{
-			contentCreated = true;
-			
-			if (contentFactory)
-			{
-				content = contentFactory.getInstance();
-				dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
-			}
-		}
-	}
+    {
+        if (!contentCreated)
+        {
+            contentCreated = true;
+            
+            if (contentFactory)
+            {
+                content = contentFactory.getInstance();
+                dispatchEvent(new FlexEvent(FlexEvent.CONTENT_CREATION_COMPLETE));
+            }
+        }
+    }
     
-	/**
-	 *  @private
-	 */
-	private function createContentIfNeeded():void
-	{
-		if (!contentCreated && creationPolicy != ContainerCreationPolicy.NONE)
-			createDeferredContent();
-	}
-	
+    /**
+     *  @private
+     */
+    private function createContentIfNeeded():void
+    {
+        if (!contentCreated && creationPolicy != ContainerCreationPolicy.NONE)
+            createDeferredContent();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
