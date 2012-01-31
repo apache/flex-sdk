@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components
+package spark.components.supportClasses
 {
 import flash.display.DisplayObjectContainer;
 import flash.events.Event;
@@ -17,7 +17,11 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.core.mx_internal;
-import mx.graphics.baseClasses.TextGraphicElement;
+import spark.components.DataGroup;
+import spark.components.Group;
+import spark.components.IItemRenderer;
+import spark.components.MXMLComponent;
+import spark.primitives.supportClasses.TextGraphicElement;
 import mx.styles.StyleManager;
 
 /**
