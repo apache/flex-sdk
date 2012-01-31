@@ -866,7 +866,7 @@ public class RichText extends TextGraphicElement
         bounds.height = height;
 
         mx_internal::removeTextLines();
-        mx_internal::textLines.length = 0;
+        mx_internal::releaseTextLines();
         
         createTextLines();
                     
