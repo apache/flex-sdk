@@ -20,6 +20,12 @@ use namespace mx_internal;
 
 /**
  *  The MessageEvent class is used to propagate messages within the messaging system.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class MessageEvent extends Event
 {
@@ -49,6 +55,12 @@ public class MessageEvent extends Event
      *       Object listening for the event.</td></tr>
      *  </table>
      *  @eventType message
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */     
     public static const MESSAGE:String = "message";
 
@@ -73,6 +85,12 @@ public class MessageEvent extends Event
      *       Object listening for the event.</td></tr>
      *  </table>
      *  @eventType result
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */      
     public static const RESULT:String = "result";
 
@@ -91,6 +109,12 @@ public class MessageEvent extends Event
      *  @param message The associated message.
      * 
      *  @return New MessageEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public static function createEvent(type:String, msg:IMessage):MessageEvent
     {
@@ -116,6 +140,12 @@ public class MessageEvent extends Event
      *  event can be prevented; used by the RPC subclasses.
      * 
      *  @param message The associated message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function MessageEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false, 
             message:IMessage = null)
@@ -133,6 +163,12 @@ public class MessageEvent extends Event
 
     /**
      *  The Message associated with this event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public var message:IMessage;
 
@@ -168,6 +204,12 @@ public class MessageEvent extends Event
      *  Clones the MessageEvent.
      *
      *  @return Copy of this MessageEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function clone():Event
     {
@@ -178,6 +220,12 @@ public class MessageEvent extends Event
      *  Returns a string representation of the MessageEvent.
      *
      *  @return String representation of the MessageEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function toString():String
     {
