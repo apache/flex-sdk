@@ -550,8 +550,11 @@ public class DataGridItemRenderer extends UITextField
         for (i = 0; i < classSelectors.length; i++)
         {
             var classSelector:CSSStyleDeclaration = classSelectors[i];
-            inheritChain = classSelector.addStyleToProtoChain(inheritChain, this);
-            nonInheritChain = classSelector.addStyleToProtoChain(nonInheritChain, this);
+            if (classSelector)
+            {
+                inheritChain = classSelector.addStyleToProtoChain(inheritChain, this);
+                nonInheritChain = classSelector.addStyleToProtoChain(nonInheritChain, this);
+            }
         }
 
 
