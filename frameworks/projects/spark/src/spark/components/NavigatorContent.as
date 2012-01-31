@@ -41,7 +41,7 @@ import mx.core.INavigatorContent
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class NavigatorChild extends SkinnableContainer 
+public class NavigatorContent extends SkinnableContainer 
        implements INavigatorContent
 {
     include "../core/Version.as";
@@ -61,7 +61,7 @@ public class NavigatorChild extends SkinnableContainer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function NavigatorChild()
+    public function NavigatorContent()
     {
         super();
         creationPolicy = ContainerCreationPolicy.NONE;
