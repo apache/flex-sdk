@@ -34,6 +34,10 @@ import spark.layouts.supportClasses.LayoutBase;
  *    <strong>Properties</strong>
  *    columnWidth="no default"
  *    gap="6"
+ *    paddingBottom="0"
+ *    paddingLeft="0"
+ *    paddingRight="0"
+ *    paddingTop="0"
  *    requestedColumnCount="-1"
  *    variableColumnWidth"true"
  *    verticalAlign="top"
@@ -141,6 +145,8 @@ public class HGroup extends Group
     /**
      *  @copy spark.layouts.HorizontalLayout#paddingLeft
      *  
+     *  @default 0
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -167,6 +173,8 @@ public class HGroup extends Group
 
     /**
      *  @copy spark.layouts.HorizontalLayout#paddingRight
+     *  
+     *  @default 0
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -195,6 +203,8 @@ public class HGroup extends Group
     /**
      *  @copy spark.layouts.HorizontalLayout#paddingTop
      *  
+     *  @default 0
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
@@ -222,6 +232,8 @@ public class HGroup extends Group
     /**
      *  @copy spark.layouts.HorizontalLayout#paddingBottom
      *  
+     *  @default 0
+     * 
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 1.5
