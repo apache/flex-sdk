@@ -268,6 +268,9 @@ public class Animate extends Effect
      * Storage for the repeatBehavior property. 
      */
     private var _repeatBehavior:String = RepeatBehavior.LOOP;
+    
+    [Inspectable(category="General", enumeration="loop,reverse", defaultValue="loop" )]
+    
     /**
      * The behavior of a repeating effect, which means an effect
      * with <code>repeatCount</code> equal to either 0 or &gt; 1. This
