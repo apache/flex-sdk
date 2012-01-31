@@ -47,7 +47,6 @@ import mx.managers.HistoryManager;
 import mx.managers.IFocusManagerComponent;
 import mx.managers.IHistoryManagerClient;
 import mx.styles.CSSStyleDeclaration;
-import mx.styles.StyleManager;
 
 use namespace mx_internal;
 
@@ -1513,7 +1512,7 @@ public class Accordion extends Container implements IHistoryManagerClient, IFocu
                 }
             }
         }
-        else if (StyleManager.isSizeInvalidatingStyle(styleProp))
+        else if (styleManager.isSizeInvalidatingStyle(styleProp))
         {
             layoutStyleChanged = true;
         }
