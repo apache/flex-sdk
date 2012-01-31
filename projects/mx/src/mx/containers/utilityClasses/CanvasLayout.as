@@ -837,19 +837,9 @@ public class CanvasLayout extends Layout
 			var pw:Number = child.getExplicitOrMeasuredWidth();
 			var ph:Number = child.getExplicitOrMeasuredHeight();
 			
-			//Behavior check - 3.0 behavior respects explicitWidth in addition
-			//to left and right constraints
-			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-			{
-				if (!isNaN(child.percentWidth) ||
-					(childConstraints && 
-						!isNaN(childConstraints.left) && 
-						!isNaN(childConstraints.right)))
-				{
-					pw = child.minWidth;
-				}
-			}
-			else
+            //Behavior check - 3.0 behavior respects explicitWidth in addition
+            //to left and right constraints
+			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
 			{
 				if (!isNaN(child.percentWidth) ||
 					(childConstraints && 
@@ -860,19 +850,9 @@ public class CanvasLayout extends Layout
 					pw = child.minWidth;
 				}
 			}
-			//Behavior check - 3.0 behavior respects explicitHeight in addition
-			//to top and bottom constraints
-			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-			{
-				if (!isNaN(child.percentHeight) ||
-						(childConstraints && 
-							!isNaN(childConstraints.top) && 
-							!isNaN(childConstraints.bottom)))
-				{
-					ph = child.minHeight;
-				}
-			}
-			else 
+            //Behavior check - 3.0 behavior respects explicitHeight in addition
+            //to top and bottom constraints
+			if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
 			{
 				if (!isNaN(child.percentHeight) ||
 						(childConstraints && 
