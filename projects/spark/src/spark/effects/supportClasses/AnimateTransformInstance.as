@@ -473,7 +473,7 @@ public class AnimateTransformInstance extends AnimateInstance
         {
             var mp:MotionPath = new MotionPath(s);
             mp.keyframes = [new KeyFrame(0, null), new KeyFrame(duration, null)];
-            mp.mx_internal::scaleKeyframes(duration);
+            mp.scaleKeyframes(duration);
             if (!motionPaths)
                 motionPaths = [];
             motionPaths.push(mp);
