@@ -268,7 +268,7 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
             }
         }
     }
-
+    
     /**
      *  @private
      */
@@ -379,11 +379,8 @@ public class ButtonBar extends ListBase implements IFocusManagerComponent
                 IFocusManagerComponent(renderer).focusEnabled = false;
             if (renderer is IItemRenderer)
                 IItemRenderer(renderer).allowDeselection = !requiresSelection;
-            updateRendererInformation(renderer);
+            updateRenderer(renderer);
         }
-            
-        if (isItemIndexSelected(index))
-            itemSelected(index, true);
     }
     
     /**
