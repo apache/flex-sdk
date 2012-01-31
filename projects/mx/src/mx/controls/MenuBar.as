@@ -150,43 +150,6 @@ include "../styles/metadata/SkinStyles.as"
 include "../styles/metadata/TextStyles.as"
 
 /**
- *  Alpha level of the color defined by the <code>backgroundColor</code>
- *  property.
- *  Valid values range from 0.0 to 1.0.
- *  @default 1.0
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="backgroundAlpha", type="Number", inherit="no", deprecatedReplacement="menuStyleName", deprecatedSince="3.0")]
-
-/**
- *  Background color of the component.
- *  The default value is <code>undefined</code>, which means it is not 
- *  set and the component has a transparent background.
- *
- *  <p>The default skins of most Flex controls are partially transparent. 
- *  As a result, the background color of a container partially "bleeds through" 
- *  to controls that are in that container. 
- *  You can avoid this by setting the alpha values of the control's 
- *  <code>fillAlphas</code> property to 1, as the following example shows:
- *  </p>
- *  <pre>
- *  &lt;mx:<i>Container</i> backgroundColor="0x66CC66"/&gt;
- *      &lt;mx:<i>ControlName</i> ... fillAlphas="[1,1]"/&gt;
- *  &lt;/mx:<i>Container</i>&gt;
- *  </pre>
- *  
- *  @langversion 3.0
- *  @playerversion Flash 9
- *  @playerversion AIR 1.1
- *  @productversion Flex 3
- */
-[Style(name="backgroundColor", type="uint", format="Color", inherit="no", deprecatedReplacement="menuStyleName", deprecatedSince="3.0")]
-
-/**
  *  The background skin of the MenuBar control. 
  *   
  *  @default mx.skins.halo.MenuBarBackgroundSkin 
