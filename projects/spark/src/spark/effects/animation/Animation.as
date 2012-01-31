@@ -12,80 +12,24 @@ package spark.effects.animation
 {
 import __AS3__.vec.Vector;
 
-import flash.events.EventDispatcher;
 import flash.events.TimerEvent;
 import flash.utils.Dictionary;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
-import spark.effects.interpolation.ArrayInterpolator;
-import spark.effects.easing.IEaser;
-import spark.effects.interpolation.IInterpolator;
-import spark.effects.easing.Linear;
-import spark.effects.interpolation.NumberArrayInterpolator;
-import spark.effects.interpolation.NumberInterpolator;
-import spark.effects.AnimationProperty;
-import spark.effects.easing.Sine;
-import spark.events.AnimationEvent;
+import mx.events.EffectEvent;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
-/**
- * Dispatched when the animation starts. The first 
- * <code>animationUpdate</code> event is dispatched at the 
- * same time.
- *
- * @eventType spark.events.AnimationEvent.ANIMATION_START
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="animationStart", type="spark.events.AnimationEvent")]
+import spark.effects.SimpleMotionPath;
+import spark.effects.easing.IEaser;
+import spark.effects.easing.Linear;
+import spark.effects.easing.Sine;
+import spark.effects.interpolation.ArrayInterpolator;
+import spark.effects.interpolation.IInterpolator;
+import spark.effects.interpolation.NumberInterpolator;
 
-/**
- * Dispatched every time the animation updates the target.
- *
- * @eventType spark.events.AnimationEvent.ANIMATION_UPDATE
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="animationUpdate", type="spark.events.AnimationEvent")]
-
-/**
- * Dispatched when the animation begins a new repetition, for
- * any effect that is repeated more than once.
- * An <code>animationUpdate</code> event is also dispatched 
- * at the same time.
- *
- * @eventType spark.events.AnimationEvent.ANIMATION_REPEAT
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="animationRepeat", type="spark.events.AnimationEvent")]
-
-/**
- * Dispatched when the effect ends. An <code>animationUpdate</code> event 
- * is also dispatched at the same time. A repeating animation dispatches 
- * this event only after the final repetition.
- *
- * @eventType spark.events.AnimationEvent.ANIMATION_END
- *  
- *  @langversion 3.0
- *  @playerversion Flash 10
- *  @playerversion AIR 1.5
- *  @productversion Flex 4
- */
-[Event(name="animationEnd", type="spark.events.AnimationEvent")]
-
-[DefaultProperty("animationProperties")]
+[DefaultProperty("motionPaths")]
 
 //--------------------------------------
 //  Other metadata
@@ -126,7 +70,7 @@ import mx.resources.ResourceManager;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class Animation extends EventDispatcher
+public final class Animation
 {
     /**
      * TODOs:
@@ -142,22 +86,32 @@ public class Animation extends EventDispatcher
 
     //--------------------------------------------------------------------------
     //
+    //  Class Constants
+    //
+    //--------------------------------------------------------------------------
+
+    private static const TIMER_RESOLUTION:Number = 10;
+    
+    //--------------------------------------------------------------------------
+    //
     //  Constructor
     //
     //--------------------------------------------------------------------------
 
     /**
-     * Constructs an Animation object. The optional <code>startValue</code> and 
+     * Constructs an Animation object. The optional <code>property</code>,
+     * <code>startValue</code>, and 
      * <code>endValue</code> parameters are short-cuts for setting up a simple
      * animation with a single MotionPath object with two KeyFrames. If either
      * value is non-null,
      * <code>startValue</code> will become the <code>value</code> of the
-     * first keyframe of <code>animationProperties</code>, at time 0, and 
+     * first keyframe of <code>motionPaths</code>, at time 0, and 
      * <code>endValue</code> will become the <code>value</code> of 
      * the second keyframe, at time 1.
      * 
      * @param duration The length of time, in milliseconds, that the animation
      * will run
+     * @param property The property being animated
      * @param startValue The initial value that the animation starts at
      * @param endValue The final value that the animation ends on
      *  
@@ -166,12 +120,12 @@ public class Animation extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function Animation(duration:Number = -1, startValue:Object = null, 
-        endValue:Object = null)
+    public function Animation(duration:Number = 0, property:String = null,
+        startValue:Object = null, endValue:Object = null)
     {
         this.duration = duration;
-        if (startValue !== null || endValue !== null)
-            animationProperties = [new AnimationProperty("", startValue, endValue, duration)];
+        if (property != null && (startValue !== null || endValue !== null))
+            motionPaths = [new SimpleMotionPath(property, startValue, endValue, duration)];
     }
     
 
@@ -181,13 +135,18 @@ public class Animation extends EventDispatcher
     //
     //--------------------------------------------------------------------------
 
-    public static const LOOP:String = "loop";
-    public static const REVERSE:String = "reverse";
+
+    /**
+     * @private
+     * 
+     * The time being used in the current frame calculations. This time is
+     * shared by all active animations.
+     */
+    private static var intervalTime:Number = NaN;
 
     // A single Timer object runs all animations in the process
     private static var activeAnimations:Array = [];
     private static var timer:Timer = null;
-    private static var minRequestedResolution:Number;
 
     private var arrayMode:Boolean;
     // TODO: more efficient way to store/remove these than in an array?
@@ -200,9 +159,10 @@ public class Animation extends EventDispatcher
     // TODO: rethink how we do reversing
     private var _doReverse:Boolean = false;
     private var _invertValues:Boolean = false;
-    // Track when the current cycle started to compute elapsedTime
-    // and current fraction
+    // Original start time of animation
     private var startTime:Number;
+    // Time when the current cycle started
+    private var cycleStartTime:Number;
     // Track number of times repeated for use by repeatCount logic
     private var numRepeats:int;
     // The amount of time that the animation should delay before
@@ -221,14 +181,81 @@ public class Animation extends EventDispatcher
     private var resourceManager:IResourceManager =
                                     ResourceManager.getInstance();
     
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
     //
     //--------------------------------------------------------------------------
 
-    public var animationProperties:Array;
+    /**
+     * This array holds the values as of the current frame of the Animation.
+     * The values are stored as map values, using property names as the key.
+     */
+    public var currentValue:Object;
+
+    /**
+     * The set of MotionPath objects that define the properties and values
+     * that the Animation will animate over time
+     */
+    public var motionPaths:Array;
     
+    //----------------------------------
+    //  animationTarget
+    //----------------------------------
+    /**
+     * @private
+     * Storage for the animationTarget property. 
+     */
+    private var _animationTarget:IAnimationTarget = null;
+    /**
+     * The IAnimationTarget object that will be notified with all
+     * start, end, repeat, and update events for this animation.
+     * A value of null indicates that there is no target that will
+     * be notified with these events.
+     * 
+     * @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get animationTarget():IAnimationTarget
+    {
+        return _animationTarget;
+    }
+    public function set animationTarget(value:IAnimationTarget):void
+    {
+        _animationTarget = value;
+    }
+    
+    //----------------------------------
+    //  playheadTime
+    //----------------------------------
+    /**
+     * @private
+     * Storage for the animationTarget property. 
+     */
+    private var _playheadTime:Number;
+    /**
+     * The total elapsed time of the Animation, including any startDelay
+     * and repetitions. For an Animation playing through its first cycle,
+     * this value will equal that of <code>cycleTime</code>/
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get playheadTime():Number
+    {
+        return _playheadTime;
+    }
+    public function set playheadTime(value:Number):void
+    {
+        seek(value, true);
+    }
     /**
      * This variable indicates whether the animation is currently
      * running or not. The value is <code>false</code> unless the animation
@@ -261,20 +288,21 @@ public class Animation extends EventDispatcher
     //----------------------------------
     /**
      * @private
-     * Storage for the repeatDelay property. 
+     * Storage for the repeatBehavior property. 
      */
-    private var _repeatBehavior:String = LOOP;
+    private var _repeatBehavior:String = RepeatBehavior.LOOP;
     /**
      * Sets the behavior of a repeating animation (an animation
      * with <code>repeatCount</code> equal to either 0 or >1). This
-     * value should be either <code>LOOP</code>, where the animation
-     * will repeat in the same order each time, or <code>REVERSE</code>,
+     * value should be either <code>RepeatBehavior.LOOP</code>, where the animation
+     * will repeat in the same order each time, or 
+     * <code>RepeatBehavior.REVERSE</code>,
      * where the animation will reverse direction each iteration.
      * 
      * @param value A String describing the behavior, either
-     * Animation.LOOP or Animation.REVERSE
+     * RepeatBehavior.LOOP or RepeatBehavior.REVERSE
      * 
-     * @default LOOP
+     * @default RepeatBehavior.LOOP
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -298,15 +326,13 @@ public class Animation extends EventDispatcher
      * @private
      * Storage for the repeatCount property. 
      */
-    private var _repeatCount:Number = 1;
+    private var _repeatCount:int = 1;
     /**
      * Number of times that this animation will repeat. A value of
-     * 0 means that it will repeat indefinitely. Only integer values are
-     * supported, with fractional values rounded up to the next higher integer.
+     * 0 means that it will repeat indefinitely.
      * 
      * @param value Number of repetitions for this animation, with 0 being
-     * an infinitely repeating animation. This value must be a positive 
-     * number.
+     * an infinitely repeating animation. This value must be >= 0.
      * 
      * @default 1
      *  
@@ -315,11 +341,11 @@ public class Animation extends EventDispatcher
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function set repeatCount(value:Number):void
+    public function set repeatCount(value:int):void
     {
         _repeatCount = value;
     }
-    public function get repeatCount():Number
+    public function get repeatCount():int
     {
         return _repeatCount;
     }
@@ -392,29 +418,6 @@ public class Animation extends EventDispatcher
     }
 
     //----------------------------------
-    //  intervalTime
-    //----------------------------------
-
-    /**
-     * @private
-     * Storage for the repeatDelay property. 
-     */
-    private static var _intervalTime:Number = NaN;
-    /**
-     * The time being used in the current frame calculations. This time is
-     * shared by all active animations.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public static function get intervalTime():Number
-    {
-        return _intervalTime;
-    }
-
-    //----------------------------------
     //  interpolator
     //----------------------------------
 
@@ -434,78 +437,43 @@ public class Animation extends EventDispatcher
      *  @productversion Flex 4
      */
     public var interpolator:IInterpolator = null;
-
-    //----------------------------------
-    //  resolution
-    //----------------------------------
-
-    /**
-     * @private
-     * Storage for the resolution property. This variable is static
-     * because all animations in the system share the same Timer, which
-     * uses this single resolution.
-     */
-    private static var _resolution:Number = 10;
-    /**
-     * The maximum time between timing events, in milliseconds. It is
-     * possible that the underlying timing mechanism may not be able to
-     * achieve the rate requested by <code>resolution</code>. Since
-     * all Animation objects run off the same underlying timer, 
-     * they will all be serviced with the lowest <code>resolution</code>
-     * requested.
-     * 
-     * @default 10
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get resolution():Number
-    {
-        return _resolution;
-    }
-    public function set resolution(value:Number):void
-    {
-        if (isNaN(minRequestedResolution) || value < minRequestedResolution)
-        {
-            _resolution = value;
-            if (timer)
-                timer.delay = _resolution;
-            minRequestedResolution = value;
-        }
-    }
     
     //----------------------------------
-    //  elapsedTime
+    //  cycleTime
     //----------------------------------
 
-    private var _elapsedTime:Number = 0;
+    private var _cycleTime:Number = 0;
     /**
      *  @private
-     *  The current millisecond position in the animation.
+     *  The current millisecond position in the current cycle animation.
      *  This value is between 0 and <code>duration</code>.
+     *  An animation 'cycle' is defined as a single repetition of the animation,
+     *  where the <code>repeatCount</code> property defines the number of
+     *  cycles that will be played.
      *  Use the seek() method to change the position of the animation.
      */
-    public function get elapsedTime():Number
+    public function get cycleTime():Number
     {
-        return _elapsedTime;
+        return _cycleTime;
     }
 
     
     //----------------------------------
-    //  elapsedFraction
+    //  cycleFraction
     //----------------------------------
 
-    private var _elapsedFraction:Number;
+    private var _cycleFraction:Number;
     /**
      *  @private
      *  The current fraction elapsed in the animation, after easing
      *  has been applied. This value is between 0 and 1.
+     *  An animation 'cycle' is defined as a single repetition of the animation,
+     *  where the <code>repeatCount</code> property defines the number of
+     *  cycles that will be played.
      */
-    public function get elapsedFraction():Number
+    public function get cycleFraction():Number
     {
-        return _elapsedFraction;
+        return _cycleFraction;
     }
 
     //----------------------------------
@@ -524,7 +492,7 @@ public class Animation extends EventDispatcher
      * calculate the value at that fraction.
      * 
      * @param value The IEaser object which will be used to calculate the
-     * eased elapsed fraction every time a animation event occurs. A value
+     * eased elapsed fraction every time an animation event occurs. A value
      * of <code>null</code> will be interpreted as meaning no easing is
      * desired, which is equivalent to using a Linear ease, or
      * <code>animation.easer = Linear.getInstance();</code>.
@@ -584,14 +552,14 @@ public class Animation extends EventDispatcher
         if (!timer)
         {
             Timeline.pulse();
-            timer = new Timer(_resolution);
+            timer = new Timer(TIMER_RESOLUTION);
             timer.addEventListener(TimerEvent.TIMER, timerHandler);
             timer.start();
         }
         
-        _intervalTime = Timeline.currentTime;
+        intervalTime = Timeline.currentTime;
 
-        animation.startTime = _intervalTime;
+        animation.startTime = animation.cycleStartTime = intervalTime;
     }
 
     private static function removeAnimationAt(index:int):void
@@ -610,7 +578,7 @@ public class Animation extends EventDispatcher
         // If no more animations running or pending, stop the timer
         if (timer && activeAnimations.length == 0 && delayedStartAnims.length == 0)
         {
-            _intervalTime = NaN;
+            intervalTime = NaN;
             timer.reset();
             timer = null;
         }
@@ -627,7 +595,7 @@ public class Animation extends EventDispatcher
     private static function timerHandler(event:TimerEvent):void
     {
         var oldTime:Number = intervalTime;
-        _intervalTime = Timeline.pulse();
+        intervalTime = Timeline.pulse();
         
         var n:int = activeAnimations.length;
         var i:int = 0;
@@ -683,7 +651,8 @@ public class Animation extends EventDispatcher
         if (_isPlaying || _doSeek)
         {
             
-            var currentTime:Number = intervalTime - startTime;
+            var currentTime:Number = intervalTime - cycleStartTime;
+            _playheadTime = intervalTime - startTime;
             if (currentTime >= duration && 
                 (repeatCount == 0 || numRepeats < repeatCount))
             {
@@ -695,9 +664,9 @@ public class Animation extends EventDispatcher
                     else
                         numRepeats = 1 + currentTime / (duration + repeatDelay);
                 if (repeatDelay == 0) {
-                    startTime += duration;
-                    currentTime = intervalTime - startTime;
-                    if (repeatBehavior == REVERSE)
+                    cycleStartTime += duration;
+                    currentTime = intervalTime - cycleStartTime;
+                    if (repeatBehavior == RepeatBehavior.REVERSE)
                         _invertValues = !_invertValues;
                     repeated = true;
                 }
@@ -705,13 +674,11 @@ public class Animation extends EventDispatcher
                 {
                     if (_doSeek)
                     {
-                        var cycleTime:Number = currentTime % (duration + repeatDelay);
-                        if (cycleTime < duration)
-                            _elapsedTime = cycleTime;
-                        else
-                            _elapsedTime = duration; // must be in repeatDelay phase
-                        calculateValue(_elapsedTime);
-                        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
+                        _cycleTime = currentTime % (duration + repeatDelay);
+                        if (_cycleTime > duration)
+                            _cycleTime = duration; // must be in repeatDelay phase
+                        calculateValue(_cycleTime);
+                        sendUpdateEvent();
                         return false;
                     }
                     else
@@ -719,9 +686,9 @@ public class Animation extends EventDispatcher
                         // repeatDelay: send out a final update for this cycle with the
                         // end value, then schedule a timer to wake up and
                         // start the next cycle
-                        _elapsedTime = duration;
-                        calculateValue(_elapsedTime);
-                        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
+                        _cycleTime = duration;
+                        calculateValue(_cycleTime);
+                        sendUpdateEvent();
                         removeAnimation(this);
                         var delayTimer:Timer = new Timer(repeatDelay, 1);
                         delayTimer.addEventListener(TimerEvent.TIMER, repeat);
@@ -730,7 +697,7 @@ public class Animation extends EventDispatcher
                     }
                 }
             }
-            _elapsedTime = currentTime;
+            _cycleTime = currentTime;
             
             calculateValue(currentTime);
 
@@ -741,16 +708,34 @@ public class Animation extends EventDispatcher
             }
             else
             {
-                sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
+                sendUpdateEvent();
                 if (repeated)
-                    sendAnimationEvent(AnimationEvent.ANIMATION_REPEAT);
+                    sendAnimationEvent(EffectEvent.EFFECT_REPEAT);
             }
         }
         return animationEnded;
     }
     
     /**
-     * Utility function for dispatching a specified AnimationEvent.
+     * Utility function for dispatching an update event to the 
+     * animationTarget. This is a separate function for performance
+     * reasons; don't want to bother switching on the event type for the
+     * common case of update events.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    private function sendUpdateEvent():void
+    {
+        if (_animationTarget)
+            _animationTarget.animationUpdate(this);
+    }
+
+    /**
+     * Utility function for dispatching a specified event to
+     * the animationTarget.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -759,20 +744,23 @@ public class Animation extends EventDispatcher
      */
     private function sendAnimationEvent(eventType:String):void
     {
-        var event:AnimationEvent = new AnimationEvent(eventType);
-        event.animation = this;
-        dispatchEvent(event);                
+        if (_animationTarget)
+            switch (eventType) {
+                case EffectEvent.EFFECT_START:
+                    _animationTarget.animationStart(this);
+                    break;
+                case EffectEvent.EFFECT_END:
+                    _animationTarget.animationEnd(this);
+                    break;
+                case EffectEvent.EFFECT_REPEAT:
+                    _animationTarget.animationRepeat(this);
+                    break;
+                case EffectEvent.EFFECT_UPDATE:
+                    // here for completeness; usually handled in sendUpdateEvent
+                    _animationTarget.animationUpdate(this);
+                    break;
+            }
     }
-
-    // TODO (chaase): Make currentValue a map instead, keyed off of
-    // property string. Then the mapping between the order in currentValue
-    // and that in an effect's motion paths array is not so magical
-    /**
-     * This array holds the values as of the current frame of the Animation.
-     * The order of the values are the same as the order given in the
-     * animationProperties array
-     */
-    public var currentValue:Array = [];
     
     /**
      * @private
@@ -783,23 +771,24 @@ public class Animation extends EventDispatcher
     {
         var i:int;
         
-        currentValue = [];
+        currentValue = new Object();
         if (duration == 0)
         {
-            for (i = 0; i < animationProperties.length; ++i)
-                currentValue[0] = animationProperties[i].
-                    keyframes[animationProperties[i].keyframes.length - 1].value;
+            for (i = 0; i < motionPaths.length; ++i)
+                currentValue[motionPaths[i].property] = motionPaths[i].
+                    keyframes[motionPaths[i].keyframes.length - 1].value;
             return;
         }
     
         if (_invertValues)
             currentTime = duration - currentTime;
     
-        _elapsedFraction = easer.ease(currentTime/duration);
+        _cycleFraction = easer.ease(currentTime/duration);
 
-        if (animationProperties)
-            for (i = 0; i < animationProperties.length; ++i)
-                currentValue[i] = animationProperties[i].getValue(_elapsedFraction);
+        if (motionPaths)
+            for (i = 0; i < motionPaths.length; ++i)
+                currentValue[motionPaths[i].property] = 
+                    motionPaths[i].getValue(_cycleFraction);
     }
 
     /**
@@ -848,8 +837,8 @@ public class Animation extends EventDispatcher
             // to their end values. Seems correct, but should check this.
             calculateValue(duration);
             
-            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
-            sendAnimationEvent(AnimationEvent.ANIMATION_END);
+            sendUpdateEvent();
+            sendAnimationEvent(EffectEvent.EFFECT_END);
         }
 
         // The rest of what we need to do is handled by the stop() function
@@ -862,7 +851,7 @@ public class Animation extends EventDispatcher
         if (!timer)
         {
             Timeline.pulse();
-            timer = new Timer(_resolution);
+            timer = new Timer(TIMER_RESOLUTION);
             timer.addEventListener(TimerEvent.TIMER, timerHandler);
             timer.start();
         }
@@ -886,7 +875,8 @@ public class Animation extends EventDispatcher
     }
 
     /**
-     * Start the animation
+     * Start the animation. If the animation is already playing, it
+     * will be stopped first, then played.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -895,6 +885,9 @@ public class Animation extends EventDispatcher
      */
     public function play():void
     {
+        // stop an already-playing animation first
+        stop();
+        
         if (startDelay > 0)
             addToDelayedAnimations(startDelay);
         else
@@ -921,12 +914,12 @@ public class Animation extends EventDispatcher
         // TODO (chaase): Redundant for cases that set this again below
         // Should only do this for playing animation, as the stopped animations
         // do it for themselves
-        startTime = _intervalTime - playheadTime;
+        startTime = cycleStartTime = intervalTime - playheadTime;
         _doSeek = true;
         
         if (!_isPlaying)
         {
-            _intervalTime = Timeline.currentTime;
+            intervalTime = Timeline.currentTime;
             // TODO: comments...
             if (includeStartDelay && startDelay > 0)
             {
@@ -947,7 +940,7 @@ public class Animation extends EventDispatcher
                     var postDelaySeekTime:Number = playheadTime - startDelay;
                     if (postDelaySeekTime < 0)
                     {
-                        animPendingTime = _intervalTime + (startDelay - playheadTime);
+                        animPendingTime = intervalTime + (startDelay - playheadTime);
                         // add it back into the array in the proper order
                         var insertIndex:int = -1;
                         for (i = 0; i < delayedStartAnims.length; ++i)
@@ -971,7 +964,7 @@ public class Animation extends EventDispatcher
                         // seek into the now-playing animation by that much
                         playheadTime -= startDelay;
                         start();
-                        startTime = _intervalTime - playheadTime;
+                        startTime = cycleStartTime = intervalTime - playheadTime;
                         doInterval();
                         _doSeek = false;
                         return;
@@ -979,22 +972,16 @@ public class Animation extends EventDispatcher
                 }
             }
             // start/end values only valid after animation starts 
-            sendAnimationEvent(AnimationEvent.ANIMATION_START);
+            sendAnimationEvent(EffectEvent.EFFECT_START);
             setupInterpolation();
-            startTime = _intervalTime - playheadTime;
+            startTime = cycleStartTime = intervalTime - playheadTime;
         }
         doInterval();
         _doSeek = false;
     }
 
     /**
-     * Sets up interpolation for the animation. If there is no interpolator
-     * set on the animation, then it figures out whether it should use
-     * NumberInterpolator or NumberArrayInterpolator, based on whether the
-     * start/end values are arrays or not. Also, if the start/end values
-     * are arrays but the supplied interpolator does not interpolate
-     * Arrays, then it sets up an ArrayInterpolator that uses the supplied
-     * interpolator for each element.
+     * Sets up interpolation for the animation. 
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1003,9 +990,9 @@ public class Animation extends EventDispatcher
      */
     private function setupInterpolation():void
     {
-        if (interpolator && animationProperties)
-            for (var i:int = 0; i < animationProperties.length; ++i)
-                animationProperties[i].interpolator = interpolator;
+        if (interpolator && motionPaths)
+            for (var i:int = 0; i < motionPaths.length; ++i)
+                motionPaths[i].interpolator = interpolator;
     }
  
     /**
@@ -1022,7 +1009,7 @@ public class Animation extends EventDispatcher
         if (_isPlaying)
         {
             _doReverse = false;
-            seek(duration - _elapsedTime);
+            seek(duration - _cycleTime);
             _invertValues = !_invertValues;
         }
         else
@@ -1033,6 +1020,8 @@ public class Animation extends EventDispatcher
     
     /**
      * Pauses the effect until the <code>resume()</code> method is called.
+     * If <code>stop()</code> is called before <code>resume()</code>, then
+     * the animation cannot be resumed.
      * 
      * @see resume()
      *  
@@ -1095,7 +1084,8 @@ public class Animation extends EventDispatcher
         }
         else
         {
-            startTime = intervalTime - _elapsedTime;
+            cycleStartTime = intervalTime - _cycleTime;
+            startTime = intervalTime - _playheadTime;
             if (_doReverse)
             {
                 reverse();
@@ -1121,13 +1111,13 @@ public class Animation extends EventDispatcher
      */
     private function repeat(event:TimerEvent = null):void
     {
-        if (repeatBehavior == REVERSE)
+        if (repeatBehavior == RepeatBehavior.REVERSE)
             _invertValues = !_invertValues;
         calculateValue(0);
         // TODO (chaase): Make sure we're not already sending out an UPDATE
         // event with this value
-        sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
-        sendAnimationEvent(AnimationEvent.ANIMATION_REPEAT);
+        sendUpdateEvent();
+        sendAnimationEvent(EffectEvent.EFFECT_REPEAT);
         Animation.addAnimation(this);
     }
     
@@ -1162,7 +1152,7 @@ public class Animation extends EventDispatcher
             }
         }
         numRepeats = 1;
-        sendAnimationEvent(AnimationEvent.ANIMATION_START);
+        sendAnimationEvent(EffectEvent.EFFECT_START);
         
         // start/end values may be changed by Animate (set dynamically),
         // so now we set up our interpolator based on the real values
@@ -1179,7 +1169,7 @@ public class Animation extends EventDispatcher
         {
             // TODO (chaase): Make sure we're not already sending out an
             // UPDATE event with this start value
-            sendAnimationEvent(AnimationEvent.ANIMATION_UPDATE);
+            sendUpdateEvent();
             Animation.addAnimation(this);
             _isPlaying = true;
             if (actualStartTime > 0)
