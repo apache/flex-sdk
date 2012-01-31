@@ -23,6 +23,8 @@ import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
+import mx.core.UIComponent;
+import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -33,6 +35,7 @@ import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.Group;
 import spark.components.IGridItemRenderer;
+import spark.components.IGridRowBackground;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
@@ -1219,6 +1222,12 @@ public class GridLayout extends LayoutBase
         if  ((rowIndex < rowCount) && (bounds.width == 0)) // implies no columns
             bounds.width = visibleGridBounds.width;
         
+        // Call initializeRowBackground() if possible
+        
+        const gridRowBackground:IGridRowBackground = rowBackground as IGridRowBackground;
+        if (gridRowBackground)
+            gridRowBackground.initializeRowBackground(grid, rowIndex);
+        
         layoutGridElementR(rowBackground, bounds);
     }
 
@@ -1780,6 +1789,12 @@ public class GridLayout extends LayoutBase
         }
         if (validatingElt)        
             validatingElt.validateNow();
+
+        /*
+        if (elt is UIComponent)
+            UIComponentGlobals.layoutManager.validateClient(UIComponent(elt), true);
+        */
+
         elt.setLayoutBoundsPosition(x, y);
         
         if (enablePerformanceStatistics)
