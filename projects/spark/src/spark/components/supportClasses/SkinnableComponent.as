@@ -41,6 +41,18 @@ import mx.events.PropertyChangeEvent;
 [Style(name="baseColor", type="uint", format="Color", inherit="yes")]
 
 /**
+ *  Name of the error skin class to use for this component. 
+ *  
+ *  @default spark.skins.default.ErrorSkin
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="errorSkin", type="Class")]
+
+/**
  *  Name of the skin class to use for this component. The skin must be a class that extends
  *  the spark.components.supportClasses.Skin class. 
  *  
@@ -197,6 +209,23 @@ public class SkinnableComponent extends UIComponent
         return getCurrentSkinState();
     }
 
+    /**
+     *  @private
+     */
+    private var errorObj:DisplayObject;
+    private var errorStringChanged:Boolean;
+    
+    /**
+     *  @private
+     */
+    override public function set errorString(value:String):void
+    {
+        super.errorString = value;
+        
+        errorStringChanged = true;
+        invalidateProperties();
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -274,6 +303,35 @@ public class SkinnableComponent extends UIComponent
             skin.currentState = pendingState;
             skinStateIsDirty = false;
         }
+        
+        if (errorStringChanged)
+        {
+            if (errorString != null && errorString != "")
+            {
+                if (!errorObj)
+                {
+                    var errorObjClass:Class = getStyle("errorSkin");
+                    
+                    if (errorObjClass)
+                        errorObj = new errorObjClass();
+                    
+                    if (errorObj)
+                    {
+                        if ("errorObject" in errorObj)
+                            errorObj["errorObject"] = this;
+                        super.addChild(errorObj);
+                    }
+                }
+            }
+            else
+            {
+                if (errorObj)
+                    super.removeChild(errorObj);
+                
+                errorObj = null;
+            }
+            errorStringChanged = false;
+        }
     }
 
     /**
@@ -297,10 +355,7 @@ public class SkinnableComponent extends UIComponent
     {
         if (skin)
             skin.setActualSize(unscaledWidth, unscaledHeight);
-
-        if (mx_internal::focusObj && mx_internal::focusObj is IInvalidating)
-            IInvalidating(mx_internal::focusObj).invalidateDisplayList();
-    }
+     }
 
     /**
      *  @private
