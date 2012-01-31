@@ -18,7 +18,7 @@ import mx.core.mx_internal;
 import mx.effects.Effect;
 import mx.effects.IEffectInstance;
 import mx.events.EffectEvent;
-import mx.filters.IFlexBitmapFilter;
+import mx.filters.IBitmapFilter;
 import mx.styles.IStyleClient;
 
 use namespace mx_internal;
@@ -80,7 +80,7 @@ public class FxAnimateFilter extends FxAnimate
     /**
      *  Constructor. 
      */
-    public function FxAnimateFilter(target:Object = null, filter:IFlexBitmapFilter = null)
+    public function FxAnimateFilter(target:Object = null, filter:IBitmapFilter = null)
     {
         super(target);
         instanceClass = FxAnimateFilterInstance;
@@ -100,7 +100,7 @@ public class FxAnimateFilter extends FxAnimate
     /**
      *  IBitmapFilter instance to apply and animate.
      */
-    public var bitmapFilter:IFlexBitmapFilter;
+    public var bitmapFilter:IBitmapFilter;
     
     //--------------------------------------------------------------------------
     //
