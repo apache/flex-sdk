@@ -104,13 +104,20 @@ public class Animate extends Effect
      */
     override public function getAffectedProperties():Array /* of String */
     {
-        if (!affectedProperties && propertyValuesList)
+        if (!affectedProperties)
         {
-            affectedProperties = new Array(propertyValuesList.length);
-            for (var i:int = 0; i < propertyValuesList.length; ++i)
+            if (propertyValuesList)
             {
-                var effectHolder:PropertyValuesHolder = PropertyValuesHolder(propertyValuesList[i]);
-                affectedProperties[i] = effectHolder.property;
+                affectedProperties = new Array(propertyValuesList.length);
+                for (var i:int = 0; i < propertyValuesList.length; ++i)
+                {
+                    var effectHolder:PropertyValuesHolder = PropertyValuesHolder(propertyValuesList[i]);
+                    affectedProperties[i] = effectHolder.property;
+                }
+            }
+            else
+            {
+                affectedProperties = [];
             }
         }
         return affectedProperties;
