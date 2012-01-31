@@ -15,6 +15,8 @@ package mx.components
 import flash.events.Event;
 import flash.events.MouseEvent;
 
+[IconFile("FxCheckBox.png")]
+
 /**
  *  The FxCheckBox component consists of an optional label and a small box
  *  that can contain a check mark or not. 
