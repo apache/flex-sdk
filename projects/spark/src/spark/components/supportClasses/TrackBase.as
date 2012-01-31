@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components.baseClasses
+package spark.components.supportClasses
 {
 
 import flash.events.Event;
@@ -17,7 +17,7 @@ import flash.events.FocusEvent;
 import flash.events.MouseEvent;
 import flash.geom.Point;
 
-import mx.components.FxButton;
+import spark.components.Button;
 
 /**
  *  Dispatched when the value of the control changes
@@ -53,22 +53,22 @@ import mx.components.FxButton;
 [SkinState("disabled")]
 
 /**
- *  The FxTrackBase class is a base class for components with a track
- *  and one or more thumb buttons, such as FxSlider and FxScrollBar. It
+ *  The TrackBase class is a base class for components with a track
+ *  and one or more thumb buttons, such as Slider and ScrollBar. It
  *  declares two required skin parts: <code>thumb</code> and
  *  <code>track</code>. 
- *  The FxTrackBase class also provides the code for
- *  dragging the thumb button, which is shared by the FxSlider and FxScrollBar classes.
+ *  The TrackBase class also provides the code for
+ *  dragging the thumb button, which is shared by the Slider and ScrollBar classes.
  * 
- *  @see mx.components.baseClasses.FxSlider
- *  @see mx.components.baseClasses.FxScrollBar
+ *  @see mx.components.baseClasses.Slider
+ *  @see mx.components.baseClasses.ScrollBar
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxTrackBase extends FxRange
+public class TrackBase extends Range
 {
     include "../../core/Version.as";
 
@@ -86,7 +86,7 @@ public class FxTrackBase extends FxRange
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public function FxTrackBase():void
+    public function TrackBase():void
     {
         super();
     }
@@ -112,7 +112,7 @@ public class FxTrackBase extends FxRange
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var thumb:FxButton;
+    public var thumb:Button;
     
     [SkinPart(required="true")]
     
@@ -126,7 +126,7 @@ public class FxTrackBase extends FxRange
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var track:FxButton; 
+    public var track:Button; 
 
     //--------------------------------------------------------------------------
     //
@@ -138,7 +138,7 @@ public class FxTrackBase extends FxRange
 
     //--------------------------------------------------------------------------
     //
-    //  Overridden properties: UIComponent, FxRange
+    //  Overridden properties: UIComponent, Range
     //
     //--------------------------------------------------------------------------
  
@@ -219,7 +219,7 @@ public class FxTrackBase extends FxRange
     // value
     //---------------------------------     
 
-    [Bindable(event="valueCommit")]  // Warning: must match the Bindable tag in FxRange
+    [Bindable(event="valueCommit")]  // Warning: must match the Bindable tag in Range
     
     /**
      *  @private 
