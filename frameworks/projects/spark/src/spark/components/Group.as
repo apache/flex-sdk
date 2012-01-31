@@ -9,27 +9,27 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.components 
+package spark.components 
 {
 
 import flash.display.BlendMode;
 import flash.display.DisplayObject;
 import flash.geom.Rectangle;
 
-import mx.components.baseClasses.GroupBase;
+import spark.components.supportClasses.GroupBase;
 import mx.core.Container;
 import mx.core.ILayoutElement;
 import mx.core.IUITextField;
 import mx.core.IVisualElement;
 import mx.core.IVisualElementContainer;
 import mx.core.mx_internal;
-import mx.events.ElementExistenceEvent;
-import mx.graphics.IGraphicElement;
-import mx.graphics.ISharedDisplayObject;
-import mx.graphics.baseClasses.ISharedGraphicsDisplayObject;
-import mx.graphics.baseClasses.TextGraphicElement;
-import mx.layout.LayoutBase;
-import mx.layout.LayoutElementFactory;
+import spark.events.ElementExistenceEvent;
+import spark.core.IGraphicElement;
+import spark.core.ISharedDisplayObject;
+import spark.primitives.supportClasses.ISharedGraphicsDisplayObject;
+import spark.primitives.supportClasses.TextGraphicElement;
+import spark.layout.supportClasses.LayoutBase;
+import spark.layout.supportClasses.LayoutElementFactory;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
 import mx.styles.StyleProtoChain;
@@ -368,7 +368,7 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
             {   
                 var elt:IVisualElement = _mxmlContent[i];
 
-                // A common mistake is to bind the viewport property of an FxScroller
+                // A common mistake is to bind the viewport property of an Scroller
                 // to a group that was defined in the MXML file with a different parent    
                 if (elt.parent && (elt.parent != this))
                     throw new Error(resourceManager.getString("components", "mxmlElementNoMultipleParents", [elt]));
