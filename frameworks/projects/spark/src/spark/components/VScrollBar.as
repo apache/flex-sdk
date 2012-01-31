@@ -17,7 +17,6 @@ import spark.core.IViewport;
 import spark.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
 import mx.events.ResizeEvent;
-import spark.layout.supportClasses.LayoutElementFactory;
 
 [IconFile("VScrollBar.png")]
 
@@ -138,9 +137,8 @@ public class VScrollBar extends ScrollBar
         if (thumb)
         {
             var trackPos:Number = track ? track.y : 0;
-            var layoutElement:ILayoutElement = LayoutElementFactory.getLayoutElementFor(thumb);
-            layoutElement.setLayoutBoundsPosition(layoutElement.getLayoutBoundsX(),
-                                            Math.round(trackPos + thumbPos));
+            thumb.setLayoutBoundsPosition(thumb.getLayoutBoundsX(),
+                                          Math.round(trackPos + thumbPos));
         }
     }
 
