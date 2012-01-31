@@ -37,12 +37,16 @@ import mx.styles.IStyleClient;
 /**
  *  Dispatched when an item is added to the content holder.
  *  event.
+ *
+ *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_ADD
  */
 [Event(name="itemAdd", type="mx.events.ItemExistenceChangedEvent")]
 
 /**
  *  Dispatched when an item is removed from the content holder.
  *  event.
+ *
+ *  @eventType mx.events.ItemExistenceChangedEvent.ITEM_REMOVE
  */
 [Event(name="itemRemove", type="mx.events.ItemExistenceChangedEvent")]
 
@@ -452,7 +456,8 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Called to add an item to this DataGroup.
+     *  Adds an item to this DataGroup.
+     *  Flex calls this method automatically; you do not call it directly.
      *
      *  @param item The item that was added.
      *
@@ -488,7 +493,8 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Called to remove an item from this DataGroup.
+     *  Removes an item from this DataGroup.
+     *  Flex calls this method automatically; you do not call it directly.
      *
      *  @param item The item that is being removed.
      * 
@@ -534,7 +540,7 @@ public class DataGroup extends GroupBase
     }
     
     /**
-     *  Removes an item from another datagroup or display list
+     *  Removes an item from another DataGroup or display list
      *  before adding it to this display list.
      * 
      *  @param child DisplayObject to add to the display list.
