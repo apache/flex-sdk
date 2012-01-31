@@ -23,6 +23,19 @@ use namespace mx_internal;
 
 include "../styles/metadata/IconColorStyles.as"
 
+/**
+ *  Color of any symbol of a component. Examples include the check mark of a CheckBox or
+ *  the arrow of a ScrollBar button.
+ *   
+ *  @default 0x000000
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */ 
+[Style(name="symbolColor", type="uint", format="Color", inherit="yes")]
+
 //--------------------------------------
 //  Excluded APIs
 //--------------------------------------
