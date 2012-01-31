@@ -246,7 +246,7 @@ public class AnimateTransformInstance extends AnimateInstance
         }
     }
 
-    // FIXME (chaase): This function appears in multiple places. Maybe
+    // TODO (chaase): This function appears in multiple places. Maybe
     // put it in some util class instead?
     /**
      * @private
@@ -354,8 +354,6 @@ public class AnimateTransformInstance extends AnimateInstance
         else
         {
             motionPaths = new Vector.<MotionPath>();
-            // FIXME (chaase): too early to reset instanceStartTime - might use
-            // it below
             instanceStartTime = newEffectStartTime;
         }
         if (!added)
@@ -443,11 +441,6 @@ public class AnimateTransformInstance extends AnimateInstance
         }
     }
 
-
-    // FIXME (chaase): This probably belongs at the AnimateTransform level,
-    // and make sure that it only kicks in when AnimateTransform is used
-    // explicitly; Someone performing a Move may not also want to
-    // automatically animate the rotation properties.
     /**
      * @private
      * 
@@ -635,7 +628,7 @@ public class AnimateTransformInstance extends AnimateInstance
      */     
     override protected function getCurrentValue(property:String):*
     {
-        // FIXME (chaase): we're recalculating the transform for every 
+        // TODO (chaase): we're recalculating the transform for every 
         // component of the translation. We should store/retrieve the
         // translation property as a structure instead of separate values
         switch(property)
