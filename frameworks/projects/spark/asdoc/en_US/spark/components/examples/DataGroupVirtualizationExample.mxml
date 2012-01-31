@@ -47,12 +47,12 @@
 						<s:transitions>
 							<mx:Transition fromState="normal" toState="hovered">
 								<s:Animate target="{plan}" duration="200">
-									<s:AnimationProperty property="width" />
+									<s:SimpleMotionPath property="width" />
 								</s:Animate>
 							</mx:Transition>
 							<mx:Transition fromState="hovered" toState="normal">
 								<s:Animate target="{plan}" duration="200" >
-									<s:AnimationProperty property="width" />
+									<s:SimpleMotionPath property="width" />
 								</s:Animate>
 							</mx:Transition>
 						</s:transitions>
