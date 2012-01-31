@@ -494,6 +494,8 @@ include "../styles/metadata/TextStyles.as"
 
 [IconFile("Button.png")]
 
+[Alternative(replacement="spark.components.Button", since="4.0")]
+
 /**
  *  The Button control is a commonly used rectangular button.
  *  Button controls look like they can be pressed.
