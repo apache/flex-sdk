@@ -55,6 +55,12 @@ use namespace mx_internal;
  *  Although this class extends the base AMFChannel to inherit the regular AMF
  *  handling, it does not support polling.
  *  </p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 public class StreamingAMFChannel extends AMFChannel
 {
@@ -70,6 +76,12 @@ public class StreamingAMFChannel extends AMFChannel
      *  @param id The id of this Channel.
      *
      *  @param uri The uri for this Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function StreamingAMFChannel(id:String = null, uri:String = null)
     {
@@ -88,6 +100,12 @@ public class StreamingAMFChannel extends AMFChannel
     /**
      * Helper class used by the channel to establish a streaming HTTP connection
      * with the server.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private var streamingConnectionHandler:StreamingConnectionHandler;
 
@@ -152,6 +170,12 @@ public class StreamingAMFChannel extends AMFChannel
 
     /**
      *  Polling is not supported by this channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override public function poll():void
     {
@@ -240,6 +264,12 @@ public class StreamingAMFChannel extends AMFChannel
      *  and gets ready for messaging.
      *
      *  @param event The OPEN Event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamOpenHandler(event:Event):void
     {
@@ -252,6 +282,12 @@ public class StreamingAMFChannel extends AMFChannel
      *  channel that it has disconnected.
      *
      *  @param event The COMPLETE Event.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamCompleteHandler(event:Event):void
     {
@@ -270,6 +306,12 @@ public class StreamingAMFChannel extends AMFChannel
      *  Handle HTTP status events dispatched by the streaming connection.
      *
      *  @param event The HTTPStatusEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamHttpStatusHandler(event:HTTPStatusEvent):void
     {
@@ -281,6 +323,12 @@ public class StreamingAMFChannel extends AMFChannel
      *  Handle IO error events dispatched by the streaming connection.
      *
      *  @param event The IOErrorEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamIoErrorHandler(event:IOErrorEvent):void
     {
@@ -307,6 +355,12 @@ public class StreamingAMFChannel extends AMFChannel
      *  Handle security error events dispatched by the streaming connection.
      *
      *  @param event The SecurityErrorEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamSecurityErrorHandler(event:SecurityErrorEvent):void
     {
@@ -320,6 +374,12 @@ public class StreamingAMFChannel extends AMFChannel
      *  Handle status events dispatched by the streaming connection.
      *
      *  @param event The StatusEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function streamStatusHandler(event:StatusEvent):void
     {
@@ -353,6 +413,12 @@ import mx.messaging.messages.IMessage;
  *  A helper class that is used by the streaming channels to open an internal
  *  HTTP connection to the server that is held open to allow the server to
  *  stream data down to the client with no poll overhead.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion BlazeDS 4
+ *  @productversion LCDS 3 
  */
 class StreamingAMFConnectionHandler extends StreamingConnectionHandler
 {
@@ -367,6 +433,12 @@ class StreamingAMFConnectionHandler extends StreamingConnectionHandler
      *
      *  @param channel The Channel that uses this class.
      *  @param log Reference to the logger for the associated Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function StreamingAMFConnectionHandler(channel:Channel, log:ILogger)
     {
@@ -381,6 +453,12 @@ class StreamingAMFConnectionHandler extends StreamingConnectionHandler
 
     /**
      *  Used by the streamProgressHandler to read an AMF encoded message.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     override protected function readMessage():IMessage
     {
