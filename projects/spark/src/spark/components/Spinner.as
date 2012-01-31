@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package flex.component
+package mx.components
 {
 
 import flash.events.Event;
@@ -17,6 +17,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
+import mx.components.baseClasses.FxRange;
 import mx.events.FlexEvent;
 import mx.managers.IFocusManagerComponent;
 
@@ -50,10 +51,10 @@ import mx.managers.IFocusManagerComponent;
  *  <p>Spinner has the addition property of 
  *  <code>valueWrap</code> which enables value wrapping.</p>
  * 
- *  @see flex.component.Range
- *  @see flex.component.NumericStepper
+ *  @see mx.components.Range
+ *  @see mx.components.NumericStepper
  */
-public class Spinner extends Range implements IFocusManagerComponent
+public class FxSpinner extends FxRange implements IFocusManagerComponent
 {
     include "../core/Version.as";
 
@@ -66,7 +67,7 @@ public class Spinner extends Range implements IFocusManagerComponent
     /**
      *  Constructor. 
      */
-    public function Spinner():void
+    public function FxSpinner():void
     {
         super();
     }
@@ -84,7 +85,7 @@ public class Spinner extends Range implements IFocusManagerComponent
      *  a button that, when pressed, will cause <code>value</code>
      *  to increment by <code>stepSize</code>.
      */
-    public var incrementButton:Button;
+    public var incrementButton:FxButton;
     
     [SkinPart]
     
@@ -93,7 +94,7 @@ public class Spinner extends Range implements IFocusManagerComponent
      *  a button that, when pressed, will cause <code>value</code>
      *  to decrement by <code>stepSize</code>.
      */
-    public var decrementButton:Button;
+    public var decrementButton:FxButton;
     
     //--------------------------------------------------------------------------
     //
