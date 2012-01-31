@@ -395,7 +395,7 @@ public class GridColumn extends EventDispatcher
      */
     public function get headerText():String
     {
-        return (_headerText != null) ? _headerText : dataField;
+        return (_headerText != null) ? _headerText : ((dataField) ? dataField : "");
     }
     
     /**
@@ -642,8 +642,10 @@ public class GridColumn extends EventDispatcher
         // is loop-prevention logic in the scroller which may not allow the
         // width/height to be reduced if there are automatic scrollbars.
         // See ScrollerLayout/measure().
+        /*
         if (grid)
             grid.setContentSize(0, 0);
+        */
         
         dispatchChangeEvent("widthChanged");
     }
@@ -930,7 +932,7 @@ public class GridColumn extends EventDispatcher
             for each (var pathElement:String in labelPath)
                 itemData = itemData[pathElement];
 
-            if (itemData != null)
+            if ((itemData != null) && (labelPath.length > 0))
                 return itemData.toString();
         }
         catch(ignored:Error) { }
