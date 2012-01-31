@@ -13,6 +13,7 @@ package spark.components
 {
     
 import flash.display.DisplayObject;
+import flash.display.Stage;
 import flash.display.StageDisplayState;
 import flash.events.Event;
 import flash.geom.Matrix;
@@ -25,8 +26,6 @@ import mx.core.mx_internal;
 import mx.managers.PopUpManager;
 import mx.styles.ISimpleStyleClient;
 import mx.utils.MatrixUtil;
-
-import spark.components.PopUpPosition;
 
 use namespace mx_internal;
 
@@ -364,7 +363,8 @@ public class PopUpAnchor extends UIComponent
     protected function calculatePopUpPosition():Point
     {
         // This implementation doesn't handle rotation
-        var matrix:Matrix = $transform.concatenatedMatrix;
+        var matrix:Matrix = getPopUpMatrix();
+             
         var regPoint:Point = new Point();
         
         var popUpBounds:Rectangle = new Rectangle(); 
@@ -525,6 +525,20 @@ public class PopUpAnchor extends UIComponent
     }
     
     /**
+     *  @private Get the concatenated matrix from the PopUpAnchor to the popUp parent 
+     */ 
+    private function getPopUpMatrix():Matrix
+    {
+        // Take the PopUpAnchor's concatenatedMatrix 
+        // and subtract out the popUp parent's concatenatedMatrix
+        var matrix:Matrix = systemManager.getSandboxRoot().transform.concatenatedMatrix;
+        matrix.invert();
+        matrix.concat($transform.concatenatedMatrix);
+        
+        return matrix;
+    }
+    
+    /**
      *  @private 
      */
     mx_internal function determinePosition(placement:String, popUpWidth:Number, popUpHeight:Number,
@@ -603,11 +617,19 @@ public class PopUpAnchor extends UIComponent
         var popUpPoint:Point = calculatePopUpPosition();
         
         // the transformation doesn't take the fullScreenRect in to account
-        // if we are in fulLScreen mode
-        if (stage && stage.displayState != StageDisplayState.NORMAL && stage.fullScreenSourceRect)
+        // if we are in fulLScreen mode. This code will throw a RTE if run from inside of a sandbox. 
+        try
         {
-            popUpPoint.x += stage.fullScreenSourceRect.x;
-            popUpPoint.y += stage.fullScreenSourceRect.y;
+            var smStage:Stage = systemManager.stage;
+            if (smStage && smStage.displayState != StageDisplayState.NORMAL && smStage.fullScreenSourceRect)
+            {
+                popUpPoint.x += smStage.fullScreenSourceRect.x;
+                popUpPoint.y += smStage.fullScreenSourceRect.y;
+            }
+        }
+        catch (e:Error)
+        {
+            // Ignore the RTE
         }
                 
         // Position the popUp. 
@@ -620,8 +642,9 @@ public class PopUpAnchor extends UIComponent
         
         // apply the color transformation
         DisplayObject(popUp).transform.colorTransform = $transform.concatenatedColorTransform
+            
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
