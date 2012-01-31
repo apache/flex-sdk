@@ -27,6 +27,7 @@ import mx.core.ScrollPolicy;
 import mx.core.ScrollUnit;
 import mx.events.PropertyChangeEvent;
 import mx.managers.IFocusManagerComponent;
+import flash.display.InteractiveObject;
 
 include "../styles/metadata/AdvancedCharacterFormatTextStyles.as"
 include "../styles/metadata/AdvancedContainerFormatTextStyles.as"
@@ -208,6 +209,7 @@ public class FxScroller extends FxComponent
             viewport.clipContent = true;
             skin.addElementAt(viewport, 0);
             viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+            addSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);            
         }
         if (verticalScrollBar)
             verticalScrollBar.viewport = viewport;
@@ -226,6 +228,7 @@ public class FxScroller extends FxComponent
             viewport.clipContent = false;
             skin.removeElement(viewport);
             viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
+            removeSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);            
         }
     }
     
@@ -501,6 +504,7 @@ public class FxScroller extends FxComponent
     override protected function loadSkin():void
     {
         super.loadSkin();
+        skin.layout = new FxScrollerLayout();
         installViewport();
     }
     
@@ -510,6 +514,7 @@ public class FxScroller extends FxComponent
     override protected function unloadSkin():void
     {    
         uninstallViewport();
+        skin.layout = null;
         super.unloadSkin();
     }
     
@@ -629,6 +634,15 @@ public class FxScroller extends FxComponent
         var vp:IViewport = viewport;
         if (!vp || event.isDefaultPrevented())
             return;
+            
+        // If a TextField has the focus, then check to see if it's already
+        // handling mouse wheel events.  For now, we'll make the same 
+        // assumption about TextView.
+        var focusOwner:InteractiveObject = getFocus();
+        if ((focusOwner is TextField) && TextField(focusOwner).mouseWheelEnabled)
+            return;    
+        if (focusOwner is TextView)
+            return;        
 
         var nSteps:uint = Math.abs(event.delta);
         var unit:ScrollUnit;
@@ -656,23 +670,6 @@ public class FxScroller extends FxComponent
             event.preventDefault();
         }            
     }
-    
-    /**
-     *  @private
-     */ 
-    override protected function focusInHandler(event:FocusEvent):void
-    {
-         addSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function focusOutHandler(event:FocusEvent):void
-    {
-        removeSystemHandlers(MouseEvent.MOUSE_WHEEL, mouseWheelHandler, mouseWheelHandler);
-    }    
-        
 }
 
 }
