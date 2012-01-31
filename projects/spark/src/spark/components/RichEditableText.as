@@ -2754,21 +2754,6 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
                 releaseSelectionManager();
             }
             
-            if (enabled &&
-                selectionAnchorPosition == -1 && selectionActivePosition == -1)
-            {
-                //setSelection(int.MAX_VALUE, int.MAX_VALUE);
-                
-                // This is ugly but it's the only way to get tabbing into
-                // the control to allow input without a mouse click.
-                //var controller:ContainerController = 
-                //                    textFlow.flowComposer.getControllerAt(0);
-                //controller.tlf_internal::requiredFocusInHandler(event);
-            }
-            
-            if (enabled)
-                getSelectionManager();
-                
             if (_imeMode != null)
             {
                 IME.enabled = true;
@@ -2979,15 +2964,6 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
                         event:SelectionEvent):void
     {
         var selectionManager:ISelectionManager = getSelectionManager();
-
-        // ToDo: this may not be needed if Vellum goes back to dispatching
-        // this event on editManager.insertText()/appendText().
-        if (!event &&
-            _selectionAnchorPosition == selectionManager.anchorPosition &&
-            _selectionActivePosition != selectionManager.activePosition)
-        {
-            return;
-        }
         
         _selectionAnchorPosition = selectionManager.anchorPosition;
         _selectionActivePosition = selectionManager.activePosition;
@@ -3109,10 +3085,6 @@ public class RichEditableText extends TextBaseClassWithStylesAndFocus
         if (event.operation is PasteOperation)
             handlePasteOperation(PasteOperation(event.operation));
 
-        // ToDo: this may not be needed if Vellum goes back to dispatching
-        // this event on editManager.insertText()/appendText().
-        inputManager_selectionChangeHandler(null);
-        
         // Since the text may have changed, set a flag which will
         // cause the 'text' getter to call extractText() to extract
         // the text by walking the TextFlow.
