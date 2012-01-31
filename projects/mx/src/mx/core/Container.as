@@ -2195,7 +2195,14 @@ public class Container extends UIComponent
     {
         var formerParent:DisplayObjectContainer = child.parent;
         if (formerParent && !(formerParent is Loader))
+	{
+            // Adjust index if necessary when former parent happens
+            // to be the same container.
+            if (formerParent == this)
+                index = (index == numChildren) ? index - 1 : index;
+
             formerParent.removeChild(child);
+	}
             
         addingChild(child);
 
