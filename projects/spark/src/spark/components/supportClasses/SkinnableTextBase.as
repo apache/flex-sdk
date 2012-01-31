@@ -343,6 +343,7 @@ public class SkinnableTextBase extends SkinnableComponent
     //  textDisplay
     //----------------------------------
 
+	[Bindable]
     [SkinPart(required="false")]
 
     /**
