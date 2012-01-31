@@ -338,18 +338,11 @@ public class TreeAccImpl extends AccImpl
 	 */
 	override public function getChildIDArray():Array
 	{
-		var childIDs:Array = [];
+		var n:int = Tree(master).dataProvider ?
+					Tree(master).collectionLength :
+					0;
 
-		if (Tree(master).dataProvider)
-		{
-			var n:int = Tree(master).collectionLength;
-			for (var i:int = 0; i < n; i++)
-			{
-				childIDs[i] = i + 1;
-			}
-		}
-
-		return childIDs;
+		return createChildIDArray(n);
 	}
 	
 	/**
