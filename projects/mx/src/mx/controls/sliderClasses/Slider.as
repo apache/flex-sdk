@@ -2173,6 +2173,7 @@ public class Slider extends UIComponent
         
         var o:Point = new Point(relX, relY);
         var r:Point = localToGlobal(o);
+		r = dataTip.parent.globalToLocal(r);
 
         dataTip.x = r.x < 0 ? 0 : r.x;
         dataTip.y = r.y < 0 ? 0 : r.y;
