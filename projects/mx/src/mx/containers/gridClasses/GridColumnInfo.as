@@ -34,6 +34,11 @@ public class GridColumnInfo extends FlexChildInfo
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function GridColumnInfo()
 	{
@@ -59,6 +64,11 @@ public class GridColumnInfo extends FlexChildInfo
 	/**
 	 *  Output: the actual position of each column,
 	 *  as determined by updateDisplayList().
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var x:Number;
 }
