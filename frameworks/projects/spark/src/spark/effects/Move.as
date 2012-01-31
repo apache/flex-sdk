@@ -50,12 +50,12 @@ use namespace mx_internal;
  *  <pre>
  *  &lt;mx:Move
  *    id="ID"
- *    xFrom="val" 
- *    yFrom="val"
- *    xTo="val"
- *    yTo="val"
  *    xBy="val"
+ *    xFrom="val" 
+ *    xTo="val"
  *    yBy="val"
+ *    yFrom="val"
+ *    yTo="val"
  *   /&gt;
  *  </pre>
  *
