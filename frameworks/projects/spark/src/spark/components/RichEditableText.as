@@ -771,13 +771,13 @@ public class TextView extends UIComponent implements IViewport
     {
         super.measure();
 
-        measuredWidth = getStyle("paddingLeft") +
+        measuredWidth = Math.round(getStyle("paddingLeft") +
                         widthInChars * charWidth +
-                        getStyle("paddingRight");
+                        getStyle("paddingRight"));
          
-        measuredHeight = getStyle("paddingTop") +
+        measuredHeight = Math.round(getStyle("paddingTop") +
                          heightInLines * (ascent + descent) +
-                         getStyle("paddingBottom");
+                         getStyle("paddingBottom"));
 
         //trace("measure", measuredWidth, measuredHeight);
     }
