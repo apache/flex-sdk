@@ -80,6 +80,12 @@ public class ConsumerMessageDispatcher
 	/**
 	 *  Returns the sole instance of this singleton class,
 	 *  creating it if it does not already exist.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
 	public static function getInstance():ConsumerMessageDispatcher
 	{
@@ -98,6 +104,12 @@ public class ConsumerMessageDispatcher
 	/**
 	 *  Constructor.
 	 *  Use getInstance() instead of "new" to create.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion BlazeDS 4
+	 *  @productversion LCDS 3 
 	 */
 	public function ConsumerMessageDispatcher()
 	{
@@ -113,6 +125,12 @@ public class ConsumerMessageDispatcher
     /**
      *  Lookup table for subscribed Consumer instances; Object<Consumer clientId, Consumer>
      *  This is used to dispatch pushed/polled messages to the proper Consumer instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private const _consumers:Object = {};
     
@@ -121,12 +139,24 @@ public class ConsumerMessageDispatcher
      *  The ref-count is the number of subscribed Consumers for the ChannelSet.
      *  When we add a new ChannelSet we need to start listening on it for MessageEvents to redispatch to subscribed Consumers.
      *  When the ref-count drops to zero we need to stop listening on it for MessageEvents and remove it from the table.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private const _channelSetRefCounts:Dictionary = new Dictionary(/* strong keys */);
        
     /**
      *  Table used to prevent duplicate delivery of messages to a Consumer when multiple ChannelSets are
      *  connected to the same server endpoint over a single, underlying shared Channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private const _consumerDuplicateMessageBarrier:Object = {};       
        
@@ -138,6 +168,12 @@ public class ConsumerMessageDispatcher
       
     /**
      *  Determines whether any subscriptions are using the specified channel.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function isChannelUsedForSubscriptions(channel:Channel):Boolean
     {
@@ -157,6 +193,12 @@ public class ConsumerMessageDispatcher
      *  Registers a Consumer subscription.
      *  This will cause the ConsumerMessageDispatcher to start listening for MessageEvents
      *  from the underlying ChannelSet used to subscribe and redispatch messages to Consumers.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */ 
     public function registerSubscription(consumer:AbstractConsumer):void
     {
@@ -179,6 +221,12 @@ public class ConsumerMessageDispatcher
      *  Unregisters a Consumer subscription.
      *  The ConsumerMessageDispatcher will stop monitoring underlying channels for messages for
      *  this Consumer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     public function unregisterSubscription(consumer:AbstractConsumer):void
     {
@@ -211,6 +259,12 @@ public class ConsumerMessageDispatcher
     /**
      *  Handles message events from ChannelSets that Consumers are subscribed over.
      *  We just need to redirect the event to the proper Consumer instance.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion BlazeDS 4
+     *  @productversion LCDS 3 
      */
     private function messageHandler(event:MessageEvent):void
     {
