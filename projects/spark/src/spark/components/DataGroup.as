@@ -19,7 +19,6 @@ import flash.geom.Rectangle;
 import flash.utils.getQualifiedClassName;
 
 import mx.collections.IList;
-import mx.core.FlexVersion;
 import mx.core.IDataRenderer;
 import mx.core.IFactory;
 import mx.core.IInvalidating;
@@ -30,7 +29,6 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.PropertyChangeEvent;
-import mx.managers.ILayoutManagerClient;
 import mx.utils.MatrixUtil;
 
 import spark.components.supportClasses.GroupBase;
@@ -262,23 +260,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
     {
         if (_typicalItem === value)
             return;
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-        {
-            if (_typicalItem)
-            {
-                if (layout && layout.typicalLayoutElement)
-                {
-                    // we already removed it from the display
-                    // object tree in initializeTypicalElement
-                    // so that it doesn't affect bounds
-                    // calculations, but we left it in the
-                    // styles and layout heirarchy.  Remove
-                    // from those hierarchies now.
-                    removingChild(DisplayObject(layout.typicalLayoutElement));
-                    childRemoved(DisplayObject(layout.typicalLayoutElement));
-                }
-            }
-        }
         _typicalItem = explicitTypicalItem = value;
         typicalItemChanged = true;
         invalidateProperties();
@@ -307,30 +288,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             return;
         }
         
-        super.addChild(obj); 
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-        {
-            if (obj is ILayoutElement && layout)
-                layout.computeEstimatedSizeOfElement(ILayoutElement(obj));
-        }
-        
+        super.addChild(obj);
         setUpItemRenderer(renderer, 0, _typicalItem);
-		if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-		{
-			if (renderer is ILayoutManagerClient)
-				UIComponentGlobals.layoutManager.validateClient(ILayoutManagerClient(renderer), true);
-			renderer.setLayoutBoundsSize(NaN, NaN);
-		}
-		else
-		{
-        	if (obj is IInvalidating)
-            	IInvalidating(obj).validateNow();
-		}
+        if (obj is IInvalidating)
+            IInvalidating(obj).validateNow();
         setTypicalLayoutElement(renderer);
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-            $removeChild(obj);
-        else
-            super.removeChild(obj);
+        super.removeChild(obj);
     } 
     
     /**
@@ -403,9 +366,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (value == oldLayout)
             return; 
         
-		if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-			typicalItem = null;
-		
         if (oldLayout)
         {
             oldLayout.typicalLayoutElement = null;
@@ -1289,8 +1249,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 // Reset back to (0,0), otherwise when the element is reused
                 // it will be validated at its last layout size which causes
                 // problems with text reflow.
-                if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
-                    elt.setLayoutBoundsSize(0, 0, false);
+                elt.setLayoutBoundsSize(0, 0, false);
                 
                 freeRenderers.push(elt);
             }
@@ -1436,13 +1395,10 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    override public function getVirtualElementAt(index:int, eltWidth:Number=NaN, eltHeight:Number=NaN, skipValidation:Boolean = false):IVisualElement
+    override public function getVirtualElementAt(index:int, eltWidth:Number=NaN, eltHeight:Number=NaN):IVisualElement
     {
         if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
             return null;
-        
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
-            skipValidation = false;
         
         var elt:IVisualElement = indexToRenderer[index];
         
@@ -1485,12 +1441,12 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 // If we're going to set the width or height of this
                 // layout element, first force it to initialize its
                 // measuredWidth,Height.    
-                if (elt is IInvalidating && !skipValidation) 
+                if (elt is IInvalidating) 
                     IInvalidating(elt).validateNow();
                 elt.setLayoutBoundsSize(eltWidth, eltHeight);
             }
             
-            if (elt is IInvalidating && !skipValidation)
+            if (elt is IInvalidating)
                 IInvalidating(elt).validateNow();
             
             if (createdIR)
@@ -1703,29 +1659,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         
         if (childParent == this)
         {
-            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-            {
-                // test to see if we're truly parented
-                try
-                {
-                    var curIndex:int = getChildIndex(child)
-                }
-                catch (e:Error)
-                {
-                    curIndex = -1;
-                }
-                if (child == typicalLayoutElement && curIndex == -1)
-                {
-                    // we removed it from the display list but not
-                    // from the parent chain so it can be re-validated.
-                    // add it back
-                    $addChildAt(child, childIndex)
-                }
-                else
-                    super.setChildIndex(child, childIndex - 1);
-            }
-            else
-                super.setChildIndex(child, childIndex - 1);
+            super.setChildIndex(child, childIndex - 1);
             return;
         }
         
@@ -1737,10 +1671,6 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
             invalidateLayering();
 
         super.addChildAt(child, childIndex);
-        
-        if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_5)
-            if (layout && child is ILayoutElement)
-                layout.computeEstimatedSizeOfElement(ILayoutElement(child));
     }
     
     /**
