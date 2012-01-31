@@ -4857,7 +4857,7 @@ public class Container extends UIComponent
         bounds.right = right;
         bounds.bottom = bottom;
 
-        if (mx_internal::usePadding)
+        if (usePadding)
         {
             bounds.right += getStyle("paddingRight");
             bounds.bottom += getStyle("paddingBottom");
