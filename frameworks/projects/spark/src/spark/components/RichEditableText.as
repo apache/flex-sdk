@@ -221,7 +221,7 @@ public class TextView extends UIComponent implements IViewport
             
     /**
      *  @private
-     *  This object is determined by the CSS styles of the TextGraphic
+     *  This object is determined by the CSS styles of the TextView
      *  and is updated by createTextFlow() when the hostFormatsInvalid flag
      *  is true.
      */
@@ -229,7 +229,7 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  This object is determined by the CSS styles of the TextGraphic
+     *  This object is determined by the CSS styles of the TextView
      *  and is updated by createTextFlow() when the hostFormatsInvalid flag
      *  is true.
      */
@@ -237,7 +237,7 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @private
-     *  This object is determined by the CSS styles of the TextGraphic
+     *  This object is determined by the CSS styles of the TextView
      *  and is updated by createTextFlow() when the hostFormatsInvalid flag
      *  is true.
      */
@@ -247,7 +247,7 @@ public class TextView extends UIComponent implements IViewport
      *  @private
      *  This flag indicates whether hostCharacterFormat, hostParagraphFormat,
      *  and hostContainerFormat need to be recalculated from the CSS styles
-     *  of the TextGraphic. It is set true by stylesInitialized() and also
+     *  of the TextView. It is set true by stylesInitialized() and also
      *  when styleChanged() is called with a null argument, indicating that
      *  multiple styles have changed.
      */
@@ -883,8 +883,10 @@ public class TextView extends UIComponent implements IViewport
 
     /**
      *  @private
+     *  To indicate either selection visibility or selection styles have
+     *  changed.
      */
-    private var selectionVisibilityChanged:Boolean = false;
+    private var selectionFormatsChanged:Boolean = false;
 
     /**
      *  Documentation is not currently available.
@@ -903,11 +905,11 @@ public class TextView extends UIComponent implements IViewport
     {
         if (value == _selectionVisibility)
             return;
-        
+            
         _selectionVisibility = value;
-        selectionVisibilityChanged = true;
-
-        invalidateProperties();
+        selectionFormatsChanged = true;
+        
+        invalidateDisplayList();
     }
 
     //----------------------------------
@@ -1201,13 +1203,14 @@ public class TextView extends UIComponent implements IViewport
             editableChanged = false;
             selectableChanged = false;          
         } 
-        else if (enabledChanged || editableChanged || selectableChanged)
+        else if (enabledChanged || editableChanged || selectableChanged ||
+                    selectionFormatsChanged)
         {
             setInteractionManager(textFlow);
             
             enabledChanged = false;
             editableChanged = false;
-            selectableChanged = false;          
+            selectableChanged = false;
         }
         
         // Tell the TextFlow to generate TextLines within the
@@ -1253,6 +1256,8 @@ public class TextView extends UIComponent implements IViewport
         // or hostCharacterFormat immediately.
         if (styleProp == null || styleProp == "styleName")
             hostFormatsInvalid = true;
+        else if (isSelectionFormat(styleProp))
+            selectionFormatsChanged = true;
         else
             setHostFormat(styleProp);
 
@@ -1326,7 +1331,10 @@ public class TextView extends UIComponent implements IViewport
             hostParagraphFormat[styleProp] = value;
         
         else if (kind == TextUtil.CHARACTER)
-            hostCharacterFormat[styleProp] = value;
+            hostCharacterFormat[styleProp] = value;            
+            
+        else
+            trace("TextView.setFormat: unrecognized style", styleProp);            
     }
 
     /**
@@ -1470,11 +1478,24 @@ public class TextView extends UIComponent implements IViewport
         return textFlow;
     }
     
+     /**
+     *  @private
+     *  Is this a style associated with the SelectionFormat?
+     */
+    private function isSelectionFormat(styleProp:String):Boolean
+    {        
+        return styleProp &&
+                (styleProp == "selectionColor" || 
+                    styleProp == "unfocusedSelectionColor" ||
+                        styleProp == "inactiveSelectionColor");
+    }
+       
     /**
      *  @private
-     *  Initialize the ISelectionManager with the default values.
+     *  Initialize the ISelectionManager with the selection style vlaues.
+     *  This should be kept in sync with isSelectionFormat().
      */
-    private function initInteractionManager(instanceManager:ISelectionManager):void
+    private function setSelectionFormats(instanceManager:ISelectionManager):void
     {        
         var selectionColor:* = getStyle("selectionColor");
         var unfocusedAlpha:Number =
@@ -1495,8 +1516,7 @@ public class TextView extends UIComponent implements IViewport
         
     /**
      *  @private
-     *  Persist the edit manager so that any formatting that was set is 
-     *  maintained.
+     *  Persist the edit manager.
      */
     private var _editManager:TextViewEditManager = null;
     
@@ -1505,11 +1525,20 @@ public class TextView extends UIComponent implements IViewport
      */
     private function get editManager():TextViewEditManager
     {
+        // Since this is cached, have to be careful to update the
+        // selection formats if they change.
         if (_editManager == null)
         {
-            _editManager = new TextViewEditManager(mx_internal::undoManager);    
-            initInteractionManager(_editManager);                
-        }           
+            _editManager = new TextViewEditManager(mx_internal::undoManager);
+            selectionFormatsChanged = true;
+        } 
+        
+        if (selectionFormatsChanged)
+        {
+            setSelectionFormats(_editManager);
+            selectionFormatsChanged = false;
+        }   
+                 
         return _editManager; 
     }
     
@@ -1520,7 +1549,7 @@ public class TextView extends UIComponent implements IViewport
     private function get selectionManager():ISelectionManager
     {
         var selectionManager:ISelectionManager = new SelectionManager();
-        initInteractionManager(selectionManager);
+        setSelectionFormats(selectionManager);
         return selectionManager; 
     }
 
@@ -1849,12 +1878,10 @@ public class TextView extends UIComponent implements IViewport
         var priorManager:ISelectionManager = textFlow.interactionManager;
         switchInteractionManager(textFlow, editManager);
         
-        var applyFormatOperation:ApplyFormatOperation =
-            new ApplyFormatOperation(editManager.selectionState,
-            characterFormat, paragraphFormat, containerFormat);
+        // Apply the format to the current selection.
+        EditManager(textFlow.interactionManager).applyFormat(
+                        characterFormat, paragraphFormat, containerFormat);
         
-        editManager.execute(applyFormatOperation);
-
         // Restore the prior manager if it wasn't an EditManager.
         switchInteractionManager(textFlow, priorManager);
     }
