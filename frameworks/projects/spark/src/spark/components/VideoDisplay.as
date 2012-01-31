@@ -69,8 +69,6 @@ use namespace mx_internal;
 
 /**
  *  Dispatched when the <code>currentTime</code> property of the MediaPlayer has changed.
- *  This value is updated at the interval set by 
- *  the MediaPlayer's <code>currentTimeUpdateInterval</code> property.
  *
  *  @eventType org.osmf.events.TimeEvent.CURRENT_TIME_CHANGE
  *
@@ -1170,8 +1168,12 @@ public class VideoDisplay extends UIComponent
             return false;
         
         // if the video player's in a bad state, we can't do anything
-        if (videoPlayer.state == MediaPlayerState.PLAYBACK_ERROR)
+        if (videoPlayer.state == MediaPlayerState.PLAYBACK_ERROR || 
+            videoPlayer.state == MediaPlayerState.UNINITIALIZED || 
+            videoPlayer.state == MediaPlayerState.LOADING)
+        {
             return false;
+        }
         
         // if no source, return false as well
         if (!source)
