@@ -225,6 +225,8 @@ public class TextView extends UIComponent implements IViewport
     public function TextView()
     {
         super();
+        
+        dir = "ltr";
 
         _content = textFlow = createEmptyTextFlow();
         
