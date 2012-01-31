@@ -393,17 +393,22 @@ public class TextGraphic extends TextGraphicElement
         if (!mx_internal::styleChainInitialized)
             return;
 
-        // If both width and height are specified, then measure isn't called
-        // and measuredWidth/Height will remain 0.  In this case the compose
-        // will always be done here.  Otherwise measure will compose and set 
-        // measuredWidth/Height/isOverset.  If the unscaledWidth/Height is the
-        // same as measuredWidth/Height there is no need to redo the compose.        
+        // Only compose if it's necessary:
+        //   1) A style change.
+        //   2) If both width/height are specified, measure isn't called
+        //      and measuredWidth/Height will be 0 here.
+        //   3) A layout change which leaves the measured values different
+        //      than the unscaled values.
+        //   4) measuredHeight/Width set by measure changed by super class
+        //      to conform to explicit min/max values for width/height.
         if (stylesChanged || 
-            unscaledWidth != measuredWidth || 
-            unscaledHeight != measuredHeight)
+            measuredWidth != unscaledWidth || 
+            measuredWidth != Math.ceil(textFlowComposer.bounds.width) ||
+            measuredHeight != unscaledHeight ||
+            measuredHeight != Math.ceil(textFlowComposer.bounds.height))
         {
-			isOverset = compose(unscaledWidth, unscaledHeight);
-		}  
+	    isOverset = compose(unscaledWidth, unscaledHeight);
+	}  
             
         mx_internal::clip(isOverset, unscaledWidth, unscaledHeight);
     }
@@ -643,8 +648,9 @@ public class TextGraphic extends TextGraphicElement
         // Temporary fix for SDK-18880.
         // This won't be necessary when TLF allows
         // FlowElements to be reparented.
-        textFlow.replaceChildren(0, textFlow.numChildren);
-                
+        if (contentChanged || textChanged)
+            textFlow.replaceChildren(0, textFlow.numChildren);                
+
         textFlow = createTextFlow();
         _content = textFlow;
 
