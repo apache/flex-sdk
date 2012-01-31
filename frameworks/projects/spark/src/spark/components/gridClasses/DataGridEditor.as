@@ -505,10 +505,7 @@ public class DataGridEditor
             
             if (restoreFocusableChildren)
             {
-                dataGrid.hasFocusableChildren = saveDataGridHasFocusableChildren;
-
-                if (dataGrid.scroller)
-                    dataGrid.scroller.hasFocusableChildren = saveScrollerHasFocusableChildren;
+                restoreFocusableChildrenFlags();
             }
             
             itemEditorInstance = null;
@@ -738,7 +735,7 @@ public class DataGridEditor
         
         var column:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn;
         
-        if (!column)
+        if (!column || !column.visible)
             return false;
         
         // The START_GRID_ITEM_EDITOR_SESSION event is cancelable
@@ -949,7 +946,7 @@ public class DataGridEditor
             nextCell = getNextEditableCell(nextCell.x, nextCell.y, backward);
             
             if (nextCell)
-                openedEditor = startItemEditorSession(nextCell.x, nextCell.y);                
+                openedEditor = dataGrid.startItemEditorSession(nextCell.x, nextCell.y);                
         } while (nextCell && !openedEditor);
         
         return openedEditor;
@@ -987,7 +984,7 @@ public class DataGridEditor
                 // move to next row.
                 columnIndex = backward ? dataGrid.grid.columns.length - 1: 0;
                 var nextRow:int = rowIndex + increment;
-                if (nextRow < dataGrid.dataProvider.length)
+                if (nextRow >= 0 && nextRow < dataGrid.dataProvider.length)
                     rowIndex += increment;
                 else
                     return null;
@@ -1113,6 +1110,20 @@ public class DataGridEditor
                 (editedItemRenderer == child || 
                      IUIComponent(editedItemRenderer).owns(DisplayObject(child)))));
     }
+ 
+    /**
+     *  @private
+     * 
+     *  Restore the focusable children flags.
+     */ 
+    private function restoreFocusableChildrenFlags():void
+    {
+        dataGrid.hasFocusableChildren = saveDataGridHasFocusableChildren;
+        
+        if (dataGrid.scroller)
+            dataGrid.scroller.hasFocusableChildren = saveScrollerHasFocusableChildren;
+
+    }
     
     //--------------------------------------------------------------------------
     //
@@ -1176,7 +1187,7 @@ public class DataGridEditor
             }
             else
             {
-                startItemEditorSession(grid.caretRowIndex, grid.caretColumnIndex);                
+                dataGrid.startItemEditorSession(grid.caretRowIndex, grid.caretColumnIndex);                
             }
         }            
     }
@@ -1218,7 +1229,12 @@ public class DataGridEditor
         // if an editor is already up, close it without starting a new editor.
         if (itemEditorInstance)
         {
-            dataGrid.endItemEditorSession();
+            // if the user clicks outside the cell but we can't save the data,
+            // say, because the data was invalid, then cancel the save.
+            if (!dataGrid.endItemEditorSession())
+            {
+                dataGrid.endItemEditorSession(true);
+            }
             return;
         }
         
@@ -1300,7 +1316,7 @@ public class DataGridEditor
                         InteractiveObject(lastItemDown).doubleClickEnabled == false)
                     {
                         // we don't need to wait on the time since editing double click is ok.
-                        startItemEditorSession(rowIndex, columnIndex);
+                        dataGrid.startItemEditorSession(rowIndex, columnIndex);
                     }
                     else 
                     {
@@ -1365,7 +1381,12 @@ public class DataGridEditor
         // focus back to the dataGrid.
         if (itemEditorInstance || editedItemRenderer)
         {
-            dataGrid.endItemEditorSession();
+            // If we can't save the data, say, because the data was invalid, 
+            // then cancel the save.
+            if (!dataGrid.endItemEditorSession())
+            {
+                dataGrid.endItemEditorSession(true);
+            }
             dataGrid.setFocus();
         }
     }
@@ -1388,8 +1409,14 @@ public class DataGridEditor
             return;
         
         if (itemEditorInstance || editedItemRenderer)
-            dataGrid.endItemEditorSession();
-        
+        {
+            // If we can't save the data, say, because the data was invalid, 
+            // then cancel the save.
+            if (!dataGrid.endItemEditorSession())
+            {
+                dataGrid.endItemEditorSession(true);
+            }
+        }        
     }
     
     /**
@@ -1469,7 +1496,10 @@ public class DataGridEditor
                     {
                         if (!openEditorInNextEditableCell(lastRow, lastColumn - 1, false))
                         {
+                            // We didn't start an editor so restore the data grid's
+                            // focusable chidlren flags.
                             restoreFocusableChildren = true;
+                            restoreFocusableChildrenFlags();
                         }
                     }                        
                 }                    
@@ -1509,7 +1539,10 @@ public class DataGridEditor
                                                   lastEditedItemPosition.columnIndex,
                                                   event.shiftKey))
                 {
-                    restoreFocusableChildren = true;                    
+                    // We didn't start an editor so restore the data grid's
+                    // focusable chidlren flags.
+                    restoreFocusableChildren = true;
+                    restoreFocusableChildrenFlags();                    
                 }
             }
         }
@@ -1520,7 +1553,12 @@ public class DataGridEditor
      */
     private function editorAncestorResizeHandler(event:Event):void
     {
-        dataGrid.endItemEditorSession();
+        // If we can't save the data, say, because the data was invalid, 
+        // then cancel the save.
+        if (!dataGrid.endItemEditorSession())
+        {
+            dataGrid.endItemEditorSession(true);
+        }
     }
     
     /**
@@ -1541,7 +1579,12 @@ public class DataGridEditor
             return;
         }
         
-        dataGrid.endItemEditorSession();
+        // If we can't save the data, say, because the data was invalid, 
+        // then cancel the save.
+        if (!dataGrid.endItemEditorSession())
+        {
+            dataGrid.endItemEditorSession(true);
+        }
         
         // set focus back to the grid so grid logic will deal if focus doesn't
         // end up somewhere else
