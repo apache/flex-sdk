@@ -203,12 +203,12 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  RichEditableText is a low-level UIComponent for displaying,
  *  scrolling, selecting, and editing richly-formatted text.
  *
- *  <p>The rich text can clickable hyperlinks and inline graphics
+ *  <p>The rich text can contain clickable hyperlinks and inline graphics
  *  that are either embedded or loaded from URLs.</p>
  *
- *  <p>It does not have scrollbars, but it implements the IViewport
- *  interface for programmatic scrolling so that it can be controlled
- *  by a Scroller, which does provide scrollbars.
+ *  <p>RichEditableText does not have scrollbars, but it implements
+ *  the IViewport interface for programmatic scrolling so that it
+ *  can be controlled by a Scroller, which does provide scrollbars.
  *  It also supports vertical scrolling with the mouse wheel.</p>
  *
  *  <p>It does not include any user interface for changing
@@ -229,9 +229,24 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  which in turn builds on the new Flash Text Engine (FTE)
  *  in Flash Player 10.
  *  In combination, these layers provide text editing with
- *  high-quality international typography and layout.
- *  It is comparable to the UITextField class
- *  used in MX components.</p>
+ *  high-quality international typography and layout.</p>
+ *
+ *  <p>The Spark architecture provides three text "primitives" -- 
+ *  SimpleText, RichText, and RichEditableText --
+ *  as part of its pay-only-for-what-you-need philosophy.
+ *  SimpleText is the fastest and most lightweight
+ *  because it uses only FTE, not TLF,
+ *  but it is limited in its capabilities: no rich text,
+ *  no scrolling, no selection, and no editing.
+ *  RichText adds the ability to display rich text
+ *  with complex layout, but is still completely non-interactive.
+ *  RichEditableText is the slowest and heaviest,
+ *  but offers most of what TLF can do.
+ *  You should use the fastest text primitive that meets your needs.</p>
+ *
+ *  <p>RichEditableText is similar to the UITextField class
+ *  used in MX components. This class did not use FTE or TLF
+ *  but rather extended the older TextField class in the Player.</p>
  *
  *  <p>The most important differences to understand are:
  *  <ul>
@@ -288,7 +303,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  <code>paddingRight</code>, and <code>paddingBottom</code> styles.</p>
  *
  *  <p>By default, a RichEditableText "autosizes": it starts out very
- *  small if it has no text, grows in width as you type,
+ *  small if it has no text, grows in width up to
+ *  <code>maxWidth</code> as you type,
  *  and grows in height when you press Enter to start a new line.</p>
  *
  *  <p>The <code>widthInChars</code> and <code>heightInChars</code>
@@ -299,7 +315,9 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  <code>left</code> and <code>right</code>
  *  or <code>top</code> and <code>bottom</code>.</p>
  *
- *  <p>When you specify some kind of width, the text wraps at the right
+ *  <p>When you specify some kind of width -- whether an explicit or
+ *  percent width, a <code>maxWidth</code> or <code>left</code>
+ *  and <code>right</code> constraints -- the text wraps at the right
  *  edge of the component and the text becomes vertically scrollable
  *  when there is more text than fits.
  *  If you set the <code>lineBreak</code> style to <code>"explicit"</code>,
@@ -1546,8 +1564,8 @@ public class RichEditableText extends UIComponent
 
     /**
      *  A character position, relative to the beginning of the
-	 *  <code>text</code> String, specifying the end of the selection.
-     *  that moves when the selection is extended.
+	 *  <code>text</code> String, specifying the end of the selection
+     *  that moves when the selection is extended with the arrow keys.
      *
      *  <p>The active position may be either the start
      *  or the end of the selection.</p>
@@ -1587,8 +1605,8 @@ public class RichEditableText extends UIComponent
 
     /**
      *  A character position, relative to the beginning of the
-	 *  <code>text</code> String, specifying the end of the selection.
-     *  that stays fixed when the selection is extended.
+	 *  <code>text</code> String, specifying the end of the selection
+     *  that stays fixed when the selection is extended with the arrow keys.
 	 *
      *  <p>The anchor position may be either the start
      *  or the end of the selection.</p>
@@ -1723,7 +1741,7 @@ public class RichEditableText extends UIComponent
 	 *  and <code>verticalScrollPosition</code> to 0,
      *  and it sets the <code>selectionAnchorPosition</code>
 	 *  and <code>selectionActivePosition</code>
-     *  to the end of the new text.</p>
+     *  to -1 to clear the selection.</p>
      *
      *  @default ""
      *
@@ -1877,7 +1895,7 @@ public class RichEditableText extends UIComponent
 	 *  and <code>verticalScrollPosition</code> to 0,
      *  and it sets the <code>selectionAnchorPosition</code>
 	 *  and <code>selectionActivePosition</code>
-     *  to the end of the new text.</p>
+     *  to -1 to clear the selection.</p>
 	 *
 	 *  <p>To turn a TextFlow object into TLF markup,
 	 *  use the <code>TextFlowUtil.export()</code> markup.</p>
