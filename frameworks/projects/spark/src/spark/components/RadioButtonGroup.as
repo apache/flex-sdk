@@ -125,6 +125,7 @@ use namespace mx_internal;
  *    <strong>Events</strong>
  *    change="<i>No default</i>"
  *    itemClick="<i>No default</i>"
+ *    valueCommit="<i>No default</i>"
  *  /&gt;
  *  </pre>
  *
