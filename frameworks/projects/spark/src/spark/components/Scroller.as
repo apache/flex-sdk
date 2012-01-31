@@ -57,6 +57,7 @@ import spark.effects.animation.SimpleMotionPath;
 import spark.effects.easing.IEaser;
 import spark.effects.easing.Power;
 import spark.effects.easing.Sine;
+import spark.events.CaretBoundsChangeEvent;
 import spark.layouts.supportClasses.LayoutBase;
 import spark.utils.MouseEventUtil;
 
@@ -749,7 +750,12 @@ public class Scroller extends SkinnableComponent
      *  @private 
      */
     mx_internal var preventThrows:Boolean = false;
-
+    
+    /**
+     *  @private 
+     */
+    private var lastFocusedElementCaretBounds:Rectangle;
+    
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -997,6 +1003,19 @@ public class Scroller extends SkinnableComponent
      */ 
     public function ensureElementIsVisible(element:IVisualElement):void
     {   
+        ensureElementPositionIsVisible(element);
+    }
+    
+    /**
+     *  @private
+     *  
+     *  @param elementLocalBounds ensure that these bounds of the element are 
+     *  visible. The bounds are in the coordinate system of the element
+     *  @param doValidateNow if true, call validateNow() at the end of the 
+     *  function 
+     */  
+    private function ensureElementPositionIsVisible(element:IVisualElement, elementLocalBounds:Rectangle = null, doValidateNow:Boolean = true):void
+    {
         // First check that the element is a descendant
         // If we are a GraphicElement, use the element's parent
         var possibleDescendant:DisplayObject = element as DisplayObject;
@@ -1023,36 +1042,41 @@ public class Scroller extends SkinnableComponent
                 throwEffect.stop();
                 snapContentScrollPosition();
             }
-
+            
             // Scroll the element into view
-            var delta:Point = layout.getScrollPositionDeltaToAnyElement(element);
+            
+            var delta:Point = layout.getScrollPositionDeltaToAnyElement(element, elementLocalBounds);
             
             if (delta)
             {
-                var eltBounds:Rectangle = layout.getChildElementBounds(element);
-                var focusThickness:Number = 0;
-                
                 viewport.horizontalScrollPosition += delta.x; 
                 viewport.verticalScrollPosition += delta.y;
                 
-                if (element is IStyleClient)
-                    focusThickness = IStyleClient(element).getStyle("focusThickness");
-                
-                // Make sure that the focus ring is visible. Top and left sides have priority
-                if (focusThickness)
+                // We only care about focusThickness if we are positioning the whole element 
+                if (!elementLocalBounds)
                 {
-                    if (viewport.verticalScrollPosition > eltBounds.top - focusThickness)
-                        viewport.verticalScrollPosition = eltBounds.top - focusThickness;
-                    else if (viewport.verticalScrollPosition + height < eltBounds.bottom + focusThickness)
-                        viewport.verticalScrollPosition = eltBounds.bottom + focusThickness - height;
+                    var eltBounds:Rectangle = layout.getChildElementBounds(element);
+                    var focusThickness:Number = 0;
+                
+                    if (element is IStyleClient)
+                        focusThickness = IStyleClient(element).getStyle("focusThickness");
                     
-                    if (viewport.horizontalScrollPosition > eltBounds.left - focusThickness)
-                        viewport.horizontalScrollPosition = eltBounds.left - focusThickness;
-                    else if (viewport.horizontalScrollPosition + width < eltBounds.right + focusThickness)
-                        viewport.horizontalScrollPosition = eltBounds.right + focusThickness - width;
+                    // Make sure that the focus ring is visible. Top and left sides have priority
+                    if (focusThickness)
+                    {
+                        if (viewport.verticalScrollPosition > eltBounds.top - focusThickness)
+                            viewport.verticalScrollPosition = eltBounds.top - focusThickness;
+                        else if (viewport.verticalScrollPosition + height < eltBounds.bottom + focusThickness)
+                            viewport.verticalScrollPosition = eltBounds.bottom + focusThickness - height;
+                        
+                        if (viewport.horizontalScrollPosition > eltBounds.left - focusThickness)
+                            viewport.horizontalScrollPosition = eltBounds.left - focusThickness;
+                        else if (viewport.horizontalScrollPosition + width < eltBounds.right + focusThickness)
+                            viewport.horizontalScrollPosition = eltBounds.right + focusThickness - width;
+                    }
                 }
                 
-                if (viewport is UIComponent)
+                if (doValidateNow && viewport is UIComponent)
                     UIComponent(viewport).validateNow();
             }
         }
@@ -1860,6 +1884,8 @@ public class Scroller extends SkinnableComponent
             addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_DEACTIVATE, 
                 softKeyboardDeactivateHandler, false, 
                 EventPriority.DEFAULT, true);  
+            addEventListener(CaretBoundsChangeEvent.CARET_BOUNDS_CHANGE,
+                caretBoundsChangeHandler);
         }
     }
     
@@ -2616,11 +2642,22 @@ public class Scroller extends SkinnableComponent
             if (lastFocusedElement && ensureElementIsVisibleForSoftKeyboard &&
                 (keyboardRect.height != oldSoftKeyboardHeight ||
                  keyboardRect.width != oldSoftKeyboardWidth))
-                ensureElementIsVisible(lastFocusedElement);
+            {
+                // lastFocusedElementCaretBounds might have been set in the 
+                // caretBoundsChange event handler
+                if (lastFocusedElementCaretBounds == null)
+                {
+                    ensureElementIsVisible(lastFocusedElement);
+                }
+                else
+                {
+                    ensureElementPositionIsVisible(lastFocusedElement, lastFocusedElementCaretBounds);   
+                    lastFocusedElementCaretBounds = null;
+                }
+            }
             
             oldSoftKeyboardHeight = keyboardRect.height;
             oldSoftKeyboardWidth = keyboardRect.width;
-            
         }
     }
     
@@ -2650,7 +2687,27 @@ public class Scroller extends SkinnableComponent
         else
             snapContentScrollPosition();
     }
-
+    
+    /**
+     *  @private
+     */
+    private function caretBoundsChangeHandler(event:CaretBoundsChangeEvent):void
+    {
+        if (event.isDefaultPrevented())
+            return;
+        
+        // If the soft keyboard is not up yet, then just store the caretBounds
+        // It will be used in the softKeyboardActivateHandler
+        if (!isNaN(oldSoftKeyboardHeight))
+        {
+            ensureElementPositionIsVisible(lastFocusedElement, event.newCaretBounds, false);
+            event.preventDefault();
+        }
+        
+        lastFocusedElementCaretBounds = event.newCaretBounds;
+        
+        
+    }
 }
 
 }
