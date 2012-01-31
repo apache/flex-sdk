@@ -700,6 +700,9 @@ public class DataGroup extends GroupBase
     { 
         if (dataProviderChanged || itemRendererChanged || useVirtualLayoutChanged)
         {
+            if (dataProviderChanged)
+                verticalScrollPosition = horizontalScrollPosition = 0;
+            
             dataProviderChanged = false;
             itemRendererChanged = false;
             useVirtualLayoutChanged = false;
