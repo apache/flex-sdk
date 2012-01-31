@@ -227,6 +227,8 @@ public class SpinnerAccImpl extends AccImpl
      */
     override public function get_accValue(childID:uint):String
     {
+        if (childID > 0)
+            return null;
         return Spinner(master).value.toString();
     }
 
