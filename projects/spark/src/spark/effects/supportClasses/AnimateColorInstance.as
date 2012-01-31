@@ -96,7 +96,7 @@ public class AnimateColorInstance extends AnimateInstance
         }
         
         animationProperties = 
-            [ new AnimationProperty(colorPropertyName, colorFrom, colorTo) ];
+            [ new AnimationProperty(colorPropertyName, colorFrom, colorTo, duration) ];
             
         if (!interpolator)
             interpolator = RGBInterpolator.getInstance();
