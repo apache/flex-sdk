@@ -25,6 +25,8 @@ import spark.effects.interpolation.MultiValueInterpolator;
  *  The MotionPath class itself can define any number of keyframes.</p>
  *
  *  @see MotionPath
+ *
+ *  @includeExample examples/SimpleMotionPathEffectExample.mxml
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
