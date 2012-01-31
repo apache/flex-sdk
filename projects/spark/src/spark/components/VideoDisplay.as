@@ -31,6 +31,7 @@ import flash.media.Video;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 
+import spark.components.Group;
 import spark.components.mediaClasses.StreamItem;
 import spark.components.mediaClasses.StreamingVideoSource;
 import spark.events.VideoEvent;
@@ -753,6 +754,98 @@ public class VideoElement extends UIComponent
     }
     
     //----------------------------------
+    //  thumbnailSource
+    //----------------------------------
+    
+    private var _thumbnailSource:Object;
+    
+    /**
+     *  @private
+     *  Group that holds the BitmapImage for the thumbnail
+     */
+    private var thumbnailGroup:Group;
+    
+    [Inspectable(Category="General")]
+    
+    /**
+     *  @private
+     *  Thumbnail source is an internal property used to replace the video with a thumbnail.
+     *  This is for places where we just want to load in a placeholder object for the video 
+     *  and don't want to incur the extra load-time or memory of loading up the video.
+     * 
+     *  <p>Thumbnail source can take any valid source that can be passed in to 
+     *  <code>spark.primitivies.BitmapImage#source</code>.</p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    mx_internal function get thumbnailSource():Object
+    {
+        return _thumbnailSource;
+    }
+    
+    /**
+     *  @private
+     */
+    mx_internal function set thumbnailSource(value:Object):void
+    {
+        if (_thumbnailSource == value)
+            return;
+        
+        _thumbnailSource = value;
+        
+        // if we haven't initialized, let's wait to set up the 
+        // source in commitProperties() as it is dependent on other 
+        // properties, like autoPlay and enabled, and those may not 
+        // be set yet, especially if they are set via MXML.
+        // Otherwise, if we have initialized, let's just set up the 
+        // source immediately.  This way people can change the source 
+        // and immediately call methods like seek().
+        if (!initializedOnce)
+        {
+            sourceChanged = true;
+            invalidateProperties();
+        }
+        else
+        {
+            setUpThumbnailSource();
+        }
+    }
+    
+    /**
+     *  @private
+     *  Sets up the thumbnail source for use.
+     */
+    private function setUpThumbnailSource():void
+    {
+        if (thumbnailSource)
+        {
+            var bitmapImage:BitmapImage;
+            if (!thumbnailGroup)
+            {
+                bitmapImage = new BitmapImage();
+                
+                bitmapImage.left = 0;
+                bitmapImage.right = 0;
+                bitmapImage.top = 0;
+                bitmapImage.bottom = 0;
+                
+                thumbnailGroup = new Group();
+                thumbnailGroup.addElement(bitmapImage);
+                addChild(thumbnailGroup);
+            }
+            else
+            {
+                bitmapImage = thumbnailGroup.getElementAt(0) as BitmapImage;
+            }
+            
+            bitmapImage.source = thumbnailSource;
+        }
+    }
+    
+    //----------------------------------
     //  totalTime
     //----------------------------------
     
@@ -875,7 +968,10 @@ public class VideoElement extends UIComponent
         {
             sourceChanged = false;
             
-            setUpSource();
+            if (thumbnailSource)
+                setUpThumbnailSource();
+            else
+                setUpSource();
         }
     }
     
@@ -952,6 +1048,15 @@ public class VideoElement extends UIComponent
     {
         super.measure();
         
+        // if showing the thumbnail, just use the thumbnail's size
+        if (thumbnailSource && thumbnailGroup)
+        {
+            measuredWidth = thumbnailGroup.getPreferredBoundsWidth();
+            measuredHeight = thumbnailGroup.getPreferredBoundsHeight();
+            return;
+        }
+        
+        // otherwise grab the width/height from the video
         var vw:Number = videoPlayer.videoWidth;
         var vh:Number = videoPlayer.videoHeight;
         
@@ -978,6 +1083,51 @@ public class VideoElement extends UIComponent
     override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
     {
         super.updateDisplayList(unscaledWidth, unscaledHeight);
+        
+        // if just showing the thumbnail, push this width/height in to the thumbnail
+        // otherwise we'll push it in to the video object
+        if (thumbnailSource && thumbnailGroup)
+        {
+            var imageWidth:Number;
+            var imageHeight:Number;
+            var bitmapImage:BitmapImage = thumbnailGroup.getElementAt(0) as BitmapImage;
+            
+            if (!maintainAspectRatio)
+            {
+                // if not maintainAspectRatio, the width and height of the image 
+                // are what the layout wants them to be and the image is stretched or shrunken
+                imageWidth = unscaledWidth;
+                imageHeight = unscaledHeight;
+                
+                thumbnailGroup.setLayoutBoundsSize(imageWidth, imageHeight);
+            }
+            else
+            {
+                // the image dimensions need to maintain aspect ratio
+                var realRatio:Number = thumbnailGroup.getPreferredBoundsWidth()/thumbnailGroup.getPreferredBoundsHeight();
+                
+                if (unscaledWidth / realRatio < unscaledHeight)
+                {
+                    // width is restrictive size
+                    imageWidth = unscaledWidth;
+                    imageHeight = unscaledWidth / realRatio;
+                }
+                else
+                {
+                    // height is restrictive size
+                    imageWidth = unscaledHeight * realRatio;
+                    imageHeight = unscaledHeight;
+                }
+                
+                thumbnailGroup.setLayoutBoundsSize(imageWidth, imageHeight);
+                
+                // center the thumbnailGroup
+                thumbnailGroup.x = (unscaledWidth - imageWidth)/2;
+                thumbnailGroup.y = (unscaledHeight - imageHeight)/2;
+            }
+            
+            return;
+        }
         
         var flvPlayer:VideoPlayer = videoPlayer;
         
@@ -1035,7 +1185,12 @@ public class VideoElement extends UIComponent
         if (!initializedOnce)
             return;
         
+        // if source is null or in a bad connection state, don't do anything
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
+            return;
+        
+        // if have a thumbnailSource, no method calls are valid
+        if (thumbnailSource)
             return;
         
         setPlaying(false);
@@ -1054,7 +1209,7 @@ public class VideoElement extends UIComponent
     public function play():void
     {
         // can't call any methods before we've initialized
-        if (!initializedOnce)
+        if (!initializedOnce || thumbnailSource)
             return;
         
         // check for 2 cases: streaming video or progressive download
@@ -1216,7 +1371,12 @@ public class VideoElement extends UIComponent
         if (!initializedOnce)
             return;
         
+        // if source is null or in a bad connection state, don't do anything
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
+            return;
+        
+        // if have a thumbnailSource, no method calls are valid
+        if (thumbnailSource)
             return;
         
         if (time < 0)
@@ -1245,7 +1405,12 @@ public class VideoElement extends UIComponent
         if (!initializedOnce)
             return;
         
+        // if source is null or in a bad connection state, don't do anything
         if (source == null || videoPlayer.state == VideoState.CONNECTION_ERROR)
+            return;
+        
+        // if have a thumbnailSource, no method calls are valid
+        if (thumbnailSource)
             return;
         
         setPlaying(false);
