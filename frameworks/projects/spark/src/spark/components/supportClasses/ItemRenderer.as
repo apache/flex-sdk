@@ -23,7 +23,7 @@ import spark.components.DataGroup;
 import spark.components.Group;
 import spark.components.IItemRenderer;
 import spark.components.DataRenderer; 
-import spark.primitives.supportClasses.TextGraphicElement;
+import spark.components.supportClasses.TextBase;
 
 use namespace mx_internal; 
 
@@ -220,7 +220,7 @@ public class ItemRenderer extends DataRenderer implements IItemRenderer
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public var labelDisplay:TextGraphicElement;
+    public var labelDisplay:TextBase;
     
     //----------------------------------
     //  showsCaret
