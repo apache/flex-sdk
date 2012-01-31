@@ -17,6 +17,8 @@ kernel FxCrossfade
     description : "Crossfade between two images, for use with Flex effects"; >
 {
    parameter float progress;
+   parameter float width;
+   parameter float height;
 
    // First parameter is unused in FxAnimateShaderTransition effect
    input image4 src0;
@@ -35,5 +37,8 @@ kernel FxCrossfade
         
         // Output equals mixture of two pixels, according to progress value
         dst = mix(fromPixel, toPixel, progress);
+        // workaround for Flash filter bug that replicates last column/row
+        if (coord.x >= width || coord.y >= height)
+            dst.a = 0.0;
    }
 }
