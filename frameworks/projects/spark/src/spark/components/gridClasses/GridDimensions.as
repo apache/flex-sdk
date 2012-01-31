@@ -333,7 +333,7 @@ public class GridDimensions
      *  If variableRowHeight is false, calling getRowHeight
      *  will return the value of defaultRowHeight.
      */
-    public var variableRowHeight:Boolean = true;
+    public var variableRowHeight:Boolean = false;  // default value must match Grid property default value
     
     //----------------------------------
     //  minRowHeight
@@ -1115,7 +1115,7 @@ public class GridDimensions
         if (nRows > 1)
             contentHeight += (nRows - 1) * rowGap;
         
-        if (!variableRowHeight || !isNaN(defaultRowHeight))
+        if (!isNaN(defaultRowHeight))
             return contentHeight + nRows * defaultRowHeight;
         
         return 0;
