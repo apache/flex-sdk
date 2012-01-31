@@ -65,7 +65,7 @@ public class Linear implements IEaser
     /**
      * The percentage an animation will spend accelerating.
      * easeOutFraction and easeInFraction must satisfy the
-     * equation <code>easeOutFraction + easeInFraction <= 1</code>
+     * equation <code>easeOutFraction + easeInFraction &lt;= 1</code>
      * where any remaining time in the middle will be spent in 
      * linear interpolation.
      * 
@@ -88,7 +88,7 @@ public class Linear implements IEaser
     /**
      * The percentage an animation will spend decelerating.
      * easeOutFraction and easeInFraction must satisfy the
-     * equation <code>easeOutFraction + easeInFraction <= 1</code>
+     * equation <code>easeOutFraction + easeInFraction &lt;= 1</code>
      * where any remaining time in the middle will be spent in 
      * linear interpolation.
      * 
