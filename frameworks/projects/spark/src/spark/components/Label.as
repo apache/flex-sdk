@@ -802,9 +802,15 @@ public class SimpleText extends TextGraphicElement
 			// of its baseline, not of its top.
             nextY += (n == 0 ? nextTextLine.ascent : actualLineHeight);
 			
-			// If it is completely outside the rectangle, we're done.
-			if (nextY - nextTextLine.ascent > innerHeight)
+			// If verticalAlign is top and the next line is completely outside 
+			// the rectangle, we're done.  If verticalAlign is middle or bottom
+			// then we need to compose all the lines so the alignment is done
+			// correctly.
+			if (verticalAlign == "top" && 
+			    nextY - nextTextLine.ascent > innerHeight)
+			{
 				break;
+			}
 
 			// We'll keep this line. Put it into the textLines array.
 			textLine = nextTextLine;
@@ -1244,7 +1250,7 @@ public class SimpleText extends TextGraphicElement
     
     /**
 	 *  @private
-     *  Cleans up and sets the validity of the lines disassociated 
+     *  Cleans up and sets the validity of the lines associated 
      *  with the TextBlock to TextLineValidity.INVALID.
      */
     private function releaseLinesFromTextBlock():void
