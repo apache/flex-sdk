@@ -22,6 +22,7 @@ import flash.utils.Timer;
 
 import mx.components.baseClasses.FxComponent;
 import mx.events.FlexEvent;
+import mx.events.SandboxMouseEvent;
 import mx.core.IDataRenderer;
 import mx.graphics.graphicsClasses.TextGraphicElement;
 import mx.managers.IFocusManagerComponent;
@@ -488,8 +489,8 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      */
     private function addSystemMouseHandlers():void
     {
-        systemManager.addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler, true /*useCapture*/);
-        systemManager.stage.addEventListener(Event.MOUSE_LEAVE, mouseEventHandler);             
+        systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, mouseEventHandler, true /*useCapture*/);
+        systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);             
     }
 
     /**
@@ -499,8 +500,8 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      */
     private function removeSystemMouseHandlers():void
     {
-        systemManager.removeEventListener(MouseEvent.MOUSE_UP, mouseEventHandler, true /*useCapture*/);
-        systemManager.stage.removeEventListener(Event.MOUSE_LEAVE, mouseEventHandler);
+        systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, mouseEventHandler, true /*useCapture*/);
+        systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_UP_SOMEWHERE, mouseEventHandler);
     }
     
     /**
@@ -508,11 +509,12 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
      *  where appropriate and updates the <code>hoveredOver</code> and
      *  <code>mouseCaptured</code> properties.
      *  <p>This method gets called to handle MouseEvent.ROLL_OVER, MouseEvent.ROLL_OUT,
-     *  MouseEvent.MOUSE_DOWN, MouseEvent.MOUSE_UP, MouseEvent.CLICK and Event.MOUSE_LEAVE.</p>
-     *  <p>For MouseEvent.MOUSE_UP and Event.MOUSE_LEAVE, the event target can be other than the
-     *  FxButton - for example when the user presses the FxButton, we listen for MOUSE_UP
-     *  on the stage to handle cases where the user drags outside the FxButton and releases
-     *  the mouse.</p>
+     *  MouseEvent.MOUSE_DOWN, MouseEvent.MOUSE_UP, MouseEvent.CLICK and 
+     *  SandboxMouseEvent.MOUSE_UP_SOMEWHERE.</p>
+     *  <p>For MouseEvent.MOUSE_UP and SandboxMouseEvent.MOUSE_UP_SOMEWHERE, the event 
+     *  target can be other than the FxButton - for example when the user presses the 
+     *  FxButton, we listen for MOUSE_UP and MOUSE_UP_SOMEWHERE to handle cases where the user drags
+     *  outside the FxButton and releases the mouse.</p>
      */
     protected function mouseEventHandler(event:Event):void
     {
@@ -549,7 +551,7 @@ public class FxButton extends FxComponent implements IFocusManagerComponent, IDa
                 if (event.currentTarget == this)
                     hoveredOver = true;
             } //fallthrough:
-            case Event.MOUSE_LEAVE:
+            case SandboxMouseEvent.MOUSE_UP_SOMEWHERE:
             {
                 mouseCaptured = false;
                 break;
