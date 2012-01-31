@@ -117,6 +117,7 @@ MenuItemRenderer
 
 NumericStepper
 {
+	textFieldClass: ClassReference("mx.core.UIFTETextField");
 	textInputClass: ClassReference("mx.controls.MXFTETextInput");
 }
 
