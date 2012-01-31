@@ -2489,7 +2489,7 @@ public class RichEditableText extends UIComponent
      */
     mx_internal function isMeasureFixed():Boolean
     {
-        if (hostFormat.blockProgression != BlockProgression.TB)
+        if (!hostFormat || hostFormat.blockProgression != BlockProgression.TB)
             return true;
             
         // Is there some sort of width and some sort of height?
@@ -2685,7 +2685,7 @@ public class RichEditableText extends UIComponent
 
         var effectiveWidthInChars:int;
                 
-        // If both height and width are NaN use 15 chars.  Otherwise if only 
+        // If both height and width are NaN use 10 chars.  Otherwise if only 
         // width is NaN, use 1.                
         if (isNaN(_widthInChars))
            effectiveWidthInChars = isNaN(_heightInLines) ? 10 : 1;
