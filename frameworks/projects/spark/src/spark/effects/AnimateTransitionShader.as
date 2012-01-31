@@ -293,7 +293,7 @@ public class AnimateTransitionShader extends Animate
                 // Passing in a non-null bounds parameter forces getSnapshot()
                 // to return the visual bounds of the object
                 bounds = new Rectangle();
-                bmData = BitmapUtil.getSnapshot(IUIComponent(target), bounds);
+                bmData = BitmapUtil.getSnapshot(IUIComponent(target), bounds, true);
             }
         }
         catch (e:SecurityError)
