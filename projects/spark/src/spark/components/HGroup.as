@@ -44,6 +44,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *    <strong>Properties</strong>
  *    columnWidth="no default"
  *    gap="6"
+ *    horizontalAlign="top"
  *    paddingBottom="0"
  *    paddingLeft="0"
  *    paddingRight="0"
