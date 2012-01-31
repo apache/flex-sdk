@@ -196,6 +196,8 @@ public class DropDownList extends DropDownListBase
      */
     private var _prompt:String = "";
 
+    [Inspectable(category="General", defaultValue="")]
+    
     /**
      *  The prompt for the DropDownList control. 
      *  The prompt is a String that is displayed in the
@@ -234,6 +236,8 @@ public class DropDownList extends DropDownListBase
     //  Overridden Properties
     //
     //--------------------------------------------------------------------------
+    
+    [Inspectable(category="Data")]
     
     /**
      *  Layouts use the preferred size of the <code>typicalItem</code>
