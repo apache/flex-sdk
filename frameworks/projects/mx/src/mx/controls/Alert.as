@@ -19,8 +19,8 @@ import flash.events.Event;
 import flash.events.EventPhase;
 import mx.containers.Panel;
 import mx.controls.alertClasses.AlertForm;
-import mx.core.ApplicationGlobals;
 import mx.core.EdgeMetrics;
+import mx.core.FlexGlobals;
 import mx.core.FlexVersion;
 import mx.core.IFlexDisplayObject;
 import mx.core.mx_internal;
@@ -560,11 +560,11 @@ public class Alert extends Panel
 
         if (!parent)
         {
-            var sm:ISystemManager = ISystemManager(ApplicationGlobals.application.systemManager);
+            var sm:ISystemManager = ISystemManager(FlexGlobals.topLevelApplication.systemManager);
             if (sm.useSWFBridge())
                 parent = Sprite(sm.getSandboxRoot());
             else
-                parent = Sprite(ApplicationGlobals.application);
+                parent = Sprite(FlexGlobals.topLevelApplication);
         }
         
         var alert:Alert = new Alert();
