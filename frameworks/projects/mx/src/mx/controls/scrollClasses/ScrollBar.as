@@ -1229,7 +1229,7 @@ public class ScrollBar extends UIComponent
         if (cacheAsBitmap)
         {
             cacheHeuristic = false;
-            if(scrollThumb)
+            if (scrollThumb)
             	scrollThumb.cacheHeuristic = false;
         }
        
