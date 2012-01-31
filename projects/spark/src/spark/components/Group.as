@@ -104,20 +104,6 @@ public class Group extends GroupBase implements IVisualElementContainer
             invalidateDisplayObjectOrdering();            
     }
 
-    /**
-     *  @private
-     */
-    override public function set cacheAsBitmap(value:Boolean):void
-    {
-        // Work-around for Flash Player bug: if GraphicElements share
-        // the Group's Display Object and cacheAsBitmap is true, the
-        // scrollRect won't function correctly. 
-        var previous:Boolean = canShareDisplayObject;
-        super.cacheAsBitmap = value;
-        if (numGraphicElements > 0 && previous != canShareDisplayObject)
-            invalidateDisplayObjectOrdering();            
-    }
-
     //----------------------------------
     //  alpha
     //----------------------------------
@@ -838,7 +824,9 @@ public class Group extends GroupBase implements IVisualElementContainer
         // Work-around for Flash Player bug: if GraphicElements share
         // the Group's Display Object and cacheAsBitmap is true, the
         // scrollRect won't function correctly.
-        if (cacheAsBitmap && scrollRect)
+        // We can't even check the cacheAsBitmap property since that will
+        // cause a back buffer allocation, which is another FP bug.
+        if (scrollRect)
             return false;
  
         // we can't share ourselves if we're in blendMode != normal, or we have 
