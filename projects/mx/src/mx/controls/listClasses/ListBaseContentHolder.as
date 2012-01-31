@@ -40,12 +40,6 @@ include "../../styles/metadata/PaddingStyles.as"
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
 
-//--------------------------------------
-//  Other metadata
-//--------------------------------------
-
-[ExcludeClass]
-
 /**
  *  The ListBaseContentHolder class defines a container in a list-based control
  *  of all of the control's item renderers and item editors.
