@@ -11,6 +11,7 @@
 package spark.effects
 {
 import flash.display.BitmapData;
+import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 import mx.core.IUIComponent;
@@ -254,7 +255,9 @@ public class AnimateTransitionShader extends Animate
         // We track visible and parent so that we can automatically
         // perform transitions from/to states where the target either
         // does not exist or is not visible
-        return ["bitmap", "visible", "parent"];
+        // Note that 'bitmapInfo' is an Object map containing both a bitmap
+        // and the visual bounds of that bitmap on the screen
+        return ["bitmapInfo", "visible", "parent"];
     }
 
     /**
@@ -262,7 +265,7 @@ public class AnimateTransitionShader extends Animate
      */
     override protected function getValueFromTarget(target:Object, property:String):*
     {
-        if (property != "bitmap")
+        if (property != "bitmapInfo")
             return super.getValueFromTarget(target, property);
 
         // Return a null bitmap for non-visible targets        
@@ -273,23 +276,39 @@ public class AnimateTransitionShader extends Animate
             throw new Error(resourceManager.getString("sparkEffects", "cannotOperateOn"));
         var bmData:BitmapData;
         var tempFilters:Array = target.filters;
+        var bounds:Rectangle;
         target.filters = [];
         
         try
         {
             if (target is GraphicElement)
+            {
                 bmData = GraphicElement(target).captureBitmapData(true, 0, false);
+                // The GraphicElement version does not calculate the visual bounds,
+                // so just create dummy bounds with the correct width/height
+                bounds = new Rectangle(0, 0, bmData.width, bmData.height);
+            }
             else
-                bmData = BitmapUtil.getSnapshot(IUIComponent(target));
+            {
+                // Passing in a non-null bounds parameter forces getSnapshot()
+                // to return the visual bounds of the object
+                bounds = new Rectangle();
+                bmData = BitmapUtil.getSnapshot(IUIComponent(target), bounds);
+            }
         }
         catch (e:SecurityError)
         {
             // Do nothing and let it return null.
         }
+        // The effect instance will retrieve the bitmap and bounds from the object
+        // stored here
+        var bmHolder:Object = new Object();
+        bmHolder["bitmap"] = bmData;
+        bmHolder["bounds"] = bounds;
         
         target.filters = tempFilters;
         
-        return bmData;
+        return bmHolder;
     }
     
     /**
