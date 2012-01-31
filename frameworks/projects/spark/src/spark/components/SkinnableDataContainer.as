@@ -19,9 +19,26 @@ import mx.core.IFactory;
 import mx.core.IViewport;
 import mx.events.FlexEvent;
 import mx.events.PropertyChangeEvent;
+import mx.events.RendererExistenceEvent;
 import mx.layout.LayoutBase;
 import mx.managers.IFocusManagerContainer;
 import mx.utils.BitFlagUtil;
+
+/**
+ *  Dispatched when a renderer is added to the content holder.
+ * <code>event.renderer</code> is the renderer that was added.
+ *
+ *  @eventType mx.events.RendererExistenceEvent.RENDERER_ADD
+ */
+[Event(name="rendererAdd", type="mx.events.RendererExistenceEvent")]
+
+/**
+ *  Dispatched when a renderer is removed from the content holder.
+ * <code>event.renderer</code> is the renderer that was removed.
+ *
+ *  @eventType mx.events.RendererExistenceEvent.ITEM_REMOVE
+ */
+[Event(name="rendererRemove", type="mx.events.RendererExistenceEvent")]
 
 include "../styles/metadata/BasicTextLayoutFormatStyles.as"
 
@@ -73,17 +90,27 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     /**
      *  @private
      */
-    private static const DATA_PROVIDER_PROPERTY_FLAG:uint = 1 << 4;
+    private static const AUTO_LAYOUT_PROPERTY_FLAG:uint = 1 << 4;
     
     /**
      *  @private
      */
-    private static const ITEM_RENDERER_PROPERTY_FLAG:uint = 1 << 5;
+    private static const DATA_PROVIDER_PROPERTY_FLAG:uint = 1 << 5;
     
     /**
      *  @private
      */
-    private static const ITEM_RENDERER_FUNCTION_PROPERTY_FLAG:uint = 1 << 6;
+    private static const ITEM_RENDERER_PROPERTY_FLAG:uint = 1 << 6;
+    
+    /**
+     *  @private
+     */
+    private static const ITEM_RENDERER_FUNCTION_PROPERTY_FLAG:uint = 1 << 7;
+    
+    /**
+     *  @private
+     */
+    private static const TYPICAL_ITEM_PROPERTY_FLAG:uint = 1 << 8;
 
     //--------------------------------------------------------------------------
     //
@@ -145,6 +172,42 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     //  Properties proxied to dataGroup
     //
     //--------------------------------------------------------------------------
+    
+    //----------------------------------
+    //  autoLayout
+    //----------------------------------
+
+    [Inspectable(defaultValue="true")]
+
+    /**
+     *  @copy mx.components.baseClasses.GroupBase#autoLayout
+     */
+    public function get autoLayout():Boolean
+    {
+        if (dataGroup)
+            return dataGroup.autoLayout;
+        else
+        {
+            // want the default to be true
+            return (dataGroupProperties.autoLayout === undefined) ?
+                    true : false
+        }
+    }
+
+    /**
+     *  @private
+     */
+    public function set autoLayout(value:Boolean):void
+    {
+        if (dataGroup)
+        {
+            dataGroup.autoLayout = value;
+            dataGroupProperties = BitFlagUtil.update(dataGroupProperties as uint, 
+                                                     AUTO_LAYOUT_PROPERTY_FLAG, true);
+        }
+        else
+            dataGroupProperties.autoLayout = value;
+    }
     
     //----------------------------------
     //  clipAndEnableScrolling
@@ -353,6 +416,35 @@ public class FxDataContainer extends FxContainerBase implements IViewport
     }
     
     //----------------------------------
+    //  typicalItem
+    //----------------------------------
+
+    /**
+     *  @copy mx.components.DataGroup#typicalItem
+     */
+    public function get typicalItem():Object
+    {
+        return (dataGroup) 
+            ? dataGroup.typicalItem 
+            : dataGroupProperties.typicalItem;
+    }
+
+    /**
+     *  @private
+     */
+    public function set typicalItem(value:Object):void
+    {
+        if (dataGroup)
+        {
+            dataGroup.typicalItem = value;
+            dataGroupProperties = BitFlagUtil.update(dataGroupProperties as uint, 
+                                                     TYPICAL_ITEM_PROPERTY_FLAG, true);
+        }
+        else
+            dataGroupProperties.typicalItem = value;
+    }
+    
+    //----------------------------------
     //  verticalScrollPosition
     //----------------------------------
     
@@ -479,8 +571,29 @@ public class FxDataContainer extends FxContainerBase implements IViewport
             
             dataGroupProperties = newDataGroupProperties;
             
-            dataGroup.addEventListener(
-                PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
+            if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                // the only reason we have this listener is to re-dispatch events.  So only add it here
+                // if someone's listening on us.
+                dataGroup.addEventListener(
+                    PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
+            }
+            
+            if (hasEventListener(RendererExistenceEvent.RENDERER_ADD))
+            {
+                // the only reason we have this listener is to re-dispatch events.  So only add it here
+                // if someone's listening on us.
+                dataGroup.addEventListener(
+                    RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+            }
+            
+            if (hasEventListener(RendererExistenceEvent.RENDERER_REMOVE))
+            {
+                // the only reason we have this listener is to re-dispatch events.  So only add it here
+                // if someone's listening on us.
+                dataGroup.addEventListener(
+                    RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
+            }
         }
     }
     
@@ -490,6 +603,10 @@ public class FxDataContainer extends FxContainerBase implements IViewport
         {
             dataGroup.removeEventListener(
                 PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
+            dataGroup.removeEventListener(
+                RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+            dataGroup.removeEventListener(
+                RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
             
             // copy proxied values from dataGroup (if explicitely set) to dataGroupProperties
             
@@ -522,15 +639,94 @@ public class FxDataContainer extends FxContainerBase implements IViewport
         }
     }
     
+    /**
+     *  @private
+     * 
+     *  This method is overridden so we can figure out when someone starts listening
+     *  for property change events.  If no one's listening for them, then we don't 
+     *  listen for them on our dataGroup.
+     */
+    override public function addEventListener(
+        type:String, listener:Function, useCapture:Boolean=false, priority:int=0, useWeakReference:Boolean=false) : void
+    {
+        super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+        
+        // TODO (rfrishbe): this isn't ideal as we should deal with the useCapture, 
+        // priority, and useWeakReference parameters.
+        
+        // if it's a different type of event or the dataGroup doesn't
+        // exist, don't worry about it.  When the dataGroup, 
+        // gets created up, we'll check to see whether we need to add this 
+        // event listener to the dataGroup.
+        if (type == PropertyChangeEvent.PROPERTY_CHANGE && dataGroup)
+        {
+            dataGroup.addEventListener(
+                PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
+        }
+        
+        if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
+        {
+            dataGroup.addEventListener(
+                RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+        }
+        
+        if (type == RendererExistenceEvent.RENDERER_REMOVE && dataGroup)
+        {
+            dataGroup.addEventListener(
+                RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
+        }
+    }
+    
+    /**
+     *  @private
+     * 
+     *  This method is overridden so we can figure out when someone stops listening
+     *  for property change events.  If no one's listening for them, then we don't 
+     *  listen for them on our dataGroup.
+     */
+    override public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false) : void
+    {
+        super.removeEventListener(type, listener, useCapture);
+        
+        // if no one's listening to us for this event any more, let's 
+        // remove our underlying event listener from the dataGroup.
+        if (type == PropertyChangeEvent.PROPERTY_CHANGE && dataGroup)
+        {
+            if (!hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE))
+            {
+                dataGroup.removeEventListener(
+                    PropertyChangeEvent.PROPERTY_CHANGE, dataGroup_propertyChangeHandler);
+            }
+        }
+        
+        if (type == RendererExistenceEvent.RENDERER_ADD && dataGroup)
+        {
+            if (!hasEventListener(RendererExistenceEvent.RENDERER_ADD))
+            {
+                dataGroup.removeEventListener(
+                    RendererExistenceEvent.RENDERER_ADD, dispatchEvent);
+            }
+        }
+        
+        if (type == RendererExistenceEvent.RENDERER_REMOVE && dataGroup)
+        {
+            if (!hasEventListener(RendererExistenceEvent.RENDERER_REMOVE))
+            {
+                dataGroup.removeEventListener(
+                    RendererExistenceEvent.RENDERER_REMOVE, dispatchEvent);
+            }
+        }
+    }
+    
     //--------------------------------------------------------------------------
     //
     //  Event Handlers
     //
     //--------------------------------------------------------------------------
     
-   /**
-    * @private
-    */
+    /**
+     * @private
+     */
     private function dataGroup_propertyChangeHandler(event:PropertyChangeEvent):void
     {
         // Re-dispatch the event if it's one other people are binding too
