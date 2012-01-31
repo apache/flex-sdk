@@ -11,9 +11,28 @@
 package spark.effects.easing
 {
 /**
- * Provides easing functionality using a polynomial expression, where the
- * instance is created with a <code>power</code> parameter describing the 
- * behavior of the expression.
+ *  The Power class defines the easing functionality using a polynomial expression.
+ *  Easing consists of two phases: the acceleration, or ease in phase, 
+ *  followed by the deceleration, or ease out phase. 
+ *  The rate of acceleration and deceleration is based on 
+ *  the <code>exponent</code> property. 
+ *  The higher the value of the <code>exponent</code> property, 
+ *  the greater the acceleration and deceleration. 
+ *  Use the <code>easeInFraction</code> property to specify the percentage 
+ *  of an animation accelerating.
+ *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;mx:Power&gt;</code> tag
+ *  inherits all of the tag attributes of its of its superclass,
+ *  and adds the following tag attributes:</p>
+ *  
+ *  <pre>
+ *  &lt;mx:Power
+ *    id="ID"
+ *    exponent="2" 
+ *   /&gt;
+ *  </pre>
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -32,13 +51,15 @@ public class Power extends EaseInOutBase
      */
     private var _exponent:int;
     /**
-     * The exponent that will be used in the easing calculation. For example,
-     * to get quadratic behavior, set exponent equal to 2. To get cubic
-     * behavior, set exponent equal to 3. A value of 1 represents linear
-     * motion, while a value of 0 simply returns 1 from the ease
-     * method.
-     * 
-     * @default 2
+     *  The exponent used in the easing calculation. 
+     *  The higher the value of the <code>exponent</code> property, 
+     *  the greater the acceleration and deceleration. 
+     *  For example, to get quadratic behavior, set <code>exponent</code> to 2. 
+     *  To get cubic behavior, set <code>exponent</code> to 3. 
+     *  A value of 1 represents linear motion, and a value of 0 
+     *  returns 1 from the <code>ease()</code> method.
+     *  
+     *  @default 2
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -55,8 +76,12 @@ public class Power extends EaseInOutBase
     }
     
     /**
-     * Constructs a Power instance with optional easeInFraction and exponent
-     * values
+     * Constructor.
+     *  
+     *  @param easeInFraction The fraction of the overall duration 
+     *  in the acceleration phase, between 0.0 and 1.0.
+     *
+     *  @param exponent The exponent used in the easing calculation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -70,10 +95,16 @@ public class Power extends EaseInOutBase
     }
 
     /**
-     * @inheritDoc
+     *  Returns a value that represents the eased fraction during the 
+     *  ease in phase of the animation. 
+     *  The easing calculation for Power is equal to 
+     *  <code>fraction^^exponent</code>.
+     *
+     *  @param fraction The fraction elapsed of the easing in phase
+     *  of the animation, between 0.0 and 1.0.
      * 
-     * The easeIn calculation for Power is equal to 
-     * <code>fraction^^exponent</code>.
+     *  @return A value that represents the eased value for this
+     *  phase of the animation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -86,10 +117,16 @@ public class Power extends EaseInOutBase
     }
     
     /**
-     * @inheritDoc
-     * 
-     * The easeOut calculation for Power is equal to 
+     *  Returns a value that represents the eased fraction during the 
+     *  ease out phase of the animation. 
+     *  The easing calculation for Power is equal to 
      * <code>1 - ((1-fraction)^^exponent)</code>.
+     *
+     *  @param fraction The fraction elapsed of the easing out phase
+     *  of the animation, between 0.0 and 1.0.
+     * 
+     *  @return A value that represents the eased value for this
+     *  phase of the animation.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
