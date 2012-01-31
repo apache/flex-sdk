@@ -768,20 +768,33 @@ public class RichText extends TextGraphicElement
      */
     private function createTextFlowFromContent(content:Object):TextFlow
     {
-        var textFlow:TextFlow = new TextFlow();
-
-        // The whiteSpaceCollapse format determines how whitespace
-        // is processed when the children are set.
-        staticTextLayoutFormat.whiteSpaceCollapse =
-            getStyle("whiteSpaceCollapse");
-        textFlow.hostFormat = staticTextLayoutFormat;
-
-        textFlow.mxmlChildren = content is Array ?
-        						content as Array :
-        						[ content ];
-
-        return textFlow;
-    }
+		var textFlow:TextFlow ;
+		
+		// The whiteSpaceCollapse format determines how whitespace
+		// is processed when the children are set.
+		staticTextLayoutFormat.whiteSpaceCollapse =
+			getStyle("whiteSpaceCollapse");
+		
+		if (content is TextFlow)
+		{
+			textFlow = content as TextFlow;
+			textFlow.hostFormat = staticTextLayoutFormat;
+		}
+		else if (content is Array)
+		{
+			textFlow = new TextFlow();
+			textFlow.hostFormat = staticTextLayoutFormat;
+			textFlow.mxmlChildren = content as Array;
+		}
+		else
+		{
+			textFlow = new TextFlow();
+			textFlow.hostFormat = staticTextLayoutFormat;
+			textFlow.mxmlChildren = [ content ];
+		}
+		
+		return textFlow;
+	}
 
 	/**
 	 *  @private
