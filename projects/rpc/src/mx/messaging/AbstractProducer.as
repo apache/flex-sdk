@@ -194,13 +194,13 @@ public class AbstractProducer extends MessageAgent
      *  that the destination is unavailable or the connection to the destination closes. 
      *  A value of -1 enables infinite attempts.
      *  A value of zero disables reconnect attempts.
-     * 
+     *  
      *  <p>Reconnect attempts are made at a constant rate according to the reconnect interval
      *  value. When a reconnect attempt is made if the underlying channel for the Producer is not
      *  connected or attempting to connect the channel will start a connect attempt. 
      *  Subsequent Producer reconnect attempts that occur while the underlying
      *  channel connect attempt is outstanding are effectively ignored until
-     *  the outstanding channel connect attempt succeeds or fails. </p>
+     *  the outstanding channel connect attempt succeeds or fails.</p>
      * 
      *  @see mx.messaging.Producer#reconnectInterval
      */
@@ -238,17 +238,17 @@ public class AbstractProducer extends MessageAgent
 
     /**
      *  The number of milliseconds between reconnect attempts.
-     *  If a Producer does not receive an acknowledgement for a connect
+     *  If a Producer doesn't receive an acknowledgement for a connect
      *  attempt, it will wait the specified number of milliseconds before 
      *  making a subsequent reconnect attempt. 
      *  Setting the value to zero disables reconnect attempts.
-     * 
+     *  
      *  <p>Reconnect attempts are made at a constant rate according to this
      *  value. When a reconnect attempt is made if the underlying channel for the Producer is not
      *  connected or attempting to connect the channel will start a connect attempt. 
      *  Subsequent Producer reconnect attempts that occur while the underlying
      *  channel connect attempt is outstanding are effectively ignored until
-     *  the outstanding channel connect attempt succeeds or fails.  </p>
+     *  the outstanding channel connect attempt succeeds or fails.</p>
      * 
      *  @see mx.messaging.Producer#reconnectInterval  
      * 
@@ -303,7 +303,7 @@ public class AbstractProducer extends MessageAgent
      *  @param msg The original message.
      */
     override public function acknowledge(ackMsg:AcknowledgeMessage, msg:IMessage):void
-    {       
+    {        
         // Ignore acks for any outstanding messages that return after disconnect() is invoked.
         if (_disconnectBarrier)
             return;
@@ -315,7 +315,7 @@ public class AbstractProducer extends MessageAgent
     
     /**
      *  @private
-     *  The Producer supresses ErrorMessage processing if the fault is for a connect
+     *  The Producer suppresses ErrorMessage processing if the fault is for a connect
      *  attempt that is being retried.
      * 
      *  @param errMsg The ErrorMessage describing the fault.
@@ -340,7 +340,7 @@ public class AbstractProducer extends MessageAgent
         
         if (_shouldBeConnected && !event.rejected)
             startReconnectTimer();
-    }   
+    }    
 
     /**
      *  @private
@@ -360,7 +360,7 @@ public class AbstractProducer extends MessageAgent
     /**
      *  Disconnects the Producer from its remote destination.
      *  This method does not wait for outstanding network operations to complete.
-     *  After invoking the <code>disconnect()</code> method, the Producer reports that it is not
+     *  After invoking <code>disconnect()</code>, the Producer will report that it is not
      *  connected and it will not receive any outstanding message acknowledgements or faults.
      *  Disconnecting stops automatic reconnect attempts if they are running.
      */
@@ -371,7 +371,7 @@ public class AbstractProducer extends MessageAgent
         stopReconnectTimer();
             
         super.disconnect();
-    }   
+    }    
 
     //--------------------------------------------------------------------------
     //
@@ -383,21 +383,19 @@ public class AbstractProducer extends MessageAgent
      *  Connects the Producer to its target destination.
      *  When a connection is established the <code>connected</code> property will
      *  change to <code>true</code> and this property is bindable and generates
-     *  <code>PropertyChangeEvent</code> events.
-     *  The underlying <code>CLIENT_PING_OPERATION</code> CommandMessage that is sent will result
+     *  <code>PropertyChangeEvent</code>s.
+     *  The underlying CLIENT_PING_OPERATION CommandMessage that is sent will result
      *  in an acknowledge or fault event depending upon its success.
      * 
-     *  <p>The following example uses this method:</p>
+     *  @throws mx.messaging.errors.InvalidDestinationError  If no destination is set.
      * 
+     *  @example
      *  <pre>
      *     var producer:Producer = new Producer();
      *     producer.destination = "TestTopic";
      *     producer.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, handleConnect);
      *     producer.connect();
      *  </pre>
-     *
-     *  @throws mx.messaging.errors.InvalidDestinationError  If no destination is set.
-     * 
      */
     public function connect():void
     {
@@ -407,8 +405,8 @@ public class AbstractProducer extends MessageAgent
             
             if (_connectMsg == null)
                 _connectMsg = buildConnectMessage();   
-            internalSend(_connectMsg, false);       
-        }       
+            internalSend(_connectMsg, false);         
+        }        
     }
 
     //--------------------------------------------------------------------------
@@ -424,8 +422,11 @@ public class AbstractProducer extends MessageAgent
      *  message destination on the server has been configured to process the
      *  custom message type.
      *
-     *  <p>The following example uses this method:</p>
+     *  @param message The Message to send.
      * 
+     *  @throws mx.messaging.errors.InvalidDestinationError  If no destination is set.
+     * 
+     *  @example
      *  <pre>
      *     var producer:Producer = new Producer();
      *     producer.destination = "TestTopic";
@@ -434,9 +435,6 @@ public class AbstractProducer extends MessageAgent
      *     producer.send(msg);
      *  </pre>
      *
-     *  @param message The message to send.
-     * 
-     *  @throws mx.messaging.errors.InvalidDestinationError  If no destination is set.
      */
     public function send(message:IMessage):void
     {
@@ -480,7 +478,7 @@ public class AbstractProducer extends MessageAgent
 
     /**
      *  @private
-     *  The Producer supresses ErrorMessage processing if the fault is for a connect
+     *  The Producer suppresses ErrorMessage processing if the fault is for a connect
      *  attempt that is being retried.
      * 
      *  @param errMsg The ErrorMessage describing the fault.
@@ -488,7 +486,7 @@ public class AbstractProducer extends MessageAgent
      *  @param msg The original message.
      * 
      *  @param routeToStore currently not used.  Previously was a flag used to
-     *  indicate if the faulted message should be stored offline to retry.
+     *  indicate if the faulted message shoudl be stored offline to retry.
      * 
      *  @param ignoreDisconnectBarrier If true the message is faulted regardless 
      *  of whether disconnect() has been invoked. Generally a disconnect() will 
@@ -529,7 +527,7 @@ public class AbstractProducer extends MessageAgent
         {
             super.fault(errMsg, msg);
         }
-    }   
+    }    
 
     //--------------------------------------------------------------------------
     //
@@ -565,7 +563,7 @@ public class AbstractProducer extends MessageAgent
             _connectMsg = buildConnectMessage();
 
         internalSend(_connectMsg, false);
-    }   
+    }    
     
     /**
      *  @private
@@ -644,7 +642,7 @@ public class AbstractProducer extends MessageAgent
     private function buildConnectMessage():CommandMessage
     {
         var msg:CommandMessage = new CommandMessage();
-        msg.operation = CommandMessage.CLIENT_PING_OPERATION;
+        msg.operation = CommandMessage.TRIGGER_CONNECT_OPERATION;
         msg.clientId = clientId;
         msg.destination = destination;
         return msg;
