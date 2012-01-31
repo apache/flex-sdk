@@ -98,6 +98,14 @@ public class FxAnimateInstance extends EffectInstance
     private var resourceManager:IResourceManager =
                                     ResourceManager.getInstance();
     
+    /**
+     * @private
+     * Cache these values when disabling constraints, to correctly reset
+     * width/height values when we finish
+     */
+    private var oldWidth:Number;
+    private var oldHeight:Number;
+
     //--------------------------------------------------------------------------
     //
     // Properties
@@ -840,19 +848,23 @@ public class FxAnimateInstance extends EffectInstance
 
                 // TODO EGeorgie: add support for 'baseline' constraint, when the new layouts support it.
             }
-            reenableConstraint("left");
-            reenableConstraint("right");
-            reenableConstraint("top");
-            reenableConstraint("bottom");
+            var left:* = reenableConstraint("left");
+            var right:* = reenableConstraint("right");
+            var top:* = reenableConstraint("top");
+            var bottom:* = reenableConstraint("bottom");
             reenableConstraint("horizontalCenter");
             reenableConstraint("verticalCenter");
             reenableConstraint("baseline");
             constraintsHolder = null;
+            if (left != undefined && right != undefined && "explicitWidth" in target)
+                target.explicitWidth = oldWidth;            
+            if (top != undefined && bottom != undefined && "explicitHeight" in target)
+                target.explicitHeight = oldHeight;
         }
     }
     
     // TODO (chaase): Use IConstraintClient for this
-    private function cacheConstraint(name:String, disable:Boolean):void
+    private function cacheConstraint(name:String, disable:Boolean):*
     {
         var isProperty:Boolean = (name in target);
         var value:*;
@@ -872,18 +884,32 @@ public class FxAnimateInstance extends EffectInstance
                 else if (target is IStyleClient)
                     target.setStyle(name, undefined);
             }
-        }        
+        }
+        return value;
     }
     
     private function cacheConstraints(disable:Boolean):void
     {
-        cacheConstraint("left", disable);
-        cacheConstraint("right", disable);
-        cacheConstraint("top", disable);
-        cacheConstraint("bottom", disable);
+        var left:* = cacheConstraint("left", disable);
+        var right:* = cacheConstraint("right", disable);
+        var top:* = cacheConstraint("top", disable);
+        var bottom:* = cacheConstraint("bottom", disable);
         cacheConstraint("verticalCenter", disable);
         cacheConstraint("horizontalCenter", disable);
         cacheConstraint("baseline", disable);
+        if (left != undefined && right != undefined && "explicitWidth" in target)
+        {
+            var w:Number = target.width;    
+            oldWidth = target.explicitWidth;
+            target.width = w;
+        }
+    
+        if (top != undefined && bottom != undefined && "explicitHeight" in target)
+        {
+            var h:Number = target.height;
+            oldHeight = target.explicitHeight;
+            target.height = h;
+        }
     }
 
     /**
