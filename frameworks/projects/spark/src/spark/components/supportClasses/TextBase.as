@@ -428,13 +428,13 @@ public class TextBase extends UIComponent
         // as we may have messed up the text lines.
         invalidateDisplayList();
         
-        // Put on next pixel boundary for crisp edges.
-        bounds.width = Math.ceil(bounds.width);        
-        bounds.height = Math.ceil(bounds.height);
+        // Put on next pixel boundary for crisp edges.  If text is aligned,
+        // x and/or y may not be 0.        
+        var newMeasuredHeight:Number = Math.ceil(bounds.bottom);
 
         // If the measured height is not affected, then constrained
         // width measurement is not neccessary.
-        if (!isNaN(_widthConstraint) && measuredHeight == bounds.height)
+        if (!isNaN(_widthConstraint) && measuredHeight == newMeasuredHeight)
             return;
             
         // Call super.measure() here insted of in the beginning of the method,
@@ -442,8 +442,8 @@ public class TextBase extends UIComponent
         // still be valid if we decided to do an early return above.
         super.measure();
 
-        measuredWidth = bounds.width;
-        measuredHeight = bounds.height;
+        measuredWidth = Math.ceil(bounds.right);
+        measuredHeight = newMeasuredHeight;
         
         // Remember the number of text lines during measure. We can use this to
         // optimize the double measure scheme for text reflow.
@@ -528,22 +528,24 @@ public class TextBase extends UIComponent
 
         var compose:Boolean = false;
         var clipText:Boolean = false;
+        var contentHeight:Number = Math.ceil(bounds.bottom);
+        var contentWidth:Number = Math.ceil(bounds.right);
         
         // FIXME (gosmith): optimize for right-to-left text so compose isn't always done
         // when height or width changes.
         if (invalidateCompose || 
-            composeForAlignStyles(unscaledWidth, unscaledHeight))
+            composeForAlignStyles(unscaledWidth, unscaledHeight, contentWidth, contentHeight))
         {
             compose = true;
         }
-        else if (unscaledHeight != bounds.height)
+        else if (unscaledHeight != contentHeight)
         {
             // Height changed.
-            if (composeOnHeightChange(unscaledHeight))
+            if (composeOnHeightChange(unscaledHeight, contentHeight))
             {
                 compose = true;
             }
-            else if (unscaledHeight < bounds.height)
+            else if (unscaledHeight < contentHeight)
             {
                 // Don't need to recompose but need to clip since not all the
                 // height is needed.
@@ -552,14 +554,14 @@ public class TextBase extends UIComponent
         }
 
         // Width changed.        
-        if (!compose && unscaledWidth != bounds.width)
+        if (!compose && unscaledWidth != contentWidth)
         {
-            if (composeOnWidthChange(unscaledWidth))
+            if (composeOnWidthChange(unscaledWidth, contentWidth))
             {
                 compose = true;
             }
             else if (getStyle("lineBreak") == "explicit" &&
-                     unscaledWidth < bounds.width)
+                     unscaledWidth < contentWidth)
             {
                 // Explicit line breaks.  Don't need to recompose but need to 
                 // clip since the not all the width is needed.
@@ -638,13 +640,17 @@ public class TextBase extends UIComponent
      *  @private
      */
     private function composeForAlignStyles(unscaledWidth:Number, 
-                                             unscaledHeight:Number):Boolean
+                                           unscaledHeight:Number,
+                                           contentWidth:Number,
+                                           contentHeight:Number):Boolean
     {
         // For textAlign, if the composeWidth isn't the same
         // as the unscaledWidth, and the text isn't left aligned, we need to 
         // recompose.
         //
-        if (isNaN(_composeWidth) || _composeWidth != unscaledWidth)
+        var width:Number = isNaN(_composeWidth) ? 
+                           contentWidth : _composeWidth;
+        if (unscaledWidth != width)
         {
             var direction:String = getStyle("direction");
             var textAlign:String = getStyle("textAlign");
@@ -661,7 +667,9 @@ public class TextBase extends UIComponent
         // For verticalAlign, if the composeHeight isn't the same as the
         // unscaledHeight, and the text isn't top aligned, we need to
         // recompose (or adjust the y values of all the text lines).
-        if (isNaN(_composeHeight) || _composeHeight != unscaledHeight)
+        var height:Number = isNaN(_composeHeight) ? 
+                            contentHeight : _composeHeight;
+        if (unscaledHeight != height)
         {
             var verticalAlign:String = getStyle("verticalAlign");
             var topAligned:Boolean = (verticalAlign == "top");
@@ -676,14 +684,15 @@ public class TextBase extends UIComponent
     /**
      *  @private
      */
-    private function composeOnHeightChange(unscaledHeight:Number):Boolean
+    private function composeOnHeightChange(unscaledHeight:Number,
+                                           contentHeight:Number):Boolean
     {
         // Height increased and there may be more text.  It is possible that
         // there is more text even if isOverset isn't set.  If height
         // was specified, it will compose just enough text to fit the 
         // composition bounds and depending on text placement, it may not 
         // be overset.
-        if (unscaledHeight > bounds.height &&
+        if (unscaledHeight > contentHeight &&
             (isOverset || !isNaN(_composeHeight)))
             return true;
             
@@ -698,7 +707,7 @@ public class TextBase extends UIComponent
             // redo the truncation if we don't already have the number of
             // truncation lines needed.
             if (maxDisplayedLines > 0 &&
-               (unscaledHeight < bounds.height ||
+               (unscaledHeight < contentHeight ||
                  textLines.length != maxDisplayedLines))
             {
                 return true;
@@ -715,7 +724,8 @@ public class TextBase extends UIComponent
     /**
      *  @private
      */
-    private function composeOnWidthChange(unscaledWidth:Number):Boolean
+    private function composeOnWidthChange(unscaledWidth:Number, 
+                                          contentWidth:Number):Boolean
     {
         // If toFit, then the composeWidth must equal the unscaledWidth
         // so that the text flows properly. 
@@ -749,28 +759,19 @@ public class TextBase extends UIComponent
 
 	/**
 	 *  @private
-	 *  Adds the TextLines created by composeTextLines()
-     *  to a specified DisplayObjectContainer.
+	 *  Adds the TextLines created by composeTextLines() to this container.
 	 */
-	mx_internal function addTextLines(container:DisplayObjectContainer,
-								      index:int = 0):void
+	mx_internal function addTextLines(index:int = 0):void
 	{
 		var n:int = textLines.length;
         if (n == 0)
             return;
 
-        var addChildAtMethod:Function = container is UIComponent ?
-        								UIComponent(container).$addChildAt :
-        								container.addChildAt;
-            
         for (var i:int = n - 1; i >= 0; i--)
-		{
-			var textLine:DisplayObject = textLines[i];
-						
-            //trace(container.name, "addTextLines", textLine.x, textLine.y, drawX, drawY);
-            
-			addChildAtMethod(textLine, index);
-		}
+        {
+            var textLine:DisplayObject = textLines[i];			
+            $addChildAt(textLine, index);
+        }
 	}
 
 	/**
@@ -791,15 +792,10 @@ public class TextBase extends UIComponent
 		var container:DisplayObjectContainer =
 			textLines[0].parent;
 
-         var removeChildMethod:Function = container is UIComponent ?
-										 UIComponent(container).$removeChild :
-										 container.removeChild;
-            
 		for (var i:int = 0; i < n; i++)
 		{
-			var textLine:DisplayObject = textLines[i];
-			
-            removeChildMethod(textLine);
+			var textLine:DisplayObject = textLines[i];			
+            UIComponent(container).$removeChild(textLine);
 		}
 	}
 
@@ -921,7 +917,7 @@ public class TextBase extends UIComponent
         // If we're truncating, recompose the text.
         if (maxDisplayedLines != 0)
         {
-            invalidateCompose = true;
+            invalidateTextLines();
 
             invalidateSize();
             invalidateDisplayList();
