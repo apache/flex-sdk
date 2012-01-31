@@ -51,12 +51,22 @@ use namespace mx_internal;
  *  sort arrow (if sorted by that column).
  *
  *  @see mx.controls.DataGrid
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class DataGridHeader extends DataGridHeaderBase
 {
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function DataGridHeader()
     {
@@ -75,6 +85,11 @@ public class DataGridHeader extends DataGridHeaderBase
 
     /**
      *  a function to clear selections
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override mx_internal function clearSelectionLayer():void
     {
@@ -86,41 +101,81 @@ public class DataGridHeader extends DataGridHeaderBase
 
     /**
      *  The DataGrid control associated with this renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var dataGrid:DataGrid;
 
     /**
      *  An Array of header renderer instances.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var headerItems:Array = [];
 
     /**
      *  The cached header height, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var cachedHeaderHeight:Number = 0;
 
     /**
      *  The cached padding for the bottom of the renderer, in pixels.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected var cachedPaddingBottom:Number = 0;
 
 	/**
 	 *  The cached padding for the top of the renderer, in pixels.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	protected var cachedPaddingTop:Number = 0;
 	
 	/**
 	 *  Whether we need the separator on the far right
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var needRightSeparator:Boolean = false;
 	
 	/**
 	 *  Whether we need the separator events on the far right
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var needRightSeparatorEvents:Boolean = false;
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function createChildren():void
     {
@@ -133,6 +188,11 @@ public class DataGridHeader extends DataGridHeaderBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function measure():void
     {
@@ -146,6 +206,11 @@ public class DataGridHeader extends DataGridHeaderBase
 
     /**
      *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override protected function updateDisplayList(w:Number, h:Number):void
     {
@@ -283,6 +348,11 @@ public class DataGridHeader extends DataGridHeaderBase
      *
      *  @param headerBG A UIComponent that will contain the header
      *  background graphics.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawHeaderBackground(headerBG:UIComponent):void
     {       
@@ -326,6 +396,11 @@ public class DataGridHeader extends DataGridHeaderBase
     /**
      *  Removes column header separators that the user normally uses
      *  to resize columns.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function clearSeparators():void
     {
@@ -352,6 +427,11 @@ public class DataGridHeader extends DataGridHeaderBase
      *  instances of the <code>headerSeparatorSkin</code> and attaches mouse
      *  listeners to them in order to know when the user wants
      *  to resize a column.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawSeparators():void
     {
@@ -485,6 +565,11 @@ public class DataGridHeader extends DataGridHeaderBase
      *
      *  @param itemRenderer The item renderer that is being highlighted.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawHeaderIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void
     {
@@ -517,6 +602,11 @@ public class DataGridHeader extends DataGridHeaderBase
      *
      *  @param itemRenderer The item renderer that is being selected.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawSelectionIndicator(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void
     {
@@ -549,6 +639,11 @@ public class DataGridHeader extends DataGridHeaderBase
      *
      *  @param itemRenderer The item renderer that is being dragged.
      *
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function drawColumnDragOverlay(indicator:Sprite, x:Number, y:Number, width:Number, height:Number, color:uint, itemRenderer:IListItemRenderer):void
     {
@@ -1274,6 +1369,11 @@ public class DataGridHeader extends DataGridHeaderBase
      *  it in the appropriate column header.  It
      *  also shrinks the size of the column header if the text in the header
      *  would be obscured by the sort arrow.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     protected function placeSortArrow():void
     {
@@ -1408,6 +1508,11 @@ public class DataGridHeader extends DataGridHeaderBase
 
     /**
      *  @copy mx.core.IUIComponent#enabled
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     override public function set enabled(value:Boolean):void
     {
@@ -1495,6 +1600,11 @@ public class DataGridHeader extends DataGridHeaderBase
 
     /**
      *  Specifies a graphic that shows the proposed column width as the user stretches it.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     private var resizeGraphic:IFlexDisplayObject; //
 
@@ -1516,11 +1626,21 @@ public class DataGridHeader extends DataGridHeaderBase
 
     /**
      *  The small arrow graphic used to show sortable columns and direction.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal var sortArrow:IFlexDisplayObject;
 
     /** 
      *  diagnostics
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     mx_internal function get rendererArray():Array 
     {
@@ -1529,21 +1649,41 @@ public class DataGridHeader extends DataGridHeaderBase
 
     /**
      *  The offset, in pixels, from the left side of the content of the renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var leftOffset:Number = 0;
 
     /**
      *  The offset, in pixels, from the top of the content of the renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var topOffset:Number = 0;
 
     /**
      *  The offset, in pixels, from the right side of the content of the renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var rightOffset:Number = 0;
 
     /**
      *  The offset, in pixels, from the bottom of the content of the renderer.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var bottomOffset:Number = 0;
 
