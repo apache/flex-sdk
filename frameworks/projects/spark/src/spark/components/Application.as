@@ -703,8 +703,6 @@ public class Application extends SkinnableContainer
     //  splashScreenImage
     //----------------------------------
 
-    [Inspectable(category="General")]
-
     /**
      *  The image class for the SplashScreen preloader.
      *  Typically you set this property to an embedded resource.
@@ -744,7 +742,7 @@ public class Application extends SkinnableContainer
     //  splashScreenScaleMode
     //----------------------------------
 
-    [Inspectable(category="General", enumeration="none,letterbox,stretch,zoom", defaultValue="none")]
+    [Inspectable(enumeration="none,letterbox,stretch,zoom", defaultValue="none")]
 
     /**
      *  The splash screen image scale mode:
@@ -790,8 +788,6 @@ public class Application extends SkinnableContainer
     //----------------------------------
     //  splashScreenMinimumDisplayTime
     //----------------------------------
-
-    [Inspectable(category="General")]
 
     /**
      *  Minimum amount of time, in milliseconds, to show the splash screen image.
