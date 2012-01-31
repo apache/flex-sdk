@@ -236,6 +236,7 @@ public class FxScrollBar extends FxTrackBase
         {
             _viewport.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
             _viewport.removeEventListener(ResizeEvent.RESIZE, viewportResizeHandler);
+            _viewport.clipContent = false;
         }
 
         _viewport = value;
@@ -244,6 +245,7 @@ public class FxScrollBar extends FxTrackBase
         {
             _viewport.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, viewport_propertyChangeHandler);
             _viewport.addEventListener(ResizeEvent.RESIZE, viewportResizeHandler);
+            _viewport.clipContent = true;
         }
     }
     
