@@ -23,6 +23,11 @@ import mx.core.IProgrammaticSkin;
 
 /**
  *  The skin for all the states of a PopUpButton.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class PopUpButtonSkin extends UIComponent implements IProgrammaticSkin
 {
@@ -78,6 +83,11 @@ public class PopUpButtonSkin extends UIComponent implements IProgrammaticSkin
 
     /**
      *  Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function PopUpButtonSkin()
     {
