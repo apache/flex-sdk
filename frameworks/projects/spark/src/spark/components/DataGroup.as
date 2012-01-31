@@ -880,9 +880,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
 
         if (layout && layout.useVirtualLayout)
         {   
-            // Add any existing renderers to the free list.  A side-effect of
-            // this is that their layoutBoundsSize will be zero'ed so they will 
-            // remeasure the new data correctly.
+            // Add any existing renderers to the free list.
             if (virtualRendererIndices != null && 
                 virtualRendererIndices.length > 0)
             {
@@ -937,6 +935,16 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         {
             itemRendererChanged = false;
             useVirtualLayoutChanged = false;
+
+            // SDK-29916: The layout's cache may be in sync with the old data provider.
+            // The layout will sync up its cache with the new data provider
+            // when the DataGroup validateSize() / validateDisplayList().
+            // By clearing the cache here, we make sure that any insert/remove 
+            // events for the new dataProvider, that occur from this point on till 
+            // validteSize() / validateDisplayList(), won't be mixed up with the 
+            // stale layout cache state that reflects the old data provider.
+            if (layout)
+                layout.clearVirtualLayoutCache();
             
             // item renderers and the dataProvider listener have already been removed
             createItemRenderers();
