@@ -75,14 +75,6 @@ public class CellRegion
     private var _columnCount:int;
     
     /**
-     *  @private
-     */
-    public function get columnCount():int
-    {
-        return _columnCount;
-    }
-    
-    /**
      *  The number of columns in the cell region.
      *
      *  @default 0
@@ -91,6 +83,14 @@ public class CellRegion
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
+     */
+    public function get columnCount():int
+    {
+        return _columnCount;
+    }
+    
+    /**
+     *  @private
      */
     public function set columnCount(value:int):void
     {
@@ -104,14 +104,6 @@ public class CellRegion
     private var _columnIndex:int;
     
     /**
-     *  @private
-     */
-    public function get columnIndex():int
-    {
-        return _columnIndex;
-    }
-    
-    /**
      *  The 0-based column index of the origin of the cell region.
      *  A value of -1 indicates "not set".
      * 
@@ -121,6 +113,14 @@ public class CellRegion
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
+     */
+    public function get columnIndex():int
+    {
+        return _columnIndex;
+    }
+    
+    /**
+     *  @private
      */
     public function set columnIndex(value:int):void
     {
@@ -134,14 +134,6 @@ public class CellRegion
     private var _rowCount:int;
     
     /**
-     *  @private
-     */
-    public function get rowCount():int
-    {
-        return _rowCount;
-    }
-    
-    /**
      *  The number of rows in the cell region.
      *
      *  @default 0
@@ -150,6 +142,14 @@ public class CellRegion
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
+     */
+    public function get rowCount():int
+    {
+        return _rowCount;
+    }
+    
+    /**
+     *  @private
      */
     public function set rowCount(value:int):void
     {
@@ -163,14 +163,6 @@ public class CellRegion
     private var _rowIndex:int;
     
     /**
-     *  @private
-     */
-    public function get rowIndex():int
-    {
-        return _rowIndex;
-    }
-    
-    /**
      *  The 0-based row index of the origin of the cell region.  
      *  A value of -1 indicates "not set".
      * 
@@ -180,6 +172,15 @@ public class CellRegion
      *  @playerversion Flash 10
      *  @playerversion AIR 2.0
      *  @productversion Flex 4.5
+
+     */
+    public function get rowIndex():int
+    {
+        return _rowIndex;
+    }
+    
+    /**
+     *  @private
      */
     public function set rowIndex(value:int):void
     {
