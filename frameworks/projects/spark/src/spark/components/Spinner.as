@@ -90,7 +90,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
     //
     //--------------------------------------------------------------------------
     
-    [SkinPart]
+    [SkinPart(required="true")]
     
     /**
      *  A skin part that defines the  button that, 
@@ -99,7 +99,7 @@ public class FxSpinner extends FxRange implements IFocusManagerComponent
      */
     public var incrementButton:FxButton;
     
-    [SkinPart]
+    [SkinPart(required="true")]
     
     /**
      *  A skin part that defines the  button that, 
