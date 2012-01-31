@@ -12,18 +12,33 @@
 package mx.rpc.soap
 {
 
-[ExcludeClass]
 
 /**
- * A context for the result of an SOAP based Remote Procedure Call.
- * @private
+ * A context for the result of a SOAP based Remote Procedure Call.
  */
 public class SOAPResult
 {
+	/**
+	 * A collection of header objects. A SOAPDecoder can populate this array with
+	 * elements of type SOAPHeader, XML, or XMLDocument, based on the headerFormat
+	 * setting on the decoder.
+	 */
     public var headers:Array;
-    public var isFault:Boolean;
-    public var result:*;
+    
+	/**
+	 * Flag indicating if this result object represents a SOAP Fault message.
+	 */
+	public var isFault:Boolean;
+    
+	/**
+	 * Body of the SOAP result. A SOAPDecoder can populate this value based on the
+	 * resultFormat setting on the decoder.
+	 */
+	public var result:*;
 
+	/**
+	 * Creates a new SOAPResult.
+	 */
     public function SOAPResult()
     {
         super();
