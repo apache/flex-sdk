@@ -37,6 +37,11 @@ use namespace mx_internal;
  * before the <code>animationStart</code> event.</p>
  *
  * @eventType mx.events.AnimationEvent.ANIMATION_START
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="animationStart", type="mx.events.AnimationEvent")]
 
@@ -46,6 +51,11 @@ use namespace mx_internal;
  * the <code>AnimateInstance.updateHandler()</code> method.
  *
  * @eventType mx.events.AnimationEvent.ANIMATION_UPDATE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="animationUpdate", type="mx.events.AnimationEvent")]
 
@@ -58,6 +68,11 @@ use namespace mx_internal;
  * for the effect at the same time.
  *
  * @eventType mx.events.AnimationEvent.ANIMATION_REPEAT
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="animationRepeat", type="mx.events.AnimationEvent")]
 
@@ -73,6 +88,11 @@ use namespace mx_internal;
  * final repetition.</p>
  *
  * @eventType mx.events.AnimationEvent.ANIMATION_END
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="animationEnd", type="mx.events.AnimationEvent")]
 
@@ -90,6 +110,11 @@ use namespace mx_internal;
  *     new AnimationProperty("y", 100, 150)];
  * anim.play();
  * </listing>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxAnimate extends Effect
 {
@@ -103,6 +128,11 @@ public class FxAnimate extends Effect
 
     /**
      * Constructor. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxAnimate(target:Object = null)
     {
@@ -141,6 +171,11 @@ public class FxAnimate extends Effect
      * any helper properties that may be declared in subclasses of FxAnimate.
      * For example, if this array is set directly on an FxMove object, 
      * then any helper values such as <code>xFrom</code> will be ignored. 
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var animationProperties:Array;
     
@@ -152,6 +187,11 @@ public class FxAnimate extends Effect
      * 
      * @default mx.effects.fxEasing.Sine(.5)
      * @see mx.effects.fxEasing.Sine
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var easer:IEaser = defaultEaser;
     
@@ -164,6 +204,11 @@ public class FxAnimate extends Effect
      * differently, such as <code>uint</code> values that hold color
      * channel information, can be handled by supplying a different
      * <code>interpolator</code>.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var interpolator:IInterpolator = null;
 
@@ -176,6 +221,11 @@ public class FxAnimate extends Effect
      * 
      * @default Animation.LOOP
      * @see mx.effects.Animation#repeatBehavior
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var repeatBehavior:String = Animation.LOOP;
     
@@ -197,6 +247,11 @@ public class FxAnimate extends Effect
      * set this property to <code>true</code>.</p>
      * 
      * @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var adjustConstraints:Boolean = false;
 
@@ -208,6 +263,11 @@ public class FxAnimate extends Effect
      * occur in those containers that force layout to happen anyway.
      * 
      * @default false
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public var disableLayout:Boolean = false;
 
@@ -222,6 +282,11 @@ public class FxAnimate extends Effect
      * in the <code>animationProperties</code> array. If subclasses affect
      * or track a different set of properties, they should override this
      * method.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     override public function getAffectedProperties():Array /* of String */
     {
@@ -310,6 +375,11 @@ public class FxAnimate extends Effect
      * If you override this method, ensure that you call the super method.
      *
      * @param event An event object of type AnimationEvent.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     protected function animationEventHandler(event:AnimationEvent):void
     {
