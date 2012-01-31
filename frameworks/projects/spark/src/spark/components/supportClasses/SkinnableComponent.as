@@ -350,11 +350,6 @@ public class FxComponent extends UIComponent
      *  Attach behaviors to the skin object. 
      *  You do not call this method directly. 
      *  Flex calls it automatically when it calls the <code>loadSkin()</code> method.
-<<<<<<< .mine
-     *
-=======
-     *  
->>>>>>> .theirs
      *  <p>A subclass of FxComponent must override this method to
      *  attach behaviors to the skin object.</p>
      * 
