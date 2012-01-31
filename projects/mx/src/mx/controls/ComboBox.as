@@ -46,6 +46,7 @@ import mx.events.DropdownEvent;
 import mx.events.FlexEvent;
 import mx.events.FlexMouseEvent;
 import mx.events.ListEvent;
+import mx.events.MarshalMouseEvent;
 import mx.events.ScrollEvent;
 import mx.events.ScrollEventDetail;
 import mx.managers.PopUpManager;
@@ -1481,9 +1482,7 @@ public class ComboBox extends ComboBase
             _dropdown.addEventListener(ScrollEvent.SCROLL, dropdown_scrollHandler);
             _dropdown.addEventListener(ListEvent.ITEM_ROLL_OVER, dropdown_itemRollOverHandler);
             _dropdown.addEventListener(ListEvent.ITEM_ROLL_OUT, dropdown_itemRollOutHandler);
-            _dropdown.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, dropdown_mouseDownOutsideHandler);
-            _dropdown.addEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE, dropdown_mouseWheelOutsideHandler);
-
+            
             // the drop down should close if the user clicks on any item.
             // add a handler to detect a click in the list
             _dropdown.addEventListener(ListEvent.ITEM_CLICK, dropdown_itemClickHandler);
@@ -1497,7 +1496,7 @@ public class ComboBox extends ComboBase
             // weak reference to stage
             systemManager.addEventListener(Event.RESIZE, stage_resizeHandler, false, 0, true);
         }
-
+            
         _dropdown.scaleX = scaleX;
         _dropdown.scaleY = scaleY;
 
@@ -1534,7 +1533,11 @@ public class ComboBox extends ComboBase
 
             getDropdown();
 
-
+            _dropdown.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, dropdown_mouseOutsideHandler);
+            _dropdown.addEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE, dropdown_mouseOutsideHandler);
+            _dropdown.addEventListener(MarshalMouseEvent.MOUSE_DOWN, dropdown_mouseOutsideHandler);
+            _dropdown.addEventListener(MarshalMouseEvent.MOUSE_WHEEL, dropdown_mouseOutsideHandler);
+            
             if (_dropdown.parent == null)  // was popped up then closed
                 PopUpManager.addPopUp(_dropdown, this);
             else
@@ -1790,25 +1793,27 @@ public class ComboBox extends ComboBase
     /**
      *  @private
      */
-    private function dropdown_mouseDownOutsideHandler(event:MouseEvent):void
+    private function dropdown_mouseOutsideHandler(event:Event):void
     {
-        if (event.target != _dropdown)
-            // the dropdown's items can dispatch a mouseDownOutside
-            // event which then bubbles up to us
-            return;
-
-        if (!hitTestPoint(event.stageX, event.stageY, true))
+        // trace("dropdown_mouseOutsideHandler: " + event);
+        
+        if (event is MouseEvent)
+        {
+            var mouseEvent:MouseEvent = MouseEvent(event);
+            if (mouseEvent.target != _dropdown)
+                // the dropdown's items can dispatch a mouseDownOutside
+                // event which then bubbles up to us
+                return;
+    
+            if (!hitTestPoint(mouseEvent.stageX, mouseEvent.stageY, true))
+            {
+                close(event);
+            }
+        }
+        else if (event is MarshalMouseEvent) 
         {
             close(event);
         }
-    }
-
-    /**
-     *  @private
-     */
-    private function dropdown_mouseWheelOutsideHandler(event:MouseEvent):void
-    {
-        dropdown_mouseDownOutsideHandler(event);
     }
 
     /**
@@ -2043,6 +2048,11 @@ public class ComboBox extends ComboBase
 
         if (bRemoveDropdown)
         {
+            _dropdown.removeEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, dropdown_mouseOutsideHandler);
+            _dropdown.removeEventListener(FlexMouseEvent.MOUSE_WHEEL_OUTSIDE, dropdown_mouseOutsideHandler);
+            _dropdown.removeEventListener(MarshalMouseEvent.MOUSE_DOWN, dropdown_mouseOutsideHandler);
+            _dropdown.removeEventListener(MarshalMouseEvent.MOUSE_WHEEL, dropdown_mouseOutsideHandler);
+
             PopUpManager.removePopUp(_dropdown);
             _dropdown = null;
             bRemoveDropdown = false;
