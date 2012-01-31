@@ -13,6 +13,7 @@ package flex.effects
 import flex.effects.effectClasses.TintInstance;
 
 import mx.effects.IEffectInstance;
+import mx.styles.StyleManager;
 
 /**
  * This effect animates a change in color over time, interpolating
@@ -20,15 +21,30 @@ import mx.effects.IEffectInstance;
  */
 public class Tint extends Animate
 {
+    include "../core/Version.as";
+
+    //--------------------------------------------------------------------------
+    //
+    //  Class constants
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    private static var AFFECTED_PROPERTIES:Array = ["color"];
+    // Some objects have a 'color' style instead
+    private static var RELEVANT_STYLES:Array = ["color"];
+
     /**
      * The starting color
      */
-    public var colorFrom:uint;
+    public var colorFrom:uint = StyleManager.NOT_A_COLOR;
     
     /**
      * The ending color
      */
-    public var colorTo:uint;
+    public var colorTo:uint = StyleManager.NOT_A_COLOR;
     
     /**
      * The name of the color property on the target object affected
@@ -46,6 +62,22 @@ public class Tint extends Animate
         super(target);
         instanceClass = TintInstance;
     }
+
+    /**
+     *  @private
+     */
+    override public function getAffectedProperties():Array /* of String */
+    {
+        return AFFECTED_PROPERTIES;
+    }
+
+    /**
+     *  @private
+     */
+    override public function get relevantStyles():Array /* of String */
+    {
+        return RELEVANT_STYLES;
+    }   
 
     /**
      * @inheritDoc
