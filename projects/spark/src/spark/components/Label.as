@@ -17,6 +17,7 @@ import flash.geom.Rectangle;
 import flash.text.engine.ElementFormat;
 import flash.text.engine.FontDescription;
 import flash.text.engine.Kerning;
+import flash.text.engine.TabStop;
 
 import mx.graphics.graphicsClasses.TextBlockComposer;
 import mx.graphics.graphicsClasses.TextGraphicElement;
@@ -215,13 +216,17 @@ public class TextBox extends TextGraphicElement
         bounds.width = width;
         bounds.height = height;
 
+        textBlockComposer.direction = getStyle("direction");
         textBlockComposer.lineBreak = getStyle("lineBreak");
         textBlockComposer.lineHeight = getStyle("lineHeight");
+        textBlockComposer.lineThrough = getStyle("lineThrough");
         textBlockComposer.paddingBottom = getStyle("paddingBottom");
         textBlockComposer.paddingLeft = getStyle("paddingLeft");
         textBlockComposer.paddingRight = getStyle("paddingRight");
         textBlockComposer.paddingTop = getStyle("paddingTop");
+        setTabStops(textBlockComposer);
         textBlockComposer.textAlign = getStyle("textAlign");
+        textBlockComposer.textDecoration = getStyle("textDecoration");
         textBlockComposer.verticalAlign = getStyle("verticalAlign");
 
         textBlockComposer.composeText(text, elementFormat);
@@ -267,6 +272,35 @@ public class TextBox extends TextGraphicElement
         value = getNumberOrPercentOf(trackingRight, fontSize);
         if (!isNaN(value))
             elementFormat.trackingRight = value;
+    }
+
+    /**
+     *  @private
+     */
+    private function setTabStops(textBlockComposer:TextBlockComposer):void
+    {
+        var value:* = getStyle("tabStops");
+        var tabStops:Vector.<TabStop>;
+        
+        if (value is Vector.<TabStop>)
+        {
+            tabStops = value;
+        }
+        else if (value is Array)
+        {
+            var n:int = value.length;
+            tabStops = new Vector.<TabStop>(n);
+            for (var i:int = 0; i < n; i++)
+            {
+                tabStops[i] = value[i];
+            }
+        }
+        else
+        {
+            tabStops = new Vector.<TabStop>();
+        }   
+
+        textBlockComposer.tabStops = tabStops;
     }
 }
 
