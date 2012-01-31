@@ -96,7 +96,7 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 
-public class TextBase extends UIComponent implements IFontContextComponent
+public class TextBase extends UIComponent
 {
 
     include "../../core/Version.as";
@@ -493,42 +493,6 @@ public class TextBase extends UIComponent implements IFontContextComponent
             invalidateSize();
             invalidateDisplayList();
         }
-    }
-    
-    //--------------------------------------------------------------------------
-    //
-    //  Properties: IFontContextComponent
-    //
-    //--------------------------------------------------------------------------
-    
-    //----------------------------------
-    //  fontContext
-    //----------------------------------
-    
-    /**
-     *  @private
-     */
-    private var _fontContext:IFlexModuleFactory;
-    
-    /**
-     *  @inheritDoc
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get fontContext():IFlexModuleFactory
-    {
-        return _fontContext;
-    }
-    
-    /**
-     *  @private
-     */
-    public function set fontContext(value:IFlexModuleFactory):void
-    {
-        _fontContext = value;
     }
     
     //--------------------------------------------------------------------------
@@ -1021,13 +985,16 @@ public class TextBase extends UIComponent implements IFontContextComponent
             hasScrollRect = false;
         }
     }
-
+    
     /**
      *  @private
+     *  Uses the component's CSS styles to determine the module factory
+     *  that should creates its TextLines.
      */
     mx_internal function getEmbeddedFontContext():IFlexModuleFactory
     {
-        var moduleFactory:IFlexModuleFactory;
+        var fontContext:IFlexModuleFactory;
+        
         var fontLookup:String = getStyle("fontLookup");
         if (fontLookup != FontLookup.DEVICE)
         {
@@ -1035,24 +1002,12 @@ public class TextBase extends UIComponent implements IFontContextComponent
             var bold:Boolean = getStyle("fontWeight") == "bold";
             var italic:Boolean = getStyle("fontStyle") == "italic";
             
-            var localLookup:ISystemManager = 
-                fontContext && fontContext is ISystemManager ? 
-                ISystemManager(fontContext) : systemManager;
-            
-            var registry:IEmbeddedFontRegistry =
-                                UIComponent.embeddedFontRegistry;
-            if (registry)
-            {
-                moduleFactory =
-                    registry.getAssociatedModuleFactory(
-                        font, bold, italic, 
-                        this, fontContext, localLookup, true);
-            }
+            fontContext = getFontContext(font, bold, italic, true);
         }
-                
-        return moduleFactory;
-    }    
-    
+        
+        return fontContext;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Event handlers
