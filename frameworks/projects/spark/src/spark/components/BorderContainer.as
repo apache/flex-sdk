@@ -177,7 +177,7 @@ import spark.components.SkinnableContainer;
  *  <table class="innertable">
  *     <tr><th>Characteristic</th><th>Description</th></tr>
  *     <tr><td>Default size</td><td>112 pixels wide by 112 pixels high</td></tr>
- *     <tr><td>Minimum size</td><td>112 pixels wide by 112 pixels high</td></tr>
+ *     <tr><td>Minimum size</td><td>30 pixels wide by 30 pixels high</td></tr>
  *     <tr><td>Maximum size</td><td>10000 pixels wide and 10000 pixels high</td></tr>
  *     <tr><td>Default skin class</td><td>spark.skins.spark.BorderContainerSkin</td></tr>
  *  </table>
