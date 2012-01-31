@@ -470,34 +470,6 @@ public class ButtonBarBase extends ListBase
     }
     
     /**
-     *  @private
-     */
-    override protected function partAdded(partName:String, instance:Object):void
-    {
-        super.partAdded(partName, instance);
-        
-        if (instance == dataGroup)
-        {
-            dataGroup.addEventListener(RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
-            dataGroup.addEventListener(RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
-        }
-    }
-    
-    /**
-     *  @private
-     */
-    override protected function partRemoved(partName:String, instance:Object):void
-    {
-        if (instance == dataGroup)
-        {
-            dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_ADD, dataGroup_rendererAddHandler);
-            dataGroup.removeEventListener(RendererExistenceEvent.RENDERER_REMOVE, dataGroup_rendererRemoveHandler);
-        }
-        
-        super.partRemoved(partName, instance);
-    }
-    
-    /**
      *  @private 
      *  Detected changes to iconPlacement and update as necessary.
      */ 
@@ -605,8 +577,10 @@ public class ButtonBarBase extends ListBase
     /**
      *  @private
      */
-    private function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
+    override protected function dataGroup_rendererAddHandler(event:RendererExistenceEvent):void
     {
+        super.dataGroup_rendererAddHandler(event);
+        
         const renderer:IVisualElement = event.renderer; 
         if (renderer)
         {
@@ -621,8 +595,10 @@ public class ButtonBarBase extends ListBase
     /**
      *  @private
      */
-    private function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
-    {        
+    override protected function dataGroup_rendererRemoveHandler(event:RendererExistenceEvent):void
+    {   
+        super.dataGroup_rendererRemoveHandler(event);
+        
         const renderer:IVisualElement = event.renderer;
         if (renderer)
             renderer.removeEventListener(MouseEvent.CLICK, item_clickHandler);
