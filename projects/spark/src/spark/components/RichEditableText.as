@@ -374,6 +374,42 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  @see spark.utils.TextFlowUtil
  *  @see flashx.textLayout.container.TextContainerManager
  *
+ *  @mxml
+ *
+ *  <p>The <code>&lt;s:RichEditableText&gt;</code> tag inherits all of the tag 
+ *  attributes of its superclass and adds the following tag attributes:</p>
+ *
+ *  <pre>
+ *  &lt;s:RichEditableText
+ *    <strong>Properties</strong>
+ *    clipAndEnableScrolling="false|true"
+ *    contentHeight="<i>Calculated default</i>"
+ *    contentWidth="<i>Calculated default</i>"
+ *    displayAsPassword="false"
+ *    editable="true"
+ *    heightInLines="NaN"
+ *    horizontalScrollPosition="0"
+ *    imeMode="null"
+ *    maxChars="0"
+ *    multiline="true"
+ *    restrict="null"
+ *    selectable="true"
+ *    selectionActivePosition="-1"
+ *    selectionAnchorPosition="-1"
+ *    selectionHighlighting="TextSelectionHighlighting.WHEN_FOCUSED"
+ *    text=""
+ *    textFlow="<i>TextFlow</i>"
+ *    verticalScrollPosition="0"
+ *    widthInChars="NaN"
+ *  
+ *    <strong>Events</strong>
+ *    change="<i>No default</i>"
+ *    changing="<i>No default</i>"
+ *    enter="<i>No default</i>"
+ *    selectionChange="<i>No default</i>"
+ *  /&gt;
+ *  </pre>
+ *  
  *  @includeExample examples/RichEditableTextExample.mxml
  *  @includeExample examples/externalTextFlow.xml -noswf
  *  
@@ -3094,13 +3130,13 @@ public class RichEditableText extends UIComponent
      *  </pre>
      *  </p>
      *  
-     *  @params format The TextLayoutFormat to apply to the selection.
+     *  @param format The TextLayoutFormat to apply to the selection.
      * 
-     *  @params anchorPosition A character position, relative to the beginning of the 
+     *  @param anchorPosition A character position, relative to the beginning of the 
      *  text String, specifying the end of the selection that stays fixed when the 
      *  selection is extended with the arrow keys.
      * 
-     *  @params activePosition A character position, relative to the beginning of the 
+     *  @param activePosition A character position, relative to the beginning of the 
      *  text String, specifying the end of the selection that moves when the 
      *  selection is extended with the arrow keys. 
      * 
