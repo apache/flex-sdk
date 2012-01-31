@@ -60,6 +60,26 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  component, or steps the NumericStepper by pressing an arrow button
  *  or by calling the <code>changeValueByStep()</code> method.</p>
  *
+ *  <p>The NumericStepper control has the following default characteristics:</p>
+ *     <table class="innertable">
+ *        <tr>
+ *           <th>Characteristic</th>
+ *           <th>Description</th>
+ *        </tr>
+ *        <tr>
+ *           <td>Default size</td>
+ *           <td>53 pixels wide by 23 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Minimum size</td>
+ *           <td>40 pixels wide and 40 pixels high</td>
+ *        </tr>
+ *        <tr>
+ *           <td>Maximum size</td>
+ *           <td>10000 pixels wide and 10000 pixels high</td>
+ *        </tr>
+ *     </table>
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;NumericStepper&gt;</code> tag inherits all of the tag 
