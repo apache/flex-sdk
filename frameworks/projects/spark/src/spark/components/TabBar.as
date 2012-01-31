@@ -58,6 +58,11 @@ use namespace mx_internal;  // ListBase/setCurrentCaretIndex(index);
  *
  *  <p>You can use the TabBar control to set the active child of a ViewStack container, 
  *  as the following example shows:</p>
+ *
+ *  <p><b>Note: </b>The Spark list-based controls (the Spark ListBase class and its subclasses
+ *  such as ButtonBar, ComboBox, DropDownList, List, and TabBar) do not support the BasicLayout class
+ *  as the value of the <code>layout</code> property. 
+ *  Do not use BasicLayout with the Spark list-based controls.</p>
  *  
  *  <pre>
  *  &lt;s:TabBar dataProvider="{myViewStack}"/&gt; 
