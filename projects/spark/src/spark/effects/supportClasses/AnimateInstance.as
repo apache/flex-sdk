@@ -19,6 +19,7 @@ import flash.utils.Timer;
 import mx.components.Group;
 import mx.components.baseClasses.GroupBase;
 import mx.core.UIComponent;
+import mx.core.mx_internal;
 import mx.effects.Animation;
 import mx.effects.EffectInstance;
 import mx.effects.EffectManager;
@@ -31,6 +32,8 @@ import mx.layout.LayoutItemFactory;
 import mx.managers.LayoutManager;
 import mx.styles.IStyleClient;
 import mx.core.IVisualElementContainer;
+
+use namespace mx_internal;
 
 /**
  * The FxAnimateInstance class implements the instance class for the
@@ -152,6 +155,23 @@ public class FxAnimateInstance extends EffectInstance
         return _repeatBehavior;
     }
             
+    //----------------------------------
+    //  playReversed
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    override mx_internal function set playReversed(value:Boolean):void
+    {
+        super.playReversed = value;
+        
+        if (animation)
+            animation.reverse();
+        
+        reverseAnimation = value;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
@@ -263,7 +283,7 @@ public class FxAnimateInstance extends EffectInstance
     // Methods
     //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  @copy mx.effects.IEffectInstance#startEffect()
      */
@@ -277,7 +297,7 @@ public class FxAnimateInstance extends EffectInstance
         {
             UIComponent(target).effectStarted(this);
         }
-    
+
         if (autoRemoveTarget)
             addDisappearingTarget();
 
@@ -318,8 +338,8 @@ public class FxAnimateInstance extends EffectInstance
             var holder:PropertyValuesHolder = PropertyValuesHolder(propertyValuesList[i]);
             var property:String = holder.property;
             var propValues:Array = holder.values;
-            var fromValue:Object;
-            var toValue:Object;
+            var fromValue:Object = null;
+            var toValue:Object = null;
             
             if (!property || (property == ""))
                 throw new Error("Illegal property value: " + property);
@@ -330,14 +350,11 @@ public class FxAnimateInstance extends EffectInstance
             if (!isNaN(propValues[0]))
                 fromValue = propValues[0];
             if (!isNaN(propValues[1]))
-            {
                 toValue = propValues[1];
-            }
-            else
+            else if (propertyChanges && 
+                propertyChanges.end[property] !== undefined)
             {
-                if (propertyChanges && 
-                    propertyChanges.end[property] !== undefined)
-                    toValue = propertyChanges.end[property];
+                toValue = propertyChanges.end[property];
             }
             if (propertyValuesList.length > 1)
             {
@@ -377,7 +394,7 @@ public class FxAnimateInstance extends EffectInstance
         animation.repeatBehavior = repeatBehavior;
         animation.easer = easer;
         animation.startDelay = startDelay;
-                    
+        
         animation.play();
           
         // TODO (chaase): there may be a better way to organize the 
