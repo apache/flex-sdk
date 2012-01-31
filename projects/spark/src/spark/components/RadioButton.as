@@ -715,8 +715,12 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
         // because it's in a different container that is not enabled.
         if (event.isDefaultPrevented())
             return;
-        
-        switch (event.keyCode)
+            
+        // If rtl layout, need to swap LEFT for RIGHT so correct action
+        // is done.
+        var keyCode:int = mapKeycodeForLayoutDirection(event);
+                
+        switch (keyCode)
         {
             case Keyboard.DOWN:
             {
@@ -745,7 +749,7 @@ public class RadioButton extends ToggleButtonBase implements IFocusManagerGroup
                 event.preventDefault();
                 break;
             }
-
+                
             case Keyboard.SPACE:
             {
                 setThis();
