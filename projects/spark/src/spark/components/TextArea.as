@@ -88,8 +88,6 @@ use namespace mx_internal;
 //  Other metadata
 //--------------------------------------
 
-[AccessibilityClass(implementation="spark.accessibility.TextAreaAccImpl")]
-
 [DefaultProperty("content")]
 
 [DefaultTriggerEvent("change")]
@@ -282,18 +280,6 @@ public class TextArea extends SkinnableTextBase
 {
     include "../core/Version.as";
 
-    //--------------------------------------------------------------------------
-    //
-    //  Class mixins
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Placeholder for mixin by TextInputAccImpl.
-     */
-    mx_internal static var createAccessibilityImplementation:Function;
-    
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -561,15 +547,6 @@ public class TextArea extends SkinnableTextBase
     //
     //--------------------------------------------------------------------------
     
-     /**
-     *  @private
-     */
-    override protected function initializeAccessibility():void
-    {
-        if (TextArea.createAccessibilityImplementation != null)
-            TextArea.createAccessibilityImplementation(this);
-    }
-
     /**
      *  @private
      *  Pushes various TextInput properties down into the RichEditableText. 
