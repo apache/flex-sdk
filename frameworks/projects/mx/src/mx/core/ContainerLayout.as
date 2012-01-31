@@ -18,6 +18,11 @@ package mx.core
  *
  *  @see mx.containers.Panel#layout
  *  @see mx.core.Application#layout
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public final class ContainerLayout
 {
@@ -61,6 +66,11 @@ public final class ContainerLayout
 	 *  <code>horizontalGap</code>, <code>verticalGap</code>,
 	 *  <code>horizontalAlign</code>, and<code>verticalAlign</code>
 	 *  styles are ignored.</p> 
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const ABSOLUTE:String = "absolute";
 	
@@ -82,6 +92,11 @@ public final class ContainerLayout
 	 *  <code>paddingRight</code>, and <code>paddingBottom</code> styles
 	 *  control the space between the border of the container
 	 *  and the children.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const VERTICAL:String = "vertical";
 
@@ -103,6 +118,11 @@ public final class ContainerLayout
 	 *  <code>paddingRight</code>, and <code>paddingBottom</code> styles
 	 *  control the space between the border of the container
 	 *  and the children.</p>
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public static const HORIZONTAL:String = "horizontal";
 }
