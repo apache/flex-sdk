@@ -482,13 +482,13 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     //----------------------------------
     //  toolTip
     //----------------------------------
-
-    [Inspectable(category="General", defaultValue="null")]
     
     /**
      *  @private
      */
     private var _explicitToolTip:Boolean = false;
+    
+    [Inspectable(category="General", defaultValue="null")]
 
     /**
      *  @private
@@ -708,6 +708,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
     //----------------------------------
 
     [Bindable("contentChange")]
+    [Inspectable(category="General", defaultValue="")]
 
     /**
      *  Text to appear on the ButtonBase control.
