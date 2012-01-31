@@ -22,6 +22,11 @@ import mx.utils.ColorUtil;
 
 /**
  *  The skin for all the states of the up or down button in a ScrollBar.
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
  */
 public class ScrollArrowSkin extends Border
 {
@@ -82,6 +87,11 @@ public class ScrollArrowSkin extends Border
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ScrollArrowSkin()
 	{
