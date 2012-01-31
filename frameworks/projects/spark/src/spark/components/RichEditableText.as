@@ -9,7 +9,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.primitives
+package spark.components
 {
 
 import flash.display.DisplayObject;
@@ -86,8 +86,8 @@ import spark.core.CSSTextLayoutFormat;
 import spark.core.IViewport;
 import spark.core.NavigationUnit;
 import spark.events.TextOperationEvent;
-import spark.primitives.supportClasses.RichEditableTextContainerManager;
-import spark.primitives.supportClasses.RichEditableTextEditManager;
+import spark.components.supportClasses.RichEditableTextContainerManager;
+import spark.components.supportClasses.RichEditableTextEditManager;
 import spark.utils.TextUtil;
 
 use namespace mx_internal;
@@ -232,9 +232,9 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  high-quality international typography and layout.</p>
  *
  *  <p>The Spark architecture provides three text "primitives" -- 
- *  SimpleText, RichText, and RichEditableText --
+ *  Label, RichText, and RichEditableText --
  *  as part of its pay-only-for-what-you-need philosophy.
- *  SimpleText is the fastest and most lightweight
+ *  Label is the fastest and most lightweight
  *  because it uses only FTE, not TLF,
  *  but it is limited in its capabilities: no rich text,
  *  no scrolling, no selection, and no editing.
@@ -365,8 +365,8 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
  *  <p>RichEditableText uses TLF's TextContainerManager class
  *  to handle its text display, scrolling, selection, and editing.</p>
  *
- *  @see spark.primitives.SimpleText
- *  @see spark.primitives.RichText
+ *  @see spark.components.Label
+ *  @see spark.components.RichText
  *
  *  @includeExample examples/RichEditableTextExample.mxml
  *  @includeExample examples/externalTextFlow.xml -noswf
@@ -1202,7 +1202,7 @@ public class RichEditableText extends UIComponent
      *
      *  @default true
      *
-     *  @see spark.primitives.RichEditableText#selectable
+     *  @see spark.components.RichEditableText#selectable
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1328,7 +1328,7 @@ public class RichEditableText extends UIComponent
 	 *
 	 *  @default NaN
 	 *
-	 *  @see spark.primitives.RichEditableText#widthInChars
+	 *  @see spark.components.RichEditableText#widthInChars
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1580,7 +1580,7 @@ public class RichEditableText extends UIComponent
      *
      *  @default -1
 	 *
-	 *  @see spark.primitives.RichEditableText#selectionAnchorPosition
+	 *  @see spark.components.RichEditableText#selectionAnchorPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1621,7 +1621,7 @@ public class RichEditableText extends UIComponent
      *
      *  @default -1
 	 *
-	 *  @see spark.primitives.RichEditableText#selectionActivePosition
+	 *  @see spark.components.RichEditableText#selectionActivePosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1745,11 +1745,11 @@ public class RichEditableText extends UIComponent
      *
      *  @default ""
      *
-     *  @see spark.primitives.RichEditableText#textFlow
-     *  @see spark.primitives.RichEditableText#horizontalScrollPosition
-     *  @see spark.primitives.RichEditableText#verticalScrollPosition
-     *  @see spark.primitives.RichEditableText#selectionAnchorPosition
-     *  @see spark.primitives.RichEditableText#selectionActivePosition
+     *  @see spark.components.RichEditableText#textFlow
+     *  @see spark.components.RichEditableText#horizontalScrollPosition
+     *  @see spark.components.RichEditableText#verticalScrollPosition
+     *  @see spark.components.RichEditableText#selectionAnchorPosition
+     *  @see spark.components.RichEditableText#selectionActivePosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1909,11 +1909,11 @@ public class RichEditableText extends UIComponent
 	 *
 	 *  @see spark.utils.TextFlowUtil#importFromString()
 	 *  @see spark.utils.TextFlowUtil#importFromXML()
-     *  @see spark.primitives.RichEditableText#text
-     *  @see spark.primitives.RichEditableText#horizontalScrollPosition
-     *  @see spark.primitives.RichEditableText#verticalScrollPosition
-     *  @see spark.primitives.RichEditableText#selectionAnchorPosition
-     *  @see spark.primitives.RichEditableText#selectionActivePosition
+     *  @see spark.components.RichEditableText#text
+     *  @see spark.components.RichEditableText#horizontalScrollPosition
+     *  @see spark.components.RichEditableText#verticalScrollPosition
+     *  @see spark.components.RichEditableText#selectionAnchorPosition
+     *  @see spark.components.RichEditableText#selectionActivePosition
      */
     public function get textFlow():TextFlow
     {
