@@ -195,7 +195,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     //  embeddedFontRegistry
     //----------------------------------
 
-	private static var noEmbeddedFonts:Boolean;
+    private static var noEmbeddedFonts:Boolean;
 
     /**
      *  @private
@@ -216,15 +216,15 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     {
         if (!_embeddedFontRegistry && !noEmbeddedFonts)
         {
-			try
-			{
-				_embeddedFontRegistry = IEmbeddedFontRegistry(
-					Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
-			}
-			catch (e:Error)
-			{
-				noEmbeddedFonts = true;
-			}
+            try
+            {
+                _embeddedFontRegistry = IEmbeddedFontRegistry(
+                    Singleton.getInstance("mx.core::IEmbeddedFontRegistry"));
+            }
+            catch (e:Error)
+            {
+                noEmbeddedFonts = true;
+            }
         }
 
         return _embeddedFontRegistry;
@@ -1301,8 +1301,10 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      *  property is not a valid property of the data provider, the sort does
      *  not work or will generate an exception.
      *  If you specify a value of the <code>labelFunction</code> property,
-     *  you must also provide a function to the <code>sortCompareFunction</code> property,
-     *  unless sorting is not allowed on this column.
+     *  you typically also provide a function to the <code>sortCompareFunction</code> property,
+     *  unless sorting is not allowed on this column. 
+     *  That means you specify a function when the value from the column's <code>dataField</code> 
+     *  does not sort in the same way as the computed value from the <code>labelFunction</code> property.
      *
      *  <p>The DataGrid control uses this function to sort the elements of the data
      *  provider collection. The function signature of
@@ -1871,11 +1873,11 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             rendererFactory = owner.itemRenderer;
         
         if (rendererFactory is ClassFactory) {
-	        var contextualClassFactory: ContextualClassFactory = 
-		        new ContextualClassFactory(ClassFactory(rendererFactory).generator, 
-		                                   forHeader ? oldHeaderEmbeddedFontContext : oldEmbeddedFontContext);
-	        contextualClassFactory.properties = ClassFactory(rendererFactory).properties;
-	        return contextualClassFactory;
+            var contextualClassFactory: ContextualClassFactory = 
+                new ContextualClassFactory(ClassFactory(rendererFactory).generator, 
+                                           forHeader ? oldHeaderEmbeddedFontContext : oldEmbeddedFontContext);
+            contextualClassFactory.properties = ClassFactory(rendererFactory).properties;
+            return contextualClassFactory;
         }
         
         return rendererFactory;
@@ -1938,7 +1940,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         var italic:Boolean = fontStyle == "italic";
                 
         embeddedFontContext = (noEmbeddedFonts || !embeddedFontRegistry) ? 
-			null : 
+            null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
                 fontName, bold, italic, this, owner.moduleFactory, 
                 owner.systemManager);    
@@ -2001,7 +2003,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         }
         
         embeddedFontContext = (noEmbeddedFonts || !embeddedFontRegistry) ? 
-			null : 
+            null : 
             embeddedFontRegistry.getAssociatedModuleFactory(
                 fontName, bold, italic, this, owner.moduleFactory,
                 owner.systemManager);    
