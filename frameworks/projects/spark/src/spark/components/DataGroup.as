@@ -804,32 +804,40 @@ public class DataGroup extends GroupBase
         if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
             return null;
         
+        return indexToRenderer[index];
+    }
+    
+    /**
+     *  @private
+     *  Currently, item renderers ("IRs") can only be recycled if they're all
+     *  of the same type, they implement IDataRenderer, and they're all
+     *  produced - by the itemRenderer factory - with the same initial
+     *  configuration.  We can't ever really guarantee this however the case
+     *  for which we're assuming that it's true is when just the itemRenderer
+     *  is specified.  Even in this case, for recycling to work the
+     *  itemRenderer (factory) must be essentially stateless, the IRs
+     *  appearance must be based exclusively on its data.  For this reason
+     *  we're also defeating recycling of IRs that don't implement
+     *  IDataRenderer, see endVirtualLayout().  Although one could recycle
+     *  these IRs, doing so would imply that either all of the IRs were
+     *  the same, or that some did implement IDataRenderer and others
+     *  did not.   We can't handle the latter, and a DataGroup where
+     *  all items are the same wouldn't be worth the trouble.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function getVirtualElementAt(index:int):IVisualElement
+    {
+        if ((index < 0) || (dataProvider == null) || (index >= dataProvider.length))
+            return null;
+            
         var elt:IVisualElement = indexToRenderer[index];
         
         if (virtualLayoutUnderway)
         {
-            /* - Recycling - 
-             * 
-             *  Currently, item renderers ("IRs") can only be recycled if they're all
-             *  of the same type, they implement IDataRenderer, and they're all
-             *  produced - by the itemRenderer factory - with the same initial
-             *  configuration.  We can't ever really guarantee this however the case
-             *  for which we're assuming that it's true is when just the itemRenderer
-             *  is specified.  Even in this case, for recycling to work the
-             *  itemRenderer (factory) must be essentially stateless, the IRs
-             *  appearance must be based exclusively on its data.  For this reason
-             *  we're also defeating recycling of IRs that don't implement
-             *  IDataRenderer, see endVirtualLayout().  Although one could recycle
-             *  these IRs, doing so would imply that either all of the IRs were
-             *  the same, or that some did implement IDataRenderer and others
-             *  did not.   We can't handle the latter, and a DataGroup where
-             *  all items are the same wouldn't be worth the trouble.
-             *  
-             *  @langversion 3.0
-             *  @playerversion Flash 10
-             *  @playerversion AIR 1.5
-             *  @productversion Flex 4
-             */
             if (virtualLayoutStartIndex == -1)  // initialized in updateDisplayList()
             {
                 virtualLayoutStartIndex = index;
@@ -872,12 +880,11 @@ public class DataGroup extends GroupBase
             if ((createdIR || recycledIR) && (elt is IInvalidating))
                 IInvalidating(elt).validateNow();
             if (createdIR)
-                dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_ADD, 
-                                    false, false, elt, index, item));
+                dispatchEvent(new RendererExistenceEvent(RendererExistenceEvent.RENDERER_ADD, false, false, elt, index, item));
         }
 
-        return elt;
-    }
+        return elt;         
+     }
 
     /**
      *  @inheritDoc
