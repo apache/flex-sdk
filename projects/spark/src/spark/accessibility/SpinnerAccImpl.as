@@ -18,6 +18,7 @@ import flash.events.Event;
 import mx.accessibility.AccImpl;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.events.FlexEvent;
 
 import spark.components.Spinner;
 
@@ -227,6 +228,54 @@ public class SpinnerAccImpl extends AccImpl
     override public function get_accValue(childID:uint):String
     {
         return Spinner(master).value.toString();
+    }
+
+    /**
+     *  @private
+     *  IAccessible method for returning the default action
+     *  of the Spinner and it's children.
+     *
+     *  @param childID uint
+     *
+     *  @return DefaultAction String
+     */
+    override public function get_accDefaultAction(childID:uint):String
+    {
+        return childID == 0 ? "" : "Press";
+    }
+    
+    /**
+     *  @private
+     *  IAccessible method for performing the default action
+     *  associated with The Spinner's buttons.
+     *
+     *  @param childID uint
+     */
+
+    override public function accDoDefaultAction(childID:uint):void
+    {
+        var prevValue:Number = Spinner(master).value;
+        
+        switch(childID)
+        {
+            case 1:
+            {
+                if (Spinner(master).incrementButton.enabled)
+                    Spinner(master).changeValueByStep(true)
+                break;
+            }
+            case 2:
+            {
+                if (Spinner(master).incrementButton.enabled)
+                    Spinner(master).changeValueByStep(false)
+                break;
+            }
+        }
+        
+        if (Spinner(master).value != prevValue) {
+            master.dispatchEvent(new Event(Event.CHANGE));
+            master.dispatchEvent(new FlexEvent(FlexEvent.VALUE_COMMIT));
+        }
     }
 
     //--------------------------------------------------------------------------
