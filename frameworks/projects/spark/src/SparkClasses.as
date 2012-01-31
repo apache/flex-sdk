@@ -25,7 +25,6 @@ internal class SparkClasses
  */
 import mx.controls.dataGridClasses.TLFDataGridItemRenderer; TLFDataGridItemRenderer;
 import mx.controls.TLFTextInput; TLFTextInput;
-import mx.core.TLFTextField; TLFTextField;
 import mx.core.UITLFTextField; UITLFTextField;
 import spark.core.SpriteVisualElement; SpriteVisualElement;
 import spark.skins.spark.ApplicationSkin; ApplicationSkin;
