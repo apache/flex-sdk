@@ -2086,6 +2086,9 @@ public class UITLFTextField extends TLFTextField
                 thickness = getStyle("fontThickness");
             }
 
+            direction = getStyle("direction")
+            locale = getStyle("locale");
+
             if (!styleSheet)
             {
                 super.setTextFormat(textFormat);
