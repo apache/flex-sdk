@@ -13,7 +13,6 @@ package spark.components
 {
 import flash.events.Event;
 
-import mx.core.IDeferredInstance;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -21,12 +20,6 @@ import mx.core.mx_internal;
 import spark.core.IDisplayText;
 
 use namespace mx_internal;
-
-/*
- *  TODO
- *  - Fix bug when setting errorString = "" 
- *  - Review applyErrorText API
- */ 
 
 /**
  *  Specifies the image source to use for the error indicator. 
@@ -52,7 +45,6 @@ use namespace mx_internal;
  */
 [Style(name="errorIndicatorSource", type="Object", inherit="no")]
 
-
 /**
  *  SkinnableContainer with content and multiple properties. The FormItem's children 
  *  are the content and are placed in the contentGroup skin part. The FormItem 
@@ -64,7 +56,17 @@ use namespace mx_internal;
  */
 public class FormItem extends SkinnableContainer
 {
+    include "../core/Version.as";
     
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  Constructor.
+     */
     public function FormItem()
     {
         super();
@@ -130,11 +132,13 @@ public class FormItem extends SkinnableContainer
     //----------------------------------
     //  helpContent
     //----------------------------------
+
     private var _helpContent:Array;
     private var helpContentChanged:Boolean = false;
     
+    [ArrayElementType("mx.core.IVisualElement")]
     [Bindable("helpContentChanged")]
-    [Inspectable(category="General", defaultValue="")]
+    [Inspectable(category="General", arrayType="mx.core.IVisualElement", defaultValue="")]
     
     /** 
      *  The set of components to include in the help content 
@@ -306,7 +310,11 @@ public class FormItem extends SkinnableContainer
     {
         super.commitProperties();
         
-        createHelpContent();
+        if (helpContentChanged)
+        {
+            createHelpContent();
+            helpContentChanged = false;
+        }
     }
     
     /**
@@ -432,11 +440,8 @@ public class FormItem extends SkinnableContainer
      */
     private function createHelpContent():void
     {
-        if (_helpContent && helpContentGroup && helpContentChanged)
-        {            
-            helpContentChanged = false;            
+        if (helpContentGroup)
             helpContentGroup.mxmlContent = _helpContent; 
-        }
     }
     
     //--------------------------------------------------------------------------
@@ -444,6 +449,7 @@ public class FormItem extends SkinnableContainer
     //  Event Handlers 
     //
     //--------------------------------------------------------------------------
+    
     /**
      *  @private
      */
@@ -451,7 +457,5 @@ public class FormItem extends SkinnableContainer
     {
         updateErrorString();
     }
-
-    
 }
 }
