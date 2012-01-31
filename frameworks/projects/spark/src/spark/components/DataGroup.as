@@ -1467,10 +1467,16 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 }
                 
                 indexToRenderer[index] = elt;
-            }
 
-            addItemRendererToDisplayList(DisplayObject(elt));           
-            setUpItemRenderer(elt, index, item);
+                addItemRendererToDisplayList(DisplayObject(elt)); 
+                setUpItemRenderer(elt, index, item);
+            }
+            else
+            {
+                // No need to set the data and label in the IR again.
+                // The collectionChangeHandler will handle updates to data.
+                addItemRendererToDisplayList(DisplayObject(elt)); 
+            }
             
             if (!isNaN(eltWidth) || !isNaN(eltHeight))
             {
