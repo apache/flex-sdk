@@ -61,6 +61,14 @@ public class DropDownController extends EventDispatcher
     
     //--------------------------------------------------------------------------
     //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+
+    private var mouseIsDown:Boolean;
+
+    //--------------------------------------------------------------------------
+    //
     //  Properties
     //
     //--------------------------------------------------------------------------
@@ -292,6 +300,7 @@ public class DropDownController extends EventDispatcher
                 systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
                 systemManager.getSandboxRoot().addEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
                 systemManager.getSandboxRoot().addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
+                systemManager.getSandboxRoot().addEventListener(MouseEvent.MOUSE_UP, systemManager_mouseUpHandler_noRollOverOpenDelay);
             }
             else
             {
@@ -320,6 +329,7 @@ public class DropDownController extends EventDispatcher
                 systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
                 systemManager.getSandboxRoot().removeEventListener(SandboxMouseEvent.MOUSE_DOWN_SOMEWHERE, systemManager_mouseDownHandler);
                 systemManager.getSandboxRoot().removeEventListener(Event.RESIZE, systemManager_resizeHandler, false);
+                systemManager.getSandboxRoot().removeEventListener(MouseEvent.MOUSE_UP, systemManager_mouseUpHandler_noRollOverOpenDelay);
             }
             else
             {
@@ -452,7 +462,10 @@ public class DropDownController extends EventDispatcher
         if (isOpen)
             closeDropDown(true);
         else
+        {
+            mouseIsDown = true;
             openDropDownHelper();
+        }
     }
             
     /**
@@ -510,6 +523,13 @@ public class DropDownController extends EventDispatcher
      */     
     mx_internal function systemManager_mouseDownHandler(event:Event):void
     {
+        // stop here if mouse was down from being down on the open button
+        if (mouseIsDown)
+        {
+            mouseIsDown = false;
+            return;
+        }
+
         if (!dropDown || 
             (dropDown && 
              (event.target == dropDown 
@@ -525,6 +545,7 @@ public class DropDownController extends EventDispatcher
                         return;
                 }
             }
+
             closeDropDown(true);
         } 
     }
@@ -555,6 +576,20 @@ public class DropDownController extends EventDispatcher
         closeDropDown(true);
     }
     
+    /**
+     *  @private
+     *  Debounce the mouse
+     */
+    mx_internal function systemManager_mouseUpHandler_noRollOverOpenDelay(event:Event):void
+    {
+        // stop here if mouse was down from being down on the open button
+        if (mouseIsDown)
+        {
+            mouseIsDown = false;
+            return;
+        }
+    }
+
     /**
      *  @private
      *  Called when the dropdown is popped up from a rollover and the mouse is released 
