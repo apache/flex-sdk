@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
 //
 //  ADOBE SYSTEMS INCORPORATED
 //  Copyright 2009 Adobe Systems Incorporated
@@ -19,6 +19,7 @@ import mx.accessibility.AccConst;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.accessibility.AccImpl;
+import spark.components.supportClasses.ListBase;
 import spark.components.supportClasses.DropDownListBase;
 
 use namespace mx_internal;
@@ -267,6 +268,12 @@ public class DropDownListBaseAccImpl extends ListBaseAccImpl
                 accState |= AccConst.STATE_SYSTEM_EXPANDED;
             else
                 accState |= AccConst.STATE_SYSTEM_COLLAPSED;
+        }
+        else if (!DropDownListBase(master).isDropDownOpen)
+        {
+            if (childID-1 == ListBase(master).caretIndex)
+                    accState |= AccConst.STATE_SYSTEM_SELECTED;        
+            accState = AccConst.STATE_SYSTEM_INVISIBLE;
         }
         
         return accState;
