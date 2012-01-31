@@ -5,7 +5,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:Panel x="6" y="4" width="434" height="245">
-		<s:BusyIndicator id="bi" x="240" y="11" visible="false" initialize="bi.setStyle('symbolColor', 'red');bi.setStyle('rotationInterval','50')"/>
+		<s:BusyIndicator id="bi" x="240" y="11" visible="false" symbolColor="red" rotationInterval="50"/>
 		<s:Button id="btn" x="3" y="11" label="Fetch Data" click="{bi.visible=!bi.visible};btn.label='Fetching Data ...';btn.enabled=false; "/>
 	</s:Panel>
 </s:View>
