@@ -1,4 +1,28 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2005-2007 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
 
+/**
+ *  Alpha level of the color defined by the <code>backgroundColor</code>
+ *  property, of the image or SWF file defined by the <code>backgroundImage</code>
+ *  style.
+ *  Valid values range from 0.0 to 1.0. For most controls, the default value is 1.0, 
+ *  but for ToolTip controls, the default value is 0.95 and for Alert controls, the default value is 0.9.
+ *  
+ *  @default 1.0
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 9
+ *  @playerversion AIR 1.1
+ *  @productversion Flex 3
+ */
 [Style(name="backgroundAlpha", type="Number", inherit="no", theme="halo, spark")]
 
 /**
