@@ -11,11 +11,13 @@
 ////////////////////////////////////////////////////////////////////////////////
 */
 
+@namespace "library://ns.adobe.com/flex/spark";
+
 /* Default Skins */
 
-FxApplication
+Application
 {
-    skinClass: ClassReference("mx.skins.spark.FxApplicationSkin");
+    skinClass: ClassReference("spark.skins.default.ApplicationSkin");
     backgroundColor: #FFFFFF;
 }
 
@@ -25,118 +27,118 @@ ButtonBase
     textAlign: "center";
 }
 
-FxButton
+Button
 {
-    skinClass: ClassReference("mx.skins.spark.FxButtonSkin");
+    skinClass: ClassReference("spark.skins.default.ButtonSkin");
 }
 
-FxButton.emphasized
+Button.emphasized
 {
-    skinClass: ClassReference("mx.skins.spark.FxDefaultButtonSkin");
+    skinClass: ClassReference("spark.skins.default.DefaultButtonSkin");
 }
 
-FxButtonBar
+ButtonBar
 {
-    skinClass: ClassReference("mx.skins.spark.FxButtonBarSkin");
+    skinClass: ClassReference("spark.skins.default.ButtonBarSkin");
 }
 
-FxCheckBox
+CheckBox
 {
-    skinClass: ClassReference("mx.skins.spark.FxCheckBoxSkin");
+    skinClass: ClassReference("spark.skins.default.CheckBoxSkin");
     textAlign: "start";
 }
 
 DropDownList
 {
-    skinClass: ClassReference("mx.skins.spark.DropDownListSkin");
+    skinClass: ClassReference("spark.skins.default.DropDownListSkin");
 }
 
-FxComponent
+SkinnableComponent
 {
-    focusSkin: ClassReference("mx.skins.spark.FxFocusSkin");
+    focusSkin: ClassReference("spark.skins.default.FocusSkin");
 }
 
-FxContainer
+SkinnableContainer
 {
-    skinClass: ClassReference("mx.skins.spark.FxContainerSkin");
+    skinClass: ClassReference("spark.skins.default.SkinnableContainerSkin");
 }
 
-FxDataContainer
+SkinnableDataContainer
 {
-	skinClass: ClassReference("mx.skins.spark.FxDataContainerSkin");
+	skinClass: ClassReference("spark.skins.default.SkinnableDataContainerSkin");
 }
 
-FxHScrollBar
+HScrollBar
 {
-    skinClass: ClassReference("mx.skins.spark.FxHScrollBarSkin");
+    skinClass: ClassReference("spark.skins.default.HScrollBarSkin");
 }
 
-FxHSlider
+HSlider
 {
-    skinClass: ClassReference("mx.skins.spark.FxHSliderSkin");
+    skinClass: ClassReference("spark.skins.default.HSliderSkin");
 }
 
-FxList
+List
 {
-	skinClass: ClassReference("mx.skins.spark.FxListSkin");
+	skinClass: ClassReference("spark.skins.default.ListSkin");
 }
 
-FxNumericStepper
+NumericStepper
 {
-    skinClass: ClassReference("mx.skins.spark.FxNumericStepperSkin");
+    skinClass: ClassReference("spark.skins.default.NumericStepperSkin");
 }
 
-FxPanel
+Panel
 {
-	skinClass: ClassReference("mx.skins.spark.FxPanelSkin");
+	skinClass: ClassReference("spark.skins.default.PanelSkin");
 }
 
-FxRadioButton
+RadioButton
 {
-	skinClass: ClassReference("mx.skins.spark.FxRadioButtonSkin");
+	skinClass: ClassReference("spark.skins.default.RadioButtonSkin");
     textAlign: "start";
 }
 
-FxScroller
+Scroller
 {
-    skinClass: ClassReference("mx.skins.spark.FxScrollerSkin");
+    skinClass: ClassReference("spark.skins.default.ScrollerSkin");
 }
 
-FxSpinner
+Spinner
 {
-    skinClass: ClassReference("mx.skins.spark.FxSpinnerSkin");    
+    skinClass: ClassReference("spark.skins.default.SpinnerSkin");    
 }
 
-FxTextArea
+TextArea
 {
 	lineBreak: "toFit";
-	skinClass: ClassReference("mx.skins.spark.FxTextAreaSkin");
+	skinClass: ClassReference("spark.skins.default.TextAreaSkin");
 }
 
-FxTextInput
+TextInput
 {
 	lineBreak: "explicit";
-	skinClass: ClassReference("mx.skins.spark.FxTextInputSkin");
+	skinClass: ClassReference("spark.skins.default.TextInputSkin");
 }
 
-FxToggleButton
+ToggleButton
 {
-	skinClass: ClassReference("mx.skins.spark.FxToggleButtonSkin");
+	skinClass: ClassReference("spark.skins.default.ToggleButtonSkin");
 }
 
-FxVideoDisplay
+VideoDisplay
 {
-    skinClass: ClassReference("mx.skins.spark.FxVideoDisplaySkin");
+    skinClass: ClassReference("spark.skins.default.VideoDisplaySkin");
 }
 
-FxVScrollBar
+VScrollBar
 {
-	skinClass: ClassReference("mx.skins.spark.FxVScrollBarSkin");
+	skinClass: ClassReference("spark.skins.default.VScrollBarSkin");
 }
 
-FxVSlider
+VSlider
 {
-    skinClass: ClassReference("mx.skins.spark.FxVSliderSkin");
+    skinClass: ClassReference("spark.skins.default.VSliderSkin");
 }
 
 global
