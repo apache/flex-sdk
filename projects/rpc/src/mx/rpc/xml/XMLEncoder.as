@@ -838,6 +838,10 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
         var maxOccurs:uint = getMaxOccurs(definition);
         var minOccurs:uint = getMinOccurs(definition);
 
+        // If the maximum occurence is 0 this element must not be present.
+        if (maxOccurs == 0)
+            return true;
+
         isRequired = isRequired && minOccurs > 0;
 
         // <element ref="..."> may be used to point to a top-level element definition
@@ -849,10 +853,6 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
             if (definition == null)
                 throw new Error("Cannot resolve element definition for ref '" + ref + "'");
         }
-
-        // If the maximum occurence is 0 this element must not be present.
-        if (maxOccurs == 0)
-            return true;
 
         var elementName:String = definition.@name.toString();
         var elementQName:QName = schemaManager.getQNameForElement(elementName, getAttributeFromNode("form", definition));
@@ -870,6 +870,10 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
             if (encodedElement != null)
                 appendValue(siblings, encodedElement);
 
+            // If we found our element by reference, we now release the schema scope
+            if (ref != null)
+                schemaManager.releaseScope();
+
             // if required, but no value was encoded, the definition is not
             // satisfied
             if (isRequired  && encodedElement == null)
@@ -879,9 +883,6 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
             return true;
         }
 
-
-        
-        
         // We treat maxOccurs="1" as a special case and not check the
         // occurence because we need to pass through values to SOAP
         // encoded Arrays which do not rely on minOccurs/maxOccurs
