@@ -12,8 +12,9 @@
 package spark.components
 {
 /**
- *  Enumerated type for the PopUpAnchor.popUpPosition property. This type describes
- *  the position of the popUp relative to the PopUpAnchor.  
+ *  Enumerated type for the <code>PopUpAnchor.popUpPosition</code> property.
+ *  This type describes the position of the <code>popUp</code> control that is
+ *  anchored by PopUpAnchor. The position is relative to the PopUpAnchor position.  
  *    
  *  @langversion 3.0
  *  @playerversion Flash 10
