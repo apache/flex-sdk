@@ -294,9 +294,16 @@ public class DataGridEditor
                 (column.imeMode == null) ? dataGrid.imeMode : column.imeMode;
         
         var fm:IFocusManager = grid.focusManager;
-        // trace("setting focus to item editor");
         if (itemEditorInstance is IFocusManagerComponent)
+        {
+            // Temporarily remove the FOCUS_OUT handler: if we give the editor the focus and
+            // it immediately vectors it to a non-editor descendant, like to the mobile soft 
+            // keyboard, we don't want to end the editor session.
+            
+            itemEditorInstance.removeEventListener(FocusEvent.FOCUS_OUT, editor_focusOutHandler);            
             fm.setFocus(IFocusManagerComponent(itemEditorInstance));
+            itemEditorInstance.addEventListener(FocusEvent.FOCUS_OUT, editor_focusOutHandler);             
+        }
         
         lastEditedItemPosition = _editedItemPosition;
         
@@ -1464,7 +1471,7 @@ public class DataGridEditor
         if (event.relatedObject)
         {
             var component:IUIComponent = getIUIComponent(event.relatedObject);
-            if (component && editorOwns(component))
+            if (component && (component && editorOwns(component)))
                 return;                
         }
         
