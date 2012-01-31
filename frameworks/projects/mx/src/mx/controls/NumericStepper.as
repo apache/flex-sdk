@@ -214,7 +214,7 @@ include "../styles/metadata/TextStyles.as"
  *
  *  <p>It can be set to either the mx.core.TextInput class
  *  (to use the classic Halo TextInput control)
- *  or the mx.controls.TLFTextInput class
+ *  or the mx.controls.MXFTETextInput class
  *  (to use the Spark TextInput component based on the Text Layout Framework 
  *  to get improved text rendering, including bidirectional layout).</p>
  *
@@ -1150,7 +1150,7 @@ public class NumericStepper extends UIComponent
 
         if (!inputField)
         {
-            // Mechanism to use TLFTextInput. 
+            // Mechanism to use MXFTETextInput. 
             var textInputClass:Class = getStyle("textInputClass");            
             if (!textInputClass || 
                 FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0)
