@@ -280,7 +280,9 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  The color of the vertical grid lines.
- *  @default 0xCCCCCC
+ *  
+ *  The default value for the Halo theme is <code>0xCCCCCC</code>.
+ *  The default value for the Spark theme is <code>0x696969</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -291,7 +293,7 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  The color of the horizontal grid lines.
- * @default 0xF7F7F7
+ *  @default 0xF7F7F7
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -315,7 +317,9 @@ include "../styles/metadata/IconColorStyles.as"
 
 /**
  *  The color of the row background when the user rolls over the row.
- *  @default 0xB2E1FF
+ *  
+ *  The default value for the Halo theme is <code>0xB2E1FF</code>.
+ *  The default value for the Spark theme is <code>0xCEDBEF</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -327,7 +331,9 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The color of the background for the row when the user selects 
  *  an item renderer in the row.
- *  @default 0x7FCEFF
+ * 
+ *  The default value for the Halo theme is <code>0x7FCEFF</code>.
+ *  The default value for the Spark theme is <code>0xA8C6EE</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -363,7 +369,8 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The class to use as the skin that defines the appearance of the  
  *  background of the column headers in a DataGrid control.
- *  @default mx.skins.halo.DataGridHeaderBackgroundSkin
+ *  The default value for the Halo theme is <code>mx.skins.halo.DataGridHeaderBackgroundSkin</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.DataGridHeaderBackgroundSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -375,7 +382,8 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The class to use as the skin that defines the appearance of the 
  *  separator between column headers in a DataGrid control.
- *  @default mx.skins.halo.DataGridHeaderSeparator
+ *  The default value for the Halo theme is <code>mx.skins.halo.DataGridHeaderSeparator</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.DataGridHeaderSeparatorSkin</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
@@ -451,7 +459,8 @@ include "../styles/metadata/IconColorStyles.as"
 /**
  *  The class to use as the skin for the arrow that indicates the column sort 
  *  direction.
- *  @default mx.skins.halo.DataGridSortArrow
+ *  The default value for the Halo theme is <code>mx.skins.halo.DataGridSortArrow</code>.
+ *  The default value for the Spark theme is <code>mx.skins.spark.DataGridSortArrow</code>.
  *  
  *  @langversion 3.0
  *  @playerversion Flash 9
