@@ -126,6 +126,9 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     public function FxTextBase()
     {
         super();
+        
+        // Push this down to the textView by using the setter.
+        autoSize = false;
     }
 
     //--------------------------------------------------------------------------
@@ -199,6 +202,49 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     //  Properties
     //
     //--------------------------------------------------------------------------
+
+    //----------------------------------
+    //  autoSize
+    //----------------------------------
+
+    /**
+     *  @private
+     *  This must match the initial value in the textView.  autoSize will be 
+     *  set to false by the constructor.
+     */
+    private var _autoSize:Boolean = true;
+
+    /**
+     *  @private
+     */
+    private var autoSizeChanged:Boolean = false;
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get autoSize():Boolean
+    {
+        return _autoSize;
+    }
+
+    /**
+     *  @private
+     */
+    public function set autoSize(value:Boolean):void
+    {
+        if (value == _autoSize)
+            return;
+
+        _autoSize = value;
+        autoSizeChanged = true;
+
+        invalidateProperties();
+    }
 
     //----------------------------------
     //  displayAsPassword
@@ -380,6 +426,51 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         
         _maxChars = value;
         maxCharsChanged = true;
+
+        invalidateProperties();
+    }
+
+    //----------------------------------
+    //  percentWidth
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var percentWidthChanged:Boolean = false;
+    
+    /**
+     *  Documentation is not currently available.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    override public function get percentWidth():Number
+    {
+        return super.percentWidth;
+    }
+
+    //----------------------------------
+    //  maxWidth
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var maxWidthChanged:Boolean = false;
+
+    /**
+     *  @private
+     */
+    override public function set maxWidth(value:Number):void
+    {
+        if (value == super.maxWidth)
+            return;
+
+        super.maxWidth = value;
+        maxWidthChanged = true;
 
         invalidateProperties();
     }
@@ -655,6 +746,12 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     {
         super.commitProperties();
 
+        if (autoSizeChanged)
+        {
+            textView.autoSize = _autoSize;
+            autoSizeChanged = false;
+        }
+
 		if (displayAsPasswordChanged)
         {
             textView.displayAsPassword = _displayAsPassword;
@@ -683,6 +780,18 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         {
             textView.maxChars = _maxChars;
             maxCharsChanged = false;
+        }
+
+        if (maxWidthChanged)
+        {
+            textView.maxWidth = super.maxWidth;
+            maxWidthChanged = false;
+        }
+
+        if (percentWidthChanged)
+        {
+            textView.percentWidth = super.percentWidth;
+            percentWidthChanged = false;
         }
 
         if (restrictChanged)
