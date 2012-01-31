@@ -239,7 +239,7 @@ public class Grid extends Group
     
     public var backgroundLayer:GridLayer;
     public var selectionLayer:GridLayer;    
-    public var rendererLayer:GridLayer
+    public var rendererLayer:GridLayer;
     public var overlayLayer:GridLayer;
     
     
@@ -1396,10 +1396,10 @@ public class Grid extends Group
      * 
      *  <p>If <code>variableRowHeight</code> is <code>true</code>, 
      *  the default, the value of this property is used as the estimated
-     *  height for rows that haven’t been scrolled into view yet, rather
+     *  height for rows that haven't been scrolled into view yet, rather
      *  than the preferred height of renderers configured with the typicalItem.
      *  Similarly, when the Grid pads its display with empty rows, this property
-     *  specifies the empty rows’ height.</p>
+     *  specifies the empty rows' height.</p>
      * 
      *  <p>If <code>variableRowHeight</code> is <code>false</code>, 
      *  the default value of this property is the maximum preferred height
@@ -2876,6 +2876,28 @@ public class Grid extends Group
     {
         return gridLayout.getColumnIndexAt(x, y); 
     }
+    
+    /**
+     *  Return the width of the specified column.  If the cell's entire bounds
+     *  aren't needed, this method is more efficient than <code>getColumnBounds().width</code>.
+     * 
+     *  <p>If the specified column's width property isn't defined, then the returned value 
+     *  may only be an approximation.  The actual column width is only computed after the column
+     *  has been scrolled into view.</p>
+     * 
+     *  @param columnIndex The 0-based index of the column. 
+     *  @return The width of the specified column.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getColumnWidth(columnIndex:int):Number
+    {
+        const column:GridColumn = getGridColumn(columnIndex);
+        return (column && !isNaN(column.width)) ? column.width : gridDimensions.getColumnWidth(columnIndex);
+    }
 
     /**
      *  @copy spark.components.supportClasses.GridLayout#getCellAt()
@@ -2902,6 +2924,50 @@ public class Grid extends Group
     { 
         return gridLayout.getCellsAt(x, y, w, h);
     }
+    
+    /**
+     *  Return the X coordinate of the specified cell's origin.  If the cell's entire bounds
+     *  aren't needed, this method is more efficient than <code>getCellBounds().x</code>.
+     * 
+     *  <p>If all of the columns for the the specfied row and all of the rows preceeding 
+     *  it have not yet been scrolled into view, the returned value may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     * 
+     *  @param rowIndex The 0-based index of the row.
+     *  @param columnIndex The 0-based index of the column. 
+     *  @return The x coordindate of the specified cell's origin.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getCellX(rowIndex:int, columnIndex:int):Number
+    { 
+        return gridDimensions.getCellX(rowIndex, columnIndex);
+    }
+    
+    /**
+     *  Return the Y coordinate of the specified cell's origin.  If the cell's entire bounds
+     *  aren't needed, this method is more efficient than <code>getCellBounds().y</code>.
+     * 
+     *  <p>If all of the columns for the the specfied row and all of the rows preceeding 
+     *  it have not yet been scrolled into view, the returned value may only be an approximation, 
+     *  based on all of the columns' <code>typicalItem</code>s.</p>
+     * 
+     *  @param rowIndex The 0-based index of the row.
+     *  @param columnIndex The 0-based index of the column. 
+     *  @return The y coordindate of the specified cell's origin.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
+     */
+    public function getCellY(rowIndex:int, columnIndex:int):Number
+    { 
+        return gridDimensions.getCellY(rowIndex, columnIndex);
+    }      
     
     
     /**
@@ -3057,7 +3123,7 @@ public class Grid extends Group
                 caretColumnIndex =  _columns.length - 1;
             dispatchCaretChangeEvent();
             caretChanged = false;
-        }
+    }
     }
     
     /**
