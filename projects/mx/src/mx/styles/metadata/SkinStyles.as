@@ -39,7 +39,7 @@
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo")]
+[Style(name="cornerRadius", type="Number", format="Length", inherit="no", theme="halo, spark")]
 
 /**
  *  Alphas used for the background fill of controls. Use [1, 1] to make the control background
