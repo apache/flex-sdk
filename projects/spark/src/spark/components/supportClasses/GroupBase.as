@@ -124,8 +124,8 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
  *  A group component does not control the layout of the visual items that it contains. 
  *  Instead, the layout is handled by a separate layout component.
  *
- *  @see mx.layout.LayoutBase
- *  @see mx.components.ResizeMode
+ *  @see spark.layout.supportClasses.LayoutBase
+ *  @see spark.components.ResizeMode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -204,7 +204,7 @@ public class GroupBase extends UIComponent implements IViewport
      *  This object is responsible for the measurement and layout of 
      *  the visual elements in the container.
      * 
-     *  @default mx.layout.BasicLayout
+     *  @default spark.layout.BasicLayout
      *
      *  @see LayoutBase
      *  
@@ -265,7 +265,7 @@ public class GroupBase extends UIComponent implements IViewport
     [Bindable]
 
     /**
-     *  @copy mx.core.IViewport#horizontalScrollPosition
+     *  @copy spark.core.IViewport#horizontalScrollPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -297,7 +297,7 @@ public class GroupBase extends UIComponent implements IViewport
     [Bindable]
     
     /**
-     *  @copy mx.core.IViewport#verticalScrollPosition
+     *  @copy spark.core.IViewport#verticalScrollPosition
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -327,7 +327,7 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
     
     /**
-     *  @copy mx.core.IViewport#clipAndEnableScrolling
+     *  @copy spark.core.IViewport#clipAndEnableScrolling
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -488,7 +488,7 @@ public class GroupBase extends UIComponent implements IViewport
  * 
  * @default ResizeMode.NORMAL
  * 
- * @see mx.components.ResizeMode
+ * @see spark.components.ResizeMode
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
@@ -816,7 +816,7 @@ public class GroupBase extends UIComponent implements IViewport
     //----------------------------------
 
     /**
-     *  @copy mx.core.IViewport#horizontalScrollPositionDelta
+     *  @copy spark.core.IViewport#horizontalScrollPositionDelta
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -829,7 +829,7 @@ public class GroupBase extends UIComponent implements IViewport
     }
     
     /**
-     *  @copy mx.core.IViewport#verticalScrollPositionDelta
+     *  @copy spark.core.IViewport#verticalScrollPositionDelta
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -857,7 +857,7 @@ public class GroupBase extends UIComponent implements IViewport
     [Inspectable(category="General")]    
 
     /**
-     *  @copy mx.core.IViewport#contentWidth
+     *  @copy spark.core.IViewport#contentWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -891,7 +891,7 @@ public class GroupBase extends UIComponent implements IViewport
     [Inspectable(category="General")]    
 
     /**
-     *  @copy mx.core.IViewport#contentWidth
+     *  @copy spark.core.IViewport#contentWidth
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1123,7 +1123,7 @@ public class GroupBase extends UIComponent implements IViewport
      *  The mask type.
      *  Possible values are <code>MaskType.CLIP</code> and <code>MaskType.ALPHA</code>. 
      *
-     *  @see  mx.graphics.MaskType
+     *  @see  spark.core.MaskType
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
