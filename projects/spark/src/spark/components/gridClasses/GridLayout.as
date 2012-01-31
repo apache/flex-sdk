@@ -105,7 +105,7 @@ public class GridLayout extends LayoutBase
      */
     private const visibleItemRenderersBounds:Rectangle = new Rectangle();
     
-	/**
+    /**
      *  @private
      *  The viewport's bounding rectangle; often smaller then visibleItemRenderersBounds.
      *  Initialized by updateDisplayList with the current scrollPosition, and grid.width,Height.
@@ -393,10 +393,10 @@ public class GridLayout extends LayoutBase
         
         const hspChanged:Boolean = oldHorizontalScrollPosition != horizontalScrollPosition;
         const vspChanged:Boolean = oldVerticalScrollPosition != verticalScrollPosition;
-
+        
         oldHorizontalScrollPosition = horizontalScrollPosition;
         oldVerticalScrollPosition = verticalScrollPosition;
-        		
+        
         // Only invalidate if we're clipping and rows and/or columns covered
 		// by the scrollR changes.  If so, the visible row/column indicies need
 		// to be updated.
@@ -578,8 +578,11 @@ public class GridLayout extends LayoutBase
             oldVisibleRowIndices = visibleRowIndices;
             oldVisibleColumnIndices = visibleColumnIndices;
             
-            const scrollX:Number = horizontalScrollPosition;
-            const scrollY:Number = verticalScrollPosition;
+            // Determine the x/y position of the visible content.  Note that the 
+            // actual scroll positions may be negative.
+            
+            const scrollX:Number = Math.max(0, horizontalScrollPosition);
+            const scrollY:Number = Math.max(0, verticalScrollPosition);
             
             visibleGridBounds.x = scrollX;
             visibleGridBounds.y = scrollY;
@@ -2231,7 +2234,7 @@ public class GridLayout extends LayoutBase
     {   
         if (width > MAX_ELEMENT_SIZE)
         {
-            const scrollX:Number = horizontalScrollPosition;
+            const scrollX:Number = Math.max(0, horizontalScrollPosition);
             const gridWidth:Number = grid.getLayoutBoundsWidth();
             
             const newX:Number = Math.max(x, scrollX - ELEMENT_EDGE_PAD);
@@ -2243,7 +2246,7 @@ public class GridLayout extends LayoutBase
         
         if (height > MAX_ELEMENT_SIZE)
         {
-            const scrollY:Number = verticalScrollPosition;
+            const scrollY:Number = Math.max(0, verticalScrollPosition);
             const gridHeight:Number = grid.getLayoutBoundsHeight();
             
             const newY:Number = Math.max(y, scrollY - ELEMENT_EDGE_PAD);
