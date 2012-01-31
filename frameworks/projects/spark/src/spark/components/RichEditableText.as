@@ -202,6 +202,7 @@ include "../styles/metadata/SelectionFormatTextStyles.as"
 //  Other metadata
 //--------------------------------------
 
+[AccessibilityClass(implementation="spark.accessibility.RichEditableTextAccImpl")]
 [DefaultProperty("content")]
 [IconFile("RichEditableText.png")]
 [DefaultTriggerEvent("change")]
@@ -387,7 +388,19 @@ public class RichEditableText extends UIComponent
     implements IFocusManagerComponent, IIMESupport, ITextSupport, IViewport
 {
     include "../core/Version.as";
-        
+    
+    //--------------------------------------------------------------------------
+    //
+    //  Class mixins
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Placeholder for mixin by RichEditableTextAccImpl.
+     */
+    mx_internal static var createAccessibilityImplementation:Function;
+
     //--------------------------------------------------------------------------
     //
     //  Class initialization
@@ -2171,6 +2184,15 @@ public class RichEditableText extends UIComponent
     //  Overridden Methods: UIComponent
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    override protected function initializeAccessibility():void
+    {
+        if (RichEditableText.createAccessibilityImplementation != null)
+            RichEditableText.createAccessibilityImplementation(this);
+    }
 
     /**
      *  @private
