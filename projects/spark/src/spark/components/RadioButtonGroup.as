@@ -34,6 +34,11 @@ import mx.events.ItemClickEvent;
  *  this group changes.
  *
  *  @eventType flash.events.Event.CHANGE
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="change", type="flash.events.Event")]
 
@@ -42,6 +47,11 @@ import mx.events.ItemClickEvent;
  *  You can also set a handler for individual FxRadioButton controls.
  *
  *  @eventType mx.events.ItemClickEvent.ITEM_CLICK
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 [Event(name="itemClick", type="mx.events.ItemClickEvent")]
 
@@ -90,6 +100,11 @@ import mx.events.ItemClickEvent;
  *  </pre>
  *
  *  @see mx.components.FxRadioButtonGroup
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
 {
@@ -108,6 +123,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  the <code>document</code> parameter should not be used.
      *
      *  @see flash.events.EventDispatcher
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function FxRadioButtonGroup(document:IFlexDisplayObject = null)
     {
@@ -156,6 +176,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  Determines whether selection is allowed.
      *
      *  @default true
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get enabled():Boolean
     {
@@ -190,6 +215,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  The number of FxRadioButtons that belong to this FxRadioButtonGroup.
      *
      *  @default "0"
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get numRadioButtons():int
     {
@@ -223,6 +253,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  <code>label</code> property matches this value.</p>
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selectedValue():Object
     {
@@ -281,6 +316,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  selected FxRadioButton control.  A change event is not dispatched.
      *
      *  @default null
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get selection():FxRadioButton
     {
@@ -312,6 +352,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  If the object is a deep property on document, <code>id</code> is null.
      *
      *  @see mx.core.IMXMLObject
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function initialized(document:Object, id:String):void
     {
@@ -330,6 +375,11 @@ public class FxRadioButtonGroup extends EventDispatcher implements IMXMLObject
      *  0 and numRadioButtons, otherwise null.
      * 
      *  @see numRadioButtons
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function getRadioButtonAt(index:int):FxRadioButton
     {
