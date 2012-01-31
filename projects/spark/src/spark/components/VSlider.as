@@ -20,7 +20,12 @@ import spark.components.supportClasses.Slider;
 import mx.core.UIComponent;
 import mx.core.ILayoutElement;
 
+//--------------------------------------
+//  Other metadata
+//--------------------------------------
+
 [IconFile("VSlider.png")]
+[DefaultTriggerEvent("change")]
 
 /**
  *  The VSlider class defines a vertical slider component.
