@@ -451,6 +451,9 @@ public class SkinnableComponent extends UIComponent
                 catch (err:Error) {}
             }
             
+            // the skin's styles should be the same as the components
+            skin.styleName = this;
+            
             super.addChild(skin);
             
             skin.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
@@ -566,6 +569,7 @@ public class SkinnableComponent extends UIComponent
     {       
         skin.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, skin_propertyChangeHandler);
         
+        skin.styleName = null;
         clearSkinParts();
         super.removeChild(skin);
         setSkin(null);
