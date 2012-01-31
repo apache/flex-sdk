@@ -15,7 +15,7 @@ package spark.effects
  *  The WipeDirection class defines the values
  *  for the <code>direction</code> property of the Wipe class.
  *
- *  @see mx.effects.Wipe
+ *  @see spark.effects.Wipe
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
