@@ -63,6 +63,8 @@ import mx.managers.IFocusManagerComponent;
  *  Therefore the scale is {-1,3,6,9,10}.
  *
  *  @see mx.components.FxNumericStepper
+ *
+ *  @includeExample examples/FxSpinnerExample.mxml
  */
 public class FxSpinner extends FxRange implements IFocusManagerComponent
 {
