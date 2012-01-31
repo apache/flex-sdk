@@ -172,8 +172,6 @@ public final class Animation
     private var startTime:Number;
     // Time when the current cycle started
     private var cycleStartTime:Number;
-    // Track number of times repeated for use by repeatCount logic
-    private var numRepeats:int;
     // The amount of time that the animation should delay before
     // starting. This is set to a non-negative number only when
     // an Animation is paused during its startDelay phase
@@ -615,7 +613,7 @@ public final class Animation
         
         intervalTime = Timeline.currentTime;
 
-        animation.startTime = animation.cycleStartTime = intervalTime;
+        animation.cycleStartTime = intervalTime;
     }
 
     private static function removeAnimationAt(index:int):void
@@ -709,47 +707,47 @@ public final class Animation
             
             var currentTime:Number = intervalTime - cycleStartTime;
             _playheadTime = intervalTime - startTime;
-            if (currentTime >= duration && 
-                (repeatCount == 0 || numRepeats < repeatCount))
-            {
-                // FIXME (chaase): this assumes we've only gone through one cycle since
-                // last time...
-                if (repeatCount != 0)
-                    if (!_doSeek)
-                        numRepeats++;
-                    else
-                        numRepeats = 1 + currentTime / (duration + repeatDelay);
-                if (repeatDelay == 0) {
-                    cycleStartTime += duration;
-                    currentTime = intervalTime - cycleStartTime;
-                    if (repeatBehavior == RepeatBehavior.REVERSE)
-                        _invertValues = !_invertValues;
-                    repeated = true;
-                }
-                else
+            if (currentTime >= duration)
+            { 
+                // numRepeats reflects the current repetition cycle that we're going to
+                // be in, once we repeat.
+                var numRepeats:int = 2 + (_playheadTime - duration) / (duration + repeatDelay);
+                if (repeatCount == 0 || numRepeats <= repeatCount)
                 {
-                    if (_doSeek)
+                    if (repeatDelay == 0)
                     {
-                        _cycleTime = currentTime % (duration + repeatDelay);
-                        if (_cycleTime > duration)
-                            _cycleTime = duration; // must be in repeatDelay phase
-                        calculateValue(_cycleTime);
-                        sendUpdateEvent();
-                        return false;
+                        _cycleTime = currentTime % duration;
+                        cycleStartTime = intervalTime - _cycleTime;
+                        currentTime = _cycleTime;                        
+                        if (repeatBehavior == RepeatBehavior.REVERSE)
+                            _invertValues = !_invertValues;
+                        repeated = true;
                     }
                     else
                     {
-                        // repeatDelay: send out a final update for this cycle with the
-                        // end value, then schedule a timer to wake up and
-                        // start the next cycle
-                        _cycleTime = duration;
-                        calculateValue(_cycleTime);
-                        sendUpdateEvent();
-                        removeAnimation(this);
-                        var delayTimer:Timer = new Timer(repeatDelay, 1);
-                        delayTimer.addEventListener(TimerEvent.TIMER, repeat);
-                        delayTimer.start();
-                        return false;
+                        if (_doSeek)
+                        {
+                            _cycleTime = currentTime % (duration + repeatDelay);
+                            if (_cycleTime > duration)
+                                _cycleTime = duration; // must be in repeatDelay phase
+                            calculateValue(_cycleTime);
+                            sendUpdateEvent();
+                            return false;
+                        }
+                        else
+                        {
+                            // repeatDelay: send out a final update for this cycle with the
+                            // end value, then schedule a timer to wake up and
+                            // start the next cycle
+                            _cycleTime = duration;
+                            calculateValue(_cycleTime);
+                            sendUpdateEvent();
+                            removeAnimation(this);
+                            var delayTimer:Timer = new Timer(repeatDelay, 1);
+                            delayTimer.addEventListener(TimerEvent.TIMER, repeat);
+                            delayTimer.start();
+                            return false;
+                        }
                     }
                 }
             }
@@ -1268,7 +1266,6 @@ public final class Animation
                 break;
             }
         }
-        numRepeats = 1;
         sendAnimationEvent(EffectEvent.EFFECT_START);
         
         // start/end values may be changed by Animate (set dynamically),
@@ -1288,6 +1285,7 @@ public final class Animation
             // UPDATE event with this start value
             sendUpdateEvent();
             Animation.addAnimation(this);
+            startTime = cycleStartTime;
             _isPlaying = true;
             if (actualStartTime > 0)
                 seek(actualStartTime);
