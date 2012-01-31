@@ -28,6 +28,11 @@ public class WSDLOperation
 {    
     /**
      * Constructor.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function WSDLOperation(name:String)
     {
@@ -45,17 +50,32 @@ public class WSDLOperation
     /**
      * Describes the parts and encoding for the input message of this
      * operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var inputMessage:WSDLMessage;
 
     /**
      * Used to map prefixes to namespace URIs.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var namespaces:Object;
 
     /**
      * Describes the parts and encoding for the output message of this
      * operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var outputMessage:WSDLMessage;
 
@@ -69,6 +89,11 @@ public class WSDLOperation
      * If a style is not specified for an operation the default will be
      * determined from the parent WSDLBinding's style attribute.
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public var style:String;
 
@@ -81,6 +106,11 @@ public class WSDLOperation
 
     /**
      * The name of this WSDL operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get name():String
     {
@@ -90,6 +120,11 @@ public class WSDLOperation
     /**
      * A SchemaManager handles the XML Schema types section of a WSDL and
      * is used to locate a type definition by QName.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get schemaManager():SchemaManager
     {
@@ -110,6 +145,11 @@ public class WSDLOperation
      * value of the empty String will be returned in the event that it is
      * not set.
      * </p>
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */    
     public function get soapAction():String
     {
@@ -127,6 +167,11 @@ public class WSDLOperation
     /**
      * The constants for the version of SOAP used to encode messages
      * to and from this operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get soapConstants():SOAPConstants
     {
@@ -143,6 +188,11 @@ public class WSDLOperation
 
     /**
      * The constants for the version of WSDL used to define this operation.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
      */
     public function get wsdlConstants():WSDLConstants
     {
