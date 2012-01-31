@@ -16,8 +16,10 @@ import flash.display.Graphics;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
+import flash.events.TimerEvent;
 import flash.geom.Rectangle;
 import flash.ui.Keyboard;
+import flash.utils.Timer;
 
 import mx.collections.ICollectionView;
 import mx.collections.IList;
@@ -26,6 +28,7 @@ import mx.collections.ISortField;
 import mx.core.EventPriority;
 import mx.core.IFactory;
 import mx.core.IIMESupport;
+import mx.core.InteractionMode;
 import mx.core.LayoutDirection;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponent;
@@ -1203,7 +1206,7 @@ public class DataGrid extends SkinnableContainerBase
      *  method. 
      */ 
     mx_internal var editor:DataGridEditor;
-
+    
     //--------------------------------------------------------------------------
     //
     //  Properties 
@@ -2099,7 +2102,7 @@ public class DataGrid extends SkinnableContainerBase
         
         _sortableColumns = value;
         dispatchChangeEvent("sortableColumnsChanged");
-    }        
+    } 
     
     //----------------------------------
     //  typicalItem (delegates to grid.typicalItem)
@@ -2639,8 +2642,10 @@ public class DataGrid extends SkinnableContainerBase
             
             grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_mouseDownHandler, false, EventPriority.DEFAULT_HANDLER);
             grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_mouseUpHandler, false, EventPriority.DEFAULT_HANDLER);
+            
             grid.addEventListener(GridEvent.GRID_ROLL_OVER, grid_rollOverHandler, false, EventPriority.DEFAULT_HANDLER);
             grid.addEventListener(GridEvent.GRID_ROLL_OUT, grid_rollOutHandler, false, EventPriority.DEFAULT_HANDLER);
+            
             grid.addEventListener(GridCaretEvent.CARET_CHANGE, grid_caretChangeHandler);            
             grid.addEventListener(FlexEvent.VALUE_COMMIT, grid_valueCommitHandler);
             grid.addEventListener("invalidateSize", grid_invalidateSizeHandler);            
@@ -4332,7 +4337,7 @@ public class DataGrid extends SkinnableContainerBase
             }
             case NavigationUnit.PAGE_DOWN:
             {
-                // Page down to last fully visible row on the page.  If there is
+                // Page down past the last fully visible row on the page.  If there is
                 // a partially visible row at the bottom of the page, the next
                 // page down should include it in its entirety.
                 visibleRows = grid.getVisibleRowIndices();
@@ -4340,13 +4345,10 @@ public class DataGrid extends SkinnableContainerBase
                     break;
                 
                 // This row might be only partially visible.
-                var lastVisibleRowIndex:int = 
-                    visibleRows[visibleRows.length - 1];                
-                var lastVisibleRowBounds:Rectangle =
-                    grid.getRowBounds(lastVisibleRowIndex);
+                var lastVisibleRowIndex:int = Math.min(rowCount - 1, visibleRows[visibleRows.length - 1]);                
+                var lastVisibleRowBounds:Rectangle = grid.getRowBounds(lastVisibleRowIndex);
                 
-                // If there is more than one visible row, set to the last
-                // fully visible row.
+                // If there is more than one visible row, set to the last fully visible row.
                 if (lastVisibleRowIndex > 0 && 
                     grid.scrollRect.bottom < lastVisibleRowBounds.bottom)
                 {
@@ -4368,7 +4370,7 @@ public class DataGrid extends SkinnableContainerBase
                     // Visible rows have been updated so figure out which one
                     // is now the last fully visible row.
                     visibleRows = grid.getVisibleRowIndices();
-                    lastVisibleRowIndex = visibleRows[visibleRows.length - 1];
+                    lastVisibleRowIndex = Math.min(rowCount - 1, visibleRows[visibleRows.length - 1])
                     if (visibleRows.length >= 0)
                     {
                         lastVisibleRowBounds = grid.getRowBounds(lastVisibleRowIndex);
@@ -4587,8 +4589,7 @@ public class DataGrid extends SkinnableContainerBase
         if (event.isDefaultPrevented())
             return;
         
-        // The related object is the object that was previously under
-        // the pointer.
+        // The related object is the object that was previously under the pointer.
         if (event.buttonDown && event.relatedObject != grid)
             updateHoverOnRollOver = false;
         
@@ -4633,6 +4634,7 @@ public class DataGrid extends SkinnableContainerBase
         }
     }
     
+    
     /**
      *  @private
      */
@@ -4672,8 +4674,8 @@ public class DataGrid extends SkinnableContainerBase
         }
         else
         {
-            // click sets the selection and updates the caret and anchor 
-            // positions.
+            // click sets the selection and updates the caret and anchor positions.
+            
             setSelectionAnchorCaret(rowIndex, columnIndex);
         }
     }
