@@ -15,6 +15,7 @@ Keyboard Interaction
 - List current dispatches selectionChanged on arrowUp/Down. Should we subclass List
 and change behavior to commit value only on ENTER, SPACE, or CTRL-UP?
 
+- Modify DropDownEvent to have commitData boolean property. 
 - Add typicalItem support for measuredSize (lower priority) 
 
 *  @langversion 3.0
@@ -46,6 +47,7 @@ import spark.components.supportClasses.ListBase;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
 
+import spark.components.supportClasses.DropDownController;
 
 /**
  *  Dispatched when the dropDown is dismissed for any reason such when 
@@ -168,6 +170,12 @@ public class DropDownList extends List
 	{
 		super();
 		super.allowMultipleSelection = false;
+		
+		if (_dropDownControllerClass)
+		{
+			_dropDownController = new _dropDownControllerClass();
+			initializeDropDownController();
+		}
 	}
 	
 	//--------------------------------------------------------------------------
@@ -185,26 +193,48 @@ public class DropDownList extends List
     //--------------------------------------------------------------------------
 	
 	//----------------------------------
-    //  isOpen
+    //  dropDownController
     //----------------------------------
-    
-    /**
-     *  @private 
+	
+	private var _dropDownController:DropDownController;	
+	
+	/**
+     *  @private
+     *  TODO (jszeto) Add ASdoc comments
      */
-    private var _isOpen:Boolean = false;
-    
-    /**
-     *  Whether the dropDown is open or not.   
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */  
-    public function get isOpen():Boolean
-    {
-    	return _isOpen;
-    }
+	protected function get dropDownController():DropDownController
+	{
+		return _dropDownController;
+	}
+
+	//----------------------------------
+    //  dropDownControllerClass
+    //----------------------------------
+	
+	private var _dropDownControllerClass:Class = DropDownController;	
+
+	/**
+     *  @private
+     *  TODO (jszeto) Add ASdoc comments
+     */
+	public function set dropDownControllerClass(value:Class):void
+	{
+		if (_dropDownControllerClass == value)
+			return;
+			
+		_dropDownControllerClass = value;
+		_dropDownController = new _dropDownControllerClass();
+		initializeDropDownController();
+	}
+	
+	/**
+     *  @private
+     */
+	public function get dropDownControllerClass():Class
+	{
+		return _dropDownControllerClass;
+	}
+
 
 	//----------------------------------
     //  prompt
@@ -392,19 +422,7 @@ public class DropDownList extends List
      */ 
     public function openDropDown():void
     {
-		//trace("DDL.openDropDown isOpen",isOpen);
-    	if (!isOpen)
-    	{
-    		// TODO (jszeto) Change these to be marshall plan compliant
-    		systemManager.addEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-    		systemManager.addEventListener(Event.RESIZE, systemManager_resizeHandler, false, 0, true);
-    		
-    		_isOpen = true;
-    		button.mx_internal::keepDown = true; // Force the button to stay in the down state
-    		skin.currentState = getCurrentSkinState();
-    		
-    		dispatchEvent(new DropdownEvent(DropdownEvent.OPEN));
-    	}
+    	dropDownController.openDropDown();
     }
 	
 	 /**
@@ -425,24 +443,26 @@ public class DropDownList extends List
      */
     public function closeDropDown(commitData:Boolean):void
     {
-    	//trace("DDL.closeDropDown isOpen",isOpen);
-    	if (isOpen)
-    	{
-    		// TODO (jszeto) Add logic to check for commitData
-    		/*if (commitData)
-        		commitDropDownData();*/	
-	
-			_isOpen = false;
-			button.mx_internal::keepDown = false;
-	       	skin.currentState = getCurrentSkinState();
-        	
-        	dispatchEvent(new DropdownEvent(DropdownEvent.CLOSE));
-        	
-        	// TODO (jszeto) Change these to be marshall plan compliant
-        	systemManager.removeEventListener(MouseEvent.MOUSE_DOWN, systemManager_mouseDownHandler);
-        	systemManager.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
-    	}
+    	dropDownController.closeDropDown(commitData);
     }
+	
+	/**
+     *  @private
+     *  TODO (jszeto) Should this be exposed? If yes, needs ASDOC
+     */
+	protected function initializeDropDownController():void
+	{		
+		if (dropDownController)
+		{
+			dropDownController.addEventListener(DropdownEvent.OPEN, dropDownController_openHandler);
+			dropDownController.addEventListener(DropdownEvent.CLOSE, dropDownController_closeHandler);
+			
+			if (button)
+				dropDownController.button = button;
+			if (dropDown)
+				dropDownController.dropDown = dropDown;
+		}
+	}
 	
 	/**
      *  @private
@@ -510,7 +530,7 @@ public class DropDownList extends List
  	 */ 
     override protected function getCurrentSkinState():String
     {
-		return !enabled ? "disabled" : isOpen ? "open" : "normal";
+		return !enabled ? "disabled" : dropDownController.isOpen ? "open" : "normal";
     }   
        
     /**
@@ -522,11 +542,13 @@ public class DropDownList extends List
  
  		if (instance == button)
     	{
-    		// TODO (jszeto) Change this to be mouseDown. Figure out how to not 
-    		// trigger systemManager_mouseDown.
-    		button.addEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
+    		if (dropDownController)
+    			dropDownController.button = button;
     		button.enabled = enabled;
     	}
+    	
+    	if (instance == dropDown && dropDownController)
+    		dropDownController.dropDown = dropDown;
     }
     
     /**
@@ -534,11 +556,15 @@ public class DropDownList extends List
      */
     override protected function partRemoved(partName:String, instance:Object):void
     {
-    	if (instance == button)
+    	if (dropDownController)
     	{
-    		button.removeEventListener(FlexEvent.BUTTON_DOWN, button_buttonDownHandler);
-    	}
-        
+    		if (instance == button)
+	    		dropDownController.button = null;
+    	
+    		if (instance == dropDown)
+    			dropDownController.dropDown = null;
+     	}
+     	
         super.partRemoved(partName, instance);
     }
     
@@ -572,40 +598,9 @@ public class DropDownList extends List
 		if(!enabled)
             return;
         
-        if (event.ctrlKey && event.keyCode == Keyboard.DOWN)
-        {
-            openDropDown();
-            event.stopPropagation();
-        }
-        else if (event.ctrlKey && event.keyCode == Keyboard.UP)
-        {
-            closeDropDown(true);
-            event.stopPropagation();
-        }    
-        else if (event.keyCode == Keyboard.ENTER)
-        {
-            // Close the dropDown and eat the event if appropriate.
-            if (isOpen)
-            {
-                closeDropDown(true);
-                event.stopPropagation();
-            }
-        }
-        else if (event.keyCode == Keyboard.ESCAPE)
-        {
-            // Close the dropDown and eat the event if appropriate.
-            if (isOpen)
-            {
-                closeDropDown(false);
-                event.stopPropagation();
-            }
-        }
-        else 
-        {
-        	//trace("DropDownList.keyDownHandler arrow key isOpen",isOpen);
-        	// TODO (jszeto) Check if we need dataGroup skin during this event
+        if (!dropDownController.keyDownHandler(event))
         	super.list_keyDownHandler(event);
-        }         
+
 	}
 	
 	/**
@@ -613,23 +608,7 @@ public class DropDownList extends List
      */
     override protected function focusOutHandler(event:FocusEvent):void
     {
-        // Note: event.relatedObject is the object getting focus.
-        // It can be null in some cases, such as when you open
-        // the dropdown and then click outside the application.
-
-        // If the dropdown is open...
-        if (isOpen)
-        {
-            // If focus is moving outside the dropdown...
-            // TODO (jszeto) Should we compare to the whole skin or just the dataGroup?
-            if (!event.relatedObject ||
-                !dataGroup.contains(event.relatedObject))
-            {
-                // Close the dropdown.
-                //trace("DDL.focusOutHandler");
-                closeDropDown(false);
-            }
-        }
+		dropDownController.focusOutHandler(event);
 
         super.focusOutHandler(event);
     }
@@ -640,50 +619,29 @@ public class DropDownList extends List
     //
     //--------------------------------------------------------------------------
     
-	 /**
- 	 *  Called when the buttonDown event is dispatched. This function opens or closes
- 	 *  the dropDown depending upon the dropDown state. 
- 	 *  
- 	 *  @langversion 3.0
- 	 *  @playerversion Flash 10
- 	 *  @playerversion AIR 1.5
- 	 *  @productversion Flex 4
- 	 */ 
-    protected function button_buttonDownHandler(event:Event):void
-    {
-    	//trace("DDL.button_buttonDownHandler");
-        if (isOpen)
-            closeDropDown(true);
-        else
-            openDropDown();
-    }
-    
     /**
-     *  Called when the systemManager receives a mouseDown event. In the base class 
-     *  implementation, this closes the dropDown.  
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */     
-    protected function systemManager_mouseDownHandler(event:MouseEvent):void
+     *  @private
+     *  TODO (jszeto) Add ASDoc comments
+     */
+    protected function dropDownController_openHandler(event:DropdownEvent):void
     {
-    	//trace("DropDownBase.systemManager_mouseDownHandler, hit dropDown?",dropDown.hitTestPoint(event.stageX, event.stageY));
-    	// TODO (jszeto) Make marshall plan compliant
-     	if ((dropDown && !dropDown.hitTestPoint(event.stageX, event.stageY) || !dropDown))
-        {
-            closeDropDown(true);
-        }
+    	// set skin state
+    	skin.currentState = getCurrentSkinState();
+    	dispatchEvent(event);
     }
     
     /**
      *  @private
-     *  Close the dropDown if the stage has been resized. Don't commit the data.
+     *  TODO (jszeto) Add ASDoc comments
      */
-    private function systemManager_resizeHandler(event:Event):void
+    protected function dropDownController_closeHandler(event:DropdownEvent):void
     {
-    	closeDropDown(false);
+    	skin.currentState = getCurrentSkinState();
+    	
+    	// TODO!! Add logic to handle commitData
+    	//if (event.isDefaultPrevented())
+    	
+    	dispatchEvent(event);
     }
 
 }
