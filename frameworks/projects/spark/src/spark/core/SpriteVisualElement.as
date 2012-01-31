@@ -2042,8 +2042,7 @@ public class SpriteVisualElement extends FlexSprite
         // set the _layoutFeatures.mirror flag.  Similarly, if mirroring isn't 
         // required, then clear the _layoutFeatures.mirror flag.
         
-        const mirror:Boolean = (parentElt.layoutDirection != null && _layoutDirection != null) 
-            && (_layoutDirection != parentElt.layoutDirection);
+        const mirror:Boolean = (_layoutDirection != null) && (_layoutDirection != parentElt.layoutDirection);
         
         if ((_layoutFeatures) ? (mirror != _layoutFeatures.mirror) : mirror)
         {
