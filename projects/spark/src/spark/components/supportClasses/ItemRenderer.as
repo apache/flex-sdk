@@ -452,14 +452,23 @@ public class ItemRenderer extends MXMLComponent implements IItemRenderer
            dispatchEvent(new Event(eventName));
     }
     
+    private function anyButtonDown(event:MouseEvent):Boolean
+    {
+        var type:String = event.type;
+        return event.buttonDown || (type == "middleMouseDown") || (type == "rightMouseDown"); 
+    }
+    
     /**
      *  @private
      *  Mouse rollOver event handler.
      */
     protected function itemRenderer_rollOverHandler(event:MouseEvent):void
     {
-        hovered = true;
-        currentState = getCurrentRendererState();
+        if (!anyButtonDown(event))
+        {
+            hovered = true;
+            currentState = getCurrentRendererState();
+        }
     }
     
     /**
