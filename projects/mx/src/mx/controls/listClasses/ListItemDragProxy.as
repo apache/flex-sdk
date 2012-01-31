@@ -19,7 +19,7 @@ import mx.core.UIComponent;
 use namespace mx_internal;
 
 /**
- *  The default drag proxy used when dragging from a list-based control
+ *  The default drag proxy used when dragging from an MX list-based control
  *  (except for the DataGrid class).
  *  A drag proxy is a component that parents the objects
  *  or copies of the objects being dragged
