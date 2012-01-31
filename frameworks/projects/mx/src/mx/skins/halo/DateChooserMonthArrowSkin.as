@@ -139,7 +139,7 @@ public class DateChooserMonthArrowSkin extends Border
 		var borderColor:uint = getStyle("borderColor");
 		var cornerRadius:Number = getStyle("cornerRadius");
 		var fillColors:Array = getStyle("fillColors");
-		StyleManager.getColorNames(fillColors);
+        styleManager.getColorNames(fillColors);
 		var highlightAlphas:Array = getStyle("highlightAlphas");
 		var themeColor:uint = getStyle("themeColor");
 
