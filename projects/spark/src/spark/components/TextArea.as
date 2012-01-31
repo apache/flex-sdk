@@ -217,6 +217,12 @@ use namespace mx_internal;
  *  An editing session starts when the control gets keyboard focus
  *  and ends when the control loses focus.</p>
  *
+ *  <p>To use this component in a list-based component, such as a List or DataGrid, 
+ *  create an item renderer.
+ *  For information about creating an item renderer, see 
+ *  <a href="http://help.adobe.com/en_US/flex/using/WS4bebcd66a74275c3-fc6548e124e49b51c4-8000.html">
+ *  Custom Spark item renderers</a>. </p>
+ *
  *  <p>The TextArea control has the following default characteristics:</p>
  *     <table class="innertable">
  *        <tr>
