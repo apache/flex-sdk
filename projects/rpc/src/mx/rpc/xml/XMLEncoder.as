@@ -15,12 +15,12 @@ package mx.rpc.xml
 import flash.utils.ByteArray;
 import flash.utils.Dictionary;
 import mx.collections.ArrayCollection;
+import mx.collections.IList;
+import mx.messaging.config.LoaderConfig;
 import mx.utils.DescribeTypeCache;
 import mx.utils.object_proxy;
 import mx.utils.ObjectProxy;
 import mx.utils.ObjectUtil;
-import mx.collections.IList;
-import flash.system.Capabilities;
 
 [ExcludeClass]
 
@@ -35,22 +35,15 @@ public class XMLEncoder extends SchemaProcessor implements IXMLEncoder
     {
         super();
         
-        // Depending on the player type/version, xml characters in strings
-        // need or need not be escaped. AIR 1.5 ('Desktop' version 10) escapes
-        // these characters by default. For all other versions Flex needs to
+        // Depending on the target player version, xml characters in strings
+        // need or need not be escaped. Prior to version 10, Flex needs to
         // do it. The version test to determine this behavior is done here, so
         // that it's not repeated every time xml content is encoded. This is a
         // fix for bug SDK-18326.
-        if (flash.system.Capabilities.playerType == "Desktop")
+        if (LoaderConfig.swfVersion >= 10)
         {
-            var version:String = flash.system.Capabilities.version.split(' ')[1];
-            var majorVersion:Number = Number(version.split(',')[0]);
-            if (majorVersion >= 10)
-            {
-                _escapeXMLChars = false;
-            }
+            _escapeXMLChars = false;
         }
-        
     }
 
     //--------------------------------------------------------------------------
