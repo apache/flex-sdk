@@ -285,7 +285,7 @@ public class Operation extends AbstractOperation
             {
                 params = args[0];
             }
-            else
+            else if (args.length != 0)
             {
                 throw new ArgumentError("HTTPMultiService - you must set argumentNames to an array of parameter names if you use more than one parameter.");
             }
