@@ -16,6 +16,7 @@ import flash.events.Event;
 import flash.events.IEventDispatcher;
 import flash.geom.PerspectiveProjection;
 import flash.geom.Rectangle;
+import flash.utils.getQualifiedClassName;
 
 import mx.collections.IList;
 import mx.core.IDataRenderer;
@@ -333,6 +334,15 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (list && (list.length > 0))
         {
             _typicalItem = list.getItemAt(0);
+            
+            // TextFlows are not shareable.  Soft-link TextFlow class.
+            var isTextFlowClass:Boolean = 
+                getQualifiedClassName(_typicalItem) == 
+                    "flashx.textLayout.elements::TextFlow";
+            
+            if (isTextFlowClass)
+                _typicalItem = _typicalItem["deepCopy"]();
+            
             initializeTypicalItem();
         }
     }
