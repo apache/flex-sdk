@@ -837,7 +837,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
                 resizeMode = ResizeMode.SCALE; // Force the resizeMode to scale 
         }
         
-        // FIXME (egeorgie): we need to optimize this, iterating through all the elements is slow.
         // Validate element properties
         if (numGraphicElements > 0)
         {
@@ -859,7 +858,6 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         // Since IGraphicElement is not ILayoutManagerClient, we need to make sure we
         // validate sizes of the elements, even in cases where recursive==false.
         
-        // FIXME (egeorgie): we need to optimize this, iterating through all the elements is slow.
         // Validate element size
         if (numGraphicElements > 0)
         {
@@ -983,14 +981,15 @@ public class Group extends GroupBase implements IVisualElementContainer, IShared
         
             if (isValidScaleGrid())
             {
-                // FIXME (egeorgie): how about overlays in this case? Should we care about those?
-                if (numChildren > 0)
+                // Check for DisplayObjects other than overlays
+                var overlayCount:int = _overlay ? _overlay.numDisplayObjects : 0;
+                if (numChildren - overlayCount > 0)
                     throw new Error(resourceManager.getString("components", "scaleGridGroupError"));
 
                 super.scale9Grid = new Rectangle(scaleGridLeft, 
-                                           scaleGridTop,    
-                                           scaleGridRight - scaleGridLeft, 
-                                           scaleGridBottom - scaleGridTop);
+                                                 scaleGridTop,    
+                                                 scaleGridRight - scaleGridLeft, 
+                                                 scaleGridBottom - scaleGridTop);
             } 
             else
             {
