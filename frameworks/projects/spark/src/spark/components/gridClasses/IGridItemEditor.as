@@ -163,7 +163,7 @@ public interface IGridItemEditor extends IDataRenderer, IVisualElement,
      *  To save and close the editor, call the <code>endItemEditorSession()</code>
      *  method of the item renderer owner.</p>
      *
-     *  @save return <code>true</code> if the save operation succeeded, 
+     *  @return <code>true</code> if the save operation succeeded, 
      *  and <code>false</code> if not.
      *  
      *  @see spark.components.DataGrid
