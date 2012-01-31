@@ -1234,6 +1234,12 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
         if (attributeValue != null)
         {
             var typeQName:QName = schemaManager.getQNameForPrefixedName(attributeValue, definition);
+
+            // Check if a concrete type was specified in the xml value
+            var xsiType:QName = getXSIType(value);
+            if (xsiType != null)
+                typeQName = xsiType;
+
             content = createContent(typeQName);
             decodeType(typeQName, content, elementQName, value);
             return content;
@@ -2107,11 +2113,25 @@ public class XMLDecoder extends SchemaProcessor implements IXMLDecoder
                         }
                         else
                         {
+                            // TODO: Remove these hacks and establish a convention
+                            // for simple property values on strongly typed values
+
                             // HACK for SDK-14800:
                             // Flex Builder 3 may generate a strongly typed class for simpleContent extensions
                             // or restrictions, which uses the convention of "_" + typeName for the simpleContent
                             // value.
-                            var simplePropName:String = "_" + getUnqualifiedClassName(simpleContent);
+                            var localName:String = getUnqualifiedClassName(simpleContent); 
+                            var simplePropName:String = "_" + localName;
+                            if (Object(simpleContent).hasOwnProperty(simplePropName))
+                            {
+                                simpleContent[simplePropName] = value;
+                                return;
+                            }
+
+                            // HACK for SDK-22327:
+                            // Flex Builder 3 may alternatively generate a property
+                            // name with camel case for a simpleType enumeration
+                            simplePropName = localName.charAt(0).toLowerCase() + localName.substr(1);
                             if (Object(simpleContent).hasOwnProperty(simplePropName))
                             {
                                 simpleContent[simplePropName] = value;
