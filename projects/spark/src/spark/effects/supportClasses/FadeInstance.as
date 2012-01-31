@@ -143,6 +143,72 @@ public class FadeInstance extends AnimateInstance
                 }
                 else if (isNaN(alphaTo)) // fade out
                 {
+                    if (propertyChanges.end["explicitWidth"] !== undefined &&
+                        isNaN(propertyChanges.end["explicitWidth"]) &&
+                        !isNaN(propertyChanges.start["explicitWidth"]))
+                    {
+                        target.explicitWidth = propertyChanges.start["explicitWidth"];
+                    }
+                    if (propertyChanges.end["explicitHeight"] !== undefined &&
+                        isNaN(propertyChanges.end["explicitHeight"]) &&
+                        !isNaN(propertyChanges.start["explicitHeight"]))
+                    {
+                        target.explicitHeight = propertyChanges.start["explicitHeight"];
+                    }
+                    if (propertyChanges.end["rotation"] !== undefined &&
+                        propertyChanges.end["rotation"] == 0 &&
+                        propertyChanges.start["rotation"] != 0)
+                    {
+                        target.rotation = propertyChanges.start["rotation"];
+                    }
+                    if (propertyChanges.end["x"] !== undefined &&
+                        propertyChanges.end["x"] == 0 &&
+                        propertyChanges.start["x"] != 0)
+                    {
+                        target.x = propertyChanges.start["x"];
+                    }
+                    if (propertyChanges.end["y"] !== undefined &&
+                        propertyChanges.end["y"] == 0 &&
+                        propertyChanges.start["y"] != 0)
+                    {
+                        target.y = propertyChanges.start["y"];
+                    }
+                    if (propertyChanges.end["left"] !== undefined &&
+                        propertyChanges.end["left"] === null &&
+                        propertyChanges.start["left"] !== null)
+                    {
+                        target.left = propertyChanges.start["left"];
+                    }
+                    if (propertyChanges.end["right"] !== undefined &&
+                        propertyChanges.end["right"] === null &&
+                        propertyChanges.start["right"] !== null)
+                    {
+                        target.right = propertyChanges.start["right"];
+                    }
+                    if (propertyChanges.end["top"] !== undefined &&
+                        propertyChanges.end["top"] === null &&
+                        propertyChanges.start["top"] !== null)
+                    {
+                        target.top = propertyChanges.start["top"];
+                    }
+                    if (propertyChanges.end["bottom"] !== undefined &&
+                        propertyChanges.end["bottom"] === null &&
+                        propertyChanges.start["bottom"] !== null)
+                    {
+                        target.bottom = propertyChanges.start["bottom"];
+                    }
+                    if (propertyChanges.end["percentWidth"] !== undefined &&
+                        isNaN(propertyChanges.end["percentWidth"]) &&
+                        !isNaN(propertyChanges.start["percentWidth"]))
+                    {
+                        target.percentWidth = propertyChanges.start["percentWidth"];
+                    }
+                    if (propertyChanges.end["percentHeight"] !== undefined &&
+                        isNaN(propertyChanges.end["percentHeight"]) &&
+                        !isNaN(propertyChanges.start["percentHeight"]))
+                    {
+                        target.percentHeight = propertyChanges.start["percentHeight"];
+                    }
                     alphaTo = 0;
                     restoreAlpha = true;
                     origAlpha = propertyChanges.end["alpha"] !== undefined ?
