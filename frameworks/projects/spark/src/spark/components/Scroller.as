@@ -370,6 +370,8 @@ public class Scroller extends SkinnableComponent
     public function Scroller()
     {
         super();
+        hasFocusableChildren = true;
+        focusEnabled = false;
     }
     
     //--------------------------------------------------------------------------
