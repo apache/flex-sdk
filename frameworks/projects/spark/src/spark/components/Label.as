@@ -62,17 +62,112 @@ include "../styles/metadata/BasicNonInheritingTextStyles.as"
 [IconFile("SimpleText.png")]
 
 /**
- *  A box, specified in the parent Group element's coordinate space, that contains text.
- *  
- *  <p>The SimpleText class is similar to the mx.controls.Label control, although it can display 
- *  multiple lines.</p>
- *  
- *  <p>SimpleText does not support drawing a background or border; it only renders text. It supports only the basic formatting styles.
- *  If you want to use more advanced formatting styles, use the RichText or RichEditableText control.</p> 
- *  
- *  <p>The specified text is wrapped at the right edge of the component's bounds. If it extends below the bottom, it is clipped.
- *  The display cannot be scrolled.</p>
- *  
+ *  SimpleText is a GraphicElement that can render
+ *  one or more lines of uniformly-formatted text.
+ *  The text to be displayed is determined by the
+ *  <code>text</code> property inherited from TextGraphicElement.
+ *  The formatting of the text is specified by the element's CSS styles,
+ *  such as <code>fontFamily</code> and <code>fontSize</code>.
+ *
+ *  <p>SimpleText, which is new with Flex 4, makes use of the new
+ *  Flash Text Engine (FTE) in Flash Player 10 to provide high-quality
+ *  international typography.
+ *  Because SimpleText is fast and lightweight, it is especially suitable
+ *  for use cases that involve rendering many small pieces of non-interactive
+ *  text, such as item renderers, labels in Button skins, etc.</p>
+ *
+ *  <p>The Spark architecture provides three text "primitives" -- 
+ *  SimpleText, RichText, and RichEditableText --
+ *  as part of its pay-only-for-what-you-need philosophy.
+ *  SimpleText is the fastest and most lightweight,
+ *  but is limited in its capabilities: no complex formatting,
+ *  no scrolling, no selection, no editing, and no hyperlinks.
+ *  RichText and RichEditableText are built on the Text Layout
+ *  Framework (TLF) library, rather than on FTE.
+ *  RichText adds the ability to render rich HTML-like text
+ *  with complex formatting, but is still completely non-interactive.
+ *  RichEditableText is the slowest and heaviest,
+ *  but can do it all: it supports scrolling with virtualized TextLines,
+ *  selection, editing, hyperlinks, images loaded from URLs, etc.
+ *  You should use the fastest one that meets your needs.</p>
+ *
+ *  <p>SimpleText is similar to the older MX control mx.controls.Label.
+ *  The most important differences to understand are
+ *  <ul>
+ *    <li>SimpleText uses FTE, the player's new text engine,
+ *        while Label uses the obsolete TextField class.</li>
+ *    <li>SimpleText offers better typography, and better support
+ *        for international languages, than Label.</li>
+ *    <li>SimpleText can display multiple lines, which Label cannot.</li>
+ *    <li>Label can display a limited subset of HTML,
+ *        while SimpleText can only display a text with uniform formatting.</li>
+ *    <li>Label can be made selectable, while SimpleText cannot.</li>
+ *    <li>Label is a UIComponent that can be used in either MX
+ *        containers such as HBox or in Spark containers such as Group.
+ *        SimpleText is a GraphicElement that can only be used
+ *        inside Spark containers.</li>
+ *  </ul></p>
+ *
+ *  <p>In SimpleText, three character sequences are recognized
+ *  as explicit line breaks: CR (<code>"\r"</code>), LF (<code>"\n"</code>),
+ *  and CR+LF (<code>"\r\n"</code>).</p>
+ *
+ *  <p>If you don't specify any kind of width for a SimpleText,
+ *  then the longest line, as determined by these explicit line breaks,
+ *  will determine the width of the SimpleText.</p>
+ *
+ *  <p>If you do specify some kind of width, then the specified text is
+ *  word-wrapped at the right edge of the component's bounds, because the
+ *  default value of the <code>lineBreak</code> style is <code>"toFit"</code>.
+ *  If the text extends below the bottom of the component,
+ *  it will be clipped.</p>
+ *
+ *  <p>To disable this automatic wrapping, set the <code>lineBreak</code>
+ *  style to <code>"explicit"</code>. Then lines will be broken only where
+ *  the <code>text</code> contains an explicit line break,
+ *  and the ends of lines extending past the right edge will be clipped.</p>
+ *
+ *  <p>If you have more text than you have room to display it,
+ *  SimpleText can truncate the text for you.
+ *  Truncating text means replacing excess text
+ *  with a truncation indicator such as "...".
+ *  See the inherited properties <code>maxDisplayedLines</code>
+ *  and <code>isTruncated</code>.</p>
+ *
+ *  <p>You can control the line spacing with the <code>lineHeight</code> style.
+ *  You can horizontally and vertically align the text within the element's
+ *  bounds using the <code>textAlign</code>, <code>textAlignLast</code>,
+ *  and <code>verticalAlign</code> styles.
+ *  You can inset the text from the element's edges using the
+ *  <code>paddingLeft</code>, <code>paddingTop</code>, 
+ *  <code>paddingRight</code>, and <code>paddingBottom</code> styles.</p>
+ *
+ *  <p>By default a SimpleText has no background,
+ *  but you can draw one using the <code>backgroundColor</code>
+ *  and <code>backgroundAlpha</code> styles.
+ *  Borders are not supported.
+ *  If you need a border, or a more complicated background, use a separate
+ *  graphic element, such as a Rect, behind the SimpleText.</p>
+ *
+ *  <p>SimpleText supports displaying left-to-right (LTR) text such as French,
+ *  right-to-left (RTL) text such as Arabic, and bidirectional text
+ *  such as a French phrase inside of an Arabic paragraph.
+ *  If the predominant text direction is right-to-left,
+ *  set the <code>direction</code> style to <code>"rtl"</code>.
+ *  The <code>textAlign</code> style defaults to <code>"start"</code>,
+ *  which makes the text left-aligned when <code>direction</code>
+ *  is <code>"ltr"</code> and right-aligned when <code>direction</code>
+ *  is <code>"rtl"</code>.
+ *  To get the opposite alignment,
+ *  set <code>textAlign</code> to <code>"end"</code>.</p>
+ *
+ *  <p>SimpleText uses the TextBlock class in the Flash Text Engine
+ *  to create one or more TextLine objects to statically display
+ *  its text String in the format determined by its CSS styles.
+ *  For performance, its TextLines do not contain information
+ *  about individual glyphs; for more info, see
+ *  flash.text.engine.TextLineValidity.STATIC.</p>
+ *
  *  @see mx.components.RichEditableText
  *  @see mx.graphics.RichText
  *  
@@ -275,7 +370,7 @@ public class SimpleText extends TextGraphicElement
     private var _fontContext:IFlexModuleFactory;
 
     /**
-     *  @private
+     *  @inheritDoc
      */
     public function get fontContext():IFlexModuleFactory
     {
@@ -292,7 +387,7 @@ public class SimpleText extends TextGraphicElement
 
     //--------------------------------------------------------------------------
     //
-    //  Methods
+    //  Overridden methods: TextGraphicElement
     //
     //--------------------------------------------------------------------------
     
@@ -368,6 +463,12 @@ public class SimpleText extends TextGraphicElement
         
         return allLinesComposed;           
     }
+
+    //--------------------------------------------------------------------------
+    //
+    //  Methods
+    //
+    //--------------------------------------------------------------------------
 
 	/**
 	 *  @private
@@ -1011,6 +1112,7 @@ public class SimpleText extends TextGraphicElement
 	}
 	
     /**
+	 *  @private
      *  Determines if the composed text fits in the given height and 
      *  line count limit. 
      */ 
@@ -1164,8 +1266,9 @@ public class SimpleText extends TextGraphicElement
     }
         
     /** 
-     * Calculates the last line that fits in the given height and line count 
-     * limit.
+	 *  @private
+     *  Calculates the last line that fits in the given height and line count 
+     *  limit.
      */
     private function computeLastAllowedLineIndex(height:Number,
                                                  lineCountLimit:int):int
@@ -1195,6 +1298,7 @@ public class SimpleText extends TextGraphicElement
     }
 
     /** 
+	 *  @private
      *  Gets the truncation position on a line given the allowed width.
      *  - Must be at an atom boundary.
      *  - Must scan the line for atoms in logical order, not physical position 
@@ -1227,6 +1331,7 @@ public class SimpleText extends TextGraphicElement
     }
         
     /** 
+	 *  @private
      *  Gets the next truncation position by shedding an atom's worth of 
      *  characters.
      */
