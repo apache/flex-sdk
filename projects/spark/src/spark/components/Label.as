@@ -681,7 +681,7 @@ public class Label extends TextBase
 		// can affect both Halo and Spark components,
 		// we need to map true to "on" and false to "off"
 		// here and in Label.
-		// For Halo components, UITextField and UITLFTextField
+		// For Halo components, UITextField and UIFTETextField
 		// do the opposite mapping
 		// of "auto" and "on" to true and "off" to false.
 		// We also support a value of "default"
