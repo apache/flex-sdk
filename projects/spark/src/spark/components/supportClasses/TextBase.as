@@ -15,6 +15,7 @@ package spark.components.supportClasses
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.Graphics;
+import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Rectangle;
@@ -171,6 +172,10 @@ public class TextBase extends UIComponent
         // they wouldn't get garbage collected.
         resourceManager.addEventListener(
             Event.CHANGE, resourceManager_changeHandler, false, 0, true);
+        
+        // Our background fill. 
+        _backgroundShape = new Shape();
+        addChild(_backgroundShape);
     }
     
     //--------------------------------------------------------------------------
@@ -238,6 +243,13 @@ public class TextBase extends UIComponent
      *  We can optimize for a single line text reflow, which is a lot of cases.
      */
     private var _measuredOneTextLine:Boolean = false;
+    
+    /**
+     *  @private
+     *  Shape we use to render our background fill to work around several
+     *  player blendMode issues.  See SDK-24821.
+     */
+    private var _backgroundShape:Shape;
     
     //--------------------------------------------------------------------------
     //
@@ -694,8 +706,8 @@ public class TextBase extends UIComponent
             backgroundColor = 0;
             backgroundAlpha = 0;
         }
-        
-        var g:Graphics = graphics;
+
+        var g:Graphics = _backgroundShape.graphics;
         g.clear();
         g.beginFill(uint(backgroundColor), backgroundAlpha);
         g.drawRect(0, 0, unscaledWidth, unscaledHeight);
@@ -865,7 +877,7 @@ public class TextBase extends UIComponent
 	 *  @private
 	 *  Adds the TextLines created by composeTextLines() to this container.
 	 */
-	mx_internal function addTextLines(index:int = 0):void
+	mx_internal function addTextLines():void
 	{
 		var n:int = textLines.length;
         if (n == 0)
@@ -873,8 +885,9 @@ public class TextBase extends UIComponent
 
         for (var i:int = n - 1; i >= 0; i--)
         {
-            var textLine:DisplayObject = textLines[i];			
-            $addChildAt(textLine, index);
+            var textLine:DisplayObject = textLines[i];		
+            // Add new TextLine accounting for our background Shape.
+            $addChildAt(textLine, 1);
         }
 	}
 
