@@ -65,6 +65,23 @@ DropDownList
     skinClass: ClassReference("spark.skins.spark.DropDownListSkin");
 }
 
+Form
+{
+    skinClass : ClassReference("spark.skins.spark.FormSkin");
+}
+
+FormHeading
+{
+    fontSize : 15;
+    fontWeight : "bold";
+    skinClass : ClassReference("spark.skins.spark.FormHeadingSkin");
+}
+
+FormItem
+{
+    skinClass : ClassReference("spark.skins.spark.FormItemSkin");
+}
+
 HScrollBar
 {
     skinClass: ClassReference("spark.skins.spark.HScrollBarSkin");
