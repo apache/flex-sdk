@@ -1,3 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//  ADOBE SYSTEMS INCORPORATED
+//  Copyright 2009 Adobe Systems Incorporated
+//  All Rights Reserved.
+//
+//  NOTICE: Adobe permits you to use, modify, and distribute this file
+//  in accordance with the terms of the license agreement accompanying it.
+//
+////////////////////////////////////////////////////////////////////////////////
+
 package spark.components
 {
 import flash.display.DisplayObject;
@@ -61,6 +72,9 @@ use namespace mx_internal;  // for mx_internal property contentChangeDelta
 [Exclude(name="setChildIndex", kind="method")]
 [Exclude(name="swapChildren", kind="method")]
 [Exclude(name="swapChildrenAt", kind="method")]
+[Exclude(name="numChildren", kind="property")]
+[Exclude(name="getChildAt", kind="method")]
+[Exclude(name="getChildIndex", kind="method")]
 
 //--------------------------------------
 //  Other metadata
