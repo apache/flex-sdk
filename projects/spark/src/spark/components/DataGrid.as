@@ -514,6 +514,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         if (!grid)
             return;
         
+        // FIXME (klin): what if alternatingRowColorsBackground is set to null?
         if ((getStyle("alternatingRowColors") as Array) && alternatingRowColorsBackground)
             grid.rowBackground = alternatingRowColorsBackground;
     }
@@ -3060,7 +3061,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 if (isCellSelectionMode())
                 {
                     if (grid.caretColumnIndex > 0)
-                        caretColumnIndex--;
+                        caretColumnIndex = grid.getPreviousVisibleColumnIndex(caretColumnIndex);
                 }
                 break;
             }
@@ -3070,7 +3071,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
                 if (isCellSelectionMode())
                 {
                     if (grid.caretColumnIndex + 1 < columnCount)
-                        caretColumnIndex++;
+                        caretColumnIndex = grid.getNextVisibleColumnIndex(caretColumnIndex);
                 }
                 break;
             } 
@@ -3198,14 +3199,14 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
             case NavigationUnit.HOME:
             {
                 caretRowIndex = 0;
-                caretColumnIndex = isCellSelectionMode() ? 0 : -1; 
+                caretColumnIndex = isCellSelectionMode() ? grid.getNextVisibleColumnIndex(-1) : -1; 
                 break;
             }
                 
             case NavigationUnit.END:
             {
                 caretRowIndex = rowCount - 1;
-                caretColumnIndex = isCellSelectionMode() ? columnCount - 1 : -1;
+                caretColumnIndex = isCellSelectionMode() ? grid.getPreviousVisibleColumnIndex(columnCount) : -1;
                 
                 // The heights of any rows that have not been rendered yet are
                 // estimated.  Force them to draw so the heights are accurate.
