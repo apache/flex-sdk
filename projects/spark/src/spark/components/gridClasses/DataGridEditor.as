@@ -53,8 +53,8 @@ import spark.components.DataGrid;
 import spark.components.Grid;
 import spark.components.Group;
 import spark.components.IGridItemRenderer;
-import spark.events.DataGridEditEvent;
 import spark.events.GridEvent;
+import spark.events.GridItemEditorEvent;
 
 use namespace mx_internal;
 
@@ -511,18 +511,12 @@ public class DataGridEditor
             return;
         
         var col:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn;
-        //        if (rowIndex >= lockedRowCount)
-        //            rowIndex -= verticalScrollPosition + lockedRowCount;
-        //        
-        //        if (colIndex >= lockedColumnCount)
-        //            colIndex -= horizontalScrollPosition + lockedColumnCount;
-        //        
         var item:IVisualElement = grid.getItemRendererAt(rowIndex, columnIndex);
         var cellBounds:Rectangle = grid.getCellBounds(rowIndex,columnIndex);
         
         // convert the row origin from the grid to the editor layer.
         var globalCellOrigin:Point = grid.localToGlobal(new Point(cellBounds.x, cellBounds.y));
-        cellBounds.topLeft = DisplayObject(dataGrid.itemEditorLayer).globalToLocal(globalCellOrigin);
+        var localCellOrigin:Point = DisplayObject(dataGrid.itemEditorLayer).globalToLocal(globalCellOrigin);
         
         _editedItemRenderer = item;
         
@@ -567,13 +561,17 @@ public class DataGridEditor
                 itemEditorInstance = itemEditor.newInstance();
                 itemEditorInstance.owner = dataGrid;
                 itemEditorInstance.data = IGridItemRenderer(item).data;
-                itemEditorInstance.value = itemEditorInstance.data[col.dataField];
                 itemEditorInstance.rowIndex = rowIndex;
                 itemEditorInstance.columnIndex = columnIndex;
                 itemEditorInstance.column = col;
+                if (itemEditorInstance.data && col.dataField)
+                    itemEditorInstance.value = itemEditorInstance.data[col.dataField];
+                else
+                    itemEditorInstance.value = null;
+                
                 itemEditorInstance.hasFocusableChildren = true;
                 
-                UIComponent(itemEditorInstance).styleName = col;
+                UIComponent(itemEditorInstance).styleName = item;
                 if (dataGrid.itemEditorLayer)
                 {
                     dataGrid.itemEditorLayer.addElement(itemEditorInstance);
@@ -585,32 +583,15 @@ public class DataGridEditor
                 }
             }
             
-            // give it the right size, look and placement
+            // position the editor over the cell with the same size as the cell.
+            itemEditorInstance.width = cellBounds.width;
+            itemEditorInstance.height = cellBounds.height;
+            itemEditorInstance.setLayoutBoundsPosition(localCellOrigin.x, localCellOrigin.y);
+            
             if (itemEditorInstance is IInvalidating)
                 IInvalidating(itemEditorInstance).validateNow();
             
-            itemEditorInstance.setLayoutBoundsSize(
-                Math.min(item.width, 
-                    grid.width - 1 - itemEditorInstance.x),
-                Math.min(item.height, 
-                    grid.height - itemEditorInstance.y));
-            itemEditorInstance.setLayoutBoundsPosition(cellBounds.x, cellBounds.y);
-            
-            // TODO (dloverin): set max width/height not to exceed the width
-            // of the application. Set min width/height using spark layout api.
-            if (itemEditorInstance is IUIComponent)
-            {
-                // set the min width and height of the editor to the cell bounds.
-                // set the max widht and height of the editor not to exceed the
-                // bounds of the application. 
-                if (itemEditorInstance is UIComponent)
-                {
-                    UIComponent(itemEditorInstance).minWidth = cellBounds.width;
-                    UIComponent(itemEditorInstance).minHeight = cellBounds.height;
-                    
-                }
-            }
-            
+            // Allow the user code to make any final adjustments and make the editor visible.
             itemEditorInstance.prepare();
             DisplayObject(dataGrid.itemEditorLayer).visible = true;
             itemEditorInstance.visible = true;
@@ -712,7 +693,7 @@ public class DataGridEditor
      * 
      *  Start editing a cell for a specified row and column index.
      *  
-     *  Dispatches a <code>DataGridEditEvent.START_GRID_ITEM_EDITOR_SESSION
+     *  Dispatches a <code>GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION
      *  </code> event. 
      * 
      *  @param rowIndex The zero-based row index of the cell to edit.
@@ -722,35 +703,47 @@ public class DataGridEditor
     public function startItemEditorSession(rowIndex:int, columnIndex:int):Boolean
     {
         
-        dataGrid.addEventListener(DataGridEditEvent.START_GRID_ITEM_EDITOR_SESSION,
+        dataGrid.addEventListener(GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION,
                                   dataGrid_startItemEditorSessionHandler,
                                   false, EventPriority.DEFAULT_HANDLER);
         
-        var dataGridEvent:DataGridEditEvent =
-            new DataGridEditEvent(DataGridEditEvent.START_GRID_ITEM_EDITOR_SESSION, false, true);
+        var dataGridEvent:GridItemEditorEvent =
+            new GridItemEditorEvent(GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION, false, true);
         
         // The START_GRID_ITEM_EDITOR_SESSION event is cancelable
         dataGridEvent.rowIndex = Math.min(rowIndex, grid.dataProvider.length - 1);
         dataGridEvent.columnIndex = Math.min(columnIndex, grid.columns.length - 1);
         dataGridEvent.column = grid.columns.getItemAt(columnIndex) as GridColumn;
         
-        var editorStarted:Boolean = !dataGrid.dispatchEvent(dataGridEvent);         
-        if (editorStarted)
+        var editorStarted:Boolean = dataGrid.dispatchEvent(dataGridEvent);         
+        if (editorStarted) 
+        {
             lastEditedItemPosition = { columnIndex: columnIndex, rowIndex: rowIndex };
+            
+            dataGrid.grid.caretRowIndex = rowIndex;
+            dataGrid.grid.caretColumnIndex = columnIndex;
+        }
         
-        dataGrid.removeEventListener(DataGridEditEvent.START_GRID_ITEM_EDITOR_SESSION,
+        dataGrid.removeEventListener(GridItemEditorEvent.START_GRID_ITEM_EDITOR_SESSION,
                                      dataGrid_startItemEditorSessionHandler);
         
         return editorStarted;
     }
     
-    /** 
-     *  @private
+    /**
+     *  Closes the currently active editor and optionally saves the editor's value
+     *  by calling the item editor's save() method.  If the cancel parameter is true,
+     *  then the editor's cancel() method is called instead.
      * 
-     *  Ends a currently active editor.
-     * 
-     *  @param cancel If false the data in the editor is saved into the item. 
-     *  Otherwise the data in the editor is discarded. 
+     *  @param cancel If false the data in the editor is saved. 
+     *  Otherwise the data in the editor is discarded.
+     *
+     *  @see spark.components.IGridItemEditor
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.0
+     *  @productversion Flex 4.5
      */ 
     public function endItemEditorSession(cancel:Boolean = false):Boolean
     {
@@ -775,6 +768,7 @@ public class DataGridEditor
         if (itemEditorInstance)
         {
             // send the cancel event and tear down the editor.
+            itemEditorInstance.cancel();
             dispatchCancelEvent();
             destroyItemEditor();
         }
@@ -795,8 +789,8 @@ public class DataGridEditor
      */
     private function dispatchCancelEvent():void
     {
-        var dataGridEvent:DataGridEditEvent =
-            new DataGridEditEvent(DataGridEditEvent.CANCEL_GRID_ITEM_EDITOR_SESSION);
+        var dataGridEvent:GridItemEditorEvent =
+            new GridItemEditorEvent(GridItemEditorEvent.CANCEL_GRID_ITEM_EDITOR_SESSION);
         
         dataGridEvent.columnIndex = editedItemPosition.columnIndex;
         dataGridEvent.column = itemEditorInstance.column;
@@ -807,7 +801,8 @@ public class DataGridEditor
     /**
      *  @private
      * 
-     *  When the user finished editing an item, this method is called.
+     *  When the user finished editing an item, this method is called to close 
+     *  the editor and save the data.
      *  
      */
     private function endEdit():Boolean
@@ -836,8 +831,8 @@ public class DataGridEditor
             return false;
         }
         
-        var dataGridEvent:DataGridEditEvent =
-            new DataGridEditEvent(DataGridEditEvent.SAVE_GRID_ITEM_EDITOR_SESSION, false, true);
+        var dataGridEvent:GridItemEditorEvent =
+            new GridItemEditorEvent(GridItemEditorEvent.SAVE_GRID_ITEM_EDITOR_SESSION, false, true);
         
         // SAVE_GRID_ITEM_EDITOR_SESSION events are cancelable
         dataGridEvent.columnIndex = itemPosition.columnIndex;
@@ -875,7 +870,7 @@ public class DataGridEditor
         // dispose of any existing editor, saving away its data first
         if (itemEditorInstance)
         {
-            if (!endEdit())
+            if (!dataGrid.endItemEditorSession())
                 return;
         }
         
@@ -944,8 +939,8 @@ public class DataGridEditor
         lastEditedItemPosition = _editedItemPosition;
         
         // Notify event that a new editor is starting.
-        var dataGridEvent:DataGridEditEvent =
-            new DataGridEditEvent(DataGridEditEvent.OPEN_GRID_ITEM_EDITOR_SESSION);
+        var dataGridEvent:GridItemEditorEvent =
+            new GridItemEditorEvent(GridItemEditorEvent.OPEN_GRID_ITEM_EDITOR_SESSION);
         
         dataGridEvent.columnIndex = editedItemPosition.columnIndex;
         dataGridEvent.column = column;
@@ -967,6 +962,10 @@ public class DataGridEditor
     
     /**
      *  @private
+     *  Save the editor session. The developer can still cancel out so the 
+     *  data may not be saved.
+     * 
+     *  @return true if the data is saved, false otherwise.
      */
     private function saveItemEditorSession():Boolean
     {
@@ -1048,7 +1047,10 @@ public class DataGridEditor
      */ 
     private function canEditColumn(columnIndex:int):Boolean
     {
-        return (dataGrid.editable && GridColumn(grid.columns.getItemAt(columnIndex)).editable);
+        var column:GridColumn = grid.columns.getItemAt(columnIndex) as GridColumn; 
+        return (dataGrid.editable && 
+                column.editable &&
+                column.visible);
     }
     
     /**
@@ -1094,6 +1096,10 @@ public class DataGridEditor
         
         if (event.keyCode == dataGrid.editKey)
         {
+            // ignore F2 if we are already editting a cell.
+            if (itemEditorInstance)
+                return;
+            
             // Edit the last column edited. If now last column then try to 
             // edit the first column.
             var nextCell:Point = null;
@@ -1173,7 +1179,7 @@ public class DataGridEditor
         // if an editor is already up, close it without starting a new editor.
         if (itemEditorInstance)
         {
-            endEdit();
+            dataGrid.endItemEditorSession();
             return;
         }
         
@@ -1267,9 +1273,8 @@ public class DataGridEditor
         if (!event.relatedObject)
             return;
         
-        // trace("endEdit from itemEditorFocusOut");
         if (itemEditorInstance || editedItemRenderer)
-            endEdit();
+            dataGrid.endItemEditorSession();
         else
             destroyItemEditor();
             
@@ -1280,7 +1285,7 @@ public class DataGridEditor
      * 
      *  Default handler for the startItemEditorSession event.
      */
-    private function dataGrid_startItemEditorSessionHandler(event:DataGridEditEvent):void
+    private function dataGrid_startItemEditorSessionHandler(event:GridItemEditorEvent):void
     {
         // trace("itemEditorItemEditBeginningHandler");
         if (!event.isDefaultPrevented())
@@ -1304,7 +1309,7 @@ public class DataGridEditor
         // we popup an editor again
         if (itemEditorInstance || editedItemRenderer)
         {
-            endEdit();
+            dataGrid.endItemEditorSession();
             deferFocus();
         }
     }
@@ -1316,14 +1321,16 @@ public class DataGridEditor
      */
     private function itemEditorInstance_keyDownHandler(event:KeyboardEvent):void
     {
+        //trace("keyboard event = " + event);
+        
         // ESC just kills the editor, no new data
         if (event.keyCode == Keyboard.ESCAPE)
         {
-            cancelEdit(); //endEdit(DataGridEventReason.CANCELLED);
+            cancelEdit();
         }
         else if (event.ctrlKey && event.charCode == 46)
         {   // Check for Ctrl-.
-            cancelEdit(); //endEdit(DataGridEventReason.CANCELLED);
+            cancelEdit();
         }
         else if (event.charCode == Keyboard.ENTER && event.keyCode != 229)
         {
@@ -1334,13 +1341,12 @@ public class DataGridEditor
             //            if (columns.getItemAt(_editedItemPosition.columnIndex).editorUsesEnterKey)
             //                return;
             
-            // Enter edits the item, moves down a row
+            // Enter closes the editor.
             // The 229 keyCode is for IME compatability. When entering an IME expression,
             // the enter key is down, but the keyCode is 229 instead of the enter key code.
             // Thanks to Yukari for this little trick...
-            if (endEdit())
+            if (dataGrid.endItemEditorSession())
             {
-                //                findNextEnterItemRenderer(event);
                 if (grid.focusManager)
                     grid.focusManager.defaultButtonEnabled = false;
                 
@@ -1369,7 +1375,7 @@ public class DataGridEditor
      */
     private function editorAncestorResizeHandler(event:Event):void
     {
-        endEdit();
+        dataGrid.endItemEditorSession();
     }
     
     /**
@@ -1389,7 +1395,7 @@ public class DataGridEditor
             return;
         }
         
-        endEdit();
+        dataGrid.endItemEditorSession();
         // set focus back to the grid so grid logic will deal if focus doesn't
         // end up somewhere else
         deferFocus();
@@ -1417,7 +1423,7 @@ public class DataGridEditor
                 (editedItemRenderer && !DisplayObjectContainer(editedItemRenderer).contains(DisplayObject(nextObject))))))
             {
                 event.preventDefault();
-                endEdit();
+                dataGrid.endItemEditorSession();
                 
                 var nextCellPosition:Point = getNextEditableCell(lastEditedItemPosition.rowIndex,
                                                                  lastEditedItemPosition.columnIndex,
