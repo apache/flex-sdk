@@ -349,15 +349,11 @@ public class TextArea extends TextBase
 			// TextArea rather than RichEditableText so that if changed later it
 			// will be inherited.
 
+            // ToDo: The skin is loaded after the intial properties have been
+            // set so these could wipe out explicit sets.
 			textView.heightInLines = 10;
 			textView.multiline = true;
             textView.autoSize = false;
-
-            textView.addEventListener("textInvalid",
-									  textView_textInvalidHandler);
-
-            textView.addEventListener(FlexEvent.UPDATE_COMPLETE, 
-                                      textView_updateCompleteHandler);
         }
         
         // The scroller, between textView and this in the chain, should not 
@@ -365,23 +361,6 @@ public class TextArea extends TextBase
         if (instance == scroller)
             scroller.focusEnabled = false;
 	}
-
-    /**
-     *  @private
-     */
-    override protected function partRemoved(partName:String, instance:Object):void
-    {
-        super.partRemoved(partName, instance);
-
-        if (instance == textView)
-        {
-            textView.removeEventListener("textInvalid",
-                                          textView_textInvalidHandler);
-
-            textView.removeEventListener(FlexEvent.UPDATE_COMPLETE, 
-                                         textView_updateCompleteHandler);
-        }
-    }
     
 	//--------------------------------------------------------------------------
     //
@@ -450,54 +429,15 @@ public class TextArea extends TextBase
     override protected function textView_changeHandler(
                                         event:TextOperationEvent):void
 	{
-		// Note: We don't call the superhandler here
-        // because it immediately fetches textView.text
-        // to extract the text from the TextFlow.
-        // That's too expensive for an TextArea,
-        // which might have a lot of leaf nodes.
-       
+        //trace("TextArea.textView_changeHandler");
+
+        // A compose has been done so switch from the user's specified content
+        // (or null if text was specified) to the textFlow.
         useTextFlowForContent = true;
-        		
-		// Redispatch the event that came from the RichEditableText.
-		dispatchEvent(event);
+
+        super.textView_changeHandler(event);                       
 	}
 
-	//--------------------------------------------------------------------------
-    //
-    //  Event handlers
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Content changed or in process of being changed.
-     */
-    private function textView_textInvalidHandler(event:Event):void
-    {
-        mx_internal::textInvalid = true;
-    }
-
-    /**
-     *  @private
-     *  Called when the RichEditableText dispatches a 
-     *  'FlexEvent.UPDATE_COMPLETE' event in response to validation being
-     *  completed.  At this point, the textFlow is composed and the text
-     *  can be extracted from the textFlow, if needed.
-     */
-    protected function textView_updateCompleteHandler(event:Event):void
-    {
-        // This handles the case where text or content is initially set and
-        // no editing operations were done.  Since no editing operations
-        // were done, a change event wasn't dispatched to trigger any bindings
-        // on text or content.  The alternative is to let the RichEditableText
-        // damageHandler dispatch for every updateDisplayList but that seems
-        // much more expensive since the text may still be valid.
-        if (!useTextFlowForContent)
-        {
-            useTextFlowForContent = true;
-            dispatchEvent(new Event("change"));
-       }
-    }
 }
 
 }
