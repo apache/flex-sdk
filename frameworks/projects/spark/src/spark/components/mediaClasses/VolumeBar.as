@@ -21,16 +21,24 @@ import flash.ui.Keyboard;
 import flash.ui.Mouse;
 
 import mx.collections.IList;
+import mx.core.IUIComponent;
+import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.FlexEvent;
+import mx.managers.LayoutManager;
 
 import spark.components.supportClasses.ButtonBase;
 import spark.components.supportClasses.DropDownController;
 import spark.components.supportClasses.ListBase;
 import spark.events.DropDownEvent;
+import spark.events.VideoPlayerVolumeBarEvent;
 import spark.primitives.supportClasses.TextGraphicElement;
 import spark.utils.LabelUtil;
+
+//--------------------------------------
+//  Events
+//--------------------------------------
 
 /**
  *  Dispatched when the dropDown is dismissed for any reason such when 
@@ -64,16 +72,37 @@ import spark.utils.LabelUtil;
 [Event(name="open", type="spark.events.DropDownEvent")]
 
 /**
- *  Dispatched when the user presses the mute button control.
+ *  Dispatched when the video mutes or unmutes the volume.
  *
- *  @eventType flash.events.MouseEvent
+ *  @eventType spark.events.VideoPlayerVolumeBarEvent.MUTED_CHANGE
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Event(name="muteButtonClick", type="flash.events.MouseEvent")]
+[Event(name="mutedChange", type="spark.events.VideoPlayerVolumeBarEvent")]
+
+//--------------------------------------
+//  Styles
+//--------------------------------------
+    
+/**
+ *  The delay, in milliseconds, to wait before opening the volume slider, 
+ *  while the anchor button is hovered.
+ *  
+ *  @default 200
+ * 
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
+ */
+[Style(name="rollOverOpenDelay", type="Number", inherit="no")]
+
+//--------------------------------------
+//  SkinStates
+//--------------------------------------
 
 /**
  *  Open State of the DropDown component
@@ -98,22 +127,6 @@ import spark.utils.LabelUtil;
  */
 public class VideoPlayerVolumeBar extends VSlider
 {
-    //--------------------------------------------------------------------------
-    //
-    //  Class constants
-    //
-    //--------------------------------------------------------------------------
-    
-    /**
-     *  @private
-     *  The default value for the rollover open delay of this component.
-     * 
-     *  <p>This is how long to wait while hovered over the button before the 
-     *  pop up opens.</p>
-     *
-     *  @default 200
-     */
-    private static const ROLL_OVER_OPEN_DELAY:Number = 200;
  
     //--------------------------------------------------------------------------
     //
@@ -197,7 +210,7 @@ public class VideoPlayerVolumeBar extends VSlider
         _dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
         _dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
             
-        _dropDownController.rollOverOpenDelay = ROLL_OVER_OPEN_DELAY;
+        _dropDownController.rollOverOpenDelay = getStyle("rollOverOpenDelay");
             
         if (muteButton)
             _dropDownController.openButton = muteButton;
@@ -225,6 +238,43 @@ public class VideoPlayerVolumeBar extends VSlider
         else
             return NaN;
     }
+    
+    //----------------------------------
+    //  muted
+    //----------------------------------
+    
+    /**
+     *  @private
+     */
+    private var _muted:Boolean = false;
+    
+    [Bindable("mutedChange")]
+    
+    /**
+     *  <code>true</code> if the volume of the video is muted; 
+     *  <code>false</code> otherwise.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
+     */
+    public function get muted():Boolean
+    {
+        return _muted;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set muted(value:Boolean):void
+    {
+        if (_muted == value)
+            return;
+        
+        _muted = value;
+        dispatchEvent(new VideoPlayerVolumeBarEvent(VideoPlayerVolumeBarEvent.MUTED_CHANGE, false, false, value));
+    }
         
     //----------------------------------
     //  value
@@ -244,7 +294,28 @@ public class VideoPlayerVolumeBar extends VSlider
             muteButton.value = value;
     }
     
-     //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    //
+    //  Overridden Methods
+    //
+    //--------------------------------------------------------------------------   
+    
+    /**
+     *  @private
+     */
+     override public function styleChanged(styleProp:String):void
+     {
+         super.styleChanged(styleProp);
+         var allStyles:Boolean = (styleProp == null || styleProp == "styleName");
+         
+         if (allStyles || styleProp == "rollOverOpenDelay")
+         {
+             if (dropDownController)
+                dropDownController.rollOverOpenDelay = getStyle("rollOverOpenDelay");
+         }
+     }
+    
+    //--------------------------------------------------------------------------
     //
     //  Methods
     //
@@ -311,7 +382,7 @@ public class VideoPlayerVolumeBar extends VSlider
     {
         super.partAdded(partName, instance);
  
-         if (instance == muteButton)
+        if (instance == muteButton)
         {
             if (dropDownController)
                 dropDownController.openButton = muteButton;
@@ -326,9 +397,7 @@ public class VideoPlayerVolumeBar extends VSlider
     
     private function muteButton_clickHandler(event:MouseEvent):void
     {
-        // TODO (rfrishbe): Need this to be a real event
-        var muteButtonClickEvent:MouseEvent = new MouseEvent("muteButtonClick");
-        dispatchEvent(muteButtonClickEvent);
+        muted = !muted;
     }
     
     /**
@@ -348,9 +417,21 @@ public class VideoPlayerVolumeBar extends VSlider
         
             if (instance == dropDown)
                 dropDownController.dropDown = null;
-         }
+        }
          
         super.partRemoved(partName, instance);
+    }
+    
+    /**
+     *  @private
+     *  On focus, pop open the drop down and validate everything so 
+     *  we can draw focus on one of the drop-down parts (the thumb)
+     */
+    override public function setFocus():void
+    {
+        openDropDown();
+        LayoutManager.getInstance().validateNow();
+        super.setFocus();
     }
     
     /**
