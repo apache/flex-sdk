@@ -1870,9 +1870,13 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         if (rendererFactory == null && owner != null)
             rendererFactory = owner.itemRenderer;
         
-        if (rendererFactory is ClassFactory)
-            return new ContextualClassFactory(ClassFactory(rendererFactory).generator, 
-                forHeader ? oldHeaderEmbeddedFontContext : oldEmbeddedFontContext);
+        if (rendererFactory is ClassFactory) {
+	        var contextualClassFactory: ContextualClassFactory = 
+		        new ContextualClassFactory(ClassFactory(rendererFactory).generator, 
+		                                   forHeader ? oldHeaderEmbeddedFontContext : oldEmbeddedFontContext);
+	        contextualClassFactory.properties = ClassFactory(rendererFactory).properties;
+	        return contextualClassFactory;
+        }
         
         return rendererFactory;
     }
