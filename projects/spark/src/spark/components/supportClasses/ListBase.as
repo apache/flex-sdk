@@ -788,30 +788,20 @@ public class ListBase extends SkinnableDataContainer
             {
                 itemAddedHandler(ce.items[0], ce.location);
             }
-            else if (ce.kind == CollectionEventKind.REPLACE)
-            {
-                
-            }
             else if (ce.kind == CollectionEventKind.REMOVE)
             {
                 itemRemovedHandler(ce.items[0], ce.location);
-            }
-            else if (ce.kind == CollectionEventKind.MOVE)
-            {
-                
-            }
-            else if (ce.kind == CollectionEventKind.REFRESH)
-            {
-                
             }
             else if (ce.kind == CollectionEventKind.RESET)
             {
                 // Data provider is being reset, clear out the selection
                 _selectedIndex = -1;
             }
-            else if (ce.kind == CollectionEventKind.UPDATE)
+            else if (ce.kind == CollectionEventKind.REPLACE ||
+                ce.kind == CollectionEventKind.MOVE ||
+                ce.kind == CollectionEventKind.REFRESH)
             {
-                
+                //These cases are handled by the DataGroup skinpart  
             }
         }
             
