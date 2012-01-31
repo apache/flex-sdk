@@ -87,7 +87,7 @@ public class Skin extends Group
     /**
      *  @private
      */
-    override protected function skipMeasure():Boolean
+    override protected function canSkipMeasurement():Boolean
     {
         var uiOwner:UIComponent = owner as UIComponent;
         
@@ -95,7 +95,7 @@ public class Skin extends Group
         if (uiOwner && !isNaN(uiOwner.explicitWidth) && !isNaN(uiOwner.explicitHeight))
             return true;
         
-        return super.skipMeasure();
+        return super.canSkipMeasurement();
     }
 }
 
