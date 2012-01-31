@@ -1222,7 +1222,9 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
             
         maskElements[mask] = target;
         contentChanged = true;
-        invalidateProperties();
+        // TODO!! Remove this once GraphicElements use the LayoutManager. Currently the
+        // callLater is necessary because addMaskElement gets called inside of commitProperties
+        callLater(invalidateProperties); 
             
     }
     
@@ -1232,7 +1234,9 @@ public class Group extends UIComponent implements IGraphicElementHost // TODO!! 
         {
             delete maskElements[mask];
             contentChanged = true;
-            invalidateProperties();
+             // TODO!! Remove this once GraphicElements use the LayoutManager. Currently the
+        	// callLater is necessary because removeMaskElement gets called inside of commitProperties
+            callLater(invalidateProperties);
         }
     }
     
