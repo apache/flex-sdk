@@ -8,11 +8,11 @@
 //  in accordance with the terms of the license agreement accompanying it.
 //
 ////////////////////////////////////////////////////////////////////////////////
+
 package mx.effects.effectClasses
 {
-import mx.effects.PropertyValuesHolder;
-import mx.effects.interpolation.ColorInterpolator;
-
+import mx.effects.AnimationProperty;
+import mx.effects.interpolation.RGBInterpolator;
 import mx.styles.StyleManager;
 
 /**
@@ -75,9 +75,11 @@ public class FxAnimateColorInstance extends FxAnimateInstance
             }
         }
         
-        propertyValuesList = 
-            [new PropertyValuesHolder(colorPropertyName, [colorFrom, colorTo])];
-        interpolator = ColorInterpolator.getInstance();
+        animationProperties = 
+            [ new AnimationProperty(colorPropertyName, colorFrom, colorTo) ];
+            
+        if (!interpolator)
+            interpolator = RGBInterpolator.getInstance();
                 
         super.play();        
     }
