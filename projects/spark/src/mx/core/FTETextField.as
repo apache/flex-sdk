@@ -2512,6 +2512,7 @@ public class FTETextField extends Sprite implements IFontContextComponent
 			stage.invalidate();
 
 		addEventListener(Event.RENDER, renderHandler);
+        addEventListener(Event.ENTER_FRAME, renderHandler);
 	}
 	
 	/**
@@ -3207,6 +3208,7 @@ public class FTETextField extends Sprite implements IFontContextComponent
 		validateNow();
 		
 		removeEventListener(Event.RENDER, renderHandler);
+        removeEventListener(Event.ENTER_FRAME, renderHandler);
 	}
 	
 	/**
