@@ -14,18 +14,18 @@ package spark.components.mediaClasses
 {
 
 /**
- *  The StreamItem class represents a stream on the server plus a 
- *  bitRate for that stream.
+ *  The DynamicStreamingVideoItem class represents a stream on the server plus a 
+ *  bitrate for that stream.
  *
  *  @see spark.components.VideoPlayer 
- *  @see spark.primitives.VideoElement
+ *  @see spark.components.VideoDisplay
  *  
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class StreamItem extends Object
+public class DynamicStreamingVideoItem extends Object
 {
     //--------------------------------------------------------------------------
     //
@@ -33,7 +33,7 @@ public class StreamItem extends Object
     //
     //--------------------------------------------------------------------------
     
-    public function StreamItem()
+    public function DynamicStreamingVideoItem()
     {
         super();
     }
@@ -47,10 +47,10 @@ public class StreamItem extends Object
     [Inspectable(category="General", defaultValue="0")]
     
     //----------------------------------
-    //  bitRate
+    //  bitrate
     //----------------------------------
     
-    private var _bitRate:Number = 0;
+    private var _bitrate:Number = 0;
 
     /**
      *  The bitRate for this particular stream.
@@ -62,17 +62,17 @@ public class StreamItem extends Object
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */ 
-    public function get bitRate():Number
+    public function get bitrate():Number
     {
-        return _bitRate;
+        return _bitrate;
     }
 
     /**
      *  @private
      */
-    public function set bitRate(value:Number):void
+    public function set bitrate(value:Number):void
     {
-        _bitRate = value;
+        _bitrate = value;
     }
     
     //----------------------------------
