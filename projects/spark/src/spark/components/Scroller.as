@@ -331,7 +331,7 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private
      */
-    override protected function partAdded(partName:String, instance:*):void
+    override protected function partAdded(partName:String, instance:Object):void
     {
         super.partAdded(partName, instance);
         
@@ -349,7 +349,7 @@ public class Scroller extends SkinnableComponent
     /**
      *  @private
      */
-    override protected function partRemoved(partName:String, instance:*):void
+    override protected function partRemoved(partName:String, instance:Object):void
     {
         super.partRemoved(partName, instance);
         
