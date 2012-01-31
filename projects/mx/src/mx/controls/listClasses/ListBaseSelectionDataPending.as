@@ -35,6 +35,11 @@ public class ListBaseSelectionDataPending
 
 	/**
 	 *  Constructor.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public function ListBaseSelectionDataPending(useFind:Boolean, index:int,
 												 items:Array,
@@ -62,6 +67,11 @@ public class ListBaseSelectionDataPending
 
 	/**
 	 *  The bookmark we have to seek to
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var bookmark:CursorBookmark;
 
@@ -71,6 +81,11 @@ public class ListBaseSelectionDataPending
 
 	/**
 	 *  The index into the iterator when we hit the page fault
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var index:int;
 
@@ -80,6 +95,11 @@ public class ListBaseSelectionDataPending
 
 	/**
 	 *  The list if items being selected
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var items:Array;
 
@@ -89,6 +109,11 @@ public class ListBaseSelectionDataPending
 
 	/**
 	 *  The offset from the bookmark we have to seek to
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var offset:int;
 
@@ -98,6 +123,11 @@ public class ListBaseSelectionDataPending
 
 	/**
 	 *  True if we use findAny, false if we iterate the collection
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 3
 	 */
 	public var useFind:Boolean;
 }
