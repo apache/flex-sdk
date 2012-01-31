@@ -500,6 +500,7 @@ public class GroupBase extends UIComponent implements IViewport
             maskChanged = false;
             if (_mask && !_mask.parent)
             {
+            	// TODO!!! This needs to be a sibling because alpha
                 super.addChild(_mask);
                 var maskComp:UIComponent = _mask as UIComponent;
                 if (maskComp)
@@ -799,7 +800,6 @@ public class GroupBase extends UIComponent implements IViewport
     [Bindable("propertyChange")]
     [Inspectable(category="General",enumeration="clip,alpha", defaultValue="clip")]
     private var _maskType:String = MaskType.CLIP;
-    private var _oldMaskType:String = MaskType.CLIP;
     private var maskTypeChanged:Boolean;
     private var originalMaskFilters:Array;
     
@@ -821,7 +821,6 @@ public class GroupBase extends UIComponent implements IViewport
     {
         if (_maskType != value)
         {
-            _oldMaskType = _maskType;
             _maskType = value;
             maskTypeChanged = true;
             invalidateProperties();
