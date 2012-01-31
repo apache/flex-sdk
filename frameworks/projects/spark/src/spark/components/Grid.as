@@ -2445,12 +2445,12 @@ package spark.components
             const gridDimensions:GridDimensions = GridLayout(layout).gridDimensions;
             const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
             const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
-            
+                        
             if ((eventRowIndex != rollRowIndex) || (eventColumnIndex != rollColumnIndex))
             {
                 if ((rollRowIndex != -1) || (rollColumnIndex != -1))
                     dispatchGridEvent(event, GridEvent.GRID_ROLL_OUT, eventGridXY, rollRowIndex, rollColumnIndex);
-                if ((eventRowIndex != -1) || (eventColumnIndex != -1))
+                if ((eventRowIndex != -1) && (eventColumnIndex != -1))
                     dispatchGridEvent(event, GridEvent.GRID_ROLL_OVER, eventGridXY, eventRowIndex, eventColumnIndex);
                 rollRowIndex = eventRowIndex;
                 rollColumnIndex = eventColumnIndex;
@@ -2571,8 +2571,8 @@ package spark.components
             if (isEventTargetExcluded(mouseEvent))
                 return;
             
-            const column:GridColumn = getGridColumn(columnIndex);
-            const item:Object = getDataProviderItem(rowIndex);
+            const column:GridColumn = columnIndex >= 0 ? getGridColumn(columnIndex) : null;
+            const item:Object = rowIndex >= 0 ? getDataProviderItem(rowIndex) : null;
             const itemRenderer:IVisualElement = getVisibleItemRenderer(rowIndex, columnIndex);
             const bubbles:Boolean = mouseEvent.bubbles;
             const cancelable:Boolean = mouseEvent.cancelable;
