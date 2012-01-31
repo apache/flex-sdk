@@ -18,6 +18,7 @@ import flash.events.FocusEvent;
 
 import mx.components.TextView;
 import mx.components.baseClasses.FxComponent;
+import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.TextOperationEvent;
 import mx.managers.IFocusManagerComponent;
@@ -78,7 +79,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
     /**
      *  @private
      *  If true, pass calls to drawFocus() up to the parent.
-     *  This is used when a TextInput is part of a composite control
+     *  This is used when a component is part of a composite control
      *  like NumericStepper or ComboBox;
      */
     mx_internal var parentDrawsFocus:Boolean = false;
@@ -169,22 +170,22 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 	/**
 	 *  @private
 	 */
-	private var _text:String = "";
+	mx_internal var _text:String = "";
 
 	/**
 	 *  @private
 	 */
-	private var textChanged:Boolean = false;
+	mx_internal var textChanged:Boolean = false;
 
 	[Bindable("change")]
 	[Bindable("textChanged")]
 	
 	/**
-	 *  The text String displayed by this TextInput.
+	 *  The text String displayed by this component.
 	 */
 	public function get text():String
 	{
-		return _text;
+		return mx_internal::_text;
 	}
 
 	/**
@@ -192,11 +193,11 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 	 */
 	public function set text(value:String):void
 	{
-		if (value == _text)
+		if (value == mx_internal::_text)
 			return;
 
-		_text = value;
-		textChanged = true;
+		mx_internal::_text = value;
+		mx_internal::textChanged = true;
 
 		invalidateProperties();
 		
@@ -211,7 +212,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 
 	/**
 	 *  The TextView that must be present
-	 *  in any skin assigned to this TextInput.
+	 *  in any skin assigned to this component.
 	 */
 	public var textView:TextView;
     
@@ -223,16 +224,16 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         
 	/**
 	 *  @private
-	 *  Pushes various TextInput properties down into the TextView. 
+	 *  Pushes various properties down into the TextView. 
 	 */
     override protected function commitProperties():void
 	{
 		super.commitProperties();
 
-		if (textChanged)
+		if (mx_internal::textChanged)
 		{
-			textView.text = _text;
-			textChanged = false;
+			textView.text = mx_internal::_text;
+			mx_internal::textChanged = false;
 		}
 	}
 
@@ -247,7 +248,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 		{
 			// Start listening for various events from the TextView.
 
-			textView.addEventListener(SelectionEvent.SELECTION_CHANGE,
+            textView.addEventListener(SelectionEvent.SELECTION_CHANGE,
 									  textView_selectionChangeHandler);
 
 			textView.addEventListener("changing",
@@ -260,7 +261,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
                                       textView_enterHandler);
                                       
             // Set the initial text value
-            textView.text = _text;
+            textView.text = mx_internal::_text;
 		}
 	}
 
@@ -378,7 +379,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
         // So if this component is in that state when it takes focus,
         // it changes the selection to (0, 0).
         if (selectionAnchorPosition == -1 && selectionActivePosition == -1)
-            setSelection(0, 0);
+            setSelection(int.MAX_VALUE, int.MAX_VALUE);
         
         super.focusInHandler(event);
     }
@@ -411,7 +412,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 	private function textView_changeHandler(event:TextOperationEvent):void
 	{
 		// Update our storage variable for the text string.
-		_text = textView.text;
+		mx_internal::_text = textView.text;
 
 		// Redispatch the event that came from the TextView.
 		dispatchEvent(event);
@@ -428,7 +429,7 @@ public class FxTextBase extends FxComponent implements IFocusManagerComponent
 		var newEvent:Event = event.clone();
 		dispatchEvent(newEvent);
 		
-		// If the event dispatched from this TextInput is canceled,
+		// If the event dispatched from this component is canceled,
 		// cancel the one from the TextView, which will prevent
 		// the editing operation from being processed.
 		if (newEvent.isDefaultPrevented())
