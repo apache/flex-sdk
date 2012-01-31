@@ -247,7 +247,7 @@ public class ToggleButtonBar extends ButtonBar
      *  @private.
      */
     override public function set selectedIndex(value:int):void
-    {
+    {    	
         if (value == selectedIndex)
             return;
 
@@ -353,7 +353,7 @@ public class ToggleButtonBar extends ButtonBar
             initializeSelectedButton = false;
 
             var index:int = _selectedIndex;
-            if (index == -2)
+            if (index == -2 )
             {
             	if (numChildren > 0)
                 	index = 0;
@@ -432,7 +432,8 @@ public class ToggleButtonBar extends ButtonBar
 
         // Set new index
         super.selectedIndex = index;
-
+        _selectedIndex = index;
+        
         if (index > -1)
         {
             // Hilite the new selection
