@@ -31,7 +31,7 @@ import mx.events.FlexEvent;
 import mx.managers.FocusManager;
 import mx.managers.ILayoutManager;
 import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
+import mx.managers.ISystemManager2;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IStyleClient;
 import mx.styles.StyleManager;
@@ -1132,7 +1132,7 @@ public class Application extends LayoutContainer
         if (sm.isTopLevel())
         {
             focusManager = new FocusManager(this);
-            sm.activate(this);
+           	sm.activate(this);
         }
     }
 
