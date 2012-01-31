@@ -500,14 +500,14 @@ public class Container extends UIComponent
         showInAutomationHierarchy = false;
 
         // If available, get soft-link to the RichEditableText class
-		// to use in keyDownHandler().
+        // to use in keyDownHandler().
         if (ApplicationDomain.currentDomain.hasDefinition(
-				"spark.components.RichEditableText"))
-		{
+                "spark.components.RichEditableText"))
+        {
             richEditableTextClass =
-				Class(ApplicationDomain.currentDomain.getDefinition(
-					"spark.components.RichEditableText"));
-		}
+                Class(ApplicationDomain.currentDomain.getDefinition(
+                    "spark.components.RichEditableText"));
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -798,7 +798,7 @@ public class Container extends UIComponent
         invalidateProperties();
         
         if (border && border is IInvalidating)
-        	IInvalidating(border).invalidateDisplayList();
+            IInvalidating(border).invalidateDisplayList();
     }
 
     //----------------------------------
@@ -2377,7 +2377,7 @@ public class Container extends UIComponent
         }
     }
 
-	/**
+    /**
      *  @private
      *  We're doing special behavior on addEventListener to make sure that 
      *  we successfully capture mouse events, even when there's no background.
@@ -2430,8 +2430,8 @@ public class Container extends UIComponent
             }
         }
     }
-	
-	 /**
+    
+     /**
      *  @private
      *  We're doing special behavior on removeEventListener to make sure that 
      *  we successfully capture mouse events, even when there's no background.
@@ -3371,9 +3371,9 @@ public class Container extends UIComponent
         {
             vm = viewMetrics;
 
-			if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
-				vm = EdgeMetrics.EMPTY;
-				
+            if (FlexVersion.compatibilityVersion >= FlexVersion.VERSION_4_0)
+                vm = EdgeMetrics.EMPTY;
+                
             var bgColor:Object = enabled ?
                                  null :
                                  getStyle("backgroundDisabledColor");
@@ -4133,9 +4133,11 @@ public class Container extends UIComponent
     }
 
     /**
-     *  IDeferredContentOwner equivalent of createComponentsFromDescriptor(true)
+     *  Performs the equivalent action of calling 
+     *  the <code>createComponentsFromDescriptors(true)</code> method for containers 
+     *  that implement the IDeferredContentOwner interface to support deferred instantiation.
      *
-     *  @see createComponentsFromDescriptors
+     *  @see #createComponentsFromDescriptors()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -5537,10 +5539,10 @@ public class Container extends UIComponent
         // experience as browser.
         var focusObj:Object = getFocus();
         if ((focusObj is TextField) ||
-			(richEditableTextClass && focusObj is richEditableTextClass))
-		{
+            (richEditableTextClass && focusObj is richEditableTextClass))
+        {
             return;
-		}
+        }
     
         // If the KeyBoardEvent can be canceled and a descendant has done so,
         // don't process it at all.  
