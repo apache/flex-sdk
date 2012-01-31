@@ -1396,7 +1396,8 @@ public class NumericStepper extends UIComponent
         var inputValue:Number = Number(inputField.text);
         if ((inputValue != lastValue &&
             (Math.abs(inputValue - lastValue) >= 0.000001 || isNaN(inputValue))) || 
-            inputField.text == "")
+            inputField.text == "" || (inputField.text && 
+           inputField.text.length != lastValue.toString().length))
         {
             var newValue:Number = checkValidValue(Number(inputField.text));
             inputField.text = newValue.toString();
@@ -1553,12 +1554,20 @@ public class NumericStepper extends UIComponent
             case Keyboard.TAB:
             {
                 var inputValue:Number = Number(inputField.text);
+                
                 if (inputValue != lastValue &&
                     (Math.abs(inputValue - lastValue) >= 0.000001 ||
-                     isNaN(inputValue)))
+                     isNaN(inputValue)) || (inputField.text && 
+                    inputField.text.length != lastValue.toString().length))
                 {
                     var newValue:Number = checkValidValue(Number(inputField.text));
+                    
+                    // When the TextInput receives our key, it will ignore
+                    // the programmatically set text, unless we push it through
+                    // here.
                     inputField.text = newValue.toString();
+                    inputField.validateNow();
+                    
                     setValue(newValue, true);
                 }
 
