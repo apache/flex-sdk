@@ -17,6 +17,7 @@ import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
+import mx.components.baseClasses.ToggleButtonBase;
 import mx.core.IFlexDisplayObject;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
@@ -101,7 +102,7 @@ import mx.managers.IFocusManagerGroup;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class FxRadioButton extends FxToggleButton implements IFocusManagerGroup
+public class FxRadioButton extends ToggleButtonBase implements IFocusManagerGroup
 {
     include "../core/Version.as";
     
