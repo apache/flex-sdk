@@ -31,12 +31,22 @@ package mx.effects.interpolation
  * linear motion. The middle phase consists of
  * uniform motion, but the speed of that motion is determined by
  * the size of that phase relative to the overall curve.</p>
+ *  
+ *  @langversion 3.0
+ *  @playerversion Flash 10
+ *  @playerversion AIR 1.5
+ *  @productversion Flex 4
  */
 public class Linear implements IEaser
 {
     /**
      * Constructs a Linear instance with optional acceleration and
      * deceleration parameters.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function Linear(easeInFraction:Number = 0, easeOutFraction:Number = 0)
     {
@@ -48,6 +58,11 @@ public class Linear implements IEaser
     
     /**
      * Returns the singleton instance of Linear.
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public static function getInstance():Linear
     {
@@ -59,6 +74,11 @@ public class Linear implements IEaser
 
     /**
      * Storage for the _easeInFraction property
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var _easeInFraction:Number = 0;
     
@@ -70,6 +90,11 @@ public class Linear implements IEaser
      * linear interpolation.
      * 
      * @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get easeInFraction():Number
     {
@@ -82,6 +107,11 @@ public class Linear implements IEaser
 
     /**
      * Storage for the _easeInFraction property
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     private var _easeOutFraction:Number = 0;
     
@@ -93,6 +123,11 @@ public class Linear implements IEaser
      * linear interpolation.
      * 
      * @default 0
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function get easeOutFraction():Number
     {
@@ -120,6 +155,11 @@ public class Linear implements IEaser
      * 
      * @param fraction The elapsed fraction of the animation
      * @return The eased fraction of the animation
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4
      */
     public function ease(fraction:Number):Number
     {
