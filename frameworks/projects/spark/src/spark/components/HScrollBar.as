@@ -14,6 +14,7 @@ package mx.components
 import flash.ui.Keyboard;
 import mx.components.baseClasses.FxTextBase;
 import mx.components.baseClasses.FxScrollBar;
+import mx.core.ScrollUnit;
 import mx.layout.ILayoutItem;
 import mx.layout.LayoutItemFactory;
 import mx.events.PropertyChangeEvent;
@@ -142,9 +143,9 @@ public class FxHScrollBar extends FxScrollBar
      *
      *  @private
      */
-    private function updateViewportHSP(unit:uint):void
+    private function updateViewportHSP(unit:ScrollUnit):void
     {
-        var delta:Number = viewport.horizontalScrollPositionDelta(unit);
+        var delta:Number = viewport.getHorizontalScrollPositionDelta(unit);
         setValue(viewport.horizontalScrollPosition + delta);
     }
     
@@ -153,7 +154,7 @@ public class FxHScrollBar extends FxScrollBar
      *  change the horizontal scroll position for page up or page down by 
      *  scrolling the viewport.
      *  This method calculates the amount to scroll by calling the 
-     *  <code>IViewport.horizontalScrollPositionDelta()</code> method 
+     *  <code>IViewport.getHorizontalScrollPositionDelta()</code> method 
      *  with either <code>flash.ui.Keyboard.PAGE_UP</code> 
      *  or <code>flash.ui.Keyboard.PAGE_DOWN</code>.
      *  It then calls the <code>setValue()</code> method to 
@@ -171,14 +172,14 @@ public class FxHScrollBar extends FxScrollBar
      *  @see mx.components.baseClasses.FxTrackBase#setValue()
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#horizontalScrollPosition
-     *  @see mx.core.IViewport#horizontalScrollPositionDelta()
+     *  @see mx.core.IViewport#getHorizontalScrollPositionDelta()
      */
     override public function page(increase:Boolean = true):void
     {
         if (!viewport)
             super.page(increase);
         else
-            updateViewportHSP((increase) ? Keyboard.PAGE_DOWN : Keyboard.PAGE_UP);
+            updateViewportHSP((increase) ? ScrollUnit.PAGE_RIGHT : ScrollUnit.PAGE_LEFT);
     }
     
     /**
@@ -186,7 +187,7 @@ public class FxHScrollBar extends FxScrollBar
      *  change the horizontal scroll position for line up or line down by 
      *  scrolling the viewport.
      *  This method calculates the amount to scroll by calling the 
-     *  <code>IViewport.horizontalScrollPositionDelta()</code> method 
+     *  <code>IViewport.getHorizontalScrollPositionDelta()</code> method 
      *  with either <code>flash.ui.Keyboard.RIGHT</code> 
      *  or <code>flash.ui.Keyboard.LEFT</code>.
      *  It then calls the <code>setValue()</code> method to 
@@ -204,14 +205,14 @@ public class FxHScrollBar extends FxScrollBar
      *  @see mx.components.baseClasses.FxTrackBase#setValue()
      *  @see mx.core.IViewport
      *  @see mx.core.IViewport#horizontalScrollPosition
-     *  @see mx.core.IViewport#horizontalScrollPositionDelta()
+     *  @see mx.core.IViewport#getHorizontalScrollPositionDelta()
      */
     override public function step(increase:Boolean = true):void
     {
         if (!viewport)
             super.step(increase);
         else
-            updateViewportHSP((increase) ? Keyboard.RIGHT : Keyboard.LEFT);
+            updateViewportHSP((increase) ? ScrollUnit.RIGHT : ScrollUnit.LEFT);
     }   
     
     /**
