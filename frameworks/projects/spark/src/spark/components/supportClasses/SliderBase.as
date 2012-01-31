@@ -49,7 +49,7 @@ include "../../styles/metadata/BasicInheritingTextStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="focusAlpha", type="Number", inherit="no", theme="spark")]
+[Style(name="focusAlpha", type="Number", inherit="no", theme="spark", minValue="0.0", maxValue="1.0")]
 
 /**
  *  @copy spark.components.supportClasses.GroupBase#focusColor
@@ -345,6 +345,8 @@ public class Slider extends TrackBase implements IFocusManagerComponent
     //  dataTipPrecision
     //---------------------------------
 
+    [Inspectable(minValue="0")]
+    
     /**
      *  Number of decimal places to use for the data tip text.
      *  A value of 0 means to round all values to an integer.
