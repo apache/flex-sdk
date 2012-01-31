@@ -1144,6 +1144,8 @@ public class Tree extends List implements IIMESupport
             //we always reset the open and selected items on a dataprovider assignment
             if (!openItemsChanged)
                 _openItems = {};
+            
+            openItemsChanged = false;
         
             // are we swallowing the root?
             if (_rootModel && !_showRoot && _hasRoot)
