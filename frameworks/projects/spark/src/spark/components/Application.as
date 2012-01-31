@@ -104,7 +104,7 @@ use namespace mx_internal;
  *  attributes of its superclass and adds the following tag attributes:</p>
  *
  *  <pre>
- *  &lt;mx:Application
+ *  &lt;Application
  *    <strong>Properties</strong>
  *    application="<i>No default</i>"
  *    frameRate="24"
@@ -197,6 +197,11 @@ public class Application extends ItemsComponent
         // documentDescriptor property for the application object.
         // We get the id and the creationPolicy, which we want to
         // set very early, from that descriptor.
+        
+        // because we don't have namespace-specific styles yet
+        // just set the default here
+        // TODO (rfrishbe): remove this...
+        setStyle("backgroundColor", "white");
     }
 
     //--------------------------------------------------------------------------
@@ -245,46 +250,24 @@ public class Application extends ItemsComponent
 	//  backgroundColor
 	//----------------------------------
 	
-	private var _backgroundColor:String = "0xFFFFFF";
-	
 	[Bindable("backgroundColorUpdated")]
 	
 	/**
 	 *  @copy mx.core.Container#backgroundColor
 	 */
-	public function get backgroundColor():String
+	public function get backgroundColor():Object /* Color (int or String) */
 	{
-		return _backgroundColor;
+		return getStyle("backgroundColor");
 	}
 	
-	public function set backgroundColor(value:String):void
+	public function set backgroundColor(value:Object /* Color (int or String) */):void
 	{
-		if (value == _backgroundColor)
+		if (value == getStyle("backgroundColor"))
 			return;
 			
-		_backgroundColor = value;
+		setStyle("backgroundColor", value);
 		
 		dispatchEvent(new Event("backgroundColorUpdated"));
-	}
-	
-	//----------------------------------
-	//  backgroundColorNumber
-	//----------------------------------
-	
-	[Bindable("backgroundColorUpdated")]
-	
-	/**
-	 *  Background color of a component.
-	 *  Because backgroundColor is a String, backgroundColorNumber
-	 *  is just a Number so it can be used by flex graphics.
-	 */
-	public function get backgroundColorNumber():uint
-	{
-        var colorNumber:uint = StyleManager.getColorName(backgroundColor);
-		if (colorNumber == StyleManager.NOT_A_COLOR)
-			colorNumber = parseInt(backgroundColor);
-		
-        return colorNumber;
 	}
     
     //--------------------------------------------------------------------------
