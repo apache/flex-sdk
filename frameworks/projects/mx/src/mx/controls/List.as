@@ -2197,6 +2197,11 @@ public class List extends ListBase implements IIMESupport
 
         // listen for keyStrokes on the itemEditorInstance (which lets the grid supervise for ESC/ENTER)
         DisplayObject(itemEditorInstance).addEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
+        
+        // Disable framework default button support when editor is enabled.
+        if (focusManager)
+            focusManager.defaultButtonEnabled = false;
+            
         // we disappear on any mouse down outside the editor
         // use weak reference
         systemManager.getSandboxRoot().
@@ -2271,6 +2276,11 @@ public class List extends ListBase implements IIMESupport
         if (itemEditorInstance)
         {
             DisplayObject(itemEditorInstance).removeEventListener(KeyboardEvent.KEY_DOWN, editorKeyDownHandler);
+            
+            // Re-enable framework default button support.
+            if (focusManager)
+                focusManager.defaultButtonEnabled = true;
+                
             systemManager.getSandboxRoot().
                 removeEventListener(MouseEvent.MOUSE_DOWN, editorMouseDownHandler, true);
             systemManager.getSandboxRoot().
@@ -2579,6 +2589,11 @@ public class List extends ListBase implements IIMESupport
 			return;
 
         endEdit(ListEventReason.OTHER);
+        
+        // set focus back to the grid so grid logic will deal if focus doesn't
+        // end up somewhere else
+        losingFocus = true;
+        setFocus();
     }
 
     /**
@@ -2605,9 +2620,13 @@ public class List extends ListBase implements IIMESupport
             // The 229 keyCode is for IME compatability. When entering an IME expression,
             // the enter key is down, but the keyCode is 229 instead of the enter key code.
             // Thanks to Yukari for this little trick...
-            if (endEdit(ListEventReason.NEW_ROW))
-                if (!dontEdit)
-                    findNextEnterItemRenderer(event);
+            if (endEdit(ListEventReason.NEW_ROW) && !dontEdit)
+            {
+                findNextEnterItemRenderer(event);
+                    
+                if (focusManager)
+                    focusManager.defaultButtonEnabled = false;
+            }
         }
     }
 
@@ -2747,8 +2766,7 @@ public class List extends ListBase implements IIMESupport
             // trace("setting focus to item editor");
             if (itemEditorInstance is IFocusManagerComponent)
                 fm.setFocus(IFocusManagerComponent(itemEditorInstance));
-            fm.defaultButtonEnabled = false;
-
+            
             var event:ListEvent =
                 new ListEvent(ListEvent.ITEM_FOCUS_IN);
             event.rowIndex = _editedItemPosition.rowIndex;
