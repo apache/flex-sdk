@@ -1184,7 +1184,8 @@ public class Application extends SkinnableContainer
         var version:Array = Capabilities.version.split(' ')[1].split(',');
         
         synchronousResize = (parseFloat(version[0]) > 10 || 
-            (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1));
+            (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1))
+            && (Capabilities.playerType != "Desktop");
     }
     
     //--------------------------------------------------------------------------
