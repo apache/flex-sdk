@@ -1123,22 +1123,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     }
     
     //----------------------------------
-    //  gridDimensions (private, read-only)
-    //----------------------------------
-    
-    private var _gridDimensions:GridDimensions = null;
-    
-    /**
-     *  @private
-     */
-    protected function get gridDimensions():GridDimensions
-    {
-        if (!_gridDimensions)
-            _gridDimensions = new GridDimensions();  // TBD(hmuller):delegate to protected createGridDimensions()
-        return _gridDimensions;
-    }
-    
-    //----------------------------------
     //  enableIME
     //----------------------------------
     
@@ -1995,9 +1979,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             // Basic Initialization
             
-            const layout:GridLayout = new GridLayout();
-            grid.layout = layout;  // TBD(hmuller): delegate to protected createGridLayout()
-            grid.gridDimensions = layout.gridDimensions = gridDimensions;
             gridSelection.grid = grid;
             grid.gridSelection = gridSelection;
             grid.dataGrid = this;
@@ -2122,9 +2103,6 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
         {
             // Basic Initialization
             
-            const layout:GridLayout = GridLayout(grid.layout);
-            grid.gridDimensions = layout.gridDimensions = null;
-            grid.layout = null;
             gridSelection.grid = null;
             grid.gridSelection = null;
             grid.dataGrid = null;            
