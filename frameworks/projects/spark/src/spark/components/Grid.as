@@ -19,6 +19,7 @@ import flash.geom.Rectangle;
 
 import mx.collections.ArrayList;
 import mx.collections.IList;
+import mx.containers.Grid;
 import mx.core.IFactory;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
@@ -1029,41 +1030,21 @@ public class Grid extends Group implements IDataGridElement
      */
     mx_internal function get gridSelection():GridSelection
     {
+        if (!_gridSelection)
+            _gridSelection = new GridSelection();  // TBD(hmuller):delegate to protected createGridSelection()
+        
         return _gridSelection;
     }
     
     /**
      *  @private
-     *  This value is created by DataGrid/partAdded() and then set here.   It is only
-     *  set once, unless that "grid" part is removed, at which point it's set to null.
+     *  If this Grid is serving as a DataGrid skin part, then this property is created 
+     *  by DataGrid/partAdded() and then set here.   It is only set once, unless that 
+     *  "grid" part is removed, at which point it's set to null.
      */
     mx_internal function set gridSelection(value:GridSelection):void
     {
         _gridSelection = value;
-    }
-    
-    //----------------------------------
-    //  gridDimensions (mx_internal)
-    //----------------------------------
-    
-    private var _gridDimensions:GridDimensions;
-    
-    /**
-     *  @private
-     */
-    mx_internal function get gridDimensions():GridDimensions
-    {
-        return _gridDimensions;
-    }
-    
-    /**
-     *  @private
-     *  This value is created by DataGrid/partAdded() and then set here.   It is only
-     *  set once, unless that "grid" part is removed, at which point it's set to null.
-     */
-    mx_internal function set gridDimensions(value:GridDimensions):void
-    {
-        _gridDimensions = value;
     }
     
     //----------------------------------
@@ -2827,6 +2808,14 @@ public class Grid extends Group implements IDataGridElement
     //
     //-------------------------------------------------------------------------- 
     
+    /**
+     *  @private
+     */
+    private function get gridDimensions():GridDimensions
+    {
+        return gridLayout.gridDimensions;
+    }
+    
     /** 
      *  @private
      *  Update the scroll position so that the virtual Grid element at the specified
@@ -3376,7 +3365,7 @@ public class Grid extends Group implements IDataGridElement
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = GridLayout(layout).gridDimensions;
+        const gridDimensions:GridDimensions = this.gridDimensions;
         const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
@@ -3418,7 +3407,7 @@ public class Grid extends Group implements IDataGridElement
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = GridLayout(layout).gridDimensions;
+        const gridDimensions:GridDimensions = this.gridDimensions;
         const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
                     
@@ -3482,7 +3471,7 @@ public class Grid extends Group implements IDataGridElement
         
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = GridLayout(layout).gridDimensions;
+        const gridDimensions:GridDimensions = this.gridDimensions;
         const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
@@ -3505,7 +3494,7 @@ public class Grid extends Group implements IDataGridElement
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = GridLayout(layout).gridDimensions;
+        const gridDimensions:GridDimensions = this.gridDimensions;
         const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
@@ -3531,7 +3520,7 @@ public class Grid extends Group implements IDataGridElement
     {
         const eventStageXY:Point = new Point(event.stageX, event.stageY);
         const eventGridXY:Point = globalToLocal(eventStageXY);
-        const gridDimensions:GridDimensions = GridLayout(layout).gridDimensions;
+        const gridDimensions:GridDimensions = this.gridDimensions;
         const eventRowIndex:int = gridDimensions.getRowIndexAt(eventGridXY.x, eventGridXY.y);
         const eventColumnIndex:int = gridDimensions.getColumnIndexAt(eventGridXY.x, eventGridXY.y);
         
@@ -3791,6 +3780,7 @@ public class Grid extends Group implements IDataGridElement
             gridDimensions.columnCount = generatedColumns ? columns.length : 0;
         }
         
+        const gridDimenions:GridDimensions = this.gridDimensions;
         if (gridDimensions)
         {
             gridDimensions.dataProviderCollectionChanged(event);
@@ -3979,6 +3969,7 @@ public class Grid extends Group implements IDataGridElement
             return;
         
         // Fix up gridDimensions
+        const gridDimensions:GridDimensions = this.gridDimensions;
         if (gridDimensions)
         {
             gridDimensions.clearColumns(columnIndex, 1);
@@ -4024,6 +4015,7 @@ public class Grid extends Group implements IDataGridElement
     {
         gridLayout.clearVirtualLayoutCache();
         
+        const gridDimensions:GridDimensions = this.gridDimensions;
         if (gridDimensions)
         {
             if (clearTypicalSizes)
