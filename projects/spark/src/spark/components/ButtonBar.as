@@ -11,6 +11,7 @@
 
 package mx.components
 {
+import flash.events.IEventDispatcher;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
@@ -18,7 +19,9 @@ import flash.ui.Keyboard;
 
 import mx.components.baseClasses.FxListBase;
 import mx.core.IFactory;
+import mx.core.ISelectableRenderer;
 import mx.core.IVisualElement;
+import mx.core.mx_internal;
 import mx.events.ItemExistenceChangedEvent;
 import mx.managers.IFocusManagerComponent;
 
@@ -29,7 +32,7 @@ import mx.managers.IFocusManagerComponent;
  *
  *  @includeExample examples/FxButtonBarExample.mxml
  */
-public class FxButtonBar extends FxListBase
+public class FxButtonBar extends FxListBase implements IFocusManagerComponent
 {
     include "../core/Version.as";
 
@@ -55,13 +58,24 @@ public class FxButtonBar extends FxListBase
         
         //Add a keyDown event listener so we can adjust
         //selection accordingly.  
-        addEventListener(KeyboardEvent.KEY_DOWN, buttonBar_keyDownHandler, true);
+        addEventListener(KeyboardEvent.KEY_DOWN, buttonBar_keyDownHandler);
 
-		// add a focusIn handler to move the focused button to the top layer
-        addEventListener(FocusEvent.FOCUS_IN, buttonBar_focusInHandler);
-
+		tabChildren = false;
+		tabEnabled = true;
     }
     
+    //--------------------------------------------------------------------------
+    //
+    //  Variables
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     *  Index of currently focused child.
+     */
+    private var focusedIndex:int = 0;
+
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -107,7 +121,82 @@ public class FxButtonBar extends FxListBase
     //  Overridden Methods
     //
     //--------------------------------------------------------------------------
-    
+
+	private var requiresSelectionChanging:Boolean;
+
+    /**
+     *  @private
+     */
+    override public function set requiresSelection(value:Boolean):void
+	{
+		super.requiresSelection = value;
+		requiresSelectionChanging = true;
+	}
+
+	private var enabledChanging:Boolean;
+
+    /**
+     *  @private
+     */
+    override public function set enabled(value:Boolean):void
+	{
+		super.enabled = value;
+		enabledChanging = true;
+	}
+
+    /**
+     *  @private
+     */
+    override protected function commitProperties():void
+    {
+		super.commitProperties();
+
+        if (requiresSelectionChanging)
+		{
+			requiresSelectionChanging = false;
+			var n:int = dataProvider.length;
+			for (var i:int = 0; i < n; i++)
+			{
+				var renderer:ISelectableRenderer = 
+					dataGroup.getRendererForItemAt(i) as ISelectableRenderer;
+				if (renderer)
+					renderer.allowDeselection = !requiresSelection;
+			}
+		}
+    }
+
+    /**
+     *  @private
+     */
+    override protected function updateDisplayList(w:Number, h:Number):void
+    {
+		super.updateDisplayList(w, h);
+
+        if (enabledChanging)
+		{
+			enabledChanging = false;
+			if (dataProvider)
+			{
+				var n:int = dataProvider.length;
+				for (var i:int = 0; i < n; i++)
+				{
+					var renderer:ISelectableRenderer = 
+						dataGroup.getRendererForItemAt(i) as ISelectableRenderer;
+					if (renderer)
+						renderer.enabled = enabled;
+				}
+			}
+		}
+    }
+
+    /**
+     *  @private
+     */
+    override public function drawFocus(isFocused:Boolean):void
+    {
+        drawButtonFocus(focusedIndex, isFocused);
+    }
+
     /**
      *  @private
      */
@@ -115,12 +204,12 @@ public class FxButtonBar extends FxListBase
     {
         super.itemSelected(index, selected);
         
-        var renderer:Object = dataGroup.getRendererForItemAt(index);
+        var renderer:ISelectableRenderer = 
+			dataGroup.getRendererForItemAt(index) as ISelectableRenderer;
         
         if (renderer)
         {
-            if ("selected" in renderer)
-                renderer.selected = selected;
+            renderer.selected = selected;
         }
     }
         
@@ -193,11 +282,20 @@ public class FxButtonBar extends FxListBase
      */
     private function dataGroup_itemAddHandler(event:ItemExistenceChangedEvent):void
     {
-        var renderer:Object = event.renderer;
+        var renderer:IEventDispatcher = IEventDispatcher(event.renderer);
         var index:int = event.index;
         
         if (renderer)
+		{
             renderer.addEventListener("click", item_clickHandler);
+			if (renderer is IFocusManagerComponent)
+				IFocusManagerComponent(renderer).focusEnabled = false;
+			if (renderer is ISelectableRenderer)
+			{
+				ISelectableRenderer(renderer).allowDeselection = !requiresSelection;
+				ISelectableRenderer(renderer).enabled = enabled;
+			}
+		}
             
         if (isItemIndexSelected(index))
             itemSelected(index, true);
@@ -223,8 +321,16 @@ public class FxButtonBar extends FxListBase
     {
         var index:int = dataGroup.getItemIndexForRenderer(
                             event.currentTarget as IVisualElement);
-		
-		selectedIndex = index;
+
+		if (index == selectedIndex)
+		{
+			if (!requiresSelection)
+				selectedIndex = -1;
+		}
+		else
+		{
+			focusedIndex = selectedIndex = index;
+		}
     }
     
     /**
@@ -232,25 +338,16 @@ public class FxButtonBar extends FxListBase
 	 *  Attempt to lift the focused button above the others
 	 *  so that the focus ring can show.
      */
-    private function buttonBar_focusInHandler(event:FocusEvent):void
+    private function adjustLayering(focusedIndex:int):void
     {
-		var currentButton:IFocusManagerComponent;
-		var index:int;
-		var renderer:Object;
-
-		currentButton = focusManager.getFocus();
-		index = dataGroup.getItemIndexForRenderer(
-		              currentButton as IVisualElement);
-
 		var n:int = dataProvider.length;
-		var zz:int = 0;
 		for (var i:int = 0; i < n; i++)
 		{
-			renderer = dataGroup.getRendererForItemAt(i);
-			if (renderer == currentButton)
-				renderer.layer = n - 1;
+			var renderer:IVisualElement = IVisualElement(dataGroup.getRendererForItemAt(i));
+			if (i == focusedIndex)
+				renderer.layer = 1;
 			else
-				renderer.layer = zz++;
+				renderer.layer = 0;
 		}
 	}
 
@@ -259,23 +356,24 @@ public class FxButtonBar extends FxListBase
      */
     private function buttonBar_keyDownHandler(event:KeyboardEvent):void
     {
-		var currentButton:IFocusManagerComponent;
-		var index:int;
-		var renderer:Object;
+		var currentRenderer:ISelectableRenderer;
+		var renderer:ISelectableRenderer;
 
         switch (event.keyCode)
         {
             case Keyboard.UP:
             case Keyboard.LEFT:
             {
-				focusManager.showFocusIndicator = true;
-				currentButton = focusManager.getFocus();
-		        index = dataGroup.getItemIndexForRenderer(
-		                  currentButton as IVisualElement);
-				if (index > 0)
+				currentRenderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+				if (focusedIndex > 0)
 				{
-					renderer = dataGroup.getRendererForItemAt(index-1);
-					IFocusManagerComponent(renderer).setFocus();
+					if (currentRenderer)
+						currentRenderer.showFocusIndicator = false;
+					--focusedIndex;
+					adjustLayering(focusedIndex);
+					renderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+					if (renderer)
+						renderer.showFocusIndicator = true;
 				}
 
                 break;
@@ -283,20 +381,49 @@ public class FxButtonBar extends FxListBase
             case Keyboard.DOWN:
             case Keyboard.RIGHT:
             {
-				focusManager.showFocusIndicator = true;
-				currentButton = focusManager.getFocus();
-		        index = dataGroup.getItemIndexForRenderer(
-		                  currentButton as IVisualElement);
-				if (index < dataProvider.length - 1)
+				currentRenderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+				if (focusedIndex < dataProvider.length - 1)
 				{
-					renderer = dataGroup.getRendererForItemAt(index+1);
-					IFocusManagerComponent(renderer).setFocus();
+					if (currentRenderer)
+						currentRenderer.showFocusIndicator = false;
+					++focusedIndex;
+					adjustLayering(focusedIndex);
+					renderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+					if (renderer)
+						renderer.showFocusIndicator = true;
 				}
 
+                break;
+            }            
+            case Keyboard.SPACE:
+            {
+				currentRenderer = dataGroup.getRendererForItemAt(focusedIndex) as ISelectableRenderer;
+				if (!currentRenderer || (currentRenderer.selected && requiresSelection))
+					return;
+				currentRenderer.selected = !currentRenderer.selected;
+				if (currentRenderer.selected)
+					selectedIndex = focusedIndex;
+				else
+					selectedIndex = -1;
+                break;
             }            
         }
     }
   
+    /**
+     *  @private
+     */
+    private function drawButtonFocus(index:int, focused:Boolean):void
+    {
+		var n:int = dataProvider.length;
+        if (n > 0 && index < n)
+        {
+			var renderer:ISelectableRenderer = 
+				dataGroup.getRendererForItemAt(index) as ISelectableRenderer;
+			if (renderer)
+				renderer.showFocusIndicator = focused;
+        }
+    }
 }
 
 }
