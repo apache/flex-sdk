@@ -176,9 +176,25 @@ public class AbstractInvoker extends EventDispatcher
      */
     public function clearResult(fireBindingEvent:Boolean = true):void
     {
-        _result = null;
         if (fireBindingEvent)
-            dispatchEvent(new flash.events.Event(BINDING_RESULT));
+            setResult(null);
+        else
+            _result = null;
+    }
+
+    /**
+     *  This hook is exposed to update the lastResult property.  Since lastResult
+     *  is ordinarily updated automatically by the service, you do not typically 
+     *  call this.  It is used by managed services that want to ensure lastResult
+     *  always points to "the" managed instance for a given identity even if the
+     *  the service returns a new copy of the same object.  
+     *
+     *  @param the new value for the lastResult property.
+     */
+    public function setResult(result:Object):void
+    {
+        _result = result;
+        dispatchEvent(new flash.events.Event(BINDING_RESULT));
     }
 
 
