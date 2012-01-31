@@ -3569,11 +3569,12 @@ public class DataGrid extends DataGridBase implements IIMESupport
         var contentHolder:ListBaseContentHolder = s.parent.parent as ListBaseContentHolder;
         //draw our vertical lines
         var g:Graphics = s.graphics;
-        g.lineStyle(1, color, 100);
-        g.moveTo(x, headerVisible ? 0 : 1);
-        g.lineTo(x, contentHolder.height);
+        g.lineStyle();
+        g.beginFill(color);
+        g.drawRect(x, headerVisible ? 0 : 1, 1, contentHolder.height);
+        g.endFill();
     }
-
+    
     /**
      *  Draw lines between columns, and column backgrounds.
      *  This implementation calls the <code>drawHorizontalLine()</code>, 
