@@ -1480,8 +1480,8 @@ public class ComboBox extends ComboBase
 
             if (editable)
             {
-                textInput.getTextField().setSelection(0, textInput.text.length);
-                textInput.getTextField().scrollH = 0;
+                textInput.selectRange(0, textInput.text.length);
+                textInput.horizontalScrollPosition = 0;
             }
 
             if (_dropdown)
