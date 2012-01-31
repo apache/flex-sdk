@@ -40,7 +40,7 @@ include "../../styles/metadata/BasicTextLayoutFormatStyles.as"
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-[Style(name="focusColor", type="uint", format="Color", inherit="yes")]
+[Style(name="focusColor", type="uint", format="Color", inherit="yes", theme="spark")]
 
 /**
  *  Dispatched when the user presses the ButtonBase control.
