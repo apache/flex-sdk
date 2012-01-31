@@ -41,6 +41,7 @@ import spark.events.GridEvent;
 import spark.events.GridSelectionEvent;
 import spark.events.GridSelectionEventKind;
 
+
 use namespace mx_internal;
 
 //--------------------------------------
@@ -602,12 +603,7 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     public function set columns(value:IList):void
     {
         if (setGridProperty("columns", value))
-        {
-            if (columnHeaderBar)
-                columnHeaderBar.dataProvider = columns;
-            // TBD This, and  grid_columnsChangedEventHandler() should do their job at commitProperties time
             dispatchChangeEvent("columnsChanged");
-        }
     }
     
     /**
@@ -2917,13 +2913,12 @@ public class DataGrid extends SkinnableContainerBase implements IFocusManagerCom
     {
         if (columnHeaderBar && event.property == "horizontalScrollPosition")
             columnHeaderBar.horizontalScrollPosition = Number(event.newValue);
-    }
+    }    
     
     protected function grid_columnsChangedEventHandler(event:Event):void
     {
         if (columnHeaderBar)
             columnHeaderBar.dataProvider = columns;
-        // TBD(hmuller) - should be done at commitproperties time
     }    
     
 }
