@@ -16,7 +16,6 @@ import flash.display.GradientType;
 import flash.display.Graphics;
 import mx.core.IContainer;
 import mx.core.EdgeMetrics;
-import mx.core.FlexVersion;
 import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.graphics.RectangularDropShadow;
@@ -140,10 +139,7 @@ public class HaloBorder extends RectangularBorder
         if (borderStyle == "default" ||
             borderStyle == "alert")
         {
-            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                _borderMetrics = new EdgeMetrics(0, 0, 0, 0);
-            else
-                return EdgeMetrics.EMPTY;
+            return EdgeMetrics.EMPTY;
         }       
         
         else if (borderStyle == "controlBar" ||
@@ -349,71 +345,7 @@ public class HaloBorder extends RectangularBorder
                 case "alert":
                 case "default":
                 {
-                    if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0)
-                    {
-                        // For Panel/Alert, "borderAlpha" is the alpha for the
-                        // title/control/gutter area and "backgroundAlpha"
-                        // is the alpha for the content area.
-                        // We flip-flop the variables here so the "borderAlpha"
-                        // is applied by the background drawing code at the bottom.
-                        var contentAlpha:Number = getStyle("backgroundAlpha");
-                        backgroundAlpha = getStyle("borderAlpha");
-                        backgroundAlphaName = "borderAlpha";
-                        
-                        radius = getStyle("cornerRadius");
-                        bRoundedCorners =
-                            getStyle("roundedBottomCorners").toString().toLowerCase() == "true";
-                        var br:Number = bRoundedCorners ? radius : 0;
-        
-                        drawDropShadow(0, 0, w, h, radius, radius, br, br);
-                        
-                        // If we don't have rounded corners we need to initialize
-                        // the complex radius object so the background fill code
-                        // below works correctly.
-                        if (!bRoundedCorners)
-                            radiusObj = {};
-                        
-                        var parentContainer:IContainer = parent as IContainer;
-        
-                        if (parentContainer)
-                        {
-                            var vm:EdgeMetrics = parentContainer.viewMetrics;
-        
-                            // The backgroundHole is the content area
-                            backgroundHole = {x:vm.left, y:vm.top, 
-                                              w: Math.max(0, w - vm.left - vm.right), 
-                                              h: Math.max(0, h - vm.top - vm.bottom),
-                                              r:0};
-        
-                            if (backgroundHole.w > 0 && backgroundHole.h > 0)
-                            {
-                                // Draw a shadow around the content
-                                // if the content and panel alpha are different.
-                                // This could be a style property if needed
-                                if (contentAlpha != backgroundAlpha)
-                                {
-                                    drawDropShadow(backgroundHole.x, backgroundHole.y,
-                                            backgroundHole.w, backgroundHole.h,
-                                            0, 0, 0, 0);
-                                }
-        
-                                // Fill in the content area
-                                g.beginFill(Number(backgroundColor), contentAlpha);
-                                g.drawRect(backgroundHole.x, backgroundHole.y, 
-                                        backgroundHole.w, backgroundHole.h);
-                                g.endFill();
-                            }
-                        }
-        
-                        // When the content and panel alpha are different, the border
-                        // of the panel is drawn using borderColor. We've already
-                        // drawn the content background so we set backgroundColor to
-                        // borderColor here so the drawing code below is done with the
-                        // border color.                    
-                        backgroundColor = getStyle("borderColor");
-                    }
-                                        
-                    break;
+                   break;
                 }
 
                 case "dropdown": // never used
@@ -892,22 +824,6 @@ public class HaloBorder extends RectangularBorder
                 g.endFill();
             }
         }
-        
-        var borderStyle:String = getStyle("borderStyle");
-        
-        if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_3_0 && (borderStyle == "alert" || borderStyle == "default") && getStyle("headerColors") == null)
-        {
-            var highlightAlphas:Array = getStyle("highlightAlphas");
-            var highlightAlpha:Number = highlightAlphas ? highlightAlphas[0] : 0.3;
-            // edge
-            drawRoundRect(
-                0, 0, w, h,
-                { tl: radius, tr: radius, bl: 0, br: 0 },
-                0xFFFFFF, highlightAlpha, null,
-                GradientType.LINEAR, null, 
-                { x: 0, y: 1, w: w, h: h - 1,
-                  r: { tl: radius, tr: radius, bl: 0, br: 0 } });
-        }   
     }
 
     /**
