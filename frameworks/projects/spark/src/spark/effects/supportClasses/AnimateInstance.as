@@ -355,9 +355,9 @@ public class FxAnimateInstance extends EffectInstance
             setupStyleMapEntry(property);
 
             // Set any NaN from/to values to the current values in the target
-            if (!isNaN(propValues[0]))
+            if (!isNaN(propValues[0]) && propValues[0] != null)
                 fromValue = propValues[0];
-            if (!isNaN(propValues[1]))
+            if (!isNaN(propValues[1]) && propValues[1] != null)
                 toValue = propValues[1];
             else if (propertyChanges && 
                 propertyChanges.end[property] !== undefined)
