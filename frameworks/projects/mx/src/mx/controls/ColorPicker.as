@@ -1114,7 +1114,6 @@ public class ColorPicker extends ComboBase
     /**
      *  Set of styles to pass from the ColorPicker through to the preview swatch. 
      *  @see mx.styles.StyleProxy
-     *  @review
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
