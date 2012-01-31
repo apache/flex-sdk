@@ -69,20 +69,6 @@ public class NumberInterpolator implements IInterpolator
             theInstance = new NumberInterpolator();
         return theInstance;
     }
-    
-    /**
-     *  Returns Number, which is the data type of the 
-     *  objects interpolated by the NumberInterpolator class.
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    public function get interpolatedType():Class
-    {
-        return Number;
-    }
 
     /**
      *  Interpolation for NumberInterpolator consists of a simple
