@@ -15,9 +15,9 @@ import flash.events.TimerEvent;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
-import mx.effects.easing.IEaser;
-import mx.effects.easing.Linear;
-import mx.effects.easing.Sine;
+import mx.effects.fxEasing.IEaser;
+import mx.effects.fxEasing.Linear;
+import mx.effects.fxEasing.Sine;
 import mx.effects.interpolation.ArrayInterpolator;
 import mx.effects.interpolation.IInterpolator;
 import mx.effects.interpolation.NumberArrayInterpolator;
