@@ -155,7 +155,7 @@ TextInput
 
 TitleWindow
 {
-	borderAlpha: 0.5;
+	borderAlpha: 0.8;
 	borderColor: 0;
 	cornerRadius: 0;
 	dropShadowVisible: true;
