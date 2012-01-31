@@ -9097,9 +9097,8 @@ public class ListBase extends ScrollControlBase
      */
     override protected function mouseWheelHandler(event:MouseEvent):void
     {
-        if (verticalScrollBar && verticalScrollBar.visible)
+        if (!event.isDefaultPrevented() && verticalScrollBar && verticalScrollBar.visible)
         {
-            event.stopPropagation();
             var oldPosition:Number = verticalScrollPosition;
             var newPos:int = verticalScrollPosition;
             newPos -= event.delta * verticalScrollBar.lineScrollSize;
@@ -9114,6 +9113,8 @@ public class ListBase extends ScrollControlBase
                 scrollEvent.delta = verticalScrollPosition - oldPosition;
                 dispatchEvent(scrollEvent);
             }
+            
+            event.preventDefault();
         }
     }
 
