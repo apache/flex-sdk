@@ -948,12 +948,10 @@ public class ScrollBar extends TrackBase
     protected function animatePaging(newValue:Number, pageSize:Number):void
     {
         animatingSinglePage = false;
-        if (trackScrollDown)
-            newValue = newValue - pageSize;
         // FIXME (chaase): hard-coding easing behavior, how to style it?
         startAnimation(
             getStyle("repeatInterval") * (Math.abs(newValue - value) / pageSize),
-            nearestValidValue(newValue, pageSize), linearEaser);
+            newValue, linearEaser);
     }
 
     /**
@@ -1038,15 +1036,26 @@ public class ScrollBar extends TrackBase
         // (represented by fraction) is not past the current
         // mouse position on the track 
         var newScrollValue:Number = pointToValue(trackPosition.x, trackPosition.y);
+        var fixedThumbSize:Boolean = getStyle("fixedThumbSize") !== false;
 
+        // The end result we want, with either animated or non-animated paging,
+        // is for the thumb to end up under the click point.
+        // For the fixedThumbSize case, where the thumb may be much smaller
+        // than the pageSize, we instead want the thumb to end up
+        // where it would in the variable size case (on a lower value than the 
+        // clicked value), but to end up at the end of the track if it is
+        // "close enough" to the end. The heuristic for "close enough" is
+        // if the end of the track is the nearestValidValue on pageSize
+        // boundaries.
         if (trackScrollDown)
         {
             var range:Number = maximum - minimum;
             if (range == 0)
                 return;
             
-            if ((value + pageSize) > newScrollValue)
-                return;
+            if ((value + pageSize) > newScrollValue &&
+                (!fixedThumbSize || nearestValidValue(newScrollValue, pageSize) != maximum))
+                    return;
         }
         else if (newScrollValue > value)
         {
@@ -1058,7 +1067,27 @@ public class ScrollBar extends TrackBase
             // This gets called after an initial repeateDelay on a paging
             // operation, but after that we're just running the animation. This
             // function is only called repeatedly in the non-smoothScrolling case.
-            animatePaging(newScrollValue, pageSize);
+            var valueDelta:Number = Math.abs(value - newScrollValue);
+            var pages:int;
+            var pageToVal:Number;
+            if (newScrollValue > value)
+            {
+                pages = pageSize != 0 ? 
+                    int(valueDelta / pageSize) :
+                    valueDelta;
+                if (fixedThumbSize && nearestValidValue(newScrollValue, pageSize) == maximum)
+                    pageToVal = maximum;
+                else
+                    pageToVal = value + (pages * pageSize);
+            }
+            else
+            {
+                pages = pageSize != 0 ? 
+                    int(Math.ceil(valueDelta / pageSize)) :
+                    valueDelta;
+                pageToVal = Math.max(minimum, value - (pages * pageSize));
+            }
+            animatePaging(pageToVal, pageSize);
             return;
         }
 
