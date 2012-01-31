@@ -28,6 +28,8 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
+use namespace mx_internal;
+
 //--------------------------------------
 //  Styles
 //--------------------------------------
@@ -449,26 +451,26 @@ public class SkinnableComponent extends UIComponent
         {
             // For some composite components, the focused object may not
             // be "this". If so, we don't want to draw the focus.
-            if (!mx_internal::drawFocusAnyway && focusManager.getFocus() != this)
+            if (!drawFocusAnyway && focusManager.getFocus() != this)
                 return;
                 
-            if (!mx_internal::focusObj)
+            if (!focusObj)
             {
                 var focusSkinClass:Class = getStyle("focusSkin");
                 
                 if (focusSkinClass)
-                    mx_internal::focusObj = new focusSkinClass();
+                    focusObj = new focusSkinClass();
                     
-                super.addChildAt(mx_internal::focusObj, 0);
+                super.addChildAt(focusObj, 0);
             }
-			if (mx_internal::focusObj && "focusObject" in mx_internal::focusObj)
-				mx_internal::focusObj["focusObject"] = this;
+			if (focusObj && "focusObject" in focusObj)
+				focusObj["focusObject"] = this;
         }
         else
         {
-            if (mx_internal::focusObj)
-                super.removeChild(mx_internal::focusObj);
-            mx_internal::focusObj = null;
+            if (focusObj)
+                super.removeChild(focusObj);
+            focusObj = null;
         }
     }
     
@@ -963,7 +965,7 @@ public class SkinnableComponent extends UIComponent
      */ 
     protected function getBaselinePositionForPart(part:IVisualElement):Number
     {
-        if (!part || !mx_internal::validateBaselinePosition())
+        if (!part || !validateBaselinePosition())
             return super.baselinePosition;
 
         return getSkinPartPosition(part).y + part.baselinePosition;
